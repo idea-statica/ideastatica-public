@@ -9,30 +9,40 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi.Api
 {
+	/// <summary>
+	/// Connection REST API Project API extension methods. 
+	/// </summary>
 	public interface IProjectApiExtAsync : IProjectApiAsync
 	{
 		/// <summary>
-		/// 
-		/// </summary>
-		Guid ProjectId { get; }
-
-		/// <summary>
-		/// 
+		/// The cached project data of the active project open on the server side. 
 		/// </summary>
 		ConProject ActiveProjectData { get; }
 
 		/// <summary>
-		/// 
+		/// The cached project Id of the active project open on the server side.
+		/// </summary>
+		Guid ActiveProjectId { get; }
+
+		/// <summary>
+		/// Opens an IDEA StatiCa Connection project (.ideaCon) from a filepath on disc.
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
 		/// <returns></returns>
 		Task<ConProject> OpenProjectAsync(string filePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+		/// <summary>
+		/// Saves a IDEA StatiCa Connection project (.ideaCon) to disc based on filepath. 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="fileName"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
 		Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 		/// <summary>
-		/// 
+		/// Create an IDEA StatiCa Connection project from an IOM (.xml) file saved on disc.
 		/// </summary>
 		/// <param name="iomFilePath"></param>
 		/// <param name="connectionsToCreate"></param>
@@ -40,23 +50,28 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <returns></returns>
 		Task<ConProject> CreateProjectFromIomFileAsync(string iomFilePath, List<int> connectionsToCreate = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+		/// <summary>
+		/// Update an IDEA StatiCa Connection project from an IOM (.xml) file saved on disc.
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="iomFilePath"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
 		Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
+	/// <inheritdoc cref="IProjectApiExtAsync"/>/>
 	public class ProjectApiExt : ProjectApi, IProjectApiExtAsync
 	{
 		private readonly IConnectionApiClient _connectionApiClient;
 
-		public ProjectApiExt(IConnectionApiClient connectionApiClient, IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
+		internal ProjectApiExt(IConnectionApiClient connectionApiClient, IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
 		{
 			this._connectionApiClient = connectionApiClient;
 		}
 
-		/// <inheritdoc cref="IConnectionApiClient.ProjectId"/>/>
-		public Guid ProjectId
+		/// <inheritdoc cref="IConnectionApiClient.ActiveProjectId"/>/>
+		public Guid ActiveProjectId
 		{
 			get => ActiveProjectData == null ? Guid.Empty : ActiveProjectData.ProjectId;
 		}
@@ -66,6 +81,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// </summary>
 		public ConProject ActiveProjectData { get; private set; } = null;
 
+		/// <inheritdoc cref="IProjectApiExtAsync.OpenProjectAsync(string, System.Threading.CancellationToken)"/>
 		public async Task<ConProject> OpenProjectAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			//await CreateAsync();
@@ -84,6 +100,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			return this.ActiveProjectData;
 		}
 
+		/// <inheritdoc cref="IProjectApiExtAsync.SaveProjectAsync(Guid, string, System.Threading.CancellationToken)"/>
 		public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			var response = await base.DownloadProjectWithHttpInfoAsync(projectId, "application/octet-stream", 0, cancellationToken);
@@ -94,6 +111,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			}
 		}
 
+		/// <inheritdoc cref="IProjectApiExtAsync.CreateProjectFromIomFileAsync(string, List{int}, System.Threading.CancellationToken)"/>
 		public async Task<ConProject> CreateProjectFromIomFileAsync(string fileName, List<int> connectionsToCreate = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			string xmlString = string.Empty;
@@ -116,6 +134,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			return this.ActiveProjectData;
 		}
 
+		/// <inheritdoc cref="IProjectApiExtAsync.UpdateProjectFromIomFileAsync(Guid, string, System.Threading.CancellationToken)"/>
 		public async Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			string xmlString = string.Empty;

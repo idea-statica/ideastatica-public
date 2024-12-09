@@ -13,22 +13,17 @@ namespace CodeSamples
 		public static async Task GetAndAddBoltAssemblies(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
-
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
+			await conClient.Project.OpenProjectAsync(filePath);
 
 			//Create a map of Name and Id. Used if Prefer to use Name.
 			Dictionary<string, int> BoltGradesMap = new Dictionary<string, int>();
 			Dictionary<string, int> BoltAssembliesMap = new Dictionary<string, int>();
 
-
 			//TODO Upgrade to new IOM Bolt Grade Definitions.
-			await conClient.Material.GetBoltGradeMaterialsAsync(projectId);
-
+			await conClient.Material.GetBoltGradeMaterialsAsync(conClient.ProjectId);
 
 			//GET AND ADD NEW BOLT ASSEMBLIES
-			List<BoltAssembly> boltAssemblies = (await conClient.Material.GetBoltAssembliesAsync(projectId)).Cast<BoltAssembly>().ToList();
+			List<BoltAssembly> boltAssemblies = (await conClient.Material.GetBoltAssembliesAsync(conClient.ProjectId)).Cast<BoltAssembly>().ToList();
 			boltAssemblies.ForEach(x => BoltAssembliesMap.Add(x.Name, x.Id));
 
 			//List of new bolt Assemblies to Add.
@@ -40,7 +35,7 @@ namespace CodeSamples
 				if (!BoltAssembliesMap.ContainsKey(assembly))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					await conClient.Material.AddBoltAssemblyAsync(projectId, new ConMprlElement() { MprlName = assembly});
+					await conClient.Material.AddBoltAssemblyAsync(conClient.ProjectId, new ConMprlElement() { MprlName = assembly});
 					
 					//Console.WriteLine("Successfully Added new Bolt Assembly: " + added.MprlName);
 
@@ -55,10 +50,11 @@ namespace CodeSamples
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
-			await conClient.Project.CloseProjectAsync(projectId);
+			//Close the opened project.
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }

@@ -13,16 +13,17 @@ namespace CodeSamples
 		public static async Task CreateProjectFromIom(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/multiple_connections.xml";
-			ConProject conProject = await conClient.Project.CreateProjectFromIomFileAsync(filePath);
+			await conClient.Project.CreateProjectFromIomFileAsync(filePath);
 
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
 			string saveFilePath = "connection-file-from-IOM.ideaCon";
 
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+
+			//Close the opened project.
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 
 
@@ -62,14 +63,14 @@ namespace CodeSamples
 				Console.WriteLine("Connections not input correctly, please provide atleast one connection");
 			}
 
-			ConProject conProject = await conClient.Project.CreateProjectFromIomFileAsync(filePath, connectionsToCreate);
-
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
+			await conClient.Project.CreateProjectFromIomFileAsync(filePath, connectionsToCreate);
 
 			string saveFilePath = "connection-file-from-IOM-multiple.ideaCon";
 
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+
+			//Close the opened project.
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }
