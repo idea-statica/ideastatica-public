@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.Api.RCS;
 using System.Net;
@@ -87,38 +87,18 @@ namespace ST_ConnectionRestApi
 			sect2.RCSId.Should().Be(1);
 		}
 
-		//[Test]
-		//public async Task ShouldGetAndUpdateCodeSettinsTest()
-		//{
-		//	try
-		//	{
-		//		var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+		[Test]
+		public async Task ShouldGetCodeSettinsTest()
+		{
+			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
-		//		sections.Should().NotBeNull();
+			sections.Should().NotBeNull();
 
-		//		var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+			var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
 
-		//		settings.Should().NotBeNull();
-
-		//		var xmlDoc = settings.First() as XDocument;
-		//		var setupValues = xmlDoc.Descendants("SetupValue");
-		//		XElement gamma_c_element = xmlDoc.Descendants("SetupValue").Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").FirstOrDefault();
-
-		//		gamma_c_element.Should().NotBeNull();
-
-		//		// update value1
-		//		var gamma_c_val1 = gamma_c_element.Descendants("Value1").First();
-		//		gamma_c_val1.Value.Should().Be("1.5");
-		//		gamma_c_val1.Value = "1.4";
-
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		TestContext.WriteLine(ex.Message);
-				
-		//		throw;
-		//	}
-		//}
+			settings.Should().NotBeNull();
+			settings.Should().NotBeEmpty();
+		}
 
 		[Test]
 		public async Task ShouldGetSwaggerJson()

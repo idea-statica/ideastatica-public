@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictBytes, StrictStr
-from typing import Any, List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from ideastatica_rcs_api.models.rcs_project import RcsProject
 from ideastatica_rcs_api.models.rcs_setting import RcsSetting
@@ -809,7 +809,7 @@ class ProjectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[object]:
+    ) -> str:
         """get_code_settings
 
 
@@ -846,7 +846,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -875,7 +875,7 @@ class ProjectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[object]]:
+    ) -> ApiResponse[str]:
         """get_code_settings
 
 
@@ -912,7 +912,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -978,7 +978,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1023,7 +1023,7 @@ class ProjectApi:
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/xml'
+                    'text/plain'
                 ]
             )
 
@@ -2091,7 +2091,7 @@ class ProjectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[object]:
+    ) -> str:
         """update_code_settings
 
 
@@ -2131,7 +2131,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2161,7 +2161,7 @@ class ProjectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[object]]:
+    ) -> ApiResponse[str]:
         """update_code_settings
 
 
@@ -2201,7 +2201,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2271,7 +2271,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2320,9 +2320,7 @@ class ProjectApi:
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'text/plain', 
-                    'application/json', 
-                    'text/json'
+                    'text/plain'
                 ]
             )
 
@@ -2333,13 +2331,7 @@ class ProjectApi:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/xml', 
-                        'text/xml', 
-                        'application/*+xml', 
-                        'application/json-patch+json', 
-                        'application/json', 
-                        'text/json', 
-                        'application/*+json'
+                        'text/plain'
                     ]
                 )
             )
