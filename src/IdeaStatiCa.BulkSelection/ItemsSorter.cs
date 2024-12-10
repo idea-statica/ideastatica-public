@@ -416,7 +416,40 @@ namespace IdeaStatiCa.BIM.Common
 						}
 						else
 						{
-							member = GetBiggest(allhoriz);
+							var biggestMembers = allhoriz.GroupBy(x => GetBiggestMemberSelector(x))
+														 .OrderByDescending(g => g.Key)
+														 .First();
+
+							if (biggestMembers.Count() == 1)
+							{
+								return biggestMembers.First();
+							}
+
+							// If number of biggestMembers is larger than 1 then calculate the sum of member angle to other members 
+							var memberAnglesSum = new Dictionary<(Member m, bool isended), double>();
+
+							foreach (var thisMember in biggestMembers)
+							{
+								memberAnglesSum[thisMember] = 0;
+
+								foreach (var otherMember in biggestMembers)
+								{
+									if (thisMember == otherMember)
+									{
+										continue;
+									}
+
+									var angle = GeomOperation.GetAngle(thisMember.m.LCS.AxisX, otherMember.m.LCS.AxisX);
+
+									memberAnglesSum[thisMember] += angle;
+								}
+							}
+
+							// Choose member with max sum as bearing member
+							var maxSumMember = memberAnglesSum.OrderByDescending(x => x.Value).First().Key;
+
+							return maxSumMember;
+							
 						}
 					}
 					else
