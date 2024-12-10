@@ -197,8 +197,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId"></param>
         /// <param name="rcsSetting"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>string</returns>
-        string UpdateCodeSettings(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0);
+        /// <returns>bool</returns>
+        bool UpdateCodeSettings(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -211,8 +211,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsSetting"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of string</returns>
-        ApiResponse<string> UpdateCodeSettingsWithHttpInfo(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of bool</returns>
+        ApiResponse<bool> UpdateCodeSettingsWithHttpInfo(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -435,8 +435,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsSetting"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of string</returns>
-        System.Threading.Tasks.Task<string> UpdateCodeSettingsAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of bool</returns>
+        System.Threading.Tasks.Task<bool> UpdateCodeSettingsAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// 
@@ -450,8 +450,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (string)</returns>
-        System.Threading.Tasks.Task<ApiResponse<string>> UpdateCodeSettingsWithHttpInfoAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (bool)</returns>
+        System.Threading.Tasks.Task<ApiResponse<bool>> UpdateCodeSettingsWithHttpInfoAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -1032,7 +1032,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "text/plain"
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1105,8 +1105,8 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-				"application/json"
-			};
+                "application/xml"
+            };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
             if (localVarContentType != null)
@@ -1733,10 +1733,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId"></param>
         /// <param name="rcsSetting"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>string</returns>
-        public string UpdateCodeSettings(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0)
+        /// <returns>bool</returns>
+        public bool UpdateCodeSettings(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<string> localVarResponse = UpdateCodeSettingsWithHttpInfo(projectId, rcsSetting);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<bool> localVarResponse = UpdateCodeSettingsWithHttpInfo(projectId, rcsSetting);
             return localVarResponse.Data;
         }
 
@@ -1748,8 +1748,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsSetting"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of string</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<string> UpdateCodeSettingsWithHttpInfo(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of bool</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<bool> UpdateCodeSettingsWithHttpInfo(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -1759,8 +1759,8 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-				"application/json"
-			};
+                "application/json"
+            };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
             if (localVarContentType != null)
@@ -1787,7 +1787,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Put<string>("/api/1/projects/{projectId}/code-settings", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Put<bool>("/api/1/projects/{projectId}/code-settings", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("UpdateCodeSettings", localVarResponse);
@@ -1808,10 +1808,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsSetting"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of string</returns>
-        public async System.Threading.Tasks.Task<string> UpdateCodeSettingsAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of bool</returns>
+        public async System.Threading.Tasks.Task<bool> UpdateCodeSettingsAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<string> localVarResponse = await UpdateCodeSettingsWithHttpInfoAsync(projectId, rcsSetting, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<bool> localVarResponse = await UpdateCodeSettingsWithHttpInfoAsync(projectId, rcsSetting, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1824,15 +1824,15 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (string)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<string>> UpdateCodeSettingsWithHttpInfoAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (bool)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<bool>> UpdateCodeSettingsWithHttpInfoAsync(Guid projectId, List<RcsSetting> rcsSetting = default(List<RcsSetting>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
-				"application/json"
-			};
+                "application/json"
+            };
 
             // to determine the Accept header
             string[] _accepts = new string[] {
@@ -1864,7 +1864,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PutAsync<string>("/api/1/projects/{projectId}/code-settings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PutAsync<bool>("/api/1/projects/{projectId}/code-settings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

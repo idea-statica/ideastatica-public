@@ -5,6 +5,7 @@ using System.Net;
 using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
 using IdeaRS.OpenModel.Concrete;
+using System.Web;
 
 namespace ST_ConnectionRestApi
 {
@@ -94,10 +95,31 @@ namespace ST_ConnectionRestApi
 
 			sections.Should().NotBeNull();
 
-			var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+			var settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+			settingsString.Should().NotBeNull();
+			settingsString.Should().NotBeEmpty();
 
-			settings.Should().NotBeNull();
-			settings.Should().NotBeEmpty();
+			XDocument xmlDoc;
+			using (var reader = new StringReader(settingsString))
+			{
+				xmlDoc = XDocument.Load(reader);
+			}
+
+			// setup value for gamma_c 
+			var setupValues = xmlDoc.Descendants("SetupValue");
+			XElement gamma_c_element = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").FirstOrDefault();
+
+			gamma_c_element.Should().NotBeNull();
+
+			// update value1
+			var gamma_c_val1 = gamma_c_element.Descendants("Value1").First();
+			gamma_c_val1.Value.Should().Be("1.5");
+			gamma_c_val1.Value = "1.4";
+
+			var newSettings = new List<RcsSetting>();
+			var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings);
+
+			updateResult.Should().BeTrue();
 		}
 
 		[Test]
