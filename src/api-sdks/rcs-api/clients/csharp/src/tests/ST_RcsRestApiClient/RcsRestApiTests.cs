@@ -51,7 +51,7 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
-		public async Task ShouldCalculateProjectTest()
+		public async Task ShouldCalculateProject()
 		{
 			var briefResults = await RcsApiClient!.Calculation.CalculateAsync(this.ActiveProjectId, new RcsCalculationParameters());
 
@@ -60,7 +60,7 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
-		public async Task ShouldGetReinforcedCrossSectionTest()
+		public async Task ShouldGetReinforcedCrossSection()
 		{
 			var reinfCssInProj = await RcsApiClient!.CrossSection.ReinforcedCrossSectionsAsync(this.ActiveProjectId);
 			reinfCssInProj.Should().NotBeNull();
@@ -73,7 +73,7 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
-		public async Task ShouldGetSectionsTest()
+		public async Task ShouldGetSections()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
@@ -89,13 +89,13 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
-		public async Task ShouldGetCodeSettinsTest()
+		public async Task ShouldGetCodeSettins()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
 			sections.Should().NotBeNull();
 
-			var settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+			var settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
 			settingsString.Should().NotBeNull();
 			settingsString.Should().NotBeEmpty();
 
