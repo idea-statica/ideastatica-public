@@ -14,12 +14,6 @@ namespace IdeaStatiCa.RcsApi
 		/// </summary>
 		public Uri BasePath { get; private set; }
 
-		/// <inheritdoc cref="IRcsApiClient.ProjectId"/>/>
-		public Guid ProjectId
-		{
-			get; set;
-		}
-
 		/// <inheritdoc cref="IRcsApiClient.Calculation"/>
 		public ICalculationApiAsync Calculation { get; private set; }
 
@@ -65,9 +59,9 @@ namespace IdeaStatiCa.RcsApi
 
 		private async Task CloseAsync()
 		{
-			if (Project != null && ProjectId != Guid.Empty)
+			if (Project != null && Project.ProjectId != Guid.Empty)
 			{
-				await Project.CloseProjectAsync(ProjectId);
+				await Project.CloseProjectAsync(Project.ProjectId);
 			}
 
 			this.Calculation = null;
@@ -76,7 +70,6 @@ namespace IdeaStatiCa.RcsApi
 			this.InternalForces = null;
 			this.Project = null;
 			this.Section = null;
-			this.ProjectId = Guid.Empty;
 		}
 
 		private async Task<string> CreateClientAsync()

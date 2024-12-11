@@ -3,14 +3,17 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RcsApi
 {
+	/// <summary>
+	/// Factory for creating instances of RCS API client that are connected to the specified REST API service
+	/// </summary>
 	public class RcsApiServiceAttacher : IApiServiceFactory<IRcsApiClient>
 	{
 		string BaseUrl { get; set; }
 
 		/// <summary>
-		/// Con
+		/// Constructor
 		/// </summary>
-		/// <param name="baseUrl"></param>
+		/// <param name="baseUrl"> URL of the REST API service</param>
 		public RcsApiServiceAttacher(string baseUrl)
 		{
 			this.BaseUrl = baseUrl;

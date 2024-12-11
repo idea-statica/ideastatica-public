@@ -18,11 +18,6 @@ namespace IdeaStatiCa.RcsApi
 		//string ClientId { get; }
 
 		/// <summary>
-		/// Id of the open project on the service side
-		/// </summary>
-		Guid ProjectId { get; }
-
-		/// <summary>
 		/// Get Calculation API
 		/// </summary>
 		ICalculationApiAsync Calculation { get; }
