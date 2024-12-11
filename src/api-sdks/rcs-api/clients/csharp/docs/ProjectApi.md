@@ -344,7 +344,7 @@ No authorization required
 
 <a id="getcodesettings"></a>
 ## **GetCodeSettings**
-> **List&lt;Object&gt; GetCodeSettings (Guid projectId)**
+> **string GetCodeSettings (Guid projectId)**
 
 
 
@@ -358,7 +358,7 @@ No authorization required
 
 ### Return type
 
-**List<Object>**
+**string**
 
 ### Example
 
@@ -386,7 +386,7 @@ namespace Example
 
                 try
                 {
-                    List<Object> result = conClient.Project.GetCodeSettings(projectId);
+                    string result = conClient.Project.GetCodeSettings(projectId);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -424,7 +424,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Object>> response = conClient.Project.GetCodeSettingsWithHttpInfo(projectId);
+    ApiResponse<string> response = conClient.Project.GetCodeSettingsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -564,7 +564,7 @@ No authorization required
 
 <a id="importiomfile"></a>
 ## **ImportIOMFile**
-> **Guid ImportIOMFile (OpenModel openModel = null)**
+> **RcsProject ImportIOMFile (System.IO.Stream iomFile = null)**
 
 
 
@@ -574,11 +574,11 @@ No authorization required
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **openModel** | [**OpenModel**](OpenModel.md) |  | [optional]  |
+| **iomFile** | **System.IO.Stream****System.IO.Stream** |  | [optional]  |
 
 ### Return type
 
-**Guid**
+[**RcsProject**](RcsProject.md)
 
 ### Example
 
@@ -603,11 +603,11 @@ namespace Example
             using (var conClient = await clientFactory.CreateConnectionApiClient())
             {
                 
-                var openModel = new OpenModel(); // OpenModel |  (optional) 
+                iomFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
 
                 try
                 {
-                    Guid result = conClient.Project.ImportIOMFile(openModel);
+                    RcsProject result = conClient.Project.ImportIOMFile(iomFile);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -645,7 +645,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<Guid> response = conClient.Project.ImportIOMFileWithHttpInfo(openModel);
+    ApiResponse<RcsProject> response = conClient.Project.ImportIOMFileWithHttpInfo(iomFile);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -664,7 +664,7 @@ No authorization required
 
 #### HTTP request headers
 
- - **Content-Type**: application/xml, text/xml, application/*+xml, application/json-patch+json, application/json, text/json, application/*+json
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 
@@ -900,7 +900,7 @@ No authorization required
 
 <a id="updatecodesettings"></a>
 ## **UpdateCodeSettings**
-> **List&lt;Object&gt; UpdateCodeSettings (Guid projectId, List<RcsSetting> rcsSetting = null)**
+> **bool UpdateCodeSettings (Guid projectId, List<RcsSetting> rcsSetting = null)**
 
 
 
@@ -915,7 +915,7 @@ No authorization required
 
 ### Return type
 
-**List<Object>**
+**bool**
 
 ### Example
 
@@ -944,7 +944,7 @@ namespace Example
 
                 try
                 {
-                    List<Object> result = conClient.Project.UpdateCodeSettings(projectId, rcsSetting);
+                    bool result = conClient.Project.UpdateCodeSettings(projectId, rcsSetting);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -982,7 +982,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Object>> response = conClient.Project.UpdateCodeSettingsWithHttpInfo(projectId, rcsSetting);
+    ApiResponse<bool> response = conClient.Project.UpdateCodeSettingsWithHttpInfo(projectId, rcsSetting);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1001,8 +1001,8 @@ No authorization required
 
 #### HTTP request headers
 
- - **Content-Type**: application/xml, text/xml, application/*+xml, application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 #### HTTP response details

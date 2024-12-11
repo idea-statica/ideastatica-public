@@ -3,7 +3,7 @@
 """
     Connection Rest API 1.0
 
-    API for designing steel connections
+    IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
     The version of the OpenAPI document: 1.0
     Contact: info@ideastatica.com
@@ -109,7 +109,7 @@ class ApiClient:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Generator/24.1.2.1248/python'
+        self.user_agent = 'OpenAPI-Generator/24.1.2.1474/python'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
