@@ -3,7 +3,7 @@
 """
     Connection Rest API 1.0
 
-    API for designing steel connections
+    IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
     The version of the OpenAPI document: 1.0
     Contact: info@ideastatica.com
@@ -385,7 +385,7 @@ class Configuration:
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 1.0\n"\
-               "SDK Package Version: 24.1.2.1248".\
+               "SDK Package Version: 24.1.2.1474".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self):
