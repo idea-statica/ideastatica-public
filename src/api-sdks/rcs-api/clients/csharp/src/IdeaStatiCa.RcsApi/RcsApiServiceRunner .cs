@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RcsApi
 {
+	/// <summary>
+	/// Factory for creating instances of RCS API client that are connected to the automatically started REST API service
+	/// </summary>
 	public class RcsApiServiceRunner : IApiServiceFactory<IRcsApiClient>, IDisposable
 	{
 		private const string LOCALHOST_URL = "http://127.0.0.1";
@@ -18,6 +21,10 @@ namespace IdeaStatiCa.RcsApi
 		private string launchPath;
 		private int port = -1;
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="setupDir"> where .exe file is located</param>
 		public RcsApiServiceRunner(string setupDir)
 		{
 			launchPath = setupDir;
