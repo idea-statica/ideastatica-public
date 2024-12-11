@@ -32,6 +32,7 @@ docs/ConMember.md
 docs/ConMprlCrossSection.md
 docs/ConMprlElement.md
 docs/ConOperation.md
+docs/ConOperationCommonProperties.md
 docs/ConProductionCost.md
 docs/ConProject.md
 docs/ConProjectData.md
@@ -137,6 +138,7 @@ ideastatica_connection_api/models/con_member.py
 ideastatica_connection_api/models/con_mprl_cross_section.py
 ideastatica_connection_api/models/con_mprl_element.py
 ideastatica_connection_api/models/con_operation.py
+ideastatica_connection_api/models/con_operation_common_properties.py
 ideastatica_connection_api/models/con_production_cost.py
 ideastatica_connection_api/models/con_project.py
 ideastatica_connection_api/models/con_project_data.py
