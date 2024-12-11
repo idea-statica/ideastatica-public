@@ -6,8 +6,8 @@
     <AssemblyName>IdeaStatiCa.ConnectionApi</AssemblyName>
     <PackageId>IdeaStatiCa.ConnectionApi</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>OpenAPI</Authors>
-    <Company>OpenAPI</Company>
+    <Authors>IdeaStatiCa</Authors>
+    <Company>IdeaStatiCa</Company>
     <AssemblyTitle>OpenAPI Library</AssemblyTitle>
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
