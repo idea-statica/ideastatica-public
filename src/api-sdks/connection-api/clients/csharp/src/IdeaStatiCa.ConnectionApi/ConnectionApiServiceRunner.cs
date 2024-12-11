@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
 {
+	/// <summary>
+	/// Factory for creating instances of Connection API client that are connected to the automatically started REST API service
+	/// </summary>
 	public class ConnectionApiServiceRunner : IApiServiceFactory<IConnectionApiClient>, IDisposable
 	{
 		private const string LOCALHOST_URL = "http://127.0.0.1";
@@ -18,6 +21,10 @@ namespace IdeaStatiCa.ConnectionApi
 		private string launchPath;
 		private int port = -1;
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="setupDir"> where .exe file is located</param>
 		public ConnectionApiServiceRunner(string setupDir)
 		{
 			launchPath = setupDir;
