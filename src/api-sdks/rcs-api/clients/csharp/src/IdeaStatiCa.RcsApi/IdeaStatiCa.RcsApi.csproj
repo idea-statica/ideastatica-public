@@ -6,13 +6,13 @@
     <AssemblyName>IdeaStatiCa.RcsApi</AssemblyName>
     <PackageId>IdeaStatiCa.RcsApi</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>OpenAPI</Authors>
-    <Company>OpenAPI</Company>
-    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
-    <Description>A library generated from a OpenAPI doc</Description>
+    <Authors>IDEA StatiCa s.r.o</Authors>
+    <Company>IDEA StatiCa s.r.o</Company>
+    <AssemblyTitle>IDEA StatiCa RCS API</AssemblyTitle>
+    <Description>IDEA StatiCa RCS API, used for the automated design and calculation of reinforced concrete sections.</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>IdeaStatiCa.RcsApi</RootNamespace>
-    <Version>24.1.2.1248</Version>
+    <Version>24.1.2.1446</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\IdeaStatiCa.RcsApi.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
