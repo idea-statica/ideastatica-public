@@ -6,10 +6,10 @@
     <AssemblyName>IdeaStatiCa.ConnectionApi</AssemblyName>
     <PackageId>IdeaStatiCa.ConnectionApi</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>IDEA StatiCa</Authors>
-    <Company>IDEA StatiCa</Company>
+    <Authors>IDEA StatiCa s.r.o</Authors>
+    <Company>IDEA StatiCa s.r.o</Company>
     <AssemblyTitle>OpenAPI Library</AssemblyTitle>
-    <Description>A library generated from a OpenAPI doc</Description>
+    <Description>IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>IdeaStatiCa.ConnectionApi</RootNamespace>
     <Version>24.1.2.1446</Version>
