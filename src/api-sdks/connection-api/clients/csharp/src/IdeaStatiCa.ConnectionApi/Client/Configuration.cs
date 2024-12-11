@@ -1,7 +1,7 @@
 /*
  * Connection Rest API 1.0
  *
- * API for designing steel connections
+ * IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
  *
  * The version of the OpenAPI document: 1.0
  * Contact: info@ideastatica.com
@@ -34,7 +34,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "24.1.2.1248";
+        public const string Version = "24.1.2.1446";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -113,7 +113,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/24.1.2.1248/csharp");
+            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/24.1.2.1446/csharp");
             BasePath = "http://localhost";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -536,7 +536,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 1.0\n";
-            report += "    SDK Package Version: 24.1.2.1248\n";
+            report += "    SDK Package Version: 24.1.2.1446\n";
 
             return report;
         }
