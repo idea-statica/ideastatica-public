@@ -8,6 +8,13 @@
 - name: Python client
   href: connection-api/clients/python/toc.yml
 - name: RCS API
+- name: Introduction
+  href: rcs-api/rcs_api_getting_started.md
+- name: C# client
+  href: rcs-api/clients/csharp/toc.yml
+- name: Python client
+  href: rcs-api/clients/python/toc.yml
+- name: RCS API (Obsolete)
 - name: Getting Started
   href: rcs-api/rcs_api_getting_started.md
 - name: API Client Basics

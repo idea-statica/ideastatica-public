@@ -9,14 +9,9 @@ logger = logging.getLogger(__name__)
 class ProjectExtApi(ProjectApi):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.active_project_data: Optional[ConProject] = None
+        self.active_project_id = None
         # Add any additional initialization here
 
-    @property
-    def active_project_id(self):
-        if self.active_project_data is None:
-            return None
-        return self.active_project_data.project_id
 
     def download_project(
                 self,
@@ -40,7 +35,7 @@ class ProjectExtApi(ProjectApi):
             pass
     
 
-    def open_project_from_filepath(self, file_path : str):
+    def open_project_from_filepath(self, file_path : str) -> ConProject:
         """
         Opens a project from a file located at the given file path.
         
@@ -71,7 +66,7 @@ class ProjectExtApi(ProjectApi):
             else:
                 raise ValueError(f"Unsupported file type: {ext}")
 
-            self.active_project_data = upload_res
+            self.active_project_id = upload_res.project_id
             logger.info(f"Open project_id: {upload_res.project_id}")  
 
             return upload_res
