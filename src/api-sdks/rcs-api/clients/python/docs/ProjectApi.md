@@ -247,7 +247,7 @@ No authorization required
 
 <a id="get_code_settings"></a>
 # **get_code_settings**
-> List[object] get_code_settings(project_id)
+> str get_code_settings(project_id)
 
 
 
@@ -260,7 +260,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List[object]**
+**str**
 
 ### Example
 
@@ -399,7 +399,7 @@ No authorization required
 
 <a id="import_iom_file"></a>
 # **import_iom_file**
-> str import_iom_file(open_model=open_model)
+> RcsProject import_iom_file(iom_file=iom_file)
 
 
 
@@ -408,18 +408,18 @@ No authorization required
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **open_model** | [**OpenModel**](OpenModel.md)|  | [optional] 
+ **iom_file** | **bytearray**|  | [optional] 
 
 ### Return type
 
-**str**
+[**RcsProject**](RcsProject.md)
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.open_model import OpenModel
+from ideastatica_rcs_api.models.rcs_project import RcsProject
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
 
@@ -435,10 +435,10 @@ with ideastatica_rcs_api.ApiClient(configuration) as api_client:
     
     # Create an instance of the API class
     api_instance = ideastatica_rcs_api.ProjectApi(api_client)
-    open_model = ideastatica_rcs_api.OpenModel() # OpenModel |  (optional)
+    iom_file = None # bytearray |  (optional)
 
     try:
-        api_response = api_instance.import_iom_file(open_model=open_model)
+        api_response = api_instance.import_iom_file(iom_file=iom_file)
         print("The response of ProjectApi->import_iom_file:\n")
         pprint(api_response)
     except Exception as e:
@@ -465,7 +465,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/xml, text/xml, application/*+xml, application/json-patch+json, application/json, text/json, application/*+json
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 ### HTTP response details
@@ -632,7 +632,7 @@ No authorization required
 
 <a id="update_code_settings"></a>
 # **update_code_settings**
-> List[object] update_code_settings(project_id, rcs_setting=rcs_setting)
+> bool update_code_settings(project_id, rcs_setting=rcs_setting)
 
 
 
@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List[object]**
+**bool**
 
 ### Example
 
@@ -700,8 +700,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/xml, text/xml, application/*+xml, application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 ### HTTP response details
 
