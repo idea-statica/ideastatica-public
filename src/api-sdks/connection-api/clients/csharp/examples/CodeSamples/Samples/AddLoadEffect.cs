@@ -13,21 +13,18 @@ namespace CodeSamples
 		public static async Task AddLoadEffect(ConnectionApiClient conClient)
 		{
 			string filePath = "inputs/simple cleat connection.ideaCon";
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
+			await conClient.Project.OpenProjectAsync(filePath);
 
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
-			ConLoadSettings loadSettings = await conClient.LoadEffect.GetLoadSettingsAsync(projectId, connectionId);
+			ConLoadSettings loadSettings = await conClient.LoadEffect.GetLoadSettingsAsync(conClient.ProjectId, connectionId);
 
 			Console.WriteLine(loadSettings.ToString());
 
 			// Get Load Effects
-			List<ConLoadEffect> loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(projectId, connectionId);
+			List<ConLoadEffect> loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(conClient.ProjectId, connectionId);
 
-			
 			Console.WriteLine("Add new Load effect.");
 			Console.WriteLine("Specify Name or Hit Enter for Quick Add");
 			string input = Console.ReadLine()?? "";
@@ -37,7 +34,7 @@ namespace CodeSamples
 				//Generic quick add of a load effect
 				//BUG: DOES NOT WORK.
 				//BUG: DEFAULT SHOULD BE ACTIVE.
-				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId);
+				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(conClient.ProjectId, connectionId);
 				
 				if(newLoadEffect != null) 
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}"); 
@@ -45,7 +42,7 @@ namespace CodeSamples
 			{
 				ConLoadEffect loadEffect = new ConLoadEffect() { Name = input };
 
-				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, loadEffect);
+				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(conClient.ProjectId, connectionId, loadEffect);
 				if (newLoadEffect != null)
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}");
 			}
@@ -55,13 +52,12 @@ namespace CodeSamples
 			// Save updated file.
 			string fileName = "add-load-effects.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
 
 			Console.WriteLine("File saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId);
-
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }
