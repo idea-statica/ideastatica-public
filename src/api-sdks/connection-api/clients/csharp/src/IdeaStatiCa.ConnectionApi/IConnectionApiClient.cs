@@ -19,10 +19,13 @@ namespace IdeaStatiCa.ConnectionApi
 		string ClientId { get; }
 
 		/// <summary>
-		/// Id of the open project on the service side
+		/// Id of the actively open project on the service side
 		/// </summary>
-		Guid ProjectId { get; }
+		Guid ActiveProjectId { get; }
 
+		/// <summary>
+		/// Get Client API. 
+		/// </summary>
 		IClientApi ClientApi { get; }
 
 		/// <summary>
