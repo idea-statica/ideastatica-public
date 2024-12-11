@@ -12,11 +12,9 @@ namespace CodeSamples
 		public static async Task SaveReport_Pdf(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
+			await conClient.Project.OpenProjectAsync(filePath);
 
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("GenerateReport");
@@ -26,12 +24,12 @@ namespace CodeSamples
 			string pdfFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save Report to PDF
-			await conClient.Report.SaveReportPdfAsync(projectId, connectionId, pdfFilePath);
+			await conClient.Report.SaveReportPdfAsync(conClient.ProjectId, connectionId, pdfFilePath);
 
 			Console.WriteLine($"Report saved to: {pdfFilePath}");
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId);
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }

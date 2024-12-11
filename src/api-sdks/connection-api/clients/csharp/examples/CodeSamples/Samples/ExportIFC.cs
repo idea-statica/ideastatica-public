@@ -13,10 +13,9 @@ namespace CodeSamples
 		{
 			string filePath = "Inputs/simple knee connection.ideaCon";
 
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
+			await conClient.Project.OpenProjectAsync(filePath);
 
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolderPath = GetExampleFolderPathOnDesktop("ExportIFC");
@@ -24,10 +23,10 @@ namespace CodeSamples
 			string ifcPath = Path.Combine(exampleFolderPath, connectionName + ".ifc");
 
 			//Export the connection to Ifc file.
-			await conClient.Export.ExportIfcFileAsync(projectId, connectionId, ifcPath);
+			await conClient.Export.ExportIfcFileAsync(conClient.ProjectId, connectionId, ifcPath);
 
-			//Close the project
-			await conClient.Project.CloseProjectAsync(projectId);
+			//Close the opened project.
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }

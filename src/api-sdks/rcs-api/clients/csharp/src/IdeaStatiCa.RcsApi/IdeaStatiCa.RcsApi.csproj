@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <AssemblyName>IdeaStatiCa.RcsApi</AssemblyName>
+    <PackageId>IdeaStatiCa.RcsApi</PackageId>
+    <OutputType>Library</OutputType>
+    <Authors>IDEA StatiCa s.r.o</Authors>
+    <Company>IDEA StatiCa s.r.o</Company>
+    <AssemblyTitle>IDEA StatiCa RCS API</AssemblyTitle>
+    <Description>IDEA StatiCa RCS API, used for the automated design and calculation of reinforced concrete sections.</Description>
+    <Copyright>No Copyright</Copyright>
+    <RootNamespace>IdeaStatiCa.RcsApi</RootNamespace>
+    <Version>24.1.2.1446</Version>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\IdeaStatiCa.RcsApi.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+    <PackageTags>IdeaStatiCa, Rcs, Concrete, Reinforced </PackageTags>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="Polly" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
+  </ItemGroup>  
+</Project>

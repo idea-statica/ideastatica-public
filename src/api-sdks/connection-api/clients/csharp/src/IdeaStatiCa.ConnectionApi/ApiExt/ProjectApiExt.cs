@@ -19,11 +19,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <summary>
 		/// 
 		/// </summary>
-		ConProject ActiveProjectData { get; }
-
-		/// <summary>
-		/// 
-		/// </summary>
 		/// <param name="filePath"></param>
 		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
 		/// <returns></returns>
@@ -49,6 +44,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 	public class ProjectApiExt : ProjectApi, IProjectApiExtAsync
 	{
 		private readonly IConnectionApiClient _connectionApiClient;
+		private Guid activeProjectId;
 
 		public ProjectApiExt(IConnectionApiClient connectionApiClient, IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
 		{
@@ -58,18 +54,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <inheritdoc cref="IConnectionApiClient.ProjectId"/>/>
 		public Guid ProjectId
 		{
-			get => ActiveProjectData == null ? Guid.Empty : ActiveProjectData.ProjectId;
+			get => activeProjectId;
+			private set => activeProjectId = value;
 		}
-
-		/// <summary>
-		/// Data about the active project
-		/// </summary>
-		public ConProject ActiveProjectData { get; private set; } = null;
 
 		public async Task<ConProject> OpenProjectAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
-			//await CreateAsync();
-
 			using (var fs = new System.IO.FileStream(path, System.IO.FileMode.Open))
 			{
 				using (var ms = new System.IO.MemoryStream())
@@ -77,11 +67,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
 					await fs.CopyToAsync(ms);
 					ms.Seek(0, System.IO.SeekOrigin.Begin);
 					var conProject = await OpenProjectAsync(ms, 0, cancellationToken);
-					this.ActiveProjectData = conProject;
+					this.ProjectId = conProject.ProjectId;
+					return conProject;
 				}
 			}
-
-			return this.ActiveProjectData;
 		}
 
 		public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -110,10 +99,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
 				memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
 
 				var conProject = await ImportIOMWithHttpInfoAsync(memoryStream, connectionsToCreate, null, 0, cancellationToken);
-				this.ActiveProjectData = conProject.Data;
+				this.ProjectId = conProject.Data.ProjectId;
+				return conProject.Data;
 			}
-
-			return this.ActiveProjectData;
 		}
 
 		public async Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
