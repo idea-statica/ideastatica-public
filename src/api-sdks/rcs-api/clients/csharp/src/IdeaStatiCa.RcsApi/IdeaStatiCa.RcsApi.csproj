@@ -6,8 +6,8 @@
     <AssemblyName>IdeaStatiCa.RcsApi</AssemblyName>
     <PackageId>IdeaStatiCa.RcsApi</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>OpenAPI</Authors>
-    <Company>OpenAPI</Company>
+    <Authors>IDEA StatiCa</Authors>
+    <Company>IDEA StatiCa</Company>
     <AssemblyTitle>OpenAPI Library</AssemblyTitle>
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
