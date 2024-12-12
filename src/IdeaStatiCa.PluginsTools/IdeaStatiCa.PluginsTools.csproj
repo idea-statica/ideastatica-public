@@ -11,28 +11,28 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -45,6 +45,11 @@
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
 	</ItemGroup>
 
 </Project>

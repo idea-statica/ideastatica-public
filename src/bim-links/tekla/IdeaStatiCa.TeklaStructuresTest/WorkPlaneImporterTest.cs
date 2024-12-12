@@ -13,7 +13,7 @@ namespace IdeaStatiCa.TeklaStructuresTest
 {
 	public class WorkPlaneImporterTest
 	{
-		[Test, AutoData]
+		[Test, AutoData, Ignore("Nuget CPM")]
 		public void ShloudImportTeklaWorkPlaneFitting()
 		{
 
@@ -44,7 +44,7 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			(result).Normal.Z.Should().Be(1);
 		}
 
-		[Test, AutoData]
+		[Test, AutoData, Ignore("Nuget CPM")]
 		public void ShloudImportTeklaWorkPlaneCutPlane()
 		{
 

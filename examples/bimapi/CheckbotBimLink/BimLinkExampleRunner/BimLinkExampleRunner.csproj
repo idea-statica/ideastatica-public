@@ -27,6 +27,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>
 			<AutoGen>True</AutoGen>

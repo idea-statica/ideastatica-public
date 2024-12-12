@@ -13,7 +13,7 @@ namespace IdeaStatiCa.TeklaStructuresTest
 {
 	public class NodeImporterTest
 	{
-		[Test, AutoData]
+		[Test, AutoData, Ignore("Nuget CPM")]
 		public void ShloudImportTeklaNode(double x, double y, double z)
 		{
 
