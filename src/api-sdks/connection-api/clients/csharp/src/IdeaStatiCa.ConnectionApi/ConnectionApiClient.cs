@@ -23,7 +23,7 @@ namespace IdeaStatiCa.ConnectionApi
 		/// <inheritdoc cref="IConnectionApiClient.ActiveProjectId"/>/>
 		public Guid ActiveProjectId
 		{
-			get => this.Project.ActiveProjectId;
+			get => this.Project.ProjectId;
 		}
 
 		/// <summary>

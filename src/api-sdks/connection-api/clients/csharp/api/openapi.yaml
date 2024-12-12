@@ -4,7 +4,12 @@ info:
     email: info@ideastatica.com
     name: IDEA StatiCa
     url: https://github.com/idea-statica/ideastatica-public
-  description: API for designing steel connections
+  description: "IDEA StatiCa Connection API, used for the automated design and calculation\
+    \ of steel connections."
+  license:
+    name: IDEA StatiCa License
+    url: https://github.com/idea-statica/ideastatica-public/blob/main/LICENSE
+  termsOfService: https://www.ideastatica.com/end-user-license-agreement
   title: Connection Rest API 1.0
   version: "1.0"
 servers:
@@ -1260,6 +1265,75 @@ paths:
                 type: array
           description: Success
       summary: Get the list of operations for the connection
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties:
+    get:
+      operationId: GetCommonOperationProperties
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConOperationCommonProperties'
+          description: Success
+      summary: Get common operation properties
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateCommonOperationProperties
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConOperationCommonProperties'
+        description: "Specify id of material, or keep as null"
+      responses:
+        "200":
+          description: Success
+      summary: Update common properties for all operations
       tags:
       - Operation
       x-requiresProject: true
@@ -2897,6 +2971,26 @@ components:
           type: boolean
         isImported:
           type: boolean
+      type: object
+    ConOperationCommonProperties:
+      additionalProperties: false
+      example:
+        boltAssemblyId: 1
+        plateMaterialId: 6
+        weldMaterialId: 0
+      properties:
+        weldMaterialId:
+          format: int32
+          nullable: true
+          type: integer
+        plateMaterialId:
+          format: int32
+          nullable: true
+          type: integer
+        boltAssemblyId:
+          format: int32
+          nullable: true
+          type: integer
       type: object
     ConProductionCost:
       additionalProperties: false

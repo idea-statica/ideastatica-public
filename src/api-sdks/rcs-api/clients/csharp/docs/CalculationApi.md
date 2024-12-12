@@ -111,7 +111,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/xml
+ - **Accept**: application/json
 
 
 #### HTTP response details
@@ -227,7 +227,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/xml
+ - **Accept**: application/json
 
 
 #### HTTP response details
