@@ -84,7 +84,6 @@
     <PackageVersion Include="System.Security.Cryptography.Xml" Version="8.0.2" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
-    <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageVersion Include="Telerik.UI.for.Wpf.60.Xaml" Version="2024.4.1111" />
     <PackageVersion Include="Telerik.Windows.Controls.Docking.for.Wpf.Xaml" Version="2024.4.1111" />
     <PackageVersion Include="Telerik.Windows.Controls.FixedDocumentViewersUI.for.Wpf.Xaml" Version="2024.4.1111" />
@@ -140,8 +139,6 @@
     <PackageVersion Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageVersion Include="Microsoft.TestPlatform" Version="17.11.1" />
     <PackageVersion Include="Destructurama.Attributed" Version="4.0.0" />
-    <PackageVersion Include="Dlubal.RFEMWebServiceLibrary" Version="6.2.67" />
-    <PackageVersion Include="Dlubal.RSTABWebServiceLibrary" Version="9.6.10" />
     <PackageVersion Include="DockPanelSplitter" Version="0.2.0" />
     <PackageVersion Include="EntityFramework" Version="6.4.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.32" />
@@ -169,7 +166,6 @@
     <PackageVersion Include="Microsoft.AspNet" Version="5.2.7" />
     <PackageVersion Include="Microsoft.ClearScript" Version="7.4.2" />
     <PackageVersion Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
-    <PackageVersion Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
     <PackageVersion Include="Microsoft.Windows.Shell" Version="3.0.1.0" />
     <PackageVersion Include="Microsoft.Xml.SgmlReader" Version="1.8.25" />
     <PackageVersion Include="Moq" Version="4.20.70" />
@@ -207,7 +203,7 @@
     <PackageVersion Include="Syncfusion.DocIO.Net.Core" Version="25.1.40"/>
     <PackageVersion Include="Syncfusion.Pdf.Net.Core" Version="25.1.40"/>
     <PackageVersion Include="Syncfusion.XlsIO.Wpf" Version="20.2.0.50"/>
-    <PackageVersion Include="System.Reflection.Metadata" Version="6.0.0"/>
+    <PackageVersion Include="System.Reflection.Metadata" Version="7.0.0"/>
     <PackageVersion Include="System.Memory" Version="4.5.5"/>
     <PackageVersion Include="System.Buffers" Version="4.5.1"/>
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0"/>
@@ -219,7 +215,7 @@
     <PackageVersion Include="System.Security.Permissions" Version="8.0.0"/>
     <PackageVersion Include="System.ServiceModel.Syndication" Version="8.0.0"/>
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1"/>
-    <PackageVersion Include="System.Diagnostics.PerformanceCounter" Version="5.0.1"/>
+    <PackageVersion Include="System.Diagnostics.PerformanceCounter" Version="6.0.0"/>
     <PackageVersion Include="System.DirectoryServices" Version="8.0.0"/>
     <PackageVersion Include="System.IO" Version="4.3.0"/>
     <PackageVersion Include="System.IO.Abstractions" Version="21.0.29"/>
@@ -234,13 +230,12 @@
     <PackageVersion Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="8.0.0"/>
     <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1"/>
-    <PackageVersion Include="System.Security.Permissions" Version="6.0.0" />
+    <PackageVersion Include="Tekla.Structures" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Structures.Model" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Structures.Catalogs" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Structures.Datatype" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Structures.Dialog" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Structures.Drawing" Version="2024.0.0" />
-    <PackageVersion Include="Tekla.Structures.Model" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Structures.Plugins" Version="2024.0.0" />
     <PackageVersion Include="Tekla.Technology.Akit5" Version="5.8.17235.1" />
     <PackageVersion Include="Tekla.Technology.Msglib" Version="2.1.18312" />
@@ -249,12 +244,12 @@
     <PackageVersion Include="Tekla.Technology.Scripting.Plugins" Version="5.3.17206" />
     <PackageVersion Include="Tekla.Technology.Serialization" Version="1.1.0" />
     <PackageVersion Include="TeklaOpenAPI" Version="2020.0.2" />
-    <PackageVersion Include="The.Microsoft.Expression.Interactions" Version="4.5.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
     <PackageVersion Include="Hilti.PE.Checkbot.Plugin" Version="2.0.2" />
     <PackageVersion Include="Google.Protobuf" Version="3.21.3" />
     <PackageVersion Include="Castle.Windsor" Version="5.1.1" />
     <PackageVersion Include="Sprache" Version="2.3.1" />
     <PackageVersion Include="Prism.Container.Extensions" Version="7.2.0.1054" />
+    <PackageVersion Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
   </ItemGroup>
 </Project>
