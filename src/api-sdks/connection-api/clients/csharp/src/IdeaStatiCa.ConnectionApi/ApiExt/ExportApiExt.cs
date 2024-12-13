@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace IdeaStatiCa.ConnectionApi.Api
 {
 	/// <summary>
-	/// 
+	/// Connection REST API Report API extension methods. 
 	/// </summary>
 	public interface IExportApiExtAsync : IExportApiAsync
 	{
@@ -28,7 +28,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <param name="client"></param>
 		/// <param name="asyncClient"></param>
 		/// <param name="configuration"></param>
-		public ExportApiExt(IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
+		internal ExportApiExt(IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
 		{
 		}
 

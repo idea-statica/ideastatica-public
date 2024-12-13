@@ -3,7 +3,7 @@
 """
     Connection Rest API 1.0
 
-    API for designing steel connections
+    IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
     The version of the OpenAPI document: 1.0
     Contact: info@ideastatica.com
@@ -22,14 +22,13 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "ideastatica-connection-api"
-VERSION = "24.1.1.1418"
+VERSION = "24.1.2.1474"
 PYTHON_REQUIRES = ">= 3.8"
 REQUIRES = [
     "urllib3 >= 1.25.3, < 3.0.0",
     "python-dateutil >= 2.8.2",
     "pydantic >= 2",
     "typing-extensions >= 4.7.1",
-    "aiohttp >= 3.11.7",
 ]
 
 setup(

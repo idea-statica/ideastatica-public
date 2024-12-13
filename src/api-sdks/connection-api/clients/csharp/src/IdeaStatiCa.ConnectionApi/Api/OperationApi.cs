@@ -1,7 +1,7 @@
 /*
  * Connection Rest API 1.0
  *
- * API for designing steel connections
+ * IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
  *
  * The version of the OpenAPI document: 1.0
  * Contact: info@ideastatica.com
@@ -56,6 +56,29 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteOperationsWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Get common operation properties
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConOperationCommonProperties</returns>
+        ConOperationCommonProperties GetCommonOperationProperties(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Get common operation properties
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConOperationCommonProperties</returns>
+        ApiResponse<ConOperationCommonProperties> GetCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Get the list of operations for the connection
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -78,6 +101,31 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConOperation&gt;</returns>
         ApiResponse<List<ConOperation>> GetOperationsWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Update common properties for all operations
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void UpdateCommonOperationProperties(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0);
+
+        /// <summary>
+        /// Update common properties for all operations
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> UpdateCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -116,6 +164,34 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteOperationsWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Get common operation properties
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConOperationCommonProperties</returns>
+        System.Threading.Tasks.Task<ConOperationCommonProperties> GetCommonOperationPropertiesAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Get common operation properties
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConOperationCommonProperties)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConOperationCommonProperties>> GetCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Get the list of operations for the connection
         /// </summary>
         /// <remarks>
@@ -143,6 +219,36 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConOperation&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ConOperation>>> GetOperationsWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Update common properties for all operations
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task UpdateCommonOperationPropertiesAsync(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Update common properties for all operations
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> UpdateCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -410,6 +516,156 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
+        /// Get common operation properties 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConOperationCommonProperties</returns>
+        public ConOperationCommonProperties GetCommonOperationProperties(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties> localVarResponse = GetCommonOperationPropertiesWithHttpInfo(projectId, connectionId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get common operation properties 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConOperationCommonProperties</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties> GetCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "OperationApi.GetCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<ConOperationCommonProperties>("/api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetCommonOperationProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get common operation properties 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConOperationCommonProperties</returns>
+        public async System.Threading.Tasks.Task<ConOperationCommonProperties> GetCommonOperationPropertiesAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties> localVarResponse = await GetCommonOperationPropertiesWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get common operation properties 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConOperationCommonProperties)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties>> GetCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "OperationApi.GetCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<ConOperationCommonProperties>("/api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetCommonOperationProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Get the list of operations for the connection 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -550,6 +806,160 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetOperations", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Update common properties for all operations 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void UpdateCommonOperationProperties(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0)
+        {
+            UpdateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, conOperationCommonProperties);
+        }
+
+        /// <summary>
+        /// Update common properties for all operations 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> UpdateCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conOperationCommonProperties;
+
+            localVarRequestOptions.Operation = "OperationApi.UpdateCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<Object>("/api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateCommonOperationProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Update common properties for all operations 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task UpdateCommonOperationPropertiesAsync(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await UpdateCommonOperationPropertiesWithHttpInfoAsync(projectId, connectionId, conOperationCommonProperties, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Update common properties for all operations 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> UpdateCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conOperationCommonProperties;
+
+            localVarRequestOptions.Operation = "OperationApi.UpdateCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PutAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateCommonOperationProperties", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

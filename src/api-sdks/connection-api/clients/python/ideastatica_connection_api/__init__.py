@@ -5,7 +5,7 @@
 """
     Connection Rest API 1.0
 
-    API for designing steel connections
+    IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
     The version of the OpenAPI document: 1.0
     Contact: info@ideastatica.com
@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "24.1.1.1418"
+__version__ = "24.1.2.1474"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -70,6 +70,7 @@ from ideastatica_connection_api.models.con_member import ConMember
 from ideastatica_connection_api.models.con_mprl_cross_section import ConMprlCrossSection
 from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
 from ideastatica_connection_api.models.con_operation import ConOperation
+from ideastatica_connection_api.models.con_operation_common_properties import ConOperationCommonProperties
 from ideastatica_connection_api.models.con_production_cost import ConProductionCost
 from ideastatica_connection_api.models.con_project import ConProject
 from ideastatica_connection_api.models.con_project_data import ConProjectData

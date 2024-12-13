@@ -1,0 +1,1890 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: info@ideastatica.com
+    name: IDEA StatiCa
+    url: https://github.com/idea-statica/ideastatica-public
+  description: "IDEA StatiCa RCS API, used for the automated design and calculation\
+    \ of reinforced concrete sections."
+  license:
+    name: IDEA StatiCa License
+    url: https://github.com/idea-statica/ideastatica-public/blob/main/LICENSE
+  termsOfService: https://www.ideastatica.com/end-user-license-agreement
+  title: RCS Rest API 1.0
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /api/1/projects/{projectId}/calculate:
+    post:
+      operationId: Calculate
+      parameters:
+      - description: Project Id
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RcsCalculationParameters'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsCalculationParameters'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RcsCalculationParameters'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RcsCalculationParameters'
+        description: Calculation parameters
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsSectionResultOverview'
+                type: array
+          description: Success
+      summary: Calculate RCS project
+      tags:
+      - Calculation
+  /api/1/projects/{projectId}/get-results:
+    post:
+      operationId: GetResults
+      parameters:
+      - description: Project Id
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+        description: Calculation parameters
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsSectionResultDetailed'
+                type: array
+          description: Success
+      summary: Get calculated results
+      tags:
+      - Calculation
+  /api/1/projects/{projectId}/cross-sections/reinforced-cross-sections:
+    get:
+      operationId: ReinforcedCrossSections
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsReinforcedCrossSection'
+                type: array
+          description: Success
+      summary: Get reinforced cross sections
+      tags:
+      - CrossSection
+  /api/1/projects/{projectId}/cross-sections/import-reinforced-cross-section:
+    post:
+      operationId: ImportReinforcedCrossSection
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsReinforcedCrossSection'
+          description: Success
+      summary: Import reinforced cross-section
+      tags:
+      - CrossSection
+  /api/1/projects/{projectId}/design-members:
+    get:
+      operationId: Members
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsCheckMember'
+                type: array
+          description: Success
+      summary: Get members
+      tags:
+      - DesignMember
+  /api/1/projects/{projectId}/sections/{sectionId}/internal-forces:
+    get:
+      operationId: GetSectionLoading
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: sectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Get section loading
+      tags:
+      - InternalForces
+    post:
+      operationId: SetSectionLoading
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: sectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RcsSectionLoading'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Set section loading
+      tags:
+      - InternalForces
+  /api/1/projects/open-project:
+    post:
+      operationId: OpenProject
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              rcsFile:
+                style: form
+            schema:
+              $ref: '#/components/schemas/OpenProject_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsProject'
+          description: Success
+      summary: Open Rcs project from rcsFile
+      tags:
+      - Project
+  /api/1/projects/open:
+    post:
+      operationId: Open
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: uuid
+                type: string
+          description: Success
+      tags:
+      - Project
+  /api/1/projects/import-iom-file:
+    post:
+      operationId: ImportIOMFile
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              iomFile:
+                style: form
+            schema:
+              $ref: '#/components/schemas/ImportIOMFile_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsProject'
+          description: Success
+      tags:
+      - Project
+  /api/1/projects/import-iom:
+    post:
+      operationId: ImportIOM
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: uuid
+                type: string
+          description: Success
+      tags:
+      - Project
+  /api/1/projects/active-project:
+    get:
+      operationId: GetActiveProject
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsProject'
+          description: Success
+      tags:
+      - Project
+  /api/1/projects/{projectId}/download:
+    get:
+      operationId: DownloadProject
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+      summary: Download the actual rcs project from the service. It includes all changes
+        which were made by previous API calls.
+      tags:
+      - Project
+  /api/1/projects/{projectId}/code-settings:
+    get:
+      operationId: GetCodeSettings
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                type: string
+          description: Success
+      tags:
+      - Project
+    put:
+      operationId: UpdateCodeSettings
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/RcsSetting'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: Success
+      tags:
+      - Project
+  /api/1/projects/{projectId}/close:
+    put:
+      operationId: CloseProject
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: Success
+      tags:
+      - Project
+  /api/1/projects/{projectId}/sections:
+    get:
+      operationId: Sections
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsSection'
+                type: array
+          description: Success
+      summary: Get sections
+      tags:
+      - Section
+    put:
+      operationId: UpdateSection
+      parameters:
+      - description: Id of the project in cache
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RcsSection'
+        description: A new reinforced section data.The value !:RcsSectionModel.Id
+          defines the section in project to update
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsSection'
+          description: Success
+      summary: Update a section in the RCS project
+      tags:
+      - Section
+components:
+  schemas:
+    CalculationType:
+      description: Calculation type
+      enum:
+      - notDefined
+      - capacity
+      - response
+      - shear
+      - torsion
+      - interaction
+      - fatigue
+      - stressLimitationShort
+      - stressLimitationLong
+      - stressLimitationStage
+      - crackWidthShort
+      - crackWidthLong
+      - crackWidthStage
+      - stiffnessShort
+      - stiffnessLong
+      - stiffnessStage
+      - deflection
+      - brittleFailure
+      - detailing
+      - linearStressShort
+      - linearStressLong
+      - linearStressStage
+      - crossSectionCharacteristicsShort
+      - crossSectionCharacteristicsLong
+      - crossSectionCharacteristicsStage
+      - baumann
+      - overallColumnRecalculation
+      - columnForces
+      - prestressEffects
+      - primaryforces
+      - longTermLosses
+      - mnKappaDiagramULS
+      - mnKappaDiagramSLSShort
+      - mnKappaDiagramSLSLong
+      - creepAndShrinkageCoefficient
+      - concreteCover
+      - crackingCalculation
+      - crackingCalculationShort
+      - crackingCalculationLong
+      - redistribution
+      - initilaStateofCrossSection
+      - strutAngle
+      - designReinforcement
+      - capacityMesh
+      - stiffnessStageLong
+      - longTermLossesCoefficient
+      type: string
+    CheckResult:
+      description: The number in enum value description means the priority for extreme
+        check evaluation.
+      enum:
+      - failed
+      - passed
+      - passedWithWarnings
+      - failedWithError
+      - checkIsOff
+      - notDone
+      - checkIsNotNecesssary
+      type: string
+    CheckResultType:
+      description: Check result type
+      enum:
+      - capacity
+      - response
+      - shear
+      - torsion
+      - interaction
+      - fatigue
+      - stressLimitation
+      - crackWidth
+      - detailing
+      - stiffness
+      - deflection
+      type: string
+    ConcreteCheckResult:
+      additionalProperties: false
+      description: Concrete Check results
+      example:
+        checkResults:
+        - result: failed
+          limitCheckValue: 1.2315135367772556
+          nonConformities:
+          - severity: info
+            guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - severity: info
+            guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          internalFores:
+            qy: 5.962133916683182
+            qz: 5.637376656633329
+            mx: 2.3021358869347655
+            my: 7.061401241503109
+            loading:
+              loadingType: null
+              id: 4
+              items:
+              - coefficient: 2.027123023002322
+                loading:
+                  loadingType: loadCase
+                  id: 3
+              - coefficient: 2.027123023002322
+                loading:
+                  loadingType: loadCase
+                  id: 3
+            mz: 9.301444243932576
+            "n": 1.4658129805029452
+          checkValue: 7.386281948385884
+          check: notDefined
+        - result: failed
+          limitCheckValue: 1.2315135367772556
+          nonConformities:
+          - severity: info
+            guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - severity: info
+            guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          internalFores:
+            qy: 5.962133916683182
+            qz: 5.637376656633329
+            mx: 2.3021358869347655
+            my: 7.061401241503109
+            loading:
+              loadingType: null
+              id: 4
+              items:
+              - coefficient: 2.027123023002322
+                loading:
+                  loadingType: loadCase
+                  id: 3
+              - coefficient: 2.027123023002322
+                loading:
+                  loadingType: loadCase
+                  id: 3
+            mz: 9.301444243932576
+            "n": 1.4658129805029452
+          checkValue: 7.386281948385884
+          check: notDefined
+        resultType: capacity
+      properties:
+        resultType:
+          $ref: '#/components/schemas/CheckResultType'
+        checkResults:
+          description: All results - first is extreme
+          items:
+            $ref: '#/components/schemas/ConcreteCheckResultBase'
+          nullable: true
+          type: array
+      type: object
+    ConcreteCheckResultBase:
+      additionalProperties: false
+      description: Concrete result base class
+      example:
+        result: failed
+        limitCheckValue: 1.2315135367772556
+        nonConformities:
+        - severity: info
+          guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - severity: info
+          guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        internalFores:
+          qy: 5.962133916683182
+          qz: 5.637376656633329
+          mx: 2.3021358869347655
+          my: 7.061401241503109
+          loading:
+            loadingType: null
+            id: 4
+            items:
+            - coefficient: 2.027123023002322
+              loading:
+                loadingType: loadCase
+                id: 3
+            - coefficient: 2.027123023002322
+              loading:
+                loadingType: loadCase
+                id: 3
+          mz: 9.301444243932576
+          "n": 1.4658129805029452
+        checkValue: 7.386281948385884
+        check: notDefined
+      properties:
+        internalFores:
+          $ref: '#/components/schemas/ResultOfInternalForces'
+        nonConformities:
+          description: Returns nonconformity in section
+          items:
+            $ref: '#/components/schemas/NonConformity'
+          nullable: true
+          type: array
+        result:
+          $ref: '#/components/schemas/CheckResult'
+        checkValue:
+          description: "calculated limited value, calculated as strain to limit strain"
+          format: double
+          type: number
+        limitCheckValue:
+          description: limit check value for result check
+          format: double
+          type: number
+        check:
+          $ref: '#/components/schemas/CalculationType'
+      type: object
+    ConcreteCheckResultOverall:
+      additionalProperties: false
+      description: Concrete check result
+      example:
+        checks:
+        - result: failed
+          checkValue: 6.027456183070403
+          resultType: capacity
+        - result: failed
+          checkValue: 6.027456183070403
+          resultType: capacity
+      properties:
+        checks:
+          description: All check by the type
+          items:
+            $ref: '#/components/schemas/ConcreteCheckResultOverallItem'
+          nullable: true
+          type: array
+      type: object
+    ConcreteCheckResultOverallItem:
+      additionalProperties: false
+      description: Overal check item
+      example:
+        result: failed
+        checkValue: 6.027456183070403
+        resultType: capacity
+      properties:
+        resultType:
+          $ref: '#/components/schemas/CheckResultType'
+        result:
+          $ref: '#/components/schemas/CheckResult'
+        checkValue:
+          description: "calculated limited value, calculated as strain to limit strain"
+          format: double
+          type: number
+      type: object
+    ConcreteCheckResults:
+      additionalProperties: false
+      description: Concrete Check results
+      example:
+        checkResults:
+        - checkResults:
+          - result: failed
+            limitCheckValue: 1.2315135367772556
+            nonConformities:
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            internalFores:
+              qy: 5.962133916683182
+              qz: 5.637376656633329
+              mx: 2.3021358869347655
+              my: 7.061401241503109
+              loading:
+                loadingType: null
+                id: 4
+                items:
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+              mz: 9.301444243932576
+              "n": 1.4658129805029452
+            checkValue: 7.386281948385884
+            check: notDefined
+          - result: failed
+            limitCheckValue: 1.2315135367772556
+            nonConformities:
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            internalFores:
+              qy: 5.962133916683182
+              qz: 5.637376656633329
+              mx: 2.3021358869347655
+              my: 7.061401241503109
+              loading:
+                loadingType: null
+                id: 4
+                items:
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+              mz: 9.301444243932576
+              "n": 1.4658129805029452
+            checkValue: 7.386281948385884
+            check: notDefined
+          resultType: capacity
+        - checkResults:
+          - result: failed
+            limitCheckValue: 1.2315135367772556
+            nonConformities:
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            internalFores:
+              qy: 5.962133916683182
+              qz: 5.637376656633329
+              mx: 2.3021358869347655
+              my: 7.061401241503109
+              loading:
+                loadingType: null
+                id: 4
+                items:
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+              mz: 9.301444243932576
+              "n": 1.4658129805029452
+            checkValue: 7.386281948385884
+            check: notDefined
+          - result: failed
+            limitCheckValue: 1.2315135367772556
+            nonConformities:
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            - severity: info
+              guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            internalFores:
+              qy: 5.962133916683182
+              qz: 5.637376656633329
+              mx: 2.3021358869347655
+              my: 7.061401241503109
+              loading:
+                loadingType: null
+                id: 4
+                items:
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+                - coefficient: 2.027123023002322
+                  loading:
+                    loadingType: loadCase
+                    id: 3
+              mz: 9.301444243932576
+              "n": 1.4658129805029452
+            checkValue: 7.386281948385884
+            check: notDefined
+          resultType: capacity
+        overall:
+          checks:
+          - result: failed
+            checkValue: 6.027456183070403
+            resultType: capacity
+          - result: failed
+            checkValue: 6.027456183070403
+            resultType: capacity
+      properties:
+        checkResults:
+          description: All results
+          items:
+            $ref: '#/components/schemas/ConcreteCheckResult'
+          nullable: true
+          type: array
+        overall:
+          $ref: '#/components/schemas/ConcreteCheckResultOverall'
+      type: object
+    Loading:
+      additionalProperties: false
+      description: Loading identification
+      example:
+        loadingType: loadCase
+        id: 3
+      properties:
+        loadingType:
+          $ref: '#/components/schemas/LoadingType'
+        id:
+          description: Id of loading
+          format: int32
+          type: integer
+      type: object
+    LoadingType:
+      description: Type of loading
+      enum:
+      - loadCase
+      - combination
+      - resultClass
+      type: string
+    NonConformity:
+      additionalProperties: false
+      description: Non-conformity
+      example:
+        severity: info
+        guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        guid:
+          description: Description of the nonconformity
+          format: uuid
+          type: string
+        severity:
+          $ref: '#/components/schemas/NonConformitySeverity'
+      type: object
+    NonConformityIssue:
+      additionalProperties: false
+      description: Non-conformity issue
+      example:
+        severity: null
+        guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        description: description
+      properties:
+        guid:
+          description: Description of the nonconformity
+          format: uuid
+          type: string
+        description:
+          description: Description of the nonconformity
+          nullable: true
+          type: string
+        severity:
+          $ref: '#/components/schemas/NonConformitySeverity'
+      type: object
+    NonConformitySeverity:
+      description: Nonconformity severities
+      enum:
+      - info
+      - warning
+      - error
+      - terminatedError
+      type: string
+    RcsCalculationParameters:
+      additionalProperties: false
+      example:
+        sections:
+        - 0
+        - 0
+      properties:
+        sections:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
+    RcsCheckMember:
+      additionalProperties: false
+      example:
+        name: name
+        id: 0
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+      type: object
+    RcsProject:
+      additionalProperties: false
+      example:
+        checkMembers:
+        - name: name
+          id: 0
+        - name: name
+          id: 0
+        projectData:
+          code: code
+          projectNo: projectNo
+          typeBridge: typeBridge
+          author: author
+          dateOfCreate: 2000-01-23T04:56:07.000+00:00
+          fireResistanceCheck: true
+          description: description
+          projectName: projectName
+          typeOfStructure: typeOfStructure
+        reinforcedCrossSections:
+        - name: name
+          id: 0
+          crossSectionId: 6
+        - name: name
+          id: 0
+          crossSectionId: 6
+        projectId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        sections:
+        - name: name
+          rcsId: 1
+          description: description
+          checkMemberId: 6
+          id: 0
+        - name: name
+          rcsId: 1
+          description: description
+          checkMemberId: 6
+          id: 0
+      properties:
+        sections:
+          items:
+            $ref: '#/components/schemas/RcsSection'
+          nullable: true
+          type: array
+        checkMembers:
+          items:
+            $ref: '#/components/schemas/RcsCheckMember'
+          nullable: true
+          type: array
+        reinforcedCrossSections:
+          items:
+            $ref: '#/components/schemas/RcsReinforcedCrossSection'
+          nullable: true
+          type: array
+        projectId:
+          format: uuid
+          type: string
+        projectData:
+          $ref: '#/components/schemas/RcsProjectData'
+      type: object
+    RcsProjectData:
+      additionalProperties: false
+      example:
+        code: code
+        projectNo: projectNo
+        typeBridge: typeBridge
+        author: author
+        dateOfCreate: 2000-01-23T04:56:07.000+00:00
+        fireResistanceCheck: true
+        description: description
+        projectName: projectName
+        typeOfStructure: typeOfStructure
+      properties:
+        projectName:
+          nullable: true
+          type: string
+        dateOfCreate:
+          format: date-time
+          type: string
+        description:
+          nullable: true
+          type: string
+        author:
+          nullable: true
+          type: string
+        code:
+          nullable: true
+          type: string
+        projectNo:
+          nullable: true
+          type: string
+        typeBridge:
+          nullable: true
+          type: string
+        typeOfStructure:
+          nullable: true
+          type: string
+        fireResistanceCheck:
+          type: boolean
+      type: object
+    RcsReinforcedCrossSection:
+      additionalProperties: false
+      example:
+        name: name
+        id: 0
+        crossSectionId: 6
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        crossSectionId:
+          format: int32
+          type: integer
+      type: object
+    RcsReinforcedCrossSectionImportData:
+      additionalProperties: false
+      example:
+        template: template
+        setting:
+          partsToImport: partsToImport
+          reinforcedCrossSectionId: 0
+      properties:
+        setting:
+          $ref: '#/components/schemas/RcsReinforcedCrosssSectionImportSetting'
+        template:
+          nullable: true
+          type: string
+      type: object
+    RcsReinforcedCrosssSectionImportSetting:
+      additionalProperties: false
+      example:
+        partsToImport: partsToImport
+        reinforcedCrossSectionId: 0
+      properties:
+        reinforcedCrossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        partsToImport:
+          nullable: true
+          type: string
+      type: object
+    RcsResultParameters:
+      additionalProperties: false
+      example:
+        sections:
+        - 0
+        - 0
+      properties:
+        sections:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
+    RcsSection:
+      additionalProperties: false
+      example:
+        name: name
+        rcsId: 1
+        description: description
+        checkMemberId: 6
+        id: 0
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        checkMemberId:
+          format: int32
+          nullable: true
+          type: integer
+        rcsId:
+          format: int32
+          nullable: true
+          type: integer
+      type: object
+    RcsSectionLoading:
+      additionalProperties: false
+      example:
+        sectionId: 0
+        loadingXml: loadingXml
+      properties:
+        sectionId:
+          format: int32
+          type: integer
+        loadingXml:
+          nullable: true
+          type: string
+      type: object
+    RcsSectionResultDetailed:
+      additionalProperties: false
+      example:
+        id: 0
+        sectionResult:
+          extremeResults:
+          - checkResults:
+            - checkResults:
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              resultType: capacity
+            - checkResults:
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              resultType: capacity
+            overall:
+              checks:
+              - result: failed
+                checkValue: 6.027456183070403
+                resultType: capacity
+              - result: failed
+                checkValue: 6.027456183070403
+                resultType: capacity
+          - checkResults:
+            - checkResults:
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              resultType: capacity
+            - checkResults:
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              - result: failed
+                limitCheckValue: 1.2315135367772556
+                nonConformities:
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                - severity: info
+                  guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                internalFores:
+                  qy: 5.962133916683182
+                  qz: 5.637376656633329
+                  mx: 2.3021358869347655
+                  my: 7.061401241503109
+                  loading:
+                    loadingType: null
+                    id: 4
+                    items:
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                    - coefficient: 2.027123023002322
+                      loading:
+                        loadingType: loadCase
+                        id: 3
+                  mz: 9.301444243932576
+                  "n": 1.4658129805029452
+                checkValue: 7.386281948385884
+                check: notDefined
+              resultType: capacity
+            overall:
+              checks:
+              - result: failed
+                checkValue: 6.027456183070403
+                resultType: capacity
+              - result: failed
+                checkValue: 6.027456183070403
+                resultType: capacity
+          sectionId: 6
+        issues:
+        - severity: null
+          guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          description: description
+        - severity: null
+          guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          description: description
+      properties:
+        id:
+          format: int32
+          type: integer
+        sectionResult:
+          $ref: '#/components/schemas/SectionConcreteCheckResult'
+        issues:
+          items:
+            $ref: '#/components/schemas/NonConformityIssue'
+          nullable: true
+          type: array
+      type: object
+    RcsSectionResultOverview:
+      additionalProperties: false
+      example:
+        sectionId: 0
+        overallItems:
+        - result: failed
+          checkValue: 6.027456183070403
+          resultType: capacity
+        - result: failed
+          checkValue: 6.027456183070403
+          resultType: capacity
+      properties:
+        sectionId:
+          format: int32
+          type: integer
+        overallItems:
+          items:
+            $ref: '#/components/schemas/ConcreteCheckResultOverallItem'
+          nullable: true
+          type: array
+      type: object
+    RcsSetting:
+      additionalProperties: false
+      example:
+        id: 0
+        type: type
+        value: ""
+      properties:
+        id:
+          format: int32
+          type: integer
+        type:
+          nullable: true
+          type: string
+        value:
+          nullable: true
+      type: object
+    ResultOfInternalForces:
+      additionalProperties: false
+      description: Result of internal forces in the one position
+      example:
+        qy: 5.962133916683182
+        qz: 5.637376656633329
+        mx: 2.3021358869347655
+        my: 7.061401241503109
+        loading:
+          loadingType: null
+          id: 4
+          items:
+          - coefficient: 2.027123023002322
+            loading:
+              loadingType: loadCase
+              id: 3
+          - coefficient: 2.027123023002322
+            loading:
+              loadingType: loadCase
+              id: 3
+        mz: 9.301444243932576
+        "n": 1.4658129805029452
+      properties:
+        "n":
+          description: Normal force
+          format: double
+          type: number
+        qy:
+          description: Shear force in y dirrection
+          format: double
+          type: number
+        qz:
+          description: Shear force in z dirrection
+          format: double
+          type: number
+        mx:
+          description: Bending moment around x-axis
+          format: double
+          type: number
+        my:
+          description: Bending moment around y-axis
+          format: double
+          type: number
+        mz:
+          description: Bending moment around z-axis
+          format: double
+          type: number
+        loading:
+          $ref: '#/components/schemas/ResultOfLoading'
+      type: object
+    ResultOfLoading:
+      additionalProperties: false
+      description: Result Of Loading
+      example:
+        loadingType: null
+        id: 4
+        items:
+        - coefficient: 2.027123023002322
+          loading:
+            loadingType: loadCase
+            id: 3
+        - coefficient: 2.027123023002322
+          loading:
+            loadingType: loadCase
+            id: 3
+      properties:
+        items:
+          description: Items od loading
+          items:
+            $ref: '#/components/schemas/ResultOfLoadingItem'
+          nullable: true
+          type: array
+        loadingType:
+          $ref: '#/components/schemas/LoadingType'
+        id:
+          description: Id of loading
+          format: int32
+          type: integer
+      type: object
+    ResultOfLoadingItem:
+      additionalProperties: false
+      description: Item of Result of Loading
+      example:
+        coefficient: 2.027123023002322
+        loading:
+          loadingType: loadCase
+          id: 3
+      properties:
+        loading:
+          $ref: '#/components/schemas/Loading'
+        coefficient:
+          description: Coefficient of loading
+          format: double
+          type: number
+      type: object
+    SectionConcreteCheckResult:
+      additionalProperties: false
+      description: ection concrete result
+      example:
+        extremeResults:
+        - checkResults:
+          - checkResults:
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            resultType: capacity
+          - checkResults:
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            resultType: capacity
+          overall:
+            checks:
+            - result: failed
+              checkValue: 6.027456183070403
+              resultType: capacity
+            - result: failed
+              checkValue: 6.027456183070403
+              resultType: capacity
+        - checkResults:
+          - checkResults:
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            resultType: capacity
+          - checkResults:
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            - result: failed
+              limitCheckValue: 1.2315135367772556
+              nonConformities:
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              - severity: info
+                guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              internalFores:
+                qy: 5.962133916683182
+                qz: 5.637376656633329
+                mx: 2.3021358869347655
+                my: 7.061401241503109
+                loading:
+                  loadingType: null
+                  id: 4
+                  items:
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                  - coefficient: 2.027123023002322
+                    loading:
+                      loadingType: loadCase
+                      id: 3
+                mz: 9.301444243932576
+                "n": 1.4658129805029452
+              checkValue: 7.386281948385884
+              check: notDefined
+            resultType: capacity
+          overall:
+            checks:
+            - result: failed
+              checkValue: 6.027456183070403
+              resultType: capacity
+            - result: failed
+              checkValue: 6.027456183070403
+              resultType: capacity
+        sectionId: 6
+      properties:
+        sectionId:
+          description: Id Of section
+          format: int32
+          type: integer
+        extremeResults:
+          description: Extreme results
+          items:
+            $ref: '#/components/schemas/ConcreteCheckResults'
+          nullable: true
+          type: array
+      type: object
+    OpenProject_request:
+      properties:
+        rcsFile:
+          format: binary
+          type: string
+      type: object
+    ImportIOMFile_request:
+      properties:
+        iomFile:
+          format: binary
+          type: string
+      type: object
+

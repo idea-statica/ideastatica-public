@@ -13,14 +13,12 @@ namespace CodeSamples
 		public static async Task ExportIomConnectionData(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
+			await conClient.Project.OpenProjectAsync(filePath);
 
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
-			ConnectionData conData = await conClient.Export.ExportIomConnectionDataAsync(projectId, connectionId);
+			ConnectionData conData = await conClient.Export.ExportIomConnectionDataAsync(conClient.ProjectId, connectionId);
 
 			//Print the connection data to the Console.
 			Console.WriteLine($"Number of Plates: { conData.Plates.Count()}");
@@ -28,7 +26,8 @@ namespace CodeSamples
 			Console.WriteLine($"Number of Welds: {conData.Welds.Count()}");
 			Console.WriteLine($"Number of Cuts: {conData.CutBeamByBeams.Count()}");
 
-			await conClient.Project.CloseProjectAsync(projectId);
+			//Close the opened project.
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }
