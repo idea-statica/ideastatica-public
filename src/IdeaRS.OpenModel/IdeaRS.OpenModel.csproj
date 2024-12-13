@@ -48,12 +48,11 @@
 	<ItemGroup>
 		<None Include="..\..\..\ideastatica-public\README.md">
 			<Pack>True</Pack>
-			<PackagePath></PackagePath>
 		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" />
 	</ItemGroup>
 
 </Project>
