@@ -93,8 +93,8 @@
     <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />
     <PackageVersion Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="7.0.13" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.4.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.2.0" />
     <PackageVersion Include="System.Management" Version="7.0.2" />
