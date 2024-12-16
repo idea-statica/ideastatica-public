@@ -38,7 +38,7 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="System.Collections.Immutable" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
+    
     <PackageReference Include="System.Net.Http" />
     <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>

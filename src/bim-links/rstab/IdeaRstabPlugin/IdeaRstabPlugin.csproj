@@ -15,7 +15,7 @@
     <PackageReference Include="Serilog.Enrichers.Thread" />
     <PackageReference Include="Serilog.Sinks.Debug" />
     <PackageReference Include="Serilog.Sinks.File" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
+    
   </ItemGroup>
 
   <ItemGroup>
