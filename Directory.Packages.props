@@ -55,7 +55,8 @@
     <PackageVersion Include="Tekla.Structures.Plugins" Version="2024.0.0" />
     <PackageVersion Include="TeklaOpenAPI" Version="2020.0.2" />
     <PackageVersion Include="Google.Protobuf" Version="3.21.3" />
-    <PackageVersion Include="Castle.Windsor" Version="5.1.1" />
+    <PackageVersion Include="Castle.Windsor" Version="5.1.1" />	
+    <PackageVersion Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageVersion Include="FluentAssertions.Json" Version="6.1.0" />
   </ItemGroup>
 </Project>
