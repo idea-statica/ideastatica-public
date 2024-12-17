@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using ST_ConnectionRestApi;
+using ST_RcsRestApi;
 
 namespace ST_RcsRestApiClient
 {
