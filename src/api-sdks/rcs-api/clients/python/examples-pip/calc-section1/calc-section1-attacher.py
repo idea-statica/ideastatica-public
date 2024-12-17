@@ -1,4 +1,3 @@
-import sys
 import os
 from pprint import pprint
 from urllib.parse import urljoin
@@ -29,5 +28,10 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
 
         # run stress-strain analysis for the connection
     cal_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
-        
-    pprint(cal_results)
+
+    section_results = cal_results[0]
+
+    print(f"Results section id : {section_results.section_id}\n")
+    for item in section_results.overall_items:
+        print(f"Status: {item.result_type} Check Value: {item.check_value}")
+
