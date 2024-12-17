@@ -3,7 +3,7 @@ using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi;
 using Microsoft.Extensions.Configuration;
 
-namespace ST_ConnectionRestApi
+namespace ST_RcsRestApi
 {
 	public class RcsRestApiBaseTest
 	{
