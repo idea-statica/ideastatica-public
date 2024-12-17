@@ -89,7 +89,7 @@ namespace ST_RcsRestApi
 		}
 
 		[Test]
-		public async Task ShouldGetCodeSettins()
+		public async Task ShouldGetAndUpdateCodeSettins()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
@@ -122,9 +122,8 @@ namespace ST_RcsRestApi
 			{
 				 new RcsSetting()
 				 {
-					 Id=10, // NA_7_3_1_Wmax_Ec2_1_1
+					 Id=10,
 					 Type="CI.Services.Setup.SetupTable_W_max_1992_1_1", 
-					 //Value="<X0_XC1_RC>0.0001</X0_XC1_RC><XC2_XC3_RC>0.0002</XC2_XC3_RC><XD_XS_XF_RC>0.0003</XD_XS_XF_RC><X0_XC1_PC>0.0004</X0_XC1_PC><XC2_XC3_PC_DV>0.026</XC2_XC3_PC_DV><XC2_XC3_PC_CV>0.0002</XC2_XC3_PC_CV><XD_XS_XF_PCB_DV>0.025</XD_XS_XF_PCB_DV><XD_XS_XF_PCB_CV>0.0002</XD_XS_XF_PCB_CV><XC2_XC3_PCB_DB>true</XC2_XC3_PCB_DB><XC2_XC3_PCB_CB>true</XC2_XC3_PCB_CB><XD_XS_XF_PCB_DB>true</XD_XS_XF_PCB_DB><XD_XS_XF_PCB_CB>false</XD_XS_XF_PCB_CB>"
 					 Value="{\"X0_XC1_RC\":0.0001, \"XC2_XC3_RC\":0.0002, \"XD_XS_XF_RC\":0.0003, \"X0_XC1_PC\":0.0004, \"XC2_XC3_PC_DV\":0.026, \"XC2_XC3_PC_CV\": 0.0002, \"XD_XS_XF_PCB_DV\": 0.025, \"XD_XS_XF_PCB_CV\":0.0002, \"XC2_XC3_PCB_DB\":true, \"XC2_XC3_PCB_CB\": true, \"XD_XS_XF_PCB_DB\": true, \"XD_XS_XF_PCB_CB\": false}"
 				 },
 			};
