@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -16,9 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.1.1474" />
-    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.1.1474" />
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.1.1474" />
+    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.2.1513" />
+    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.2.1513" />
+    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.2.1513" />
   </ItemGroup>
 
 	<ItemGroup>

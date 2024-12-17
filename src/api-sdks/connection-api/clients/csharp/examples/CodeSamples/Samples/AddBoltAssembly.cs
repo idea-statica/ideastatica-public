@@ -1,5 +1,4 @@
 ﻿using IdeaRS.OpenModel.Material;
-using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.ConnectionApi;
 namespace CodeSamples
@@ -20,10 +19,10 @@ namespace CodeSamples
 			Dictionary<string, int> BoltAssembliesMap = new Dictionary<string, int>();
 
 			//TODO Upgrade to new IOM Bolt Grade Definitions.
-			await conClient.Material.GetBoltGradeMaterialsAsync(conClient.ProjectId);
+			await conClient.Material.GetBoltGradeMaterialsAsync(conClient.ActiveProjectId);
 
 			//GET AND ADD NEW BOLT ASSEMBLIES
-			List<BoltAssembly> boltAssemblies = (await conClient.Material.GetBoltAssembliesAsync(conClient.ProjectId)).Cast<BoltAssembly>().ToList();
+			List<BoltAssembly> boltAssemblies = (await conClient.Material.GetBoltAssembliesAsync(conClient.ActiveProjectId)).Cast<BoltAssembly>().ToList();
 			boltAssemblies.ForEach(x => BoltAssembliesMap.Add(x.Name, x.Id));
 
 			//List of new bolt Assemblies to Add.
@@ -35,7 +34,7 @@ namespace CodeSamples
 				if (!BoltAssembliesMap.ContainsKey(assembly))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					await conClient.Material.AddBoltAssemblyAsync(conClient.ProjectId, new ConMprlElement() { MprlName = assembly});
+					await conClient.Material.AddBoltAssemblyAsync(conClient.ActiveProjectId, new ConMprlElement() { MprlName = assembly});
 					
 					//Console.WriteLine("Successfully Added new Bolt Assembly: " + added.MprlName);
 
@@ -50,11 +49,11 @@ namespace CodeSamples
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

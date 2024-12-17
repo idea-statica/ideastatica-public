@@ -14,14 +14,14 @@ namespace CodeSamples
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			//FIX Needs to output the Iom Model xml.
-			await conClient.Export.ExportIomAsync(conClient.ProjectId, connectionId);
+			await conClient.Export.ExportIomAsync(conClient.ActiveProjectId, connectionId);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

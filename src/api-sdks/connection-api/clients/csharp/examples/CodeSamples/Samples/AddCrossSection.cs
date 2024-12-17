@@ -19,10 +19,10 @@ namespace CodeSamples
 			Dictionary<string, int> CrossSectionMap = new Dictionary<string, int>();
 			Dictionary<string, int> SteelMaterialMap = new Dictionary<string, int>();
 
-			List<IdeaRS.OpenModel.Material.MatSteel> steelMaterials = (await conClient.Material.GetSteelMaterialsAsync(conClient.ProjectId)).Cast<IdeaRS.OpenModel.Material.MatSteel>().ToList();
+			List<IdeaRS.OpenModel.Material.MatSteel> steelMaterials = (await conClient.Material.GetSteelMaterialsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.Material.MatSteel>().ToList();
 			steelMaterials.ForEach(x => SteelMaterialMap.Add(x.Name, x.Id));
 
-			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
+			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
 			crossSections.ForEach(x => CrossSectionMap.Add(x.Name, x.Id));
 
 			//List of new Cross-Sections to Add.
@@ -38,7 +38,7 @@ namespace CodeSamples
 				if (!SteelMaterialMap.ContainsKey(section.MaterialName))
 				{
 					//FIX: Add Materal should return the Material not the ConMprlElement
-					await conClient.Material.AddMaterialSteelAsync(conClient.ProjectId, new ConMprlElement() { MprlName = section.MaterialName });
+					await conClient.Material.AddMaterialSteelAsync(conClient.ActiveProjectId, new ConMprlElement() { MprlName = section.MaterialName });
 					//Console.WriteLine("Successfully Added new Material: " + addedMaterial.MprlName);
 				}
 				else
@@ -48,7 +48,7 @@ namespace CodeSamples
 				if (!CrossSectionMap.ContainsKey(section.MprlName))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					await conClient.Material.AddCrossSectionAsync(conClient.ProjectId, new ConMprlCrossSection() { MaterialName = "S 355", MprlName = section.MprlName });
+					await conClient.Material.AddCrossSectionAsync(conClient.ActiveProjectId, new ConMprlCrossSection() { MaterialName = "S 355", MprlName = section.MprlName });
 					//Console.WriteLine("Successfully Added new Cross-section: " + added.MprlName);
 
 					//Need to check what happens if name is not found...
@@ -62,11 +62,11 @@ namespace CodeSamples
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

@@ -1,24 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using IdeaStatiCa.Api.Common;
+using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
 using IdeaStatiCa.Plugin;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ConApiWpfClientApp.Tools;
-using IdeaStatiCa.Api.Connection.Model;
 
 namespace ConApiWpfClientApp.ViewModels
 {
 	public class MainWindowViewModel : ViewModelBase, IDisposable
 	{
-		private readonly IConnectionApiClientFactory _connectionApiClientFactory;
+		private readonly IApiServiceFactory<IConnectionApiClient> _connectionApiClientFactory;
 		private readonly IConfiguration _configuration;
 		private readonly IPluginLogger _logger;
 
@@ -34,7 +32,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public MainWindowViewModel(IConfiguration configuration,
 			IPluginLogger logger,
-			IConnectionApiClientFactory apiClientFactory)
+			IApiServiceFactory<IConnectionApiClient> apiClientFactory)
 		{
 			this._connectionApiClientFactory = apiClientFactory;
 			this.cts = new CancellationTokenSource();
@@ -189,7 +187,7 @@ namespace ConApiWpfClientApp.ViewModels
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
 				
 
-				OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", ConApiClient.ClientId, ConApiClient.Project.ProjectId, projectInfoJson);
+				OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", ConApiClient.ClientId, ConApiClient.ActiveProjectId, projectInfoJson);
 
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 
@@ -240,7 +238,7 @@ namespace ConApiWpfClientApp.ViewModels
 						throw new Exception("ApiUri is not set");
 					}
 
-					ConApiClient = await _connectionApiClientFactory.CreateConnectionApiClient();
+					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
 
 					//var connectionInfo = ConnectionController.GetConnectionInfo();
 					//OutputText = $"ClientId = {connectionInfo.Item1}, ProjectId = {connectionInfo.Item2}";

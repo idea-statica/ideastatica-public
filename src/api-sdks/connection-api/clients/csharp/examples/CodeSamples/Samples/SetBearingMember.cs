@@ -15,10 +15,10 @@ namespace CodeSamples
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
-			List<ConMember> members = await conClient.Member.GetMembersAsync(conClient.ProjectId, connectionId);
+			List<ConMember> members = await conClient.Member.GetMembersAsync(conClient.ActiveProjectId, connectionId);
 
 			foreach (var member in members)
 			{
@@ -31,17 +31,17 @@ namespace CodeSamples
 			int newBearingMemberId = int.Parse(intput);
 
 			//Set the bearing member
-			await conClient.Member.SetBearingMemberAsync(conClient.ProjectId, connectionId, newBearingMemberId);
+			await conClient.Member.SetBearingMemberAsync(conClient.ActiveProjectId, connectionId, newBearingMemberId);
 
 			//Retrieve again the member data.
-			members = await conClient.Member.GetMembersAsync(conClient.ProjectId, connectionId);
+			members = await conClient.Member.GetMembersAsync(conClient.ActiveProjectId, connectionId);
 			foreach (var member in members)
 			{
 				Console.WriteLine($"{member.Name} ({member.Id}) is {(member.IsContinuous ? "Continuous" : "Ended")} {(member.IsBearing ? "and is the Bearing Member" : "")}");
 			}
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

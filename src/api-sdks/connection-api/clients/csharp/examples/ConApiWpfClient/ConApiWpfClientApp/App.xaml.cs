@@ -1,5 +1,6 @@
 ﻿using ConApiWpfClientApp.ViewModels;
 using ConApiWpfClientApp.Views;
+using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.ConnectionApi;
 
 //using IdeaStatiCa.ConnectionApi.Factory;
@@ -45,9 +46,9 @@ namespace ConApiWpfClientApp
 			});
 			services.AddTransient<JsonEditorViewModel>();
 
-			services.AddTransient<IConnectionApiClientFactory, ConnectionApiClientFactory>(serviceProvider =>
+			services.AddTransient<IApiServiceFactory<IConnectionApiClient>, ConnectionApiServiceAttacher>(serviceProvider =>
 			{
-				return new ConnectionApiClientFactory(configuration["CONNECTION_API_ENDPOINT"]!);
+				return new ConnectionApiServiceAttacher(configuration["CONNECTION_API_ENDPOINT"]!);
 			});
 
 			serviceProvider = services.BuildServiceProvider();

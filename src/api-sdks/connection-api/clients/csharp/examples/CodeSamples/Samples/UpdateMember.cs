@@ -16,14 +16,14 @@ namespace CodeSamples
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			//Get First Connection
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			//Create map of CrossSections and Materials.
 			Dictionary<string, int> CrossSectionMap = new Dictionary<string, int>();
 
 			//Get the cross-sections in the project.
-			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
+			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
 			crossSections.ForEach(x => CrossSectionMap.Add(x.Name, x.Id));
 
 			Console.WriteLine("List of avaliable cross-sections in the project:");
@@ -33,7 +33,7 @@ namespace CodeSamples
 			}
 
 			//Get Member Information.
-			List<ConMember> members = await conClient.Member.GetMembersAsync(conClient.ProjectId, connectionId);
+			List<ConMember> members = await conClient.Member.GetMembersAsync(conClient.ActiveProjectId, connectionId);
 
 			foreach (var member in members)
 			{
@@ -80,10 +80,10 @@ namespace CodeSamples
 			conMember.CrossSectionId = cssId;
 
 			//Update the member.
-			var updatedMember = await conClient.Member.UpdateMemberAsync(conClient.ProjectId, connectionId, conMember);
+			var updatedMember = await conClient.Member.UpdateMemberAsync(conClient.ActiveProjectId, connectionId, conMember);
 
 			//Get Member Information again.
-			members = await conClient.Member.GetMembersAsync(conClient.ProjectId, connectionId);
+			members = await conClient.Member.GetMembersAsync(conClient.ActiveProjectId, connectionId);
 
 			foreach (var member in members)
 			{
@@ -95,10 +95,10 @@ namespace CodeSamples
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }
