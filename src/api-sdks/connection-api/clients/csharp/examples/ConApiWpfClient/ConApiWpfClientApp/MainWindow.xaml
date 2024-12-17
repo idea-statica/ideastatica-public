@@ -8,13 +8,17 @@
         Title="MainWindow" Height="450" Width="800">
 	<DockPanel LastChildFill="True">
 		<ToolBarTray DockPanel.Dock="Top">
-		
+
 			<ToolBar Band="1">
-				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Connect</Button>
+				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Start service</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
 				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
 				<!--<Button Command="{Binding ShowClientUICommand, Mode=OneWay}">Show Client UI</Button>-->
+				<CheckBox Content="Run private service" IsEnabled="{Binding CanStartService}"
+				  IsChecked="{Binding RunApiServer, Mode=TwoWay}" IsThreeState="False"
+				  ToolTip="Switch between running a new instance IdeaStatica.ConnectionRestApi or attaching to the running service.">
+				</CheckBox>
 			</ToolBar>
 
 			<ToolBar Band="2">

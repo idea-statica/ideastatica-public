@@ -46,11 +46,6 @@ namespace ConApiWpfClientApp
 			});
 			services.AddTransient<JsonEditorViewModel>();
 
-			services.AddTransient<IApiServiceFactory<IConnectionApiClient>, ConnectionApiServiceAttacher>(serviceProvider =>
-			{
-				return new ConnectionApiServiceAttacher(configuration["CONNECTION_API_ENDPOINT"]!);
-			});
-
 			serviceProvider = services.BuildServiceProvider();
 		}
 

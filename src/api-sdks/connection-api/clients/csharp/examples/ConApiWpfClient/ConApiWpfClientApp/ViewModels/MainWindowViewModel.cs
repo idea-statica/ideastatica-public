@@ -16,11 +16,13 @@ namespace ConApiWpfClientApp.ViewModels
 {
 	public class MainWindowViewModel : ViewModelBase, IDisposable
 	{
-		private readonly IApiServiceFactory<IConnectionApiClient> _connectionApiClientFactory;
+		private IApiServiceFactory<IConnectionApiClient>? _connectionApiClientFactory;
 		private readonly IConfiguration _configuration;
 		private readonly IPluginLogger _logger;
 
 		private bool _isBusy;
+		private bool _runApiServer;
+
 		private string? outputText; 
 		ObservableCollection<ConnectionViewModel>? connectionsVM;
 		ConnectionViewModel? selectedConnection;
@@ -31,10 +33,9 @@ namespace ConApiWpfClientApp.ViewModels
 		private bool disposedValue;
 
 		public MainWindowViewModel(IConfiguration configuration,
-			IPluginLogger logger,
-			IApiServiceFactory<IConnectionApiClient> apiClientFactory)
+			IPluginLogger logger)
 		{
-			this._connectionApiClientFactory = apiClientFactory;
+			this._connectionApiClientFactory = null;
 			this.cts = new CancellationTokenSource();
 			this._configuration = configuration;
 			this._logger = logger;
@@ -107,7 +108,11 @@ namespace ConApiWpfClientApp.ViewModels
 			set { SetProperty(ref _isBusy, value); }
 		}
 
-		public bool RunApiServer { get; set;}
+		public bool RunApiServer
+		{
+			get { return _runApiServer; }
+			set { SetProperty(ref _runApiServer, value); }
+		}
 
 		public Uri? ApiUri { get; set; }
 
@@ -145,6 +150,8 @@ namespace ConApiWpfClientApp.ViewModels
 				SetProperty(ref outputText, value);
 			}
 		}
+
+		public bool CanStartService => ConApiClient == null;
 
 		public AsyncRelayCommand ConnectCommand { get; }
 
@@ -228,8 +235,8 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				if (RunApiServer)
 				{
-					//ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient();
-					throw new Exception("Not implemented");
+					_connectionApiClientFactory = new ConnectionApiServiceRunner(_configuration["IdeaStatiCaSetupPath"]);
+					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
 				}
 				else
 				{
@@ -238,6 +245,7 @@ namespace ConApiWpfClientApp.ViewModels
 						throw new Exception("ApiUri is not set");
 					}
 
+					_connectionApiClientFactory = new ConnectionApiServiceAttacher(_configuration["CONNECTION_API_ENDPOINT"]!);
 					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
 
 					//var connectionInfo = ConnectionController.GetConnectionInfo();
@@ -450,6 +458,15 @@ namespace ConApiWpfClientApp.ViewModels
 						ConApiClient.Dispose();
 						ConApiClient = null;
 					}
+
+					if (RunApiServer == true && _connectionApiClientFactory != null)
+					{
+						if (_connectionApiClientFactory is IDisposable disp)
+						{ 
+							disp.Dispose();
+						}
+						_connectionApiClientFactory = null;
+					}
 				}
 
 				disposedValue = true;
@@ -471,6 +488,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
+			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
