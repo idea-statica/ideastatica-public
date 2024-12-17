@@ -2,14 +2,16 @@ import sys
 import os
 from pprint import pprint
 from urllib.parse import urljoin
-import ideastatica_rcs_api
-import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
+
 
 # Get the parent directory
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 # Add the parent directory to sys.path
 sys.path.append(parent_dir)
+
+import ideastatica_rcs_api
+import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 
 baseUrl = "http://localhost:5000"
 
