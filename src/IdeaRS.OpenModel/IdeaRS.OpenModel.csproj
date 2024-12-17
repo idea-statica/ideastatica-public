@@ -48,6 +48,7 @@
 	<ItemGroup>
 		<None Include="..\..\..\ideastatica-public\README.md">
 			<Pack>True</Pack>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 
