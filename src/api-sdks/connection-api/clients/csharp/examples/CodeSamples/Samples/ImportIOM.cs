@@ -15,15 +15,15 @@ namespace CodeSamples
 			string filePath = "Inputs/multiple_connections.xml";
 			await conClient.Project.CreateProjectFromIomFileAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			string saveFilePath = "connection-file-from-IOM.ideaCon";
 
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 
 
@@ -67,10 +67,10 @@ namespace CodeSamples
 
 			string saveFilePath = "connection-file-from-IOM-multiple.ideaCon";
 
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

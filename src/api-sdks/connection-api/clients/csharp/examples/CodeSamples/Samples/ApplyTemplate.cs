@@ -14,14 +14,14 @@ namespace CodeSamples
 			string filePath = "inputs/corner-empty.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			string templateFilePath = "inputs/template-I-corner.contemp";
 
 			ConTemplateMappingGetParam templateImport = conClient.Template.ImportTemplateFromFile(templateFilePath);
 
-			TemplateConversions conversionMapping = await conClient.Template.GetDefaultTemplateMappingAsync(conClient.ProjectId, connectionId, templateImport);
+			TemplateConversions conversionMapping = await conClient.Template.GetDefaultTemplateMappingAsync(conClient.ActiveProjectId, connectionId, templateImport);
 
 			ConTemplateApplyParam applyParam = new ConTemplateApplyParam();
 			
@@ -30,24 +30,24 @@ namespace CodeSamples
 			//TO DO: We can do some custom mapping if we would like to.
 			applyParam.Mapping = conversionMapping;
 
-			var result = conClient.Template.ApplyTemplateAsync(conClient.ProjectId, connectionId, applyParam);
+			var result = conClient.Template.ApplyTemplateAsync(conClient.ActiveProjectId, connectionId, applyParam);
 
 			ConCalculationParameter calculationParams = new ConCalculationParameter();
 			calculationParams.ConnectionIds = new List<int> { connectionId };
 
 			//Calculate the project with the applied template
-			List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(conClient.ProjectId, calculationParams);
+			List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(conClient.ActiveProjectId, calculationParams);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("ApplyTemplate");
 			string fileName = "corner-template-applied.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

@@ -15,10 +15,10 @@ namespace CodeSamples
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
-			ConnectionData conData = await conClient.Export.ExportIomConnectionDataAsync(conClient.ProjectId, connectionId);
+			ConnectionData conData = await conClient.Export.ExportIomConnectionDataAsync(conClient.ActiveProjectId, connectionId);
 
 			//Print the connection data to the Console.
 			Console.WriteLine($"Number of Plates: { conData.Plates.Count()}");
@@ -27,7 +27,7 @@ namespace CodeSamples
 			Console.WriteLine($"Number of Cuts: {conData.CutBeamByBeams.Count()}");
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }
