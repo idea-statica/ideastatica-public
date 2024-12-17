@@ -4,7 +4,7 @@ This example shows how to create and attach _RcsApiClient_ to the running servic
 
 1. run _IdeaStatiCa.RcsRestApi.exe_ from IdeaStatiCa setup directory. Make sure the service is running by navigating to http://localhost:5000
 
-2. navidate to the directory _examples-pip\calc-section1_
+2. navigate to the directory _examples-pip\calc-section1_
 
 3. install dependencies from _requirements.txt_
 
