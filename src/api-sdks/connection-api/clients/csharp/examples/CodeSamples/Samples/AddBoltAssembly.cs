@@ -9,7 +9,7 @@ namespace CodeSamples
 		/// Get the list of avaliable Bolt Assemblies in a project and Add one to the project. 
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task GetAndAddBoltAssemblies(ConnectionApiClient conClient)
+		public static async Task GetAndAddBoltAssemblies(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
