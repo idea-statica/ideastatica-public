@@ -21,11 +21,5 @@
     <ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\ideastatica-public\README.md">
-      <Pack>True</Pack>
-    </None>
-  </ItemGroup>
   
 </Project>

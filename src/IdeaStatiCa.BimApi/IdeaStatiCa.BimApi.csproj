@@ -26,11 +26,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\ideastatica-public\README.md">
-      <Pack>True</Pack>
-    </None>
-  </ItemGroup>
   
 </Project>

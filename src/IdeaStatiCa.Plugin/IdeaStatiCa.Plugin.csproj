@@ -43,12 +43,6 @@
     <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>
   
-  <ItemGroup>
-    <None Remove="Grpc\GrpcReflectionServiceContract.proto" />
-    <None Include="..\..\..\ideastatica-public\README.md">
-      <Pack>True</Pack>
-    </None>
-  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />

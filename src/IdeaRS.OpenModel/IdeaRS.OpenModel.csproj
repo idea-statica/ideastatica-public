@@ -44,13 +44,7 @@
 			<SubType>Designer</SubType>
 		</EmbeddedResource>
 	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="..\..\..\ideastatica-public\README.md">
-			<Pack>True</Pack>
-		</None>
-	</ItemGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" />
 	</ItemGroup>
