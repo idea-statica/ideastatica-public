@@ -6,7 +6,6 @@
 		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 		<PackageId>IdeaStatiCa.OpenModel</PackageId>
 		<Product>IdeaStatiCa.OpenModel</Product>
-		<PackageLicenseFile>README.md</PackageLicenseFile>
 		<PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
 		<Description>OpenModel used for IdeaStatiCa.Plugin, containing all base classes required for Plugin to fully work.</Description>
 	</PropertyGroup>
