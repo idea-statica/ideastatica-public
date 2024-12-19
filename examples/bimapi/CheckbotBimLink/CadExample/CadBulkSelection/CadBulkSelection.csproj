@@ -35,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.ItemsSorter" Version="24.0.0.3084" />
+		<PackageReference Include="IdeaStatiCa.ItemsSorter" VersionOverride="24.0.0.3084" />
 	</ItemGroup>
 
 </Project>

@@ -30,13 +30,13 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.0.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Autofac" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
   </ItemGroup>
     
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-    <PackageReference Include="IdeaStatica.BimApiLink" Version="24.1.2.1513" />
-    <PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.2.1513" />
+    <PackageReference Include="IdeaStatica.BimApiLink" VersionOverride="24.1.2.1513" />
+    <PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.2.1513" />
   </ItemGroup>
       
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">

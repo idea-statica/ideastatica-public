@@ -4,6 +4,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+    <PackageReference Include="MathNet.Spatial" />
   </ItemGroup>
 </Project>
