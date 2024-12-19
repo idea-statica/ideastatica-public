@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// Update a members cross-section with an avaliable one in the project.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task UpdateMemberCrossSection(ConnectionApiClient conClient)
+		public static async Task UpdateMemberCrossSection(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection - sections.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

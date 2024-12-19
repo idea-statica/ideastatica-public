@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// Get the list of avaliable Cross-sections in a project and Add some to the project. 
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task GetAndAddCrossSections(ConnectionApiClient conClient)
+		public static async Task GetAndAddCrossSections(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

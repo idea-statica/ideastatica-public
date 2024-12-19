@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// Set the bearing member of a connection.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task GetAndSetBearingMember(ConnectionApiClient conClient)
+		public static async Task GetAndSetBearingMember(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

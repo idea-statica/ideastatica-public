@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// </summary>
 		/// <param name="conClient"></param>
 		/// <returns></returns>
-		public static async Task SaveReport_Word(ConnectionApiClient conClient)
+		public static async Task SaveReport_Word(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);

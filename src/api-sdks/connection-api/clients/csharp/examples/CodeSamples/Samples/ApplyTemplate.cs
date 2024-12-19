@@ -9,7 +9,7 @@ namespace CodeSamples
 		/// This example applies a template to a naked connection project.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task ApplyTemplate(ConnectionApiClient conClient)
+		public static async Task ApplyTemplate(IConnectionApiClient conClient)
 		{
 			string filePath = "inputs/corner-empty.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

@@ -1,4 +1,6 @@
-﻿using IdeaStatiCa.ConnectionApi;
+﻿using IdeaStatiCa.Api.Common;
+using IdeaStatiCa.Api.Connection;
+using IdeaStatiCa.ConnectionApi;
 using System.Reflection;
 
 namespace CodeSamples
@@ -7,11 +9,91 @@ namespace CodeSamples
 	{
 		static async Task Main(string[] args)
 		{
-			// Create the client which is connected to the service.
-			ConnectionApiServiceAttacher clientFactory = new ConnectionApiServiceAttacher("http://localhost:5000");
-			using (var conClient = await clientFactory.CreateApiClient())
-			{
+			Console.WriteLine("App Started.");
+			Console.WriteLine("-----------");
+			
+			//SERVICE SELECTION
+			
+			Console.WriteLine("Please select an option:");
+			Console.WriteLine("0. Run API service and attach");
+			Console.WriteLine("1. Attach to an already running API service");
 
+			IApiServiceFactory<IConnectionApiClient> service = null;
+
+			while (true)
+			{
+				Console.Write("Enter your choice (0 or 1): ");
+				string serviceChoice = Console.ReadLine();
+
+				if (int.TryParse(serviceChoice, out int selection))
+				{
+					if (selection == 0)
+					{
+						// Run API service and attach
+						string defaultPath = @"C:\Program Files\IDEA StatiCa\StatiCa 24.1\net6.0-windows";
+						Console.WriteLine($"Provide path to IDEA StatiCa Directory. Hit Enter for default path ({defaultPath}).");
+
+						string path = Console.ReadLine();
+						if (string.IsNullOrWhiteSpace(path))
+						{
+							path = defaultPath;
+							Console.WriteLine($"Using default path: {path}");
+						}
+
+						if (!Directory.Exists(path))
+						{
+							Console.WriteLine($"Error: The specified directory '{path}' does not exist. Please try again.");
+							continue;
+						}
+
+						service = new ConnectionApiServiceRunner(path);
+					}
+					else if (selection == 1)
+					{
+						// Attach to already running API service
+						string defaultBasePath = "http://localhost:5000";
+						Console.WriteLine($"Provide base URL of the running API service. Hit Enter for default base URL ({defaultBasePath}).");
+
+						string basePath = Console.ReadLine();
+						if (string.IsNullOrWhiteSpace(basePath))
+						{
+							basePath = defaultBasePath;
+							Console.WriteLine($"Using default base URL: {basePath}");
+						}
+
+						if (!Uri.TryCreate(basePath, UriKind.Absolute, out Uri uriResult) ||
+							(uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps))
+						{
+							Console.WriteLine($"Error: The specified URL '{basePath}' is invalid. Please try again.");
+							continue;
+						}
+
+						service = new ConnectionApiServiceAttacher(basePath);
+					}
+
+					break; // Exit the loop once the service is successfully initialized
+				}
+				else
+				{
+					Console.WriteLine("Invalid input. Please enter 0 or 1.");
+				}
+			}
+
+			if (service != null)
+			{
+				Console.WriteLine("Service has been successfully initialized.");
+			}
+			else
+			{
+				Console.WriteLine("Service initialization failed. Please restart the application.");
+			}
+
+			Console.WriteLine("-----------");
+
+			//CLIENT CREATION
+
+			using (var conClient = await service.CreateApiClient())
+			{
 				// Get example methods from ClientExamples using reflection
 				MethodInfo[] exampleMethods = ClientExamples.GetExampleMethods();
 

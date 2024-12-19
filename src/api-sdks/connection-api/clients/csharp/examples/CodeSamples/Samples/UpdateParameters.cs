@@ -9,7 +9,7 @@ namespace CodeSamples
 		/// Modify a given connections parameters.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task UpdateParameters(ConnectionApiClient conClient)
+		public static async Task UpdateParameters(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/User_testing_end_v23_1.ideaCon";
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);

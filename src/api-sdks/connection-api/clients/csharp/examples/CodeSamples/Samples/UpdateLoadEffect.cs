@@ -11,7 +11,7 @@ namespace CodeSamples
 		/// Update existing load effects in a connection.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task UpdateLoadEffect(ConnectionApiClient conClient)
+		public static async Task UpdateLoadEffect(IConnectionApiClient conClient)
 		{
 			string filePath = "inputs/simple knee connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

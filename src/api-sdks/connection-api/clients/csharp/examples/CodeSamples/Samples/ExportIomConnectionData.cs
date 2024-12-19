@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// Gets the IOM Connection Data associated with a given connection.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task ExportIomConnectionData(ConnectionApiClient conClient) 
+		public static async Task ExportIomConnectionData(IConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
