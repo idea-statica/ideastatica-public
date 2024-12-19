@@ -15,7 +15,7 @@ namespace CodeSamples
 
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolderPath = GetExampleFolderPathOnDesktop("ExportIFC");
@@ -23,10 +23,10 @@ namespace CodeSamples
 			string ifcPath = Path.Combine(exampleFolderPath, connectionName + ".ifc");
 
 			//Export the connection to Ifc file.
-			await conClient.Export.ExportIfcFileAsync(conClient.ProjectId, connectionId, ifcPath);
+			await conClient.Export.ExportIfcFileAsync(conClient.ActiveProjectId, connectionId, ifcPath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

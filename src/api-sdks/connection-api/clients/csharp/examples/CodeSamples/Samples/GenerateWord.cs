@@ -16,7 +16,7 @@ namespace CodeSamples
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
 
 			//Get the first connection in the project.
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("GenerateReport");
@@ -26,12 +26,12 @@ namespace CodeSamples
 			string wordFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save Report to PDF.
-			await conClient.Report.SaveReportWordAsync(conClient.ProjectId, connectionId, wordFilePath);
+			await conClient.Report.SaveReportWordAsync(conClient.ActiveProjectId, connectionId, wordFilePath);
 
 			Console.WriteLine($"Report saved to: {wordFilePath}");
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

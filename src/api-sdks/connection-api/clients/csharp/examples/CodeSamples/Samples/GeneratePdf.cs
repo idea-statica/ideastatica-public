@@ -14,7 +14,7 @@ namespace CodeSamples
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("GenerateReport");
@@ -24,12 +24,12 @@ namespace CodeSamples
 			string pdfFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save Report to PDF
-			await conClient.Report.SaveReportPdfAsync(conClient.ProjectId, connectionId, pdfFilePath);
+			await conClient.Report.SaveReportPdfAsync(conClient.ActiveProjectId, connectionId, pdfFilePath);
 
 			Console.WriteLine($"Report saved to: {pdfFilePath}");
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

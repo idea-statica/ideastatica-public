@@ -14,14 +14,14 @@ namespace CodeSamples
 			string filePath = "Inputs/User_testing_end_v23_1.ideaCon";
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
 
-			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			//Get only visible parameters that we would expect to update.
-			List<IdeaParameter> parametersVisible = await conClient.Parameter.GetParametersAsync(conClient.ProjectId, connectionId, false);
+			List<IdeaParameter> parametersVisible = await conClient.Parameter.GetParametersAsync(conClient.ActiveProjectId, connectionId, false);
 
 			//You can get all the parameters using this call.
-			List<IdeaParameter> parametersAll = await conClient.Parameter.GetParametersAsync(conClient.ProjectId, connectionId, true);
+			List<IdeaParameter> parametersAll = await conClient.Parameter.GetParametersAsync(conClient.ActiveProjectId, connectionId, true);
 
 			//Update parameters
 			List<IdeaParameterUpdate> updates = new List<IdeaParameterUpdate>();
@@ -37,18 +37,18 @@ namespace CodeSamples
 				}
 			}
 
-			List<IdeaParameter> parameters = await conClient.Parameter.UpdateParametersAsync(conClient.ProjectId, connectionId, updates);
+			List<IdeaParameter> parameters = await conClient.Parameter.UpdateParametersAsync(conClient.ActiveProjectId, connectionId, updates);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("UpdateParameters");
 			string fileName = "User_testing_end_v23_1_updated.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
 	}
 }

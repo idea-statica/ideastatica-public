@@ -8,8 +8,8 @@ namespace CodeSamples
 		static async Task Main(string[] args)
 		{
 			// Create the client which is connected to the service.
-			ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-			using (var conClient = await clientFactory.CreateConnectionApiClient())
+			ConnectionApiServiceAttacher clientFactory = new ConnectionApiServiceAttacher("http://localhost:5000");
+			using (var conClient = await clientFactory.CreateApiClient())
 			{
 
 				// Get example methods from ClientExamples using reflection

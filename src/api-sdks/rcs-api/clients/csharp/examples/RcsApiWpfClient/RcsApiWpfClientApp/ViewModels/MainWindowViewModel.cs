@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.ConnectionApi;
+using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.RcsApi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using System;
@@ -12,11 +13,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ConApiWpfClientApp.ViewModels
+namespace RcsApiWpfClientApp.ViewModels
 {
 	public class MainWindowViewModel : ViewModelBase, IDisposable
 	{
-		private IApiServiceFactory<IConnectionApiClient>? _connectionApiClientFactory;
+		private IApiServiceFactory<IRcsApiClient>? _rcsApiClientFactory;
 		private readonly IConfiguration _configuration;
 		private readonly IPluginLogger _logger;
 
@@ -24,9 +25,9 @@ namespace ConApiWpfClientApp.ViewModels
 		private bool _runApiServer;
 
 		private string? outputText; 
-		ObservableCollection<ConnectionViewModel>? connectionsVM;
-		ConnectionViewModel? selectedConnection;
-		private ConProject? _projectInfo;
+		ObservableCollection<SectionViewModel>? connectionsVM;
+		SectionViewModel? selectedSection;
+		private RcsProject? _projectInfo;
 		private CancellationTokenSource cts;
 		//private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Default };
 		
@@ -35,39 +36,40 @@ namespace ConApiWpfClientApp.ViewModels
 		public MainWindowViewModel(IConfiguration configuration,
 			IPluginLogger logger)
 		{
-			this._connectionApiClientFactory = null;
+			this._rcsApiClientFactory = null;
 			this.cts = new CancellationTokenSource();
 			this._configuration = configuration;
 			this._logger = logger;
 
-			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
-			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
+			RunApiServer = string.IsNullOrEmpty(_configuration["RCS_API_RUNSERVER"]) ? true : _configuration["RCS_API_RUNSERVER"]! == "true";
+			ApiUri = string.IsNullOrEmpty(_configuration["RCS_API_RUNSERVER"]) ? null : new Uri(_configuration["RCS_API_ENDPOINT"]!);
 
-			ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => ConApiClient == null);
-			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConApiClient != null && this.ProjectInfo == null);
+			ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => RcsApiClient == null);
+			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => RcsApiClient != null && this.ProjectInfo == null);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
-			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
+			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedSection != null);
 
-			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
+			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedSection != null);
 
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
-			Connections = new ObservableCollection<ConnectionViewModel>();
-			selectedConnection = null;
+			Sections = new ObservableCollection<SectionViewModel>();
+			selectedSection = null;
 		}
 
 		private async Task CalculateAsync()
 		{
-			_logger.LogInformation("ApplyTemplateAsync");
+			await Task.CompletedTask;
+			_logger.LogInformation("CalculateAsync");
 
 			if (ProjectInfo == null)
 			{
 				return;
 			}
 
-			if (ConApiClient == null)
+			if (RcsApiClient == null)
 			{
 				return;
 			}
@@ -76,17 +78,16 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				var connectionIdList = new List<int>();
-				connectionIdList.Add(SelectedConnection!.Id);
+				connectionIdList.Add(SelectedSection!.Id);
 
-				var calcParam = new ConCalculationParameter()
+				var calcParam = new RcsCalculationParameters()
 				{
-					ConnectionIds = connectionIdList,
-					AnalysisType = ConAnalysisTypeEnum.Stress_Strain
+					Sections = connectionIdList
 				};
 
-				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, calcParam, 0, cts.Token);
+				var calculationResults = await RcsApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, calcParam, 0, cts.Token);
 
-				OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults);
+				OutputText = RcsApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults);
 			}
 			catch (Exception ex)
 			{
@@ -100,7 +101,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
-		public IConnectionApiClient? ConApiClient { get; set; }
+		public IRcsApiClient? RcsApiClient { get; set; }
 
 		public bool IsBusy
 		{
@@ -116,14 +117,14 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public Uri? ApiUri { get; set; }
 
-		public ConProject? ProjectInfo
+		public RcsProject? ProjectInfo
 		{
 			get { return _projectInfo; }
 			set { SetProperty(ref _projectInfo, value); }
 		}
 
 
-		public ObservableCollection<ConnectionViewModel>? Connections
+		public ObservableCollection<SectionViewModel>? Sections
 		{
 			get => connectionsVM;
 			set
@@ -132,13 +133,13 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
-		public ConnectionViewModel? SelectedConnection
+		public SectionViewModel? SelectedSection
 		{
-			get => selectedConnection;
+			get => selectedSection;
 			set
 			{
-				SetProperty(ref selectedConnection, value);
-				RefreshConnectionChanged();
+				SetProperty(ref selectedSection, value);
+				RefreshSectionChanged();
 			}
 		}
 
@@ -151,7 +152,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
-		public bool CanStartService => ConApiClient == null;
+		public bool CanStartService => RcsApiClient == null;
 
 		public AsyncRelayCommand ConnectCommand { get; }
 
@@ -174,13 +175,13 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("OpenProjectAsync");
 
-			if (ConApiClient == null)
+			if (RcsApiClient == null)
 			{
 				throw new Exception("IConnectionApiClient is not connected");
 			}
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "IdeaConnection | *.ideacon";
+			openFileDialog.Filter = "IdeaRcs | *.idearcs";
 			if (openFileDialog.ShowDialog() != true)
 			{
 				return;
@@ -189,22 +190,21 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				ProjectInfo = await ConApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
+				ProjectInfo = await RcsApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
 
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
-				
 
-				OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", ConApiClient.ClientId, ConApiClient.ActiveProjectId, projectInfoJson);
+				OutputText = string.Format("ProjectId = {0}\n\n{1}", RcsApiClient.Project.ProjectId, projectInfoJson);
 
-				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+				Sections = new ObservableCollection<SectionViewModel>(ProjectInfo.Sections.Select(s => new SectionViewModel(s)));
 
-				if (Connections.Any())
+				if (Sections.Any())
 				{
-					SelectedConnection = Connections.First();
+					SelectedSection = Sections.First();
 				}
 				else
 				{
-					SelectedConnection = null;
+					SelectedSection = null;
 				}
 			}
 			catch (Exception ex)
@@ -225,9 +225,9 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("ConnectAsync");
 
-			if (ConApiClient != null)
+			if (RcsApiClient != null)
 			{
-				throw new Exception("IConnectionApiController is already connected");
+				throw new Exception("IRcsApiController is already connected");
 			}
 
 			IsBusy = true;
@@ -235,8 +235,8 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				if (RunApiServer)
 				{
-					_connectionApiClientFactory = new ConnectionApiServiceRunner(_configuration["IdeaStatiCaSetupPath"]);
-					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
+					_rcsApiClientFactory = new RcsApiServiceRunner(_configuration["IdeaStatiCaSetupPath"]);
+					RcsApiClient = await _rcsApiClientFactory.CreateApiClient();
 				}
 				else
 				{
@@ -245,10 +245,10 @@ namespace ConApiWpfClientApp.ViewModels
 						throw new Exception("ApiUri is not set");
 					}
 
-					_connectionApiClientFactory = new ConnectionApiServiceAttacher(_configuration["CONNECTION_API_ENDPOINT"]!);
-					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
+					_rcsApiClientFactory = new RcsApiServiceAttacher(_configuration["RCS_API_ENDPOINT"]!);
+					RcsApiClient = await _rcsApiClientFactory.CreateApiClient();
 
-					//var connectionInfo = ConnectionController.GetConnectionInfo();
+					//var connectionInfo = RcsController.GetRcsInfo();
 					//OutputText = $"ClientId = {connectionInfo.Item1}, ProjectId = {connectionInfo.Item2}";
 				}
 			}
@@ -273,7 +273,7 @@ namespace ConApiWpfClientApp.ViewModels
 				return;
 			}
 
-			if (ConApiClient == null)
+			if (RcsApiClient == null)
 			{
 				return;
 			}
@@ -281,10 +281,10 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				await ConApiClient.Project.CloseProjectAsync(ProjectInfo.ProjectId, 0, cts.Token);
+				await RcsApiClient.Project.CloseProjectAsync(ProjectInfo.ProjectId, 0, cts.Token);
 				ProjectInfo = null;
-				SelectedConnection = null;
-				Connections = new ObservableCollection<ConnectionViewModel>();
+				SelectedSection = null;
+				Sections = new ObservableCollection<SectionViewModel>();
 				OutputText = string.Empty;
 			}
 			catch (Exception ex)
@@ -310,7 +310,7 @@ namespace ConApiWpfClientApp.ViewModels
 				return;
 			}
 
-			if (ConApiClient == null)
+			if (RcsApiClient == null)
 			{
 				return;
 			}
@@ -319,10 +319,10 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				SaveFileDialog saveFileDialog = new SaveFileDialog();
-				saveFileDialog.Filter = "IdeaConnection | *.ideacon";
+				saveFileDialog.Filter = "IdeaRcs | *.ideacon";
 				if (saveFileDialog.ShowDialog() == true)
 				{
-					await ConApiClient.Project.SaveProjectAsync(ProjectInfo.ProjectId, saveFileDialog.FileName, cts.Token);
+					await RcsApiClient.Project.SaveProjectAsync(ProjectInfo.ProjectId, saveFileDialog.FileName, cts.Token);
 				}
 			}
 			catch (Exception ex)
@@ -348,12 +348,12 @@ namespace ConApiWpfClientApp.ViewModels
 				return;
 			}
 
-			if (ConApiClient == null)
+			if (RcsApiClient == null)
 			{
 				return;
 			}
 
-			if ((selectedConnection == null))
+			if ((selectedSection == null))
 			{
 				return;
 			}
@@ -362,7 +362,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OpenFileDialog openFileDialog = new OpenFileDialog();
-				openFileDialog.Filter = "Connection Template | *.conTemp";
+				openFileDialog.Filter = "Rcs Template | *.conTemp";
 				if (openFileDialog.ShowDialog() != true)
 				{
 					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
@@ -375,34 +375,34 @@ namespace ConApiWpfClientApp.ViewModels
 					Template = templateXml
 				};
 
-				var templateMapping = await ConApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
-					selectedConnection.Id,
-					getTemplateParam,
-					0, cts.Token);
+				//var templateMapping = await RcsApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
+				//	selectedRcs.Id,
+				//	getTemplateParam,
+				//	0, cts.Token);
 
-				if (templateMapping == null)
-				{
-					throw new ArgumentException($"Invalid mapping for connection '{selectedConnection.Name}'");
-				}
+				//if (templateMapping == null)
+				//{
+				//	throw new ArgumentException($"Invalid mapping for connection '{selectedRcs.Name}'");
+				//}
 
-				var mappingSetter = new Services.TemplateMappingSetter();
-				var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
-				if (modifiedTemplateMapping == null)
-				{
-					// operation was canceled
-					return;
-				}
+				//var mappingSetter = new Services.TemplateMappingSetter();
+				//var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
+				//if (modifiedTemplateMapping == null)
+				//{
+				//	// operation was canceled
+				//	return;
+				//}
 
-				var applyTemplateParam = new ConTemplateApplyParam()
-				{
-					ConnectionTemplate = templateXml,
-					Mapping = modifiedTemplateMapping
-				};
+				//var applyTemplateParam = new ConTemplateApplyParam()
+				//{
+				//	RcsTemplate = templateXml,
+				//	Mapping = modifiedTemplateMapping
+				//};
 
-				var applyTemplateResult = await ConApiClient.Template.ApplyTemplateAsync(ProjectInfo.ProjectId,
-					SelectedConnection!.Id,
-					applyTemplateParam,
-					0, cts.Token);
+				//var applyTemplateResult = await RcsApiClient.Template.ApplyTemplateAsync(ProjectInfo.ProjectId,
+				//	SelectedRcs!.Id,
+				//	applyTemplateParam,
+				//	0, cts.Token);
 
 
 				OutputText = "Template was applied";
@@ -428,7 +428,7 @@ namespace ConApiWpfClientApp.ViewModels
 		//		return;
 		//	}
 
-		//	if (ConnectionController == null)
+		//	if (RcsController == null)
 		//	{
 		//		return;
 		//	}
@@ -436,7 +436,7 @@ namespace ConApiWpfClientApp.ViewModels
 		//	try
 		//	{
 		//		// Open a URL in the default web browser
-		//		var connectionInfo = ConnectionController.GetConnectionInfo();
+		//		var connectionInfo = RcsController.GetRcsInfo();
 		//		string url = string.Format("{0}/client-ui.html?clientId={1}&projectId={2}", ApiUri, connectionInfo.Item1, connectionInfo.Item2);
 		//		Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
 		//	}
@@ -453,19 +453,24 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				if (disposing)
 				{
-					if(ConApiClient != null)
+					try
 					{
-						ConApiClient.Dispose();
-						ConApiClient = null;
-					}
-
-					if (RunApiServer == true && _connectionApiClientFactory != null)
-					{
-						if (_connectionApiClientFactory is IDisposable disp)
-						{ 
-							disp.Dispose();
+						if (RcsApiClient != null)
+						{
+							RcsApiClient.Dispose();
+							RcsApiClient = null;
 						}
-						_connectionApiClientFactory = null;
+					}
+					finally
+					{
+						if (RunApiServer == true && _rcsApiClientFactory != null)
+						{
+							if (_rcsApiClientFactory is IDisposable disp)
+							{
+								disp.Dispose();
+							}
+							_rcsApiClientFactory = null;
+						}
 					}
 				}
 
@@ -492,7 +497,7 @@ namespace ConApiWpfClientApp.ViewModels
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
-		private void RefreshConnectionChanged()
+		private void RefreshSectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();

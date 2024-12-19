@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		
-		<PackageReference Include="IdeaStatiCa.SAF2IOM" VersionOverride="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.SAF2IOM" VersionOverride="24.1.2.1513" />
 		<PackageReference Include="System.Private.Uri" />
 		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="System.Net.Http" />
@@ -18,8 +18,8 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.1.1474" />
-		<PackageReference Include="IdeaStatiCa.Public" VersionOverride="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.Public" VersionOverride="24.1.2.1513" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">

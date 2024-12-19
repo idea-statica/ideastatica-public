@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Python Package
+name: Upload RcsClient Python Package
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
-      working-directory: ./python/rcsclient
+      working-directory: ./src/api-sdks/rcs-api/clients/python
     - name: Build and publish
       env:
         TWINE_USERNAME: __token__
@@ -31,4 +31,4 @@ jobs:
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
-      working-directory: ./python/rcsclient
+      working-directory: ./src/api-sdks/rcs-api/clients/python

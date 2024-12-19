@@ -1,17 +1,13 @@
-﻿using ConApiWpfClientApp.ViewModels;
-using ConApiWpfClientApp.Views;
-using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.ConnectionApi;
-
-//using IdeaStatiCa.ConnectionApi.Factory;
-using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using RcsApiWpfClientApp.ViewModels;
+using RcsApiWpfClientApp.Views;
 
-namespace ConApiWpfClientApp
+namespace RcsApiWpfClientApp
 {
 	/// <summary>
 	/// Interaction logic for App.xaml
