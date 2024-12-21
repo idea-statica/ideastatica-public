@@ -43,7 +43,7 @@ MyFeaBIMApp\bin\Release\net8.0\MyConApiClientApp.exe
 
 __Creating BIM Link in Visual Studio__
 
-To create the console client application for _IdeaStatiCa.ConnectionRestApi.dll_ select the template _IDEA StatiCa Connection Rest API Client Console_
+To create the console client application for _IdeaStatiCa.ConnectionRestApi.dll_ select the template _IDEA StatiCa Connection Rest API Client Console_. Similar to creating the BIM API FEA link :
 
 ![VS Wizard](../../../../..//docs/Images/vs-idea-templates.png?raw=true "VS Wizard")
 
