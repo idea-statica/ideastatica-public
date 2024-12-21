@@ -1,4 +1,4 @@
-#### Creating BIM Link by IDEA StatiCa project templates
+#### Creating the Connection Rest API Client by IDEA StatiCa project templates
 
 Since the IDEA StatiCa v24 BIM links projects can be created by project [dotnet templates](https://learn.microsoft.com/en-us/dotnet/core/tools/custom-templates). Templates help users to create a IDEA StatiCa BIM link projects. It requires to install [IdeaStatiCa.Dotnet.Templates](https://www.nuget.org/packages/IdeaStatiCa.Dotnet.Templates/). Open CMD terminal (or Powershell) and run :
 
