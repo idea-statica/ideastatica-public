@@ -40,7 +40,7 @@
 				</ListView.ItemContainerStyle>
 				<ListView.View>
 					<GridView>
-						<GridViewColumn Header="Connection name">
+						<GridViewColumn Header="Section name">
 							<GridViewColumn.CellTemplate>
 								<DataTemplate>
 									<StackPanel>

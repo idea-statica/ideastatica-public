@@ -39,7 +39,7 @@
     <PackageVersion Include="ini-parser" Version="2.5.2" />
     <PackageVersion Include="PolySharp" Version="1.13.2" />
     <PackageVersion Include="morelinq" Version="3.3.2" />
-    <PackageVersion Include="Polly" Version="7.2.4" />
+    <PackageVersion Include="Polly" Version="8.1.0" />
     <PackageVersion Include="Serilog" Version="4.0.0" />
     <PackageVersion Include="Serilog.Enrichers.Process" Version="3.0.0" />
     <PackageVersion Include="Serilog.Enrichers.Thread" Version="4.0.0" />
