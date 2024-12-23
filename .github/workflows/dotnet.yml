@@ -5,13 +5,13 @@ on:
   pull_request:
     branches: [ main ]
 
-env: # Define the global configuration variable
-  TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
-
 jobs:
   IdeaStatiCa_Public:
     name: "Build and Test IdeaStatiCa.Public.sln"
     runs-on: windows-latest
+
+    env: # Define the global configuration variable
+      TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
 
     steps:
     - name: Checkout
@@ -51,11 +51,11 @@ jobs:
         path: main
 
     - name: Dotnet restore dependencies
-      run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln
       working-directory: main
 
     - name: Build
-      run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release
       working-directory: main
 
   RcsRestApiClient:
@@ -68,11 +68,10 @@ jobs:
       with:
         path: main
 
-  
     - name: Dotnet restore dependencies
-      run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln
       working-directory: main
 
     - name: Build
-      run:  dotnet build ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run:  dotnet build ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release
       working-directory: main      
