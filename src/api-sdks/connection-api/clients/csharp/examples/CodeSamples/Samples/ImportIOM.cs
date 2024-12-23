@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// Creates a new connection project from a selected IOM file. The first connection point in the IOM file will be added to the project.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task CreateProjectFromIom(ConnectionApiClient conClient) 
+		public static async Task CreateProjectFromIom(IConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/multiple_connections.xml";
 			await conClient.Project.CreateProjectFromIomFileAsync(filePath);
@@ -32,7 +32,7 @@ namespace CodeSamples
 		/// User can select which connections from the IOM file are to be created in the connection project.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task CreateProjectFromIOM_Multiple(ConnectionApiClient conClient)
+		public static async Task CreateProjectFromIOM_Multiple(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/multiple_connections.xml";
 
