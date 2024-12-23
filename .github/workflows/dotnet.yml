@@ -5,13 +5,13 @@ on:
   pull_request:
     branches: [ main ]
 
+env: # Define the global configuration variable
+  TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
+
 jobs:
   IdeaStatiCa_Public:
     name: "Build and Test IdeaStatiCa.Public.sln"
     runs-on: windows-latest
-
-    env: # Define the global configuration variable
-      TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
 
     steps:
     - name: Checkout
