@@ -6,10 +6,10 @@
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.4.0" />
-    <PackageReference Include="Idea.Bentley.Ram" Version="17.2.14" />
-    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
-    <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+    <PackageReference Include="Autofac" />
+    <PackageReference Include="Idea.Bentley.Ram"/>
+    <PackageReference Include="MathNet.Numerics" />
+    <PackageReference Include="MathNet.Spatial" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />

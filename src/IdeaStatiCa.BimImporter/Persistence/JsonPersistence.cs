@@ -110,7 +110,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			//Make an array for the list of assemblies.
 			Assembly[] assems = currentDomain.GetAssemblies();
 
-			var foundAssembly = assems.Find(asem => (asem.ManifestModule.Name == args.Name || asem.ManifestModule.Name == args.Name + ".dll"));
+			var foundAssembly = Array.Find(assems, asem => (asem.ManifestModule.Name == args.Name || asem.ManifestModule.Name == args.Name + ".dll"));
 			//for framework 4.8 app it trying load System.Core assembly and it cause crash. in assembly list its System.Core.dll 
 			if (foundAssembly == null)
 			{

@@ -7,7 +7,7 @@ using static System.Collections.Specialized.BitVector32;
 using IdeaRS.OpenModel.Concrete;
 using System.Web;
 
-namespace ST_RcsRestApi
+namespace ST_RcsRestApiClient
 {
 	public class RcsRestApiTests : RcsRestApiBaseTest
 	{

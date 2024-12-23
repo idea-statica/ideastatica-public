@@ -9,26 +9,7 @@ IDEA StatiCa RCS API, used for the automated design and calculation of reinforce
 
 <a id="frameworks-supported"></a>
 ## Frameworks supported
-- .NET Core >=1.0
-- .NET Framework >=4.6
-- Mono/Xamarin >=vNext
-
-<a id="dependencies"></a>
-## Dependencies
-
-- [RestSharp](https://www.nuget.org/packages/RestSharp) - 106.13.0 or later
-- [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/) - 13.0.2 or later
-- [JsonSubTypes](https://www.nuget.org/packages/JsonSubTypes/) - 1.8.0 or later
-
-The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
-```
-Install-Package RestSharp
-Install-Package Newtonsoft.Json
-Install-Package JsonSubTypes
-```
-
-NOTE: RestSharp versions greater than 105.1.0 have a bug which causes file uploads to fail. See [RestSharp#742](https://github.com/restsharp/RestSharp/issues/742).
-NOTE: RestSharp for .Net Core creates a new socket for each api call, which can lead to a socket exhaustion problem. See [RestSharp#1406](https://github.com/restsharp/RestSharp/issues/1406).
+- .NET Standard >=2.0
 
 <a id="installation"></a>
 ## Installation
@@ -36,40 +17,35 @@ NOTE: RestSharp for .Net Core creates a new socket for each api call, which can 
 ### NuGet package
 
 We recommend installing the package to your project using NuGet. This will ensure all dependencies are automatically installed.
+See [IdeaStatiCa.RcsApi](https://www.nuget.org/packages/IdeaStatiCa.RcsApi/)
 
 ### Building from source
 
-Generate the DLL using your preferred tool (e.g. `dotnet build`) or opening the avaliable Visual Studio solution (.sln) and building.
+Generate the DLL using your preferred tool (e.g. `dotnet build`) or opening the avaliable Visual Studio solution (.sln) and building. See [RcsRestApiClient.sln](RcsRestApiClient.sln)
 
-Then include the DLL (under the `bin` folder) in the C# project.
+Projects can be created by the template or the the wizard in Visual Studio. See [Rcs Rest API client wizard](project-template.md).
 
-Once included in your project, add the following namespaces:
-```csharp
-using IdeaStatiCa.RcsApi.Api;
-using IdeaStatiCa.RcsApi.Client;
-using IdeaStatiCa.RcsApi.Model;
-```
 
 
 <a id="usage"></a>
 ## Usage
 
-`ClientApiClientFactory` manages creation of clients on the running service. 
+`RcsApiServiceAttacher` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 24.0\net6.0-windows" folder. Using CLI:
 
 ```console
-IdeaStatiCa.ConnectionRestApi.exe -port:5000
+IdeaStatiCa.RcsRestApi.exe -port:5000
 ```
 
 ```csharp
 // Connect any new service to latest version of IDEA StatiCa.
-ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory('http://localhost:5000/');
+RcsApiServiceAttacher clientFactory = new RcsApiServiceAttacher('http://localhost:5000/');
 ```
 
 ```csharp
-IConnectionApiClient conClient = await clientFactory.CreateConnectionApiClient();
+IRcsApiClient conClient = await clientFactory.CreateApiClient();
 ```
 
 
@@ -81,9 +57,9 @@ The below snippet shows a simple getting started example which opens an IDEA Sta
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
-using IdeaStatiCa.RcsApi.Api;
-using IdeaStatiCa.RcsApi.Client;
-using IdeaStatiCa.RcsApi.Model;
+using IdeaStatiCa.Api.Common;
+using IdeaStatiCa.Api.RCS.Model;
+using IdeaStatiCa.RcsApi;
 
 namespace Example
 {
@@ -91,41 +67,32 @@ namespace Example
     {
         public static void Main()
         {
-            // Create client factory object. The service will be automatically started at the latest version of IDEA StatiCa.  
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory();
+            string rcsFile = "myRcsProject.ideaRcs"; // path to the RCS project file
             
-            //Creates automatically configured API client.
-            using(IConnectionApiClient conClient = await clientFactory.CreateConnectionApiClient())
-            {
-                //Use project controller to open a project.
-                var project = await conClient.Project.Open("myProject.ideaCon");
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
 
-                //Get projectId Guid
-			    Guid projectId = conProject.ProjectId;
-
-                var connections = await conClient.Connection.GetConnectionsAsync(projectId);
-			    int connectionId = connections[0].Id;
-
-                //Close the project
-                await conClient.Project.Close();
-
-                try
+            // Create client factory object. The service will be automatically started at the latest version of IDEA StatiCa.  
+            using(var clientFactory = new RcsApiServiceRunner(ideaStatiCaPath))
+            {  
+                //Creates automatically configured API client.
+                using (var rcsClient = await clientFactory.CreateApiClient())
                 {
-                    ConCalculationParameter calculationParams = new ConCalculationParameter();
-                    calculationParams.ConnectionIds = new List<int> { connectionId };
+                    // open the project and get its id
+                    var projData = await rcsClient.Project.OpenProjectAsync(rcsFile, cancellationToken);
 
-                    //Calculate the first connection of the project.
-                    List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(projectId, calculationParams);
-                }
-                catch (ApiException e)
-                {
-                    Debug.Print("Exception when calling calculation of the connection: " + e.Message );
-                    Debug.Print("Status Code: "+ e.ErrorCode);
-                    Debug.Print(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    if(!projData.Sections.Any())
+                    {
+                        return null;
+                    }
+
+                    RcsCalculationParameters rcsCalcParam = new RcsCalculationParameters()
+                    {
+                        Sections = projData.Sections.Select(s => s.Id).ToList()
+                    };
+                    
+                    var rcsSectResults = await rcsClient.Calculation.CalculateAsync(projData.ProjectId, rcsCalcParam, 0, cancellationToken);
+
+                    await rcsClient.Project.CloseProjectAsync(projData.ProjectId);
                 }
             }
         }
@@ -241,7 +208,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 1.0
-- SDK version: 24.1.2.1474
+- SDK version: 24.1.3.0764
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

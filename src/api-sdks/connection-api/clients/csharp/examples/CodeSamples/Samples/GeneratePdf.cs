@@ -9,7 +9,7 @@ namespace CodeSamples
 		/// Save the pdf report of a given connection.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task SaveReport_Pdf(ConnectionApiClient conClient)
+		public static async Task SaveReport_Pdf(IConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

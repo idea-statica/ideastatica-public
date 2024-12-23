@@ -9,7 +9,7 @@ namespace CodeSamples
 		/// This example exports the connection to Idea Open Model (IOM).
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task ExportIomModel_NOTWORKING(ConnectionApiClient conClient) 
+		public static async Task ExportIomModel(IConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);

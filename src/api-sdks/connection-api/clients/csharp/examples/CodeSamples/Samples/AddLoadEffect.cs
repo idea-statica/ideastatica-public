@@ -10,17 +10,13 @@ namespace CodeSamples
 		/// This example adds a new load effect to an opened project.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task AddLoadEffect(ConnectionApiClient conClient)
+		public static async Task AddLoadEffect(IConnectionApiClient conClient)
 		{
 			string filePath = "inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
-
-			ConLoadSettings loadSettings = await conClient.LoadEffect.GetLoadSettingsAsync(conClient.ActiveProjectId, connectionId);
-
-			Console.WriteLine(loadSettings.ToString());
 
 			// Get Load Effects
 			List<ConLoadEffect> loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(conClient.ActiveProjectId, connectionId);
@@ -46,6 +42,9 @@ namespace CodeSamples
 				if (newLoadEffect != null)
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}");
 			}
+
+			// Get Load Effects after add.
+			loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(conClient.ActiveProjectId, connectionId);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("AddLoadEffect");
 			

@@ -53,11 +53,11 @@
   
 	
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.1.1474" />
+	<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.1.1474" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
