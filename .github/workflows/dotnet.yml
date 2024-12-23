@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 jobs:
-  IdeaStatiCa.Public:
+  IdeaStatiCa_Public:
     name: "Build and Test IdeaStatiCa.Public.sln"
     runs-on: windows-latest
 
