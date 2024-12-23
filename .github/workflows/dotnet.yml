@@ -6,8 +6,8 @@ on:
     branches: [ main ]
 
 jobs:
-  BuildAndTest:
-    name: "Build and Test IOM"
+  IdeaStatiCa.Public:
+    name: "Build and Test IdeaStatiCa.Public.sln"
     runs-on: windows-latest
 
     env: # Define the global configuration variable
@@ -39,3 +39,57 @@ jobs:
     - name: Test
       run: dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
+
+  ConRestApiClient:
+    name: "Build and Test ConRestApiClient.sln"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        path: main
+
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1.2
+
+    - name: Dotnet restore dependencies
+      run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      working-directory: main
+
+    - name: Build
+      run:  msbuild ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      working-directory: main
+
+  RcsRestApiClient:
+    name: "Build and Test RcsRestApiClient.sln"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        path: main
+
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1.2
+
+    - name: Dotnet restore dependencies
+      run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      working-directory: main
+
+    - name: Build
+      run:  msbuild ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      working-directory: main      
