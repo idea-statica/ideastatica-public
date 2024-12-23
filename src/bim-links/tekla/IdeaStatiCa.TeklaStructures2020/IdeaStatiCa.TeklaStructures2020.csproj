@@ -8,11 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Autofac" Version="6.4.0" />
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-		<PackageReference Include="morelinq" Version="3.3.2" />
-		<PackageReference Include="System.Management" Version="7.0.2" />
-		<PackageReference Include="TeklaOpenAPI" Version="2020.0.2">
+		<PackageReference Include="Autofac" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" />
+		<PackageReference Include="morelinq" />
+		<PackageReference Include="System.Management" />
+		<PackageReference Include="TeklaOpenAPI">
 			<PrivateAssets>all</PrivateAssets>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>

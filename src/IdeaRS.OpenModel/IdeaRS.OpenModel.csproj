@@ -6,7 +6,6 @@
 		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 		<PackageId>IdeaStatiCa.OpenModel</PackageId>
 		<Product>IdeaStatiCa.OpenModel</Product>
-		<PackageLicenseFile>README.md</PackageLicenseFile>
 		<PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
 		<Description>OpenModel used for IdeaStatiCa.Plugin, containing all base classes required for Plugin to fully work.</Description>
 	</PropertyGroup>
@@ -44,16 +43,9 @@
 			<SubType>Designer</SubType>
 		</EmbeddedResource>
 	</ItemGroup>
-
+	
 	<ItemGroup>
-		<None Include="..\..\..\ideastatica-public\README.md">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" />
 	</ItemGroup>
 
 </Project>

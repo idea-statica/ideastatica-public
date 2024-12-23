@@ -9,8 +9,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="PropertyChanged.Fody" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -19,7 +19,7 @@
 	</ItemGroup>
 		
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.2.1513" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
+		<PackageReference Include="System.Private.Uri" />
 	</ItemGroup>
 	
 	<ItemGroup>

@@ -34,13 +34,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="..\..\..\ideastatica-public\README.md">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
-	</ItemGroup>
 	
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
@@ -48,8 +41,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Net.Http" Version="4.3.4" />
-		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+		<PackageReference Include="System.Net.Http" />
+		<PackageReference Include="System.Text.RegularExpressions" />
 	</ItemGroup>
 
 </Project>

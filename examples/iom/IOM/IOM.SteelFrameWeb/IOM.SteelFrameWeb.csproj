@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.2.1513" />
+	<PackageReference Include="IdeaStatiCa.OpenModel" VersionOverride="24.1.2.1513" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
