@@ -50,21 +50,12 @@ jobs:
       with:
         path: main
 
-    - name: Setup .NET
-      uses: microsoft/setup-msbuild@v1
-
-    - name: Setup nuget.exe
-      uses: NuGet/setup-nuget@v1
-      
-    - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1.2
-
     - name: Dotnet restore dependencies
       run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
 
     - name: Build
-      run:  msbuild ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
 
   RcsRestApiClient:
@@ -77,19 +68,11 @@ jobs:
       with:
         path: main
 
-    - name: Setup .NET
-      uses: microsoft/setup-msbuild@v1
-
-    - name: Setup nuget.exe
-      uses: NuGet/setup-nuget@v1
-      
-    - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1.2
-
+  
     - name: Dotnet restore dependencies
       run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
 
     - name: Build
-      run:  msbuild ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run:  dotnet build ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main      
