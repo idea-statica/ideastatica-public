@@ -307,13 +307,8 @@ namespace IdeaRS.OpenModel.Connection
 	/// <summary>
 	/// Provides data of the single weld
 	/// </summary>
-	public class WeldData
+	public class WeldData : OpenElementId
 	{
-		/// <summary>
-		/// Id of the weld
-		/// </summary>
-		public int Id { get; set; }
-
 		/// <summary>
 		/// Name of the weld
 		/// </summary>
@@ -502,7 +497,7 @@ namespace IdeaRS.OpenModel.Connection
 	/// <summary>
 	/// Provides data of the cut beam
 	/// </summary>
-	public class CutData
+	public class CutData : OpenElementId
 	{
 		/// <summary>
 		/// 3DPlane Point
@@ -527,7 +522,7 @@ namespace IdeaRS.OpenModel.Connection
 	/// <summary>
 	/// Provides data of the cut objec by object
 	/// </summary>
-	public class CutBeamByBeamData
+	public class CutBeamByBeamData : OpenElementId
 	{
 		/// <summary>
 		/// Name of the cut
