@@ -12,7 +12,7 @@
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" />
 		<PackageReference Include="morelinq" />
 		<PackageReference Include="System.Management" />
-		<PackageReference Include="TeklaOpenAPI">
+		<PackageReference Include="TeklaOpenAPI" VersionOverride="2020.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>

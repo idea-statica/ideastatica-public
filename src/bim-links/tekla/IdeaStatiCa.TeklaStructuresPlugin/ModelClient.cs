@@ -521,7 +521,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		protected static string GetHashString(string inputString)
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach (byte b in GetHash(inputString))
+			foreach (byte b in GetHash(inputString).Take(8))// Take only the first 8 bytes
 				sb.Append(b.ToString("X2"));
 
 			return sb.ToString();
