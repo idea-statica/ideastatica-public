@@ -9,26 +9,8 @@ IDEA StatiCa Connection API, used for the automated design and calculation of st
 
 <a id="frameworks-supported"></a>
 ## Frameworks supported
-- .NET Core >=1.0
-- .NET Framework >=4.6
-- Mono/Xamarin >=vNext
+- .NET Standard >=2.0
 
-<a id="dependencies"></a>
-## Dependencies
-
-- [RestSharp](https://www.nuget.org/packages/RestSharp) - 106.13.0 or later
-- [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/) - 13.0.2 or later
-- [JsonSubTypes](https://www.nuget.org/packages/JsonSubTypes/) - 1.8.0 or later
-
-The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
-```
-Install-Package RestSharp
-Install-Package Newtonsoft.Json
-Install-Package JsonSubTypes
-```
-
-NOTE: RestSharp versions greater than 105.1.0 have a bug which causes file uploads to fail. See [RestSharp#742](https://github.com/restsharp/RestSharp/issues/742).
-NOTE: RestSharp for .Net Core creates a new socket for each api call, which can lead to a socket exhaustion problem. See [RestSharp#1406](https://github.com/restsharp/RestSharp/issues/1406).
 
 <a id="installation"></a>
 ## Installation
@@ -36,19 +18,11 @@ NOTE: RestSharp for .Net Core creates a new socket for each api call, which can 
 ### NuGet package
 
 We recommend installing the package to your project using NuGet. This will ensure all dependencies are automatically installed.
+See [IdeaStatiCa.ConnectionApi](https://www.nuget.org/packages/IdeaStatiCa.ConnectionApi/)
 
 ### Building from source
 
-Generate the DLL using your preferred tool (e.g. `dotnet build`) or opening the avaliable Visual Studio solution (.sln) and building.
-
-Then include the DLL (under the `bin` folder) in the C# project.
-
-Once included in your project, add the following namespaces:
-```csharp
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
-```
+Generate the DLL using your preferred tool (e.g. `dotnet build`) or opening the avaliable Visual Studio solution (.sln) and building. See [ConRestApiClient.sln](ConRestApiClient.sln)
 
 
 <a id="usage"></a>
@@ -65,12 +39,14 @@ IdeaStatiCa.ConnectionRestApi.exe -port:5193
 
 ```csharp
 // Connect any new service to latest version of IDEA StatiCa.
-ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory('http://localhost:5000/');
+ConnectionApiServiceAttacher clientFactory = new ConnectionApiServiceAttacher('http://localhost:5000/');
 ```
 
 ```csharp
-IConnectionApiClient conClient = await clientFactory.CreateConnectionApiClient();
+IConnectionApiClient conClient = await clientFactory.CreateApiClient();
 ```
+
+A project can be created by the template or the the wizard in Visual Studio. See [Connection Rest API client wizard](project-template.md).
 
 
 <a id="getting-started"></a>
@@ -81,9 +57,9 @@ The below snippet shows a simple getting started example which opens an IDEA Sta
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
+using IdeaStatiCa.Api.Common;
+using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.ConnectionApi;
 
 namespace Example
 {
@@ -91,42 +67,33 @@ namespace Example
     {
         public static void Main()
         {
-            // Create client factory object. The service will be automatically started at the latest version of IDEA StatiCa.  
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory();
-            
-            //Creates automatically configured API client.
-            using(IConnectionApiClient conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "test1.ideaCon";
+
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
+
+            using(clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                //Use project controller to open a project.
-                var project = await conClient.Project.Open("myProject.ideaCon");
-
-                //Get projectId Guid
-			    Guid projectId = conProject.ProjectId;
-
-                var connections = await conClient.Connection.GetConnectionsAsync(projectId);
-			    int connectionId = connections[0].Id;
-
-                //Close the project
-                await conClient.Project.Close();
-
-                try
+                // create ConnectionApiClient
+                using (var conClient = await _clientFactory.CreateApiClient())
                 {
-                    ConCalculationParameter calculationParams = new ConCalculationParameter();
-                    calculationParams.ConnectionIds = new List<int> { connectionId };
+                    // open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile, cancellationToken);
 
-                    //Calculate the first connection of the project.
-                    List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(projectId, calculationParams);
-                }
-                catch (ApiException e)
-                {
-                    Debug.Print("Exception when calling calculation of the connection: " + e.Message );
-                    Debug.Print("Status Code: "+ e.ErrorCode);
-                    Debug.Print(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
-                }
+                    if(!projData.Connections.Any())
+                    {
+                        return null;
+                    }
+
+                    // request to run plastic CBFEM for all connections in the project
+                    ConCalculationParameter conCalcParam = new ConCalculationParameter()
+                    {
+                        AnalysisType = ConAnalysisTypeEnum.Stress_Strain,
+                        ConnectionIds = projData.Connections.Select(c => c.Id).ToList()
+                    };
+
+                    var cbfemResult = await conClient.Calculation.CalculateAsync(projData.ProjectId, conCalcParam, 0, cancellationToken);
+                    await conClient.Project.CloseProjectAsync(projData.ProjectId);
+                }               
             }
         }
     }
@@ -369,7 +336,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 1.0
-- SDK version: 24.1.2.1474
+- SDK version: 24.1.3.0752
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)
