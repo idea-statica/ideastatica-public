@@ -98,6 +98,7 @@ namespace IdeaRS.OpenModel.Material
 		}
 
 		#endregion
+
 		#region Washer
 		/// <summary>
 		/// Thickness of washer
