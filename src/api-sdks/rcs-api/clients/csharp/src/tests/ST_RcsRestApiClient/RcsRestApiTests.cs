@@ -89,7 +89,7 @@ namespace ST_RcsRestApiClient
 		}
 
 		[Test]
-		public async Task ShouldGetCodeSettins()
+		public async Task ShouldGetAndUpdateCodeSettings()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
@@ -116,10 +116,25 @@ namespace ST_RcsRestApiClient
 			gamma_c_val1.Value.Should().Be("1.5");
 			gamma_c_val1.Value = "1.4";
 
-			var newSettings = new List<RcsSetting>();
+
+
+			var newSettings = new List<RcsSetting>()
+			{
+				 new RcsSetting()
+				 {
+					 Id=10,
+					 Type="CI.Services.Setup.SetupTable_W_max_1992_1_1", 
+					 Value="{\"X0_XC1_RC\":0.0001, \"XC2_XC3_RC\":0.0002, \"XD_XS_XF_RC\":0.0003, \"X0_XC1_PC\":0.0004, \"XC2_XC3_PC_DV\":0.026, \"XC2_XC3_PC_CV\": 0.0002, \"XD_XS_XF_PCB_DV\": 0.025, \"XD_XS_XF_PCB_CV\":0.0002, \"XC2_XC3_PCB_DB\":true, \"XC2_XC3_PCB_CB\": true, \"XD_XS_XF_PCB_DB\": true, \"XD_XS_XF_PCB_CB\": false}"
+				 },
+			};
 			var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings);
 
 			updateResult.Should().BeTrue();
+
+			settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			setupValues = xmlDoc.Descendants("SetupValue");
+			XElement updateSettingsValue = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "10").FirstOrDefault();
+			updateSettingsValue.Should().NotBeNull();
 		}
 
 		[Test]
