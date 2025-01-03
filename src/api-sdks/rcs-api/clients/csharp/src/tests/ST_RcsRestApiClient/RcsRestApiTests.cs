@@ -89,7 +89,7 @@ namespace ST_RcsRestApiClient
 		}
 
 		[Test]
-		public async Task ShouldGetAndUpdateCodeSettins()
+		public async Task ShouldGetAndUpdateCodeSettings()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
