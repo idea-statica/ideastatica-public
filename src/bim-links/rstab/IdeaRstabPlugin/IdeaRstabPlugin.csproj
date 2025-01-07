@@ -2,10 +2,11 @@
   <Import Project="..\..\..\Common.props" />
   
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
     <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
+	<EnableComHosting>true</EnableComHosting>	
   </PropertyGroup>
   
   <ItemGroup>
@@ -25,8 +26,7 @@
     <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="WindowsBase" />
+  <ItemGroup>    
 
     <Reference Include="Dlubal.RSTAB6">
       <HintPath>libs\Dlubal.RSTAB6.dll</HintPath>

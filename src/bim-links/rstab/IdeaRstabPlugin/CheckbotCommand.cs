@@ -12,6 +12,7 @@ using System.Threading;
 namespace IdeaRstabPlugin
 {
 	[ComVisible(true)]
+	[Guid("E3FC6C61-64D2-479F-A103-0ADD30F89730")]
 	public class CheckbotCommand : IExternalCommand
 	{
 		private readonly static IPluginLogger _logger;
