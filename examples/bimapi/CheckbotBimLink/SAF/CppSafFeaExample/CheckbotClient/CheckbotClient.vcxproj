@@ -108,19 +108,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>8.0.0</Version>
+      <VersionOverride>8.0.0</VersionOverride>
     </PackageReference>
     <PackageReference Include="Autofac.Extensions.DependencyInjection">
-      <Version>9.0.0</Version>
+      <VersionOverride>9.0.0</VersionOverride>
     </PackageReference>
     <PackageReference Include="IdeaStatica.BimApiLink">
-      <Version>24.1.0.3003</Version>
+      <VersionOverride>24.1.2.1513</VersionOverride>
     </PackageReference>
     <PackageReference Include="IdeaStatiCa.Plugin">
-      <Version>24.1.0.3003</Version>
+      <VersionOverride>24.1.2.1513</VersionOverride>
     </PackageReference>
     <PackageReference Include="MathNet.Spatial">
-      <Version>0.6.0</Version>
+      <VersionOverride>0.6.0</VersionOverride>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
