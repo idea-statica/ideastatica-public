@@ -1,15 +1,15 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimImporter;
-using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdea;
 using IdeaStatiCa.RamToIdeaApp.Models;
-using Serilog.Core;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace IdeaStatiCa.RamToIdeaApp.Services
 {
+	/// <summary>
+	/// The logic of converting Ram model to <see cref="ModelBIM"/>"
+	/// </summary>
 	public class ProjectService : IProjectService
 	{
 		private readonly IPluginLogger _logger;
@@ -19,6 +19,14 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			this._logger = logger;
 		}
 
+		/// <summary>
+		/// Convert all Ram model to <see cref="ModelBIM"/>
+		/// </summary>
+		/// <param name="projectInfo"></param>
+		/// <param name="project"></param>
+		/// <param name="countryCode"></param>
+		/// <returns></returns>
+		/// <exception cref="System.Exception"></exception>
 		public ModelBIM GetModel(IProjectInfo projectInfo, IProject project, CountryCode countryCode)
 		{
 			_logger.LogDebug($"ProjectService.GetModel : Opening database '{projectInfo.RamDbFileName}'");
@@ -47,22 +55,6 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 		public bool IsAvailable()
 		{
 			return RamDatabase.IsInstalled();
-		}
-
-		private static void LoadMapping(JsonPersistence persistence, string persistencePath)
-		{
-			if (File.Exists(persistencePath))
-			{
-				using (FileStream fs = File.OpenRead(persistencePath))
-				{
-					persistence.Load(fs);
-				}
-			}
-		}
-
-		private string GetPersistencePath(string ramDbFileName)
-		{
-			return string.Empty;
 		}
 	}
 }

@@ -6,6 +6,9 @@ using IdeaStatiCa.RamToIdeaApp.Models;
 
 namespace IdeaStatiCa.RamToIdeaApp.Services
 {
+	/// <summary>
+	/// Responsible for starting of communication between the plugin and the IDEA Checkbot.
+	/// </summary>
 	public class RamPluginFactory : IBIMPluginFactory
 	{
 		IProjectInfo _projectInfo;
@@ -17,6 +20,13 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		public string IdeaStaticaAppPath => "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1\\IdeaCheckbot.exe";
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="projectInfo"></param>
+		/// <param name="projectService"></param>
+		/// <param name="logger"></param>
+		/// <param name="remoteApp"></param>
 		public RamPluginFactory(IProjectInfo projectInfo, IProjectService projectService, IPluginLogger logger, IProgressMessaging remoteApp)
 		{
 			_projectService = projectService;
@@ -25,13 +35,16 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			_logger = logger;
 		}
 
+		/// <summary>
+		/// Create the instance of the application
+		/// </summary>
+		/// <returns></returns>
 		public IApplicationBIM Create()
 		{
 			IFilePersistence persistence = new JsonPersistence(_logger);
 			IProject project = new Project(_logger, persistence, new ObjectRestorerDummy());
 
 			return new RamFeaApplication(_projectInfo, project, persistence, _projectService, _remoteApp, _logger);
-
 		}
 
 		private class ObjectRestorerDummy : IObjectRestorer

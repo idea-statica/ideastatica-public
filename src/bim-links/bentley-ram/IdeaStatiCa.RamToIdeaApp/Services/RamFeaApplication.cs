@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace IdeaStatiCa.RamToIdeaApp.Services
 {
 	/// <summary>
-	/// Responsible for creationg of <see cref="ModelBIM"/> from Ram model."/>
+	/// Responsible for creating of <see cref="ModelBIM"/> from Ram model."
+	/// Callback functions from Checkbot to import active and selected items from Ram
 	/// </summary>
 	public class RamFeaApplication : ApplicationBIMAsync
 	{

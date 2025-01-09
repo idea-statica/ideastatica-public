@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdeaApp.Models;
 using IdeaStatiCa.RamToIdeaApp.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
@@ -13,15 +14,27 @@ namespace IdeaStatiCa.RamToIdeaApp.ViewModels
 	{
 		private readonly IProjectService _projectService;
 		private readonly IPluginLogger _logger;
-		//private readonly IBIMPluginFactory _bimPluginFactory;
+		private readonly IConfiguration _configuration;
+		private readonly bool _isRamApp;
+		IBIMPluginHosting PluginHosting { get; set; }
 
-		public MainWindowViewModel(IProjectService projectService, IPluginLogger logger)
+		public MainWindowViewModel(IProjectService projectService, IConfiguration configuration, IPluginLogger logger)
 		{
+			this._configuration = configuration;
 			this._logger = logger;
 			this._projectService = projectService;
-			RunCheckBotCommand = new AsyncRelayCommand(RunCheckbotAsync, CanRunCheckbotAsync);
+			this._isRamApp = projectService.IsAvailable();
 
-			//_bimPluginFactory = new RamPluginFactory(this.ProjectInfo, _logger);
+			if (!_isRamApp)
+			{
+				Status = "RAM is not installed on the computer";
+			}
+			else
+			{
+				Status = "RAM is installed on the computer";
+			}
+
+			RunCheckBotCommand = new AsyncRelayCommand(RunCheckbotAsync, CanRunCheckbotAsync);
 		}
 
 		public IAsyncRelayCommand RunCheckBotCommand { get; }
@@ -30,7 +43,7 @@ namespace IdeaStatiCa.RamToIdeaApp.ViewModels
 
 		private bool CanRunCheckbotAsync()
 		{
-			return true;
+			return _isRamApp && PluginHosting != null;
 		}
 
 		private string SelectRamProject()
@@ -45,12 +58,17 @@ namespace IdeaStatiCa.RamToIdeaApp.ViewModels
 			return openFileDialog.FileName;
 		}
 
+		/// <summary>
+		/// Start IdeaCheckbot
+		/// </summary>
+		/// <returns></returns>
 		private async Task RunCheckbotAsync()
 		{
 			var selectedRamDbFileName = SelectRamProject();
 			if (string.IsNullOrEmpty(selectedRamDbFileName))
 			{
 				await Task.CompletedTask;
+				RefreshCommands();
 				return;
 			}
 
@@ -67,6 +85,7 @@ namespace IdeaStatiCa.RamToIdeaApp.ViewModels
 			else
 			{
 				_logger.LogInformation($"RunCheckbotAsync : directory '{workingDirectory}' exists");
+				Status = string.Empty;
 			}
 
 			this.ProjectInfo.RamDbFileName = selectedRamDbFileName;
@@ -74,12 +93,15 @@ namespace IdeaStatiCa.RamToIdeaApp.ViewModels
 
 			var bimHosting = new GrpcBimHostingFactory();
 			RamPluginFactory pluginFactory = new RamPluginFactory(this.ProjectInfo, _projectService, _logger, bimHosting.InitGrpcClient(_logger));
-			IBIMPluginHosting pluginHosting = bimHosting.Create(pluginFactory, _logger);
+			PluginHosting = bimHosting.Create(pluginFactory, _logger);
 
 			_logger.LogDebug("Starting Checkbot");
 
 			//Run GRPC
-			await pluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), workingDirectory);
+			await PluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), workingDirectory);
+			Status = selectedRamDbFileName;
+
+			RefreshCommands();
 		}
 
 		private string status;
@@ -87,6 +109,11 @@ namespace IdeaStatiCa.RamToIdeaApp.ViewModels
 		{
 			get => status;
 			set => SetProperty(ref status, value);
+		}
+
+		private void RefreshCommands()
+		{
+			this.RunCheckBotCommand.NotifyCanExecuteChanged();
 		}
 	}
 }
