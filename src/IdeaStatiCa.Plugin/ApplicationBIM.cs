@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin
 #endif
 	public abstract class ApplicationBIM : IApplicationBIM
 	{
-		private IPluginLogger ideaLogger; //= IdeaDiagnostics.GetLogger("bim.plugin.application");
+		protected IPluginLogger ideaLogger; //= IdeaDiagnostics.GetLogger("bim.plugin.application");
 
 		protected abstract string ApplicationName { get; }
 

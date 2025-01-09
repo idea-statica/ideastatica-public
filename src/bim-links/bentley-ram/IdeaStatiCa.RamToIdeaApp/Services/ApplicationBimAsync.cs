@@ -8,7 +8,6 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 {
 	public abstract class ApplicationBIMAsync : ApplicationBIM
 	{
-		private IPluginLogger _logger;
 		protected ApplicationBIMAsync(IPluginLogger logger) : base(logger)
 		{
 		}
@@ -21,7 +20,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ActivateInBIM failed", e);
+				ideaLogger.LogError("ActivateInBIM failed", e);
 			}
 		}
 
@@ -33,7 +32,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ImportActive failed", e);
+				ideaLogger.LogError("ImportActive failed", e);
 			}
 
 			return null;
@@ -51,12 +50,12 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 				}
 				else
 				{
-					_logger.LogInformation("ImportSelectionAsync returned null");
+					ideaLogger.LogInformation("ImportSelectionAsync returned null");
 				}
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ImportActive failed", e);
+				ideaLogger.LogError("ImportActive failed", e);
 			}
 
 			return new List<ModelBIM>();
