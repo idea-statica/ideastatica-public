@@ -8,9 +8,9 @@
 
 	<ItemGroup>
 		
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.2.1513" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.2.1513" />
-		<PackageReference Include="IdeaStatiCa.SAF2IOM" Version="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.SAF2IOM" VersionOverride="24.1.2.1513" />
 	</ItemGroup>
 	
 	

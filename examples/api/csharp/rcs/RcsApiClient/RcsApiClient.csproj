@@ -15,16 +15,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" VersionOverride="8.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" VersionOverride="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" VersionOverride="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" VersionOverride="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.1.1474" />
-		<PackageReference Include="IdeaStatiCa.RcsClient" Version="24.1.1.1474" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.RcsClient" VersionOverride="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.1.1474" />
 	</ItemGroup>
 
 </Project>

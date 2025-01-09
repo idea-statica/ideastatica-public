@@ -44,13 +44,13 @@
 	
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
     <PackageReference Include="IdeaStatiCa.OpenModel">
-      <Version>24.1.1.1474</Version>
+      <VersionOverride>24.1.1.1474</VersionOverride>
     </PackageReference>
     <PackageReference Include="IdeaStatiCa.Plugin">
-      <Version>24.1.1.1474</Version>
+			<VersionOverride>24.1.1.1474</VersionOverride>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.3</Version>
+			<VersionOverride>13.0.3</VersionOverride>
     </PackageReference>
   </ItemGroup>
 

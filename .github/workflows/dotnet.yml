@@ -1,7 +1,6 @@
 name: .NET build verification
 
 on:
-  push:
   pull_request:
     branches: [ main ]
 
@@ -40,8 +39,38 @@ jobs:
       run: dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
 
+  IdeaStatiCa-SDK-Examples:
+    name: "Build IdeaStatiCa-SDK-Examples.sln"
+    runs-on: windows-latest
+
+    env: # Define the global configuration variable
+      TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        path: main
+
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1.2
+
+    - name: Dotnet restore dependencies
+      run: dotnet restore ./examples/IdeaStatiCa-SDK-Examples.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      working-directory: main
+
+    - name: Build
+      run:  msbuild ./examples/IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      working-directory: main
+
   ConRestApiClient:
-    name: "Build and Test ConRestApiClient.sln"
+    name: "Build ConRestApiClient.sln"
     runs-on: ubuntu-latest
 
     steps:
@@ -59,7 +88,7 @@ jobs:
       working-directory: main
 
   RcsRestApiClient:
-    name: "Build and Test RcsRestApiClient.sln"
+    name: "Build RcsRestApiClient.sln"
     runs-on: ubuntu-latest
 
     steps:
