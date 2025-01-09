@@ -8,8 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.1.1474" />
-		<PackageReference Include="IdeaStatiCa.RcsClient" Version="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.RcsClient" VersionOverride="24.1.1.1474" />
 	</ItemGroup>
 
 	<ItemGroup>
