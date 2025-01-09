@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\Common.props" />
-  <PropertyGroup>
-    <ProjectGuid>{ec8df878-7ce5-458d-bf3e-fec30768a104}</ProjectGuid>
-    <TargetFramework>net48</TargetFramework>
-    <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Autofac" />
-    <PackageReference Include="Idea.Bentley.Ram"/>
-    <PackageReference Include="MathNet.Numerics" />
-    <PackageReference Include="MathNet.Spatial" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-  </ItemGroup>
-  <Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
+	<Import Project="..\..\..\Common.props" />
+	<PropertyGroup>
+		<ProjectGuid>{ec8df878-7ce5-458d-bf3e-fec30768a104}</ProjectGuid>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Autofac" />
+		<PackageReference Include="Idea.Bentley.Ram"/>
+		<PackageReference Include="MathNet.Numerics" />
+		<PackageReference Include="MathNet.Spatial" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+	<Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
 </Project>
