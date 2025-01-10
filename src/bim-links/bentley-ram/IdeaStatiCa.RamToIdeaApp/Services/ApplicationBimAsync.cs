@@ -20,7 +20,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			}
 			catch (Exception e)
 			{
-				ideaLogger.LogError("ActivateInBIM failed", e);
+				ideaLoggerBase.LogError("ActivateInBIM failed", e);
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			}
 			catch (Exception e)
 			{
-				ideaLogger.LogError("ImportActive failed", e);
+				ideaLoggerBase.LogError("ImportActive failed", e);
 			}
 
 			return null;
@@ -50,12 +50,12 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 				}
 				else
 				{
-					ideaLogger.LogInformation("ImportSelectionAsync returned null");
+					ideaLoggerBase.LogInformation("ImportSelectionAsync returned null");
 				}
 			}
 			catch (Exception e)
 			{
-				ideaLogger.LogError("ImportActive failed", e);
+				ideaLoggerBase.LogError("ImportActive failed", e);
 			}
 
 			return new List<ModelBIM>();

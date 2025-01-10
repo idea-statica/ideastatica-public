@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin
 #endif
 	public abstract class ApplicationBIM : IApplicationBIM
 	{
-		protected IPluginLogger ideaLogger; //= IdeaDiagnostics.GetLogger("bim.plugin.application");
+		protected IPluginLogger ideaLoggerBase; 
 
 		protected abstract string ApplicationName { get; }
 
@@ -33,7 +33,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		public ApplicationBIM()
 		{
-			ideaLogger = new NullLogger();
+			ideaLoggerBase = new NullLogger();
 		}
 
 		/// <summary>
@@ -42,22 +42,22 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="logger">The wrapper for pluginLogger</param>
 		public ApplicationBIM(IPluginLogger logger)
 		{
-			ideaLogger = logger ?? new NullLogger();
+			ideaLoggerBase = logger ?? new NullLogger();
 		}
 
 		public ModelBIM GetActiveSelectionModel(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{
-			ideaLogger.LogDebug($"Importing active selection model: county code: {countryCode}, type = {requestedType}.");
+			ideaLoggerBase.LogDebug($"Importing active selection model: county code: {countryCode}, type = {requestedType}.");
 
 			var model = ImportActive(countryCode, requestedType);
 			if (model != null)
 			{
-				ideaLogger.LogTrace("Obtained correct model.");
+				ideaLoggerBase.LogTrace("Obtained correct model.");
 				model.RequestedItems = requestedType;
 			}
 			else
 			{
-				ideaLogger.LogTrace("Obtained null model.");
+				ideaLoggerBase.LogTrace("Obtained null model.");
 			}
 
 			return model;
@@ -71,7 +71,7 @@ namespace IdeaStatiCa.Plugin
 			}
 			catch (Exception ex)
 			{
-				ideaLogger.LogDebug("Import failed", ex);
+				ideaLoggerBase.LogDebug("Import failed", ex);
 
 				throw;
 			}
@@ -79,10 +79,10 @@ namespace IdeaStatiCa.Plugin
 
 		public async Task<string> GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{
-			ideaLogger.LogDebug($"Getting active selection model as XML: county code: {countryCode}, type = {requestedType}.");
+			ideaLoggerBase.LogDebug($"Getting active selection model as XML: county code: {countryCode}, type = {requestedType}.");
 			var model = await Task.Run(() => GetActiveSelectionModel(countryCode, requestedType));
 
-			ideaLogger.LogTrace("Converting to XML.");
+			ideaLoggerBase.LogTrace("Converting to XML.");
 			return Tools.ModelToXml(model);
 		}
 
@@ -90,10 +90,10 @@ namespace IdeaStatiCa.Plugin
 
 		public List<ModelBIM> GetModelForSelection(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			ideaLogger.LogDebug($"Importing selection: county code: {countryCode}, {items.Count} item(s).");
+			ideaLoggerBase.LogDebug($"Importing selection: county code: {countryCode}, {items.Count} item(s).");
 			var res = ImportSelection(countryCode, items);
 
-			ideaLogger.LogTrace($"Obtained {res?.Count} model(s).");
+			ideaLoggerBase.LogTrace($"Obtained {res?.Count} model(s).");
 			return res;
 		}
 
@@ -105,7 +105,7 @@ namespace IdeaStatiCa.Plugin
 			}
 			catch (Exception ex)
 			{
-				ideaLogger.LogDebug("Import failed", ex);
+				ideaLoggerBase.LogDebug("Import failed", ex);
 
 				throw;
 			}
@@ -113,10 +113,10 @@ namespace IdeaStatiCa.Plugin
 
 		public async Task<string> GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			ideaLogger.LogDebug($"Getting model for selection as XML: county code: {countryCode}, {items.Count} item(s).");
+			ideaLoggerBase.LogDebug($"Getting model for selection as XML: county code: {countryCode}, {items.Count} item(s).");
 			var model = await Task.Run(() => GetModelForSelection(countryCode, items));
 
-			ideaLogger.LogTrace("Converting to XML.");
+			ideaLoggerBase.LogTrace("Converting to XML.");
 			return Tools.ModelToXml(model);
 		}
 
