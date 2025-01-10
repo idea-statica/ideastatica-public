@@ -108,7 +108,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			if (foundAssembly == null)
 			{
 				string curAssPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-				return Assembly.LoadFrom(Path.Combine(curAssPath,args.Name));
+				return Assembly.LoadFrom(Path.Combine(curAssPath,args.Name + ".dll"));
 			}
 			else
 			{
