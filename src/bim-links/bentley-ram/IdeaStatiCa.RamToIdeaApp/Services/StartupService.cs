@@ -12,7 +12,6 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 	{
 		private readonly IProjectService _projectService;
 		private readonly IPluginLogger _logger;
-		private readonly bool _isRamApp;
 
 		public StartupService(IProjectService projectService, IPluginLogger logger)
 		{
