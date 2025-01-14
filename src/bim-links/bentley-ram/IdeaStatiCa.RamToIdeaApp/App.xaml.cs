@@ -1,8 +1,6 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RamToIdeaApp.Services;
-
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;

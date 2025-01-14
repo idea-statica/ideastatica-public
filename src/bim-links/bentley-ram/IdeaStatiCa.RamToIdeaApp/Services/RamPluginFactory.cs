@@ -3,6 +3,8 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdeaApp.Models;
+using System.IO;
+using System.Reflection;
 
 namespace IdeaStatiCa.RamToIdeaApp.Services
 {
@@ -18,7 +20,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		public string FeaAppName => "RAM";
 
-		public string IdeaStaticaAppPath => "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1\\IdeaCheckbot.exe";
+		public string IdeaStaticaAppPath => Path.Combine(Assembly.GetExecutingAssembly().Location, "IdeaCheckbot.exe");
 
 		/// <summary>
 		/// Constructor
@@ -33,6 +35,10 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			_remoteApp = remoteApp;
 			_projectInfo = projectInfo;
 			_logger = logger;
+			if(!File.Exists(IdeaStaticaAppPath))
+			{
+				throw new FileNotFoundException($"IdeaCheckbot.exe file not found on path {IdeaStaticaAppPath}");
+			}
 		}
 
 		/// <summary>
