@@ -97,13 +97,6 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 		private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
-			AssemblyName assemblyName = new AssemblyName(args.Name);
-			// We are backwards compatible as of now
-			// so we can just remove the version identifier
-			assemblyName.Version = null;
-
-
-
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			//Provide the current application domain evidence for the assembly.
 
@@ -114,7 +107,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			//for framework 4.8 app it trying load System.Core assembly and it cause crash. in assembly list its System.Core.dll 
 			if (foundAssembly == null)
 			{
-				return Assembly.Load(assemblyName);
+				string curAssPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+				return Assembly.LoadFrom(Path.Combine(curAssPath,args.Name + ".dll"));
 			}
 			else
 			{
