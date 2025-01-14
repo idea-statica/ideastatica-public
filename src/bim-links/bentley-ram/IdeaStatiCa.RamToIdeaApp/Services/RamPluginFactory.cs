@@ -3,6 +3,8 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdeaApp.Models;
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -20,7 +22,16 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		public string FeaAppName => "RAM";
 
-		public string IdeaStaticaAppPath => Path.Combine(Assembly.GetExecutingAssembly().Location, "IdeaCheckbot.exe");
+		public string IdeaStaticaAppPath
+		{
+			get
+			{
+				Assembly assembly = Assembly.GetExecutingAssembly();
+				FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+				Version version = new Version(versionInfo.ProductVersion ?? throw new InvalidDataException("Version info does not contain product version."));
+				return @$"C:\Program Files\IDEA StatiCa\StatiCa {version.Major}.{version.Minor}\IdeaCheckbot.exe";
+			}
+		}
 
 		/// <summary>
 		/// Constructor
@@ -35,8 +46,10 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			_remoteApp = remoteApp;
 			_projectInfo = projectInfo;
 			_logger = logger;
-			if(!File.Exists(IdeaStaticaAppPath))
+
+			if (!File.Exists(IdeaStaticaAppPath))
 			{
+				logger.LogError($"File path {IdeaStaticaAppPath} does not exist");
 				throw new FileNotFoundException($"IdeaCheckbot.exe file not found on path {IdeaStaticaAppPath}");
 			}
 		}
