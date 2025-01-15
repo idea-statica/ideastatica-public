@@ -26,10 +26,16 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 		{
 			get
 			{
+#if DEBUG
+				// Debug version does contain respect version.Minor
+				return @$"C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaCheckbot.exe";
+
+#else
 				Assembly assembly = Assembly.GetExecutingAssembly();
 				FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
 				Version version = new Version(versionInfo.ProductVersion ?? throw new InvalidDataException("Version info does not contain product version."));
 				return @$"C:\Program Files\IDEA StatiCa\StatiCa {version.Major}.{version.Minor}\IdeaCheckbot.exe";
+#endif
 			}
 		}
 
