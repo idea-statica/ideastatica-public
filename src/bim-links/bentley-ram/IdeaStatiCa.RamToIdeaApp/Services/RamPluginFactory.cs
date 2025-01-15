@@ -5,6 +5,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdeaApp.Models;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 
 namespace IdeaStatiCa.RamToIdeaApp.Services
 {
@@ -20,7 +21,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		public string FeaAppName => "RAM";
 
-		public string IdeaStaticaAppPath => Path.Combine(Assembly.GetExecutingAssembly().Location, "IdeaCheckbot.exe");
+		public string IdeaStaticaAppPath { get; set; }
 
 		/// <summary>
 		/// Constructor
@@ -35,10 +36,20 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			_remoteApp = remoteApp;
 			_projectInfo = projectInfo;
 			_logger = logger;
-			if(!File.Exists(IdeaStaticaAppPath))
+
+			IdeaStaticaAppPath = GetCheckbotAppPath();
+			if (!File.Exists(IdeaStaticaAppPath))
 			{
-				throw new FileNotFoundException($"IdeaCheckbot.exe file not found on path {IdeaStaticaAppPath}");
+				MessageBox.Show($"IdeaCheckbot.exe not found on path {IdeaStaticaAppPath}. Using default path C:\\Program Files\\Idea StatiCa\\ StatiCa 24.1\\IdeaCheckbot.exe", "Warning",
+					MessageBoxButton.OK, MessageBoxImage.Warning);
+				logger.LogError($"File path {IdeaStaticaAppPath} does not exist");
+				IdeaStaticaAppPath = @"C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaCheckbot.exe";
 			}
+		}
+
+		private string GetCheckbotAppPath()
+		{
+			return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "IdeaCheckbot.exe");
 		}
 
 		/// <summary>
