@@ -3,10 +3,9 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdeaApp.Models;
-using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 
 namespace IdeaStatiCa.RamToIdeaApp.Services
 {
@@ -22,22 +21,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		public string FeaAppName => "RAM";
 
-		public string IdeaStaticaAppPath
-		{
-			get
-			{
-#if DEBUG
-				// Debug version does contain respect version.Minor
-				return @$"C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaCheckbot.exe";
-
-#else
-				Assembly assembly = Assembly.GetExecutingAssembly();
-				FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-				Version version = new Version(versionInfo.ProductVersion ?? throw new InvalidDataException("Version info does not contain product version."));
-				return @$"C:\Program Files\IDEA StatiCa\StatiCa {version.Major}.{version.Minor}\IdeaCheckbot.exe";
-#endif
-			}
-		}
+		public string IdeaStaticaAppPath { get; set; }
 
 		/// <summary>
 		/// Constructor
@@ -53,11 +37,20 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			_projectInfo = projectInfo;
 			_logger = logger;
 
+			IdeaStaticaAppPath = GetIdeaStaticaAppPath();
 			if (!File.Exists(IdeaStaticaAppPath))
 			{
+				MessageBox.Show($"IdeaCheckbot.exe not found on path {IdeaStaticaAppPath}. Using default path C:\\Program Files\\Idea StatiCa\\ StatiCa 24.1\\IdeaCheckbot.exe", "Warning",
+					MessageBoxButton.OK, MessageBoxImage.Warning);
 				logger.LogError($"File path {IdeaStaticaAppPath} does not exist");
-				throw new FileNotFoundException($"IdeaCheckbot.exe file not found on path {IdeaStaticaAppPath}");
+				IdeaStaticaAppPath = @"C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaCheckbot.exe";
 			}
+		}
+
+		private string GetIdeaStaticaAppPath()
+		{
+			var assembly = Assembly.GetExecutingAssembly();
+			return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "IdeaCheckbot.exe");
 		}
 
 		/// <summary>
