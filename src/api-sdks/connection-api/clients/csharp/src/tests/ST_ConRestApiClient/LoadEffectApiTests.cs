@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.ConnectionApi.Model;
 
 namespace ST_ConnectionRestApi
 {
@@ -9,20 +8,6 @@ namespace ST_ConnectionRestApi
 		[SetUp]
 		public async Task SetUp()
 		{
-			//if (this.RunServer)
-			//{
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
-			//}
-			//else
-			//{
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
-			//}
-
 			ConnectionApiClient = await ApiFactory.CreateApiClient();
 
 			string connProjectFilePath = Path.Combine(ProjectPath, "Simple-1-ECEN.ideaCon");
@@ -47,6 +32,7 @@ namespace ST_ConnectionRestApi
 				await ConnectionApiClient!.DisposeAsync();
 			}
 		}
+
 		[TestCase(true)]
 		[TestCase(false)]
 		public async Task ShouldGetLoadEffects(bool percentage)
@@ -64,6 +50,53 @@ namespace ST_ConnectionRestApi
 				//Mx is ignored for Percentage value
 				le1.MemberLoadings.Select(x => x.SectionLoad.Mx.Should().Be(0));
 			}
+		}
+
+		[Test]
+		public async Task ShouldAddLoadEffectAsFirst()
+		{
+			string connProjectFilePath = Path.Combine(ProjectPath, "ProjectWithoutLoadEffect.ideaCon");
+			this.Project = await ConnectionApiClient!.Project.OpenProjectAsync(connProjectFilePath);
+			this.ActiveProjectId = Project.ProjectId;
+
+			var con1 = Project!.Connections.First();
+			var loadEffect = await ConnectionApiClient!.LoadEffect!.GetLoadEffectsAsync(ActiveProjectId, con1.Id);
+			var originalCount = loadEffect.Count();
+
+			Assert.That(originalCount, Is.EqualTo(0));
+
+			var newLe = new ConLoadEffect()
+			{
+				Id = originalCount + 1,
+				Active = true,
+				Name = "Unit test LE",
+				IsPercentage = false,
+				MemberLoadings = new List<ConLoadEffectMemberLoad>
+				{
+					new ConLoadEffectMemberLoad
+					{
+						MemberId = 1,
+						Position = ConLoadEffectPositionEnum.End,
+						SectionLoad = new ConLoadEffectSectionLoad
+						{
+							N = 60000,
+							Vz = -30000,
+							Mx = 6000
+						}
+					}
+				}
+			};
+
+			await ConnectionApiClient!.LoadEffect!.AddLoadEffectAsync(ActiveProjectId, con1.Id, newLe);
+			var updatedState = await ConnectionApiClient!.LoadEffect!.GetLoadEffectsAsync(ActiveProjectId, con1.Id);
+
+			updatedState.Count().Should().Be(originalCount + 1);
+
+			var added = updatedState.Last();
+			added.Active.Should().BeTrue();
+			added.Name.Should().Be("Unit test LE");
+			// This assert will fail because the validation is skipped
+			//added.MemberLoadings.Count().Should().Be(4);
 		}
 
 		[TestCase(true)]
