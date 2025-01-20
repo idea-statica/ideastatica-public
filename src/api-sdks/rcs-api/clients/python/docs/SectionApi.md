@@ -100,7 +100,7 @@ Update a section in the RCS project
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| Id of the project in cache | 
- **rcs_section** | [**RcsSection**](RcsSection.md)| A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update | [optional] 
+ **rcs_section** | [**RcsSection**](RcsSection.md)| A new reinforced section data. The value defines the section in project to update | [optional] 
 
 ### Return type
 
@@ -128,7 +128,7 @@ with ideastatica_rcs_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ideastatica_rcs_api.SectionApi(api_client)
     project_id = 'project_id_example' # str | Id of the project in cache
-    rcs_section = ideastatica_rcs_api.RcsSection() # RcsSection | A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)
+    rcs_section = ideastatica_rcs_api.RcsSection() # RcsSection | A new reinforced section data. The value defines the section in project to update (optional)
 
     try:
         # Update a section in the RCS project
