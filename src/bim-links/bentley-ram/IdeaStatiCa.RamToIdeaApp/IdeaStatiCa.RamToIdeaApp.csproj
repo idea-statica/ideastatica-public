@@ -6,7 +6,11 @@
 		<Configurations>Debug_IdeaStatiCa_Internal;Debug;Release;Release_IdeaStatiCa_Internal</Configurations>
 		<UseWPF>true</UseWPF>
 		<Platforms>x64</Platforms>
+		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Resources\RAM icon.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" />
@@ -22,9 +26,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="appsettings.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+	  <Resource Include="Resources\RAM icon.ico">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 </Project>

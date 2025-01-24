@@ -1,7 +1,7 @@
 /*
  * Connection Rest API 1.0
  *
- * API for designing steel connections
+ * IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
  *
  * The version of the OpenAPI document: 1.0
  * Contact: info@ideastatica.com

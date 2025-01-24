@@ -55,7 +55,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-        /// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+        /// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>RcsSection</returns>
         RcsSection UpdateSection(Guid projectId, RcsSection rcsSection = default(RcsSection), int operationIndex = 0);
@@ -68,7 +68,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-/// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+/// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of RcsSection</returns>
@@ -116,7 +116,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-        /// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+        /// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of RcsSection</returns>
@@ -130,7 +130,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-        /// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+        /// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -405,7 +405,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-        /// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+        /// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>RcsSection</returns>
         public RcsSection UpdateSection(Guid projectId, RcsSection rcsSection = default(RcsSection), int operationIndex = 0)
@@ -419,7 +419,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-/// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+/// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of RcsSection</returns>
@@ -485,7 +485,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-        /// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+        /// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of RcsSection</returns>
@@ -500,7 +500,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Id of the project in cache</param>
-        /// <param name="rcsSection">A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional)</param>
+        /// <param name="rcsSection">A new reinforced section data. The value defines the section in project to update (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

@@ -520,8 +520,8 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/RcsSection'
-        description: A new reinforced section data.The value !:RcsSectionModel.Id
-          defines the section in project to update
+        description: A new reinforced section data. The value defines the section
+          in project to update
       responses:
         "200":
           content:

@@ -4,15 +4,6 @@ using System.ServiceModel;
 
 namespace IdeaStatiCa.Plugin
 {
-	public enum RequestedItemsType
-	{
-		Connections,
-		Substructure,
-		SingleConnection,
-		WholeModel,
-		ConcreteWall
-	}
-
 	/// <summary>
 	/// Abstraction of a FE application which provides data to Idea StatiCa
 	/// </summary>

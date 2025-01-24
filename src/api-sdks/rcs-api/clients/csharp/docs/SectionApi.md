@@ -132,7 +132,7 @@ Update a section in the RCS project
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | Id of the project in cache |  |
-| **rcsSection** | [**RcsSection**](RcsSection.md) | A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update | [optional]  |
+| **rcsSection** | [**RcsSection**](RcsSection.md) | A new reinforced section data. The value defines the section in project to update | [optional]  |
 
 ### Return type
 
@@ -161,7 +161,7 @@ namespace Example
             using (var conClient = await clientFactory.CreateConnectionApiClient())
             {
                 
-                var rcsSection = new RcsSection(); // RcsSection | A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update (optional) 
+                var rcsSection = new RcsSection(); // RcsSection | A new reinforced section data. The value defines the section in project to update (optional) 
 
                 try
                 {

@@ -54,7 +54,7 @@ namespace IdeaStatiCa.Plugin
 #if DEBUG
 		private readonly int OpenServerTimeLimit = -1;
 #else
-		readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
+		readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(2);
 #endif
 
 		public BIMPluginHostingGrpc(IBIMPluginFactory factory, IGrpcServer grpcServer, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)

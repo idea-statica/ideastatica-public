@@ -301,7 +301,7 @@ class SectionApi:
     def update_section(
         self,
         project_id: Annotated[StrictStr, Field(description="Id of the project in cache")],
-        rcs_section: Annotated[Optional[RcsSection], Field(description="A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update")] = None,
+        rcs_section: Annotated[Optional[RcsSection], Field(description="A new reinforced section data. The value defines the section in project to update")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -320,7 +320,7 @@ class SectionApi:
 
         :param project_id: Id of the project in cache (required)
         :type project_id: str
-        :param rcs_section: A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update
+        :param rcs_section: A new reinforced section data. The value defines the section in project to update
         :type rcs_section: RcsSection
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -371,7 +371,7 @@ class SectionApi:
     def update_section_with_http_info(
         self,
         project_id: Annotated[StrictStr, Field(description="Id of the project in cache")],
-        rcs_section: Annotated[Optional[RcsSection], Field(description="A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update")] = None,
+        rcs_section: Annotated[Optional[RcsSection], Field(description="A new reinforced section data. The value defines the section in project to update")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -390,7 +390,7 @@ class SectionApi:
 
         :param project_id: Id of the project in cache (required)
         :type project_id: str
-        :param rcs_section: A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update
+        :param rcs_section: A new reinforced section data. The value defines the section in project to update
         :type rcs_section: RcsSection
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -441,7 +441,7 @@ class SectionApi:
     def update_section_without_preload_content(
         self,
         project_id: Annotated[StrictStr, Field(description="Id of the project in cache")],
-        rcs_section: Annotated[Optional[RcsSection], Field(description="A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update")] = None,
+        rcs_section: Annotated[Optional[RcsSection], Field(description="A new reinforced section data. The value defines the section in project to update")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -460,7 +460,7 @@ class SectionApi:
 
         :param project_id: Id of the project in cache (required)
         :type project_id: str
-        :param rcs_section: A new reinforced section data.The value !:RcsSectionModel.Id defines the section in project to update
+        :param rcs_section: A new reinforced section data. The value defines the section in project to update
         :type rcs_section: RcsSection
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

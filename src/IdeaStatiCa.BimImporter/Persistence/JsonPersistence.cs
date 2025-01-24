@@ -24,7 +24,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			{
 				Formatting = Formatting.Indented,
 				Converters = new List<JsonConverter>() { _tokenConverter },
-				TypeNameHandling = TypeNameHandling.All,
+				TypeNameHandling = TypeNameHandling.Auto,
 			};
 		}
 

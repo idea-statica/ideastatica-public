@@ -4,7 +4,6 @@ using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Providers;
 using IdeaStatiCa.RamToIdea.Sections;
-using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
