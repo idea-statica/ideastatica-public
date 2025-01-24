@@ -3,8 +3,9 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
-		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+		<Configurations>Debug_IdeaStatiCa_Internal;Debug;Release;Release_IdeaStatiCa_Internal</Configurations>
 		<UseWPF>true</UseWPF>
+		<Platforms>x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

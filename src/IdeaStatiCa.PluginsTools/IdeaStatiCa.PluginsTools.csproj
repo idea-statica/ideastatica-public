@@ -6,32 +6,33 @@
 		<Product>IdeaStatiCa.PluginsTools</Product>
 		<LangVersion>8.0</LangVersion>
 		<Description>Tools for IDEA Statica plugins</Description>
-		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
+		<Configurations>Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug</Configurations>
 		<UseWPF>true</UseWPF>
+		<Platforms>x64</Platforms>
 	</PropertyGroup>
 	
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net48|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net48|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net48|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net48|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net6.0-windows|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|x64'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	

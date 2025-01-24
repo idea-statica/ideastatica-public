@@ -3,8 +3,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
-    <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+    <Configurations>Debug;Release;Debug_IdeaStatiCa_Internal;Release_IdeaStatiCa_Internal</Configurations>
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
   
   <ItemGroup>

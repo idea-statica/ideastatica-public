@@ -3,6 +3,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.1;net6.0</TargetFrameworks>
+    <Configurations>Release;Debug</Configurations>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
 </Project>

@@ -7,9 +7,10 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Product>IdeaStatiCa.Plugin</Product>
     <Description>Gateway to IDEA StatiCa. Includes classes which allows communication and controlling IDEA StatiCa applications and includes classes which provides IDEA StatiCa services to other applications.</Description>
-    <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+    <Configurations>Debug_IdeaStatiCa_Internal;Release;Debug;Release_IdeaStatiCa_Internal</Configurations>
     <PackageId>IdeaStatiCa.Plugin</PackageId>
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM</PackageTags>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
     
   <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
