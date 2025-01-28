@@ -91,7 +91,6 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 				else
 				{
 					_logger.LogDebug("RamFeaApplication.ImportActiveAsync : Member import is not implemented");
-					result = new ModelBIM();
 				}
 
 				return Task.FromResult(result);
