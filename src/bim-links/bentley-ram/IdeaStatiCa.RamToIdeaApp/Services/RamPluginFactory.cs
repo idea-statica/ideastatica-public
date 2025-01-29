@@ -49,7 +49,9 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		private string GetCheckbotAppPath()
 		{
-			return FolderHelper.FindNetFolder(_logger, Assembly.GetExecutingAssembly().Location, Constants.CheckbotAppName);
+			var checkbotPath = FolderHelper.FindNetFolder(_logger, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), Constants.CheckbotAppName);
+			_logger.LogInformation($"Checkbot Path: {checkbotPath}");
+			return checkbotPath;
 		}
 
 		/// <summary>
