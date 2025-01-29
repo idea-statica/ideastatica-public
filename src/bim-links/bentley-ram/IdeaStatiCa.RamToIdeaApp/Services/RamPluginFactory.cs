@@ -49,8 +49,7 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 		private string GetCheckbotAppPath()
 		{
-			var parentDirectory = Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-			return Path.Combine(parentDirectory.FullName, "IdeaCheckbot.exe");
+			return FolderHelper.FindNetFolder(_logger, Assembly.GetExecutingAssembly().Location, Constants.CheckbotAppName);
 		}
 
 		/// <summary>
