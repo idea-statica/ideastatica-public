@@ -20,6 +20,16 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 				return foundLocation;
 			}
 
+			// file is in parent folder, executing assembly is in net48
+			var parentFolder = Directory.GetParent(rootFolder).FullName;
+			foundLocation = Path.Combine(parentFolder, file);
+
+			if (File.Exists(foundLocation))
+			{
+				ideaLogger.LogDebug($"FindNetFolder : found in '{foundLocation}'");
+				return foundLocation;
+			}
+
 			//is the file is in net48 subdir ?
 			foundLocation = Path.Combine(rootFolder, "net48", file);
 			if (File.Exists(foundLocation))
@@ -52,6 +62,13 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 					return foundLocation;
 				}
 
+				// is file in root and executing assembly is in net48 ?
+				if (File.Exists(foundLocation))
+				{
+					ideaLogger.LogDebug($"FindNetFolder : found in '{foundLocation}'");
+					return foundLocation;
+				}
+
 				//is the file is in net48 subdir ?
 				foundLocation = Path.Combine(rootFolderDeve, "net48", file);
 				if (File.Exists(foundLocation))
@@ -67,6 +84,8 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 					ideaLogger.LogDebug($"FindNetFolder : found in '{foundLocation}'");
 					return foundLocation;
 				}
+
+
 			}
 			#endregion
 
