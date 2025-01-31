@@ -2,7 +2,7 @@
   <Import Project="..\Common.props" />
   
   <PropertyGroup>
-    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
 	<LangVersion>8.0</LangVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Product>IdeaStatiCa.Plugin</Product>
@@ -29,6 +29,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Castle.Windsor" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" />
+    <PackageReference Include="Castle.Core" />
     <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="Grpc.Core" />
     <PackageReference Include="Grpc.Tools" >
