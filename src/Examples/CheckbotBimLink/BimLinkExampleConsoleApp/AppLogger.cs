@@ -1,5 +1,7 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Public;
+using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace BimLinkExampleConsoleApp

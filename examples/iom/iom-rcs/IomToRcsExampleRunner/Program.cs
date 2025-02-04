@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.Api.RCS;
+//using IdeaStatiCa.Api.RCS;
 using IdeaStatiCa.PluginLogger;
-using IdeaStatiCa.RcsClient.Factory;
+//using IdeaStatiCa.RcsClient.Factory;
 using IomToRcsExamples;
 
 namespace IomToRcsExampleRunner
@@ -21,7 +21,7 @@ namespace IomToRcsExampleRunner
 
 		static async Task Main(string[] args)
 		{
-			IRcsApiController? client = null;
+			/*IRcsApiController? client = null;*/
 			try
 			{
 				//Lets Create the Open Model 
@@ -38,33 +38,37 @@ namespace IomToRcsExampleRunner
 
 				openModel.SaveToXmlFile(path);
 
-				#region Create Rcs Project
+				await Task.CompletedTask;
 
-				string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1\\net6.0-windows";
-				//string directoryPath = "C:\\Dev\\IdeaStatiCa\\bin\\Debug\\net6.0-windows";
+				throw new NotImplementedException("TODO use new IdeaStatciCa.RcsRestApi");
 
-				Logger.LogDebug($"Opening RCS Client from '{directoryPath}'");
+				//#region Create Rcs Project
 
-				var rcsClientFactory = new RcsClientFactory(directoryPath, Logger);
+				//string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1\\net6.0-windows";
+				////string directoryPath = "C:\\Dev\\IdeaStatiCa\\bin\\Debug\\net6.0-windows";
 
-				client = await rcsClientFactory.CreateRcsApiClient();
+				//Logger.LogDebug($"Opening RCS Client from '{directoryPath}'");
 
-				Logger.LogDebug($"Creating an RCS Project form IOM");
+				//var rcsClientFactory = new RcsClientFactory(directoryPath, Logger);
 
-				var created = await client.CreateProjectFromIOMAsync(openModel, CancellationToken.None);
+				//client = await rcsClientFactory.CreateRcsApiClient();
 
-				//var created2 = await client.CreateProjectFromIOMFileAsync("IomToRcsExampleRunner.xml", CancellationToken.None);
-				//"IomToRcsExampleRunner.xml"
+				//Logger.LogDebug($"Creating an RCS Project form IOM");
 
-				string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+				//var created = await client.CreateProjectFromIOMAsync(openModel, CancellationToken.None);
 
-				var rcsFileName = Path.Combine(savePath, exampleToSave.ToString() + ".ideaRcs");
-				await client.SaveProjectAsync(rcsFileName, CancellationToken.None); ;
+				////var created2 = await client.CreateProjectFromIOMFileAsync("IomToRcsExampleRunner.xml", CancellationToken.None);
+				////"IomToRcsExampleRunner.xml"
 
-				Logger.LogDebug($"Rcs Project was saved '{rcsFileName}'");
+				//string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-				//client.OpenProjectAsync();
-				#endregion
+				//var rcsFileName = Path.Combine(savePath, exampleToSave.ToString() + ".ideaRcs");
+				//await client.SaveProjectAsync(rcsFileName, CancellationToken.None); ;
+
+				//Logger.LogDebug($"Rcs Project was saved '{rcsFileName}'");
+
+				////client.OpenProjectAsync();
+				//#endregion
 			}
 			catch(Exception ex)
 			{
@@ -73,7 +77,7 @@ namespace IomToRcsExampleRunner
 			}
 			finally
 			{
-				client?.Dispose();
+				//client?.Dispose();
 			}
 		}
 
