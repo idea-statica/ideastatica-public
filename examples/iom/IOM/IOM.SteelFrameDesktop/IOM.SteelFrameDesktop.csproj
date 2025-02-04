@@ -2,13 +2,14 @@
   <PropertyGroup>
     <ProjectGuid>{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>IOM.SteelFrameDesktop</AssemblyTitle>
     <Product>IOM.SteelFrameDesktop</Product>
     <Copyright>Copyright ©  2019</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -54,8 +55,5 @@
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
     <ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Reference Include="System.ServiceModel" />
-  </ItemGroup>
+
 </Project>
