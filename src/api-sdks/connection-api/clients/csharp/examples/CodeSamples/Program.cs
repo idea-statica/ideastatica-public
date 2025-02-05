@@ -30,7 +30,7 @@ namespace CodeSamples
 					if (selection == 0)
 					{
 						// Run API service and attach
-						string defaultPath = @"C:\Program Files\IDEA StatiCa\StatiCa 24.1\net6.0-windows";
+						string defaultPath = @"C:\Program Files\IDEA StatiCa\StatiCa 24.1";
 						Console.WriteLine($"Provide path to IDEA StatiCa Directory. Hit Enter for default path ({defaultPath}).");
 
 						string path = Console.ReadLine();

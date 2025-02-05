@@ -2,7 +2,7 @@
 
 Run IdeaStatiCa.ConnectionRestApi from command line
 
-_C:\Program Files\IDEA StatiCa\StatiCa 24.1\net6.0-windows\IdeaStatiCa.ConnectionRestApi.exe_
+_C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaStatiCa.ConnectionRestApi.exe_
 
 IdeaStatiCa.ConnectionRestApi should listen on the port 5000 
 

@@ -33,7 +33,7 @@ Projects can be created by the template or the the wizard in Visual Studio. See 
 `RcsApiServiceAttacher` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 24.0\net6.0-windows" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 24.0" folder. Using CLI:
 
 ```console
 IdeaStatiCa.RcsRestApi.exe -port:5000
