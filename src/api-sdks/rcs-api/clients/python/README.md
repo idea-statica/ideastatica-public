@@ -48,7 +48,7 @@ python setup.py install --user
 `ClientApiClientFactory` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 24.0\net6.0-windows" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 24.0" folder. Using CLI:
 
 ```console
 IdeaStatiCa.ConnectionRestApi.exe -port:5000
