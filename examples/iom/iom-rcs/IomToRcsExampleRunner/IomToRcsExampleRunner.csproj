@@ -34,13 +34,13 @@
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.1.1474" />
 		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.1.1474" />
-		<PackageReference Include="IdeaStatiCa.RcsClient" VersionOverride="24.1.1.1474" />
+		<!--<PackageReference Include="IdeaStatiCa.RcsClient" VersionOverride="24.1.1.1474" />-->
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
 		<ProjectReference Include="..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
 		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
+		<!--<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />-->
 	</ItemGroup>
 
 </Project>

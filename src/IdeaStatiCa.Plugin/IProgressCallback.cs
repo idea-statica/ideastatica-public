@@ -1,9 +1,9 @@
 ﻿using System;
-using System.ServiceModel;
+
 
 namespace IdeaStatiCa.Plugin
 {
-	[ServiceContract]
+	
 	public interface IProgressCallback
 	{
 		/// <summary>
@@ -11,7 +11,6 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="function">Name of the method.</param>
 		/// <param name="exception">Details of the exception</param>
-		[OperationContract(IsOneWay = true)]
 		void ExceptionMessage(string function, Exception exception);
 
 		/// <summary>
@@ -19,7 +18,6 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="percent">percentage of event status</param>
 		/// <param name="message">message</param>
-		[OperationContract(IsOneWay = true)]
 		void ProgressMessage(double percent, string message);
 
 		/// <summary>
@@ -28,7 +26,6 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="percent">percentage of event status</param>
 		/// <param name="message">message</param>
 		/// <param name="iteration">Number of the iteration (FEM solver steps)</param>
-		[OperationContract(IsOneWay = true)]
 		void IterationMessage(double percent, string message, string iteration);
 	}
 }

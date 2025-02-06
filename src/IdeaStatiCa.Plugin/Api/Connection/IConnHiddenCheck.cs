@@ -1,7 +1,6 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
@@ -9,7 +8,6 @@ namespace IdeaStatiCa.Plugin
 	/// <summary>
 	/// The identifier of the generated report
 	/// </summary>
-	[DataContract]
 	public class ReportResponse
 	{
 		/// <summary>
@@ -28,27 +26,27 @@ namespace IdeaStatiCa.Plugin
 	/// <summary>
 	/// Provides seamlessly data about connections or allows to run hidden calculation of a connection
 	/// </summary>
-	[ServiceContract]
+	
 	public interface IConnHiddenCheck
 	{
 		/// <summary>
 		/// Open idea project in the service
 		/// </summary>
 		/// <param name="ideaConProject">Idea Connection project.</param>
-		[OperationContract]
+		
 		void OpenProject(string ideaConProject);
 
 		/// <summary>
 		/// Save the current data in file <paramref name="newProjectFileName"/>
 		/// </summary>
 		/// <param name="newProjectFileName">File name of the new idea connection project</param>
-		[OperationContract]
+		
 		void SaveAsProject(string newProjectFileName);
 
 		/// <summary>
 		/// Saves the current data
 		/// </summary>
-		[OperationContract]
+		
 		void Save();
 
 		/// <summary>
@@ -58,7 +56,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="conTemplateFileName">contemp filename including connection template</param>
 		/// <param name="connTemplateSetting">Additional setting for application of the template.</param>
 		/// <returns>returns 'OK' if success otherwise an error message</returns>
-		[OperationContract]
+		
 		Task<string> ApplyTemplateAsynchronous(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
 
 		/// <summary>
@@ -71,7 +69,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
 
 		/// <summary>
@@ -83,7 +81,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="mainMember">Main (supporting member)</param>
 		/// <param name="attachedMembers">The list of members which are supported by <paramref name="mainMember"/></param>
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
-		[OperationContract]
+		
 		Task<string> ApplySimpleTemplateAsynchronous(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
 
 		/// <summary>
@@ -98,7 +96,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
 
 		/// <summary>
@@ -106,7 +104,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Identifier of the required connection</param>
 		/// <returns>Geometry of the connection in the Xml format</returns>
-		[OperationContract]
+		
 		string GetConnectionModelXML(string connectionId);
 
 		/// <summary>
@@ -115,14 +113,14 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">>Identifier of the connection in the project, empty guid means the first connection in the project</param>
 		/// <param name="conTemplateFileName">The file name of the output file</param>
 		/// <returns>returns 'OK' if success otherwise an error message</returns>
-		[OperationContract]
+		
 		string ExportToTemplate(string connectionId, string conTemplateFileName);
 
 		/// <summary>
 		/// Gets details about the open project and its connections
 		/// </summary>
 		/// <returns></returns>
-		[OperationContract]
+		
 		ConProjectInfo GetProjectInfo();
 
 		/// <summary>
@@ -130,10 +128,10 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">The identifier of the required connection</param>
 		/// <returns>Connection check results</returns>
-		[OperationContract]
+		
 		ConnectionResultsData Calculate(string connectionId);
 
-		[OperationContract]
+		
 		ConnectionResultsData CalculateBuckling(string connectionId);
 
 		/// <summary>
@@ -141,14 +139,14 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">The identifier of the required connection</param>
 		/// <returns>Connection price results</returns>
-		[OperationContract]
+		
 		string GetConnectionCost(string connectionId);
 		/// <summary>
 		/// Get the geometry of the <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">Identifier of the required connection</param>
 		/// <returns>Geometry of the connection in the IOM format</returns>
-		[OperationContract]
+		
 		IdeaRS.OpenModel.Connection.ConnectionData GetConnectionModel(string connectionId);
 
 		/// <summary>
@@ -156,7 +154,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Identifier of the required connection</param>
 		/// <returns>XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)</returns>
-		[OperationContract]
+		
 		string GetAllConnectionData(string connectionId);
 
 		/// <summary>
@@ -166,7 +164,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="expression">User expression to be evaluated</param>
 		/// <param name="arumentsJSON">Optional agruments in json format (not used now)</param>
 		/// <returns>In case of a success it is the JSON string representing the result of the query. String 'null' if nothing is found. String 'error' in case of any other unspecified error.</returns>
-		[OperationContract]
+		
 		string EvaluateExpression(string connectionId, string expression, string arumentsJSON);
 
 		/// <summary>
@@ -174,7 +172,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
 		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
-		[OperationContract]
+		
 		void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName);
 
 		/// <summary>
@@ -183,40 +181,40 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
 		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
 		/// <param name="newIdeaConFileName">File name of idea connection project where generated project will be saved</param>
-		[OperationContract]
+		
 		void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName);
 
 		/// <summary>
 		/// Close project which is open in the service
 		/// </summary>
-		[OperationContract]
+		
 		void CloseProject();
 
 		/// <summary>
 		/// Cancel current calcullation
 		/// </summary>
-		[OperationContract]
+		
 		void Cancel();
 
 		/// <summary>
 		/// Get all materials in the currently open project
 		/// </summary>
 		/// <returns>Materials in the project</returns>
-		[OperationContract]
+		
 		List<ProjectItem> GetMaterialsInProject();
 
 		/// <summary>
 		/// Get all cross-sections in the currently open project
 		/// </summary>
 		/// <returns>Cross-sections in the project</returns>
-		[OperationContract]
+		
 		List<ProjectItem> GetCrossSectionsInProject();
 
 		/// <summary>
 		/// Get all bolt assemblies in the currently open project
 		/// </summary>
 		/// <returns>Bolt assemblies in the project</returns>
-		[OperationContract]
+		
 		List<ProjectItem> GetBoltAssembliesInProject();
 
 		/// <summary>
@@ -224,7 +222,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="boltAssemblyName"></param>
 		/// <returns></returns>
-		[OperationContract]
+		
 		Task<int> AddBoltAssemblyAsynchronous(string boltAssemblyName);
 
 		/// <summary>
@@ -235,7 +233,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		int AddBoltAssembly(string boltAssemblyName);
 
 		/// <summary>
@@ -244,7 +242,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the parameter</param>
 		/// <returns></returns>
-		[OperationContract]
+		
 		string GetParametersJSON(string connectionId);
 
 		/// <summary>
@@ -252,7 +250,7 @@ namespace IdeaStatiCa.Plugin
 		/// <see href="https://idea-statica.github.io/iom/iom-api/latest/html/Properties_T_IdeaRS_OpenModel_ConnectionSetup.htm">IOM connection setup</see>
 		/// </summary>
 		/// <returns></returns>
-		[OperationContract]
+		
 		string GetCodeSetupJSON();
 
 		/// <summary>
@@ -262,7 +260,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the parameter</param>
 		/// <param name="parametersJSON">JSON string including parameters</param>
 		/// <returns>True if success | False if apply of parameters failed OR model contain some nonconformity</returns>
-		[OperationContract]
+		
 		Task<string> ApplyParametersAsynchronous(string connectionId, string parametersJSON);
 
 		/// <summary>
@@ -275,7 +273,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		string ApplyParameters(string connectionId, string parametersJSON);
 
 		/// <summary>
@@ -283,7 +281,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the parameter</param>
 		/// <returns></returns>
-		[OperationContract]
+		
 		string GetConnectionLoadingJSON(string connectionId);
 
 		/// <summary>
@@ -292,7 +290,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the connection</param>
 		/// <param name="loadingJSON">JSON including list of CalcCaseData</param>
 		/// <returns></returns>
-		[OperationContract]
+		
 		Task<string> UpdateLoadingFromJsonAsynchronous(string connectionId, string loadingJSON);
 
 		/// <summary>
@@ -304,7 +302,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		string UpdateLoadingFromJson(string connectionId, string loadingJSON);
 
 		/// <summary>
@@ -312,7 +310,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionSetupJSON">connection setup in JSON format</param>
 		/// <returns></returns>
-		[OperationContract]
+		
 		Task<string> UpdateCodeSetupJsonAsynchronous(string connectionSetupJSON);
 
 		/// <summary>
@@ -320,7 +318,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionSetupJSON">connection setup in JSON format</param>
 		/// <returns></returns>
-		[OperationContract]
+		
 		string UpdateCodeSetupJSON(string connectionSetupJSON);
 
 		/// <summary>
@@ -328,7 +326,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the connection</param>
 		/// <returns>Json which represents </returns>
-		[OperationContract]
+		
 		string GetCheckResultsJSON(string connectionId);
 
 		/// <summary>
@@ -336,7 +334,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the connection</param>
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
-		[OperationContract]
+		
 		Task<string> DeleteAllOperationsAsynchronous(string connectionId);
 
 		/// <summary>
@@ -347,7 +345,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		string DeleteAllOperations(string connectionId);
 
 		/// <summary>
@@ -355,7 +353,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="crossSectionId">Id of the cross-section</param>
 		/// <param name="materialId">Id of the material</param>
-		[OperationContract]
+		
 		void SetCrossSectionMaterial(int crossSectionId, int materialId);
 
 		/// <summary>
@@ -364,7 +362,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the connection</param>
 		/// <param name="memberId">Id of the member</param>
 		/// <param name="crossSectionId">Id of the cross-section</param>
-		[OperationContract]
+		
 		Task SetMemberCrossSectionAsynchronous(string connectionId, int memberId, int crossSectionId);
 
 		/// <summary>
@@ -376,7 +374,7 @@ namespace IdeaStatiCa.Plugin
 		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
-		[OperationContract]
+		
 		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
 
 		/// <summary>
@@ -385,7 +383,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
 		/// <param name="settings">Report settings</param>
 		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
-		[OperationContract]
+		
 		ReportResponse GenerateReport(string connectionId, ConnReportSettings settings);
 
 		/// <summary>
@@ -394,7 +392,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
 		/// <param name="settings">Report settings</param>
 		/// <param name="filePath">File path of the exported pdf report </param>
-		[OperationContract]
+		
 		void GenerateReportPdf(string connectionId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
@@ -403,14 +401,14 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
 		/// <param name="settings">Report settings</param>
 		/// <param name="filePath">File path of the exported word report </param>
-		[OperationContract]
+		
 		void GenerateReportWord(string connectionId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
 		/// Open and select the connection <paramref name="connectionId"/> in an application
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
-		[OperationContract]
+		
 		void OpenConnectionInApp(string connectionId);
 	}
 }

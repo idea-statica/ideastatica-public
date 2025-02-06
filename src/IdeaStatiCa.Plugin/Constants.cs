@@ -22,8 +22,6 @@
 
 		public const string ConnectionChangedEventFormat = "IdeaStatiCaConnectionChanged{0}";
 		public const string MemberChangedEventFormat = "IdeaStatiCaMemberChanged{0}";
-		public const string ConCalculatorChangedEventFormat = "IdeaStatiCa.ConnHiddenCalculator-{0}";
-		public const string ConCalculatorCancelEventFormat = "IdeaStatiCa.ConnHiddenCalculatorCancel-{0}";
 		public const string DetailChangedEventFormat = "IdeaStatiCaDetailChanged{0}";
 
 		#region BIM Plugin default constants
@@ -41,8 +39,6 @@
 		public const string MemberUrlFormat = "net.pipe://localhost/IdeaMember{0}";
 
 		#endregion Member plugin constants
-
-		public const string ConnHiddenCalculatorUrlFormat = "net.pipe://localhost/IdeaStatiCa.ConnHiddenCalculator{0}";
 
 	#region grpc message handlers
 		public const int MinGrpcPort = 50000;

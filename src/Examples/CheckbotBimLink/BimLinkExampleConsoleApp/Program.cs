@@ -1,5 +1,6 @@
 ﻿using BimApiLinkCadExample;
 using BimApiLinkCadExample.CadExampleApi;
+using System.Threading.Tasks;
 
 namespace BimLinkExampleConsoleApp
 {

@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ConnectionAutomationApp.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="IdeaStatiCaDir" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 24.1</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

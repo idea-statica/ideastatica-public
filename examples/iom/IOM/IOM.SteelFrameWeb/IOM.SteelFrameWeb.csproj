@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ProjectGuid>{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net50</TargetFramework>
+    <TargetFramework>net60</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>IOM.SteelFrame</AssemblyTitle>
     <Product>IOM.SteelFrame</Product>
