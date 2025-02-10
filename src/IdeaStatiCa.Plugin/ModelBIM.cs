@@ -6,15 +6,6 @@ using System.Runtime.Serialization;
 
 namespace IdeaStatiCa.Plugin
 {
-	public enum RequestedItemsType
-	{
-		Connections,
-		Substructure,
-		SingleConnection,
-		WholeModel,
-		ConcreteWall
-	}
-
 	[DataContract]
 	public class ModelBIM
 	{

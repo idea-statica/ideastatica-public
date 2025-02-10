@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using res = IdeaRS.OpenModel.Properties.Resources;
+using Res = IdeaRS.OpenModel.Properties.Resources;
 
 namespace IdeaRS.OpenModel.Message
 {
@@ -237,39 +237,39 @@ namespace IdeaRS.OpenModel.Message
 		/// </summary>
 		static OpenMessageProvider()
 		{
-			messagesString.Add(MessageNumber.Unspecified, res.Unspecified.ToString());
+			messagesString.Add(MessageNumber.Unspecified, Res.Unspecified.ToString());
 
 			//General
-			messagesString.Add(MessageNumber.Information, res.GeneralInformation.ToString());
-			messagesString.Add(MessageNumber.Warning, res.GeneralWarning.ToString());
-			messagesString.Add(MessageNumber.Error, res.GeneralError.ToString());
-			messagesString.Add(MessageNumber.Reserved, res.Reserved.ToString());
+			messagesString.Add(MessageNumber.Information, Res.GeneralInformation.ToString());
+			messagesString.Add(MessageNumber.Warning, Res.GeneralWarning.ToString());
+			messagesString.Add(MessageNumber.Error, Res.GeneralError.ToString());
+			messagesString.Add(MessageNumber.Reserved, Res.Reserved.ToString());
 
 			//Information
 
 			//Warning
-			messagesString.Add(MessageNumber.WarnNoPropertyInData, res.WarnNoPropertyInData.ToString());
-			messagesString.Add(MessageNumber.WarnValueOutOfRange, res.WarnValueOutOfRange.ToString());
-			messagesString.Add(MessageNumber.WarnCurveCount, res.WarnCurveCount.ToString());
-			messagesString.Add(MessageNumber.WarnReinforcementBarsCollision, res.WarnReinforcementBarsCollision.ToString());
+			messagesString.Add(MessageNumber.WarnNoPropertyInData, Res.WarnNoPropertyInData.ToString());
+			messagesString.Add(MessageNumber.WarnValueOutOfRange, Res.WarnValueOutOfRange.ToString());
+			messagesString.Add(MessageNumber.WarnCurveCount, Res.WarnCurveCount.ToString());
+			messagesString.Add(MessageNumber.WarnReinforcementBarsCollision, Res.WarnReinforcementBarsCollision.ToString());
 
 			//Error
-			messagesString.Add(MessageNumber.ErrNoOpenObject, res.ErrNoOpenObject.ToString());
-			messagesString.Add(MessageNumber.ErrDataObjectNotCreated, res.ErrDataObjectNotCreated.ToString());
-			messagesString.Add(MessageNumber.ErrNoObjectInOpenModel, res.ErrNoObjectInOpenModel.ToString());
-			messagesString.Add(MessageNumber.ErrNoReferenceObjectInOpenModel, res.ErrNoReferenceObjectInOpenModel.ToString());
-			messagesString.Add(MessageNumber.ErrNoEquivalentObjectInDataModel, res.ErrNoEquivalentObjectInDataModel.ToString());
-			messagesString.Add(MessageNumber.ErrNoCrossSectionParameter, res.ErrNoCrossSectionParameter.ToString());
+			messagesString.Add(MessageNumber.ErrNoOpenObject, Res.ErrNoOpenObject.ToString());
+			messagesString.Add(MessageNumber.ErrDataObjectNotCreated, Res.ErrDataObjectNotCreated.ToString());
+			messagesString.Add(MessageNumber.ErrNoObjectInOpenModel, Res.ErrNoObjectInOpenModel.ToString());
+			messagesString.Add(MessageNumber.ErrNoReferenceObjectInOpenModel, Res.ErrNoReferenceObjectInOpenModel.ToString());
+			messagesString.Add(MessageNumber.ErrNoEquivalentObjectInDataModel, Res.ErrNoEquivalentObjectInDataModel.ToString());
+			messagesString.Add(MessageNumber.ErrNoCrossSectionParameter, Res.ErrNoCrossSectionParameter.ToString());
 
-			messagesString.Add(MessageNumber.ErrValueOutOfRange, res.ErrValueOutOfRange.ToString());
-			messagesString.Add(MessageNumber.ErrCurveZeroPoint, res.ErrCurveZeroPoint.ToString());
-			messagesString.Add(MessageNumber.ErrCurveFunction, res.ErrCurveFunction.ToString());
-			messagesString.Add(MessageNumber.ErrCurveDecreaseFunction, res.ErrCurveDecreaseFunction.ToString());
-			messagesString.Add(MessageNumber.ErrCurveDerivation, res.ErrCurveDerivation.ToString());
-			messagesString.Add(MessageNumber.ErrCurveNotSet, res.ErrCurveNotSet.ToString());
-			messagesString.Add(MessageNumber.ErrValidPolyline, res.ErrValidPolyline.ToString());
+			messagesString.Add(MessageNumber.ErrValueOutOfRange, Res.ErrValueOutOfRange.ToString());
+			messagesString.Add(MessageNumber.ErrCurveZeroPoint, Res.ErrCurveZeroPoint.ToString());
+			messagesString.Add(MessageNumber.ErrCurveFunction, Res.ErrCurveFunction.ToString());
+			messagesString.Add(MessageNumber.ErrCurveDecreaseFunction, Res.ErrCurveDecreaseFunction.ToString());
+			messagesString.Add(MessageNumber.ErrCurveDerivation, Res.ErrCurveDerivation.ToString());
+			messagesString.Add(MessageNumber.ErrCurveNotSet, Res.ErrCurveNotSet.ToString());
+			messagesString.Add(MessageNumber.ErrValidPolyline, Res.ErrValidPolyline.ToString());
 
-			messagesString.Add(MessageNumber.ErrTimeout, res.TimeoutError.ToString());
+			messagesString.Add(MessageNumber.ErrTimeout, Res.TimeoutError.ToString());
 		}
 
 		/// <summary>
@@ -288,19 +288,19 @@ namespace IdeaRS.OpenModel.Message
 
 			if ((number & MessageNumber.Information) != 0)
 			{
-				return res.GeneralInformation;
+				return Res.GeneralInformation;
 			}
 			else if ((number & MessageNumber.Warning) != 0)
 			{
-				return res.GeneralWarning;
+				return Res.GeneralWarning;
 			}
 			else if ((number & MessageNumber.Error) != 0)
 			{
-				return res.GeneralError;
+				return Res.GeneralError;
 			}
 			else if ((number & MessageNumber.Reserved) != 0)
 			{
-				return res.Reserved;
+				return Res.Reserved;
 			}
 			else
 			{

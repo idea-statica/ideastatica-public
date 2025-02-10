@@ -22,7 +22,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "ideastatica-connection-api"
-VERSION = "24.1.3.1883"
+VERSION = "24.1.3.2377"
 PYTHON_REQUIRES = ">= 3.8"
 REQUIRES = [
     "urllib3 >= 1.25.3, < 3.0.0",
@@ -34,16 +34,18 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="IdeaStatiCa Connection Rest API Client",
-    author="IdeaStatiCa",
-    url="https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python",
-    keywords=["IdeaStatiCa", "Steel", "Connections"],
+    description="Connection Rest API 1.0",
+    author="IDEA StatiCa",
+    author_email="info@ideastatica.com",
+    url="",
+    keywords=["OpenAPI", "OpenAPI-Generator", "Connection Rest API 1.0"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
+    license="IDEA StatiCa License",
     long_description_content_type='text/markdown',
     long_description="""\
-    API for designing steel connections
+    IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
     """,  # noqa: E501
     package_data={"ideastatica_connection_api": ["py.typed"]},
 )

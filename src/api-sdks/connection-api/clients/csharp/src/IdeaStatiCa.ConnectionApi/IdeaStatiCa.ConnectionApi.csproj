@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
@@ -7,25 +7,24 @@
     <PackageId>IdeaStatiCa.ConnectionApi</PackageId>
     <OutputType>Library</OutputType>
     <Authors>IDEA StatiCa s.r.o</Authors>
-    <Company>IDEA StatiCa s.r.o</Company>
+    <Company>OpenAPI</Company>
     <AssemblyTitle>IDEA StatiCa Connection API</AssemblyTitle>
-    <Description>IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.</Description>
+    <Description>IDEA StatiCa Connection API</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>IdeaStatiCa.ConnectionApi</RootNamespace>
-    <Version>24.1.2.1446</Version>
+    <Version>24.1.3.2377</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\IdeaStatiCa.ConnectionApi.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <PackageTags>IdeaStatiCa, Connection</PackageTags>
-    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="Polly" Version="7.2.4" />
+    <PackageReference Include="JsonSubTypes" />
+    <PackageReference Include="RestSharp" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Polly" />
   </ItemGroup>
 
   <ItemGroup>
