@@ -16,6 +16,6 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		public bool IsPercentage { get; set; }
 
-		public IEnumerable<ConLoadEffectMemberLoad> MemberLoadings { get; set; } = new List<ConLoadEffectMemberLoad>();
+		public List<ConLoadEffectMemberLoad> MemberLoadings { get; set; } = new List<ConLoadEffectMemberLoad>();
 	}
 }
