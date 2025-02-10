@@ -7,6 +7,7 @@
     <PackageVersion Include="AutoFixture.NUnit3" Version="4.18.1" />
     <PackageVersion Include="coverlet.collector" Version="3.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.8.0" />
+	<PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="8.0.2" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <!--<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />-->
     <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
@@ -56,7 +57,12 @@
     <PackageVersion Include="TeklaOpenAPI" Version="2020.0.2" /> -->
     <PackageVersion Include="Google.Protobuf" Version="3.21.3" />
     <PackageVersion Include="Castle.Windsor" Version="5.1.1" />	
+    <PackageVersion Include="Castle.Core" Version="5.1.1" />
     <PackageVersion Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageVersion Include="FluentAssertions.Json" Version="6.1.0" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
+	<PackageVersion Include="JsonSubTypes" Version="2.0.1" />
+	<PackageVersion Include="RestSharp" Version="112.1.0" />
   </ItemGroup>
 </Project>

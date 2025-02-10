@@ -7,6 +7,11 @@
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	</PropertyGroup>
+	
 	<ItemGroup>
 	  <None Remove="Resources\RAM icon.ico" />
 	</ItemGroup>
