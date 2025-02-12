@@ -1,13 +1,12 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Public;
-using System.ServiceModel;
+
 
 namespace IdeaStatiCa.Plugin
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	[ServiceContract]
 	public interface IConnectionAutomation
 	{
 		/// <summary>
