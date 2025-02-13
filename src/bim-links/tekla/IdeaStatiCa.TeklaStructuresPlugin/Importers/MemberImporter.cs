@@ -165,13 +165,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		private double GetMemberLength(Part member)
 		{
 			PlugInLogger.LogInformation($"MemberImporter GetMemberLength");
-			var centLine = member.GetCenterLine(false);
-
-			Point begNode = centLine[0] as Point;
-			Point endNode = centLine[centLine.Count - 1] as Point;
-			var vector = new Vector(endNode - begNode);
-
-			var memberLen = vector.GetLength();
+			var memberLen = MemberHelper.GetPartLength(member);
 			PlugInLogger.LogInformation($"MemberImporter GetMemberLength {memberLen}");
 			return memberLen;
 		}

@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
 using Tekla.Structures.Catalogs;
+using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
@@ -45,6 +46,23 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Get part length by begin and end of centerline
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static double GetPartLength(Part part)
+		{
+			var centLine = part.GetCenterLine(false);
+
+			Point begNode = centLine[0] as Point;
+			Point endNode = centLine[centLine.Count - 1] as Point;
+			var vector = new Vector(endNode - begNode);
+
+			var memberLen = vector.GetLength();
+			return memberLen;
 		}
 	}
 }
