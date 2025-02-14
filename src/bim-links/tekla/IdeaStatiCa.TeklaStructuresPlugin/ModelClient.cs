@@ -273,7 +273,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 									notFoundAnchor = false;
 								}
 							}
-							else if (part is TS.Beam b && (part.Name != "WASHER" && part.Name != "NUT"))
+							else if (part is TS.Beam b && (!IdentifierHelper.WasherMemberFilter(part) && !IdentifierHelper.NutMemberFilter(part)))
+							{
+								anchorItems.Add(part);
+							}
+							else if (part is ContourPlate)
+							//else if (IdentifierHelper.PlateWasherMemberFilter(part) || IdentifierHelper.WebPlateMemberFilter(part) || IdentifierHelper.FlangePlateMemberFilter(part))
 							{
 								anchorItems.Add(part);
 							}

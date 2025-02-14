@@ -147,11 +147,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 				{
 					var modelObj = bolts.Current;
 
-					if (!(modelObj is TS.BoltGroup))
+					if (!(modelObj is TS.BoltGroup boltGroup))
 					{
 						continue;
 					}
-					identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
+
+					//test if is baseplate with dummy bolt group
+					if (!teklaPart.Identifier.Equals(boltGroup.PartToBeBolted.Identifier) || !teklaPart.Identifier.Equals(boltGroup.PartToBoltTo.Identifier) || boltGroup.OtherPartsToBolt.Count != 0)
+					{
+						identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
+					}
 				}
 
 				//welds
@@ -294,7 +299,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		{
 
 			//skip anchor member
-			if (beam.Profile.ProfileString.Contains("NUT_"))
+			if (NutMemberFilter(beam))
 			{
 				return false;
 			}
@@ -347,6 +352,80 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			return false;
 		}
 
+		/// <summary>
+		/// Plate Washer Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool PlateWasherMemberFilter(Part part)
+		{
+			if (part is TS.ContourPlate cp && part.Name == "PLATE_WASHER")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Web Plate Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool WebPlateMemberFilter(Part part)
+		{
+			if (part is TS.ContourPlate cp && part.Name == "WEB_PLATE")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Flange Plate Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool FlangePlateMemberFilter(Part part)
+		{
+			if (part is TS.ContourPlate cp && part.Name == "FLANGE_PLATE")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Nut Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool NutMemberFilter(Part part)
+		{
+			if (part.Profile.ProfileString.Contains("NUT_") || part.Name == "NUT")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Washer Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool WasherMemberFilter(Part part)
+		{
+			if (part.Name == "WASHER")
+			{
+				return true;
+			}
+
+			return false;
+		}
 		internal static void AddIdentifier<TIdentifier>(List<IIdentifier> identifiers, ModelObject teklaObject, string filerObjectHandle)
 		where TIdentifier : IIdeaObject
 		{

@@ -76,6 +76,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					List<TS.Part> anchors = new List<TS.Part>();
 					TS.Part nut = null;
 					TS.Part washer = null;
+					TS.Part plateWasher = null;
 
 					var anchorAssemblies = new List<TS.Assembly>();
 					var anchorObjects = new List<List<TS.Part>>();
@@ -109,14 +110,19 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 									anchors.Add(part);
 								}
 
-								if (part.Name == "NUT")
+								if (IdentifierHelper.NutMemberFilter(part))
 								{
 									nut = part;
 								}
 
-								if (part.Name == "WASHER")
+								if (IdentifierHelper.WasherMemberFilter(part))
 								{
 									washer = part;
+								}
+
+								if (IdentifierHelper.PlateWasherMemberFilter(part))
+								{
+									plateWasher = part;
 								}
 
 								// try to find the base plate based on column assembly, size and location
@@ -166,7 +172,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 						CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBeBolted, anchorGrid);
 						CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBeBolted, anchorGrid);
-
+						if (plateWasher != null)
+						{
+							CheckAndAddConnectedObject<IIdeaPlate>(plateWasher, anchorGrid);
+						}
 						if (boltGroup.OtherPartsToBolt != null)
 						{
 							foreach (var obj in boltGroup.OtherPartsToBolt)
