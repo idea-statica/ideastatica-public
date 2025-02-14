@@ -58,6 +58,7 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 		[TestCase("OpenModel-Simple.xml", "OpenModel-Simple.xml")]
 		[TestCase("OpenModel-LargeUpgraded.xml", "OpenModel-LargeDowngraded.xml")]
 		[TestCase("ModelBIM-AS_Black_PointUpgraded.xml", "ModelBIM-AS_Black_PointDowngraded.xml")]
+		[TestCase("ConnectionPoint-1_2.1.0.xml", "ConnectionPoint-1_2.0.0-Downgraded.xml")]
 		public void FromParsedXml_Downgrade_LargeFile(string fileName, string expectedFile)
 		{
 			string xmlContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, fileName));
@@ -80,7 +81,7 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 
 			Assert.IsNotNull(anObject: exportedXML);
 
-			UtHelper.AssertEqualXml(xmlExpectedContent, exportedXML, fileName);
+			UtHelper.AssertEqualXml(xmlExpectedContent, exportedXML, expectedFile);
 		}
 
 	}
