@@ -43,7 +43,8 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			{
 				var beamId = beam.GetElementValue("Id");
 				var beamOriginalModelId = beam.GetElementValue("OriginalModelId");
-				partsInModel[beamId] = (beamId, beamOriginalModelId, "BeamData");
+				var key = $"{beamId}_BeamData";
+				partsInModel[key] = (beamId, beamOriginalModelId, "BeamData");
 			}
 
 			var platesData = openModel.GetElements("Connections;ConnectionData;Plates;PlateData");
@@ -51,7 +52,8 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			{
 				var plateId = plate.GetElementValue("Id");
 				var plateOriginalModelId = plate.GetElementValue("OriginalModelId");
-				partsInModel[plateId] = (plateId, plateOriginalModelId, "PlateData");
+				var key = $"{plateId}_PlateData";
+				partsInModel[key] = (plateId, plateOriginalModelId, "PlateData");
 			}
 
 
@@ -119,12 +121,15 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				var connectedPartIdsList = boltGrid.CreateElementProperty("ConnectedPartIds").CreateListProperty("ConnectedPartIds");
 				var connectedPlatesList = boltGrid.CreateElementProperty("ConnectedPlates").CreateListProperty("ConnectedPlates");
 
-				var connectedPartsId = boltGrid.GetElements("ConnectedParts;ReferenceElement;Id");
-				foreach (var connectedPartId in connectedPartsId)
+				var connectedParts = boltGrid.GetElements("ConnectedParts;ReferenceElement");
+				foreach (var connectedPart in connectedParts)
 				{
-					var partId = connectedPartId.GetElementValue(null);
+					var partId = connectedPart.GetElementValue("Id");
+					var partType = connectedPart.GetElementValue("TypeName");
 
-					if (partsInModel.TryGetValue(partId, out (string Id, string OriginalModelId, string Type) item))
+					var key = $"{partId}_{partType}";
+
+					if (partsInModel.TryGetValue(key, out (string Id, string OriginalModelId, string Type) item))
 					{
 						var part = new SObject() { TypeName = "string" };
 						part.ChangeElementValue(item.OriginalModelId);
@@ -134,7 +139,6 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 						plate.ChangeElementValue(item.Id);
 						connectedPlatesList.AddElementProperty(plate);
 					}
-
 				}
 				boltGrid.RemoveElementProperty("ConnectedParts");
 			}
