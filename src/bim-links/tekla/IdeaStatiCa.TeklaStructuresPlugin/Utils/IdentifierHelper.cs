@@ -333,7 +333,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		public static bool AnchorMemberFilter(Part part)
 		{
 			// anchor member
-			//if (part.GetCustomObjectType() == "AnchorBolt")
+#if TEKLA2025
+			if (part.GetCustomObjectType() == "AnchorBolt")
+			{
+				return true;
+			}
+#endif
 			if (part.Name == "ANCHOR ROD")
 			{
 				return true;
