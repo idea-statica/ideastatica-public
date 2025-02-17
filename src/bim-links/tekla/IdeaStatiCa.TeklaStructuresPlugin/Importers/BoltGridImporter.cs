@@ -2,6 +2,7 @@
 using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TS = Tekla.Structures.Model;
@@ -12,9 +13,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 {
 	internal class BoltGridImporter : BaseImporter<IIdeaBoltGrid>
 	{
-		private static readonly string BoltGradeKey = "GRADE";
-		private static readonly string BoltDiameterKey = "DIAMETER";
-		private static readonly string BoltAssemblyNameKey = "TYPE";
+
 
 		public BoltGridImporter(IModelClient model, IPluginLogger plugInLogger)
 			: base(model, plugInLogger)
@@ -119,20 +118,20 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			var stringPropTable = new Hashtable();
 			boltGroup.GetStringReportProperties(new ArrayList
 				{
-					BoltGradeKey,
-					BoltAssemblyNameKey
+					TeklaPropertiesKeys.BoltGradeKey,
+					TeklaPropertiesKeys.BoltAssemblyNameKey
 				}, ref stringPropTable);
 
-			string boltAssemblyName = (string)stringPropTable[BoltAssemblyNameKey];
-			string boltGrade = (string)stringPropTable[BoltGradeKey] ?? boltAssemblyName;
+			string boltAssemblyName = (string)stringPropTable[TeklaPropertiesKeys.BoltAssemblyNameKey];
+			string boltGrade = (string)stringPropTable[TeklaPropertiesKeys.BoltGradeKey] ?? boltAssemblyName;
 
 			var doublePropTable = new Hashtable();
 			boltGroup.GetDoubleReportProperties(new ArrayList
 			{
-				BoltDiameterKey
+				TeklaPropertiesKeys.BoltDiameterKey
 			}, ref doublePropTable);
 
-			double boltDiameter = ((double)doublePropTable[BoltDiameterKey]).MilimetersToMeters();
+			double boltDiameter = ((double)doublePropTable[TeklaPropertiesKeys.BoltDiameterKey]).MilimetersToMeters();
 
 			return new BoltAssembly(boltGroup.Identifier.GUID.ToString())
 			{
@@ -146,7 +145,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				Standard = string.Empty,
 				TensileStressArea = 0.0,
 				BoltGradeNo = boltGrade,
-				Name = $"{(isImperialUnitPresented ? boltDiameter.MetersToInchesFormated() : doublePropTable[BoltDiameterKey])} {boltAssemblyName}"
+				Name = $"{(isImperialUnitPresented ? boltDiameter.MetersToInchesFormated() : doublePropTable[TeklaPropertiesKeys.BoltDiameterKey])} {boltAssemblyName}"
 			};
 		}
 	}
