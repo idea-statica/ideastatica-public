@@ -26,7 +26,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <param name="partsEnumerator"></param>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
-		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, ModelObjectEnumerator partsEnumerator)
+		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator)
 		{
 			List<BIM.Common.Member> bMembers = new List<BIM.Common.Member>();
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
@@ -35,15 +35,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			Item.CustomComparer = new ItemEqualityComparer();
 
-			while (partsEnumerator.MoveNext())
+			foreach (var currentPart in partsEnumerator)
 			{
-				if (partsEnumerator.Current is Beam beam)
+				if (currentPart is Beam beam)
 				{
-					//skip concrete block
-					if ((beam.Type == Beam.BeamTypeEnum.PAD_FOOTING || beam.Type == Beam.BeamTypeEnum.STRIP_FOOTING))
-					{
-						continue;
-					}
 					var partLcs = BulkSelectionHelper.CreateMatrix(beam);
 					var bb = BulkSelectionHelper.CreateOrientedBoundingBox(myModel, beam);
 					System.Windows.Rect cssBounds = new System.Windows.Rect(new System.Windows.Point(-1 * bb.Extent2, -1 * bb.Extent1), new System.Windows.Point(bb.Extent2, bb.Extent1));
@@ -84,7 +79,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 							));
 				}
 
-				if (partsEnumerator.Current is PolyBeam polyBeam)
+				if (currentPart is PolyBeam polyBeam)
 				{
 					var partLcs = BulkSelectionHelper.CreateMatrix(polyBeam);
 					System.Windows.Rect cssBounds = new System.Windows.Rect(new System.Windows.Point(-1 * 200, -1 * 200), new System.Windows.Point(200, 200));
@@ -106,7 +101,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 							));
 				}
 
-				if (partsEnumerator.Current is ContourPlate contourPlate)
+				if (currentPart is ContourPlate contourPlate)
 				{
 					Matrix44 lcs = BulkSelectionHelper.CreateMatrix(contourPlate);
 
@@ -115,7 +110,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					plates.Add(new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate)));
 				}
 
-				if (partsEnumerator.Current is BoltGroup boltGroup)
+				if (currentPart is BoltGroup boltGroup)
 				{
 					Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroup);
 					var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroup);
@@ -123,7 +118,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					fasteners.Add(new BIM.Common.FastenerGrid(boltGroup, lcs, boltPositions));
 				}
 
-				if (partsEnumerator.Current is BentPlate bentPlate)
+				if (currentPart is BentPlate bentPlate)
 				{
 					GeometrySectionEnumerator geometryEnumerator = bentPlate.Geometry.GetGeometryEnumerator();
 					while (geometryEnumerator.MoveNext())
@@ -136,12 +131,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					}
 				}
 
-				if (partsEnumerator.Current is BaseWeld baseWeld)
+				if (currentPart is BaseWeld baseWeld)
 				{
 					welds.Add(new BIM.Common.Weld(baseWeld, BulkSelectionHelper.GetBIMItem(myModel, baseWeld.MainObject), BulkSelectionHelper.GetBIMItem(myModel, baseWeld.SecondaryObject)));
 				}
 
-				if (partsEnumerator.Current is Part part)
+				if (currentPart is Part part)
 				{
 					var weldsSet = part.GetWelds();
 					while (weldsSet.MoveNext())

@@ -9,12 +9,16 @@
     <Import_RootNamespace>IdeaStatiCa.TeklaStructuresPlugin</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\AnchorGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\ConcreteBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)bimapi\FoldedPlate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\NegativePlate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\Plate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IModelClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\BaseImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\AnchorGridImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\BoltGridImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\ConcreteBlockImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\ConnectedMemberImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\ConnectionImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\CrossSectionImporter.cs" />
@@ -53,6 +57,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\MemberHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TeklaGeometryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\TeklaPropertiesKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VectorExtension.cs" />
   </ItemGroup>
 </Project>
