@@ -280,7 +280,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 							else if (part is ContourPlate)
 							//else if (IdentifierHelper.PlateWasherMemberFilter(part) || IdentifierHelper.WebPlateMemberFilter(part) || IdentifierHelper.FlangePlateMemberFilter(part))
 							{
-								anchorItems.Add(part);
+								if (!IdentifierHelper.GroutFilter(part) && !IdentifierHelper.CastPlateFilter(part))
+								{
+									anchorItems.Add(part);
+								}
 							}
 						}
 					}

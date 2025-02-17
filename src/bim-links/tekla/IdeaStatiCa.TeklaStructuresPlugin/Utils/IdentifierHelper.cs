@@ -329,6 +329,39 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			return false;
 		}
 
+		/// <summary>
+		/// Grout plate Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool GroutFilter(Part part)
+		{
+
+			if (part is TS.ContourPlate cp && part.Name == "GROUT")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Cast plate Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool CastPlateFilter(Part part)
+		{
+
+			if (part is TS.ContourPlate cp && part.Name == "CAST_PLATE")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+
 
 		/// <summary>
 		/// Anchor Member Filter
@@ -359,7 +392,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool PlateWasherMemberFilter(Part part)
 		{
-			if (part is TS.ContourPlate cp && part.Name == "PLATE_WASHER")
+			if (part is TS.ContourPlate cp && (part.Name == "PLATE_WASHER" || part.Name == "Washer Plate"))
 			{
 				return true;
 			}
