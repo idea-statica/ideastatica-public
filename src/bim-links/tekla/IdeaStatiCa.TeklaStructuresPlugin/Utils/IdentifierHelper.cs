@@ -321,12 +321,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		public static bool ConcreteBlocksFilter(Part beam)
 		{
 			//find concrete blocks
-			if (beam is TS.Beam b && (b.Type == TS.Beam.BeamTypeEnum.PAD_FOOTING || b.Type == TS.Beam.BeamTypeEnum.STRIP_FOOTING))
-			{
-				return true;
-			}
-
-			return false;
+			return beam is TS.Beam b && (b.Type == TS.Beam.BeamTypeEnum.PAD_FOOTING || b.Type == TS.Beam.BeamTypeEnum.STRIP_FOOTING);
 		}
 
 		/// <summary>
@@ -336,13 +331,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool GroutFilter(Part part)
 		{
-
-			if (part is TS.ContourPlate cp && part.Name == "GROUT")
-			{
-				return true;
-			}
-
-			return false;
+			return part is TS.ContourPlate cp && part.Name == "GROUT";
 		}
 
 		/// <summary>
@@ -352,13 +341,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool CastPlateFilter(Part part)
 		{
-
-			if (part is TS.ContourPlate cp && part.Name == "CAST_PLATE")
-			{
-				return true;
-			}
-
-			return false;
+			return part is TS.ContourPlate cp && part.Name == "CAST_PLATE";
 		}
 
 
@@ -377,12 +360,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 				return true;
 			}
 #endif
-			if (part.Name == "ANCHOR ROD")
-			{
-				return true;
-			}
-
-			return false;
+			return part.Name == "ANCHOR ROD";
 		}
 
 		/// <summary>
@@ -392,12 +370,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool PlateWasherMemberFilter(Part part)
 		{
-			if (part is TS.ContourPlate cp && (part.Name == "PLATE_WASHER" || part.Name == "Washer Plate"))
-			{
-				return true;
-			}
-
-			return false;
+			return part is TS.ContourPlate cp && (part.Name == "PLATE_WASHER" || part.Name == "Washer Plate");
 		}
 
 		/// <summary>
@@ -407,12 +380,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool WebPlateMemberFilter(Part part)
 		{
-			if (part is TS.ContourPlate cp && part.Name == "WEB_PLATE")
-			{
-				return true;
-			}
-
-			return false;
+			return part is TS.ContourPlate cp && part.Name == "WEB_PLATE";
 		}
 
 		/// <summary>
@@ -422,12 +390,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool FlangePlateMemberFilter(Part part)
 		{
-			if (part is TS.ContourPlate cp && part.Name == "FLANGE_PLATE")
-			{
-				return true;
-			}
-
-			return false;
+			return part is TS.ContourPlate cp && part.Name == "FLANGE_PLATE";
 		}
 
 		/// <summary>
@@ -437,12 +400,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool NutMemberFilter(Part part)
 		{
-			if (part.Profile.ProfileString.Contains("NUT_") || part.Name == "NUT")
-			{
-				return true;
-			}
-
-			return false;
+			return part.Profile.ProfileString.Contains("NUT_") || part.Name == "NUT";
 		}
 
 		/// <summary>
@@ -452,12 +410,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		/// <returns></returns>
 		public static bool WasherMemberFilter(Part part)
 		{
-			if (part.Name == "WASHER")
-			{
-				return true;
-			}
-
-			return false;
+			return part.Name == "WASHER";
 		}
 		internal static void AddIdentifier<TIdentifier>(List<IIdentifier> identifiers, ModelObject teklaObject, string filerObjectHandle)
 		where TIdentifier : IIdeaObject

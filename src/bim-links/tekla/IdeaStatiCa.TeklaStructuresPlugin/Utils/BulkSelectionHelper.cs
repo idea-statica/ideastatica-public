@@ -39,11 +39,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			{
 				if (currentPart is Beam beam)
 				{
-					////skip concrete block
-					//if ((beam.Type == Beam.BeamTypeEnum.PAD_FOOTING || beam.Type == Beam.BeamTypeEnum.STRIP_FOOTING))
-					//{
-					//	continue;
-					//}
 					var partLcs = BulkSelectionHelper.CreateMatrix(beam);
 					var bb = BulkSelectionHelper.CreateOrientedBoundingBox(myModel, beam);
 					System.Windows.Rect cssBounds = new System.Windows.Rect(new System.Windows.Point(-1 * bb.Extent2, -1 * bb.Extent1), new System.Windows.Point(bb.Extent2, bb.Extent1));
