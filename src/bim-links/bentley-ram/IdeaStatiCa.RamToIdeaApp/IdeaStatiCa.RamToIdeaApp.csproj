@@ -8,10 +8,12 @@
 		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<!-- Set OutputPath for *_Internal configurations -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release_IdeaStatiCa_Internal' Or '$(Configuration)' == 'Debug_IdeaStatiCa_Internal'">
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>$(OutputPath)\$(TargetFramework)\RamToIdea_Internal\</OutputPath>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 	  <None Remove="Resources\RAM icon.ico" />
 	</ItemGroup>
