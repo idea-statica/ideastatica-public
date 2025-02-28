@@ -343,14 +343,21 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 
 					var structuralMembers = joint.Members
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.HaunchMemberName)
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorRodName)
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorWasherName)
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorNutName);
+					.Where(m => !IdentifierHelper.HaunchFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.AnchorMemberFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.WasherMemberFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.NutMemberFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.ConcreteBlocksFilter(m.Parent as TS.Part));
 
 					structuralMembers.ToList().ForEach(sm => beams.Add(sm.Parent as TS.ModelObject));
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of members {beams.Count}");
+
+
+					var stiffenigMembers = joint.Members
+					.Where(m => !structuralMembers.Contains(m));
+
+					stiffenigMembers.ToList().ForEach(sm => parts.Add(sm.Parent as TS.ModelObject));
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of plates {joint.Plates.Count}");
 					foreach (var plate in joint.Plates)

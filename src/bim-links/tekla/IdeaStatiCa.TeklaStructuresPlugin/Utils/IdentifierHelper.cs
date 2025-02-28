@@ -325,6 +325,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		}
 
 		/// <summary>
+		/// Haunch Filter
+		/// </summary>
+		/// <param name="beam"></param>
+		/// <returns></returns>
+		public static bool HaunchFilter(Part beam)
+		{
+			//find concrete blocks
+			return beam is TS.Beam b && (b.Name == "HAUNCH");
+		}
+
+		/// <summary>
 		/// Grout plate Filter
 		/// </summary>
 		/// <param name="part"></param>
