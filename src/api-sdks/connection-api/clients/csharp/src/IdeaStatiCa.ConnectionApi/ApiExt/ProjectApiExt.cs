@@ -4,6 +4,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -98,7 +99,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			{
 				memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
 
-				var conProject = await ImportIOMWithHttpInfoAsync(memoryStream, connectionsToCreate, null, 0, cancellationToken);
+				var connections = connectionsToCreate.Select(x => new StringStringValuesKeyValuePair
+				{
+					Key = "ConnectionsToCreate",
+					Value = new List<string> { $"{x}" }
+				}).ToList();
+
+				var conProject = await ImportIOMWithHttpInfoAsync(memoryStream, connections, null, 0, cancellationToken);
 				this.ProjectId = conProject.Data.ProjectId;
 				return conProject.Data;
 			}

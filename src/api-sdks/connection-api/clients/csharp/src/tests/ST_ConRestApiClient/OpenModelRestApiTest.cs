@@ -35,9 +35,11 @@ namespace ST_ConnectionRestApi
 		public async Task ShouldImportIOMTest()
 		{
 			string connProjectContainerFilePath = Path.Combine(ProjectPath, "OpenModelContainer.xml");
-			var conProject = await ConnectionApiClient!.Project.CreateProjectFromIomFileAsync(connProjectContainerFilePath);
+			var conProject = await ConnectionApiClient!.Project.CreateProjectFromIomFileAsync(connProjectContainerFilePath, new List<int> { 541 , 384 });
 
 			conProject.Should().NotBeNull();
+			conProject.Connections.Should().NotBeNull();
+			conProject.Connections.Count.Should().Be(2);
 		}
 
 		[Test]
