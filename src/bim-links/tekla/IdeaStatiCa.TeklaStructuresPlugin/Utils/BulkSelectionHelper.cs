@@ -1,6 +1,7 @@
 ﻿using CI;
 using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +43,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var partLcs = BulkSelectionHelper.CreateMatrix(beam);
 					var bb = BulkSelectionHelper.CreateOrientedBoundingBox(myModel, beam);
 					System.Windows.Rect cssBounds = new System.Windows.Rect(new System.Windows.Point(-1 * bb.Extent2, -1 * bb.Extent1), new System.Windows.Point(bb.Extent2, bb.Extent1));
+
+					//for concrete block take smaller bounding box
+					if (IdentifierHelper.ConcreteBlocksFilter(beam))
+					{
+						cssBounds = new System.Windows.Rect(new System.Windows.Point(-0.3 * bb.Extent2, -0.3 * bb.Extent1), new System.Windows.Point(0.3 * bb.Extent2, 0.3 * bb.Extent1));
+					}
 
 					var cl1 = beam.GetCenterLine(false).OfType<Point>().ToArray();
 
