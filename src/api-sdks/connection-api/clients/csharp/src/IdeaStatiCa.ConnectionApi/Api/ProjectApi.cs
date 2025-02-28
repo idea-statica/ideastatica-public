@@ -140,10 +140,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-        /// <param name="connectionsToCreate"> (optional)</param>
+        /// <param name="formCollection"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
-        ConProject ImportIOM(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), int operationIndex = 0);
+        ConProject ImportIOM(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), int operationIndex = 0);
 
         /// <summary>
         /// Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  which is serialized to XML string by  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt;
@@ -153,11 +153,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-/// <param name="connectionsToCreate"> (optional)</param>
+/// <param name="formCollection"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
-        ApiResponse<ConProject> ImportIOMWithHttpInfo(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), string requestedType = null, int operationIndex = 0);
+        ApiResponse<ConProject> ImportIOMWithHttpInfo(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Open ideacon project from ideaConFile
         /// </summary>
@@ -393,11 +393,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-        /// <param name="connectionsToCreate"> (optional)</param>
+        /// <param name="formCollection"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
-        System.Threading.Tasks.Task<ConProject> ImportIOMAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ConProject> ImportIOMAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  which is serialized to XML string by  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt;
@@ -407,12 +407,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-        /// <param name="connectionsToCreate"> (optional)</param>
+        /// <param name="formCollection"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConProject)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConProject>> ImportIOMWithHttpInfoAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<ConProject>> ImportIOMWithHttpInfoAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Open ideacon project from ideaConFile
         /// </summary>
@@ -1358,12 +1358,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-        /// <param name="connectionsToCreate"> (optional)</param>
+        /// <param name="formCollection"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
-        public ConProject ImportIOM(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), int operationIndex = 0)
+        public ConProject ImportIOM(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject> localVarResponse = ImportIOMWithHttpInfo(containerXmlFile, connectionsToCreate);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject> localVarResponse = ImportIOMWithHttpInfo(containerXmlFile, formCollection);
             return localVarResponse.Data;
         }
 
@@ -1372,11 +1372,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-/// <param name="connectionsToCreate"> (optional)</param>
+/// <param name="formCollection"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject> ImportIOMWithHttpInfo(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject> ImportIOMWithHttpInfo(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -1410,9 +1410,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
             {
                 localVarRequestOptions.FileParameters.Add("containerXmlFile", containerXmlFile);
             }
-            if (connectionsToCreate != null)
+            if (formCollection != null)
             {
-                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter
+                localVarRequestOptions.FormParameters.Add("formCollection", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(formCollection)); // form parameter
             }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOM";
@@ -1438,13 +1438,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-        /// <param name="connectionsToCreate"> (optional)</param>
+        /// <param name="formCollection"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
-        public async System.Threading.Tasks.Task<ConProject> ImportIOMAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ConProject> ImportIOMAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject> localVarResponse = await ImportIOMWithHttpInfoAsync(containerXmlFile, connectionsToCreate, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject> localVarResponse = await ImportIOMWithHttpInfoAsync(containerXmlFile, formCollection, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1453,12 +1453,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="containerXmlFile"> (optional)</param>
-        /// <param name="connectionsToCreate"> (optional)</param>
+        /// <param name="formCollection"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConProject)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject>> ImportIOMWithHttpInfoAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConProject>> ImportIOMWithHttpInfoAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<StringStringValuesKeyValuePair> formCollection = default(List<StringStringValuesKeyValuePair>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1493,9 +1493,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
             {
                 localVarRequestOptions.FileParameters.Add("containerXmlFile", containerXmlFile);
             }
-            if (connectionsToCreate != null)
+            if (formCollection != null)
             {
-                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter
+                localVarRequestOptions.FormParameters.Add("formCollection", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(formCollection)); // form parameter
             }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOM";

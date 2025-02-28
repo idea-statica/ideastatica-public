@@ -17,12 +17,13 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBytes, StrictInt, StrictStr
+from pydantic import Field, StrictBytes, StrictStr
 from typing import List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from ideastatica_connection_api.models.con_project import ConProject
 from ideastatica_connection_api.models.con_project_data import ConProjectData
 from ideastatica_connection_api.models.connection_setup import ConnectionSetup
+from ideastatica_connection_api.models.string_string_values_key_value_pair import StringStringValuesKeyValuePair
 
 from ideastatica_connection_api.api_client import ApiClient, RequestSerialized
 from ideastatica_connection_api.api_response import ApiResponse
@@ -1309,7 +1310,7 @@ class ProjectApi:
     def import_iom(
         self,
         container_xml_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
-        connections_to_create: Optional[List[StrictInt]] = None,
+        form_collection: Optional[List[StringStringValuesKeyValuePair]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1328,8 +1329,8 @@ class ProjectApi:
 
         :param container_xml_file:
         :type container_xml_file: bytearray
-        :param connections_to_create:
-        :type connections_to_create: List[int]
+        :param form_collection:
+        :type form_collection: List[StringStringValuesKeyValuePair]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1354,7 +1355,7 @@ class ProjectApi:
 
         _param = self._import_iom_serialize(
             container_xml_file=container_xml_file,
-            connections_to_create=connections_to_create,
+            form_collection=form_collection,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1379,7 +1380,7 @@ class ProjectApi:
     def import_iom_with_http_info(
         self,
         container_xml_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
-        connections_to_create: Optional[List[StrictInt]] = None,
+        form_collection: Optional[List[StringStringValuesKeyValuePair]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1398,8 +1399,8 @@ class ProjectApi:
 
         :param container_xml_file:
         :type container_xml_file: bytearray
-        :param connections_to_create:
-        :type connections_to_create: List[int]
+        :param form_collection:
+        :type form_collection: List[StringStringValuesKeyValuePair]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1424,7 +1425,7 @@ class ProjectApi:
 
         _param = self._import_iom_serialize(
             container_xml_file=container_xml_file,
-            connections_to_create=connections_to_create,
+            form_collection=form_collection,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1449,7 +1450,7 @@ class ProjectApi:
     def import_iom_without_preload_content(
         self,
         container_xml_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
-        connections_to_create: Optional[List[StrictInt]] = None,
+        form_collection: Optional[List[StringStringValuesKeyValuePair]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1468,8 +1469,8 @@ class ProjectApi:
 
         :param container_xml_file:
         :type container_xml_file: bytearray
-        :param connections_to_create:
-        :type connections_to_create: List[int]
+        :param form_collection:
+        :type form_collection: List[StringStringValuesKeyValuePair]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1494,7 +1495,7 @@ class ProjectApi:
 
         _param = self._import_iom_serialize(
             container_xml_file=container_xml_file,
-            connections_to_create=connections_to_create,
+            form_collection=form_collection,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1514,7 +1515,7 @@ class ProjectApi:
     def _import_iom_serialize(
         self,
         container_xml_file,
-        connections_to_create,
+        form_collection,
         _request_auth,
         _content_type,
         _headers,
@@ -1524,7 +1525,7 @@ class ProjectApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'ConnectionsToCreate': 'multi',
+            'formCollection': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1542,8 +1543,8 @@ class ProjectApi:
         # process the form parameters
         if container_xml_file is not None:
             _files['containerXmlFile'] = container_xml_file
-        if connections_to_create is not None:
-            _form_params.append(('ConnectionsToCreate', connections_to_create))
+        if form_collection is not None:
+            _form_params.append(('formCollection', form_collection))
         # process the body parameter
 
 
