@@ -32,9 +32,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.1.1474" />
-		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.1.1474" />
-		<!--<PackageReference Include="IdeaStatiCa.RcsClient" VersionOverride="24.1.1.1474" />-->
+		<PackageReference Include="IdeaStatiCa.PluginLogger" VersionOverride="24.1.3.2515" />
+		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.3.2515" />
+		<!--<PackageReference Include="IdeaStatiCa.RcsClient" VersionOverride="24.1.3.2515" />-->
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
