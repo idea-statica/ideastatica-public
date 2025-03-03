@@ -22,6 +22,11 @@
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType>pdbonly</DebugType>
 	</PropertyGroup>
+	
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+		<ProjectReference Include="..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -40,5 +45,5 @@
 		<PackageReference Include="IdeaStatiCa.OpenModel" VersionOverride="24.1.3.2515" />
 		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.3.2515" />
 	</ItemGroup>
-	
+
 </Project>

@@ -145,6 +145,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BulkSelection", "BulkSelect
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ItemsSorter", "IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj", "{FA10298F-F62D-4B09-80EB-B41D04408FB6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConnectionAutomation", "ConnectionAutomation", "{7F614661-99C7-44DE-A5F1-939891594C3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionAutomationApp", "..\examples\api\ConnectionAutomationApp\ConnectionAutomationApp.csproj", "{99FF2176-EE40-4E1B-A047-E25D5B12089F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -343,6 +347,10 @@ Global
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Debug|x64.Build.0 = Debug|Any CPU
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.ActiveCfg = Release|Any CPU
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.Build.0 = Release|Any CPU
+		{99FF2176-EE40-4E1B-A047-E25D5B12089F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{99FF2176-EE40-4E1B-A047-E25D5B12089F}.Debug|x64.Build.0 = Debug|Any CPU
+		{99FF2176-EE40-4E1B-A047-E25D5B12089F}.Release|x64.ActiveCfg = Release|Any CPU
+		{99FF2176-EE40-4E1B-A047-E25D5B12089F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -394,6 +402,8 @@ Global
 		{31BB5228-B7E2-4700-855D-636BB937A4A4} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{8CB29DA8-7874-410A-976F-8E88C9ED2785} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6} = {A3D7AABE-EDFE-460B-87B2-2B69914D4E04}
+		{7F614661-99C7-44DE-A5F1-939891594C3D} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
+		{99FF2176-EE40-4E1B-A047-E25D5B12089F} = {7F614661-99C7-44DE-A5F1-939891594C3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
