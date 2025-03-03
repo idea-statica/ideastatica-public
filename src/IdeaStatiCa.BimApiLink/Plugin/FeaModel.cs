@@ -19,7 +19,8 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		{
 
 			return _feaModel.GetAllCombinations()
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
+				.Where(x => x != null)
 				.Cast<IIdeaLoading>()
 				.ToHashSet();
 		}
@@ -27,7 +28,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public ISet<IIdeaMember1D> GetMembers()
 		{
 			return _feaModel.GetAllMembers()
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 		}
@@ -40,17 +41,17 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			FeaUserSelection selection = _feaModel.GetUserSelection();
 
 			var nodes = selection.Nodes
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
 			var members = selection.Members
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
 			var members2D = selection.Members2D
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 

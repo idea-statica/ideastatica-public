@@ -32,7 +32,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public ISet<IIdeaMember1D> GetMembers()
 		{
 			return _cadModel.GetAllMembers()
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 		}
@@ -67,13 +67,13 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			foreach (var selection in selections)
 			{
 				_lastSelection = selection;
-				var connectionPoint = Get(selection.ConnectionPoint);
+				var connectionPoint = GetMaybe(selection.ConnectionPoint);
 
 				nodes.Add(connectionPoint.Node);
 
 
 				var connectedMembers = selection.Members
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
@@ -105,12 +105,12 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 				return new SingleSelection(nodes, new HashSet<IIdeaMember1D>());
 			}
 
-			var connectionPoint = Get(selection.ConnectionPoint);
+			var connectionPoint = GetMaybe(selection.ConnectionPoint);
 
 			nodes.Add(connectionPoint.Node);
 
 			var connectedMembers = selection.Members
-				.Select(x => Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
