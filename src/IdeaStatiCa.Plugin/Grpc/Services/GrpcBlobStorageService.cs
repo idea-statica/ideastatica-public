@@ -48,7 +48,15 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 				using (var content = new MemoryStream())
 				{
 					ByteString currentData;
-					while (await requestStream.MoveNext())
+
+					// Check if the stream has any data
+					if (!await requestStream.MoveNext())
+					{
+						logger.LogDebug("GrpcBlobStorageService Write - request stream is empty.");
+						return new VoidResponse();
+					}
+
+					do
 					{
 						currentData = requestStream.Current.Data;
 						blobStorageId = requestStream.Current.BlobStorageId;
@@ -56,7 +64,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 
 						currentData.WriteTo(content);
 						logger.LogTrace($"GrpcBlobStorageService Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}' received {currentData.Length} bytes");
-					}
+					} while (await requestStream.MoveNext());
+
 					content.Seek(0, SeekOrigin.Begin);
 					if (blobStorageId == null)
 					{
