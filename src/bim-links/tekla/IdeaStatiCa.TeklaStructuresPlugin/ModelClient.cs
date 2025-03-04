@@ -299,6 +299,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					}
 
 				}
+				else if (partsEnumerator.Current is TS.BaseComponent baseComponent)
+				{
+					plugInLogger.LogDebug($"Component {baseComponent.Name} add child parts");
+					foreach (var componentItem in baseComponent.GetChildren())
+					{
+						if (componentItem is TS.Part part)
+						{
+							selectedItems.Add(part);
+						}
+					}
+				}
 			}
 			return selectedItems;
 		}
