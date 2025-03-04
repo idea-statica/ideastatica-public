@@ -306,7 +306,19 @@ namespace IdeaStatiCa.ConnectionApi.Client
             {
                 foreach (var formParam in options.FormParameters)
                 {
-                    request.AddParameter(formParam.Key, formParam.Value);
+                    if (formParam.Value is IEnumerable<string> formValues)
+                    {
+                        // the form parameter is array of strings
+                        foreach (var value in formValues)
+                        {
+                            request.AddParameter(formParam.Key, value);
+                        }
+                    }
+                    else
+                    {
+                        // the form parameter is a single value
+                       request.AddParameter(formParam.Key, formParam.Value.ToString());
+                    }
                 }
             }
 

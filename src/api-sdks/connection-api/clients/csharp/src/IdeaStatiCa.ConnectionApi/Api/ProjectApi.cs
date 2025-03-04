@@ -1412,7 +1412,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
             if (connectionsToCreate != null)
             {
-                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter
+                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter 2
             }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOM";
@@ -1495,7 +1495,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
             if (connectionsToCreate != null)
             {
-                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter
+                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter 4
             }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOM";
