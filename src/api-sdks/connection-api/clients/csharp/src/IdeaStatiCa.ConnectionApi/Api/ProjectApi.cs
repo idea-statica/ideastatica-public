@@ -1412,7 +1412,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
             if (connectionsToCreate != null)
             {
-                if (connectionsToCreate is IEnumerable<string> enumeration)
+                if (connectionsToCreate is System.Collections.IEnumerable enumeration)
                 {
                     List<string> stringParams = new List<string>();
                     foreach(var p in enumeration)
@@ -1507,7 +1507,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
             if (connectionsToCreate != null)
             {
-                if (connectionsToCreate is IEnumerable<string> enumeration)
+                if (connectionsToCreate is System.Collections.IEnumerable enumeration)
                 {
                     List<string> stringParams = new List<string>();
                     foreach(var p in enumeration)
