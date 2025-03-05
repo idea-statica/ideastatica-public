@@ -8,6 +8,7 @@
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
+		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,17 +18,22 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.2.1513" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>
+
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 		<PackageReference Include="IdeaStatiCa.Api" Version="24.1.2.1513" />
 		<PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.2.1513" />
 		<PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.2.1513" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+
 	</ItemGroup>
 
 	<ItemGroup>
