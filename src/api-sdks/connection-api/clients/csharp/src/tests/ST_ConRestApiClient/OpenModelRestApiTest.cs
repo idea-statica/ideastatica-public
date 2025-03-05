@@ -41,6 +41,19 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
+		public async Task ShouldImportSelectionIOMTest()
+		{
+			string connProjectContainerFilePath = Path.Combine(ProjectPath, "multiple_connections.xml");
+
+			var selection = new List<int>() { 19, 33};
+
+			var conProject = await ConnectionApiClient!.Project.CreateProjectFromIomFileAsync(connProjectContainerFilePath, selection);
+
+			conProject.Should().NotBeNull();
+		}
+		
+
+		[Test]
 		public async Task ShouldUpdateConnectionbyIOMModel()
 		{
 			string connProjectContainerFilePath = Path.Combine(ProjectPath, "OneConnectionImport.xml");
