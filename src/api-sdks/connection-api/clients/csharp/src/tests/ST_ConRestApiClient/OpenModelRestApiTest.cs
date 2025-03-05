@@ -50,6 +50,8 @@ namespace ST_ConnectionRestApi
 			var conProject = await ConnectionApiClient!.Project.CreateProjectFromIomFileAsync(connProjectContainerFilePath, selection);
 
 			conProject.Should().NotBeNull();
+
+			conProject.Connections.Count.Should().Be(2);
 		}
 		
 
