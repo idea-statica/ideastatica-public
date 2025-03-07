@@ -24,5 +24,9 @@ namespace IdeaRS.OpenModel.Material
 		/// </summary>
 		public double Fcc { get; set; }
 
+		/// <summary>
+		/// ε_0
+		/// </summary>
+		public double Eps0 { get; set; }
 	}
 }
