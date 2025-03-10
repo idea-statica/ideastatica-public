@@ -123,14 +123,18 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 				using (var call = client.Read(contentRequest))
 				{
-					var responseStream = call.ResponseStream;
-					while (await responseStream.MoveNext())
+					if (call.ResponseStream != null)
 					{
-						currentData = responseStream.Current.Data;
-						currentData.WriteTo(content);
-						logger.LogTrace($"GrpcBlobStorageClient Read, blobStorageId: '{blobStorageId}', contentId: '{contentId}' received {currentData.Length} bytes");
+						logger.LogDebug($"GrpcBlobStorageClient Read, response stream is not null: blobStorageId: {call.ResponseStream.Current.BlobStorageId}");
+						var responseStream = call.ResponseStream;
+						while (await responseStream.MoveNext())
+						{
+							currentData = responseStream.Current.Data;
+							currentData.WriteTo(content);
+							logger.LogTrace($"GrpcBlobStorageClient Read, blobStorageId: '{blobStorageId}', contentId: '{contentId}' received {currentData.Length} bytes");
+						}
+						content.Seek(0, SeekOrigin.Begin);
 					}
-					content.Seek(0, SeekOrigin.Begin);
 				}
 
 				logger.LogDebug($"GrpcBlobStorageClient ends Read, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
