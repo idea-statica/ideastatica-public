@@ -236,6 +236,23 @@ Bounding Box in LCS - Height  | `GetValue('B', 'BoundingBoxInLcs.Height')` |
 Bounding Box in LCS - Width  | `GetValue('B', 'BoundingBoxInLcs.Width)` | 
 Bounding Box in LCS - Length  | `GetValue('B', 'BoundingBoxInLcs.Length)` | 
 
+### Member position functions
+
+GetQuadrant{*Axis1*}{*Axis*}(*Member1*, *Member2*)
+
+The GetQuadrant function determines the quadrant position of a target structural member (Member2) relative to a source structural member (Member1) in a specified 2D plane within a 3D coordinate system.
+
+#### Parameters
+* Axis1 (char) – The first coordinate axis (either X, Y, or Z).
+* Axis2 (char) – The second coordinate axis (either X, Y, or Z).
+* Member1 (string) – The name of the reference structural member.
+* Member2 (string) – The name of the structural member whose position is evaluated relative to Member1.
+
+**Description** | **Example Input** | **Example Output**
+----|----|----
+Quadrant position of members in axis X & Z | `GetQuadrantXZ('M1', 'M2')` | 4
+Quadrant position of members in axis X & Y | `GetQuadrantXY('M1', 'M2')` | 2
+
 ### Member relating cross-section property functions
 
 Most cross-section properties of a related member can be retrieved with the general **GetValue(member, property)** function. For retrieving plate thickness another function is required, **GetBeamPlateThickness(member, plateitem)**.
