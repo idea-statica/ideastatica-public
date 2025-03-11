@@ -15,7 +15,7 @@ namespace CodeSamples
 	{
 		public static async Task CalculateConnection(IConnectionApiClient conClient)
 		{
-			string filePath = "C:\\Users\\NathanLuke\\Desktop\\test-output\\FlexibleEndplate.ideaCon";
+			string filePath = "C:\\Users\\NathanLuke\\Desktop\\test-output\\FlexibleEndplate_stop_at_limit.ideaCon";
 
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
 
@@ -25,6 +25,8 @@ namespace CodeSamples
 			//Connection Setup does not work
 			var connectionSetup = await conClient.Project.GetSetupAsync(conClient.ActiveProjectId);
 			string jsonSetup = JsonConvert.SerializeObject(connectionSetup, Formatting.Indented);
+
+			Console.WriteLine(jsonSetup);
 
 			ConCalculationParameter parameter = new ConCalculationParameter()
 			{
