@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
+using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
@@ -345,5 +346,21 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<string> SetOperationCommonProperties(int connectionId, ConOperationCommonProperties operationProperties, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get default conversion settings for given country code
+		/// </summary>
+		/// <param name="countryCode"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConConversionSettings> GetDefaultConversionSettings(CountryCode countryCode, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Change code type of application
+		/// </summary>
+		/// <param name="conversionSettings"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task ChangeCodeType(ConConversionSettings conversionSettings, CancellationToken cancellationToken = default);
 	}
 }
