@@ -52,7 +52,15 @@ namespace IdeaStatiCa.BimApiLink.Scoping
 			}
 
 			IIdeaObject newObj = _bimApiImporter.Get(identifier);
-			_importedObjects[identifier] = newObj;
+
+			//due to bulk selection don't cache welds bolts anchors - in this cases item assigned to more connections cause wrong definition of object 
+			if (!(newObj is IIdeaWeld)
+				&& !(newObj is IIdeaAnchorGrid)
+				&& !(newObj is IIdeaBoltGrid)
+				)
+			{
+				_importedObjects[identifier] = newObj;
+			}
 
 			return newObj;
 		}
