@@ -342,7 +342,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				plugInLogger.LogInformation($"GetSelectObjects - process user selection");
 				var selectedItems = ProcessUserSelection(partsEnumerator);
 
-				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems);
+				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems, plugInLogger);
 
 
 				plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");

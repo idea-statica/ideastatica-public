@@ -1,6 +1,7 @@
 ﻿using CI;
 using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Collections;
@@ -27,7 +28,32 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <param name="partsEnumerator"></param>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
-		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator)
+		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, IPluginLogger plugInLogger)
+		{
+			var settings = new BIM.Common.SorterSettings();
+			settings.EnlargeNodeXin = 1.6;
+			settings.EnlargeNodeXout = 1.6;
+			settings.EnlargeNodeY = 1.7;
+			settings.EnlargeNodeZ = 1.7;
+
+			SorterResult sortedJoints = FindJointsBySetting(myModel, partsEnumerator, settings);
+
+			if (sortedJoints.Joints.Count == 1 && sortedJoints.Joints[0].Members.Count > 20)
+			{
+				plugInLogger.LogInformation($"Bulk selection found connection with {sortedJoints.Joints[0].Members.Count} members. Run sorter again with precise settings");
+				settings = new BIM.Common.SorterSettings();
+				settings.EnlargeNodeXin = 1;
+				settings.EnlargeNodeXout = 1;
+				settings.EnlargeNodeY = 1;
+				settings.EnlargeNodeZ = 1;
+				settings.EnlargeMemberCssSize = 0.25;
+
+				sortedJoints = FindJointsBySetting(myModel, partsEnumerator, settings);
+			}
+			return sortedJoints;
+		}
+
+		private static SorterResult FindJointsBySetting(TS.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings)
 		{
 			List<BIM.Common.Member> bMembers = new List<BIM.Common.Member>();
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
@@ -41,7 +67,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				if (currentPart is Beam beam)
 				{
 					var partLcs = BulkSelectionHelper.CreateMatrix(beam);
-					var bb = BulkSelectionHelper.CreateOrientedBoundingBox(myModel, beam);
+					var bb = BulkSelectionHelper.CreateOrientedBoundingBox(myModel, beam, settings);
 					System.Windows.Rect cssBounds = new System.Windows.Rect(new System.Windows.Point(-1 * bb.Extent2, -1 * bb.Extent1), new System.Windows.Point(bb.Extent2, bb.Extent1));
 
 					//for concrete block take smaller bounding box
@@ -140,7 +166,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 				if (currentPart is BaseWeld baseWeld)
 				{
-					welds.Add(new BIM.Common.Weld(baseWeld, BulkSelectionHelper.GetBIMItem(myModel, baseWeld.MainObject), BulkSelectionHelper.GetBIMItem(myModel, baseWeld.SecondaryObject)));
+					welds.Add(new BIM.Common.Weld(baseWeld, BulkSelectionHelper.GetBIMItem(myModel, baseWeld.MainObject, settings), BulkSelectionHelper.GetBIMItem(myModel, baseWeld.SecondaryObject, settings)));
 				}
 
 				if (currentPart is Part part)
@@ -152,7 +178,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 						if (modelObj is BaseWeld weld)
 						{
-							welds.Add(new BIM.Common.Weld(weld, BulkSelectionHelper.GetBIMItem(myModel, weld.MainObject), BulkSelectionHelper.GetBIMItem(myModel, weld.SecondaryObject)));
+							welds.Add(new BIM.Common.Weld(weld, BulkSelectionHelper.GetBIMItem(myModel, weld.MainObject, settings), BulkSelectionHelper.GetBIMItem(myModel, weld.SecondaryObject, settings)));
 						}
 					}
 
@@ -180,11 +206,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			};
 
 			var sorter = new BIM.Common.ItemsSorter();
-			var settings = new BIM.Common.SorterSettings();
-			settings.EnlargeNodeXin = 1.6;
-			settings.EnlargeNodeXout = 1.6;
-			settings.EnlargeNodeY = 1.7;
-			settings.EnlargeNodeZ = 1.7;
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
 			return sortedJoints;
@@ -213,7 +234,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			return false;
 		}
 
-		private static BIM.Common.Item GetBIMItem(Tekla.Structures.Model.Model myModel, ModelObject item)
+		private static BIM.Common.Item GetBIMItem(Tekla.Structures.Model.Model myModel, ModelObject item, BIM.Common.SorterSettings settings)
 		{
 			if (item is ContourPlate contourPlate)
 			{
@@ -225,7 +246,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			{
 				Matrix44 lcsItem1 = CreateMatrix(beam);
 
-				var bb = CreateOrientedBoundingBox(myModel, beam);
+				var bb = CreateOrientedBoundingBox(myModel, beam, settings);
 
 				var begin = new CI.Geometry3D.Point3D(beam.StartPoint.X, beam.StartPoint.Y, beam.StartPoint.Z);
 				var end = new CI.Geometry3D.Point3D(beam.EndPoint.X, beam.EndPoint.Y, beam.EndPoint.Z);
@@ -353,7 +374,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			return points;
 		}
 
-		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam)
+		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam, BIM.Common.SorterSettings settings)
 		{
 			OBB obb = null;
 
@@ -375,9 +396,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				solid = beam.GetSolid();
 				Point minPoint = solid.MinimumPoint;
 				Point maxPoint = solid.MaximumPoint;
-				double extent0 = (maxPoint.X - minPoint.X) / 2;
-				double extent1 = (maxPoint.Y - minPoint.Y) / 2;
-				double extent2 = (maxPoint.Z - minPoint.Z) / 2;
+				double extent0 = (maxPoint.X - minPoint.X) * settings.EnlargeMemberCssSize;
+				double extent1 = (maxPoint.Y - minPoint.Y) * settings.EnlargeMemberCssSize;
+				double extent2 = (maxPoint.Z - minPoint.Z) * settings.EnlargeMemberCssSize;
 
 				//for non anchor beams increase size of BB for small items 
 				if (beam.Name != TeklaAnchorRodName && beam.Name != TeklaAnchorWasherName && beam.Name != TeklaAnchorNutName)

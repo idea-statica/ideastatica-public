@@ -159,6 +159,8 @@ namespace IdeaStatiCa.BIM.Common
 		public double EnlargeNodeZ { get; set; } = 1.1;
 
 		public double LengthTolerance { get; set; } = 0.005;
+
+		public double EnlargeMemberCssSize { get; set; } = 0.5;
 	}
 
 	public class ItemsSorter
@@ -449,7 +451,7 @@ namespace IdeaStatiCa.BIM.Common
 							var maxSumMember = memberAnglesSum.OrderByDescending(x => x.Value).First().Key;
 
 							return maxSumMember;
-							
+
 						}
 					}
 					else
