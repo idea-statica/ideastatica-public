@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.ConnectionApi.Api;
 using IdeaStatiCa.ConnectionApi.Client;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
@@ -115,6 +116,7 @@ namespace IdeaStatiCa.ConnectionApi
 		private async Task<string> CreateClientAsync()
 		{
 			Configuration configuration = new Configuration();
+			configuration.Timeout = Timeout.Infinite;
 			configuration.BasePath = BasePath.AbsoluteUri;
 
 			var clientApi = new ClientApi(configuration);
