@@ -1,5 +1,4 @@
 from pydantic.v1 import StrictInt
-
 from ideastatica_connection_api.api.export_api import ExportApi
 
 
