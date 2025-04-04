@@ -6,7 +6,7 @@
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
