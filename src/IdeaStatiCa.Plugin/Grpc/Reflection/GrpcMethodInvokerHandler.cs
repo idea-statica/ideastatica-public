@@ -177,10 +177,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 					Exception deserializeException;
 					if (response.Data.Contains(nameof(BulkSelectionOverflowException)))
 					{
-						deserializeException = JsonConvert.DeserializeObject<BulkSelectionOverflowException>(response.Data, new JsonSerializerSettings
-						{
-							TypeNameHandling = TypeNameHandling.All
-						});
+						deserializeException = JsonConvert.DeserializeObject<BulkSelectionOverflowException>(response.Data);
 					}
 					else
 					{
