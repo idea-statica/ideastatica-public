@@ -1,6 +1,7 @@
 ﻿using CI;
 using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
+using IdeaStatiCa.Plugin.Exeptions;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Collections;
@@ -187,6 +188,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			settings.EnlargeNodeZ = 1.7;
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
+
+			//Test of uncontrolled greedy alg
+			// by discussion threshold is 20 members in connection
+			if (sortedJoints.Joints.Count == 1 && sortedJoints.Joints[0].Members.Count > 20)
+			{
+				throw new BulkSelectionOverflowException(sortedJoints.Joints[0].Members.Count);
+			}
+
 			return sortedJoints;
 		}
 

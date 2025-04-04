@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Utilities;
+﻿using IdeaStatiCa.Plugin.Exeptions;
+using IdeaStatiCa.Plugin.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -26,7 +27,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		{
 			Debug.Assert(logger != null);
 			Debug.Assert(grpcSender != null);
-			
+
 			this.Logger = logger;
 			this.OperationId = operationId;
 			this.GrpcSender = grpcSender;
@@ -148,7 +149,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			if (!string.IsNullOrEmpty(response.Data) || returnType != typeof(void))
 			{
 				// handle response
-				if(!string.IsNullOrEmpty(response.DataType) && response.DataType.Equals(typeof(Exception).Name))
+				if (!string.IsNullOrEmpty(response.DataType) && response.DataType.Equals(typeof(Exception).Name))
 				{
 					// en exception was thrown - write arguments to log 
 					try
@@ -173,7 +174,15 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 						Logger.LogWarning("GrpcMethodInvokerHandler.InvokeMethod - can not write arguments to log", ex);
 					}
 
-					var deserializeException = JsonConvert.DeserializeObject<Exception>(response.Data);
+					Exception deserializeException;
+					if (response.Data.Contains(nameof(BulkSelectionOverflowException)))
+					{
+						deserializeException = JsonConvert.DeserializeObject<BulkSelectionOverflowException>(response.Data);
+					}
+					else
+					{
+						deserializeException = JsonConvert.DeserializeObject<Exception>(response.Data);
+					}
 
 					throw new ArgumentException(deserializeException.Message, deserializeException);
 				}
