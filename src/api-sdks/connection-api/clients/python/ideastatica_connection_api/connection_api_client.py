@@ -2,6 +2,8 @@ import logging
 from ideastatica_connection_api import Configuration, ClientApi, CalculationApi, ConnectionApi, ExportApi, LoadEffectApi, MaterialApi, MemberApi, OperationApi, ParameterApi, PresentationApi, ReportApi, TemplateApi
 import ideastatica_connection_api.api_client as api_client
 import ideastatica_connection_api.api_ext.project_ext_api as project_ext_api
+import ideastatica_connection_api.api_ext.export_ext_api as export_ext_api
+import ideastatica_connection_api.api_ext.report_ext_api as report_ext_api
 from typing import Optional
 
 logger = logging.getLogger(__name__)
@@ -16,7 +18,7 @@ class ConnectionApiClient:
 
         self.calculation: Optional[CalculationApi] = None
         self.connection: Optional[ConnectionApi] = None
-        self.export: Optional[ExportApi] = None
+        self.export: Optional[export_ext_api.ExportExtApi] = None
         self.load_effect: Optional[LoadEffectApi] = None
         self.material: Optional[MaterialApi] = None
         self.member: Optional[MemberApi] = None
@@ -24,7 +26,7 @@ class ConnectionApiClient:
         self.parameter: Optional[ParameterApi] = None
         self.presentation: Optional[PresentationApi] = None
         self.project: Optional[project_ext_api.ProjectExtApi] = None
-        self.report: Optional[ReportApi] = None
+        self.report: Optional[report_ext_api.ReportExtApi] = None
         self.template: Optional[TemplateApi] = None
 
     def __enter__(self):
@@ -41,7 +43,7 @@ class ConnectionApiClient:
 
         self.calculation = CalculationApi(self.client)
         self.connection = ConnectionApi(self.client)
-        self.export = ExportApi(self.client)
+        self.export = export_ext_api.ExportExtApi(self.client)
         self.load_effect = LoadEffectApi(self.client)
         self.material = MaterialApi(self.client)
         self.member = MemberApi(self.client)
@@ -49,7 +51,7 @@ class ConnectionApiClient:
         self.parameter = ParameterApi(self.client)
         self.presentation = PresentationApi(self.client)
         self.project = project_ext_api.ProjectExtApi(self.client)
-        self.report = ReportApi(self.client)
+        self.report = report_ext_api.ReportExtApi(self.client)
         self.template = TemplateApi(self.client)
 
         logger.info(f"Client ready to use.")  
