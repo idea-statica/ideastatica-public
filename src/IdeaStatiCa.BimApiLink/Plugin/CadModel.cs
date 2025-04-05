@@ -1,26 +1,23 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
-	internal class CadModelAdapter : IIdeaModel
+	internal class CadModelAdapter : BimLinkObject, IIdeaModel
 	{
 		private CadUserSelection _lastSelection;
 
-		private readonly IBimApiImporter _bimApiImporter;
 		private readonly ICadModel _cadModel;
 		private readonly IProgressMessaging _remoteApp;
 		private readonly string _applicationName;
 		private IComparer<IIdentifier> _itemsComparer;
 
-		public CadModelAdapter(IBimApiImporter bimApiImporter, ICadModel cadModel, IProgressMessaging remoteApp, string applicationName, IComparer<IIdentifier> itemsComparer)
-		{
-			_bimApiImporter = bimApiImporter;
+		public CadModelAdapter(ICadModel cadModel, IProgressMessaging remoteApp, string applicationName, IComparer<IIdentifier> itemsComparer)
+		{			
 			_cadModel = cadModel;
 			_remoteApp = remoteApp;
 			_applicationName = applicationName;
@@ -35,7 +32,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public ISet<IIdeaMember1D> GetMembers()
 		{
 			return _cadModel.GetAllMembers()
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 		}
@@ -70,13 +67,13 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			foreach (var selection in selections)
 			{
 				_lastSelection = selection;
-				var connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
+				var connectionPoint = GetMaybe(selection.ConnectionPoint);
 
 				nodes.Add(connectionPoint.Node);
 
 
 				var connectedMembers = selection.Members
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
@@ -108,12 +105,12 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 				return new SingleSelection(nodes, new HashSet<IIdeaMember1D>());
 			}
 
-			var connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
+			var connectionPoint = GetMaybe(selection.ConnectionPoint);
 
 			nodes.Add(connectionPoint.Node);
 
 			var connectedMembers = selection.Members
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
@@ -158,7 +155,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 				{
 					case nameof(IIdeaPlate):
 						{
-							var plate = _bimApiImporter.Get(item) as IIdeaPlate;
+							var plate = BimApiImporter.Get(item) as IIdeaPlate;
 							if (plate != null)
 							{
 								(connectionPoint.Plates as List<IIdeaPlate>).Add(plate);
@@ -167,7 +164,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 						}
 					case nameof(IIdeaFoldedPlate):
 						{
-							var foldedPlate = _bimApiImporter.Get(item) as IIdeaFoldedPlate;
+							var foldedPlate = BimApiImporter.Get(item) as IIdeaFoldedPlate;
 							if (foldedPlate != null)
 							{
 								(connectionPoint.FoldedPlates as List<IIdeaFoldedPlate>).Add(foldedPlate);
@@ -176,7 +173,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 						}
 					case nameof(IIdeaCut):
 						{
-							var cut = _bimApiImporter.Get(item) as IIdeaCut;
+							var cut = BimApiImporter.Get(item) as IIdeaCut;
 							if (cut != null)
 							{
 								(connectionPoint.Cuts as List<IIdeaCut>).Add(cut);
@@ -186,7 +183,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 					case nameof(IIdeaWeld):
 						{
-							var weld = _bimApiImporter.Get(item) as IIdeaWeld;
+							var weld = BimApiImporter.Get(item) as IIdeaWeld;
 							if (weld != null)
 							{
 								(connectionPoint.Welds as List<IIdeaWeld>).Add(weld);
@@ -195,7 +192,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 						}
 					case nameof(IIdeaBoltGrid):
 						{
-							var boltGrid = _bimApiImporter.Get(item) as IIdeaBoltGrid;
+							var boltGrid = BimApiImporter.Get(item) as IIdeaBoltGrid;
 							if (boltGrid != null)
 							{
 								(connectionPoint.BoltGrids as List<IIdeaBoltGrid>).Add(boltGrid);
@@ -204,7 +201,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 						}
 					case nameof(IIdeaAnchorGrid):
 						{
-							var anchorGrid = _bimApiImporter.Get(item) as IIdeaAnchorGrid;
+							var anchorGrid = BimApiImporter.Get(item) as IIdeaAnchorGrid;
 							if (anchorGrid != null)
 							{
 								(connectionPoint.AnchorGrids as List<IIdeaAnchorGrid>).Add(anchorGrid);
@@ -213,7 +210,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 						}
 					case nameof(IIdeaConnectedMember):
 						{
-							var stiffeningMember = _bimApiImporter.Get(item) as IIdeaConnectedMember;
+							var stiffeningMember = BimApiImporter.Get(item) as IIdeaConnectedMember;
 							if (stiffeningMember != null)
 							{
 								stiffeningMember.ConnectedMemberType = IdeaConnectedMemberType.Stiffening;

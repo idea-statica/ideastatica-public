@@ -1412,7 +1412,19 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
             if (connectionsToCreate != null)
             {
-                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter
+                if (connectionsToCreate is System.Collections.IEnumerable enumeration)
+                {
+                    List<string> stringParams = new List<string>();
+                    foreach(var p in enumeration)
+                    {
+                        stringParams.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(p)); // form parameter 2a
+                    }
+                    localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", stringParams);
+                }
+                else
+                {
+                    localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter 2b
+                }
             }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOM";
@@ -1495,7 +1507,19 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
             if (connectionsToCreate != null)
             {
-                localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter
+                if (connectionsToCreate is System.Collections.IEnumerable enumeration)
+                {
+                    List<string> stringParams = new List<string>();
+                    foreach(var p in enumeration)
+                    {
+                        stringParams.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(p)); // form parameter 4a
+                    }
+                    localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", stringParams);
+                }
+                else
+                {
+                    localVarRequestOptions.FormParameters.Add("ConnectionsToCreate", IdeaStatiCa.ConnectionApi.Client.ClientUtils.Serialize(connectionsToCreate)); // form parameter 4b
+                }                
             }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOM";

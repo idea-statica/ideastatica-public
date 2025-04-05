@@ -2,6 +2,7 @@
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Utilities;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,6 +14,7 @@ using System.Security.Principal;
 using System.Text;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
+using Tekla.Structures.Model;
 using Picker = Tekla.Structures.Model.UI.Picker;
 using TS = Tekla.Structures.Model;
 
@@ -196,27 +198,117 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// <returns></returns>
 		public IEnumerable<TS.ModelObject> GetSelectObjects()
 		{
-			plugInLogger.LogInformation($"GetSelectObjects");
+			plugInLogger.LogInformation($"GetSelectObjects - ask user for selection");
+			ModelObjectEnumerator partsEnumerator = UserObjectsSelection(TeklaStructuresResources.Properties.Resources.SelectParts);
+
+			plugInLogger.LogInformation($"GetSelectObjects - process user selection");
+			var selectedItems = ProcessUserSelection(partsEnumerator);
+			return selectedItems;
+		}
+
+		private ModelObjectEnumerator UserObjectsSelection(string prompt)
+		{
+			plugInLogger.LogInformation($"UserObjectsSelection");
 			GetTeklaModel();
 			var picker = new Picker();
-
-			var selectedItems = new List<TS.ModelObject>();
-			TS.ModelObjectEnumerator partsEnumerator = null;
+			ModelObjectEnumerator partsEnumerator = null;
 			try
 			{
-				partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, TeklaStructuresResources.Properties.Resources.SelectParts);
+				partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_OBJECTS, prompt);
 			}
-			catch (ApplicationException)
+			catch (ApplicationException e)
 			{
+				plugInLogger.LogDebug($"UserObjectsSelection failed {e.Message}", e);
+				return partsEnumerator;
+			}
+
+			return partsEnumerator;
+		}
+
+		private List<ModelObject> ProcessUserSelection(ModelObjectEnumerator partsEnumerator)
+		{
+			plugInLogger.LogInformation($"ProcessUserSelection");
+			List<ModelObject> selectedItems = new List<ModelObject>();
+			if (partsEnumerator == null)
+			{
+				plugInLogger.LogInformation($"ProcessUserSelection - partsEnumerator is null");
 				return selectedItems;
 			}
 
-
+			List<Tekla.Structures.Identifier> proceseedDetails = new List<Tekla.Structures.Identifier>();
 			while (partsEnumerator.MoveNext())
 			{
 				if (partsEnumerator.Current is TS.Part)
 				{
 					selectedItems.Add(partsEnumerator.Current);
+				}
+				else if (partsEnumerator.Current is TS.Detail detail)
+				{
+					if (proceseedDetails.Any(id => id.Equals(detail.Identifier)))
+					{
+						plugInLogger.LogDebug($"ProcessUserSelection - skip {detail.Identifier} name:{detail.Name}");
+						//skip duplicity
+						continue;
+					}
+					else
+					{
+						proceseedDetails.Add(detail.Identifier);
+					}
+
+					var detailItems = new List<TS.ModelObject>();
+					var anchorItems = new List<TS.ModelObject>();
+					bool notFoundAnchor = true;
+					// Find anchors from the detail
+					foreach (var detailItem in detail.GetChildren())
+					{
+						if (detailItem is TS.Part part)
+						{
+							detailItems.Add(part);
+
+							if (IdentifierHelper.AnchorMemberFilter(part)) //add only one anchor from group anchor importer than takes all anchor positions
+							{
+								if (notFoundAnchor)
+								{
+									anchorItems.Add(part);
+									notFoundAnchor = false;
+								}
+							}
+							else if (part is TS.Beam b && (!IdentifierHelper.WasherMemberFilter(part) && !IdentifierHelper.NutMemberFilter(part)))
+							{
+								anchorItems.Add(part);
+							}
+							else if (part is ContourPlate)
+							{
+								if (!IdentifierHelper.GroutFilter(part) && !IdentifierHelper.CastPlateFilter(part))
+								{
+									anchorItems.Add(part);
+								}
+							}
+						}
+					}
+
+					if (notFoundAnchor)
+					{
+						plugInLogger.LogDebug($"Standard component add all child items");
+						selectedItems.AddRange(detailItems);
+					}
+					else
+					{
+						plugInLogger.LogDebug($"Component with anchor add filtered subset of child parts");
+						selectedItems.AddRange(anchorItems);
+					}
+
+				}
+				else if (partsEnumerator.Current is TS.BaseComponent baseComponent)
+				{
+					plugInLogger.LogDebug($"Component {baseComponent.Name} add child parts");
+					foreach (var componentItem in baseComponent.GetChildren())
+					{
+						if (componentItem is TS.Part part)
+						{
+							selectedItems.Add(part);
+						}
+					}
 				}
 			}
 			return selectedItems;
@@ -238,22 +330,19 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 				if (selectWholeModel)
 				{
+					plugInLogger.LogInformation($"GetBulkSelection - select Whole Model");
 					partsEnumerator = myModel.GetModelObjectSelector().GetAllObjects();
 				}
 				else
 				{
-					var picker = new Picker();
-					try
-					{
-						partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, TeklaStructuresResources.Properties.Resources.CreateBulkSelection);
-					}
-					catch (ApplicationException ex)
-					{
-						plugInLogger.LogInformation("GetBulkSelection selection failed", ex);
-					}
+					plugInLogger.LogInformation($"GetSelectObjects - ask user for selection");
+					partsEnumerator = UserObjectsSelection(TeklaStructuresResources.Properties.Resources.CreateBulkSelection);
 				}
 
-				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, partsEnumerator);
+				plugInLogger.LogInformation($"GetSelectObjects - process user selection");
+				var selectedItems = ProcessUserSelection(partsEnumerator);
+
+				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems);
 
 
 				plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");
@@ -265,14 +354,21 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 
 					var structuralMembers = joint.Members
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.HaunchMemberName)
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorRodName)
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorWasherName)
-					.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorNutName);
+					.Where(m => !IdentifierHelper.HaunchFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.AnchorMemberFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.WasherMemberFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.NutMemberFilter(m.Parent as TS.Part))
+					.Where(m => !IdentifierHelper.ConcreteBlocksFilter(m.Parent as TS.Part));
 
 					structuralMembers.ToList().ForEach(sm => beams.Add(sm.Parent as TS.ModelObject));
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of members {beams.Count}");
+
+
+					var stiffenigMembers = joint.Members
+					.Where(m => !structuralMembers.Contains(m));
+
+					stiffenigMembers.ToList().ForEach(sm => parts.Add(sm.Parent as TS.ModelObject));
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of plates {joint.Plates.Count}");
 					foreach (var plate in joint.Plates)

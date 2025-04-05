@@ -13,6 +13,12 @@
 		IBlobStorage GetBlobStorage(string blobStorageName);
 
 		/// <summary>
+		/// Refresh blob storage in case it contains some old cached data
+		/// </summary>
+		/// <param name="blobStorageName"></param>
+		void RefreshBlobStorage(string blobStorageName);
+
+		/// <summary>
 		/// Commits all changes in the blobstorage
 		/// </summary>
 		/// <param name="blobStorageName">The name of blob storage to commit</param>

@@ -1,5 +1,4 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using System;
 using System.Collections.Generic;
@@ -7,14 +6,12 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
-	internal class FeaModelAdapter : IIdeaModel
+	internal class FeaModelAdapter : BimLinkObject, IIdeaModel
 	{
-		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IFeaModel _feaModel;
 
-		public FeaModelAdapter(IBimApiImporter bimApiImporter, IFeaModel feaModel)
+		public FeaModelAdapter(IFeaModel feaModel)
 		{
-			_bimApiImporter = bimApiImporter;
 			_feaModel = feaModel;
 		}
 
@@ -22,7 +19,8 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		{
 
 			return _feaModel.GetAllCombinations()
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
+				.Where(x => x != null)
 				.Cast<IIdeaLoading>()
 				.ToHashSet();
 		}
@@ -30,7 +28,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public ISet<IIdeaMember1D> GetMembers()
 		{
 			return _feaModel.GetAllMembers()
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 		}
@@ -43,17 +41,17 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			FeaUserSelection selection = _feaModel.GetUserSelection();
 
 			var nodes = selection.Nodes
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
 			var members = selection.Members
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 
 			var members2D = selection.Members2D
-				.Select(x => _bimApiImporter.Get(x))
+				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.ToHashSet();
 

@@ -76,7 +76,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 			List<IIdentifier> identifiers = new List<IIdentifier>();
 
-			selectedObject.ForEach(teklaObject => identifiers = IdentifierHelper.GetIdentifier(teklaObject, ref identifiers, connectionPoint: point));
+			selectedObject.Where(selObj => !members.Contains(selObj)).ForEach(teklaObject => identifiers = IdentifierHelper.GetIdentifier(teklaObject, ref identifiers, connectionPoint: point));
 
 			members.ForEach(teklaObject =>
 			{

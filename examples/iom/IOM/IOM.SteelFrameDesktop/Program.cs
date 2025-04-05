@@ -66,31 +66,33 @@ namespace IOM.SteelFrameDesktop
 			var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 			var fileConnFileNameFromLocal = Path.Combine(desktopDir, "connectionFromIOM-local.ideaCon");
 
-			var calcFactory = new ConnHiddenClientFactory(IdeaInstallDir);
+			throw new NotImplementedException("TODO - use new IdeaStatica.ConnectionRestAPI to generate IOM");
 
-			var client = calcFactory.Create();
-			try
-			{
-				// it creates connection project from IOM 
-				Console.WriteLine("Creating Idea connection project ");
-				client.CreateConProjFromIOM(iomFileName, iomResFileName, fileConnFileNameFromLocal);
-				Console.WriteLine("Generated project was saved to the file '{0}'", fileConnFileNameFromLocal);
-			}
-			catch(Exception e)
-			{
-				Console.WriteLine("Error '{0}'", e.Message);
-			}
-			finally
-			{
-				if (client != null)
-				{
-					client.Close();
-				}
-			}
+			//var calcFactory = new ConnHiddenClientFactory(IdeaInstallDir);
 
-			// end console application
-			Console.WriteLine("Done. Press any key to exit.");
-			Console.ReadKey();
+			//var client = calcFactory.Create();
+			//try
+			//{
+			//	// it creates connection project from IOM 
+			//	Console.WriteLine("Creating Idea connection project ");
+			//	client.CreateConProjFromIOM(iomFileName, iomResFileName, fileConnFileNameFromLocal);
+			//	Console.WriteLine("Generated project was saved to the file '{0}'", fileConnFileNameFromLocal);
+			//}
+			//catch(Exception e)
+			//{
+			//	Console.WriteLine("Error '{0}'", e.Message);
+			//}
+			//finally
+			//{
+			//	if (client != null)
+			//	{
+			//		client.Close();
+			//	}
+			//}
+
+			//// end console application
+			//Console.WriteLine("Done. Press any key to exit.");
+			//Console.ReadKey();
 		}
 	}
 }

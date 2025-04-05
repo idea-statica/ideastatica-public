@@ -42,7 +42,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         /// <summary>
         /// Form parameters to be sent along with the request.
         /// </summary>
-        public Dictionary<string, string> FormParameters { get; set; }
+        public Dictionary<string, object> FormParameters { get; set; }
 
         /// <summary>
         /// File parameters to be sent along with the request.
@@ -77,7 +77,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
             PathParameters = new Dictionary<string, string>();
             QueryParameters = new Multimap<string, string>();
             HeaderParameters = new Multimap<string, string>();
-            FormParameters = new Dictionary<string, string>();
+            FormParameters = new Dictionary<string, object>();
             FileParameters = new Multimap<string, Stream>();
             Cookies = new List<Cookie>();
         }

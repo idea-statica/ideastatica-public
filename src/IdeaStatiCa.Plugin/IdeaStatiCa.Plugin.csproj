@@ -4,7 +4,6 @@
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
 	<LangVersion>8.0</LangVersion>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Product>IdeaStatiCa.Plugin</Product>
     <Description>Gateway to IDEA StatiCa. Includes classes which allows communication and controlling IDEA StatiCa applications and includes classes which provides IDEA StatiCa services to other applications.</Description>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
@@ -12,13 +11,6 @@
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM</PackageTags>
   </PropertyGroup>
     
-  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  
   <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
     <ProjectReference Include="..\IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj" >
       <PrivateAssets>all</PrivateAssets>

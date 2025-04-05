@@ -4,6 +4,7 @@ using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.TeklaStructuresPlugin.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
@@ -18,6 +19,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		{
 			if (teklaObject is TS.Beam beamPart
 				&& StiffeningMemberFilterl(beamPart)
+				&& !AnchorMemberFilter(beamPart) //in not anchor
 				&& !BulkSelectionHelper.IsRectangularCssBeam(beamPart))
 			{
 				var result = identifiers.Exists(x => x is ConnectedMemberIdentifier<IIdeaConnectedMember> cmId && cmId.GetId().ToString() == beamPart.Identifier.GUID.ToString());
@@ -44,14 +46,25 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			{
 				AddIdentifier<IIdeaPlate>(identifiers, teklaObject, plate.Identifier.GUID.ToString());
 			}
-			else if ((teklaObject is TS.Beam beamAsPlate
-						&& StiffeningMemberFilterl(beamAsPlate)
-						&& BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate)))
+			else if ((teklaObject is TS.Beam beamAsPlate))
 			{
-				if (addToCollection)
+
+				if (AnchorMemberFilter(beamAsPlate))
+				{
+					AddIdentifier<IIdeaAnchorGrid>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
+					AddConcreteBlockToAnchor(identifiers);
+				}
+				else if (ConcreteBlocksFilter(beamAsPlate))
+				{
+					AddIdentifier<IIdeaConcreteBlock>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
+					AddConcreteBlockToAnchor(identifiers);
+				}
+				else if (StiffeningMemberFilterl(beamAsPlate) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate))
 				{
 					AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
 				}
+
+
 			}
 			if (teklaObject is BoltGroup)
 			{
@@ -134,11 +147,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 				{
 					var modelObj = bolts.Current;
 
-					if (!(modelObj is TS.BoltGroup))
+					if (!(modelObj is TS.BoltGroup boltGroup))
 					{
 						continue;
 					}
-					identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
+
+					//test if is baseplate with dummy bolt group
+					if (!teklaPart.Identifier.Equals(boltGroup.PartToBeBolted.Identifier) || !teklaPart.Identifier.Equals(boltGroup.PartToBoltTo.Identifier) || boltGroup.OtherPartsToBolt.Count != 0)
+					{
+						identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
+					}
 				}
 
 				//welds
@@ -156,6 +174,31 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			}
 
 			return identifiers;
+		}
+
+		private static void AddConcreteBlockToAnchor(List<IIdentifier> identifiers)
+		{
+			var concreteBlock = identifiers.Find(id => id is StringIdentifier<IIdeaConcreteBlock>) as StringIdentifier<IIdeaConcreteBlock>;
+
+			if (concreteBlock == null)
+			{
+				return;
+			}
+
+			for (int i = 0; i < identifiers.Count; i++)
+			{
+				if (identifiers[i] is StringIdentifier<IIdeaAnchorGrid> anchorGridId)
+				{
+					var existingIds = anchorGridId.Id.Split(';');
+
+					// Check if the concrete block ID is already registered
+					if (!existingIds.Contains(concreteBlock.Id))
+					{
+						// Append the new ID, ensuring no duplicate delimiters
+						identifiers[i] = new StringIdentifier<IIdeaAnchorGrid>(string.Join(";", existingIds.Append(concreteBlock.Id)));
+					}
+				}
+			}
 		}
 
 		private static bool IsWorkPlaneInSphereOfConnection(Point connectionPoint, Part beam, Plane plane)
@@ -256,13 +299,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		{
 
 			//skip anchor member
-			if (beam.Profile.ProfileString.Contains("NUT_"))
+			if (NutMemberFilter(beam))
 			{
 				return false;
 			}
 
 			//skip concrete blocks
-			if (beam is TS.Beam b && (b.Type == TS.Beam.BeamTypeEnum.PAD_FOOTING || b.Type == TS.Beam.BeamTypeEnum.STRIP_FOOTING))
+			if (ConcreteBlocksFilter(beam))
 			{
 				return false;
 			}
@@ -270,6 +313,116 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			return true;
 		}
 
+		/// <summary>
+		/// Concrete Blocks Filter
+		/// </summary>
+		/// <param name="beam"></param>
+		/// <returns></returns>
+		public static bool ConcreteBlocksFilter(Part beam)
+		{
+			//find concrete blocks
+			return beam is TS.Beam b && (b.Type == TS.Beam.BeamTypeEnum.PAD_FOOTING || b.Type == TS.Beam.BeamTypeEnum.STRIP_FOOTING);
+		}
+
+		/// <summary>
+		/// Haunch Filter
+		/// </summary>
+		/// <param name="beam"></param>
+		/// <returns></returns>
+		public static bool HaunchFilter(Part beam)
+		{
+			//find concrete blocks
+			return beam is TS.Beam b && (b.Name == "HAUNCH");
+		}
+
+		/// <summary>
+		/// Grout plate Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool GroutFilter(Part part)
+		{
+			return part is TS.ContourPlate cp && part.Name == "GROUT";
+		}
+
+		/// <summary>
+		/// Cast plate Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool CastPlateFilter(Part part)
+		{
+			return part is TS.ContourPlate cp && part.Name == "CAST_PLATE";
+		}
+
+
+
+		/// <summary>
+		/// Anchor Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool AnchorMemberFilter(Part part)
+		{
+			// anchor member
+#if TEKLA2025
+			if (part.GetCustomObjectType() == "AnchorBolt")
+			{
+				return true;
+			}
+#endif
+			return part.Name == "ANCHOR ROD";
+		}
+
+		/// <summary>
+		/// Plate Washer Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool PlateWasherMemberFilter(Part part)
+		{
+			return part is TS.ContourPlate cp && (part.Name == "PLATE_WASHER" || part.Name == "Washer Plate");
+		}
+
+		/// <summary>
+		/// Web Plate Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool WebPlateMemberFilter(Part part)
+		{
+			return part is TS.ContourPlate cp && part.Name == "WEB_PLATE";
+		}
+
+		/// <summary>
+		/// Flange Plate Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool FlangePlateMemberFilter(Part part)
+		{
+			return part is TS.ContourPlate cp && part.Name == "FLANGE_PLATE";
+		}
+
+		/// <summary>
+		/// Nut Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool NutMemberFilter(Part part)
+		{
+			return part.Profile.ProfileString.Contains("NUT_") || part.Name == "NUT";
+		}
+
+		/// <summary>
+		/// Washer Member Filter
+		/// </summary>
+		/// <param name="part"></param>
+		/// <returns></returns>
+		public static bool WasherMemberFilter(Part part)
+		{
+			return part.Name == "WASHER";
+		}
 		internal static void AddIdentifier<TIdentifier>(List<IIdentifier> identifiers, ModelObject teklaObject, string filerObjectHandle)
 		where TIdentifier : IIdeaObject
 		{

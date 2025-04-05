@@ -2,16 +2,18 @@
 	<Import Project="..\..\..\Common.props" />
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net48</TargetFramework>
+		<TargetFramework>net6.0-windows</TargetFramework>
 		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<!-- Set OutputPath for *_Internal configurations -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release_IdeaStatiCa_Internal' Or '$(Configuration)' == 'Debug_IdeaStatiCa_Internal'">
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>$(OutputPath)\$(TargetFramework)\RamToIdea_Internal\</OutputPath>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 	  <None Remove="Resources\RAM icon.ico" />
 	</ItemGroup>

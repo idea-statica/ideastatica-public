@@ -24,10 +24,21 @@ namespace IdeaStatiCa.BimApiLink.Identifiers
 		public IList<ImmutableIdentifier<IIdeaCut>> Cuts { get; set; }
 
 		public Identifier<IIdeaNode> Node { get; set; }
-
 		private static string GetPointId(double x, double y, double z)
 		{
 			return $"{x.ToString("G", CultureInfo.InvariantCulture)};{y.ToString("G", CultureInfo.InvariantCulture)};{z.ToString("G", CultureInfo.InvariantCulture)}";
+		}
+
+		public override string GetStringId()
+		{
+			if (Node != null)
+			{
+				return typeof(T).FullName + "-" + Node.GetId();
+			}
+			else
+			{
+				return base.GetStringId();
+			}
 		}
 
 		public ConnectionIdentifier(double X, double Y, double Z)
