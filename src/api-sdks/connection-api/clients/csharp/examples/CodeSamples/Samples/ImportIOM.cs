@@ -18,7 +18,14 @@ namespace CodeSamples
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
-			string saveFilePath = "connection-file-from-IOM.ideaCon";
+			string exampleFolder = GetExampleFolderPathOnDesktop("CreateProjectFromIOM");
+
+			// Save updated file.
+			string fileName = "connection-file-from-IOM.ideaCon";
+			string saveFilePath = Path.Combine(exampleFolder, fileName);
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
+
+			Console.WriteLine("File saved to: " + saveFilePath);
 
 			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
 
