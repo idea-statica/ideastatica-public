@@ -286,7 +286,7 @@ class ReportApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/api/1/projects/{projectId}/reports/{connectionId}/pdf',
+            resource_path='/api/1/projects/{projectId}/connections/{connectionId}/reports/pdf',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -551,7 +551,7 @@ class ReportApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/api/1/projects/{projectId}/reports/{connectionId}/word',
+            resource_path='/api/1/projects/{projectId}/connections/{connectionId}/reports/word',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
