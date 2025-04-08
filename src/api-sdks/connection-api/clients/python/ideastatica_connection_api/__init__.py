@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "24.1.3.2377"
+__version__ = "24.1.5.1133"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi

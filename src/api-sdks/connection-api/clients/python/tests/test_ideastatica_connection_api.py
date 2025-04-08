@@ -104,3 +104,47 @@ def test_should_apply_template():
         operations_after_template = api_client.operation.get_operations(api_client.project.active_project_id, connection1.id)
 
         assert len(operations_after_template) == 5, "There should be 5 operations before applying the template"
+
+
+def test_should_export_ifc():
+    # Create client attached to already running service
+    with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
+        # Open project
+        upload_res = api_client.project.open_project_from_filepath(project_file_path)
+
+        # Get list of all connections in the project
+        connections_in_project = api_client.connection.get_connections(api_client.project.active_project_id)
+
+        # first connection in the project
+        connection1 = connections_in_project[0]
+
+        # export IFC file
+        export_file_name = os.path.join(dir_path, r'..\examples\projects', 'test-export.ifc')
+        api_client.export.export_ifc_file(api_client.project.active_project_id, connection1.id, export_file_name)
+
+        assert os.path.exists(export_file_name), f"Exported IFC file {export_file_name} does not exist"
+
+        # Clean up
+        os.remove(export_file_name)
+
+
+def test_should_generate_pdf_report():
+    # Create client attached to already running service
+    with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
+        # Open project
+        upload_res = api_client.project.open_project_from_filepath(project_file_path)
+
+        # Get list of all connections in the project
+        connections_in_project = api_client.connection.get_connections(api_client.project.active_project_id)
+
+        # first connection in the project
+        connection1 = connections_in_project[0]
+
+        # generate PDF report
+        pdf_file_name = os.path.join(dir_path, r'..\examples\projects', 'test-report.pdf')
+        api_client.report.save_report_pdf(api_client.project.active_project_id, connection1.id, pdf_file_name)
+
+        assert os.path.exists(pdf_file_name), f"Generated PDF report {pdf_file_name} does not exist"
+
+        # Clean up
+        os.remove(pdf_file_name)

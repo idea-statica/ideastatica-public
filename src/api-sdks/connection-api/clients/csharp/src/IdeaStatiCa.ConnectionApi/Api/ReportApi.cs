@@ -320,7 +320,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/reports/{connectionId}/pdf", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/pdf", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GeneratePdf", localVarResponse);
@@ -394,7 +394,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/reports/{connectionId}/pdf", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/pdf", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -466,7 +466,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/reports/{connectionId}/word", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/word", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GenerateWord", localVarResponse);
@@ -540,7 +540,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/reports/{connectionId}/word", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/word", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

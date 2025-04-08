@@ -363,3 +363,7 @@ python/rcsclient/ideastatica_rcs_client/ideastatica_rcs_client.egg-info
 python/rcsclient/dist
 python/rcsclient/ideastatica_rcs_client.egg-info
 examples/bimapi/CheckbotBimLink/CppFeaExample/CppFeaApp/CppFeaProject
+
+# JetBrains .idea folder
+.idea
+
