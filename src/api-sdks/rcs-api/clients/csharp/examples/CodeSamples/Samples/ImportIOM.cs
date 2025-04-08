@@ -34,7 +34,8 @@ namespace CodeSamples
 
 			await rcsClient.Project.SaveProjectAsync(rcsProject.ProjectId, saveFilePath);
 
-			await rcsClient.Project.CloseProjectAsync(rcsProject.ProjectId);
+			//Only one connection allowed on Client so it will always be managed by the Client.
+			//await rcsClient.Project.CloseProjectAsync(rcsProject.ProjectId);
 		}
 	}
 }
