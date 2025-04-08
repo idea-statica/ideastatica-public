@@ -109,7 +109,7 @@ class ApiClient:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Generator/24.1.5.1133/python'
+        self.user_agent = 'OpenAPI-Generator/25.0.0.1926/python'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -337,9 +337,6 @@ class ApiClient:
                 encoding = match.group(1) if match else "utf-8"
                 response_text = response_data.data.decode(encoding)
                 return_data = self.deserialize(response_text, response_type, content_type)
-            else:
-                # no response type, return the raw response
-                return_data = response_data.data
         finally:
             if not 200 <= response_data.status <= 299:
                 raise ApiException.from_response(
