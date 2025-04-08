@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
@@ -12,7 +12,7 @@
     <Description>IDEA StatiCa Connection API</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>IdeaStatiCa.ConnectionApi</RootNamespace>
-    <Version>24.1.5.1133</Version>
+    <Version>25.0.0.1926</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\IdeaStatiCa.ConnectionApi.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -21,10 +21,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="JsonSubTypes" />
-	<PackageReference Include="RestSharp" />
-	<PackageReference Include="Newtonsoft.Json" />
-	<PackageReference Include="Polly" />
+    <PackageReference Include="JsonSubTypes" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="RestSharp" />
+    <PackageReference Include="Polly" />
   </ItemGroup>
 
   <ItemGroup>
