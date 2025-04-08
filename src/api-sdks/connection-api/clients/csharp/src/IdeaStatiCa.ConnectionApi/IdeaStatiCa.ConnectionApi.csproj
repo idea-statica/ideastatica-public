@@ -18,14 +18,13 @@
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <PackageTags>IdeaStatiCa, Connection</PackageTags>
-    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="Polly" Version="8.1.0" />
+	<PackageReference Include="JsonSubTypes" />
+	<PackageReference Include="RestSharp" />
+	<PackageReference Include="Newtonsoft.Json" />
+	<PackageReference Include="Polly" />
   </ItemGroup>
 
   <ItemGroup>
