@@ -337,6 +337,9 @@ class ApiClient:
                 encoding = match.group(1) if match else "utf-8"
                 response_text = response_data.data.decode(encoding)
                 return_data = self.deserialize(response_text, response_type, content_type)
+            else:
+                # no response type, return the raw response
+                return_data = response_data.data
         finally:
             if not 200 <= response_data.status <= 299:
                 raise ApiException.from_response(
