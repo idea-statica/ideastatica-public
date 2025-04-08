@@ -66,6 +66,7 @@ namespace IdeaStatiCa.ConnectionApi
 		public ITemplateApiExtAsync Template { get; private set; }
 
 		/// <inheritdoc cref="IConnectionApiClient.Conversion"/>
+		public IConversionApiAsync Conversion { get; private set; }
 
 		/// <summary>
 		/// 
@@ -110,6 +111,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Project = null;
 			this.Report = null;
 			this.Template = null;
+			this.Conversion = null;
 			this.ClientApi = null;
 			this.ClientId = string.Empty;
 
@@ -137,6 +139,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Project = new ProjectApiExt(this, clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Report = new ReportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Template = new TemplateApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.Conversion = new ConversionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
 			this.ClientId = clientId;
