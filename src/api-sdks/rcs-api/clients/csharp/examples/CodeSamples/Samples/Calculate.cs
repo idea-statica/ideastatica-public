@@ -11,7 +11,7 @@ namespace CodeSamples
 	public partial class ClientExamples
 	{
 		/// <summary>
-		/// Creates a new RCS project from a selected IOM file.
+		/// Calculates all avaliable sections in an existing RCS project.
 		/// </summary>
 		/// <param name="rcsClient">The connected RCS API Client</param>
 		public static async Task Calculate(IRcsApiClient rcsClient)
