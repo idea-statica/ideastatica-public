@@ -22,6 +22,7 @@ using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
 
 namespace IdeaStatiCa.ConnectionApi.Api
 {
@@ -29,127 +30,127 @@ namespace IdeaStatiCa.ConnectionApi.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IReportApiSync : IApiAccessor
+    public interface IConversionApiSync : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Change design code of project.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="conConversionSettings"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        void GeneratePdf(Guid projectId, int connectionId, int operationIndex = 0);
+        void ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0);
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Change design code of project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+/// <param name="conConversionSettings"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> GeneratePdfWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        ApiResponse<Object> ChangeCodeWithHttpInfo(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Get default conversions
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="countryCode"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        void GenerateWord(Guid projectId, int connectionId, int operationIndex = 0);
+        /// <returns>ConConversionSettings</returns>
+        ConConversionSettings GetConversionMapping(Guid projectId, CountryCode? countryCode = default(CountryCode?), int operationIndex = 0);
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Get default conversions
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+/// <param name="countryCode"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> GenerateWordWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of ConConversionSettings</returns>
+        ApiResponse<ConConversionSettings> GetConversionMappingWithHttpInfo(Guid projectId, CountryCode? countryCode = default(CountryCode?), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IReportApiAsync : IApiAccessor
+    public interface IConversionApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Change design code of project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="conConversionSettings"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task GeneratePdfAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task ChangeCodeAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Change design code of project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="conConversionSettings"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GeneratePdfWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> ChangeCodeWithHttpInfoAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Get default conversions
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="countryCode"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task GenerateWordAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ConConversionSettings</returns>
+        System.Threading.Tasks.Task<ConConversionSettings> GetConversionMappingAsync(Guid projectId, CountryCode? countryCode = default(CountryCode?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Get default conversions
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="countryCode"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GenerateWordWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (ConConversionSettings)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConConversionSettings>> GetConversionMappingWithHttpInfoAsync(Guid projectId, CountryCode? countryCode = default(CountryCode?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IReportApi : IReportApiSync, IReportApiAsync
+    public interface IConversionApi : IConversionApiSync, IConversionApiAsync
     {
 
     }
@@ -157,23 +158,23 @@ namespace IdeaStatiCa.ConnectionApi.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class ReportApi : IReportApi
+    public partial class ConversionApi : IConversionApi
     {
         private IdeaStatiCa.ConnectionApi.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportApi"/> class.
+        /// Initializes a new instance of the <see cref="ConversionApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public ReportApi() : this((string)null)
+        public ConversionApi() : this((string)null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportApi"/> class.
+        /// Initializes a new instance of the <see cref="ConversionApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public ReportApi(string basePath)
+        public ConversionApi(string basePath)
         {
             this.Configuration = IdeaStatiCa.ConnectionApi.Client.Configuration.MergeConfigurations(
                 IdeaStatiCa.ConnectionApi.Client.GlobalConfiguration.Instance,
@@ -185,12 +186,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportApi"/> class
+        /// Initializes a new instance of the <see cref="ConversionApi"/> class
         /// using Configuration object
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public ReportApi(IdeaStatiCa.ConnectionApi.Client.Configuration configuration)
+        public ConversionApi(IdeaStatiCa.ConnectionApi.Client.Configuration configuration)
         {
             if (configuration == null) throw new ArgumentNullException("configuration");
 
@@ -204,13 +205,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportApi"/> class
+        /// Initializes a new instance of the <see cref="ConversionApi"/> class
         /// using a Configuration object and client instance.
         /// </summary>
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
-        public ReportApi(IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration)
+        public ConversionApi(IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration)
         {
             if (client == null) throw new ArgumentNullException("client");
             if (asyncClient == null) throw new ArgumentNullException("asyncClient");
@@ -264,32 +265,33 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Change design code of project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="conConversionSettings"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        public void GeneratePdf(Guid projectId, int connectionId, int operationIndex = 0)
+        public void ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0)
         {
-            GeneratePdfWithHttpInfo(projectId, connectionId);
+            ChangeCodeWithHttpInfo(projectId, conConversionSettings);
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Change design code of project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+/// <param name="conConversionSettings"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> GeneratePdfWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ChangeCodeWithHttpInfo(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
+                "application/json"
             };
 
             // to determine the Accept header
@@ -314,17 +316,17 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conConversionSettings;
 
-            localVarRequestOptions.Operation = "ReportApi.GeneratePdf";
+            localVarRequestOptions.Operation = "ConversionApi.ChangeCode";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/pdf", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/change-code", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GeneratePdf", localVarResponse);
+                Exception _exception = this.ExceptionFactory("ChangeCode", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -335,35 +337,36 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Change design code of project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="conConversionSettings"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task GeneratePdfAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task ChangeCodeAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await GeneratePdfWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            await ChangeCodeWithHttpInfoAsync(projectId, conConversionSettings, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Change design code of project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="conConversionSettings"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> GeneratePdfWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ChangeCodeWithHttpInfoAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
+                "application/json"
             };
 
             // to determine the Accept header
@@ -388,18 +391,18 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conConversionSettings;
 
-            localVarRequestOptions.Operation = "ReportApi.GeneratePdf";
+            localVarRequestOptions.Operation = "ConversionApi.ChangeCode";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/pdf", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/change-code", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GeneratePdf", localVarResponse);
+                Exception _exception = this.ExceptionFactory("ChangeCode", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -410,28 +413,29 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Get default conversions 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="countryCode"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        public void GenerateWord(Guid projectId, int connectionId, int operationIndex = 0)
+        /// <returns>ConConversionSettings</returns>
+        public ConConversionSettings GetConversionMapping(Guid projectId, CountryCode? countryCode = default(CountryCode?), int operationIndex = 0)
         {
-            GenerateWordWithHttpInfo(projectId, connectionId);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConversionSettings> localVarResponse = GetConversionMappingWithHttpInfo(projectId, countryCode);
+            return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Get default conversions 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+/// <param name="countryCode"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> GenerateWordWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of ConConversionSettings</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConversionSettings> GetConversionMappingWithHttpInfo(Guid projectId, CountryCode? countryCode = default(CountryCode?), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -440,6 +444,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -460,17 +465,20 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (countryCode != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "countryCode", countryCode));
+            }
 
-            localVarRequestOptions.Operation = "ReportApi.GenerateWord";
+            localVarRequestOptions.Operation = "ConversionApi.GetConversionMapping";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/word", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<ConConversionSettings>("/api/1/projects/{projectId}/get-default-mapping", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GenerateWord", localVarResponse);
+                Exception _exception = this.ExceptionFactory("GetConversionMapping", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -481,30 +489,31 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Get default conversions 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="countryCode"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task GenerateWordAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ConConversionSettings</returns>
+        public async System.Threading.Tasks.Task<ConConversionSettings> GetConversionMappingAsync(Guid projectId, CountryCode? countryCode = default(CountryCode?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await GenerateWordWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConversionSettings> localVarResponse = await GetConversionMappingWithHttpInfoAsync(projectId, countryCode, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Get default conversions 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="countryCode"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> GenerateWordWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (ConConversionSettings)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConversionSettings>> GetConversionMappingWithHttpInfoAsync(Guid projectId, CountryCode? countryCode = default(CountryCode?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -514,6 +523,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -534,18 +544,21 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (countryCode != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "countryCode", countryCode));
+            }
 
-            localVarRequestOptions.Operation = "ReportApi.GenerateWord";
+            localVarRequestOptions.Operation = "ConversionApi.GetConversionMapping";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/reports/word", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<ConConversionSettings>("/api/1/projects/{projectId}/get-default-mapping", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GenerateWord", localVarResponse);
+                Exception _exception = this.ExceptionFactory("GetConversionMapping", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
