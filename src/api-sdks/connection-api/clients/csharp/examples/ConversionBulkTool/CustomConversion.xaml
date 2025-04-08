@@ -1,0 +1,44 @@
+﻿<Window x:Class="IdeaConWpfApp.CustomConversionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Custom Conversion Settings" Height="450" Width="700">
+	<DockPanel Margin="10">
+		<TabControl x:Name="CategoryTabs" DockPanel.Dock="Top">
+			<TabItem Header="Steel">
+				<ScrollViewer>
+					<StackPanel x:Name="SteelStack" Margin="10"/>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Welds">
+				<ScrollViewer>
+					<StackPanel x:Name="WeldsStack" Margin="10"/>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Bolts">
+				<ScrollViewer>
+					<StackPanel x:Name="BoltsStack" Margin="10"/>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Bolt Grades">
+				<ScrollViewer>
+					<StackPanel x:Name="BoltGradesStack" Margin="10"/>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Concrete">
+				<ScrollViewer>
+					<StackPanel x:Name="ConcreteStack" Margin="10"/>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Cross Sections">
+				<ScrollViewer>
+					<StackPanel x:Name="CrossSectionsStack" Margin="10"/>
+				</ScrollViewer>
+			</TabItem>
+		</TabControl>
+
+		<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,10,0,0" DockPanel.Dock="Bottom">
+			<Button Content="OK" Width="80" Margin="5" Click="Ok_Click"/>
+			<Button Content="Cancel" Width="80" Margin="5" Click="Cancel_Click"/>
+		</StackPanel>
+	</DockPanel>
+</Window>

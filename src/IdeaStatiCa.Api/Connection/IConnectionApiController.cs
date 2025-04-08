@@ -362,5 +362,12 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task ChangeCodeType(ConConversionSettings conversionSettings, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate report
+		/// </summary>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<Stream> GenerateReport(int connectionId, string reportType = "pdf", CancellationToken cancellationToken = default);
 	}
 }

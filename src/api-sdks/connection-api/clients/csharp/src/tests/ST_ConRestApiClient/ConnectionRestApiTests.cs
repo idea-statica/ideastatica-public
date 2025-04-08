@@ -375,5 +375,12 @@ namespace ST_ConnectionRestApi
 			sceneData.Should().NotBeNull();
 			sceneData.Vertices.Should().NotBeEmpty();
 		}
+
+		[Test]
+		public async Task ShouldGenerateReport()
+		{
+			var con1 = Project!.Connections.First();
+			await ConnectionApiClient!.Report.SaveReportPdfAsync(ActiveProjectId, con1.Id, @"C:\Users\TomasKohoutek\Desktop\Data\OndraJede.pdf");
+		}
 	}
 }

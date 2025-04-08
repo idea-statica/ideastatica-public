@@ -1,0 +1,66 @@
+﻿<Window x:Class="IdeaConWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Idea Connection Bulk Converter" Height="450" Width="800">
+	<StackPanel Margin="10">
+
+		<TextBlock FontSize="16" FontWeight="Bold" Text="Idea Connection Bulk Converter" Margin="0,0,0,10"/>
+
+		<!-- StackPanel for buttons and readonly textboxes stacked vertically -->
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+			<!-- Set Idea StatiCa API Path -->
+			<Button Content="Set Idea StatiCa API Path" Width="150" Click="LoadIdeaPath_Click"/>
+			<TextBox x:Name="IdeaPathText" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" Width="500"/>
+		</StackPanel>
+
+		<!-- StackPanel for Select Folder -->
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+			<!-- Select Folder Button -->
+			<Button Content="Select Folder" Width="150" Click="SelectFolder_Click"/>
+			<TextBox x:Name="SelectedFolderTextBox" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" Width="500"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+		<!-- Start API button moved under Select Folder -->
+		<Button Content="Default conversion" Width="100" Click="Start_conversion_Click" Margin="0,0,0,10"/>
+
+		<Button Content="Custom Conversion" Width="150" Click="CustomConversion_Click" Margin="0,0,0,10"/>
+
+
+			<!-- Design Code ComboBox -->
+		<StackPanel Orientation="Horizontal" Margin="20,0,0,10">
+			<TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Text="Design Code:"/>
+			<ComboBox x:Name="DesignCodeComboBox" Width="150" VerticalAlignment="Center">
+				<ComboBoxItem Content="America" />
+				<ComboBoxItem Content="India" />
+				<ComboBoxItem Content="Canada" />
+				<ComboBoxItem Content="Australia" />
+				<ComboBoxItem Content="China" />
+				<ComboBoxItem Content="Honk Kong" />
+				</ComboBox>
+		</StackPanel>
+
+		<!-- Message Label for dynamic text -->
+		<TextBlock x:Name="MessageLabel" VerticalAlignment="Center" Margin="20,0,0,0" Width="200" Text="" />
+		</StackPanel>
+
+		<!-- List of projects -->
+		<ListBox x:Name="ProjectsList" Height="250" Margin="0,10,0,0">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+						<TextBlock Text="{Binding FilePath}" Width="600" TextTrimming="CharacterEllipsis"/>
+
+						<!-- Success Tick -->
+						<TextBlock Text="✅" Foreground="Green" Margin="10,0,0,0"
+						   Visibility="{Binding IsProcessed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+						<!-- Failure Cross -->
+						<TextBlock Text="❌" Foreground="Red" Margin="10,0,0,0"
+						   Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</StackPanel>
+</Window>

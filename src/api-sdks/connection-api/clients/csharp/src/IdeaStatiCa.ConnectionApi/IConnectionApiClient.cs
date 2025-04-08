@@ -89,6 +89,11 @@ namespace IdeaStatiCa.ConnectionApi
 		ITemplateApiExtAsync Template { get; }
 
 		/// <summary>
+		/// Get Conversion API
+		/// </summary>
+		IConversionApiAsync Conversion { get; }
+
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <returns></returns>
