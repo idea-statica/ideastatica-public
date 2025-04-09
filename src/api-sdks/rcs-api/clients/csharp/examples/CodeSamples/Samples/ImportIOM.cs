@@ -4,32 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IdeaStatiCa.RcsApi;
+using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi.Client;
 
-namespace CodeSamples.Samples
+namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
 		/// <summary>
-		/// Creates a new connection project from a selected IOM file. The first connection point in the IOM file will be added to the project.
+		/// Creates a new RCS project from a selected IOM file.
 		/// </summary>
-		/// <param name="conClient">The connected API Client</param>
-		public static async Task CreateProjectFromIom(RcsApiClient rcsClient)
+		/// <param name="rcsClient">The connected RCS API Client</param>
+		public static async Task CreateProjectFromIom(IRcsApiClient rcsClient)
 		{
-			//string filePath = "Inputs/multiple_connections.xml";
+			string filePath = "Inputs/ImportOpenModel.xml";
 
-			//await rcsClient.Project.ImportIOMFileAsync(rcsClient.Project, filePath);
+			RcsProject rcsProject = await rcsClient.Project.CreateProjectFromIomFileAsync(filePath);
 
-			//RcsProject rcsProject = await rcsClient.Project.CreateProjectFromIomFileAsync(filePath);
+			string exampleFolder = GetExampleFolderPathOnDesktop("CreateProjectFromIOM");
 
-			//Get projectId Guid
-			//Guid projectId = rcsProject.ProjectId;
-			//var connections = await conClient.Connection.GetConnectionsAsync(projectId);
-			//int connectionId = connections[0].Id;
+			// Save updated file.
+			string fileName = "rcs-file-from-IOM.ideaCon";
+			string saveFilePath = Path.Combine(exampleFolder, fileName);
+			
+			await rcsClient.Project.SaveProjectAsync(rcsProject.ProjectId, saveFilePath);
 
-			//string saveFilePath = "connection-file-from-IOM.ideaCon";
+			Console.WriteLine("File saved to: " + saveFilePath);
 
-			//await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+
+			await rcsClient.Project.SaveProjectAsync(rcsProject.ProjectId, saveFilePath);
+
+			//Only one connection allowed on Client so it will always be managed by the Client.
+			//await rcsClient.Project.CloseProjectAsync(rcsProject.ProjectId);
 		}
 	}
 }
