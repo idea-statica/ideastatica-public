@@ -20,6 +20,7 @@ using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Model;
 

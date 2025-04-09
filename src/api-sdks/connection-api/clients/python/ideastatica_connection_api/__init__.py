@@ -15,12 +15,13 @@
 """  # noqa: E501
 
 
-__version__ = "24.1.5.1133"
+__version__ = "25.0.0.1941"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
 from ideastatica_connection_api.api.client_api import ClientApi
 from ideastatica_connection_api.api.connection_api import ConnectionApi
+from ideastatica_connection_api.api.conversion_api import ConversionApi
 from ideastatica_connection_api.api.export_api import ExportApi
 from ideastatica_connection_api.api.load_effect_api import LoadEffectApi
 from ideastatica_connection_api.api.material_api import MaterialApi
@@ -61,6 +62,7 @@ from ideastatica_connection_api.models.check_res_weld import CheckResWeld
 from ideastatica_connection_api.models.con_analysis_type_enum import ConAnalysisTypeEnum
 from ideastatica_connection_api.models.con_calculation_parameter import ConCalculationParameter
 from ideastatica_connection_api.models.con_connection import ConConnection
+from ideastatica_connection_api.models.con_conversion_settings import ConConversionSettings
 from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.models.con_load_effect_member_load import ConLoadEffectMemberLoad
 from ideastatica_connection_api.models.con_load_effect_position_enum import ConLoadEffectPositionEnum
@@ -84,6 +86,8 @@ from ideastatica_connection_api.models.cone_breakout_check_type import ConeBreak
 from ideastatica_connection_api.models.connection_check_res import ConnectionCheckRes
 from ideastatica_connection_api.models.connection_data import ConnectionData
 from ideastatica_connection_api.models.connection_setup import ConnectionSetup
+from ideastatica_connection_api.models.conversion_mapping import ConversionMapping
+from ideastatica_connection_api.models.country_code import CountryCode
 from ideastatica_connection_api.models.crt_comp_check_is import CrtCompCheckIS
 from ideastatica_connection_api.models.cut_beam_by_beam_data import CutBeamByBeamData
 from ideastatica_connection_api.models.cut_data import CutData

@@ -4,6 +4,7 @@
 from ideastatica_connection_api.api.calculation_api import CalculationApi
 from ideastatica_connection_api.api.client_api import ClientApi
 from ideastatica_connection_api.api.connection_api import ConnectionApi
+from ideastatica_connection_api.api.conversion_api import ConversionApi
 from ideastatica_connection_api.api.export_api import ExportApi
 from ideastatica_connection_api.api.load_effect_api import LoadEffectApi
 from ideastatica_connection_api.api.material_api import MaterialApi
