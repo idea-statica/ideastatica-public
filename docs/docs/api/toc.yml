@@ -14,13 +14,6 @@
   href: rcs-api/clients/csharp/toc.yml
 - name: Python client
   href: rcs-api/clients/python/toc.yml
-- name: RCS API (Obsolete)
-- name: Getting Started
-  href: rcs-api/rcs_api_getting_started.md
-- name: API Client Basics
-  href: rcs-api/rcs_api_client_basics.md
-- name: Section Optimization
-  href: rcs-api/rcs_api_section_optimization.md
 - name: Examples
   href: rcs-api/examples/toc.yml
 - name: API Reference (C#)
