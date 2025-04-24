@@ -5,48 +5,16 @@ Welcome to the IDEA StatiCa RCS API (Application Programming Interface).
 The RCS API can be used to interact with IDEA StatiCa RCS to create and optimize designs of reinforced cross-sections.
 
 > [!IMPORTANT]
-> As of version **23.1.3** a new RCS API is avaliable.
+> Please review the API history below. If you are using an older version of the API it is highly reccommended to update to the latest version.
+
+## RCS API History
+
+* **24.1.1** - Release of a revamped REST API with new C# and python clients was released. This release alighns Connection API and RCS API terminology. The original REST API was reformatted to take into account a full redesign of the Connection API and alighn to a uniform API methodolgy accross all design apps.
+* **23.1.3** - A new RCS API based on REST architecture was made avaliable. It has since been replaced with a new version.  This API should continue to run, but it is highly recommended to update to the latest version.
+* **Before 23.1.3** - Before recent upgrades to a new REST API we had avaliable the RcsController. This API is no longer supported.
 
 ## API Architecture
 
 The RCS API is built on REST Open API architecture and runs over a http protocal. The current version of the API creates REST server which is hosted locally on a users computer. However, in the future we may also provide the possibility to run calculations on remote machines.
 
 Users can interact with the RCS API using one of the provided clients or by calling the REST API directly from any programming language. We recommend using one of the provided IDEA StatiCa wrapper clients for **.Net** or **Python**.
-
-## Client Installation
-
-# [.Net](#tab/dotnet)
-
-To install the RCS API in your .Net project you should first add the _IdeaStatiCa.RcsApiClient_ NuGet package to your project. See [here](../../../articles/nugetpackages.md) for installing NuGet packages in Visual Studio. Note that _IdeaStatiCa.Plugin_ is a dependency of the _IdeaStatiCa.RcsApiClient_ and should automatically be installed, if not it should also be added to your project through NuGet. 
-
-Once the NuGet packages are referenced in your project the following using statements should be avaliable:
-
-[!code-csharp[](../../../../examples/api/csharp/rcs/Rcs-Api-Console-Tester/RcsConsoleApp/RcsCodeSamples.cs#rcsusings)]
-
-> [!NOTE]
-> The .Net RcsApiClient is compatible with projects using .Net6.0 or greater.
-> [!IMPORTANT]
-> The .Net client is set up to work asyncroniously.
-
-# [Python](#tab/python)
-
-To use the RCS API in your Python project first install the IDEA StatiCa RCS Python client into your python environment.
-
-The python client can be installed using `pip` install the [ideastatica-rcs-client](https://pypi.org/project/ideastatica-rcs-client/) for Python
-
-To install the python client open the command line and type the following.
-
-```powershell
-
-pip install ideastatica-rcs-client
-```
-
-Once installed in the python environment we can use the follow import statements to install in our python project
-
-```python
-
-from ideastatica_rcs_client import idea_statica_setup
-from ideastatica_rcs_client import ideastatica_rcs_client
-
-```
----

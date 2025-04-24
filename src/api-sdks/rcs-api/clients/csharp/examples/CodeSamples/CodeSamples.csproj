@@ -11,11 +11,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Inputs\" />
+		<PackageReference Include="IdeaStatiCa.RcsApi" Version="24.1.2.1513" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="IdeaStatiCa.RcsApi" Version="24.1.2.1513" />
+	  <None Update="Inputs\ImportOpenModel.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Inputs\Project1.IdeaRcs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Inputs\Project2.IdeaRcs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Inputs\RcsOpenModel3.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>
