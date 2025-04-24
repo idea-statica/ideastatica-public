@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimApiLink.Persistence
 
 		public void Save()
 		{
-			using (FileStream fs = File.OpenWrite(_path))
+			using (FileStream fs = File.Create(_path))
 			using (StreamWriter streamWriter = new StreamWriter(fs))
 			{
 				_filePersistence.Save(streamWriter);
