@@ -10,7 +10,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Conversion
 	public class ConConversionSettings
 	{
 		[DataMember]
-		[JsonConverter(typeof(StringEnumConverter))]
 		public CountryCode TargetDesignCode { get; set; }
 
 		[DataMember]
