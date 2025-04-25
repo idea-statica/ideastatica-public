@@ -41,7 +41,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			jsonPersistence.StoreMapping(1, "member-1");
 
 			// Serialize data
-			StringWriter writter = new StringWriter();
+			StringWriter writter = new StringWriter();			
 			jsonPersistence.Save(writter);
 
 			// Deserialize data
@@ -96,6 +96,22 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			Assert.That(mappings.Count, Is.EqualTo(1));
 			Assert.That(mappings[0].Item1, Is.EqualTo(1));
 			Assert.That(mappings[0].Item2, Is.EqualTo("member-1"));
+		}
+
+		[Test]
+		[TestCase("../../../TestData/bimapi-data-serialized-with-none.json")]
+		[TestCase("../../../TestData/bimapi-data-serialized-with-auto.json")]
+		[TestCase("../../../TestData/bimapi-data-serialized-with-all.json")]
+		public void LoadOldVersionsOfJson(string jsonPath)
+		{			
+			StringReader reader = new StringReader(File.ReadAllText(jsonPath));
+			jsonPersistence.Load(reader);
+
+			// Check the data is valid
+			List<(string, IIdeaPersistenceToken)> tokens = jsonPersistence.GetTokens().ToList();
+			Assert.That(tokens.Count, Is.EqualTo(72));
+			List<(int, string)> mappings = jsonPersistence.GetMappings().ToList();
+			Assert.That(mappings.Count, Is.EqualTo(183));
 		}
 	}
 }
