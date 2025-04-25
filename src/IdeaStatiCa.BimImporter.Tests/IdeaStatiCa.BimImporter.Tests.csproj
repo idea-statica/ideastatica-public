@@ -16,7 +16,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+	<ProjectReference Include="..\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestData\" />
   </ItemGroup>
 
 </Project>
