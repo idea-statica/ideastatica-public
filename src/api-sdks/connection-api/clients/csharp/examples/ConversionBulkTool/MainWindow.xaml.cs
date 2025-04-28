@@ -77,7 +77,7 @@ namespace IdeaConWpfApp
 
 		public static CountryCode GetCountryCode(string selectedCode) => selectedCode switch
 		{
-			"America" => CountryCode.American,
+			"America" or "AISC" => CountryCode.American,
 			"India" => CountryCode.India,
 			"Canada" => CountryCode.Canada,
 			 "Australia" => CountryCode.Australia,
@@ -140,7 +140,7 @@ namespace IdeaConWpfApp
 							});
 							defaultMapping.CrossSections.ForEach(x =>
 							{
-								crossSections.TryAdd(x.SourceValue, x.TargetValue);
+								crossSections.TryAdd(x.SourceValue, x.SourceValue);
 							});
 
 							await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);

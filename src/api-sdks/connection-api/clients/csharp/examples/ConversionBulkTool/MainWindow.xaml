@@ -21,23 +21,19 @@
 		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-		<!-- Start API button moved under Select Folder -->
-		<Button Content="Default conversion" Width="100" Click="Start_conversion_Click" Margin="0,0,0,10"/>
+		<Button Content="Conversion" Width="150" Click="CustomConversion_Click" Margin="0,0,0,10"/>
 
-		<Button Content="Custom Conversion" Width="150" Click="CustomConversion_Click" Margin="0,0,0,10"/>
-
-
-			<!-- Design Code ComboBox -->
+		<!-- Design Code ComboBox -->
 		<StackPanel Orientation="Horizontal" Margin="20,0,0,10">
 			<TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Text="Design Code:"/>
 			<ComboBox x:Name="DesignCodeComboBox" Width="150" VerticalAlignment="Center">
-				<ComboBoxItem Content="America" />
+				<ComboBoxItem Content="AISC" />
 				<ComboBoxItem Content="India" />
 				<ComboBoxItem Content="Canada" />
 				<ComboBoxItem Content="Australia" />
 				<ComboBoxItem Content="China" />
 				<ComboBoxItem Content="Honk Kong" />
-				</ComboBox>
+			</ComboBox>
 		</StackPanel>
 
 		<!-- Message Label for dynamic text -->

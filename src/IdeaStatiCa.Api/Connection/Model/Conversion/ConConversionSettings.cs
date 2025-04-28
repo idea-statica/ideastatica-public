@@ -1,6 +1,4 @@
 ﻿using IdeaRS.OpenModel;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 

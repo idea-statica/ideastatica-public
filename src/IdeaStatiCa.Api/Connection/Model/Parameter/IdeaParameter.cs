@@ -26,5 +26,9 @@
 		public string ValidationStatus { get; set; }
 
 		public bool? IsVisible { get; set; }
+
+		public string LowerBound { get; set; }
+
+		public string UpperBound { get; set; }
 	}
 }
