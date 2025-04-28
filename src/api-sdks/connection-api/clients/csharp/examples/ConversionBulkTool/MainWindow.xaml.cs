@@ -222,60 +222,6 @@ namespace IdeaConWpfApp
 			}
 		}
 
-
-		private async void Start_conversion_Click(object sender, RoutedEventArgs e)
-		{
-			if (string.IsNullOrEmpty(selectedFolderPath))
-			{
-				MessageBox.Show("Please load IdeaPath first.");
-				return;
-			}
-			string designCode = ((ComboBoxItem)DesignCodeComboBox.SelectedItem).Content.ToString();
-
-			await Task.Run(async () =>
-			{
-
-				var service = new ConnectionApiServiceRunner(ideaPath);
-	
-				var countryCode = GetCountryCode(designCode!);
-
-				Dispatcher.Invoke(() => MessageLabel.Text = "Starting Connection API service ...");
-
-				using (var conClient = await service.CreateApiClient())
-				{
-					Dispatcher.Invoke(() => MessageLabel.Text = "Service started.");
-					var convertedDir = Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(projectFiles[0].FilePath), "Converted"));
-
-					foreach (var project in projectFiles)
-					{
-						Dispatcher.Invoke(() => MessageLabel.Text = $"Processing {project.FilePath}");
-						try
-						{
-							await conClient.Project.OpenProjectAsync(project.FilePath);
-
-							var defaultMapping = await conClient.Conversion.GetConversionMappingAsync(conClient.ActiveProjectId, countryCode);
-
-							await conClient.Conversion.ChangeCodeAsync(conClient.ActiveProjectId, defaultMapping);
-
-							var output = Path.Combine(convertedDir.FullName,
-								Path.GetFileNameWithoutExtension(project.FilePath) + "-" + designCode + ".ideaCon");
-
-							await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, output);
-							await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
-
-							project.IsProcessed = true;   // ✅ mark success
-						}
-						catch (Exception ex)
-						{
-							project.IsFailed = true;      // ❌ mark failure
-							MessageLabel.Text = $"Failed: {project.FilePath}";
-						}
-					}
-
-					Dispatcher.Invoke(() => MessageLabel.Text = "All done!");
-				}
-			});
-		}
 	}
 
 	public class ProjectItem : INotifyPropertyChanged
