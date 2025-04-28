@@ -257,12 +257,13 @@ Quadrant position of members in axis X & Y | `GetQuadrantXY('M1', 'M2')` | 2
 
 #### GetMembersAngle(*Member1*, *Member2*)
 
-Calculates the angle between given members. Their LCS vectors.
+Calculates the angle between given members in radians.
 
 **Description** | **Example Input** | **Example Output**
 ----|----|----
-Angle between B and C | `GetMembersAngle('B', 'C')` | 135 °
+Angle between B and C | `GetMembersAngle('B', 'C')` | 0.5
 
+If you want to see degree values, you can specify `Angle` value type
 
 ### Member relating cross-section property functions
 
@@ -276,6 +277,35 @@ Web Thickness |  `GetBeamPlateThickness('B', 'Web')` | 0.005 m
 
 There is a function to check the form code (profile) of members in project.
 CheckFormCode(*FormCode*, *[Member1, Member2...]*)
+
+**Possible Form Codes:**  
+<table><tr><td>
+
+- `I`
+- `U`
+- `L`
+
+</td><td>
+
+- `Z`
+- `Rectangle`
+- `Circle`
+
+</td><td>
+
+- `Tee`
+- `Flat`
+- `Rod`
+
+</td><td>
+
+- `Omega`
+- `Compound`
+- `General`
+
+</td></tr></table>
+
+</td></tr></table>
 
 **Description** | **Example Input** | **Example Output**
 ----|----|----
