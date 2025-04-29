@@ -196,6 +196,8 @@ Material Name | `GetValue('B','MaterialName')` |
 Is the bearing member | `GetValue('B','IsBearingMember')` | 
 Length | `GetValue('B', 'Length')` | 
 Support Code | `GetValue('B', 'SupportCode')` | 
+Forces | `GetValue('B', 'ForcesIn')` | (Position,  Node, Bolts, SelectedMemberFace) |
+Static behavior | `GetValue('B', 'StaticBehavior')`
 **Member Cross-Section Bounds** | Get the bounds of the given members cross-section | 
 Height | `GetValue('B', 'CrossSection.Bounds.Height')` | 
 Width | `GetValue('B', 'CrossSection.Bounds.Width')` | 
@@ -238,7 +240,7 @@ Bounding Box in LCS - Length  | `GetValue('B', 'BoundingBoxInLcs.Length)` |
 
 ### Member position functions
 
-GetQuadrant{*Axis1*}{*Axis*}(*Member1*, *Member2*)
+#### GetQuadrant{*Axis1*}{*Axis*}(*Member1*, *Member2*)
 
 The GetQuadrant function determines the quadrant position of a target structural member (Member2) relative to a source structural member (Member1) in a specified 2D plane within a 3D coordinate system.
 
@@ -250,8 +252,18 @@ The GetQuadrant function determines the quadrant position of a target structural
 
 **Description** | **Example Input** | **Example Output**
 ----|----|----
-Quadrant position of members in axis X & Z | `GetQuadrantXZ('M1', 'M2')` | 4
+Angle between | `GetQuadrantXZ('M1', 'M2')` | 4
 Quadrant position of members in axis X & Y | `GetQuadrantXY('M1', 'M2')` | 2
+
+#### GetMembersAngle(*Member1*, *Member2*)
+
+Calculates the angle between given members in radians.
+
+**Description** | **Example Input** | **Example Output**
+----|----|----
+Angle between B and C | `GetMembersAngle('B', 'C')` | 0.5
+
+If you want to see degree values, you can specify `Angle` value type
 
 ### Member relating cross-section property functions
 
@@ -262,6 +274,44 @@ Most cross-section properties of a related member can be retrieved with the gene
 Top Flange Thickness | `GetBeamPlateThickness('B', 'TopFlange')` | 0.010 m
 Bottom Flange Thickness | `GetBeamPlateThickness('B', 'BottomFlange')` | 0.012 m
 Web Thickness |  `GetBeamPlateThickness('B', 'Web')` | 0.005 m
+
+There is a function to check the form code (profile) of members in project.
+CheckFormCode(*FormCode*, *[Member1, Member2...]*)
+
+**Possible Form Codes:**  
+<table><tr><td>
+
+- `I`
+- `U`
+- `L`
+
+</td><td>
+
+- `Z`
+- `Rectangle`
+- `Circle`
+
+</td><td>
+
+- `Tee`
+- `Flat`
+- `Rod`
+
+</td><td>
+
+- `Omega`
+- `Compound`
+- `General`
+
+</td></tr></table>
+
+</td></tr></table>
+
+**Description** | **Example Input** | **Example Output**
+----|----|----
+Check all members in project for given form code | `CheckFormCode('U')` | `false`
+Check only specific members | `CheckFormCode('U', 'B', 'C')` | `true`
+Works with logical connectors|  `CheckFormCode('U', 'C') && CheckFormCode('I', 'M')`| `true`
 
 **Description** | **Example Input** | **Example Output**
 ----|----|----
