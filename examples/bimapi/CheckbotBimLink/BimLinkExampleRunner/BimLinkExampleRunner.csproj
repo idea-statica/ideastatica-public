@@ -19,7 +19,7 @@
 	</ItemGroup>
 		
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="24.1.2.1513" />
+		<PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="25.0.0.2474" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
