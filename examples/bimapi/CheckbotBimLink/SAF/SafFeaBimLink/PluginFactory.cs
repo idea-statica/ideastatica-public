@@ -13,7 +13,7 @@ namespace SafFeaBimLink
 		{
 			get
 			{
-				return Path.Combine("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1", Constants.CheckbotAppName);
+				return Path.Combine("C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0", Constants.CheckbotAppName);
 			}
 		}
 

@@ -25,7 +25,7 @@ namespace BimLinkExampleRunner.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1\\IdeaCheckbot.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0\\IdeaCheckbot.exe")]
         public string CheckbotLocation {
             get {
                 return ((string)(this["CheckbotLocation"]));
