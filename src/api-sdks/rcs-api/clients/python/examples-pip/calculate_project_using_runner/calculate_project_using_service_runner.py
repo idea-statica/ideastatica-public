@@ -6,7 +6,7 @@ from ideastatica_rcs_api.rcs_api_service_runner import RcsApiServiceRunner
 
 # Define the path to the executable
 PROGRAM_FILES = os.environ.get("ProgramFiles", "C:\\Program Files")
-SETUP_DIR = Path(PROGRAM_FILES) / "IDEA StatiCa" / "StatiCa 24.1"
+SETUP_DIR = Path(PROGRAM_FILES) / "IDEA StatiCa" / "StatiCa 25.0"
 
 # Path to the project file
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))

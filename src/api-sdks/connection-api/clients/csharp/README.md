@@ -67,7 +67,7 @@ namespace Example
         {
             string ideaConFile = "test1.ideaCon";
 
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // path to the IdeaStatiCa.ConnectionRestApi.exe
 
             using(clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {

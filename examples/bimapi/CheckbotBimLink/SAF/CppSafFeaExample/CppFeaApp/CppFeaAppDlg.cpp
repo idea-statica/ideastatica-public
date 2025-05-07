@@ -65,7 +65,7 @@ CCppFeaDlg::CCppFeaDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_CPPFEA_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	m_checkbotPath = _T("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1\\IdeaCheckbot.exe");
+	m_checkbotPath = _T("C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0\\IdeaCheckbot.exe");
 
 	DWORD bufferLength = MAX_PATH + 1;
 	TCHAR buffer[MAX_PATH + 1];

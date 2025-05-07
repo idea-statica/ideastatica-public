@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="IdeaStatiCaDir" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaCheckbot.exe</Value>
+      <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 25.0\IdeaCheckbot.exe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

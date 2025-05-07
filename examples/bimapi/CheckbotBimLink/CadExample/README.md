@@ -1,6 +1,6 @@
 ## How to create this project by a  VS project template
 
-This is related to IDEA StatiCa 24.1.0 and higher
+This is related to IDEA StatiCa 25.0 and higher
 
 1. Install or update the templates [IdeaStatiCa.Dotnet.Templates](https://www.nuget.org/packages/IdeaStatiCa.Dotnet.Templates/). The required version is 1.0.40 or higer
 

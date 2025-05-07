@@ -69,7 +69,7 @@ namespace Example
         {
             string rcsFile = "myRcsProject.ideaRcs"; // path to the RCS project file
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // path to the IdeaStatiCa.ConnectionRestApi.exe
 
             // Create client factory object. The service will be automatically started at the latest version of IDEA StatiCa.  
             using(var clientFactory = new RcsApiServiceRunner(ideaStatiCaPath))
