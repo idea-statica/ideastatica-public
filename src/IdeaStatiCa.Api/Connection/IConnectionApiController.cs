@@ -356,6 +356,14 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConConversionSettings> GetDefaultConversionSettings(CountryCode countryCode, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Get json string which represents connection topology
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<string> GetTopologyAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Change code type of application
 		/// </summary>
 		/// <param name="conversionSettings"></param>
