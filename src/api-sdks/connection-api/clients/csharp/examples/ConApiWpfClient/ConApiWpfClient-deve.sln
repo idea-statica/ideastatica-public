@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConApiWpfClientApp", "ConApiWpfClientApp\ConApiWpfClientApp.csproj", "{18B30ED0-8546-48ED-AD03-7578EE5F5A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.ConnectionApi", "..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj", "{922F2470-53AD-4301-8114-DF7AC5D4B9C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Api", "..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj", "{F2B54003-F93E-4E38-ADB9-3102FBC897E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaRS.OpenModel", "..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj", "{1733658F-02EE-4810-A685-59E124955638}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Public", "..\..\..\..\..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj", "{D8AFAC30-403A-46F3-8700-59A258969DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginLogger", "..\..\..\..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18B30ED0-8546-48ED-AD03-7578EE5F5A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B30ED0-8546-48ED-AD03-7578EE5F5A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B30ED0-8546-48ED-AD03-7578EE5F5A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B30ED0-8546-48ED-AD03-7578EE5F5A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{922F2470-53AD-4301-8114-DF7AC5D4B9C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{922F2470-53AD-4301-8114-DF7AC5D4B9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{922F2470-53AD-4301-8114-DF7AC5D4B9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{922F2470-53AD-4301-8114-DF7AC5D4B9C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B54003-F93E-4E38-ADB9-3102FBC897E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B54003-F93E-4E38-ADB9-3102FBC897E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B54003-F93E-4E38-ADB9-3102FBC897E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B54003-F93E-4E38-ADB9-3102FBC897E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1733658F-02EE-4810-A685-59E124955638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1733658F-02EE-4810-A685-59E124955638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1733658F-02EE-4810-A685-59E124955638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1733658F-02EE-4810-A685-59E124955638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8AFAC30-403A-46F3-8700-59A258969DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8AFAC30-403A-46F3-8700-59A258969DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8AFAC30-403A-46F3-8700-59A258969DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8AFAC30-403A-46F3-8700-59A258969DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D57E4919-7909-4267-BCA2-36C956858D5E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\..\..\..\..\Logger\SerilogFacade\SerilogFacade.projitems*{1a4ea04c-c52a-4a98-8f18-dbd29e5c7348}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal
