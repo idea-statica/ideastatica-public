@@ -23,6 +23,7 @@
 
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
+				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
 				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
 			</ToolBar>

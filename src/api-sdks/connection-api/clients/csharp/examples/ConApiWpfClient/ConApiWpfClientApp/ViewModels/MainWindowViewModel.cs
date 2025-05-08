@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +49,10 @@ namespace ConApiWpfClientApp.ViewModels
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
+
 			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
+
+			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
@@ -60,7 +64,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		private async Task CalculateAsync()
 		{
-			_logger.LogInformation("ApplyTemplateAsync");
+			_logger.LogInformation("CalculateAsync");
 
 			if (ProjectInfo == null)
 			{
@@ -165,10 +169,12 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
 
+		public AsyncRelayCommand CreateTemplateCommand { get; }
+
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
 		//public RelayCommand ShowClientUICommand { get; }
-		
+
 
 		private async Task OpenProjectAsync()
 		{
@@ -231,6 +237,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 
 			IsBusy = true;
+
 			try
 			{
 				if (RunApiServer)
@@ -339,6 +346,56 @@ namespace ConApiWpfClientApp.ViewModels
 			await Task.CompletedTask;
 		}
 
+		private async Task CreateTemplateAsync()
+		{
+			_logger.LogInformation("CalculateAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if(SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			string conTempXmlString = string.Empty;
+
+			IsBusy = true;
+			try
+			{
+				conTempXmlString = await ConApiClient.Template.CreateConTemplateAsync(ProjectInfo.ProjectId, SelectedConnection.Id, 0, cts.Token);
+				OutputText = conTempXmlString;
+
+				if(!string.IsNullOrEmpty(conTempXmlString))
+				{
+					SaveFileDialog saveTemplateFileDialog = new SaveFileDialog();
+					saveTemplateFileDialog.Filter = "Connection template | *.contemp";
+					saveTemplateFileDialog.OverwritePrompt = true;
+					if (saveTemplateFileDialog.ShowDialog() == true)
+					{
+						await File.WriteAllTextAsync(saveTemplateFileDialog.FileName, conTempXmlString, System.Text.Encoding.Unicode);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
 		private async Task ApplyTemplateAsync()
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
@@ -419,6 +476,8 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+
+
 		//private void ShowClientUI()
 		//{
 		//	_logger.LogInformation("ShowClientUI");
@@ -488,6 +547,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
+			this.CreateTemplateCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}

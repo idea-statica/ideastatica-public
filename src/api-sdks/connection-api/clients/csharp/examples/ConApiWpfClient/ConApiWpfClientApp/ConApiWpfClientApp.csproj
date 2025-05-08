@@ -24,7 +24,6 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
 	</ItemGroup>
 
-
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 		<PackageReference Include="IdeaStatiCa.Api" Version="25.0.0.2474" />
 		<PackageReference Include="IdeaStatiCa.ConnectionApi" Version="25.0.0.2474" />
@@ -33,7 +32,11 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-
+		<ProjectReference Include="..\..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<ProjectReference Include="..\..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
