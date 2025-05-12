@@ -1,17 +1,9 @@
-﻿using ConversionBulkTool;
-using IdeaRS.OpenModel;
-using IdeaStatiCa.Api.Connection;
+﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.ConnectionApi;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using MessageBox = System.Windows.MessageBox;
@@ -23,6 +15,8 @@ namespace IdeaConWpfApp
 		private string ideaPath;
 		private string selectedFolderPath;
 		private ObservableCollection<ProjectItem> projectFiles = new();
+		private IConnectionApiClient? conClient;
+		private ConnectionApiServiceRunner? service;
 
 		public MainWindow()
 		{
@@ -30,6 +24,13 @@ namespace IdeaConWpfApp
 			ProjectsList.ItemsSource = projectFiles;
 			IdeaPathText.Text = ideaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.0\";
 			DesignCodeComboBox.SelectedIndex = 0;
+			this.Closed += MainWindow_Closed;
+		}
+
+		private void MainWindow_Closed(object? sender, EventArgs e)
+		{
+			service?.Dispose();
+			conClient?.Dispose();
 		}
 
 		private void LoadIdeaPath_Click(object sender, RoutedEventArgs e)
@@ -45,9 +46,6 @@ namespace IdeaConWpfApp
 				ideaPath = dialog.SelectedPath;
 				IdeaPathText.Text = ideaPath;  // Show selected path in the TextBlock
 			}
-
-			var runner = new ConnectionApiServiceRunner(ideaPath);
-			Task.Run(async () => await runner.CreateApiClient());
 		}
 
 		private void SelectFolder_Click(object sender, RoutedEventArgs e)
@@ -102,10 +100,15 @@ namespace IdeaConWpfApp
 			var boltAssemblies = new Dictionary<string, string>();
 			var crossSections = new Dictionary<string, string>();
 
-			var service = new ConnectionApiServiceRunner(ideaPath);
+			if(service is null)
+			{
+				service = new ConnectionApiServiceRunner(ideaPath);
+			}
+			
 			var countryCode = GetCountryCode(designCode!);
 
 			Dispatcher.Invoke(() => MessageLabel.Text = "Starting Connection API service ...");
+
 			using (var conClient = await service.CreateApiClient())
 			{
 				await Task.Run(async () =>
