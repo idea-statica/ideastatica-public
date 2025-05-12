@@ -21,7 +21,7 @@
 		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-		<Button Content="Conversion" Width="150" Click="CustomConversion_Click" Margin="0,0,0,10"/>
+		<Button Content="Convert" Width="150" Click="CustomConversion_Click" Margin="0,0,0,10"/>
 
 		<!-- Design Code ComboBox -->
 		<StackPanel Orientation="Horizontal" Margin="20,0,0,10">
