@@ -27,12 +27,12 @@
 		<StackPanel Orientation="Horizontal" Margin="20,0,0,10">
 			<TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Text="Design Code:"/>
 			<ComboBox x:Name="DesignCodeComboBox" Width="150" VerticalAlignment="Center">
-				<ComboBoxItem Content="AISC" />
-				<ComboBoxItem Content="India" />
-				<ComboBoxItem Content="Canada" />
-				<ComboBoxItem Content="Australia" />
-				<ComboBoxItem Content="China" />
-				<ComboBoxItem Content="Honk Kong" />
+				<ComboBoxItem Content="AISC (USA)" />
+				<ComboBoxItem Content="IS 800 (India)" />
+				<ComboBoxItem Content="CSA (Canada)" />
+				<ComboBoxItem Content="AS (Australia)" />
+				<ComboBoxItem Content="GB (China)" />
+				<ComboBoxItem Content="HKG (Honk Kong)" />
 			</ComboBox>
 		</StackPanel>
 
