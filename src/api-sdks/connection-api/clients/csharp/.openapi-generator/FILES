@@ -95,6 +95,7 @@ git_push.sh
 src/IdeaStatiCa.ConnectionApi/Api/CalculationApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ClientApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ConnectionApi.cs
+src/IdeaStatiCa.ConnectionApi/Api/ConversionApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ExportApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/LoadEffectApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/MaterialApi.cs

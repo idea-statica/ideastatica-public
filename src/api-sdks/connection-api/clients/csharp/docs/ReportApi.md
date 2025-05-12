@@ -87,7 +87,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/reports/{connectionId}/pdf 
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/reports/pdf 
 
 #### Using the GeneratePdfWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -205,7 +205,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/reports/{connectionId}/word 
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/reports/word 
 
 #### Using the GenerateWordWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
