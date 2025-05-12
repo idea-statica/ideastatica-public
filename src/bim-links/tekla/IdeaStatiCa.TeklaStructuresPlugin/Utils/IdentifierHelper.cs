@@ -18,7 +18,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		internal static List<IIdentifier> GetIdentifier(ModelObject teklaObject, ref List<IIdentifier> identifiers, bool addToCollection = true, Point connectionPoint = null)
 		{
 			if (teklaObject is TS.Beam beamPart
-				&& StiffeningMemberFilterl(beamPart)
+				&& StiffeningMemberFilter(beamPart)
 				&& !AnchorMemberFilter(beamPart) //in not anchor
 				&& !BulkSelectionHelper.IsRectangularCssBeam(beamPart))
 			{
@@ -59,7 +59,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					AddIdentifier<IIdeaConcreteBlock>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
 					AddConcreteBlockToAnchor(identifiers);
 				}
-				else if (StiffeningMemberFilterl(beamAsPlate) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate))
+				else if (StiffeningMemberFilter(beamAsPlate) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate))
 				{
 					AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
 				}
@@ -156,8 +156,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 
 					if (!IsPointNearOfConnection(connectionPoint, teklaPart, boltCs.Origin as Point))
 					{
-						//skip item too far from connection point
-						continue;
+						//not skip for Stiffening Member as plate 
+						if (!(StiffeningMemberFilter(teklaPart) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(teklaPart)))
+						{
+							//skip item too far from connection point
+							continue;
+						}
 					}
 
 					//test if is baseplate with dummy bolt group
@@ -180,8 +184,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					var weldCs = weld.GetCoordinateSystem();
 					if (!IsPointNearOfConnection(connectionPoint, teklaPart, weldCs.Origin as Point))
 					{
-						//skip item too far from connection point
-						continue;
+						//not skip for Stiffening Member as plate 
+						if (!(StiffeningMemberFilter(teklaPart) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(teklaPart)))
+						{
+							//skip item too far from connection point
+							continue;
+						}
 					}
 
 					identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
@@ -329,7 +337,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 				return true;
 			}
 		}
-		private static bool StiffeningMemberFilterl(Part beam)
+		private static bool StiffeningMemberFilter(Part beam)
 		{
 
 			//skip anchor member
