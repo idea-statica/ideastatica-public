@@ -23,6 +23,7 @@ docs/ClientApi.md
 docs/ConAnalysisTypeEnum.md
 docs/ConCalculationParameter.md
 docs/ConConnection.md
+docs/ConConversionSettings.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
 docs/ConLoadEffectPositionEnum.md
@@ -47,6 +48,9 @@ docs/ConnectionApi.md
 docs/ConnectionCheckRes.md
 docs/ConnectionData.md
 docs/ConnectionSetup.md
+docs/ConversionApi.md
+docs/ConversionMapping.md
+docs/CountryCode.md
 docs/CrtCompCheckIS.md
 docs/CutBeamByBeamData.md
 docs/CutData.md
@@ -97,6 +101,7 @@ ideastatica_connection_api/api/__init__.py
 ideastatica_connection_api/api/calculation_api.py
 ideastatica_connection_api/api/client_api.py
 ideastatica_connection_api/api/connection_api.py
+ideastatica_connection_api/api/conversion_api.py
 ideastatica_connection_api/api/export_api.py
 ideastatica_connection_api/api/load_effect_api.py
 ideastatica_connection_api/api/material_api.py
@@ -129,6 +134,7 @@ ideastatica_connection_api/models/check_res_weld.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
 ideastatica_connection_api/models/con_calculation_parameter.py
 ideastatica_connection_api/models/con_connection.py
+ideastatica_connection_api/models/con_conversion_settings.py
 ideastatica_connection_api/models/con_load_effect.py
 ideastatica_connection_api/models/con_load_effect_member_load.py
 ideastatica_connection_api/models/con_load_effect_position_enum.py
@@ -152,6 +158,8 @@ ideastatica_connection_api/models/cone_breakout_check_type.py
 ideastatica_connection_api/models/connection_check_res.py
 ideastatica_connection_api/models/connection_data.py
 ideastatica_connection_api/models/connection_setup.py
+ideastatica_connection_api/models/conversion_mapping.py
+ideastatica_connection_api/models/country_code.py
 ideastatica_connection_api/models/crt_comp_check_is.py
 ideastatica_connection_api/models/cut_beam_by_beam_data.py
 ideastatica_connection_api/models/cut_data.py
