@@ -2123,6 +2123,41 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
+  /api/1/projects/{projectId}/connections/{connectionId}/get-topology:
+    get:
+      operationId: GetConnectionTopology
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection where to clear the design
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Get topology of the connection in json format
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
 components:
   schemas:
     AnchorGrid:
@@ -5767,7 +5802,9 @@ components:
         unit: unit
         validationExpression: validationExpression
         expression: expression
+        upperBound: upperBound
         description: description
+        lowerBound: lowerBound
         isVisible: true
         value: ""
         validationStatus: validationStatus
@@ -5799,6 +5836,12 @@ components:
         isVisible:
           nullable: true
           type: boolean
+        lowerBound:
+          nullable: true
+          type: string
+        upperBound:
+          nullable: true
+          type: string
       type: object
     IdeaParameterUpdate:
       additionalProperties: false
