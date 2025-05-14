@@ -3,6 +3,7 @@ using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RamToIdeaApp.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace IdeaStatiCa.RamToIdeaApp
@@ -35,10 +36,26 @@ namespace IdeaStatiCa.RamToIdeaApp
 
 			var startupService = serviceProvider.GetRequiredService<IStartupService>();
 
-			// Call the async method and wait for it
-			await startupService.RunCheckbotAsync();
+			string ramFilePath = null;
+			foreach (var arg in e.Args)
+			{
+				if (arg.StartsWith("-ramFile=", StringComparison.OrdinalIgnoreCase))
+				{
+					ramFilePath = arg.Substring("-ramFile=".Length).Trim('"');
+				}
+			}
 
-			// Shut down the application after completion
+			if (ramFilePath is { })
+			{
+				var outputFilePath = Path.ChangeExtension(ramFilePath, ".xml");
+				var outputXml = await startupService.ExportIOMModelAsync(ramFilePath);
+				await File.WriteAllTextAsync(outputFilePath, outputXml);
+			}
+			else
+			{
+				await startupService.RunCheckbotAsync();
+			}
+
 			Shutdown();
 		}
 

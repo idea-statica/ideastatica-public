@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RamToIdeaApp.Models;
 using Microsoft.Win32;
+using NSubstitute;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -30,6 +31,42 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 
 			return openFileDialog.FileName;
 		}
+
+		/// <summary>
+		/// Export the whole IOM model without starting Checkbot
+		/// </summary>
+		/// <param name="sourceFile"></param>
+		/// <param name="outputFile"></param>
+		/// <returns></returns>
+		public async Task<string> ExportIOMModelAsync(string sourceFile)
+		{
+			if (!_projectService.IsAvailable())
+			{
+				_logger.LogDebug("RAM app is not installed on the computer");
+				return string.Empty;
+			}
+
+			var projectDir = Path.GetDirectoryName(sourceFile);
+			var projectName = Path.GetFileNameWithoutExtension(sourceFile);
+
+			var projectInfo = new ProjectInfo
+			{
+				RamDbFileName = sourceFile,
+				ProjectWorkingDir = projectDir,
+			};
+
+			var bimHosting = new GrpcBimHostingFactory();
+
+			var factory = Substitute.For<IBimHostingFactory>();
+			var progressMessaging = Substitute.For<IProgressMessaging>();
+
+			var pluginFactory = new RamPluginFactory(projectInfo, _projectService,
+				_logger, progressMessaging);
+
+			var applicationBim = pluginFactory.Create();
+			return await applicationBim.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode.ECEN, RequestedItemsType.Connections);
+		}
+
 
 		/// <summary>
 		/// Start IdeaCheckbot
