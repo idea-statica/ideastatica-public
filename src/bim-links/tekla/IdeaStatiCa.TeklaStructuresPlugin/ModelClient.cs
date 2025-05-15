@@ -527,60 +527,87 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		}
 
 		/// <summary>
-		/// Check if has write permission
+		/// Check if the current user has write permission on the specified file or directory.
 		/// </summary>
-		/// <param name="FilePath"></param>
-		/// <returns></returns>
-		public static bool HasWritePermissionOnDir(string FilePath)
+		/// <param name="filePath">The path to the file or directory to check.</param>
+		/// <returns>True if the user has write permission, false otherwise.</returns>
+		public static bool HasWritePermissionOnDir(string filePath)
 		{
 			try
 			{
-				FileSystemSecurity security;
-				if (File.Exists(FilePath))
-				{
-					security = File.GetAccessControl(FilePath);
-				}
-				else
-				{
-					security = Directory.GetAccessControl(Path.GetDirectoryName(FilePath));
-				}
-				var rules = security.GetAccessRules(true, true, typeof(NTAccount));
+				AuthorizationRuleCollection rules;
 
-				var currentuser = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+				// Check if the provided path points to a file
+				if (File.Exists(filePath))
+				{
+					// Get the access control list for the file
+					FileInfo fileInfo = new FileInfo(filePath);
+					FileSecurity fileSecurity = fileInfo.GetAccessControl();
+
+					// Get the access rules for the file
+					rules = fileSecurity.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
+				}
+				else // Assume the path points to a directory
+				{
+					// Get the access control list for the directory
+					DirectoryInfo dirInfo = new DirectoryInfo(filePath);
+					DirectorySecurity dirSecurity = dirInfo.GetAccessControl();
+
+					// Get the access rules for the directory
+					rules = dirSecurity.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
+				}
+
+				// Get the current user
+				var currentUser = new WindowsPrincipal(WindowsIdentity.GetCurrent());
 				bool result = false;
+
+				// Iterate through the access rules
 				foreach (FileSystemAccessRule rule in rules)
 				{
-					if (0 == (rule.FileSystemRights &
-						(FileSystemRights.WriteData | FileSystemRights.Write)))
+					// Check if the rule grants write permission
+					if (0 == (rule.FileSystemRights & (FileSystemRights.WriteData | FileSystemRights.Write)))
 					{
-						continue;
+						continue; // Skip if the rule does not grant write permission
 					}
 
+					// Check if the current user is in the role specified by the rule
 					if (rule.IdentityReference.Value.StartsWith("S-1-"))
 					{
+						// Create a SecurityIdentifier from the rule's identity reference
 						var sid = new SecurityIdentifier(rule.IdentityReference.Value);
-						if (!currentuser.IsInRole(sid))
+
+						// Skip if the current user is not in the role
+						if (!currentUser.IsInRole(sid))
 						{
 							continue;
 						}
 					}
 					else
 					{
-						if (!currentuser.IsInRole(rule.IdentityReference.Value))
+						// Skip if the current user is not in the role
+						if (!currentUser.IsInRole(rule.IdentityReference.Value))
 						{
 							continue;
 						}
 					}
 
+					// Determine if the rule grants or denies access
 					if (rule.AccessControlType == AccessControlType.Deny)
-						return false;
-					if (rule.AccessControlType == AccessControlType.Allow)
-						result = true;
+					{
+						return false; // Access is denied
+					}
+					else if (rule.AccessControlType == AccessControlType.Allow)
+					{
+						result = true; // Access is allowed
+					}
 				}
+
+				// Return the final result
 				return result;
 			}
 			catch
 			{
+				// An exception occurred, return false
 				return false;
 			}
 		}
