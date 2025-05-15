@@ -16,14 +16,7 @@ namespace IdeaStatiCa.BimApiLink.Hooks
 		{
 			foreach (T hook in _hooks)
 			{
-				try
-				{
-					func(hook);
-				}
-				catch
-				{
-					// TODO: log exception
-				}
+				func(hook);				
 			}
 		}
 	}
