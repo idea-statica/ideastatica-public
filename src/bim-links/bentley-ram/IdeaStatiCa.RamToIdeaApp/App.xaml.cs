@@ -4,6 +4,7 @@ using IdeaStatiCa.RamToIdeaApp.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace IdeaStatiCa.RamToIdeaApp
@@ -30,33 +31,49 @@ namespace IdeaStatiCa.RamToIdeaApp
 			serviceProvider = services.BuildServiceProvider();
 		}
 
-		protected override async void OnStartup(StartupEventArgs e)
+		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
+			_ = RunAppLogicAsync(e.Args);
+		}
 
-			var startupService = serviceProvider.GetRequiredService<IStartupService>();
-
-			string ramFilePath = null;
-			foreach (var arg in e.Args)
+		private async Task RunAppLogicAsync(string[] args)
+		{
+			try
 			{
-				if (arg.StartsWith("-ramFile=", StringComparison.OrdinalIgnoreCase))
+				var startupService = serviceProvider.GetRequiredService<IStartupService>();
+
+				string ramFilePath = null;
+				foreach (var arg in args)
 				{
-					ramFilePath = arg.Substring("-ramFile=".Length).Trim('"');
+					if (arg.StartsWith("-ramFile=", StringComparison.OrdinalIgnoreCase))
+					{
+						ramFilePath = arg.Substring("-ramFile=".Length).Trim('"');
+					}
+				}
+
+				if (ramFilePath is { })
+				{
+					var outputFilePath = Path.ChangeExtension(ramFilePath, ".xml");
+					var outputXml = await startupService.ExportIOMModelAsync(ramFilePath);
+					await File.WriteAllTextAsync(outputFilePath, outputXml);
+
+					// Shutdown after success
+					Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown(0));
+				}
+				else
+				{
+					await startupService.RunCheckbotAsync();
 				}
 			}
-
-			if (ramFilePath is { })
+			catch(Exception ex)
 			{
-				var outputFilePath = Path.ChangeExtension(ramFilePath, ".xml");
-				var outputXml = await startupService.ExportIOMModelAsync(ramFilePath);
-				File.WriteAllText(outputFilePath, outputXml);
+				Console.WriteLine(ex.ToString());
 			}
-			else
+			finally
 			{
-				await startupService.RunCheckbotAsync();
+				Dispatcher.Invoke(() => Shutdown());
 			}
-
-			Shutdown();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
