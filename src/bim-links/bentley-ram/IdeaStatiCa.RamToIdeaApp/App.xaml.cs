@@ -49,7 +49,7 @@ namespace IdeaStatiCa.RamToIdeaApp
 			{
 				var outputFilePath = Path.ChangeExtension(ramFilePath, ".xml");
 				var outputXml = await startupService.ExportIOMModelAsync(ramFilePath);
-				await File.WriteAllTextAsync(outputFilePath, outputXml);
+				File.WriteAllText(outputFilePath, outputXml);
 			}
 			else
 			{
