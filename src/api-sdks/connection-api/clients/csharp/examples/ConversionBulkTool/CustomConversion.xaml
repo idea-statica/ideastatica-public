@@ -2,8 +2,16 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Custom Conversion Settings" Height="450" Width="700">
-	<DockPanel Margin="10">
-		<TabControl x:Name="CategoryTabs" DockPanel.Dock="Top">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<!-- TabControl takes remaining space -->
+			<RowDefinition Height="Auto" />
+			<!-- Buttons stay at bottom -->
+		</Grid.RowDefinitions>
+
+		<TabControl x:Name="CategoryTabs" Grid.Row="0">
 			<TabItem Header="Steel">
 				<ScrollViewer>
 					<StackPanel x:Name="SteelStack" Margin="10"/>
@@ -36,9 +44,9 @@
 			</TabItem>
 		</TabControl>
 
-		<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,10,0,0" DockPanel.Dock="Bottom">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="1">
 			<Button Content="OK" Width="80" Margin="5" Click="Ok_Click"/>
 			<Button Content="Cancel" Width="80" Margin="5" Click="Cancel_Click"/>
 		</StackPanel>
-	</DockPanel>
+	</Grid>
 </Window>
