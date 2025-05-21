@@ -33,7 +33,8 @@ namespace IdeaStatiCa.Plugin
 		ProcessingConnection,
 		FinishingImport,
 		SciaSDKError,
-		AwaitingUserSelection
+		AwaitingUserSelection,
+		ImportDetails
 	}
 
 	public interface IProgressMessaging

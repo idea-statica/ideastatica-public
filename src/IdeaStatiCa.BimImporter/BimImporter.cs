@@ -216,6 +216,11 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
+		public ModelBIM ImportConcreteWalls(CountryCode countryCode)
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode)
