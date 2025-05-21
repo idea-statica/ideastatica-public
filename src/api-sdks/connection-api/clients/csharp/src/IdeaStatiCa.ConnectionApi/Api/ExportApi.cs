@@ -40,8 +40,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        void ExportIFC(Guid projectId, int connectionId, int operationIndex = 0);
+        /// <returns>string</returns>
+        string ExportIFC(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
         /// Export connection to IFC format
@@ -54,8 +54,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="connectionId"></param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ExportIFCWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of string</returns>
+        ApiResponse<string> ExportIFCWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
         /// </summary>
@@ -64,8 +64,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId"></param>
         /// <param name="version"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        void ExportIom(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0);
+        /// <returns>string</returns>
+        string ExportIom(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0);
 
         /// <summary>
         /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
@@ -79,8 +79,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="version"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ExportIomWithHttpInfo(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of string</returns>
+        ApiResponse<string> ExportIomWithHttpInfo(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
         /// </summary>
@@ -124,8 +124,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ExportIFCAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of string</returns>
+        System.Threading.Tasks.Task<string> ExportIFCAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Export connection to IFC format
@@ -139,8 +139,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ExportIFCWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (string)</returns>
+        System.Threading.Tasks.Task<ApiResponse<string>> ExportIFCWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
         /// </summary>
@@ -153,8 +153,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="version"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ExportIomAsync(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of string</returns>
+        System.Threading.Tasks.Task<string> ExportIomAsync(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
@@ -169,8 +169,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ExportIomWithHttpInfoAsync(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (string)</returns>
+        System.Threading.Tasks.Task<ApiResponse<string>> ExportIomWithHttpInfoAsync(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
         /// </summary>
@@ -326,10 +326,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        public void ExportIFC(Guid projectId, int connectionId, int operationIndex = 0)
+        /// <returns>string</returns>
+        public string ExportIFC(Guid projectId, int connectionId, int operationIndex = 0)
         {
-            ExportIFCWithHttpInfo(projectId, connectionId);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = ExportIFCWithHttpInfo(projectId, connectionId);
+            return localVarResponse.Data;
         }
 
         /// <summary>
@@ -340,8 +341,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="connectionId"></param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ExportIFCWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of string</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> ExportIFCWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -350,6 +351,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "text/plain"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -377,7 +379,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/connections/{connectionId}/export-ifc", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<string>("/api/1/projects/{projectId}/connections/{connectionId}/export-ifc", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("ExportIFC", localVarResponse);
@@ -398,10 +400,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ExportIFCAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of string</returns>
+        public async System.Threading.Tasks.Task<string> ExportIFCAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await ExportIFCWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = await ExportIFCWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
         }
 
         /// <summary>
@@ -413,8 +416,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ExportIFCWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (string)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<string>> ExportIFCWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -424,6 +427,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "text/plain"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -451,7 +455,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/export-ifc", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<string>("/api/1/projects/{projectId}/connections/{connectionId}/export-ifc", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -473,10 +477,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId"></param>
         /// <param name="version"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        public void ExportIom(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0)
+        /// <returns>string</returns>
+        public string ExportIom(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0)
         {
-            ExportIomWithHttpInfo(projectId, connectionId, version);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = ExportIomWithHttpInfo(projectId, connectionId, version);
+            return localVarResponse.Data;
         }
 
         /// <summary>
@@ -488,8 +493,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="version"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ExportIomWithHttpInfo(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of string</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> ExportIomWithHttpInfo(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -498,6 +503,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/xml",
+                "text/plain"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -529,7 +536,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/connections/{connectionId}/export-iom", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<string>("/api/1/projects/{projectId}/connections/{connectionId}/export-iom", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("ExportIom", localVarResponse);
@@ -551,10 +558,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="version"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ExportIomAsync(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of string</returns>
+        public async System.Threading.Tasks.Task<string> ExportIomAsync(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await ExportIomWithHttpInfoAsync(projectId, connectionId, version, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = await ExportIomWithHttpInfoAsync(projectId, connectionId, version, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
         }
 
         /// <summary>
@@ -567,8 +575,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ExportIomWithHttpInfoAsync(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (string)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<string>> ExportIomWithHttpInfoAsync(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -578,6 +586,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/xml",
+                "text/plain"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -609,7 +619,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/connections/{connectionId}/export-iom", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<string>("/api/1/projects/{projectId}/connections/{connectionId}/export-iom", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
