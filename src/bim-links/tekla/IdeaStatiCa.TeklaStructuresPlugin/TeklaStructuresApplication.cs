@@ -9,7 +9,6 @@ using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
-using MoreLinq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -123,66 +122,72 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			{
 				UnSelectAllItems();
 				if (objects == null || !objects.Any())
+					return;
+
+				var model = new TS.Model();
+				if (!model.GetConnectionStatus())
 				{
+					_logger.LogInformation("Tekla model is not available or remoting is not enabled.");
 					return;
 				}
 
-				var selected = objects.SelectMany(i =>
+				var selected = objects.SelectMany(obj =>
 				{
 					try
 					{
-						if (i is IIdeaPersistentObject persistenObject)
+						if (obj is IIdeaPersistentObject persistentObject)
 						{
-
-							if (persistenObject is IIdeaConnectionPoint connectionPoint)
+							if (persistentObject is IIdeaConnectionPoint connectionPoint)
 							{
 								var cpObjects = new List<object>();
-								connectionPoint.Plates.ForEach(p => cpObjects.Add(p));
-								connectionPoint.FoldedPlates.ForEach(fp => cpObjects.Add(fp));
-								connectionPoint.Welds.ForEach(w => cpObjects.Add(w));
-								connectionPoint.BoltGrids.ForEach(bg => cpObjects.Add(bg));
-								connectionPoint.AnchorGrids.ForEach(ag => cpObjects.Add(ag));
-								connectionPoint.ConnectedMembers.ForEach(cm => cpObjects.Add(cm.IdeaMember));
-								connectionPoint.Cuts.ForEach(c => cpObjects.Add(c));
+								cpObjects.AddRange(connectionPoint.Plates);
+								cpObjects.AddRange(connectionPoint.FoldedPlates);
+								cpObjects.AddRange(connectionPoint.Welds);
+								cpObjects.AddRange(connectionPoint.BoltGrids);
+								cpObjects.AddRange(connectionPoint.AnchorGrids);
+								cpObjects.AddRange(connectionPoint.ConnectedMembers.Select(cm => cm.IdeaMember));
+								cpObjects.AddRange(connectionPoint.Cuts);
 
-								return cpObjects.Select(t =>
+								return cpObjects.Select(item =>
 								{
-									var identifier = new Identifier(t.ToString());
-
-
-									TS.Model model = new TS.Model();
-									return model.SelectModelObject(identifier) as object;
-								});
+									var id = new Identifier(item.ToString());
+									return model.SelectModelObject(id) as object;
+								}).Where(mo => mo != null);
 							}
-							//skip nodes
-							else if (persistenObject is IIdeaNode)
+							else if (persistentObject is IIdeaNode)
 							{
-								return new List<object>();
+								// Skip nodes
+								return Enumerable.Empty<object>();
 							}
 							else
 							{
-								var identifier = new Identifier((persistenObject.Token as IIdentifier)?.GetId().ToString());
-
-								TS.Model model = new TS.Model();
-								return new List<object>() { model.SelectModelObject(identifier) as object };
+								var token = persistentObject.Token as IIdentifier;
+								if (token?.GetId() is string idStr)
+								{
+									var id = new Identifier(idStr);
+									var mo = model.SelectModelObject(id);
+									if (mo != null)
+										return new[] { mo };
+								}
 							}
 						}
-						return new List<object>();
 					}
 					catch
 					{
-						return new List<object>();
+						// Skip on any error for this object
 					}
+					return Enumerable.Empty<object>();
+				}).ToList();
 
-				}).Where(i => i != null);
-
-				ArrayList objectsToSelect = new ArrayList(selected.ToArray());
-				ModelObjectSelector MS = new ModelObjectSelector();
-				MS.Select(objectsToSelect);
+				if (selected.Any())
+				{
+					ModelObjectSelector selector = new ModelObjectSelector();
+					selector.Select(new ArrayList(selected));
+				}
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError("Tekla ActivateInBIM failed with error ", ex);
+				_logger.LogError("Tekla ActivateInBIM failed with error", ex);
 			}
 		}
 
