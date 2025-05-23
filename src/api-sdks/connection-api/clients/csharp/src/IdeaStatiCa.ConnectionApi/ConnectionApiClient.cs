@@ -18,9 +18,6 @@ namespace IdeaStatiCa.ConnectionApi
 		/// </summary>
 		public Uri BasePath { get; private set; }
 
-		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>/>
-		public string ClientId { get; private set; }
-
 		/// <inheritdoc cref="IConnectionApiClient.ActiveProjectId"/>/>
 		public Guid ActiveProjectId
 		{
@@ -113,7 +110,6 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Template = null;
 			this.Conversion = null;
 			this.ClientApi = null;
-			this.ClientId = string.Empty;
 
 		}
 
@@ -142,7 +138,6 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Conversion = new ConversionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
-			this.ClientId = clientId;
 			return clientId;
 		}
 
