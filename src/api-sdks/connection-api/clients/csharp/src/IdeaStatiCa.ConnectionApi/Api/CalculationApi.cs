@@ -38,10 +38,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConResultSummary&gt;</returns>
-        List<ConResultSummary> Calculate(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0);
+        List<ConResultSummary> Calculate(Guid projectId, ConCalculationParameter conCalculationParameter, int operationIndex = 0);
 
         /// <summary>
         /// Run CBFEM caluclation and return the summary of the results
@@ -51,11 +51,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+/// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConResultSummary&gt;</returns>
-        ApiResponse<List<ConResultSummary>> CalculateWithHttpInfo(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0);
+        ApiResponse<List<ConResultSummary>> CalculateWithHttpInfo(Guid projectId, ConCalculationParameter conCalculationParameter, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
         /// </summary>
@@ -119,11 +119,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConResultSummary&gt;</returns>
-        System.Threading.Tasks.Task<List<ConResultSummary>> CalculateAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<List<ConResultSummary>> CalculateAsync(Guid projectId, ConCalculationParameter conCalculationParameter, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Run CBFEM caluclation and return the summary of the results
@@ -133,12 +133,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConResultSummary&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ConResultSummary>>> CalculateWithHttpInfoAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<List<ConResultSummary>>> CalculateWithHttpInfoAsync(Guid projectId, ConCalculationParameter conCalculationParameter, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
         /// </summary>
@@ -320,10 +320,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConResultSummary&gt;</returns>
-        public List<ConResultSummary> Calculate(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0)
+        public List<ConResultSummary> Calculate(Guid projectId, ConCalculationParameter conCalculationParameter, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConResultSummary>> localVarResponse = CalculateWithHttpInfo(projectId, conCalculationParameter);
             return localVarResponse.Data;
@@ -334,12 +334,18 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+/// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConResultSummary&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConResultSummary>> CalculateWithHttpInfo(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConResultSummary>> CalculateWithHttpInfo(Guid projectId, ConCalculationParameter conCalculationParameter, string requestedType = null, int operationIndex = 0)
         {
+            // verify the required parameter 'conCalculationParameter' is set
+            if (conCalculationParameter == null)
+            {
+                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'conCalculationParameter' when calling CalculationApi->Calculate");
+            }
+
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
@@ -394,11 +400,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConResultSummary&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ConResultSummary>> CalculateAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<List<ConResultSummary>> CalculateAsync(Guid projectId, ConCalculationParameter conCalculationParameter, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConResultSummary>> localVarResponse = await CalculateWithHttpInfoAsync(projectId, conCalculationParameter, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -409,13 +415,19 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis (optional)</param>
+        /// <param name="conCalculationParameter">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConResultSummary&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConResultSummary>>> CalculateWithHttpInfoAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConResultSummary>>> CalculateWithHttpInfoAsync(Guid projectId, ConCalculationParameter conCalculationParameter, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
+            // verify the required parameter 'conCalculationParameter' is set
+            if (conCalculationParameter == null)
+            {
+                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'conCalculationParameter' when calling CalculationApi->Calculate");
+            }
+
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
