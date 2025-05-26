@@ -7,7 +7,7 @@
     <PackageVersion Include="AutoFixture.NUnit3" Version="4.18.1" />
     <PackageVersion Include="coverlet.collector" Version="3.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.8.0" />
-    <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="25.0.0.2446" />
+    <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="25.0.1.960" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="8.0.2" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <!--<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />-->

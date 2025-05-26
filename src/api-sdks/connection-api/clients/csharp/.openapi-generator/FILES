@@ -23,6 +23,7 @@ docs/ClientApi.md
 docs/ConAnalysisTypeEnum.md
 docs/ConCalculationParameter.md
 docs/ConConnection.md
+docs/ConConversionSettings.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
 docs/ConLoadEffectPositionEnum.md
@@ -47,6 +48,9 @@ docs/ConnectionApi.md
 docs/ConnectionCheckRes.md
 docs/ConnectionData.md
 docs/ConnectionSetup.md
+docs/ConversionApi.md
+docs/ConversionMapping.md
+docs/CountryCode.md
 docs/CrtCompCheckIS.md
 docs/CutBeamByBeamData.md
 docs/CutData.md
@@ -95,6 +99,7 @@ git_push.sh
 src/IdeaStatiCa.ConnectionApi/Api/CalculationApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ClientApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ConnectionApi.cs
+src/IdeaStatiCa.ConnectionApi/Api/ConversionApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ExportApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/LoadEffectApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/MaterialApi.cs
@@ -140,6 +145,7 @@ src/IdeaStatiCa.ConnectionApi/Model/CheckResWeld.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCalculationParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConConversionSettings.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffect.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectMemberLoad.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectPositionEnum.cs
@@ -163,6 +169,8 @@ src/IdeaStatiCa.ConnectionApi/Model/ConeBreakoutCheckType.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConnectionCheckRes.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConnectionData.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConnectionSetup.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConversionMapping.cs
+src/IdeaStatiCa.ConnectionApi/Model/CountryCode.cs
 src/IdeaStatiCa.ConnectionApi/Model/CrtCompCheckIS.cs
 src/IdeaStatiCa.ConnectionApi/Model/CutBeamByBeamData.cs
 src/IdeaStatiCa.ConnectionApi/Model/CutData.cs

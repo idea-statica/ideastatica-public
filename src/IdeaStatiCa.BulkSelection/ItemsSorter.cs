@@ -50,6 +50,23 @@ namespace IdeaStatiCa.BIM.Common
 		internal int Iid { get; set; }
 #endif
 	}
+	public static class ItemComparer<T> where T : Item
+	{
+		private class Adapter : IEqualityComparer<T>
+		{
+			public bool Equals(T x, T y)
+			{
+				return Item.CustomComparer.Equals(x, y);
+			}
+
+			public int GetHashCode(T obj)
+			{
+				return Item.CustomComparer.GetHashCode(obj);
+			}
+		}
+
+		public static readonly IEqualityComparer<T> Instance = new Adapter();
+	}
 
 	public class Member : Item
 	{
@@ -172,10 +189,10 @@ namespace IdeaStatiCa.BIM.Common
 			AssignIds(data);
 #endif
 			// Distinct all items
-			data.Members = data.Members?.Distinct(Item.CustomComparer).Cast<Member>();
-			data.Plates = data.Plates?.Distinct(Item.CustomComparer).Cast<Plate>();
-			data.Fasteners = data.Fasteners?.Distinct(Item.CustomComparer).Cast<FastenerGrid>();
-			data.Welds = data.Welds?.Distinct(Item.CustomComparer).Cast<Weld>();
+			data.Members = data.Members?.Distinct(ItemComparer<Member>.Instance);
+			data.Plates = data.Plates?.Distinct(ItemComparer<Plate>.Instance);
+			data.Fasteners = data.Fasteners?.Distinct(ItemComparer<FastenerGrid>.Instance);
+			data.Welds = data.Welds?.Distinct(ItemComparer<Weld>.Instance);
 
 			var orderMembers = data.Members.OrderByDescending(GetBiggestMemberSelector);
 
@@ -449,7 +466,7 @@ namespace IdeaStatiCa.BIM.Common
 							var maxSumMember = memberAnglesSum.OrderByDescending(x => x.Value).First().Key;
 
 							return maxSumMember;
-							
+
 						}
 					}
 					else

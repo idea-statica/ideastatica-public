@@ -75,12 +75,12 @@ namespace IdeaConWpfApp
 
 		public static CountryCode GetCountryCode(string selectedCode) => selectedCode switch
 		{
-			"America" or "AISC" => CountryCode.American,
-			"India" => CountryCode.India,
-			"Canada" => CountryCode.Canada,
-			 "Australia" => CountryCode.Australia,
-			"China" => CountryCode.CHN,
-			"Honk Kong" => CountryCode.HKG,
+			"AISC (America)" => CountryCode.American,
+			"IS800 (India)" => CountryCode.India,
+			"CSA (Canada)" => CountryCode.Canada,
+			"AS (Australia)" => CountryCode.Australia,
+			"GB (China)" => CountryCode.CHN,
+			"HKG (Honk Kong)" => CountryCode.HKG,
 			_ => throw new NotImplementedException($"Selected code not implemented {selectedCode}")
 		};
 
