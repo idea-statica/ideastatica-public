@@ -36,7 +36,9 @@ class IdeaParameter(BaseModel):
     description: Optional[StrictStr] = None
     validation_status: Optional[StrictStr] = Field(default=None, alias="validationStatus")
     is_visible: Optional[StrictBool] = Field(default=None, alias="isVisible")
-    __properties: ClassVar[List[str]] = ["key", "expression", "value", "unit", "parameterType", "validationExpression", "description", "validationStatus", "isVisible"]
+    lower_bound: Optional[StrictStr] = Field(default=None, alias="lowerBound")
+    upper_bound: Optional[StrictStr] = Field(default=None, alias="upperBound")
+    __properties: ClassVar[List[str]] = ["key", "expression", "value", "unit", "parameterType", "validationExpression", "description", "validationStatus", "isVisible", "lowerBound", "upperBound"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -122,6 +124,16 @@ class IdeaParameter(BaseModel):
         if self.is_visible is None and "is_visible" in self.model_fields_set:
             _dict['isVisible'] = None
 
+        # set to None if lower_bound (nullable) is None
+        # and model_fields_set contains the field
+        if self.lower_bound is None and "lower_bound" in self.model_fields_set:
+            _dict['lowerBound'] = None
+
+        # set to None if upper_bound (nullable) is None
+        # and model_fields_set contains the field
+        if self.upper_bound is None and "upper_bound" in self.model_fields_set:
+            _dict['upperBound'] = None
+
         return _dict
 
     @classmethod
@@ -142,7 +154,9 @@ class IdeaParameter(BaseModel):
             "validationExpression": obj.get("validationExpression"),
             "description": obj.get("description"),
             "validationStatus": obj.get("validationStatus"),
-            "isVisible": obj.get("isVisible")
+            "isVisible": obj.get("isVisible"),
+            "lowerBound": obj.get("lowerBound"),
+            "upperBound": obj.get("upperBound")
         })
         return _obj
 
