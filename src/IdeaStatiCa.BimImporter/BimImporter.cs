@@ -218,7 +218,52 @@ namespace IdeaStatiCa.BimImporter
 
 		public ModelBIM ImportConcreteWalls(CountryCode countryCode)
 		{
-			throw new NotImplementedException();
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportDetails);
+			BulkSelection selection = InitBulkImport();
+			IGeometry geometry = _geometryProvider.GetGeometry();
+
+			List<IBimItem> bimItems = new List<IBimItem>();
+			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
+			//if (selection.ConnectionPoints != null)
+			//{
+			//	foreach (IIdeaConnectionPoint connectionPoint in selection.ConnectionPoints)
+			//	{
+			//		bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
+			//	}
+			//}
+
+			//int j = 1;
+			//foreach (IIdeaMember1D selectedMember in selection.Members)
+			//{
+			//	_remoteApp?.SetStageLocalised(j, selection.Members.Count, LocalisedMessage.Member);
+			//	bimItems.Add(new Member(selectedMember));
+
+			//	foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
+			//	{
+			//		adjacentNodes.Add(node);
+			//	}
+			//	j++;
+			//}
+
+			//foreach (IIdeaNode node in adjacentNodes)
+			//{
+			//	bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
+			//}
+
+			//IEnumerable<IIdeaObject> objects = selection.Nodes
+			//	.Cast<IIdeaObject>()
+			//	.Concat(selection.Members);
+
+			IEnumerable<IIdeaObject> objects = selection.Nodes
+				.Cast<IIdeaObject>()
+				.Concat(selection.Members);
+
+			if (selection.Members2D != null)
+			{
+				objects = objects.Concat(selection.Members2D);
+			}
+
+			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
