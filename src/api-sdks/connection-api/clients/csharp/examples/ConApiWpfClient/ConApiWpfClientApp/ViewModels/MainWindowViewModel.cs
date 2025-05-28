@@ -56,6 +56,7 @@ namespace ConApiWpfClientApp.ViewModels
 			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
 
 			GetTopologyCommand = new AsyncRelayCommand(GetTopologyAsync, () => SelectedConnection != null);
+			GetSceneDataCommand = new AsyncRelayCommand(GetSceneDataAsync, () => SelectedConnection != null);
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
@@ -174,6 +175,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
+		public AsyncRelayCommand GetSceneDataCommand { get; }
 		public AsyncRelayCommand GetTopologyCommand { get; }
 
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
@@ -541,6 +543,43 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task GetSceneDataAsync()
+		{
+			_logger.LogInformation("GetSceneDataAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+
+			IsBusy = true;
+			try
+			{
+				string sceneDataJson = await ConApiClient.Presentation.GetDataScene3DTextAsync(ProjectInfo.ProjectId, SelectedConnection!.Id);
+				OutputText = sceneDataJson;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetSceneDataAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 
 
 		//private void ShowClientUI()
@@ -614,15 +653,15 @@ namespace ConApiWpfClientApp.ViewModels
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
 			this.GetTopologyCommand.NotifyCanExecuteChanged();
+			this.GetSceneDataCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
+			this.GetSceneDataCommand.NotifyCanExecuteChanged();
 		}
 	}
 }

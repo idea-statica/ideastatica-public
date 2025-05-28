@@ -26,7 +26,7 @@
 				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
 				<Button Command="{Binding GetTopologyCommand, Mode=OneWay}">Get topology</Button>
-				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
+				<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
