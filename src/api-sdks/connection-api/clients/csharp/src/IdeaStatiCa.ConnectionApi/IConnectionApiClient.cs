@@ -1,23 +1,17 @@
-﻿using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Model;
+﻿using IdeaStatiCa.Api.Common;
+using IdeaStatiCa.ConnectionApi.Api;
 using System;
-using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
 {
 	/// <summary>
 	/// Client for accessing IdeaStatiCa.ConnectionRestApi
 	/// </summary>
-	public interface IConnectionApiClient : IDisposable
+	public interface IConnectionApiClient : IApiClient
 #if NETSTANDARD2_1_OR_GREATER
 		, IAsyncDisposable
 #endif
 	{
-		/// <summary>
-		/// ClientID - assigned by the service
-		/// </summary>
-		string ClientId { get; }
-
 		/// <summary>
 		/// Id of the actively open project on the service side
 		/// </summary>
@@ -92,11 +86,5 @@ namespace IdeaStatiCa.ConnectionApi
 		/// Get Conversion API
 		/// </summary>
 		IConversionApiAsync Conversion { get; }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		Task CreateAsync();
 	}
 }

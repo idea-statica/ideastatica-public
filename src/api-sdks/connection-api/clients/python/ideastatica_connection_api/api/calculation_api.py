@@ -46,7 +46,7 @@ class CalculationApi:
     def calculate(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_calculation_parameter: Annotated[Optional[ConCalculationParameter], Field(description="List of connections to calculate and a type of CBFEM analysis")] = None,
+        con_calculation_parameter: Annotated[ConCalculationParameter, Field(description="List of connections to calculate and a type of CBFEM analysis")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -65,7 +65,7 @@ class CalculationApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
         :type project_id: str
-        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis
+        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis (required)
         :type con_calculation_parameter: ConCalculationParameter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -116,7 +116,7 @@ class CalculationApi:
     def calculate_with_http_info(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_calculation_parameter: Annotated[Optional[ConCalculationParameter], Field(description="List of connections to calculate and a type of CBFEM analysis")] = None,
+        con_calculation_parameter: Annotated[ConCalculationParameter, Field(description="List of connections to calculate and a type of CBFEM analysis")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -135,7 +135,7 @@ class CalculationApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
         :type project_id: str
-        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis
+        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis (required)
         :type con_calculation_parameter: ConCalculationParameter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -186,7 +186,7 @@ class CalculationApi:
     def calculate_without_preload_content(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_calculation_parameter: Annotated[Optional[ConCalculationParameter], Field(description="List of connections to calculate and a type of CBFEM analysis")] = None,
+        con_calculation_parameter: Annotated[ConCalculationParameter, Field(description="List of connections to calculate and a type of CBFEM analysis")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -205,7 +205,7 @@ class CalculationApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
         :type project_id: str
-        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis
+        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis (required)
         :type con_calculation_parameter: ConCalculationParameter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

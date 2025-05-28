@@ -25,7 +25,7 @@ namespace IdeaStatiCa.IOM.VersioningService.Downgrade
 		{
 			if (IsModelEmpty)
 			{
-				_logger.LogError("Downgrade: model is empty");
+				_logger.LogInformation("Downgrade: model is empty");
 				return;
 			}
 

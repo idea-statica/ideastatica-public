@@ -216,6 +216,26 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
+		/// <inheritdoc cref="IBimImporter.ImportMembers2D(CountryCode)"/>
+		public ModelBIM ImportMembers2D(CountryCode countryCode)
+		{
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportDetails);
+			BulkSelection selection = InitBulkImport();
+
+			List<IBimItem> bimItems = new List<IBimItem>();
+
+			IEnumerable<IIdeaObject> objects = selection.Nodes
+				.Cast<IIdeaObject>()
+				.Concat(selection.Members);
+
+			if (selection.Members2D != null)
+			{
+				objects = objects.Concat(selection.Members2D);
+			}
+
+			return CreateModelBIM(objects, bimItems, countryCode);
+		}
+
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode)
