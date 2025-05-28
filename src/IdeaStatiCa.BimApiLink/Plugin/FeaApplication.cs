@@ -44,7 +44,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 					return _bimImporter.ImportMembers(countryCode);
 
 				case RequestedItemsType.ConcreteWall:
-					return _bimImporter.ImportConcreteWalls(countryCode);
+					return _bimImporter.ImportMembers2D(countryCode);
 
 				default:
 					throw new NotImplementedException();
