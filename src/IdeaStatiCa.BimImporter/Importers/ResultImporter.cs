@@ -55,7 +55,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result, IIdeaObjectWithResults obj)
 		{
-			double sectionPositionPrecision = ctx.Configuration.ResultSectionPositionPrecision;
+			double sectionPositionPrecision = 1e-8;//ctx.Configuration.ResultSectionPositionPrecision;
 			bool throwOnResultsDuplicate = ctx.Configuration.ThrowOnResultsDuplicate;
 			bool ignoreOutOfBoundsResultSections = ctx.Configuration.IgnoreOutOfBoundsResultSections;
 			string memberId = obj.Id;
