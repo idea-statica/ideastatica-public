@@ -58,11 +58,11 @@ namespace IdeaStatiCa.BimImporter
 		List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode);
 
 		/// <summary>
-		/// Imports Concrete walls into IOM.
+		/// Imports Members2D into IOM.
 		/// </summary>
 		/// <param name="countryCode"></param>
 		/// <returns>ModelBIM object.</returns>
 		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
-		ModelBIM ImportConcreteWalls(CountryCode countryCode);
+		ModelBIM ImportMembers2D(CountryCode countryCode);
 	}
 }

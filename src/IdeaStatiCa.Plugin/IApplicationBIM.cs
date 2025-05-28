@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin
 		Substructure,
 		SingleConnection,
 		WholeModel,
-		ConcreteWall
+		Members2D
 	}
 
 	/// <summary>
