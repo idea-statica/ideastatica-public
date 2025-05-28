@@ -45,15 +45,25 @@
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-						<TextBlock Text="{Binding FilePath}" Width="600" TextTrimming="CharacterEllipsis"/>
+						<TextBlock Text="{Binding FilePath}" Width="500" TextTrimming="CharacterEllipsis"/>
 
 						<!-- Success Tick -->
 						<TextBlock Text="✅" Foreground="Green" Margin="10,0,0,0"
-						   Visibility="{Binding IsProcessed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+					   Visibility="{Binding IsProcessed, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
 						<!-- Failure Cross -->
 						<TextBlock Text="❌" Foreground="Red" Margin="10,0,0,0"
-						   Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+					   Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+						<!-- Error Message -->
+						<TextBlock Text="{Binding ErrorMessage}"
+							   Foreground="Red"
+							   Margin="10,0,0,0"
+							   Width="200"
+							   TextTrimming="CharacterEllipsis"
+							   ToolTip="{Binding ErrorMessage}"
+							   Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}" />
+
 					</StackPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>

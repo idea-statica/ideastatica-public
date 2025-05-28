@@ -88,9 +88,10 @@ namespace IdeaConWpfApp
 		{
 			if (string.IsNullOrEmpty(selectedFolderPath))
 			{
-				MessageBox.Show("Please load IdeaPath first.");
+				MessageBox.Show("Please select the folder with .ideaCon files.");
 				return;
 			}
+
 			string designCode = ((ComboBoxItem)DesignCodeComboBox.SelectedItem).Content.ToString();
 
 			var steel = new Dictionary<string, string>();
@@ -151,6 +152,7 @@ namespace IdeaConWpfApp
 						catch (Exception ex)
 						{
 							project.IsFailed = true;      // ❌ mark failure
+							project.ErrorMessage = ex.Message;
 							Dispatcher.Invoke(() => MessageLabel.Text = $"Failed: {project.FilePath}");
 						}
 					}
@@ -204,8 +206,9 @@ namespace IdeaConWpfApp
 						}
 						catch (Exception ex)
 						{
-							project.IsFailed = true;      // ❌ mark failure
-							Dispatcher.Invoke(() => MessageLabel.Text = $"Failed: {project.FilePath}");
+							project.IsFailed = true;
+							project.ErrorMessage = ex.Message; // <-- Set the error message
+							Dispatcher.Invoke(() => MessageLabel.Text += $"Failed: {project.FilePath} - {ex.Message} \r\n");
 						}
 					}
 
@@ -252,6 +255,17 @@ namespace IdeaConWpfApp
 			{
 				_isFailed = value;
 				OnPropertyChanged(nameof(IsFailed));
+			}
+		}
+
+		private string _errorMessage;
+		public string ErrorMessage
+		{
+			get => _errorMessage;
+			set
+			{
+				_errorMessage = value;
+				OnPropertyChanged(nameof(ErrorMessage));
 			}
 		}
 
