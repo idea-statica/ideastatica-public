@@ -22,6 +22,12 @@
 				</CheckBox>
 			</ToolBar>
 
+			<ToolBar Band="1">
+				<Button Command="{Binding ShowLogsCommand, Mode=OneWay}" ToolTip="Show IdeaStatiCa logs in 'File Explorer'">Logs</Button>
+				<Button Command="{Binding EditDiagnosticsCommand, Mode=OneWay}" ToolTip="Edit 'IdeaDiagnostics.config' in Notepad">Diagnostics</Button>
+			</ToolBar>
+	
+
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>

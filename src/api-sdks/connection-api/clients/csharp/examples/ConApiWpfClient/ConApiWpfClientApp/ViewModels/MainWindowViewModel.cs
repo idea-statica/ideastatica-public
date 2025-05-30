@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -43,7 +44,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
-
+			ShowLogsCommand = new AsyncRelayCommand(ShowIdeaStatiCaLogsAsync);
+			EditDiagnosticsCommand = new AsyncRelayCommand(EditDiagnosticsAsync);
 			ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => ConApiClient == null);
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConApiClient != null && this.ProjectInfo == null);
 			ImportIomCommand = new AsyncRelayCommand(ImportIomAsync, () => ConApiClient != null && this.ProjectInfo == null);
@@ -178,6 +180,48 @@ namespace ConApiWpfClientApp.ViewModels
 
 		//public RelayCommand ShowClientUICommand { get; }
 
+		public AsyncRelayCommand ShowLogsCommand { get; }
+
+		public AsyncRelayCommand EditDiagnosticsCommand { get; }
+
+
+		private async Task ShowIdeaStatiCaLogsAsync()
+		{
+			_logger.LogInformation("ShowIdeaStatiCaLogsAsync");
+
+			var tempPath = Environment.GetEnvironmentVariable("TEMP");
+			var ideaLogDir = Path.Combine(tempPath!, "IdeaStatica", "Logs");
+
+			try
+			{
+				Process.Start("explorer.exe", ideaLogDir);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("Error", ex);
+			}
+
+			await Task.CompletedTask;
+		}
+
+		private async Task EditDiagnosticsAsync()
+		{
+			_logger.LogInformation("EditDiagnosticsAsync");
+
+			string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			var ideaDiagnosticsConfig = Path.Combine(localAppDataPath!, "IDEA_RS", "IdeaDiagnostics.config");
+
+			try
+			{
+				Process.Start("notepad.exe", ideaDiagnosticsConfig);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("Error", ex);
+			}
+
+			await Task.CompletedTask;
+		}
 
 		private async Task OpenProjectAsync()
 		{
@@ -240,7 +284,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "Iom files|*.iom|Xml files|*.xml|All Files|*.*";
+			openFileDialog.Filter = "Iom files|*.iom;*.xml";
 			if (openFileDialog.ShowDialog() != true)
 			{
 				return;
