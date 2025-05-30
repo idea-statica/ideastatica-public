@@ -65,6 +65,9 @@ namespace IdeaStatiCa.ConnectionApi
 		/// <inheritdoc cref="IConnectionApiClient.Conversion"/>
 		public IConversionApiAsync Conversion { get; private set; }
 
+		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>
+		public string ClientId { get; private set; }
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -120,8 +123,8 @@ namespace IdeaStatiCa.ConnectionApi
 			configuration.BasePath = BasePath.AbsoluteUri;
 
 			var clientApi = new ClientApi(configuration);
-			string clientId = await clientApi.ConnectClientAsync();
-			configuration.DefaultHeaders.Add("ClientId", clientId);
+			ClientId = await clientApi.ConnectClientAsync();
+			configuration.DefaultHeaders.Add("ClientId", ClientId);
 
 			this.Calculation = new CalculationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Connection = new IdeaStatiCa.ConnectionApi.Api.ConnectionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
@@ -138,7 +141,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Conversion = new ConversionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
-			return clientId;
+			return ClientId;
 		}
 
 		protected virtual void Dispose(bool disposing)
