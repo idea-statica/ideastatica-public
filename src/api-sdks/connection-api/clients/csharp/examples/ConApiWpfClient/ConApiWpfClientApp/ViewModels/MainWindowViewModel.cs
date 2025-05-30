@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -43,9 +44,11 @@ namespace ConApiWpfClientApp.ViewModels
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
-
+			ShowLogsCommand = new AsyncRelayCommand(ShowIdeaStatiCaLogsAsync);
+			EditDiagnosticsCommand = new AsyncRelayCommand(EditDiagnosticsAsync);
 			ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => ConApiClient == null);
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConApiClient != null && this.ProjectInfo == null);
+			ImportIomCommand = new AsyncRelayCommand(ImportIomAsync, () => ConApiClient != null && this.ProjectInfo == null);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
@@ -55,6 +58,8 @@ namespace ConApiWpfClientApp.ViewModels
 			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
+
+			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
 
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
@@ -161,6 +166,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
+		public AsyncRelayCommand ImportIomCommand { get; }
+
 		public AsyncRelayCommand CalculationCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
@@ -169,12 +176,56 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
 
+		public AsyncRelayCommand GetOperationsCommand { get; }
+
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
 		//public RelayCommand ShowClientUICommand { get; }
 
+		public AsyncRelayCommand ShowLogsCommand { get; }
+
+		public AsyncRelayCommand EditDiagnosticsCommand { get; }
+
+
+		private async Task ShowIdeaStatiCaLogsAsync()
+		{
+			_logger.LogInformation("ShowIdeaStatiCaLogsAsync");
+
+			var tempPath = Environment.GetEnvironmentVariable("TEMP");
+			var ideaLogDir = Path.Combine(tempPath!, "IdeaStatica", "Logs");
+
+			try
+			{
+				Process.Start("explorer.exe", ideaLogDir);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("Error", ex);
+			}
+
+			await Task.CompletedTask;
+		}
+
+		private async Task EditDiagnosticsAsync()
+		{
+			_logger.LogInformation("EditDiagnosticsAsync");
+
+			string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			var ideaDiagnosticsConfig = Path.Combine(localAppDataPath!, "IDEA_RS", "IdeaDiagnostics.config");
+
+			try
+			{
+				Process.Start("notepad.exe", ideaDiagnosticsConfig);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("Error", ex);
+			}
+
+			await Task.CompletedTask;
+		}
 
 		private async Task OpenProjectAsync()
 		{
@@ -199,6 +250,57 @@ namespace ConApiWpfClientApp.ViewModels
 
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
 				
+
+				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
+
+				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+
+				if (Connections.Any())
+				{
+					SelectedConnection = Connections.First();
+				}
+				else
+				{
+					SelectedConnection = null;
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("OpenProjectAsync", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		private async Task ImportIomAsync()
+		{
+			_logger.LogInformation("\t\tprivate async Task ImportIomAsync()\r\n");
+
+			if (ConApiClient == null)
+			{
+				throw new Exception("IConnectionApiClient is not connected");
+			}
+
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Iom files|*.iom;*.xml";
+			if (openFileDialog.ShowDialog() != true)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				ProjectInfo = await ConApiClient.Project.CreateProjectFromIomFileAsync(openFileDialog.FileName);
+
+				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
+
 
 				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
 
@@ -476,7 +578,51 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task GetOperationsAsync()
+		{
+			_logger.LogInformation("CalculateAsync");
 
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var operations = await ConApiClient.Operation.GetOperationsAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				if(operations == null)
+				{
+					OutputText = "No operations";
+				}
+				else
+				{
+					OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(operations);
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 
 		//private void ShowClientUI()
 		//{
@@ -543,11 +689,13 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			this.ConnectCommand.NotifyCanExecuteChanged();
 			this.OpenProjectCommand.NotifyCanExecuteChanged();
+			this.ImportIomCommand.NotifyCanExecuteChanged();
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
+			this.GetOperationsCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
