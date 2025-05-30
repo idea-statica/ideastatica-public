@@ -12,6 +12,7 @@
 			<ToolBar Band="1">
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Start service</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
+				<Button Command="{Binding ImportIomCommand, Mode=OneWay}">Import IOM</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
 				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
 				<!--<Button Command="{Binding ShowClientUICommand, Mode=OneWay}">Show Client UI</Button>-->

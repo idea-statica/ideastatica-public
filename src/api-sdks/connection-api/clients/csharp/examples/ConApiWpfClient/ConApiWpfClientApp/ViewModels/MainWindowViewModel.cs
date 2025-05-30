@@ -46,6 +46,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 			ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => ConApiClient == null);
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConApiClient != null && this.ProjectInfo == null);
+			ImportIomCommand = new AsyncRelayCommand(ImportIomAsync, () => ConApiClient != null && this.ProjectInfo == null);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
@@ -161,6 +162,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
+		public AsyncRelayCommand ImportIomCommand { get; }
+
 		public AsyncRelayCommand CalculationCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
@@ -199,6 +202,57 @@ namespace ConApiWpfClientApp.ViewModels
 
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
 				
+
+				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
+
+				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+
+				if (Connections.Any())
+				{
+					SelectedConnection = Connections.First();
+				}
+				else
+				{
+					SelectedConnection = null;
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("OpenProjectAsync", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		private async Task ImportIomAsync()
+		{
+			_logger.LogInformation("\t\tprivate async Task ImportIomAsync()\r\n");
+
+			if (ConApiClient == null)
+			{
+				throw new Exception("IConnectionApiClient is not connected");
+			}
+
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Iom files|*.iom|Xml files|*.xml|All Files|*.*";
+			if (openFileDialog.ShowDialog() != true)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				ProjectInfo = await ConApiClient.Project.CreateProjectFromIomFileAsync(openFileDialog.FileName);
+
+				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
+
 
 				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
 
@@ -543,6 +597,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			this.ConnectCommand.NotifyCanExecuteChanged();
 			this.OpenProjectCommand.NotifyCanExecuteChanged();
+			this.ImportIomCommand.NotifyCanExecuteChanged();
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
