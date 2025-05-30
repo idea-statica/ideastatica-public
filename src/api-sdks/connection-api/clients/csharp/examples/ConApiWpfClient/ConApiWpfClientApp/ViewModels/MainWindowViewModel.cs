@@ -59,6 +59,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
+			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
+
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
@@ -173,6 +175,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
+
+		public AsyncRelayCommand GetOperationsCommand { get; }
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
@@ -574,7 +578,51 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task GetOperationsAsync()
+		{
+			_logger.LogInformation("CalculateAsync");
 
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var operations = await ConApiClient.Operation.GetOperationsAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				if(operations == null)
+				{
+					OutputText = "No operations";
+				}
+				else
+				{
+					OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(operations);
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 
 		//private void ShowClientUI()
 		//{
@@ -647,6 +695,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
+			this.GetOperationsCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
