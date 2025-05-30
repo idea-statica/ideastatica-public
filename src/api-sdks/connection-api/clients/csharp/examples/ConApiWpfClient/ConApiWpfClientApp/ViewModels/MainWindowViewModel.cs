@@ -200,7 +200,7 @@ namespace ConApiWpfClientApp.ViewModels
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
 				
 
-				OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", ConApiClient.ClientId, ConApiClient.ActiveProjectId, projectInfoJson);
+				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
 
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 
