@@ -45,7 +45,9 @@ async def main():
         for item in section_results.overall_items:
             print(f"Status: {item.result_type} Check Value: {item.check_value}")
 
-        api_client.project.save_project(project_data.project_id, r'c:\x\proj1.ideaRcs')
+        downloaded_rcs_project_filename = os.path.join(dir_path, r'..\..\projects', 'GeneratedRcsProject.ideaRcs')
+
+        api_client.project.save_project(project_data.project_id, downloaded_rcs_project_filename)
 
 
 asyncio.run(main())
