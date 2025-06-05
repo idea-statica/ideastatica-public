@@ -18,6 +18,11 @@ namespace IdeaStatiCa.ConnectionApi
 		Guid ActiveProjectId { get; }
 
 		/// <summary>
+		/// Get unique identifier for the client
+		/// </summary>
+		string ClientId { get; }
+
+		/// <summary>
 		/// Get Client API. 
 		/// </summary>
 		IClientApi ClientApi { get; }
