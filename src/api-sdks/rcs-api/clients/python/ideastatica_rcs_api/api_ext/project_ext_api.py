@@ -58,9 +58,8 @@ class ProjectExtApi(ProjectApi):
             None
         """
         response = self.download_project_with_http_info(project_id)
-        buffer = response.data
         with open(file_name, 'wb') as file_stream:
-            file_stream.write(buffer)
+            file_stream.write(response.raw_data)
 
 
     def create_project_from_iom_file(self, path) -> RcsProject:

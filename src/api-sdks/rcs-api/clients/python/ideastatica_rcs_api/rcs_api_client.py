@@ -41,7 +41,7 @@ class RcsApiClient:
     def __exit__(self, exc_type, exc_value, traceback):
         # Perform any necessary cleanup
         try:
-            if self.project:
+            if self.project is not None and self.project.active_project_id is not None:
                 logger.info(f"Closing project project_id:{self.project.active_project_id} client_id: {self.client_id}")
                 self.project.close_project(self.project.active_project_id)
         finally:
