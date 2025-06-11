@@ -32,8 +32,8 @@ jobs:
     - name: 'Setup VSTest Path'
       uses: darenm/Setup-VSTest@v1.2
 
-    - name: 'Dotnet restore dependencies'
-      run: dotnet restore ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'NuGet restore dependencies'
+      run: nuget restore ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
 
     - name: 'Build'
@@ -71,8 +71,8 @@ jobs:
     - name: 'Setup VSTest Path'
       uses: darenm/Setup-VSTest@v1.2
 
-    - name: 'Dotnet restore dependencies'
-      run: dotnet restore ./examples/IdeaStatiCa-SDK-Examples.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'NuGet restore dependencies'
+      run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
 
     - name: 'Build'
