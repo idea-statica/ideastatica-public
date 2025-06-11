@@ -33,7 +33,7 @@ jobs:
       uses: darenm/Setup-VSTest@v1.2
 
     - name: 'NuGet restore dependencies'
-      run: nuget restore ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
       working-directory: main
 
     - name: 'Build'
@@ -72,7 +72,7 @@ jobs:
       uses: darenm/Setup-VSTest@v1.2
 
     - name: 'NuGet restore dependencies'
-      run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+      run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln 
       working-directory: main
 
     - name: 'Build'
