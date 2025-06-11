@@ -65,6 +65,10 @@ jobs:
       run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln 
       working-directory: main
 
+    - name: 'Dotnet restore dependencies'
+      run: dotnet restore ./examples/IdeaStatiCa-SDK-Examples.sln
+      working-directory: main
+
     - name: 'Build'
       run:  msbuild ./examples/IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
       working-directory: main
