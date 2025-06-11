@@ -33,6 +33,8 @@
 				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
 				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}">Get Operations </Button>
+				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="pdf">Report PDF</Button>
+				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="docx">Report Word</Button>
 				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
 			</ToolBar>
 		</ToolBarTray>
