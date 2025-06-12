@@ -3,6 +3,9 @@ name: .NET build verification
 on:
   pull_request:
     branches: [ main, release_* ]
+env:
+  DOTNET_VERSION: '9.0.301'
+  NUGET_BINARY_VERSION: '6.13.2'
 
 jobs:
   IdeaStatiCa_Public:
@@ -13,30 +16,34 @@ jobs:
       TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
 
     steps:
-    - name: Checkout
+    - name: 'Checkout'
       uses: actions/checkout@v3
       with:
         path: main
 
-    - name: Setup .NET
+    - name: 'Setup msbuild'
       uses: microsoft/setup-msbuild@v1
 
-    - name: Setup nuget.exe
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 'Setup nuget.exe'
       uses: NuGet/setup-nuget@v1
-      
-    - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1.2
+      with:
+        nuget-version: ${{ env.NUGET_BINARY_VERSION }}
 
-    - name: Dotnet restore dependencies
-      run: dotnet restore ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'NuGet restore dependencies'
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
       working-directory: main
 
-    - name: Build
-      run:  msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'Build'
+      run:  msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
       working-directory: main
 
-    - name: Test
-      run: dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'Test'
+      run: dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
       working-directory: main
 
   IdeaStatiCa-SDK-Examples:
@@ -47,26 +54,34 @@ jobs:
       TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
 
     steps:
-    - name: Checkout
+    - name: 'Checkout'
       uses: actions/checkout@v3
       with:
         path: main
 
-    - name: Setup .NET
+    - name: 'Setup msbuild'
       uses: microsoft/setup-msbuild@v1
 
-    - name: Setup nuget.exe
-      uses: NuGet/setup-nuget@v1
-      
-    - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1.2
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Dotnet restore dependencies
-      run: dotnet restore ./examples/IdeaStatiCa-SDK-Examples.sln /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'Setup nuget.exe'
+      uses: NuGet/setup-nuget@v1
+      with:
+        nuget-version: ${{ env.NUGET_BINARY_VERSION }}
+
+    - name: 'NuGet restore dependencies'
+      run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln 
       working-directory: main
 
-    - name: Build
-      run:  msbuild ./examples/IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release /p:TreatWarningsAsErrors=$env:TreatWarningsAsErrors
+    - name: 'Dotnet restore dependencies'
+      run: dotnet restore ./examples/IdeaStatiCa-SDK-Examples.sln
+      working-directory: main
+
+    - name: 'Build'
+      run:  msbuild ./examples/IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
       working-directory: main
 
   ConRestApiClient:
@@ -74,16 +89,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: 'Checkout'
       uses: actions/checkout@v3
       with:
         path: main
 
-    - name: Dotnet restore dependencies
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 'Dotnet restore dependencies'
       run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln
       working-directory: main
 
-    - name: Build
+    - name: 'Build'
       run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release
       working-directory: main
 
@@ -92,15 +112,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: 'Checkout'
       uses: actions/checkout@v3
       with:
         path: main
 
-    - name: Dotnet restore dependencies
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 'Dotnet restore dependencies'
       run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln
       working-directory: main
 
-    - name: Build
+    - name: 'Build'
       run:  dotnet build ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release
       working-directory: main      
