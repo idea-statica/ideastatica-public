@@ -23,9 +23,11 @@ jobs:
 
     - name: 'Setup nuget.exe'
       uses: NuGet/setup-nuget@v1
+      with:
+        nuget-version: '6.13.2'
       
-    - name: 'Setup VSTest Path'
-      uses: darenm/Setup-VSTest@v1.2
+#    - name: 'Setup VSTest Path'
+#      uses: darenm/Setup-VSTest@v1.2
 
     - name: 'NuGet restore dependencies'
       run: nuget restore ./src/IdeaStatiCa.Public.sln
@@ -57,9 +59,11 @@ jobs:
 
     - name: 'Setup nuget.exe'
       uses: NuGet/setup-nuget@v1
+      with:
+        nuget-version: '6.13.2'
       
-    - name: 'Setup VSTest Path'
-      uses: darenm/Setup-VSTest@v1.2
+#    - name: 'Setup VSTest Path'
+#      uses: darenm/Setup-VSTest@v1.2
 
     - name: 'NuGet restore dependencies'
       run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln 
