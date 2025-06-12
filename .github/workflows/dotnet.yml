@@ -11,6 +11,8 @@ jobs:
 
     env: # Define the global configuration variable
       TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
+      DOTNET_VERSION: '9.0.301'
+      NUGET_BINARY: '6.13.2'
 
     steps:
     - name: 'Checkout'
@@ -21,13 +23,15 @@ jobs:
     - name: 'Setup msbuild'
       uses: microsoft/setup-msbuild@v1
 
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: $env:DOTNET_VERSION
+
     - name: 'Setup nuget.exe'
       uses: NuGet/setup-nuget@v1
       with:
-        nuget-version: '6.13.2'
-      
-#    - name: 'Setup VSTest Path'
-#      uses: darenm/Setup-VSTest@v1.2
+        nuget-version: $env:NUGET_BINARY
 
     - name: 'NuGet restore dependencies'
       run: nuget restore ./src/IdeaStatiCa.Public.sln
@@ -60,10 +64,12 @@ jobs:
     - name: 'Setup nuget.exe'
       uses: NuGet/setup-nuget@v1
       with:
-        nuget-version: '6.13.2'
-      
-#    - name: 'Setup VSTest Path'
-#      uses: darenm/Setup-VSTest@v1.2
+        nuget-version: $env:NUGET_BINARY
+
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: $env:DOTNET_VERSION
 
     - name: 'NuGet restore dependencies'
       run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln 
@@ -87,6 +93,11 @@ jobs:
       with:
         path: main
 
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: $env:DOTNET_VERSION
+
     - name: 'Dotnet restore dependencies'
       run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln
       working-directory: main
@@ -104,6 +115,11 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: main
+
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: $env:DOTNET_VERSION
 
     - name: 'Dotnet restore dependencies'
       run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln
