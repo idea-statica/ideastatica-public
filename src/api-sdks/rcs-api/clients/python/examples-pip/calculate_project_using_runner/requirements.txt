@@ -1,5 +1,5 @@
 annotated-types==0.7.0
-ideastatica-rcs-api==24.1.2.1474
+ideastatica-rcs-api==25.0.1.1008
 pydantic==2.10.3
 pydantic_core==2.27.1
 python-dateutil==2.9.0.post0
