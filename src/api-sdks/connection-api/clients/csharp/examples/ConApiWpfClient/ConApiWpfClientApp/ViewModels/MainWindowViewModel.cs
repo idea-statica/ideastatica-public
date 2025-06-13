@@ -61,6 +61,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
 
+			GenerateReportCommand = new AsyncRelayCommand<object>(GenerateReportAsync, (param) => SelectedConnection != null);
+
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
@@ -179,6 +181,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand GetOperationsCommand { get; }
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
+
+		public AsyncRelayCommand<object> GenerateReportCommand { get; }
 
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
@@ -580,7 +584,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		private async Task GetOperationsAsync()
 		{
-			_logger.LogInformation("CalculateAsync");
+			_logger.LogInformation("GetOperationsAsync");
 
 			if (ProjectInfo == null)
 			{
@@ -614,7 +618,71 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				_logger.LogWarning("GetOperationsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task GenerateReportAsync(object? parameter)
+		{
+			_logger.LogInformation("GenerateReportAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (parameter == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			string format = parameter.ToString();
+
+			IsBusy = true;
+			try
+			{
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Filter = $"{format} file| *.{format}";
+				if (saveFileDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				if(format.Equals("pdf"))
+				{
+					await ConApiClient.Report.SaveReportPdfAsync(ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+					
+				}
+				else if(format.Equals("docx"))
+				{
+					await ConApiClient.Report.SaveReportWordAsync(ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+				}
+				else
+				{
+					throw new Exception($"Unsupported format {format}");
+				}
+
+				OutputText = "Done";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GenerateReportAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -696,6 +764,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
+			this.GenerateReportCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
