@@ -168,8 +168,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 							if (anchor != null)
 							{
 								string pointId = Model.GetPointId(boltPoint);
-								(anchorGrid.Positions as List<IIdeaNode>).Add(Get<IIdeaNode>(pointId));
-								break;
+								var ideaNode = Get<IIdeaNode>(pointId);
+								if (!(anchorGrid.Positions as List<IIdeaNode>).Contains(ideaNode))
+								{
+									(anchorGrid.Positions as List<IIdeaNode>).Add(ideaNode);
+								}
 							}
 						}
 					}
