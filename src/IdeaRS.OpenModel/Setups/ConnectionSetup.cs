@@ -45,32 +45,32 @@ namespace IdeaRS.OpenModel
 	/// Types of cone breakout checks
 	/// </summary>
 	public enum ConeBreakoutCheckType
-    {
-        /// <summary>
-        /// Both tension and shear cone breakout checks are prerformed
-        /// </summary>
-        Both,
+	{
+		/// <summary>
+		/// Both tension and shear cone breakout checks are prerformed
+		/// </summary>
+		Both,
 
-        /// <summary>
-        /// Only tension cone breakout checks are prerformed
-        /// </summary>
-        Tension,
+		/// <summary>
+		/// Only tension cone breakout checks are prerformed
+		/// </summary>
+		Tension,
 
-        /// <summary>
-        /// Only shear cone breakout checks are prerformed
-        /// </summary>
-        Shear,
+		/// <summary>
+		/// Only shear cone breakout checks are prerformed
+		/// </summary>
+		Shear,
 
-        /// <summary>
-        /// None of cone breakout checks are prerformed
-        /// </summary>
-        None
-    }
+		/// <summary>
+		/// None of cone breakout checks are prerformed
+		/// </summary>
+		None
+	}
 
-    /// <summary>
-    /// ConnectionSetup
-    /// </summary>
-    public class ConnectionSetup
+	/// <summary>
+	/// ConnectionSetup
+	/// </summary>
+	public class ConnectionSetup
 	{
 		#region Constructors
 
@@ -115,15 +115,14 @@ namespace IdeaRS.OpenModel
 			ExtensionLengthRationOpenSections = 0.5;
 			ExtensionLengthRationCloseSections = 0.5;
 			FactorPreloadBolt = 0.0;
-			BaseMetalCapacity = true ;
+			BaseMetalCapacity = true;
 			AlphaCC = 1.0;
 			LimitDeformation = 0.03;
 			LimitDeformationCheck = false;
 			AnalysisGNL = true;
 			AnalysisAllGNL = false;
-			DevelopedFillers = false;
 			DeformationBoltHole = true;
-			CondensedElementLengthFactor= 1.0;
+			CondensedElementLengthFactor = 1.0;
 		}
 
 		/// <summary>
@@ -131,7 +130,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public void InitByCode()
 		{
-			if(SteelSetup != null)
+			if (SteelSetup != null)
 			{
 				FrictionCoefficientPbolt = SteelSetup.FrictionCoefficientPboltDefault();
 			}
