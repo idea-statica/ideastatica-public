@@ -238,68 +238,26 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			List<Tekla.Structures.Identifier> proceseedDetails = new List<Tekla.Structures.Identifier>();
 			while (partsEnumerator.MoveNext())
 			{
-				if (partsEnumerator.Current is TS.Part)
+				var partOfEnumerator = partsEnumerator.Current;
+				if (partOfEnumerator is TS.Part tsPart)
 				{
-					selectedItems.Add(partsEnumerator.Current);
-				}
-				else if (partsEnumerator.Current is TS.Detail detail)
-				{
-					if (proceseedDetails.Any(id => id.Equals(detail.Identifier)))
+					if (IdentifierHelper.AnchorMemberFilter(tsPart) && tsPart.GetFatherComponent() is TS.Detail detail)
 					{
-						plugInLogger.LogDebug($"ProcessUserSelection - skip {detail.Identifier} name:{detail.Name}");
-						//skip duplicity
-						continue;
+						ProcessDetailPart(selectedItems, proceseedDetails, detail);
+
 					}
 					else
 					{
-						proceseedDetails.Add(detail.Identifier);
+						selectedItems.Add(tsPart);
 					}
+				}
+				else if (partOfEnumerator is TS.Detail detail)
+				{
+					ProcessDetailPart(selectedItems, proceseedDetails, detail);
 
-					var detailItems = new List<TS.ModelObject>();
-					var anchorItems = new List<TS.ModelObject>();
-					bool notFoundAnchor = true;
-					// Find anchors from the detail
-					foreach (var detailItem in detail.GetChildren())
-					{
-						if (detailItem is TS.Part part)
-						{
-							detailItems.Add(part);
-
-							if (IdentifierHelper.AnchorMemberFilter(part)) //add only one anchor from group anchor importer than takes all anchor positions
-							{
-								if (notFoundAnchor)
-								{
-									anchorItems.Add(part);
-									notFoundAnchor = false;
-								}
-							}
-							else if (part is TS.Beam b && (!IdentifierHelper.WasherMemberFilter(part) && !IdentifierHelper.NutMemberFilter(part)))
-							{
-								anchorItems.Add(part);
-							}
-							else if (part is ContourPlate)
-							{
-								if (!IdentifierHelper.GroutFilter(part) && !IdentifierHelper.CastPlateFilter(part))
-								{
-									anchorItems.Add(part);
-								}
-							}
-						}
-					}
-
-					if (notFoundAnchor)
-					{
-						plugInLogger.LogDebug($"Standard component add all child items");
-						selectedItems.AddRange(detailItems);
-					}
-					else
-					{
-						plugInLogger.LogDebug($"Component with anchor add filtered subset of child parts");
-						selectedItems.AddRange(anchorItems);
-					}
 
 				}
-				else if (partsEnumerator.Current is TS.BaseComponent baseComponent)
+				else if (partOfEnumerator is TS.BaseComponent baseComponent)
 				{
 					plugInLogger.LogDebug($"Component {baseComponent.Name} add child parts");
 					foreach (var componentItem in baseComponent.GetChildren())
@@ -312,6 +270,63 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				}
 			}
 			return selectedItems;
+		}
+
+		private void ProcessDetailPart(List<ModelObject> selectedItems, List<Tekla.Structures.Identifier> proceseedDetails, Detail detail)
+		{
+			if (proceseedDetails.Any(id => id.Equals(detail.Identifier)))
+			{
+				plugInLogger.LogDebug($"ProcessUserSelection - skip {detail.Identifier} name:{detail.Name}");
+				//skip duplicity
+				return;
+			}
+			else
+			{
+				proceseedDetails.Add(detail.Identifier);
+			}
+
+			var detailItems = new List<TS.ModelObject>();
+			var anchorItems = new List<TS.ModelObject>();
+			bool notFoundAnchor = true;
+			// Find anchors from the detail
+			foreach (var detailItem in detail.GetChildren())
+			{
+				if (detailItem is TS.Part part)
+				{
+					detailItems.Add(part);
+
+					if (IdentifierHelper.AnchorMemberFilter(part)) //add only one anchor from group anchor importer than takes all anchor positions
+					{
+						if (notFoundAnchor)
+						{
+							anchorItems.Add(part);
+							notFoundAnchor = false;
+						}
+					}
+					else if (part is TS.Beam b && (!IdentifierHelper.WasherMemberFilter(part) && !IdentifierHelper.NutMemberFilter(part)))
+					{
+						anchorItems.Add(part);
+					}
+					else if (part is ContourPlate)
+					{
+						if (!IdentifierHelper.GroutFilter(part) && !IdentifierHelper.CastPlateFilter(part))
+						{
+							anchorItems.Add(part);
+						}
+					}
+				}
+			}
+
+			if (notFoundAnchor)
+			{
+				plugInLogger.LogDebug($"Standard component add all child items");
+				selectedItems.AddRange(detailItems);
+			}
+			else
+			{
+				plugInLogger.LogDebug($"Component with anchor add filtered subset of child parts");
+				selectedItems.AddRange(anchorItems);
+			}
 		}
 
 		/// <summary>
