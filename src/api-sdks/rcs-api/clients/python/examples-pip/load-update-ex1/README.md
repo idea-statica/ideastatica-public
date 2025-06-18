@@ -676,4 +676,4 @@ The example of xml with section extremes :
     </Loads>
   </SectionExtremeBase>
 </ArrayOfSectionExtremeBase>
-.```
+```
