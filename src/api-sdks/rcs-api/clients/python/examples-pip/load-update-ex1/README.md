@@ -1,6 +1,6 @@
 # calculate_project_using_service__runner
 
-This example shows how to create _RcsApiClient_ attached to the service runned by service runner.
+This example shows how to update loading in the section and recalculate it.
 
 1. Install dependencies from _requirements.txt_
 
