@@ -19,6 +19,7 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel
 {
 	///Version history
+	/// V2.2 19.6.2025 Added new property 'ReferencedGeometry' to 'LoadOnSurface' object
 	/// V2.1 27.08 2024 Added Pins
 	/// V2.0.6 27.08 2024 Grids connectedParts by reference => delete connectedParttIds
 	/// V2.0.5 27.08 2024 Added separated Bold, Anchor, 
@@ -37,7 +38,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = "2.1.0";
+			Version = "2.2.0";
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();
