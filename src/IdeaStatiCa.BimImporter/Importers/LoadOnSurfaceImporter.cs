@@ -18,11 +18,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Direction = los.Direction,
 				Fx = los.Fx,
 				Fy = los.Fy,
-				Fz = los.Fz,				
+				Fz = los.Fz,								
 			};
 
-			ReferenceElement refElement = ctx.Import(los.ReferenceObject);
-			loadOnSurface.ReferenceObject = refElement;
+			ReferenceElement refElement = ctx.Import(los.ReferencedGeometry);
+			loadOnSurface.ReferencedGeometry = refElement;
 
 			return loadOnSurface;
 		}

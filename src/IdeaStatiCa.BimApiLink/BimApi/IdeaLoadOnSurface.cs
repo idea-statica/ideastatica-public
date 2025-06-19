@@ -33,9 +33,9 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 		public Region3D Geometry { get; set; }
 
 		/// <summary>
-		/// Object, which the load is applied on
+		/// Item where load is applied
 		/// </summary>
-		public IIdeaMember2D ReferenceObject { get; set; }
+		public IIdeaRegion3D ReferencedGeometry { get; set; }		
 
 		public IdeaLoadOnSurface(Identifier<IIdeaLoadOnSurface> identifer)
 			: base(identifer)
