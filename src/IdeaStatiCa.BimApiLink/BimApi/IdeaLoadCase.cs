@@ -1,5 +1,6 @@
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApiLink.BimApi
 {
@@ -14,6 +15,8 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 		public virtual IIdeaLoadGroup LoadGroup { get; set; } = null;
 		
 		public virtual string Description { get; set; } = null;
+
+		public virtual IEnumerable<IIdeaLoadOnSurface> LoadsOnSurface { get; set; }
 		
 		public IdeaLoadCase(Identifier<IIdeaLoadCase> identifer)
 			: base(identifer)
