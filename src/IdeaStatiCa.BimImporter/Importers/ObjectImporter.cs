@@ -37,6 +37,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaElement2D> _element2DImporter;
 		private readonly IImporter<IIdeaPolyLine3D> _polyLine3DImporter;
 		private readonly IImporter<IIdeaRegion3D> _region3DImporter;
+		private readonly IImporter<IIdeaLoadOnSurface> _loadOnSurfaceImporter;
 
 		private readonly IImporter<IIdeaBoltAssembly> _boltAssemblyImporter;
 		private readonly IImporter<IIdeaPin> _pinImporter;
@@ -73,6 +74,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_boltAssemblyImporter = new BoltAssemblyImporter(logger);
 			_pinGridImporter = new PinGridImporter(logger);
 			_pinImporter = new PinImporter(logger);
+			_loadOnSurfaceImporter = new LoadOnSurfaceImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -132,8 +134,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaBoltAssembly boltAssembly:
 					return _boltAssemblyImporter.Import(ctx, boltAssembly);
+				
 				case IIdeaPin pin:
 					return _pinImporter.Import(ctx, pin);
+
+				case IIdeaLoadOnSurface loadOnSurface:
+					return _loadOnSurfaceImporter.Import(ctx, loadOnSurface);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
