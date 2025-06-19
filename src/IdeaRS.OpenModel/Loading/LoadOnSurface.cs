@@ -39,5 +39,10 @@ namespace IdeaRS.OpenModel.Loading
 		/// Gets, sets geometry of this LoadOnSurface
 		/// </summary>
 		public Region3D Geometry { get; set; }
+
+		/// <summary>
+		/// Item where load is applied
+		/// </summary>
+		public ReferenceElement ReferencedGeometry { get; set; }
 	}
 }
