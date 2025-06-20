@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <OpenModelContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <OpenModel>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <OriginSettings>
       <ProjectName>CON1</ProjectName>
       <DateOfCreate>2024-07-26T14:17:22.6769215+02:00</DateOfCreate>

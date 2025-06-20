@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.Loading;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
 {
@@ -28,5 +29,10 @@ namespace IdeaStatiCa.BimApi
 		/// Additional info
 		/// </summary>
 		string Description { get; }
+
+		/// <summary>
+		/// Loads on surface assigned to this load case
+		/// </summary>
+		IEnumerable<IIdeaLoadOnSurface> LoadsOnSurface { get; }
 	}
 }

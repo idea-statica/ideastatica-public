@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel.Loading;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.BimApi
 {
@@ -12,6 +13,8 @@ namespace IdeaRstabPlugin.BimApi
 		public VariableType Variable { get; } = VariableType.Standard;
 
 		public IIdeaLoadGroup LoadGroup { get; set; }
+
+		public IEnumerable<IIdeaLoadOnSurface> LoadsOnSurface { get; set; }
 
 		public string Description { get; set; }
 

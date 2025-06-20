@@ -3,6 +3,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Providers;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -37,6 +38,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		public string Id { get; }
 
 		public string Name { get; }
+
+		public IEnumerable<IIdeaLoadOnSurface> LoadsOnSurface { get; set; }
 
 		private static (LoadCaseType lt, LoadCaseSubType ls) GetLoadCaseType(ELoadCaseType ramLoadType)
 		{
