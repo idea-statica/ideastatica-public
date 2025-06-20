@@ -15,11 +15,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaLoadCase lc)
 		{
 			List<ReferenceElement> loadsOnSurface = new List<ReferenceElement>();
-			
-			foreach (var los in lc.LoadsOnSurface)
+
+			if (lc.LoadsOnSurface != null)
 			{
-				ReferenceElement refLoadOnSurface = ctx.Import(los);
-				loadsOnSurface.Add(refLoadOnSurface);
+				foreach (var los in lc.LoadsOnSurface)
+				{
+					ReferenceElement refLoadOnSurface = ctx.Import(los);
+					loadsOnSurface.Add(refLoadOnSurface);
+				}
 			}
 
 			LoadCase lcRet = new LoadCase()
