@@ -7,6 +7,7 @@ namespace IdeaStatiCa.Plugin
 		Member,
 		Node,
 		BIMItemsGroup,
+		Detail
 	}
 
 	[DataContract]
