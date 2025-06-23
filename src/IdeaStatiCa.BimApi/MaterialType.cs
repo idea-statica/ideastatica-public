@@ -9,5 +9,6 @@
 		Steel,
 		Reinforcement,
 		BoltGrade,
+		Timber,
 	}
 }

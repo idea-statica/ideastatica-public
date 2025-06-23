@@ -27,6 +27,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaMaterialBoltGrade matBoltGrade:
 					return CreateMaterialBoltGrade(matBoltGrade);
+
+				//case IIdeaMaterialTimber matTimber:
+				//	return CreateMaterialTimber(matTimber);
 			}
 
 			Logger.LogError($"Material '{material.Id}' is of unsupported type '{material.GetType().Name}'.");
@@ -114,6 +117,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case MaterialType.BoltGrade:
 					return CreateMaterialBoltGrade(countryCode);
+
+				case MaterialType.Timber:
+					return CreateMaterialTimber(countryCode);
 			}
 
 			throw new NotImplementedException();
@@ -146,6 +152,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				default:
 					return new MatSteelEc2();
+			}
+		}
+
+		private static Material CreateMaterialTimber(CountryCode countryCode)
+		{
+			switch (countryCode)
+			{
+				default:
+					return new MatTimberEc5();
 			}
 		}
 

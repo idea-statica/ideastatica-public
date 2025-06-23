@@ -51,6 +51,7 @@ namespace IdeaRS.OpenModel
 			MatPrestressSteel = new List<MatPrestressSteel>();
 			MatWelding = new List<MatWelding>();
 			MatBoltGrade = new List<MaterialBoltGrade>();
+			MatTimber = new List<MatTimber>();
 			CrossSection = new List<CrossSection.CrossSection>();
 			BoltAssembly = new List<BoltAssembly>();
 			Pin = new List<Pin>();
@@ -108,9 +109,6 @@ namespace IdeaRS.OpenModel
 			Anchors3D = new List<Anchor3D>();
 			DetailLoadCase = new List<DetailLoadCase>();
 			DetailCombination = new List<DetailCombination>();
-
-
-
 		}
 
 		/// <summary>
@@ -177,6 +175,11 @@ namespace IdeaRS.OpenModel
 		/// List of BoltGrades
 		/// </summary>
 		public List<MaterialBoltGrade> MatBoltGrade { get; set; }
+
+		/// <summary>
+		/// List of timber materials
+		/// </summary>
+		public List<MatTimber> MatTimber { get; set; }
 
 		/// <summary>
 		/// List of CrossSection
