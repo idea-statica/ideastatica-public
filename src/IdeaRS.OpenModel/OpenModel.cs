@@ -747,7 +747,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(Anchor3D).Name, Anchors3D },
 					{ typeof(DetailLoadCase).Name, DetailLoadCase },
 					{ typeof(DetailCombination).Name, DetailCombination },
-
+					{ typeof(MatTimber).Name, MatTimber },
 				};
 			}
 
