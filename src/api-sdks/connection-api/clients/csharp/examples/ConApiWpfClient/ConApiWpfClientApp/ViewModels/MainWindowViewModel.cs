@@ -63,6 +63,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			GenerateReportCommand = new AsyncRelayCommand<object>(GenerateReportAsync, (param) => SelectedConnection != null);
 
+			ExportCommand = new AsyncRelayCommand<object>(ExportConnectionAsync, (param) => SelectedConnection != null);
+
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
@@ -183,6 +185,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
 		public AsyncRelayCommand<object> GenerateReportCommand { get; }
+
+		public AsyncRelayCommand<object> ExportCommand { get; }
 
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
@@ -692,6 +696,71 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		
+		private async Task ExportConnectionAsync(object? parameter)
+		{
+			_logger.LogInformation("ExportConnectionAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (parameter == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			string format = parameter.ToString();
+
+			IsBusy = true;
+			try
+			{
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Filter = $"{format} file| *.{format}";
+				if (saveFileDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				if (format.Equals("iom"))
+				{
+					var iomContainerXml = await ConApiClient.Export.ExportIomAsync(ProjectInfo.ProjectId, SelectedConnection.Id);
+					await File.WriteAllTextAsync(saveFileDialog.FileName, iomContainerXml);
+					OutputText = iomContainerXml;
+				}
+				else if (format.Equals("ifc"))
+				{
+					await ConApiClient.Export.ExportIfcFileAsync(ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+					var ifc = await File.ReadAllTextAsync(saveFileDialog.FileName);
+					OutputText = ifc;
+				}
+				else
+				{
+					throw new Exception($"Unsupported format {format}");
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("ExportConnectionAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 		//private void ShowClientUI()
 		//{
 		//	_logger.LogInformation("ShowClientUI");
@@ -765,6 +834,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
+			this.ExportCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
