@@ -18,7 +18,7 @@ namespace CodeSamples
 			int connectionId = connections[0].Id;
 
 			//FIX Needs to output the Iom Model xml.
-			await conClient.Export.ExportIomAsync(conClient.ActiveProjectId, connectionId);
+			await conClient.Export.ExportIomAsync(conClient.ActiveProjectId, connectionId, "2.1.0");
 
 			//Close the opened project.
 			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);

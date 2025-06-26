@@ -30,7 +30,7 @@ namespace CodeSamples
 			{ 
 				new ConMprlCrossSection() {MaterialName = "S 355", MprlName = "IPE240" },
 				new ConMprlCrossSection() {MaterialName = "S 275", MprlName = "IPE300" },
-				new ConMprlCrossSection() {MaterialName = "\"S 355", MprlName = "IPE450" }
+				new ConMprlCrossSection() {MaterialName = "S 355", MprlName = "IPE450" }
 			};
 
 			foreach (var section in crossSectionToAdd)
