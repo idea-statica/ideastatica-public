@@ -3,21 +3,35 @@ using System.Reflection;
 
 namespace IdeaRS.OpenModel.Result
 {
+	/// <summary>
+	/// The storage of reactions from surrounding structural  elements for <see cref="IdeaRS.OpenModel.Model.Member2D"/>
+	/// </summary>
+	/// <typeparam name="T">Type of the primitive values which are stored in sections</typeparam>
 	[Obfuscation(Feature = "renaming")]
-	public class Member2DReactions
+	public class Member2DReactions<T> where T : struct
 	{
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public Member2DReactions()
 		{
-			BoundaryReactions = new List<ResultOnMember>();
+			BoundaryReactions = new List<ValuesInSegmentSections<T>>();
 		}
 
 		/// <summary>
-		/// Loading
+		/// ID of <see cref="IdeaRS.OpenModel.Model.Member2D"/> in <see cref="IdeaRS.OpenModel.OpenModel"/>
 		/// </summary>
-		public IdeaRS.OpenModel.Result.Loading Loading { get; set; }
-
 		public int MemberId { get; set; }
 
-		public List<ResultOnMember> BoundaryReactions { get; set; }
+		/// <summary>
+		/// Desinitions of loadings which are stored
+		/// </summary>
+		public List<Loading> Loadings { get; set; }
+
+		/// <summary>
+		/// Reactions on the boundary <see cref="IdeaRS.OpenModel.Geometry3D.PolyLine3D"/>
+		/// Values correspond to each other by their array indices
+		/// </summary>
+		public List<ValuesInSegmentSections<T>> BoundaryReactions { get; set; }
 	}
 }
