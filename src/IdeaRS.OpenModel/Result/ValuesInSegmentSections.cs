@@ -70,7 +70,7 @@ namespace IdeaRS.OpenModel.Result
 
 		/// <summary>
 		/// Raw array of values.
-		/// The dimension of the array is defined by [SectionCount][LoadingCount][ValueCountInSection]
+		/// The dimension of the array is defined by SectionCount*LoadingCount*ValueCountInSection
 		/// </summary>
 		public List<T> Values { get; set; }
 	}
