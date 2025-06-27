@@ -17,6 +17,11 @@ namespace IdeaRS.OpenModel.Result
 		/// Element 1D
 		/// </summary>
 		Element1D,
+
+		/// <summary>
+		/// LineSegment3D - it is used for definition of Member2D boundary reactions
+		/// </summary>
+		LineSegment3D,
 	}
 
 	/// <summary>

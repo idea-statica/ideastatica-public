@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.Public;
 using System.Diagnostics;
 
 namespace IdeaStatiCa.Plugin
@@ -35,7 +36,7 @@ namespace IdeaStatiCa.Plugin
 			return pluginHostingGrpc;
 		}
 
-		public IProgressMessaging InitGrpcClient(IPluginLogger logger)
+		public IProgressMessaging InitGrpcClient(IPluginLogger logger, IBlobStorageProvider blobStorageProvider = null)
 		{
 			if (checkBotClient == null)
 			{
@@ -46,7 +47,7 @@ namespace IdeaStatiCa.Plugin
 
 				grpcService = new IdeaStatiCa.Plugin.Grpc.Services.GrpcService(logger);
 
-				grpcServer = new GrpcServer(logger, grpcService, null);
+				grpcServer = new GrpcServer(logger, grpcService, blobStorageProvider);
 				grpcServer.StartAsync(clientId.ToString(), grpcPort);
 
 				checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcServer.GrpcService, grpcServer.Logger);

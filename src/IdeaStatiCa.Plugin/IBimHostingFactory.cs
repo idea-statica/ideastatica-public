@@ -1,7 +1,4 @@
-﻿using IdeaStatiCa.Plugin.Grpc;
-using IdeaStatiCa.Plugin.Grpc.Reflection;
-
-namespace IdeaStatiCa.Plugin
+﻿namespace IdeaStatiCa.Plugin
 {
 	public interface IBimHostingFactory
 	{
