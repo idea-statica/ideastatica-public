@@ -5,8 +5,8 @@ using System.Reflection;
 namespace IdeaRS.OpenModel.Result
 {
 	/// <summary>
-	/// Represents values along on <see cref="IdeaRS.OpenModel.Geometry3D.Segment3D"/>
-	/// There are sections on the segment. In the section there can be stored N <T> values for each loadding (LoadCase, LoadCombination ..)
+	/// Represents values on <see cref="IdeaRS.OpenModel.Geometry3D.Segment3D"/>
+	/// There are sections on the segment. In the section there can be stored N values for each loading (LoadCase, LoadCombination ..)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	[Obfuscation(Feature = "renaming")]
