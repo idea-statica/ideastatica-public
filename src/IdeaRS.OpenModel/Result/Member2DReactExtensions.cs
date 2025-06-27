@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace IdeaRS.OpenModel.Result
 {
 	/// <summary>
-	/// Extensions for accessing values stored in  <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}"
+	/// Extensions for accessing values stored in  <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}"/>
 	/// </summary>
 	public static class Member2DReactExtensions
 	{
@@ -29,7 +29,7 @@ namespace IdeaRS.OpenModel.Result
 		/// <typeparam name="T"></typeparam>
 		/// <param name="src"></param>
 		/// <param name="sectionInx">Index of the section in <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.PositionsOnSegment"/>(0 is the first section (begin of the segment))</param>
-		/// <param name="loadingInx">Index of the requested loading in <see cref="IdeaRS.OpenModel.Result.Member2DReactions{T}.Loadings</param>
+		/// <param name="loadingInx">Index of the requested loading in <see cref="IdeaRS.OpenModel.Result.Member2DReactions{T}.Loadings"/></param>
 		/// <param name="values">List of values to set. The length must equal to <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.ValueCountInSection"/></param>
 		public static void SetValuesInSection<T>(this ValuesInSegmentSections<T> src, int sectionInx, int loadingInx, IList<T> values) where T : struct
 		{
@@ -47,8 +47,8 @@ namespace IdeaRS.OpenModel.Result
 		/// <typeparam name="T"></typeparam>
 		/// <param name="src"></param>
 		/// <param name="sectionInx">Index of the section in <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.PositionsOnSegment"/>(0 is the first section (begin of the segment))</param>
-		/// <param name="loadingInx">Index of the requested loading in <see cref="IdeaRS.OpenModel.Result.Member2DReactions{T}.Loadings</param>
-		/// <param name="valInx">the value index (from 0 to <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.ValueCountInSection) - 1)</param>
+		/// <param name="loadingInx">Index of the requested loading in <see cref="IdeaRS.OpenModel.Result.Member2DReactions{T}.Loadings"/></param>
+		/// <param name="valInx">the value index (from 0 to <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.ValueCountInSection/>) - 1)</param>
 		/// <returns></returns>
 		public static T GetValue<T>(this ValuesInSegmentSections<T> src, int sectionInx, int loadingInx, int valInx) where T : struct
 		{
