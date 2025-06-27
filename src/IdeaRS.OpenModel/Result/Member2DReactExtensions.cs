@@ -48,7 +48,7 @@ namespace IdeaRS.OpenModel.Result
 		/// <param name="src"></param>
 		/// <param name="sectionInx">Index of the section in <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.PositionsOnSegment"/>(0 is the first section (begin of the segment))</param>
 		/// <param name="loadingInx">Index of the requested loading in <see cref="IdeaRS.OpenModel.Result.Member2DReactions{T}.Loadings"/></param>
-		/// <param name="valInx">the value index (from 0 to <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.ValueCountInSection/>) - 1)</param>
+		/// <param name="valInx">the value index (from 0 to <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.ValueCountInSection"/>) - 1)</param>
 		/// <returns></returns>
 		public static T GetValue<T>(this ValuesInSegmentSections<T> src, int sectionInx, int loadingInx, int valInx) where T : struct
 		{

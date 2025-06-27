@@ -8,6 +8,7 @@ namespace IdeaRS.OpenModel.Result
 	/// Represents values along on <see cref="IdeaRS.OpenModel.Geometry3D.Segment3D"/>
 	/// There are sections on the segment. In the section there can be stored N <T> values for each loadding (LoadCase, LoadCombination ..)
 	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	[Obfuscation(Feature = "renaming")]
 	public class ValuesInSegmentSections<T> where T : struct
 	{
