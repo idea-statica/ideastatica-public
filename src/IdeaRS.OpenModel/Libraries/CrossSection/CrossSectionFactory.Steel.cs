@@ -118,7 +118,7 @@
 
 		public static void FillRolledAngle(CrossSectionParameter css, string name, bool mirrorZ = false, bool mirrorY = false)
 		{
-			css.CrossSectionType = CrossSectionType.RolledU;
+			css.CrossSectionType = CrossSectionType.RolledAngle;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
@@ -201,7 +201,7 @@
 
 		public static void FillRolledT(CrossSectionParameter css, string name, bool mirrorY = false)
 		{
-			css.CrossSectionType = CrossSectionType.RolledCHS;
+			css.CrossSectionType = CrossSectionType.RolledT;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
