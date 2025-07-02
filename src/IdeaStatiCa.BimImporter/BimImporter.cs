@@ -327,12 +327,34 @@ namespace IdeaStatiCa.BimImporter
 			}
 			else if (group.Type == RequestedItemsType.Substructure)
 			{
-				IEnumerable<Member> bimItems = group.Items
+				IEnumerable<Member> memberItems = group.Items
 					.Where(x => x.Type == BIMItemType.Member)
 					.Select(x => _project.GetBimObject(x.Id))
 					.Where(x => x != null)
 					.Cast<IIdeaMember1D>()
 					.Select(x => new Member(x));
+
+				IEnumerable<Detail> detailItems = group.Items
+					.Where(x => x.Type == BIMItemType.Detail)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null)
+					.Cast<IIdeaMember2D>()
+					.Select(x => new Detail(x));
+
+				IEnumerable<IBimItem> bimItems = memberItems
+					.Cast<IBimItem>()
+					.Concat(detailItems.Cast<IBimItem>());
+
+				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems, countryCode);
+			}			
+			else if (group.Type == RequestedItemsType.Members2D)
+			{ 
+				IEnumerable<Detail> bimItems = group.Items
+					.Where(x => x.Type == BIMItemType.Detail)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null)
+					.Cast<IIdeaMember2D>()
+					.Select(x => new Detail(x));
 
 				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems, countryCode);
 			}
