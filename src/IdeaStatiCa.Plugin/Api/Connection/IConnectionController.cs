@@ -42,40 +42,35 @@ namespace IdeaStatiCa.Plugin
 		/// Send a request to generate a connection report and return a blobstorage with its data 
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
-		/// <param name="settings">Report settings</param>
 		/// <returns>The instance of the blobstorage</returns>
-		IBlobStorage GenerateReport(int conId, ConnReportSettings settings);
+		IBlobStorage GenerateReport(int conId);
 
 		/// <summary>
 		/// Send a request to generate connection report as Word document
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
-		/// <param name="settings">Report settings</param>
 		/// <param name="filePath">File path of exported word report</param>
-		void GenerateWordReport(int conId, string filePath, ConnReportSettings settings);
+		void GenerateWordReport(int conId, string filePath);
 
 		/// <summary>
 		/// Generate Word report blob storage
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
-		/// <param name="settings">Report settings</param>
 		/// <returns></returns>
-		IBlobStorage GenerateWordReportStorage(int conId, ConnReportSettings settings);
+		IBlobStorage GenerateWordReportStorage(int conId);
 
 		/// <summary>
 		/// Send a request to generate connection report in PDF document
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
-		/// <param name="settings">Report settings</param>
 		/// <param name="filePath">File path of exported pdf report</param>
-		void GeneratePdfReport(int conId, string filePath, ConnReportSettings settings);
+		void GeneratePdfReport(int conId, string filePath);
 
 		/// <summary>
 		/// Generate PDF report blob storage
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
-		/// <param name="settings">Report settings</param>
 		/// <returns></returns>
-		IBlobStorage GeneratePdfReportStorage(int conId, ConnReportSettings settings);
+		IBlobStorage GeneratePdfReportStorage(int conId);
 	}
 }
