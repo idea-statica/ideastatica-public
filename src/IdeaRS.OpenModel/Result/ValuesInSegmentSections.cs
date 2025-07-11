@@ -35,7 +35,13 @@ namespace IdeaRS.OpenModel.Result
 			LoadingCount = loadingCount;
 			ValueCountInSection = valuesInSection;
 			PositionsOnSegment = new List<double>(sectionCount);
-			Values = new List<T>(sectionCount * loadingCount * valuesInSection);
+			int valCount = sectionCount * loadingCount * valuesInSection;
+			Values = new List<T>(valCount);
+
+			for (int i = 0; i < valCount - 1; i++)
+			{
+				Values.Add(default(T));
+			}
 		}
 
 		/// <summary>
