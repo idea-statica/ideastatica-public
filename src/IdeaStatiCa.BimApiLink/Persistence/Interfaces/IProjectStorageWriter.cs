@@ -1,11 +1,7 @@
 ﻿namespace IdeaStatiCa.BimApiLink.Persistence
 {
-	public interface IProjectStorage
+	public interface IProjectStorageWriter
 	{
-		void Load();
-
 		void Save();
-
-		bool IsValid();
 	}
 }
