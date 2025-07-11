@@ -33,7 +33,7 @@ namespace IdeaRS.OpenModel.Result
 		/// <param name="values">List of values to set. The length must equal to <see cref="IdeaRS.OpenModel.Result.ValuesInSegmentSections{T}.ValueCountInSection"/></param>
 		public static void SetValuesInSection<T>(this ValuesInSegmentSections<T> src, int sectionInx, int loadingInx, IList<T> values) where T : struct
 		{
-			Debug.Assert(values.Count != src.ValueCountInSection, "Wrong dimensions");
+			Debug.Assert(values.Count == src.ValueCountInSection, "Wrong dimensions");
 			int sectionIndex = GetSectionValueIndex<T>(src, sectionInx, loadingInx);
 			for(int i = 0; i < src.ValueCountInSection; i++)
 			{
