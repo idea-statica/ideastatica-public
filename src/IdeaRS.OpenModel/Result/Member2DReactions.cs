@@ -16,6 +16,7 @@ namespace IdeaRS.OpenModel.Result
 		public Member2DReactions()
 		{
 			BoundaryReactions = new List<ValuesInSegmentSections<T>>();
+			Loadings = new List<Loading>();
 		}
 
 		/// <summary>
