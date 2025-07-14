@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using IdeaStatiCa.ConRestApiClientUI;
 
 namespace ConApiWpfClientApp
 {
@@ -34,17 +35,27 @@ namespace ConApiWpfClientApp
 				return LoggerProvider.GetLogger("con.restapi.client");
 			});
 
-			services.AddTransient<MainWindow>(serviceProvider => new MainWindow
+			services.AddTransient<MainWindow>(serviceProvider =>
 			{
-				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
+				var vm = serviceProvider.GetRequiredService<IConRestApiClientViewModel>();
+				return new MainWindow(vm)
+				{
+					DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
+				};
 			});
-			services.AddTransient<MainWindowViewModel>();
+			services.AddSingleton<MainWindowViewModel>();
 
 			services.AddTransient<JsonEditorWindow>(serviceProvider => new JsonEditorWindow
 			{
 				DataContext = serviceProvider.GetRequiredService<JsonEditorViewModel>()
 			});
 			services.AddTransient<JsonEditorViewModel>();
+
+			services.AddSingleton<ISceneController, SceneController>();
+
+			services.AddSingleton<IClientHost, ClientHost>();
+
+			services.AddSingleton<IConRestApiClientViewModel, ConRestApiClientViewModel>();
 
 			serviceProvider = services.BuildServiceProvider();
 		}
