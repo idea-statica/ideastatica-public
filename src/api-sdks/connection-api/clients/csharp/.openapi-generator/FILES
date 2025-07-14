@@ -20,6 +20,8 @@ docs/CheckResPlate.md
 docs/CheckResSummary.md
 docs/CheckResWeld.md
 docs/ClientApi.md
+docs/ConAlignedPlate.md
+docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
 docs/ConCalculationParameter.md
 docs/ConConnection.md
@@ -30,6 +32,12 @@ docs/ConLoadEffectPositionEnum.md
 docs/ConLoadEffectSectionLoad.md
 docs/ConLoadSettings.md
 docs/ConMember.md
+docs/ConMemberAlignmentTypeEnum.md
+docs/ConMemberForcesInEnum.md
+docs/ConMemberModel.md
+docs/ConMemberPlacementDefinitionTypeEnum.md
+docs/ConMemberPlatePartTypeEnum.md
+docs/ConMemberPosition.md
 docs/ConMprlCrossSection.md
 docs/ConMprlElement.md
 docs/ConOperation.md
@@ -64,6 +72,7 @@ docs/FoldedPlateData.md
 docs/IGroup.md
 docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
+docs/IdeaParameterValidation.md
 docs/Line.md
 docs/LoadEffectApi.md
 docs/MaterialApi.md
@@ -142,6 +151,8 @@ src/IdeaStatiCa.ConnectionApi/Model/CheckResConcreteBlock.cs
 src/IdeaStatiCa.ConnectionApi/Model/CheckResPlate.cs
 src/IdeaStatiCa.ConnectionApi/Model/CheckResSummary.cs
 src/IdeaStatiCa.ConnectionApi/Model/CheckResWeld.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlate.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlateSideCodeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCalculationParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
@@ -152,6 +163,12 @@ src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectPositionEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectSectionLoad.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadSettings.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConMember.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConMemberAlignmentTypeEnum.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConMemberForcesInEnum.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConMemberModel.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConMemberPlacementDefinitionTypeEnum.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConMemberPlatePartTypeEnum.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConMemberPosition.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConMprlCrossSection.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConMprlElement.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConOperation.cs
@@ -183,6 +200,7 @@ src/IdeaStatiCa.ConnectionApi/Model/FoldedPlateData.cs
 src/IdeaStatiCa.ConnectionApi/Model/IGroup.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterUpdate.cs
+src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterValidation.cs
 src/IdeaStatiCa.ConnectionApi/Model/Line.cs
 src/IdeaStatiCa.ConnectionApi/Model/MessageNumber.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenElementId.cs

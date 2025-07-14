@@ -11,7 +11,7 @@ Method | Description
 
 <a id="calculate"></a>
 # **calculate**
-> List[ConResultSummary] calculate(project_id, con_calculation_parameter=con_calculation_parameter)
+> List[ConResultSummary] calculate(project_id, con_calculation_parameter)
 
 Run CBFEM caluclation and return the summary of the results
 
@@ -21,7 +21,7 @@ Run CBFEM caluclation and return the summary of the results
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_calculation_parameter** | [**ConCalculationParameter**](ConCalculationParameter.md)| List of connections to calculate and a type of CBFEM analysis | [optional] 
+ **con_calculation_parameter** | [**ConCalculationParameter**](ConCalculationParameter.md)| List of connections to calculate and a type of CBFEM analysis | 
 
 ### Return type
 
@@ -50,11 +50,11 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.CalculationApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
+    con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis
 
     try:
         # Run CBFEM caluclation and return the summary of the results
-        api_response = api_instance.calculate(project_id, con_calculation_parameter=con_calculation_parameter)
+        api_response = api_instance.calculate(project_id, con_calculation_parameter)
         print("The response of CalculationApi->calculate:\n")
         pprint(api_response)
     except Exception as e:
