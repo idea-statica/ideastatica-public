@@ -6,6 +6,7 @@ using IdeaStatiCa.ConRestApiClientUI;
 using IdeaStatiCa.Plugin;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,6 +60,9 @@ namespace ConApiWpfClientApp.ViewModels
 			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
 
 			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
+
+			GetTopologyCommand = new AsyncRelayCommand(GetTopologyAsync, () => SelectedConnection != null);
+			GetSceneDataCommand = new AsyncRelayCommand(GetSceneDataAsync, () => SelectedConnection != null);
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
@@ -187,6 +191,9 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand GetOperationsCommand { get; }
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
+
+		public AsyncRelayCommand GetSceneDataCommand { get; }
+		public AsyncRelayCommand GetTopologyCommand { get; }
 
 		public AsyncRelayCommand<object> GenerateReportCommand { get; }
 
@@ -463,7 +470,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		private async Task CreateTemplateAsync()
 		{
-			_logger.LogInformation("CalculateAsync");
+			_logger.LogInformation("CreateTemplateAsync");
 
 			if (ProjectInfo == null)
 			{
@@ -498,6 +505,66 @@ namespace ConApiWpfClientApp.ViewModels
 						await File.WriteAllTextAsync(saveTemplateFileDialog.FileName, conTempXmlString, System.Text.Encoding.Unicode);
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task GetTopologyAsync()
+		{
+			_logger.LogInformation("CreateTemplateAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			string topologyJsonString = string.Empty;
+
+			IsBusy = true;
+			try
+			{
+				topologyJsonString = await ConApiClient.Template.GetConnectionTopologyAsync(ProjectInfo.ProjectId, SelectedConnection.Id, 0, cts.Token);
+
+				if (string.IsNullOrEmpty(topologyJsonString))
+				{
+					OutputText = topologyJsonString;
+				}
+				else
+				{
+					dynamic typology = JsonConvert.DeserializeObject(topologyJsonString!);
+
+					if(typology != null)
+					{
+						var topologyCode = typology["typologyCode_V2"];
+
+						OutputText = $"typologyCode_V2 = '{topologyCode}'\n\nConnection topology :\n{topologyJsonString}";
+					}
+					else
+					{
+						OutputText = "Error";
+					}
+	
+				}
+
 			}
 			catch (Exception ex)
 			{
@@ -703,6 +770,43 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task GetSceneDataAsync()
+		{
+			_logger.LogInformation("GetSceneDataAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+
+			IsBusy = true;
+			try
+			{
+				string sceneDataJson = await ConApiClient.Presentation.GetDataScene3DTextAsync(ProjectInfo.ProjectId, SelectedConnection!.Id);
+				OutputText = sceneDataJson;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetSceneDataAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 		
 		private async Task ExportConnectionAsync(object? parameter)
 		{
@@ -861,18 +965,20 @@ namespace ConApiWpfClientApp.ViewModels
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
+			this.GetTopologyCommand.NotifyCanExecuteChanged();
+			this.GetSceneDataCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
 			this.ExportCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
-			this.ShowClientUICommand.NotifyCanExecuteChanged();
+			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			this.ShowClientUICommand.NotifyCanExecuteChanged();
+			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 	}
 }

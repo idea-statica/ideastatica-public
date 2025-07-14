@@ -294,7 +294,8 @@ paths:
     get:
       operationId: GetConversionMapping
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service. (only ECEN design code is supported)
         explode: false
         in: path
         name: projectId
@@ -303,7 +304,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: Requested design code in the converted project.
         explode: true
         in: query
         name: countryCode
@@ -318,7 +319,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConversionSettings'
           description: Success
-      summary: Get default conversions
+      summary: Get default conversions for converting the project to different design
+        code.
       tags:
       - Conversion
       x-requiresProject: true
@@ -327,7 +329,8 @@ paths:
     post:
       operationId: ChangeCode
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service. (only ECEN projects are supported)
         explode: false
         in: path
         name: projectId
@@ -341,7 +344,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConConversionSettings'
-        description: ""
+        description: Conversion table for materials in the project. (pairs 'ECEN MATERIAL'
+          -> 'TARGET DESIGN CIDE MATERIAL')
       responses:
         "200":
           description: Success
@@ -2119,6 +2123,41 @@ paths:
         "200":
           description: Success
       summary: Clear the design of the connection connectionId in the project projectId
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/1/projects/{projectId}/connections/{connectionId}/get-topology:
+    get:
+      operationId: GetConnectionTopology
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection where to clear the design
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Success
+      summary: Get topology of the connection in json format
       tags:
       - Template
       x-requiresProject: true
@@ -5767,7 +5806,9 @@ components:
         unit: unit
         validationExpression: validationExpression
         expression: expression
+        upperBound: upperBound
         description: description
+        lowerBound: lowerBound
         isVisible: true
         value: ""
         validationStatus: validationStatus
@@ -5799,6 +5840,12 @@ components:
         isVisible:
           nullable: true
           type: boolean
+        lowerBound:
+          nullable: true
+          type: string
+        upperBound:
+          nullable: true
+          type: string
       type: object
     IdeaParameterUpdate:
       additionalProperties: false
