@@ -37,7 +37,8 @@
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="docx">Report Word</Button>
 				<Button Command="{Binding ExportCommand, Mode=OneWay}" CommandParameter="iom" ToolTip="Export selected connection to IdeaOpenModel">Export IOM</Button>
 				<Button Command="{Binding ExportCommand, Mode=OneWay}" CommandParameter="ifc" ToolTip="Export selected connection to IdeaOpenModel">Export IFC</Button>
-				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
+				<Button Command="{Binding GetTopologyCommand, Mode=OneWay}">Get topology</Button>
+				<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
