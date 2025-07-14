@@ -8,7 +8,7 @@
 
 <a id="calculate"></a>
 ## **Calculate**
-> **List&lt;ConResultSummary&gt; Calculate (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
+> **List&lt;ConResultSummary&gt; Calculate (Guid projectId, ConCalculationParameter conCalculationParameter)**
 
 Run CBFEM caluclation and return the summary of the results
 
@@ -19,7 +19,7 @@ Run CBFEM caluclation and return the summary of the results
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conCalculationParameter** | [**ConCalculationParameter**](ConCalculationParameter.md) | List of connections to calculate and a type of CBFEM analysis | [optional]  |
+| **conCalculationParameter** | [**ConCalculationParameter**](ConCalculationParameter.md) | List of connections to calculate and a type of CBFEM analysis |  |
 
 ### Return type
 
@@ -50,7 +50,7 @@ namespace Example
                 var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
                 Guid projectId = project.ProjectId; //Get projectId Guid
                 
-                var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional) 
+                var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis
 
                 try
                 {

@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **validation_status** | **str** |  | [optional] 
 **is_visible** | **bool** |  | [optional] 
+**lower_bound** | **str** |  | [optional] 
+**upper_bound** | **str** |  | [optional] 
+**parameter_validation** | [**IdeaParameterValidation**](IdeaParameterValidation.md) |  | [optional] 
 
 ## Example
 

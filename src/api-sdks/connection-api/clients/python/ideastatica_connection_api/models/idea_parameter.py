@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.idea_parameter_validation import IdeaParameterValidation
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -38,7 +39,8 @@ class IdeaParameter(BaseModel):
     is_visible: Optional[StrictBool] = Field(default=None, alias="isVisible")
     lower_bound: Optional[StrictStr] = Field(default=None, alias="lowerBound")
     upper_bound: Optional[StrictStr] = Field(default=None, alias="upperBound")
-    __properties: ClassVar[List[str]] = ["key", "expression", "value", "unit", "parameterType", "validationExpression", "description", "validationStatus", "isVisible", "lowerBound", "upperBound"]
+    parameter_validation: Optional[IdeaParameterValidation] = Field(default=None, alias="parameterValidation")
+    __properties: ClassVar[List[str]] = ["key", "expression", "value", "unit", "parameterType", "validationExpression", "description", "validationStatus", "isVisible", "lowerBound", "upperBound", "parameterValidation"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +81,9 @@ class IdeaParameter(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of parameter_validation
+        if self.parameter_validation:
+            _dict['parameterValidation'] = self.parameter_validation.to_dict()
         # set to None if key (nullable) is None
         # and model_fields_set contains the field
         if self.key is None and "key" in self.model_fields_set:
@@ -156,7 +161,8 @@ class IdeaParameter(BaseModel):
             "validationStatus": obj.get("validationStatus"),
             "isVisible": obj.get("isVisible"),
             "lowerBound": obj.get("lowerBound"),
-            "upperBound": obj.get("upperBound")
+            "upperBound": obj.get("upperBound"),
+            "parameterValidation": IdeaParameterValidation.from_dict(obj["parameterValidation"]) if obj.get("parameterValidation") is not None else None
         })
         return _obj
 

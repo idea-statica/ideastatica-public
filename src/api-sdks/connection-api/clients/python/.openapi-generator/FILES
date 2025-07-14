@@ -20,6 +20,8 @@ docs/CheckResPlate.md
 docs/CheckResSummary.md
 docs/CheckResWeld.md
 docs/ClientApi.md
+docs/ConAlignedPlate.md
+docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
 docs/ConCalculationParameter.md
 docs/ConConnection.md
@@ -30,6 +32,12 @@ docs/ConLoadEffectPositionEnum.md
 docs/ConLoadEffectSectionLoad.md
 docs/ConLoadSettings.md
 docs/ConMember.md
+docs/ConMemberAlignmentTypeEnum.md
+docs/ConMemberForcesInEnum.md
+docs/ConMemberModel.md
+docs/ConMemberPlacementDefinitionTypeEnum.md
+docs/ConMemberPlatePartTypeEnum.md
+docs/ConMemberPosition.md
 docs/ConMprlCrossSection.md
 docs/ConMprlElement.md
 docs/ConOperation.md
@@ -64,6 +72,7 @@ docs/FoldedPlateData.md
 docs/IGroup.md
 docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
+docs/IdeaParameterValidation.md
 docs/Line.md
 docs/LoadEffectApi.md
 docs/MaterialApi.md
@@ -131,6 +140,8 @@ ideastatica_connection_api/models/check_res_concrete_block.py
 ideastatica_connection_api/models/check_res_plate.py
 ideastatica_connection_api/models/check_res_summary.py
 ideastatica_connection_api/models/check_res_weld.py
+ideastatica_connection_api/models/con_aligned_plate.py
+ideastatica_connection_api/models/con_aligned_plate_side_code_enum.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
 ideastatica_connection_api/models/con_calculation_parameter.py
 ideastatica_connection_api/models/con_connection.py
@@ -141,6 +152,12 @@ ideastatica_connection_api/models/con_load_effect_position_enum.py
 ideastatica_connection_api/models/con_load_effect_section_load.py
 ideastatica_connection_api/models/con_load_settings.py
 ideastatica_connection_api/models/con_member.py
+ideastatica_connection_api/models/con_member_alignment_type_enum.py
+ideastatica_connection_api/models/con_member_forces_in_enum.py
+ideastatica_connection_api/models/con_member_model.py
+ideastatica_connection_api/models/con_member_placement_definition_type_enum.py
+ideastatica_connection_api/models/con_member_plate_part_type_enum.py
+ideastatica_connection_api/models/con_member_position.py
 ideastatica_connection_api/models/con_mprl_cross_section.py
 ideastatica_connection_api/models/con_mprl_element.py
 ideastatica_connection_api/models/con_operation.py
@@ -172,6 +189,7 @@ ideastatica_connection_api/models/folded_plate_data.py
 ideastatica_connection_api/models/i_group.py
 ideastatica_connection_api/models/idea_parameter.py
 ideastatica_connection_api/models/idea_parameter_update.py
+ideastatica_connection_api/models/idea_parameter_validation.py
 ideastatica_connection_api/models/line.py
 ideastatica_connection_api/models/message_number.py
 ideastatica_connection_api/models/open_element_id.py

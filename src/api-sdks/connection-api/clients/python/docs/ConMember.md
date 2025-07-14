@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **mirror_y** | **bool** |  | [optional] 
 **mirror_z** | **bool** |  | [optional] 
 **is_bearing** | **bool** |  | [optional] 
+**position** | [**ConMemberPosition**](ConMemberPosition.md) |  | [optional] 
+**model** | [**ConMemberModel**](ConMemberModel.md) |  | [optional] 
 **id** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
 **active** | **bool** |  | [optional] 

@@ -11,7 +11,7 @@ Method | Description
 
 <a id="export_ifc"></a>
 # **export_ifc**
-> export_ifc(project_id, connection_id)
+> str export_ifc(project_id, connection_id)
 
 Export connection to IFC format
 
@@ -25,7 +25,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Example
 
@@ -52,7 +52,9 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Export connection to IFC format
-        api_instance.export_ifc(project_id, connection_id)
+        api_response = api_instance.export_ifc(project_id, connection_id)
+        print("The response of ExportApi->export_ifc:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling ExportApi->export_ifc: %s\n" % e)
 ```
@@ -78,7 +80,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain
 
 ### HTTP response details
 
@@ -90,7 +92,7 @@ No authorization required
 
 <a id="export_iom"></a>
 # **export_iom**
-> export_iom(project_id, connection_id, version=version)
+> str export_iom(project_id, connection_id, version=version)
 
 Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
 
@@ -105,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Example
 
@@ -133,7 +135,9 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
-        api_instance.export_iom(project_id, connection_id, version=version)
+        api_response = api_instance.export_iom(project_id, connection_id, version=version)
+        print("The response of ExportApi->export_iom:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling ExportApi->export_iom: %s\n" % e)
 ```
@@ -159,7 +163,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/xml, text/plain
 
 ### HTTP response details
 

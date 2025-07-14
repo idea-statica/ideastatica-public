@@ -58,7 +58,7 @@ Name | Type | Description | Notes
 **ApplyBearingCheck** | **bool** | ApplyBearingCheck | [optional] 
 **FrictionCoefficientPbolt** | **double** | Friction factor of slip-resistant joint | [optional] 
 **CrtCompCheckIS** | **CrtCompCheckIS** |  | [optional] 
-**BoltMaxGripLengthCoeff** | **double** | Max value of bolt grip | [optional] 
+**BoltMaxGripLengthCoeff** | **double** | Max value of bolt grip IND | [optional] 
 **FatigueSectionOffset** | **double** | Fatigue section Offset &#x3D; FatigueSectionOffset x Legsize | [optional] 
 **CondensedElementLengthFactor** | **double** | Condensed element length factor (CEF). Condensed beam legth &#x3D; maxCssSize * CEF | [optional] 
 **GammaMu** | **double** | Partial safety factor for Horizontal tying | [optional] 
