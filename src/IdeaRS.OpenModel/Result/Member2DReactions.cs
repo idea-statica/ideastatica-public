@@ -19,13 +19,14 @@ namespace IdeaRS.OpenModel.Result
 			Loadings = new List<Loading>();
 		}
 
+
 		/// <summary>
 		/// ID of <see cref="IdeaRS.OpenModel.Model.Member2D"/> in <see cref="IdeaRS.OpenModel.OpenModel"/>
 		/// </summary>
 		public int MemberId { get; set; }
 
 		/// <summary>
-		/// Desinitions of loadings which are stored
+		/// Definitions of loadings which are stored
 		/// </summary>
 		public List<Loading> Loadings { get; set; }
 
