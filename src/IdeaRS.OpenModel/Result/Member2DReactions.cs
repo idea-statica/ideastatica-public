@@ -16,7 +16,9 @@ namespace IdeaRS.OpenModel.Result
 		public Member2DReactions()
 		{
 			BoundaryReactions = new List<ValuesInSegmentSections<T>>();
+			Loadings = new List<Loading>();
 		}
+
 
 		/// <summary>
 		/// ID of <see cref="IdeaRS.OpenModel.Model.Member2D"/> in <see cref="IdeaRS.OpenModel.OpenModel"/>
@@ -24,7 +26,7 @@ namespace IdeaRS.OpenModel.Result
 		public int MemberId { get; set; }
 
 		/// <summary>
-		/// Desinitions of loadings which are stored
+		/// Definitions of loadings which are stored
 		/// </summary>
 		public List<Loading> Loadings { get; set; }
 

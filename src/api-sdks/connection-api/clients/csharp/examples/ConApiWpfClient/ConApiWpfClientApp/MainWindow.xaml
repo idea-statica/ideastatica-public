@@ -37,12 +37,14 @@
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="docx">Report Word</Button>
 				<Button Command="{Binding ExportCommand, Mode=OneWay}" CommandParameter="iom" ToolTip="Export selected connection to IdeaOpenModel">Export IOM</Button>
 				<Button Command="{Binding ExportCommand, Mode=OneWay}" CommandParameter="ifc" ToolTip="Export selected connection to IdeaOpenModel">Export IFC</Button>
-				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
+				<Button Command="{Binding GetTopologyCommand, Mode=OneWay}">Get topology</Button>
+				<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
 				<ColumnDefinition></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" SelectedItem="{Binding SelectedConnection, Mode=TwoWay}" Grid.Column="0" >
@@ -65,10 +67,34 @@
 					</GridView>
 				</ListView.View>
 			</ListView>
-			<Grid  Grid.Column="1">
+
+			<GridSplitter HorizontalAlignment="Center"
+										VerticalAlignment="Stretch"
+										Grid.Column="1"
+										Width="5">
+			</GridSplitter>
+
+			<Grid  Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
 					<TextBox Text="{Binding OutputText, Mode=TwoWay}"></TextBox>
 				</ScrollViewer>
+
+				<GridSplitter HorizontalAlignment="Stretch"
+										VerticalAlignment="Center"
+										Grid.Row="1"
+										Height="5">
+				</GridSplitter>
+
+				<Grid Grid.Row="2" x:Name="Scene3DHostControl">
+					
+				</Grid>
+				
 			</Grid>
 		</Grid>
 	</DockPanel>

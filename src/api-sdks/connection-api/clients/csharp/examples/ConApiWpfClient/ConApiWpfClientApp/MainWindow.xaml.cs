@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using IdeaStatiCa.ConRestApiClientUI;
+using System.Windows;
 
 namespace ConApiWpfClientApp
 {
@@ -7,9 +8,14 @@ namespace ConApiWpfClientApp
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+		private readonly IConRestApiClientViewModel _conRestApiClientViewModel;
+
+		public MainWindow(IConRestApiClientViewModel conRestApiClientViewModel)
 		{
+			_conRestApiClientViewModel = conRestApiClientViewModel;
 			InitializeComponent();
+
+			Scene3DHostControl.Children.Add(new IdeaWebGlScene3D(_conRestApiClientViewModel));
 		}
 	}
 }

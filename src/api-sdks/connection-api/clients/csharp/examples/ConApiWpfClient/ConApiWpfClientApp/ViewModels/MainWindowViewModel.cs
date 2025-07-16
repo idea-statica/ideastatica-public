@@ -2,9 +2,11 @@
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
+using IdeaStatiCa.ConRestApiClientUI;
 using IdeaStatiCa.Plugin;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +23,7 @@ namespace ConApiWpfClientApp.ViewModels
 		private IApiServiceFactory<IConnectionApiClient>? _connectionApiClientFactory;
 		private readonly IConfiguration _configuration;
 		private readonly IPluginLogger _logger;
+		private readonly ISceneController _sceneController;
 
 		private bool _isBusy;
 		private bool _runApiServer;
@@ -35,12 +38,13 @@ namespace ConApiWpfClientApp.ViewModels
 		private bool disposedValue;
 
 		public MainWindowViewModel(IConfiguration configuration,
-			IPluginLogger logger)
+			IPluginLogger logger, ISceneController sceneController)
 		{
 			this._connectionApiClientFactory = null;
 			this.cts = new CancellationTokenSource();
 			this._configuration = configuration;
 			this._logger = logger;
+			this._sceneController = sceneController;
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
@@ -57,6 +61,9 @@ namespace ConApiWpfClientApp.ViewModels
 
 			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
 
+			GetTopologyCommand = new AsyncRelayCommand(GetTopologyAsync, () => SelectedConnection != null);
+			GetSceneDataCommand = new AsyncRelayCommand(GetSceneDataAsync, () => SelectedConnection != null);
+
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
 			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
@@ -65,7 +72,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 			ExportCommand = new AsyncRelayCommand<object>(ExportConnectionAsync, (param) => SelectedConnection != null);
 
-			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
+			ShowClientUICommand = new AsyncRelayCommand(ShowClientUIAsync, () => this.ProjectInfo != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
@@ -152,6 +159,7 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				SetProperty(ref selectedConnection, value);
 				RefreshConnectionChanged();
+				ShowClientUIAsync();
 			}
 		}
 
@@ -184,13 +192,16 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
+		public AsyncRelayCommand GetSceneDataCommand { get; }
+		public AsyncRelayCommand GetTopologyCommand { get; }
+
 		public AsyncRelayCommand<object> GenerateReportCommand { get; }
 
 		public AsyncRelayCommand<object> ExportCommand { get; }
 
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
-		//public RelayCommand ShowClientUICommand { get; }
+		public AsyncRelayCommand ShowClientUICommand { get; }
 
 		public AsyncRelayCommand ShowLogsCommand { get; }
 
@@ -262,15 +273,6 @@ namespace ConApiWpfClientApp.ViewModels
 				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
 
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
-
-				if (Connections.Any())
-				{
-					SelectedConnection = Connections.First();
-				}
-				else
-				{
-					SelectedConnection = null;
-				}
 			}
 			catch (Exception ex)
 			{
@@ -281,6 +283,16 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				IsBusy = false;
 				RefreshCommands();
+
+
+				if (Connections?.Any() == true)
+				{
+					SelectedConnection = Connections.First();
+				}
+				else
+				{
+					SelectedConnection = null;
+				}
 			}
 
 			await Task.CompletedTask;
@@ -313,15 +325,6 @@ namespace ConApiWpfClientApp.ViewModels
 				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
 
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
-
-				if (Connections.Any())
-				{
-					SelectedConnection = Connections.First();
-				}
-				else
-				{
-					SelectedConnection = null;
-				}
 			}
 			catch (Exception ex)
 			{
@@ -332,6 +335,15 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				IsBusy = false;
 				RefreshCommands();
+
+				if (Connections?.Any() == true)
+				{
+					SelectedConnection = Connections.First();
+				}
+				else
+				{
+					SelectedConnection = null;
+				}
 			}
 
 			await Task.CompletedTask;
@@ -458,7 +470,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		private async Task CreateTemplateAsync()
 		{
-			_logger.LogInformation("CalculateAsync");
+			_logger.LogInformation("CreateTemplateAsync");
 
 			if (ProjectInfo == null)
 			{
@@ -493,6 +505,66 @@ namespace ConApiWpfClientApp.ViewModels
 						await File.WriteAllTextAsync(saveTemplateFileDialog.FileName, conTempXmlString, System.Text.Encoding.Unicode);
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task GetTopologyAsync()
+		{
+			_logger.LogInformation("CreateTemplateAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			string topologyJsonString = string.Empty;
+
+			IsBusy = true;
+			try
+			{
+				topologyJsonString = await ConApiClient.Template.GetConnectionTopologyAsync(ProjectInfo.ProjectId, SelectedConnection.Id, 0, cts.Token);
+
+				if (string.IsNullOrEmpty(topologyJsonString))
+				{
+					OutputText = topologyJsonString;
+				}
+				else
+				{
+					dynamic typology = JsonConvert.DeserializeObject(topologyJsonString!);
+
+					if(typology != null)
+					{
+						var topologyCode = typology["typologyCode_V2"];
+
+						OutputText = $"typologyCode_V2 = '{topologyCode}'\n\nConnection topology :\n{topologyJsonString}";
+					}
+					else
+					{
+						OutputText = "Error";
+					}
+	
+				}
+
 			}
 			catch (Exception ex)
 			{
@@ -583,6 +655,8 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				IsBusy = false;
 				RefreshCommands();
+
+				await ShowClientUIAsync();
 			}
 		}
 
@@ -696,6 +770,43 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task GetSceneDataAsync()
+		{
+			_logger.LogInformation("GetSceneDataAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+
+			IsBusy = true;
+			try
+			{
+				string sceneDataJson = await ConApiClient.Presentation.GetDataScene3DTextAsync(ProjectInfo.ProjectId, SelectedConnection!.Id);
+				OutputText = sceneDataJson;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetSceneDataAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 		
 		private async Task ExportConnectionAsync(object? parameter)
 		{
@@ -761,33 +872,55 @@ namespace ConApiWpfClientApp.ViewModels
 				RefreshCommands();
 			}
 		}
-		//private void ShowClientUI()
-		//{
-		//	_logger.LogInformation("ShowClientUI");
 
-		//	if (ProjectInfo == null)
-		//	{
-		//		return;
-		//	}
+		private async Task ShowClientUIAsync()
+		{
+			_logger.LogInformation("ShowClientUI");
 
-		//	if (ConnectionController == null)
-		//	{
-		//		return;
-		//	}
+			if (ProjectInfo == null)
+			{
+				await _sceneController.PresentAsync(string.Empty);
+				return;
+			}
 
-		//	try
-		//	{
-		//		// Open a URL in the default web browser
-		//		var connectionInfo = ConnectionController.GetConnectionInfo();
-		//		string url = string.Format("{0}/client-ui.html?clientId={1}&projectId={2}", ApiUri, connectionInfo.Item1, connectionInfo.Item2);
-		//		Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		_logger.LogWarning("GetRawResultsAsync failed", ex);
-		//		OutputText = ex.Message;
-		//	}
-		//}
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				await _sceneController.PresentAsync(string.Empty);
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var sceneJson = await ConApiClient.Presentation.GetDataScene3DTextAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				if(string.IsNullOrEmpty(sceneJson))
+				{
+					return;
+				}
+
+				await _sceneController.PresentAsync(sceneJson);
+
+				await Task.CompletedTask;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CreateConTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+		}
 
 		protected virtual void Dispose(bool disposing)
 		{
@@ -832,6 +965,8 @@ namespace ConApiWpfClientApp.ViewModels
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
+			this.GetTopologyCommand.NotifyCanExecuteChanged();
+			this.GetSceneDataCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
 			this.ExportCommand.NotifyCanExecuteChanged();
