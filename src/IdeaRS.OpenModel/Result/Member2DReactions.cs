@@ -35,5 +35,11 @@ namespace IdeaRS.OpenModel.Result
 		/// Values correspond to each other by their array indices
 		/// </summary>
 		public List<ValuesInSegmentSections<T>> BoundaryReactions { get; set; }
+
+		/// <summary>
+		/// Unbalanced forces in inner points in the imported area of the member.
+		/// Each point is define by mesh intersection of the member.
+		/// </summary>
+		public List<ValuesInPoint<T>> UnbalancedForcesInInnerPoints { get; set; }
 	}
 }
