@@ -1,16 +1,19 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Result;
+using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.Plugin;
 using IOM.GeneratorExample;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IOM.SteelFrameDesktop
 {
 	class Program
 	{
 		private static string IdeaInstallDir;
-		public static void Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			IdeaInstallDir = IOM.SteelFrameDesktop.Properties.Settings.Default.IdeaInstallDir;
 
@@ -48,51 +51,51 @@ namespace IOM.SteelFrameDesktop
 				iomResult = Helpers.GetResults();
 			}
 
+			//Combine into a Container for Project Creation
+			OpenModelContainer iomContainer = new OpenModelContainer()
+			{
+				OpenModel = iom,
+				OpenModelResult = iomResult
+			};
+
 			string iomFileName = "example.xml";
-			string iomResFileName = "example.xmlR";
-
-			// save to the files
-			iom.SaveToXmlFile(iomFileName);
-
-			if (iomResult != null)
-			{
-				iomResult.SaveToXmlFile(iomResFileName);
-			}
-			else
-			{
-				iomResFileName = string.Empty;
-			}
+			IdeaRS.OpenModel.Tools.OpenModelContainerToFile(iomContainer, iomFileName);
 
 			var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 			var fileConnFileNameFromLocal = Path.Combine(desktopDir, "connectionFromIOM-local.ideaCon");
 
-			throw new NotImplementedException("TODO - use new IdeaStatica.ConnectionRestAPI to generate IOM");
+			//Automatically start API service and Attach it.
+			using (var clientFactory = new ConnectionApiServiceRunner(IdeaInstallDir))
+			{
+				// create ConnectionApiClient
+				using (var conClient = await clientFactory.CreateApiClient())
+				{
+					try
+					{
+						//Create the Connection project from the IOM file.
+						//This creates the project on the server side. 
+						Console.WriteLine("Creating Idea connection project ");
+						var projData = await conClient.Project.CreateProjectFromIomFileAsync(iomFileName, null);
+						Console.WriteLine($"Generated Connection Project from IOM. Project is active on the Server with Guid: {conClient.ActiveProjectId}.", fileConnFileNameFromLocal);
 
-			//var calcFactory = new ConnHiddenClientFactory(IdeaInstallDir);
+						//Save connection to local computer.
+						await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, fileConnFileNameFromLocal);
+						Console.WriteLine($"Save Project to local disk at path: {fileConnFileNameFromLocal}.");
 
-			//var client = calcFactory.Create();
-			//try
-			//{
-			//	// it creates connection project from IOM 
-			//	Console.WriteLine("Creating Idea connection project ");
-			//	client.CreateConProjFromIOM(iomFileName, iomResFileName, fileConnFileNameFromLocal);
-			//	Console.WriteLine("Generated project was saved to the file '{0}'", fileConnFileNameFromLocal);
-			//}
-			//catch(Exception e)
-			//{
-			//	Console.WriteLine("Error '{0}'", e.Message);
-			//}
-			//finally
-			//{
-			//	if (client != null)
-			//	{
-			//		client.Close();
-			//	}
-			//}
+						//Close project on server.
+						await conClient.Project.CloseProjectAsync(projData.ProjectId);
+						Console.WriteLine($"Project with Id {conClient.ActiveProjectId} closed on Server");
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine("Error '{0}'", e.Message);
+					}
+				}
+			}
 
-			//// end console application
-			//Console.WriteLine("Done. Press any key to exit.");
-			//Console.ReadKey();
+			// end console application
+			Console.WriteLine("Done. Press any key to exit.");
+			Console.ReadKey();
 		}
 	}
 }
