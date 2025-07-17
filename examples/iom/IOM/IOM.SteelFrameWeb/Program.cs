@@ -18,15 +18,15 @@ namespace IOM.SteelFrame
 
 			var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
-			// save to the files
+			//OPTIONAL save to the files
 			example.SaveToXmlFile(Path.Combine(desktopDir, "IOM-SteelFrame.xml"));
 			result.SaveToXmlFile(Path.Combine(desktopDir, "IOM-SteelFrame.xmlR"));
 
-			#region Generatig IDEA Connection by web service
+			//Generate IDEA Connection by web service
 			Console.WriteLine("Generating IDEA Connection project by web service");
 			var fileConnFileNameFromWeb = Path.Combine(desktopDir, "connectionFromIOM-web.ideaCon");
-			SteelFrameExample.CreateOnServer(example, result, fileConnFileNameFromWeb);
-			#endregion
+			
+			WebServiceHelpers.CreateOnServer(example, result, fileConnFileNameFromWeb);
 
 			// end console application
 			Console.WriteLine("Done. Press any key to exit.");
