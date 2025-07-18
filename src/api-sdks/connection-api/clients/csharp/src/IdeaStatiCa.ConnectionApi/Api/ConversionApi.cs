@@ -38,10 +38,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        void ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0);
+        /// <returns>string</returns>
+        string ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0);
 
         /// <summary>
         /// Change design code of project.
@@ -51,11 +51,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-/// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+/// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ChangeCodeWithHttpInfo(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of string</returns>
+        ApiResponse<string> ChangeCodeWithHttpInfo(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get default conversions for converting the project to different design code.
         /// </summary>
@@ -96,11 +96,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ChangeCodeAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of string</returns>
+        System.Threading.Tasks.Task<string> ChangeCodeAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Change design code of project.
@@ -110,12 +110,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ChangeCodeWithHttpInfoAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (string)</returns>
+        System.Threading.Tasks.Task<ApiResponse<string>> ChangeCodeWithHttpInfoAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get default conversions for converting the project to different design code.
         /// </summary>
@@ -269,12 +269,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns></returns>
-        public void ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0)
+        /// <returns>string</returns>
+        public string ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0)
         {
-            ChangeCodeWithHttpInfo(projectId, conConversionSettings);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = ChangeCodeWithHttpInfo(projectId, conConversionSettings);
+            return localVarResponse.Data;
         }
 
         /// <summary>
@@ -282,11 +283,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-/// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+/// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ChangeCodeWithHttpInfo(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of string</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> ChangeCodeWithHttpInfo(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -296,6 +297,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -323,7 +325,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/change-code", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<string>("/api/1/projects/{projectId}/change-code", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("ChangeCode", localVarResponse);
@@ -341,13 +343,14 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ChangeCodeAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of string</returns>
+        public async System.Threading.Tasks.Task<string> ChangeCodeAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await ChangeCodeWithHttpInfoAsync(projectId, conConversionSettings, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = await ChangeCodeWithHttpInfoAsync(projectId, conConversionSettings, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
         }
 
         /// <summary>
@@ -355,12 +358,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) (optional)</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ChangeCodeWithHttpInfoAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (string)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<string>> ChangeCodeWithHttpInfoAsync(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -371,6 +374,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -398,7 +402,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/change-code", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<string>("/api/1/projects/{projectId}/change-code", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

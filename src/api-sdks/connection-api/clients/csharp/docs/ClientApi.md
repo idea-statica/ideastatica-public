@@ -2,12 +2,12 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ConnectClient**](ClientApi.md#connectclient) | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. |
-| [**GetVersion**](ClientApi.md#getversion) | Get the IdeaStatica version |
+| [**ConnectClientAsync**](ClientApi.md#connectclientasync) | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. |
+| [**GetVersionAsync**](ClientApi.md#getversionasync) | Get the IdeaStatica version |
 
 <a id="connectclient"></a>
-## **ConnectClient**
-> **string ConnectClient ()**
+## **ConnectClientAsync**
+> **string ConnectClientAsync ()**
 
 Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
 
@@ -33,30 +33,37 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ConnectClientExample
+    public class ConnectClientAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
-                    string result = conClient.Client.ConnectClient();
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Client.ConnectClient: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+                        string result = await conClient.Client.ConnectClientAsync();
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Client.ConnectClientAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                    }
                 }
             }
         }
@@ -116,8 +123,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getversion"></a>
-## **GetVersion**
-> **string GetVersion ()**
+## **GetVersionAsync**
+> **string GetVersionAsync ()**
 
 Get the IdeaStatica version
 
@@ -143,30 +150,37 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetVersionExample
+    public class GetVersionAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get the IdeaStatica version
-                    string result = conClient.Client.GetVersion();
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Client.GetVersion: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get the IdeaStatica version
+                        string result = await conClient.Client.GetVersionAsync();
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Client.GetVersionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                    }
                 }
             }
         }

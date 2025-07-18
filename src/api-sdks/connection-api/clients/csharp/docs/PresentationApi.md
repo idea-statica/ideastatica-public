@@ -2,12 +2,12 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetDataScene3D**](PresentationApi.md#getdatascene3d) | Returns data for scene3D |
-| [**GetDataScene3DText**](PresentationApi.md#getdatascene3dtext) | Return serialized data for scene3D in json format |
+| [**GetDataScene3DAsync**](PresentationApi.md#getdatascene3dasync) | Returns data for scene3D |
+| [**GetDataScene3DTextAsync**](PresentationApi.md#getdatascene3dtextasync) | Return serialized data for scene3D in json format |
 
 <a id="getdatascene3d"></a>
-## **GetDataScene3D**
-> **DrawData GetDataScene3D (Guid projectId, int connectionId)**
+## **GetDataScene3DAsync**
+> **DrawData GetDataScene3DAsync (Guid projectId, int connectionId)**
 
 Returns data for scene3D
 
@@ -38,34 +38,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetDataScene3DExample
+    public class GetDataScene3DAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the connection to be presented to scene3D
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Returns data for scene3D
-                    DrawData result = conClient.Presentation.GetDataScene3D(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Presentation.GetDataScene3D: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the connection to be presented to scene3D
+
+                    try
+                    {
+                        // Returns data for scene3D
+                        DrawData result = await conClient.Presentation.GetDataScene3DAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Presentation.GetDataScene3DAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -125,8 +133,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getdatascene3dtext"></a>
-## **GetDataScene3DText**
-> **string GetDataScene3DText (Guid projectId, int connectionId)**
+## **GetDataScene3DTextAsync**
+> **string GetDataScene3DTextAsync (Guid projectId, int connectionId)**
 
 Return serialized data for scene3D in json format
 
@@ -157,34 +165,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetDataScene3DTextExample
+    public class GetDataScene3DTextAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Return serialized data for scene3D in json format
-                    string result = conClient.Presentation.GetDataScene3DText(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Presentation.GetDataScene3DText: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Return serialized data for scene3D in json format
+                        string result = await conClient.Presentation.GetDataScene3DTextAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Presentation.GetDataScene3DTextAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

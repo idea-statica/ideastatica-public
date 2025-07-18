@@ -2,13 +2,13 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**Calculate**](CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results |
-| [**GetRawJsonResults**](CalculationApi.md#getrawjsonresults) | Get json string which represents raw CBFEM results (an instance of CheckResultsData) |
-| [**GetResults**](CalculationApi.md#getresults) | Get detailed results of the CBFEM analysis |
+| [**CalculateAsync**](CalculationApi.md#calculateasync) | Run CBFEM caluclation and return the summary of the results |
+| [**GetRawJsonResultsAsync**](CalculationApi.md#getrawjsonresultsasync) | Get json string which represents raw CBFEM results (an instance of CheckResultsData) |
+| [**GetResultsAsync**](CalculationApi.md#getresultsasync) | Get detailed results of the CBFEM analysis |
 
 <a id="calculate"></a>
-## **Calculate**
-> **List&lt;ConResultSummary&gt; Calculate (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
+## **CalculateAsync**
+> **List&lt;ConResultSummary&gt; CalculateAsync (Guid projectId, ConCalculationParameter conCalculationParameter)**
 
 Run CBFEM caluclation and return the summary of the results
 
@@ -19,7 +19,7 @@ Run CBFEM caluclation and return the summary of the results
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conCalculationParameter** | [**ConCalculationParameter**](ConCalculationParameter.md) | List of connections to calculate and a type of CBFEM analysis | [optional]  |
+| **conCalculationParameter** | [**ConCalculationParameter**](ConCalculationParameter.md) | List of connections to calculate and a type of CBFEM analysis |  |
 
 ### Return type
 
@@ -39,34 +39,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class CalculateExample
+    public class CalculateAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Run CBFEM caluclation and return the summary of the results
-                    List<ConResultSummary> result = conClient.Calculation.Calculate(projectId, conCalculationParameter);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Calculation.Calculate: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis
+
+                    try
+                    {
+                        // Run CBFEM caluclation and return the summary of the results
+                        List<ConResultSummary> result = await conClient.Calculation.CalculateAsync(projectId, conCalculationParameter);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Calculation.CalculateAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -126,8 +134,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getrawjsonresults"></a>
-## **GetRawJsonResults**
-> **List&lt;string&gt; GetRawJsonResults (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
+## **GetRawJsonResultsAsync**
+> **List&lt;string&gt; GetRawJsonResultsAsync (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
 
 Get json string which represents raw CBFEM results (an instance of CheckResultsData)
 
@@ -158,34 +166,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetRawJsonResultsExample
+    public class GetRawJsonResultsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | Type of requested analysis and connection to calculate (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get json string which represents raw CBFEM results (an instance of CheckResultsData)
-                    List<string> result = conClient.Calculation.GetRawJsonResults(projectId, conCalculationParameter);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Calculation.GetRawJsonResults: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | Type of requested analysis and connection to calculate (optional) 
+
+                    try
+                    {
+                        // Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+                        List<string> result = await conClient.Calculation.GetRawJsonResultsAsync(projectId, conCalculationParameter);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Calculation.GetRawJsonResultsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -245,8 +261,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getresults"></a>
-## **GetResults**
-> **List&lt;ConnectionCheckRes&gt; GetResults (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
+## **GetResultsAsync**
+> **List&lt;ConnectionCheckRes&gt; GetResultsAsync (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
 
 Get detailed results of the CBFEM analysis
 
@@ -277,34 +293,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetResultsExample
+    public class GetResultsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get detailed results of the CBFEM analysis
-                    List<ConnectionCheckRes> result = conClient.Calculation.GetResults(projectId, conCalculationParameter);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Calculation.GetResults: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional) 
+
+                    try
+                    {
+                        // Get detailed results of the CBFEM analysis
+                        List<ConnectionCheckRes> result = await conClient.Calculation.GetResultsAsync(projectId, conCalculationParameter);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Calculation.GetResultsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

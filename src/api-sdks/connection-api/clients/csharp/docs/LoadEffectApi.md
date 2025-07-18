@@ -2,17 +2,17 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**AddLoadEffect**](LoadEffectApi.md#addloadeffect) | Add new load effect to the connection |
-| [**DeleteLoadEffect**](LoadEffectApi.md#deleteloadeffect) | Delete load effect loadEffectId |
-| [**GetLoadEffect**](LoadEffectApi.md#getloadeffect) | Get load impulses from loadEffectId |
-| [**GetLoadEffects**](LoadEffectApi.md#getloadeffects) | Get all load effects which are defined in connectionId |
-| [**GetLoadSettings**](LoadEffectApi.md#getloadsettings) | Get Load settings for connection in project |
-| [**SetLoadSettings**](LoadEffectApi.md#setloadsettings) | Set Load settings for connection in project |
-| [**UpdateLoadEffect**](LoadEffectApi.md#updateloadeffect) | Update load impulses in conLoading |
+| [**AddLoadEffectAsync**](LoadEffectApi.md#addloadeffectasync) | Add new load effect to the connection |
+| [**DeleteLoadEffectAsync**](LoadEffectApi.md#deleteloadeffectasync) | Delete load effect loadEffectId |
+| [**GetLoadEffectAsync**](LoadEffectApi.md#getloadeffectasync) | Get load impulses from loadEffectId |
+| [**GetLoadEffectsAsync**](LoadEffectApi.md#getloadeffectsasync) | Get all load effects which are defined in connectionId |
+| [**GetLoadSettingsAsync**](LoadEffectApi.md#getloadsettingsasync) | Get Load settings for connection in project |
+| [**SetLoadSettingsAsync**](LoadEffectApi.md#setloadsettingsasync) | Set Load settings for connection in project |
+| [**UpdateLoadEffectAsync**](LoadEffectApi.md#updateloadeffectasync) | Update load impulses in conLoading |
 
 <a id="addloadeffect"></a>
-## **AddLoadEffect**
-> **ConLoadEffect AddLoadEffect (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)**
+## **AddLoadEffectAsync**
+> **ConLoadEffect AddLoadEffectAsync (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)**
 
 Add new load effect to the connection
 
@@ -44,35 +44,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddLoadEffectExample
+    public class AddLoadEffectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add new load effect to the connection
-                    ConLoadEffect result = conClient.LoadEffect.AddLoadEffect(projectId, connectionId, conLoadEffect);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.AddLoadEffect: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
+
+                    try
+                    {
+                        // Add new load effect to the connection
+                        ConLoadEffect result = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, conLoadEffect);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.AddLoadEffectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -132,8 +140,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="deleteloadeffect"></a>
-## **DeleteLoadEffect**
-> **int DeleteLoadEffect (Guid projectId, int connectionId, int loadEffectId)**
+## **DeleteLoadEffectAsync**
+> **int DeleteLoadEffectAsync (Guid projectId, int connectionId, int loadEffectId)**
 
 Delete load effect loadEffectId
 
@@ -165,35 +173,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class DeleteLoadEffectExample
+    public class DeleteLoadEffectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                loadEffectId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Delete load effect loadEffectId
-                    int result = conClient.LoadEffect.DeleteLoadEffect(projectId, connectionId, loadEffectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.DeleteLoadEffect: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    loadEffectId = 56;  // int | 
+
+                    try
+                    {
+                        // Delete load effect loadEffectId
+                        int result = await conClient.LoadEffect.DeleteLoadEffectAsync(projectId, connectionId, loadEffectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.DeleteLoadEffectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -253,8 +269,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getloadeffect"></a>
-## **GetLoadEffect**
-> **ConLoadEffect GetLoadEffect (Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = null)**
+## **GetLoadEffectAsync**
+> **ConLoadEffect GetLoadEffectAsync (Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = null)**
 
 Get load impulses from loadEffectId
 
@@ -287,36 +303,44 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetLoadEffectExample
+    public class GetLoadEffectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                loadEffectId = 56;  // int | 
-                isPercentage = true;  // bool? |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get load impulses from loadEffectId
-                    ConLoadEffect result = conClient.LoadEffect.GetLoadEffect(projectId, connectionId, loadEffectId, isPercentage);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.GetLoadEffect: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    loadEffectId = 56;  // int | 
+                    isPercentage = true;  // bool? |  (optional) 
+
+                    try
+                    {
+                        // Get load impulses from loadEffectId
+                        ConLoadEffect result = await conClient.LoadEffect.GetLoadEffectAsync(projectId, connectionId, loadEffectId, isPercentage);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.GetLoadEffectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -376,8 +400,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getloadeffects"></a>
-## **GetLoadEffects**
-> **List&lt;ConLoadEffect&gt; GetLoadEffects (Guid projectId, int connectionId, bool? isPercentage = null)**
+## **GetLoadEffectsAsync**
+> **List&lt;ConLoadEffect&gt; GetLoadEffectsAsync (Guid projectId, int connectionId, bool? isPercentage = null)**
 
 Get all load effects which are defined in connectionId
 
@@ -409,35 +433,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetLoadEffectsExample
+    public class GetLoadEffectsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                isPercentage = true;  // bool? |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get all load effects which are defined in connectionId
-                    List<ConLoadEffect> result = conClient.LoadEffect.GetLoadEffects(projectId, connectionId, isPercentage);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.GetLoadEffects: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    isPercentage = true;  // bool? |  (optional) 
+
+                    try
+                    {
+                        // Get all load effects which are defined in connectionId
+                        List<ConLoadEffect> result = await conClient.LoadEffect.GetLoadEffectsAsync(projectId, connectionId, isPercentage);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.GetLoadEffectsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -497,8 +529,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getloadsettings"></a>
-## **GetLoadSettings**
-> **ConLoadSettings GetLoadSettings (Guid projectId, int connectionId)**
+## **GetLoadSettingsAsync**
+> **ConLoadSettings GetLoadSettingsAsync (Guid projectId, int connectionId)**
 
 Get Load settings for connection in project
 
@@ -529,34 +561,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetLoadSettingsExample
+    public class GetLoadSettingsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get Load settings for connection in project
-                    ConLoadSettings result = conClient.LoadEffect.GetLoadSettings(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.GetLoadSettings: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Get Load settings for connection in project
+                        ConLoadSettings result = await conClient.LoadEffect.GetLoadSettingsAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.GetLoadSettingsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -616,8 +656,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="setloadsettings"></a>
-## **SetLoadSettings**
-> **ConLoadSettings SetLoadSettings (Guid projectId, int connectionId, ConLoadSettings conLoadSettings = null)**
+## **SetLoadSettingsAsync**
+> **ConLoadSettings SetLoadSettingsAsync (Guid projectId, int connectionId, ConLoadSettings conLoadSettings = null)**
 
 Set Load settings for connection in project
 
@@ -649,35 +689,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class SetLoadSettingsExample
+    public class SetLoadSettingsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                var conLoadSettings = new ConLoadSettings(); // ConLoadSettings |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Set Load settings for connection in project
-                    ConLoadSettings result = conClient.LoadEffect.SetLoadSettings(projectId, connectionId, conLoadSettings);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.SetLoadSettings: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    var conLoadSettings = new ConLoadSettings(); // ConLoadSettings |  (optional) 
+
+                    try
+                    {
+                        // Set Load settings for connection in project
+                        ConLoadSettings result = await conClient.LoadEffect.SetLoadSettingsAsync(projectId, connectionId, conLoadSettings);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.SetLoadSettingsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -737,8 +785,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updateloadeffect"></a>
-## **UpdateLoadEffect**
-> **ConLoadEffect UpdateLoadEffect (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)**
+## **UpdateLoadEffectAsync**
+> **ConLoadEffect UpdateLoadEffectAsync (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)**
 
 Update load impulses in conLoading
 
@@ -770,35 +818,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateLoadEffectExample
+    public class UpdateLoadEffectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Update load impulses in conLoading
-                    ConLoadEffect result = conClient.LoadEffect.UpdateLoadEffect(projectId, connectionId, conLoadEffect);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling LoadEffect.UpdateLoadEffect: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
+
+                    try
+                    {
+                        // Update load impulses in conLoading
+                        ConLoadEffect result = await conClient.LoadEffect.UpdateLoadEffectAsync(projectId, connectionId, conLoadEffect);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling LoadEffect.UpdateLoadEffectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

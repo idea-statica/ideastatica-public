@@ -2,12 +2,12 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ChangeCode**](ConversionApi.md#changecode) | Change design code of project. |
-| [**GetConversionMapping**](ConversionApi.md#getconversionmapping) | Get default conversions for converting the project to different design code. |
+| [**ChangeCodeAsync**](ConversionApi.md#changecodeasync) | Change design code of project. |
+| [**GetConversionMappingAsync**](ConversionApi.md#getconversionmappingasync) | Get default conversions for converting the project to different design code. |
 
 <a id="changecode"></a>
-## **ChangeCode**
-> **void ChangeCode (Guid projectId, ConConversionSettings conConversionSettings = null)**
+## **ChangeCodeAsync**
+> **string ChangeCodeAsync (Guid projectId, ConConversionSettings conConversionSettings = null)**
 
 Change design code of project.
 
@@ -18,11 +18,11 @@ Change design code of project.
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) |  |
-| **conConversionSettings** | [**ConConversionSettings**](ConConversionSettings.md) | Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CIDE MATERIAL&#39;) | [optional]  |
+| **conConversionSettings** | [**ConConversionSettings**](ConConversionSettings.md) | Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) | [optional]  |
 
 ### Return type
 
-void (empty response body)
+**string**
 
 ### Example
 
@@ -38,33 +38,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ChangeCodeExample
+    public class ChangeCodeAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conConversionSettings = new ConConversionSettings(); // ConConversionSettings | Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL') (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Change design code of project.
-                    conClient.Conversion.ChangeCode(projectId, conConversionSettings);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Conversion.ChangeCode: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conConversionSettings = new ConConversionSettings(); // ConConversionSettings | Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL') (optional) 
+
+                    try
+                    {
+                        // Change design code of project.
+                        string result = await conClient.Conversion.ChangeCodeAsync(projectId, conConversionSettings);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Conversion.ChangeCodeAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -93,7 +102,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Change design code of project.
-    conClient.Conversion.ChangeCodeWithHttpInfo(projectId, conConversionSettings);
+    ApiResponse<string> response = conClient.Conversion.ChangeCodeWithHttpInfo(projectId, conConversionSettings);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -110,7 +122,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
@@ -121,8 +133,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getconversionmapping"></a>
-## **GetConversionMapping**
-> **ConConversionSettings GetConversionMapping (Guid projectId, CountryCode? countryCode = null)**
+## **GetConversionMappingAsync**
+> **ConConversionSettings GetConversionMappingAsync (Guid projectId, CountryCode? countryCode = null)**
 
 Get default conversions for converting the project to different design code.
 
@@ -153,34 +165,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetConversionMappingExample
+    public class GetConversionMappingAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                countryCode = (CountryCode) "none";  // CountryCode? | Requested design code in the converted project. (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get default conversions for converting the project to different design code.
-                    ConConversionSettings result = conClient.Conversion.GetConversionMapping(projectId, countryCode);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Conversion.GetConversionMapping: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    countryCode = (CountryCode) "none";  // CountryCode? | Requested design code in the converted project. (optional) 
+
+                    try
+                    {
+                        // Get default conversions for converting the project to different design code.
+                        ConConversionSettings result = await conClient.Conversion.GetConversionMappingAsync(projectId, countryCode);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Conversion.GetConversionMappingAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

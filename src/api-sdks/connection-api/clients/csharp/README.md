@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 1.0
 
 - API version: 1.0
-- SDK version: 25.0.1.0960
+- SDK version: 25.0.4.0630
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -37,6 +37,8 @@ To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\St
 IdeaStatiCa.ConnectionRestApi.exe -port:5193
 ```
 
+Parameter _-port:_ is optional. The default port is 5000.
+
 ```csharp
 // Connect any new service to latest version of IDEA StatiCa.
 ConnectionApiServiceAttacher clientFactory = new ConnectionApiServiceAttacher('http://localhost:5000/');
@@ -63,23 +65,25 @@ namespace Example
 {
     public class Example
     {
-        public static void Main()
+        private static CancellationToken cancellationToken;
+
+        public static async Task Main()
         {
             string ideaConFile = "test1.ideaCon";
 
             string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // path to the IdeaStatiCa.ConnectionRestApi.exe
 
-            using(clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
                 // create ConnectionApiClient
-                using (var conClient = await _clientFactory.CreateApiClient())
+                using (var conClient = await clientFactory.CreateApiClient())
                 {
                     // open the project and get its id
                     var projData = await conClient.Project.OpenProjectAsync(ideaConFile, cancellationToken);
 
-                    if(!projData.Connections.Any())
+                    if (!projData.Connections.Any())
                     {
-                        return null;
+                        return;
                     }
 
                     // request to run plastic CBFEM for all connections in the project
@@ -91,7 +95,7 @@ namespace Example
 
                     var cbfemResult = await conClient.Calculation.CalculateAsync(projData.ProjectId, conCalcParam, 0, cancellationToken);
                     await conClient.Project.CloseProjectAsync(projData.ProjectId);
-                }               
+                }
             }
         }
     }
@@ -139,7 +143,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**ChangeCode**](docs/ConversionApi.md#changecode) | Change design code of project.
-[**GetConversionMapping**](docs/ConversionApi.md#getconversionmapping) | Get default conversions
+[**GetConversionMapping**](docs/ConversionApi.md#getconversionmapping) | Get default conversions for converting the project to different design code.
   ### ExportApi
 
   
@@ -207,10 +211,10 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**Api1ProjectsProjectIdConnectionsConnectionIdParametersPut**](docs/ParameterApi.md#api1projectsprojectidconnectionsconnectionidparametersput) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
 [**ClearParameters**](docs/ParameterApi.md#clearparameters) | Clear parameters and links for the connection connectionId in the project projectId
 [**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result
 [**GetParameters**](docs/ParameterApi.md#getparameters) | Get all parameters which are defined for projectId and connectionId
-[**UpdateParameters**](docs/ParameterApi.md#updateparameters) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
   ### PresentationApi
 
   
@@ -252,6 +256,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**ApplyTemplate**](docs/TemplateApi.md#applytemplate) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
 [**ClearDesign**](docs/TemplateApi.md#cleardesign) | Clear the design of the connection connectionId in the project projectId
 [**CreateConTemplate**](docs/TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId
+[**GetConnectionTopology**](docs/TemplateApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 
 <a id="documentation-for-models"></a>
@@ -271,6 +276,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CheckResPlate](docs/CheckResPlate.md)
  - [Model.CheckResSummary](docs/CheckResSummary.md)
  - [Model.CheckResWeld](docs/CheckResWeld.md)
+ - [Model.ConAlignedPlate](docs/ConAlignedPlate.md)
+ - [Model.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [Model.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
  - [Model.ConCalculationParameter](docs/ConCalculationParameter.md)
  - [Model.ConConnection](docs/ConConnection.md)
@@ -281,6 +288,12 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConLoadEffectSectionLoad](docs/ConLoadEffectSectionLoad.md)
  - [Model.ConLoadSettings](docs/ConLoadSettings.md)
  - [Model.ConMember](docs/ConMember.md)
+ - [Model.ConMemberAlignmentTypeEnum](docs/ConMemberAlignmentTypeEnum.md)
+ - [Model.ConMemberForcesInEnum](docs/ConMemberForcesInEnum.md)
+ - [Model.ConMemberModel](docs/ConMemberModel.md)
+ - [Model.ConMemberPlacementDefinitionTypeEnum](docs/ConMemberPlacementDefinitionTypeEnum.md)
+ - [Model.ConMemberPlatePartTypeEnum](docs/ConMemberPlatePartTypeEnum.md)
+ - [Model.ConMemberPosition](docs/ConMemberPosition.md)
  - [Model.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [Model.ConMprlElement](docs/ConMprlElement.md)
  - [Model.ConOperation](docs/ConOperation.md)
@@ -312,6 +325,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.IGroup](docs/IGroup.md)
  - [Model.IdeaParameter](docs/IdeaParameter.md)
  - [Model.IdeaParameterUpdate](docs/IdeaParameterUpdate.md)
+ - [Model.IdeaParameterValidation](docs/IdeaParameterValidation.md)
  - [Model.Line](docs/Line.md)
  - [Model.MessageNumber](docs/MessageNumber.md)
  - [Model.OpenElementId](docs/OpenElementId.md)
@@ -347,7 +361,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 1.0
-- SDK version: 25.0.1.0960
+- SDK version: 25.0.4.0630
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

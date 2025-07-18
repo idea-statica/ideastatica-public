@@ -2,12 +2,12 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GeneratePdf**](ReportApi.md#generatepdf) | Generates report for projectId and connectionId |
-| [**GenerateWord**](ReportApi.md#generateword) | Generates report for projectId and connectionId |
+| [**GeneratePdfAsync**](ReportApi.md#generatepdfasync) | Generates report for projectId and connectionId |
+| [**GenerateWordAsync**](ReportApi.md#generatewordasync) | Generates report for projectId and connectionId |
 
 <a id="generatepdf"></a>
-## **GeneratePdf**
-> **void GeneratePdf (Guid projectId, int connectionId)**
+## **GeneratePdfAsync**
+> **void GeneratePdfAsync (Guid projectId, int connectionId)**
 
 Generates report for projectId and connectionId
 
@@ -41,33 +41,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GeneratePdfExample
+    public class GeneratePdfAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Generates report for projectId and connectionId
-                    conClient.Report.GeneratePdf(projectId, connectionId);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Report.GeneratePdf: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Generates report for projectId and connectionId
+                        conClient.Report.GeneratePdfAsync(projectId, connectionId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Report.GeneratePdfAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -124,8 +132,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="generateword"></a>
-## **GenerateWord**
-> **void GenerateWord (Guid projectId, int connectionId)**
+## **GenerateWordAsync**
+> **void GenerateWordAsync (Guid projectId, int connectionId)**
 
 Generates report for projectId and connectionId
 
@@ -159,33 +167,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GenerateWordExample
+    public class GenerateWordAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Generates report for projectId and connectionId
-                    conClient.Report.GenerateWord(projectId, connectionId);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Report.GenerateWord: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Generates report for projectId and connectionId
+                        conClient.Report.GenerateWordAsync(projectId, connectionId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Report.GenerateWordAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

@@ -2,23 +2,23 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**AddBoltAssembly**](MaterialApi.md#addboltassembly) | Add bolt assembly to the project |
-| [**AddCrossSection**](MaterialApi.md#addcrosssection) | Add cross section to the project |
-| [**AddMaterialBoltGrade**](MaterialApi.md#addmaterialboltgrade) | Add material to the project |
-| [**AddMaterialConcrete**](MaterialApi.md#addmaterialconcrete) | Add material to the project |
-| [**AddMaterialSteel**](MaterialApi.md#addmaterialsteel) | Add material to the project |
-| [**AddMaterialWeld**](MaterialApi.md#addmaterialweld) | Add material to the project |
-| [**GetAllMaterials**](MaterialApi.md#getallmaterials) | Get materials which are used in the project projectId |
-| [**GetBoltAssemblies**](MaterialApi.md#getboltassemblies) | Get bolt assemblies which are used in the project projectId |
-| [**GetBoltGradeMaterials**](MaterialApi.md#getboltgradematerials) | Get materials which are used in the project projectId |
-| [**GetConcreteMaterials**](MaterialApi.md#getconcretematerials) | Get materials which are used in the project projectId |
-| [**GetCrossSections**](MaterialApi.md#getcrosssections) | Get cross sections which are used in the project projectId |
-| [**GetSteelMaterials**](MaterialApi.md#getsteelmaterials) | Get materials which are used in the project projectId |
-| [**GetWeldingMaterials**](MaterialApi.md#getweldingmaterials) | Get materials which are used in the project projectId |
+| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project |
+| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project |
+| [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Add material to the project |
+| [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Add material to the project |
+| [**AddMaterialSteelAsync**](MaterialApi.md#addmaterialsteelasync) | Add material to the project |
+| [**AddMaterialWeldAsync**](MaterialApi.md#addmaterialweldasync) | Add material to the project |
+| [**GetAllMaterialsAsync**](MaterialApi.md#getallmaterialsasync) | Get materials which are used in the project projectId |
+| [**GetBoltAssembliesAsync**](MaterialApi.md#getboltassembliesasync) | Get bolt assemblies which are used in the project projectId |
+| [**GetBoltGradeMaterialsAsync**](MaterialApi.md#getboltgradematerialsasync) | Get materials which are used in the project projectId |
+| [**GetConcreteMaterialsAsync**](MaterialApi.md#getconcretematerialsasync) | Get materials which are used in the project projectId |
+| [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Get cross sections which are used in the project projectId |
+| [**GetSteelMaterialsAsync**](MaterialApi.md#getsteelmaterialsasync) | Get materials which are used in the project projectId |
+| [**GetWeldingMaterialsAsync**](MaterialApi.md#getweldingmaterialsasync) | Get materials which are used in the project projectId |
 
 <a id="addboltassembly"></a>
-## **AddBoltAssembly**
-> **void AddBoltAssembly (Guid projectId, ConMprlElement conMprlElement = null)**
+## **AddBoltAssemblyAsync**
+> **void AddBoltAssemblyAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Add bolt assembly to the project
 
@@ -49,33 +49,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddBoltAssemblyExample
+    public class AddBoltAssemblyAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new bolt assemby to be added to the project (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add bolt assembly to the project
-                    conClient.Material.AddBoltAssembly(projectId, conMprlElement);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.AddBoltAssembly: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new bolt assemby to be added to the project (optional) 
+
+                    try
+                    {
+                        // Add bolt assembly to the project
+                        conClient.Material.AddBoltAssemblyAsync(projectId, conMprlElement);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddBoltAssemblyAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -132,8 +140,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addcrosssection"></a>
-## **AddCrossSection**
-> **void AddCrossSection (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
+## **AddCrossSectionAsync**
+> **void AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
 
 Add cross section to the project
 
@@ -164,33 +172,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddCrossSectionExample
+    public class AddCrossSectionAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add cross section to the project
-                    conClient.Material.AddCrossSection(projectId, conMprlCrossSection);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.AddCrossSection: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project (optional) 
+
+                    try
+                    {
+                        // Add cross section to the project
+                        conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddCrossSectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -247,8 +263,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialboltgrade"></a>
-## **AddMaterialBoltGrade**
-> **void AddMaterialBoltGrade (Guid projectId, ConMprlElement conMprlElement = null)**
+## **AddMaterialBoltGradeAsync**
+> **void AddMaterialBoltGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Add material to the project
 
@@ -279,33 +295,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddMaterialBoltGradeExample
+    public class AddMaterialBoltGradeAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add material to the project
-                    conClient.Material.AddMaterialBoltGrade(projectId, conMprlElement);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.AddMaterialBoltGrade: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+
+                    try
+                    {
+                        // Add material to the project
+                        conClient.Material.AddMaterialBoltGradeAsync(projectId, conMprlElement);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddMaterialBoltGradeAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -362,8 +386,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialconcrete"></a>
-## **AddMaterialConcrete**
-> **void AddMaterialConcrete (Guid projectId, ConMprlElement conMprlElement = null)**
+## **AddMaterialConcreteAsync**
+> **void AddMaterialConcreteAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Add material to the project
 
@@ -394,33 +418,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddMaterialConcreteExample
+    public class AddMaterialConcreteAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add material to the project
-                    conClient.Material.AddMaterialConcrete(projectId, conMprlElement);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.AddMaterialConcrete: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+
+                    try
+                    {
+                        // Add material to the project
+                        conClient.Material.AddMaterialConcreteAsync(projectId, conMprlElement);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddMaterialConcreteAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -477,8 +509,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialsteel"></a>
-## **AddMaterialSteel**
-> **void AddMaterialSteel (Guid projectId, ConMprlElement conMprlElement = null)**
+## **AddMaterialSteelAsync**
+> **void AddMaterialSteelAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Add material to the project
 
@@ -509,33 +541,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddMaterialSteelExample
+    public class AddMaterialSteelAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add material to the project
-                    conClient.Material.AddMaterialSteel(projectId, conMprlElement);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.AddMaterialSteel: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+
+                    try
+                    {
+                        // Add material to the project
+                        conClient.Material.AddMaterialSteelAsync(projectId, conMprlElement);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddMaterialSteelAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -592,8 +632,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialweld"></a>
-## **AddMaterialWeld**
-> **void AddMaterialWeld (Guid projectId, ConMprlElement conMprlElement = null)**
+## **AddMaterialWeldAsync**
+> **void AddMaterialWeldAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Add material to the project
 
@@ -624,33 +664,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class AddMaterialWeldExample
+    public class AddMaterialWeldAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Add material to the project
-                    conClient.Material.AddMaterialWeld(projectId, conMprlElement);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.AddMaterialWeld: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+
+                    try
+                    {
+                        // Add material to the project
+                        conClient.Material.AddMaterialWeldAsync(projectId, conMprlElement);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddMaterialWeldAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -707,8 +755,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getallmaterials"></a>
-## **GetAllMaterials**
-> **List&lt;Object&gt; GetAllMaterials (Guid projectId)**
+## **GetAllMaterialsAsync**
+> **List&lt;Object&gt; GetAllMaterialsAsync (Guid projectId)**
 
 Get materials which are used in the project projectId
 
@@ -738,33 +786,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetAllMaterialsExample
+    public class GetAllMaterialsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get materials which are used in the project projectId
-                    List<Object> result = conClient.Material.GetAllMaterials(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetAllMaterials: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get materials which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetAllMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetAllMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -824,8 +880,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getboltassemblies"></a>
-## **GetBoltAssemblies**
-> **List&lt;Object&gt; GetBoltAssemblies (Guid projectId)**
+## **GetBoltAssembliesAsync**
+> **List&lt;Object&gt; GetBoltAssembliesAsync (Guid projectId)**
 
 Get bolt assemblies which are used in the project projectId
 
@@ -855,33 +911,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetBoltAssembliesExample
+    public class GetBoltAssembliesAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get bolt assemblies which are used in the project projectId
-                    List<Object> result = conClient.Material.GetBoltAssemblies(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetBoltAssemblies: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get bolt assemblies which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetBoltAssembliesAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetBoltAssembliesAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -941,8 +1005,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getboltgradematerials"></a>
-## **GetBoltGradeMaterials**
-> **List&lt;Object&gt; GetBoltGradeMaterials (Guid projectId)**
+## **GetBoltGradeMaterialsAsync**
+> **List&lt;Object&gt; GetBoltGradeMaterialsAsync (Guid projectId)**
 
 Get materials which are used in the project projectId
 
@@ -972,33 +1036,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetBoltGradeMaterialsExample
+    public class GetBoltGradeMaterialsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get materials which are used in the project projectId
-                    List<Object> result = conClient.Material.GetBoltGradeMaterials(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetBoltGradeMaterials: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get materials which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetBoltGradeMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetBoltGradeMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -1058,8 +1130,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getconcretematerials"></a>
-## **GetConcreteMaterials**
-> **List&lt;Object&gt; GetConcreteMaterials (Guid projectId)**
+## **GetConcreteMaterialsAsync**
+> **List&lt;Object&gt; GetConcreteMaterialsAsync (Guid projectId)**
 
 Get materials which are used in the project projectId
 
@@ -1089,33 +1161,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetConcreteMaterialsExample
+    public class GetConcreteMaterialsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get materials which are used in the project projectId
-                    List<Object> result = conClient.Material.GetConcreteMaterials(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetConcreteMaterials: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get materials which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetConcreteMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetConcreteMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -1175,8 +1255,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getcrosssections"></a>
-## **GetCrossSections**
-> **List&lt;Object&gt; GetCrossSections (Guid projectId)**
+## **GetCrossSectionsAsync**
+> **List&lt;Object&gt; GetCrossSectionsAsync (Guid projectId)**
 
 Get cross sections which are used in the project projectId
 
@@ -1206,33 +1286,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetCrossSectionsExample
+    public class GetCrossSectionsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get cross sections which are used in the project projectId
-                    List<Object> result = conClient.Material.GetCrossSections(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetCrossSections: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get cross sections which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetCrossSectionsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetCrossSectionsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -1292,8 +1380,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getsteelmaterials"></a>
-## **GetSteelMaterials**
-> **List&lt;Object&gt; GetSteelMaterials (Guid projectId)**
+## **GetSteelMaterialsAsync**
+> **List&lt;Object&gt; GetSteelMaterialsAsync (Guid projectId)**
 
 Get materials which are used in the project projectId
 
@@ -1323,33 +1411,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetSteelMaterialsExample
+    public class GetSteelMaterialsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get materials which are used in the project projectId
-                    List<Object> result = conClient.Material.GetSteelMaterials(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetSteelMaterials: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get materials which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetSteelMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetSteelMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -1409,8 +1505,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getweldingmaterials"></a>
-## **GetWeldingMaterials**
-> **List&lt;Object&gt; GetWeldingMaterials (Guid projectId)**
+## **GetWeldingMaterialsAsync**
+> **List&lt;Object&gt; GetWeldingMaterialsAsync (Guid projectId)**
 
 Get materials which are used in the project projectId
 
@@ -1440,33 +1536,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetWeldingMaterialsExample
+    public class GetWeldingMaterialsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get materials which are used in the project projectId
-                    List<Object> result = conClient.Material.GetWeldingMaterials(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Material.GetWeldingMaterials: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get materials which are used in the project projectId
+                        List<Object> result = await conClient.Material.GetWeldingMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetWeldingMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetMember**](MemberApi.md#getmember) | Get information about the requires member in the connection |
-| [**GetMembers**](MemberApi.md#getmembers) | Get information about all members in the connection |
-| [**SetBearingMember**](MemberApi.md#setbearingmember) | Set bearing member for memberIt |
-| [**UpdateMember**](MemberApi.md#updatemember) | Update the member in the connection by newMemberData |
+| [**GetMemberAsync**](MemberApi.md#getmemberasync) | Get information about the requires member in the connection |
+| [**GetMembersAsync**](MemberApi.md#getmembersasync) | Get information about all members in the connection |
+| [**SetBearingMemberAsync**](MemberApi.md#setbearingmemberasync) | Set bearing member for memberIt |
+| [**UpdateMemberAsync**](MemberApi.md#updatememberasync) | Update the member in the connection by newMemberData |
 
 <a id="getmember"></a>
-## **GetMember**
-> **ConMember GetMember (Guid projectId, int connectionId, int memberId)**
+## **GetMemberAsync**
+> **ConMember GetMemberAsync (Guid projectId, int connectionId, int memberId)**
 
 Get information about the requires member in the connection
 
@@ -41,35 +41,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetMemberExample
+    public class GetMemberAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the connection to get its member
-                memberId = 56;  // int | Id of the requested member in the connection
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get information about the requires member in the connection
-                    ConMember result = conClient.Member.GetMember(projectId, connectionId, memberId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Member.GetMember: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the connection to get its member
+                    memberId = 56;  // int | Id of the requested member in the connection
+
+                    try
+                    {
+                        // Get information about the requires member in the connection
+                        ConMember result = await conClient.Member.GetMemberAsync(projectId, connectionId, memberId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Member.GetMemberAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -129,8 +137,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getmembers"></a>
-## **GetMembers**
-> **List&lt;ConMember&gt; GetMembers (Guid projectId, int connectionId)**
+## **GetMembersAsync**
+> **List&lt;ConMember&gt; GetMembersAsync (Guid projectId, int connectionId)**
 
 Get information about all members in the connection
 
@@ -161,34 +169,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetMembersExample
+    public class GetMembersAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the connection to get its members
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get information about all members in the connection
-                    List<ConMember> result = conClient.Member.GetMembers(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Member.GetMembers: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the connection to get its members
+
+                    try
+                    {
+                        // Get information about all members in the connection
+                        List<ConMember> result = await conClient.Member.GetMembersAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Member.GetMembersAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -248,8 +264,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="setbearingmember"></a>
-## **SetBearingMember**
-> **ConMember SetBearingMember (Guid projectId, int connectionId, int memberId)**
+## **SetBearingMemberAsync**
+> **ConMember SetBearingMemberAsync (Guid projectId, int connectionId, int memberId)**
 
 Set bearing member for memberIt
 
@@ -281,35 +297,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class SetBearingMemberExample
+    public class SetBearingMemberAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                memberId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Set bearing member for memberIt
-                    ConMember result = conClient.Member.SetBearingMember(projectId, connectionId, memberId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Member.SetBearingMember: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    memberId = 56;  // int | 
+
+                    try
+                    {
+                        // Set bearing member for memberIt
+                        ConMember result = await conClient.Member.SetBearingMemberAsync(projectId, connectionId, memberId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Member.SetBearingMemberAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -369,8 +393,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updatemember"></a>
-## **UpdateMember**
-> **ConMember UpdateMember (Guid projectId, int connectionId, ConMember conMember = null)**
+## **UpdateMemberAsync**
+> **ConMember UpdateMemberAsync (Guid projectId, int connectionId, ConMember conMember = null)**
 
 Update the member in the connection by newMemberData
 
@@ -402,35 +426,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateMemberExample
+    public class UpdateMemberAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the connection to to update is member newMemberData
-                var conMember = new ConMember(); // ConMember | New member data (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Update the member in the connection by newMemberData
-                    ConMember result = conClient.Member.UpdateMember(projectId, connectionId, conMember);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Member.UpdateMember: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the connection to to update is member newMemberData
+                    var conMember = new ConMember(); // ConMember | New member data (optional) 
+
+                    try
+                    {
+                        // Update the member in the connection by newMemberData
+                        ConMember result = await conClient.Member.UpdateMemberAsync(projectId, connectionId, conMember);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Member.UpdateMemberAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
