@@ -20,6 +20,8 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_member_model import ConMemberModel
+from ideastatica_connection_api.models.con_member_position import ConMemberPosition
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,10 +34,12 @@ class ConMember(BaseModel):
     mirror_y: Optional[StrictBool] = Field(default=None, alias="mirrorY")
     mirror_z: Optional[StrictBool] = Field(default=None, alias="mirrorZ")
     is_bearing: Optional[StrictBool] = Field(default=None, alias="isBearing")
+    position: Optional[ConMemberPosition] = None
+    model: Optional[ConMemberModel] = None
     id: Optional[StrictInt] = None
     name: Optional[StrictStr] = None
     active: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["isContinuous", "crossSectionId", "mirrorY", "mirrorZ", "isBearing", "id", "name", "active"]
+    __properties: ClassVar[List[str]] = ["isContinuous", "crossSectionId", "mirrorY", "mirrorZ", "isBearing", "position", "model", "id", "name", "active"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,6 +80,12 @@ class ConMember(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of position
+        if self.position:
+            _dict['position'] = self.position.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of model
+        if self.model:
+            _dict['model'] = self.model.to_dict()
         # set to None if cross_section_id (nullable) is None
         # and model_fields_set contains the field
         if self.cross_section_id is None and "cross_section_id" in self.model_fields_set:
@@ -113,6 +123,8 @@ class ConMember(BaseModel):
             "mirrorY": obj.get("mirrorY"),
             "mirrorZ": obj.get("mirrorZ"),
             "isBearing": obj.get("isBearing"),
+            "position": ConMemberPosition.from_dict(obj["position"]) if obj.get("position") is not None else None,
+            "model": ConMemberModel.from_dict(obj["model"]) if obj.get("model") is not None else None,
             "id": obj.get("id"),
             "name": obj.get("name"),
             "active": obj.get("active")

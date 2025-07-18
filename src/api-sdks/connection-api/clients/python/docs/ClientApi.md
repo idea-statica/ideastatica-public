@@ -24,7 +24,7 @@ This endpoint does not need any parameter.
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
@@ -37,17 +37,20 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def connect_clientExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.ClientApi(api_client)
 
     try:
         # Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
-        api_response = api_instance.connect_client()
+        api_response = api_client.client.connect_client()
         print("The response of ClientApi->connect_client:\n")
         pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling ClientApi->connect_client: %s\n" % e)
 ```
@@ -99,7 +102,7 @@ This endpoint does not need any parameter.
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
@@ -112,17 +115,20 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_versionExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.ClientApi(api_client)
 
     try:
         # Get the IdeaStatica version
-        api_response = api_instance.get_version()
+        api_response = api_client.client.get_version()
         print("The response of ClientApi->get_version:\n")
         pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling ClientApi->get_version: %s\n" % e)
 ```

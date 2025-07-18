@@ -84,7 +84,7 @@ class ConnectionSetup(BaseModel):
     apply_bearing_check: Optional[StrictBool] = Field(default=None, description="ApplyBearingCheck", alias="applyBearingCheck")
     friction_coefficient_pbolt: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Friction factor of slip-resistant joint", alias="frictionCoefficientPbolt")
     crt_comp_check_is: Optional[CrtCompCheckIS] = Field(default=None, alias="crtCompCheckIS")
-    bolt_max_grip_length_coeff: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Max value of bolt grip", alias="boltMaxGripLengthCoeff")
+    bolt_max_grip_length_coeff: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Max value of bolt grip IND", alias="boltMaxGripLengthCoeff")
     fatigue_section_offset: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fatigue section Offset = FatigueSectionOffset x Legsize", alias="fatigueSectionOffset")
     condensed_element_length_factor: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Condensed element length factor (CEF). Condensed beam legth = maxCssSize * CEF", alias="condensedElementLengthFactor")
     gamma_mu: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Partial safety factor for Horizontal tying", alias="gammaMu")
