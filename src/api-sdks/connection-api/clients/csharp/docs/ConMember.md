@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **MirrorY** | **bool?** |  | [optional] 
 **MirrorZ** | **bool?** |  | [optional] 
 **IsBearing** | **bool** |  | [optional] 
+**Position** | [**ConMemberPosition**](ConMemberPosition.md) |  | [optional] 
+**Model** | [**ConMemberModel**](ConMemberModel.md) |  | [optional] 
 **Id** | **int** |  | [optional] 
 **Name** | **string** |  | [optional] 
 **Active** | **bool** |  | [optional] 

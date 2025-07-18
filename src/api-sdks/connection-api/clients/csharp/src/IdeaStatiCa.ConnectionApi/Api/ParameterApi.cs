@@ -34,6 +34,31 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">Id of the connection to apply template</param>
+        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;IdeaParameter&gt;</returns>
+        List<IdeaParameter> Api1ProjectsProjectIdConnectionsConnectionIdParametersPut(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0);
+
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+/// <param name="connectionId">Id of the connection to apply template</param>
+/// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
+        ApiResponse<List<IdeaParameter>> Api1ProjectsProjectIdConnectionsConnectionIdParametersPutWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Clear parameters and links for the connection connectionId in the project projectId
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -106,31 +131,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
         ApiResponse<List<IdeaParameter>> GetParametersWithHttpInfo(Guid projectId, int connectionId, bool? includeHidden = default(bool?), string requestedType = null, int operationIndex = 0);
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;IdeaParameter&gt;</returns>
-        List<IdeaParameter> UpdateParameters(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0);
-
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to apply template</param>
-/// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
-        ApiResponse<List<IdeaParameter>> UpdateParametersWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -140,6 +140,36 @@ namespace IdeaStatiCa.ConnectionApi.Api
     public interface IParameterApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">Id of the connection to apply template</param>
+        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
+        System.Threading.Tasks.Task<List<IdeaParameter>> Api1ProjectsProjectIdConnectionsConnectionIdParametersPutAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">Id of the connection to apply template</param>
+        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<IdeaParameter>>> Api1ProjectsProjectIdConnectionsConnectionIdParametersPutWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Clear parameters and links for the connection connectionId in the project projectId
         /// </summary>
@@ -228,36 +258,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<IdeaParameter>>> GetParametersWithHttpInfoAsync(Guid projectId, int connectionId, bool? includeHidden = default(bool?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
-        System.Threading.Tasks.Task<List<IdeaParameter>> UpdateParametersAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<IdeaParameter>>> UpdateParametersWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -376,6 +376,164 @@ namespace IdeaStatiCa.ConnectionApi.Api
                 return _exceptionFactory;
             }
             set { _exceptionFactory = value; }
+        }
+
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">Id of the connection to apply template</param>
+        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;IdeaParameter&gt;</returns>
+        public List<IdeaParameter> Api1ProjectsProjectIdConnectionsConnectionIdParametersPut(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> localVarResponse = Api1ProjectsProjectIdConnectionsConnectionIdParametersPutWithHttpInfo(projectId, connectionId, ideaParameterUpdate);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+/// <param name="connectionId">Id of the connection to apply template</param>
+/// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> Api1ProjectsProjectIdConnectionsConnectionIdParametersPutWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = ideaParameterUpdate;
+
+            localVarRequestOptions.Operation = "ParameterApi.Api1ProjectsProjectIdConnectionsConnectionIdParametersPut";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<List<IdeaParameter>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("Api1ProjectsProjectIdConnectionsConnectionIdParametersPut", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">Id of the connection to apply template</param>
+        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
+        public async System.Threading.Tasks.Task<List<IdeaParameter>> Api1ProjectsProjectIdConnectionsConnectionIdParametersPutAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> localVarResponse = await Api1ProjectsProjectIdConnectionsConnectionIdParametersPutWithHttpInfoAsync(projectId, connectionId, ideaParameterUpdate, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">Id of the connection to apply template</param>
+        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>>> Api1ProjectsProjectIdConnectionsConnectionIdParametersPutWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = ideaParameterUpdate;
+
+            localVarRequestOptions.Operation = "ParameterApi.Api1ProjectsProjectIdConnectionsConnectionIdParametersPut";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PutAsync<List<IdeaParameter>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("Api1ProjectsProjectIdConnectionsConnectionIdParametersPut", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
         }
 
         /// <summary>
@@ -835,164 +993,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetParameters", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;IdeaParameter&gt;</returns>
-        public List<IdeaParameter> UpdateParameters(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> localVarResponse = UpdateParametersWithHttpInfo(projectId, connectionId, ideaParameterUpdate);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to apply template</param>
-/// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> UpdateParametersWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
-            localVarRequestOptions.Data = ideaParameterUpdate;
-
-            localVarRequestOptions.Operation = "ParameterApi.UpdateParameters";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Put<List<IdeaParameter>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("UpdateParameters", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
-        public async System.Threading.Tasks.Task<List<IdeaParameter>> UpdateParametersAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> localVarResponse = await UpdateParametersWithHttpInfoAsync(projectId, connectionId, ideaParameterUpdate, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>>> UpdateParametersWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
-            localVarRequestOptions.Data = ideaParameterUpdate;
-
-            localVarRequestOptions.Operation = "ParameterApi.UpdateParameters";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PutAsync<List<IdeaParameter>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("UpdateParameters", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

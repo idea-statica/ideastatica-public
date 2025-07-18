@@ -35,6 +35,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ConCalculationParameter'
         description: List of connections to calculate and a type of CBFEM analysis
+        required: true
       responses:
         "200":
           content:
@@ -345,9 +346,13 @@ paths:
             schema:
               $ref: '#/components/schemas/ConConversionSettings'
         description: Conversion table for materials in the project. (pairs 'ECEN MATERIAL'
-          -> 'TARGET DESIGN CIDE MATERIAL')
+          -> 'TARGET DESIGN CODE MATERIAL')
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                type: string
           description: Success
       summary: Change design code of project.
       tags:
@@ -386,6 +391,13 @@ paths:
         style: form
       responses:
         "200":
+          content:
+            application/xml:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
           description: Success
       summary: Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
       tags:
@@ -454,6 +466,10 @@ paths:
         style: simple
       responses:
         "200":
+          content:
+            text/plain:
+              schema:
+                type: string
           description: Success
       summary: Export connection to IFC format
       tags:
@@ -1449,7 +1465,6 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
     put:
-      operationId: UpdateParameters
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -2892,6 +2907,29 @@ components:
           nullable: true
           type: array
       type: object
+    ConAlignedPlate:
+      additionalProperties: false
+      example:
+        plateSide: default
+        partType: notSpecified
+        memberId: 9
+      properties:
+        plateSide:
+          $ref: '#/components/schemas/ConAlignedPlateSideCodeEnum'
+        memberId:
+          format: int32
+          type: integer
+        partType:
+          $ref: '#/components/schemas/ConMemberPlatePartTypeEnum'
+      type: object
+    ConAlignedPlateSideCodeEnum:
+      enum:
+      - default
+      - lowerSide
+      - upperSide
+      - bothSides
+      - center
+      type: string
     ConAnalysisTypeEnum:
       enum:
       - stress_Strain
@@ -3133,8 +3171,34 @@ components:
         active: true
         isContinuous: true
         mirrorY: true
+        model:
+          x: 3.616076749251911
+          modelType: modelType
+          forcesIn: position
+          connectedMemberId: 2
         mirrorZ: true
-        id: 6
+        position:
+          alphaRotation: 5.962133916683182
+          gamaPitch: 1.4658129805029452
+          offsetEx: 5.637376656633329
+          offsetEy: 2.3021358869347655
+          relatedPlate:
+            plateSide: default
+            partType: notSpecified
+            memberId: 9
+          definedBy: none
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          offsetEz: 7.061401241503109
+          betaDirection: 6.027456183070403
+          alignedPlate:
+            plateSide: default
+            partType: notSpecified
+            memberId: 9
+          align: none
+        id: 4
         crossSectionId: 0
         isBearing: true
       properties:
@@ -3152,6 +3216,10 @@ components:
           type: boolean
         isBearing:
           type: boolean
+        position:
+          $ref: '#/components/schemas/ConMemberPosition'
+        model:
+          $ref: '#/components/schemas/ConMemberModel'
         id:
           format: int32
           type: integer
@@ -3160,6 +3228,131 @@ components:
           type: string
         active:
           type: boolean
+      type: object
+    ConMemberAlignmentTypeEnum:
+      enum:
+      - none
+      - toMemberPlate
+      - toMemberPlateRotateThenTranslate
+      type: string
+    ConMemberForcesInEnum:
+      enum:
+      - position
+      - node
+      - bolts
+      - selectedMemberFace
+      type: string
+    ConMemberModel:
+      additionalProperties: false
+      example:
+        x: 3.616076749251911
+        modelType: modelType
+        forcesIn: position
+        connectedMemberId: 2
+      properties:
+        modelType:
+          nullable: true
+          type: string
+        forcesIn:
+          $ref: '#/components/schemas/ConMemberForcesInEnum'
+        x:
+          format: double
+          nullable: true
+          type: number
+        connectedMemberId:
+          format: int32
+          nullable: true
+          type: integer
+      type: object
+    ConMemberPlacementDefinitionTypeEnum:
+      enum:
+      - none
+      - directionVector
+      - rotationsOfX
+      - lcs
+      type: string
+    ConMemberPlatePartTypeEnum:
+      enum:
+      - notSpecified
+      - topFlange
+      - bottomFlange
+      - bothFlanges
+      - web
+      - allCssParts
+      - basePlate
+      - endPlate
+      - plateWidener
+      - stiffener
+      - rib
+      - gussetPlate
+      - finPlate
+      - flange
+      - cssArcSegment
+      - isStub
+      - splice
+      - tonguePlate
+      - lidPlate
+      - generalPlate
+      - doubler
+      - endPlateOnFlanges
+      - backingPlate
+      - insertedPlate
+      - isNegative
+      type: string
+    ConMemberPosition:
+      additionalProperties: false
+      example:
+        alphaRotation: 5.962133916683182
+        gamaPitch: 1.4658129805029452
+        offsetEx: 5.637376656633329
+        offsetEy: 2.3021358869347655
+        relatedPlate:
+          plateSide: default
+          partType: notSpecified
+          memberId: 9
+        definedBy: none
+        axisX:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        offsetEz: 7.061401241503109
+        betaDirection: 6.027456183070403
+        alignedPlate:
+          plateSide: default
+          partType: notSpecified
+          memberId: 9
+        align: none
+      properties:
+        definedBy:
+          $ref: '#/components/schemas/ConMemberPlacementDefinitionTypeEnum'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        betaDirection:
+          format: double
+          nullable: true
+          type: number
+        gamaPitch:
+          format: double
+          nullable: true
+          type: number
+        alphaRotation:
+          format: double
+          type: number
+        offsetEx:
+          format: double
+          type: number
+        offsetEy:
+          format: double
+          type: number
+        offsetEz:
+          format: double
+          type: number
+        align:
+          $ref: '#/components/schemas/ConMemberAlignmentTypeEnum'
+        alignedPlate:
+          $ref: '#/components/schemas/ConAlignedPlate'
+        relatedPlate:
+          $ref: '#/components/schemas/ConAlignedPlate'
       type: object
     ConMprlCrossSection:
       additionalProperties: false
@@ -5042,6 +5235,7 @@ components:
         applyConeBreakoutCheck:
           $ref: '#/components/schemas/ConeBreakoutCheckType'
         pretensionForceFpc:
+          deprecated: true
           description: Pretension force fpc = k * fub * As
           format: double
           type: number
@@ -5136,6 +5330,7 @@ components:
             Braced system reduces horizontal displacements.
           type: boolean
         bearingCheck:
+          deprecated: true
           description: Apply bearing check including αb
           type: boolean
         applyBetapInfluence:
@@ -5198,6 +5393,7 @@ components:
           description: True if cracked concrete is considered
           type: boolean
         developedFillers:
+          deprecated: true
           description: True if developed fillers is considered
           type: boolean
         deformationBoltHole:
@@ -5219,6 +5415,7 @@ components:
           description: BaseMetalCapacity
           type: boolean
         applyBearingCheck:
+          deprecated: true
           description: ApplyBearingCheck
           type: boolean
         frictionCoefficientPbolt:
@@ -5228,7 +5425,7 @@ components:
         crtCompCheckIS:
           $ref: '#/components/schemas/CrtCompCheckIS'
         boltMaxGripLengthCoeff:
-          description: Max value of bolt grip
+          description: Max value of bolt grip IND
           format: double
           type: number
         fatigueSectionOffset:
@@ -5241,6 +5438,7 @@ components:
           format: double
           type: number
         gammaMu:
+          deprecated: true
           description: Partial safety factor for Horizontal tying
           format: double
           type: number
@@ -5810,6 +6008,15 @@ components:
         description: description
         lowerBound: lowerBound
         isVisible: true
+        parameterValidation:
+          validationExpression: validationExpression
+          upperBound: upperBound
+          upperBoundEvaluated: 6.027456183070403
+          validationExpressionEvaluated: true
+          lowerBound: lowerBound
+          message: message
+          validationStatus: validationStatus
+          lowerBoundEvaluated: 0.8008281904610115
         value: ""
         validationStatus: validationStatus
         key: key
@@ -5846,6 +6053,8 @@ components:
         upperBound:
           nullable: true
           type: string
+        parameterValidation:
+          $ref: '#/components/schemas/IdeaParameterValidation'
       type: object
     IdeaParameterUpdate:
       additionalProperties: false
@@ -5857,6 +6066,42 @@ components:
           nullable: true
           type: string
         expression:
+          nullable: true
+          type: string
+      type: object
+    IdeaParameterValidation:
+      additionalProperties: false
+      example:
+        validationExpression: validationExpression
+        upperBound: upperBound
+        upperBoundEvaluated: 6.027456183070403
+        validationExpressionEvaluated: true
+        lowerBound: lowerBound
+        message: message
+        validationStatus: validationStatus
+        lowerBoundEvaluated: 0.8008281904610115
+      properties:
+        validationExpression:
+          nullable: true
+          type: string
+        validationExpressionEvaluated:
+          type: boolean
+        lowerBound:
+          nullable: true
+          type: string
+        lowerBoundEvaluated:
+          format: double
+          type: number
+        upperBound:
+          nullable: true
+          type: string
+        upperBoundEvaluated:
+          format: double
+          type: number
+        validationStatus:
+          nullable: true
+          type: string
+        message:
           nullable: true
           type: string
       type: object

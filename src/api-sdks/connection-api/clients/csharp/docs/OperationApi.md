@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**DeleteOperations**](OperationApi.md#deleteoperations) | Delete all operations for the connection |
-| [**GetCommonOperationProperties**](OperationApi.md#getcommonoperationproperties) | Get common operation properties |
-| [**GetOperations**](OperationApi.md#getoperations) | Get the list of operations for the connection |
-| [**UpdateCommonOperationProperties**](OperationApi.md#updatecommonoperationproperties) | Update common properties for all operations |
+| [**DeleteOperationsAsync**](OperationApi.md#deleteoperationsasync) | Delete all operations for the connection |
+| [**GetCommonOperationPropertiesAsync**](OperationApi.md#getcommonoperationpropertiesasync) | Get common operation properties |
+| [**GetOperationsAsync**](OperationApi.md#getoperationsasync) | Get the list of operations for the connection |
+| [**UpdateCommonOperationPropertiesAsync**](OperationApi.md#updatecommonoperationpropertiesasync) | Update common properties for all operations |
 
 <a id="deleteoperations"></a>
-## **DeleteOperations**
-> **void DeleteOperations (Guid projectId, int connectionId)**
+## **DeleteOperationsAsync**
+> **void DeleteOperationsAsync (Guid projectId, int connectionId)**
 
 Delete all operations for the connection
 
@@ -40,33 +40,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class DeleteOperationsExample
+    public class DeleteOperationsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the connection to be modified
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Delete all operations for the connection
-                    conClient.Operation.DeleteOperations(projectId, connectionId);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Operation.DeleteOperations: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the connection to be modified
+
+                    try
+                    {
+                        // Delete all operations for the connection
+                        conClient.Operation.DeleteOperationsAsync(projectId, connectionId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Operation.DeleteOperationsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -123,8 +131,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getcommonoperationproperties"></a>
-## **GetCommonOperationProperties**
-> **ConOperationCommonProperties GetCommonOperationProperties (Guid projectId, int connectionId)**
+## **GetCommonOperationPropertiesAsync**
+> **ConOperationCommonProperties GetCommonOperationPropertiesAsync (Guid projectId, int connectionId)**
 
 Get common operation properties
 
@@ -155,34 +163,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetCommonOperationPropertiesExample
+    public class GetCommonOperationPropertiesAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get common operation properties
-                    ConOperationCommonProperties result = conClient.Operation.GetCommonOperationProperties(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Operation.GetCommonOperationProperties: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Get common operation properties
+                        ConOperationCommonProperties result = await conClient.Operation.GetCommonOperationPropertiesAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Operation.GetCommonOperationPropertiesAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -242,8 +258,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getoperations"></a>
-## **GetOperations**
-> **List&lt;ConOperation&gt; GetOperations (Guid projectId, int connectionId)**
+## **GetOperationsAsync**
+> **List&lt;ConOperation&gt; GetOperationsAsync (Guid projectId, int connectionId)**
 
 Get the list of operations for the connection
 
@@ -274,34 +290,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetOperationsExample
+    public class GetOperationsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the requested connection
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get the list of operations for the connection
-                    List<ConOperation> result = conClient.Operation.GetOperations(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Operation.GetOperations: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the requested connection
+
+                    try
+                    {
+                        // Get the list of operations for the connection
+                        List<ConOperation> result = await conClient.Operation.GetOperationsAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Operation.GetOperationsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -361,8 +385,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updatecommonoperationproperties"></a>
-## **UpdateCommonOperationProperties**
-> **void UpdateCommonOperationProperties (Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = null)**
+## **UpdateCommonOperationPropertiesAsync**
+> **void UpdateCommonOperationPropertiesAsync (Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = null)**
 
 Update common properties for all operations
 
@@ -394,34 +418,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateCommonOperationPropertiesExample
+    public class UpdateCommonOperationPropertiesAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties | Specify id of material, or keep as null (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Update common properties for all operations
-                    conClient.Operation.UpdateCommonOperationProperties(projectId, connectionId, conOperationCommonProperties);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Operation.UpdateCommonOperationProperties: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties | Specify id of material, or keep as null (optional) 
+
+                    try
+                    {
+                        // Update common properties for all operations
+                        conClient.Operation.UpdateCommonOperationPropertiesAsync(projectId, connectionId, conOperationCommonProperties);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Operation.UpdateCommonOperationPropertiesAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

@@ -2,13 +2,13 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ExportIFC**](ExportApi.md#exportifc) | Export connection to IFC format |
-| [**ExportIom**](ExportApi.md#exportiom) | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs |
-| [**ExportIomConnectionData**](ExportApi.md#exportiomconnectiondata) | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection |
+| [**ExportIFCAsync**](ExportApi.md#exportifcasync) | Export connection to IFC format |
+| [**ExportIomAsync**](ExportApi.md#exportiomasync) | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs |
+| [**ExportIomConnectionDataAsync**](ExportApi.md#exportiomconnectiondataasync) | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection |
 
 <a id="exportifc"></a>
-## **ExportIFC**
-> **void ExportIFC (Guid projectId, int connectionId)**
+## **ExportIFCAsync**
+> **string ExportIFCAsync (Guid projectId, int connectionId)**
 
 Export connection to IFC format
 
@@ -26,7 +26,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 ### Return type
 
-void (empty response body)
+**string**
 
 ### Example
 
@@ -42,33 +42,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ExportIFCExample
+    public class ExportIFCAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Export connection to IFC format
-                    conClient.Export.ExportIFC(projectId, connectionId);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Export.ExportIFC: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Export connection to IFC format
+                        string result = await conClient.Export.ExportIFCAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Export.ExportIFCAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -97,7 +106,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Export connection to IFC format
-    conClient.Export.ExportIFCWithHttpInfo(projectId, connectionId);
+    ApiResponse<string> response = conClient.Export.ExportIFCWithHttpInfo(projectId, connectionId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -114,7 +126,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain
 
 
 #### HTTP response details
@@ -125,8 +137,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="exportiom"></a>
-## **ExportIom**
-> **void ExportIom (Guid projectId, int connectionId, string version = null)**
+## **ExportIomAsync**
+> **string ExportIomAsync (Guid projectId, int connectionId, string version = null)**
 
 Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
 
@@ -142,7 +154,7 @@ Export connection to XML which includes https://github.com/idea-statica/ideastat
 
 ### Return type
 
-void (empty response body)
+**string**
 
 ### Example
 
@@ -158,34 +170,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ExportIomExample
+    public class ExportIomAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
-                version = "version_example";  // string |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
-                    conClient.Export.ExportIom(projectId, connectionId, version);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Export.ExportIom: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    version = "version_example";  // string |  (optional) 
+
+                    try
+                    {
+                        // Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+                        string result = await conClient.Export.ExportIomAsync(projectId, connectionId, version);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Export.ExportIomAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -214,7 +235,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
-    conClient.Export.ExportIomWithHttpInfo(projectId, connectionId, version);
+    ApiResponse<string> response = conClient.Export.ExportIomWithHttpInfo(projectId, connectionId, version);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -231,7 +255,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/xml, text/plain
 
 
 #### HTTP response details
@@ -242,8 +266,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="exportiomconnectiondata"></a>
-## **ExportIomConnectionData**
-> **ConnectionData ExportIomConnectionData (Guid projectId, int connectionId)**
+## **ExportIomConnectionDataAsync**
+> **ConnectionData ExportIomConnectionDataAsync (Guid projectId, int connectionId)**
 
 Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
 
@@ -274,34 +298,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ExportIomConnectionDataExample
+    public class ExportIomConnectionDataAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
-                    ConnectionData result = conClient.Export.ExportIomConnectionData(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Export.ExportIomConnectionData: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+                        ConnectionData result = await conClient.Export.ExportIomConnectionDataAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Export.ExportIomConnectionDataAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
