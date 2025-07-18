@@ -45,7 +45,7 @@ class ConversionApi:
     def change_code(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)")],
-        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL')")] = None,
+        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -58,13 +58,13 @@ class ConversionApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> str:
         """Change design code of project.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) (required)
         :type project_id: str
-        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL')
+        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')
         :type con_conversion_settings: ConConversionSettings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -98,7 +98,7 @@ class ConversionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -115,7 +115,7 @@ class ConversionApi:
     def change_code_with_http_info(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)")],
-        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL')")] = None,
+        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -128,13 +128,13 @@ class ConversionApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[str]:
         """Change design code of project.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) (required)
         :type project_id: str
-        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL')
+        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')
         :type con_conversion_settings: ConConversionSettings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -168,7 +168,7 @@ class ConversionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -185,7 +185,7 @@ class ConversionApi:
     def change_code_without_preload_content(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)")],
-        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL')")] = None,
+        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -204,7 +204,7 @@ class ConversionApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) (required)
         :type project_id: str
-        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CIDE MATERIAL')
+        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')
         :type con_conversion_settings: ConConversionSettings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -238,7 +238,7 @@ class ConversionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "str",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -282,6 +282,13 @@ class ConversionApi:
             _body_params = con_conversion_settings
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

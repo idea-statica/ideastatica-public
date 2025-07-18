@@ -28,7 +28,7 @@ void (empty response body)
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
@@ -41,17 +41,19 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def generate_pdfExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.ReportApi(api_client)
     project_id = 'project_id_example' # str | 
     connection_id = 56 # int | 
 
     try:
         # Generates report for projectId and connectionId
-        api_instance.generate_pdf(project_id, connection_id)
+        api_client.report.generate_pdf(project_id, connection_id)
     except Exception as e:
         print("Exception when calling ReportApi->generate_pdf: %s\n" % e)
 ```
@@ -107,7 +109,7 @@ void (empty response body)
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
@@ -120,17 +122,19 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def generate_wordExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.ReportApi(api_client)
     project_id = 'project_id_example' # str | 
     connection_id = 56 # int | 
 
     try:
         # Generates report for projectId and connectionId
-        api_instance.generate_word(project_id, connection_id)
+        api_client.report.generate_word(project_id, connection_id)
     except Exception as e:
         print("Exception when calling ReportApi->generate_word: %s\n" % e)
 ```

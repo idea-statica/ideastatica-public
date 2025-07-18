@@ -30,7 +30,7 @@ void (empty response body)
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
@@ -43,17 +43,19 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def delete_operationsExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.OperationApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
     connection_id = 56 # int | Id of the connection to be modified
 
     try:
         # Delete all operations for the connection
-        api_instance.delete_operations(project_id, connection_id)
+        api_client.operation.delete_operations(project_id, connection_id)
     except Exception as e:
         print("Exception when calling OperationApi->delete_operations: %s\n" % e)
 ```
@@ -109,7 +111,7 @@ Name | Type | Description  | Notes
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.models.con_operation_common_properties import ConOperationCommonProperties
@@ -123,19 +125,22 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_common_operation_propertiesExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.OperationApi(api_client)
     project_id = 'project_id_example' # str | 
     connection_id = 56 # int | 
 
     try:
         # Get common operation properties
-        api_response = api_instance.get_common_operation_properties(project_id, connection_id)
+        api_response = api_client.operation.get_common_operation_properties(project_id, connection_id)
         print("The response of OperationApi->get_common_operation_properties:\n")
         pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling OperationApi->get_common_operation_properties: %s\n" % e)
 ```
@@ -191,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.models.con_operation import ConOperation
@@ -205,19 +210,22 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_operationsExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.OperationApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
     connection_id = 56 # int | Id of the requested connection
 
     try:
         # Get the list of operations for the connection
-        api_response = api_instance.get_operations(project_id, connection_id)
+        api_response = api_client.operation.get_operations(project_id, connection_id)
         print("The response of OperationApi->get_operations:\n")
         pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling OperationApi->get_operations: %s\n" % e)
 ```
@@ -274,7 +282,7 @@ void (empty response body)
 
 ### Example
 
-
+Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.models.con_operation_common_properties import ConOperationCommonProperties
@@ -288,18 +296,20 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def update_common_operation_propertiesExampleFunc(api_client):
     
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.OperationApi(api_client)
     project_id = 'project_id_example' # str | 
     connection_id = 56 # int | 
     con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties | Specify id of material, or keep as null (optional)
 
     try:
         # Update common properties for all operations
-        api_instance.update_common_operation_properties(project_id, connection_id, con_operation_common_properties=con_operation_common_properties)
+        api_client.operation.update_common_operation_properties(project_id, connection_id, con_operation_common_properties=con_operation_common_properties)
     except Exception as e:
         print("Exception when calling OperationApi->update_common_operation_properties: %s\n" % e)
 ```
