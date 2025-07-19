@@ -5,8 +5,6 @@ namespace IdeaStatiCa.BimApiLink.Persistence
 {
 	internal class JsonProjectStorage : JsonProjectStorageReader, IProjectStorage
 	{
-		private const string PersistencyStorage = "bimapi-data.json";
-
 		internal JsonProjectStorage(
 			IFilePersistence filePersistence, 
 			string workingDirectory) 
