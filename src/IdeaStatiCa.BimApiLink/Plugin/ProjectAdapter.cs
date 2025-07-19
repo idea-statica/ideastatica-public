@@ -6,10 +6,10 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 {
 	internal class ProjectAdapter : IProject
 	{
-		private readonly Project _project;
+		private readonly IProject _project;
 		private readonly IBimApiImporter _bimApiImporter;
 
-		public ProjectAdapter(Project project, IBimApiImporter bimApiImporter)
+		public ProjectAdapter(IProject project, IBimApiImporter bimApiImporter)
 		{
 			_project = project;
 			_bimApiImporter = bimApiImporter;
