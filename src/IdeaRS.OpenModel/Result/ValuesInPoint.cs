@@ -19,7 +19,7 @@ namespace IdeaRS.OpenModel.Result
 		}
 
 		/// <summary>
-		/// ID of the point in <see cref="IdeaRS.OpenModel.Geometry3D.Point3D"/>
+		/// ID of the point unique within the inner points of imported area
 		/// </summary>
 		public int PointId { get; set; }
 

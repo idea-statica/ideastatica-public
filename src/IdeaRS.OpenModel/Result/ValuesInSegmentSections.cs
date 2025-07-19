@@ -26,10 +26,6 @@ namespace IdeaRS.OpenModel.Result
 		/// <param name="valuesInSection"></param>
 		public ValuesInSegmentSections(int sectionCount, int loadingCount, int valuesInSection)
 		{
-			Debug.Assert(sectionCount > 0);
-			Debug.Assert(loadingCount > 0);
-			Debug.Assert(valuesInSection > 0);
-
 			Type = "IdeaRS.OpenModel.Geometry3D.LineSegment3D";
 			SectionCount = sectionCount;
 			LoadingCount = loadingCount;
@@ -37,11 +33,6 @@ namespace IdeaRS.OpenModel.Result
 			PositionsOnSegment = new List<double>(sectionCount);
 			int valCount = sectionCount * loadingCount * valuesInSection;
 			Values = new List<T>(valCount);
-
-			for (int i = 0; i < valCount - 1; i++)
-			{
-				Values.Add(default(T));
-			}
 		}
 
 		/// <summary>
