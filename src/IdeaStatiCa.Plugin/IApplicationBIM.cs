@@ -16,15 +16,13 @@ namespace IdeaStatiCa.Plugin
 	/// Abstraction of a FE application which provides data to Idea StatiCa
 	/// </summary>
 	public interface IApplicationBIM
-	{
-		
+	{		
 		List<BIMItemId> GetActiveSelection();
-
 		
 		string GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType);
+
 		Task<string> GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType);
 
-		
 		string GetApplicationName();
 
 		/// <summary>
@@ -35,16 +33,14 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="countryCode">The standard that will match the imported models.</param>
 		/// <param name="items">The sequence of items, for which the BIM model is required.</param>
 		/// <returns>A xml string representing a list of BIM models for requested <paramref name="items"/>.</returns>
-		
 		string GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items);
 
 		Task<string> GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items);
-
 		
 		bool IsCAD();
-
 		
 		Task SelectAsync(List<BIMItemId> items);
+
 		bool IsDataUpToDate();
 	}
 }

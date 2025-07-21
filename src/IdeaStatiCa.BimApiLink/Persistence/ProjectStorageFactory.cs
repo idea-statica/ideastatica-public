@@ -6,7 +6,7 @@ namespace IdeaStatiCa.BimApiLink.Persistence
 	public class ProjectStorageFactory
 	{
 		public IProjectStorageReader CreateStorageReader(
-			JsonPersistence jsonPersistence,
+			IFilePersistence jsonPersistence,
 			string projectPath)
 		{
 			return new JsonProjectStorageReader(jsonPersistence, projectPath);
