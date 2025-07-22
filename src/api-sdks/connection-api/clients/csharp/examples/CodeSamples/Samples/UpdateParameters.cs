@@ -37,7 +37,7 @@ namespace CodeSamples
 				}
 			}
 
-			List<IdeaParameter> parameters = await conClient.Parameter.UpdateParametersAsync(conClient.ActiveProjectId, connectionId, updates);
+			//List<IdeaParameter> parameters = await conClient.Parameter.UpdateParametersAsync(conClient.ActiveProjectId, connectionId, updates);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("UpdateParameters");
 			string fileName = "User_testing_end_v23_1_updated.ideaCon";
