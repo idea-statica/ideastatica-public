@@ -32,7 +32,7 @@ namespace IdeaRS.OpenModel.Result
 			ValueCountInSection = valuesInSection;
 			PositionsOnSegment = new List<double>(sectionCount);
 			int valCount = sectionCount * loadingCount * valuesInSection;
-			Values = new List<T>(valCount);
+			Values = new List<T>(new T[valCount]); // Allocate array with required range  
 		}
 
 		/// <summary>
