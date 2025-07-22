@@ -2,20 +2,20 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**CloseProject**](ProjectApi.md#closeproject) | Close the project. Needed for releasing resources in the service. |
-| [**DownloadProject**](ProjectApi.md#downloadproject) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. |
-| [**GetActiveProjects**](ProjectApi.md#getactiveprojects) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient |
-| [**GetProjectData**](ProjectApi.md#getprojectdata) | Get data of the project. |
-| [**GetSetup**](ProjectApi.md#getsetup) | Get setup from project |
-| [**ImportIOM**](ProjectApi.md#importiom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  which is serialized to XML string by  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt; |
-| [**OpenProject**](ProjectApi.md#openproject) | Open ideacon project from ideaConFile |
-| [**UpdateFromIOM**](ProjectApi.md#updatefromiom) | Update the IDEA Connection project by &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  (model and results).  IOM is passed in the body of the request as the xml string.  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt; should be used to generate the valid xml string |
-| [**UpdateProjectData**](ProjectApi.md#updateprojectdata) | Updates ConProjectData of project |
-| [**UpdateSetup**](ProjectApi.md#updatesetup) | Update setup of the project |
+| [**CloseProjectAsync**](ProjectApi.md#closeprojectasync) | Close the project. Needed for releasing resources in the service. |
+| [**DownloadProjectAsync**](ProjectApi.md#downloadprojectasync) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. |
+| [**GetActiveProjectsAsync**](ProjectApi.md#getactiveprojectsasync) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient |
+| [**GetProjectDataAsync**](ProjectApi.md#getprojectdataasync) | Get data of the project. |
+| [**GetSetupAsync**](ProjectApi.md#getsetupasync) | Get setup from project |
+| [**ImportIOMAsync**](ProjectApi.md#importiomasync) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  which is serialized to XML string by  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt; |
+| [**OpenProjectAsync**](ProjectApi.md#openprojectasync) | Open ideacon project from ideaConFile |
+| [**UpdateFromIOMAsync**](ProjectApi.md#updatefromiomasync) | Update the IDEA Connection project by &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  (model and results).  IOM is passed in the body of the request as the xml string.  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt; should be used to generate the valid xml string |
+| [**UpdateProjectDataAsync**](ProjectApi.md#updateprojectdataasync) | Updates ConProjectData of project |
+| [**UpdateSetupAsync**](ProjectApi.md#updatesetupasync) | Update setup of the project |
 
 <a id="closeproject"></a>
-## **CloseProject**
-> **string CloseProject (Guid projectId)**
+## **CloseProjectAsync**
+> **string CloseProjectAsync (Guid projectId)**
 
 Close the project. Needed for releasing resources in the service.
 
@@ -45,33 +45,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class CloseProjectExample
+    public class CloseProjectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Close the project. Needed for releasing resources in the service.
-                    string result = conClient.Project.CloseProject(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.CloseProject: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Close the project. Needed for releasing resources in the service.
+                        string result = await conClient.Project.CloseProjectAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.CloseProjectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -131,8 +139,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="downloadproject"></a>
-## **DownloadProject**
-> **void DownloadProject (Guid projectId)**
+## **DownloadProjectAsync**
+> **void DownloadProjectAsync (Guid projectId)**
 
 Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
 
@@ -165,32 +173,40 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class DownloadProjectExample
+    public class DownloadProjectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
-                    conClient.Project.DownloadProject(projectId);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.DownloadProject: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+                        conClient.Project.DownloadProjectAsync(projectId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.DownloadProjectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -247,8 +263,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getactiveprojects"></a>
-## **GetActiveProjects**
-> **List&lt;ConProject&gt; GetActiveProjects ()**
+## **GetActiveProjectsAsync**
+> **List&lt;ConProject&gt; GetActiveProjectsAsync ()**
 
 Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
 
@@ -274,30 +290,37 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetActiveProjectsExample
+    public class GetActiveProjectsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
-                    List<ConProject> result = conClient.Project.GetActiveProjects();
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.GetActiveProjects: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+                        List<ConProject> result = await conClient.Project.GetActiveProjectsAsync();
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.GetActiveProjectsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                    }
                 }
             }
         }
@@ -357,8 +380,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getprojectdata"></a>
-## **GetProjectData**
-> **ConProject GetProjectData (Guid projectId)**
+## **GetProjectDataAsync**
+> **ConProject GetProjectDataAsync (Guid projectId)**
 
 Get data of the project.
 
@@ -388,33 +411,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetProjectDataExample
+    public class GetProjectDataAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get data of the project.
-                    ConProject result = conClient.Project.GetProjectData(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.GetProjectData: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get data of the project.
+                        ConProject result = await conClient.Project.GetProjectDataAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.GetProjectDataAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -474,8 +505,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getsetup"></a>
-## **GetSetup**
-> **ConnectionSetup GetSetup (Guid projectId)**
+## **GetSetupAsync**
+> **ConnectionSetup GetSetupAsync (Guid projectId)**
 
 Get setup from project
 
@@ -505,33 +536,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetSetupExample
+    public class GetSetupAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get setup from project
-                    ConnectionSetup result = conClient.Project.GetSetup(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.GetSetup: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get setup from project
+                        ConnectionSetup result = await conClient.Project.GetSetupAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.GetSetupAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -591,8 +630,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="importiom"></a>
-## **ImportIOM**
-> **ConProject ImportIOM (System.IO.Stream containerXmlFile = null, List<int> connectionsToCreate = null)**
+## **ImportIOMAsync**
+> **ConProject ImportIOMAsync (System.IO.Stream containerXmlFile = null, List<int> connectionsToCreate = null)**
 
 Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
 
@@ -626,32 +665,39 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ImportIOMExample
+    public class ImportIOMAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                
-                containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
-                var connectionsToCreate = new List<int>(); // List<int> |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
-                    ConProject result = conClient.Project.ImportIOM(containerXmlFile, connectionsToCreate);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.ImportIOM: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
+                    
+                    // (Required) Select parameters
+                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+                    var connectionsToCreate = new List<int>(); // List<int> |  (optional) 
+
+                    try
+                    {
+                        // Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
+                        ConProject result = await conClient.Project.ImportIOMAsync(containerXmlFile, connectionsToCreate);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.ImportIOMAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                    }
                 }
             }
         }
@@ -711,8 +757,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="openproject"></a>
-## **OpenProject**
-> **ConProject OpenProject (System.IO.Stream ideaConFile = null)**
+## **OpenProjectAsync**
+> **ConProject OpenProjectAsync (System.IO.Stream ideaConFile = null)**
 
 Open ideacon project from ideaConFile
 
@@ -745,31 +791,38 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class OpenProjectExample
+    public class OpenProjectAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                
-                ideaConFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Open ideacon project from ideaConFile
-                    ConProject result = conClient.Project.OpenProject(ideaConFile);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.OpenProject: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
+                    
+                    // (Required) Select parameters
+                    ideaConFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+
+                    try
+                    {
+                        // Open ideacon project from ideaConFile
+                        ConProject result = await conClient.Project.OpenProjectAsync(ideaConFile);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.OpenProjectAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                    }
                 }
             }
         }
@@ -829,8 +882,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updatefromiom"></a>
-## **UpdateFromIOM**
-> **ConProject UpdateFromIOM (Guid projectId, System.IO.Stream containerXmlFile = null)**
+## **UpdateFromIOMAsync**
+> **ConProject UpdateFromIOMAsync (Guid projectId, System.IO.Stream containerXmlFile = null)**
 
 Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
 
@@ -864,34 +917,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateFromIOMExample
+    public class UpdateFromIOMAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
-                    ConProject result = conClient.Project.UpdateFromIOM(projectId, containerXmlFile);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.UpdateFromIOM: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+
+                    try
+                    {
+                        // Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
+                        ConProject result = await conClient.Project.UpdateFromIOMAsync(projectId, containerXmlFile);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.UpdateFromIOMAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -951,8 +1012,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updateprojectdata"></a>
-## **UpdateProjectData**
-> **ConProject UpdateProjectData (Guid projectId, ConProjectData conProjectData = null)**
+## **UpdateProjectDataAsync**
+> **ConProject UpdateProjectDataAsync (Guid projectId, ConProjectData conProjectData = null)**
 
 Updates ConProjectData of project
 
@@ -983,34 +1044,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateProjectDataExample
+    public class UpdateProjectDataAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var conProjectData = new ConProjectData(); // ConProjectData |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Updates ConProjectData of project
-                    ConProject result = conClient.Project.UpdateProjectData(projectId, conProjectData);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.UpdateProjectData: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conProjectData = new ConProjectData(); // ConProjectData |  (optional) 
+
+                    try
+                    {
+                        // Updates ConProjectData of project
+                        ConProject result = await conClient.Project.UpdateProjectDataAsync(projectId, conProjectData);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.UpdateProjectDataAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -1070,8 +1139,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updatesetup"></a>
-## **UpdateSetup**
-> **ConnectionSetup UpdateSetup (Guid projectId, ConnectionSetup connectionSetup = null)**
+## **UpdateSetupAsync**
+> **ConnectionSetup UpdateSetupAsync (Guid projectId, ConnectionSetup connectionSetup = null)**
 
 Update setup of the project
 
@@ -1102,34 +1171,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateSetupExample
+    public class UpdateSetupAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                var connectionSetup = new ConnectionSetup(); // ConnectionSetup |  (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Update setup of the project
-                    ConnectionSetup result = conClient.Project.UpdateSetup(projectId, connectionSetup);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Project.UpdateSetup: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var connectionSetup = new ConnectionSetup(); // ConnectionSetup |  (optional) 
+
+                    try
+                    {
+                        // Update setup of the project
+                        ConnectionSetup result = await conClient.Project.UpdateSetupAsync(projectId, connectionSetup);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Project.UpdateSetupAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }

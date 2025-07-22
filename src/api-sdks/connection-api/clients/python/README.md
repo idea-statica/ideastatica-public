@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 1.0
 
 - API version: 1.0
-- Package version: 24.1.3.2377
+- Package version: 25.0.4.0630
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -15,7 +15,7 @@ Python 3.7+
 
 ### pip install 
 
-We reccomend using pip to install the package into your environment.
+We recommend using pip to install the package into your environment.
 
 ```sh
 pip install ideastatica_connection_api
@@ -48,19 +48,105 @@ python setup.py install --user
 `ClientApiClientFactory` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 24.0" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.0" folder. Using CLI:
 
 ```console
 IdeaStatiCa.ConnectionRestApi.exe -port:5193
 ```
 
+Parameter _-port:_ is optional. The default port is 5000.
+
 ```python
-// Connect any new service to latest version of IDEA StatiCa.
+# Connect any new service to latest version of IDEA StatiCa.
 client_factory = ConnectionApiClientFactory('http://localhost:5000/')
 ```
 
 ```python
 conClient = client_factory.create_connection_api_client();
+```
+
+Alternatively, you can leverage the `ConnectionApiServiceAttacher`.
+`ConnectionApiServiceAttacher` manages the creation of client instances that connect to an already running service:
+
+```python
+import logging
+import sys
+import os
+import json
+from pprint import pprint
+from urllib.parse import urljoin
+
+# Get the parent directory
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+# Add the parent directory to sys.path
+sys.path.append(parent_dir)
+
+import ideastatica_connection_api
+import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+baseUrl = "http://localhost:5000"
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+project_file_path = os.path.join(dir_path, '..\projects', 'HSS_norm_cond.ideaCon')
+print(project_file_path)
+
+
+# Create client attached to already running service
+with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
+    try:
+        # Open project
+        uploadRes = api_client.project.open_project_from_filepath(project_file_path)
+
+        # Get the project data
+        project_data = api_client.project.get_project_data(api_client.project.active_project_id)
+        pprint(project_data)
+
+        # Get list of all connections in the project
+        connections_in_project = api_client.connection.get_connections(api_client.project.active_project_id)
+
+        # first connection in the project 
+        connection1 = connections_in_project[0]
+        pprint(connection1)
+
+        # run stress-strain CBFEM analysis for the connection id = 1
+        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
+        calcParams.connection_ids = [connection1.id]
+
+        # run stress-strain analysis for the connection
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        pprint(con1_cbfem_results)
+        
+        # get detailed results. Results are list of strings
+        # the number of strings in the list correspond to the number of calculated connections
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        firstConnectionResult = results_text[0]
+        pprint(firstConnectionResult)
+
+        raw_results = json.loads(firstConnectionResult)
+        pprint(raw_results)
+
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        pprint(detailed_results)
+
+        # get connection setup
+        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
+        pprint(connection_setup)
+
+        # modify setup
+        connection_setup.hss_limit_plastic_strain = 0.02
+        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
+
+        # recalculate connection
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        pprint(recalculate_results)
+
+    except Exception as e:
+        print("Operation failed : %s\n" % e)
 ```
 
 ## Getting Started
@@ -102,6 +188,14 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_connections**](docs/ConnectionApi.md#get_connections) | Get data about all connections in the project
 [**get_production_cost**](docs/ConnectionApi.md#get_production_cost) | Get production cost of the connection
 [**update_connection**](docs/ConnectionApi.md#update_connection) | Update data of a specific connection in the project
+  ### ConversionApi
+
+  
+  
+  Method | Description
+  ------------- | -------------
+[**change_code**](docs/ConversionApi.md#change_code) | Change design code of project.
+[**get_conversion_mapping**](docs/ConversionApi.md#get_conversion_mapping) | Get default conversions for converting the project to different design code.
   ### ExportApi
 
   
@@ -169,9 +263,10 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**api1_projects_project_id_connections_connection_id_parameters_put**](docs/ParameterApi.md#api1_projects_project_id_connections_connection_id_parameters_put) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
+[**clear_parameters**](docs/ParameterApi.md#clear_parameters) | Clear parameters and links for the connection connectionId in the project projectId
 [**evaluate_expression**](docs/ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result
 [**get_parameters**](docs/ParameterApi.md#get_parameters) | Get all parameters which are defined for projectId and connectionId
-[**update_parameters**](docs/ParameterApi.md#update_parameters) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
   ### PresentationApi
 
   
@@ -211,7 +306,9 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**apply_template**](docs/TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+[**clear_design**](docs/TemplateApi.md#clear_design) | Clear the design of the connection connectionId in the project projectId
 [**create_con_template**](docs/TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
+[**get_connection_topology**](docs/TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](docs/TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 
 <a id="documentation-for-models"></a>
@@ -231,15 +328,24 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CheckResPlate](docs/CheckResPlate.md)
  - [ideastatica_connection_api.models.CheckResSummary](docs/CheckResSummary.md)
  - [ideastatica_connection_api.models.CheckResWeld](docs/CheckResWeld.md)
+ - [ideastatica_connection_api.models.ConAlignedPlate](docs/ConAlignedPlate.md)
+ - [ideastatica_connection_api.models.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [ideastatica_connection_api.models.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
  - [ideastatica_connection_api.models.ConCalculationParameter](docs/ConCalculationParameter.md)
  - [ideastatica_connection_api.models.ConConnection](docs/ConConnection.md)
+ - [ideastatica_connection_api.models.ConConversionSettings](docs/ConConversionSettings.md)
  - [ideastatica_connection_api.models.ConLoadEffect](docs/ConLoadEffect.md)
  - [ideastatica_connection_api.models.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [ideastatica_connection_api.models.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
  - [ideastatica_connection_api.models.ConLoadEffectSectionLoad](docs/ConLoadEffectSectionLoad.md)
  - [ideastatica_connection_api.models.ConLoadSettings](docs/ConLoadSettings.md)
  - [ideastatica_connection_api.models.ConMember](docs/ConMember.md)
+ - [ideastatica_connection_api.models.ConMemberAlignmentTypeEnum](docs/ConMemberAlignmentTypeEnum.md)
+ - [ideastatica_connection_api.models.ConMemberForcesInEnum](docs/ConMemberForcesInEnum.md)
+ - [ideastatica_connection_api.models.ConMemberModel](docs/ConMemberModel.md)
+ - [ideastatica_connection_api.models.ConMemberPlacementDefinitionTypeEnum](docs/ConMemberPlacementDefinitionTypeEnum.md)
+ - [ideastatica_connection_api.models.ConMemberPlatePartTypeEnum](docs/ConMemberPlatePartTypeEnum.md)
+ - [ideastatica_connection_api.models.ConMemberPosition](docs/ConMemberPosition.md)
  - [ideastatica_connection_api.models.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [ideastatica_connection_api.models.ConMprlElement](docs/ConMprlElement.md)
  - [ideastatica_connection_api.models.ConOperation](docs/ConOperation.md)
@@ -257,6 +363,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConnectionCheckRes](docs/ConnectionCheckRes.md)
  - [ideastatica_connection_api.models.ConnectionData](docs/ConnectionData.md)
  - [ideastatica_connection_api.models.ConnectionSetup](docs/ConnectionSetup.md)
+ - [ideastatica_connection_api.models.ConversionMapping](docs/ConversionMapping.md)
+ - [ideastatica_connection_api.models.CountryCode](docs/CountryCode.md)
  - [ideastatica_connection_api.models.CrtCompCheckIS](docs/CrtCompCheckIS.md)
  - [ideastatica_connection_api.models.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [ideastatica_connection_api.models.CutData](docs/CutData.md)
@@ -269,6 +377,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.IGroup](docs/IGroup.md)
  - [ideastatica_connection_api.models.IdeaParameter](docs/IdeaParameter.md)
  - [ideastatica_connection_api.models.IdeaParameterUpdate](docs/IdeaParameterUpdate.md)
+ - [ideastatica_connection_api.models.IdeaParameterValidation](docs/IdeaParameterValidation.md)
  - [ideastatica_connection_api.models.Line](docs/Line.md)
  - [ideastatica_connection_api.models.MessageNumber](docs/MessageNumber.md)
  - [ideastatica_connection_api.models.OpenElementId](docs/OpenElementId.md)
@@ -299,7 +408,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 1.0
-- Package version: 24.1.3.2377
+- Package version: 25.0.4.0630
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

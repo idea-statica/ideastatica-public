@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetConnection**](ConnectionApi.md#getconnection) | Get data about a specific connection in the project |
-| [**GetConnections**](ConnectionApi.md#getconnections) | Get data about all connections in the project |
-| [**GetProductionCost**](ConnectionApi.md#getproductioncost) | Get production cost of the connection |
-| [**UpdateConnection**](ConnectionApi.md#updateconnection) | Update data of a specific connection in the project |
+| [**GetConnectionAsync**](ConnectionApi.md#getconnectionasync) | Get data about a specific connection in the project |
+| [**GetConnectionsAsync**](ConnectionApi.md#getconnectionsasync) | Get data about all connections in the project |
+| [**GetProductionCostAsync**](ConnectionApi.md#getproductioncostasync) | Get production cost of the connection |
+| [**UpdateConnectionAsync**](ConnectionApi.md#updateconnectionasync) | Update data of a specific connection in the project |
 
 <a id="getconnection"></a>
-## **GetConnection**
-> **ConConnection GetConnection (Guid projectId, int connectionId)**
+## **GetConnectionAsync**
+> **ConConnection GetConnectionAsync (Guid projectId, int connectionId)**
 
 Get data about a specific connection in the project
 
@@ -40,34 +40,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetConnectionExample
+    public class GetConnectionAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | The id of the requested connection
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get data about a specific connection in the project
-                    ConConnection result = conClient.Connection.GetConnection(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Connection.GetConnection: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | The id of the requested connection
+
+                    try
+                    {
+                        // Get data about a specific connection in the project
+                        ConConnection result = await conClient.Connection.GetConnectionAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Connection.GetConnectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -127,8 +135,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getconnections"></a>
-## **GetConnections**
-> **List&lt;ConConnection&gt; GetConnections (Guid projectId)**
+## **GetConnectionsAsync**
+> **List&lt;ConConnection&gt; GetConnectionsAsync (Guid projectId)**
 
 Get data about all connections in the project
 
@@ -158,33 +166,41 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetConnectionsExample
+    public class GetConnectionsAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get data about all connections in the project
-                    List<ConConnection> result = conClient.Connection.GetConnections(projectId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Connection.GetConnections: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Get data about all connections in the project
+                        List<ConConnection> result = await conClient.Connection.GetConnectionsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Connection.GetConnectionsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -244,8 +260,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="getproductioncost"></a>
-## **GetProductionCost**
-> **ConProductionCost GetProductionCost (Guid projectId, int connectionId)**
+## **GetProductionCostAsync**
+> **ConProductionCost GetProductionCostAsync (Guid projectId, int connectionId)**
 
 Get production cost of the connection
 
@@ -276,34 +292,42 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetProductionCostExample
+    public class GetProductionCostAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the requested connection
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Get production cost of the connection
-                    ConProductionCost result = conClient.Connection.GetProductionCost(projectId, connectionId);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Connection.GetProductionCost: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the requested connection
+
+                    try
+                    {
+                        // Get production cost of the connection
+                        ConProductionCost result = await conClient.Connection.GetProductionCostAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Connection.GetProductionCostAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
@@ -363,8 +387,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="updateconnection"></a>
-## **UpdateConnection**
-> **ConConnection UpdateConnection (Guid projectId, int connectionId, ConConnection conConnection = null)**
+## **UpdateConnectionAsync**
+> **ConConnection UpdateConnectionAsync (Guid projectId, int connectionId, ConConnection conConnection = null)**
 
 Update data of a specific connection in the project
 
@@ -396,35 +420,43 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class UpdateConnectionExample
+    public class UpdateConnectionAsyncExample
     {
-        public static void Main()
+        public static async Task Main()
         {
-            // Create the client which is connected to the service.
-            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
-                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
-                Guid projectId = project.ProjectId; //Get projectId Guid
-                
-                connectionId = 56;  // int | Id of the connection to be update
-                var conConnection = new ConConnection(); // ConConnection | New connection data to be set (optional) 
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
 
-                try
-                {
-                    // Update data of a specific connection in the project
-                    ConConnection result = conClient.Connection.UpdateConnection(projectId, connectionId, conConnection);
-                    Debug.WriteLine(result);
-                }
-                catch (ApiException  e)
-                {
-                    Console.WriteLine("Exception when calling Connection.UpdateConnection: " + e.Message);
-                    Console.WriteLine("Status Code: " + e.ErrorCode);
-                    Console.WriteLine(e.StackTrace);
-                }
-                finally
-                {
-                    await conClient.Project.CloseProjectAsync(projectId);
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | Id of the connection to be update
+                    var conConnection = new ConConnection(); // ConConnection | New connection data to be set (optional) 
+
+                    try
+                    {
+                        // Update data of a specific connection in the project
+                        ConConnection result = await conClient.Connection.UpdateConnectionAsync(projectId, connectionId, conConnection);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Connection.UpdateConnectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
                 }
             }
         }
