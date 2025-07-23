@@ -41,13 +41,6 @@ from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -81,7 +74,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/load-effects 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -127,13 +120,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -167,7 +153,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 ### Authorization
 
@@ -215,13 +201,6 @@ from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -256,7 +235,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 ### Authorization
 
@@ -303,13 +282,6 @@ from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -343,7 +315,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -389,13 +361,6 @@ from ideastatica_connection_api.models.con_load_settings import ConLoadSettings
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -428,7 +393,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
 
 ### Authorization
 
@@ -475,13 +440,6 @@ from ideastatica_connection_api.models.con_load_settings import ConLoadSettings
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -515,7 +473,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
 
 ### Authorization
 
@@ -562,13 +520,6 @@ from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -602,7 +553,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId}/connections/{connectionId}/load-effects 
+> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 

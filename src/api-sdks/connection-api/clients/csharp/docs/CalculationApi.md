@@ -94,7 +94,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/calculate 
+> **POST** /api/2/projects/{projectId}/connections/calculate 
 
 #### Using the CalculateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -221,7 +221,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/rawresults-text 
+> **POST** /api/2/projects/{projectId}/connections/rawresults-text 
 
 #### Using the GetRawJsonResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -348,7 +348,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/results 
+> **POST** /api/2/projects/{projectId}/connections/results 
 
 #### Using the GetResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

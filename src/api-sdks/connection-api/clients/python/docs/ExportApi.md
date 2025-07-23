@@ -35,13 +35,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -74,7 +67,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-ifc 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/export-ifc 
 
 ### Authorization
 
@@ -120,13 +113,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -160,7 +146,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-iom 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/export-iom 
 
 ### Authorization
 
@@ -206,13 +192,6 @@ from ideastatica_connection_api.models.connection_data import ConnectionData
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -245,7 +224,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
 
 ### Authorization
 

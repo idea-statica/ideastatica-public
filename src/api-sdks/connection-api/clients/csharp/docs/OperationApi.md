@@ -94,7 +94,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/1/projects/{projectId}/connections/{connectionId}/operations 
+> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/operations 
 
 #### Using the DeleteOperationsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -218,7 +218,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 #### Using the GetCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -345,7 +345,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/operations 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations 
 
 #### Using the GetOperationsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -473,7 +473,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 #### Using the UpdateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

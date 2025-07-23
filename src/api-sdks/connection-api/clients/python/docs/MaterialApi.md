@@ -46,13 +46,6 @@ from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -82,7 +75,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/2/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -128,13 +121,6 @@ from ideastatica_connection_api.models.con_mprl_cross_section import ConMprlCros
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -164,7 +150,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/materials/cross-sections 
+> **POST** /api/2/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -210,13 +196,6 @@ from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -246,7 +225,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/2/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -292,13 +271,6 @@ from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -328,7 +300,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/materials/concrete 
+> **POST** /api/2/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -374,13 +346,6 @@ from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -410,7 +375,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/materials/steel 
+> **POST** /api/2/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -456,13 +421,6 @@ from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -492,7 +450,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/materials/welding 
+> **POST** /api/2/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -536,13 +494,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -574,7 +525,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials 
+> **GET** /api/2/projects/{projectId}/materials 
 
 ### Authorization
 
@@ -618,13 +569,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -656,7 +600,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/2/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -700,13 +644,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -738,7 +675,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/2/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -782,13 +719,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -820,7 +750,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials/concrete 
+> **GET** /api/2/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -864,13 +794,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -902,7 +825,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials/cross-sections 
+> **GET** /api/2/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -946,13 +869,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -984,7 +900,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials/steel 
+> **GET** /api/2/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -1028,13 +944,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -1066,7 +975,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/materials/welding 
+> **GET** /api/2/projects/{projectId}/materials/welding 
 
 ### Authorization
 

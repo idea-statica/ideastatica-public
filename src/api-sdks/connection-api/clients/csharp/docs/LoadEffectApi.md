@@ -100,7 +100,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/load-effects 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/load-effects 
 
 #### Using the AddLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -229,7 +229,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 #### Using the DeleteLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -360,7 +360,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 #### Using the GetLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -489,7 +489,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/load-effects 
 
 #### Using the GetLoadEffectsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -616,7 +616,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
 
 #### Using the GetLoadSettingsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -745,7 +745,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
 
 #### Using the SetLoadSettingsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -874,7 +874,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId}/connections/{connectionId}/load-effects 
+> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/load-effects 
 
 #### Using the UpdateLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
