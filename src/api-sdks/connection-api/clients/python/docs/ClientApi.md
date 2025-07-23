@@ -30,13 +30,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -67,7 +60,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/clients/connect-client 
+> **GET** /api/2/clients/connect-client 
 
 ### Authorization
 
@@ -108,13 +101,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -145,7 +131,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/clients/idea-service-version 
+> **GET** /api/2/clients/idea-service-version 
 
 ### Authorization
 

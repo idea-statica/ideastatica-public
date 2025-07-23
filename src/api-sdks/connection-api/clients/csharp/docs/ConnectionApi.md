@@ -95,7 +95,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId} 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId} 
 
 #### Using the GetConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -220,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections 
+> **GET** /api/2/projects/{projectId}/connections 
 
 #### Using the GetConnectionsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -347,7 +347,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/production-cost 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/production-cost 
 
 #### Using the GetProductionCostWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -476,7 +476,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId}/connections/{connectionId} 
+> **PUT** /api/2/projects/{projectId}/connections/{connectionId} 
 
 #### Using the UpdateConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

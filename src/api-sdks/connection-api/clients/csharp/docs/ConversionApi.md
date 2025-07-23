@@ -93,7 +93,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/change-code 
+> **POST** /api/2/projects/{projectId}/change-code 
 
 #### Using the ChangeCodeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -220,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/get-default-mapping 
+> **GET** /api/2/projects/{projectId}/get-default-mapping 
 
 #### Using the GetConversionMappingWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

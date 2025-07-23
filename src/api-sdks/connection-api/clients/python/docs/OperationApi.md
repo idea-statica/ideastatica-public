@@ -36,13 +36,6 @@ import ideastatica_connection_api
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -72,7 +65,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/1/projects/{projectId}/connections/{connectionId}/operations 
+> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -118,13 +111,6 @@ from ideastatica_connection_api.models.con_operation_common_properties import Co
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -157,7 +143,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 ### Authorization
 
@@ -203,13 +189,6 @@ from ideastatica_connection_api.models.con_operation import ConOperation
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -242,7 +221,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/operations 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -289,13 +268,6 @@ from ideastatica_connection_api.models.con_operation_common_properties import Co
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
 ```
 
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
@@ -326,7 +298,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 ### Authorization
 

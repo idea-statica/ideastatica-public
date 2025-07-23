@@ -99,7 +99,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/close 
+> **GET** /api/2/projects/{projectId}/close 
 
 #### Using the CloseProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -226,7 +226,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/download 
+> **GET** /api/2/projects/{projectId}/download 
 
 #### Using the DownloadProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -340,7 +340,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects 
+> **GET** /api/2/projects 
 
 #### Using the GetActiveProjectsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -465,7 +465,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId} 
+> **GET** /api/2/projects/{projectId} 
 
 #### Using the GetProjectDataWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -590,7 +590,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connection-setup 
+> **GET** /api/2/projects/{projectId}/connection-setup 
 
 #### Using the GetSetupWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -717,7 +717,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/import-iom-file 
+> **POST** /api/2/projects/import-iom-file 
 
 #### Using the ImportIOMWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -842,7 +842,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/open 
+> **POST** /api/2/projects/open 
 
 #### Using the OpenProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -972,7 +972,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/update-iom-file 
+> **POST** /api/2/projects/{projectId}/update-iom-file 
 
 #### Using the UpdateFromIOMWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1099,7 +1099,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId} 
+> **PUT** /api/2/projects/{projectId} 
 
 #### Using the UpdateProjectDataWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1226,7 +1226,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/1/projects/{projectId}/connection-setup 
+> **PUT** /api/2/projects/{projectId}/connection-setup 
 
 #### Using the UpdateSetupWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

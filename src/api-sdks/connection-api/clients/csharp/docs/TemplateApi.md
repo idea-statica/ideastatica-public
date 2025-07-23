@@ -98,7 +98,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/apply-template 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/apply-template 
 
 #### Using the ApplyTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -224,7 +224,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/clear-design 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/clear-design 
 
 #### Using the ClearDesignWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -348,7 +348,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/get-template 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/get-template 
 
 #### Using the CreateConTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -475,7 +475,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/projects/{projectId}/connections/{connectionId}/get-topology 
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/get-topology 
 
 #### Using the GetConnectionTopologyWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -606,7 +606,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/1/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 #### Using the GetDefaultTemplateMappingWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

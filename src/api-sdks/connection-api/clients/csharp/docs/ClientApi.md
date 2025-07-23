@@ -83,7 +83,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/clients/connect-client 
+> **GET** /api/2/clients/connect-client 
 
 #### Using the ConnectClientWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -200,7 +200,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/1/clients/idea-service-version 
+> **GET** /api/2/clients/idea-service-version 
 
 #### Using the GetVersionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
