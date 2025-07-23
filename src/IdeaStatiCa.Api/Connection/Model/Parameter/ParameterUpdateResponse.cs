@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IdeaStatiCa.Api.Connection.Model.Parameter
+namespace IdeaStatiCa.Api.Connection.Model
 {
 	public class ParameterUpdateResponse
 	{
