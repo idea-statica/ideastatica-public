@@ -19,8 +19,8 @@ src
 
 Each API has a seperate Visual Studio solution (.sln) which contains all the avaliable examples.
 
-- [Connection API Examples](../src/api-sdks/connection-api/clients/csharp/examples/IdeaStatiCa.ConnectionApi.Examples.sln)
-- [RCS API Examples](../src/api-sdks/rcs-api/clients/csharp/examples/IdeaStatiCa.RcsApi.Examples.sln)
+- [Connection API Examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples)
+- [RCS API Examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/rcs-api/clients/csharp/examples)
 
 > [!NOTE]
 > Each example solution has two debug configurations 'Debug' and 'Debug_NuGet'. Projects in the IdeaStatiCa.###.Examples.sln are generally set to Debug_Nuget which means they referencee avaliable Nuget packages on build. As we still actively develop some of the examples avaliable against our source code we use 'Debug' for internal.
@@ -32,8 +32,8 @@ For python, we provide two relevant example folders, examples and examples-pip. 
 
 Within each example folder a list of folders (one for each example provided).
 
-- [Connection API Examples](../src/api-sdks/connection-api/clients/python/examples/)
-- [RCS API Examples](../src/api-sdks/rcs-api/clients/python/examples-pip/)
+- [Connection API Examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python/examples)
+- [RCS API Examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/rcs-api/clients/python/examples-pip)
 
 
 

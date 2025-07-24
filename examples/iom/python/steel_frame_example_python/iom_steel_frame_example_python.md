@@ -512,30 +512,3 @@ Let's save the final model to drive.
 model.SaveToXmlFile('IOM-SteelFrame.xml')
 ```
 Congratulations, you have successfully created an IOM model and a connection point that can be imported into IDEA StatiCa Connection.
-
-# Using IDEA Plugin to Generate the Connection
-
-Using the clr we need to reference the `IdeaStatiCa.Plugin` dll from the Idea Directory.
-
-Then Plugin _Namespace_ we need to import the ConnHiddenClientFactory. The Client Factory allows us to safely _create_ connection clients that we can use to interact with IDEA Connection. 
-
-```python
-clr.AddReference('IdeaStatiCa.Plugin')
-
-from IdeaStatiCa.Plugin import ConnHiddenClientFactory
-```
-We then again need to provide the path to the Client Factory and safely create a client.
-
-```python
-factory = ConnHiddenClientFactory(idea_path)
-client = factory.Create()
-```
-Finally, create an Idea Connection file from an IOM referencing the saved filepath of the model, results and a new filepath to save the IDEA Connection (. IdeaCon) file to.
-
-```python
-client.CreateConProjFromIOM('IOM-SteelFrame.xml', 'IOM-SteelFrame.xmlR', 'SteelFrame.ideaCon')
-
-# Ensure closing of any open project and flush the client.
-client.CloseProject()
-client.Close()
-```
