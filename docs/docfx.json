@@ -41,20 +41,6 @@
       "outputFormat": "apiPage",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
-    },
-    {
-      "src": [
-        {
-          "files": [
-            "**IdeaStatiCa.Plugin.csproj"
-          ],
-          "src": "../src"
-        }
-      ],
-      "dest": "api-plugin",
-      "outputFormat": "apiPage",
-      "disableGitFeatures": false,
-      "disableDefaultFilter": false
     }
   ],
   "build": {
@@ -72,7 +58,6 @@
       { "files": ["api-iom/**.yml", "api-iom/index.md"] },
       { "files": ["api-bimapi/**.yml", "api-bimapi/index.md" ]},
       { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
-      { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
       { "files": "**/*.md", "src" : "../src/api-sdks", "dest": "docs/api"},
       { "files": [ "**/*.swagger.json" ]},
       { "files": ["toc.yml", "*.md"]},
