@@ -36,7 +36,7 @@ It is up to the developer to define what features they want to include in the ex
 
 The primary exercise is to convert the base application geometry schema to an IOM Model, which can be read by IDEA StatiCa Connection. 
 
-The [Steel Frame Example](../../../examples/iom/IOM/readme.md) walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure. 
+The [Steel Frame Example](../../../examples/iom/csharp/SteelFrameExample/readme.md) walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure. 
 
 #### Notes on the Steel Frame Example
 * In the Steel Frame Example only **one** `ConnectionPoint` is defined within the Open Model output. IDEA StatiCa connection only allows for one connection to be imported through IOM (although the program itself does allow multiple connections). This is worth noting when trying to create multiple IDEA StatiCa connection files using this method. A separate IOM `.xml` file will need to be created with all relevant data. 
@@ -47,7 +47,7 @@ The [IOM Wiki page](../iom/iom_getting_started.md) provides some further in-dept
 
 For IOM coming from an FEA application, it is important that an IOM OpenModelResult `.xml/.xmlR` is created. This file provides all the result data required to provide load effects on the connection. 
 
-Again, [Steel Frame Example](../../../examples/iom/IOM/readme.md) provides a brief explanation on how this is generated. 
+Again, [Steel Frame Example](../../../examples/iom/csharp/SteelFrameExample/readme.md) provides a brief explanation on how this is generated. 
 
 #### Notes on the Steel Frame Example
 * In contrary to the above, you can reference one single result file for the creation of all connection IOM exports. Result Forces for members not in the connection file will be ignored.
@@ -60,40 +60,42 @@ The IOM Wiki pages below provide some further in-depth documentation on helping 
 
 ### 4. Create the IDEA StatiCa Connection file
 
-Once the IOM OpenModel and IOM OpenResult have been generated using one of the following options to create the `.IdeaCon` connection file: 
+Once the IOM OpenModel and IOM OpenResult have been combined into an OpenModelContainer and saved onto your computer you can create an IDEA Connection project (`.ideaCon`) from it using one of the following options.
 
-#### IDEA StatiCa Connection File using PlugIn (API)
+#### IDEA StatiCa Connection File using Connection Api (Local)
 
 ```csharp
-string iomFileName = "example.xml";
 
-//If no results then set this string to String.Empty
-string iomResFileName = "example.xmlR";
+string iomFileName = "OpenModelContainerFile.xml";
 
-//Getting Desktop for this Example
-var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-var fileConnFileNameFromLocal = Path.Combine(desktopDir, "connectionFromIOM-local.ideaCon");
-
-//Using IdeaStatiCa.Plugin Package
-var calcFactory = new ConnHiddenClientFactory(IdeaInstallDir);
-var client = calcFactory.Create();
-
-try
+//Automatically start API service and Attach it.
+using (var clientFactory = new ConnectionApiServiceRunner(IdeaInstallDir))
 {
-     //Creates connection project from IOM. This does not leave the connection open.
-     client.CreateConProjFromIOM(iomFileName, iomResFileName, fileConnFileNameFromLocal);
-}
-catch(Exception e)
-{
-    Console.WriteLine("Error '{0}'", e.Message);
-}
-finally
-{
-    if (client != null)
-    {
-	client.Close();
-    }
-}		
+	// create ConnectionApiClient
+	using (var conClient = await clientFactory.CreateApiClient())
+	{
+		try
+		{
+			//Create the Connection project from the IOM file.
+			//This creates the project on the server side. 
+			Console.WriteLine("Creating Idea connection project ");
+			var projData = await conClient.Project.CreateProjectFromIomFileAsync(iomFileName, null);
+			Console.WriteLine($"Generated Connection Project from IOM. Project is active on the Server with Guid: {conClient.ActiveProjectId}.", fileConnFileNameFromLocal);
+
+			//Save connection to local computer.
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, fileConnFileNameFromLocal);
+			Console.WriteLine($"Save Project to local disk at path: {fileConnFileNameFromLocal}.");
+
+			//Close project on server.
+			await conClient.Project.CloseProjectAsync(projData.ProjectId);
+			Console.WriteLine($"Project with Id {conClient.ActiveProjectId} closed on Server");
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine("Error '{0}'", e.Message);
+		}
+	}
+}	
 
 ```
 
@@ -144,14 +146,6 @@ public static void CreateOnServer(OpenModel model, OpenModelResult openModelResu
 }
 
 ```
-
-#### Launching IDEA StatiCa from your App.
-
-Once the .ideaCon file has been created, you can choose to launch the IDEA StatiCa App directly from your application for editing and saving the user from having to open IDEA StatiCa and locate the file.
-
-The steps to enable this interaction are explained [here](https://github.com/idea-statica/ideastatica-public/blob/main/docs/connection-app-automation.md).
-
-**Note:** This primarily only works for apps creating one connection file.
 
 ## Allow Simple Checkbot Import through ModelBIM.
 
