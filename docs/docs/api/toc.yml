@@ -21,8 +21,6 @@
   href: api_create_a_simple_app.md
 - name: Using Python with IDEA Packages
   href: api_using_python_with_idea_packages.md
-- name: Install Python and JupyterLab using Anaconda
-  href: api_install_python_and_jupyterlab_using_anaconda.md
 - name: Create Python Stubs for Visual Studio Code
   href: api_python_create_python_stubs.md
 - name: Parameters
