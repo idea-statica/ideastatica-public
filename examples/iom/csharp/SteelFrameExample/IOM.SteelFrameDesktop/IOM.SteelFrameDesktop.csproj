@@ -44,13 +44,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-
   <ItemGroup>
-	<ProjectReference Include="..\IOM.GeneratorExample\IOM.GeneratorExample.csproj" />
-  </ItemGroup>	
-	
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-    <ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,8 +3,8 @@
     <ProjectGuid>{8B5CEAF9-0553-4156-ABFA-B8A27E251514}</ProjectGuid>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AssemblyTitle>IOM.GeneratorExample</AssemblyTitle>
-    <Product>IOM.GeneratorExample</Product>
+    <AssemblyTitle>IOM.SteelFrameExample</AssemblyTitle>
+    <Product>IOM.SteelFrameExample</Product>
     <Copyright>Copyright ©  2020</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
@@ -50,6 +50,6 @@
 	<PackageReference Include="IdeaStatiCa.OpenModel" VersionOverride="25.0.3.895" />
   </ItemGroup>	
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-    <ProjectReference Include="..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>
 </Project>

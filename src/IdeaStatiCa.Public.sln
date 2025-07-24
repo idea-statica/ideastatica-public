@@ -92,11 +92,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleRunner", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleConsoleApp", "Examples\CheckbotBimLink\BimLinkExampleConsoleApp\BimLinkExampleConsoleApp.csproj", "{D4839311-3A97-499B-8B49-A85726D92BFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.GeneratorExample", "..\examples\iom\IOM\IOM.GeneratorExample\IOM.GeneratorExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameExample", "..\examples\iom\csharp\SteelFrameExample\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "..\examples\iom\IOM\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "..\examples\iom\csharp\SteelFrameExample\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameWeb", "..\examples\iom\IOM\IOM.SteelFrameWeb\IOM.SteelFrameWeb.csproj", "{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameWeb", "..\examples\iom\csharp\SteelFrameExample\IOM.SteelFrameWeb\IOM.SteelFrameWeb.csproj", "{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOMConversions", "IOMConversions", "{F5E015AA-E033-425C-B0D5-6B51FD548CBF}"
 EndProject
