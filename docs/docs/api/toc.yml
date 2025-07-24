@@ -1,5 +1,7 @@
 - name: IDEA StatiCa API
   href: api_overview.md
+- name: API Examples
+  href: api_examples.md
 - name: Connection API
 - name: Introduction
   href: connection-api/connection_api_overview.md
@@ -14,12 +16,6 @@
   href: rcs-api/clients/csharp/toc.yml
 - name: Python client
   href: rcs-api/clients/python/toc.yml
-- name: Examples
-  href: rcs-api/examples/toc.yml
-- name: API Reference (C#)
-  href: ../../api-rcs/toc.yml
-- name: API Reference (REST)
-  href: rcs-api/RCSAPI-oa2.swagger.json
 - name: References
 - name: Creating a simple app
   href: api_create_a_simple_app.md
