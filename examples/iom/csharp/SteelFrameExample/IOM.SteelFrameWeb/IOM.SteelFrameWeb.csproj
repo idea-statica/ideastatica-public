@@ -27,16 +27,13 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
-
-  <ItemGroup>
-	<ProjectReference Include="..\IOM.GeneratorExample\IOM.GeneratorExample.csproj" />
-  </ItemGroup>
-
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 	<PackageReference Include="IdeaStatiCa.OpenModel" VersionOverride="25.0.3.895" />
   </ItemGroup>
-
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-	<ProjectReference Include="..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+	<ProjectReference Include="..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj" />
   </ItemGroup>
 </Project>

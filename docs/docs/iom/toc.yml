@@ -21,17 +21,17 @@
   href: iom_open_model_result.md
 - name: Examples
 - name: Steel frame example
-  href: ../../../examples/iom/IOM/readme.md
+  href: ../../../examples/iom/csharp/SteelFrameExample/readme.md
 - name: Steel frame example (python)
   href: ../../../examples/iom/python/steel_frame_example_python/iom_steel_frame_example_python.md
 - name: IOM to RCS examples
   items:
     - name: Reinforced Beam
-      href: ../../../examples/iom/iom-rcs/IomToRcsExamples/RcsReinforcedBeam/rcs_reinforced_beam.md
+      href: ../../../examples/iom/csharp/IomToRcsExamples/IomToRcsExamples/RcsReinforcedBeam/rcs_reinforced_beam.md
     - name: Reinforced Column
-      href: ../../../examples/iom/iom-rcs/IomToRcsExamples/RcsColumn/rcs_column.md
+      href: ../../../examples/iom/csharp/IomToRcsExamples/IomToRcsExamples/RcsColumn/rcs_column.md
     - name: Prestressed Beam
-      href: ../../../examples/iom/iom-rcs/IomToRcsExamples/RcsPrestressedBeam/rcs_prestressed_beam.md
+      href: ../../../examples/iom/csharp/IomToRcsExamples/IomToRcsExamples/RcsPrestressedBeam/rcs_prestressed_beam.md
 - name: API Reference
 - name: IdeaRS.OpenModel 
   href: ../../api-iom/toc.yml

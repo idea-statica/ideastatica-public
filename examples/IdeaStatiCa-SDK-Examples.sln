@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOM", "IOM", "{464D1A19-FD4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BIMAPI", "BIMAPI", "{E7FE4B01-F9AB-44D8-99F6-47BA12E46DE5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeneratorExample", "GeneratorExample", "{9756E859-52D8-4270-9456-4CD495E001DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SteelFrameExample", "SteelFrameExample", "{9756E859-52D8-4270-9456-4CD495E001DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.GeneratorExample", "iom\IOM\IOM.GeneratorExample\IOM.GeneratorExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameExample", "iom\csharp\SteelFrameExample\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "iom\IOM\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "iom\csharp\SteelFrameExample\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameWeb", "iom\IOM\IOM.SteelFrameWeb\IOM.SteelFrameWeb.csproj", "{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameWeb", "iom\csharp\SteelFrameExample\IOM.SteelFrameWeb\IOM.SteelFrameWeb.csproj", "{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CheckbotBimLink", "CheckbotBimLink", "{5085985F-9DE5-4A14-B045-FFF20DD0E441}"
 EndProject
@@ -37,9 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAF2IOM", "bimapi\SAF2IOM-W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RcsExamples", "RcsExamples", "{C8A256C4-281A-4B48-AD7A-9E1A4FF60AFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExamples", "iom\iom-rcs\IomToRcsExamples\IomToRcsExamples.csproj", "{F85E9D2E-BBBA-4E05-856E-2112ADE53F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExamples", "iom\csharp\IomToRcsExamples\IomToRcsExamples\IomToRcsExamples.csproj", "{F85E9D2E-BBBA-4E05-856E-2112ADE53F5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExampleRunner", "iom\iom-rcs\IomToRcsExampleRunner\IomToRcsExampleRunner.csproj", "{E2485C64-F1B1-4B22-8963-0B099897C4F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExampleRunner", "iom\csharp\IomToRcsExamples\IomToRcsExampleRunner\IomToRcsExampleRunner.csproj", "{E2485C64-F1B1-4B22-8963-0B099897C4F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadBulkSelection", "bimapi\CheckbotBimLink\CadExample\CadBulkSelection\CadBulkSelection.csproj", "{1429419D-B1B4-4647-895D-383214FAF315}"
 EndProject

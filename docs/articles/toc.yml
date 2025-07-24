@@ -1,11 +1,8 @@
 - name: Home
   href: ../index.md
-- name: Getting Started
-- name: SDK Examples
-  href: ../../examples/readme.md
+- name: References
 - name: NuGet Packages
   href: nugetpackages.md
-- name: References
 - name: Diagnostics in IDEA StatiCa Apps
   href: diagnostics.md  
 - name: Version Tagging in Our Repository

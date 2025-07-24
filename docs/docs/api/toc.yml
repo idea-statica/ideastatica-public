@@ -1,5 +1,7 @@
 - name: IDEA StatiCa API
   href: api_overview.md
+- name: API Examples
+  href: api_examples.md
 - name: Connection API
 - name: Introduction
   href: connection-api/connection_api_overview.md
@@ -14,29 +16,16 @@
   href: rcs-api/clients/csharp/toc.yml
 - name: Python client
   href: rcs-api/clients/python/toc.yml
-- name: Examples
-  href: rcs-api/examples/toc.yml
-- name: API Reference (C#)
-  href: ../../api-rcs/toc.yml
-- name: API Reference (REST)
-  href: rcs-api/RCSAPI-oa2.swagger.json
 - name: References
 - name: Creating a simple app
   href: api_create_a_simple_app.md
 - name: Using Python with IDEA Packages
   href: api_using_python_with_idea_packages.md
-- name: Install Pyhon and JupyterLab using Anaconda
-  href: api_install_python_and_jupyterlab_using_anaconda.md
 - name: Create Python Stubs for Visual Studio Code
   href: api_python_create_python_stubs.md
-- name: Using API in GhPython (Grasshopper)
-  href: api_using_api_in_grasshopper.md
 - name: Parameters
   items:
   - name: Getting started with Parameters
     href: api_parameters_getting_started.md
   - name: Expression Parameter Reference Guide
     href: api_parameter_reference_guide.md
-- name: API Reference
-- name: IdeaStatiCa.PlugIn
-  href: ../../api-plugin/toc.yml

@@ -28,6 +28,7 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="IdeaStatiCa.ConnectionApi" />
     <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
@@ -43,17 +44,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-
   <ItemGroup>
-	<ProjectReference Include="..\IOM.GeneratorExample\IOM.GeneratorExample.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-    <PackageReference Include="IdeaStatiCa.Plugin" VersionOverride="25.0.3.895" />
-  </ItemGroup>	
-	
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-    <ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj" />
   </ItemGroup>
 
 </Project>
