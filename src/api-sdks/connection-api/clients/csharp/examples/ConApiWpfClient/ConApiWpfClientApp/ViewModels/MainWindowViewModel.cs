@@ -33,8 +33,9 @@ namespace ConApiWpfClientApp.ViewModels
 		ConnectionViewModel? selectedConnection;
 		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
+		private ConAnalysisTypeEnum _conAnalysisType;
 		//private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Default };
-		
+
 		private bool disposedValue;
 
 		public MainWindowViewModel(IConfiguration configuration,
@@ -45,6 +46,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this._configuration = configuration;
 			this._logger = logger;
 			this._sceneController = sceneController;
+			this._conAnalysisType = ConAnalysisTypeEnum.Stress_Strain;
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
@@ -101,7 +103,7 @@ namespace ConApiWpfClientApp.ViewModels
 				var calcParam = new ConCalculationParameter()
 				{
 					ConnectionIds = connectionIdList,
-					AnalysisType = ConAnalysisTypeEnum.Stress_Strain
+					AnalysisType = SelectedAnalysisType,
 				};
 
 				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, calcParam, 0, cts.Token);
@@ -128,6 +130,14 @@ namespace ConApiWpfClientApp.ViewModels
 			set { SetProperty(ref _isBusy, value); }
 		}
 
+		public ConAnalysisTypeEnum SelectedAnalysisType
+		{
+			get { return _conAnalysisType; }
+			set { SetProperty(ref _conAnalysisType, value); }
+		}
+
+		public Array AvailableAnalysisTypes => Enum.GetValues(typeof(ConAnalysisTypeEnum));
+
 		public bool RunApiServer
 		{
 			get { return _runApiServer; }
@@ -141,7 +151,6 @@ namespace ConApiWpfClientApp.ViewModels
 			get { return _projectInfo; }
 			set { SetProperty(ref _projectInfo, value); }
 		}
-
 
 		public ObservableCollection<ConnectionViewModel>? Connections
 		{
