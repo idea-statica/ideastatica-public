@@ -7,6 +7,11 @@
   href: diagnostics.md  
 - name: Version Tagging in Our Repository
   href: tagging.md
+- name: Need Help?
+- name: Ask on the Forum
+- href: https://github.com/idea-statica/ideastatica-public/discussions
+- name: Submit an issue
+  href: https://github.com/idea-statica/ideastatica-public/issues
 # Hide release notes as we do not have any yet
 #- name: Release Notes
 #  href: releasenotes.md

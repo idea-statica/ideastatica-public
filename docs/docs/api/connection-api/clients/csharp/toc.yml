@@ -1,2 +1,4 @@
 - name: Documentation
   href: ../../../../../../src/api-sdks/connection-api/clients/csharp/README.md
+- name: Examples
+  href: https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples
