@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using res = IdeaRS.OpenModel.Properties.Resources;
+using Resx = IdeaRS.OpenModel.Properties.Resources;
 
 namespace IdeaRS.OpenModel.Message
 {
@@ -159,11 +159,11 @@ namespace IdeaRS.OpenModel.Message
 					var type = Object.GetType();
 					if (Object is OpenElementId)
 					{
-						text = string.Format("{0}: {1}, Id: {2}", res.Object, type.Name, (Object as OpenElementId).Id);
+						text = string.Format("{0}: {1}, Id: {2}", Resx.Object, type.Name, (Object as OpenElementId).Id);
 					}
 					else
 					{
-						text = string.Format("{0}: {1}", res.Object, type.Name);
+						text = string.Format("{0}: {1}", Resx.Object, type.Name);
 					}
 
 					if (!string.IsNullOrEmpty(PropertyName))
@@ -172,17 +172,17 @@ namespace IdeaRS.OpenModel.Message
 						var val = PropertyValue;
 						if (val != null)
 						{
-							text += string.Format("{0}: {1}, Value: {2}", res.Property, PropertyName, val.ToString());
+							text += string.Format("{0}: {1}, Value: {2}", Resx.Property, PropertyName, val.ToString());
 						}
 						else
 						{
-							text += string.Format("{0}: {1}", res.Property, PropertyName);
+							text += string.Format("{0}: {1}", Resx.Property, PropertyName);
 						}
 					}
 				}
 				else if (!string.IsNullOrEmpty(PropertyName))
 				{
-					text = string.Format("{0}: {1}", res.Property, PropertyName);
+					text = string.Format("{0}: {1}", Resx.Property, PropertyName);
 				}
 
 				var messageText = OpenMessageProvider.GetMessageText(Number);
