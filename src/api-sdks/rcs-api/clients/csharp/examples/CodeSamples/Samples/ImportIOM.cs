@@ -24,7 +24,7 @@ namespace CodeSamples
 			string exampleFolder = GetExampleFolderPathOnDesktop("CreateProjectFromIOM");
 
 			// Save updated file.
-			string fileName = "rcs-file-from-IOM.ideaCon";
+			string fileName = "rcs-file-from-IOM.ideaRcs";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 			
 			await rcsClient.Project.SaveProjectAsync(rcsProject.ProjectId, saveFilePath);
