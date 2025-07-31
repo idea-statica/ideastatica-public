@@ -18,6 +18,7 @@ namespace IdeaRS.OpenModel.Material
 	[XmlInclude(typeof(MaterialBoltGradeHKG))]
 	[XmlInclude(typeof(MaterialBoltGradeCHN))]
 	[XmlInclude(typeof(MaterialBoltGradeIND))]
+	[XmlInclude(typeof(MaterialBoltGradeRUS))]
 	public class MaterialBoltGrade : Material
 	{
 		#region Properties
