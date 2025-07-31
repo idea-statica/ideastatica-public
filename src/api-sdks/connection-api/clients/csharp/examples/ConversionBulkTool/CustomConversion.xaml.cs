@@ -77,9 +77,9 @@ namespace IdeaConWpfApp
 			foreach (StackPanel row in stack.Children)
 			{
 				var textBox = row.Children[1] as System.Windows.Controls.TextBox;
-				var key = textBox.Tag.ToString();
-				var value = textBox.Text;
-				result[key] = value;
+				var key = textBox?.Tag.ToString();
+				var value = textBox?.Text;
+				result[key!] = value!;
 			}
 			return result;
 		}
