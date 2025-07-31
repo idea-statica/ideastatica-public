@@ -13,9 +13,20 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 	public class IdeaParameterValidationResponse
 	{
-		public IdeaParameterValidationResponse(IdeaParameter parameter)
+		public string Key { get; set; }
+		public string Message { get; set; }
+		public string ValidationStatus { get; set; }
+
+		public IdeaParameterValidationResponse()
 		{
 
+		}
+
+		public IdeaParameterValidationResponse(IdeaParameter parameter)
+		{
+			Key = parameter.Key;
+			Message = parameter?.ParameterValidation?.Message;
+			ValidationStatus = parameter.ValidationStatus;
 		}
 	}
 }

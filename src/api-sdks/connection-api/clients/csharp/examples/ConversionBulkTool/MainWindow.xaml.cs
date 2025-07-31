@@ -12,8 +12,8 @@ namespace IdeaConWpfApp
 {
 	public partial class MainWindow : Window
 	{
-		private string ideaPath;
-		private string selectedFolderPath;
+		private string? ideaPath;
+		private string? selectedFolderPath;
 		private ObservableCollection<ProjectItem> projectFiles = new();
 		private IConnectionApiClient? conClient;
 		private ConnectionApiServiceRunner? service;
@@ -52,7 +52,7 @@ namespace IdeaConWpfApp
 		{
 			var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
-				Description = "Select folder with ECEN projects",
+				Description = "Select folder with .ideaCon files",
 				SelectedPath = selectedFolderPath // Default to last selected folder
 			};
 
@@ -64,7 +64,7 @@ namespace IdeaConWpfApp
 				// Clear and repopulate the ListBox with .ideaCon files
 				projectFiles.Clear();
 
-				var files = Directory.GetFiles(selectedFolderPath, "*.ideaCon", SearchOption.AllDirectories);
+				var files = Directory.GetFiles(selectedFolderPath!, "*.ideaCon", SearchOption.AllDirectories);
 				foreach (var file in files)
 				{
 					var fileName = Path.GetFileName(file);
@@ -91,7 +91,7 @@ namespace IdeaConWpfApp
 				MessageBox.Show("Please load IdeaPath first.");
 				return;
 			}
-			string designCode = ((ComboBoxItem)DesignCodeComboBox.SelectedItem).Content.ToString();
+			string? designCode = ((ComboBoxItem)DesignCodeComboBox.SelectedItem).Content.ToString();
 
 			var steel = new Dictionary<string, string>();
 			var welds = new Dictionary<string, string>();
@@ -114,7 +114,8 @@ namespace IdeaConWpfApp
 				await Task.Run(async () =>
 				{
 					Dispatcher.Invoke(() => MessageLabel.Text = "Service started.");
-					var convertedDir = Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(projectFiles[0].FilePath), "Converted"));
+					var path = Path.GetDirectoryName(projectFiles[0].FilePath ?? throw new ArgumentException("FilePath"));
+					DirectoryInfo? convertedDir = Directory.CreateDirectory(Path.Combine(path!, "Converted"));
 
 					foreach (var project in projectFiles)
 					{
@@ -175,7 +176,8 @@ namespace IdeaConWpfApp
 				await Task.Run(async () =>
 				{
 					Dispatcher.Invoke(() => MessageLabel.Text = "Service started.");
-					var convertedDir = Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(projectFiles[0].FilePath), "Converted"));
+					var path = Path.GetDirectoryName(projectFiles[0].FilePath ?? throw new ArgumentException("FilePath"));
+					DirectoryInfo? convertedDir = Directory.CreateDirectory(Path.Combine(path!, "Converted"));
 
 					foreach (var project in projectFiles)
 					{
@@ -229,9 +231,9 @@ namespace IdeaConWpfApp
 
 	public class ProjectItem : INotifyPropertyChanged
 	{
-		public string FilePath { get; set; }
+		public string? FilePath { get; set; }
 
-		public string FileName { get; set; }
+		public string? FileName { get; set; }
 
 		private bool _isProcessed;
 		public bool IsProcessed
@@ -255,7 +257,7 @@ namespace IdeaConWpfApp
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 		protected void OnPropertyChanged(string name)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
