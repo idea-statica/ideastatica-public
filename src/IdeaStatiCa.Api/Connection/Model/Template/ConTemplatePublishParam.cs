@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.Api.Connection.Model.Model
+﻿namespace IdeaStatiCa.Api.Connection.Model
 {
 	public class ConTemplatePublishParam
 	{
