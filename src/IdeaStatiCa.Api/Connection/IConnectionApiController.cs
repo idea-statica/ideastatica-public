@@ -9,6 +9,7 @@ using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -370,5 +371,20 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task ChangeCodeType(ConConversionSettings conversionSettings, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get project settings of active project
+		/// </summary>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<Dictionary<string, object>> GetProjectSettingsAsync(string search = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Update project settings of active project
+		/// </summary>
+		/// <param name="settingUpdates"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<Dictionary<string, object>> UpdateProjectSettingsAsync(Dictionary<string, object> settingUpdates, CancellationToken cancellationToken = default);
 	}
 }
