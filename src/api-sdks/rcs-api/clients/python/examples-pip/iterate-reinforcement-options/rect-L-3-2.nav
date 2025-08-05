@@ -1,0 +1,38 @@
+<ReinforcedCss>
+<Css>
+<CssComponentData>
+<OneComponentData>
+1</OneComponentData>
+<Component>
+-150 -200
+150 -200
+150 200
+-150 200
+-150 -200
+</Component>
+</CssComponentData>
+</Css>
+
+<Bars>
+2 16 90 152 -90 152
+3 16 -90 -152 90 -152
+1 10 -105 0.000
+1 10 105 0.000
+</Bars>
+
+<Stirrups>
+<Stirrup>
+<DataStirrup>
+10 270 1 4.00
+</DataStirrup>
+<GeometryStirrup>
+-115 165
+-115 -165
+115 -165
+115 165
+-115 165
+</GeometryStirrup>
+</Stirrup>
+</Stirrups>
+
+</ReinforcedCss>
