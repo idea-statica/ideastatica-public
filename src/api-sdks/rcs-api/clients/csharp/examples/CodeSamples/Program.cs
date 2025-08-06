@@ -94,7 +94,7 @@ namespace CodeSamples
 
 			//CLIENT CREATION
 
-			using (var conClient = await service.CreateApiClient())
+			using (var rcsClient = await service.CreateApiClient())
 			{
 				// Get example methods from ClientExamples using reflection
 				MethodInfo[] exampleMethods = ClientExamples.GetExampleMethods();
@@ -121,7 +121,7 @@ namespace CodeSamples
 
 						// Invoke the selected method
 						MethodInfo selectedMethod = exampleMethods[selectedIndex - 1];
-						await (Task)selectedMethod.Invoke(null, new object[] { conClient });
+						await (Task)selectedMethod.Invoke(null, new object[] { rcsClient });
 
 						Console.WriteLine("Select another Example or Exit:");
 					}

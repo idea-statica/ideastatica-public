@@ -1,4 +1,4 @@
 - name: Documentation
   href: ../../../../../../src/api-sdks/rcs-api/clients/python/README.md
-- name: Exampless
+- name: Examples
   href: https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/rcs-api/clients/python/examples-pip
