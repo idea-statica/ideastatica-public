@@ -9,7 +9,6 @@ using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 
