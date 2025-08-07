@@ -6,6 +6,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace BimApiLinkFeaExample
 {
@@ -66,12 +67,20 @@ namespace BimApiLinkFeaExample
 			};
 		}
 
+		/// <inheritdoc cref="IFeaModel.GetAllLoadings"/>
+		public IEnumerable<Identifier<IIdeaLoading>> GetAllLoadings()
+		{
+			return (IEnumerable<Identifier<IIdeaLoading>>)loads.GetLoadCombinationsIds()
+				.Select(x => new IntIdentifier<IIdeaCombiInput>(x))				
+				.ToList();
+		}
+
+		/// <summary>
+		/// Obsolete method replaced by <see cref="GetAllLoadings"/>
+		/// </summary>		
 		public IEnumerable<Identifier<IIdeaCombiInput>> GetAllCombinations()
 		{
-			return loads.GetLoadCombinationsIds()
-				.Select(x => new IntIdentifier<IIdeaCombiInput>(x))
-				.Cast<Identifier<IIdeaCombiInput>>()
-				.ToList();
+			throw new NotImplementedException();
 		}
 
 		/// <inheritdoc cref="SelectUserSelection"/>
