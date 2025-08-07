@@ -17,11 +17,21 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public ISet<IIdeaLoading> GetLoads()
 		{
+			IEnumerable<IIdeaLoading> loadCases = new HashSet<IIdeaLoading>();
+			
+			if (_feaModel is IFeaExtendedModel feaExtendedModel)
+			{
+				loadCases = feaExtendedModel.GetAllLoadCases()
+					.Select(x => GetMaybe(x))
+					.Where(x => x != null)
+					.Cast<IIdeaLoading>();
+			}
 
 			return _feaModel.GetAllCombinations()
 				.Select(x => GetMaybe(x))
 				.Where(x => x != null)
 				.Cast<IIdeaLoading>()
+				.Concat(loadCases)
 				.ToHashSet();
 		}
 
