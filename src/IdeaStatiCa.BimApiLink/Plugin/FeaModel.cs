@@ -17,11 +17,9 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public ISet<IIdeaLoading> GetLoads()
 		{
-
-			return _feaModel.GetAllCombinations()
+			return _feaModel.GetAllLoadings()
 				.Select(x => GetMaybe(x))
-				.Where(x => x != null)
-				.Cast<IIdeaLoading>()
+				.Where(x => x != null)								
 				.ToHashSet();
 		}
 
