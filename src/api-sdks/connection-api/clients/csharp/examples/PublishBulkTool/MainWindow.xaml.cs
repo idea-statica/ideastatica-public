@@ -113,7 +113,7 @@ namespace PublishBulkTool
 						foreach (var connection in file.Connections)
 						{
 							publishParams.Name = connection.Name;
-							await conClient.Template.PublishConnectionAsync(project.ProjectId, connection.ConnectionId);
+							await conClient.Template.PublishConnectionAsync(project.ProjectId, connection.ConnectionId, publishParams);
 						}
 
 						// Mark as success
