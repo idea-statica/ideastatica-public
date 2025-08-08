@@ -91,5 +91,10 @@ namespace IdeaStatiCa.ConnectionApi
 		/// Get Conversion API
 		/// </summary>
 		IConversionApiAsync Conversion { get; }
+
+		/// <summary>
+		/// Get Settings API
+		/// </summary>
+		ISettingsApiAsync Settings { get; }
 	}
 }
