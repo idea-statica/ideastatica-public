@@ -65,6 +65,9 @@ namespace IdeaStatiCa.ConnectionApi
 		/// <inheritdoc cref="IConnectionApiClient.Conversion"/>
 		public IConversionApiAsync Conversion { get; private set; }
 
+		/// <inheritdoc cref="IConnectionApiClient.Settings"/>
+		public ISettingsApiAsync Settings { get; private set; }
+
 		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>
 		public string ClientId { get; private set; }
 
@@ -94,7 +97,7 @@ namespace IdeaStatiCa.ConnectionApi
 
 		private async Task CloseAsync()
 		{
-			if(Project != null && ActiveProjectId != Guid.Empty)
+			if (Project != null && ActiveProjectId != Guid.Empty)
 			{
 				await Project.CloseProjectAsync(ActiveProjectId);
 			}
@@ -113,6 +116,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Template = null;
 			this.Conversion = null;
 			this.ClientApi = null;
+			this.Settings = null;
 
 		}
 
@@ -139,6 +143,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Report = new ReportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Template = new TemplateApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Conversion = new ConversionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.Settings = new SettingsApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
 			return ClientId;
