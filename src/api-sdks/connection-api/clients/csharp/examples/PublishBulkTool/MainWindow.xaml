@@ -1,0 +1,68 @@
+﻿<Window x:Class="PublishBulkTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="IDEA StatiCa Bulk Publisher" Height="450" Width="800">
+	<StackPanel Margin="10">
+
+		<TextBlock FontSize="16" FontWeight="Bold" Text="IDEA StatiCa Bulk Publisher" Margin="0,0,0,10"/>
+
+		<!-- Set Idea StatiCa API Path -->
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+			<Button Content="Set Idea StatiCa API Path" Width="150" Click="LoadIdeaPath_Click"/>
+			<TextBox x:Name="IdeaPathText" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" Width="500"/>
+		</StackPanel>
+
+		<!-- Select Folder -->
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+			<Button Content="Select Folder" Width="150" Click="SelectFolder_Click"/>
+			<TextBox x:Name="SelectedFolderTextBox" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" Width="500"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,8">
+			<Button Name="LoadItemsButton" Content="Load project items" IsEnabled="False" Width="150" Click="ProcessFiles_Click" Margin="0,0,10,0"/>
+			<Button Name="PublishButton" IsEnabled="False" Content="Publish All" Width="150" Click="PublishAll_Click" Margin="0,0,0,0"/>
+		</StackPanel>
+
+		<!-- Author and Company input fields -->
+		<StackPanel Orientation="Horizontal" Margin="0,0,0,8" VerticalAlignment="Center">
+			<TextBlock Text="Author:" VerticalAlignment="Center" Width="60" Margin="0,0,10,0"/>
+			<TextBox x:Name="AuthorTextBox" Width="200" Margin="0,0,20,0" 
+			 Text="Bulk Publish" Foreground="Gray" />
+
+			<TextBlock Text="Company:" VerticalAlignment="Center" Width="70" Margin="0,0,10,0"/>
+			<TextBox x:Name="CompanyTextBox" Width="200" 
+			 Text="My Company" Foreground="Gray"/>
+		</StackPanel>
+
+		<!-- Message Label for dynamic text -->
+		<TextBlock x:Name="MessageLabel" VerticalAlignment="Center" Margin="0,0,0,8" FontStyle="Italic" Foreground="DarkSlateGray"/>
+
+		<!-- List of projects -->
+		<ListBox x:Name="ProjectsList" Height="300" Margin="0,10,0,0">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Margin="0,0,0,8">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{Binding FileName}" Width="600" TextTrimming="CharacterEllipsis"/>
+							<TextBlock Text="✅" Foreground="Green" Margin="10,0,0,0"
+                               Visibility="{Binding IsProcessed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+							<TextBlock Text="❌" Foreground="Red" Margin="10,0,0,0"
+                               Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+						</StackPanel>
+
+						<!-- Nested ItemsControl for Connections -->
+						<ItemsControl ItemsSource="{Binding Connections}" Margin="20,4,0,0">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<!-- Editable TextBox for connection name -->
+									<TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="580"
+										 IsReadOnly="{Binding IsReadOnly}" />
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</StackPanel>
+</Window>
