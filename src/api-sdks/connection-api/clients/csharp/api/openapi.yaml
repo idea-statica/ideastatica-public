@@ -6106,6 +6106,20 @@ components:
       type: object
     IdeaParameterValidationResponse:
       additionalProperties: false
+      example:
+        message: message
+        validationStatus: validationStatus
+        key: key
+      properties:
+        key:
+          nullable: true
+          type: string
+        message:
+          nullable: true
+          type: string
+        validationStatus:
+          nullable: true
+          type: string
       type: object
     Line:
       additionalProperties: false
@@ -6219,8 +6233,12 @@ components:
       example:
         setToModel: true
         failedValidations:
-        - null
-        - null
+        - message: message
+          validationStatus: validationStatus
+          key: key
+        - message: message
+          validationStatus: validationStatus
+          key: key
         parameters:
         - parameterType: parameterType
           unit: unit

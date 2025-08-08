@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **set_to_model** | **bool** |  | [optional] 
 **parameters** | [**List[IdeaParameter]**](IdeaParameter.md) |  | [optional] 
-**failed_validations** | **List[object]** |  | [optional] 
+**failed_validations** | [**List[IdeaParameterValidationResponse]**](IdeaParameterValidationResponse.md) |  | [optional] 
 
 ## Example
 

@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.idea_parameter import IdeaParameter
+from ideastatica_connection_api.models.idea_parameter_validation_response import IdeaParameterValidationResponse
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +31,7 @@ class ParameterUpdateResponse(BaseModel):
     """ # noqa: E501
     set_to_model: Optional[StrictBool] = Field(default=None, alias="setToModel")
     parameters: Optional[List[IdeaParameter]] = None
-    failed_validations: Optional[List[Dict[str, Any]]] = Field(default=None, alias="failedValidations")
+    failed_validations: Optional[List[IdeaParameterValidationResponse]] = Field(default=None, alias="failedValidations")
     __properties: ClassVar[List[str]] = ["setToModel", "parameters", "failedValidations"]
 
     model_config = ConfigDict(
@@ -79,6 +80,13 @@ class ParameterUpdateResponse(BaseModel):
                 if _item_parameters:
                     _items.append(_item_parameters.to_dict())
             _dict['parameters'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in failed_validations (list)
+        _items = []
+        if self.failed_validations:
+            for _item_failed_validations in self.failed_validations:
+                if _item_failed_validations:
+                    _items.append(_item_failed_validations.to_dict())
+            _dict['failedValidations'] = _items
         # set to None if parameters (nullable) is None
         # and model_fields_set contains the field
         if self.parameters is None and "parameters" in self.model_fields_set:
@@ -103,7 +111,7 @@ class ParameterUpdateResponse(BaseModel):
         _obj = cls.model_validate({
             "setToModel": obj.get("setToModel"),
             "parameters": [IdeaParameter.from_dict(_item) for _item in obj["parameters"]] if obj.get("parameters") is not None else None,
-            "failedValidations": obj.get("failedValidations")
+            "failedValidations": [IdeaParameterValidationResponse.from_dict(_item) for _item in obj["failedValidations"]] if obj.get("failedValidations") is not None else None
         })
         return _obj
 
