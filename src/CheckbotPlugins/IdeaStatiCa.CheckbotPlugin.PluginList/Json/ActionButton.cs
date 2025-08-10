@@ -18,5 +18,8 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Json
 
 		[JsonPropertyName("tooltip_disabled")]
 		public string TooltipDisabled { get; set; } = string.Empty;
+
+		[JsonPropertyName("tooltip_link")]
+		public string? TooltipLink { get; set; } = string.Empty;
 	}
 }

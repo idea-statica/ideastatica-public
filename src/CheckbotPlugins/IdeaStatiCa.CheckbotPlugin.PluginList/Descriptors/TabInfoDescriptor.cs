@@ -8,6 +8,8 @@
 
 		public string TabName { get; set; } = _defaultTabName;
 
+		public PluginToolTipDescriptor? ToolTip { get; set; }
+		
 		public TabInfoDescriptor()
 		{
 		}

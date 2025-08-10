@@ -30,13 +30,20 @@
 		/// </summary>
 		public string TooltipDisabled { get; }
 
-		public ActionButtonDescriptor(string name, string image, string text, string tooltip, string tooltipDisabled)
+		/// <summary>
+		/// Optional Tooltip link
+		/// </summary>
+		public string? TooltipLinkUrl { get; }
+
+
+		public ActionButtonDescriptor(string name, string image, string text, string tooltip, string tooltipDisabled, string? tooltipLink)
 		{
 			Name = name;
 			Image = image;
 			Text = text;
 			Tooltip = tooltip;
 			TooltipDisabled = tooltipDisabled;
+			TooltipLinkUrl = tooltipLink;
 		}
 	}
 }
