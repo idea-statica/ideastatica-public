@@ -2,6 +2,9 @@ name: .NET build artifacts
 
 on:
   workflow_dispatch:
+env:
+  DOTNET_VERSION: '9.0.301'
+  NUGET_BINARY_VERSION: '6.13.2'
 
 jobs:
   BuildAndTest:
@@ -14,76 +17,37 @@ jobs:
       with:
         path: main
 
-    - name: Setup .NET
+    - name: 'Setup msbuild'
       uses: microsoft/setup-msbuild@v1
 
-    - name: Setup nuget.exe
+    - name: 'Setup .NET SDK'
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 'Setup nuget.exe'
       uses: NuGet/setup-nuget@v1
-      
-    - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1.2
+      with:
+        nuget-version: ${{ env.NUGET_BINARY_VERSION }}
 
     - name: Nuget restore dependencies
-      run: nuget restore ./src/IdeaStatiCa.Public.sln
+      run: nuget restore ./src/api-sdks/ClientExamples.sln
       working-directory: main
 
     - name: Build
-      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+      run: msbuild ./src/api-sdks/ClientExamples.sln /p:Configuration=Release
       working-directory: main
 
-    - name: 'Upload ConnectionHiddenCalculation'
-      uses: actions/upload-artifact@v3
+    - name: 'Upload ConApiWpfClientApp'
+      uses: actions/upload-artifact@v4
       with:
-        name: ConnectionHiddenCalculation
-        path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/bin/Release/net48
+        name: ConApiWpfClientApp
+        path: ${{ github.workspace }}/main/src/api-sdks/connection-api/clients/csharp/examples/ConApiWpfClient/ConApiWpfClientApp/bin/Release/net6.0-windows
         if-no-files-found: error
 
-    - name: 'Upload ConnectionAutomationApp'
-      uses: actions/upload-artifact@v3
+    - name: 'Upload RcsApiWpfClientApp'
+      uses: actions/upload-artifact@v4
       with:
-        name: ConnectionAutomationApp
-        path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionAutomationApp/bin/Release/net48
+        name: RcsApiWpfClientApp
+        path: ${{ github.workspace }}/main/src/api-sdks/rcs-api/clients/csharp/examples/RcsApiWpfClient/RcsApiWpfClientApp/bin/Release/net6.0-windows
         if-no-files-found: error
-
-    - name: 'Upload FEAppExample'
-      uses: actions/upload-artifact@v3
-      with:
-        name: FEAppExample
-        path: ${{ github.workspace }}/main/src/Examples/CCM/FEAppExample_1/bin/Release
-        if-no-files-found: error
-
-    - name: 'Upload IdeaRstabPlugin'
-      uses: actions/upload-artifact@v3
-      with:
-        name: IdeaRstabPlugin
-        path: ${{ github.workspace }}/main/src/bim-links/rstab/IdeaRstabPlugin/bin/Release
-        if-no-files-found: error
-
-    - name: 'Upload SAF2IOM'
-      uses: actions/upload-artifact@v3
-      with:
-        name: SAF2IOM
-        path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/bin/Release/net48/
-        if-no-files-found: error
-
-    - name: 'Upload RcsApiClient'
-      uses: actions/upload-artifact@v3
-      with:
-        name: RcsApiClient
-        path: ${{ github.workspace }}/main/examples/api/csharp/rcs/RcsApiClient/bin/Release/net6.0-windows
-        if-no-files-found: error
-
-    #- name: Nuget restore dependencies
-    #  run: nuget restore ./examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.sln
-    #  working-directory: main
-
-    #- name: Build
-    #  run: msbuild ./examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.sln /p:Configuration=Release
-    #  working-directory: main
-
-    #- name: 'Upload SAF2IOM'
-    #  uses: actions/upload-artifact@v3
-    #  with:
-    #    name: SAF2IOM
-    #    path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/bin/Release
-    #    if-no-files-found: error
