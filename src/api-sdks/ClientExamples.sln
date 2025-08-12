@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RcsApiWpfClientApp", "rcs-api\clients\csharp\examples\RcsApiWpfClient\RcsApiWpfClientApp\RcsApiWpfClientApp.csproj", "{07A4E1B0-715A-443C-87EA-781B1B7ED700}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConApiWpfClientApp", "connection-api\clients\csharp\examples\ConApiWpfClient\ConApiWpfClientApp\ConApiWpfClientApp.csproj", "{E2E31DA4-C194-433B-BB19-34443582FC61}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07A4E1B0-715A-443C-87EA-781B1B7ED700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A4E1B0-715A-443C-87EA-781B1B7ED700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A4E1B0-715A-443C-87EA-781B1B7ED700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A4E1B0-715A-443C-87EA-781B1B7ED700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2E31DA4-C194-433B-BB19-34443582FC61}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{E2E31DA4-C194-433B-BB19-34443582FC61}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{E2E31DA4-C194-433B-BB19-34443582FC61}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{E2E31DA4-C194-433B-BB19-34443582FC61}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
