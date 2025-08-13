@@ -1987,6 +1987,66 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportWord
+  /api/2/projects/{projectId}/settings:
+    get:
+      operationId: GetSettings
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                type: object
+          description: Success
+      tags:
+      - Settings
+      x-requiresProject: true
+      x-requiresConnection: false
+    put:
+      operationId: UpdateSettings
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: {}
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                type: object
+          description: Success
+      tags:
+      - Settings
+      x-requiresProject: true
+      x-requiresConnection: false
   /api/2/projects/{projectId}/connections/{connectionId}/get-template:
     get:
       operationId: CreateConTemplate
