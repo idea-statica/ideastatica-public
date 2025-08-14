@@ -10,7 +10,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 
 		public ExecutableDriverDescriptor(string path, string[] additionalArguments)
 		{
-			Ensure.NotEmpty(path);
+			Ensure.NotEmpty(path, nameof(path));
 
 			Path = path;
 			AdditionalArguments = additionalArguments ?? [];

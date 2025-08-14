@@ -46,8 +46,8 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 			SystemActionsDescriptor? systemActionsDescriptor = null,
 			ActionButtonDescriptor[]? customActionDescriptors = null)
 		{
-			Ensure.NotEmpty(name);
-			Ensure.NotNull(driverDescriptor);
+			Ensure.NotEmpty(name, nameof(name));
+			Ensure.NotNull(driverDescriptor, nameof(driverDescriptor));
 
 			Name = name;
 			Type = type;

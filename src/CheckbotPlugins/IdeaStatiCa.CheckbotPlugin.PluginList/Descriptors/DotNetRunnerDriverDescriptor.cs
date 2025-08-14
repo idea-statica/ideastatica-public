@@ -21,7 +21,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 
 		public DotNetRunnerDriverDescriptor(string path)
 		{
-			Ensure.NotEmpty(path);
+			Ensure.NotEmpty(path, nameof(path));
 
 			Path = path;
 			ClassName = null;
@@ -29,7 +29,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 
 		public DotNetRunnerDriverDescriptor(string path, string? className)
 		{
-			Ensure.NotEmpty(path);
+			Ensure.NotEmpty(path, nameof(path));
 
 			Path = path;
 			ClassName = string.IsNullOrEmpty(className) ? null : className;
