@@ -15,5 +15,7 @@
 		public ConAnalysisTypeEnum AnalysisType { get; set; }
 
 		public bool IsCalculated { get; }
+
+		public bool IncludeBuckling { get; set; }
 	}
 }

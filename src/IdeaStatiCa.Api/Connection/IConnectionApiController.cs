@@ -303,14 +303,14 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns>contemp string</returns>
 		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
-		
-		
+
+
 		/// <summary>
 		/// Set bearing member
 		/// </summary>
-		/// <param name="v1"></param>
-		/// <param name="v2"></param>
-		/// <param name="none"></param>
+		/// <param name="connectionId"></param>
+		/// <param name="memberId"></param>
+		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConMember> SetBearingMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default);
 
@@ -318,7 +318,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// Get load settings for given connection id
 		/// </summary>
 		/// <param name="id"></param>
-		/// <param name="none"></param>
+		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConLoadSettings> GetLoadEffectLoadSettingsAsync(int id, CancellationToken cancellationToken = default);
 
@@ -326,7 +326,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// Set load settings for given connection id
 		/// </summary>
 		/// <param name="id"></param>
-		/// <param name="none"></param>
+		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConLoadSettings> SetLoadEffectLoadSettingsAsync(int id, ConLoadSettings settings, CancellationToken cancellationToken = default);
 

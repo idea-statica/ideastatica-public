@@ -11,4 +11,15 @@
 
 		public int? BoltAssemblyId { get; set; }
 	}
+
+	/// <summary>
+	/// Type for weld design
+	/// </summary>
+	public enum ConWeldDesignType
+	{
+		FullStrength,
+		MinimumDuctility,
+		OverStrengthFactor,
+		CapacityEstimation
+	}
 }
