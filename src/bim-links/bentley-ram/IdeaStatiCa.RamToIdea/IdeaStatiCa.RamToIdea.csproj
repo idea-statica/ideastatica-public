@@ -2,7 +2,7 @@
 	<Import Project="..\..\..\Common.props" />
 	<PropertyGroup>
 		<ProjectGuid>{ec8df878-7ce5-458d-bf3e-fec30768a104}</ProjectGuid>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
 	</PropertyGroup>
 	<ItemGroup>
