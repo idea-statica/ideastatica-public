@@ -27,7 +27,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList
 		/// <param name="storage"></param>
 		public PluginList(IStorage storage)
 		{
-			Ensure.NotNull(storage);
+			Ensure.NotNull(storage, nameof(storage));
 
 			_list = new JsonPluginListSerializer(storage);
 		}
@@ -39,7 +39,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList
 		/// <returns></returns>
 		public async Task<PluginDescriptor?> Get(string name)
 		{
-			Ensure.NotEmpty(name);
+			Ensure.NotEmpty(name, nameof(name));
 
 			List<PluginDescriptor> pluginList = await Load();
 			return pluginList
@@ -65,7 +65,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList
 		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		public async Task Add(PluginDescriptor pluginDescriptor)
 		{
-			Ensure.NotNull(pluginDescriptor);
+			Ensure.NotNull(pluginDescriptor, nameof(pluginDescriptor));
 
 			List<PluginDescriptor> pluginList = await Load();
 
@@ -86,7 +86,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList
 		/// <returns></returns>
 		public async Task<bool> Remove(PluginDescriptor pluginDescriptor)
 		{
-			Ensure.NotNull(pluginDescriptor);
+			Ensure.NotNull(pluginDescriptor, nameof(pluginDescriptor));
 
 			List<PluginDescriptor> pluginList = await Load();
 			bool result = pluginList.Remove(pluginDescriptor);
@@ -97,7 +97,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList
 
 		public async Task<bool> Remove(string name)
 		{
-			Ensure.NotEmpty(name);
+			Ensure.NotEmpty(name, nameof(name));
 
 			List<PluginDescriptor> pluginList = await Load();
 
