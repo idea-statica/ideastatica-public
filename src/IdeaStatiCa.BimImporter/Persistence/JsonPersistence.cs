@@ -84,7 +84,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			catch (Exception ex)
 			{
 				// log the exception details
-				_logger.LogInformation($"JsonPersistence.Load : WARNING Parsing of id mappings json ' failed", ex);
+				_logger.LogInformation("JsonPersistence.Load : WARNING Parsing of id mappings json failed", ex);
 				_logger.LogDebug($"JsonPersistence.Load : Failed jsonStr = '{jsonStr}'");
 				// rethrow the original exception
 				throw;
