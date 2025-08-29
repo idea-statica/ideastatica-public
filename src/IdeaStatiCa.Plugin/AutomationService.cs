@@ -22,22 +22,22 @@ namespace IdeaStatiCa.Plugin
 		/// Empty virtual implementation - does nothing
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
-		/// <param name="optionalParamJson"></param>
+		/// <param name="modifiedUserMode"></param>
 		/// <returns></returns>
-		public virtual Task OpenProjectAsync(string fileName, string optionalParamJson)
+		public virtual Task OpenProjectAsync(string fileName, uint modifiedUserMode)
 		{
 			Debug.Fail("Not implemented");
 			return Task.CompletedTask;
 		}
 
 		/// <summary>
-		/// It calls <see cref="OpenProjectAsync(string, string)"/>"/>
+		/// It calls <see cref="OpenProjectAsync(string, uint)"/>"/>
 		/// </summary>
 		/// <param name="fileName"></param>
-		/// <param name="optionalParamJson"></param>
-		public virtual void OpenProject(string fileName, string optionalParamJson)
+		/// <param name="modifiedUserMode"></param>
+		public virtual void OpenProject(string fileName, uint modifiedUserMode)
 		{
-			OpenProjectAsync(fileName, optionalParamJson).Wait();
+			OpenProjectAsync(fileName, modifiedUserMode).Wait();
 		}
 
 		public virtual void SelectItem(string itemId)
