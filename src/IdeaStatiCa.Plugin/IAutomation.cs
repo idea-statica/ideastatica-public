@@ -20,18 +20,18 @@ namespace IdeaStatiCa.Plugin
 		/// Open the project <paramref name="fileName"/>
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
-		/// <param name="optionalParamJson">json string which can include optional parameters for a module</param>
+		/// <param name="modifiedUserMode">Modified user mode for opening project</param>
 		/// <returns>Task</returns>
-		
-		Task OpenProjectAsync(string fileName, string optionalParamJson);
+
+		Task OpenProjectAsync(string fileName, uint modifiedUserMode);
 
 		/// <summary>
 		/// Open the project <paramref name="fileName"/>
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
-		/// <param name="optionalParamJson">json string which can include optional parameters for a module</param>
-		
-		void OpenProject(string fileName, string optionalParamJson);
+		/// <param name="modifiedUserMode">Modified user mode for opening project</param>
+
+		void OpenProject(string fileName, uint modifiedUserMode);
 
 		/// <summary>
 		/// Select item with <paramref name="itemId"/> in the project
