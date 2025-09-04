@@ -385,5 +385,33 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<Dictionary<string, object>> UpdateProjectSettingsAsync(Dictionary<string, object> settingUpdates, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate PDF for all connections
+		/// </summary>
+		/// <returns></returns>
+		Task<MemoryStream> GeneratePDFForMultiple(List<int> connectionIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate PDF for given connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<MemoryStream> GeneratePDFForConnection(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate Word for all connections
+		/// </summary>
+		/// <returns></returns>
+		Task<MemoryStream> GenerateWordForMultiple(List<int> connectionIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate Word for given connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<MemoryStream> GenerateWordForConnection(int connectionId, CancellationToken cancellationToken = default);
 	}
 }
