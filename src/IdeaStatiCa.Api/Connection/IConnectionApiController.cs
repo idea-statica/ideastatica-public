@@ -80,10 +80,9 @@ namespace IdeaStatiCa.Api.Connection
 		/// Run requested type of CBFEM analysis for <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
-		/// <param name="analysisType">Type of CBFEM analysis to run</param>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
-		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
+		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
