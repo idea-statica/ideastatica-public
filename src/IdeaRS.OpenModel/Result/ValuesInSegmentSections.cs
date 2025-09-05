@@ -41,6 +41,18 @@ namespace IdeaRS.OpenModel.Result
 		public int SegmentId { get; set; }
 
 		/// <summary>
+		/// The identifier of the begin node in the original FEA model.
+		/// It will be used for merging the reactions from more walls that meet in this node.
+		/// </summary>
+		public string BeginNodeOriginalId { get; set; }
+
+		/// <summary>
+		/// The identifier of the end node in the original FEA model.
+		/// It will be used for merging the reactions from more walls that meet in this node.
+		/// </summary>
+		public string EndNodeOriginalId { get; set; }
+
+		/// <summary>
 		/// Type of the segment in <see cref="OpenModel"/>
 		/// It can be <see cref="IdeaRS.OpenModel.Geometry3D.LineSegment3D"/> or <see cref="IdeaRS.OpenModel.Geometry3D.ArcSegment3D"/>
 		/// </summary>
