@@ -4,6 +4,11 @@ namespace IdeaRS.OpenModel.Result
 {
 	public class ValuesInPoint<T> where T : struct
 	{
+		public ValuesInPoint()
+		{
+			Values = new List<T>();
+		}
+
 		public ValuesInPoint(int loadingCount, int valuesInPoint)
 		{
 			LoadingCount = loadingCount;
