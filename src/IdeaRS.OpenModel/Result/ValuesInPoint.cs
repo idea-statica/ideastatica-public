@@ -9,24 +9,33 @@ namespace IdeaRS.OpenModel.Result
 			Values = new List<T>();
 		}
 
-		public ValuesInPoint(int pointId, (double x, double y, double z) coordinates, int loadingCount, int valuesInPoint)
+		public ValuesInPoint(int loadingCount, int valuesInPoint)
 		{
-			PointId = pointId;
-			Coordinates = coordinates;
 			LoadingCount = loadingCount;
 			ValueCountInSection = valuesInPoint;
-			Values = new List<T>(loadingCount * valuesInPoint);
+			Values = new List<T>(new T[loadingCount * valuesInPoint]);
 		}
 
 		/// <summary>
-		/// ID of the point unique within the inner points of imported area
+		/// The identifier of the node in the original FEA model.
+		/// It will be used for merging the reactions from more walls that meet in this node.
 		/// </summary>
-		public int PointId { get; set; }
+		public string NodeOriginalId { get; set; }
 
 		/// <summary>
-		/// Absolute cooordinates in global coordinate system 
+		/// Absolute coordinate X in global coordinate system 
 		/// </summary>
-		public (double x, double y, double z) Coordinates { get; set; }
+		public double X { get; set; }
+
+		/// <summary>
+		/// Absolute coordinate Y in global coordinate system 
+		/// </summary>
+		public double Y { get; set; }
+
+		/// <summary>
+		/// Absolute coordinate Z in global coordinate system 
+		/// </summary>
+		public double Z { get; set; }
 
 		/// <summary>
 		/// Number of stored loading types 
