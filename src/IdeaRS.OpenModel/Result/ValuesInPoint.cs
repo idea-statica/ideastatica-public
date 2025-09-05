@@ -4,14 +4,8 @@ namespace IdeaRS.OpenModel.Result
 {
 	public class ValuesInPoint<T> where T : struct
 	{
-		public ValuesInPoint()
+		public ValuesInPoint(int loadingCount, int valuesInPoint)
 		{
-			Values = new List<T>();
-		}
-
-		public ValuesInPoint((double x, double y, double z) coordinates, int loadingCount, int valuesInPoint)
-		{
-			Coordinates = coordinates;
 			LoadingCount = loadingCount;
 			ValueCountInSection = valuesInPoint;
 			Values = new List<T>(new T[loadingCount * valuesInPoint]);
@@ -24,9 +18,19 @@ namespace IdeaRS.OpenModel.Result
 		public string NodeOriginalId { get; set; }
 
 		/// <summary>
-		/// Absolute coordinates in global coordinate system 
+		/// Absolute coordinate X in global coordinate system 
 		/// </summary>
-		public (double x, double y, double z) Coordinates { get; set; }
+		public double X { get; set; }
+
+		/// <summary>
+		/// Absolute coordinate Y in global coordinate system 
+		/// </summary>
+		public double Y { get; set; }
+
+		/// <summary>
+		/// Absolute coordinate Z in global coordinate system 
+		/// </summary>
+		public double Z { get; set; }
 
 		/// <summary>
 		/// Number of stored loading types 
