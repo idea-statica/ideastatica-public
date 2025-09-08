@@ -80,10 +80,9 @@ namespace IdeaStatiCa.Api.Connection
 		/// Run requested type of CBFEM analysis for <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
-		/// <param name="analysisType">Type of CBFEM analysis to run</param>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
-		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
+		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
@@ -385,5 +384,33 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<Dictionary<string, object>> UpdateProjectSettingsAsync(Dictionary<string, object> settingUpdates, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate PDF for all connections
+		/// </summary>
+		/// <returns></returns>
+		Task<MemoryStream> GeneratePDFForMultiple(List<int> connectionIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate PDF for given connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<MemoryStream> GeneratePDFForConnection(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate Word for all connections
+		/// </summary>
+		/// <returns></returns>
+		Task<MemoryStream> GenerateWordForMultiple(List<int> connectionIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Generate Word for given connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<MemoryStream> GenerateWordForConnection(int connectionId, CancellationToken cancellationToken = default);
 	}
 }
