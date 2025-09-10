@@ -378,33 +378,6 @@ namespace IdeaStatiCa.Plugin
 		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
 
 		/// <summary>
-		/// Generate a report for connection <paramref name="connectionId"/>
-		/// </summary>
-		/// <param name="connectionId">The unique identifier of the requested connection</param>
-		/// <param name="settings">Report settings</param>
-		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
-		
-		ReportResponse GenerateReport(string connectionId, ConnReportSettings settings);
-
-		/// <summary>
-		/// Generate a pdf report for connection <paramref name="connectionId"/>
-		/// </summary>
-		/// <param name="connectionId">The unique identifier of the requested connection</param>
-		/// <param name="settings">Report settings</param>
-		/// <param name="filePath">File path of the exported pdf report </param>
-		
-		void GenerateReportPdf(string connectionId, string filePath, ConnReportSettings settings);
-
-		/// <summary>
-		/// Generate a word report for connection <paramref name="connectionId"/>
-		/// </summary>
-		/// <param name="connectionId">The unique identifier of the requested connection</param>
-		/// <param name="settings">Report settings</param>
-		/// <param name="filePath">File path of the exported word report </param>
-		
-		void GenerateReportWord(string connectionId, string filePath, ConnReportSettings settings);
-
-		/// <summary>
 		/// Open and select the connection <paramref name="connectionId"/> in an application
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
