@@ -2,7 +2,7 @@
 	<Import Project="..\..\..\Common.props" />
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>

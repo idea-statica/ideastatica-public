@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using res = IdeaRS.OpenModel.Properties.Resources;
+using Resx = IdeaRS.OpenModel.Properties.Resources;
 
 namespace IdeaRS.OpenModel.Message
 {
@@ -43,7 +43,7 @@ namespace IdeaRS.OpenModel.Message
 		{
 			get
 			{
-				return string.Format("{0},\n{1}", res.Warning, base.Message);
+				return string.Format("{0},\n{1}", Resx.Warning, base.Message);
 			}
 		}
 	}

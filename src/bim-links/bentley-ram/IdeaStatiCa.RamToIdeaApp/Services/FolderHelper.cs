@@ -38,8 +38,8 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 				return foundLocation;
 			}
 
-			//is the file is in net6.0-windows subdir ?
-			foundLocation = Path.Combine(rootFolder, "net6.0-windows", file);
+			//is the file is in net8.0-windows subdir ?
+			foundLocation = Path.Combine(rootFolder, "net8.0-windows", file);
 			if (File.Exists(foundLocation))
 			{
 				ideaLogger.LogDebug($"FindNetFolder : found in '{foundLocation}'");
@@ -77,8 +77,8 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 					return foundLocation;
 				}
 
-				//is the file is in net6.0-windows subdir ?
-				foundLocation = Path.Combine(rootFolderDeve, "net6.0-windows", file);
+				//is the file is in net8.0-windows subdir ?
+				foundLocation = Path.Combine(rootFolderDeve, "net8.0-windows", file);
 				if (File.Exists(foundLocation))
 				{
 					ideaLogger.LogDebug($"FindNetFolder : found in '{foundLocation}'");
