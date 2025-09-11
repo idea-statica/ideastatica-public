@@ -412,5 +412,13 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<MemoryStream> GenerateWordForConnection(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Delete connection based on connectionId
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task DeleteConnectionAsync(int connectionId, CancellationToken cancellationToken = default);
 	}
 }
