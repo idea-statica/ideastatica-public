@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
+		<TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<PlatformTarget>x64</PlatformTarget>
 		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>

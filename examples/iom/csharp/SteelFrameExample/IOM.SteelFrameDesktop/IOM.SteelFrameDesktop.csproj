@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ProjectGuid>{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>IOM.SteelFrameDesktop</AssemblyTitle>
     <Product>IOM.SteelFrameDesktop</Product>
