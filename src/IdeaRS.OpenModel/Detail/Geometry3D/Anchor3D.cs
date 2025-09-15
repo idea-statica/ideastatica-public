@@ -2,6 +2,18 @@
 
 namespace IdeaRS.OpenModel.Detail
 {
+	public enum InstallationProcessOfAnchor : int
+	{
+		/// <summary>
+		/// Post-Installed
+		/// </summary>
+		PostInstalled,
+
+		/// <summary>
+		/// Cast-in-Place
+		/// </summary>
+		CastInPlace
+	}
 
 	/// <summary>
 	/// Anchor type
@@ -9,14 +21,44 @@ namespace IdeaRS.OpenModel.Detail
 	public enum TypeOfAnchor : int
 	{
 		/// <summary>
-		/// Adhesice anchor
+		/// Adhesive
 		/// </summary>
+		/// <remarks>
+		/// Obsolete (kept for backwards compatibility). Use type 'ThreadedRod' instead.
+		/// Not necessarily Post-Installed by default anymore. There is an enum <see cref="InstallationProcessOfAnchor"/> for anchor installation process.
+		/// You can set the anchor installation process using <see cref="Anchor3D.AnchorInstallationProcess"/> property.
+		/// </remarks>
 		Adhesive,
 
 		/// <summary>
-		/// Cast-in place - Reinforcement
+		/// Reinforcement
 		/// </summary>
+		/// <remarks>
+		/// Obsolete - not necessarily Cast-in-Place anymore (the name remains the same for backwards compatibility). Use type 'Reinforcement' instead.
+		/// There is an enum <see cref="InstallationProcessOfAnchor"/> for anchor installation process.
+		/// You can set the anchor installation process using <see cref="Anchor3D.AnchorInstallationProcess"/> property.
+		/// </remarks>
 		CastInReinforcement,
+
+		/// <summary>
+		/// Reinforcement
+		/// </summary>
+		Reinforcement,
+
+		/// <summary>
+		/// Washer plate
+		/// </summary>
+		WasherPlate,
+
+		/// <summary>
+		/// Headed stud
+		/// </summary>
+		HeadedStud,
+
+		/// <summary>
+		/// Threaded rod
+		/// </summary>
+		ThreadedRod
 	}
 
 	/// <summary>
@@ -32,9 +74,14 @@ namespace IdeaRS.OpenModel.Detail
 		}
 
 		/// <summary>
-		/// Name of 3D element
+		/// Type of anchor
 		/// </summary>
 		public TypeOfAnchor AnchorType { get; set; }
+		
+		/// <summary>
+		/// Installation process of anchor
+		/// </summary>
+		public InstallationProcessOfAnchor AnchorInstallationProcess { get; set; }
 
 		/// <summary>
 		/// Name of 3D element
@@ -47,7 +94,7 @@ namespace IdeaRS.OpenModel.Detail
 		public ReferenceElement MasterComponent { get; set; }
 
 		/// <summary>
-		/// hanging name
+		/// Hanging name
 		/// </summary>
 		public ReferenceElement Material { get; set; }
 
@@ -57,12 +104,12 @@ namespace IdeaRS.OpenModel.Detail
 		public double BondStrength { get; set; }
 
 		/// <summary>
-		/// master component surface
+		/// Master component surface
 		/// </summary>
 		public int MasterSurfaceIndex { get; set; }
 
 		/// <summary>
-		/// master component edge
+		/// Master component edge
 		/// </summary>
 		public int MasterEdgeIndex { get; set; }
 
@@ -77,7 +124,7 @@ namespace IdeaRS.OpenModel.Detail
 		public double PositionY { get; set; }
 
 		/// <summary>
-		/// diameter of bar
+		/// Diameter of bar
 		/// </summary>
 		public double Diameter { get; set; }
 
@@ -90,9 +137,24 @@ namespace IdeaRS.OpenModel.Detail
 		/// Length of inside part of anchor
 		/// </summary>
 		public double LengthDown { get; set; }
+		
+		/// <summary>
+		/// Washer plate/Headed stud plate size
+		/// </summary>
+		public double WasherAndHeadStudPlateSize { get; set; }
 
 		/// <summary>
-		/// end type
+		/// Washer plate/Headed stud plate thickness
+		/// </summary>
+		public double WasherAndHeadStudPlateThickness { get; set; }
+
+		/// <summary>
+		/// Headed Stud head diameter
+		/// </summary>
+		public double HeadedStudHeadDiameter { get; set; }
+
+		/// <summary>
+		/// End type
 		/// </summary>
 		public LongReinfEndType EndsType { get; set; }
 
@@ -102,7 +164,7 @@ namespace IdeaRS.OpenModel.Detail
 		public bool BasePlateInterconnect { get; set; }
 
 		/// <summary>
-		/// Trensfer of shear
+		/// Transfer of shear
 		/// </summary>
 		public bool TransferOfShear { get; set; }
 	}
