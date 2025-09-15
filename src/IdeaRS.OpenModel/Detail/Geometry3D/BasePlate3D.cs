@@ -1,11 +1,10 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Detail
 {
 	/// <summary>
-	/// type of Base plate
+	/// Type of Base plate
 	/// </summary>
 	public enum BasePlateLoadType : int
 	{
@@ -14,13 +13,23 @@ namespace IdeaRS.OpenModel.Detail
 	}
 
 	/// <summary>
-	/// shear force transfer
+	/// Shear force transfer
 	/// </summary>
 	public enum ShearForceTransfer
 	{
 		Friction = 1,
 		ShearLug = 2,
 		Anchors = 3
+	}
+
+	/// <summary>
+	/// Type of stand-off
+	/// </summary>
+	public enum TypeOfStandOff
+	{
+		Direct,
+		Mortar,
+		Gap
 	}
 
 	/// <summary>
@@ -57,17 +66,17 @@ namespace IdeaRS.OpenModel.Detail
 		public string CrossSectionName { get; set; }
 
 		/// <summary>
-		/// load position X
+		/// Load position X
 		/// </summary>
 		public double LoadPositionX { get; set; }
 
 		/// <summary>
-		/// load position Y
+		/// Load position Y
 		/// </summary>
 		public double LoadPositionY { get; set; }
 
 		/// <summary>
-		/// load length
+		/// Load length
 		/// </summary>
 		public double LoadLength { get; set; }
 
@@ -99,27 +108,37 @@ namespace IdeaRS.OpenModel.Detail
 		public BasePlateLoadType Type { get; set; }
 
 		/// <summary>
+		/// Stand-off type
+		/// </summary>
+		public TypeOfStandOff StandOffType { get; set; }
+		
+		/// <summary>
+		/// Stand-off thickness
+		/// </summary>
+		public double StandOffThickness { get; set; }
+
+		/// <summary>
 		/// Master component
 		/// </summary>
 		public ReferenceElement MasterComponent { get; set; }
 
 		/// <summary>
-		/// master component edge index
+		/// Master component edge index
 		/// </summary>
 		public int EdgeIndex { get; set; }
 
 		/// <summary>
-		/// master component surface index
+		/// Master component surface index
 		/// </summary>
 		public int SurfaceIndex { get; set; }
 
 		/// <summary>
-		/// position X on master component
+		/// Position X on master component
 		/// </summary>
 		public double PositionX{ get; set; }
 
 		/// <summary>
-		/// position Y on master component
+		/// Position Y on master component
 		/// </summary>
 		public double PositionY { get; set; }
 		
@@ -132,37 +151,37 @@ namespace IdeaRS.OpenModel.Detail
 		public ShearForceTransfer ShearForceTransfer { get; set; }
 
 		/// <summary>
-		/// friction coefficient base type
+		/// Friction coefficient base type
 		/// </summary>
 		public double FrictionCoefficient { get; set; }
 
 		/// <summary>
-		/// shear lug cross-section
+		/// Shear lug cross-section
 		/// </summary>
 		public ReferenceElement ShearLugCrossSection { get; set; }
 
 		/// <summary>
-		/// shear lug length
+		/// Shear lug length
 		/// </summary>
 		public double ShearLugLength { get; set; }
 
 		/// <summary>
-		/// shear lug edge
+		/// Shear lug edge
 		/// </summary>
 		public int ShearLugEdge { get; set; }
 
 		/// <summary>
-		/// shear lug position X
+		/// Shear lug position X
 		/// </summary>
 		public double ShearLugPositionX { get; set; }
 
 		/// <summary>
-		/// shear lug position Y
+		/// Shear lug position Y
 		/// </summary>
 		public double ShearLugPositionY { get; set; }
 
 		/// <summary>
-		/// shear lug rotation
+		/// Shear lug rotation
 		/// </summary>
 		public double ShearLugRotation { get; set; }
 	}
