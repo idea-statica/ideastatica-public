@@ -64,5 +64,6 @@
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
     <PackageVersion Include="RestSharp" Version="112.1.0" />
+    <PackageVersion Include="System.Security.Cryptography.OpenSsl" Version="5.0.0" />
   </ItemGroup>
 </Project>
