@@ -42,12 +42,12 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ConApiWpfClientApp
-        path: ${{ github.workspace }}/main/src/api-sdks/connection-api/clients/csharp/examples/ConApiWpfClient/ConApiWpfClientApp/bin/Release/net6.0-windows
+        path: ${{ github.workspace }}/main/src/api-sdks/connection-api/clients/csharp/examples/ConApiWpfClient/ConApiWpfClientApp/bin/Release/net8.0-windows
         if-no-files-found: error
 
     - name: 'Upload RcsApiWpfClientApp'
       uses: actions/upload-artifact@v4
       with:
         name: RcsApiWpfClientApp
-        path: ${{ github.workspace }}/main/src/api-sdks/rcs-api/clients/csharp/examples/RcsApiWpfClient/RcsApiWpfClientApp/bin/Release/net6.0-windows
+        path: ${{ github.workspace }}/main/src/api-sdks/rcs-api/clients/csharp/examples/RcsApiWpfClient/RcsApiWpfClientApp/bin/Release/net8.0-windows
         if-no-files-found: error
