@@ -21,7 +21,6 @@ namespace ConApiWpfClientApp
 	{
 		private readonly IServiceProvider serviceProvider;
 		private MainWindowViewModel? mainWindowViewModel;
-
 		public App()
 		{
 			IConfiguration configuration = BuildConfiguration();
