@@ -23,5 +23,15 @@ namespace IdeaRS.OpenModel.Material
 		/// Compressive strength of concrete
 		/// </summary>
 		public double Fcc { get; set; }
+
+		/// <summary>
+		/// Compressive strength of concrete
+		/// </summary>
+		public double Fcm { get; set; }
+		
+		/// <summary>
+		/// Compressive strength of concrete
+		/// </summary>
+		public double EpsilonCp { get; set; }
 	}
 }
