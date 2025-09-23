@@ -32,7 +32,8 @@ namespace IdeaRS.OpenModel.Result
 			ValueCountInSection = valuesInSection;
 			PositionsOnSegment = new List<double>(sectionCount);
 			int valCount = sectionCount * loadingCount * valuesInSection;
-			Values = new List<T>(new T[valCount]); // Allocate array with required range  
+			Values = new List<T>(new T[valCount]); // Allocate array with required range
+			NodeIdOnSegment = new List<string>(new string[sectionCount]);
 		}
 
 		/// <summary>
@@ -62,6 +63,12 @@ namespace IdeaRS.OpenModel.Result
 		/// Positions of the sections along the segment
 		/// </summary>
 		public List<double> PositionsOnSegment { get; set; }
+
+		/// <summary>
+		/// The identifier of the mesh node ID in the original FEA model.
+		/// It will be used for merging the reactions from more walls that meet in this node.
+		/// </summary>
+		public List<string> NodeIdOnSegment { get; set; }
 
 		/// <summary>
 		/// The number of sections on the segment
