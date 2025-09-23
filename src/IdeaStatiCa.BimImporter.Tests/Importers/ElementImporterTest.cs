@@ -38,13 +38,13 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			Assert.That(iomElement.Segment, Is.EqualTo(refSegment));
 			Assert.That(iomElement.RotationRx, Is.EqualTo(3));
 
-			Assert.That(iomElement.EccentricityBeginX, Is.EqualTo(1));
-			Assert.That(iomElement.EccentricityBeginY, Is.EqualTo(2));
-			Assert.That(iomElement.EccentricityBeginZ, Is.EqualTo(3));
+			Assert.That(iomElement.EccentricityBegin.X, Is.EqualTo(1));
+			Assert.That(iomElement.EccentricityBegin.Y, Is.EqualTo(2));
+			Assert.That(iomElement.EccentricityBegin.Z, Is.EqualTo(3));
 
-			Assert.That(iomElement.EccentricityEndX, Is.EqualTo(4));
-			Assert.That(iomElement.EccentricityEndY, Is.EqualTo(5));
-			Assert.That(iomElement.EccentricityEndZ, Is.EqualTo(6));
+			Assert.That(iomElement.EccentricityEnd.X, Is.EqualTo(4));
+			Assert.That(iomElement.EccentricityEnd.Y, Is.EqualTo(5));
+			Assert.That(iomElement.EccentricityEnd.Z, Is.EqualTo(6));
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaRS.OpenModel.Geometry3D;
+using System;
 
 namespace IdeaRS.OpenModel.Model
 {
@@ -38,33 +39,17 @@ namespace IdeaRS.OpenModel.Model
 		public double RotationRx { get; set; }
 
 		/// <summary>
-		/// Local eccentricity X at the begin of Element1D
+		/// Local eccentricity at the begin of Element1D
 		/// </summary>
-		public double EccentricityBeginX { get; set; }
+		public Vector3D EccentricityBegin { get; set; } = new Vector3D();
 
 		/// <summary>
-		/// Local eccentricity Y at the begin of Element1D
+		/// Local eccentricity at the end of Element1D
 		/// </summary>
-		public double EccentricityBeginY { get; set; }
+		public Vector3D EccentricityEnd { get; set; } = new Vector3D();
 
-		/// <summary>
-		///  Local eccentricity Z at the begin of Element1D
-		/// </summary>
-		public double EccentricityBeginZ { get; set; }
+		public CardinalPoints CardinalPoint { get; set; }
 
-		/// <summary>
-		///  Local eccentricity X at the end of Element1D
-		/// </summary>
-		public double EccentricityEndX { get; set; }
-
-		/// <summary>
-		///  Local eccentricity Y at the end of Element1D
-		/// </summary>
-		public double EccentricityEndY { get; set; }
-
-		/// <summary>
-		///  Local eccentricity Z at the end of Element1D
-		/// </summary>
-		public double EccentricityEndZ { get; set; }
+		public EccentricityReference EccentricityReference { get; set; } = EccentricityReference.LocalCoordinateSystem;
 	}
 }

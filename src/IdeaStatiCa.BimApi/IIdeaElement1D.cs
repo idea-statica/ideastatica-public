@@ -1,3 +1,4 @@
+using IdeaRS.OpenModel.Model;
 using System;
 
 namespace IdeaStatiCa.BimApi
@@ -32,6 +33,10 @@ namespace IdeaStatiCa.BimApi
 		/// It is defined in the local coordinate system.
 		/// </summary>
 		IdeaVector3D EccentricityEnd { get; }
+
+		CardinalPoints CardinalPoint { get; }
+
+		EccentricityReference EccentricityReference { get; }
 
 		/// <summary>
 		/// Rotation of the element around the x-axis of the <see cref="Segment"/>'s LCS.

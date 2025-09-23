@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimImporter.Importers
@@ -17,12 +18,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				Name = element.Name,
 				Segment = ctx.Import(element.Segment),
-				EccentricityBeginX = element.EccentricityBegin.X,
-				EccentricityBeginY = element.EccentricityBegin.Y,
-				EccentricityBeginZ = element.EccentricityBegin.Z,
-				EccentricityEndX = element.EccentricityEnd.X,
-				EccentricityEndY = element.EccentricityEnd.Y,
-				EccentricityEndZ = element.EccentricityEnd.Z,
+				EccentricityBegin = element.EccentricityBegin.ToIOMVector(),
+				EccentricityEnd = element.EccentricityEnd.ToIOMVector(),
+				CardinalPoint = element.CardinalPoint,
+				EccentricityReference = element.EccentricityReference,
 				RotationRx = element.RotationRx
 			};
 
