@@ -29,5 +29,17 @@ namespace IdeaRS.OpenModel.Geometry3D
 		[OpenModelProperty("DirectionZ")]
 		[DataMember]
 		public double Z { get; set; }
+
+		public Vector3D()
+		{
+
+		}
+
+		public Vector3D(double x, double y, double z)
+		{
+			X = x;
+			Y = y;
+			Z = z;
+		}
 	}
 }

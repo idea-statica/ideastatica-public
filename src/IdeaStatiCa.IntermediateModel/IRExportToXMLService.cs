@@ -44,7 +44,13 @@ namespace IdeaStatiCa.IntermediateModel
 			string xmlString;
 			using (StringWriter stringWriter = new StringWriter())
 			{
-				using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter))
+				var xmlWriterSettings = new XmlWriterSettings
+				{
+					Indent = true,
+					IndentChars = "\t"
+				};
+
+				using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xmlWriterSettings))
 				{
 					xDocument.Save(xmlWriter);
 				}
