@@ -89,7 +89,7 @@
 		<None Update="TestData\OpenModel-Upgraded.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Update="TestData\LoadOnSurface_2_2_0.xml">
+		<None Update="TestData\LoadOnSurface_3_0_0.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="TestData\LoadOnSurface_2_1_0.xml">
