@@ -357,5 +357,33 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 				_ => throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}"),
 			};
 		}
+
+		public static SObject ResolveReferenceElement(this ISIntermediate intermediateItem, SModel model)
+		{
+			if (intermediateItem is not SObject sObject)
+			{
+				throw new InvalidOperationException($"ResolveReferenceElement can be called only on SObject, current type is {intermediateItem.GetType()}");
+			}
+
+			string typeName = sObject.GetElementValue("TypeName");
+			string id = sObject.GetElementValue("Id");
+
+			IEnumerable<ISIntermediate> elements = model.GetElements(typeName);
+			if (elements is null)
+			{
+				return null;
+			}
+
+			foreach (SObject element in elements.OfType<SObject>())
+			{
+				string elementId = element.GetElementValue("Id");
+				if (string.Equals(id, elementId, StringComparison.OrdinalIgnoreCase))
+				{
+					return element;
+				}
+			}
+
+			return null;
+		}
 	}
 }
