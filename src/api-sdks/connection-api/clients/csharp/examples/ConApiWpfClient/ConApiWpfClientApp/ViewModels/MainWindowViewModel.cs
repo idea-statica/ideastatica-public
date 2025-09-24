@@ -546,7 +546,7 @@ namespace ConApiWpfClientApp.ViewModels
 				return;
 			}
 
-			string topologyJsonString = string.Empty;
+			var topologyJsonString = string.Empty;
 
 			IsBusy = true;
 			try
@@ -559,7 +559,7 @@ namespace ConApiWpfClientApp.ViewModels
 				}
 				else
 				{
-					dynamic typology = JsonConvert.DeserializeObject(topologyJsonString!);
+					dynamic? typology = JsonConvert.DeserializeObject(topologyJsonString!);
 
 					if(typology != null)
 					{
@@ -739,7 +739,7 @@ namespace ConApiWpfClientApp.ViewModels
 				return;
 			}
 
-			string format = parameter.ToString();
+			var format = parameter.ToString();
 
 			IsBusy = true;
 			try
@@ -751,7 +751,7 @@ namespace ConApiWpfClientApp.ViewModels
 					return;
 				}
 
-				if(format.Equals("pdf"))
+				if(format!.Equals("pdf"))
 				{
 					await ConApiClient.Report.SaveReportPdfAsync(ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
 					
@@ -841,7 +841,7 @@ namespace ConApiWpfClientApp.ViewModels
 				return;
 			}
 
-			string format = parameter.ToString();
+			var format = parameter.ToString();
 
 			IsBusy = true;
 			try
@@ -853,7 +853,7 @@ namespace ConApiWpfClientApp.ViewModels
 					return;
 				}
 
-				if (format.Equals("iom"))
+				if (format!.Equals("iom"))
 				{
 					var iomContainerXml = await ConApiClient.Export.ExportIomAsync(ProjectInfo.ProjectId, SelectedConnection.Id);
 					await File.WriteAllTextAsync(saveFileDialog.FileName, iomContainerXml);
