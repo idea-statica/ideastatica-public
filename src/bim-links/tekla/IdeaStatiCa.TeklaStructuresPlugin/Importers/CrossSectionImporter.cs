@@ -209,6 +209,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 						return CssFactoryHelper.ConvertParamPProfile(paramProfileItem, paramProfItemSubType);
 
 					}
+				case ProfileItem.ProfileItemTypeEnum.PROFILE_C:
+					{
+						return CssFactoryHelper.ConvertParamCProfile(paramProfileItem, paramProfItemSubType);
+					}
+
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_D:
 					{
 						return CssFactoryHelper.ConvertParamOProfile(paramProfileItem, paramProfItemSubType);

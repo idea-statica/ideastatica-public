@@ -46,6 +46,34 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			return cssProperties;
 		}
 
+		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamCProfile(ParametricProfileItem paramProfileItem,
+			ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
+		{
+			if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_C_COLD_ROLLED)
+			{
+				CrossSectionParameter cssParameter = new CrossSectionParameter
+				{
+					Name = paramProfileItem.ProfilePrefix,
+				};
+
+				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
+				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
+				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
+				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
+				var dHeight = par1Item.Value.MilimetersToMeters();
+				double pltThickness = par3Item.Value.MilimetersToMeters();
+				double radius = par4Item.Value.MilimetersToMeters();
+				var dWidth = par2Item.Value.MilimetersToMeters();
+
+				CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, radius, 0.0, true);
+				return cssParameter;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamCCProfile(ParametricProfileItem paramProfileItem,
 			ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -65,7 +93,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double lip = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip);
+				CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, true);
 				return cssParameter;
 			}
 			else
@@ -138,7 +166,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			double dRadiusWeb = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();
 			double dRadiusFlange = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();
 
-			CrossSectionFactory.FillRolledChannel(cssParameter, dWidth, dHeight, dWeb, dFlange, dRadiusWeb, 0.1e-2, dRadiusFlange);
+			CrossSectionFactory.FillRolledChannel(cssParameter, dWidth, dHeight, dWeb, dFlange, dRadiusWeb, 0.1e-2, dRadiusFlange, true);
 			return cssParameter;
 		}
 
