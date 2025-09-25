@@ -48,6 +48,7 @@ docs/ConProjectData.md
 docs/ConResultSummary.md
 docs/ConTemplateApplyParam.md
 docs/ConTemplateMappingGetParam.md
+docs/ConWeldSizingMethodEnum.md
 docs/ConcreteBlock.md
 docs/ConcreteBlockData.md
 docs/ConcreteSetup.md
@@ -73,6 +74,7 @@ docs/IGroup.md
 docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
 docs/IdeaParameterValidation.md
+docs/IdeaParameterValidationResponse.md
 docs/Line.md
 docs/LoadEffectApi.md
 docs/MaterialApi.md
@@ -97,6 +99,7 @@ docs/ReportApi.md
 docs/Segment2D.md
 docs/Selected.md
 docs/SelectedType.md
+docs/SettingsApi.md
 docs/TemplateApi.md
 docs/TemplateConversions.md
 docs/Text.md
@@ -119,6 +122,7 @@ src/IdeaStatiCa.ConnectionApi/Api/ParameterApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/PresentationApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ProjectApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ReportApi.cs
+src/IdeaStatiCa.ConnectionApi/Api/SettingsApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/TemplateApi.cs
 src/IdeaStatiCa.ConnectionApi/Client/ApiClient.cs
 src/IdeaStatiCa.ConnectionApi/Client/ApiException.cs
@@ -180,6 +184,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConProjectData.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConResultSummary.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateMappingGetParam.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConWeldSizingMethodEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConcreteBlock.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConcreteBlockData.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConcreteSetup.cs
@@ -202,6 +207,7 @@ src/IdeaStatiCa.ConnectionApi/Model/IGroup.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterUpdate.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterValidation.cs
+src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterValidationResponse.cs
 src/IdeaStatiCa.ConnectionApi/Model/Line.cs
 src/IdeaStatiCa.ConnectionApi/Model/MessageNumber.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenElementId.cs

@@ -19,9 +19,7 @@ paths:
     post:
       operationId: Calculate
       parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
-        explode: false
+      - explode: false
         in: path
         name: projectId
         required: true
@@ -33,8 +31,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConCalculationParameter'
-        description: List of connections to calculate and a type of CBFEM analysis
+              items:
+                format: int32
+                type: integer
+              type: array
         required: true
       responses:
         "200":
@@ -45,7 +45,6 @@ paths:
                   $ref: '#/components/schemas/ConResultSummary'
                 type: array
           description: Success
-      summary: Run CBFEM caluclation and return the summary of the results
       tags:
       - Calculation
       x-requiresProject: true
@@ -1418,6 +1417,48 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
+    post:
+      operationId: PreDesignWelds
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: designType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ConWeldSizingMethodEnum'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Predesign welds
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
   /api/2/projects/{projectId}/connections/{connectionId}/parameters:
     get:
       operationId: GetParameters
@@ -1987,6 +2028,66 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportWord
+  /api/2/projects/{projectId}/settings:
+    get:
+      operationId: GetSettings
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                type: object
+          description: Success
+      tags:
+      - Settings
+      x-requiresProject: true
+      x-requiresConnection: false
+    put:
+      operationId: UpdateSettings
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: {}
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties: {}
+                type: object
+          description: Success
+      tags:
+      - Settings
+      x-requiresProject: true
+      x-requiresConnection: false
   /api/2/projects/{projectId}/connections/{connectionId}/get-template:
     get:
       operationId: CreateConTemplate
@@ -2962,6 +3063,7 @@ components:
       additionalProperties: false
       example:
         identifier: identifier
+        includeBuckling: true
         isCalculated: true
         name: name
         description: description
@@ -2984,6 +3086,8 @@ components:
           $ref: '#/components/schemas/ConAnalysisTypeEnum'
         isCalculated:
           readOnly: true
+          type: boolean
+        includeBuckling:
           type: boolean
       type: object
     ConConversionSettings:
@@ -3436,12 +3540,14 @@ components:
         projectId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         connections:
         - identifier: identifier
+          includeBuckling: true
           isCalculated: true
           name: name
           description: description
           id: 0
           analysisType: stress_Strain
         - identifier: identifier
+          includeBuckling: true
           isCalculated: true
           name: name
           description: description
@@ -3554,6 +3660,13 @@ components:
           nullable: true
           type: string
       type: object
+    ConWeldSizingMethodEnum:
+      enum:
+      - fullStrength
+      - minimumDuctility
+      - overStrengthFactor
+      - capacityEstimation
+      type: string
     ConcreteBlock:
       additionalProperties: false
       description: Data of concrete block
