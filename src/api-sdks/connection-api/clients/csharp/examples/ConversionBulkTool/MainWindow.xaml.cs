@@ -53,7 +53,7 @@ namespace IdeaConWpfApp
 			var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
 				Description = "Select folder with .ideaCon files",
-				SelectedPath = selectedFolderPath // Default to last selected folder
+				SelectedPath = selectedFolderPath! // Default to last selected folder
 			};
 
 			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
