@@ -99,42 +99,6 @@ namespace IdeaStatiCa.Plugin
 			return 1;
 		}
 
-		/// <inheritdoc cref="IConnectionController.GenerateReport(int, ReportSettings)"/>
-		public IBlobStorage GenerateReport(int conId, ConnReportSettings settings)
-		{
-			var reportId = ConnectionAutomation.GenerateReport(conId, settings);
-			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
-			return blobStorage;
-		}
-
-		/// <inheritdoc cref="IConnectionController.GenerateWordReport(int, string, ConnReportSettings)"/>
-		public void GenerateWordReport(int conId, string filePath, ConnReportSettings settings)
-		{
-			ConnectionAutomation.GenerateWordReport(conId, filePath, settings);
-		}
-
-		/// <inheritdoc cref="IConnectionController.GeneratePdfReport(int, string, ConnReportSettings)"/>
-		public void GeneratePdfReport(int conId, string filePath, ConnReportSettings settings)
-		{
-			ConnectionAutomation.GeneratePdfReport(conId, filePath, settings);
-		}
-
-		/// <inheritdoc cref="IConnectionController.GenerateWordReportStorage(int, ConnReportSettings)"/>
-		public IBlobStorage GenerateWordReportStorage(int conId, ConnReportSettings settings)
-		{
-			var reportId = ConnectionAutomation.GenerateWordReportIdentifier(conId, settings);
-			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
-			return blobStorage;
-		}
-
-		/// <inheritdoc cref="IConnectionController.GeneratePdfReportStorage(int, ConnReportSettings)"/>
-		public IBlobStorage GeneratePdfReportStorage(int conId, ConnReportSettings settings)
-		{
-			var reportId = ConnectionAutomation.GeneratePdfReportIdentifier(conId, settings);
-			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
-			return blobStorage;
-		}
-
 		protected void OpenConnectionClient()
 		{
 			OpenConnectionClientGrpc();
