@@ -184,5 +184,10 @@ namespace IdeaRS.OpenModel.Detail
 		/// Shear lug rotation
 		/// </summary>
 		public double ShearLugRotation { get; set; }
+
+		/// <summary>
+		/// Position related to edge or center point
+		/// </summary>
+		public PositionRelatedToMasterType PositionRelatedToMasterType { get; set; }
 	}
 }

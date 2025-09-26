@@ -90,6 +90,7 @@ namespace IdeaRS.OpenModel
 	[XmlInclude(typeof(Material.MaterialBoltGradeCHN))]
 	[XmlInclude(typeof(Material.MaterialBoltGradeIND))]
 	[XmlInclude(typeof(Material.MaterialBoltGrade))]
+	[XmlInclude(typeof(Material.MaterialHeadedStudGrade))]
 	[XmlInclude(typeof(Material.Pin))]
 	[XmlInclude(typeof(Loading.CombiInputEC))]
 	[XmlInclude(typeof(Loading.CombiInputSIA))]
