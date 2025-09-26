@@ -443,11 +443,11 @@ namespace IdeaStatiCa.BIM.Common
 							}
 
 							// If number of biggestMembers is larger than 1 then calculate the sum of member angle to other members 
-							var memberAnglesSum = new Dictionary<(Member m, bool isended), double>();
+							var memberAnglesSum = new List<((Member m, bool isended) member, double angle)>();
 
 							foreach (var thisMember in biggestMembers)
 							{
-								memberAnglesSum[thisMember] = 0;
+								var angleSum = 0.0;
 
 								foreach (var otherMember in biggestMembers)
 								{
@@ -458,15 +458,46 @@ namespace IdeaStatiCa.BIM.Common
 
 									var angle = GeomOperation.GetAngle(thisMember.m.LCS.AxisX, otherMember.m.LCS.AxisX);
 
-									memberAnglesSum[thisMember] += angle;
+									angleSum += angle;
 								}
+								memberAnglesSum.Add((thisMember, angleSum));
 							}
 
-							// Choose member with max sum as bearing member
-							var maxSumMember = memberAnglesSum.OrderByDescending(x => x.Value).First().Key;
+							// Choose member(s) with max sum of angles
+							var maxAngleSumMembers = memberAnglesSum.GroupBy(x => x.angle).OrderByDescending(x => x.Key).First();
 
-							return maxSumMember;
+							if (maxAngleSumMembers.Count() == 1)
+							{
+								var maxSumMember = memberAnglesSum.OrderByDescending(x => x.angle).First().member;
+								return maxSumMember;
+							}
 
+							// we didn't find result by summing angles, let's try splitting by plane
+							// create a plane cutting space with normal defined by direction of element
+							var normal = GeomOperation.Subtract(node.Master.End, node.Master.Begin).Normalize;
+							var plane = new Plane3D(node.LocationInLCS.ToMediaPoint(), normal.ToMediaVector());
+
+							// find out side of plane for each member we consider
+							var membersWithSideOfPlane = maxAngleSumMembers.Select(msm =>
+							{
+								var sideOfPlane = GetSideOfPlane(msm.member, plane);
+								return (msm.member, sideOfPlane);
+							}).ToList();
+
+							// use only those which are either on positive or negative side (not on plane itself)
+							var membersToConsiderForSplitingByPlane = membersWithSideOfPlane.Where(m => m.sideOfPlane == PlaneSide.Positive || m.sideOfPlane == PlaneSide.Negative).ToList();
+
+							// look for that one, which has most other members on it's size of plane
+							var membersWithMostMembersOnItsSide = membersToConsiderForSplitingByPlane.Select(msp =>
+							{
+								var membersOnMySide = members.Where(m => GetSideOfPlane(m, plane) == msp.sideOfPlane).Count();
+								return (msp.member, membersOnMySide);
+							});
+
+							// there is still chance, that there is more than 2 member fitting this condition -> further logic should be applied
+							var memberWithMostMembersOnItsSide = membersWithMostMembersOnItsSide.OrderByDescending(x => x.membersOnMySide).First().member;
+
+							return memberWithMostMembersOnItsSide;
 						}
 					}
 					else
@@ -478,6 +509,22 @@ namespace IdeaStatiCa.BIM.Common
 			}
 
 			return member;
+		}
+
+		public enum PlaneSide
+		{
+			OnPlane,
+			Positive,
+			Negative
+		};
+
+		private static PlaneSide GetSideOfPlane((Member m, bool isended) member, Plane3D plane)
+		{
+			var middleOfMember = GeomOperation.Add(member.m.Begin, GeomOperation.Subtract(member.m.End, member.m.Begin) * 0.5);
+			var distance = plane.GetPointDistance(middleOfMember);
+			var positive = distance.IsGreater(0);
+			var negative = distance.IsLesser(0);
+			return positive ? PlaneSide.Positive : negative ? PlaneSide.Negative : PlaneSide.OnPlane;
 		}
 
 		private static (Member m, bool isended) GetBiggest(IEnumerable<(Member m, bool isended)> members)
@@ -583,7 +630,7 @@ namespace IdeaStatiCa.BIM.Common
 						MinZ = css.Top * settings.EnlargeNodeZ,
 					};
 					var point = GeomOperation.Add(cm.Member.Begin, GeomOperation.Subtract(cm.Member.End, cm.Member.Begin) * cm.RelativePosition);
-					var tempNode = new Node(-1, point, surrb, cm.Member);
+					var tempNode = new Node(-1, point, surrb, cm.Member);//, GeomOperation.Subtract(cm.Member.End, cm.Member.Begin));
 					node.Inflate(tempNode);
 				}
 
