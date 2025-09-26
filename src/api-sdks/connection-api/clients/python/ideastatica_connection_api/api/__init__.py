@@ -14,6 +14,6 @@ from ideastatica_connection_api.api.parameter_api import ParameterApi
 from ideastatica_connection_api.api.presentation_api import PresentationApi
 from ideastatica_connection_api.api.project_api import ProjectApi
 from ideastatica_connection_api.api.report_api import ReportApi
-from ideastatica_connection_api.api.template_api import TemplateApi
 from ideastatica_connection_api.api.settings_api import SettingsApi
+from ideastatica_connection_api.api.template_api import TemplateApi
 

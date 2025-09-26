@@ -4,24 +4,24 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**calculate**](CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results
+[**calculate**](CalculationApi.md#calculate) | 
 [**get_raw_json_results**](CalculationApi.md#get_raw_json_results) | Get json string which represents raw CBFEM results (an instance of CheckResultsData)
 [**get_results**](CalculationApi.md#get_results) | Get detailed results of the CBFEM analysis
 
 
 <a id="calculate"></a>
 # **calculate**
-> List[ConResultSummary] calculate(project_id, con_calculation_parameter)
+> List[ConResultSummary] calculate(project_id, request_body)
 
-Run CBFEM caluclation and return the summary of the results
+
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_calculation_parameter** | [**ConCalculationParameter**](ConCalculationParameter.md)| List of connections to calculate and a type of CBFEM analysis | 
+ **project_id** | **str**|  | 
+ **request_body** | [**List[int]**](int.md)|  | 
 
 ### Return type
 
@@ -32,7 +32,6 @@ Name | Type | Description  | Notes
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_calculation_parameter import ConCalculationParameter
 from ideastatica_connection_api.models.con_result_summary import ConResultSummary
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
@@ -44,12 +43,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def calculateExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis
+    project_id = 'project_id_example' # str | 
+    request_body = [56] # List[int] | 
 
     try:
-        # Run CBFEM caluclation and return the summary of the results
-        api_response = api_client.calculation.calculate(project_id, con_calculation_parameter)
+        api_response = api_client.calculation.calculate(project_id, request_body)
         print("The response of CalculationApi->calculate:\n")
         pprint(api_response)
         return api_response

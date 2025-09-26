@@ -32,11 +32,11 @@ namespace CodeSamples
 
 			var result = conClient.Template.ApplyTemplateAsync(conClient.ActiveProjectId, connectionId, applyParam);
 
-			ConCalculationParameter calculationParams = new ConCalculationParameter();
-			calculationParams.ConnectionIds = new List<int> { connectionId };
+
+			List<int> requestedConnections = new List<int> { connectionId };
 
 			//Calculate the project with the applied template
-			List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(conClient.ActiveProjectId, calculationParams);
+			List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(conClient.ActiveProjectId, requestedConnections);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("ApplyTemplate");
 			string fileName = "corner-template-applied.ideaCon";

@@ -100,13 +100,7 @@ namespace ConApiWpfClientApp.ViewModels
 				var connectionIdList = new List<int>();
 				connectionIdList.Add(SelectedConnection!.Id);
 
-				var calcParam = new ConCalculationParameter()
-				{
-					ConnectionIds = connectionIdList,
-					AnalysisType = SelectedAnalysisType,
-				};
-
-				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, calcParam, 0, cts.Token);
+				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, connectionIdList, 0, cts.Token);
 
 				OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults);
 			}
