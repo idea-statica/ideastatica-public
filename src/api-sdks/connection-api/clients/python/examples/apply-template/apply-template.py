@@ -69,7 +69,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         calcParams.connection_ids = [connection1.id]
 
         # run stress-strain analysis for the connection
-        con1_cbfem_results1 = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        con1_cbfem_results1 = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
         pprint(con1_cbfem_results1)
 
     except Exception as e:

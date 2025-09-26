@@ -47,11 +47,9 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         calcParams.connection_ids = [connection1.id]
 
         # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
         pprint(con1_cbfem_results)
 
-        # TODO - fix serialization JSON
-        
         # get detailed results. Results are list of strings
         # the number of strings in the list correspond to the number of calculated connections
         results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
@@ -62,7 +60,9 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         pprint(raw_results)
 
         detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
-        pprint(detailed_results)
+
+        for item in detailed_results:
+            pprint(item)
 
         # get connection setup
         connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
@@ -73,7 +73,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
         pprint(recalculate_results)
 
     except Exception as e:

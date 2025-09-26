@@ -2,15 +2,15 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**CalculateAsync**](CalculationApi.md#calculateasync) | Run CBFEM caluclation and return the summary of the results |
+| [**CalculateAsync**](CalculationApi.md#calculateasync) |  |
 | [**GetRawJsonResultsAsync**](CalculationApi.md#getrawjsonresultsasync) | Get json string which represents raw CBFEM results (an instance of CheckResultsData) |
 | [**GetResultsAsync**](CalculationApi.md#getresultsasync) | Get detailed results of the CBFEM analysis |
 
 <a id="calculate"></a>
 ## **CalculateAsync**
-> **List&lt;ConResultSummary&gt; CalculateAsync (Guid projectId, ConCalculationParameter conCalculationParameter)**
+> **List&lt;ConResultSummary&gt; CalculateAsync (Guid projectId, List<int> requestBody)**
 
-Run CBFEM caluclation and return the summary of the results
+
 
 
 
@@ -18,8 +18,8 @@ Run CBFEM caluclation and return the summary of the results
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conCalculationParameter** | [**ConCalculationParameter**](ConCalculationParameter.md) | List of connections to calculate and a type of CBFEM analysis |  |
+| **projectId** | **Guid** |  |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) |  |  |
 
 ### Return type
 
@@ -57,12 +57,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis
+                    var requestBody = new List<int>(); // List<int> | 
 
                     try
                     {
-                        // Run CBFEM caluclation and return the summary of the results
-                        List<ConResultSummary> result = await conClient.Calculation.CalculateAsync(projectId, conCalculationParameter);
+                        List<ConResultSummary> result = await conClient.Calculation.CalculateAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -102,8 +101,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Run CBFEM caluclation and return the summary of the results
-    ApiResponse<List<ConResultSummary>> response = conClient.Calculation.CalculateWithHttpInfo(projectId, conCalculationParameter);
+    ApiResponse<List<ConResultSummary>> response = conClient.Calculation.CalculateWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);

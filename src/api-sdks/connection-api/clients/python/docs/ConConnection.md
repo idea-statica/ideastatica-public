@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **analysis_type** | [**ConAnalysisTypeEnum**](ConAnalysisTypeEnum.md) |  | [optional] 
 **is_calculated** | **bool** |  | [optional] [readonly] 
+**include_buckling** | **bool** |  | [optional] 
 
 ## Example
 

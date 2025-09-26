@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "25.0.4.1212"
+__version__ = "25.0.5.1164"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -31,6 +31,7 @@ from ideastatica_connection_api.api.parameter_api import ParameterApi
 from ideastatica_connection_api.api.presentation_api import PresentationApi
 from ideastatica_connection_api.api.project_api import ProjectApi
 from ideastatica_connection_api.api.report_api import ReportApi
+from ideastatica_connection_api.api.settings_api import SettingsApi
 from ideastatica_connection_api.api.template_api import TemplateApi
 
 # import ApiClient
@@ -87,6 +88,7 @@ from ideastatica_connection_api.models.con_project_data import ConProjectData
 from ideastatica_connection_api.models.con_result_summary import ConResultSummary
 from ideastatica_connection_api.models.con_template_apply_param import ConTemplateApplyParam
 from ideastatica_connection_api.models.con_template_mapping_get_param import ConTemplateMappingGetParam
+from ideastatica_connection_api.models.con_weld_sizing_method_enum import ConWeldSizingMethodEnum
 from ideastatica_connection_api.models.concrete_block import ConcreteBlock
 from ideastatica_connection_api.models.concrete_block_data import ConcreteBlockData
 from ideastatica_connection_api.models.concrete_setup import ConcreteSetup

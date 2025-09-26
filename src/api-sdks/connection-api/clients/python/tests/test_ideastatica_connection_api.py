@@ -63,8 +63,10 @@ def test_should_calculate():
         calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
         calcParams.connection_ids = [project_data.connections[0].id]
 
+        requested_connections = [project_data.connections[0].id]
+
         # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, requested_connections)
         
         assert con1_cbfem_results, "con1_cbfem_results should not be empty"
 

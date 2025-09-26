@@ -30,7 +30,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         con_calculation_parameter.connection_ids = [1]
 
         calc_Results = ideastatica_connection_api.CalculationApi(api_client.client)
-        api_response = api_client.calculation.calculate(api_client.project.active_project_id, con_calculation_parameter)
+        api_response = api_client.calculation.calculate(api_client.project.active_project_id, con_calculation_parameter.connection_ids)
         print("The response of CalculationApi->calculate:\n")
         pprint(calc_Results)      
                 

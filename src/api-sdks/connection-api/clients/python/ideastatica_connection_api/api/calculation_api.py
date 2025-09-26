@@ -17,7 +17,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictInt, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
 from ideastatica_connection_api.models.con_calculation_parameter import ConCalculationParameter
@@ -45,8 +45,8 @@ class CalculationApi:
     @validate_call
     def calculate(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_calculation_parameter: Annotated[ConCalculationParameter, Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: StrictStr,
+        request_body: List[StrictInt],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -60,13 +60,13 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConResultSummary]:
-        """Run CBFEM caluclation and return the summary of the results
+        """calculate
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: (required)
         :type project_id: str
-        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis (required)
-        :type con_calculation_parameter: ConCalculationParameter
+        :param request_body: (required)
+        :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -91,7 +91,7 @@ class CalculationApi:
 
         _param = self._calculate_serialize(
             project_id=project_id,
-            con_calculation_parameter=con_calculation_parameter,
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -115,8 +115,8 @@ class CalculationApi:
     @validate_call
     def calculate_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_calculation_parameter: Annotated[ConCalculationParameter, Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: StrictStr,
+        request_body: List[StrictInt],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -130,13 +130,13 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConResultSummary]]:
-        """Run CBFEM caluclation and return the summary of the results
+        """calculate
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: (required)
         :type project_id: str
-        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis (required)
-        :type con_calculation_parameter: ConCalculationParameter
+        :param request_body: (required)
+        :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -161,7 +161,7 @@ class CalculationApi:
 
         _param = self._calculate_serialize(
             project_id=project_id,
-            con_calculation_parameter=con_calculation_parameter,
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -185,8 +185,8 @@ class CalculationApi:
     @validate_call
     def calculate_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_calculation_parameter: Annotated[ConCalculationParameter, Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: StrictStr,
+        request_body: List[StrictInt],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -200,13 +200,13 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Run CBFEM caluclation and return the summary of the results
+        """calculate
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: (required)
         :type project_id: str
-        :param con_calculation_parameter: List of connections to calculate and a type of CBFEM analysis (required)
-        :type con_calculation_parameter: ConCalculationParameter
+        :param request_body: (required)
+        :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -231,7 +231,7 @@ class CalculationApi:
 
         _param = self._calculate_serialize(
             project_id=project_id,
-            con_calculation_parameter=con_calculation_parameter,
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -251,7 +251,7 @@ class CalculationApi:
     def _calculate_serialize(
         self,
         project_id,
-        con_calculation_parameter,
+        request_body,
         _request_auth,
         _content_type,
         _headers,
@@ -261,6 +261,7 @@ class CalculationApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'request_body': '',
         }
 
         _path_params: Dict[str, str] = {}
@@ -279,8 +280,8 @@ class CalculationApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if con_calculation_parameter is not None:
-            _body_params = con_calculation_parameter
+        if request_body is not None:
+            _body_params = request_body
 
 
         # set the HTTP header `Accept`

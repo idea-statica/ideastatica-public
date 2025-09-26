@@ -42,19 +42,25 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         connection1 = connections_in_project[0]
         pprint(connection1)
 
-        # run stiffness CBFEM analysis for the connection id = 1
+       # set analysis type fire resistance
         calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
         calcParams.connection_ids = [connection1.id]
         calcParams.analysis_type = "fireRestance"
+        connection1.analysis_type = calcParams.analysis_type
+        updated_connection1 = api_client.connection.update_connection(api_client.project.active_project_id, connection1.id, connection1)
 
         # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
 
         # results Fire Restance analysis
         pprint(con1_cbfem_results)
 
         detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
         pprint(detailed_results)
+
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        firstConnectionRawResult = results_text[0]
+        pprint(firstConnectionRawResult)
 
     except Exception as e:
         print("Operation failed : %s\n" % e)
