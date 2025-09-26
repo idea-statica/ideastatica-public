@@ -61,7 +61,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
 
         # set analysis type stress-strain
         calcParams.analysis_type = "fatigues"
-        connection1.analysis_type = "fatigues"
+        connection1.analysis_type = calcParams.analysis_type
         updated_connection1 = api_client.connection.update_connection(api_client.project.active_project_id, connection1.id, connection1)
 
         if(connection1.analysis_type != updated_connection1.analysis_type):
