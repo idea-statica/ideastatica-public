@@ -52,6 +52,7 @@ namespace IdeaRS.OpenModel
 			MatPrestressSteel = new List<MatPrestressSteel>();
 			MatWelding = new List<MatWelding>();
 			MatBoltGrade = new List<MaterialBoltGrade>();
+			MatHeadedStudGrade = new List<MaterialHeadedStudGrade>();
 			CrossSection = new List<CrossSection.CrossSection>();
 			BoltAssembly = new List<BoltAssembly>();
 			Pin = new List<Pin>();
@@ -178,6 +179,11 @@ namespace IdeaRS.OpenModel
 		/// List of BoltGrades
 		/// </summary>
 		public List<MaterialBoltGrade> MatBoltGrade { get; set; }
+
+		/// <summary>
+		/// List of HeadedStudGrades
+		/// </summary>
+		public List<MaterialHeadedStudGrade> MatHeadedStudGrade { get; set; }
 
 		/// <summary>
 		/// List of CrossSection
@@ -693,6 +699,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(MatPrestressSteel).Name, MatPrestressSteel },
 					{ typeof(MatWelding).Name, MatWelding },
 					{ typeof(MaterialBoltGrade).Name, MatBoltGrade },
+					{ typeof(MaterialHeadedStudGrade).Name, MatHeadedStudGrade },
 					{ typeof(CrossSection.CrossSection).Name, CrossSection },
 					{ typeof(CrossSection.ReinforcedCrossSection).Name, ReinforcedCrossSection },
 					{ typeof(BoltAssembly).Name, BoltAssembly },

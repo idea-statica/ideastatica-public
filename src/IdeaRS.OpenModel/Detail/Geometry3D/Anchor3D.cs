@@ -62,6 +62,59 @@ namespace IdeaRS.OpenModel.Detail
 	}
 
 	/// <summary>
+	/// Washer plate/Headed stud plate shape type
+	/// </summary>
+	public enum WasherPlateShape : int
+	{
+		/// <summary>
+		/// Rectangular
+		/// </summary>
+		Rectangular,
+
+		/// <summary>
+		/// Circular
+		/// </summary>
+		Circular
+	}
+
+	/// <summary>
+	/// Cast in place anchor shape type
+	/// </summary>
+	public enum CastInPlaceAnchorShape : int
+	{
+		/// <summary>
+		/// Straight
+		/// </summary>
+		Straight,
+
+		/// <summary>
+		/// L shape
+		/// </summary>
+		LShape,
+
+		/// <summary>
+		/// U shape
+		/// </summary>
+		UShape
+	}
+
+	/// <summary>
+	/// Position related to master type
+	/// </summary>
+	public enum PositionRelatedToMasterType : int
+	{
+		/// <summary>
+		/// On edge
+		/// </summary>
+		Edge,
+
+		/// <summary>
+		/// On centre point
+		/// </summary>
+		CenterPoint
+	}
+
+	/// <summary>
 	/// Representation of Anchor 3D in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(Anchor3D))]
@@ -137,7 +190,27 @@ namespace IdeaRS.OpenModel.Detail
 		/// Length of inside part of anchor
 		/// </summary>
 		public double LengthDown { get; set; }
-		
+
+		/// <summary>
+		/// Length of reinforcemetn part of anchor
+		/// </summary>
+		public double LengthReinfL3 { get; set; }
+
+		/// <summary>
+		/// Cast in place anchor shape
+		/// </summary>
+		public CastInPlaceAnchorShape CastInPlaceAnchorShapeType { get; set; }
+
+		/// <summary>
+		/// Rotation of reinforcemetn part of anchor
+		/// </summary>
+		public double RotationReinf { get; set; }
+
+		/// <summary>
+		/// Washer plate/Headed stud plate shape
+		/// </summary>
+		public WasherPlateShape WasherAndHeadStudPlateShape { get; set; }
+
 		/// <summary>
 		/// Washer plate/Headed stud plate size
 		/// </summary>
@@ -167,5 +240,10 @@ namespace IdeaRS.OpenModel.Detail
 		/// Transfer of shear
 		/// </summary>
 		public bool TransferOfShear { get; set; }
+
+		/// <summary>
+		/// Position related to edge or center point
+		/// </summary>
+		public PositionRelatedToMasterType PositionRelatedToMasterType { get; set; }
 	}
 }
