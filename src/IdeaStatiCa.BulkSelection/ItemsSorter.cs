@@ -492,12 +492,18 @@ namespace IdeaStatiCa.BIM.Common
 							{
 								var membersOnMySide = members.Where(m => GetSideOfPlane(m, plane) == msp.sideOfPlane).Count();
 								return (msp.member, membersOnMySide);
-							});
+							}).ToList();
 
 							// there is still chance, that there is more than 2 member fitting this condition -> further logic should be applied
-							var memberWithMostMembersOnItsSide = membersWithMostMembersOnItsSide.OrderByDescending(x => x.membersOnMySide).First().member;
+							if (membersWithMostMembersOnItsSide.Count() > 0)
+							{
+								var memberWithMostMembersOnItsSide = membersWithMostMembersOnItsSide.OrderByDescending(x => x.membersOnMySide).First().member;
+								return memberWithMostMembersOnItsSide;
+							}
 
-							return memberWithMostMembersOnItsSide;
+							// fallback
+							return memberAnglesSum.OrderByDescending(x => x.angle).First().member;
+
 						}
 					}
 					else
