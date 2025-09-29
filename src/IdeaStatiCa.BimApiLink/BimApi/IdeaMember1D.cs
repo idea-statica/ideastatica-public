@@ -1,6 +1,7 @@
-using IdeaStatiCa.BimApiLink.Identifiers;
+using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +11,7 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 	{
 		public virtual IIdeaPersistenceToken Token { get; set; }
 
-		public virtual IdeaRS.OpenModel.Model.Member1DType Type { get; set; }
+		public virtual Member1DType Type { get; set; }
 
 		public virtual List<IIdeaElement1D> Elements { get; set; } = null;
 
@@ -18,11 +19,19 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 
 		public virtual IIdeaCrossSection CrossSection { get; set; } = null;
 
-		public virtual IdeaRS.OpenModel.Model.Alignment Alignment { get; set; }
+		public virtual Alignment Alignment { get; set; }
 
 		public virtual bool MirrorY { get; set; }
 
 		public virtual bool MirrorZ { get; set; }
+
+		public virtual IdeaVector3D EccentricityBegin { get; set; } = new IdeaVector3D(0, 0, 0);
+
+		public virtual IdeaVector3D EccentricityEnd { get; set; } = new IdeaVector3D(0, 0, 0);
+
+		public InsertionPoints InsertionPoint { get; set; }
+
+		public EccentricityReference EccentricityReference { get; set; }
 
 		public IdeaMember1D(Identifier<IIdeaMember1D> identifer)
 			: base(identifer)

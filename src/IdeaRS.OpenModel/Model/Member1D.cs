@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using IdeaRS.OpenModel.Geometry3D;
+using System.Collections.Generic;
 
 namespace IdeaRS.OpenModel.Model
 {
@@ -110,5 +111,19 @@ namespace IdeaRS.OpenModel.Model
 		/// Mirrors the cross-section of this member on the Z-axis.
 		/// </summary>
 		public bool MirrorZ { get; set; }
+
+		/// <summary>
+		/// Local eccentricity at the begin of Element1D
+		/// </summary>
+		public Vector3D EccentricityBegin { get; set; } = new Vector3D();
+
+		/// <summary>
+		/// Local eccentricity at the end of Element1D
+		/// </summary>
+		public Vector3D EccentricityEnd { get; set; } = new Vector3D();
+
+		public InsertionPoints InsertionPoint { get; set; }
+
+		public EccentricityReference EccentricityReference { get; set; } = EccentricityReference.LocalCoordinateSystem;
 	}
 }

@@ -56,5 +56,21 @@ namespace IdeaStatiCa.BimApi
 		/// Mirrors the cross-section of this member on the Z-axis.
 		/// </summary>
 		bool MirrorZ { get; }
+
+		/// <summary>
+		/// Eccentricity (offset) at the start of the element.
+		/// It is defined in the local coordinate system.
+		/// </summary>
+		IdeaVector3D EccentricityBegin { get; }
+
+		/// <summary>
+		/// Eccentricity (offset) at the end of the element.
+		/// It is defined in the local coordinate system.
+		/// </summary>
+		IdeaVector3D EccentricityEnd { get; }
+
+		InsertionPoints InsertionPoint { get; }
+
+		EccentricityReference EccentricityReference { get; }
 	}
 }

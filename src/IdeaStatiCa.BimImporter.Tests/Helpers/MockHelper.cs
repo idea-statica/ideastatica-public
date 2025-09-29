@@ -27,20 +27,13 @@ namespace IdeaStatiCa.BimImporter.Tests.Helpers
 			});
 		}
 
-		public static IIdeaElement1D CreateElement(string name, IIdeaSegment3D segment,
-			IdeaVector3D eccentricityBegin = null, IdeaVector3D eccentricityEnd = null,
-			double rotation = 0, string id = null)
+		public static IIdeaElement1D CreateElement(string name, IIdeaSegment3D segment, double rotation = 0, string id = null)
 		{
 			id = MakeId(id);
-
-			eccentricityBegin = eccentricityBegin ?? new IdeaVector3D(0, 0, 0);
-			eccentricityEnd = eccentricityEnd ?? new IdeaVector3D(0, 0, 0);
 
 			IIdeaElement1D element = Substitute.For<IIdeaElement1D>();
 			element.Id.Returns(id);
 			element.Name.Returns(name);
-			element.EccentricityBegin.Returns(eccentricityBegin);
-			element.EccentricityEnd.Returns(eccentricityEnd);
 			element.RotationRx.Returns(rotation);
 			element.Segment.Returns(segment);
 

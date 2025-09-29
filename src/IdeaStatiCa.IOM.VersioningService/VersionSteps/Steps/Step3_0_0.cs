@@ -37,7 +37,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			foreach (ISIntermediate element in elements)
 			{
 				element.RemoveElementProperty("EccentricityReference");
-				element.RemoveElementProperty("CardinalPoint");
+				element.RemoveElementProperty("InsertionPoint");
 
 				ISIntermediate eccBegin = element.TakeElementProperty("EccentricityBegin");
 				double eccBeginX = double.Parse(eccBegin.GetElementValue("X"));
@@ -96,7 +96,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				eccEnd.CreateElementProperty("Y", eccEndY);
 				eccEnd.CreateElementProperty("Z", eccEndZ);
 
-				element.CreateElementProperty("CardinalPoint", "CenterOfGravity");
+				element.CreateElementProperty("InsertionPoint", "CenterOfGravity");
 				element.CreateElementProperty("EccentricityReference", "LocalCoordinateSystem");
 			}
 		}
