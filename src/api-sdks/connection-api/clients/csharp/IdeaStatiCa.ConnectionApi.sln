@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.ConnectionApi", "src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj", "{B15FFB5E-7A74-42AC-9A1D-D3D2EF373ED6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.ConnectionApi", "src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj", "{6A7556D5-7455-41E1-AA56-23A94CE4407E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,10 +10,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B15FFB5E-7A74-42AC-9A1D-D3D2EF373ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B15FFB5E-7A74-42AC-9A1D-D3D2EF373ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B15FFB5E-7A74-42AC-9A1D-D3D2EF373ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B15FFB5E-7A74-42AC-9A1D-D3D2EF373ED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A7556D5-7455-41E1-AA56-23A94CE4407E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A7556D5-7455-41E1-AA56-23A94CE4407E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A7556D5-7455-41E1-AA56-23A94CE4407E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A7556D5-7455-41E1-AA56-23A94CE4407E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Release|Any CPU

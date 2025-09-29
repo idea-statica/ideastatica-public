@@ -6,12 +6,10 @@
 | [**DownloadProjectAsync**](ProjectApi.md#downloadprojectasync) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. |
 | [**GetActiveProjectsAsync**](ProjectApi.md#getactiveprojectsasync) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient |
 | [**GetProjectDataAsync**](ProjectApi.md#getprojectdataasync) | Get data of the project. |
-| [**GetSetupAsync**](ProjectApi.md#getsetupasync) | Get setup from project |
-| [**ImportIOMAsync**](ProjectApi.md#importiomasync) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  which is serialized to XML string by  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt; |
+| [**ImportIOMAsync**](ProjectApi.md#importiomasync) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) |
 | [**OpenProjectAsync**](ProjectApi.md#openprojectasync) | Open ideacon project from ideaConFile |
-| [**UpdateFromIOMAsync**](ProjectApi.md#updatefromiomasync) | Update the IDEA Connection project by &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\&quot;&gt;IdeaRS.OpenModel.OpenModelContainer&lt;/see&gt;  (model and results).  IOM is passed in the body of the request as the xml string.  &lt;see href&#x3D;\&quot;https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\&quot;&gt;IdeaRS.OpenModel.Tools.OpenModelContainerToXml&lt;/see&gt; should be used to generate the valid xml string |
+| [**UpdateFromIOMAsync**](ProjectApi.md#updatefromiomasync) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string |
 | [**UpdateProjectDataAsync**](ProjectApi.md#updateprojectdataasync) | Updates ConProjectData of project |
-| [**UpdateSetupAsync**](ProjectApi.md#updatesetupasync) | Update setup of the project |
 
 <a id="closeproject"></a>
 ## **CloseProjectAsync**
@@ -134,7 +132,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -258,7 +256,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -375,7 +373,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -500,132 +498,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="getsetup"></a>
-## **GetSetupAsync**
-> **ConnectionSetup GetSetupAsync (Guid projectId)**
-
-Get setup from project
-
-
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service to get setup |  |
-
-### Return type
-
-[**ConnectionSetup**](ConnectionSetup.md)
-
-### Example
-
-Note: this example is autogenerated.
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
-
-namespace Example
-{
-    public class GetSetupAsyncExample
-    {
-        public static async Task Main()
-        {
-            string ideaConFile = "testCon.ideaCon";
-            
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
-            
-            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
-            {
-                using (var conClient = await clientFactory.CreateApiClient())
-                {
-
-                    // Open the project and get its id
-                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
-                    Guid projectId = projData.ProjectId;
-                    
-                    // (Required) Select parameters
-
-                    try
-                    {
-                        // Get setup from project
-                        ConnectionSetup result = await conClient.Project.GetSetupAsync(projectId);
-                        Debug.WriteLine(result);
-                    }
-                    catch (ApiException  e)
-                    {
-                        Console.WriteLine("Exception when calling Project.GetSetupAsync: " + e.Message);
-                        Console.WriteLine("Status Code: " + e.ErrorCode);
-                        Console.WriteLine(e.StackTrace);
-                    }
-                    finally
-                    {
-                        await conClient.Project.CloseProjectAsync(projectId);
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-### Code Samples
-
-[!code-csharp[](../examples/CodeSamples/Samples/GetSetup.cs)]
-
-Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
-
-### REST Usage
-
-#### Http Request
-
-All URIs are relative to *http://localhost*
-
-> **GET** /api/2/projects/{projectId}/connection-setup 
-
-#### Using the GetSetupWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Get setup from project
-    ApiResponse<ConnectionSetup> response = conClient.Project.GetSetupWithHttpInfo(projectId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling ProjectApi.GetSetupWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-#### Authorization
-
-No authorization required
-
-#### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-#### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -633,7 +506,7 @@ No authorization required
 ## **ImportIOMAsync**
 > **ConProject ImportIOMAsync (System.IO.Stream containerXmlFile = null, List<int> connectionsToCreate = null)**
 
-Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
+Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -644,7 +517,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** |  | [optional]  |
+| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** | IdeaRS.OpenModel.OpenModelContainer serialized to xml | [optional]  |
 | **connectionsToCreate** | [**List&lt;int&gt;**](int.md) |  | [optional]  |
 
 ### Return type
@@ -680,12 +553,12 @@ namespace Example
 
                     
                     // (Required) Select parameters
-                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | IdeaRS.OpenModel.OpenModelContainer serialized to xml (optional) 
                     var connectionsToCreate = new List<int>(); // List<int> |  (optional) 
 
                     try
                     {
-                        // Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
+                        // Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
                         ConProject result = await conClient.Project.ImportIOMAsync(containerXmlFile, connectionsToCreate);
                         Debug.WriteLine(result);
                     }
@@ -725,7 +598,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
+    // Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
     ApiResponse<ConProject> response = conClient.Project.ImportIOMWithHttpInfo(containerXmlFile, connectionsToCreate);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -752,7 +625,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -771,7 +644,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **ideaConFile** | **System.IO.Stream****System.IO.Stream** |  | [optional]  |
+| **ideaConFile** | **System.IO.Stream****System.IO.Stream** | Ideacon file | [optional]  |
 
 ### Return type
 
@@ -806,7 +679,7 @@ namespace Example
 
                     
                     // (Required) Select parameters
-                    ideaConFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+                    ideaConFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | Ideacon file (optional) 
 
                     try
                     {
@@ -877,7 +750,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -885,7 +758,7 @@ No authorization required
 ## **UpdateFromIOMAsync**
 > **ConProject UpdateFromIOMAsync (Guid projectId, System.IO.Stream containerXmlFile = null)**
 
-Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
+Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -897,7 +770,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service to be updated |  |
-| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** |  | [optional]  |
+| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** | IdeaRS.OpenModel.OpenModelContainer serialized to xml | [optional]  |
 
 ### Return type
 
@@ -935,11 +808,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream |  (optional) 
+                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | IdeaRS.OpenModel.OpenModelContainer serialized to xml (optional) 
 
                     try
                     {
-                        // Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
+                        // Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
                         ConProject result = await conClient.Project.UpdateFromIOMAsync(projectId, containerXmlFile);
                         Debug.WriteLine(result);
                     }
@@ -980,7 +853,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
+    // Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
     ApiResponse<ConProject> response = conClient.Project.UpdateFromIOMWithHttpInfo(projectId, containerXmlFile);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1007,7 +880,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1134,134 +1007,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="updatesetup"></a>
-## **UpdateSetupAsync**
-> **ConnectionSetup UpdateSetupAsync (Guid projectId, ConnectionSetup connectionSetup = null)**
-
-Update setup of the project
-
-
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service to update project setup |  |
-| **connectionSetup** | [**ConnectionSetup**](ConnectionSetup.md) |  | [optional]  |
-
-### Return type
-
-[**ConnectionSetup**](ConnectionSetup.md)
-
-### Example
-
-Note: this example is autogenerated.
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
-
-namespace Example
-{
-    public class UpdateSetupAsyncExample
-    {
-        public static async Task Main()
-        {
-            string ideaConFile = "testCon.ideaCon";
-            
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
-            
-            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
-            {
-                using (var conClient = await clientFactory.CreateApiClient())
-                {
-
-                    // Open the project and get its id
-                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
-                    Guid projectId = projData.ProjectId;
-                    
-                    // (Required) Select parameters
-                    var connectionSetup = new ConnectionSetup(); // ConnectionSetup |  (optional) 
-
-                    try
-                    {
-                        // Update setup of the project
-                        ConnectionSetup result = await conClient.Project.UpdateSetupAsync(projectId, connectionSetup);
-                        Debug.WriteLine(result);
-                    }
-                    catch (ApiException  e)
-                    {
-                        Console.WriteLine("Exception when calling Project.UpdateSetupAsync: " + e.Message);
-                        Console.WriteLine("Status Code: " + e.ErrorCode);
-                        Console.WriteLine(e.StackTrace);
-                    }
-                    finally
-                    {
-                        await conClient.Project.CloseProjectAsync(projectId);
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-### Code Samples
-
-[!code-csharp[](../examples/CodeSamples/Samples/UpdateSetup.cs)]
-
-Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
-
-### REST Usage
-
-#### Http Request
-
-All URIs are relative to *http://localhost*
-
-> **PUT** /api/2/projects/{projectId}/connection-setup 
-
-#### Using the UpdateSetupWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Update setup of the project
-    ApiResponse<ConnectionSetup> response = conClient.Project.UpdateSetupWithHttpInfo(projectId, connectionSetup);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling ProjectApi.UpdateSetupWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-#### Authorization
-
-No authorization required
-
-#### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-#### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

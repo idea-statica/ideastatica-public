@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 2.0
 
 - API version: 2.0
-- SDK version: 25.0.5.1164
+- SDK version: 25.1.0.2640
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -132,6 +132,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**DeleteConnection**](docs/ConnectionApi.md#deleteconnection) | 
 [**GetConnection**](docs/ConnectionApi.md#getconnection) | Get data about a specific connection in the project
 [**GetConnections**](docs/ConnectionApi.md#getconnections) | Get data about all connections in the project
 [**GetProductionCost**](docs/ConnectionApi.md#getproductioncost) | Get production cost of the connection
@@ -234,12 +235,10 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**DownloadProject^**](docs/ProjectApi.md#downloadproject) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
 [**GetActiveProjects**](docs/ProjectApi.md#getactiveprojects) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
 [**GetProjectData**](docs/ProjectApi.md#getprojectdata) | Get data of the project.
-[**GetSetup**](docs/ProjectApi.md#getsetup) | Get setup from project
-[**ImportIOM^**](docs/ProjectApi.md#importiom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
+[**ImportIOM^**](docs/ProjectApi.md#importiom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
 [**OpenProject^**](docs/ProjectApi.md#openproject) | Open ideacon project from ideaConFile
-[**UpdateFromIOM^**](docs/ProjectApi.md#updatefromiom) | Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
+[**UpdateFromIOM^**](docs/ProjectApi.md#updatefromiom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
 [**UpdateProjectData**](docs/ProjectApi.md#updateprojectdata) | Updates ConProjectData of project
-[**UpdateSetup**](docs/ProjectApi.md#updatesetup) | Update setup of the project
   ### ReportApi
 
   
@@ -247,7 +246,9 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**GeneratePdf^**](docs/ReportApi.md#generatepdf) | Generates report for projectId and connectionId
+[**GeneratePdfForMutliple^**](docs/ReportApi.md#generatepdfformutliple) | 
 [**GenerateWord^**](docs/ReportApi.md#generateword) | Generates report for projectId and connectionId
+[**GenerateWordForMultiple^**](docs/ReportApi.md#generatewordformultiple) | 
   ### SettingsApi
 
   
@@ -267,6 +268,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**CreateConTemplate**](docs/TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId
 [**GetConnectionTopology**](docs/TemplateApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+[**PublishConnection**](docs/TemplateApi.md#publishconnection) | 
 
 <a id="documentation-for-models"></a>
 ## Documentation for Models
@@ -291,6 +293,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConCalculationParameter](docs/ConCalculationParameter.md)
  - [Model.ConConnection](docs/ConConnection.md)
  - [Model.ConConversionSettings](docs/ConConversionSettings.md)
+ - [Model.ConDesignSetType](docs/ConDesignSetType.md)
  - [Model.ConLoadEffect](docs/ConLoadEffect.md)
  - [Model.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [Model.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
@@ -313,17 +316,14 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConResultSummary](docs/ConResultSummary.md)
  - [Model.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
  - [Model.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
+ - [Model.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
  - [Model.ConcreteBlock](docs/ConcreteBlock.md)
  - [Model.ConcreteBlockData](docs/ConcreteBlockData.md)
- - [Model.ConcreteSetup](docs/ConcreteSetup.md)
- - [Model.ConeBreakoutCheckType](docs/ConeBreakoutCheckType.md)
  - [Model.ConnectionCheckRes](docs/ConnectionCheckRes.md)
  - [Model.ConnectionData](docs/ConnectionData.md)
- - [Model.ConnectionSetup](docs/ConnectionSetup.md)
  - [Model.ConversionMapping](docs/ConversionMapping.md)
  - [Model.CountryCode](docs/CountryCode.md)
- - [Model.CrtCompCheckIS](docs/CrtCompCheckIS.md)
  - [Model.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [Model.CutData](docs/CutData.md)
  - [Model.CutMethod](docs/CutMethod.md)
@@ -358,7 +358,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.TextPosition](docs/TextPosition.md)
  - [Model.Vector3D](docs/Vector3D.md)
  - [Model.WeldData](docs/WeldData.md)
- - [Model.WeldEvaluation](docs/WeldEvaluation.md)
  - [Model.WeldType](docs/WeldType.md)
 
 
@@ -373,7 +372,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 2.0
-- SDK version: 25.0.5.1164
+- SDK version: 25.1.0.2640
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

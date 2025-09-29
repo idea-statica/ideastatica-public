@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **AnchorType** | **AnchorType** |  | [optional] 
 **WasherSize** | **double** | Washer Size used if AnchorType is washer | [optional] 
 **AnchoringLength** | **double** | Anchoring Length | [optional] 
-**HookLength** | **double** | Length of anchor hook&lt;br /&gt;  (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier) | [optional] 
+**HookLength** | **double** | Length of anchor hook    (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier) | [optional] 
 **BoltAssembly** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **Origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **AxisX** | [**Vector3D**](Vector3D.md) |  | [optional] 
