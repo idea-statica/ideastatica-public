@@ -1,16 +1,32 @@
 import os
-from ideastatica_connection_api import *
-import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
+import sys
+import logging
 
-## Configure base URL
-base_url = "http://localhost:5000"
+# Get the parent directory
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+# Add the parent directory to sys.path
+sys.path.append(parent_dir)
+
+import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
+from ideastatica_connection_api.models.country_code import CountryCode
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+baseUrl = "http://localhost:5000"
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+project_file_path = os.path.join(dir_path, '..\projects', 'HSS_norm_cond.ideaCon')
+print(project_file_path)
 
 # Create client attached to already running service
-with connection_api_service_attacher.ConnectionApiServiceAttacher(base_url).create_api_client() as api_client:
+with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client()  as api_client:
     try:
         for i in range(1, 3):  # Adjust range as needed
             # Absolute path to the input model
-            project_file_path = os.path.abspath(f'./Models/Model_{i}.ideaCon')
+            project_file_path = os.path.join(dir_path, '.\Models', f'Model_{i}.ideaCon')
 
             if not os.path.exists(project_file_path):
                 print(f"File not found: {project_file_path}")
@@ -30,7 +46,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(base_url).crea
             api_client.conversion.change_code(project_id, default_mapping)
 
             # Prepare output path
-            output_file_path = os.path.abspath(f'./Models/Model_{i}_AISC.ideaCon')
+            output_file_path = os.path.join(dir_path, '.\Models', f'Model_{i}_AISC.ideaCon')
             api_client.project.download_project(project_id, output_file_path)
 
             print(f"Model_{i} converted and saved to {output_file_path}")

@@ -275,13 +275,8 @@ namespace ST_ConnectionRestApi
 			con1.Id.Should().Be(1);
 
 			List<int> conToCalc = new List<int>() { con1.Id };
-			ConCalculationParameter conCalculationParameter = new ConCalculationParameter()
-			{
-				AnalysisType = ConAnalysisTypeEnum.Stress_Strain,
-				ConnectionIds = new List<int>() { con1.Id }
-			};
 
-			var cbfemResults = await ConnectionApiClient!.Calculation!.CalculateAsync(ActiveProjectId, conCalculationParameter);
+			var cbfemResults = await ConnectionApiClient!.Calculation!.CalculateAsync(ActiveProjectId, conToCalc);
 			cbfemResults.Should().NotBeNull();
 			cbfemResults.Count.Should().Be(1);
 			var res1 = cbfemResults[0];
@@ -296,13 +291,8 @@ namespace ST_ConnectionRestApi
 			con1.Id.Should().Be(1);
 
 			List<int> conToCalc = new List<int>() { con1.Id };
-			ConCalculationParameter conCalculationParameter = new ConCalculationParameter()
-			{
-				AnalysisType = ConAnalysisTypeEnum.Buckling,
-				ConnectionIds = new List<int>() { con1.Id }
-			};
 
-			var cbfemResults = await ConnectionApiClient!.Calculation!.CalculateAsync(ActiveProjectId, conCalculationParameter);;
+			var cbfemResults = await ConnectionApiClient!.Calculation!.CalculateAsync(ActiveProjectId, conToCalc);;
 			cbfemResults.Should().NotBeNull();
 			cbfemResults.Count.Should().Be(1);
 			var res1 = cbfemResults[0];
@@ -333,7 +323,7 @@ namespace ST_ConnectionRestApi
 					ConnectionIds = new List<int>() { con1.Id }
 				};
 
-				await apiClient2!.Calculation!.CalculateAsync(project2.ProjectId, conCalculationParameter);
+				await apiClient2!.Calculation!.CalculateAsync(project2.ProjectId, conToCalc);
 
 				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conCalculationParameter);
 				cbfemResults.Should().NotBeEmpty();

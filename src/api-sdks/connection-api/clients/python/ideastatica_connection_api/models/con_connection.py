@@ -34,7 +34,8 @@ class ConConnection(BaseModel):
     description: Optional[StrictStr] = None
     analysis_type: Optional[ConAnalysisTypeEnum] = Field(default=None, alias="analysisType")
     is_calculated: Optional[StrictBool] = Field(default=None, alias="isCalculated")
-    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "isCalculated"]
+    include_buckling: Optional[StrictBool] = Field(default=None, alias="includeBuckling")
+    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "isCalculated", "includeBuckling"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,7 +110,8 @@ class ConConnection(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "analysisType": obj.get("analysisType"),
-            "isCalculated": obj.get("isCalculated")
+            "isCalculated": obj.get("isCalculated"),
+            "includeBuckling": obj.get("includeBuckling")
         })
         return _obj
 
