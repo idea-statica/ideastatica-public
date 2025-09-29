@@ -9,6 +9,7 @@ Method | Description
 [**create_con_template**](TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
 [**get_connection_topology**](TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+[**publish_connection**](TemplateApi.md#publish_connection) | 
 
 
 <a id="apply_template"></a>
@@ -87,7 +88,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -161,7 +162,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -238,7 +239,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -315,7 +316,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -398,7 +399,87 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="publish_connection"></a>
+# **publish_connection**
+> bool publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **con_template_publish_param** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md)|  | [optional] 
+
+### Return type
+
+**bool**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_template_publish_param import ConTemplatePublishParam
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def publish_connectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    con_template_publish_param = ideastatica_connection_api.ConTemplatePublishParam() # ConTemplatePublishParam |  (optional)
+
+    try:
+        # 
+        api_response = api_client.template.publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
+        print("The response of TemplateApi->publish_connection:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling TemplateApi->publish_connection: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/publish 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

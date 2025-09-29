@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_design_set_type import ConDesignSetType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +31,8 @@ class ConTemplatePublishParam(BaseModel):
     name: Optional[StrictStr] = None
     author: Optional[StrictStr] = None
     company_name: Optional[StrictStr] = Field(default=None, alias="companyName")
-    __properties: ClassVar[List[str]] = ["name", "author", "companyName"]
+    design_set_type: Optional[ConDesignSetType] = Field(default=None, alias="designSetType")
+    __properties: ClassVar[List[str]] = ["name", "author", "companyName", "designSetType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,7 +102,8 @@ class ConTemplatePublishParam(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "author": obj.get("author"),
-            "companyName": obj.get("companyName")
+            "companyName": obj.get("companyName"),
+            "designSetType": obj.get("designSetType")
         })
         return _obj
 

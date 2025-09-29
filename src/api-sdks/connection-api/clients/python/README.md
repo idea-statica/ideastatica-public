@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 2.0
 
 - API version: 2.0
-- Package version: 25.0.5.1164
+- Package version: 25.1.0.2640
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -184,6 +184,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**delete_connection**](docs/ConnectionApi.md#delete_connection) | 
 [**get_connection**](docs/ConnectionApi.md#get_connection) | Get data about a specific connection in the project
 [**get_connections**](docs/ConnectionApi.md#get_connections) | Get data about all connections in the project
 [**get_production_cost**](docs/ConnectionApi.md#get_production_cost) | Get production cost of the connection
@@ -286,12 +287,10 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**download_project^**](docs/ProjectApi.md#download_project) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
 [**get_active_projects**](docs/ProjectApi.md#get_active_projects) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
 [**get_project_data**](docs/ProjectApi.md#get_project_data) | Get data of the project.
-[**get_setup**](docs/ProjectApi.md#get_setup) | Get setup from project
-[**import_iom^**](docs/ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  which is serialized to XML string by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>
+[**import_iom^**](docs/ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
 [**open_project^**](docs/ProjectApi.md#open_project) | Open ideacon project from ideaConFile
-[**update_from_iom^**](docs/ProjectApi.md#update_from_iom) | Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\">IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).  IOM is passed in the body of the request as the xml string.  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\">IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate the valid xml string
+[**update_from_iom^**](docs/ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
 [**update_project_data**](docs/ProjectApi.md#update_project_data) | Updates ConProjectData of project
-[**update_setup**](docs/ProjectApi.md#update_setup) | Update setup of the project
   ### ReportApi
 
   
@@ -299,7 +298,9 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**generate_pdf^**](docs/ReportApi.md#generate_pdf) | Generates report for projectId and connectionId
+[**generate_pdf_for_mutliple^**](docs/ReportApi.md#generate_pdf_for_mutliple) | 
 [**generate_word^**](docs/ReportApi.md#generate_word) | Generates report for projectId and connectionId
+[**generate_word_for_multiple^**](docs/ReportApi.md#generate_word_for_multiple) | 
   ### SettingsApi
 
   
@@ -319,6 +320,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**create_con_template**](docs/TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
 [**get_connection_topology**](docs/TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](docs/TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+[**publish_connection**](docs/TemplateApi.md#publish_connection) | 
 
 <a id="documentation-for-models"></a>
 ## Documentation for Models
@@ -343,6 +345,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConCalculationParameter](docs/ConCalculationParameter.md)
  - [ideastatica_connection_api.models.ConConnection](docs/ConConnection.md)
  - [ideastatica_connection_api.models.ConConversionSettings](docs/ConConversionSettings.md)
+ - [ideastatica_connection_api.models.ConDesignSetType](docs/ConDesignSetType.md)
  - [ideastatica_connection_api.models.ConLoadEffect](docs/ConLoadEffect.md)
  - [ideastatica_connection_api.models.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [ideastatica_connection_api.models.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
@@ -365,17 +368,14 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
  - [ideastatica_connection_api.models.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
  - [ideastatica_connection_api.models.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
+ - [ideastatica_connection_api.models.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [ideastatica_connection_api.models.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
  - [ideastatica_connection_api.models.ConcreteBlock](docs/ConcreteBlock.md)
  - [ideastatica_connection_api.models.ConcreteBlockData](docs/ConcreteBlockData.md)
- - [ideastatica_connection_api.models.ConcreteSetup](docs/ConcreteSetup.md)
- - [ideastatica_connection_api.models.ConeBreakoutCheckType](docs/ConeBreakoutCheckType.md)
  - [ideastatica_connection_api.models.ConnectionCheckRes](docs/ConnectionCheckRes.md)
  - [ideastatica_connection_api.models.ConnectionData](docs/ConnectionData.md)
- - [ideastatica_connection_api.models.ConnectionSetup](docs/ConnectionSetup.md)
  - [ideastatica_connection_api.models.ConversionMapping](docs/ConversionMapping.md)
  - [ideastatica_connection_api.models.CountryCode](docs/CountryCode.md)
- - [ideastatica_connection_api.models.CrtCompCheckIS](docs/CrtCompCheckIS.md)
  - [ideastatica_connection_api.models.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [ideastatica_connection_api.models.CutData](docs/CutData.md)
  - [ideastatica_connection_api.models.CutMethod](docs/CutMethod.md)
@@ -410,7 +410,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.TextPosition](docs/TextPosition.md)
  - [ideastatica_connection_api.models.Vector3D](docs/Vector3D.md)
  - [ideastatica_connection_api.models.WeldData](docs/WeldData.md)
- - [ideastatica_connection_api.models.WeldEvaluation](docs/WeldEvaluation.md)
  - [ideastatica_connection_api.models.WeldType](docs/WeldType.md)
 
 
@@ -420,7 +419,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 2.0
-- Package version: 25.0.5.1164
+- Package version: 25.1.0.2640
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

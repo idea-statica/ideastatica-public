@@ -37,7 +37,7 @@ class AnchorGrid(BaseModel):
     anchor_type: Optional[AnchorType] = Field(default=None, alias="anchorType")
     washer_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Washer Size used if AnchorType is washer", alias="washerSize")
     anchoring_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Anchoring Length", alias="anchoringLength")
-    hook_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length of anchor hook<br />  (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)", alias="hookLength")
+    hook_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length of anchor hook    (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)", alias="hookLength")
     bolt_assembly: Optional[ReferenceElement] = Field(default=None, alias="boltAssembly")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
