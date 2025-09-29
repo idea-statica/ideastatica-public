@@ -6,8 +6,6 @@ namespace IdeaStatiCa.RamToIdea.Sections
 {
 	internal abstract class AbstractRamSection : IRamSection
 	{
-		public double Height { get; }
-
 		public double Rotation => 0;
 
 		public string Id => $"{_properties.SectionID}-{_properties.SectionLabel}";
@@ -19,11 +17,10 @@ namespace IdeaStatiCa.RamToIdea.Sections
 		private readonly IMaterialFactory _materialFactory;
 		private readonly RamMemberProperties _properties;
 
-		public AbstractRamSection(IMaterialFactory materialFactory, double height, RamMemberProperties props)
+		protected AbstractRamSection(IMaterialFactory materialFactory, RamMemberProperties props)
 		{
 			_materialFactory = materialFactory;
 
-			Height = height;
 			_properties = props;
 		}
 

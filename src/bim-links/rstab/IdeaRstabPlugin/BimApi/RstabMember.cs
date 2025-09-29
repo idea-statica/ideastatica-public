@@ -38,6 +38,11 @@ namespace IdeaRstabPlugin.BimApi
 
 		public bool MirrorZ => false;
 
+		public IdeaVector3D EccentricityBegin { get; } = new IdeaVector3D(0, 0, 0);
+		public IdeaVector3D EccentricityEnd { get; } = new IdeaVector3D(0, 0, 0);
+		public InsertionPoints InsertionPoint { get; }
+		public EccentricityReference EccentricityReference { get; }
+
 		private readonly IObjectFactory _objectFactory;
 		private readonly IResultsFactory _resultsFactory;
 		private readonly IModelDataProvider _modelDataProvider;

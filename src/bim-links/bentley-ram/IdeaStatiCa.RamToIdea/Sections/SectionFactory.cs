@@ -29,7 +29,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 		{
 			if (props.SectionID == 0 && string.IsNullOrEmpty(props.SectionLabel))
 			{
-				return CreateNamed(0, props);
+				return CreateNamed(props);
 			}
 
 			switch (props.MaterialType)
@@ -38,7 +38,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 					return GetSteelSection(props);
 			}
 
-			return CreateNamed(0, props);
+			return CreateNamed(props);
 		}
 
 		private IRamSection GetSteelSection(RamMemberProperties props)
@@ -73,20 +73,19 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 			if (parameters is null)
 			{
-				return CreateNamed(steelSection.Depth, props);
+				return CreateNamed(props);
 			}
 
 			return new RamSectionParametric(
 				_materialFactory,
-				steelSection.Depth.InchesToMeters(),
 				props,
 				parameters);
 		}
 
-		private IRamSection CreateNamed(double heightInches, RamMemberProperties props)
+		private IRamSection CreateNamed(RamMemberProperties props)
 		{
 			props.SectionLabel = ConvertCrossSectionName(props.SectionLabel);
-			return new RamSectionNamed(_materialFactory, heightInches.InchesToMeters(), props);
+			return new RamSectionNamed(_materialFactory, props);
 		}
 
 		private static string ConvertCrossSectionName(string ramName)
@@ -105,8 +104,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 				.Register(new AngleConvertor())
 				.Register(new TeeConvertor());
 
-			var conversions = builder.Build();
-			return conversions;
+			return builder.Build();
 		}
 	}
 }
