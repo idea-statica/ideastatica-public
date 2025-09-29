@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   contact:
     email: info@ideastatica.com
@@ -51,7 +51,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/RcsSectionResultOverview'
                 type: array
-          description: Success
+          description: OK
       summary: Calculate RCS project
       tags:
       - Calculation
@@ -91,7 +91,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/RcsSectionResultDetailed'
                 type: array
-          description: Success
+          description: OK
       summary: Get calculated results
       tags:
       - Calculation
@@ -116,7 +116,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/RcsReinforcedCrossSection'
                 type: array
-          description: Success
+          description: OK
       summary: Get reinforced cross sections
       tags:
       - CrossSection
@@ -163,7 +163,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RcsReinforcedCrossSection'
-          description: Success
+          description: OK
       summary: Import reinforced cross-section
       tags:
       - CrossSection
@@ -188,7 +188,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/RcsCheckMember'
                 type: array
-          description: Success
+          description: OK
       summary: Get members
       tags:
       - DesignMember
@@ -220,7 +220,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Get section loading
       tags:
       - InternalForces
@@ -275,7 +275,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Set section loading
       tags:
       - InternalForces
@@ -296,7 +296,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RcsProject'
-          description: Success
+          description: OK
       summary: Open Rcs project from rcsFile
       tags:
       - Project
@@ -310,7 +310,7 @@ paths:
               schema:
                 format: uuid
                 type: string
-          description: Success
+          description: OK
       tags:
       - Project
   /api/1/projects/import-iom-file:
@@ -330,7 +330,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RcsProject'
-          description: Success
+          description: OK
       tags:
       - Project
   /api/1/projects/import-iom:
@@ -343,7 +343,7 @@ paths:
               schema:
                 format: uuid
                 type: string
-          description: Success
+          description: OK
       tags:
       - Project
   /api/1/projects/active-project:
@@ -355,7 +355,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RcsProject'
-          description: Success
+          description: OK
       tags:
       - Project
   /api/1/projects/{projectId}/download:
@@ -374,7 +374,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Download the actual rcs project from the service. It includes all changes
         which were made by previous API calls.
       tags:
@@ -397,7 +397,7 @@ paths:
             application/xml:
               schema:
                 type: string
-          description: Success
+          description: OK
       tags:
       - Project
     put:
@@ -424,7 +424,7 @@ paths:
             application/json:
               schema:
                 type: boolean
-          description: Success
+          description: OK
       tags:
       - Project
   /api/1/projects/{projectId}/close:
@@ -457,7 +457,7 @@ paths:
             text/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       tags:
       - Project
   /api/1/projects/{projectId}/sections:
@@ -481,7 +481,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/RcsSection'
                 type: array
-          description: Success
+          description: OK
       summary: Get sections
       tags:
       - Section
@@ -528,7 +528,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RcsSection'
-          description: Success
+          description: OK
       summary: Update a section in the RCS project
       tags:
       - Section
@@ -1878,6 +1878,7 @@ components:
     OpenProject_request:
       properties:
         rcsFile:
+          description: Rcs file
           format: binary
           type: string
       type: object

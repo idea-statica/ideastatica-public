@@ -174,7 +174,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Open Rcs project from rcsFile
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>RcsProject</returns>
         RcsProject OpenProject(System.IO.Stream rcsFile = default(System.IO.Stream), int operationIndex = 0);
@@ -186,7 +186,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of RcsProject</returns>
@@ -406,7 +406,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of RcsProject</returns>
@@ -419,7 +419,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1579,7 +1579,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Open Rcs project from rcsFile 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>RcsProject</returns>
         public RcsProject OpenProject(System.IO.Stream rcsFile = default(System.IO.Stream), int operationIndex = 0)
@@ -1592,7 +1592,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Open Rcs project from rcsFile 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of RcsProject</returns>
@@ -1653,7 +1653,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Open Rcs project from rcsFile 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of RcsProject</returns>
@@ -1667,7 +1667,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Open Rcs project from rcsFile 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="rcsFile">Rcs file (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
