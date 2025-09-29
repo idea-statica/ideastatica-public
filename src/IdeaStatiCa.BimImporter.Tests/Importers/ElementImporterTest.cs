@@ -21,8 +21,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			IIdeaElement1D element = MockHelper.CreateElement(
 				"elm",
 				segment,
-				new IdeaVector3D(1, 2, 3),
-				new IdeaVector3D(4, 5, 6),
 				3);
 
 			ElementImporter elementImport = new ElementImporter(new NullLogger());
@@ -37,14 +35,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			Assert.That(iomElement.Name, Is.EqualTo("elm"));
 			Assert.That(iomElement.Segment, Is.EqualTo(refSegment));
 			Assert.That(iomElement.RotationRx, Is.EqualTo(3));
-
-			Assert.That(iomElement.EccentricityBegin.X, Is.EqualTo(1));
-			Assert.That(iomElement.EccentricityBegin.Y, Is.EqualTo(2));
-			Assert.That(iomElement.EccentricityBegin.Z, Is.EqualTo(3));
-
-			Assert.That(iomElement.EccentricityEnd.X, Is.EqualTo(4));
-			Assert.That(iomElement.EccentricityEnd.Y, Is.EqualTo(5));
-			Assert.That(iomElement.EccentricityEnd.Z, Is.EqualTo(6));
 		}
 	}
 }

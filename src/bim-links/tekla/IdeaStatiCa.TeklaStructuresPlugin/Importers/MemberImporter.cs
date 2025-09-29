@@ -156,8 +156,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			{
 				Segment = CreateSegment(member, lcs),
 				RotationRx = rotation,
-				EccentricityBegin = GetEccentricity(member),
-				EccentricityEnd = GetEccentricity(member)
+				//EccentricityBegin = GetEccentricity(member),
+				//EccentricityEnd = GetEccentricity(member)
 			};
 		}
 

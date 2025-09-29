@@ -368,7 +368,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			string typeName = sObject.GetElementValue("TypeName");
 			string id = sObject.GetElementValue("Id");
 
-			IEnumerable<ISIntermediate> elements = model.GetElements(typeName);
+			IEnumerable<ISIntermediate> elements = model.GetElements(typeName + ";" + typeName);
 			if (elements is null)
 			{
 				return null;

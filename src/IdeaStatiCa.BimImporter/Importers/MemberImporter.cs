@@ -1,6 +1,8 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 
@@ -47,11 +49,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Taper = ctx.Import(member.Taper),
 				Alignment = member.Alignment,
 				MirrorY = member.MirrorY,
-				MirrorZ = member.MirrorZ
+				MirrorZ = member.MirrorZ,
+				EccentricityBegin = member.EccentricityBegin?.ToIOMVector() ?? new Vector3D(),
+				EccentricityEnd = member.EccentricityEnd?.ToIOMVector() ?? new Vector3D(),
+				InsertionPoint = member.InsertionPoint,
+				EccentricityReference = member.EccentricityReference
 			};
 		}
 
-		private List<ReferenceElement> ImportElements(IImportContext ctx, List<IIdeaElement1D> elements)
+		private static List<ReferenceElement> ImportElements(IImportContext ctx, List<IIdeaElement1D> elements)
 		{
 			List<ReferenceElement> refElements = new List<ReferenceElement>(elements.Count);
 			IIdeaNode prevNode = null;

@@ -23,22 +23,6 @@ namespace IdeaStatiCa.BimApi
 		IIdeaCrossSection EndCrossSection { get; }
 
 		/// <summary>
-		/// Eccentricity (offset) at the start of the element.
-		/// It is defined in the local coordinate system.
-		/// </summary>
-		IdeaVector3D EccentricityBegin { get; }
-
-		/// <summary>
-		/// Eccentricity (offset) at the end of the element.
-		/// It is defined in the local coordinate system.
-		/// </summary>
-		IdeaVector3D EccentricityEnd { get; }
-
-		CardinalPoints CardinalPoint { get; }
-
-		EccentricityReference EccentricityReference { get; }
-
-		/// <summary>
 		/// Rotation of the element around the x-axis of the <see cref="Segment"/>'s LCS.
 		/// </summary>
 		double RotationRx { get; }

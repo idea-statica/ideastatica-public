@@ -37,19 +37,14 @@ namespace IdeaRS.OpenModel.Model
 		/// Rotation of Cross-section of Element1D. Difference from default Line LCS
 		/// </summary>
 		public double RotationRx { get; set; }
-
 		/// <summary>
-		/// Local eccentricity at the begin of Element1D
+		/// Local eccentricity at the begin of Element1D. Used only for export.
 		/// </summary>
 		public Vector3D EccentricityBegin { get; set; } = new Vector3D();
 
 		/// <summary>
-		/// Local eccentricity at the end of Element1D
+		/// Local eccentricity at the end of Element1D. Used only for export.
 		/// </summary>
 		public Vector3D EccentricityEnd { get; set; } = new Vector3D();
-
-		public CardinalPoints CardinalPoint { get; set; }
-
-		public EccentricityReference EccentricityReference { get; set; } = EccentricityReference.LocalCoordinateSystem;
 	}
 }

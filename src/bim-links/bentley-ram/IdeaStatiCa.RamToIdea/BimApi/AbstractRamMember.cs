@@ -72,13 +72,21 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public bool MirrorZ => false;
 
+		public IdeaVector3D EccentricityBegin { get; } = new IdeaVector3D(0, 0, 0);
+
+		public IdeaVector3D EccentricityEnd { get; } = new IdeaVector3D(0, 0, 0);
+
+		public InsertionPoints InsertionPoint { get; } = InsertionPoints.Top;
+
+		public EccentricityReference EccentricityReference { get; }
+
 		private Line _line;
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
 		private readonly IGeometry _geometry;
 		private readonly ISegmentFactory _segmentFactory;
 
-		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry, ISegmentFactory segmentFactory)
+		protected AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry, ISegmentFactory segmentFactory)
 		{
 			_objectFactory = objectFactory;
 			ResultsFactory = resultsFactory;
@@ -99,47 +107,23 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		private List<IIdeaElement1D> CreateElements()
 		{
 			IRamSection section = _sectionProvider.GetSection(Properties);
-			IdeaVector3D eccentricity = GetTopOfSteelEccentricity(section);
 
-			List<IIdeaElement1D> elements = new List<IIdeaElement1D>();
+			List<IIdeaElement1D> elements = [];
 
 			foreach (RamLineSegment3D segment in _segmentFactory.CreateSegments(_line))
 			{
-				RamElement1D element = new RamElement1D()
+				RamElement1D element = new()
 				{
 					Segment = segment,
 					StartCrossSection = section,
 					EndCrossSection = section,
-					RotationRx = Properties.Rotation.DegreesToRadians(),
-					EccentricityBegin = eccentricity,
-					EccentricityEnd = eccentricity
+					RotationRx = Properties.Rotation.DegreesToRadians()
 				};
 
 				elements.Add(element);
 			}
 
 			return elements;
-		}
-
-		private IdeaVector3D GetTopOfSteelEccentricity(IRamSection section)
-		{
-			IdeaRS.OpenModel.Geometry3D.CoordSystemByVector cs = _line.LCS;
-			double zOffset = GetZOffset(section);
-
-			return new IdeaVector3D(
-				cs.VecX.Z * zOffset,
-				cs.VecY.Z * zOffset,
-				cs.VecZ.Z * zOffset);
-		}
-
-		private double GetZOffset(IRamSection section)
-		{
-			if (MemberType == MemberType.Beam)
-			{
-				return -section.Height / 2;
-			}
-
-			return 0;
 		}
 
 		protected virtual Line CreateLine()

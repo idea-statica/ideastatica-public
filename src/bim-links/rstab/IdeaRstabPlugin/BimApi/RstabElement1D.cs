@@ -36,7 +36,7 @@ namespace IdeaRstabPlugin.BimApi
 
 		public IdeaVector3D EccentricityEnd { get; set; } = new IdeaVector3D(0.0, 0.0, 0.0);
 
-		public CardinalPoints CardinalPoint { get; set; }
+		public InsertionPoints CardinalPoint { get; set; }
 
 		public EccentricityReference EccentricityReference { get; set; }
 

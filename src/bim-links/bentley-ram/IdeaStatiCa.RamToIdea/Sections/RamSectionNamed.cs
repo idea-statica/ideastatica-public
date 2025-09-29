@@ -8,8 +8,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 	{
 		public IIdeaMaterial Material => GetMaterial();
 
-		public RamSectionNamed(IMaterialFactory materialFactory, double height, RamMemberProperties props)
-			: base(materialFactory, height, props)
+		public RamSectionNamed(IMaterialFactory materialFactory, RamMemberProperties props)
+			: base(materialFactory, props)
 		{
 		}
 	}

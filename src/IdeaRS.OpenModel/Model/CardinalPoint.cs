@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IdeaRS.OpenModel.Model
 {
-	public enum CardinalPoints
+	public enum InsertionPoints
 	{
 		/// <summary>
 		/// Center of Gravity.
