@@ -31,6 +31,8 @@
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<ComboBox ItemsSource="{Binding AvailableAnalysisTypes}" SelectedItem="{Binding SelectedAnalysisType, Mode=TwoWay}" MinWidth="120"/>
+				<CheckBox IsChecked="{Binding CalculateBuckling, Mode=TwoWay}" ToolTip="Calculate also buckling">Is Buckling</CheckBox>
+				<CheckBox IsChecked="{Binding GetRawXmlResults, Mode=TwoWay}" ToolTip="Get raw results of the analysis in XML format">DetailRes</CheckBox>
 				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
 				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}">Get Operations </Button>
