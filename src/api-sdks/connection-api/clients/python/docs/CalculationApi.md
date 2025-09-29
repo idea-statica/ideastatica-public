@@ -82,7 +82,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -160,13 +160,13 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="get_results"></a>
 # **get_results**
-> List[ConnectionCheckRes] get_results(project_id, con_calculation_parameter=con_calculation_parameter)
+> List[ConnectionCheckRes] get_results(project_id, request_body)
 
 Get detailed results of the CBFEM analysis
 
@@ -176,7 +176,7 @@ Get detailed results of the CBFEM analysis
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_calculation_parameter** | [**ConCalculationParameter**](ConCalculationParameter.md)| List of connections to calculate and a type of CBFEM analysis | [optional] 
+ **request_body** | [**List[int]**](int.md)| List of connections to calculate and a type of CBFEM analysis | 
 
 ### Return type
 
@@ -187,7 +187,6 @@ Name | Type | Description  | Notes
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_calculation_parameter import ConCalculationParameter
 from ideastatica_connection_api.models.connection_check_res import ConnectionCheckRes
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
@@ -200,11 +199,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 def get_resultsExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
+    request_body = [56] # List[int] | List of connections to calculate and a type of CBFEM analysis
 
     try:
         # Get detailed results of the CBFEM analysis
-        api_response = api_client.calculation.get_results(project_id, con_calculation_parameter=con_calculation_parameter)
+        api_response = api_client.calculation.get_results(project_id, request_body)
         print("The response of CalculationApi->get_results:\n")
         pprint(api_response)
         return api_response
@@ -239,7 +238,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

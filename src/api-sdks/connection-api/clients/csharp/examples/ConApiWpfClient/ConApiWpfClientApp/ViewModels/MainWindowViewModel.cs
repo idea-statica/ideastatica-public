@@ -34,6 +34,8 @@ namespace ConApiWpfClientApp.ViewModels
 		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
 		private ConAnalysisTypeEnum _conAnalysisType;
+		private bool _calculateBuckling;
+		private bool _getRawResults;
 		//private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Default };
 
 		private bool disposedValue;
@@ -47,6 +49,8 @@ namespace ConApiWpfClientApp.ViewModels
 			this._logger = logger;
 			this._sceneController = sceneController;
 			this._conAnalysisType = ConAnalysisTypeEnum.Stress_Strain;
+			this._calculateBuckling = false;
+			this._getRawResults = false;
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
@@ -100,9 +104,32 @@ namespace ConApiWpfClientApp.ViewModels
 				var connectionIdList = new List<int>();
 				connectionIdList.Add(SelectedConnection!.Id);
 
+				ConCalculationParameter calculationParameter = new ConCalculationParameter()
+				{
+					AnalysisType = this.SelectedAnalysisType,
+					ConnectionIds = connectionIdList
+				};
+
+				var selectedConData = await ConApiClient.Connection.GetConnectionAsync(ProjectInfo.ProjectId, SelectedConnection!.Id, 0, cts.Token);
+				if(selectedConData.AnalysisType != SelectedAnalysisType ||
+					selectedConData.IncludeBuckling != CalculateBuckling)
+				{
+					selectedConData.AnalysisType = SelectedAnalysisType;
+					selectedConData.IncludeBuckling = CalculateBuckling;
+					await ConApiClient.Connection.UpdateConnectionAsync(ProjectInfo.ProjectId, SelectedConnection!.Id, selectedConData, 0, cts.Token);
+				}
+
 				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, connectionIdList, 0, cts.Token);
 
-				OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults);
+				string rawResultsXml = string.Empty;
+
+				if (GetRawXmlResults)
+				{
+					var rawResults = await ConApiClient.Calculation.GetRawJsonResultsAsync(ProjectInfo.ProjectId, calculationParameter, 0, cts.Token);
+					rawResultsXml = rawResults!.Any() ? rawResults[0] : string.Empty;
+				}
+
+				OutputText = $"{ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults)}\n\n{rawResultsXml}";
 			}
 			catch (Exception ex)
 			{
@@ -128,6 +155,18 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			get { return _conAnalysisType; }
 			set { SetProperty(ref _conAnalysisType, value); }
+		}
+
+		public bool CalculateBuckling
+		{
+			get { return _calculateBuckling; }
+			set { SetProperty(ref _calculateBuckling, value); }
+		}
+
+		public bool GetRawXmlResults
+		{
+			get { return _getRawResults; }
+			set { SetProperty(ref _getRawResults, value); }
 		}
 
 		public Array AvailableAnalysisTypes => Enum.GetValues(typeof(ConAnalysisTypeEnum));
@@ -272,8 +311,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
 				
-
-				OutputText = string.Format("ProjectId = {0}\n\n{1}", ConApiClient.ActiveProjectId, projectInfoJson);
+				OutputText = string.Format("ClientId = {0}, ProjectId = {1}\n\n{2}", ConApiClient.ClientId, ConApiClient.ActiveProjectId, projectInfoJson);
 
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 			}
@@ -379,9 +417,6 @@ namespace ConApiWpfClientApp.ViewModels
 
 					_connectionApiClientFactory = new ConnectionApiServiceAttacher(_configuration["CONNECTION_API_ENDPOINT"]!);
 					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
-
-					//var connectionInfo = ConnectionController.GetConnectionInfo();
-					//OutputText = $"ClientId = {connectionInfo.Item1}, ProjectId = {connectionInfo.Item2}";
 				}
 			}
 			catch (Exception ex)

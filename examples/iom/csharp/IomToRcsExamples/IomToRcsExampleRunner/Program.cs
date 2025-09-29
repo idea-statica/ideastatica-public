@@ -44,7 +44,7 @@ namespace IomToRcsExampleRunner
 
 				//#region Create Rcs Project
 
-				//string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0\\net6.0-windows";
+				//string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1\\net6.0-windows";
 				////string directoryPath = "C:\\Dev\\IdeaStatiCa\\bin\\Debug\\net6.0-windows";
 
 				//Logger.LogDebug($"Opening RCS Client from '{directoryPath}'");

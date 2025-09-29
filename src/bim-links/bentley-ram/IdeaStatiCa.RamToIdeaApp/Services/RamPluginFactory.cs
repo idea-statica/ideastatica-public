@@ -40,10 +40,10 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			IdeaStaticaAppPath = GetCheckbotAppPath();
 			if (!File.Exists(IdeaStaticaAppPath))
 			{
-				MessageBox.Show($"IdeaCheckbot.exe not found on path {IdeaStaticaAppPath}. Using default path C:\\Program Files\\Idea StatiCa\\ StatiCa 25.0\\IdeaCheckbot.exe", "Warning",
+				MessageBox.Show($"IdeaCheckbot.exe not found on path {IdeaStaticaAppPath}. Using default path C:\\Program Files\\Idea StatiCa\\ StatiCa 25.1\\IdeaCheckbot.exe", "Warning",
 					MessageBoxButton.OK, MessageBoxImage.Warning);
 				logger.LogError($"File path {IdeaStaticaAppPath} does not exist");
-				IdeaStaticaAppPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.0\IdeaCheckbot.exe";
+				IdeaStaticaAppPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\IdeaCheckbot.exe";
 			}
 		}
 

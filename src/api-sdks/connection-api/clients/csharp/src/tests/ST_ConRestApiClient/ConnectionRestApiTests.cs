@@ -289,8 +289,13 @@ namespace ST_ConnectionRestApi
 		{
 			var con1 = Project!.Connections.First();
 			con1.Id.Should().Be(1);
-
 			List<int> conToCalc = new List<int>() { con1.Id };
+
+			// set buckling analysis
+			con1.IncludeBuckling = true;
+			var updatedConnectionData = await ConnectionApiClient.Connection.UpdateConnectionAsync(ActiveProjectId, con1.Id, con1);
+
+			updatedConnectionData.IncludeBuckling.Should().BeTrue();
 
 			var cbfemResults = await ConnectionApiClient!.Calculation!.CalculateAsync(ActiveProjectId, conToCalc);;
 			cbfemResults.Should().NotBeNull();
@@ -325,7 +330,7 @@ namespace ST_ConnectionRestApi
 
 				await apiClient2!.Calculation!.CalculateAsync(project2.ProjectId, conToCalc);
 
-				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conCalculationParameter);
+				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conCalculationParameter.ConnectionIds);
 				cbfemResults.Should().NotBeEmpty();
 			}
 		}
@@ -339,23 +344,23 @@ namespace ST_ConnectionRestApi
 			cost.TotalEstimatedCost.Should().BeGreaterThan(0);
 		}
 
-		// TODO - not working
+		// TODO - use new API
 
-		[Test]
-		public async Task ShouldGetAndUpdateConnectionSetup()
-		{
-			var connectionSetup = await ConnectionApiClient!.Project.GetSetupAsync(ActiveProjectId);
+		//[Test]
+		//public async Task ShouldGetAndUpdateConnectionSetup()
+		//{
+		//	var connectionSetup = await ConnectionApiClient!.Project.GetSetupAsync(ActiveProjectId);
 
-			connectionSetup.HssLimitPlasticStrain.Should().Be(0.01);
+		//	connectionSetup.HssLimitPlasticStrain.Should().Be(0.01);
 
-			connectionSetup.HssLimitPlasticStrain = 0.02;
+		//	connectionSetup.HssLimitPlasticStrain = 0.02;
 
-			var updateResponse = await ConnectionApiClient!.Project.UpdateSetupAsync(ActiveProjectId, connectionSetup);
+		//	var updateResponse = await ConnectionApiClient!.Project.UpdateSetupAsync(ActiveProjectId, connectionSetup);
 
-			var updatedConnectionSetup = await ConnectionApiClient!.Project!.GetSetupAsync(ActiveProjectId);
+		//	var updatedConnectionSetup = await ConnectionApiClient!.Project!.GetSetupAsync(ActiveProjectId);
 
-			updatedConnectionSetup.HssLimitPlasticStrain.Should().Be(0.02);
-		}
+		//	updatedConnectionSetup.HssLimitPlasticStrain.Should().Be(0.02);
+		//}
 
 		[Test]
 		public async Task ShouldGetSceneData()

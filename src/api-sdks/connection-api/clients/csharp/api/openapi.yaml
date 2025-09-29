@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   contact:
     email: info@ideastatica.com
@@ -44,7 +44,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConResultSummary'
                 type: array
-          description: Success
+          description: OK
       tags:
       - Calculation
       x-requiresProject: true
@@ -67,8 +67,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConCalculationParameter'
+              items:
+                format: int32
+                type: integer
+              type: array
         description: List of connections to calculate and a type of CBFEM analysis
+        required: true
       responses:
         "200":
           content:
@@ -77,7 +81,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConnectionCheckRes'
                 type: array
-          description: Success
+          description: OK
       summary: Get detailed results of the CBFEM analysis
       tags:
       - Calculation
@@ -111,7 +115,7 @@ paths:
                 items:
                   type: string
                 type: array
-          description: Success
+          description: OK
       summary: Get json string which represents raw CBFEM results (an instance of
         CheckResultsData)
       tags:
@@ -130,7 +134,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Connect a client to the ConnectionRestApi service. Method returns a
         unique identifier of the client.
       tags:
@@ -146,7 +150,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Get the IdeaStatica version
       tags:
       - Client
@@ -174,13 +178,45 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
-          description: Success
+          description: OK
       summary: Get data about all connections in the project
       tags:
       - Connection
       x-requiresProject: true
       x-requiresConnection: false
   /api/2/projects/{projectId}/connections/{connectionId}:
+    delete:
+      operationId: DeleteConnection
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConConnection'
+                type: array
+          description: OK
+      tags:
+      - Connection
+      x-requiresProject: true
+      x-requiresConnection: true
     get:
       operationId: GetConnection
       parameters:
@@ -209,7 +245,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConConnection'
-          description: Success
+          description: OK
       summary: Get data about a specific connection in the project
       tags:
       - Connection
@@ -249,7 +285,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConConnection'
-          description: Success
+          description: OK
       summary: Update data of a specific connection in the project
       tags:
       - Connection
@@ -284,7 +320,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConProductionCost'
-          description: Success
+          description: OK
       summary: Get production cost of the connection
       tags:
       - Connection
@@ -318,7 +354,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConConversionSettings'
-          description: Success
+          description: OK
       summary: Get default conversions for converting the project to different design
         code.
       tags:
@@ -352,7 +388,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Change design code of project.
       tags:
       - Conversion
@@ -397,7 +433,7 @@ paths:
             text/plain:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
       tags:
       - Export
@@ -434,7 +470,7 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/ConnectionData'
-          description: Success
+          description: OK
       summary: Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs
         for required connection
       tags:
@@ -469,7 +505,7 @@ paths:
             text/plain:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Export connection to IFC format
       tags:
       - Export
@@ -514,7 +550,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConLoadEffect'
                 type: array
-          description: Success
+          description: OK
       summary: Get all load effects which are defined in connectionId
       tags:
       - LoadEffect
@@ -553,7 +589,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
-          description: Success
+          description: OK
       summary: Add new load effect to the connection
       tags:
       - LoadEffect
@@ -592,7 +628,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
-          description: Success
+          description: OK
       summary: Update load impulses in conLoading
       tags:
       - LoadEffect
@@ -636,7 +672,7 @@ paths:
               schema:
                 format: int32
                 type: integer
-          description: Success
+          description: OK
       summary: Delete load effect loadEffectId
       tags:
       - LoadEffect
@@ -686,7 +722,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
-          description: Success
+          description: OK
       summary: Get load impulses from loadEffectId
       tags:
       - LoadEffect
@@ -720,7 +756,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConLoadSettings'
-          description: Success
+          description: OK
       summary: Get Load settings for connection in project
       tags:
       - LoadEffect
@@ -760,7 +796,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConLoadSettings'
-          description: Success
+          description: OK
       summary: Set Load settings for connection in project
       tags:
       - LoadEffect
@@ -787,7 +823,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get materials which are used in the project projectId
       tags:
       - Material
@@ -814,7 +850,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get materials which are used in the project projectId
       tags:
       - Material
@@ -841,7 +877,7 @@ paths:
         description: Definition of a new material to be added to the project
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Add material to the project
       tags:
       - Material
@@ -868,7 +904,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get materials which are used in the project projectId
       tags:
       - Material
@@ -895,7 +931,7 @@ paths:
         description: Definition of a new material to be added to the project
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Add material to the project
       tags:
       - Material
@@ -922,7 +958,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get materials which are used in the project projectId
       tags:
       - Material
@@ -949,7 +985,7 @@ paths:
         description: Definition of a new material to be added to the project
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Add material to the project
       tags:
       - Material
@@ -976,7 +1012,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get materials which are used in the project projectId
       tags:
       - Material
@@ -1003,7 +1039,7 @@ paths:
         description: Definition of a new material to be added to the project
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Add material to the project
       tags:
       - Material
@@ -1030,7 +1066,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get cross sections which are used in the project projectId
       tags:
       - Material
@@ -1057,7 +1093,7 @@ paths:
         description: Definition of a new cross-section to be added to the project
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Add cross section to the project
       tags:
       - Material
@@ -1084,7 +1120,7 @@ paths:
               schema:
                 items: {}
                 type: array
-          description: Success
+          description: OK
       summary: Get bolt assemblies which are used in the project projectId
       tags:
       - Material
@@ -1111,7 +1147,7 @@ paths:
         description: Definition of a new bolt assemby to be added to the project
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Add bolt assembly to the project
       tags:
       - Material
@@ -1148,7 +1184,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConMember'
                 type: array
-          description: Success
+          description: OK
       summary: Get information about all members in the connection
       tags:
       - Member
@@ -1188,7 +1224,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConMember'
-          description: Success
+          description: OK
       summary: Update the member in the connection by newMemberData
       tags:
       - Member
@@ -1232,7 +1268,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConMember'
-          description: Success
+          description: OK
       summary: Get information about the requires member in the connection
       tags:
       - Member
@@ -1275,7 +1311,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConMember'
-          description: Success
+          description: OK
       summary: Set bearing member for memberIt
       tags:
       - Member
@@ -1306,7 +1342,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Delete all operations for the connection
       tags:
       - Operation
@@ -1342,7 +1378,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConOperation'
                 type: array
-          description: Success
+          description: OK
       summary: Get the list of operations for the connection
       tags:
       - Operation
@@ -1376,7 +1412,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConOperationCommonProperties'
-          description: Success
+          description: OK
       summary: Get common operation properties
       tags:
       - Operation
@@ -1411,7 +1447,7 @@ paths:
         description: "Specify id of material, or keep as null"
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Update common properties for all operations
       tags:
       - Operation
@@ -1453,7 +1489,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Predesign welds
       tags:
       - Operation
@@ -1499,7 +1535,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/IdeaParameter'
                 type: array
-          description: Success
+          description: OK
       summary: Get all parameters which are defined for projectId and connectionId
       tags:
       - Parameter
@@ -1541,7 +1577,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ParameterUpdateResponse'
-          description: Success
+          description: OK
       summary: Update parameters for the connection connectionId in the project projectId
         by values passed in parameters
       tags:
@@ -1583,7 +1619,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Evaluate the expression and return the result
       tags:
       - Parameter
@@ -1614,7 +1650,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Clear parameters and links for the connection connectionId in the project
         projectId
       tags:
@@ -1650,7 +1686,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DrawData'
-          description: Success
+          description: OK
       summary: Returns data for scene3D
       tags:
       - Presentation
@@ -1687,7 +1723,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Return serialized data for scene3D in json format
       tags:
       - Presentation
@@ -1710,7 +1746,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConProject'
-          description: Success
+          description: OK
       summary: Open ideacon project from ideaConFile
       tags:
       - Project
@@ -1736,7 +1772,7 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Close the project. Needed for releasing resources in the service.
       tags:
       - Project
@@ -1753,7 +1789,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConProject'
                 type: array
-          description: Success
+          description: OK
       summary: Get the list of projects in the service which were opened by the client
         which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
       tags:
@@ -1776,7 +1812,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Download the actual ideacon project from the service. It includes alle
         changes which were made by previous API calls.
       tags:
@@ -1803,7 +1839,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConProject'
-          description: Success
+          description: OK
       summary: Get data of the project.
       tags:
       - Project
@@ -1833,7 +1869,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConProject'
-          description: Success
+          description: OK
       summary: Updates ConProjectData of project
       tags:
       - Project
@@ -1858,13 +1894,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConProject'
-          description: Success
+          description: OK
       summary: "Create the IDEA Connection project from IOM provided in xml format.\r\
-        \nThe parameter 'containerXmlFile' passed in HTTP body represents :\r\n<see\
-        \ href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\"\
-        >IdeaRS.OpenModel.OpenModelContainer</see>\r\nwhich is serialized to XML string\
-        \ by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\"\
-        >IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>"
+        \nThe parameter 'containerXmlFile' passed in HTTP body represents :\r\n[IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)\r\
+        \nwhich is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)"
       tags:
       - Project
       x-requiresProject: false
@@ -1898,49 +1931,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConProject'
-          description: Success
-      summary: "Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\"\
-        >IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).\r\nIOM is\
-        \ passed in the body of the request as the xml string.\r\n<see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\"\
-        >IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate\
-        \ the valid xml string"
+          description: OK
+      summary: "Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)\
+        \  (model and results).\r\nIOM is passed in the body of the request as the\
+        \ xml string.\r\n[IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)\
+        \ should be used to generate the valid xml string"
       tags:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: UpdateProjectFromIomFile
-  /api/2/projects/{projectId}/connection-setup:
-    get:
-      operationId: GetSetup
+  /api/2/projects/{projectId}/reports/pdf:
+    post:
+      operationId: GeneratePdfForMutliple
       parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service to get setup
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConnectionSetup'
-          description: Success
-      summary: Get setup from project
-      tags:
-      - Project
-      x-requiresProject: true
-      x-requiresConnection: false
-    put:
-      operationId: UpdateSetup
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service to update project setup
-        explode: false
+      - explode: false
         in: path
         name: projectId
         required: true
@@ -1952,20 +1957,48 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConnectionSetup'
-        description: ""
+              items:
+                format: int32
+                type: integer
+              type: array
+        required: true
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConnectionSetup'
-          description: Success
-      summary: Update setup of the project
+          description: OK
       tags:
-      - Project
+      - Report
       x-requiresProject: true
       x-requiresConnection: false
+      x-extensionMethodName: SaveReportPdf
+  /api/2/projects/{projectId}/reports/word:
+    post:
+      operationId: GenerateWordForMultiple
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: int32
+                type: integer
+              type: array
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - Report
+      x-requiresProject: true
+      x-requiresConnection: false
+      x-extensionMethodName: SaveReportWord
   /api/2/projects/{projectId}/connections/{connectionId}/reports/pdf:
     get:
       operationId: GeneratePdf
@@ -1990,7 +2023,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Generates report for projectId and connectionId
       tags:
       - Report
@@ -2021,7 +2054,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Generates report for projectId and connectionId
       tags:
       - Report
@@ -2054,7 +2087,7 @@ paths:
               schema:
                 additionalProperties: {}
                 type: object
-          description: Success
+          description: OK
       tags:
       - Settings
       x-requiresProject: true
@@ -2083,7 +2116,7 @@ paths:
               schema:
                 additionalProperties: {}
                 type: object
-          description: Success
+          description: OK
       tags:
       - Settings
       x-requiresProject: true
@@ -2117,7 +2150,7 @@ paths:
             text/plain:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Create a template for the connection connectionId in the project projectId
       tags:
       - Template
@@ -2162,7 +2195,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TemplateConversions'
-          description: Success
+          description: OK
       summary: "Get the default mappings for the application of the connection template\
         \ passed in templateToApply\r\non connectionId in the project projectId"
       tags:
@@ -2204,7 +2237,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConTemplateApplyResult'
-          description: Success
+          description: OK
       summary: Apply the connection template applyTemplateParam on the connection
         connectionId in the project projectId
       tags:
@@ -2236,7 +2269,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: Success
+          description: OK
       summary: Clear the design of the connection connectionId in the project projectId
       tags:
       - Template
@@ -2271,8 +2304,48 @@ paths:
             text/plain:
               schema:
                 type: string
-          description: Success
+          description: OK
       summary: Get topology of the connection in json format
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/publish:
+    post:
+      operationId: PublishConnection
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConTemplatePublishParam'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: OK
+      summary: ""
       tags:
       - Template
       x-requiresProject: true
@@ -2353,7 +2426,7 @@ components:
           format: double
           type: number
         hookLength:
-          description: "Length of anchor hook<br />\r\n(distance from the inner surface\
+          description: "Length of anchor hook\r\n\r\n(distance from the inner surface\
             \ of the anchor shaft to the outer tip of the hook specified as an anchor\
             \ diameter multiplier)"
           format: double
@@ -3158,6 +3231,11 @@ components:
           nullable: true
           type: array
       type: object
+    ConDesignSetType:
+      enum:
+      - private
+      - company
+      type: string
     ConLoadEffect:
       additionalProperties: false
       example:
@@ -3660,6 +3738,26 @@ components:
           nullable: true
           type: string
       type: object
+    ConTemplatePublishParam:
+      additionalProperties: false
+      example:
+        author: author
+        companyName: companyName
+        name: name
+        designSetType: private
+      properties:
+        name:
+          nullable: true
+          type: string
+        author:
+          nullable: true
+          type: string
+        companyName:
+          nullable: true
+          type: string
+        designSetType:
+          $ref: '#/components/schemas/ConDesignSetType'
+      type: object
     ConWeldSizingMethodEnum:
       enum:
       - fullStrength
@@ -3773,25 +3871,6 @@ components:
           nullable: true
           type: string
       type: object
-    ConcreteSetup:
-      additionalProperties: false
-      description: Concrete setup base class
-      example:
-        id: 0
-      properties:
-        id:
-          description: Element Id
-          format: int32
-          type: integer
-      type: object
-    ConeBreakoutCheckType:
-      description: Types of cone breakout checks
-      enum:
-      - both
-      - tension
-      - shear
-      - none
-      type: string
     ConnectionCheckRes:
       additionalProperties: false
       description: Results for connection in project
@@ -5266,299 +5345,6 @@ components:
           nullable: true
           type: array
       type: object
-    ConnectionSetup:
-      additionalProperties: false
-      description: ConnectionSetup
-      example:
-        fatigueSectionOffset: 7.143538047012306
-        numElementRhs: 1
-        effectiveAreaStressCoeffAISC: 3.616076749251911
-        divisionOfSurfaceOfCHS: 9
-        bearingCheck: true
-        crtCompCheckIS: iS800_Cl_7_4
-        memberLengthRatio: 9.965781217890562
-        distanceBetweenBolts: 6.84685269835264
-        numElementPlate: 2
-        bearingAngle: 4.965218492984954
-        minSize: 3.5571952270680973
-        stopAtLimitStrain: true
-        crackedConcrete: true
-        limitDeformationCheck: true
-        decreasingFtrd: 5.025004791520295
-        warnPlasticStrain: 1.2315135367772556
-        gammaC: 5.962133916683182
-        factorPreloadBolt: 6.704019297950036
-        frictionCoefficient: 2.027123023002322
-        optimalCheckLevel: 1.4894159098541704
-        rigidBP: true
-        gammaM3: 5.637376656633329
-        mdiv: 6
-        numberIterations: 9
-        divisionOfArcsOfRHS: 6
-        hssLimitPlasticStrain: 6.519180951018382
-        limitPlasticStrain: 4.145608029883936
-        distanceDiameterBetweenBP: 7.457744773683766
-        extensionLengthRationOpenSections: 6.878052220127876
-        analysisGNL: true
-        distanceBetweenBoltsEdge: 1.1730742509559433
-        numElement: 8
-        developedFillers: true
-        steelSetup: "{}"
-        bracedSystem: true
-        maxSize: 6.965117697638846
-        boltMaxGripLengthCoeff: 3.0937452626664474
-        extensionLengthRationCloseSections: 5.944895607614016
-        gammaInst: 1.4658129805029452
-        anchorLengthForStiffness: 2
-        checkDetailing: true
-        applyConeBreakoutCheck: both
-        alphaCC: 6.778324963048013
-        concreteSetup:
-          id: 0
-        frictionCoefficientPbolt: 3.353193347011243
-        applyBearingCheck: true
-        applyBetapInfluence: true
-        analysisAllGNL: true
-        jointBetaFactor: 7.061401241503109
-        baseMetalCapacity: true
-        effectiveAreaStressCoeff: 9.301444243932576
-        limitDeformation: 7.386281948385884
-        condensedElementLengthFactor: 0.8851374739011653
-        deformationBoltHole: true
-        weldEvaluationData: maxForceElement
-        pretensionForceFpc: 6.027456183070403
-        gammaMu: 7.058770351582356
-        warnCheckLevel: 1.0246457001441578
-      properties:
-        steelSetup:
-          additionalProperties: false
-          description: ISteelSetup
-          type: object
-        concreteSetup:
-          $ref: '#/components/schemas/ConcreteSetup'
-        stopAtLimitStrain:
-          description: Stop analysis when the limit strain is reached.
-          type: boolean
-        weldEvaluationData:
-          $ref: '#/components/schemas/WeldEvaluation'
-        checkDetailing:
-          description: Perform check of bolt positions
-          type: boolean
-        applyConeBreakoutCheck:
-          $ref: '#/components/schemas/ConeBreakoutCheckType'
-        pretensionForceFpc:
-          deprecated: true
-          description: Pretension force fpc = k * fub * As
-          format: double
-          type: number
-        gammaInst:
-          description: Partial safety factor of instalation safety
-          format: double
-          type: number
-        gammaC:
-          description: Partial safety factor of concrete
-          format: double
-          type: number
-        gammaM3:
-          description: Preloaded bolts safety factor
-          format: double
-          type: number
-        anchorLengthForStiffness:
-          description: "Length of anchor to define the anchor stiffness in analysis\
-            \ model, as a multiple of anchor diameter (E A /n * [d])"
-          format: int32
-          type: integer
-        jointBetaFactor:
-          description: Joint coefficient βj - Used for Fjd calculation
-          format: double
-          type: number
-        effectiveAreaStressCoeff:
-          description: Effective area is taken from intersection of stress area and
-            area of joined items according to EN1993-1-8 art. 6.2.5
-          format: double
-          type: number
-        effectiveAreaStressCoeffAISC:
-          description: "Effective area stress coefficient - Concrete loaded area:\
-            \ Stress cut-off is set for AISC"
-          format: double
-          type: number
-        frictionCoefficient:
-          description: Coefficient of friction between base plate and concrete block
-          format: double
-          type: number
-        limitPlasticStrain:
-          description: Limit of plastic strain used in 2D plate element check
-          format: double
-          type: number
-        limitDeformation:
-          description: Limit deformation on closed sections
-          format: double
-          type: number
-        limitDeformationCheck:
-          description: Limit deformation on closed sections check or not
-          type: boolean
-        analysisGNL:
-          description: Analysis with GNL
-          type: boolean
-        analysisAllGNL:
-          description: Analysis with All GNL
-          type: boolean
-        warnPlasticStrain:
-          description: Warning plastic strain
-          format: double
-          type: number
-        warnCheckLevel:
-          description: Warning check level
-          format: double
-          type: number
-        optimalCheckLevel:
-          description: Optimal check level
-          format: double
-          type: number
-        distanceBetweenBolts:
-          description: Limit distance between bolts as a multiple of bolt diameter
-          format: double
-          type: number
-        distanceDiameterBetweenBP:
-          description: Anchor pitch
-          format: double
-          type: number
-        distanceBetweenBoltsEdge:
-          description: Limit distance between bolt and plate edge as a multiple of
-            bolt diameter
-          format: double
-          type: number
-        bearingAngle:
-          description: Load distribution angle of concrete block in calculation of
-            factor Kj
-          format: double
-          type: number
-        decreasingFtrd:
-          description: Decreasing Ftrd of anchors. Worse quality influence
-          format: double
-          type: number
-        bracedSystem:
-          description: Consider the frame system as braced for stiffness calculation.
-            Braced system reduces horizontal displacements.
-          type: boolean
-        bearingCheck:
-          deprecated: true
-          description: Apply bearing check including αb
-          type: boolean
-        applyBetapInfluence:
-          description: Apply βp influence in bolt shear resistance. ΕΝ 1993-1-8 chapter
-            3.6.1 (12)
-          type: boolean
-        memberLengthRatio:
-          description: A multiple of cross-section height to determine the default
-            length of member
-          format: double
-          type: number
-        divisionOfSurfaceOfCHS:
-          description: Number of straight lines to substitute circle of circular tube
-            in analysis model
-          format: int32
-          type: integer
-        divisionOfArcsOfRHS:
-          description: Number of straight lines to substitute corner arc of rectangular
-            tubes in analysis model
-          format: int32
-          type: integer
-        numElement:
-          description: Ratio of length of decisive plate edge and Elements on edge
-            count determines the average size of mesh element
-          format: int32
-          type: integer
-        numberIterations:
-          description: More iterations helps to find better solutions in contact elements
-            but increases calculation time
-          format: int32
-          type: integer
-        mdiv:
-          description: Number of iteration steps to evaluate analysis divergence
-          format: int32
-          type: integer
-        minSize:
-          description: Minimal size of generated finite mesh element
-          format: double
-          type: number
-        maxSize:
-          description: Maximal size of generated finite mesh element
-          format: double
-          type: number
-        numElementRhs:
-          description: Number of mesh elements in RHS height
-          format: int32
-          type: integer
-        numElementPlate:
-          description: Number of mesh elements on plates
-          format: int32
-          type: integer
-        rigidBP:
-          description: True if rigid base plate is considered
-          type: boolean
-        alphaCC:
-          description: Long-term effect on fcd
-          format: double
-          type: number
-        crackedConcrete:
-          description: True if cracked concrete is considered
-          type: boolean
-        developedFillers:
-          deprecated: true
-          description: True if developed fillers is considered
-          type: boolean
-        deformationBoltHole:
-          description: True if bolt hole deformation is considered
-          type: boolean
-        extensionLengthRationOpenSections:
-          description: ExtensionLengthRationOpenSections
-          format: double
-          type: number
-        extensionLengthRationCloseSections:
-          description: ExtensionLengthRationCloseSections
-          format: double
-          type: number
-        factorPreloadBolt:
-          description: FactorPreloadBolt
-          format: double
-          type: number
-        baseMetalCapacity:
-          description: BaseMetalCapacity
-          type: boolean
-        applyBearingCheck:
-          deprecated: true
-          description: ApplyBearingCheck
-          type: boolean
-        frictionCoefficientPbolt:
-          description: Friction factor of slip-resistant joint
-          format: double
-          type: number
-        crtCompCheckIS:
-          $ref: '#/components/schemas/CrtCompCheckIS'
-        boltMaxGripLengthCoeff:
-          description: Max value of bolt grip IND
-          format: double
-          type: number
-        fatigueSectionOffset:
-          description: Fatigue section Offset = FatigueSectionOffset x Legsize
-          format: double
-          type: number
-        condensedElementLengthFactor:
-          description: Condensed element length factor (CEF). Condensed beam legth
-            = maxCssSize * CEF
-          format: double
-          type: number
-        gammaMu:
-          deprecated: true
-          description: Partial safety factor for Horizontal tying
-          format: double
-          type: number
-        hssLimitPlasticStrain:
-          description: Limit plastic strain for high strength steel
-          format: double
-          type: number
-      type: object
     ConversionMapping:
       additionalProperties: false
       example:
@@ -5585,12 +5371,6 @@ components:
       - rus
       - chn
       - hkg
-      type: string
-    CrtCompCheckIS:
-      description: CRT IS check
-      enum:
-      - iS800_Cl_7_4
-      - iS456_Cl_34_4
       type: string
     CutBeamByBeamData:
       additionalProperties: false
@@ -6774,10 +6554,6 @@ components:
           readOnly: true
           type: string
       type: object
-    SteelSetup:
-      additionalProperties: false
-      description: ISteelSetup
-      type: object
     TemplateConversions:
       additionalProperties: false
       example:
@@ -6941,13 +6717,6 @@ components:
         end:
           $ref: '#/components/schemas/Point3D'
       type: object
-    WeldEvaluation:
-      description: WeldEvaluation
-      enum:
-      - maxForceElement
-      - forceResultant
-      - applyPlasticWelds
-      type: string
     WeldType:
       description: enum of weld types
       enum:
@@ -6965,12 +6734,14 @@ components:
     OpenProject_request:
       properties:
         ideaConFile:
+          description: Ideacon file
           format: binary
           type: string
       type: object
     ImportIOM_request:
       properties:
         containerXmlFile:
+          description: IdeaRS.OpenModel.OpenModelContainer serialized to xml
           format: binary
           type: string
         ConnectionsToCreate:
@@ -6982,6 +6753,7 @@ components:
     UpdateFromIOM_request:
       properties:
         containerXmlFile:
+          description: IdeaRS.OpenModel.OpenModelContainer serialized to xml
           format: binary
           type: string
       type: object
