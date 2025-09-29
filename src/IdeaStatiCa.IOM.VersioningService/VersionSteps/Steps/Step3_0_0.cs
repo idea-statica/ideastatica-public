@@ -4,6 +4,7 @@ using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 {
@@ -19,45 +20,45 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 
 		public override void DoDownStep(SModel _model)
 		{
-			ISIntermediate openModel = _model.GetModelElement();
+			//ISIntermediate openModel = _model.GetModelElement();
 
-			if (openModel == null)
-			{
-				_logger.LogInformation($"OpenModel not found. DownStep {Version} was skipped");
-				return;
-			}
+			//if (openModel == null)
+			//{
+			//	_logger.LogInformation($"OpenModel not found. DownStep {Version} was skipped");
+			//	return;
+			//}
 
-			IEnumerable<ISIntermediate> elements = openModel.GetElements("Element1D;Element1D");
+			//IEnumerable<ISIntermediate> elements = openModel.GetElements("Element1D;Element1D");
 
-			if (elements == null)
-			{
-				return;
-			}
+			//if (elements == null)
+			//{
+			//	return;
+			//}
 
-			foreach (ISIntermediate element in elements)
-			{
-				element.RemoveElementProperty("EccentricityReference");
-				element.RemoveElementProperty("InsertionPoint");
+			//foreach (ISIntermediate element in elements)
+			//{
+			//	element.RemoveElementProperty("EccentricityReference");
+			//	element.RemoveElementProperty("InsertionPoint");
 
-				ISIntermediate eccBegin = element.TakeElementProperty("EccentricityBegin");
-				double eccBeginX = double.Parse(eccBegin.GetElementValue("X"));
-				double eccBeginY = double.Parse(eccBegin.GetElementValue("Y"));
-				double eccBeginZ = double.Parse(eccBegin.GetElementValue("Z"));
+			//	ISIntermediate eccBegin = element.TakeElementProperty("EccentricityBegin");
+			//	double eccBeginX = double.Parse(eccBegin.GetElementValue("X"));
+			//	double eccBeginY = double.Parse(eccBegin.GetElementValue("Y"));
+			//	double eccBeginZ = double.Parse(eccBegin.GetElementValue("Z"));
 
-				ISIntermediate eccEnd = element.TakeElementProperty("EccentricityEnd");
-				double eccEndX = double.Parse(eccEnd.GetElementValue("X"));
-				double eccEndY = double.Parse(eccEnd.GetElementValue("Y"));
-				double eccEndZ = double.Parse(eccEnd.GetElementValue("Z"));
+			//	ISIntermediate eccEnd = element.TakeElementProperty("EccentricityEnd");
+			//	double eccEndX = double.Parse(eccEnd.GetElementValue("X"));
+			//	double eccEndY = double.Parse(eccEnd.GetElementValue("Y"));
+			//	double eccEndZ = double.Parse(eccEnd.GetElementValue("Z"));
 
-				// TODO conversion from GCS to LCS
+			//	// TODO conversion from GCS to LCS
 
-				element.CreateElementProperty("EccentricityBeginX", eccBeginX.ToString());
-				element.CreateElementProperty("EccentricityBeginY", eccBeginY.ToString());
-				element.CreateElementProperty("EccentricityBeginZ", eccBeginZ.ToString());
-				element.CreateElementProperty("EccentricityEndX", eccEndX.ToString());
-				element.CreateElementProperty("EccentricityEndY", eccEndY.ToString());
-				element.CreateElementProperty("EccentricityEndZ", eccEndZ.ToString());
-			}
+			//	element.CreateElementProperty("EccentricityBeginX", eccBeginX.ToString());
+			//	element.CreateElementProperty("EccentricityBeginY", eccBeginY.ToString());
+			//	element.CreateElementProperty("EccentricityBeginZ", eccBeginZ.ToString());
+			//	element.CreateElementProperty("EccentricityEndX", eccEndX.ToString());
+			//	element.CreateElementProperty("EccentricityEndY", eccEndY.ToString());
+			//	element.CreateElementProperty("EccentricityEndZ", eccEndZ.ToString());
+			//}
 		}
 
 		public override void DoUpStep(SModel _model)
@@ -70,35 +71,61 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
-			IEnumerable<ISIntermediate> elements = openModel.GetElements("Element1D;Element1D");
-
-			if (elements == null)
+			List<ISIntermediate> members = openModel.GetElements("Member1D;Member1D")?.ToList();
+			if (members is null)
 			{
 				return;
 			}
 
-			foreach (ISIntermediate element in elements)
+			foreach (SObject member in members.OfType<SObject>())
 			{
-				string eccBeginX = element.TakeElementProperty("EccentricityBeginX").GetElementValue(null);
-				string eccBeginY = element.TakeElementProperty("EccentricityBeginY").GetElementValue(null);
-				string eccBeginZ = element.TakeElementProperty("EccentricityBeginZ").GetElementValue(null);
-				string eccEndX = element.TakeElementProperty("EccentricityEndX").GetElementValue(null);
-				string eccEndY = element.TakeElementProperty("EccentricityEndY").GetElementValue(null);
-				string eccEndZ = element.TakeElementProperty("EccentricityEndZ").GetElementValue(null);
+				List<SObject> elements = member.Properties["Elements1D"]
+					.GetElements("ReferenceElement")
+					.Select(x => x.ResolveReferenceElement(_model))
+					.ToList();
 
-				SObject eccBegin = element.CreateElementProperty("EccentricityBegin");
-				eccBegin.CreateElementProperty("X", eccBeginX);
-				eccBegin.CreateElementProperty("Y", eccBeginY);
-				eccBegin.CreateElementProperty("Z", eccBeginZ);
+				if (elements.Count == 0)
+				{
+					continue;
+				}
 
-				SObject eccEnd = element.CreateElementProperty("EccentricityEnd");
-				eccEnd.CreateElementProperty("X", eccEndX);
-				eccEnd.CreateElementProperty("Y", eccEndY);
-				eccEnd.CreateElementProperty("Z", eccEndZ);
+				var eccBegin = GetEccentricity(elements[0], false);
+				var eccEnd = GetEccentricity(elements[elements.Count - 1], true);
 
-				element.CreateElementProperty("InsertionPoint", "CenterOfGravity");
-				element.CreateElementProperty("EccentricityReference", "LocalCoordinateSystem");
+				foreach (ISIntermediate element in elements)
+				{
+					element.RemoveElementProperty("EccentricityBeginX");
+					element.RemoveElementProperty("EccentricityBeginY");
+					element.RemoveElementProperty("EccentricityBeginZ");
+					element.RemoveElementProperty("EccentricityEndX");
+					element.RemoveElementProperty("EccentricityEndY");
+					element.RemoveElementProperty("EccentricityEndZ");
+				}
+
+				SObject eccBeginObj = member.CreateElementProperty("EccentricityBegin");
+				eccBeginObj.CreateElementProperty("X", eccBegin.X.ToString());
+				eccBeginObj.CreateElementProperty("Y", eccBegin.Y.ToString());
+				eccBeginObj.CreateElementProperty("Z", eccBegin.Z.ToString());
+
+				SObject eccEndObj = member.CreateElementProperty("EccentricityEnd");
+				eccEndObj.CreateElementProperty("X", eccEnd.X.ToString());
+				eccEndObj.CreateElementProperty("Y", eccEnd.Y.ToString());
+				eccEndObj.CreateElementProperty("Z", eccEnd.Z.ToString());
+
+				member.CreateElementProperty("InsertionPoint", "CenterOfGravity");
+				member.CreateElementProperty("EccentricityReference", "LocalCoordinateSystem");
 			}
+		}
+
+		private static (double X, double Y, double Z) GetEccentricity(SObject element, bool end)
+		{
+			string prefix = end ? "EccentricityEnd" : "EccentricityBegin";
+
+			double x = double.Parse(element.GetElementValue(prefix + "X"));
+			double y = double.Parse(element.GetElementValue(prefix + "Y"));
+			double z = double.Parse(element.GetElementValue(prefix + "Z"));
+
+			return (x, y, z);
 		}
 	}
 }
