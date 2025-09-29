@@ -1,11 +1,7 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.RCS.Model;
-using IdeaStatiCa.Api.RCS;
 using System.Net;
 using System.Xml.Linq;
-using static System.Collections.Specialized.BitVector32;
-using IdeaRS.OpenModel.Concrete;
-using System.Web;
 
 namespace ST_RcsRestApiClient
 {
@@ -107,7 +103,7 @@ namespace ST_RcsRestApiClient
 
 			// setup value for gamma_c 
 			var setupValues = xmlDoc.Descendants("SetupValue");
-			XElement gamma_c_element = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").FirstOrDefault();
+			XElement gamma_c_element = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").First();
 
 			gamma_c_element.Should().NotBeNull();
 
@@ -133,7 +129,7 @@ namespace ST_RcsRestApiClient
 
 			settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
 			setupValues = xmlDoc.Descendants("SetupValue");
-			XElement updateSettingsValue = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "10").FirstOrDefault();
+			XElement updateSettingsValue = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "10").First();
 			updateSettingsValue.Should().NotBeNull();
 		}
 
@@ -165,12 +161,12 @@ namespace ST_RcsRestApiClient
 			if (!string.IsNullOrEmpty(openApi_Dir) && Directory.Exists(openApi_Dir))
 			{
 				var swaggerJsonPath = Path.Combine(openApi_Dir, "rcs-OpenAPI.json");
-				TestContext.WriteLine($"Writing swagger.json to {swaggerJsonPath}");
+				TestContext.Out.WriteLine($"Writing swagger.json to {swaggerJsonPath}");
 				File.WriteAllText(swaggerJsonPath, swaggerJson);
 			}
 			else
 			{
-				TestContext.WriteLine($"OpenAPI_WORK_DIRECTORY ('{openApi_Dir}') is not set or does not exist");
+				TestContext.Out.WriteLine($"OpenAPI_WORK_DIRECTORY ('{openApi_Dir}') is not set or does not exist");
 			}
 		}
 	}

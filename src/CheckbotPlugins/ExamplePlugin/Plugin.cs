@@ -53,6 +53,10 @@ namespace ExamplePlugin
 				startInfo.ArgumentList.Add(path);
 
 				var proc = Process.Start(startInfo);
+				if(proc == null)
+				{
+					throw new Exception();
+				}
 				proc.EnableRaisingEvents = true;
 				proc.Exited += Proc_Exited;
 			}

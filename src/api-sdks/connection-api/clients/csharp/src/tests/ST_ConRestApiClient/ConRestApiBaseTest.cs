@@ -1,12 +1,11 @@
 ﻿using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
 using Microsoft.Extensions.Configuration;
 
 namespace ST_ConnectionRestApi
 {
-	public class ConRestApiBaseTest
+	public abstract class ConRestApiBaseTest
 	{
 
 		protected Uri? ApiUri { get; set; }
