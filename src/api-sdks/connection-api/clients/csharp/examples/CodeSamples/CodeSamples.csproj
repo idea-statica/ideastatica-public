@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.ConnectionApi" Version="25.0.4.1207" />
+		<PackageReference Include="IdeaStatiCa.ConnectionApi"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">

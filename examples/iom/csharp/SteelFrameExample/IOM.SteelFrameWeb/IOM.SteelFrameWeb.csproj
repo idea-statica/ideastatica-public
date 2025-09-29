@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.OpenModel" VersionOverride="25.0.4.1207" />
+	<PackageReference Include="IdeaStatiCa.OpenModel"/>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
 	<ProjectReference Include="..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />

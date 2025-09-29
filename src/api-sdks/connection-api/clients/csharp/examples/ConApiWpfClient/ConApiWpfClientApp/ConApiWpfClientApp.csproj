@@ -26,10 +26,10 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Api" Version="25.0.4.1207" />
-		<PackageReference Include="IdeaStatiCa.ConnectionApi" Version="25.0.4.1207" />
-		<PackageReference Include="IdeaStatiCa.OpenModel" Version="25.0.4.1207" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="25.0.4.1207" />
+		<PackageReference Include="IdeaStatiCa.Api"/>
+		<PackageReference Include="IdeaStatiCa.ConnectionApi"/>
+		<PackageReference Include="IdeaStatiCa.OpenModel"/>
+		<PackageReference Include="IdeaStatiCa.PluginLogger"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
