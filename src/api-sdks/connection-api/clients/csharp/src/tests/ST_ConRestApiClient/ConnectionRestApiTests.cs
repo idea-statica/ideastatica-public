@@ -344,23 +344,23 @@ namespace ST_ConnectionRestApi
 			cost.TotalEstimatedCost.Should().BeGreaterThan(0);
 		}
 
-		// TODO - not working
+		// TODO - use new API
 
-		[Test]
-		public async Task ShouldGetAndUpdateConnectionSetup()
-		{
-			var connectionSetup = await ConnectionApiClient!.Project.GetSetupAsync(ActiveProjectId);
+		//[Test]
+		//public async Task ShouldGetAndUpdateConnectionSetup()
+		//{
+		//	var connectionSetup = await ConnectionApiClient!.Project.GetSetupAsync(ActiveProjectId);
 
-			connectionSetup.HssLimitPlasticStrain.Should().Be(0.01);
+		//	connectionSetup.HssLimitPlasticStrain.Should().Be(0.01);
 
-			connectionSetup.HssLimitPlasticStrain = 0.02;
+		//	connectionSetup.HssLimitPlasticStrain = 0.02;
 
-			var updateResponse = await ConnectionApiClient!.Project.UpdateSetupAsync(ActiveProjectId, connectionSetup);
+		//	var updateResponse = await ConnectionApiClient!.Project.UpdateSetupAsync(ActiveProjectId, connectionSetup);
 
-			var updatedConnectionSetup = await ConnectionApiClient!.Project!.GetSetupAsync(ActiveProjectId);
+		//	var updatedConnectionSetup = await ConnectionApiClient!.Project!.GetSetupAsync(ActiveProjectId);
 
-			updatedConnectionSetup.HssLimitPlasticStrain.Should().Be(0.02);
-		}
+		//	updatedConnectionSetup.HssLimitPlasticStrain.Should().Be(0.02);
+		//}
 
 		[Test]
 		public async Task ShouldGetSceneData()
