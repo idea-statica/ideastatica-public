@@ -289,8 +289,13 @@ namespace ST_ConnectionRestApi
 		{
 			var con1 = Project!.Connections.First();
 			con1.Id.Should().Be(1);
-
 			List<int> conToCalc = new List<int>() { con1.Id };
+
+			// set buckling analysis
+			con1.IncludeBuckling = true;
+			var updatedConnectionData = await ConnectionApiClient.Connection.UpdateConnectionAsync(ActiveProjectId, con1.Id, con1);
+
+			updatedConnectionData.IncludeBuckling.Should().BeTrue();
 
 			var cbfemResults = await ConnectionApiClient!.Calculation!.CalculateAsync(ActiveProjectId, conToCalc);;
 			cbfemResults.Should().NotBeNull();
@@ -325,7 +330,7 @@ namespace ST_ConnectionRestApi
 
 				await apiClient2!.Calculation!.CalculateAsync(project2.ProjectId, conToCalc);
 
-				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conCalculationParameter);
+				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conCalculationParameter.ConnectionIds);
 				cbfemResults.Should().NotBeEmpty();
 			}
 		}
