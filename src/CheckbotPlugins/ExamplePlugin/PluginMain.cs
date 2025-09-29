@@ -10,7 +10,6 @@ namespace ExamplePlugin
 		public PluginInfo PluginInfo
 			=> new("Example Plugin", "Tis a test plugin", "Me", "0.0.1");
 
-		private Plugin? _plugin;
 		private readonly ConsoleManager _consoleManager;
 
 		public PluginMain()

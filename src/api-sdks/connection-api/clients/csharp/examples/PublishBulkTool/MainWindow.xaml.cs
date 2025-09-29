@@ -54,7 +54,7 @@ namespace PublishBulkTool
 			var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
 				Description = "Select folder with projects to be published",
-				SelectedPath = selectedFolderPath // Default to last selected folder
+				SelectedPath = selectedFolderPath! // Default to last selected folder
 			};
 
 			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

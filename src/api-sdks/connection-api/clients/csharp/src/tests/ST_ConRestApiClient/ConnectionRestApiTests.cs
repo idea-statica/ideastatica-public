@@ -293,7 +293,7 @@ namespace ST_ConnectionRestApi
 
 			// set buckling analysis
 			con1.IncludeBuckling = true;
-			var updatedConnectionData = await ConnectionApiClient.Connection.UpdateConnectionAsync(ActiveProjectId, con1.Id, con1);
+			var updatedConnectionData = await ConnectionApiClient!.Connection.UpdateConnectionAsync(ActiveProjectId, con1.Id, con1);
 
 			updatedConnectionData.IncludeBuckling.Should().BeTrue();
 

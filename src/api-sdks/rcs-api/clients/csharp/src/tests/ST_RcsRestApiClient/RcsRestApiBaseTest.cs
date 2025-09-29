@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ST_RcsRestApiClient
 {
-	public class RcsRestApiBaseTest
+	public abstract class RcsRestApiBaseTest
 	{
 
 		protected Uri? ApiUri { get; set; }
