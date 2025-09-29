@@ -1808,7 +1808,7 @@ class ProjectApi:
     @validate_call
     def open_project(
         self,
-        rcs_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
+        rcs_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Rcs file")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1825,7 +1825,7 @@ class ProjectApi:
         """Open Rcs project from rcsFile
 
 
-        :param rcs_file:
+        :param rcs_file: Rcs file
         :type rcs_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1874,7 +1874,7 @@ class ProjectApi:
     @validate_call
     def open_project_with_http_info(
         self,
-        rcs_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
+        rcs_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Rcs file")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1891,7 +1891,7 @@ class ProjectApi:
         """Open Rcs project from rcsFile
 
 
-        :param rcs_file:
+        :param rcs_file: Rcs file
         :type rcs_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1940,7 +1940,7 @@ class ProjectApi:
     @validate_call
     def open_project_without_preload_content(
         self,
-        rcs_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
+        rcs_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Rcs file")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1957,7 +1957,7 @@ class ProjectApi:
         """Open Rcs project from rcsFile
 
 
-        :param rcs_file:
+        :param rcs_file: Rcs file
         :type rcs_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
