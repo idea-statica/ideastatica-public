@@ -23,7 +23,7 @@ namespace PublishBulkTool
 		{
 			InitializeComponent();
 			ProjectsList.ItemsSource = projectFiles;
-			IdeaPathText.Text = ideaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.0\";
+			IdeaPathText.Text = ideaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\";
 			this.Closed += MainWindow_Closed;
 		}
 
@@ -38,7 +38,7 @@ namespace PublishBulkTool
 			var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
 				Description = "Select folder where is API v25",
-				SelectedPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.0\"
+				SelectedPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\"
 			};
 
 			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
