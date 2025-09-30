@@ -197,7 +197,7 @@ Is the bearing member | `GetValue('B','IsBearingMember')` |
 Length | `GetValue('B', 'Length')` | 
 Support Code | `GetValue('B', 'SupportCode')` | 
 Forces | `GetValue('B', 'ForcesIn')` | (Position,  Node, Bolts, SelectedMemberFace) |
-Static behavior | `GetValue('B', 'StaticBehavior')`
+Static behavior | `GetValue('B', 'StaticBehavior')` | (AllDirActive = N-Vy-Vz-Mx-My-Mz,  DoNotActDirYRotZ = N-Vz-My, DoNotActDirZRotY = N-Vy-Mz, NoBending = N-Vy-Vz) |
 **Member Cross-Section Bounds** | Get the bounds of the given members cross-section | 
 Height | `GetValue('B', 'CrossSection.Bounds.Height')` | 
 Width | `GetValue('B', 'CrossSection.Bounds.Width')` | 
