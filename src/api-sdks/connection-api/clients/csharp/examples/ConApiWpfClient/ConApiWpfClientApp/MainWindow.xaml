@@ -21,7 +21,12 @@
 				  ToolTip="Switch between running a new instance IdeaStatica.ConnectionRestApi or attaching to the running service.">
 				</CheckBox>
 			</ToolBar>
-
+		
+			<ToolBar Band="1">
+				<Button Command="{Binding GetSettingsCommand, Mode=OneWay}"  ToolTip="Get project setting from the active project">Get Settings</Button>
+				<Button Command="{Binding UpdateSettingsCommand, Mode=OneWay}"  ToolTip="Update project setting - it tries to deserialize the text to the instance of Dictionary&lt;string, object&gt;>">Update Settings</Button>
+			</ToolBar>
+		
 			<ToolBar Band="1">
 				<Button Command="{Binding ShowLogsCommand, Mode=OneWay}" ToolTip="Show IdeaStatiCa logs in 'File Explorer'">Logs</Button>
 				<Button Command="{Binding EditDiagnosticsCommand, Mode=OneWay}" ToolTip="Edit 'IdeaDiagnostics.config' in Notepad">Diagnostics</Button>
@@ -85,7 +90,7 @@
 				</Grid.RowDefinitions>
 
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
-					<TextBox Text="{Binding OutputText, Mode=TwoWay}"></TextBox>
+					<TextBox Text="{Binding OutputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 				</ScrollViewer>
 
 				<GridSplitter HorizontalAlignment="Stretch"

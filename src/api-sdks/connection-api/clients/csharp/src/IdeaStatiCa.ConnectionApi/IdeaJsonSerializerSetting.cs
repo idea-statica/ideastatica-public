@@ -22,5 +22,16 @@ namespace IdeaStatiCa.ConnectionApi
 
 			return settings;
 		}
+
+		public static JsonSerializerSettings GetTypeNameSerializerSetting()
+		{
+			var settings = new JsonSerializerSettings
+			{
+				TypeNameHandling = TypeNameHandling.None,
+				NullValueHandling = NullValueHandling.Ignore,
+			};
+
+			return settings;
+		}
 	}
 }

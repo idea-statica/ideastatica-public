@@ -4,23 +4,23 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**get_settings**](SettingsApi.md#get_settings) | 
-[**update_settings**](SettingsApi.md#update_settings) | 
+[**get_settings**](SettingsApi.md#get_settings) | Get setting values
+[**update_settings**](SettingsApi.md#update_settings) | Update one or multiple setting values
 
 
 <a id="get_settings"></a>
 # **get_settings**
 > Dict[str, object] get_settings(project_id, search=search)
 
-
+Get setting values
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **search** | **str**|  | [optional] 
+ **project_id** | **str**| Project Id | 
+ **search** | **str**| Optional parameter to search keywords in settings | [optional] 
 
 ### Return type
 
@@ -41,10 +41,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_settingsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    search = 'search_example' # str |  (optional)
+    project_id = 'project_id_example' # str | Project Id
+    search = 'search_example' # str | Optional parameter to search keywords in settings (optional)
 
     try:
+        # Get setting values
         api_response = api_client.settings.get_settings(project_id, search=search)
         print("The response of SettingsApi->get_settings:\n")
         pprint(api_response)
@@ -88,15 +89,15 @@ No authorization required
 # **update_settings**
 > Dict[str, object] update_settings(project_id, request_body=request_body)
 
-
+Update one or multiple setting values
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **request_body** | [**Dict[str, object]**](object.md)|  | [optional] 
+ **project_id** | **str**| Project Id | 
+ **request_body** | [**Dict[str, object]**](object.md)| Dictionary of key-value settings | [optional] 
 
 ### Return type
 
@@ -117,10 +118,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_settingsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    request_body = None # Dict[str, object] |  (optional)
+    project_id = 'project_id_example' # str | Project Id
+    request_body = None # Dict[str, object] | Dictionary of key-value settings (optional)
 
     try:
+        # Update one or multiple setting values
         api_response = api_client.settings.update_settings(project_id, request_body=request_body)
         print("The response of SettingsApi->update_settings:\n")
         pprint(api_response)

@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetSettingsAsync**](SettingsApi.md#getsettingsasync) |  |
-| [**UpdateSettingsAsync**](SettingsApi.md#updatesettingsasync) |  |
+| [**GetSettingsAsync**](SettingsApi.md#getsettingsasync) | Get setting values |
+| [**UpdateSettingsAsync**](SettingsApi.md#updatesettingsasync) | Update one or multiple setting values |
 
 <a id="getsettings"></a>
 ## **GetSettingsAsync**
 > **Dictionary&lt;string, Object&gt; GetSettingsAsync (Guid projectId, string search = null)**
 
-
+Get setting values
 
 
 
@@ -17,8 +17,8 @@
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **search** | **string** |  | [optional]  |
+| **projectId** | **Guid** | Project Id |  |
+| **search** | **string** | Optional parameter to search keywords in settings | [optional]  |
 
 ### Return type
 
@@ -44,7 +44,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -56,10 +56,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    search = "search_example";  // string |  (optional) 
+                    search = "search_example";  // string | Optional parameter to search keywords in settings (optional) 
 
                     try
                     {
+                        // Get setting values
                         Dictionary<string, Object> result = await conClient.Settings.GetSettingsAsync(projectId, search);
                         Debug.WriteLine(result);
                     }
@@ -100,6 +101,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
+    // Get setting values
     ApiResponse<Dictionary<string, Object>> response = conClient.Settings.GetSettingsWithHttpInfo(projectId, search);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -134,7 +136,7 @@ No authorization required
 ## **UpdateSettingsAsync**
 > **Dictionary&lt;string, Object&gt; UpdateSettingsAsync (Guid projectId, Dictionary<string, Object> requestBody = null)**
 
-
+Update one or multiple setting values
 
 
 
@@ -142,8 +144,8 @@ No authorization required
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **requestBody** | [**Dictionary&lt;string, Object&gt;**](Object.md) |  | [optional]  |
+| **projectId** | **Guid** | Project Id |  |
+| **requestBody** | [**Dictionary&lt;string, Object&gt;**](Object.md) | Dictionary of key-value settings | [optional]  |
 
 ### Return type
 
@@ -169,7 +171,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -181,10 +183,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new Dictionary<string, Object>(); // Dictionary<string, Object> |  (optional) 
+                    var requestBody = new Dictionary<string, Object>(); // Dictionary<string, Object> | Dictionary of key-value settings (optional) 
 
                     try
                     {
+                        // Update one or multiple setting values
                         Dictionary<string, Object> result = await conClient.Settings.UpdateSettingsAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
@@ -225,6 +228,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
+    // Update one or multiple setting values
     ApiResponse<Dictionary<string, Object>> response = conClient.Settings.UpdateSettingsWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
