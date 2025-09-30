@@ -175,28 +175,6 @@ namespace IdeaRstabPlugin.Factories
 		private NMVector3D Vector2MNVector(IdeaVector3D vector3D)
 		{
 			return new NMVector3D(vector3D.X, vector3D.Y, vector3D.Z);
-		}
-
-		private IdeaVector3D GetEccentricity(IMember member, double param, CoordSystemByVector cs)
-		{
-			Dlubal.RSTAB8.Point3D point = member.GetEccentricity(param, false);
-			
-			if (_importSession.IsGCSOrientedUpwards)
-			{
-				return TransformToLCS(new IdeaVector3D(point.X, point.Y, point.Z), cs);
-			}
-			else
-			{
-				return TransformToLCS(new IdeaVector3D(point.X, -point.Y, -point.Z), cs);
-			}
-		}
-
-		private static IdeaVector3D TransformToLCS(IdeaVector3D vec, CoordSystemByVector cs)
-		{			
-			double x = (vec.X * cs.VecX.X) + (vec.Y * cs.VecX.Y) + (vec.Z * cs.VecX.Z);
-			double y = (vec.X * cs.VecY.X) + (vec.Y * cs.VecY.Y) + (vec.Z * cs.VecY.Z);
-			double z = (vec.X * cs.VecZ.X) + (vec.Y * cs.VecZ.Y) + (vec.Z * cs.VecZ.Z);			
-			return new IdeaVector3D(x, y, z);
-		}
+		}		
 	}
 }
