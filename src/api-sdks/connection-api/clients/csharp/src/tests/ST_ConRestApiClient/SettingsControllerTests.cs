@@ -40,5 +40,42 @@ namespace ST_ConRestApiClient
 			var projectSettings = await ConnectionApiClient!.Settings.GetSettingsAsync(ActiveProjectId);
 			projectSettings.Count.Should().Be(167);
 		}
+
+		[TestCase("calculation", 22)]
+		[TestCase("analysis", 25)]
+		[TestCase("EN", 76)]
+		[TestCase("CalculationCommon", 60)]
+		[TestCase("non-existing-setting", 0)]
+		[TestCase(null, 167)]
+		public async Task ShouldGetProjectSettingsWithFilter(string? search, int count)
+		{
+			var con1 = Project!.Connections.First();
+			var projectSettings = await ConnectionApiClient!.Settings.GetSettingsAsync(ActiveProjectId, search);
+			projectSettings.Count.Should().Be(count);
+		}
+
+		[TestCase("calculationCommon/Checks/Shared/OptimalCheckLevel@01", 0.025)]
+		[TestCase("calculationCommon/Checks/Shared/WarningCheckLevel@01", 0.92)]
+		[TestCase("calculationCommon/Checks/Shared/LocalDeformationLimit@01", 0.025)]
+		public async Task ShouldUpdateProjectSettings(string settingName, double value)
+		{
+			var con1 = Project!.Connections.First();
+			var projectSettings = await ConnectionApiClient!.Settings.GetSettingsAsync(ActiveProjectId);
+
+			var calculationSetting = projectSettings.FirstOrDefault(x => x.Key == settingName);
+
+			calculationSetting.Should().NotBeNull();
+
+			var update = new Dictionary<string, object>
+				{ { settingName, value } };
+
+			await ConnectionApiClient!.Settings.UpdateSettingsAsync(ActiveProjectId, update);
+
+			var updatedSettings = await ConnectionApiClient!.Settings.GetSettingsAsync(ActiveProjectId);
+
+			var updatedSetting = updatedSettings.FirstOrDefault(x => x.Key == settingName);
+			updatedSetting.Should().NotBeNull();
+			updatedSetting.Value.Should().Be(value);
+		}
 	}
 }
