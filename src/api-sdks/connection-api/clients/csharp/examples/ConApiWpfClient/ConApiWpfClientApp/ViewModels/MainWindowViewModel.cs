@@ -82,6 +82,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			GetSettingsCommand = new AsyncRelayCommand(GetSettingsAsync, () => this.ProjectInfo != null);
 
+			UpdateSettingsCommand = new AsyncRelayCommand(UpdateSettingsAsync, () => this.ProjectInfo != null);
+
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -252,6 +254,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand EditDiagnosticsCommand { get; }
 
 		public AsyncRelayCommand GetSettingsCommand { get; }
+
+		public AsyncRelayCommand UpdateSettingsCommand { get; }
 
 
 		private async Task ShowIdeaStatiCaLogsAsync()
@@ -474,7 +478,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		internal async Task GetSettingsAsync()
 		{
-			_logger.LogInformation("DownloadProjectAsync");
+			_logger.LogInformation("GetSettingsAsync");
 
 			if (ProjectInfo == null)
 			{
@@ -490,7 +494,45 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				var settings = await ConApiClient.Settings.GetSettingsAsync(ProjectInfo.ProjectId, null, 0, cts.Token);
-				var settingsJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
+				var settingsJson = Tools.JsonTools.ToFormatedJson(settings);
+				OutputText = settingsJson;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("SaveProjectAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		internal async Task UpdateSettingsAsync()
+		{
+			_logger.LogInformation("UpdateSettingsAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var settingsMap = JsonConvert.DeserializeObject<Dictionary<string, object>>(this.OutputText!, IdeaJsonSerializerSetting.GetTypeNameSerializerSetting());
+				
+				var newSettings = await ConApiClient.Settings.UpdateSettingsAsync(ProjectInfo.ProjectId, settingsMap, 0, cts.Token);
+
+				var settingsJson = Tools.JsonTools.ToFormatedJson(newSettings);
 				OutputText = settingsJson;
 			}
 			catch (Exception ex)
@@ -1048,6 +1090,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
 			this.ExportCommand.NotifyCanExecuteChanged();
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
+			this.UpdateSettingsCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}

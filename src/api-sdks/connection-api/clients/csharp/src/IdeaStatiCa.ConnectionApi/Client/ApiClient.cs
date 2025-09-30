@@ -42,8 +42,10 @@ namespace IdeaStatiCa.ConnectionApi.Client
     {
         private readonly IReadableConfiguration _configuration;
         private readonly JsonSerializerSettings _serializerSettings =  IdeaJsonSerializerSetting.GetJsonSettingIdea();
-  
-        public CustomJsonCodec(IReadableConfiguration configuration)
+		private readonly JsonSerializerSettings _typeNameSerializerSetting = IdeaJsonSerializerSetting.GetTypeNameSerializerSetting();
+
+
+		public CustomJsonCodec(IReadableConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -127,6 +129,18 @@ namespace IdeaStatiCa.ConnectionApi.Client
             if (type == typeof(string) || type.Name.StartsWith("System.Nullable")) // return primitive type
             {
                 return Convert.ChangeType(response.Content, type);
+            }
+
+            if (type == typeof(Dictionary<string, object>))
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject(response.Content, type, _typeNameSerializerSetting);
+                }
+                catch (Exception e)
+                {
+                    throw new ApiException(500, e.Message);
+                }
             }
 
             // at this point, it must be a model (json)

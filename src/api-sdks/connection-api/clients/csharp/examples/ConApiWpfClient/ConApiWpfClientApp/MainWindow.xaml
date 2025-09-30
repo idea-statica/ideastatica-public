@@ -23,7 +23,8 @@
 			</ToolBar>
 		
 			<ToolBar Band="1">
-				<Button Command="{Binding GetSettingsCommand, Mode=OneWay}"  ToolTip="Get setup setting from the active project">Get Settings</Button>
+				<Button Command="{Binding GetSettingsCommand, Mode=OneWay}"  ToolTip="Get project setting from the active project">Get Settings</Button>
+				<Button Command="{Binding UpdateSettingsCommand, Mode=OneWay}"  ToolTip="Update project setting - it tries to deserialize the text to the instance of Dictionary&lt;string, object&gt;>">Update Settings</Button>
 			</ToolBar>
 		
 			<ToolBar Band="1">
@@ -89,7 +90,7 @@
 				</Grid.RowDefinitions>
 
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
-					<TextBox Text="{Binding OutputText, Mode=TwoWay}"></TextBox>
+					<TextBox Text="{Binding OutputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 				</ScrollViewer>
 
 				<GridSplitter HorizontalAlignment="Stretch"
