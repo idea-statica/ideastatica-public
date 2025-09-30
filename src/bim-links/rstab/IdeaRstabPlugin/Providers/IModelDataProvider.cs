@@ -13,6 +13,8 @@ namespace IdeaRstabPlugin.Providers
 
 		IEnumerable<Member> GetMembers();
 
+		MemberEccentricity GetMemberEccentricity(int no);
+
 		//Line GetLine(int no);
 	}
 }

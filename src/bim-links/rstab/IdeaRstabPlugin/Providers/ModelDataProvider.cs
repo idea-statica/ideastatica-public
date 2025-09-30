@@ -77,5 +77,10 @@ namespace IdeaRstabPlugin.Providers
 		{
 			return GetOrCreate(no, DataType.Node, () => _modelData.GetNode(no, ItemAt.AtNo).GetData());
 		}
+
+		public MemberEccentricity GetMemberEccentricity(int no)
+		{
+			return _modelData.GetMemberEccentricity(no, ItemAt.AtNo).GetData();
+		}
 	}
 }

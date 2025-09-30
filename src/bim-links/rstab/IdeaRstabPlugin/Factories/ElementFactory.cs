@@ -48,11 +48,7 @@ namespace IdeaRstabPlugin.Factories
 				memberData.EndNodeNo,
 				memberData.StartCrossSectionNo,
 				memberData.EndCrossSectionNo,
-				rotationRad)
-			{
-				EccentricityBegin = GetEccentricity(member, 0.0, (CoordSystemByVector)lcs),
-				EccentricityEnd = GetEccentricity(member, 1.0, (CoordSystemByVector)lcs)
-			};
+				rotationRad);
 
 			return new List<IIdeaElement1D>() { element };
 		}
