@@ -55,7 +55,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -178,7 +178,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -301,7 +301,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -424,7 +424,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -547,7 +547,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -670,7 +670,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -792,7 +792,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -917,7 +917,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1042,7 +1042,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1167,7 +1167,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1292,7 +1292,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1417,7 +1417,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1542,7 +1542,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {

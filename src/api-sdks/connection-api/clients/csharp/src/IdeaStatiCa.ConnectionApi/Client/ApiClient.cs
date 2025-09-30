@@ -42,10 +42,9 @@ namespace IdeaStatiCa.ConnectionApi.Client
     {
         private readonly IReadableConfiguration _configuration;
         private readonly JsonSerializerSettings _serializerSettings =  IdeaJsonSerializerSetting.GetJsonSettingIdea();
-		private readonly JsonSerializerSettings _typeNameSerializerSetting = IdeaJsonSerializerSetting.GetTypeNameSerializerSetting();
+        private readonly JsonSerializerSettings _typeNameSerializerSetting =  IdeaJsonSerializerSetting.GetTypeNameSerializerSetting();
 
-
-		public CustomJsonCodec(IReadableConfiguration configuration)
+        public CustomJsonCodec(IReadableConfiguration configuration)
         {
             _configuration = configuration;
         }

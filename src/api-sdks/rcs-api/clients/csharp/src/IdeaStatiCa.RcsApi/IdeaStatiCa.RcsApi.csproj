@@ -12,7 +12,7 @@
     <Description>IDEA StatiCa RCS API</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>IdeaStatiCa.RcsApi</RootNamespace>
-    <Version>25.1.0.2640</Version>
+    <Version>25.1.0.2745</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\IdeaStatiCa.RcsApi.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -22,10 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="Polly" Version="8.1.0" />
+    <PackageReference Include="JsonSubTypes"/>
+    <PackageReference Include="Newtonsoft.Json"/>
+    <PackageReference Include="RestSharp"/>
+    <PackageReference Include="Polly"/>
   </ItemGroup>
 
   <ItemGroup>

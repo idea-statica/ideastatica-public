@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, Dict, Optional
+from typing_extensions import Annotated
 
 from ideastatica_connection_api.api_client import ApiClient, RequestSerialized
 from ideastatica_connection_api.api_response import ApiResponse
@@ -41,8 +42,8 @@ class SettingsApi:
     @validate_call
     def get_settings(
         self,
-        project_id: StrictStr,
-        search: Optional[StrictStr] = None,
+        project_id: Annotated[StrictStr, Field(description="Project Id")],
+        search: Annotated[Optional[StrictStr], Field(description="Optional parameter to search keywords in settings")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -56,12 +57,12 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Dict[str, object]:
-        """get_settings
+        """Get setting values
 
 
-        :param project_id: (required)
+        :param project_id: Project Id (required)
         :type project_id: str
-        :param search:
+        :param search: Optional parameter to search keywords in settings
         :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -111,8 +112,8 @@ class SettingsApi:
     @validate_call
     def get_settings_with_http_info(
         self,
-        project_id: StrictStr,
-        search: Optional[StrictStr] = None,
+        project_id: Annotated[StrictStr, Field(description="Project Id")],
+        search: Annotated[Optional[StrictStr], Field(description="Optional parameter to search keywords in settings")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -126,12 +127,12 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Dict[str, object]]:
-        """get_settings
+        """Get setting values
 
 
-        :param project_id: (required)
+        :param project_id: Project Id (required)
         :type project_id: str
-        :param search:
+        :param search: Optional parameter to search keywords in settings
         :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -181,8 +182,8 @@ class SettingsApi:
     @validate_call
     def get_settings_without_preload_content(
         self,
-        project_id: StrictStr,
-        search: Optional[StrictStr] = None,
+        project_id: Annotated[StrictStr, Field(description="Project Id")],
+        search: Annotated[Optional[StrictStr], Field(description="Optional parameter to search keywords in settings")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -196,12 +197,12 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """get_settings
+        """Get setting values
 
 
-        :param project_id: (required)
+        :param project_id: Project Id (required)
         :type project_id: str
-        :param search:
+        :param search: Optional parameter to search keywords in settings
         :type search: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -315,8 +316,8 @@ class SettingsApi:
     @validate_call
     def update_settings(
         self,
-        project_id: StrictStr,
-        request_body: Optional[Dict[str, Any]] = None,
+        project_id: Annotated[StrictStr, Field(description="Project Id")],
+        request_body: Annotated[Optional[Dict[str, Any]], Field(description="Dictionary of key-value settings")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -330,12 +331,12 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Dict[str, object]:
-        """update_settings
+        """Update one or multiple setting values
 
 
-        :param project_id: (required)
+        :param project_id: Project Id (required)
         :type project_id: str
-        :param request_body:
+        :param request_body: Dictionary of key-value settings
         :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -385,8 +386,8 @@ class SettingsApi:
     @validate_call
     def update_settings_with_http_info(
         self,
-        project_id: StrictStr,
-        request_body: Optional[Dict[str, Any]] = None,
+        project_id: Annotated[StrictStr, Field(description="Project Id")],
+        request_body: Annotated[Optional[Dict[str, Any]], Field(description="Dictionary of key-value settings")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -400,12 +401,12 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Dict[str, object]]:
-        """update_settings
+        """Update one or multiple setting values
 
 
-        :param project_id: (required)
+        :param project_id: Project Id (required)
         :type project_id: str
-        :param request_body:
+        :param request_body: Dictionary of key-value settings
         :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -455,8 +456,8 @@ class SettingsApi:
     @validate_call
     def update_settings_without_preload_content(
         self,
-        project_id: StrictStr,
-        request_body: Optional[Dict[str, Any]] = None,
+        project_id: Annotated[StrictStr, Field(description="Project Id")],
+        request_body: Annotated[Optional[Dict[str, Any]], Field(description="Dictionary of key-value settings")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -470,12 +471,12 @@ class SettingsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """update_settings
+        """Update one or multiple setting values
 
 
-        :param project_id: (required)
+        :param project_id: Project Id (required)
         :type project_id: str
-        :param request_body:
+        :param request_body: Dictionary of key-value settings
         :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
