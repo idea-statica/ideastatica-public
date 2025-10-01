@@ -29,6 +29,8 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 rcs_project_file_path = os.path.join(dir_path, r'..\..\projects', 'crack-width-example.IdeaRcs')
 
 
+moment_step = 3000
+
 with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client() as api_client:
     # Open project
     uploadRes = api_client.project.open_project_from_file(rcs_project_file_path)
@@ -70,12 +72,83 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
     extremesInSectionRes = raw_results_tools.get_extremes(detail_results1)
 
     capacities = []
-    for sectId in secToCalculateIds:
-        counter = 0
-        for extreme in extremesInSection:
-            resForExtreme = extremesInSectionRes[counter]
-            capacity_res = raw_results_tools.get_result_by_type(resForExtreme, "capacity")
-            fu1 = capacity_res['fu1']
-            fu2 = capacity_res['fu2']
-            counter += 1
 
+    counter = 0
+
+    resForExtreme = extremesInSectionRes[counter]
+    capacity_res = raw_results_tools.get_result_by_type(resForExtreme, "capacity")
+    fu1 = capacity_res['fu1']
+    fu2 = capacity_res['fu2']
+    fu = capacity_res['fu']
+
+    fu_my =  fu["my"]
+
+    my = capacity_res["internalFores"]["my"]
+
+
+    # crack with
+    resForExtreme = extremesInSectionRes[0]
+    crack_width_res = raw_results_tools.get_result_by_type(resForExtreme, "crackWidth")
+    crack_width = crack_width_res["w"]
+
+    # get loading in the first section
+    extreme = extremesInSection[0]
+    intForceULS = loading_tools.get_internalForce(extreme, 0)
+    intForceSLS1 = loading_tools.get_internalForce(extreme, 4)
+    intForceSLS2 = loading_tools.get_internalForce(extreme, 6)
+
+
+    my = my + moment_step
+
+        # increase and recalculate loading up to max My
+    while my < fu_my:
+        # ULS checks       
+        intForceULS['my'] = my
+        intForceSLS1['my'] = my
+        intForceSLS2['my'] = my
+
+        xml = helpers.dict_to_xml(sectionLoadingDict)
+
+        loadingInSection = ideastatica_rcs_api.RcsSectionLoading()
+        loadingInSection.section_id = sectId
+        loadingInSection.loading_xml = xml
+
+        updateLoadingRes = api_client.internal_forces.set_section_loading(api_client.project.active_project_id, sectId, loadingInSection)
+
+        calc1_briefResults = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+
+        detail_results_json = api_client.calculation.get_raw_results(api_client.project.active_project_id, resultsParams)
+
+        detail_results = raw_results_tools.jsonRes_to_dict(detail_results_json)
+
+        # take from the array which has just one section
+        detail_results1 = detail_results[0]
+
+        extremesInSectionRes = raw_results_tools.get_extremes(detail_results1)
+
+        counter = 0
+
+        resForExtreme = extremesInSectionRes[counter]
+        crack_width_res = raw_results_tools.get_result_by_type(resForExtreme, "crackWidth")
+
+        crack_width = crack_width_res["w"]
+
+        print(f"Crack Width: {crack_width}")
+
+        # #SLS checks (crack width)
+        # rcsClient.SetLoadingInSection(firstSectionId, loadingInSection)
+        # briefResults = rcsClient.Calculate(secIds)
+
+        # detailedResults = rcsClient.GetResults(secIds)
+
+        # sectionRes = detail_results_tools.get_section_results(detailedResults)
+
+        # extreme = detail_results_tools.get_extreme_results(sectionRes, firstSectionId, 1)
+
+        # # get crack width for the actual loading
+        # crack_width_res = detail_results_tools.get_result_by_type(extreme, "CrackWidth")
+        # crackWidth_short_term = crack_width_res[0]
+        # crack_width = float(crackWidth_short_term["W"])
+
+        # results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth [mm]" : crack_width*1000});
+        my = my + moment_step

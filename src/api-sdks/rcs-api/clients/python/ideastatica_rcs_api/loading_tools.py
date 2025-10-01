@@ -11,10 +11,9 @@ def get_extreme(loadingInSection, extremeInx):
     extremes = get_extremes(loadingInSection)
     return extremes[extremeInx]
 
-def get_internalForce(loadingInSection, extremeInx, internalForceInx):
+def get_internalForce(extreme, internalForceInx):
     #get internal force
-    extreme = get_extreme(loadingInSection, extremeInx)
     loads = extreme['Loads']['Loads']['InputLoad']
-    load = loads[internalForceInx];
+    load = loads[internalForceInx]
     intForce = load['InternalForce']
     return intForce

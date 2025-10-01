@@ -19,3 +19,7 @@ def to_dictionary(objects, keyName : str, valueName : str):
 def xml_to_dict(loadingXml : str):
     parsed_data = xmltodict.parse(loadingXml)
     return parsed_data
+
+def dict_to_xml(dict):
+    xml = xmltodict.unparse(dict)
+    return xml
