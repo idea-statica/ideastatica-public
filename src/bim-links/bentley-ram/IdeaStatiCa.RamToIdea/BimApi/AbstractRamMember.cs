@@ -76,9 +76,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public IdeaVector3D EccentricityEnd { get; } = new IdeaVector3D(0, 0, 0);
 
-		public InsertionPoints InsertionPoint { get; } = InsertionPoints.Top;
+		public virtual InsertionPoints InsertionPoint { get; } = InsertionPoints.CenterOfGravity;
 
-		public EccentricityReference EccentricityReference { get; }
+		public EccentricityReference EccentricityReference { get; } = EccentricityReference.LocalCoordinateSystem;
 
 		private Line _line;
 		private readonly IObjectFactory _objectFactory;
