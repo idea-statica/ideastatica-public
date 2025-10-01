@@ -15,7 +15,7 @@ import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 import ideastatica_rcs_api.helpers as helpers
 import ideastatica_rcs_api.loading_tools as loading_tools
 import ideastatica_rcs_api.brief_result_tools as brief_result_tools
-import ideastatica_rcs_api.detail_results_tools as detail_results_tools
+import ideastatica_rcs_api.raw_results_tools as raw_results_tools
 
 baseUrl = "http://localhost:5000"
 
@@ -40,7 +40,7 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
     calcParams.sections = [project_data.sections[0].id]
 
     # get loading
-    sectionLoadingXml = api_client.internal_forces.get_section_loading(api_client.project.active_project_id,project_data.sections[0].id)
+    sectionLoadingXml = api_client.internal_forces.get_section_loading(api_client.project.active_project_id, project_data.sections[0].id)
     sectionLoadingDict = helpers.xml_to_dict(sectionLoadingXml)
 
     #get extremes in section
@@ -65,19 +65,23 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
     resultsParams = ideastatica_rcs_api.RcsResultParameters()
     resultsParams.sections = [project_data.sections[0].id]
 
-    detail_results = api_client.calculation.get_results(api_client.project.active_project_id, resultsParams)
+    detail_results_json = api_client.calculation.get_raw_results(api_client.project.active_project_id, resultsParams)
 
+    detail_results = raw_results_tools.jsonRes_to_dict(detail_results_json)
+
+    # take from the array which has just one section
     detail_results1 = detail_results[0]
-    print(detail_results1.id)
-    pprint(detail_results1.issues)
 
-    sectionResultMap = detail_results_tools.get_section_result_map(detail_results)
-    sect1_res = sectionResultMap[project_data.sections[0].id]
+    extremesInSectionRes = raw_results_tools.get_extremes(detail_results1)
 
     counter = 0
     for extreme in extremesInSection:
-        capacityCheckRes = detail_results_tools.get_result_by_type(sect1_res.extreme_results[counter], "capacity")
-        print(f"Id: {extreme['Id']} Description: {extreme['Description']} Capacity Check Value: {capacityCheckRes.check_value}")
+        resForExtreme = extremesInSectionRes[counter]
+        capacityCheckRes = raw_results_tools.get_result_by_type(resForExtreme, "capacity")
+        print(f"Id: {extreme['Id']} Description: {extreme['Description']} Capacity Check Value: {capacityCheckRes['checkValue']}")
+        print('Fu1')
+        pprint(capacityCheckRes['fu1'])
+        print('Fu2')
+        pprint(capacityCheckRes['fu2'])
         counter += 1
-
 
