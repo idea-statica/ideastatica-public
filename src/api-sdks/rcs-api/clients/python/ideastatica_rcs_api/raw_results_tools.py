@@ -19,11 +19,3 @@ def get_result_by_type(extreme, resultType):
             return checkRes['checkResults'][0]
 
     return None
-
-def get_section_result_map(detailResults):
-    allSectionResults = {}
-
-    for s in detailResults:
-        allSectionResults[s.id] = s.section_result
-
-    return allSectionResults

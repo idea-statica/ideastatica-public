@@ -60,21 +60,22 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
     resultsParams = ideastatica_rcs_api.RcsResultParameters()
     resultsParams.sections = secToCalculateIds
 
-    detail_results = api_client.calculation.get_results(api_client.project.active_project_id, resultsParams)
+    detail_results_json = api_client.calculation.get_raw_results(api_client.project.active_project_id, resultsParams)
 
+    detail_results = raw_results_tools.jsonRes_to_dict(detail_results_json)
+
+    # take from the array which has just one section
     detail_results1 = detail_results[0]
 
-    sectionResultMap = raw_results_tools.get_section_result_map(detail_results)
-    sect1_res = sectionResultMap[project_data.sections[0].id]
+    extremesInSectionRes = raw_results_tools.get_extremes(detail_results1)
 
     capacities = []
     for sectId in secToCalculateIds:
         counter = 0
         for extreme in extremesInSection:
-            capacity_res = raw_results_tools.get_result_by_type(sect1_res.extreme_results[counter], "capacity")
-            #fu = capacity_res['Fu']
-            #fu = capacity_res['Fu']
-  
-            # this is the max My bending moment for reinforced cross-section
-            # fu_my =  float(capacity_res.Fu.Fy)
-            # counter += 1
+            resForExtreme = extremesInSectionRes[counter]
+            capacity_res = raw_results_tools.get_result_by_type(resForExtreme, "capacity")
+            fu1 = capacity_res['fu1']
+            fu2 = capacity_res['fu2']
+            counter += 1
+
