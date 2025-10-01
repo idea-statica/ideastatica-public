@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi.Results;
+﻿using IdeaRS.OpenModel.Model;
+using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
@@ -13,6 +14,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		public override int UID => _column.lUID;
 
 		public override MemberType MemberType => MemberType.Column;
+
+		public override InsertionPoints InsertionPoint { get; } = InsertionPoints.CenterOfGravity;
 
 		protected override RamMemberProperties Properties { get; }
 
