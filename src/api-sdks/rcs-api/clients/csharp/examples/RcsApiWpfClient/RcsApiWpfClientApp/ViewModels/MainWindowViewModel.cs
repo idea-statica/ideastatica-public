@@ -53,10 +53,52 @@ namespace RcsApiWpfClientApp.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedSection != null);
 
+			GetDetailResultsCommand = new AsyncRelayCommand(GetDetailResultsAsync, () => SelectedSection != null);
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Sections = new ObservableCollection<SectionViewModel>();
 			selectedSection = null;
+		}
+
+		private async Task GetDetailResultsAsync()
+		{
+			_logger.LogInformation("GetDetailResultsAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var connectionIdList = new List<int>();
+				connectionIdList.Add(SelectedSection!.Id);
+
+				var resultParam = new RcsResultParameters()
+				{
+					Sections = connectionIdList
+				};
+
+				var calculationResults = await RcsApiClient.Calculation.GetResultsAsync(ProjectInfo.ProjectId, resultParam, 0, cts.Token);
+
+				OutputText = RcsApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
 
 		private async Task CalculateAsync()
@@ -160,6 +202,8 @@ namespace RcsApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand CalculationCommand { get; }
 
+		public AsyncRelayCommand GetDetailResultsCommand { get; }
+
 		public AsyncRelayCommand CloseProjectCommand { get; }
 
 		public AsyncRelayCommand DownloadProjectCommand { get; }
@@ -169,7 +213,7 @@ namespace RcsApiWpfClientApp.ViewModels
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
 		//public RelayCommand ShowClientUICommand { get; }
-		
+
 
 		private async Task OpenProjectAsync()
 		{
@@ -501,6 +545,7 @@ namespace RcsApiWpfClientApp.ViewModels
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
+			this.GetDetailResultsCommand.NotifyCanExecuteChanged();
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 	}
