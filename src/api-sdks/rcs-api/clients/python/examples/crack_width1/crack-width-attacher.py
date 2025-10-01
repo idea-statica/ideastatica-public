@@ -100,12 +100,12 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
 
     my = my + moment_step
 
-        # increase and recalculate loading up to max My
+    # increase and recalculate loading up to max My
     while my < fu_my:
         # ULS checks       
-        intForceULS['my'] = my
-        intForceSLS1['my'] = my
-        intForceSLS2['my'] = my
+        intForceULS['My'] = my
+        intForceSLS1['My'] = my
+        intForceSLS2['My'] = my
 
         xml = helpers.dict_to_xml(sectionLoadingDict)
 
@@ -133,22 +133,5 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
 
         crack_width = crack_width_res["w"]
 
-        print(f"Crack Width: {crack_width}")
-
-        # #SLS checks (crack width)
-        # rcsClient.SetLoadingInSection(firstSectionId, loadingInSection)
-        # briefResults = rcsClient.Calculate(secIds)
-
-        # detailedResults = rcsClient.GetResults(secIds)
-
-        # sectionRes = detail_results_tools.get_section_results(detailedResults)
-
-        # extreme = detail_results_tools.get_extreme_results(sectionRes, firstSectionId, 1)
-
-        # # get crack width for the actual loading
-        # crack_width_res = detail_results_tools.get_result_by_type(extreme, "CrackWidth")
-        # crackWidth_short_term = crack_width_res[0]
-        # crack_width = float(crackWidth_short_term["W"])
-
-        # results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth [mm]" : crack_width*1000});
+        print(f"My {my} Crack Width: {crack_width}")
         my = my + moment_step
