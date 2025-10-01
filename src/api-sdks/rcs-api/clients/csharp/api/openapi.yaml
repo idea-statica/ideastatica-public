@@ -95,6 +95,44 @@ paths:
       summary: Get calculated results
       tags:
       - Calculation
+  /api/1/projects/{projectId}/get-raw-results:
+    post:
+      operationId: GetRawResults
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RcsResultParameters'
+        description: ""
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+      summary: Get calculated results in XML format
+      tags:
+      - Calculation
   /api/1/projects/{projectId}/cross-sections/reinforced-cross-sections:
     get:
       operationId: ReinforcedCrossSections
