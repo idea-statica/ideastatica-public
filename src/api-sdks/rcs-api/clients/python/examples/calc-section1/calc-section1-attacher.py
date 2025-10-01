@@ -15,6 +15,7 @@ import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 import ideastatica_rcs_api.helpers as helpers
 import ideastatica_rcs_api.loading_tools as loading_tools
 import ideastatica_rcs_api.brief_result_tools as brief_result_tools
+import ideastatica_rcs_api.detail_results_tools as detail_results_tools
 
 baseUrl = "http://localhost:5000"
 
@@ -70,5 +71,13 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
     print(detail_results1.id)
     pprint(detail_results1.issues)
 
-    #capacity_check_val = detail_results1["Capacity"]
+    sectionResultMap = detail_results_tools.get_section_result_map(detail_results)
+    sect1_res = sectionResultMap[project_data.sections[0].id]
+
+    counter = 0
+    for extreme in extremesInSection:
+        capacityCheckRes = detail_results_tools.get_result_by_type(sect1_res.extreme_results[counter], "capacity")
+        print(f"Id: {extreme['Id']} Description: {extreme['Description']} Capacity Check Value: {capacityCheckRes.check_value}")
+        counter += 1
+
 
