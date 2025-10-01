@@ -1,5 +1,4 @@
 ﻿using IdeaRS.OpenModel.Geometry3D;
-using IdeaRS.OpenModel.Model;
 using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
@@ -30,15 +29,7 @@ namespace IdeaRstabPlugin.BimApi
 					return _objectFactory.GetCrossSection(_endCssNo);
 				}
 			}
-		}
-
-		public IdeaVector3D EccentricityBegin { get; set; } = new IdeaVector3D(0.0, 0.0, 0.0);
-
-		public IdeaVector3D EccentricityEnd { get; set; } = new IdeaVector3D(0.0, 0.0, 0.0);
-
-		public InsertionPoints CardinalPoint { get; set; }
-
-		public EccentricityReference EccentricityReference { get; set; }
+		}		
 
 		public double RotationRx { get; }
 

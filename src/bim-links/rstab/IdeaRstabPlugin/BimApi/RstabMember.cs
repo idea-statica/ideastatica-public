@@ -38,8 +38,8 @@ namespace IdeaRstabPlugin.BimApi
 
 		public bool MirrorZ => false;
 
-		public IdeaVector3D EccentricityBegin { get; } = new IdeaVector3D(0, 0, 0);
-		public IdeaVector3D EccentricityEnd { get; } = new IdeaVector3D(0, 0, 0);
+		public IdeaVector3D EccentricityBegin { get; }
+		public IdeaVector3D EccentricityEnd { get; }
 		public InsertionPoints InsertionPoint { get; }
 		public EccentricityReference EccentricityReference { get; }
 
@@ -53,13 +53,20 @@ namespace IdeaRstabPlugin.BimApi
 			IModelDataProvider modelDataProvider,
 			IResultsFactory resultsFactory,
 			IElementFactory elementFactory,
-			int memberNo)
+			int memberNo,
+			IdeaVector3D begin, IdeaVector3D end,
+			InsertionPoints insertionPoint, EccentricityReference eccRef)
 		{
 			_objectFactory = objectFactory;
 			_modelDataProvider = modelDataProvider;
 			_resultsFactory = resultsFactory;
 			_elementFactory = elementFactory;
 			_memberNo = memberNo;
+
+			EccentricityBegin = begin;
+			EccentricityEnd = end;
+			EccentricityReference = eccRef;
+			InsertionPoint = insertionPoint;
 
 			_logger.LogDebug($"Created {nameof(RstabMember)} with id {Id}");
 		}
