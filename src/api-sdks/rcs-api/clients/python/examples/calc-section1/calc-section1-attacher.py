@@ -14,6 +14,7 @@ import ideastatica_rcs_api
 import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 import ideastatica_rcs_api.helpers as helpers
 import ideastatica_rcs_api.loading_tools as loading_tools
+import ideastatica_rcs_api.brief_result_tools as brief_result_tools
 
 baseUrl = "http://localhost:5000"
 
@@ -53,6 +54,8 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
     # run stress-strain analysis for the connection
     cal_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
     brief_section_results = cal_results[0]
+
+    capacity_check_val = brief_result_tools.get_check_value(brief_section_results, "capacity")
 
     print(f"Results section id : {brief_section_results.section_id}\n")
     for item in brief_section_results.overall_items:
