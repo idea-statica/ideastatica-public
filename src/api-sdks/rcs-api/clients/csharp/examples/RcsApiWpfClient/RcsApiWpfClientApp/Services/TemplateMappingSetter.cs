@@ -1,7 +1,8 @@
-﻿using RcsApiWpfClientApp.ViewModels;
-using RcsApiWpfClientApp.Views;
-using IdeaStatiCa.Api.Connection.Model;
+﻿using IdeaStatiCa.Api.RCS.Model;
 using Newtonsoft.Json;
+using RcsApiWpfClientApp.ViewModels;
+using RcsApiWpfClientApp.Views;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -9,7 +10,7 @@ namespace RcsApiWpfClientApp.Services
 {
 	public interface ITemplateMappingSetter
 	{
-		Task<TemplateConversions?> SetAsync(TemplateConversions defaultConversions);
+		Task<List<RcsSetting>> SetAsync(List<RcsSetting> originalSettingsValues);
 	}
 
 	internal class TemplateMappingSetter : ITemplateMappingSetter
@@ -21,9 +22,9 @@ namespace RcsApiWpfClientApp.Services
 			_jsonSettings = IdeaStatiCa.Api.Utilities.JsonTools.CreateIdeaRestJsonSettings();
 		}
 
-		public async Task<TemplateConversions?> SetAsync(TemplateConversions defaultConversions)
+		public async Task<List<RcsSetting>> SetAsync(List<RcsSetting> originalSettingsValues)
 		{
-			var defaultConversionsJson = JsonConvert.SerializeObject(defaultConversions, Formatting.Indented, _jsonSettings);
+			var defaultConversionsJson = JsonConvert.SerializeObject(originalSettingsValues, Formatting.Indented, _jsonSettings);
 
 			JsonEditorWindow jsonEditorWindow = new JsonEditorWindow();
 			jsonEditorWindow.Owner = Application.Current.MainWindow;
@@ -32,21 +33,18 @@ namespace RcsApiWpfClientApp.Services
 			jsonEditorWindow.DataContext = jsonEditorViewModel;
 			jsonEditorWindow.ShowDialog();
 
-			TemplateConversions? modifiedConversions = null;
-
 			if (jsonEditorWindow.DialogResult != true)
 			{
-
-				return await Task.FromResult(modifiedConversions);
+				return await Task.FromResult(new List<RcsSetting>());
 			}
 
-			modifiedConversions = JsonConvert.DeserializeObject<TemplateConversions>(jsonEditorViewModel.EditedText, _jsonSettings);
-			if(modifiedConversions == null)
+			var modifiedSettings = JsonConvert.DeserializeObject<List<RcsSetting>>(jsonEditorViewModel.EditedText, _jsonSettings);
+			if(modifiedSettings == null)
 			{
 				throw new System.Exception("Failed to deserialize defaultConversions");
 			}
 
-			return await Task.FromResult(modifiedConversions);
+			return await Task.FromResult(modifiedSettings);
 		}
 	}
 }

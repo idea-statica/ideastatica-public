@@ -24,13 +24,13 @@ namespace RcsApiWpfClientApp.ViewModels
 		private bool _isBusy;
 		private bool _runApiServer;
 
-		private string? outputText; 
+		private string? outputText;
 		ObservableCollection<SectionViewModel>? connectionsVM;
 		SectionViewModel? selectedSection;
 		private RcsProject? _projectInfo;
 		private CancellationTokenSource cts;
 		//private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Default };
-		
+
 		private bool disposedValue;
 
 		public MainWindowViewModel(IConfiguration configuration,
@@ -54,10 +54,122 @@ namespace RcsApiWpfClientApp.ViewModels
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedSection != null);
 
 			GetDetailResultsCommand = new AsyncRelayCommand(GetDetailResultsAsync, () => SelectedSection != null);
+
+			GetSettingCommand = new AsyncRelayCommand(GetSettingsAsync, () => this.ProjectInfo != null);
+
+			UpdateSettingCommand = new AsyncRelayCommand(UpdateSettingsAsync, () => this.ProjectInfo != null);
+
+
 			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Sections = new ObservableCollection<SectionViewModel>();
 			selectedSection = null;
+		}
+
+		private async Task GetSettingsAsync()
+		{
+			_logger.LogInformation("GetSettingsAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var connectionIdList = new List<int>();
+				connectionIdList.Add(SelectedSection!.Id);
+
+				var resultParam = new RcsResultParameters()
+				{
+					Sections = connectionIdList
+				};
+
+				var settingsXml = await RcsApiClient.Project.GetCodeSettingsAsync(ProjectInfo.ProjectId, 0, cts.Token);
+
+				OutputText = settingsXml;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetSettingsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task UpdateSettingsAsync()
+		{
+			_logger.LogInformation("UpdateSettingsAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var mappingSetter = new Services.TemplateMappingSetter();
+
+				var newSettings = new List<RcsSetting>()
+				{
+					 new RcsSetting()
+					 {
+						 Id=1,
+						 Type="System.Double",
+						 Value=10
+					 },
+					 new RcsSetting()
+					 {
+						 Id=2,
+						 Type="CI.Services.Setup.Setup2Values`2[System.Double,System.Double]",
+						 Value="{\"Value1\":1.5,\"Value2\":1.2}"
+					 },
+					 new RcsSetting()
+					 {
+						 Id=10,
+						 Type="CI.Services.Setup.SetupTable_W_max_1992_1_1",
+						 Value="{\"X0_XC1_RC\":0.0001, \"XC2_XC3_RC\":0.0002, \"XD_XS_XF_RC\":0.0003, \"X0_XC1_PC\":0.0004, \"XC2_XC3_PC_DV\":0.026, \"XC2_XC3_PC_CV\": 0.0002, \"XD_XS_XF_PCB_DV\": 0.025, \"XD_XS_XF_PCB_CV\":0.0002, \"XC2_XC3_PCB_DB\":true, \"XC2_XC3_PCB_CB\": true, \"XD_XS_XF_PCB_DB\": true, \"XD_XS_XF_PCB_CB\": false}"
+					 },
+				};
+
+				var modifiedTemplateMapping = await mappingSetter.SetAsync(newSettings);
+				if (modifiedTemplateMapping == null || !modifiedTemplateMapping.Any())
+				{
+					// operation was canceled
+					return;
+				}
+
+				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(ProjectInfo.ProjectId, modifiedTemplateMapping);
+
+				OutputText = updateResult.ToString();
+
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("UpdateSettingsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
 
 		private async Task GetDetailResultsAsync()
@@ -91,7 +203,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				_logger.LogWarning("GetDetailResultsAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -133,7 +245,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				_logger.LogWarning("CalculateAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -209,6 +321,10 @@ namespace RcsApiWpfClientApp.ViewModels
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
+
+		public AsyncRelayCommand GetSettingCommand { get; }
+
+		public AsyncRelayCommand UpdateSettingCommand { get; }
 
 		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
@@ -537,6 +653,9 @@ namespace RcsApiWpfClientApp.ViewModels
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
+			this.GetSettingCommand.NotifyCanExecuteChanged();
+			this.UpdateSettingCommand.NotifyCanExecuteChanged();
+
 			this.OnPropertyChanged("CanStartService");
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
