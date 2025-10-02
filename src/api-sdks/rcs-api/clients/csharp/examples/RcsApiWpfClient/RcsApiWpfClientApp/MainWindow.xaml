@@ -36,7 +36,6 @@
 				<Button Content="Update RF Css" ToolTip="Update a complete existing reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinfCssCmdAsync}" CommandParameter="Complete"/>
 				<Button Content="Update Reinforcement" ToolTip="Update only reinforcement of a reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinforcementCmdAsync}" CommandParameter="Reinf"/>
 
-
 				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
@@ -44,6 +43,8 @@
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
+		  
+				<Button  Content="Update Section" ToolTip="Update data of the selected section. E.g. set a different reinforced css." Command="{Binding UpdateSectionCmdAsync}"/>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
