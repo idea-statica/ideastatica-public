@@ -124,7 +124,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				var mappingSetter = new Services.TemplateMappingSetter();
+				var mappingSetter = new Services.ProjectSettingsSetter();
 
 				var newSettings = new List<RcsSetting>()
 				{

@@ -8,16 +8,16 @@ using System.Windows;
 
 namespace RcsApiWpfClientApp.Services
 {
-	public interface ITemplateMappingSetter
+	public interface IProjectSettingsSetter
 	{
 		Task<List<RcsSetting>> SetAsync(List<RcsSetting> originalSettingsValues);
 	}
 
-	internal class TemplateMappingSetter : ITemplateMappingSetter
+	internal class ProjectSettingsSetter : IProjectSettingsSetter
 	{
 		private readonly static JsonSerializerSettings _jsonSettings;
 
-		static TemplateMappingSetter()
+		static ProjectSettingsSetter()
 		{
 			_jsonSettings = IdeaStatiCa.Api.Utilities.JsonTools.CreateIdeaRestJsonSettings();
 		}
