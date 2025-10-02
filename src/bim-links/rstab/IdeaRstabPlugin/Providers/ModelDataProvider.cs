@@ -1,4 +1,6 @@
 ﻿using Dlubal.RSTAB8;
+using IdeaRS.OpenModel.Model;
+using IdeaStatiCa.BimApi;
 using System;
 using System.Collections.Generic;
 
@@ -12,18 +14,21 @@ namespace IdeaRstabPlugin.Providers
 			Member,
 			Line,
 			CrossSection,
-			Material
+			Material,
+			Eccentricity
 		}
 
 		private readonly IModelData _modelData;
 		private readonly Dictionary<(DataType, int), object> _data = new Dictionary<(DataType, int), object>();
+		private readonly IImportSession _importSession;
 
-		public ModelDataProvider(IModel model)
+		public ModelDataProvider(IModel model, IImportSession importSession)
 		{
 			using (new LicenceLock(model))
 			{
 				_modelData = model.GetModelData();
 			}
+			_importSession = importSession;
 		}
 
 		public void Clear()
@@ -78,9 +83,93 @@ namespace IdeaRstabPlugin.Providers
 			return GetOrCreate(no, DataType.Node, () => _modelData.GetNode(no, ItemAt.AtNo).GetData());
 		}
 
-		public MemberEccentricity GetMemberEccentricity(int no)
+		public (IdeaVector3D begin, IdeaVector3D end, InsertionPoints  insertionPoint, EccentricityReference eccRef) GetMemberEccentricity(int no)
 		{
-			return _modelData.GetMemberEccentricity(no, ItemAt.AtNo).GetData();
+			// member without any ecc
+			if (no <= 0)
+			{
+				return DefaultEcc();
+			}
+
+			var dlubalEcc = GetOrCreate(no, DataType.Eccentricity, () => _modelData.GetMemberEccentricity(no, ItemAt.AtNo).GetData());
+			return GetEccentricity(dlubalEcc);
 		}
+
+		private (IdeaVector3D, IdeaVector3D, InsertionPoints, EccentricityReference) GetEccentricity(MemberEccentricity dlubalEcc)
+		{
+			// ecc set relatively to another object - unsupported case
+			if (dlubalEcc.TransverseOffset)
+			{
+				return DefaultEcc();
+			}
+
+			// insertion point
+			var insertionPoint = GetInsertionPoint(dlubalEcc);
+
+			// coord system
+			var (valid, eccRef) = GetEccCoordSystem(dlubalEcc.ReferenceSystem);
+			if (!valid)
+			{
+				return DefaultEcc();
+			}
+
+			var eccVectors = GetAbsoluteEcc(dlubalEcc, eccRef, _importSession);
+
+			return (eccVectors.begin, eccVectors.end, insertionPoint, eccRef);
+		}
+
+		private (IdeaVector3D begin, IdeaVector3D end) GetAbsoluteEcc(MemberEccentricity ecc, EccentricityReference eccRef, IImportSession importSession)
+		{
+			if (eccRef == EccentricityReference.GlobalCoordinateSystem && importSession.IsGCSOrientedUpwards == false)
+			{
+				return (new IdeaVector3D(ecc.Start.X, -ecc.Start.Y, -ecc.Start.Z), new IdeaVector3D(ecc.End.X, -ecc.End.Y, -ecc.End.Z));
+			}
+			else
+			{
+				return (new IdeaVector3D(ecc.Start.X, ecc.Start.Y, ecc.Start.Z), new IdeaVector3D(ecc.End.X, ecc.End.Y, ecc.End.Z));
+			}
+		}
+
+		private static (bool valid, EccentricityReference coordSys) GetEccCoordSystem(ReferenceSystemType eccRef)
+		{
+			switch (eccRef)
+			{
+				case ReferenceSystemType.GlobalSystemType:
+					return (true, EccentricityReference.GlobalCoordinateSystem);
+				case ReferenceSystemType.LocalSystemType:
+					return (true, EccentricityReference.LocalCoordinateSystem);
+				default:
+					return (false, EccentricityReference.GlobalCoordinateSystem);
+			}
+		}
+
+		private static InsertionPoints GetInsertionPoint(MemberEccentricity ecc)
+		{
+
+			if (_insertionPointMap.TryGetValue((ecc.HorizontalAlignment, ecc.VerticalAlignment), out var result))
+			{
+				return result;
+			}
+
+			// default
+			return InsertionPoints.CenterOfGravity;
+		}
+
+		private static readonly Dictionary<(HorizontalAlignmentType, VerticalAlignmentType), InsertionPoints>
+			_insertionPointMap = new Dictionary<(HorizontalAlignmentType, VerticalAlignmentType), InsertionPoints>
+			{
+				{(HorizontalAlignmentType.Left, VerticalAlignmentType.Top), InsertionPoints.BottomLeft},
+				{(HorizontalAlignmentType.Left, VerticalAlignmentType.Middle), InsertionPoints.Left},
+				{(HorizontalAlignmentType.Left, VerticalAlignmentType.Bottom), InsertionPoints.TopLeft},
+				{(HorizontalAlignmentType.Center, VerticalAlignmentType.Top), InsertionPoints.Bottom},
+				{(HorizontalAlignmentType.Center, VerticalAlignmentType.Middle), InsertionPoints.CenterOfGravity},
+				{(HorizontalAlignmentType.Center, VerticalAlignmentType.Bottom), InsertionPoints.Top},
+				{(HorizontalAlignmentType.Right, VerticalAlignmentType.Top), InsertionPoints.BottomRight},
+				{(HorizontalAlignmentType.Right, VerticalAlignmentType.Middle), InsertionPoints.Right},
+				{(HorizontalAlignmentType.Right,  VerticalAlignmentType.Bottom), InsertionPoints.TopRight},
+			};
+
+		private static (IdeaVector3D, IdeaVector3D, InsertionPoints, EccentricityReference) DefaultEcc()
+			=> (new IdeaVector3D(0, 0, 0), new IdeaVector3D(0, 0, 0), InsertionPoints.CenterOfGravity, EccentricityReference.GlobalCoordinateSystem);
 	}
 }
