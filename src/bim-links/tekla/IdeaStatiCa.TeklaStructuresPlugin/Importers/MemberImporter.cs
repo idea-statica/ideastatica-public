@@ -47,9 +47,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				{
 					Type = GetMemberType(beam),
 					CrossSectionNo = $"{beam.Profile.ProfileString};{beam.Material.MaterialString}",
-					Elements = new System.Collections.Generic.List<IIdeaElement1D>() { CreateElements(beam) },
+
 					Length = GetMemberLength(beam),
 				};
+
+				ideaMember.Elements = new System.Collections.Generic.List<IIdeaElement1D>() { CreateElements(beam, ideaMember) };
 
 				MemberHelper.AdjustAngleMember(beam, ideaMember);
 
@@ -147,17 +149,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			return Member1DType.Beam;
 		}
 
-		private IIdeaElement1D CreateElements(Part member)
+		private IIdeaElement1D CreateElements(Part member, BimApi.Member1D ideaMember)
 		{
 			PlugInLogger.LogInformation($"MemberImporter CreateElements");
 			(CoordSystemByVector lcs, double rotation) = GetLCSAndRotation(member);
+
+			ideaMember.EccentricityBegin = GetEccentricity(member);
+			ideaMember.EccentricityEnd = GetEccentricity(member);
 
 			return new IdeaElement1D(member.Identifier.GUID.ToString())
 			{
 				Segment = CreateSegment(member, lcs),
 				RotationRx = rotation,
-				//EccentricityBegin = GetEccentricity(member),
-				//EccentricityEnd = GetEccentricity(member)
 			};
 		}
 
