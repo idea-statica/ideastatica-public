@@ -1,4 +1,6 @@
 ﻿using Dlubal.RSTAB8;
+using IdeaRS.OpenModel.Model;
+using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.Providers
@@ -13,7 +15,7 @@ namespace IdeaRstabPlugin.Providers
 
 		IEnumerable<Member> GetMembers();
 
-		MemberEccentricity GetMemberEccentricity(int no);
+		(IdeaVector3D begin, IdeaVector3D end, InsertionPoints insertionPoint, EccentricityReference eccRef) GetMemberEccentricity(int no);
 
 		//Line GetLine(int no);
 	}

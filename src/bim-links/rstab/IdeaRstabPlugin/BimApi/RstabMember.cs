@@ -38,10 +38,10 @@ namespace IdeaRstabPlugin.BimApi
 
 		public bool MirrorZ => false;
 
-		public IdeaVector3D EccentricityBegin { get; }
-		public IdeaVector3D EccentricityEnd { get; }
-		public InsertionPoints InsertionPoint { get; }
-		public EccentricityReference EccentricityReference { get; }
+		public IdeaVector3D EccentricityBegin => _modelDataProvider.GetMemberEccentricity(GetData().EccentricityNo).begin;
+		public IdeaVector3D EccentricityEnd => _modelDataProvider.GetMemberEccentricity(GetData().EccentricityNo).end;
+		public InsertionPoints InsertionPoint => _modelDataProvider.GetMemberEccentricity(GetData().EccentricityNo).insertionPoint;
+		public EccentricityReference EccentricityReference => _modelDataProvider.GetMemberEccentricity(GetData().EccentricityNo).eccRef;
 
 		private readonly IObjectFactory _objectFactory;
 		private readonly IResultsFactory _resultsFactory;
@@ -53,20 +53,13 @@ namespace IdeaRstabPlugin.BimApi
 			IModelDataProvider modelDataProvider,
 			IResultsFactory resultsFactory,
 			IElementFactory elementFactory,
-			int memberNo,
-			IdeaVector3D begin, IdeaVector3D end,
-			InsertionPoints insertionPoint, EccentricityReference eccRef)
+			int memberNo)
 		{
 			_objectFactory = objectFactory;
 			_modelDataProvider = modelDataProvider;
 			_resultsFactory = resultsFactory;
 			_elementFactory = elementFactory;
-			_memberNo = memberNo;
-
-			EccentricityBegin = begin;
-			EccentricityEnd = end;
-			EccentricityReference = eccRef;
-			InsertionPoint = insertionPoint;
+			_memberNo = memberNo;			
 
 			_logger.LogDebug($"Created {nameof(RstabMember)} with id {Id}");
 		}

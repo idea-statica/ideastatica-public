@@ -50,7 +50,7 @@ namespace IdeaRstabPlugin
 			using (new LicenceLock(_model))
 			{
 				ImportSession importSession = new ImportSession(_model);
-				ModelDataProvider modelDataProvider = new ModelDataProvider(_model);
+				ModelDataProvider modelDataProvider = new ModelDataProvider(_model, importSession);
 				LinesAndNodes linesAndNodes = new LinesAndNodes(modelDataProvider);
 				LoadsProvider loadsProvider = new LoadsProvider(_model);
 				ResultsProvider resultsProvider = new ResultsProvider(loadsProvider, _model.GetCalculation());
