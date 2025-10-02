@@ -1,11 +1,13 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
+using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Windows;
+using RcsApiClient.Services;
 using RcsApiWpfClientApp.ViewModels;
 using RcsApiWpfClientApp.Views;
+using System;
+using System.Windows;
 
 namespace RcsApiWpfClientApp
 {
@@ -40,7 +42,10 @@ namespace RcsApiWpfClientApp
 			{
 				DataContext = serviceProvider.GetRequiredService<JsonEditorViewModel>()
 			});
+
 			services.AddTransient<JsonEditorViewModel>();
+
+			services.AddTransient<IReinforcedCrossSectionTemplateProvider, DialogReinforcedCrossSectionTemplateProvider>();
 
 			serviceProvider = services.BuildServiceProvider();
 		}

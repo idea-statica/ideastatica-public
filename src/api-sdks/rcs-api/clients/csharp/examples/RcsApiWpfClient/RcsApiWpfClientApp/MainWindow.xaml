@@ -28,8 +28,22 @@
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<Button Command="{Binding GetDetailResultsCommand, Mode=OneWay}">Detail results</Button>
-				<!--<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>-->
-				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
+			</ToolBar>
+
+			<ToolBar Band="2">
+				<Button Command="{Binding ImportReinforcedCssCommand, Mode=OneWay}">Import RCS</Button>
+				<Button Content="New RF Css" ToolTip="Create a new reinforced cross-section from a NAV file" Command="{Binding CreateReinfCssCmdAsync}" CommandParameter="New"/>
+				<Button Content="Update RF Css" ToolTip="Update a complete existing reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinfCssCmdAsync}" CommandParameter="Complete"/>
+				<Button Content="Update Reinforcement" ToolTip="Update only reinforcement of a reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinforcementCmdAsync}" CommandParameter="Reinf"/>
+
+
+				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
