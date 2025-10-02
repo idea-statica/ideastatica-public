@@ -29,7 +29,7 @@ py .\examples-pip\calc-section1\calc-section1-attacher.py
 
 ## Debugging in Visual Studion Code
 
-In Visual Studio Code open the directory with Connection Python Client _src\api-sdks\connection-api\clients\python_
+In Visual Studio Code open the directory with Rcs Python Client _src\api-sdks\rcs-api\clients\python_
 
 Open the required exampl in the editor window. 
 

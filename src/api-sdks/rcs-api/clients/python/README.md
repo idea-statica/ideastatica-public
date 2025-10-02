@@ -51,16 +51,16 @@ We currently only support connecting to a service running on a localhost (eg. 'h
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
-IdeaStatiCa.ConnectionRestApi.exe -port:5000
+IdeaStatiCa.RcsRestApi.exe -port:5000
 ```
 
 ```python
 // Connect any new service to latest version of IDEA StatiCa.
-client_factory = ConnectionApiClientFactory('http://localhost:5000/')
+client_factory = RcsApiServiceAttacher('http://localhost:5000/')
 ```
 
 ```python
-conClient = client_factory.create_connection_api_client();
+client = client_factory.create_api_client();
 ```
 
 ## Getting Started
@@ -71,7 +71,7 @@ Please follow the [installation procedure](#installation--usage) and then run th
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-The `ConnectionApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
+The `RcsApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
 
 Methods marked with an **^** denote that they have an additional extension in the Client.
 
