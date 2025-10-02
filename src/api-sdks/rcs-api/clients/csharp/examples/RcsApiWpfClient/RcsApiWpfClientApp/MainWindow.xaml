@@ -13,8 +13,7 @@
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Start service</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
-				<!--<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>-->
-				<!--<Button Command="{Binding ShowClientUICommand, Mode=OneWay}">Show Client UI</Button>-->
+				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
 				<CheckBox Content="Run private service" IsEnabled="{Binding CanStartService}"
 				  IsChecked="{Binding RunApiServer, Mode=TwoWay}" IsThreeState="False"
 				  ToolTip="Switch between running a new instance IdeaStatica.RcsRestApi or attaching to the running service.">

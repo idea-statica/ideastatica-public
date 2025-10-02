@@ -479,7 +479,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			try
 			{
 				SaveFileDialog saveFileDialog = new SaveFileDialog();
-				saveFileDialog.Filter = "IdeaRcs | *.ideacon";
+				saveFileDialog.Filter = "IdeaRcs | *.idearcs";
 				if (saveFileDialog.ShowDialog() == true)
 				{
 					await RcsApiClient.Project.SaveProjectAsync(ProjectInfo.ProjectId, saveFileDialog.FileName, cts.Token);
@@ -487,7 +487,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("SaveProjectAsync failed", ex);
+				_logger.LogWarning("DownloadProjectAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
