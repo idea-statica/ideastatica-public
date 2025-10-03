@@ -421,7 +421,10 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "IdeaRcs | *.idearcs";
+
+			// Set properties for the OpenFileDialog
+			openFileDialog.Title = "Select a Project File";
+			openFileDialog.Filter = "IDEARCS Files (*.idearcs)|*.idearcs|XML Files (*.xml)|*.xml";
 			if (openFileDialog.ShowDialog() != true)
 			{
 				return;
@@ -430,25 +433,19 @@ namespace RcsApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				ProjectInfo = await RcsApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
+				// import ideaRcs ideaRcs project from IOM
+
+				if (openFileDialog.FileName.EndsWith("xml", StringComparison.InvariantCultureIgnoreCase))
+				{
+					ProjectInfo = await RcsApiClient!.Project.CreateProjectFromIomFileAsync(openFileDialog.FileName, CancellationToken.None);
+				}
+				else
+				{
+					// open existing ideaRCS project
+					ProjectInfo = await RcsApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
+				}
 
 				await GetProjectSummaryAsync();
-
-				//SelectedReinforcedCss = null;
-
-				//ReinforcedCrossSections = new ObservableCollection<ReinforcedCrossSectionViewModel>(ProjectInfo.ReinforcedCrossSections.Select(rf => new ReinforcedCrossSectionViewModel(rf)));
-
-				//Sections = new ObservableCollection<SectionViewModel>(ProjectInfo.Sections.Select(s => new SectionViewModel(s)));
-
-
-				//if (Sections.Any())
-				//{
-				//	SelectedSection = Sections.First();
-				//}
-				//else
-				//{
-				//	SelectedSection = null;
-				//}
 			}
 			catch (Exception ex)
 			{
@@ -735,7 +732,7 @@ namespace RcsApiWpfClientApp.ViewModels
 
 				var updatedSection = await RcsApiClient.CrossSection.ImportReinforcedCrossSectionAsync(ProjectInfo.ProjectId, importData, 0, cts.Token);
 
-				OutputText = "Template was applied";
+				await GetProjectSummaryAsync();
 			}
 			catch (Exception ex)
 			{

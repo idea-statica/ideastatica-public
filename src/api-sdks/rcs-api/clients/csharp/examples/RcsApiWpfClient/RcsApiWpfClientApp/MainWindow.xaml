@@ -11,7 +11,7 @@
 
 			<ToolBar Band="1">
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Start service</Button>
-				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
+				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}" ToolTip=">Open ideaRcs project or create ideaRcs from IOM data">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
 				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
 				<CheckBox Content="Run private service" IsEnabled="{Binding CanStartService}"
@@ -31,7 +31,6 @@
 			</ToolBar>
 
 			<ToolBar Band="2">
-				<Button Command="{Binding ImportReinforcedCssCommand, Mode=OneWay}">Import RCS</Button>
 				<Button Content="New RF Css" ToolTip="Create a new reinforced cross-section from a NAV file" Command="{Binding CreateReinfCssCmdAsync}" CommandParameter="New"/>
 				<Button Content="Update RF Css" ToolTip="Update a complete existing reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinfCssCmdAsync}" CommandParameter="Complete"/>
 				<Button Content="Update Reinforcement" ToolTip="Update only reinforcement of a reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinforcementCmdAsync}" CommandParameter="Reinf"/>
