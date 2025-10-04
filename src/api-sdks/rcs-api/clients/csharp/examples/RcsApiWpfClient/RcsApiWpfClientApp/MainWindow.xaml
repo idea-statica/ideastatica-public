@@ -11,10 +11,9 @@
 
 			<ToolBar Band="1">
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Start service</Button>
-				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
+				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}" ToolTip=">Open ideaRcs project or create ideaRcs from IOM data">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
-				<!--<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>-->
-				<!--<Button Command="{Binding ShowClientUICommand, Mode=OneWay}">Show Client UI</Button>-->
+				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
 				<CheckBox Content="Run private service" IsEnabled="{Binding CanStartService}"
 				  IsChecked="{Binding RunApiServer, Mode=TwoWay}" IsThreeState="False"
 				  ToolTip="Switch between running a new instance IdeaStatica.RcsRestApi or attaching to the running service.">
@@ -29,8 +28,22 @@
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<Button Command="{Binding GetDetailResultsCommand, Mode=OneWay}">Detail results</Button>
-				<!--<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>-->
-				<!--<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>-->
+			</ToolBar>
+
+			<ToolBar Band="2">
+				<Button Content="New RF Css" ToolTip="Create a new reinforced cross-section from a NAV file" Command="{Binding CreateReinfCssCmdAsync}" CommandParameter="New"/>
+				<Button Content="Update RF Css" ToolTip="Update a complete existing reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinfCssCmdAsync}" CommandParameter="Complete"/>
+				<Button Content="Update Reinforcement" ToolTip="Update only reinforcement of a reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinforcementCmdAsync}" CommandParameter="Reinf"/>
+
+				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+		  
+				<Button  Content="Update Section" ToolTip="Update data of the selected section. E.g. set a different reinforced css." Command="{Binding UpdateSectionCmdAsync}"/>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
