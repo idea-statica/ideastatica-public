@@ -1,11 +1,15 @@
+import os
 import ideastatica_rcs_api
 import ideastatica_rcs_api.helpers as helpers
 import ideastatica_rcs_api.loading_tools as loading_tools
 import ideastatica_rcs_api.brief_result_tools as brief_result_tools
 import ideastatica_rcs_api.raw_results_tools as raw_results_tools
+from ideastatica_rcs_api.models.rcs_reinforced_cross_section_import_data import RcsReinforcedCrossSectionImportData
 
 from client_factory import create_client
 import pandas as pd
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 baseUrl = "http://localhost:5000"
 
@@ -187,4 +191,83 @@ def calc_rcs_crack_width(rcs_project_filename, section_to_calculate, moment_step
         results.append({"my": my, "capacity" :  capacity_res["checkValue"], "CrackWidth [mm]" : crack_width*1000})
 
         df_check = pd.DataFrame.from_records(results)
-        return df_check                  
+        return df_check
+
+def calc_rcs_proj_variants(rcs_project_filename, section_to_calculate, reinforced_cross_section_templates):
+    with create_client() as api_client:
+        # Open project
+        uploadRes = api_client.project.open_project_from_file(rcs_project_filename)
+
+        # Get the project data
+        project_data = api_client.project.get_active_project()
+
+        section_detail = project_data.sections[0]
+
+        importParams = ideastatica_rcs_api.RcsReinforcedCrosssSectionImportSetting()
+        importData = ideastatica_rcs_api.RcsReinforcedCrossSectionImportData()
+        #importParams.reinforced_cross_section_id = section_detail.rcs_id
+        importParams.parts_to_import = "Complete"
+        importData.setting = importParams
+            
+        calcParams = ideastatica_rcs_api.RcsCalculationParameters()
+        calcParams.sections = [section_detail.id]
+
+        secIDs = []
+        secNames = []
+        templates = []
+        rfIds = []
+        checkVals = []
+        capacity_checks = []
+        crack_width_checks = []
+        interaction_checks = []
+        shear_checks = []
+        stresslimitation_checks = []
+        response_checks = []
+
+        for template in reinforced_cross_section_templates:
+            #print(template)
+            reinforcedCrossSectionTemplate = None
+            rcs_template_file_path = os.path.join(dir_path, template)
+            with open(template, 'r') as file:  
+                reinforcedCrossSectionTemplate = file.read()
+
+            importData.template = reinforcedCrossSectionTemplate
+
+            newReinSect = api_client.cross_section.import_reinforced_cross_section(api_client.project.active_project_id, importData)
+
+            section_detail.rcs_id = newReinSect.id
+
+            updateRes = api_client.section.update_section(api_client.project.active_project_id, section_detail)
+            
+            cal_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+            brief_section_results = cal_results[0]
+
+            capacity_check_val = brief_result_tools.get_check_value(brief_section_results, "capacity")
+            capacity_checks.append(capacity_check_val)
+            
+            crackwidth_check_val = brief_result_tools.get_check_value(brief_section_results, "crackWidth")
+            crack_width_checks.append(crackwidth_check_val)
+
+            shear_val = brief_result_tools.get_check_value(brief_section_results, "shear")
+            shear_checks.append(shear_val)
+
+            interaction_val = brief_result_tools.get_check_value(brief_section_results, "interaction")
+            interaction_checks.append(interaction_val)
+
+            response_val = brief_result_tools.get_check_value(brief_section_results, "response")
+            response_checks.append(response_val)        
+        
+            stresslimitation_val = brief_result_tools.get_check_value(brief_section_results, "stressLimitation")
+            stresslimitation_checks.append(response_val)
+
+            secIDs.append(section_to_calculate)
+            secNames.append(section_detail.description)
+            templates.append(template)
+            rfIds.append(section_detail.rcs_id)
+            checkVals.append(capacity_check_val)
+
+        data = {"SecId" : secIDs, "SecName" : secNames, "Template" : templates, "RfId" : rfIds, "Capacity" : checkVals, "Shear" : shear_checks, "Interaction" : interaction_checks, "CrackWidth" : crack_width_checks, "Response" : response_checks, "StressLimitation" : response_checks}
+        
+        df_sectionChecks = pd.DataFrame.from_dict(data)
+
+        return df_sectionChecks    
