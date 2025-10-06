@@ -94,7 +94,6 @@ def calc_rcs_crack_width(rcs_project_filename, section_to_calculate, moment_step
         my = capacity_res["internalFores"]["my"]
         capacities.append({"SecId": secIds[0], "Fu.My" : fu_my})
 
-
         df_capacity = pd.DataFrame.from_records(capacities)
         
         df_capacity
