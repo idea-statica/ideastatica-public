@@ -6,8 +6,9 @@ import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 
 baseUrl = "http://localhost:5000"
 
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
-rcs_project_file_path = r'Project1.IdeaRcs'
+rcs_project_file_path = os.path.join(dir_path, 'Project1.ideaRcs')
 
 
 with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client() as api_client:
