@@ -45,7 +45,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         firstConnectionRawResult = results_text[0]
         pprint(firstConnectionRawResult)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams.connection_ids)
         pprint(detailed_results)
 
         # get connection setup
