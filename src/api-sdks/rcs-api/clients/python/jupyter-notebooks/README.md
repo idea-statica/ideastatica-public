@@ -9,7 +9,7 @@ IdeaStatiCa.RcsRestApi.exe
 
 3. open the selected notebook in [Jupyter](https://jupyter.org/)
 
-[RCS Crack Width Study](rcs-study-1/crack-width-example.IdeaRcs)
+[RCS Crack Width Study](rcs-study-1/RCS%20Crack%20Width%20Study.ipynb)
 
 [Sensitivy Study](rcs-study-1/Sensitivy_study.ipynb)
 
