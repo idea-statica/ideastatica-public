@@ -38,15 +38,15 @@ namespace ST_ConRestApiClient
 		public async Task ShouldGetProjectSettings()
 		{
 			var projectSettings = await ConnectionApiClient!.Settings.GetSettingsAsync(ActiveProjectId);
-			projectSettings.Count.Should().Be(167);
+			projectSettings.Count.Should().Be(171);
 		}
 
 		[TestCase("calculation", 22)]
 		[TestCase("analysis", 25)]
-		[TestCase("EN", 76)]
+		[TestCase("EN", 80)]
 		[TestCase("CalculationCommon", 60)]
 		[TestCase("non-existing-setting", 0)]
-		[TestCase(null, 167)]
+		[TestCase(null, 171)]
 		public async Task ShouldGetProjectSettingsWithFilter(string? search, int count)
 		{
 			var con1 = Project!.Connections.First();
