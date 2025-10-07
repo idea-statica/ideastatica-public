@@ -21,7 +21,7 @@ json = "{}"
 # create an instance of ConcreteBlock from a JSON string
 concrete_block_instance = ConcreteBlock.from_json(json)
 # print the JSON string representation of the object
-print(ConcreteBlock.to_json())
+print(concrete_block_instance.to_json())
 
 # convert the object into a dict
 concrete_block_dict = concrete_block_instance.to_dict()

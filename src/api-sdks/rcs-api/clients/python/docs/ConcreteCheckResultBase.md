@@ -23,7 +23,7 @@ json = "{}"
 # create an instance of ConcreteCheckResultBase from a JSON string
 concrete_check_result_base_instance = ConcreteCheckResultBase.from_json(json)
 # print the JSON string representation of the object
-print(ConcreteCheckResultBase.to_json())
+print(concrete_check_result_base_instance.to_json())
 
 # convert the object into a dict
 concrete_check_result_base_dict = concrete_check_result_base_instance.to_dict()

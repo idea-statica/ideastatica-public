@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of BucklingRes from a JSON string
 buckling_res_instance = BucklingRes.from_json(json)
 # print the JSON string representation of the object
-print(BucklingRes.to_json())
+print(buckling_res_instance.to_json())
 
 # convert the object into a dict
 buckling_res_dict = buckling_res_instance.to_dict()

@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of IdeaParameterValidationResponse from a JSON string
 idea_parameter_validation_response_instance = IdeaParameterValidationResponse.from_json(json)
 # print the JSON string representation of the object
-print(IdeaParameterValidationResponse.to_json())
+print(idea_parameter_validation_response_instance.to_json())
 
 # convert the object into a dict
 idea_parameter_validation_response_dict = idea_parameter_validation_response_instance.to_dict()

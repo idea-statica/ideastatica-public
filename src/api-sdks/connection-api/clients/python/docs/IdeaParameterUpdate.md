@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of IdeaParameterUpdate from a JSON string
 idea_parameter_update_instance = IdeaParameterUpdate.from_json(json)
 # print the JSON string representation of the object
-print(IdeaParameterUpdate.to_json())
+print(idea_parameter_update_instance.to_json())
 
 # convert the object into a dict
 idea_parameter_update_dict = idea_parameter_update_instance.to_dict()

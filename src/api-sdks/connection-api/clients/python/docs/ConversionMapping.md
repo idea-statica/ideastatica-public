@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of ConversionMapping from a JSON string
 conversion_mapping_instance = ConversionMapping.from_json(json)
 # print the JSON string representation of the object
-print(ConversionMapping.to_json())
+print(conversion_mapping_instance.to_json())
 
 # convert the object into a dict
 conversion_mapping_dict = conversion_mapping_instance.to_dict()

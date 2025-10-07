@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of ReferenceElement from a JSON string
 reference_element_instance = ReferenceElement.from_json(json)
 # print the JSON string representation of the object
-print(ReferenceElement.to_json())
+print(reference_element_instance.to_json())
 
 # convert the object into a dict
 reference_element_dict = reference_element_instance.to_dict()

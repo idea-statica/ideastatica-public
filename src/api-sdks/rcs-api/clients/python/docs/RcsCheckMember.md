@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of RcsCheckMember from a JSON string
 rcs_check_member_instance = RcsCheckMember.from_json(json)
 # print the JSON string representation of the object
-print(RcsCheckMember.to_json())
+print(rcs_check_member_instance.to_json())
 
 # convert the object into a dict
 rcs_check_member_dict = rcs_check_member_instance.to_dict()

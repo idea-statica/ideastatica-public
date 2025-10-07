@@ -21,7 +21,7 @@ json = "{}"
 # create an instance of IGroup from a JSON string
 i_group_instance = IGroup.from_json(json)
 # print the JSON string representation of the object
-print(IGroup.to_json())
+print(i_group_instance.to_json())
 
 # convert the object into a dict
 i_group_dict = i_group_instance.to_dict()

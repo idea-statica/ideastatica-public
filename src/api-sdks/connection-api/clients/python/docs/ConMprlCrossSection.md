@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of ConMprlCrossSection from a JSON string
 con_mprl_cross_section_instance = ConMprlCrossSection.from_json(json)
 # print the JSON string representation of the object
-print(ConMprlCrossSection.to_json())
+print(con_mprl_cross_section_instance.to_json())
 
 # convert the object into a dict
 con_mprl_cross_section_dict = con_mprl_cross_section_instance.to_dict()

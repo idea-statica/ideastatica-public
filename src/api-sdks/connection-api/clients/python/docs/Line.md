@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of Line from a JSON string
 line_instance = Line.from_json(json)
 # print the JSON string representation of the object
-print(Line.to_json())
+print(line_instance.to_json())
 
 # convert the object into a dict
 line_dict = line_instance.to_dict()

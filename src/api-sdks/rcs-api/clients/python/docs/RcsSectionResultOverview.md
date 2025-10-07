@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of RcsSectionResultOverview from a JSON string
 rcs_section_result_overview_instance = RcsSectionResultOverview.from_json(json)
 # print the JSON string representation of the object
-print(RcsSectionResultOverview.to_json())
+print(rcs_section_result_overview_instance.to_json())
 
 # convert the object into a dict
 rcs_section_result_overview_dict = rcs_section_result_overview_instance.to_dict()
