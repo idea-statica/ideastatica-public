@@ -28,7 +28,7 @@ json = "{}"
 # create an instance of PinGrid from a JSON string
 pin_grid_instance = PinGrid.from_json(json)
 # print the JSON string representation of the object
-print(PinGrid.to_json())
+print(pin_grid_instance.to_json())
 
 # convert the object into a dict
 pin_grid_dict = pin_grid_instance.to_dict()

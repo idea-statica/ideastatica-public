@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of ConProject from a JSON string
 con_project_instance = ConProject.from_json(json)
 # print the JSON string representation of the object
-print(ConProject.to_json())
+print(con_project_instance.to_json())
 
 # convert the object into a dict
 con_project_dict = con_project_instance.to_dict()

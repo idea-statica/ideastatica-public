@@ -33,7 +33,7 @@ json = "{}"
 # create an instance of AnchorGrid from a JSON string
 anchor_grid_instance = AnchorGrid.from_json(json)
 # print the JSON string representation of the object
-print(AnchorGrid.to_json())
+print(anchor_grid_instance.to_json())
 
 # convert the object into a dict
 anchor_grid_dict = anchor_grid_instance.to_dict()

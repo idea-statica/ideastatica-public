@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of RcsReinforcedCrosssSectionImportSetting from a JSON string
 rcs_reinforced_crosss_section_import_setting_instance = RcsReinforcedCrosssSectionImportSetting.from_json(json)
 # print the JSON string representation of the object
-print(RcsReinforcedCrosssSectionImportSetting.to_json())
+print(rcs_reinforced_crosss_section_import_setting_instance.to_json())
 
 # convert the object into a dict
 rcs_reinforced_crosss_section_import_setting_dict = rcs_reinforced_crosss_section_import_setting_instance.to_dict()

@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of CheckResAnchor from a JSON string
 check_res_anchor_instance = CheckResAnchor.from_json(json)
 # print the JSON string representation of the object
-print(CheckResAnchor.to_json())
+print(check_res_anchor_instance.to_json())
 
 # convert the object into a dict
 check_res_anchor_dict = check_res_anchor_instance.to_dict()

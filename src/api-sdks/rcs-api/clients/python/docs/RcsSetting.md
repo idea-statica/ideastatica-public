@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of RcsSetting from a JSON string
 rcs_setting_instance = RcsSetting.from_json(json)
 # print the JSON string representation of the object
-print(RcsSetting.to_json())
+print(rcs_setting_instance.to_json())
 
 # convert the object into a dict
 rcs_setting_dict = rcs_setting_instance.to_dict()

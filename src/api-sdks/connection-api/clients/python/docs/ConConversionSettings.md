@@ -23,7 +23,7 @@ json = "{}"
 # create an instance of ConConversionSettings from a JSON string
 con_conversion_settings_instance = ConConversionSettings.from_json(json)
 # print the JSON string representation of the object
-print(ConConversionSettings.to_json())
+print(con_conversion_settings_instance.to_json())
 
 # convert the object into a dict
 con_conversion_settings_dict = con_conversion_settings_instance.to_dict()

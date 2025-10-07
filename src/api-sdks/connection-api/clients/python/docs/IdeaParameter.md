@@ -28,7 +28,7 @@ json = "{}"
 # create an instance of IdeaParameter from a JSON string
 idea_parameter_instance = IdeaParameter.from_json(json)
 # print the JSON string representation of the object
-print(IdeaParameter.to_json())
+print(idea_parameter_instance.to_json())
 
 # convert the object into a dict
 idea_parameter_dict = idea_parameter_instance.to_dict()

@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of ConResultSummary from a JSON string
 con_result_summary_instance = ConResultSummary.from_json(json)
 # print the JSON string representation of the object
-print(ConResultSummary.to_json())
+print(con_result_summary_instance.to_json())
 
 # convert the object into a dict
 con_result_summary_dict = con_result_summary_instance.to_dict()

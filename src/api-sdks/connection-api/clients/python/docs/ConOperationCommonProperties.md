@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of ConOperationCommonProperties from a JSON string
 con_operation_common_properties_instance = ConOperationCommonProperties.from_json(json)
 # print the JSON string representation of the object
-print(ConOperationCommonProperties.to_json())
+print(con_operation_common_properties_instance.to_json())
 
 # convert the object into a dict
 con_operation_common_properties_dict = con_operation_common_properties_instance.to_dict()

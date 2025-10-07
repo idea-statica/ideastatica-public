@@ -17,7 +17,7 @@ json = "{}"
 # create an instance of SelectedType from a JSON string
 selected_type_instance = SelectedType.from_json(json)
 # print the JSON string representation of the object
-print(SelectedType.to_json())
+print(selected_type_instance.to_json())
 
 # convert the object into a dict
 selected_type_dict = selected_type_instance.to_dict()

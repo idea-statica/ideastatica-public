@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of Loading from a JSON string
 loading_instance = Loading.from_json(json)
 # print the JSON string representation of the object
-print(Loading.to_json())
+print(loading_instance.to_json())
 
 # convert the object into a dict
 loading_dict = loading_instance.to_dict()

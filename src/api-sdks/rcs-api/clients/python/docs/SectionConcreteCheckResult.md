@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of SectionConcreteCheckResult from a JSON string
 section_concrete_check_result_instance = SectionConcreteCheckResult.from_json(json)
 # print the JSON string representation of the object
-print(SectionConcreteCheckResult.to_json())
+print(section_concrete_check_result_instance.to_json())
 
 # convert the object into a dict
 section_concrete_check_result_dict = section_concrete_check_result_instance.to_dict()

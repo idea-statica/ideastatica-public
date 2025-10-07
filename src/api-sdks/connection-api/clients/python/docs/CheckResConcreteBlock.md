@@ -21,7 +21,7 @@ json = "{}"
 # create an instance of CheckResConcreteBlock from a JSON string
 check_res_concrete_block_instance = CheckResConcreteBlock.from_json(json)
 # print the JSON string representation of the object
-print(CheckResConcreteBlock.to_json())
+print(check_res_concrete_block_instance.to_json())
 
 # convert the object into a dict
 check_res_concrete_block_dict = check_res_concrete_block_instance.to_dict()

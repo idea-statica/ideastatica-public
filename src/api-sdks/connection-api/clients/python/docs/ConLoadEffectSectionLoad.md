@@ -22,7 +22,7 @@ json = "{}"
 # create an instance of ConLoadEffectSectionLoad from a JSON string
 con_load_effect_section_load_instance = ConLoadEffectSectionLoad.from_json(json)
 # print the JSON string representation of the object
-print(ConLoadEffectSectionLoad.to_json())
+print(con_load_effect_section_load_instance.to_json())
 
 # convert the object into a dict
 con_load_effect_section_load_dict = con_load_effect_section_load_instance.to_dict()

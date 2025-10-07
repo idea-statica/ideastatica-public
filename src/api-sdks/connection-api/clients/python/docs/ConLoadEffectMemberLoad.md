@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of ConLoadEffectMemberLoad from a JSON string
 con_load_effect_member_load_instance = ConLoadEffectMemberLoad.from_json(json)
 # print the JSON string representation of the object
-print(ConLoadEffectMemberLoad.to_json())
+print(con_load_effect_member_load_instance.to_json())
 
 # convert the object into a dict
 con_load_effect_member_load_dict = con_load_effect_member_load_instance.to_dict()

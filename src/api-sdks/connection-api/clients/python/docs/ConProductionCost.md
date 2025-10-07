@@ -17,7 +17,7 @@ json = "{}"
 # create an instance of ConProductionCost from a JSON string
 con_production_cost_instance = ConProductionCost.from_json(json)
 # print the JSON string representation of the object
-print(ConProductionCost.to_json())
+print(con_production_cost_instance.to_json())
 
 # convert the object into a dict
 con_production_cost_dict = con_production_cost_instance.to_dict()

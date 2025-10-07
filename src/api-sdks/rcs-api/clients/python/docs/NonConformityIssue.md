@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of NonConformityIssue from a JSON string
 non_conformity_issue_instance = NonConformityIssue.from_json(json)
 # print the JSON string representation of the object
-print(NonConformityIssue.to_json())
+print(non_conformity_issue_instance.to_json())
 
 # convert the object into a dict
 non_conformity_issue_dict = non_conformity_issue_instance.to_dict()

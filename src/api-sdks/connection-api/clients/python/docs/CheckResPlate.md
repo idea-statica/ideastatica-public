@@ -23,7 +23,7 @@ json = "{}"
 # create an instance of CheckResPlate from a JSON string
 check_res_plate_instance = CheckResPlate.from_json(json)
 # print the JSON string representation of the object
-print(CheckResPlate.to_json())
+print(check_res_plate_instance.to_json())
 
 # convert the object into a dict
 check_res_plate_dict = check_res_plate_instance.to_dict()

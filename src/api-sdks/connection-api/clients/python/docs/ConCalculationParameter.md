@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of ConCalculationParameter from a JSON string
 con_calculation_parameter_instance = ConCalculationParameter.from_json(json)
 # print the JSON string representation of the object
-print(ConCalculationParameter.to_json())
+print(con_calculation_parameter_instance.to_json())
 
 # convert the object into a dict
 con_calculation_parameter_dict = con_calculation_parameter_instance.to_dict()
