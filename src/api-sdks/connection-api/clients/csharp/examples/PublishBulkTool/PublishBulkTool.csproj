@@ -21,7 +21,11 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+		<PackageReference Include="IdeaStatiCa.ConnectionApi"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
 	  <ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
 	</ItemGroup>
 
