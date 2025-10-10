@@ -535,7 +535,56 @@ namespace IdeaStatiCa.BIM.Common
 
 		private static (Member m, bool isended) GetBiggest(IEnumerable<(Member m, bool isended)> members)
 		{
-			return members.MaxByOrDefault(GetBiggestMemberSelector);
+			// look for bigest members
+			var biggestMembers = members.GroupBy(x => GetBiggestMemberSelector(x))
+														 .OrderByDescending(g => g.Key)
+														 .FirstOrDefault();
+
+			// there's nothing
+			if (biggestMembers == null || !biggestMembers.Any())
+			{
+				return default;
+			}
+
+			// I have just one biggest member - this is the biggest
+			if (biggestMembers.Count() == 1)
+			{
+				return biggestMembers.First();
+			}
+
+			// I have more than one biggest -> let's select the one closest to X axis
+			var refVector = new Vector3D(1, 0, 0);
+			var membersWithSmallestAngleToXAxis = biggestMembers
+				.GroupBy(member =>
+				{
+					var dirVector = GeomOperation.Subtract(member.m.End, member.m.Begin).Normalize;
+					var angle = GeomOperation.GetAngle(refVector, dirVector);
+					if (angle > (Math.PI / 2)) // more than 90deg
+					{
+						angle = Math.PI - angle;
+					}
+					return angle;
+				})
+				.OrderBy(a => a.Key).First();
+
+			if (membersWithSmallestAngleToXAxis.Count() == 1)
+			{
+				return membersWithSmallestAngleToXAxis.First();
+			}
+
+			// I couldn't decide - let's try by largest cross section bounds
+			var membersWithBiggestCrossSectionBound = membersWithSmallestAngleToXAxis
+				.GroupBy(member => member.m.CrossSectionBounds.Perimeter())
+				.OrderByDescending(a => a.Key)
+				.First();
+
+			if (membersWithBiggestCrossSectionBound.Count() == 1)
+			{
+				return membersWithBiggestCrossSectionBound.First();
+			}
+
+			// I still couldn't decide, simply take the first
+			return membersWithBiggestCrossSectionBound.FirstOrDefault();
 		}
 
 		private static IEnumerable<(Member m, bool isended)> GetAllHorizontalMembers(IEnumerable<(Member m, bool isended)> members)
@@ -1101,6 +1150,11 @@ namespace IdeaStatiCa.BIM.Common
 		{
 			const double margin = 1.2;
 			return rect1.Width >= rect2.Width * margin || rect1.Height >= rect2.Height * margin;
+		}
+
+		public static double Perimeter(this Rect rect)
+		{
+			return (rect.Width + rect.Height * 2);
 		}
 	}
 }
