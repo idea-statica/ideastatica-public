@@ -1154,7 +1154,7 @@ namespace IdeaStatiCa.BIM.Common
 
 		public static double Perimeter(this Rect rect)
 		{
-			return (rect.Width + rect.Height * 2);
+			return (rect.Width + rect.Height) * 2;
 		}
 	}
 }
