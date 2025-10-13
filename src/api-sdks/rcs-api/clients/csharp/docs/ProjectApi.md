@@ -344,7 +344,7 @@ No authorization required
 
 <a id="getcodesettings"></a>
 ## **GetCodeSettings**
-> **List&lt;RcsSetting&gt; GetCodeSettings (Guid projectId)**
+> **string GetCodeSettings (Guid projectId)**
 
 
 
@@ -358,7 +358,7 @@ No authorization required
 
 ### Return type
 
-[**List&lt;RcsSetting&gt;**](RcsSetting.md)
+**string**
 
 ### Example
 
@@ -386,7 +386,7 @@ namespace Example
 
                 try
                 {
-                    List<RcsSetting> result = conClient.Project.GetCodeSettings(projectId);
+                    string result = conClient.Project.GetCodeSettings(projectId);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -424,7 +424,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<RcsSetting>> response = conClient.Project.GetCodeSettingsWithHttpInfo(projectId);
+    ApiResponse<string> response = conClient.Project.GetCodeSettingsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -444,7 +444,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain
 
 
 #### HTTP response details

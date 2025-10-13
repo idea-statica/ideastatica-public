@@ -432,11 +432,9 @@ paths:
       responses:
         "200":
           content:
-            application/json:
+            text/plain:
               schema:
-                items:
-                  $ref: '#/components/schemas/RcsSetting'
-                type: array
+                type: string
           description: OK
       tags:
       - Project

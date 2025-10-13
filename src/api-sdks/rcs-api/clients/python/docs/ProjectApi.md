@@ -247,7 +247,7 @@ No authorization required
 
 <a id="get_code_settings"></a>
 # **get_code_settings**
-> List[RcsSetting] get_code_settings(project_id)
+> str get_code_settings(project_id)
 
 
 
@@ -260,14 +260,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[RcsSetting]**](RcsSetting.md)
+**str**
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_setting import RcsSetting
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
 
@@ -314,7 +313,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain
 
 ### HTTP response details
 
