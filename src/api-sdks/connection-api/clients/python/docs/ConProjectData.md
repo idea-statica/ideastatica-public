@@ -22,7 +22,7 @@ json = "{}"
 # create an instance of ConProjectData from a JSON string
 con_project_data_instance = ConProjectData.from_json(json)
 # print the JSON string representation of the object
-print(ConProjectData.to_json())
+print(con_project_data_instance.to_json())
 
 # convert the object into a dict
 con_project_data_dict = con_project_data_instance.to_dict()

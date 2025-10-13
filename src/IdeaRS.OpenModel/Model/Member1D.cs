@@ -98,7 +98,7 @@ namespace IdeaRS.OpenModel.Model
 		public ReferenceElement CrossSection { get; set; }
 
 		/// <summary>
-		/// Alignment of the member's cross-section. Eccentricities are added up to the alignment.
+		/// Alignment for haunched member.
 		/// </summary>
 		public Alignment Alignment { get; set; }
 
@@ -113,17 +113,23 @@ namespace IdeaRS.OpenModel.Model
 		public bool MirrorZ { get; set; }
 
 		/// <summary>
-		/// Local eccentricity at the begin of Element1D
+		/// An eccentricity at the begin of the Member1D. Coordinate system can be specified by <see cref="EccentricityReference"/>.
 		/// </summary>
 		public Vector3D EccentricityBegin { get; set; } = new Vector3D();
 
 		/// <summary>
-		/// Local eccentricity at the end of Element1D
+		/// An eccentricity at the end of the Member1D. Coordinate system can be specified by <see cref="EccentricityReference"/>.
 		/// </summary>
 		public Vector3D EccentricityEnd { get; set; } = new Vector3D();
 
+		/// <summary>
+		/// An insertion point of the member relative to its reference line (e.g., top-of-steel, bottom-of-steel).
+		/// </summary>
 		public InsertionPoints InsertionPoint { get; set; }
 
+		/// <summary>
+		/// A reference system (local or global) in which <see cref="EccentricityBegin"/> and <see cref="EccentricityEnd"/> are defined.
+		/// </summary>
 		public EccentricityReference EccentricityReference { get; set; } = EccentricityReference.LocalCoordinateSystem;
 	}
 }

@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of ParameterUpdateResponse from a JSON string
 parameter_update_response_instance = ParameterUpdateResponse.from_json(json)
 # print the JSON string representation of the object
-print(ParameterUpdateResponse.to_json())
+print(parameter_update_response_instance.to_json())
 
 # convert the object into a dict
 parameter_update_response_dict = parameter_update_response_instance.to_dict()

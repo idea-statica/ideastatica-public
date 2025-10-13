@@ -21,7 +21,7 @@ json = "{}"
 # create an instance of Point3D from a JSON string
 point3_d_instance = Point3D.from_json(json)
 # print the JSON string representation of the object
-print(Point3D.to_json())
+print(point3_d_instance.to_json())
 
 # convert the object into a dict
 point3_d_dict = point3_d_instance.to_dict()

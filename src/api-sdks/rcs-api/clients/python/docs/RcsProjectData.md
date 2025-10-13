@@ -25,7 +25,7 @@ json = "{}"
 # create an instance of RcsProjectData from a JSON string
 rcs_project_data_instance = RcsProjectData.from_json(json)
 # print the JSON string representation of the object
-print(RcsProjectData.to_json())
+print(rcs_project_data_instance.to_json())
 
 # convert the object into a dict
 rcs_project_data_dict = rcs_project_data_instance.to_dict()

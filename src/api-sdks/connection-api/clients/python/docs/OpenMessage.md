@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of OpenMessage from a JSON string
 open_message_instance = OpenMessage.from_json(json)
 # print the JSON string representation of the object
-print(OpenMessage.to_json())
+print(open_message_instance.to_json())
 
 # convert the object into a dict
 open_message_dict = open_message_instance.to_dict()

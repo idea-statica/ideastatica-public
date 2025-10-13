@@ -207,6 +207,7 @@ namespace IdeaConWpfApp
 						catch (Exception ex)
 						{
 							project.IsFailed = true;      // ❌ mark failure
+							project.ErrorMessage = ex.Message; // store exception message
 							Dispatcher.Invoke(() => MessageLabel.Text = $"Failed: {project.FilePath}");
 						}
 					}
@@ -256,6 +257,19 @@ namespace IdeaConWpfApp
 				OnPropertyChanged(nameof(IsFailed));
 			}
 		}
+
+		private string? _errorMessage;
+		public string? ErrorMessage
+		{
+			get => _errorMessage;
+			set
+			{
+				_errorMessage = value;
+				OnPropertyChanged(nameof(ErrorMessage));
+			}
+		}
+
+
 
 		public event PropertyChangedEventHandler? PropertyChanged;
 		protected void OnPropertyChanged(string name)

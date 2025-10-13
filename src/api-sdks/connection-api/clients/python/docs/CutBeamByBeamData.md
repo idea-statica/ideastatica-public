@@ -29,7 +29,7 @@ json = "{}"
 # create an instance of CutBeamByBeamData from a JSON string
 cut_beam_by_beam_data_instance = CutBeamByBeamData.from_json(json)
 # print the JSON string representation of the object
-print(CutBeamByBeamData.to_json())
+print(cut_beam_by_beam_data_instance.to_json())
 
 # convert the object into a dict
 cut_beam_by_beam_data_dict = cut_beam_by_beam_data_instance.to_dict()

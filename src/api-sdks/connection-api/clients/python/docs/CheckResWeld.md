@@ -23,7 +23,7 @@ json = "{}"
 # create an instance of CheckResWeld from a JSON string
 check_res_weld_instance = CheckResWeld.from_json(json)
 # print the JSON string representation of the object
-print(CheckResWeld.to_json())
+print(check_res_weld_instance.to_json())
 
 # convert the object into a dict
 check_res_weld_dict = check_res_weld_instance.to_dict()

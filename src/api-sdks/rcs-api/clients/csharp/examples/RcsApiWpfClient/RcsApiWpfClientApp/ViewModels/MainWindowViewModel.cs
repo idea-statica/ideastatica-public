@@ -1,11 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RcsApi;
+using IdeaStatiCa.RcsClient.Services;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +23,7 @@ namespace RcsApiWpfClientApp.ViewModels
 	{
 		private IApiServiceFactory<IRcsApiClient>? _rcsApiClientFactory;
 		private readonly IConfiguration _configuration;
+		private readonly IReinforcedCrossSectionTemplateProvider _reinfCssTemplateProvider;
 		private readonly IPluginLogger _logger;
 
 		private bool _isBusy;
@@ -34,12 +39,14 @@ namespace RcsApiWpfClientApp.ViewModels
 		private bool disposedValue;
 
 		public MainWindowViewModel(IConfiguration configuration,
+			IReinforcedCrossSectionTemplateProvider reinfCssTemplateProvider,
 			IPluginLogger logger)
 		{
 			this._rcsApiClientFactory = null;
 			this.cts = new CancellationTokenSource();
 			this._configuration = configuration;
 			this._logger = logger;
+			this._reinfCssTemplateProvider = reinfCssTemplateProvider;
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["RCS_API_RUNSERVER"]) ? true : _configuration["RCS_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["RCS_API_RUNSERVER"]) ? null : new Uri(_configuration["RCS_API_ENDPOINT"]!);
@@ -48,8 +55,15 @@ namespace RcsApiWpfClientApp.ViewModels
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => RcsApiClient != null && this.ProjectInfo == null);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
+			GetProjectSummaryCmdAsync = new AsyncRelayCommand(GetProjectSummaryAsync, CanGetProjectSummary);
+
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
-			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedSection != null);
+
+			UpdateSectionCmdAsync = new AsyncRelayCommand(UpdateSectionAsync, CanUpdateSection);
+
+			CreateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanCreateReinforcedCss(p));
+			UpdateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
+			UpdateReinforcementCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedSection != null);
 
@@ -293,6 +307,38 @@ namespace RcsApiWpfClientApp.ViewModels
 			set
 			{
 				SetProperty(ref selectedSection, value);
+
+				if (selectedSection != null && ReinforcedCrossSections != null)
+				{
+					SelectedReinforcedCss = ReinforcedCrossSections.FirstOrDefault(s => s.Id == selectedSection?.ReinforcedCssId);
+				}
+				else
+				{
+					SelectedReinforcedCss = null;
+				}
+
+				RefreshSectionChanged();
+			}
+		}
+
+		private ObservableCollection<ReinforcedCrossSectionViewModel> reinforcedCrossSections;
+		public ObservableCollection<ReinforcedCrossSectionViewModel> ReinforcedCrossSections
+		{
+			get => reinforcedCrossSections;
+			set
+			{
+				SetProperty(ref reinforcedCrossSections, value);
+				RefreshSectionChanged();
+			}
+		}
+
+		private ReinforcedCrossSectionViewModel? selectedReinforcedCss;
+		public ReinforcedCrossSectionViewModel? SelectedReinforcedCss
+		{
+			get => selectedReinforcedCss;
+			set
+			{
+				SetProperty(ref selectedReinforcedCss, value);
 				RefreshSectionChanged();
 			}
 		}
@@ -320,7 +366,41 @@ namespace RcsApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
-		public AsyncRelayCommand ApplyTemplateCommand { get; }
+		public IAsyncRelayCommand GetProjectSummaryCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand UpdateSectionCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// A command for creating a new reinforced cross-section by importing template (.nav file)
+		/// </summary>
+		public IAsyncRelayCommand<object?> CreateReinfCssCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public IAsyncRelayCommand<object?> UpdateReinfCssCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand<object?> UpdateReinforcementCmdAsync
+		{
+			get;
+			private set;
+		}
 
 		public AsyncRelayCommand GetSettingCommand { get; }
 
@@ -341,7 +421,10 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "IdeaRcs | *.idearcs";
+
+			// Set properties for the OpenFileDialog
+			openFileDialog.Title = "Select a Project File";
+			openFileDialog.Filter = "IDEARCS Files (*.idearcs)|*.idearcs|XML Files (*.xml)|*.xml";
 			if (openFileDialog.ShowDialog() != true)
 			{
 				return;
@@ -350,22 +433,19 @@ namespace RcsApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				ProjectInfo = await RcsApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
+				// import ideaRcs ideaRcs project from IOM
 
-				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
-
-				OutputText = string.Format("ProjectId = {0}\n\n{1}", RcsApiClient.Project.ProjectId, projectInfoJson);
-
-				Sections = new ObservableCollection<SectionViewModel>(ProjectInfo.Sections.Select(s => new SectionViewModel(s)));
-
-				if (Sections.Any())
+				if (openFileDialog.FileName.EndsWith("xml", StringComparison.InvariantCultureIgnoreCase))
 				{
-					SelectedSection = Sections.First();
+					ProjectInfo = await RcsApiClient!.Project.CreateProjectFromIomFileAsync(openFileDialog.FileName, CancellationToken.None);
 				}
 				else
 				{
-					SelectedSection = null;
+					// open existing ideaRCS project
+					ProjectInfo = await RcsApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
 				}
+
+				await GetProjectSummaryAsync();
 			}
 			catch (Exception ex)
 			{
@@ -379,6 +459,38 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 
 			await Task.CompletedTask;
+		}
+
+
+		private async Task GetProjectSummaryAsync()
+		{
+			_logger.LogDebug("MainWindowViewModel.GetProjectSummaryAsync");
+			try
+			{
+				if (RcsApiClient is null)
+				{
+					throw new NullReferenceException("Service is not running");
+				}
+
+				ProjectInfo = await RcsApiClient.Project.GetActiveProjectAsync(0, cts.Token);
+
+				SelectedReinforcedCss = null;
+
+				ReinforcedCrossSections = new ObservableCollection<ReinforcedCrossSectionViewModel>(ProjectInfo.ReinforcedCrossSections.Select(rf => new ReinforcedCrossSectionViewModel(rf)));
+
+				Sections = new ObservableCollection<SectionViewModel>(ProjectInfo.Sections.Select(s => new SectionViewModel(s)));
+
+				SelectedSection = Sections?.FirstOrDefault();
+
+				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
+
+				OutputText = string.Format("ProjectId = {0}\n\n{1}", RcsApiClient.Project.ProjectId, projectInfoJson);
+
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message);
+			}
 		}
 
 		private async Task ConnectAsync()
@@ -479,7 +591,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			try
 			{
 				SaveFileDialog saveFileDialog = new SaveFileDialog();
-				saveFileDialog.Filter = "IdeaRcs | *.ideacon";
+				saveFileDialog.Filter = "IdeaRcs | *.idearcs";
 				if (saveFileDialog.ShowDialog() == true)
 				{
 					await RcsApiClient.Project.SaveProjectAsync(ProjectInfo.ProjectId, saveFileDialog.FileName, cts.Token);
@@ -487,7 +599,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("SaveProjectAsync failed", ex);
+				_logger.LogWarning("DownloadProjectAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -499,9 +611,70 @@ namespace RcsApiWpfClientApp.ViewModels
 			await Task.CompletedTask;
 		}
 
-		private async Task ApplyTemplateAsync()
+		private bool IsRcsProjectOpen()
 		{
-			_logger.LogInformation("ApplyTemplateAsync");
+			return this.ProjectInfo != null;
+		}
+
+		private bool CanGetProjectSummary()
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private bool CanCreateReinforcedCss(object? param)
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private bool CanUpdateReinforcedCss(object? param)
+		{
+			return IsRcsProjectOpen() && (SelectedReinforcedCss != null && SelectedReinforcedCss.Id > 0);
+		}
+
+		private bool CanUpdateSection()
+		{
+			if (!IsRcsProjectOpen() || SelectedSection == null || SelectedReinforcedCss == null)
+			{
+				return false;
+			}
+
+			int rfCssIdInProject = GetCurrentRFCssId();
+
+			return SelectedReinforcedCss.Id != rfCssIdInProject;
+		}
+
+		/// <summary>
+		/// Returns the ID of the reinforced cross-section from the selected section
+		/// If onthing is selected it retuns -1
+		/// </summary>
+		/// <returns></returns>
+		private int GetCurrentRFCssId()
+		{
+			if (ProjectInfo == null)
+			{
+				return -1;
+			}
+
+			if (SelectedSection == null)
+			{
+				return -1;
+			}
+
+			// get ID of the reinforced cross-section for the selected section from the open RCS projects
+			var section = ProjectInfo.Sections?.FirstOrDefault(s => s.Id == SelectedSection?.Id);
+
+			if (section == null || !section.RCSId.HasValue)
+			{
+				return -1;
+			}
+
+			return section.RCSId.Value;
+
+		}
+
+		private async Task ImportReinforcedCssAsync(object? param)
+		{
+			_logger.LogInformation("ImportReinforcedCssAsync");
 
 			if (ProjectInfo == null)
 			{
@@ -521,55 +694,49 @@ namespace RcsApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				OpenFileDialog openFileDialog = new OpenFileDialog();
-				openFileDialog.Filter = "Rcs Template | *.conTemp";
-				if (openFileDialog.ShowDialog() != true)
+
+				var template = await _reinfCssTemplateProvider.GetTemplateAsync();
+
+				if (string.IsNullOrEmpty(template))
 				{
-					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
+					// no template is provided
+					_logger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync - leaving, no template to import");
 					return;
 				}
 
-				var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
-				var getTemplateParam = new ConTemplateMappingGetParam()
+				var importSetting = new RcsReinforcedCrosssSectionImportSetting();
+				if (param != null && "New".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
 				{
-					Template = templateXml
+					// create a new reinforced cross-section
+					_logger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync - new reinforced cross-section is required");
+				}
+				else if (param != null &&
+					("Complete".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase) ||
+					("Reinf".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))))
+				{
+					// create a new reinforced cross-section
+					_logger.LogDebug($"MainWindowViewModel.ImportReinforcedCssAsync - it is required to update current RF id = {SelectedReinforcedCss.Id}");
+					importSetting.ReinforcedCrossSectionId = SelectedReinforcedCss.Id;
+					importSetting.PartsToImport = param.ToString();
+				}
+				else
+				{
+					throw new NotSupportedException($"Unsupported import type '{param}'");
+				}
+
+				var importData = new RcsReinforcedCrossSectionImportData()
+				{
+					Template = template,
+					Setting = importSetting,
 				};
 
-				//var templateMapping = await RcsApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
-				//	selectedRcs.Id,
-				//	getTemplateParam,
-				//	0, cts.Token);
+				var updatedSection = await RcsApiClient.CrossSection.ImportReinforcedCrossSectionAsync(ProjectInfo.ProjectId, importData, 0, cts.Token);
 
-				//if (templateMapping == null)
-				//{
-				//	throw new ArgumentException($"Invalid mapping for connection '{selectedRcs.Name}'");
-				//}
-
-				//var mappingSetter = new Services.TemplateMappingSetter();
-				//var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
-				//if (modifiedTemplateMapping == null)
-				//{
-				//	// operation was canceled
-				//	return;
-				//}
-
-				//var applyTemplateParam = new ConTemplateApplyParam()
-				//{
-				//	RcsTemplate = templateXml,
-				//	Mapping = modifiedTemplateMapping
-				//};
-
-				//var applyTemplateResult = await RcsApiClient.Template.ApplyTemplateAsync(ProjectInfo.ProjectId,
-				//	SelectedRcs!.Id,
-				//	applyTemplateParam,
-				//	0, cts.Token);
-
-
-				OutputText = "Template was applied";
+				await GetProjectSummaryAsync();
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("ApplyTemplateAsync failed", ex);
+				_logger.LogWarning("ImportReinforcedCssAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -578,6 +745,43 @@ namespace RcsApiWpfClientApp.ViewModels
 				RefreshCommands();
 			}
 		}
+
+		private async Task UpdateSectionAsync()
+		{
+			_logger.LogDebug("MainWindowViewModel.UpdateSectionAsync");
+			try
+			{
+				if (RcsApiClient == null || SelectedSection == null || SelectedReinforcedCss == null)
+				{
+					throw new Exception("Service is not running");
+				}
+
+				if (ProjectInfo == null)
+				{
+					return;
+				}
+
+				// selected section
+				int sectionId = SelectedSection.Id;
+
+				// ask user to select reinforced cross-section
+				int reinforcedSection = SelectedReinforcedCss.Id;
+
+				var newSectionData = new RcsSection();
+				newSectionData.Id = sectionId;
+				newSectionData.RCSId = reinforcedSection;
+
+				var updatedSection = await RcsApiClient.Section.UpdateSectionAsync(ProjectInfo.ProjectId, newSectionData, 0, cts.Token);
+
+				await GetProjectSummaryAsync();
+
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning(ex.Message);
+			}
+		}
+
 
 		//private void ShowClientUI()
 		//{
@@ -651,9 +855,15 @@ namespace RcsApiWpfClientApp.ViewModels
 			this.OpenProjectCommand.NotifyCanExecuteChanged();
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
-			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
+
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.GetSettingCommand.NotifyCanExecuteChanged();
+			this.UpdateSettingCommand.NotifyCanExecuteChanged();
+
+			this.CreateReinfCssCmdAsync.NotifyCanExecuteChanged();
+			this.UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
+			this.UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
+
 			this.UpdateSettingCommand.NotifyCanExecuteChanged();
 
 			this.OnPropertyChanged("CanStartService");
@@ -662,9 +872,11 @@ namespace RcsApiWpfClientApp.ViewModels
 
 		private void RefreshSectionChanged()
 		{
-			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
 			this.GetDetailResultsCommand.NotifyCanExecuteChanged();
+			UpdateSectionCmdAsync.NotifyCanExecuteChanged();
+			UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
+			UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
 			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 	}

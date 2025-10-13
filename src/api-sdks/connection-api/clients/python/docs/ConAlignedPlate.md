@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of ConAlignedPlate from a JSON string
 con_aligned_plate_instance = ConAlignedPlate.from_json(json)
 # print the JSON string representation of the object
-print(ConAlignedPlate.to_json())
+print(con_aligned_plate_instance.to_json())
 
 # convert the object into a dict
 con_aligned_plate_dict = con_aligned_plate_instance.to_dict()

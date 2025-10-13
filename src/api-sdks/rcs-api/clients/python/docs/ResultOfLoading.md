@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of ResultOfLoading from a JSON string
 result_of_loading_instance = ResultOfLoading.from_json(json)
 # print the JSON string representation of the object
-print(ResultOfLoading.to_json())
+print(result_of_loading_instance.to_json())
 
 # convert the object into a dict
 result_of_loading_dict = result_of_loading_instance.to_dict()

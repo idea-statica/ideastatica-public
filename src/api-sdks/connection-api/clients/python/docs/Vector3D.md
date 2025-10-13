@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of Vector3D from a JSON string
 vector3_d_instance = Vector3D.from_json(json)
 # print the JSON string representation of the object
-print(Vector3D.to_json())
+print(vector3_d_instance.to_json())
 
 # convert the object into a dict
 vector3_d_dict = vector3_d_instance.to_dict()

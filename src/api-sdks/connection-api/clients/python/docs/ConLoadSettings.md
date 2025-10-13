@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of ConLoadSettings from a JSON string
 con_load_settings_instance = ConLoadSettings.from_json(json)
 # print the JSON string representation of the object
-print(ConLoadSettings.to_json())
+print(con_load_settings_instance.to_json())
 
 # convert the object into a dict
 con_load_settings_dict = con_load_settings_instance.to_dict()

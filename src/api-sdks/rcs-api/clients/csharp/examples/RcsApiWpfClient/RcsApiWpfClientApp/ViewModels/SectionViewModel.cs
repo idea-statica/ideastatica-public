@@ -11,8 +11,19 @@ namespace RcsApiWpfClientApp.ViewModels
 		{
 			Id = section.Id;
 			Name = section.Description;
+			ReinforcedCssId = section.RCSId;
 		}
 
+		private int? rfId;
+		public int? ReinforcedCssId
+		{
+			get => rfId;
+			set
+			{
+				rfId = value;
+				OnPropertyChanged(nameof(ReinforcedCssId));
+			}
+		}
 
 		public int Id
 		{

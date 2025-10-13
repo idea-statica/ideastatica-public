@@ -21,7 +21,7 @@ json = "{}"
 # create an instance of BaseTemplateConversion from a JSON string
 base_template_conversion_instance = BaseTemplateConversion.from_json(json)
 # print the JSON string representation of the object
-print(BaseTemplateConversion.to_json())
+print(base_template_conversion_instance.to_json())
 
 # convert the object into a dict
 base_template_conversion_dict = base_template_conversion_instance.to_dict()

@@ -27,7 +27,7 @@ json = "{}"
 # create an instance of ConnectionData from a JSON string
 connection_data_instance = ConnectionData.from_json(json)
 # print the JSON string representation of the object
-print(ConnectionData.to_json())
+print(connection_data_instance.to_json())
 
 # convert the object into a dict
 connection_data_dict = connection_data_instance.to_dict()

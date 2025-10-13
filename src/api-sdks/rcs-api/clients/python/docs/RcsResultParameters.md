@@ -17,7 +17,7 @@ json = "{}"
 # create an instance of RcsResultParameters from a JSON string
 rcs_result_parameters_instance = RcsResultParameters.from_json(json)
 # print the JSON string representation of the object
-print(RcsResultParameters.to_json())
+print(rcs_result_parameters_instance.to_json())
 
 # convert the object into a dict
 rcs_result_parameters_dict = rcs_result_parameters_instance.to_dict()

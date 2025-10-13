@@ -28,7 +28,7 @@ json = "{}"
 # create an instance of BoltGrid from a JSON string
 bolt_grid_instance = BoltGrid.from_json(json)
 # print the JSON string representation of the object
-print(BoltGrid.to_json())
+print(bolt_grid_instance.to_json())
 
 # convert the object into a dict
 bolt_grid_dict = bolt_grid_instance.to_dict()
