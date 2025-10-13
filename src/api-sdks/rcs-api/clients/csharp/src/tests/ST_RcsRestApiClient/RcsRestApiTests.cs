@@ -87,12 +87,95 @@ namespace ST_RcsRestApiClient
 		}
 
 		[Test]
-		public async Task ShouldGetAndUpdateCodeSettingsDouble()
+		public async Task ShouldGetCodeSettingsJson()
+		{
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
+			currentSettingsJson.Should().NotBeNull();
+			currentSettingsJson.Should().NotBeEmpty();
+
+			JArray jsonArray = JArray.Parse(currentSettingsJson);
+			jsonArray.Should().NotBeNull();
+			jsonArray.Should().HaveCountGreaterThan(0);
+
+			// Find a setting with ID 1 (equivalent to SetupValueDouble)
+			var doubleSetting = jsonArray.FirstOrDefault(x => x["id"]?.Value<int>() == 1);
+			doubleSetting.Should().NotBeNull();
+			doubleSetting!["id"]?.Value<int>().Should().Be(1);
+			doubleSetting["type"]?.ToString().Should().NotBeNullOrEmpty();
+			doubleSetting["value"]?.Value<double>().Should().Be(10);
+
+			// Find a setting with ID 2 (equivalent to Setup2Values)
+			var setup2ValuesSetting = jsonArray.FirstOrDefault(x => x["id"]?.Value<int>() == 2);
+			setup2ValuesSetting.Should().NotBeNull();
+			setup2ValuesSetting!["id"]?.Value<int>().Should().Be(2);
+
+			setup2ValuesSetting.SelectToken("value.Value1")?.Value<double>().Should().Be(1.5);
+			setup2ValuesSetting.SelectToken("value.Value2")?.Value<double>().Should().Be(1.2);
+
+			// Find a setting with ID 10 (equivalent to SetupTable_W_max_1992_1_1)
+			var setupTableSetting = jsonArray.FirstOrDefault(x => x["id"]?.Value<int>() == 10);
+			setupTableSetting.Should().NotBeNull();
+			setupTableSetting!["id"]?.Value<int>().Should().Be(10);
+			setupTableSetting["type"]?.ToString().Should().Be("CI.Services.Setup.SetupTable_W_max_1992_1_1");
+			setupTableSetting["value"].Should().NotBeNull();
+		}
+
+		[Test]
+		public async Task ShouldGetCodeSettingsXml()
+		{
+			var currentSettingsXml = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			currentSettingsXml.Should().NotBeNull();
+			currentSettingsXml.Should().NotBeEmpty();
+
+			XDocument xmlDoc;
+
+			using (var reader = new StringReader(currentSettingsXml))
+			{
+				xmlDoc = XDocument.Load(reader);
+			
+				xmlDoc.Should().NotBeNull();
+
+				var setupValues = xmlDoc.Descendants("SetupValue");
+
+				// Find a SetupValue with type="SetupValueDouble"
+				var doubleSetting = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "1").First();
+				doubleSetting.Should().NotBeNull();
+				var originalDoubleValueElement = doubleSetting!.Element("Value");
+				originalDoubleValueElement.Should().NotBeNull();
+				double.Parse(originalDoubleValueElement!.Value).Should().Be(10);
+
+
+				// Find a SetupValue with type-value containing "Setup2Values"
+				var setup2ValuesSetting = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").First();
+
+				setup2ValuesSetting.Should().NotBeNull();
+
+				var updatedValue1Element = setup2ValuesSetting.Descendants("Value1").First();
+				var updatedValue2Element = setup2ValuesSetting.Descendants("Value2").First();
+
+				updatedValue1Element.Should().NotBeNull();
+				updatedValue2Element.Should().NotBeNull();
+
+				double.Parse(updatedValue1Element!.Value).Should().Be(1.5);
+				double.Parse(updatedValue2Element!.Value).Should().Be(1.2);
+
+				// Find a SetupValue with type-value containing "SetupTable_W_max_1992_1_1"
+				var setupTableSetting = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "10").First();
+				setupTableSetting!.Attribute("type-value")!.Value.Should().Be("CI.Services.Setup.SetupTable_W_max_1992_1_1");
+				setupTableSetting.Should().NotBeNull();
+
+				var updatedTableValueElement = setupTableSetting!.Element("Value");
+				updatedTableValueElement.Should().NotBeNull();
+			}
+		}
+
+		[Test]
+		public async Task ShouldUpdateCodeSettingsDouble()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 			sections.Should().NotBeNull();
 
-			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
 			currentSettingsJson.Should().NotBeNull();
 			currentSettingsJson.Should().NotBeEmpty();
 
@@ -127,7 +210,7 @@ namespace ST_RcsRestApiClient
 				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings!);
 				updateResult.Should().BeTrue();
 
-				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
 				var updatedSettings = JArray.Parse(updatedSettingsJson);
 
 				var updatedSetting = updatedSettings
@@ -139,12 +222,12 @@ namespace ST_RcsRestApiClient
 		}
 
 		[Test]
-		public async Task ShouldGetAndUpdateCodeSettignsSetupTable()
+		public async Task ShouldUpdateCodeSettignsSetupTable()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 			sections.Should().NotBeNull();
 
-			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
 			currentSettingsJson.Should().NotBeNull();
 			currentSettingsJson.Should().NotBeEmpty();
 
@@ -183,7 +266,7 @@ namespace ST_RcsRestApiClient
 				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings);
 				updateResult.Should().BeTrue();
 
-				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
 				var updatedSettings = JArray.Parse(updatedSettingsJson);
 
 				var updatedSetting = updatedSettings
@@ -198,12 +281,12 @@ namespace ST_RcsRestApiClient
 		}
 
 		[Test]
-		public async Task ShouldGetAndUpdateCodeSettignsSetup2Values()
+		public async Task ShouldUpdateCodeSettignsSetup2Values()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 			sections.Should().NotBeNull();
 
-			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
 			currentSettingsJson.Should().NotBeNull();
 			currentSettingsJson.Should().NotBeEmpty();
 
@@ -233,7 +316,7 @@ namespace ST_RcsRestApiClient
 				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, updateSettings);
 				updateResult.Should().BeTrue();
 
-				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsJsonAsync(ActiveProjectId);
 				var updatedSettings = JArray.Parse(updatedSettingsJson);
 
 				var updatedSetting = updatedSettings
