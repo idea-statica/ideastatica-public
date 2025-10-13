@@ -12,7 +12,7 @@
     <Description>IDEA StatiCa RCS API</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>IdeaStatiCa.RcsApi</RootNamespace>
-    <Version>25.1.0.3326</Version>
+    <Version>25.1.0.3655</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\IdeaStatiCa.RcsApi.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

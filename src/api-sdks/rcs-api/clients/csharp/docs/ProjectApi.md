@@ -444,7 +444,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml
+ - **Accept**: text/plain
 
 
 #### HTTP response details
