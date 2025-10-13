@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Reflection;
 
 namespace IdeaStatiCa.Api.Utilities
 {
@@ -10,6 +12,17 @@ namespace IdeaStatiCa.Api.Utilities
 		{
 			JsonSerializerSettings settings = new JsonSerializerSettings();
 			settings.SetForIdea();
+			return settings;
+		}
+
+		/// <summary>
+		/// Creates JSON serializer settings for IDEA REST API that safely handles Perst objects
+		/// </summary>
+		/// <returns>JsonSerializerSettings configured to safely serialize objects inheriting from Persistent</returns>
+		public static JsonSerializerSettings CreateIdeaRestJsonSettingsForPerst()
+		{
+			JsonSerializerSettings settings = new JsonSerializerSettings();
+			settings.SetForIdeaWithPerst();
 			return settings;
 		}
 
@@ -34,6 +47,33 @@ namespace IdeaStatiCa.Api.Utilities
 			// Settings required for proper 3D Scene data to process with npm package
 			settings.NullValueHandling = NullValueHandling.Ignore;
 			settings.TypeNameHandling = TypeNameHandling.None;
+		}
+
+		public static void SetForIdeaWithPerst(this JsonSerializerSettings settings)
+		{
+			settings.SetForIdea();
+			settings.Formatting = Formatting.Indented;
+			settings.ContractResolver = new PerstSafeContractResolver();
+		}
+	}
+
+	/// <summary>
+	/// Contract resolver that handles serialization of objects inheriting from Perst.Persistent
+	/// by excluding properties that can cause serialization issues
+	/// </summary>
+	internal sealed class PerstSafeContractResolver : CamelCasePropertyNamesContractResolver
+	{
+		protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+		{
+			var property = base.CreateProperty(member, memberSerialization);
+			
+			if (property.DeclaringType?.Name == "Persistent" &&
+				property.DeclaringType?.Namespace == "Perst")
+			{
+				property.ShouldSerialize = _ => false;
+			}
+
+			return property;
 		}
 	}
 }

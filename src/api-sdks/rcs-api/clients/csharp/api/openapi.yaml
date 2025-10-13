@@ -432,7 +432,7 @@ paths:
       responses:
         "200":
           content:
-            application/xml:
+            text/plain:
               schema:
                 type: string
           description: OK
