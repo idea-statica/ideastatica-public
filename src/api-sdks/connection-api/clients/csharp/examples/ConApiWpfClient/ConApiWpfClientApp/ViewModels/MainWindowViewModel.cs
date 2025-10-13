@@ -411,6 +411,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 			try
 			{
+				OutputText = "Attaching to the ConnectionRestApi";
 				if (RunApiServer)
 				{
 					_connectionApiClientFactory = new ConnectionApiServiceRunner(_configuration["IdeaStatiCaSetupPath"]);
@@ -426,6 +427,13 @@ namespace ConApiWpfClientApp.ViewModels
 					_connectionApiClientFactory = new ConnectionApiServiceAttacher(_configuration["CONNECTION_API_ENDPOINT"]!);
 					ConApiClient = await _connectionApiClientFactory.CreateApiClient();
 				}
+
+				if(ConApiClient == null)
+				{
+					throw new Exception("Can not create ConApiClient");
+				}
+
+				OutputText = $"Connected. ClientId = {ConApiClient.ClientId}";
 			}
 			catch (Exception ex)
 			{
