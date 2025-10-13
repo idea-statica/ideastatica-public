@@ -85,7 +85,7 @@ namespace IdeaStatiCa.RcsApi
 						else
 						{
 							// Service has not started
-							throw new Exception($"Can not start {apiExecutablePath}.\nCheck the installation the framework: 'Microsoft.AspNetCore.App'.\nSee https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App&framework_version=8.0.0&arch=x64&rid=win-x64&os=win10");
+							throw new InvalidOperationException($"Failed to start the application: '{apiExecutablePath}'.\nThe required .NET framework 'Microsoft.AspNetCore.App' (version 8.0.0) may not be installed or is not configured correctly.\nPlease verify your .NET installation: https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App&framework_version=8.0.0&arch=x64&rid=win-x64&os=win10");
 						}
 					}
 
