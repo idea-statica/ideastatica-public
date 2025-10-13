@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of Region2D from a JSON string
 region2_d_instance = Region2D.from_json(json)
 # print the JSON string representation of the object
-print(Region2D.to_json())
+print(region2_d_instance.to_json())
 
 # convert the object into a dict
 region2_d_dict = region2_d_instance.to_dict()

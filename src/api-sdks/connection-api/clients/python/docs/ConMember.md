@@ -26,7 +26,7 @@ json = "{}"
 # create an instance of ConMember from a JSON string
 con_member_instance = ConMember.from_json(json)
 # print the JSON string representation of the object
-print(ConMember.to_json())
+print(con_member_instance.to_json())
 
 # convert the object into a dict
 con_member_dict = con_member_instance.to_dict()

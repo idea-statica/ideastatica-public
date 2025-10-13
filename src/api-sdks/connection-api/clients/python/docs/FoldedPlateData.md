@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of FoldedPlateData from a JSON string
 folded_plate_data_instance = FoldedPlateData.from_json(json)
 # print the JSON string representation of the object
-print(FoldedPlateData.to_json())
+print(folded_plate_data_instance.to_json())
 
 # convert the object into a dict
 folded_plate_data_dict = folded_plate_data_instance.to_dict()

@@ -20,7 +20,7 @@ json = "{}"
 # create an instance of ConOperation from a JSON string
 con_operation_instance = ConOperation.from_json(json)
 # print the JSON string representation of the object
-print(ConOperation.to_json())
+print(con_operation_instance.to_json())
 
 # convert the object into a dict
 con_operation_dict = con_operation_instance.to_dict()

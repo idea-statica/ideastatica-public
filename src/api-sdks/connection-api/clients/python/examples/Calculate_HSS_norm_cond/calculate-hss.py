@@ -59,18 +59,18 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         raw_results = json.loads(firstConnectionResult)
         pprint(raw_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams.connection_ids)
 
         for item in detailed_results:
             pprint(item)
 
-        # get connection setup
-        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
+        connection_setup = api_client.settings.get_settings(api_client.project.active_project_id)
         pprint(connection_setup)
 
         # modify setup
-        connection_setup.hss_limit_plastic_strain = 0.02
-        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
+        modifiedSetupValues = {}
+        modifiedSetupValues["calculationCommon/Checks/Shared/LimitPlasticStrainForHighStrengthSteel@01"] = 0.02
+        modifiedSetup = api_client.settings.update_settings(api_client.project.active_project_id, modifiedSetupValues)
 
         # recalculate connection
         recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)

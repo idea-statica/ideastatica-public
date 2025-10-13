@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of OpenElementId from a JSON string
 open_element_id_instance = OpenElementId.from_json(json)
 # print the JSON string representation of the object
-print(OpenElementId.to_json())
+print(open_element_id_instance.to_json())
 
 # convert the object into a dict
 open_element_id_dict = open_element_id_instance.to_dict()

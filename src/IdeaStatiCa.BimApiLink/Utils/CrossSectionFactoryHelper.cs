@@ -209,6 +209,25 @@ namespace IdeaStatiCa.BimApiLink.Utils
 		}
 
 		/// <summary>
+		/// Fill parameters for cold formed C channel
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="Width">Css width</param>
+		/// <param name="Height">Height of cross-section</param>
+		/// <param name="Thickness">Thickness</param>
+		/// <param name="Radius">Inside radius</param>
+		/// <param name="mirrorZ"></param>
+		public static void FillColdFormedChannel(IdeaCrossSectionByParameters css, double Width, double Height, double Thickness, double Radius, bool mirrorZ = false)
+		{
+			css.Type = CrossSectionType.CFU;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "InsideRadius", Value = Radius });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
+		}
+
+		/// <summary>
 		/// Welded I asymetrical - steel shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>

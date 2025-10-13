@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of Segment2D from a JSON string
 segment2_d_instance = Segment2D.from_json(json)
 # print the JSON string representation of the object
-print(Segment2D.to_json())
+print(segment2_d_instance.to_json())
 
 # convert the object into a dict
 segment2_d_dict = segment2_d_instance.to_dict()

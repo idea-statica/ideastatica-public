@@ -81,6 +81,11 @@ namespace IdeaRS.OpenModel.Detail
 		public double LoadLength { get; set; }
 
 		/// <summary>
+		/// Position load column related to edge or center point
+		/// </summary>
+		public PositionRelatedToMasterType LoadPositionRelatedToType { get; set; }
+
+		/// <summary>
 		/// Width of base plate
 		/// </summary>
 		public double Width { get; set; }
@@ -141,7 +146,12 @@ namespace IdeaRS.OpenModel.Detail
 		/// Position Y on master component
 		/// </summary>
 		public double PositionY { get; set; }
-		
+
+		/// <summary>
+		/// Position related to edge or center point
+		/// </summary>
+		public PositionRelatedToMasterType PositionRelatedToMasterType { get; set; }
+
 		/// <summary>
 		/// Shear force transfer type:
 		/// 1 - friction
@@ -186,8 +196,8 @@ namespace IdeaRS.OpenModel.Detail
 		public double ShearLugRotation { get; set; }
 
 		/// <summary>
-		/// Position related to edge or center point
+		/// Position shearlug related to edge or center point
 		/// </summary>
-		public PositionRelatedToMasterType PositionRelatedToMasterType { get; set; }
+		public PositionRelatedToMasterType ShearLugPositionRelatedToType { get; set; }
 	}
 }

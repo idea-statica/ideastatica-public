@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of Point2D from a JSON string
 point2_d_instance = Point2D.from_json(json)
 # print the JSON string representation of the object
-print(Point2D.to_json())
+print(point2_d_instance.to_json())
 
 # convert the object into a dict
 point2_d_dict = point2_d_instance.to_dict()

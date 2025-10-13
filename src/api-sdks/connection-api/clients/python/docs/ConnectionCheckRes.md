@@ -28,7 +28,7 @@ json = "{}"
 # create an instance of ConnectionCheckRes from a JSON string
 connection_check_res_instance = ConnectionCheckRes.from_json(json)
 # print the JSON string representation of the object
-print(ConnectionCheckRes.to_json())
+print(connection_check_res_instance.to_json())
 
 # convert the object into a dict
 connection_check_res_dict = connection_check_res_instance.to_dict()

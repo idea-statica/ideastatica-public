@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of RcsReinforcedCrossSection from a JSON string
 rcs_reinforced_cross_section_instance = RcsReinforcedCrossSection.from_json(json)
 # print the JSON string representation of the object
-print(RcsReinforcedCrossSection.to_json())
+print(rcs_reinforced_cross_section_instance.to_json())
 
 # convert the object into a dict
 rcs_reinforced_cross_section_dict = rcs_reinforced_cross_section_instance.to_dict()

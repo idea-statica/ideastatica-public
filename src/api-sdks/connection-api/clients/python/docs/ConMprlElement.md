@@ -17,7 +17,7 @@ json = "{}"
 # create an instance of ConMprlElement from a JSON string
 con_mprl_element_instance = ConMprlElement.from_json(json)
 # print the JSON string representation of the object
-print(ConMprlElement.to_json())
+print(con_mprl_element_instance.to_json())
 
 # convert the object into a dict
 con_mprl_element_dict = con_mprl_element_instance.to_dict()

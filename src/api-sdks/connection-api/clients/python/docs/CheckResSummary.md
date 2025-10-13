@@ -23,7 +23,7 @@ json = "{}"
 # create an instance of CheckResSummary from a JSON string
 check_res_summary_instance = CheckResSummary.from_json(json)
 # print the JSON string representation of the object
-print(CheckResSummary.to_json())
+print(check_res_summary_instance.to_json())
 
 # convert the object into a dict
 check_res_summary_dict = check_res_summary_instance.to_dict()

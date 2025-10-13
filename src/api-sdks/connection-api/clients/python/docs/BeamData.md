@@ -32,7 +32,7 @@ json = "{}"
 # create an instance of BeamData from a JSON string
 beam_data_instance = BeamData.from_json(json)
 # print the JSON string representation of the object
-print(BeamData.to_json())
+print(beam_data_instance.to_json())
 
 # convert the object into a dict
 beam_data_dict = beam_data_instance.to_dict()

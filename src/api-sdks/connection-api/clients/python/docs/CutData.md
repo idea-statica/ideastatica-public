@@ -21,7 +21,7 @@ json = "{}"
 # create an instance of CutData from a JSON string
 cut_data_instance = CutData.from_json(json)
 # print the JSON string representation of the object
-print(CutData.to_json())
+print(cut_data_instance.to_json())
 
 # convert the object into a dict
 cut_data_dict = cut_data_instance.to_dict()

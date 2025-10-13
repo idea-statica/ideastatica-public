@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of TextPosition from a JSON string
 text_position_instance = TextPosition.from_json(json)
 # print the JSON string representation of the object
-print(TextPosition.to_json())
+print(text_position_instance.to_json())
 
 # convert the object into a dict
 text_position_dict = text_position_instance.to_dict()

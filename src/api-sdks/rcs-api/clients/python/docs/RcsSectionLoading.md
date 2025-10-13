@@ -18,7 +18,7 @@ json = "{}"
 # create an instance of RcsSectionLoading from a JSON string
 rcs_section_loading_instance = RcsSectionLoading.from_json(json)
 # print the JSON string representation of the object
-print(RcsSectionLoading.to_json())
+print(rcs_section_loading_instance.to_json())
 
 # convert the object into a dict
 rcs_section_loading_dict = rcs_section_loading_instance.to_dict()

@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of DrawData from a JSON string
 draw_data_instance = DrawData.from_json(json)
 # print the JSON string representation of the object
-print(DrawData.to_json())
+print(draw_data_instance.to_json())
 
 # convert the object into a dict
 draw_data_dict = draw_data_instance.to_dict()

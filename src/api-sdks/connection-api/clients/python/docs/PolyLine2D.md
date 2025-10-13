@@ -19,7 +19,7 @@ json = "{}"
 # create an instance of PolyLine2D from a JSON string
 poly_line2_d_instance = PolyLine2D.from_json(json)
 # print the JSON string representation of the object
-print(PolyLine2D.to_json())
+print(poly_line2_d_instance.to_json())
 
 # convert the object into a dict
 poly_line2_d_dict = poly_line2_d_instance.to_dict()

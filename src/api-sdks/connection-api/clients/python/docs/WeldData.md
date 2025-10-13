@@ -26,7 +26,7 @@ json = "{}"
 # create an instance of WeldData from a JSON string
 weld_data_instance = WeldData.from_json(json)
 # print the JSON string representation of the object
-print(WeldData.to_json())
+print(weld_data_instance.to_json())
 
 # convert the object into a dict
 weld_data_dict = weld_data_instance.to_dict()

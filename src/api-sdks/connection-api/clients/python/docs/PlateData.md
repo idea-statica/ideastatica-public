@@ -30,7 +30,7 @@ json = "{}"
 # create an instance of PlateData from a JSON string
 plate_data_instance = PlateData.from_json(json)
 # print the JSON string representation of the object
-print(PlateData.to_json())
+print(plate_data_instance.to_json())
 
 # convert the object into a dict
 plate_data_dict = plate_data_instance.to_dict()
