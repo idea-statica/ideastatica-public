@@ -65,20 +65,27 @@ namespace IdeaStatiCa.RcsApi
 						serviceProcess.StartInfo.Arguments = arguments;
 						serviceProcess.StartInfo.UseShellExecute = true;
 
-						serviceProcess.Start();
+						if (!serviceProcess.Start())
+						{
+							throw new InvalidOperationException($"Failed to start the process. {apiExecutablePath}");
+						}
 
 						// Wait for the API to start (you might need a more robust way to determine this)
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
 						var apiUrlHeartbeat = new Uri(apiUrlBase, IdeaStatiCa.Api.Common.RestApiConstants.RestApiHeartbeat);
 						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(120));
-						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
+						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, serviceProcess, cts.Token);
 
 						// Check if the API process is still running
-
 						if (isApiReady && !serviceProcess.HasExited)
 						{
 							serviceProcess.CloseMainWindow();
 							break;
+						}
+						else
+						{
+							// Service has not started
+							throw new InvalidOperationException($"Failed to start the application: '{apiExecutablePath}'.\nThe required .NET framework 'Microsoft.AspNetCore.App' (version 8.0.0) may not be installed or is not configured correctly.\nPlease verify your .NET installation: https://aka.ms/dotnet-core-applaunch?framework=Microsoft.AspNetCore.App&framework_version=8.0.0&arch=x64&rid=win-x64&os=win10");
 						}
 					}
 
@@ -111,12 +118,22 @@ namespace IdeaStatiCa.RcsApi
 			}
 		}
 
-		private async Task<bool> WaitForApiToBeReady(Uri apiUrl, CancellationToken cts)
+		private async Task<bool> WaitForApiToBeReady(Uri apiUrl, Process process, CancellationToken cts)
 		{
+			if (process.HasExited == true)
+			{
+				return false;
+			}
+
 			using (var httpClient = new HttpClient())
 			{
 				while (!cts.IsCancellationRequested)
 				{
+					if (process.HasExited == true)
+					{
+						return false;
+					}
+
 					try
 					{
 						var response = await httpClient.GetAsync(apiUrl, HttpCompletionOption.ResponseHeadersRead, cts);
@@ -136,6 +153,7 @@ namespace IdeaStatiCa.RcsApi
 						return false;
 					}
 				}
+
 				// Timeout waiting for the REST API to be ready
 				return false;
 			}

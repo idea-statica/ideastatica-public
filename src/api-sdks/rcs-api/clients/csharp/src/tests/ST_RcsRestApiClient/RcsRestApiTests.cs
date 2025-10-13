@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.RCS.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Xml.Linq;
 
@@ -85,52 +87,163 @@ namespace ST_RcsRestApiClient
 		}
 
 		[Test]
-		public async Task ShouldGetAndUpdateCodeSettings()
+		public async Task ShouldGetAndUpdateCodeSettingsDouble()
 		{
 			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
-
 			sections.Should().NotBeNull();
 
-			var settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
-			settingsString.Should().NotBeNull();
-			settingsString.Should().NotBeEmpty();
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			currentSettingsJson.Should().NotBeNull();
+			currentSettingsJson.Should().NotBeEmpty();
 
-			XDocument xmlDoc;
-			using (var reader = new StringReader(settingsString))
+			JArray currentSettings = JArray.Parse(currentSettingsJson);
+			currentSettings.Should().NotBeNull();
+			currentSettings.Should().HaveCountGreaterThan(0);
+
+			var sampleSetting = currentSettings.FirstOrDefault();
+			sampleSetting.Should().NotBeNull();
+			sampleSetting!["id"]?.Value<int>().Should().BeGreaterThan(-1);
+			sampleSetting["type"]?.ToString().Should().NotBeNullOrEmpty();
+			sampleSetting["value"].Should().NotBeNull();
+
+			var doubleSetting = currentSettings
+				.FirstOrDefault(s => s["type"]?.ToString() == "System.Double");
+
+			if (doubleSetting != null)
 			{
-				xmlDoc = XDocument.Load(reader);
+				var originalValue = doubleSetting["value"];
+				var settingId = doubleSetting["id"]!.Value<int>();
+
+				var newSettings = new List<RcsSetting >
+				{
+					new RcsSetting
+					{
+						Id = settingId,
+						Type = "System.Double",
+						Value = 2.5
+					}
+				};
+
+				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings!);
+				updateResult.Should().BeTrue();
+
+				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+				var updatedSettings = JArray.Parse(updatedSettingsJson);
+
+				var updatedSetting = updatedSettings
+					.FirstOrDefault(s => s["id"]?.Value<int>() == settingId);
+
+				updatedSetting.Should().NotBeNull();
+				updatedSetting!["value"]!.Value<double>().Should().Be(2.5);
 			}
+		}
 
-			// setup value for gamma_c 
-			var setupValues = xmlDoc.Descendants("SetupValue");
-			XElement gamma_c_element = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").First();
+		[Test]
+		public async Task ShouldGetAndUpdateCodeSettignsSetupTable()
+		{
+			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+			sections.Should().NotBeNull();
 
-			gamma_c_element.Should().NotBeNull();
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			currentSettingsJson.Should().NotBeNull();
+			currentSettingsJson.Should().NotBeEmpty();
 
-			// update value1
-			var gamma_c_val1 = gamma_c_element.Descendants("Value1").First();
-			gamma_c_val1.Value.Should().Be("1.5");
-			gamma_c_val1.Value = "1.4";
+			JArray currentSettings = JArray.Parse(currentSettingsJson);
+			var setupTableSetting = currentSettings
+				.FirstOrDefault(s => s["type"]?.ToString()?.Contains("SetupTable_W_max_1992_1_1") == true);
 
-
-
-			var newSettings = new List<RcsSetting>()
+			if (setupTableSetting != null)
 			{
-				 new RcsSetting()
-				 {
-					 Id=10,
-					 Type="CI.Services.Setup.SetupTable_W_max_1992_1_1", 
-					 Value="{\"X0_XC1_RC\":0.0001, \"XC2_XC3_RC\":0.0002, \"XD_XS_XF_RC\":0.0003, \"X0_XC1_PC\":0.0004, \"XC2_XC3_PC_DV\":0.026, \"XC2_XC3_PC_CV\": 0.0002, \"XD_XS_XF_PCB_DV\": 0.025, \"XD_XS_XF_PCB_CV\":0.0002, \"XC2_XC3_PCB_DB\":true, \"XC2_XC3_PCB_CB\": true, \"XD_XS_XF_PCB_DB\": true, \"XD_XS_XF_PCB_CB\": false}"
-				 },
-			};
-			var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings);
+				var originalValue = setupTableSetting["value"];
+				var settingId = setupTableSetting["id"]!.Value<int>();
+				var settingType = setupTableSetting["type"]!.ToString();
 
-			updateResult.Should().BeTrue();
+				var newSettings = new List<RcsSetting>
+				{
+					new RcsSetting
+					{
+						Id = settingId,
+						Type = settingType,
+						Value = new Dictionary<string, object>
+						{
+							["X0_XC1_PCB"] = 1.55,
+							["X0_XC1_PCU"] = 1.55,
 
-			settingsString = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
-			setupValues = xmlDoc.Descendants("SetupValue");
-			XElement updateSettingsValue = setupValues.Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "10").First();
-			updateSettingsValue.Should().NotBeNull();
+							["XC2_XC3_PCB_CV"] = 1.55,
+							["XC2_XC3_PCB_DV"] = 1.55,
+							["XC2_XC3_PCU"] = 1.55,
+
+							["XD_XS_XF_PCB_CV"] = 1.55,
+							["XD_XS_XF_PCB_DV"] = 1.55,
+							["XD_XS_XF_PCU"] = 1.5
+						}
+					}
+				};
+
+				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, newSettings);
+				updateResult.Should().BeTrue();
+
+				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+				var updatedSettings = JArray.Parse(updatedSettingsJson);
+
+				var updatedSetting = updatedSettings
+					.FirstOrDefault(s => s["id"]?.Value<int>() == settingId);
+
+				updatedSetting.Should().NotBeNull();
+				updatedSetting!["value"].Should().NotBeNull();
+
+				updatedSetting.SelectToken("value.X0_XC1_PCB")?.Value<double>().Should().Be(1.55);
+				updatedSetting.SelectToken("value.X0_XC1_PCU")?.Value<double>().Should().Be(1.55);
+			}
+		}
+
+		[Test]
+		public async Task ShouldGetAndUpdateCodeSettignsSetup2Values()
+		{
+			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+			sections.Should().NotBeNull();
+
+			var currentSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+			currentSettingsJson.Should().NotBeNull();
+			currentSettingsJson.Should().NotBeEmpty();
+
+			JArray currentSettings = JArray.Parse(currentSettingsJson);
+			var setup2ValuesSetting = currentSettings
+				.FirstOrDefault(s => s["type"]?.ToString()?.Contains("Setup2Values") == true);
+
+			if (setup2ValuesSetting != null)
+			{
+				var settingId = setup2ValuesSetting["id"]!.Value<int>();
+				var settingType = setup2ValuesSetting["type"]!.ToString();
+
+				var updateSettings = new List<RcsSetting>
+				{
+					new RcsSetting
+					{
+						Id = settingId,
+						Type = settingType,
+						Value = new Dictionary<string, object>
+						{
+							["Value1"] = 1.2,
+							["Value2"] = 2.2
+						}
+					}
+				};
+
+				var updateResult = await RcsApiClient!.Project.UpdateCodeSettingsAsync(this.ActiveProjectId, updateSettings);
+				updateResult.Should().BeTrue();
+
+				var updatedSettingsJson = await RcsApiClient!.Project.GetCodeSettingsAsync(ActiveProjectId);
+				var updatedSettings = JArray.Parse(updatedSettingsJson);
+
+				var updatedSetting = updatedSettings
+					.FirstOrDefault(s => s["id"]?.Value<int>() == settingId);
+
+				updatedSetting.Should().NotBeNull();
+
+				updatedSetting!.SelectToken("value.Value1")?.Value<double>().Should().Be(1.2);
+				updatedSetting.SelectToken("value.Value2")?.Value<double>().Should().Be(2.2);
+			}
 		}
 
 		[Test]

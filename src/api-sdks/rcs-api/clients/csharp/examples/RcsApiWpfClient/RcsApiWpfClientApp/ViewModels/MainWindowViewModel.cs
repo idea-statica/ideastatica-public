@@ -47,6 +47,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			this._configuration = configuration;
 			this._logger = logger;
 			this._reinfCssTemplateProvider = reinfCssTemplateProvider;
+			this.reinforcedCrossSections = new ObservableCollection<ReinforcedCrossSectionViewModel>();
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["RCS_API_RUNSERVER"]) ? true : _configuration["RCS_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["RCS_API_RUNSERVER"]) ? null : new Uri(_configuration["RCS_API_ENDPOINT"]!);
@@ -714,6 +715,11 @@ namespace RcsApiWpfClientApp.ViewModels
 					("Complete".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase) ||
 					("Reinf".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))))
 				{
+					if(SelectedReinforcedCss == null)
+					{
+						return;
+					}
+
 					// create a new reinforced cross-section
 					_logger.LogDebug($"MainWindowViewModel.ImportReinforcedCssAsync - it is required to update current RF id = {SelectedReinforcedCss.Id}");
 					importSetting.ReinforcedCrossSectionId = SelectedReinforcedCss.Id;
