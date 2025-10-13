@@ -8,6 +8,7 @@ Method | Description
 [**download_project**](ProjectApi.md#download_project) | Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
 [**get_active_project**](ProjectApi.md#get_active_project) | 
 [**get_code_settings**](ProjectApi.md#get_code_settings) | 
+[**get_code_settings_json**](ProjectApi.md#get_code_settings_json) | 
 [**import_iom**](ProjectApi.md#import_iom) | 
 [**import_iom_file**](ProjectApi.md#import_iom_file) | 
 [**open**](ProjectApi.md#open) | 
@@ -305,6 +306,84 @@ Looking for a code sample? request some help on our [discussion](https://github.
 All URIs are relative to *http://localhost*
 
 > **GET** /api/1/projects/{projectId}/code-settings 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/xml
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_code_settings_json"></a>
+# **get_code_settings_json**
+> str get_code_settings_json(project_id)
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+
+### Return type
+
+**str**
+
+### Example
+
+
+```python
+import ideastatica_rcs_api
+from ideastatica_rcs_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ideastatica_rcs_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ideastatica_rcs_api.ApiClient(configuration) as api_client:
+    
+    # Create an instance of the API class
+    api_instance = ideastatica_rcs_api.ProjectApi(api_client)
+    project_id = 'project_id_example' # str | 
+
+    try:
+        api_response = api_instance.get_code_settings_json(project_id)
+        print("The response of ProjectApi->get_code_settings_json:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProjectApi->get_code_settings_json: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/code-settings-json 
 
 ### Authorization
 
