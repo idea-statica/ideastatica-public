@@ -1033,7 +1033,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/xml"
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1837,8 +1837,8 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
-            };
+				"text/plain"
+			};
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
             if (localVarContentType != null)
