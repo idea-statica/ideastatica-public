@@ -465,6 +465,27 @@ paths:
           description: OK
       tags:
       - Project
+  /api/1/projects/{projectId}/code-settings-json:
+    get:
+      operationId: GetCodeSettingsJson
+      parameters:
+      - explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+      tags:
+      - Project
   /api/1/projects/{projectId}/close:
     put:
       operationId: CloseProject
