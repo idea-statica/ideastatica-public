@@ -63,5 +63,15 @@ namespace ST_ConnectionRestApi
 			commonProperties!.PlateMaterialId!.Value.Should().Be(addedPlateMat.Id);
 			commonProperties!.WeldMaterialId!.Value.Should().Be(addedWeldMat.Id);
 		}
+
+		[Test]
+		public async Task ShouldPredesignWelds_FullStrength_Test()
+		{
+			var connectionId = Project!.Connections.First().Id;
+
+			var res = await ConnectionApiClient!.Operation!.PreDesignWeldsAsync(ActiveProjectId, connectionId, IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum.FullStrength);
+
+			res.Should().Be("\"Connection 2 welds were set PredesignWeldsToFullStrength.\"");
+		}
 	}
 }
