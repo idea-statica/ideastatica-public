@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using ST_ConnectionRestApi;
 
-namespace ST_ConRestApiClient
+namespace ST_ConnectionRestApi
 {
 	public class SettingsControllerTests : ConRestApiBaseTest
 	{
