@@ -274,7 +274,6 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(group));
 			}
 
-			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingGroups);
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
@@ -360,7 +359,6 @@ namespace IdeaStatiCa.BimImporter
 			}
 			else
 			{
-				_remoteApp?.CancelMessage();
 				_logger.LogError($"BIMItemsGroup type '{group.Type}' is not supported.");
 				throw new NotImplementedException($"BIMItemsGroup type '{group.Type}' is not supported.");
 			}
@@ -368,7 +366,6 @@ namespace IdeaStatiCa.BimImporter
 
 		private BulkSelection InitBulkImport()
 		{
-			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 			BulkSelection selection = _ideaModel.GetBulkSelection();
 
@@ -379,7 +376,6 @@ namespace IdeaStatiCa.BimImporter
 
 		private BulkSelection InitImportOfWholeModel()
 		{
-			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 			BulkSelection selection = _ideaModel.GetWholeModel();
 			CheckNodesAndMembers(selection);
@@ -402,7 +398,6 @@ namespace IdeaStatiCa.BimImporter
 
 		private SingleSelection InitSingleImport()
 		{
-			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 			SingleSelection selection = _ideaModel.GetSingleSelection();
 

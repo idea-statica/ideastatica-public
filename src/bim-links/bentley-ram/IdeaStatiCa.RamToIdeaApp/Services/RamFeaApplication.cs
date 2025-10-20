@@ -80,7 +80,6 @@ namespace IdeaStatiCa.RamToIdeaApp.Services
 			{
 				_logger.LogDebug($"RamFeaApplication.ImportActiveAsync : countryCode = {countryCode}, requestedType = {requestedType}");
 
-				_progressMessaging?.InitProgressDialog();
 				_progressMessaging?.SendMessage(MessageSeverity.Info, "Waiting for BIM application");
 
 				if (requestedType == RequestedItemsType.Connections)
