@@ -34,6 +34,7 @@ namespace ConApiWpfClientApp.ViewModels
 		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
 		private ConAnalysisTypeEnum _conAnalysisType;
+		private IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum _weldSizingType;
 		private bool _calculateBuckling;
 		private bool _getRawResults;
 		//private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Default };
@@ -83,6 +84,8 @@ namespace ConApiWpfClientApp.ViewModels
 			GetSettingsCommand = new AsyncRelayCommand(GetSettingsAsync, () => this.ProjectInfo != null);
 
 			UpdateSettingsCommand = new AsyncRelayCommand(UpdateSettingsAsync, () => this.ProjectInfo != null);
+
+			WeldSizingCommand = new AsyncRelayCommand(DoWeldSizingAsync, () => SelectedConnection != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
@@ -175,6 +178,14 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public Array AvailableAnalysisTypes => Enum.GetValues(typeof(ConAnalysisTypeEnum));
 
+		public Array AvailableWeldSizingTypes => Enum.GetValues(typeof(IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum));
+
+		public IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum WeldSizingType
+		{
+			get { return _weldSizingType; }
+			set { SetProperty(ref _weldSizingType, value); }
+		}
+
 		public bool RunApiServer
 		{
 			get { return _runApiServer; }
@@ -257,6 +268,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand UpdateSettingsCommand { get; }
 
+		public AsyncRelayCommand WeldSizingCommand { get; }
 
 		private async Task ShowIdeaStatiCaLogsAsync()
 		{
@@ -552,6 +564,48 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				IsBusy = false;
 				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		internal async Task DoWeldSizingAsync()
+		{
+			_logger.LogInformation("DoWeldSizingAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if(SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var res = await ConApiClient!.Operation!.PreDesignWeldsAsync(ProjectInfo.ProjectId, SelectedConnection!.Id, IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum.FullStrength);
+
+				OutputText = res;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("DoWeldSizingAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+				
+				await ShowClientUIAsync();
 			}
 
 			await Task.CompletedTask;
@@ -1099,15 +1153,14 @@ namespace ConApiWpfClientApp.ViewModels
 			this.ExportCommand.NotifyCanExecuteChanged();
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
 			this.UpdateSettingsCommand.NotifyCanExecuteChanged();
+			this.WeldSizingCommand.NotifyCanExecuteChanged();
 			this.OnPropertyChanged("CanStartService");
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 	}
 }
