@@ -445,7 +445,7 @@ namespace ConApiWpfClientApp.ViewModels
 					throw new Exception("Can not create ConApiClient");
 				}
 
-				OutputText = $"Connected. ClientId = {ConApiClient.ClientId}";
+				OutputText = $"Service Url = {ConApiClient!.ClientApi!.Configuration!.BasePath}\nConnected. ClientId = {ConApiClient.ClientId}";
 			}
 			catch (Exception ex)
 			{
