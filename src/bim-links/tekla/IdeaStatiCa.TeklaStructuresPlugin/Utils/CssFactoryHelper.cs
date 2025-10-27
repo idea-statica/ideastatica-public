@@ -159,14 +159,27 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				Name = profileItem.ProfileName,
 			};
 
-			var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();
-			var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
-			double dFlange = ((double)cssProperties[FlangeThicknessKey]).MilimetersToMeters();
-			double dWeb = ((double)cssProperties[WebThicknessKey]).MilimetersToMeters();
-			double dRadiusWeb = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();
-			double dRadiusFlange = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();
+			if (profileItem.ProfileItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_U_COLD_ROLLED)
+			{
+				var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();
+				var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
+				double dThickness = ((double)cssProperties[PlateThicknessKey]).MilimetersToMeters();
+				double dRadius = ((double)cssProperties[RoundingRadiusKey]).MilimetersToMeters();
 
-			CrossSectionFactory.FillRolledChannel(cssParameter, dWidth, dHeight, dWeb, dFlange, dRadiusWeb, 0.1e-2, dRadiusFlange, true);
+				CrossSectionFactory.FillColdFormedChannel(cssParameter, dWidth, dHeight, dThickness, dRadius);
+			}
+			else
+			{
+				var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();
+				var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
+				double dFlange = ((double)cssProperties[FlangeThicknessKey]).MilimetersToMeters();
+				double dWeb = ((double)cssProperties[WebThicknessKey]).MilimetersToMeters();
+				double dRadiusWeb = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();
+				double dRadiusFlange = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();
+
+				CrossSectionFactory.FillRolledChannel(cssParameter, dWidth, dHeight, dWeb, dFlange, dRadiusWeb, 0.1e-2, dRadiusFlange, true);
+			}
+
 			return cssParameter;
 		}
 
@@ -203,13 +216,26 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				Name = profileItem.ProfileName,
 			};
 
-			var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();        //Section width
-			var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();      //Section height
-			double dFlangeThickness1 = ((double)cssProperties[FlangeThicknessKey1]).MilimetersToMeters();       //Flange thickness
-			double dWebRadius = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();     //Flange thickness
-			double dFlangeRadius = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();       //Flange thickness
+			if (profileItem.ProfileItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_L_COLD_ROLLED)
+			{
+				var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();        //Section width
+				var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();      //Section height
+				double dthickness = ((double)cssProperties[PltThicknessKey]).MilimetersToMeters();       // thickness
+				double dRadius = ((double)cssProperties[RoundingRadiusKey]).MilimetersToMeters();       //Flange thickness
+				CrossSectionFactory.FillColdFormedL(cssParameter, dWidth, dHeight, dthickness, dRadius);
 
-			CrossSectionFactory.FillRolledAngle(cssParameter, dWidth, dHeight, dFlangeThickness1, dWebRadius, dFlangeRadius, 0.1e-2, false);
+			}
+			else
+			{
+				var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();        //Section width
+				var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();      //Section height
+				double dFlangeThickness1 = ((double)cssProperties[FlangeThicknessKey1]).MilimetersToMeters();       //Flange thickness
+				double dWebRadius = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();     //Flange thickness
+				double dFlangeRadius = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();       //Flange thickness
+
+				CrossSectionFactory.FillRolledAngle(cssParameter, dWidth, dHeight, dFlangeThickness1, dWebRadius, dFlangeRadius, 0.1e-2, false);
+			}
+
 			return cssParameter;
 		}
 

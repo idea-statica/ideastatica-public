@@ -3,6 +3,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi.Library;
 using IdeaStatiCa.TeklaStructuresPlugin.Utilities;
+using System;
 using System.Collections.Generic;
 using Tekla.Structures.Catalogs;
 
@@ -45,21 +46,30 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		{
 			if (profile is LibraryProfileItem libraryProfileItem)
 			{
-				var iomCss = ProcessLibraryCss(libraryProfileItem);
-				if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionParameter cssParam)
+				try
 				{
-					PlugInLogger.LogDebug($"Create CrossSectionByParameters {libraryProfileItem.ProfileName}");
-					return new CrossSectionByParameters(cssId)
+					var iomCss = ProcessLibraryCss(libraryProfileItem);
+					if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionParameter cssParam)
 					{
-						MaterialNo = materialNo,
-						Name = libraryProfileItem.ProfileName,
-						Parameters = new HashSet<IdeaRS.OpenModel.CrossSection.Parameter>(cssParam.Parameters),
-						Type = cssParam.CrossSectionType,
-					};
+						PlugInLogger.LogDebug($"Create CrossSectionByParameters {libraryProfileItem.ProfileName}");
+						return new CrossSectionByParameters(cssId)
+						{
+							MaterialNo = materialNo,
+							Name = libraryProfileItem.ProfileName,
+							Parameters = new HashSet<IdeaRS.OpenModel.CrossSection.Parameter>(cssParam.Parameters),
+							Type = cssParam.CrossSectionType,
+						};
+					}
+					else if (iomCss != null)
+					{
+						PlugInLogger.LogError($"Unexpected type of  CrossSection {iomCss}");
+					}
 				}
-				else if (iomCss != null)
+				catch (Exception ex)
 				{
-					PlugInLogger.LogError($"Unexpected type of  CrossSection {iomCss}");
+					//log problem and allow import css by name
+					PlugInLogger.LogError($"Create CrossSectionByParameters failed {cssId}", ex);
+					return null;
 				}
 			}
 
@@ -71,38 +81,50 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		{
 			if (profile is ParametricProfileItem parametricProfileItem)
 			{
-				var iomCss = ProcessParametricCss(parametricProfileItem);
-				if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionParameter cssParam)
+				try
 				{
-					PlugInLogger.LogDebug($"Create CrossSectionByParameters {parametricProfileItem.ProfilePrefix}");
-					return new CrossSectionByParameters(cssName)
+
+
+
+					var iomCss = ProcessParametricCss(parametricProfileItem);
+					if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionParameter cssParam)
 					{
-						MaterialNo = materialNo,
-						Name = cssName,
-						Parameters = new HashSet<IdeaRS.OpenModel.CrossSection.Parameter>(cssParam.Parameters),
-						Type = cssParam.CrossSectionType
-					};
-				}
-				else if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionComponent cssComponent)
-				{
-					PlugInLogger.LogDebug($"Create CrossSectionComponent {cssName}");
-					var ideaCssComponent = new CrossSectionByComoponets(cssName)
-					{
-						Name = cssName
-					};
-					cssComponent.Components.ForEach(cp =>
-					{
-						ideaCssComponent.Components.Add(new CrossSectionComponent()
+						PlugInLogger.LogDebug($"Create CrossSectionByParameters {parametricProfileItem.ProfilePrefix}");
+						return new CrossSectionByParameters(cssName)
 						{
-							Geometry = cp.Geometry,
-							Material = Get<IIdeaMaterial>(materialNo)
+							MaterialNo = materialNo,
+							Name = cssName,
+							Parameters = new HashSet<IdeaRS.OpenModel.CrossSection.Parameter>(cssParam.Parameters),
+							Type = cssParam.CrossSectionType
+						};
+					}
+					else if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionComponent cssComponent)
+					{
+						PlugInLogger.LogDebug($"Create CrossSectionComponent {cssName}");
+						var ideaCssComponent = new CrossSectionByComoponets(cssName)
+						{
+							Name = cssName
+						};
+						cssComponent.Components.ForEach(cp =>
+						{
+							ideaCssComponent.Components.Add(new CrossSectionComponent()
+							{
+								Geometry = cp.Geometry,
+								Material = Get<IIdeaMaterial>(materialNo)
+							});
 						});
-					});
-					return ideaCssComponent;
+						return ideaCssComponent;
+					}
+					else if (iomCss != null)
+					{
+						PlugInLogger.LogError($"Unexpected type of  CrossSection {iomCss.ToString()}");
+					}
 				}
-				else if (iomCss != null)
+				catch (Exception ex)
 				{
-					PlugInLogger.LogError($"Unexpected type of  CrossSection {iomCss.ToString()}");
+					//log problem and allow import css by name
+					PlugInLogger.LogError($"Create CrossSectionComponent failed {cssName}", ex);
+					return null;
 				}
 			}
 
