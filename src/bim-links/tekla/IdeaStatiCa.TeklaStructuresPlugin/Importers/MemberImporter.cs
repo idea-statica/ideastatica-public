@@ -84,7 +84,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				|| (
 					css is CrossSectionByParameters cssParam
 					&&
-					(cssParam.Type == IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledAngle)
+					(cssParam.Type == IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledAngle || cssParam.Type == IdeaRS.OpenModel.CrossSection.CrossSectionType.CFL)
 					)
 				)
 			{
