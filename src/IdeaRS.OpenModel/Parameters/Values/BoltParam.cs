@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Parameters
@@ -178,6 +179,28 @@ namespace IdeaRS.OpenModel.Parameters
 		public static NumberGroups Create(List<ValueCount> list)
 		{
 			return new NumberGroups { list };
+		}
+
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="groups"></param>
+		/// <returns></returns>
+		public static NumberGroups Create(NumberGroups groups)
+		{
+			var gr = new NumberGroups();
+			for (int i = 0; i < groups.Count; i++)
+			{
+				var list = new List<ValueCount>();
+				for (int j = 0; j < groups[i].Count; j++)
+				{
+					list.Add(ValueCount.Create(groups[i][j].Value, groups[i][j].Count));
+				}
+
+				gr.Add(list);
+			}
+
+			return gr;
 		}
 
 		/// <summary>
