@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\..\Common.props" />
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<!-- Set OutputPath for *_Internal configurations -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release_IdeaStatiCa_Internal' Or '$(Configuration)' == 'Debug_IdeaStatiCa_Internal'">
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>$(OutputPath)\$(TargetFramework)\Ram25ToIdea_Internal\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\RAM icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<PackageReference Include="NSubstitute" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<ProjectReference Include="..\IdeaStatiCa.Ram25ToIdea\IdeaStatiCa.Ram25ToIdea.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\RAM icon.ico">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	</ItemGroup>
+
+</Project>
