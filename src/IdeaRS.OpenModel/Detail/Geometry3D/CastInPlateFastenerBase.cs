@@ -36,17 +36,12 @@ namespace IdeaRS.OpenModel.Detail
 
 	[XmlInclude(typeof(CastInPlateFastenerGroup))]
 	[XmlInclude(typeof(CastInPlateFastenerSingle))]
-	public abstract class CastInPlateFastenerBase : OpenObject
+	public abstract class CastInPlateFastenerBase : OpenElementId
 	{
 		protected CastInPlateFastenerBase()
 		{
 
 		}
-
-		/// <summary>
-		/// Element Id
-		/// </summary>
-		public System.Int32 Id { get; set; }
 
 		/// <summary>
 		/// Name of 3D element

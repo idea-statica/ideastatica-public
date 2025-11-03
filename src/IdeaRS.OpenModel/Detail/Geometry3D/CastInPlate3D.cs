@@ -22,6 +22,7 @@ namespace IdeaRS.OpenModel.Detail
 		public CastInPlate3D()
 			: base()
 		{
+			Fasteners = new List<ReferenceElement>();
 		}
 
 		/// <summary>
@@ -131,6 +132,6 @@ namespace IdeaRS.OpenModel.Detail
 		/// <summary>
 		/// Fasteners
 		/// </summary>
-		public List<CastInPlateFastenerBase> Fasteners { get; set; }
+		public List<ReferenceElement> Fasteners { get; set; }
 	}
 }
