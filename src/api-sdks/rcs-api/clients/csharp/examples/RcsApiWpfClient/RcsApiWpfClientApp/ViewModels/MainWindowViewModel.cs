@@ -106,9 +106,9 @@ namespace RcsApiWpfClientApp.ViewModels
 					Sections = connectionIdList
 				};
 
-				var settingsXml = await RcsApiClient.Project.GetCodeSettingsJsonAsync(ProjectInfo.ProjectId, 0, cts.Token);
+				var settingsJson = await RcsApiClient.Project.GetCodeSettingsJsonAsync(ProjectInfo.ProjectId, 0, cts.Token);
 
-				OutputText = settingsXml;
+				OutputText = settingsJson;
 			}
 			catch (Exception ex)
 			{
