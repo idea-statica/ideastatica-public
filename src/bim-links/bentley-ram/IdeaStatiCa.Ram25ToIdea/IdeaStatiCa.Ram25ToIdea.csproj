@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\..\Common.props" />
 	<PropertyGroup>
-		<ProjectGuid>{ec8df878-7ce5-458d-bf3e-fec30768a104}</ProjectGuid>
+		<ProjectGuid>{881C74B0-CF8E-4911-9FB1-7DF91AF04036}</ProjectGuid>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
 	</PropertyGroup>
@@ -9,7 +9,7 @@
 		<PackageReference Include="Autofac" />
 		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
-		<PackageReference Include="Idea.Bentley.Ram" VersionOverride="17.2.24"/>
+		<PackageReference Include="Idea.Bentley.Ram" />
 		<PackageReference Include="MathNet.Numerics" />
 		<PackageReference Include="MathNet.Spatial" />
 	</ItemGroup>
@@ -18,6 +18,8 @@
 		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
 		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
 		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+	<ItemGroup>
 	</ItemGroup>
 	<Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
 </Project>
