@@ -74,11 +74,82 @@ namespace RcsApiWpfClientApp.ViewModels
 
 			UpdateSettingCommand = new AsyncRelayCommand(UpdateSettingsAsync, () => this.ProjectInfo != null);
 
+			GetLoadingCommand = new AsyncRelayCommand(GetLoadingAsync, () => this.ProjectInfo != null);
 
-			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
+			UpdateLoadingCommand = new AsyncRelayCommand(UpdateLoadingAsync, () => this.ProjectInfo != null);
 
 			Sections = new ObservableCollection<SectionViewModel>();
 			selectedSection = null;
+		}
+
+		private async Task GetLoadingAsync()
+		{
+			_logger.LogInformation("GetLoadingAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var loadingXml = await RcsApiClient.InternalForces.GetSectionLoadingAsync(ProjectInfo.ProjectId, SelectedSection!.Id, 0, cts.Token);
+
+				OutputText = loadingXml;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetLoadingAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task UpdateLoadingAsync()
+		{
+			_logger.LogInformation("UpdateLoadingAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				RcsSectionLoading sectionLoading = new RcsSectionLoading();
+				sectionLoading.LoadingXml = OutputText;
+				sectionLoading.SectionId = SelectedSection!.Id;
+
+				var updateResult = await RcsApiClient!.InternalForces.SetSectionLoadingAsync(ProjectInfo.ProjectId, SelectedSection!.Id, sectionLoading, 0, cts.Token);
+
+				OutputText = updateResult.ToString();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("UpdateLoadingAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
 
 		private async Task GetSettingsAsync()
@@ -401,10 +472,9 @@ namespace RcsApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand UpdateSettingCommand { get; }
 
-		//public AsyncRelayCommand GetSceneDataCommand { get; }
+		public AsyncRelayCommand GetLoadingCommand { get; }
 
-		//public RelayCommand ShowClientUICommand { get; }
-
+		public AsyncRelayCommand UpdateLoadingCommand { get; }
 
 		private async Task OpenProjectAsync()
 		{
@@ -866,8 +936,11 @@ namespace RcsApiWpfClientApp.ViewModels
 
 			this.UpdateSettingCommand.NotifyCanExecuteChanged();
 
+			this.GetLoadingCommand.NotifyCanExecuteChanged();
+			this.UpdateLoadingCommand.NotifyCanExecuteChanged();
+
 			this.OnPropertyChanged("CanStartService");
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
+
 		}
 
 		private void RefreshSectionChanged()
@@ -877,7 +950,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			UpdateSectionCmdAsync.NotifyCanExecuteChanged();
 			UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 			UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
+
 		}
 	}
 }
