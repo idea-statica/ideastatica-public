@@ -17,6 +17,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 			: base(no)
 		{
 			No = no;
+			InsertionPoint = IdeaRS.OpenModel.Model.InsertionPoints.Center;
 		}
 	}
 }
