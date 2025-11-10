@@ -182,7 +182,12 @@ namespace IdeaRS.OpenModel.Detail
 		public double Diameter { get; set; }
 
 		/// <summary>
-		/// Reinforcementr anchor type mandrel diameter
+		/// User defined mandrel diameter
+		/// </summary>
+		public bool UserMandrelDiameter { get; set; }
+
+		/// <summary>
+		/// Reinforcement anchor type mandrel diameter
 		/// </summary>
 		public double ReinforcementMandrelDiameter { get; set; }
 
