@@ -11,6 +11,9 @@ namespace IdeaRS.OpenModel.Material
 	[OpenModelClass("CI.StructModel.Libraries.Material.MaterialHeadedStudGrade,CI.Material", "CI.StructModel.Libraries.Material.IMatHeadedStudGrade,CI.BasicTypes", typeof(Material))]
 	[DataContract]
 	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
+	[XmlInclude(typeof(MaterialHeadedStudGradeEc2))]
+	[XmlInclude(typeof(MaterialHeadedStudGradeAISC))]
+	[XmlInclude(typeof(MaterialHeadedStudGradeAUS))]
 	public class MaterialHeadedStudGrade : Material
 	{
 		#region Properties
