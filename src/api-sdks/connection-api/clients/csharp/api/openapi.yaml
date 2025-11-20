@@ -3164,6 +3164,7 @@ components:
         analysisType:
           $ref: '#/components/schemas/ConAnalysisTypeEnum'
         isCalculated:
+          deprecated: true
           readOnly: true
           type: boolean
         includeBuckling:
