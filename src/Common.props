@@ -31,7 +31,7 @@
   <PropertyGroup>
     <Authors>IDEA StatiCa</Authors>
     <Company>IDEA StatiCa</Company>
-    <Version>24.1.0</Version>
+    <Version>25.1.0</Version>
     <Copyright>Copyright (c) IDEA StatiCa ltd., 2025</Copyright>
     <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
     <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
