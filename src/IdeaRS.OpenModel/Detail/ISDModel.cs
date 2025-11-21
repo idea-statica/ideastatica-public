@@ -48,6 +48,11 @@
 		}
 
 		/// <summary>
+		/// Name of Project detail item
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
 		/// Type of IDEA StatiCa Detail
 		/// </summary>
 		public ISDType ISDType { get; set; }

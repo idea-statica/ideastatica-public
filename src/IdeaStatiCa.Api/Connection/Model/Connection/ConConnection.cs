@@ -1,4 +1,7 @@
-﻿namespace IdeaStatiCa.Api.Connection.Model
+﻿using System;
+using System.Text.Json.Serialization;
+
+namespace IdeaStatiCa.Api.Connection.Model
 {
 	public class ConConnection
 	{
@@ -14,6 +17,8 @@
 		//Related to connection?
 		public ConAnalysisTypeEnum AnalysisType { get; set; }
 
+		[Obsolete("This property is currently ignored and not updated")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public bool IsCalculated { get; }
 
 		public bool IncludeBuckling { get; set; }

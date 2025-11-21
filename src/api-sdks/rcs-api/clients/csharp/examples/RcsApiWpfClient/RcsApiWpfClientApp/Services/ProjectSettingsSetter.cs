@@ -19,7 +19,7 @@ namespace RcsApiWpfClientApp.Services
 
 		static ProjectSettingsSetter()
 		{
-			_jsonSettings = IdeaStatiCa.Api.Utilities.JsonTools.CreateIdeaRestJsonSettings();
+			_jsonSettings = new JsonSerializerSettings();
 		}
 
 		public async Task<List<RcsSetting>> SetAsync(List<RcsSetting> originalSettingsValues)

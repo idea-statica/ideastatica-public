@@ -74,11 +74,82 @@ namespace RcsApiWpfClientApp.ViewModels
 
 			UpdateSettingCommand = new AsyncRelayCommand(UpdateSettingsAsync, () => this.ProjectInfo != null);
 
+			GetLoadingCommand = new AsyncRelayCommand(GetLoadingAsync, () => this.ProjectInfo != null);
 
-			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
+			UpdateLoadingCommand = new AsyncRelayCommand(UpdateLoadingAsync, () => this.ProjectInfo != null);
 
 			Sections = new ObservableCollection<SectionViewModel>();
 			selectedSection = null;
+		}
+
+		private async Task GetLoadingAsync()
+		{
+			_logger.LogInformation("GetLoadingAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var loadingXml = await RcsApiClient.InternalForces.GetSectionLoadingAsync(ProjectInfo.ProjectId, SelectedSection!.Id, 0, cts.Token);
+
+				OutputText = loadingXml;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetLoadingAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task UpdateLoadingAsync()
+		{
+			_logger.LogInformation("UpdateLoadingAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (RcsApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				RcsSectionLoading sectionLoading = new RcsSectionLoading();
+				sectionLoading.LoadingXml = OutputText;
+				sectionLoading.SectionId = SelectedSection!.Id;
+
+				var updateResult = await RcsApiClient!.InternalForces.SetSectionLoadingAsync(ProjectInfo.ProjectId, SelectedSection!.Id, sectionLoading, 0, cts.Token);
+
+				OutputText = updateResult.ToString();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("UpdateLoadingAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
 
 		private async Task GetSettingsAsync()
@@ -106,9 +177,9 @@ namespace RcsApiWpfClientApp.ViewModels
 					Sections = connectionIdList
 				};
 
-				var settingsXml = await RcsApiClient.Project.GetCodeSettingsAsync(ProjectInfo.ProjectId, 0, cts.Token);
+				var settingsJson = await RcsApiClient.Project.GetCodeSettingsJsonAsync(ProjectInfo.ProjectId, 0, cts.Token);
 
-				OutputText = settingsXml;
+				OutputText = settingsJson;
 			}
 			catch (Exception ex)
 			{
@@ -154,13 +225,7 @@ namespace RcsApiWpfClientApp.ViewModels
 						 Id=2,
 						 Type="CI.Services.Setup.Setup2Values`2[System.Double,System.Double]",
 						 Value="{\"Value1\":1.5,\"Value2\":1.2}"
-					 },
-					 new RcsSetting()
-					 {
-						 Id=10,
-						 Type="CI.Services.Setup.SetupTable_W_max_1992_1_1",
-						 Value="{\"X0_XC1_RC\":0.0001, \"XC2_XC3_RC\":0.0002, \"XD_XS_XF_RC\":0.0003, \"X0_XC1_PC\":0.0004, \"XC2_XC3_PC_DV\":0.026, \"XC2_XC3_PC_CV\": 0.0002, \"XD_XS_XF_PCB_DV\": 0.025, \"XD_XS_XF_PCB_CV\":0.0002, \"XC2_XC3_PCB_DB\":true, \"XC2_XC3_PCB_CB\": true, \"XD_XS_XF_PCB_DB\": true, \"XD_XS_XF_PCB_CB\": false}"
-					 },
+					 }
 				};
 
 				var modifiedTemplateMapping = await mappingSetter.SetAsync(newSettings);
@@ -407,10 +472,9 @@ namespace RcsApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand UpdateSettingCommand { get; }
 
-		//public AsyncRelayCommand GetSceneDataCommand { get; }
+		public AsyncRelayCommand GetLoadingCommand { get; }
 
-		//public RelayCommand ShowClientUICommand { get; }
-
+		public AsyncRelayCommand UpdateLoadingCommand { get; }
 
 		private async Task OpenProjectAsync()
 		{
@@ -872,8 +936,11 @@ namespace RcsApiWpfClientApp.ViewModels
 
 			this.UpdateSettingCommand.NotifyCanExecuteChanged();
 
+			this.GetLoadingCommand.NotifyCanExecuteChanged();
+			this.UpdateLoadingCommand.NotifyCanExecuteChanged();
+
 			this.OnPropertyChanged("CanStartService");
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
+
 		}
 
 		private void RefreshSectionChanged()
@@ -883,7 +950,7 @@ namespace RcsApiWpfClientApp.ViewModels
 			UpdateSectionCmdAsync.NotifyCanExecuteChanged();
 			UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 			UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
-			//this.ShowClientUICommand.NotifyCanExecuteChanged();
+
 		}
 	}
 }

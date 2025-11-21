@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -43,7 +44,16 @@ namespace IdeaStatiCa.Plugin
 		void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg, string suffix = "");
 		void SendMessage(MessageSeverity severity, string text);
 		int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons);
+
+		/// <summary>
+		/// Links shouldn't be able control showing/hiding progress dialog. This functionality should be handled by the host application.
+		/// </summary>
+		[Obsolete("CancelMessage method is obsolete. Links shouldn't be able control showing/hiding progress dialog. This functionality should be handled by the host application.")]
 		void CancelMessage();
+		/// <summary>
+		/// Links shouldn't be able control showing/hiding progress dialog. This functionality should be handled by the host application.
+		/// </summary>
+		[Obsolete("InitProgressDialog method is obsolete. Links shouldn't be able control showing/hiding progress dialog. This functionality should be handled by the host application.")]
 		void InitProgressDialog();
 
 		void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg, params object[] args);

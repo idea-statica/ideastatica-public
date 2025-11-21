@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PublishBulkTool
 {
@@ -106,8 +107,11 @@ namespace PublishBulkTool
 
 						var publishParams = new ConTemplatePublishParam
 						{
-							Author = AuthorTextBox.Text,
-							CompanyName = CompanyTextBox.Text
+							DesignSetType = ((ComboBoxItem)CompanyTypeComboBox.SelectedItem)?.Content?.ToString() switch
+							{
+								"Private set" => ConDesignSetType.Private,
+								_ => ConDesignSetType.Company
+							}
 						};
 
 						foreach (var connection in file.Connections)
@@ -136,6 +140,8 @@ namespace PublishBulkTool
 				}
 			}
 
+			service?.Dispose();
+			conClient?.Dispose();
 			LoadItemsButton.IsEnabled = true;
 			PublishButton.IsEnabled = true;
 		}

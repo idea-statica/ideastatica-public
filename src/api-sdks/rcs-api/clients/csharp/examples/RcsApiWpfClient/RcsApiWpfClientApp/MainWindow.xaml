@@ -21,10 +21,15 @@
 			</ToolBar>
 
 			<ToolBar Band="1">
-				<Button Command="{Binding GetSettingCommand, Mode=OneWay}" ToolTip="Get RCS setting in xml format">Get setting</Button>
-				<Button Command="{Binding UpdateSettingCommand, Mode=OneWay}" ToolTip="Update RCS setting from actual xml string in the window">Update setting</Button>
+				<Button Command="{Binding GetSettingCommand, Mode=OneWay}" ToolTip="Get RCS setting in JSON format">Get setting</Button>
+				<Button Command="{Binding UpdateSettingCommand, Mode=OneWay}" ToolTip="Update RCS setting from actual JSON string in the window">Update setting</Button>
 			</ToolBar>
-		
+
+			<ToolBar Band="1">
+				<Button Command="{Binding GetLoadingCommand, Mode=OneWay}" ToolTip="Get loading in the selected section in xml format">Get loading</Button>
+				<Button Command="{Binding UpdateLoadingCommand, Mode=OneWay}" ToolTip="Update loading in the selected section from actual xml string in the window">Update loading</Button>
+			</ToolBar>
+
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<Button Command="{Binding GetDetailResultsCommand, Mode=OneWay}">Detail results</Button>
