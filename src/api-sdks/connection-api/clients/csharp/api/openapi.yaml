@@ -4251,10 +4251,19 @@ components:
       additionalProperties: false
       example:
         template: template
+        memberIds:
+        - 0
+        - 0
       properties:
         template:
           nullable: true
           type: string
+        memberIds:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
       type: object
     ConTemplatePublishParam:
       additionalProperties: false

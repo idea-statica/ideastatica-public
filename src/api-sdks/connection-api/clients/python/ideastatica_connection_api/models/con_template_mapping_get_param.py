@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,8 @@ class ConTemplateMappingGetParam(BaseModel):
     ConTemplateMappingGetParam
     """ # noqa: E501
     template: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["template"]
+    member_ids: Optional[List[StrictInt]] = Field(default=None, alias="memberIds")
+    __properties: ClassVar[List[str]] = ["template", "memberIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,6 +75,11 @@ class ConTemplateMappingGetParam(BaseModel):
         if self.template is None and "template" in self.model_fields_set:
             _dict['template'] = None
 
+        # set to None if member_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.member_ids is None and "member_ids" in self.model_fields_set:
+            _dict['memberIds'] = None
+
         return _dict
 
     @classmethod
@@ -86,7 +92,8 @@ class ConTemplateMappingGetParam(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "template": obj.get("template")
+            "template": obj.get("template"),
+            "memberIds": obj.get("memberIds")
         })
         return _obj
 
