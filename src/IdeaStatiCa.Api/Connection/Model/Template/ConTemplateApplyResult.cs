@@ -13,11 +13,5 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// List of issues encountered during template application
 		/// </summary>
 		public List<ConNonConformityIssue> Issues { get; set; }
-
-		public ConTemplateApplyResult()
-		{
-			Issues = new List<ConNonConformityIssue>();
-			IsSuccess = true;
-		}
 	}
 }
