@@ -5,7 +5,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 	public class ConTemplateApplyResult
 	{
 		/// <summary>
-		/// Indicates whether the template application succeeded without critical errors
+		/// Indicates whether the template application succeeded without  any NonConformity issues or with just information level issues
 		/// </summary>
 		public bool IsSuccess { get; set; }
 

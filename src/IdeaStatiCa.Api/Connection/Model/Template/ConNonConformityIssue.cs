@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// <summary>
 		/// ID of the object related to this issue (if applicable)
 		/// </summary>
-		public int ObjectId { get; set; }
+		public int OperationId { get; set; }
 		/// <summary>
 		/// Description of the issue (title)
 		/// </summary>
