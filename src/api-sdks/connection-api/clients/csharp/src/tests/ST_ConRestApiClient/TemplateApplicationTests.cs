@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
+using Newtonsoft.Json;
 
 namespace ST_ConnectionRestApi
 {
@@ -248,10 +249,18 @@ namespace ST_ConnectionRestApi
 			};
 			var response = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conTemplateApply);
 
-			var conTemplateApplyResult = response as ConTemplateApplyResult;
+			response.Should().NotBeNull();
+			ConTemplateApplyResult? conTemplateApplyResult = JsonConvert.DeserializeObject<ConTemplateApplyResult>(response!.ToString()!);
 			conTemplateApplyResult.Should().NotBeNull();
-			conTemplateApplyResult!.IsSuccess.Should().BeTrue();
+			conTemplateApplyResult!.AppliedWithoutIssues.Should().BeTrue();
 			conTemplateApplyResult!.Issues.Should().BeEmpty();
+			conTemplateApplyResult.TemplateModel.Should().NotBeNull();
+			conTemplateApplyResult.TemplateModel.MemberIds.Should().HaveCount(2);
+			conTemplateApplyResult.TemplateModel.OperationIds.Count.Should().Be(1);
+			conTemplateApplyResult.TemplateModel.ParameterIds.Count.Should().Be(24);
+			conTemplateApplyResult.TemplateModel.PlateMaterialId.Should().BeNull();
+			conTemplateApplyResult.TemplateModel.WeldMaterialId.Should().Be(2);
+			conTemplateApplyResult.TemplateModel.BoltAssemblyId.Should().BeNull();
 		}
 
 		[Test]
@@ -293,12 +302,20 @@ namespace ST_ConnectionRestApi
 				Mapping = templateMapping
 			};
 			var response = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conTemplateApply);
-
-			var conTemplateApplyResult = response as ConTemplateApplyResult;
+			
+			response.Should().NotBeNull();
+			ConTemplateApplyResult? conTemplateApplyResult = JsonConvert.DeserializeObject<ConTemplateApplyResult>(response!.ToString()!);
 			conTemplateApplyResult.Should().NotBeNull();
-			conTemplateApplyResult!.IsSuccess.Should().BeFalse();
+			conTemplateApplyResult!.AppliedWithoutIssues.Should().BeFalse();
 			conTemplateApplyResult!.Issues.Should().NotBeEmpty();
 			conTemplateApplyResult!.Issues.Count.Should().Be(1);
+			conTemplateApplyResult.TemplateModel.Should().NotBeNull();
+			conTemplateApplyResult.TemplateModel.MemberIds.Should().HaveCount(2);
+			conTemplateApplyResult.TemplateModel.OperationIds.Count.Should().Be(1);
+			conTemplateApplyResult.TemplateModel.ParameterIds.Count.Should().Be(24);
+			conTemplateApplyResult.TemplateModel.PlateMaterialId.Should().BeNull();
+			conTemplateApplyResult.TemplateModel.WeldMaterialId.Should().Be(2);
+			conTemplateApplyResult.TemplateModel.BoltAssemblyId.Should().BeNull();
 		}
 
 		[Test]
