@@ -5,11 +5,18 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**apply_template**](TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**clear_design**](TemplateApi.md#clear_design) | Clear the design of the connection connectionId in the project projectId
+[**clear_design**](TemplateApi.md#clear_design) | Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 [**create_con_template**](TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
+[**delete**](TemplateApi.md#delete) | Delete specific template
+[**delete_all**](TemplateApi.md#delete_all) | Delete all templates in connection
+[**explode**](TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
+[**explode_all**](TemplateApi.md#explode_all) | Explode all templates (delete parameters, keep operations)
 [**get_connection_topology**](TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-[**publish_connection**](TemplateApi.md#publish_connection) | 
+[**get_template_common_operation_properties**](TemplateApi.md#get_template_common_operation_properties) | Get Common properties for specific template
+[**load_defaults**](TemplateApi.md#load_defaults) | Load parameter defaults for specific template.
+[**publish_connection**](TemplateApi.md#publish_connection) | Publish template to Private or Company set
+[**update_template_common_operation_properties**](TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template
 
 
 <a id="apply_template"></a>
@@ -96,7 +103,7 @@ No authorization required
 # **clear_design**
 > clear_design(project_id, connection_id)
 
-Clear the design of the connection connectionId in the project projectId
+Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 
 ### Parameters
 
@@ -129,7 +136,7 @@ def clear_designExampleFunc(api_client):
     connection_id = 56 # int | Id of the connection where to clear the design
 
     try:
-        # Clear the design of the connection connectionId in the project projectId
+        # Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
         api_client.template.clear_design(project_id, connection_id)
     except Exception as e:
         print("Exception when calling TemplateApi->clear_design: %s\n" % e)
@@ -234,6 +241,306 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="delete"></a>
+# **delete**
+> delete(project_id, connection_id, template_id)
+
+Delete specific template
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **template_id** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def deleteExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    template_id = 'template_id_example' # str | 
+
+    try:
+        # Delete specific template
+        api_client.template.delete(project_id, connection_id, template_id)
+    except Exception as e:
+        print("Exception when calling TemplateApi->delete: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="delete_all"></a>
+# **delete_all**
+> delete_all(project_id, connection_id)
+
+Delete all templates in connection
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def delete_allExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+
+    try:
+        # Delete all templates in connection
+        api_client.template.delete_all(project_id, connection_id)
+    except Exception as e:
+        print("Exception when calling TemplateApi->delete_all: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/templates 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="explode"></a>
+# **explode**
+> explode(project_id, connection_id, template_id)
+
+Explode specific template (delete parameters, keep operations)
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **template_id** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def explodeExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    template_id = 'template_id_example' # str | 
+
+    try:
+        # Explode specific template (delete parameters, keep operations)
+        api_client.template.explode(project_id, connection_id, template_id)
+    except Exception as e:
+        print("Exception when calling TemplateApi->explode: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="explode_all"></a>
+# **explode_all**
+> explode_all(project_id, connection_id)
+
+Explode all templates (delete parameters, keep operations)
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def explode_allExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+
+    try:
+        # Explode all templates (delete parameters, keep operations)
+        api_client.template.explode_all(project_id, connection_id)
+    except Exception as e:
+        print("Exception when calling TemplateApi->explode_all: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/templates/explode 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -403,11 +710,171 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="get_template_common_operation_properties"></a>
+# **get_template_common_operation_properties**
+> ConOperationCommonProperties get_template_common_operation_properties(project_id, connection_id, template_id)
+
+Get Common properties for specific template
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **template_id** | **str**|  | 
+
+### Return type
+
+[**ConOperationCommonProperties**](ConOperationCommonProperties.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_operation_common_properties import ConOperationCommonProperties
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_template_common_operation_propertiesExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    template_id = 'template_id_example' # str | 
+
+    try:
+        # Get Common properties for specific template
+        api_response = api_client.template.get_template_common_operation_properties(project_id, connection_id, template_id)
+        print("The response of TemplateApi->get_template_common_operation_properties:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling TemplateApi->get_template_common_operation_properties: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="load_defaults"></a>
+# **load_defaults**
+> ParameterUpdateResponse load_defaults(project_id, connection_id, template_id)
+
+Load parameter defaults for specific template.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **template_id** | **str**|  | 
+
+### Return type
+
+[**ParameterUpdateResponse**](ParameterUpdateResponse.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.parameter_update_response import ParameterUpdateResponse
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def load_defaultsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    template_id = 'template_id_example' # str | 
+
+    try:
+        # Load parameter defaults for specific template.
+        api_response = api_client.template.load_defaults(project_id, connection_id, template_id)
+        print("The response of TemplateApi->load_defaults:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling TemplateApi->load_defaults: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="publish_connection"></a>
 # **publish_connection**
 > bool publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
 
-
+Publish template to Private or Company set
 
 ### Parameters
 
@@ -443,7 +910,7 @@ def publish_connectionExampleFunc(api_client):
     con_template_publish_param = ideastatica_connection_api.ConTemplatePublishParam() # ConTemplatePublishParam |  (optional)
 
     try:
-        # 
+        # Publish template to Private or Company set
         api_response = api_client.template.publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
         print("The response of TemplateApi->publish_connection:\n")
         pprint(api_response)
@@ -474,6 +941,85 @@ No authorization required
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="update_template_common_operation_properties"></a>
+# **update_template_common_operation_properties**
+> update_template_common_operation_properties(project_id, connection_id, template_id, con_operation_common_properties=con_operation_common_properties)
+
+Set common properties for specific template
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **template_id** | **str**|  | 
+ **con_operation_common_properties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_operation_common_properties import ConOperationCommonProperties
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def update_template_common_operation_propertiesExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    template_id = 'template_id_example' # str | 
+    con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties |  (optional)
+
+    try:
+        # Set common properties for specific template
+        api_client.template.update_template_common_operation_properties(project_id, connection_id, template_id, con_operation_common_properties=con_operation_common_properties)
+    except Exception as e:
+        print("Exception when calling TemplateApi->update_template_common_operation_properties: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 

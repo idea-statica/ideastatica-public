@@ -2276,7 +2276,10 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Clear the design of the connection connectionId in the project projectId
+      summary: "Clears the entire design of the specified connection, including all\
+        \ operations\r\nand parameters, in the given project. This reset is performed\
+        \ regardless of\r\nwhether the design originated from a template or was created\
+        \ manually."
       tags:
       - Template
       x-requiresProject: true
@@ -2351,7 +2354,275 @@ paths:
               schema:
                 type: boolean
           description: OK
-      summary: ""
+      summary: Publish template to Private or Company set
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/templates:
+    delete:
+      operationId: DeleteAll
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Delete all templates in connection
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/templates/explode:
+    post:
+      operationId: ExplodeAll
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: "Explode all templates (delete parameters, keep operations)"
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode:
+    post:
+      operationId: Explode
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: "Explode specific template (delete parameters, keep operations)"
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}:
+    delete:
+      operationId: Delete
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Delete specific template
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties:
+    get:
+      operationId: GetTemplateCommonOperationProperties
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConOperationCommonProperties'
+          description: OK
+      summary: Get Common properties for specific template
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateTemplateCommonOperationProperties
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConOperationCommonProperties'
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Set common properties for specific template
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults:
+    post:
+      operationId: LoadDefaults
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterUpdateResponse'
+          description: OK
+      summary: Load parameter defaults for specific template.
       tags:
       - Template
       x-requiresProject: true
@@ -5900,8 +6171,8 @@ components:
       additionalProperties: false
       example:
         parameterType: parameterType
+        default: default
         unit: unit
-        validationExpression: validationExpression
         expression: expression
         upperBound: upperBound
         description: description
@@ -5926,15 +6197,15 @@ components:
         expression:
           nullable: true
           type: string
+        default:
+          nullable: true
+          type: string
         value:
           nullable: true
         unit:
           nullable: true
           type: string
         parameterType:
-          nullable: true
-          type: string
-        validationExpression:
           nullable: true
           type: string
         description:
@@ -6141,8 +6412,8 @@ components:
           key: key
         parameters:
         - parameterType: parameterType
+          default: default
           unit: unit
-          validationExpression: validationExpression
           expression: expression
           upperBound: upperBound
           description: description
@@ -6161,8 +6432,8 @@ components:
           validationStatus: validationStatus
           key: key
         - parameterType: parameterType
+          default: default
           unit: unit
-          validationExpression: validationExpression
           expression: expression
           upperBound: upperBound
           description: description

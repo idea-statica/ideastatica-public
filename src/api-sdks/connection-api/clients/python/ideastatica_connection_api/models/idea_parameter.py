@@ -30,17 +30,17 @@ class IdeaParameter(BaseModel):
     """ # noqa: E501
     key: Optional[StrictStr] = None
     expression: Optional[StrictStr] = None
+    default: Optional[StrictStr] = None
     value: Optional[Any] = None
     unit: Optional[StrictStr] = None
     parameter_type: Optional[StrictStr] = Field(default=None, alias="parameterType")
-    validation_expression: Optional[StrictStr] = Field(default=None, alias="validationExpression")
     description: Optional[StrictStr] = None
     validation_status: Optional[StrictStr] = Field(default=None, alias="validationStatus")
     is_visible: Optional[StrictBool] = Field(default=None, alias="isVisible")
     lower_bound: Optional[StrictStr] = Field(default=None, alias="lowerBound")
     upper_bound: Optional[StrictStr] = Field(default=None, alias="upperBound")
     parameter_validation: Optional[IdeaParameterValidation] = Field(default=None, alias="parameterValidation")
-    __properties: ClassVar[List[str]] = ["key", "expression", "value", "unit", "parameterType", "validationExpression", "description", "validationStatus", "isVisible", "lowerBound", "upperBound", "parameterValidation"]
+    __properties: ClassVar[List[str]] = ["key", "expression", "default", "value", "unit", "parameterType", "description", "validationStatus", "isVisible", "lowerBound", "upperBound", "parameterValidation"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +94,11 @@ class IdeaParameter(BaseModel):
         if self.expression is None and "expression" in self.model_fields_set:
             _dict['expression'] = None
 
+        # set to None if default (nullable) is None
+        # and model_fields_set contains the field
+        if self.default is None and "default" in self.model_fields_set:
+            _dict['default'] = None
+
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
@@ -108,11 +113,6 @@ class IdeaParameter(BaseModel):
         # and model_fields_set contains the field
         if self.parameter_type is None and "parameter_type" in self.model_fields_set:
             _dict['parameterType'] = None
-
-        # set to None if validation_expression (nullable) is None
-        # and model_fields_set contains the field
-        if self.validation_expression is None and "validation_expression" in self.model_fields_set:
-            _dict['validationExpression'] = None
 
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
@@ -153,10 +153,10 @@ class IdeaParameter(BaseModel):
         _obj = cls.model_validate({
             "key": obj.get("key"),
             "expression": obj.get("expression"),
+            "default": obj.get("default"),
             "value": obj.get("value"),
             "unit": obj.get("unit"),
             "parameterType": obj.get("parameterType"),
-            "validationExpression": obj.get("validationExpression"),
             "description": obj.get("description"),
             "validationStatus": obj.get("validationStatus"),
             "isVisible": obj.get("isVisible"),

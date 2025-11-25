@@ -59,7 +59,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> ApplyTemplateWithHttpInfo(Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = default(ConTemplateApplyParam), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
@@ -69,7 +69,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         void ClearDesign(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
         /// </summary>
         /// <remarks>
         /// 
@@ -104,6 +104,102 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> CreateConTemplateWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Delete specific template
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void Delete(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0);
+
+        /// <summary>
+        /// Delete specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DeleteWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Delete all templates in connection
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void DeleteAll(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Delete all templates in connection
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DeleteAllWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations)
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void Explode(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0);
+
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ExplodeWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations)
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void ExplodeAll(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ExplodeAllWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get topology of the connection in json format
         /// </summary>
@@ -156,7 +252,57 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of TemplateConversions</returns>
         ApiResponse<TemplateConversions> GetDefaultTemplateMappingWithHttpInfo(Guid projectId, int connectionId, ConTemplateMappingGetParam conTemplateMappingGetParam = default(ConTemplateMappingGetParam), string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Get Common properties for specific template
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConOperationCommonProperties</returns>
+        ConOperationCommonProperties GetTemplateCommonOperationProperties(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0);
+
+        /// <summary>
+        /// Get Common properties for specific template
+        /// </summary>
+        /// <remarks>
         /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConOperationCommonProperties</returns>
+        ApiResponse<ConOperationCommonProperties> GetTemplateCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Load parameter defaults for specific template.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ParameterUpdateResponse</returns>
+        ParameterUpdateResponse LoadDefaults(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0);
+
+        /// <summary>
+        /// Load parameter defaults for specific template.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ParameterUpdateResponse</returns>
+        ApiResponse<ParameterUpdateResponse> LoadDefaultsWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Publish template to Private or Company set
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
@@ -167,7 +313,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         bool PublishConnection(Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = default(ConTemplatePublishParam), int operationIndex = 0);
 
         /// <summary>
-        /// 
+        /// Publish template to Private or Company set
         /// </summary>
         /// <remarks>
         /// 
@@ -180,6 +326,33 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of bool</returns>
         ApiResponse<bool> PublishConnectionWithHttpInfo(Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = default(ConTemplatePublishParam), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Set common properties for specific template
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void UpdateTemplateCommonOperationProperties(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0);
+
+        /// <summary>
+        /// Set common properties for specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+/// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> UpdateTemplateCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -220,7 +393,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> ApplyTemplateWithHttpInfoAsync(Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = default(ConTemplateApplyParam), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
         /// </summary>
         /// <remarks>
         /// 
@@ -234,7 +407,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task ClearDesignAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
         /// </summary>
         /// <remarks>
         /// 
@@ -275,6 +448,122 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> CreateConTemplateWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Delete specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DeleteAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Delete specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Delete all templates in connection
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DeleteAllAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Delete all templates in connection
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteAllWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ExplodeAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ExplodeWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ExplodeAllAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ExplodeAllWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get topology of the connection in json format
         /// </summary>
@@ -334,7 +623,67 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (TemplateConversions)</returns>
         System.Threading.Tasks.Task<ApiResponse<TemplateConversions>> GetDefaultTemplateMappingWithHttpInfoAsync(Guid projectId, int connectionId, ConTemplateMappingGetParam conTemplateMappingGetParam = default(ConTemplateMappingGetParam), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Get Common properties for specific template
+        /// </summary>
+        /// <remarks>
         /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConOperationCommonProperties</returns>
+        System.Threading.Tasks.Task<ConOperationCommonProperties> GetTemplateCommonOperationPropertiesAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Get Common properties for specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConOperationCommonProperties)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConOperationCommonProperties>> GetTemplateCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Load parameter defaults for specific template.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ParameterUpdateResponse</returns>
+        System.Threading.Tasks.Task<ParameterUpdateResponse> LoadDefaultsAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Load parameter defaults for specific template.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ParameterUpdateResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ParameterUpdateResponse>> LoadDefaultsWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Publish template to Private or Company set
         /// </summary>
         /// <remarks>
         /// 
@@ -349,7 +698,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<bool> PublishConnectionAsync(Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = default(ConTemplatePublishParam), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// 
+        /// Publish template to Private or Company set
         /// </summary>
         /// <remarks>
         /// 
@@ -363,6 +712,38 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (bool)</returns>
         System.Threading.Tasks.Task<ApiResponse<bool>> PublishConnectionWithHttpInfoAsync(Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = default(ConTemplatePublishParam), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Set common properties for specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task UpdateTemplateCommonOperationPropertiesAsync(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Set common properties for specific template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> UpdateTemplateCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -642,7 +1023,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId 
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
@@ -655,7 +1036,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId 
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
@@ -713,7 +1094,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId 
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
@@ -727,7 +1108,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Clear the design of the connection connectionId in the project projectId 
+        /// Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
@@ -928,6 +1309,602 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CreateConTemplate", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Delete specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void Delete(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0)
+        {
+            DeleteWithHttpInfo(projectId, connectionId, templateId);
+        }
+
+        /// <summary>
+        /// Delete specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> DeleteWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.Delete";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("Delete", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Delete specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DeleteAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await DeleteWithHttpInfoAsync(projectId, connectionId, templateId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> DeleteWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.Delete";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("Delete", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Delete all templates in connection 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void DeleteAll(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            DeleteAllWithHttpInfo(projectId, connectionId);
+        }
+
+        /// <summary>
+        /// Delete all templates in connection 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> DeleteAllWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.DeleteAll";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteAll", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Delete all templates in connection 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DeleteAllAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await DeleteAllWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete all templates in connection 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> DeleteAllWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.DeleteAll";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteAll", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void Explode(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0)
+        {
+            ExplodeWithHttpInfo(projectId, connectionId, templateId);
+        }
+
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ExplodeWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.Explode";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("Explode", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ExplodeAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await ExplodeWithHttpInfoAsync(projectId, connectionId, templateId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Explode specific template (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ExplodeWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.Explode";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("Explode", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void ExplodeAll(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            ExplodeAllWithHttpInfo(projectId, connectionId);
+        }
+
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ExplodeAllWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.ExplodeAll";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/explode", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ExplodeAll", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ExplodeAllAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await ExplodeAllWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Explode all templates (delete parameters, keep operations) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ExplodeAllWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.ExplodeAll";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/explode", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ExplodeAll", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -1246,7 +2223,319 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Get Common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConOperationCommonProperties</returns>
+        public ConOperationCommonProperties GetTemplateCommonOperationProperties(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties> localVarResponse = GetTemplateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, templateId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get Common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConOperationCommonProperties</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties> GetTemplateCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.GetTemplateCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<ConOperationCommonProperties>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetTemplateCommonOperationProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get Common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConOperationCommonProperties</returns>
+        public async System.Threading.Tasks.Task<ConOperationCommonProperties> GetTemplateCommonOperationPropertiesAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties> localVarResponse = await GetTemplateCommonOperationPropertiesWithHttpInfoAsync(projectId, connectionId, templateId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get Common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConOperationCommonProperties)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConOperationCommonProperties>> GetTemplateCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.GetTemplateCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<ConOperationCommonProperties>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetTemplateCommonOperationProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Load parameter defaults for specific template. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ParameterUpdateResponse</returns>
+        public ParameterUpdateResponse LoadDefaults(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ParameterUpdateResponse> localVarResponse = LoadDefaultsWithHttpInfo(projectId, connectionId, templateId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Load parameter defaults for specific template. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ParameterUpdateResponse</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ParameterUpdateResponse> LoadDefaultsWithHttpInfo(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.LoadDefaults";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<ParameterUpdateResponse>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("LoadDefaults", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Load parameter defaults for specific template. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ParameterUpdateResponse</returns>
+        public async System.Threading.Tasks.Task<ParameterUpdateResponse> LoadDefaultsAsync(Guid projectId, int connectionId, Guid templateId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ParameterUpdateResponse> localVarResponse = await LoadDefaultsWithHttpInfoAsync(projectId, connectionId, templateId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Load parameter defaults for specific template. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ParameterUpdateResponse)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ParameterUpdateResponse>> LoadDefaultsWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.LoadDefaults";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<ParameterUpdateResponse>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("LoadDefaults", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Publish template to Private or Company set 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
@@ -1261,7 +2550,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Publish template to Private or Company set 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
@@ -1323,7 +2612,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Publish template to Private or Company set 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
@@ -1339,7 +2628,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Publish template to Private or Company set 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
@@ -1394,6 +2683,166 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PublishConnection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Set common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void UpdateTemplateCommonOperationProperties(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0)
+        {
+            UpdateTemplateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, templateId, conOperationCommonProperties);
+        }
+
+        /// <summary>
+        /// Set common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+/// <param name="connectionId"></param>
+/// <param name="templateId"></param>
+/// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> UpdateTemplateCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+            localVarRequestOptions.Data = conOperationCommonProperties;
+
+            localVarRequestOptions.Operation = "TemplateApi.UpdateTemplateCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateTemplateCommonOperationProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Set common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task UpdateTemplateCommonOperationPropertiesAsync(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await UpdateTemplateCommonOperationPropertiesWithHttpInfoAsync(projectId, connectionId, templateId, conOperationCommonProperties, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Set common properties for specific template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId"></param>
+        /// <param name="connectionId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="conOperationCommonProperties"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> UpdateTemplateCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("templateId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(templateId)); // path parameter
+            localVarRequestOptions.Data = conOperationCommonProperties;
+
+            localVarRequestOptions.Operation = "TemplateApi.UpdateTemplateCommonOperationProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PutAsync<Object>("/api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateTemplateCommonOperationProperties", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
