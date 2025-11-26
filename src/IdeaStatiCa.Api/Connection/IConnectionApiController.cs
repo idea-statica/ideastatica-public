@@ -492,5 +492,6 @@ namespace IdeaStatiCa.Api.Connection
 		/// <returns></returns>
 		Task<ParameterUpdateResponse> LoadParameterDefaults(int connectionId, Guid templateId, CancellationToken cancellation = default);
 
+		Task<string> Propose(int connectionId, CancellationToken cancellation = default);
 	}
 }
