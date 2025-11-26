@@ -2261,6 +2261,77 @@ paths:
       - Settings
       x-requiresProject: true
       x-requiresConnection: false
+  /api/2/projects/{projectId}/connections/{connectionId}/templates:
+    delete:
+      operationId: DeleteAll
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Delete all templates in connection
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+    get:
+      description: "This method fetches the templates applied to a connection within\
+        \ a project. Each template\r\n            includes details such as its ID\
+        \ within the project, template id, members, operations, parameters, and associated\
+        \ common properties."
+      operationId: GetTemplatesForConnection
+      parameters:
+      - description: The unique identifier of the project containing the connection.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The identifier of the connection for which templates are to be
+          retrieved.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConConnectionTemplateModel'
+                type: array
+          description: OK
+      summary: Retrieves a list of templates associated with a specific connection
+        within a project.
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
   /api/2/projects/{projectId}/connections/{connectionId}/get-template:
     get:
       operationId: CreateConTemplate
@@ -2490,36 +2561,6 @@ paths:
                 type: boolean
           description: OK
       summary: Publish template to Private or Company set
-      tags:
-      - Template
-      x-requiresProject: true
-      x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/templates:
-    delete:
-      operationId: DeleteAll
-      parameters:
-      - description: ""
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: ""
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          description: OK
-      summary: Delete all templates in connection
       tags:
       - Template
       x-requiresProject: true
@@ -3623,6 +3664,61 @@ components:
         isParametric:
           $ref: '#/components/schemas/SearchOption'
       type: object
+    ConConnectionTemplateModel:
+      additionalProperties: false
+      example:
+        parameterIds:
+        - 7
+        - 7
+        instanceId: 5
+        boltAssemblyId: 1
+        tempalteId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        plateMaterialId: 0
+        operationIds:
+        - 2
+        - 2
+        weldMaterialId: 6
+        memberIds:
+        - 5
+        - 5
+      properties:
+        plateMaterialId:
+          format: int32
+          nullable: true
+          type: integer
+        weldMaterialId:
+          format: int32
+          nullable: true
+          type: integer
+        boltAssemblyId:
+          format: int32
+          nullable: true
+          type: integer
+        tempalteId:
+          format: uuid
+          type: string
+        instanceId:
+          format: int32
+          type: integer
+        memberIds:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        operationIds:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        parameterIds:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
     ConConversionSettings:
       additionalProperties: false
       example:
@@ -4075,6 +4171,33 @@ components:
           nullable: true
           type: string
       type: object
+    ConNonConformityIssue:
+      additionalProperties: false
+      example:
+        severity: info
+        operationId: 0
+        description: description
+        details: details
+      properties:
+        operationId:
+          format: int32
+          type: integer
+        description:
+          nullable: true
+          type: string
+        details:
+          nullable: true
+          type: string
+        severity:
+          $ref: '#/components/schemas/ConNonConformityIssueSeverity'
+      type: object
+    ConNonConformityIssueSeverity:
+      enum:
+      - info
+      - warning
+      - error
+      - terminatedError
+      type: string
     ConOperation:
       additionalProperties: false
       example:
@@ -4246,6 +4369,42 @@ components:
       type: object
     ConTemplateApplyResult:
       additionalProperties: false
+      example:
+        appliedWithoutIssues: true
+        templateModel:
+          parameterIds:
+          - 7
+          - 7
+          instanceId: 5
+          boltAssemblyId: 1
+          tempalteId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          plateMaterialId: 0
+          operationIds:
+          - 2
+          - 2
+          weldMaterialId: 6
+          memberIds:
+          - 5
+          - 5
+        issues:
+        - severity: info
+          operationId: 0
+          description: description
+          details: details
+        - severity: info
+          operationId: 0
+          description: description
+          details: details
+      properties:
+        appliedWithoutIssues:
+          type: boolean
+        templateModel:
+          $ref: '#/components/schemas/ConConnectionTemplateModel'
+        issues:
+          items:
+            $ref: '#/components/schemas/ConNonConformityIssue'
+          nullable: true
+          type: array
       type: object
     ConTemplateMappingGetParam:
       additionalProperties: false

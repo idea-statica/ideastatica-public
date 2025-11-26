@@ -210,7 +210,9 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
-		public async Task ShouldPartialyApplyTemplate_Success()
+		[TestCase(new int[] { 1, 2 }, true, 0)]
+		[TestCase(new int[] { 2, 3 }, false, 1)]
+		public async Task ShouldPartialyApplyTemplate(int[] memberIds, bool resultOfApplication, int issuesCount)
 		{
 			if (ConnectionApiClient == null)
 			{
@@ -230,7 +232,7 @@ namespace ST_ConnectionRestApi
 			ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
 			{
 				Template = this.PartialTemplate,
-				MemberIds = new List<int> { 1, 2 }
+				MemberIds = memberIds.ToList()
 			};
 			var templateMapping = await ConnectionApiClient.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
 			if (templateMapping == null)
@@ -247,68 +249,12 @@ namespace ST_ConnectionRestApi
 				ConnectionTemplate = this.PartialTemplate,
 				Mapping = templateMapping
 			};
-			var response = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conTemplateApply);
+			var conTemplateApplyResult = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conTemplateApply);
 
-			response.Should().NotBeNull();
-			ConTemplateApplyResult? conTemplateApplyResult = JsonConvert.DeserializeObject<ConTemplateApplyResult>(response!.ToString()!);
 			conTemplateApplyResult.Should().NotBeNull();
-			conTemplateApplyResult!.AppliedWithoutIssues.Should().BeTrue();
-			conTemplateApplyResult!.Issues.Should().BeEmpty();
-			conTemplateApplyResult.TemplateModel.Should().NotBeNull();
-			conTemplateApplyResult.TemplateModel.MemberIds.Should().HaveCount(2);
-			conTemplateApplyResult.TemplateModel.OperationIds.Count.Should().Be(1);
-			conTemplateApplyResult.TemplateModel.ParameterIds.Count.Should().Be(24);
-			conTemplateApplyResult.TemplateModel.PlateMaterialId.Should().BeNull();
-			conTemplateApplyResult.TemplateModel.WeldMaterialId.Should().Be(2);
-			conTemplateApplyResult.TemplateModel.BoltAssemblyId.Should().BeNull();
-		}
-
-		[Test]
-		public async Task ShouldPartialyApplyTemplate_Failed()
-		{
-			if (ConnectionApiClient == null)
-			{
-				throw new Exception("ConnectionApiClient is null");
-			}
-
-			string connProjectFilePath = Path.Combine(ProjectPath, "ConnForPartialTempApp.ideaCon");
-			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
-			this.ActiveProjectId = Project.ProjectId;
-			if (this.ActiveProjectId == Guid.Empty)
-			{
-				throw new Exception("Project is not opened");
-			}
-
-			var connection = Project!.Connections.First();
-
-			ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
-			{
-				Template = this.PartialTemplate,
-				MemberIds = new List<int> { 2, 3 }
-			};
-			var templateMapping = await ConnectionApiClient.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
-			if (templateMapping == null)
-			{
-				throw new Exception("Template mapping is null");
-			}
-
-			templateMapping.Should().NotBeNull();
-			templateMapping.Conversions.Should().NotBeNull();
-			templateMapping.Conversions.Count.Should().Be(5);
-
-			ConTemplateApplyParam conTemplateApply = new ConTemplateApplyParam
-			{
-				ConnectionTemplate = this.PartialTemplate,
-				Mapping = templateMapping
-			};
-			var response = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conTemplateApply);
-			
-			response.Should().NotBeNull();
-			ConTemplateApplyResult? conTemplateApplyResult = JsonConvert.DeserializeObject<ConTemplateApplyResult>(response!.ToString()!);
 			conTemplateApplyResult.Should().NotBeNull();
-			conTemplateApplyResult!.AppliedWithoutIssues.Should().BeFalse();
-			conTemplateApplyResult!.Issues.Should().NotBeEmpty();
-			conTemplateApplyResult!.Issues.Count.Should().Be(1);
+			conTemplateApplyResult.AppliedWithoutIssues.Should().Be(resultOfApplication);
+			conTemplateApplyResult!.Issues.Count.Should().Be(issuesCount);
 			conTemplateApplyResult.TemplateModel.Should().NotBeNull();
 			conTemplateApplyResult.TemplateModel.MemberIds.Should().HaveCount(2);
 			conTemplateApplyResult.TemplateModel.OperationIds.Count.Should().Be(1);

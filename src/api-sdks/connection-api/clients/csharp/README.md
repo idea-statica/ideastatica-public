@@ -283,6 +283,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**GetConnectionTopology**](docs/TemplateApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 [**GetTemplateCommonOperationProperties**](docs/TemplateApi.md#gettemplatecommonoperationproperties) | Get Common properties for specific template
+[**GetTemplatesForConnection**](docs/TemplateApi.md#gettemplatesforconnection) | Retrieves a list of templates associated with a specific connection within a project.
 [**LoadDefaults**](docs/TemplateApi.md#loaddefaults) | Load parameter defaults for specific template.
 [**PublishConnection**](docs/TemplateApi.md#publishconnection) | Publish template to Private or Company set
 [**UpdateTemplateCommonOperationProperties**](docs/TemplateApi.md#updatetemplatecommonoperationproperties) | Set common properties for specific template
@@ -328,6 +329,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConMemberPosition](docs/ConMemberPosition.md)
  - [Model.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [Model.ConMprlElement](docs/ConMprlElement.md)
+ - [Model.ConNonConformityIssue](docs/ConNonConformityIssue.md)
+ - [Model.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [Model.ConOperation](docs/ConOperation.md)
  - [Model.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
  - [Model.ConProductionCost](docs/ConProductionCost.md)
@@ -335,6 +338,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConProjectData](docs/ConProjectData.md)
  - [Model.ConResultSummary](docs/ConResultSummary.md)
  - [Model.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
+ - [Model.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [Model.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [Model.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)

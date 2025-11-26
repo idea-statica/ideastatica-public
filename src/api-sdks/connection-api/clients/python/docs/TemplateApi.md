@@ -14,6 +14,7 @@ Method | Description
 [**get_connection_topology**](TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 [**get_template_common_operation_properties**](TemplateApi.md#get_template_common_operation_properties) | Get Common properties for specific template
+[**get_templates_for_connection**](TemplateApi.md#get_templates_for_connection) | Retrieves a list of templates associated with a specific connection within a project.
 [**load_defaults**](TemplateApi.md#load_defaults) | Load parameter defaults for specific template.
 [**publish_connection**](TemplateApi.md#publish_connection) | Publish template to Private or Company set
 [**update_template_common_operation_properties**](TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template
@@ -21,7 +22,7 @@ Method | Description
 
 <a id="apply_template"></a>
 # **apply_template**
-> object apply_template(project_id, connection_id, con_template_apply_param=con_template_apply_param)
+> ConTemplateApplyResult apply_template(project_id, connection_id, con_template_apply_param=con_template_apply_param)
 
 Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
 
@@ -36,7 +37,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ConTemplateApplyResult**](ConTemplateApplyResult.md)
 
 ### Example
 
@@ -44,6 +45,7 @@ Required Imports
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.models.con_template_apply_param import ConTemplateApplyParam
+from ideastatica_connection_api.models.con_template_apply_result import ConTemplateApplyResult
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
@@ -772,6 +774,86 @@ Looking for a code sample? request some help on our [discussion](https://github.
 All URIs are relative to *http://localhost*
 
 > **GET** /api/2/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_templates_for_connection"></a>
+# **get_templates_for_connection**
+> List[ConConnectionTemplateModel] get_templates_for_connection(project_id, connection_id)
+
+Retrieves a list of templates associated with a specific connection within a project.
+
+This method fetches the templates applied to a connection within a project. Each template              includes details such as its ID within the project, template id, members, operations, parameters, and associated common properties.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the project containing the connection. | 
+ **connection_id** | **int**| The identifier of the connection for which templates are to be retrieved. | 
+
+### Return type
+
+[**List[ConConnectionTemplateModel]**](ConConnectionTemplateModel.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_connection_template_model import ConConnectionTemplateModel
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_templates_for_connectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the project containing the connection.
+    connection_id = 56 # int | The identifier of the connection for which templates are to be retrieved.
+
+    try:
+        # Retrieves a list of templates associated with a specific connection within a project.
+        api_response = api_client.template.get_templates_for_connection(project_id, connection_id)
+        print("The response of TemplateApi->get_templates_for_connection:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling TemplateApi->get_templates_for_connection: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/2/projects/{projectId}/connections/{connectionId}/templates 
 
 ### Authorization
 

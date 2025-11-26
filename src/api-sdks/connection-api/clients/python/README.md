@@ -335,6 +335,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_connection_topology**](docs/TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](docs/TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 [**get_template_common_operation_properties**](docs/TemplateApi.md#get_template_common_operation_properties) | Get Common properties for specific template
+[**get_templates_for_connection**](docs/TemplateApi.md#get_templates_for_connection) | Retrieves a list of templates associated with a specific connection within a project.
 [**load_defaults**](docs/TemplateApi.md#load_defaults) | Load parameter defaults for specific template.
 [**publish_connection**](docs/TemplateApi.md#publish_connection) | Publish template to Private or Company set
 [**update_template_common_operation_properties**](docs/TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template
@@ -380,6 +381,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConMemberPosition](docs/ConMemberPosition.md)
  - [ideastatica_connection_api.models.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [ideastatica_connection_api.models.ConMprlElement](docs/ConMprlElement.md)
+ - [ideastatica_connection_api.models.ConNonConformityIssue](docs/ConNonConformityIssue.md)
+ - [ideastatica_connection_api.models.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [ideastatica_connection_api.models.ConOperation](docs/ConOperation.md)
  - [ideastatica_connection_api.models.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
  - [ideastatica_connection_api.models.ConProductionCost](docs/ConProductionCost.md)
@@ -387,6 +390,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConProjectData](docs/ConProjectData.md)
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
  - [ideastatica_connection_api.models.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
+ - [ideastatica_connection_api.models.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [ideastatica_connection_api.models.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [ideastatica_connection_api.models.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [ideastatica_connection_api.models.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
