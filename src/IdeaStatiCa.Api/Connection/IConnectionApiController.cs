@@ -493,11 +493,13 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ParameterUpdateResponse> LoadParameterDefaults(int connectionId, Guid templateId, CancellationToken cancellation = default);
 
 		/// <summary>
-		/// 
+		/// Proposes a list of design items for a specified connection.
 		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="cancellation"></param>
-		/// <returns></returns>
+		/// <param name="connectionId">The unique identifier of the connection for which design items are proposed.</param>
+		/// <param name="cancellation">A token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains a list of <see
+		/// cref="IdeaStatiCa.Api.Connection.Model.ConDesignItem"/> objects representing the proposed design items for the
+		/// connection.</returns>
 		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignItem>> Propose(int connectionId, CancellationToken cancellation = default);
 	}
 }
