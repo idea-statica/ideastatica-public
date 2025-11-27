@@ -13,7 +13,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// Model of the applied template
 		/// It contains Id of template and Ids of created members, operations, parameters, etc.
 		/// </summary>
-		public ConConnectionTemplateModel TemplateModel { get; set; }
+		public ConConnectionTemplate TemplateModel { get; set; }
 
 		/// <summary>
 		/// List of issues encountered during template application
