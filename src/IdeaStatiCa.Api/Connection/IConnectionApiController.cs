@@ -289,6 +289,14 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ParameterUpdateResponse> UpdateParametersV2(int connectionId, List<IdeaParameterUpdate> parameters);
 
 		/// <summary>
+		/// Delete all parameters
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <returns></returns>
+		Task DeleteParameters(int connectionId);
+
+
+		/// <summary>
 		/// Get service version
 		/// </summary>
 		/// <returns></returns>
