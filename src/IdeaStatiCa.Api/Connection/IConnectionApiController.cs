@@ -310,6 +310,22 @@ namespace IdeaStatiCa.Api.Connection
 		/// <returns>contemp string</returns>
 		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
 
+		/// <summary>
+		/// Get specific template in connection by id
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConConnectionTemplate> GetTemplateInConnection(int connectionId, int templateId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get all templates in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConConnectionTemplate>> GetTemplatesInConnection(int connectionId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Set bearing member
