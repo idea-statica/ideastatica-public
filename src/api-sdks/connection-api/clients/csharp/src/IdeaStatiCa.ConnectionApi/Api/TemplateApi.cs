@@ -289,7 +289,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId">The identifier of the connection for which templates are to be retrieved.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConConnectionTemplateModel&gt;</returns>
-        List<ConConnectionTemplateModel> GetTemplatesForConnection(Guid projectId, int connectionId, int operationIndex = 0);
+        List<ConConnectionTemplate> GetTemplatesForConnection(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
         /// Retrieves a list of templates associated with a specific connection within a project.
@@ -303,7 +303,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConConnectionTemplateModel&gt;</returns>
-        ApiResponse<List<ConConnectionTemplateModel>> GetTemplatesForConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        ApiResponse<List<ConConnectionTemplate>> GetTemplatesForConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Load parameter defaults for specific template.
         /// </summary>
@@ -694,7 +694,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConConnectionTemplateModel&gt;</returns>
-        System.Threading.Tasks.Task<List<ConConnectionTemplateModel>> GetTemplatesForConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<List<ConConnectionTemplate>> GetTemplatesForConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Retrieves a list of templates associated with a specific connection within a project.
@@ -709,7 +709,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConConnectionTemplateModel&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ConConnectionTemplateModel>>> GetTemplatesForConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<List<ConConnectionTemplate>>> GetTemplatesForConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Load parameter defaults for specific template.
         /// </summary>
@@ -2448,9 +2448,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId">The identifier of the connection for which templates are to be retrieved.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConConnectionTemplateModel&gt;</returns>
-        public List<ConConnectionTemplateModel> GetTemplatesForConnection(Guid projectId, int connectionId, int operationIndex = 0)
+        public List<ConConnectionTemplate> GetTemplatesForConnection(Guid projectId, int connectionId, int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplateModel>> localVarResponse = GetTemplatesForConnectionWithHttpInfo(projectId, connectionId);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplate>> localVarResponse = GetTemplatesForConnectionWithHttpInfo(projectId, connectionId);
             return localVarResponse.Data;
         }
 
@@ -2463,7 +2463,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConConnectionTemplateModel&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplateModel>> GetTemplatesForConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplate>> GetTemplatesForConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -2500,7 +2500,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<ConConnectionTemplateModel>>("/api/2/projects/{projectId}/connections/{connectionId}/templates", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<List<ConConnectionTemplate>>("/api/2/projects/{projectId}/connections/{connectionId}/templates", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetTemplatesForConnection", localVarResponse);
@@ -2522,9 +2522,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConConnectionTemplateModel&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ConConnectionTemplateModel>> GetTemplatesForConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<List<ConConnectionTemplate>> GetTemplatesForConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplateModel>> localVarResponse = await GetTemplatesForConnectionWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplate>> localVarResponse = await GetTemplatesForConnectionWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -2538,7 +2538,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConConnectionTemplateModel&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplateModel>>> GetTemplatesForConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnectionTemplate>>> GetTemplatesForConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -2576,7 +2576,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConConnectionTemplateModel>>("/api/2/projects/{projectId}/connections/{connectionId}/templates", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConConnectionTemplate>>("/api/2/projects/{projectId}/connections/{connectionId}/templates", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
