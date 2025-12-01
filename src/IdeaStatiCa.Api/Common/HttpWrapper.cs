@@ -218,7 +218,8 @@ namespace IdeaStatiCa.Api.Common
 							{
 								logger.LogTrace($"Response is successfull");
 
-								if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase))
+								if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase) ||
+									acceptHeader.Equals("image/png", StringComparison.InvariantCultureIgnoreCase))
 								{
 									logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
 									var ms = new MemoryStream();

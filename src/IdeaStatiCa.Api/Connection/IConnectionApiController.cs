@@ -504,5 +504,7 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignItem>> Propose(int connectionId, CancellationToken cancellation = default);
 
 		Task<string> GetTemplateAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
+
+		Task<Stream> GetDesignItemPictureAsync(Guid pictureId, CancellationToken token = default);
 	}
 }
