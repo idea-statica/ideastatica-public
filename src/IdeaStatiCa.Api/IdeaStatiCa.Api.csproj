@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Connection\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
 		<PackageReference Include="System.Text.Json" />
