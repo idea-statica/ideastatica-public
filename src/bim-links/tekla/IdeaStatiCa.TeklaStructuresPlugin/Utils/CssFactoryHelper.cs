@@ -314,7 +314,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			insideradius = insideradius > 0.001 ? insideradius : 0.001;
 			flangeEdgeRoundingRadius = (flangeEdgeRoundingRadius > 0.001 ? flangeEdgeRoundingRadius : 0.001);
 
-			CrossSectionFactory.FillRolledT(cssParameter, dHeight, dWidth, webThickness, flangethickness, insideradius, flangeEdgeRoundingRadius, webEdgeRounding, 0.00001, 0.00001);
+			CrossSectionFactory.FillRolledT(cssParameter, dWidth, dHeight, webThickness, flangethickness, insideradius, flangeEdgeRoundingRadius, webEdgeRounding, 0.00001, 0.00001);
 			return cssParameter;
 		}
 
