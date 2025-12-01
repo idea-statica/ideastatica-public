@@ -256,12 +256,13 @@ namespace ST_ConnectionRestApi
 			conTemplateApplyResult.AppliedWithoutIssues.Should().Be(resultOfApplication);
 			conTemplateApplyResult!.Issues.Count.Should().Be(issuesCount);
 			conTemplateApplyResult.TemplateModel.Should().NotBeNull();
-			conTemplateApplyResult.TemplateModel.MemberIds.Should().HaveCount(2);
-			conTemplateApplyResult.TemplateModel.OperationIds.Count.Should().Be(1);
-			conTemplateApplyResult.TemplateModel.ParameterIds.Count.Should().Be(24);
-			conTemplateApplyResult.TemplateModel.PlateMaterialId.Should().BeNull();
-			conTemplateApplyResult.TemplateModel.WeldMaterialId.Should().Be(2);
-			conTemplateApplyResult.TemplateModel.BoltAssemblyId.Should().BeNull();
+			conTemplateApplyResult.TemplateModel.Members.Should().HaveCount(2);
+			conTemplateApplyResult.TemplateModel.Operations.Count.Should().Be(1);
+			conTemplateApplyResult.TemplateModel.ParameterKeys.Count.Should().Be(24);
+			conTemplateApplyResult.TemplateModel.CommonProperties.Should().NotBeNull();
+			conTemplateApplyResult.TemplateModel.CommonProperties.PlateMaterialId.Should().BeNull();
+			conTemplateApplyResult.TemplateModel.CommonProperties.WeldMaterialId.Should().Be(2);
+			conTemplateApplyResult.TemplateModel.CommonProperties.BoltAssemblyId.Should().BeNull();
 		}
 
 		[Test]
