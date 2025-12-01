@@ -15,6 +15,7 @@
 		public const string Settings = "settings";
 		public const string Client = "clients";
 		public const string Templates = "templates";
+		public const string DesignProposer = "design-proposer";
 
 		public const string ConnectClient = "connect-client";
 		public const string Version = "version";
