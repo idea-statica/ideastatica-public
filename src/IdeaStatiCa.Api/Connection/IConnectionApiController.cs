@@ -4,6 +4,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
+using IdeaStatiCa.Api.Connection.Model.DesignProposer;
 using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
@@ -501,5 +502,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// cref="IdeaStatiCa.Api.Connection.Model.ConDesignItem"/> objects representing the proposed design items for the
 		/// connection.</returns>
 		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignItem>> Propose(int connectionId, CancellationToken cancellation = default);
+
+		Task<string> GetTemplateAsync(TemplateIdentifier templateIdentifier, CancellationToken token = default);
 	}
 }
