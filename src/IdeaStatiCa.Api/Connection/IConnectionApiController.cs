@@ -503,6 +503,6 @@ namespace IdeaStatiCa.Api.Connection
 		/// connection.</returns>
 		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignItem>> Propose(int connectionId, CancellationToken cancellation = default);
 
-		Task<string> GetTemplateAsync(TemplateIdentifier templateIdentifier, CancellationToken token = default);
+		Task<string> GetTemplateAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
 	}
 }
