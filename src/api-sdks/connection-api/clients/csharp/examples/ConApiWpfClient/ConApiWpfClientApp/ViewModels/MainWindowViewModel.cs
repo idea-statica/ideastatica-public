@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using ConApiWpfClientApp.Services;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
@@ -64,7 +65,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
 
-			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
+			ApplyTemplateCommand = new AsyncRelayCommand<object?>((p) => ApplyTemplateAsync(p), (p) => SelectedConnection != null);
 
 			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
 
@@ -245,7 +246,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
-		public AsyncRelayCommand ApplyTemplateCommand { get; }
+		public AsyncRelayCommand<object?> ApplyTemplateCommand { get; }
 
 		public AsyncRelayCommand GetOperationsCommand { get; }
 
@@ -801,7 +802,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
-		private async Task ApplyTemplateAsync()
+		private async Task ApplyTemplateAsync(object? arg)
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
 
@@ -823,19 +824,31 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				OpenFileDialog openFileDialog = new OpenFileDialog();
-				openFileDialog.Filter = "Connection Template | *.conTemp";
-				if (openFileDialog.ShowDialog() != true)
+				string templateXml = string.Empty;
+				if (arg?.ToString().Equals("ConnectionLibrary", StringComparison.InvariantCultureIgnoreCase) == true)
 				{
-					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
+
+				}
+				else
+				{
+					ITemplateProvider templateProvider = new TemplateProviderFile();
+
+					templateXml = await templateProvider.GetTemplateAsync();
+				}
+
+
+				if (string.IsNullOrEmpty(templateXml))
+				{
+					_logger.LogInformation("ApplyTemplateAsync : no template, leaving");
 					return;
 				}
 
-				var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
 				var getTemplateParam = new ConTemplateMappingGetParam()
 				{
 					Template = templateXml
 				};
+
+
 
 				var templateMapping = await ConApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
 					selectedConnection.Id,

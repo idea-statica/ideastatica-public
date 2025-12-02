@@ -37,8 +37,6 @@
 				<ComboBox ItemsSource="{Binding AvailableAnalysisTypes}" SelectedItem="{Binding SelectedAnalysisType, Mode=TwoWay}" MinWidth="120"/>
 				<CheckBox IsChecked="{Binding CalculateBuckling, Mode=TwoWay}" ToolTip="Calculate also buckling">Is Buckling</CheckBox>
 				<CheckBox IsChecked="{Binding GetRawXmlResults, Mode=TwoWay}" ToolTip="Get raw results of the analysis in XML format">DetailRes</CheckBox>
-				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
-				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
 				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}">Get Operations </Button>
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="pdf">Report PDF</Button>
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="docx">Report Word</Button>
@@ -54,6 +52,10 @@
 			</ToolBar>
 
 			<ToolBar Band="3">
+				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
+				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}" CommandParameter="FromFile" ToolTip="Select a connection template on a disk and apply it on the active connection">Apply template</Button>
+				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}" CommandParameter="ConnectionLibrary" ToolTip="Propose a connection design for the active connection from Connection Library and apply it">Apply from CL</Button>
+
 				<Button Command="{Binding ProposeCommand, Mode=OneWay}" ToolTip="Propose connection design from Connection Library">Propose</Button>
 			</ToolBar>
 		</ToolBarTray>
