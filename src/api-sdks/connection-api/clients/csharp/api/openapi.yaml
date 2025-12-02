@@ -326,6 +326,139 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
+  /api/2/connection-library/get-design-sets:
+    get:
+      description: "This method returns a collection of design sets that are mapped\
+        \ and ready for use. It throws an\r\n            exception if no design sets\
+        \ are available for the user."
+      operationId: GetDesignSets
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConDesignSet'
+                type: array
+          description: OK
+      summary: Retrieves a list of design sets available for the user.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: false
+      x-requiresConnection: false
+  /api/2/connection-library/projects/{projectId}/connections/{connectionId}/propose:
+    post:
+      description: "This method retrieves the connection model from the specified\
+        \ project and classifies its\r\n            typology. It then filters and\
+        \ proposes design items based on the connection's typology and design code."
+      operationId: Propose
+      parameters:
+      - description: The unique identifier of the project containing the connection.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The identifier of the connection for which design items are proposed.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConConnectionLibrarySearchParameters'
+        description: "Parameters used to filter and refine the search for proposed\
+          \ connection design items, such as set membership and required connection\
+          \ features."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConDesignItem'
+                type: array
+          description: OK
+      summary: Proposes a list of design items for a specified connection within a
+        project.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/2/connection-library/get-template:
+    get:
+      description: "This method is mapped to API version 2 and produces a plain text\
+        \ response. It is intended to be\r\n            used in scenarios where the\
+        \ template of a design item needs to be retrieved for further processing or\r\
+        \n            display."
+      operationId: GetTemplate
+      parameters:
+      - description: The unique identifier of the design set.
+        explode: true
+        in: query
+        name: designSetId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: The unique identifier of the design item for which the template
+          is requested.
+        explode: true
+        in: query
+        name: designItemId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+      summary: Retrieves the template associated with the specified design set and
+        design item.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: false
+      x-requiresConnection: false
+  /api/2/connection-library/get-picture:
+    get:
+      description: "This method is mapped to API version 2 and produces a PNG image.\
+        \ The image is returned as a file\r\n            stream result with the file\
+        \ name set to the picture ID followed by the .png extension."
+      operationId: GetDesignItemPicture
+      parameters:
+      - description: The unique identifier of the picture to retrieve.
+        explode: true
+        in: query
+        name: pictureId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Retrieves a picture as a PNG image stream based on the specified picture
+        identifier.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: false
+      x-requiresConnection: false
   /api/2/projects/{projectId}/get-default-mapping:
     get:
       operationId: GetConversionMapping
@@ -2252,6 +2385,7 @@ paths:
       x-requiresConnection: true
   /api/2/projects/{projectId}/connections/{connectionId}/clear-design:
     post:
+      deprecated: true
       operationId: ClearDesign
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
@@ -3441,6 +3575,53 @@ components:
         includeBuckling:
           type: boolean
       type: object
+    ConConnectionLibrarySearchParameters:
+      additionalProperties: false
+      example:
+        inCompanySet: true
+        hasClipAngles: null
+        isMoment: null
+        members:
+        - 0
+        - 0
+        isParametric: null
+        isShear: null
+        inPredefinedSet: true
+        inPersonalSet: true
+        hasAnchor: null
+        isTruss: null
+        hasBolts: ignore
+        hasWelds: null
+      properties:
+        members:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        inPredefinedSet:
+          type: boolean
+        inCompanySet:
+          type: boolean
+        inPersonalSet:
+          type: boolean
+        hasBolts:
+          $ref: '#/components/schemas/SearchOption'
+        hasWelds:
+          $ref: '#/components/schemas/SearchOption'
+        hasAnchor:
+          $ref: '#/components/schemas/SearchOption'
+        hasClipAngles:
+          $ref: '#/components/schemas/SearchOption'
+        isMoment:
+          $ref: '#/components/schemas/SearchOption'
+        isShear:
+          $ref: '#/components/schemas/SearchOption'
+        isTruss:
+          $ref: '#/components/schemas/SearchOption'
+        isParametric:
+          $ref: '#/components/schemas/SearchOption'
+      type: object
     ConConversionSettings:
       additionalProperties: false
       example:
@@ -3508,6 +3689,64 @@ components:
             $ref: '#/components/schemas/ConversionMapping'
           nullable: true
           type: array
+      type: object
+    ConDesignItem:
+      additionalProperties: false
+      example:
+        pictureId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        conDesignSetId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        conDesignItemId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ownerId: ownerId
+        version: version
+        designCode: designCode
+      properties:
+        pictureId:
+          format: uuid
+          type: string
+        version:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        ownerId:
+          nullable: true
+          type: string
+        designCode:
+          nullable: true
+          type: string
+        conDesignSetId:
+          format: uuid
+          type: string
+        conDesignItemId:
+          format: uuid
+          type: string
+      type: object
+    ConDesignSet:
+      additionalProperties: false
+      example:
+        name: name
+        description: description
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ownerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        ownerId:
+          format: uuid
+          type: string
+        type:
+          nullable: true
+          type: string
       type: object
     ConDesignSetType:
       enum:
@@ -6798,6 +7037,12 @@ components:
           nullable: true
           type: array
       type: object
+    SearchOption:
+      enum:
+      - ignore
+      - must
+      - mustNot
+      type: string
     Segment2D:
       additionalProperties: false
       description: Represents a segment in two-dimensional space.

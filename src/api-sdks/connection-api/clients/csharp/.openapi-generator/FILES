@@ -25,7 +25,10 @@ docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
 docs/ConCalculationParameter.md
 docs/ConConnection.md
+docs/ConConnectionLibrarySearchParameters.md
 docs/ConConversionSettings.md
+docs/ConDesignItem.md
+docs/ConDesignSet.md
 docs/ConDesignSetType.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
@@ -56,6 +59,7 @@ docs/ConcreteBlockData.md
 docs/ConnectionApi.md
 docs/ConnectionCheckRes.md
 docs/ConnectionData.md
+docs/ConnectionLibraryApi.md
 docs/ConversionApi.md
 docs/ConversionMapping.md
 docs/CountryCode.md
@@ -94,6 +98,7 @@ docs/ProjectApi.md
 docs/ReferenceElement.md
 docs/Region2D.md
 docs/ReportApi.md
+docs/SearchOption.md
 docs/Segment2D.md
 docs/Selected.md
 docs/SelectedType.md
@@ -109,6 +114,7 @@ git_push.sh
 src/IdeaStatiCa.ConnectionApi/Api/CalculationApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ClientApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ConnectionApi.cs
+src/IdeaStatiCa.ConnectionApi/Api/ConnectionLibraryApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ConversionApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ExportApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/LoadEffectApi.cs
@@ -158,7 +164,10 @@ src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlateSideCodeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCalculationParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConConnectionLibrarySearchParameters.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConversionSettings.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConDesignItem.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConDesignSet.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignSetType.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffect.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectMemberLoad.cs
@@ -216,6 +225,7 @@ src/IdeaStatiCa.ConnectionApi/Model/Point3D.cs
 src/IdeaStatiCa.ConnectionApi/Model/PolyLine2D.cs
 src/IdeaStatiCa.ConnectionApi/Model/ReferenceElement.cs
 src/IdeaStatiCa.ConnectionApi/Model/Region2D.cs
+src/IdeaStatiCa.ConnectionApi/Model/SearchOption.cs
 src/IdeaStatiCa.ConnectionApi/Model/Segment2D.cs
 src/IdeaStatiCa.ConnectionApi/Model/Selected.cs
 src/IdeaStatiCa.ConnectionApi/Model/SelectedType.cs
