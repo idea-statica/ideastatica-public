@@ -31,6 +31,7 @@ docs/ConConversionSettings.md
 docs/ConDesignItem.md
 docs/ConDesignSet.md
 docs/ConDesignSetType.md
+docs/ConItem.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
 docs/ConLoadEffectPositionEnum.md
@@ -174,6 +175,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConConversionSettings.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignItem.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignSet.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignSetType.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConItem.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffect.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectMemberLoad.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectPositionEnum.cs

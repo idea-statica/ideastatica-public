@@ -103,7 +103,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/3/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the AddBoltAssemblyWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -226,7 +226,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/cross-sections 
+> **POST** /api/3/projects/{projectId}/materials/cross-sections 
 
 #### Using the AddCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -349,7 +349,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/3/projects/{projectId}/materials/bolt-grade 
 
 #### Using the AddMaterialBoltGradeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -472,7 +472,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/concrete 
+> **POST** /api/3/projects/{projectId}/materials/concrete 
 
 #### Using the AddMaterialConcreteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -595,7 +595,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/steel 
+> **POST** /api/3/projects/{projectId}/materials/steel 
 
 #### Using the AddMaterialSteelWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -718,7 +718,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/welding 
+> **POST** /api/3/projects/{projectId}/materials/welding 
 
 #### Using the AddMaterialWeldWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -840,7 +840,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials 
+> **GET** /api/3/projects/{projectId}/materials 
 
 #### Using the GetAllMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -965,7 +965,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/3/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the GetBoltAssembliesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1090,7 +1090,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/3/projects/{projectId}/materials/bolt-grade 
 
 #### Using the GetBoltGradeMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1215,7 +1215,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/concrete 
+> **GET** /api/3/projects/{projectId}/materials/concrete 
 
 #### Using the GetConcreteMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1340,7 +1340,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/cross-sections 
+> **GET** /api/3/projects/{projectId}/materials/cross-sections 
 
 #### Using the GetCrossSectionsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1465,7 +1465,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/steel 
+> **GET** /api/3/projects/{projectId}/materials/steel 
 
 #### Using the GetSteelMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1590,7 +1590,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/welding 
+> **GET** /api/3/projects/{projectId}/materials/welding 
 
 #### Using the GetWeldingMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

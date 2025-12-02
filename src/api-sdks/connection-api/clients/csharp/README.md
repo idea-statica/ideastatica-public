@@ -1,6 +1,6 @@
 # IdeaStatiCa.ConnectionApi
 
-The C# library for the Connection Rest API 2.0
+The C# library for the Connection Rest API 3.0
 
 - API version: 2.0
 - SDK version: 25.1.3.0095
@@ -115,7 +115,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**Calculate**](docs/CalculationApi.md#calculate) | 
+[**Calculate**](docs/CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results
 [**GetRawJsonResults**](docs/CalculationApi.md#getrawjsonresults) | Get json string which represents raw CBFEM results (an instance of CheckResultsData)
 [**GetResults**](docs/CalculationApi.md#getresults) | Get detailed results of the CBFEM analysis
   ### ClientApi
@@ -134,6 +134,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**DeleteConnection**](docs/ConnectionApi.md#deleteconnection) | 
 [**GetConnection**](docs/ConnectionApi.md#getconnection) | Get data about a specific connection in the project
+[**GetConnectionTopology**](docs/ConnectionApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetConnections**](docs/ConnectionApi.md#getconnections) | Get data about all connections in the project
 [**GetProductionCost**](docs/ConnectionApi.md#getproductioncost) | Get production cost of the connection
 [**UpdateConnection**](docs/ConnectionApi.md#updateconnection) | Update data of a specific connection in the project
@@ -224,6 +225,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**ClearParameters**](docs/ParameterApi.md#clearparameters) | Clear parameters and links for the connection connectionId in the project projectId
+[**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
 [**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result
 [**GetParameters**](docs/ParameterApi.md#getparameters) | Get all parameters which are defined for projectId and connectionId
 [**Update**](docs/ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
@@ -274,18 +276,16 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**ApplyTemplate**](docs/TemplateApi.md#applytemplate) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**ClearDesign**](docs/TemplateApi.md#cleardesign) | Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 [**CreateConTemplate**](docs/TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId
 [**Delete**](docs/TemplateApi.md#delete) | Delete specific template
 [**DeleteAll**](docs/TemplateApi.md#deleteall) | Delete all templates in connection
 [**Explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
 [**ExplodeAll**](docs/TemplateApi.md#explodeall) | Explode all templates (delete parameters, keep operations)
-[**GetConnectionTopology**](docs/TemplateApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 [**GetTemplateCommonOperationProperties**](docs/TemplateApi.md#gettemplatecommonoperationproperties) | Get Common properties for specific template
-[**GetTemplatesForConnection**](docs/TemplateApi.md#gettemplatesforconnection) | Retrieves a list of templates associated with a specific connection within a project.
+[**GetTemplateInConnection**](docs/TemplateApi.md#gettemplateinconnection) | Retrieves a specific template by its ID for a given connection within a project.
+[**GetTemplatesInConnection**](docs/TemplateApi.md#gettemplatesinconnection) | Retrieves a list of templates associated with a specific connection within a project.
 [**LoadDefaults**](docs/TemplateApi.md#loaddefaults) | Load parameter defaults for specific template.
-[**PublishConnection**](docs/TemplateApi.md#publishconnection) | Publish template to Private or Company set
 [**UpdateTemplateCommonOperationProperties**](docs/TemplateApi.md#updatetemplatecommonoperationproperties) | Set common properties for specific template
 
 <a id="documentation-for-models"></a>
@@ -315,6 +315,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConDesignItem](docs/ConDesignItem.md)
  - [Model.ConDesignSet](docs/ConDesignSet.md)
  - [Model.ConDesignSetType](docs/ConDesignSetType.md)
+ - [Model.ConItem](docs/ConItem.md)
  - [Model.ConLoadEffect](docs/ConLoadEffect.md)
  - [Model.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [Model.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)

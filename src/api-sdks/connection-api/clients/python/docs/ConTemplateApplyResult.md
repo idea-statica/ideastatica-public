@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **applied_without_issues** | **bool** |  | [optional] 
-**template_model** | [**ConConnectionTemplateModel**](ConConnectionTemplateModel.md) |  | [optional] 
+**template_model** | [**ConConnectionTemplate**](ConConnectionTemplate.md) |  | [optional] 
 **issues** | [**List[ConNonConformityIssue]**](ConNonConformityIssue.md) |  | [optional] 
 
 ## Example

@@ -97,7 +97,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/reports/pdf 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/reports/pdf 
 
 #### Using the GeneratePdfWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -222,7 +222,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/reports/pdf 
+> **POST** /api/3/projects/{projectId}/reports/pdf 
 
 #### Using the GeneratePdfForMutlipleWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -347,7 +347,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/reports/word 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/reports/word 
 
 #### Using the GenerateWordWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -472,7 +472,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/reports/word 
+> **POST** /api/3/projects/{projectId}/reports/word 
 
 #### Using the GenerateWordForMultipleWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**clear_parameters**](ParameterApi.md#clear_parameters) | Clear parameters and links for the connection connectionId in the project projectId
+[**delete_parameters**](ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
 [**evaluate_expression**](ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result
 [**get_parameters**](ParameterApi.md#get_parameters) | Get all parameters which are defined for projectId and connectionId
 [**update**](ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
@@ -15,6 +16,8 @@ Method | Description
 > clear_parameters(project_id, connection_id)
 
 Clear parameters and links for the connection connectionId in the project projectId
+
+<strong>DEPRECATED:</strong> This endpoint is deprecated and will be removed in a future version.               Please use the DELETE endpoint instead: `DELETE /api/v1/projects/{projectId}/connections/{connectionId}/parameters`
 
 ### Parameters
 
@@ -65,7 +68,81 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/clear-parameters 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/clear-parameters 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="delete_parameters"></a>
+# **delete_parameters**
+> delete_parameters(project_id, connection_id)
+
+Delete all parameters and parameter model links for the connection connectionId in the project projectId
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection where to delete parameters | 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def delete_parametersExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    connection_id = 56 # int | Id of the connection where to delete parameters
+
+    try:
+        # Delete all parameters and parameter model links for the connection connectionId in the project projectId
+        api_client.parameter.delete_parameters(project_id, connection_id)
+    except Exception as e:
+        print("Exception when calling ParameterApi->delete_parameters: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -144,7 +221,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 ### Authorization
 
@@ -224,7 +301,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -305,7 +382,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 

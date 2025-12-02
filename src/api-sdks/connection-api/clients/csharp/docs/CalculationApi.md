@@ -2,7 +2,7 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**CalculateAsync**](CalculationApi.md#calculateasync) |  |
+| [**CalculateAsync**](CalculationApi.md#calculateasync) | Run CBFEM caluclation and return the summary of the results |
 | [**GetRawJsonResultsAsync**](CalculationApi.md#getrawjsonresultsasync) | Get json string which represents raw CBFEM results (an instance of CheckResultsData) |
 | [**GetResultsAsync**](CalculationApi.md#getresultsasync) | Get detailed results of the CBFEM analysis |
 
@@ -10,7 +10,7 @@
 ## **CalculateAsync**
 > **List&lt;ConResultSummary&gt; CalculateAsync (Guid projectId, List<int> requestBody)**
 
-
+Run CBFEM caluclation and return the summary of the results
 
 
 
@@ -18,8 +18,8 @@
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **requestBody** | [**List&lt;int&gt;**](int.md) |  |  |
+| **projectId** | **Guid** | Project unique identifier |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection ids to calculate |  |
 
 ### Return type
 
@@ -57,10 +57,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new List<int>(); // List<int> | 
+                    var requestBody = new List<int>(); // List<int> | List of connection ids to calculate
 
                     try
                     {
+                        // Run CBFEM caluclation and return the summary of the results
                         List<ConResultSummary> result = await conClient.Calculation.CalculateAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
@@ -93,7 +94,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/calculate 
+> **POST** /api/3/projects/{projectId}/connections/calculate 
 
 #### Using the CalculateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -101,6 +102,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
+    // Run CBFEM caluclation and return the summary of the results
     ApiResponse<List<ConResultSummary>> response = conClient.Calculation.CalculateWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -219,7 +221,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/rawresults-text 
+> **POST** /api/3/projects/{projectId}/connections/rawresults-text 
 
 #### Using the GetRawJsonResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -346,7 +348,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/results 
+> **POST** /api/3/projects/{projectId}/connections/results 
 
 #### Using the GetResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

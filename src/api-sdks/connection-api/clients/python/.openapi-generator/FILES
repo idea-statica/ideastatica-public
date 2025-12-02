@@ -31,6 +31,7 @@ docs/ConConversionSettings.md
 docs/ConDesignItem.md
 docs/ConDesignSet.md
 docs/ConDesignSetType.md
+docs/ConItem.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
 docs/ConLoadEffectPositionEnum.md
@@ -163,6 +164,7 @@ ideastatica_connection_api/models/con_conversion_settings.py
 ideastatica_connection_api/models/con_design_item.py
 ideastatica_connection_api/models/con_design_set.py
 ideastatica_connection_api/models/con_design_set_type.py
+ideastatica_connection_api/models/con_item.py
 ideastatica_connection_api/models/con_load_effect.py
 ideastatica_connection_api/models/con_load_effect_member_load.py
 ideastatica_connection_api/models/con_load_effect_position_enum.py
