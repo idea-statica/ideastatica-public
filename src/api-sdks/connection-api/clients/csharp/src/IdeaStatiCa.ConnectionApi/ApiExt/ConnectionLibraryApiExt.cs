@@ -18,7 +18,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <param name="cancellationToken">A token to monitor for cancellation requests. The default value is <see
 		/// cref="System.Threading.CancellationToken.None"/>.</param>
 		/// <returns>A task that represents the asynchronous operation. The task result contains a byte array of the picture data.</returns>
-		Task<byte[]> GetDesignItemPictureAsync(Guid pictureId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		Task<byte[]> GetDesignItemPictureDataAsync(Guid pictureId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
 	/// <summary>
@@ -34,8 +34,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		{
 		}
 
-		/// <inheritdoc cref="IConnectionLibraryApiExt.GetDesignItemPictureAsync(Guid, System.Threading.CancellationToken)"/>
-		public async Task<byte[]> GetDesignItemPictureAsync(Guid pictureId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		/// <inheritdoc cref="IConnectionLibraryApiExt.GetDesignItemPictureDataAsync(Guid, System.Threading.CancellationToken)"/>
+		public async Task<byte[]> GetDesignItemPictureDataAsync(Guid pictureId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			var response = await base.GetDesignItemPictureWithHttpInfoAsync(pictureId, "image/png", 0, cancellationToken);
 			byte[] buffer = (byte[])response.Data;
