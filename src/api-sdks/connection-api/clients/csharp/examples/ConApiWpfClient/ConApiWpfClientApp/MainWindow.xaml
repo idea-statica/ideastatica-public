@@ -52,6 +52,10 @@
 				<Button Command="{Binding WeldSizingCommand, Mode=OneWay}">WeldSizing</Button>
 				<ComboBox ItemsSource="{Binding AvailableWeldSizingTypes}" SelectedItem="{Binding WeldSizingType, Mode=TwoWay}" MinWidth="120"/>
 			</ToolBar>
+
+			<ToolBar Band="3">
+				<Button Command="{Binding ProposeCommand, Mode=OneWay}" ToolTip="Propose connection design from Connection Library">Propose</Button>
+			</ToolBar>
 		</ToolBarTray>
 		<Grid>
 			<Grid.ColumnDefinitions>

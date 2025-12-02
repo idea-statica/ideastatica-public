@@ -87,6 +87,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			WeldSizingCommand = new AsyncRelayCommand(DoWeldSizingAsync, () => SelectedConnection != null);
 
+			ProposeCommand = new AsyncRelayCommand(ProposeDesignAsync, () => SelectedConnection != null);
+
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -269,6 +271,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand UpdateSettingsCommand { get; }
 
 		public AsyncRelayCommand WeldSizingCommand { get; }
+
+		public AsyncRelayCommand ProposeCommand { get; }
 
 		private async Task ShowIdeaStatiCaLogsAsync()
 		{
@@ -606,6 +610,44 @@ namespace ConApiWpfClientApp.ViewModels
 				RefreshCommands();
 				
 				await ShowClientUIAsync();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		internal async Task ProposeDesignAsync()
+		{
+			_logger.LogInformation("ProposeDesignAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var searchParameters = new IdeaStatiCa.Api.Connection.Model.ConConnectionLibrarySearchParameters();
+
+				var proposedDesignItems = await ConApiClient.ConnectionLibrary.ProposeAsync(ProjectInfo.ProjectId, SelectedConnection!.Id, searchParameters, 0, cts.Token);
+
+				var proposedItemsJson = Tools.JsonTools.ToFormatedJson(proposedDesignItems);
+				OutputText = proposedItemsJson;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("ProposeDesignAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
 			}
 
 			await Task.CompletedTask;
@@ -1154,6 +1196,8 @@ namespace ConApiWpfClientApp.ViewModels
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
 			this.UpdateSettingsCommand.NotifyCanExecuteChanged();
 			this.WeldSizingCommand.NotifyCanExecuteChanged();
+			this.ProposeCommand.NotifyCanExecuteChanged();
+
 			this.OnPropertyChanged("CanStartService");
 		}
 
