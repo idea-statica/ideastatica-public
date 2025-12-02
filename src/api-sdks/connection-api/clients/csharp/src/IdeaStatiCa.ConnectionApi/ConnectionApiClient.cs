@@ -69,7 +69,7 @@ namespace IdeaStatiCa.ConnectionApi
 		public ISettingsApiAsync Settings { get; private set; }
 
 		/// <inheritdoc cref="IConnectionApiClient.ConnectionLibrary"/>
-		public IConnectionLibraryApiAsync ConnectionLibrary { get; private set; }
+		public IConnectionLibraryApiExt ConnectionLibrary { get; private set; }
 
 		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>
 		public string ClientId { get; private set; }
