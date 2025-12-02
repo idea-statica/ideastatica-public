@@ -96,5 +96,7 @@ namespace IdeaStatiCa.ConnectionApi
 		/// Get Settings API
 		/// </summary>
 		ISettingsApiAsync Settings { get; }
+
+		IConnectionLibraryApiAsync ConnectionLibrary { get; }
 	}
 }

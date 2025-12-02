@@ -68,6 +68,9 @@ namespace IdeaStatiCa.ConnectionApi
 		/// <inheritdoc cref="IConnectionApiClient.Settings"/>
 		public ISettingsApiAsync Settings { get; private set; }
 
+		/// <inheritdoc cref="IConnectionApiClient.ConnectionLibrary"/>
+		public IConnectionLibraryApiAsync ConnectionLibrary { get; private set; }
+
 		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>
 		public string ClientId { get; private set; }
 
@@ -117,7 +120,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Conversion = null;
 			this.ClientApi = null;
 			this.Settings = null;
-
+			this.ConnectionLibrary = null;
 		}
 
 		private async Task<string> CreateClientAsync()
@@ -144,6 +147,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Template = new TemplateApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Conversion = new ConversionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Settings = new SettingsApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.ConnectionLibrary = new ConnectionLibraryApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
 			return ClientId;
