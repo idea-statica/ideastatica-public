@@ -135,7 +135,7 @@ No authorization required
 
 <a id="getrawjsonresults"></a>
 ## **GetRawJsonResultsAsync**
-> **List&lt;string&gt; GetRawJsonResultsAsync (Guid projectId, ConCalculationParameter conCalculationParameter = null)**
+> **List&lt;string&gt; GetRawJsonResultsAsync (Guid projectId, List<int> requestBody)**
 
 Get json string which represents raw CBFEM results (an instance of CheckResultsData)
 
@@ -146,7 +146,7 @@ Get json string which represents raw CBFEM results (an instance of CheckResultsD
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened connection in the ConnectionRestApi service |  |
-| **conCalculationParameter** | [**ConCalculationParameter**](ConCalculationParameter.md) | Type of requested analysis and connection to calculate | [optional]  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connections to calculate and a type of CBFEM analysis |  |
 
 ### Return type
 
@@ -184,12 +184,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conCalculationParameter = new ConCalculationParameter(); // ConCalculationParameter | Type of requested analysis and connection to calculate (optional) 
+                    var requestBody = new List<int>(); // List<int> | List of connections to calculate and a type of CBFEM analysis
 
                     try
                     {
                         // Get json string which represents raw CBFEM results (an instance of CheckResultsData)
-                        List<string> result = await conClient.Calculation.GetRawJsonResultsAsync(projectId, conCalculationParameter);
+                        List<string> result = await conClient.Calculation.GetRawJsonResultsAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -230,7 +230,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Get json string which represents raw CBFEM results (an instance of CheckResultsData)
-    ApiResponse<List<string>> response = conClient.Calculation.GetRawJsonResultsWithHttpInfo(projectId, conCalculationParameter);
+    ApiResponse<List<string>> response = conClient.Calculation.GetRawJsonResultsWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);

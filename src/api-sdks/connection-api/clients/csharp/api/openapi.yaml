@@ -108,8 +108,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConCalculationParameter'
-        description: Type of requested analysis and connection to calculate
+              items:
+                format: int32
+                type: integer
+              type: array
+        description: List of connections to calculate and a type of CBFEM analysis
+        required: true
       responses:
         "200":
           content:
@@ -3618,23 +3622,6 @@ components:
       - fireRestance
       - buckling
       type: string
-    ConCalculationParameter:
-      additionalProperties: false
-      example:
-        connectionIds:
-        - 0
-        - 0
-        analysisType: stress_Strain
-      properties:
-        connectionIds:
-          items:
-            format: int32
-            type: integer
-          nullable: true
-          type: array
-        analysisType:
-          $ref: '#/components/schemas/ConAnalysisTypeEnum'
-      type: object
     ConConnection:
       additionalProperties: false
       example:

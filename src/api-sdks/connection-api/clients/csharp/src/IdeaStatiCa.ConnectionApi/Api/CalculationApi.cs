@@ -61,10 +61,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
-        List<string> GetRawJsonResults(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0);
+        List<string> GetRawJsonResults(Guid projectId, List<int> requestBody, int operationIndex = 0);
 
         /// <summary>
         /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
@@ -74,11 +74,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-/// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+/// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        ApiResponse<List<string>> GetRawJsonResultsWithHttpInfo(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0);
+        ApiResponse<List<string>> GetRawJsonResultsWithHttpInfo(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get detailed results of the CBFEM analysis
         /// </summary>
@@ -147,11 +147,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
-        System.Threading.Tasks.Task<List<string>> GetRawJsonResultsAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<List<string>> GetRawJsonResultsAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
@@ -161,12 +161,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<string>>> GetRawJsonResultsWithHttpInfoAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<List<string>>> GetRawJsonResultsWithHttpInfoAsync(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get detailed results of the CBFEM analysis
         /// </summary>
@@ -484,12 +484,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
-        public List<string> GetRawJsonResults(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0)
+        public List<string> GetRawJsonResults(Guid projectId, List<int> requestBody, int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> localVarResponse = GetRawJsonResultsWithHttpInfo(projectId, conCalculationParameter);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> localVarResponse = GetRawJsonResultsWithHttpInfo(projectId, requestBody);
             return localVarResponse.Data;
         }
 
@@ -498,12 +498,18 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-/// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+/// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> GetRawJsonResultsWithHttpInfo(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> GetRawJsonResultsWithHttpInfo(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0)
         {
+            // verify the required parameter 'requestBody' is set
+            if (requestBody == null)
+            {
+                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'requestBody' when calling CalculationApi->GetRawJsonResults");
+            }
+
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
@@ -533,7 +539,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.Data = conCalculationParameter;
+            localVarRequestOptions.Data = requestBody;
 
             localVarRequestOptions.Operation = "CalculationApi.GetRawJsonResults";
             localVarRequestOptions.OperationIndex = operationIndex;
@@ -558,13 +564,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
-        public async System.Threading.Tasks.Task<List<string>> GetRawJsonResultsAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<List<string>> GetRawJsonResultsAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> localVarResponse = await GetRawJsonResultsWithHttpInfoAsync(projectId, conCalculationParameter, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> localVarResponse = await GetRawJsonResultsWithHttpInfoAsync(projectId, requestBody, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -573,13 +579,19 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="conCalculationParameter">Type of requested analysis and connection to calculate (optional)</param>
+        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>>> GetRawJsonResultsWithHttpInfoAsync(Guid projectId, ConCalculationParameter conCalculationParameter = default(ConCalculationParameter), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>>> GetRawJsonResultsWithHttpInfoAsync(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
+            // verify the required parameter 'requestBody' is set
+            if (requestBody == null)
+            {
+                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'requestBody' when calling CalculationApi->GetRawJsonResults");
+            }
+
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -610,7 +622,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             }
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.Data = conCalculationParameter;
+            localVarRequestOptions.Data = requestBody;
 
             localVarRequestOptions.Operation = "CalculationApi.GetRawJsonResults";
             localVarRequestOptions.OperationIndex = operationIndex;

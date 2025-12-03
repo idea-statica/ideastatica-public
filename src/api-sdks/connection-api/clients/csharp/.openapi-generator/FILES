@@ -23,7 +23,6 @@ docs/ClientApi.md
 docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
-docs/ConCalculationParameter.md
 docs/ConConnection.md
 docs/ConConnectionLibrarySearchParameters.md
 docs/ConConnectionTemplateModel.md
@@ -167,7 +166,6 @@ src/IdeaStatiCa.ConnectionApi/Model/CheckResWeld.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlateSideCodeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
-src/IdeaStatiCa.ConnectionApi/Model/ConCalculationParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnectionTemplateModel.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnectionLibrarySearchParameters.cs
