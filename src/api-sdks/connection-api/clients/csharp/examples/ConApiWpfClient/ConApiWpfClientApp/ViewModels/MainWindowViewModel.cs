@@ -77,6 +77,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
 
+			DeleteOperationsCommand = new AsyncRelayCommand(DeleteOperationsAsync, () => SelectedConnection != null);
+
 			GenerateReportCommand = new AsyncRelayCommand<object>(GenerateReportAsync, (param) => SelectedConnection != null);
 
 			ExportCommand = new AsyncRelayCommand<object>(ExportConnectionAsync, (param) => SelectedConnection != null);
@@ -250,6 +252,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand<object?> ApplyTemplateCommand { get; }
 
 		public AsyncRelayCommand GetOperationsCommand { get; }
+
+		public AsyncRelayCommand DeleteOperationsCommand { get; }
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
@@ -898,6 +902,45 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task DeleteOperationsAsync()
+		{
+			_logger.LogInformation("DeleteOperationsAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				await ConApiClient.Operation.DeleteOperationsAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				OutputText = "Operations were removed";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("DeleteOperationsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
 		private async Task GetOperationsAsync()
 		{
 			_logger.LogInformation("GetOperationsAsync");
@@ -1206,6 +1249,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.GetTopologyCommand.NotifyCanExecuteChanged();
 			this.GetSceneDataCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
+			this.DeleteOperationsCommand.NotifyCanExecuteChanged();
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
 			this.ExportCommand.NotifyCanExecuteChanged();
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
