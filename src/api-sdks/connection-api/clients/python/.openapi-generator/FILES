@@ -25,7 +25,10 @@ docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
 docs/ConCalculationParameter.md
 docs/ConConnection.md
+docs/ConConnectionLibrarySearchParameters.md
 docs/ConConversionSettings.md
+docs/ConDesignItem.md
+docs/ConDesignSet.md
 docs/ConDesignSetType.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
@@ -56,6 +59,7 @@ docs/ConcreteBlockData.md
 docs/ConnectionApi.md
 docs/ConnectionCheckRes.md
 docs/ConnectionData.md
+docs/ConnectionLibraryApi.md
 docs/ConversionApi.md
 docs/ConversionMapping.md
 docs/CountryCode.md
@@ -94,6 +98,7 @@ docs/ProjectApi.md
 docs/ReferenceElement.md
 docs/Region2D.md
 docs/ReportApi.md
+docs/SearchOption.md
 docs/Segment2D.md
 docs/Selected.md
 docs/SelectedType.md
@@ -111,6 +116,7 @@ ideastatica_connection_api/api/__init__.py
 ideastatica_connection_api/api/calculation_api.py
 ideastatica_connection_api/api/client_api.py
 ideastatica_connection_api/api/connection_api.py
+ideastatica_connection_api/api/connection_library_api.py
 ideastatica_connection_api/api/conversion_api.py
 ideastatica_connection_api/api/export_api.py
 ideastatica_connection_api/api/load_effect_api.py
@@ -147,7 +153,10 @@ ideastatica_connection_api/models/con_aligned_plate_side_code_enum.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
 ideastatica_connection_api/models/con_calculation_parameter.py
 ideastatica_connection_api/models/con_connection.py
+ideastatica_connection_api/models/con_connection_library_search_parameters.py
 ideastatica_connection_api/models/con_conversion_settings.py
+ideastatica_connection_api/models/con_design_item.py
+ideastatica_connection_api/models/con_design_set.py
 ideastatica_connection_api/models/con_design_set_type.py
 ideastatica_connection_api/models/con_load_effect.py
 ideastatica_connection_api/models/con_load_effect_member_load.py
@@ -205,6 +214,7 @@ ideastatica_connection_api/models/point3_d.py
 ideastatica_connection_api/models/poly_line2_d.py
 ideastatica_connection_api/models/reference_element.py
 ideastatica_connection_api/models/region2_d.py
+ideastatica_connection_api/models/search_option.py
 ideastatica_connection_api/models/segment2_d.py
 ideastatica_connection_api/models/selected.py
 ideastatica_connection_api/models/selected_type.py

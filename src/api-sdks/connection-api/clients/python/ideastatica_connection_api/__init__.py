@@ -15,12 +15,13 @@
 """  # noqa: E501
 
 
-__version__ = "25.1.2.0791"
+__version__ = "25.1.3.0095"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
 from ideastatica_connection_api.api.client_api import ClientApi
 from ideastatica_connection_api.api.connection_api import ConnectionApi
+from ideastatica_connection_api.api.connection_library_api import ConnectionLibraryApi
 from ideastatica_connection_api.api.conversion_api import ConversionApi
 from ideastatica_connection_api.api.export_api import ExportApi
 from ideastatica_connection_api.api.load_effect_api import LoadEffectApi
@@ -65,7 +66,10 @@ from ideastatica_connection_api.models.con_aligned_plate_side_code_enum import C
 from ideastatica_connection_api.models.con_analysis_type_enum import ConAnalysisTypeEnum
 from ideastatica_connection_api.models.con_calculation_parameter import ConCalculationParameter
 from ideastatica_connection_api.models.con_connection import ConConnection
+from ideastatica_connection_api.models.con_connection_library_search_parameters import ConConnectionLibrarySearchParameters
 from ideastatica_connection_api.models.con_conversion_settings import ConConversionSettings
+from ideastatica_connection_api.models.con_design_item import ConDesignItem
+from ideastatica_connection_api.models.con_design_set import ConDesignSet
 from ideastatica_connection_api.models.con_design_set_type import ConDesignSetType
 from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.models.con_load_effect_member_load import ConLoadEffectMemberLoad
@@ -123,6 +127,7 @@ from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.poly_line2_d import PolyLine2D
 from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.region2_d import Region2D
+from ideastatica_connection_api.models.search_option import SearchOption
 from ideastatica_connection_api.models.segment2_d import Segment2D
 from ideastatica_connection_api.models.selected import Selected
 from ideastatica_connection_api.models.selected_type import SelectedType
