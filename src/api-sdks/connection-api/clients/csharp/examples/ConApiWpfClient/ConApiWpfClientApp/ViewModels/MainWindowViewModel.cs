@@ -91,8 +91,6 @@ namespace ConApiWpfClientApp.ViewModels
 
 			WeldSizingCommand = new AsyncRelayCommand(DoWeldSizingAsync, () => SelectedConnection != null);
 
-			ProposeCommand = new AsyncRelayCommand(ProposeDesignAsync, () => SelectedConnection != null);
-
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -277,8 +275,6 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand UpdateSettingsCommand { get; }
 
 		public AsyncRelayCommand WeldSizingCommand { get; }
-
-		public AsyncRelayCommand ProposeCommand { get; }
 
 		private async Task ShowIdeaStatiCaLogsAsync()
 		{
@@ -1256,7 +1252,6 @@ namespace ConApiWpfClientApp.ViewModels
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
 			this.UpdateSettingsCommand.NotifyCanExecuteChanged();
 			this.WeldSizingCommand.NotifyCanExecuteChanged();
-			this.ProposeCommand.NotifyCanExecuteChanged();
 
 			this.OnPropertyChanged("CanStartService");
 		}

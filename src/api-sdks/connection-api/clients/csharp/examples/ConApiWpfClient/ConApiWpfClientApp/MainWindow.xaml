@@ -56,8 +56,6 @@
 				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}" CommandParameter="FromFile" ToolTip="Select a connection template on a disk and apply it on the active connection">Apply template</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}" CommandParameter="ConnectionLibrary" ToolTip="Propose a connection design for the active connection from Connection Library and apply it">Apply from CL</Button>
-
-				<Button Command="{Binding ProposeCommand, Mode=OneWay}" ToolTip="Propose connection design from Connection Library">Propose</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
