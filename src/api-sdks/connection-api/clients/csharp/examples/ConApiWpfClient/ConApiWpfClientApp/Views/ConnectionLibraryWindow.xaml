@@ -11,20 +11,47 @@
 			<Button HorizontalAlignment="Right" Click="Button_Click">Apply</Button>
 		</StackPanel>
 		<Grid DockPanel.Dock="Top">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition></ColumnDefinition>
-				<ColumnDefinition Width="Auto"></ColumnDefinition>
-				<ColumnDefinition></ColumnDefinition>
-			</Grid.ColumnDefinitions>
-			<local:DesignItemsView HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+			<Grid.RowDefinitions>
+				<RowDefinition></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="2*"></RowDefinition>
+			</Grid.RowDefinitions>
 		
-			<GridSplitter HorizontalAlignment="Center"
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+				</Grid.RowDefinitions>
+		  
+				<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0">
+					<TextBox Text="{Binding FilterJson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+				</ScrollViewer>
+				<StackPanel Grid.Row="1">
+					<Button HorizontalAlignment="Right" Command="{Binding ProposeCommand, Mode=OneWay}">Propose</Button>
+				</StackPanel>
+			</Grid>
+		
+			<GridSplitter HorizontalAlignment="Stretch"
+										VerticalAlignment="Center"
+										Grid.Row="1"
+										Height="5">
+			</GridSplitter>
+			<Grid Grid.Row="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition Width="Auto"></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<local:DesignItemsView HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+				<GridSplitter HorizontalAlignment="Center"
 										VerticalAlignment="Stretch"
 										Grid.Column="1"
 										Width="5">
-			</GridSplitter>
-		
-			<local:DesignItemDetailView  DataContext="{Binding SelectedCdiVM, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+				</GridSplitter>
+
+				<local:DesignItemDetailView  DataContext="{Binding SelectedCdiVM, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+			</Grid>
 		</Grid>
 	</DockPanel>
 </Window>
