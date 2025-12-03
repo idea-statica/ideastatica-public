@@ -23,6 +23,10 @@ namespace ConApiWpfClientApp.Services
 		public async Task<string> GetTemplateAsync(Guid projectId, int connectionId, CancellationToken cts)
 		{
 			var model = new ConnectionLibraryModel();
+			model.SearchParameters.InPredefinedSet = true;
+			model.SearchParameters.InCompanySet = true;
+			model.SearchParameters.InPersonalSet = true;
+
 			var vm = new ConnectionLibraryViewModel(model, _connectionApiClient);
 
 			await vm.InitAsync(projectId, connectionId, cts);

@@ -90,7 +90,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         internal object Deserialize(RestResponse response, Type type)
         {
             string responseContentType = response?.ContentType?.ToLowerInvariant();
-            if (type == typeof(byte[]) || "application/octet-stream".Equals(responseContentType, StringComparison.InvariantCultureIgnoreCase)) // return byte array
+            if (type == typeof(byte[]) || "application/octet-stream".Equals(responseContentType, StringComparison.InvariantCultureIgnoreCase) || "image/png".Equals(responseContentType, StringComparison.InvariantCultureIgnoreCase)) // return byte array
             {
                 return response.RawBytes;
             }
@@ -483,7 +483,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
                   return res;
                 }
 
-                if(response.ContentType == "application/octet-stream" && typeof(T).Name == "Object")
+                if((response.ContentType == "application/octet-stream" || response.ContentType == "image/png") && typeof(T).Name == "Object")
                 {
                     response.Data = (T)(object)response.RawBytes;
                     var res = ToApiResponse(response);

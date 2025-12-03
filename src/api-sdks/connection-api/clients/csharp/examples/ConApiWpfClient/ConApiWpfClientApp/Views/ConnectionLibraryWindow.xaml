@@ -8,15 +8,23 @@
         Title="Connection Library" Height="450" Width="800">
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Bottom">
-			<Button HorizontalAlignment="Right" Click="Button_Click">Accept</Button>
+			<Button HorizontalAlignment="Right" Click="Button_Click">Apply</Button>
 		</StackPanel>
 		<Grid DockPanel.Dock="Top">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
 				<ColumnDefinition></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			<local:DesignItemsView HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-			<local:DesigItemDetailView Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+		
+			<GridSplitter HorizontalAlignment="Center"
+										VerticalAlignment="Stretch"
+										Grid.Column="1"
+										Width="5">
+			</GridSplitter>
+		
+			<local:DesignItemDetailView  DataContext="{Binding SelectedCdiVM, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 		</Grid>
 	</DockPanel>
 </Window>

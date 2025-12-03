@@ -938,6 +938,7 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				IsBusy = false;
 				RefreshCommands();
+				await ShowClientUIAsync();
 			}
 		}
 

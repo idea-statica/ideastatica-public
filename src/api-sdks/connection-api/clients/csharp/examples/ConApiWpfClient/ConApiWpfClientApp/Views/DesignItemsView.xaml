@@ -7,6 +7,43 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+		<ListView  Grid.Row="0" ItemsSource="{Binding ProposedCdiVMs}" SelectedItem="{Binding SelectedCdiVM, Mode=TwoWay}" Grid.Column="0" >
+			<ListView.ItemContainerStyle>
+				<Style TargetType="ListViewItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+				</Style>
+			</ListView.ItemContainerStyle>
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Connection name">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding Name}"></TextBlock>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="Design code">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding DesignCode}"></TextBlock>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="Design set">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding ConDesignSetId}"></TextBlock>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
     </Grid>
 </UserControl>

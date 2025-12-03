@@ -18,9 +18,9 @@ namespace ConApiWpfClientApp.Views
 	/// <summary>
 	/// Interaction logic for DesigItemDetailView.xaml
 	/// </summary>
-	public partial class DesigItemDetailView : UserControl
+	public partial class DesignItemDetailView : UserControl
 	{
-		public DesigItemDetailView()
+		public DesignItemDetailView()
 		{
 			InitializeComponent();
 		}
