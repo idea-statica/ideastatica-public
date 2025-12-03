@@ -37,8 +37,8 @@
 				<ComboBox ItemsSource="{Binding AvailableAnalysisTypes}" SelectedItem="{Binding SelectedAnalysisType, Mode=TwoWay}" MinWidth="120"/>
 				<CheckBox IsChecked="{Binding CalculateBuckling, Mode=TwoWay}" ToolTip="Calculate also buckling">Is Buckling</CheckBox>
 				<CheckBox IsChecked="{Binding GetRawXmlResults, Mode=TwoWay}" ToolTip="Get raw results of the analysis in XML format">DetailRes</CheckBox>
-				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}" ToolTip="Delete all operations in the connection">Delete Operations </Button>
-				<Button Command="{Binding DeleteOperationsCommand, Mode=OneWay}">Get Operations</Button>
+				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}">Get Operations</Button>
+				<Button Command="{Binding DeleteOperationsCommand, Mode=OneWay}" ToolTip="Delete all operations in the connection">Delete Operations</Button>
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="pdf">Report PDF</Button>
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="docx">Report Word</Button>
 				<Button Command="{Binding ExportCommand, Mode=OneWay}" CommandParameter="iom" ToolTip="Export selected connection to IdeaOpenModel">Export IOM</Button>
