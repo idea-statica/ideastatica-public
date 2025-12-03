@@ -363,7 +363,7 @@ class TemplateApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
+        """(Deprecated) Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
@@ -391,6 +391,7 @@ class TemplateApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /api/2/projects/{projectId}/connections/{connectionId}/clear-design is deprecated.", DeprecationWarning)
 
         _param = self._clear_design_serialize(
             project_id=project_id,
@@ -433,7 +434,7 @@ class TemplateApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
+        """(Deprecated) Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
@@ -461,6 +462,7 @@ class TemplateApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /api/2/projects/{projectId}/connections/{connectionId}/clear-design is deprecated.", DeprecationWarning)
 
         _param = self._clear_design_serialize(
             project_id=project_id,
@@ -503,7 +505,7 @@ class TemplateApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
+        """(Deprecated) Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
@@ -531,6 +533,7 @@ class TemplateApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("POST /api/2/projects/{projectId}/connections/{connectionId}/clear-design is deprecated.", DeprecationWarning)
 
         _param = self._clear_design_serialize(
             project_id=project_id,
