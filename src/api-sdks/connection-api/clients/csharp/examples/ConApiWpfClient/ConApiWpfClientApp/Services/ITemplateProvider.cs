@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Services
 {
 	public interface ITemplateProvider
 	{
-		Task<string> GetTemplateAsync();
+		Task<string> GetTemplateAsync(Guid projectId, int connectionId, CancellationToken cts);
 	}
 }

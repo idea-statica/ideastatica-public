@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using ConApiWpfClientApp.Models;
 using ConApiWpfClientApp.Services;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
@@ -825,15 +826,16 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				string templateXml = string.Empty;
-				if (arg?.ToString().Equals("ConnectionLibrary", StringComparison.InvariantCultureIgnoreCase) == true)
+				if (arg?.ToString()?.Equals("ConnectionLibrary", StringComparison.InvariantCultureIgnoreCase) == true)
 				{
+					var proposeService = new ConnectionLibraryProposer(ConApiClient);
 
+					templateXml = await proposeService.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
 				}
 				else
 				{
 					ITemplateProvider templateProvider = new TemplateProviderFile();
-
-					templateXml = await templateProvider.GetTemplateAsync();
+					templateXml = await templateProvider.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
 				}
 
 
