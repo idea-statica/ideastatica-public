@@ -83,6 +83,11 @@ class ConDesignSet(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
+        # set to None if owner_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.owner_id is None and "owner_id" in self.model_fields_set:
+            _dict['ownerId'] = None
+
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:

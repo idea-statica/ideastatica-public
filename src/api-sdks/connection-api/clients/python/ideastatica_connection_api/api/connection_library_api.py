@@ -45,7 +45,7 @@ class ConnectionLibraryApi:
     @validate_call
     def get_design_item_picture(
         self,
-        picture_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the picture to retrieve.")] = None,
+        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item whose picture is to be retrieved.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -59,12 +59,12 @@ class ConnectionLibraryApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        """Retrieves the picture associated with the specified design item as a PNG image.
 
-        This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
-        :param picture_id: The unique identifier of the picture to retrieve.
-        :type picture_id: str
+        :param design_item_id: The unique identifier of the design item whose picture is to be retrieved.
+        :type design_item_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -88,7 +88,7 @@ class ConnectionLibraryApi:
         """ # noqa: E501
 
         _param = self._get_design_item_picture_serialize(
-            picture_id=picture_id,
+            design_item_id=design_item_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -112,7 +112,7 @@ class ConnectionLibraryApi:
     @validate_call
     def get_design_item_picture_with_http_info(
         self,
-        picture_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the picture to retrieve.")] = None,
+        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item whose picture is to be retrieved.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -126,12 +126,12 @@ class ConnectionLibraryApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        """Retrieves the picture associated with the specified design item as a PNG image.
 
-        This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
-        :param picture_id: The unique identifier of the picture to retrieve.
-        :type picture_id: str
+        :param design_item_id: The unique identifier of the design item whose picture is to be retrieved.
+        :type design_item_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -155,7 +155,7 @@ class ConnectionLibraryApi:
         """ # noqa: E501
 
         _param = self._get_design_item_picture_serialize(
-            picture_id=picture_id,
+            design_item_id=design_item_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -179,7 +179,7 @@ class ConnectionLibraryApi:
     @validate_call
     def get_design_item_picture_without_preload_content(
         self,
-        picture_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the picture to retrieve.")] = None,
+        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item whose picture is to be retrieved.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -193,12 +193,12 @@ class ConnectionLibraryApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        """Retrieves the picture associated with the specified design item as a PNG image.
 
-        This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
-        :param picture_id: The unique identifier of the picture to retrieve.
-        :type picture_id: str
+        :param design_item_id: The unique identifier of the design item whose picture is to be retrieved.
+        :type design_item_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -222,7 +222,7 @@ class ConnectionLibraryApi:
         """ # noqa: E501
 
         _param = self._get_design_item_picture_serialize(
-            picture_id=picture_id,
+            design_item_id=design_item_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -241,7 +241,7 @@ class ConnectionLibraryApi:
 
     def _get_design_item_picture_serialize(
         self,
-        picture_id,
+        design_item_id,
         _request_auth,
         _content_type,
         _headers,
@@ -264,9 +264,9 @@ class ConnectionLibraryApi:
 
         # process the path parameters
         # process the query parameters
-        if picture_id is not None:
+        if design_item_id is not None:
             
-            _query_params.append(('pictureId', picture_id))
+            _query_params.append(('designItemId', design_item_id))
             
         # process the header parameters
         # process the form parameters

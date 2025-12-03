@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**get_design_item_picture**](ConnectionLibraryApi.md#get_design_item_picture) | Retrieves a picture as a PNG image stream based on the specified picture identifier.
+[**get_design_item_picture**](ConnectionLibraryApi.md#get_design_item_picture) | Retrieves the picture associated with the specified design item as a PNG image.
 [**get_design_sets**](ConnectionLibraryApi.md#get_design_sets) | Retrieves a list of design sets available for the user.
 [**get_template**](ConnectionLibraryApi.md#get_template) | Retrieves the template associated with the specified design set and design item.
 [**propose**](ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
@@ -12,18 +12,18 @@ Method | Description
 
 <a id="get_design_item_picture"></a>
 # **get_design_item_picture**
-> get_design_item_picture(picture_id=picture_id)
+> get_design_item_picture(design_item_id=design_item_id)
 
-Retrieves a picture as a PNG image stream based on the specified picture identifier.
+Retrieves the picture associated with the specified design item as a PNG image.
 
-This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **picture_id** | **str**| The unique identifier of the picture to retrieve. | [optional] 
+ **design_item_id** | **str**| The unique identifier of the design item whose picture is to be retrieved. | [optional] 
 
 ### Return type
 
@@ -44,11 +44,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_design_item_pictureExampleFunc(api_client):
     
-    picture_id = 'picture_id_example' # str | The unique identifier of the picture to retrieve. (optional)
+    design_item_id = 'design_item_id_example' # str | The unique identifier of the design item whose picture is to be retrieved. (optional)
 
     try:
-        # Retrieves a picture as a PNG image stream based on the specified picture identifier.
-        api_client.connectionlibrary.get_design_item_picture(picture_id=picture_id)
+        # Retrieves the picture associated with the specified design item as a PNG image.
+        api_client.connectionlibrary.get_design_item_picture(design_item_id=design_item_id)
     except Exception as e:
         print("Exception when calling ConnectionLibraryApi->get_design_item_picture: %s\n" % e)
 ```

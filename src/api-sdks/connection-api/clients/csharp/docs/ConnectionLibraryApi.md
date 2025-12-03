@@ -2,18 +2,18 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetDesignItemPictureAsync**](ConnectionLibraryApi.md#getdesignitempictureasync) | Retrieves a picture as a PNG image stream based on the specified picture identifier. |
+| [**GetDesignItemPictureAsync**](ConnectionLibraryApi.md#getdesignitempictureasync) | Retrieves the picture associated with the specified design item as a PNG image. |
 | [**GetDesignSetsAsync**](ConnectionLibraryApi.md#getdesignsetsasync) | Retrieves a list of design sets available for the user. |
 | [**GetTemplateAsync**](ConnectionLibraryApi.md#gettemplateasync) | Retrieves the template associated with the specified design set and design item. |
 | [**ProposeAsync**](ConnectionLibraryApi.md#proposeasync) | Proposes a list of design items for a specified connection within a project. |
 
 <a id="getdesignitempicture"></a>
 ## **GetDesignItemPictureAsync**
-> **void GetDesignItemPictureAsync (Guid? pictureId = null)**
+> **void GetDesignItemPictureAsync (Guid? designItemId = null)**
 
-Retrieves a picture as a PNG image stream based on the specified picture identifier.
+Retrieves the picture associated with the specified design item as a PNG image.
 
-This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
 
 
@@ -21,7 +21,7 @@ This method is mapped to API version 2 and produces a PNG image. The image is re
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **pictureId** | **Guid?** | The unique identifier of the picture to retrieve. | [optional]  |
+| **designItemId** | **Guid?** | The unique identifier of the design item whose picture is to be retrieved. | [optional]  |
 
 ### Return type
 
@@ -59,8 +59,8 @@ namespace Example
 
                     try
                     {
-                        // Retrieves a picture as a PNG image stream based on the specified picture identifier.
-                        conClient.ConnectionLibrary.GetDesignItemPictureAsync(pictureId);
+                        // Retrieves the picture associated with the specified design item as a PNG image.
+                        conClient.ConnectionLibrary.GetDesignItemPictureAsync(designItemId);
                     }
                     catch (ApiException  e)
                     {
@@ -98,8 +98,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Retrieves a picture as a PNG image stream based on the specified picture identifier.
-    conClient.ConnectionLibrary.GetDesignItemPictureWithHttpInfo(pictureId);
+    // Retrieves the picture associated with the specified design item as a PNG image.
+    conClient.ConnectionLibrary.GetDesignItemPictureWithHttpInfo(designItemId);
 }
 catch (ApiException e)
 {

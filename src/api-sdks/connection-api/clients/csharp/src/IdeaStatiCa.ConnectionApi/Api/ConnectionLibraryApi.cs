@@ -34,29 +34,29 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        /// Retrieves the picture associated with the specified design item as a PNG image.
         /// </summary>
         /// <remarks>
-        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        void GetDesignItemPicture(Guid? pictureId = default(Guid?), int operationIndex = 0);
+        void GetDesignItemPicture(Guid? designItemId = default(Guid?), int operationIndex = 0);
 
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        /// Retrieves the picture associated with the specified design item as a PNG image.
         /// </summary>
         /// <remarks>
-        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> GetDesignItemPictureWithHttpInfo(Guid? pictureId = default(Guid?), string requestedType = null, int operationIndex = 0);
+        ApiResponse<Object> GetDesignItemPictureWithHttpInfo(Guid? designItemId = default(Guid?), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Retrieves a list of design sets available for the user.
         /// </summary>
@@ -143,31 +143,31 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        /// Retrieves the picture associated with the specified design item as a PNG image.
         /// </summary>
         /// <remarks>
-        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task GetDesignItemPictureAsync(Guid? pictureId = default(Guid?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task GetDesignItemPictureAsync(Guid? designItemId = default(Guid?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier.
+        /// Retrieves the picture associated with the specified design item as a PNG image.
         /// </summary>
         /// <remarks>
-        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GetDesignItemPictureWithHttpInfoAsync(Guid? pictureId = default(Guid?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetDesignItemPictureWithHttpInfoAsync(Guid? designItemId = default(Guid?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Retrieves a list of design sets available for the user.
         /// </summary>
@@ -371,26 +371,26 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// Retrieves the picture associated with the specified design item as a PNG image. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        public void GetDesignItemPicture(Guid? pictureId = default(Guid?), int operationIndex = 0)
+        public void GetDesignItemPicture(Guid? designItemId = default(Guid?), int operationIndex = 0)
         {
-            GetDesignItemPictureWithHttpInfo(pictureId);
+            GetDesignItemPictureWithHttpInfo(designItemId);
         }
 
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// Retrieves the picture associated with the specified design item as a PNG image. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> GetDesignItemPictureWithHttpInfo(Guid? pictureId = default(Guid?), string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> GetDesignItemPictureWithHttpInfo(Guid? designItemId = default(Guid?), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -418,9 +418,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
                 }
             }
 
-            if (pictureId != null)
+            if (designItemId != null)
             {
-                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "pictureId", pictureId));
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "designItemId", designItemId));
             }
 
             localVarRequestOptions.Operation = "ConnectionLibraryApi.GetDesignItemPicture";
@@ -442,28 +442,28 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// Retrieves the picture associated with the specified design item as a PNG image. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task GetDesignItemPictureAsync(Guid? pictureId = default(Guid?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task GetDesignItemPictureAsync(Guid? designItemId = default(Guid?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await GetDesignItemPictureWithHttpInfoAsync(pictureId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            await GetDesignItemPictureWithHttpInfoAsync(designItemId, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Retrieves a picture as a PNG image stream based on the specified picture identifier. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the picture ID followed by the .png extension.
+        /// Retrieves the picture associated with the specified design item as a PNG image. This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item&#39;s ID.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pictureId">The unique identifier of the picture to retrieve. (optional)</param>
+        /// <param name="designItemId">The unique identifier of the design item whose picture is to be retrieved. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> GetDesignItemPictureWithHttpInfoAsync(Guid? pictureId = default(Guid?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> GetDesignItemPictureWithHttpInfoAsync(Guid? designItemId = default(Guid?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -492,9 +492,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
             }
 
-            if (pictureId != null)
+            if (designItemId != null)
             {
-                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "pictureId", pictureId));
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "designItemId", designItemId));
             }
 
             localVarRequestOptions.Operation = "ConnectionLibraryApi.GetDesignItemPicture";

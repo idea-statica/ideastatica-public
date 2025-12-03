@@ -438,13 +438,14 @@ paths:
     get:
       description: "This method is mapped to API version 2 and produces a PNG image.\
         \ The image is returned as a file\r\n            stream result with the file\
-        \ name set to the picture ID followed by the .png extension."
+        \ name set to the design item's ID."
       operationId: GetDesignItemPicture
       parameters:
-      - description: The unique identifier of the picture to retrieve.
+      - description: The unique identifier of the design item whose picture is to
+          be retrieved.
         explode: true
         in: query
-        name: pictureId
+        name: designItemId
         required: false
         schema:
           format: uuid
@@ -453,8 +454,8 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Retrieves a picture as a PNG image stream based on the specified picture
-        identifier.
+      summary: Retrieves the picture associated with the specified design item as
+        a PNG image.
       tags:
       - ConnectionLibrary
       x-requiresProject: false
@@ -3729,7 +3730,7 @@ components:
         name: name
         description: description
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        ownerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ownerId: ownerId
         type: type
       properties:
         id:
@@ -3742,7 +3743,7 @@ components:
           nullable: true
           type: string
         ownerId:
-          format: uuid
+          nullable: true
           type: string
         type:
           nullable: true
