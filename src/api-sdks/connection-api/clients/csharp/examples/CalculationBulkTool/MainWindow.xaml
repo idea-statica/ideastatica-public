@@ -20,9 +20,7 @@
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,8">
 			<Button Name="LoadItemsButton" Content="Load Project Items" IsEnabled="False" Width="150" Click="ProcessFiles_Click" Margin="0,0,10,0"/>
-			<Button Name="CalculateButton" IsEnabled="False" Content="Calculate all" Width="150" Click="CalculateAll_Click" Margin="0,0,0,0"/>
-			<Button x:Name="ExportProjectCsv" Content="Export Selected Project CSV" Margin="5" Click="ExportProjectCsv_Click"/>
-			<Button x:Name="ExportAllCsv" Content="Export ALL CSV" Margin="5" Click="ExportAllCsv_Click"/>
+			<Button Name="CalculateButton" IsEnabled="False" Content="Calculate + Export" Width="150" Click="CalculateAll_Click" Margin="0,0,0,0"/>
 
 		</StackPanel>
 

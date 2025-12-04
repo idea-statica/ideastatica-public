@@ -69,7 +69,11 @@ namespace CalculationBulkTool
 				// Clear and repopulate the ListBox with .ideaCon files
 				projectFiles.Clear();
 
-				var files = Directory.GetFiles(selectedFolderPath!, "*.ideaCon", SearchOption.AllDirectories);
+				var files = Directory
+						.GetFiles(selectedFolderPath!, "*.ideaCon", SearchOption.AllDirectories)
+						.OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase)
+						.ToArray();
+
 				foreach (var file in files)
 				{
 					var fileName = System.IO.Path.GetFileName(file);
@@ -80,54 +84,19 @@ namespace CalculationBulkTool
 			}
 		}
 
-		private void ExportProjectCsv_Click(object sender, RoutedEventArgs e)
+		private void SaveCsvToFile(CalculationResults results, string fileName)
 		{
-			if (ProjectsList.SelectedItem is not ProjectItem selected)
+			bool fileExists = File.Exists(fileName);
+
+			var csv = CsvExporter.ConvertToCsv(results, !fileExists);
+
+			try
 			{
-				MessageBox.Show("Select a project first.");
-				return;
+				File.AppendAllLines(fileName, [csv]);
 			}
-
-			// Collect only this project's results
-			var results = selected.CalculationResults; // store this from your CalculateAll method!
-
-			if (results is null)
+			catch (IOException)
 			{
-				MessageBox.Show("This project has no results yet.");
-				return;
-			}
-
-			SaveCsvToFile(new[] { selected });
-		}
-
-		private void ExportAllCsv_Click(object sender, RoutedEventArgs e)
-		{
-			var all = projectFiles
-				.Where(p => p.CalculationResults is not null)
-				.ToList();
-
-			if (!all.Any())
-			{
-				MessageBox.Show("No processed results to export.");
-				return;
-			}
-
-			SaveCsvToFile(all);
-		}
-
-		private void SaveCsvToFile(IEnumerable<ProjectItem> results)
-		{
-			var dialog = new Microsoft.Win32.SaveFileDialog
-			{
-				Filter = "CSV Files (*.csv)|*.csv",
-				FileName = results.Count() == 1 ? $"{results.First().FileName} - results.csv" : "AllResults.csv"
-			};
-
-			if (dialog.ShowDialog() == true)
-			{
-				var csv = CsvExporter.ConvertToCsv(results.Select(x => x.CalculationResults!));
-				File.WriteAllText(dialog.FileName, csv);
-				MessageBox.Show("CSV exported successfully.");
+				MessageBox.Show("Cannot save because the file is open in another application. Please close it and try again.");
 			}
 		}
 
@@ -151,6 +120,8 @@ namespace CalculationBulkTool
 
 			using (var conClient = await service.CreateApiClient())
 			{
+				var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
+				MessageBox.Show($"Calculation starts. Export will be in the same folder: {fileName}");
 
 				foreach (var file in projectFiles)
 				{
@@ -174,7 +145,12 @@ namespace CalculationBulkTool
 
 							connection.Succes = connection.Bolts <=100;
 
-							var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter { ConnectionIds = new List<int> { connectionId } });
+							var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter 
+							{ 
+								ConnectionIds = [connectionId],
+								AnalysisType = project.Connections.First(x => x.Id == connectionId).AnalysisType
+							});
+
 							JObject obj = JObject.Parse(allResults[0]);
 
 							var bolts = (JObject?)obj["bolts"];
@@ -205,9 +181,9 @@ namespace CalculationBulkTool
 							results.ProjectItems.Add(connection);
 						}
 
-						file.CalculationResults = results;
+						SaveCsvToFile(results, fileName);
 
-						if (file.CalculationResults.ProjectItems.Any(x => !x.Succes))
+						if (results.ProjectItems.Any(x => !x.Succes))
 						{		
 							file.IsProcessed = false;
 							file.IsFailed = true;
@@ -278,8 +254,6 @@ namespace CalculationBulkTool
 		public string? FilePath { get; set; }
 
 		public string? FileName { get; set; }
-
-		public CalculationResults? CalculationResults { get; set; }
 
 		private bool _isProcessed;
 		public bool IsProcessed

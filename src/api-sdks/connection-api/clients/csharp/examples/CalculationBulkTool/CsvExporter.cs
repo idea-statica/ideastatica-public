@@ -8,38 +8,39 @@ namespace CalculationBulkTool
 {
 	public static class CsvExporter
 	{
-		public static string ConvertToCsv(IEnumerable<CalculationResults> results)
+		public static string ConvertToCsv(CalculationResults project, bool includeHeader = false)
 		{
 			var sb = new StringBuilder();
-			sb.AppendLine("File,Project item,Check status for bolts,Summary - Analysis, Summary - Bolts, Item (bolt),Interaction of tension and shear,Utilization in shear,Utilization in tension");
 
-			foreach (var project in results)
+			if (includeHeader)
 			{
-				bool firstProjectLine = true;
+				sb.AppendLine("File,Project item,Check status for bolts,Summary - Analysis, Summary - Bolts, Item (bolt),Interaction of tension and shear,Utilization in shear,Utilization in tension");
+			}
 
-				foreach (var conn in project.ProjectItems)
+			bool firstProjectLine = true;
+
+			foreach (var conn in project.ProjectItems)
+			{
+				bool firstConnectionLine = true;
+
+				foreach (var bolt in conn.BoltResults)
 				{
-					bool firstConnectionLine = true;
-
-					foreach (var bolt in conn.BoltResults)
+					sb.AppendLine(string.Join(",",
+					new[]
 					{
-						sb.AppendLine(string.Join(",",
-						new[]
-						{
-					firstProjectLine ? project.FileName : "",
-					firstConnectionLine ? conn.Name : "",
-					firstConnectionLine ? (conn.Succes ? "OK" : "NOT OK!") : "",	
-					firstConnectionLine ? $"Analysis: {conn.Analysis}" : "",
-					firstConnectionLine ? $"Bolts: {conn.Bolts}" : "",
-					bolt.Item?.Replace(",", " "),
-					bolt.UtilizationInInteraction.ToString("0.###"),
-					bolt.UtilizationInShear.ToString("0.###"),
-					bolt.UtilizationInTension.ToString("0.###")
-						}));
+				firstProjectLine ? project.FileName : "",
+				firstConnectionLine ? conn.Name : "",
+				firstConnectionLine ? (conn.Succes ? "OK" : "NOT OK!") : "",	
+				firstConnectionLine ? $"Analysis: {conn.Analysis}" : "",
+				firstConnectionLine ? $"Bolts: {conn.Bolts}" : "",
+				bolt.Item?.Replace(",", " "),
+				bolt.UtilizationInInteraction.ToString("0.###"),
+				bolt.UtilizationInShear.ToString("0.###"),
+				bolt.UtilizationInTension.ToString("0.###")
+					}));
 
-						firstProjectLine = false;
-						firstConnectionLine = false;
-					}
+					firstProjectLine = false;
+					firstConnectionLine = false;
 				}
 			}
 
