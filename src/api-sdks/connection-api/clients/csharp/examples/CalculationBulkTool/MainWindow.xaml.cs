@@ -4,6 +4,7 @@ using IdeaStatiCa.ConnectionApi;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -121,6 +122,7 @@ namespace CalculationBulkTool
 			using (var conClient = await service.CreateApiClient())
 			{
 				var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
+				var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
 				MessageBox.Show($"Calculation starts. Export will be in the same folder: {fileName}");
 
 				foreach (var file in projectFiles)
@@ -135,70 +137,86 @@ namespace CalculationBulkTool
 
 						foreach (var connectionId in connectionIds)
 						{
-							var briefResults = await conClient.Calculation.CalculateAsync(project.ProjectId, new List<int> { connectionId });
-							var connection = new Connection
+							try
 							{
-								Name = project.Connections.First(x => x.Id == connectionId).Name,
-								Analysis = briefResults[0].ResultSummary.First(x => x.Name == "Analysis").CheckValue,
-								Bolts = briefResults[0].ResultSummary.First(x => x.Name == "Bolts").CheckValue,
-							};
-
-							connection.Succes = connection.Bolts <=100;
-
-							var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter 
-							{ 
-								ConnectionIds = [connectionId],
-								AnalysisType = project.Connections.First(x => x.Id == connectionId).AnalysisType
-							});
-
-							JObject obj = JObject.Parse(allResults[0]);
-
-							var bolts = (JObject?)obj["bolts"];
-							foreach (var kvp in bolts!)
-							{
-								string key = kvp.Key;
-								var bolt = (JObject?)kvp.Value;
-
-								try
+								var briefResults = await conClient.Calculation.CalculateAsync(project.ProjectId, new List<int> { connectionId });
+								if (briefResults[0].Passed)
 								{
-									if (bolt is { })
+									var connection = new Connection
 									{
-										connection.BoltResults.Add(new BoltResults
+										Name = project.Connections.First(x => x.Id == connectionId).Name,
+										AnalysisType = $"{project.Connections.First(x => x.Id == connectionId).AnalysisType}",
+										Analysis = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Analysis")?.CheckValue ?? 0,
+										Bolts = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Bolts")?.CheckValue ?? 0,
+										Welds = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Welds")?.CheckValue ?? 0,
+										Plates = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Plates")?.CheckValue ?? 0,
+										PreloadedBolts = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Preloaded bolts")?.CheckValue ?? 0,
+									};
+
+									connection.Succes = connection.Bolts <= 100;
+
+									var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter
+									{
+										ConnectionIds = [connectionId],
+										AnalysisType = project.Connections.First(x => x.Id == connectionId).AnalysisType
+									});
+
+									JObject obj = JObject.Parse(allResults[0]);
+
+									var bolts = (JObject?)obj["bolts"];
+									foreach (var kvp in bolts!)
+									{
+										string key = kvp.Key;
+										var bolt = (JObject?)kvp.Value;
+
+										try
 										{
-											Item = bolt["name"]?.ToString(),
-											UtilizationInInteraction = double.Parse(bolt["interactionTensionShear"]?.ToString() ?? "0"),
-											UtilizationInShear = double.Parse(bolt["unityCheckShearMax"]?.ToString() ?? "0"),
-											UtilizationInTension = double.Parse(bolt["unityCheckTension"]?.ToString() ?? "0")
-										});
+											if (bolt is { })
+											{
+												connection.BoltResults.Add(new BoltResults
+												{
+													Item = bolt["name"]?.ToString(),
+													UtilizationInInteraction = double.Parse(bolt["interactionTensionShear"]?.ToString() ?? "0"),
+													UtilizationInShear = double.Parse(bolt["unityCheckShearMax"]?.ToString() ?? "0"),
+													UtilizationInTension = double.Parse(bolt["unityCheckTension"]?.ToString() ?? "0")
+												});
+											}
+										}
+										catch
+										{
+											Console.WriteLine("Bolt results were not parsed correctly");
+										}
 									}
+
+									results.ProjectItems.Add(connection);
 								}
-								catch
+								else
 								{
-									Console.WriteLine("Bolt results were not parsed correctly");
+									// failed project
+									File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name}"]);
 								}
 							}
-
-							results.ProjectItems.Add(connection);
+							catch (Exception ex)
+							{
+								File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name} - {ex.Message}"]);
+							}
 						}
 
-						SaveCsvToFile(results, fileName);
-
-						if (results.ProjectItems.Any(x => !x.Succes))
-						{		
+						if (!results.ProjectItems.Any() || results.ProjectItems.Any(x => !x.Succes))
+						{
 							file.IsProcessed = false;
-							file.IsFailed = true;
 						}
 						else
 						{
 							// Mark as success
 							file.IsProcessed = true;
-							file.IsFailed = false;
 						}
+
+						SaveCsvToFile(results, fileName);
 					}
 					catch
 					{
 						file.IsProcessed = false;
-						file.IsFailed = true;
 					}
 					finally
 					{
@@ -214,6 +232,7 @@ namespace CalculationBulkTool
 			conClient?.Dispose();
 			LoadItemsButton.IsEnabled = true;
 			CalculateButton.IsEnabled = true;
+			MessageBox.Show("Process is finished"); 
 		}
 
 		private async void ProcessFiles_Click(object sender, RoutedEventArgs e)

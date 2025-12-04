@@ -34,10 +34,8 @@
 					<StackPanel Margin="0,0,0,8">
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Text="{Binding FileName}" Width="600" TextTrimming="CharacterEllipsis"/>
-							<TextBlock Text="✅" Foreground="Green" Margin="10,0,0,0"
+							<TextBlock Text="Done" Foreground="Black" Margin="10,0,0,0"
                                Visibility="{Binding IsProcessed, Converter={StaticResource BoolToVisibilityConverter}}"/>
-							<TextBlock Text="❌" Foreground="Red" Margin="10,0,0,0"
-                               Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}"/>
 						</StackPanel>
 
 						<!-- Nested ItemsControl for Connections -->
