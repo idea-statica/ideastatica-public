@@ -183,7 +183,7 @@ namespace CalculationBulkTool
 					}
 				}
 
-				using (IConnectionApiClient conClient = await CreateClientAsync())
+				await using (IConnectionApiClient conClient = await CreateClientAsync())
 				{
 					var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
 					var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
@@ -333,7 +333,7 @@ namespace CalculationBulkTool
 			CalculateButton.IsEnabled = false;
 			try
 			{
-				using (IConnectionApiClient conClient = await CreateClientAsync())
+				await using (IConnectionApiClient conClient = await CreateClientAsync())
 				{
 					foreach (var file in projectFiles)
 					{
