@@ -29,7 +29,8 @@ namespace CalculationBulkTool
 				.WriteTo.File(
 					path: Path.Combine(Path.GetTempPath(), "IdeaStatiCa.CalculationBulkTool.log"),
 					rollingInterval: RollingInterval.Infinite,
-					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {ProcessId} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {ProcessId} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+					shared: true)
 				.CreateLogger();
 
 			Log.Information("Application starting");
