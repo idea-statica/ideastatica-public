@@ -18,21 +18,13 @@ namespace CalculationBulkTool
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		// Plan (pseudocode):
-		// - Add Serilog using and create a logger for this class using Log.ForContext<MainWindow>().
-		// - Log lifecycle: constructor start/end, window closed disposal.
-		// - Log actions: selecting IDEA path, selecting folder, processing and calculating files, saving CSV.
-		// - Log counts and file paths involved.
-		// - Log exceptions with context and stack traces.
-		// - Keep code changes minimal and non-invasive to existing logic.
-
 		private readonly ILogger _logger = Log.ForContext<MainWindow>();
 
 		private string? ideaPath;
 		private string? selectedFolderPath;
 		private ObservableCollection<ProjectItem> projectFiles = new();
 
-		private ConnectionApiServiceRunner? service;
+		private ConnectionApiServiceRunner? connectionApiServiceRunner;
 
 		public MainWindow()
 		{
@@ -46,15 +38,39 @@ namespace CalculationBulkTool
 
 		private void MainWindow_Closed(object? sender, EventArgs e)
 		{
-			_logger.Information("MainWindow closed. Disposing services.");
+			_logger.Information("MainWindow closed.");
+			DisposeServiceRunner();
+		}
+
+		private ConnectionApiServiceRunner GetOrCreateServiceRunner()
+		{
+			if (connectionApiServiceRunner is null)
+			{
+				_logger.Information("Creating ConnectionApiServiceRunner with IDEA path: {IdeaPath}", ideaPath);
+				connectionApiServiceRunner = new ConnectionApiServiceRunner(ideaPath);
+			}
+
+			return connectionApiServiceRunner;
+		}
+
+		private void DisposeServiceRunner()
+		{
 			try
 			{
-				service?.Dispose();
-				_logger.Information("Services disposed.");
+				if (connectionApiServiceRunner is null)
+				{
+					_logger.Information("DisposeServiceRunner called, but ConnectionApiServiceRunner is already null.");
+					return;
+				}
+
+				_logger.Information("Disposing ConnectionApiServiceRunner instance.");
+				connectionApiServiceRunner.Dispose();
+				connectionApiServiceRunner = null;
+				_logger.Information("ConnectionApiServiceRunner disposed.");
 			}
 			catch (Exception ex)
 			{
-				_logger.Error(ex, "Error disposing services on window close");
+				_logger.Error(ex, "Error disposing ConnectionApiServiceRunner");
 			}
 		}
 
@@ -163,13 +179,9 @@ namespace CalculationBulkTool
 				}
 			}
 
-			if (service is null)
-			{
-				_logger.Information("Creating ConnectionApiServiceRunner with IDEA path: {IdeaPath}", ideaPath);
-				service = new ConnectionApiServiceRunner(ideaPath);
-			}
+			var runner = GetOrCreateServiceRunner();
 
-			using (IConnectionApiClient conClient = await service.CreateApiClient())
+			using (IConnectionApiClient conClient = await runner.CreateApiClient())
 			{
 				var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
 				var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
@@ -291,16 +303,6 @@ namespace CalculationBulkTool
 				}
 			}
 
-			try
-			{
-				service?.Dispose();
-				_logger.Information("Disposed service and client after calculation.");
-			}
-			catch (Exception ex)
-			{
-				_logger.Error(ex, "Error disposing service/client after calculation");
-			}
-
 			LoadItemsButton.IsEnabled = true;
 			CalculateButton.IsEnabled = true;
 			MessageBox.Show("Process is finished");
@@ -312,13 +314,9 @@ namespace CalculationBulkTool
 			_logger.Information("Processing files to load connections. Files count: {Count}", projectFiles.Count);
 			LoadItemsButton.IsEnabled = false;
 
-			if (service is null)
-			{
-				_logger.Information("Creating ConnectionApiServiceRunner with IDEA path: {IdeaPath}", ideaPath);
-				service = new ConnectionApiServiceRunner(ideaPath);
-			}
+			var runner = GetOrCreateServiceRunner();
 
-			using (IConnectionApiClient conClient = await service.CreateApiClient())
+			using (IConnectionApiClient conClient = await runner.CreateApiClient())
 			{
 				foreach (var file in projectFiles)
 				{
