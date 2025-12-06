@@ -23,11 +23,12 @@ namespace CalculationBulkTool
 				.MinimumLevel.Debug()
 				.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
 				.Enrich.FromLogContext()
-				.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+				.Enrich.WithProperty("ProcessId", System.Diagnostics.Process.GetCurrentProcess().Id)
+				.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {ProcessId} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
 				.WriteTo.File(
 					path: Path.Combine(Path.GetTempPath(), "IdeaStatiCa.CalculationBulkTool.log"),
 					rollingInterval: RollingInterval.Infinite,
-					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {ProcessId} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
 				.CreateLogger();
 
 			Log.Information("Application starting");
