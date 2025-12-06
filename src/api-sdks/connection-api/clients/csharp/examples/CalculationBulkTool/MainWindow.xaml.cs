@@ -173,181 +173,211 @@ namespace CalculationBulkTool
 			LoadItemsButton.IsEnabled = false;
 			CalculateButton.IsEnabled = false;
 
-			foreach (var project in projectFiles)
+			try
 			{
-				foreach (var conn in project.Connections)
+				foreach (var project in projectFiles)
 				{
-					conn.IsReadOnly = true;
-				}
-			}
-
-			using (IConnectionApiClient conClient = await CreateClientAsync())
-			{
-				var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
-				var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
-				_logger.Information("Calculation export file: {ExportFile}, Failed list: {FailedFile}", fileName, failedProjects);
-
-				MessageBox.Show($"Calculation starts. Export will be in the same folder: {fileName}");
-
-				foreach (var file in projectFiles)
-				{
-					ConProject? project = null;
-					try
+					foreach (var conn in project.Connections)
 					{
-						_logger.Information("Opening project: {ProjectFile}", file.FilePath);
-						CalculationResults results = new CalculationResults();
-						project = await conClient.Project.OpenProjectAsync(file.FilePath);
-						results.FileName = file.FileName;
-						var connectionIds = file.Connections.Select(x => x.ConnectionId).ToList();
+						conn.IsReadOnly = true;
+					}
+				}
 
-						_logger.Information("Project {Project} opened. {Count} connection(s) to process",
-							file.FileName, connectionIds.Count);
+				using (IConnectionApiClient conClient = await CreateClientAsync())
+				{
+					var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
+					var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
+					_logger.Information("Calculation export file: {ExportFile}, Failed list: {FailedFile}", fileName, failedProjects);
 
-						foreach (var connectionId in connectionIds)
+					MessageBox.Show($"Calculation starts. Export will be in the same folder: {fileName}");
+
+					foreach (var file in projectFiles)
+					{
+						ConProject? project = null;
+						try
 						{
-							try
+							_logger.Information("Opening project: {ProjectFile}", file.FilePath);
+							CalculationResults results = new CalculationResults();
+							project = await conClient.Project.OpenProjectAsync(file.FilePath);
+							results.FileName = file.FileName;
+							var connectionIds = file.Connections.Select(x => x.ConnectionId).ToList();
+
+							_logger.Information("Project {Project} opened. {Count} connection(s) to process",
+								file.FileName, connectionIds.Count);
+
+							foreach (var connectionId in connectionIds)
 							{
-								_logger.Information("Calculating connectionId={ConnectionId} in projectId={ProjectId}", connectionId, project.ProjectId);
-								var briefResults = await conClient.Calculation.CalculateAsync(project.ProjectId, new List<int> { connectionId });
-								if (briefResults[0].Passed)
+								try
 								{
-									_logger.Information("ConnectionId={ConnectionId} passed.", connectionId);
-									var connection = new Connection
+									_logger.Information("Calculating connectionId={ConnectionId} in projectId={ProjectId}", connectionId, project.ProjectId);
+									var briefResults = await conClient.Calculation.CalculateAsync(project.ProjectId, new List<int> { connectionId });
+									if (briefResults[0].Passed)
 									{
-										Name = project.Connections.First(x => x.Id == connectionId).Name,
-										AnalysisType = $"{project.Connections.First(x => x.Id == connectionId).AnalysisType}",
-										Analysis = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Analysis")?.CheckValue ?? 0,
-										Bolts = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Bolts")?.CheckValue ?? 0,
-										Welds = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Welds")?.CheckValue ?? 0,
-										Plates = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Plates")?.CheckValue ?? 0,
-										PreloadedBolts = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Preloaded bolts")?.CheckValue ?? 0,
-									};
-
-									connection.Succes = connection.Bolts <= 100;
-
-									var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter
-									{
-										ConnectionIds = [connectionId],
-										AnalysisType = project.Connections.First(x => x.Id == connectionId).AnalysisType
-									});
-
-									JObject obj = JObject.Parse(allResults[0]);
-
-									var bolts = (JObject?)obj["bolts"];
-									foreach (var kvp in bolts!)
-									{
-										string key = kvp.Key;
-										var bolt = (JObject?)kvp.Value;
-
-										try
+										_logger.Information("ConnectionId={ConnectionId} passed.", connectionId);
+										var connection = new Connection
 										{
-											if (bolt is { })
+											Name = project.Connections.First(x => x.Id == connectionId).Name,
+											AnalysisType = $"{project.Connections.First(x => x.Id == connectionId).AnalysisType}",
+											Analysis = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Analysis")?.CheckValue ?? 0,
+											Bolts = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Bolts")?.CheckValue ?? 0,
+											Welds = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Welds")?.CheckValue ?? 0,
+											Plates = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Plates")?.CheckValue ?? 0,
+											PreloadedBolts = briefResults[0].ResultSummary.FirstOrDefault(x => x.Name == "Preloaded bolts")?.CheckValue ?? 0,
+										};
+
+										connection.Succes = connection.Bolts <= 100;
+
+										var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter
+										{
+											ConnectionIds = [connectionId],
+											AnalysisType = project.Connections.First(x => x.Id == connectionId).AnalysisType
+										});
+
+										JObject obj = JObject.Parse(allResults[0]);
+
+										var bolts = (JObject?)obj["bolts"];
+										foreach (var kvp in bolts!)
+										{
+											string key = kvp.Key;
+											var bolt = (JObject?)kvp.Value;
+
+											try
 											{
-												connection.BoltResults.Add(new BoltResults
+												if (bolt is { })
 												{
-													Item = bolt["name"]?.ToString(),
-													UtilizationInInteraction = double.Parse(bolt["interactionTensionShear"]?.ToString() ?? "0"),
-													UtilizationInShear = double.Parse(bolt["unityCheckShearMax"]?.ToString() ?? "0"),
-													UtilizationInTension = double.Parse(bolt["unityCheckTension"]?.ToString() ?? "0")
-												});
+													connection.BoltResults.Add(new BoltResults
+													{
+														Item = bolt["name"]?.ToString(),
+														UtilizationInInteraction = double.Parse(bolt["interactionTensionShear"]?.ToString() ?? "0"),
+														UtilizationInShear = double.Parse(bolt["unityCheckShearMax"]?.ToString() ?? "0"),
+														UtilizationInTension = double.Parse(bolt["unityCheckTension"]?.ToString() ?? "0")
+													});
+												}
+											}
+											catch (Exception boltEx)
+											{
+												_logger.Warning(boltEx, "Bolt results parsing issue for connectionId={ConnectionId}", connectionId);
+												Console.WriteLine("Bolt results were not parsed correctly");
 											}
 										}
-										catch (Exception boltEx)
-										{
-											_logger.Warning(boltEx, "Bolt results parsing issue for connectionId={ConnectionId}", connectionId);
-											Console.WriteLine("Bolt results were not parsed correctly");
-										}
+
+										results.ProjectItems.Add(connection);
 									}
-
-									results.ProjectItems.Add(connection);
+									else
+									{
+										_logger.Warning("ConnectionId={ConnectionId} failed in project {Project}", connectionId, file.FileName);
+										File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name}"]);
+									}
 								}
-								else
+								catch (Exception ex)
 								{
-									_logger.Warning("ConnectionId={ConnectionId} failed in project {Project}", connectionId, file.FileName);
-									File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name}"]);
+									_logger.Error(ex, "Error calculating connectionId={ConnectionId} in project {Project}", connectionId, file.FileName);
+									File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name} - {ex.Message}"]);
 								}
 							}
-							catch (Exception ex)
-							{
-								_logger.Error(ex, "Error calculating connectionId={ConnectionId} in project {Project}", connectionId, file.FileName);
-								File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name} - {ex.Message}"]);
-							}
-						}
 
-						if (!results.ProjectItems.Any() || results.ProjectItems.Any(x => !x.Succes))
+							if (!results.ProjectItems.Any() || results.ProjectItems.Any(x => !x.Succes))
+							{
+								file.IsProcessed = false;
+								_logger.Information("Project {Project} marked as NOT processed.", file.FileName);
+							}
+							else
+							{
+								file.IsProcessed = true;
+								_logger.Information("Project {Project} processed successfully.", file.FileName);
+							}
+
+							SaveCsvToFile(results, fileName);
+						}
+						catch (Exception ex)
 						{
 							file.IsProcessed = false;
-							_logger.Information("Project {Project} marked as NOT processed.", file.FileName);
+							_logger.Error(ex, "Unexpected error while processing project {ProjectFile}", file.FilePath);
 						}
-						else
+						finally
 						{
-							file.IsProcessed = true;
-							_logger.Information("Project {Project} processed successfully.", file.FileName);
+							if (project != null)
+							{
+								_logger.Information("Closing projectId={ProjectId}", project.ProjectId);
+								await conClient.Project.CloseProjectAsync(project.ProjectId);
+							}
 						}
+					}
 
-						SaveCsvToFile(results, fileName);
-					}
-					catch (Exception ex)
-					{
-						file.IsProcessed = false;
-						_logger.Error(ex, "Unexpected error while processing project {ProjectFile}", file.FilePath);
-					}
-					finally
-					{
-						if (project != null)
-						{
-							_logger.Information("Closing projectId={ProjectId}", project.ProjectId);
-							await conClient.Project.CloseProjectAsync(project.ProjectId);
-						}
-					}
+					_logger.Information("CalculateAll finished.");
+					MessageBox.Show("Process is finished");
 				}
 			}
-
-			LoadItemsButton.IsEnabled = true;
-			CalculateButton.IsEnabled = true;
-			MessageBox.Show("Process is finished");
-			_logger.Information("CalculateAll finished.");
+			catch (Exception ex)
+			{
+				_logger.Error(ex, "Calculation failed");
+				MessageBox.Show(
+					$"An error occurred.\n\nType: {ex.GetType().Name}\nMessage: {ex.Message}",
+					"Calculation failed",
+					MessageBoxButton.OK,
+					MessageBoxImage.Error
+				);
+			}
+			finally
+			{
+				LoadItemsButton.IsEnabled = true;
+				CalculateButton.IsEnabled = true;
+				_logger.Information("CalculateAll completed.");
+			}
 		}
 
 		private async void ProcessFiles_Click(object sender, RoutedEventArgs e)
 		{
 			_logger.Information("Processing files to load connections. Files count: {Count}", projectFiles.Count);
 			LoadItemsButton.IsEnabled = false;
-
-			var runner = GetOrCreateServiceRunner();
-
-			using (IConnectionApiClient conClient = await CreateClientAsync())
+			CalculateButton.IsEnabled = false;
+			try
 			{
-				foreach (var file in projectFiles)
+				using (IConnectionApiClient conClient = await CreateClientAsync())
 				{
-					try
+					foreach (var file in projectFiles)
 					{
-						_logger.Information("Opening project: {ProjectFile}", file.FilePath);
-						var project = await conClient.Project.OpenProjectAsync(file.FilePath);
-						file.Connections.Clear();
-						foreach (var connection in project.Connections)
+						try
 						{
-							file.Connections.Add(new ConnectionItem
+							_logger.Information("Opening project: {ProjectFile}", file.FilePath);
+							var project = await conClient.Project.OpenProjectAsync(file.FilePath);
+							file.Connections.Clear();
+							foreach (var connection in project.Connections)
 							{
-								ConnectionId = connection.Id,
-								Name = connection.Name
-							});
-						}
-						_logger.Information("Loaded {Count} connections for project {Project}", file.Connections.Count, file.FileName);
+								file.Connections.Add(new ConnectionItem
+								{
+									ConnectionId = connection.Id,
+									Name = connection.Name
+								});
+							}
+							_logger.Information("Loaded {Count} connections for project {Project}", file.Connections.Count, file.FileName);
 
-						await conClient.Project.CloseProjectAsync(project.ProjectId);
-						_logger.Information("Closed project {Project}", file.FileName);
-					}
-					catch (Exception ex)
-					{
-						_logger.Error(ex, "Error loading connections for project {ProjectFile}", file.FilePath);
+							await conClient.Project.CloseProjectAsync(project.ProjectId);
+							_logger.Information("Closed project {Project}", file.FileName);
+						}
+						catch (Exception ex)
+						{
+							_logger.Error(ex, "Error loading connections for project {ProjectFile}", file.FilePath);
+						}
 					}
 				}
 			}
-
-			LoadItemsButton.IsEnabled = true;
-			CalculateButton.IsEnabled = true;
-			_logger.Information("ProcessFiles completed. Buttons re-enabled.");
+			catch (Exception ex)
+			{
+				_logger.Error(ex, "ProcessFiles failed");
+				MessageBox.Show(
+					$"An error occurred.\n\nType: {ex.GetType().Name}\nMessage: {ex.Message}",
+					"Process files failed",
+					MessageBoxButton.OK,
+					MessageBoxImage.Error
+				);
+			}
+			finally
+			{
+				LoadItemsButton.IsEnabled = true;
+				CalculateButton.IsEnabled = true;
+				_logger.Information("ProcessFiles completed.");
+			}
 		}
 
 		private async Task<IConnectionApiClient> CreateClientAsync()
