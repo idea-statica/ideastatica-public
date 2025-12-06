@@ -179,9 +179,7 @@ namespace CalculationBulkTool
 				}
 			}
 
-			var runner = GetOrCreateServiceRunner();
-
-			using (IConnectionApiClient conClient = await runner.CreateApiClient())
+			using (IConnectionApiClient conClient = await CreateClientAsync())
 			{
 				var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
 				var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
@@ -316,7 +314,7 @@ namespace CalculationBulkTool
 
 			var runner = GetOrCreateServiceRunner();
 
-			using (IConnectionApiClient conClient = await runner.CreateApiClient())
+			using (IConnectionApiClient conClient = await CreateClientAsync())
 			{
 				foreach (var file in projectFiles)
 				{
@@ -348,6 +346,15 @@ namespace CalculationBulkTool
 			LoadItemsButton.IsEnabled = true;
 			CalculateButton.IsEnabled = true;
 			_logger.Information("ProcessFiles completed. Buttons re-enabled.");
+		}
+
+		private async Task<IConnectionApiClient> CreateClientAsync()
+		{
+			// Ensure the runner exists
+			var runner = GetOrCreateServiceRunner();
+
+			// Create the API client
+			return await runner.CreateApiClient();
 		}
 	}
 
