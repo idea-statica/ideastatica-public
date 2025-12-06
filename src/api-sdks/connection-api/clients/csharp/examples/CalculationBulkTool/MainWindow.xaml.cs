@@ -77,69 +77,71 @@ namespace CalculationBulkTool
 		private void LoadIdeaPath_Click(object sender, RoutedEventArgs e)
 		{
 			_logger.Information("Loading IDEA path via folder selection dialog.");
-			var dialog = new System.Windows.Forms.FolderBrowserDialog()
+			using (var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
 				Description = "Select folder where is API v25",
 				SelectedPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\"
-			};
-
-			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			})
 			{
-				ideaPath = dialog.SelectedPath;
-				IdeaPathText.Text = ideaPath;  // Show selected path in the TextBlock
-				_logger.Information("IDEA path selected: {IdeaPath}", ideaPath);
-			}
-			else
-			{
-				_logger.Information("IDEA path selection canceled.");
+				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					ideaPath = dialog.SelectedPath;
+					IdeaPathText.Text = ideaPath;  // Show selected path in the TextBlock
+					_logger.Information("IDEA path selected: {IdeaPath}", ideaPath);
+				}
+				else
+				{
+					_logger.Information("IDEA path selection canceled.");
+				}
 			}
 		}
 
 		private void SelectFolder_Click(object sender, RoutedEventArgs e)
 		{
 			_logger.Information("Selecting folder with projects to be calculated.");
-			var dialog = new System.Windows.Forms.FolderBrowserDialog()
+			using (var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
 				Description = "Select folder with projects to be calculated",
 				SelectedPath = selectedFolderPath! // Default to last selected folder
-			};
-
-			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			})
 			{
-				selectedFolderPath = dialog.SelectedPath;
-				SelectedFolderTextBox.Text = selectedFolderPath;  // Show selected folder in the read-only TextBox
-
-				_logger.Information("Selected folder: {SelectedFolder}", selectedFolderPath);
-
-				// Clear and repopulate the ListBox with .ideaCon files
-				projectFiles.Clear();
-
-				try
+				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
-					var files = Directory
-						.GetFiles(selectedFolderPath!, "*.ideaCon", SearchOption.AllDirectories)
-						.OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase)
-						.ToArray();
+					selectedFolderPath = dialog.SelectedPath;
+					SelectedFolderTextBox.Text = selectedFolderPath;  // Show selected folder in the read-only TextBox
 
-					_logger.Information("Found {Count} .ideaCon files under {Folder}", files.Length, selectedFolderPath);
+					_logger.Information("Selected folder: {SelectedFolder}", selectedFolderPath);
 
-					foreach (var file in files)
+					// Clear and repopulate the ListBox with .ideaCon files
+					projectFiles.Clear();
+
+					try
 					{
-						var fileName = System.IO.Path.GetFileName(file);
-						projectFiles.Add(new ProjectItem { FilePath = file, FileName = fileName });
-					}
+						var files = Directory
+							.GetFiles(selectedFolderPath!, "*.ideaCon", SearchOption.AllDirectories)
+							.OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase)
+							.ToArray();
 
-					LoadItemsButton.IsEnabled = true;
+						_logger.Information("Found {Count} .ideaCon files under {Folder}", files.Length, selectedFolderPath);
+
+						foreach (var file in files)
+						{
+							var fileName = System.IO.Path.GetFileName(file);
+							projectFiles.Add(new ProjectItem { FilePath = file, FileName = fileName });
+						}
+
+						LoadItemsButton.IsEnabled = true;
+					}
+					catch (Exception ex)
+					{
+						_logger.Error(ex, "Error while enumerating .ideaCon files in {Folder}", selectedFolderPath);
+						MessageBox.Show("Error loading project files. See logs for details.");
+					}
 				}
-				catch (Exception ex)
+				else
 				{
-					_logger.Error(ex, "Error while enumerating .ideaCon files in {Folder}", selectedFolderPath);
-					MessageBox.Show("Error loading project files. See logs for details.");
+					_logger.Information("Project folder selection canceled.");
 				}
-			}
-			else
-			{
-				_logger.Information("Project folder selection canceled.");
 			}
 		}
 
