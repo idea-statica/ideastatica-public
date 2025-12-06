@@ -31,7 +31,6 @@ namespace CalculationBulkTool
 		private string? ideaPath;
 		private string? selectedFolderPath;
 		private ObservableCollection<ProjectItem> projectFiles = new();
-		private IConnectionApiClient? conClient;
 
 		private ConnectionApiServiceRunner? service;
 
@@ -51,7 +50,6 @@ namespace CalculationBulkTool
 			try
 			{
 				service?.Dispose();
-				conClient?.Dispose();
 				_logger.Information("Services disposed.");
 			}
 			catch (Exception ex)
@@ -171,7 +169,7 @@ namespace CalculationBulkTool
 				service = new ConnectionApiServiceRunner(ideaPath);
 			}
 
-			using (var conClient = await service.CreateApiClient())
+			using (IConnectionApiClient conClient = await service.CreateApiClient())
 			{
 				var fileName = Path.Combine(selectedFolderPath!, $"Export-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.csv");
 				var failedProjects = Path.Combine(selectedFolderPath!, $"FailedProjects-{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt");
@@ -296,7 +294,6 @@ namespace CalculationBulkTool
 			try
 			{
 				service?.Dispose();
-				conClient?.Dispose();
 				_logger.Information("Disposed service and client after calculation.");
 			}
 			catch (Exception ex)
@@ -321,7 +318,7 @@ namespace CalculationBulkTool
 				service = new ConnectionApiServiceRunner(ideaPath);
 			}
 
-			using (var conClient = await service.CreateApiClient())
+			using (IConnectionApiClient conClient = await service.CreateApiClient())
 			{
 				foreach (var file in projectFiles)
 				{
