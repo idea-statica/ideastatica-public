@@ -652,27 +652,20 @@ namespace CI.Geometry3D
 			if (points.Count > 2 && isCollinear == false)
 			{
 				normal = new Vector3D();
-				IPoint3D startPt = points[0];
-				Vector3D vector1 = new Vector3D(points[1].X - startPt.X, points[1].Y - startPt.Y, points[1].Z - startPt.Z);
-				for (int i = 2; i < points.Count; i++)
+				for (int i = 0; i < points.Count; i++)
 				{
-					Vector3D vector2 = new Vector3D(points[i].X - startPt.X, points[i].Y - startPt.Y, points[i].Z - startPt.Z);
-					if (GetAngle(vector1, vector2) < 0.05) // JAR 28.2.2019 - snizeni z puvodnich 0.1
-					{
-						continue;
-					}
+					int next = (i + 1) % points.Count;
 
-					normal = normal + (vector1 * vector2);
-					if (normal.Magnitude.IsZero() == false)
-					{
-						break;
-					}
+					IPoint3D current = points[i];
+					IPoint3D nextPt = points[next];
 
-					//vector1 = vector2;
+					Vector3D v1 = new Vector3D(current.X - points[0].X, current.Y - points[0].Y, current.Z - points[0].Z);
+					Vector3D v2 = new Vector3D(nextPt.X - points[0].X, nextPt.Y - points[0].Y, nextPt.Z - points[0].Z);
+
+					normal += (v1 * v2);
 				}
 
-				normal = normal / 2;
-				if (normal.Magnitude.IsZero() == false)
+				if (!normal.Magnitude.IsZero())
 				{
 					return true;
 				}
