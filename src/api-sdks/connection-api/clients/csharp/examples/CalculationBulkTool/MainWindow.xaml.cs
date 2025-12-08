@@ -276,7 +276,7 @@ namespace CalculationBulkTool
 
 										results.ProjectItems.Add(connection);
 										processedProjectItemCount++;
-										
+
 									}
 									else
 									{
@@ -312,27 +312,36 @@ namespace CalculationBulkTool
 
 					_logger.Information("CalculateAll finished.");
 
-					if (failedProjectItemCount + processedProjectItemCount != totalProjectItemCount)
+					int handledProjectItemCount = processedProjectItemCount + failedProjectItemCount;
+					string failedProjectsMsg = File.Exists(failedProjects) ? $"• {failedProjects} \n" : string.Empty;
+
+					if (handledProjectItemCount != totalProjectItemCount)
 					{
 						MessageBox.Show(
-								$"There is a mismatch between the number of loaded and processed project items.\n\n" +
-								$"• Loaded items: {totalProjectItemCount}\n" +
-								$"• Successfully processed: {processedProjectItemCount}\n" +
-								$"• Failed to process: {failedProjectItemCount}",
-								"Project Item Mismatch",
+								$"Something unexpected happened during processing. Not all items were handled as planned. Please check the results.\n\n" +
+
+								$"Count of loaded project items: {totalProjectItemCount}\n" +
+								$"• Successfully exported: {processedProjectItemCount}\n" +
+								$"• Failed to process: {failedProjectItemCount}\n" +
+								$"• Not handled: {totalProjectItemCount - handledProjectItemCount}\n\n" +
+
+								$"Exported files:\n" +
+								$"• {fileName} \n" +
+								failedProjectsMsg,
+								
+								"Some Items Were Not Processed",
 								MessageBoxButton.OK,
 								MessageBoxImage.Warning);
 					}
 					else
 					{
-
-						var failedProjectsMsg = File.Exists(failedProjects) ? $"• {failedProjects} \n" : string.Empty;
-
 						MessageBox.Show(
 							$"The process has completed successfully.\n\n" +
+							
 							$"Exported files:\n" +
 							$"• {fileName} \n" +
 							failedProjectsMsg,
+							
 							"Process Completed",
 							MessageBoxButton.OK,
 							MessageBoxImage.Information);
