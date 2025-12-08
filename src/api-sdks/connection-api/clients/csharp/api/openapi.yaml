@@ -333,7 +333,45 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/connection-library/get-design-sets:
+  /api/3/projects/{projectId}/connections/{connectionId}/get-topology:
+    get:
+      operationId: GetConnectionTopology
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection where to clear the design
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: OK
+      summary: Get topology of the connection in json format
+      tags:
+      - Connection
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/connection-library/get-design-sets:
     get:
       description: "This method returns a collection of design sets that are mapped\
         \ and ready for use. It throws an\r\n            exception if no design sets\
@@ -353,7 +391,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/connection-library/projects/{projectId}/connections/{connectionId}/propose:
+  /api/3/connection-library/projects/{projectId}/connections/{connectionId}/propose:
     post:
       description: "This method retrieves the connection model from the specified\
         \ project and classifies its\r\n            typology. It then filters and\
@@ -401,7 +439,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/connection-library/get-template:
+  /api/3/connection-library/get-template:
     get:
       description: "This method is mapped to API version 2 and produces a plain text\
         \ response. It is intended to be\r\n            used in scenarios where the\
@@ -441,7 +479,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/connection-library/get-picture:
+  /api/3/connection-library/get-picture:
     get:
       description: "This method is mapped to API version 2 and produces a PNG image.\
         \ The image is returned as a file\r\n            stream result with the file\
@@ -467,44 +505,6 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/projects/{projectId}/get-default-mapping:
-    get:
-      operationId: GetConnectionTopology
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: Id of the connection where to clear the design
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            text/plain:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-          description: OK
-      summary: Get topology of the connection in json format
-      tags:
-      - Connection
-      x-requiresProject: true
-      x-requiresConnection: true
   /api/3/projects/{projectId}/connections/{connectionId}/publish:
     post:
       operationId: PublishConnection
@@ -1871,42 +1871,6 @@ paths:
                 type: string
           description: OK
       summary: Evaluate the expression and return the result
-      tags:
-      - Parameter
-      x-requiresProject: true
-      x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/clear-parameters:
-    post:
-      deprecated: true
-      description: "<strong>DEPRECATED:</strong> This endpoint is deprecated and will\
-        \ be removed in a future version. \r\n            Please use the DELETE endpoint\
-        \ instead: `DELETE /api/v1/projects/{projectId}/connections/{connectionId}/parameters`"
-      operationId: ClearParameters
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: Id of the connection where to clear the parameters
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          description: OK
-      summary: Clear parameters and links for the connection connectionId in the project
-        projectId
       tags:
       - Parameter
       x-requiresProject: true

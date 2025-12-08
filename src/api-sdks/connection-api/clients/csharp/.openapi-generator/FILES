@@ -25,7 +25,7 @@ docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
 docs/ConConnection.md
 docs/ConConnectionLibrarySearchParameters.md
-docs/ConConnectionTemplateModel.md
+docs/ConConnectionTemplate.md
 docs/ConConversionSettings.md
 docs/ConDesignItem.md
 docs/ConDesignSet.md
@@ -167,8 +167,8 @@ src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlateSideCodeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
-src/IdeaStatiCa.ConnectionApi/Model/ConConnectionTemplateModel.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnectionLibrarySearchParameters.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConConnectionTemplate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConversionSettings.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignItem.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignSet.cs

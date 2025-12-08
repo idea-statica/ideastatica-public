@@ -24,8 +24,8 @@ docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
 docs/ConConnection.md
-docs/ConConnectionTemplateModel.md
 docs/ConConnectionLibrarySearchParameters.md
+docs/ConConnectionTemplate.md
 docs/ConConversionSettings.md
 docs/ConDesignItem.md
 docs/ConDesignSet.md
@@ -156,8 +156,8 @@ ideastatica_connection_api/models/con_aligned_plate.py
 ideastatica_connection_api/models/con_aligned_plate_side_code_enum.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
 ideastatica_connection_api/models/con_connection.py
-ideastatica_connection_api/models/con_connection_template_model.py
 ideastatica_connection_api/models/con_connection_library_search_parameters.py
+ideastatica_connection_api/models/con_connection_template.py
 ideastatica_connection_api/models/con_conversion_settings.py
 ideastatica_connection_api/models/con_design_item.py
 ideastatica_connection_api/models/con_design_set.py
