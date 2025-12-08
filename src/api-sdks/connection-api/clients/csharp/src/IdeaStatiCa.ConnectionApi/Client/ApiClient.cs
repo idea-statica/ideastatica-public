@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Connection Rest API 2.0
  *
  * IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
@@ -552,7 +552,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
             }
         }
 
-		/// <summary>
+        /// <summary>
 		/// Executes an asynchronous HTTP request for the current service.
 		/// </summary>
 		/// <param name="getResponseAsync">Local function that executes http request and returns http response.</param>
@@ -661,7 +661,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			}
 		}
 
-		private RestResponse<T> DeserializeRestResponseFromPolicy<T>(RestClient client, RestRequest request, PolicyResult<RestResponse> policyResult)
+        private RestResponse<T> DeserializeRestResponseFromPolicy<T>(RestClient client, RestRequest request, PolicyResult<RestResponse> policyResult)
         {
             if (policyResult.Outcome == OutcomeType.Successful) 
             {
@@ -716,7 +716,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
                 //no extra options
             };
 
-			Func<RestClient, Task<RestResponse<T>>> getResponseAsync = 
+            Func<RestClient, Task<RestResponse<T>>> getResponseAsync = 
 				async (client) =>
 				{
 					if (RetryConfiguration.AsyncRetryPolicy != null)
@@ -732,6 +732,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 				};
 
 			return await ExecClientAsync(getResponseAsync, setOptions, request, options, configuration);
+
         }
 
         #region IAsynchronousClient

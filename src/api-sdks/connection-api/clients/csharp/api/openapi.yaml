@@ -2252,6 +2252,7 @@ paths:
       x-requiresConnection: true
   /api/2/projects/{projectId}/connections/{connectionId}/clear-design:
     post:
+      deprecated: true
       operationId: ClearDesign
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
