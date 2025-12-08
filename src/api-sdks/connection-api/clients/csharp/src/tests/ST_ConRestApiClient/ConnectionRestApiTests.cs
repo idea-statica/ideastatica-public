@@ -336,6 +336,18 @@ namespace ST_ConnectionRestApi
 		}
 
 		[Test]
+		public async Task ShouldGetRawJsonResults()
+		{
+			var con1 = Project!.Connections.First();
+			List<int> conToCalc = new List<int>() { con1.Id };
+
+			List<string> resultList = await ConnectionApiClient!.Calculation!.GetRawJsonResultsAsync(ActiveProjectId, new List<int> { con1.Id });
+
+			resultList.Should().NotBeNullOrEmpty();
+			resultList.Count.Should().Be(1);
+		}
+
+		[Test]
 		public async Task ShouldGetProductionCost()
 		{
 			var con1 = Project!.Connections.First();
