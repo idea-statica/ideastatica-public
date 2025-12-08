@@ -10,6 +10,7 @@ namespace IdeaRS.OpenModel.CrossSection
 	[XmlInclude(typeof(CrossSectionParameter))]
 	[XmlInclude(typeof(CrossSectionComponent))]
 	[XmlInclude(typeof(CrossSectionGeneralColdFormed))]
+	[XmlInclude(typeof(GeneralCrossSection))]
 	[DataContract]
 	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class CrossSection : OpenElementId

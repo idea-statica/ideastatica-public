@@ -27,6 +27,7 @@ namespace IdeaStatiCa.IOM.VersioningService.Configuration
 			RegisterStep(new Step210(_logger));
 			RegisterStep(new Step220(_logger));
 			RegisterStep(new Step300(_logger));
+			RegisterStep(new Step310(_logger));
 		}
 
 		private void RegisterStep(BaseStep step)

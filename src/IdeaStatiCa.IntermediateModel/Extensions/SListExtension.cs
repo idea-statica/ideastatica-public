@@ -126,5 +126,20 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 				return "";
 			}
 		}
+
+		/// <summary>
+		/// Remove Element Property
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="property"></param>
+		public static void RemoveElementProperty(this SList sList, string property)
+		{
+			var removedItem = sList.Items.FirstOrDefault(e => e.GetElementName() == property);
+
+			if (removedItem is { })
+			{
+				sList.Remove(removedItem);
+			}
+		}
 	}
 }
