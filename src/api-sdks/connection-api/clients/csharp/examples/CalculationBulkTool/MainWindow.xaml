@@ -24,6 +24,14 @@
 
 		</StackPanel>
 
+		<TextBlock Margin="0,0,0,8" TextWrapping="Wrap">
+			To run the Connection API Service you need to have installed ASP .NET Core version 8 or higher. 
+			<Hyperlink NavigateUri="https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-aspnetcore-8.0.22-windows-x64-installer"
+					   RequestNavigate="Hyperlink_RequestNavigate">
+				Click here to install
+			</Hyperlink>.
+		</TextBlock>
+
 		<!-- Message Label for dynamic text -->
 		<TextBlock x:Name="MessageLabel" VerticalAlignment="Center" Margin="0,0,0,8" FontStyle="Italic" Foreground="DarkSlateGray"/>
 

@@ -5,10 +5,12 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using MessageBox = System.Windows.MessageBox;
 
 namespace CalculationBulkTool
@@ -40,6 +42,12 @@ namespace CalculationBulkTool
 		{
 			_logger.Information("MainWindow closed.");
 			DisposeServiceRunner();
+		}
+
+		private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+		{
+			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+			e.Handled = true;
 		}
 
 		private ConnectionApiServiceRunner GetOrCreateServiceRunner()
@@ -172,11 +180,16 @@ namespace CalculationBulkTool
 			_logger.Information("Starting CalculateAll for {Count} projects", projectFiles.Count);
 			LoadItemsButton.IsEnabled = false;
 			CalculateButton.IsEnabled = false;
+			int totalProjectItemCount = 0;
+			int processedProjectItemCount = 0;
+			int failedProjectItemCount = 0;
 
 			try
 			{
 				foreach (var project in projectFiles)
 				{
+					totalProjectItemCount += project.Connections.Count();
+
 					foreach (var conn in project.Connections)
 					{
 						conn.IsReadOnly = true;
@@ -262,36 +275,29 @@ namespace CalculationBulkTool
 										}
 
 										results.ProjectItems.Add(connection);
+										processedProjectItemCount++;
+										
 									}
 									else
 									{
 										_logger.Warning("ConnectionId={ConnectionId} failed in project {Project}", connectionId, file.FileName);
 										File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name}"]);
+										failedProjectItemCount++;
 									}
 								}
 								catch (Exception ex)
 								{
 									_logger.Error(ex, "Error calculating connectionId={ConnectionId} in project {Project}", connectionId, file.FileName);
 									File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name} - {ex.Message}"]);
+									failedProjectItemCount++;
 								}
 							}
 
-							if (!results.ProjectItems.Any() || results.ProjectItems.Any(x => !x.Succes))
-							{
-								file.IsProcessed = false;
-								_logger.Information("Project {Project} marked as NOT processed.", file.FileName);
-							}
-							else
-							{
-								file.IsProcessed = true;
-								_logger.Information("Project {Project} processed successfully.", file.FileName);
-							}
-
+							file.IsProcessed = true;
 							SaveCsvToFile(results, fileName);
 						}
 						catch (Exception ex)
 						{
-							file.IsProcessed = false;
 							_logger.Error(ex, "Unexpected error while processing project {ProjectFile}", file.FilePath);
 						}
 						finally
@@ -305,7 +311,32 @@ namespace CalculationBulkTool
 					}
 
 					_logger.Information("CalculateAll finished.");
-					MessageBox.Show("Process is finished");
+
+					if (failedProjectItemCount + processedProjectItemCount != totalProjectItemCount)
+					{
+						MessageBox.Show(
+								$"There is a mismatch between the number of loaded and processed project items.\n\n" +
+								$"• Loaded items: {totalProjectItemCount}\n" +
+								$"• Successfully processed: {processedProjectItemCount}\n" +
+								$"• Failed to process: {failedProjectItemCount}",
+								"Project Item Mismatch",
+								MessageBoxButton.OK,
+								MessageBoxImage.Warning);
+					}
+					else
+					{
+
+						var failedProjectsMsg = File.Exists(failedProjects) ? $"• {failedProjects} \n" : string.Empty;
+
+						MessageBox.Show(
+							$"The process has completed successfully.\n\n" +
+							$"Exported files:\n" +
+							$"• {fileName} \n" +
+							failedProjectsMsg,
+							"Process Completed",
+							MessageBoxButton.OK,
+							MessageBoxImage.Information);
+					}
 				}
 			}
 			catch (Exception ex)
