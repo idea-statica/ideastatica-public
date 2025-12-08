@@ -1,6 +1,5 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
-using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
@@ -492,5 +491,22 @@ namespace IdeaStatiCa.Api.Connection
 		/// <returns></returns>
 		Task<ParameterUpdateResponse> LoadParameterDefaults(int connectionId, Guid templateId, CancellationToken cancellation = default);
 
+		/// <summary>
+		/// Proposes a list of design items for a specified connection based on the given search parameters.
+		/// </summary>
+		/// <remarks>This method performs an asynchronous operation to propose design items that match the specified
+		/// criteria. The operation can be cancelled by passing a cancellation token.</remarks>
+		/// <param name="connectionId">The unique identifier of the connection for which design items are proposed.</param>
+		/// <param name="searchParameters">The parameters used to filter and search for suitable design items.</param>
+		/// <param name="cancellation">A token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains a list of proposed design items for
+		/// the specified connection.</returns>
+		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignItem>> Propose(int connectionId, ConConnectionLibrarySearchParameters searchParameters, CancellationToken cancellation = default);
+
+		Task<string> GetTemplateAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
+
+		Task<Stream> GetDesignItemPictureAsync(Guid designItemId, CancellationToken token = default);
+
+		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignSet>> GetDesignSetsAsync(CancellationToken cancellation = default);
 	}
 }
