@@ -1,9 +1,9 @@
 # ideastatica-connection-api
 
-The Python package for the Connection Rest API 2.0
+The Python package for the Connection Rest API 3.0
 
-- API version: 2.0
-- Package version: 25.1.3.0095
+- API version: 3.0
+- Package version: 25.1.3.0274
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -167,7 +167,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**calculate**](docs/CalculationApi.md#calculate) | 
+[**calculate**](docs/CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results
 [**get_raw_json_results**](docs/CalculationApi.md#get_raw_json_results) | Get json string which represents raw CBFEM results (an instance of CheckResultsData)
 [**get_results**](docs/CalculationApi.md#get_results) | Get detailed results of the CBFEM analysis
   ### ClientApi
@@ -186,6 +186,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**delete_connection**](docs/ConnectionApi.md#delete_connection) | 
 [**get_connection**](docs/ConnectionApi.md#get_connection) | Get data about a specific connection in the project
+[**get_connection_topology**](docs/ConnectionApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_connections**](docs/ConnectionApi.md#get_connections) | Get data about all connections in the project
 [**get_production_cost**](docs/ConnectionApi.md#get_production_cost) | Get production cost of the connection
 [**update_connection**](docs/ConnectionApi.md#update_connection) | Update data of a specific connection in the project
@@ -199,6 +200,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_design_sets**](docs/ConnectionLibraryApi.md#get_design_sets) | Retrieves a list of design sets available for the user.
 [**get_template**](docs/ConnectionLibraryApi.md#get_template) | Retrieves the template associated with the specified design set and design item.
 [**propose**](docs/ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
+[**publish_connection**](docs/ConnectionLibraryApi.md#publish_connection) | Publish template to Private or Company set
   ### ConversionApi
 
   
@@ -275,7 +277,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**clear_parameters**](docs/ParameterApi.md#clear_parameters) | Clear parameters and links for the connection connectionId in the project projectId
+[**delete_parameters**](docs/ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
 [**evaluate_expression**](docs/ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result
 [**get_parameters**](docs/ParameterApi.md#get_parameters) | Get all parameters which are defined for projectId and connectionId
 [**update**](docs/ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
@@ -326,17 +328,16 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**apply_template**](docs/TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**clear_design**](docs/TemplateApi.md#clear_design) | Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 [**create_con_template**](docs/TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
 [**delete**](docs/TemplateApi.md#delete) | Delete specific template
 [**delete_all**](docs/TemplateApi.md#delete_all) | Delete all templates in connection
 [**explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
 [**explode_all**](docs/TemplateApi.md#explode_all) | Explode all templates (delete parameters, keep operations)
-[**get_connection_topology**](docs/TemplateApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_default_template_mapping**](docs/TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 [**get_template_common_operation_properties**](docs/TemplateApi.md#get_template_common_operation_properties) | Get Common properties for specific template
+[**get_template_in_connection**](docs/TemplateApi.md#get_template_in_connection) | Retrieves a specific template by its ID for a given connection within a project.
+[**get_templates_in_connection**](docs/TemplateApi.md#get_templates_in_connection) | Retrieves a list of templates associated with a specific connection within a project.
 [**load_defaults**](docs/TemplateApi.md#load_defaults) | Load parameter defaults for specific template.
-[**publish_connection**](docs/TemplateApi.md#publish_connection) | Publish template to Private or Company set
 [**update_template_common_operation_properties**](docs/TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template
 
 <a id="documentation-for-models"></a>
@@ -359,13 +360,14 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [ideastatica_connection_api.models.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [ideastatica_connection_api.models.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
- - [ideastatica_connection_api.models.ConCalculationParameter](docs/ConCalculationParameter.md)
  - [ideastatica_connection_api.models.ConConnection](docs/ConConnection.md)
  - [ideastatica_connection_api.models.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
+ - [ideastatica_connection_api.models.ConConnectionTemplate](docs/ConConnectionTemplate.md)
  - [ideastatica_connection_api.models.ConConversionSettings](docs/ConConversionSettings.md)
  - [ideastatica_connection_api.models.ConDesignItem](docs/ConDesignItem.md)
  - [ideastatica_connection_api.models.ConDesignSet](docs/ConDesignSet.md)
  - [ideastatica_connection_api.models.ConDesignSetType](docs/ConDesignSetType.md)
+ - [ideastatica_connection_api.models.ConItem](docs/ConItem.md)
  - [ideastatica_connection_api.models.ConLoadEffect](docs/ConLoadEffect.md)
  - [ideastatica_connection_api.models.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [ideastatica_connection_api.models.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
@@ -380,6 +382,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConMemberPosition](docs/ConMemberPosition.md)
  - [ideastatica_connection_api.models.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [ideastatica_connection_api.models.ConMprlElement](docs/ConMprlElement.md)
+ - [ideastatica_connection_api.models.ConNonConformityIssue](docs/ConNonConformityIssue.md)
+ - [ideastatica_connection_api.models.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [ideastatica_connection_api.models.ConOperation](docs/ConOperation.md)
  - [ideastatica_connection_api.models.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
  - [ideastatica_connection_api.models.ConProductionCost](docs/ConProductionCost.md)
@@ -387,6 +391,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConProjectData](docs/ConProjectData.md)
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
  - [ideastatica_connection_api.models.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
+ - [ideastatica_connection_api.models.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [ideastatica_connection_api.models.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [ideastatica_connection_api.models.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [ideastatica_connection_api.models.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
@@ -439,8 +444,8 @@ Methods marked with an **^** denote that they have an additional extension in th
 
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 2.0
-- Package version: 25.1.3.0095
+- API version: 3.0
+- Package version: 25.1.3.0274
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

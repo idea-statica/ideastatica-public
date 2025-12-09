@@ -70,7 +70,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/close 
+> **GET** /api/3/projects/{projectId}/close 
 
 ### Authorization
 
@@ -142,7 +142,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/download 
+> **GET** /api/3/projects/{projectId}/download 
 
 ### Authorization
 
@@ -214,7 +214,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects 
+> **GET** /api/3/projects 
 
 ### Authorization
 
@@ -290,7 +290,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId} 
+> **GET** /api/3/projects/{projectId} 
 
 ### Authorization
 
@@ -368,7 +368,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/import-iom-file 
+> **POST** /api/3/projects/import-iom-file 
 
 ### Authorization
 
@@ -444,7 +444,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/open 
+> **POST** /api/3/projects/open 
 
 ### Authorization
 
@@ -522,7 +522,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/update-iom-file 
+> **POST** /api/3/projects/{projectId}/update-iom-file 
 
 ### Authorization
 
@@ -601,7 +601,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId} 
+> **PUT** /api/3/projects/{projectId} 
 
 ### Authorization
 

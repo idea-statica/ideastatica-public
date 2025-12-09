@@ -66,7 +66,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/settings 
+> **GET** /api/3/projects/{projectId}/settings 
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/settings 
+> **PUT** /api/3/projects/{projectId}/settings 
 
 ### Authorization
 

@@ -1,5 +1,5 @@
 import logging
-from ideastatica_connection_api import Configuration, ClientApi, CalculationApi, ConnectionApi, ExportApi, \
+from ideastatica_connection_api import Configuration, ClientApi, CalculationApi, ConnectionApi, ConnectionLibrary, ExportApi, \
     LoadEffectApi, MaterialApi, MemberApi, OperationApi, ParameterApi, PresentationApi, ReportApi, TemplateApi, \
     ConversionApi, SettingsApi
 import ideastatica_connection_api.api_client as api_client
@@ -20,6 +20,7 @@ class ConnectionApiClient:
 
         self.calculation: Optional[CalculationApi] = None
         self.connection: Optional[ConnectionApi] = None
+        self.connection_library: Optional[ConnectionApi] = None
         self.export: Optional[export_ext_api.ExportExtApi] = None
         self.load_effect: Optional[LoadEffectApi] = None
         self.material: Optional[MaterialApi] = None
@@ -47,6 +48,7 @@ class ConnectionApiClient:
 
         self.calculation = CalculationApi(self.client)
         self.connection = ConnectionApi(self.client)
+        self.connection_library = ConnectionLibrary(self.client)
         self.export = export_ext_api.ExportExtApi(self.client)
         self.load_effect = LoadEffectApi(self.client)
         self.material = MaterialApi(self.client)

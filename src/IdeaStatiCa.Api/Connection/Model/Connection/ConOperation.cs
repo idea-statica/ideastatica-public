@@ -1,10 +1,18 @@
-﻿namespace IdeaStatiCa.Api.Connection.Model
+﻿using Newtonsoft.Json;
+
+namespace IdeaStatiCa.Api.Connection.Model
 {
-	public class ConOperation
+	public class ConOperation : ConItem
 	{
-		public int Id { get; set; }
-		public string Name { get; set; } = "";
-		public bool IsActive { get; set; }
+		public ConOperation() : base()
+		{
+		}
+
+		[JsonConstructor]
+		public ConOperation(int id) : base(id)
+		{
+		}
+
 		public bool IsImported { get; set; }
 	}
 }

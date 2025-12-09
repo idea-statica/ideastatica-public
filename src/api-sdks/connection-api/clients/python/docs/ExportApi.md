@@ -67,7 +67,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/export-ifc 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/export-ifc 
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/export-iom 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/export-iom 
 
 ### Authorization
 
@@ -224,7 +224,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
 
 ### Authorization
 

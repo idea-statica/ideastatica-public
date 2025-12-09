@@ -2,16 +2,16 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ClearParametersAsync**](ParameterApi.md#clearparametersasync) | Clear parameters and links for the connection connectionId in the project projectId |
+| [**DeleteParametersAsync**](ParameterApi.md#deleteparametersasync) | Delete all parameters and parameter model links for the connection connectionId in the project projectId |
 | [**EvaluateExpressionAsync**](ParameterApi.md#evaluateexpressionasync) | Evaluate the expression and return the result |
 | [**GetParametersAsync**](ParameterApi.md#getparametersasync) | Get all parameters which are defined for projectId and connectionId |
 | [**UpdateAsync**](ParameterApi.md#updateasync) | Update parameters for the connection connectionId in the project projectId by values passed in parameters |
 
-<a id="clearparameters"></a>
-## **ClearParametersAsync**
-> **void ClearParametersAsync (Guid projectId, int connectionId)**
+<a id="deleteparameters"></a>
+## **DeleteParametersAsync**
+> **void DeleteParametersAsync (Guid projectId, int connectionId)**
 
-Clear parameters and links for the connection connectionId in the project projectId
+Delete all parameters and parameter model links for the connection connectionId in the project projectId
 
 
 
@@ -20,7 +20,7 @@ Clear parameters and links for the connection connectionId in the project projec
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection where to clear the parameters |  |
+| **connectionId** | **int** | Id of the connection where to delete parameters |  |
 
 ### Return type
 
@@ -40,7 +40,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ClearParametersAsyncExample
+    public class DeleteParametersAsyncExample
     {
         public static async Task Main()
         {
@@ -58,16 +58,16 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection where to clear the parameters
+                    connectionId = 56;  // int | Id of the connection where to delete parameters
 
                     try
                     {
-                        // Clear parameters and links for the connection connectionId in the project projectId
-                        conClient.Parameter.ClearParametersAsync(projectId, connectionId);
+                        // Delete all parameters and parameter model links for the connection connectionId in the project projectId
+                        conClient.Parameter.DeleteParametersAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Parameter.ClearParametersAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling Parameter.DeleteParametersAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -84,7 +84,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/ClearParameters.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/DeleteParameters.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -94,20 +94,20 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/clear-parameters 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
-#### Using the ClearParametersWithHttpInfo variant
+#### Using the DeleteParametersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Clear parameters and links for the connection connectionId in the project projectId
-    conClient.Parameter.ClearParametersWithHttpInfo(projectId, connectionId);
+    // Delete all parameters and parameter model links for the connection connectionId in the project projectId
+    conClient.Parameter.DeleteParametersWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling ParameterApi.ClearParametersWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling ParameterApi.DeleteParametersWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -220,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 #### Using the EvaluateExpressionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -349,7 +349,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the GetParametersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -478,7 +478,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the UpdateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
