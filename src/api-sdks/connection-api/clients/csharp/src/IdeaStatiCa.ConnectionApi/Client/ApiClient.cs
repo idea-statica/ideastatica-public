@@ -591,7 +591,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 					return res;
 				}
 
-				if (response.ContentType == "application/octet-stream" && typeof(T).Name == "Object")
+				if((response.ContentType == "application/octet-stream" || response.ContentType == "image/png") && typeof(T).Name == "Object")
 				{
 					response.Data = (T)(object)response.RawBytes;
 					var res = ToApiResponse(response);
