@@ -3,6 +3,19 @@ using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Connection
 {
+	public enum InstallationProcessOfAnchor : int
+	{
+		/// <summary>
+		/// Post-Installed
+		/// </summary>
+		PostInstalled,
+
+		/// <summary>
+		/// Cast-in-Place
+		/// </summary>
+		CastInPlace
+	}
+
 	/// <summary>
 	/// Data of the anchor grid
 	/// </summary>
@@ -56,5 +69,13 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public ReferenceElement BoltAssembly { get; set; }
+
+		/// <summary>
+		/// Installation process of anchor
+		/// </summary>
+		[DataMember]
+		public InstallationProcessOfAnchor AnchorInstallationProcess { get; set; }
+
+		// asi sem
 	}
 }

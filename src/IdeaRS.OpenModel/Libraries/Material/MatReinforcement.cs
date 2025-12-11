@@ -48,6 +48,12 @@ namespace IdeaRS.OpenModel.Material
 	/// </summary>
 	[XmlInclude(typeof(MatReinforcementEc2))]
 	[XmlInclude(typeof(MatReinforcementACI))]
+	[XmlInclude(typeof(MatReinforcementAUS))]
+	[XmlInclude(typeof(MatReinforcementCAN))]
+	[XmlInclude(typeof(MatReinforcementHKG))]
+	[XmlInclude(typeof(MatReinforcementCHN))]
+	[XmlInclude(typeof(MatReinforcementIND))]
+	[XmlInclude(typeof(MatReinforcementRUS))]
 	[DataContract]
 	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class MatReinforcement : Material

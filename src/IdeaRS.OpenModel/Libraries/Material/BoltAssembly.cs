@@ -85,6 +85,12 @@ namespace IdeaRS.OpenModel.Material
 			get;
 			set;
 		}
+
+		public double MandrelDiameter
+		{
+			get;
+			set;
+		}
 		#endregion
 
 		#region Nut
