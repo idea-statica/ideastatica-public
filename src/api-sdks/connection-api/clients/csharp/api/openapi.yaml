@@ -346,7 +346,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/connection-library/projects/{projectId}/connections/{connectionId}/propose:
+  /api/2/projects/{projectId}/connections/{connectionId}/propose:
     post:
       description: "This method retrieves the connection model from the specified\
         \ project and classifies its\r\n            typology. It then filters and\
@@ -441,8 +441,17 @@ paths:
         \ name set to the design item's ID."
       operationId: GetDesignItemPicture
       parameters:
-      - description: The unique identifier of the design item whose picture is to
-          be retrieved.
+      - description: The unique identifier of the design set.
+        explode: true
+        in: query
+        name: designSetId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: The unique identifier of the design item for which the template
+          is requested.
         explode: true
         in: query
         name: designItemId
@@ -3694,24 +3703,16 @@ components:
     ConDesignItem:
       additionalProperties: false
       example:
-        pictureId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         name: name
         conDesignSetId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         conDesignItemId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        ownerId: ownerId
         version: version
         designCode: designCode
       properties:
-        pictureId:
-          format: uuid
-          type: string
         version:
           nullable: true
           type: string
         name:
-          nullable: true
-          type: string
-        ownerId:
           nullable: true
           type: string
         designCode:

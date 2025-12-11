@@ -5,10 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**picture_id** | **str** |  | [optional] 
 **version** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
-**owner_id** | **str** |  | [optional] 
 **design_code** | **str** |  | [optional] 
 **con_design_set_id** | **str** |  | [optional] 
 **con_design_item_id** | **str** |  | [optional] 

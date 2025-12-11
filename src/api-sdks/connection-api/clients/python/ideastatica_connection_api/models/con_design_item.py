@@ -27,14 +27,12 @@ class ConDesignItem(BaseModel):
     """
     ConDesignItem
     """ # noqa: E501
-    picture_id: Optional[StrictStr] = Field(default=None, alias="pictureId")
     version: Optional[StrictStr] = None
     name: Optional[StrictStr] = None
-    owner_id: Optional[StrictStr] = Field(default=None, alias="ownerId")
     design_code: Optional[StrictStr] = Field(default=None, alias="designCode")
     con_design_set_id: Optional[StrictStr] = Field(default=None, alias="conDesignSetId")
     con_design_item_id: Optional[StrictStr] = Field(default=None, alias="conDesignItemId")
-    __properties: ClassVar[List[str]] = ["pictureId", "version", "name", "ownerId", "designCode", "conDesignSetId", "conDesignItemId"]
+    __properties: ClassVar[List[str]] = ["version", "name", "designCode", "conDesignSetId", "conDesignItemId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,11 +83,6 @@ class ConDesignItem(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
-        # set to None if owner_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.owner_id is None and "owner_id" in self.model_fields_set:
-            _dict['ownerId'] = None
-
         # set to None if design_code (nullable) is None
         # and model_fields_set contains the field
         if self.design_code is None and "design_code" in self.model_fields_set:
@@ -107,10 +100,8 @@ class ConDesignItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pictureId": obj.get("pictureId"),
             "version": obj.get("version"),
             "name": obj.get("name"),
-            "ownerId": obj.get("ownerId"),
             "designCode": obj.get("designCode"),
             "conDesignSetId": obj.get("conDesignSetId"),
             "conDesignItemId": obj.get("conDesignItemId")

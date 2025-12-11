@@ -9,7 +9,7 @@
 
 <a id="getdesignitempicture"></a>
 ## **GetDesignItemPictureAsync**
-> **void GetDesignItemPictureAsync (Guid? designItemId = null)**
+> **void GetDesignItemPictureAsync (Guid? designSetId = null, Guid? designItemId = null)**
 
 Retrieves the picture associated with the specified design item as a PNG image.
 
@@ -21,7 +21,8 @@ This method is mapped to API version 2 and produces a PNG image. The image is re
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **designItemId** | **Guid?** | The unique identifier of the design item whose picture is to be retrieved. | [optional]  |
+| **designSetId** | **Guid?** | The unique identifier of the design set. | [optional]  |
+| **designItemId** | **Guid?** | The unique identifier of the design item for which the template is requested. | [optional]  |
 
 ### Return type
 
@@ -60,7 +61,7 @@ namespace Example
                     try
                     {
                         // Retrieves the picture associated with the specified design item as a PNG image.
-                        conClient.ConnectionLibrary.GetDesignItemPictureAsync(designItemId);
+                        conClient.ConnectionLibrary.GetDesignItemPictureAsync(designSetId, designItemId);
                     }
                     catch (ApiException  e)
                     {
@@ -99,7 +100,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Retrieves the picture associated with the specified design item as a PNG image.
-    conClient.ConnectionLibrary.GetDesignItemPictureWithHttpInfo(designItemId);
+    conClient.ConnectionLibrary.GetDesignItemPictureWithHttpInfo(designSetId, designItemId);
 }
 catch (ApiException e)
 {
@@ -461,7 +462,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/connection-library/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/2/projects/{projectId}/connections/{connectionId}/propose 
 
 #### Using the ProposeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
