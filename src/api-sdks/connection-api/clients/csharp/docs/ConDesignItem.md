@@ -4,10 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PictureId** | **Guid** |  | [optional] 
 **VarVersion** | **string** |  | [optional] 
 **Name** | **string** |  | [optional] 
-**OwnerId** | **string** |  | [optional] 
 **DesignCode** | **string** |  | [optional] 
 **ConDesignSetId** | **Guid** |  | [optional] 
 **ConDesignItemId** | **Guid** |  | [optional] 

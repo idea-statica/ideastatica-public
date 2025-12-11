@@ -45,7 +45,8 @@ class ConnectionLibraryApi:
     @validate_call
     def get_design_item_picture(
         self,
-        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item whose picture is to be retrieved.")] = None,
+        design_set_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design set.")] = None,
+        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item for which the template is requested.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -63,7 +64,9 @@ class ConnectionLibraryApi:
 
         This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
-        :param design_item_id: The unique identifier of the design item whose picture is to be retrieved.
+        :param design_set_id: The unique identifier of the design set.
+        :type design_set_id: str
+        :param design_item_id: The unique identifier of the design item for which the template is requested.
         :type design_item_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -88,6 +91,7 @@ class ConnectionLibraryApi:
         """ # noqa: E501
 
         _param = self._get_design_item_picture_serialize(
+            design_set_id=design_set_id,
             design_item_id=design_item_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -112,7 +116,8 @@ class ConnectionLibraryApi:
     @validate_call
     def get_design_item_picture_with_http_info(
         self,
-        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item whose picture is to be retrieved.")] = None,
+        design_set_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design set.")] = None,
+        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item for which the template is requested.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -130,7 +135,9 @@ class ConnectionLibraryApi:
 
         This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
-        :param design_item_id: The unique identifier of the design item whose picture is to be retrieved.
+        :param design_set_id: The unique identifier of the design set.
+        :type design_set_id: str
+        :param design_item_id: The unique identifier of the design item for which the template is requested.
         :type design_item_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -155,6 +162,7 @@ class ConnectionLibraryApi:
         """ # noqa: E501
 
         _param = self._get_design_item_picture_serialize(
+            design_set_id=design_set_id,
             design_item_id=design_item_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -179,7 +187,8 @@ class ConnectionLibraryApi:
     @validate_call
     def get_design_item_picture_without_preload_content(
         self,
-        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item whose picture is to be retrieved.")] = None,
+        design_set_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design set.")] = None,
+        design_item_id: Annotated[Optional[StrictStr], Field(description="The unique identifier of the design item for which the template is requested.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -197,7 +206,9 @@ class ConnectionLibraryApi:
 
         This method is mapped to API version 2 and produces a PNG image. The image is returned as a file              stream result with the file name set to the design item's ID.
 
-        :param design_item_id: The unique identifier of the design item whose picture is to be retrieved.
+        :param design_set_id: The unique identifier of the design set.
+        :type design_set_id: str
+        :param design_item_id: The unique identifier of the design item for which the template is requested.
         :type design_item_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -222,6 +233,7 @@ class ConnectionLibraryApi:
         """ # noqa: E501
 
         _param = self._get_design_item_picture_serialize(
+            design_set_id=design_set_id,
             design_item_id=design_item_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -241,6 +253,7 @@ class ConnectionLibraryApi:
 
     def _get_design_item_picture_serialize(
         self,
+        design_set_id,
         design_item_id,
         _request_auth,
         _content_type,
@@ -264,6 +277,10 @@ class ConnectionLibraryApi:
 
         # process the path parameters
         # process the query parameters
+        if design_set_id is not None:
+            
+            _query_params.append(('designSetId', design_set_id))
+            
         if design_item_id is not None:
             
             _query_params.append(('designItemId', design_item_id))
@@ -1108,7 +1125,7 @@ class ConnectionLibraryApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/api/2/connection-library/projects/{projectId}/connections/{connectionId}/propose',
+            resource_path='/api/2/projects/{projectId}/connections/{connectionId}/propose',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
