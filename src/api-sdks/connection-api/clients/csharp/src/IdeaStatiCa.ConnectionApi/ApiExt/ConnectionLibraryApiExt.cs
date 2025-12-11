@@ -14,11 +14,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <summary>
 		/// Asynchronously retrieves the picture data (PNG) for a specified design item.
 		/// </summary>
-		/// <param name="pictureId">The unique identifier of the picture to retrieve.</param>
+		/// <param name="designSetId">The unique identifier of the design set. (optional)</param>
+		/// <param name="designItemId">The unique identifier of the design item for which the template is requested. (optional)</param>
 		/// <param name="cancellationToken">A token to monitor for cancellation requests. The default value is <see
 		/// cref="System.Threading.CancellationToken.None"/>.</param>
 		/// <returns>A task that represents the asynchronous operation. The task result contains a byte array of the picture data.</returns>
-		Task<byte[]> GetDesignItemPictureDataAsync(Guid pictureId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		Task<byte[]> GetDesignItemPictureDataAsync(Guid designSetId, Guid designItemId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
 	/// <summary>
@@ -34,10 +35,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		{
 		}
 
-		/// <inheritdoc cref="IConnectionLibraryApiExt.GetDesignItemPictureDataAsync(Guid, System.Threading.CancellationToken)"/>
-		public async Task<byte[]> GetDesignItemPictureDataAsync(Guid pictureId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		/// <inheritdoc cref="IConnectionLibraryApiExt.GetDesignItemPictureDataAsync(ValueTuple{Guid, Guid, System.Threading.CancellationToken})"/>
+		public async Task<byte[]> GetDesignItemPictureDataAsync(Guid designSetId, Guid designItemId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
-			var response = await base.GetDesignItemPictureWithHttpInfoAsync(pictureId, "image/png", 0, cancellationToken);
+			var response = await base.GetDesignItemPictureWithHttpInfoAsync(designSetId, designItemId, "image/png", 0, cancellationToken);
 			byte[] buffer = (byte[])response.Data;
 			return buffer;
 		}

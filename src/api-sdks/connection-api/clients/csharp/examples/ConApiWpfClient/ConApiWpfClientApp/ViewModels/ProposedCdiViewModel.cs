@@ -56,7 +56,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 			try
 			{
-				PictureData = await _connectionApiClient.ConnectionLibrary.GetDesignItemPictureDataAsync(_cdi.ConDesignItemId);
+				PictureData = await _connectionApiClient.ConnectionLibrary.GetDesignItemPictureDataAsync(_cdi.ConDesignSetId, _cdi.ConDesignItemId);
 
 			}
 			catch (Exception e)
