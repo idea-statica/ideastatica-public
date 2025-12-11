@@ -75,7 +75,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 				{
 					return new RamLoadCase(this, _loadsProvider, uid);
 				}
-				catch (InvalidDataException ex)
+				catch (InvalidDataException)
 				{
 					return null;
 				}
