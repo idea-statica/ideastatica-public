@@ -6,6 +6,7 @@ Method | Description
 ------------- | -------------
 [**delete_connection**](ConnectionApi.md#delete_connection) | 
 [**get_connection**](ConnectionApi.md#get_connection) | Get data about a specific connection in the project
+[**get_connection_topology**](ConnectionApi.md#get_connection_topology) | Get topology of the connection in json format
 [**get_connections**](ConnectionApi.md#get_connections) | Get data about all connections in the project
 [**get_production_cost**](ConnectionApi.md#get_production_cost) | Get production cost of the connection
 [**update_connection**](ConnectionApi.md#update_connection) | Update data of a specific connection in the project
@@ -69,7 +70,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/2/projects/{projectId}/connections/{connectionId} 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId} 
 
 ### Authorization
 
@@ -147,7 +148,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId} 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId} 
 
 ### Authorization
 
@@ -157,6 +158,83 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_connection_topology"></a>
+# **get_connection_topology**
+> str get_connection_topology(project_id, connection_id)
+
+Get topology of the connection in json format
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection where to clear the design | 
+
+### Return type
+
+**str**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_connection_topologyExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    connection_id = 56 # int | Id of the connection where to clear the design
+
+    try:
+        # Get topology of the connection in json format
+        api_response = api_client.connection.get_connection_topology(project_id, connection_id)
+        print("The response of ConnectionApi->get_connection_topology:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling ConnectionApi->get_connection_topology: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/get-topology 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json
 
 ### HTTP response details
 
@@ -223,7 +301,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections 
+> **GET** /api/3/projects/{projectId}/connections 
 
 ### Authorization
 
@@ -301,7 +379,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/production-cost 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/production-cost 
 
 ### Authorization
 
@@ -381,7 +459,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/connections/{connectionId} 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId} 
 
 ### Authorization
 

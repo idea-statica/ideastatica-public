@@ -95,7 +95,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/operations 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/operations 
 
 #### Using the DeleteOperationsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -219,7 +219,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 #### Using the GetCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -346,7 +346,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations 
 
 #### Using the GetOperationsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -475,7 +475,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
 
 #### Using the PreDesignWeldsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -603,7 +603,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 #### Using the UpdateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

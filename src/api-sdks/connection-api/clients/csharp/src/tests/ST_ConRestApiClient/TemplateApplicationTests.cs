@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
+using Newtonsoft.Json;
 
 namespace ST_ConnectionRestApi
 {
@@ -7,6 +8,7 @@ namespace ST_ConnectionRestApi
 	{
 		private string ConnectionTemplate { get; set; }
 		private string ParametricTemplate { get; set; }
+		private string PartialTemplate { get; set; }
 
 		[OneTimeSetUp]
 		public new async Task OneTimeSetUp()
@@ -14,12 +16,16 @@ namespace ST_ConnectionRestApi
 			// Read the XML string from the file
 			string xmlString = File.ReadAllText("Projects/Corner-with-stud.contemp");
 			string xmlStringParametric = File.ReadAllText("Projects/template 1.contemp");
+			string xmlStringPartial = File.ReadAllText("Projects/PartialTemplate.contemp");
 
 			// Store the XML string to the ConnectionTemplate property
 			ConnectionTemplate = xmlString;
 			ParametricTemplate = xmlStringParametric;
+			PartialTemplate = xmlStringPartial;
 
-			if (string.IsNullOrEmpty(ConnectionTemplate) || string.IsNullOrEmpty(ParametricTemplate))
+			if (string.IsNullOrEmpty(ConnectionTemplate) 
+				|| string.IsNullOrEmpty(ParametricTemplate)
+				|| string.IsNullOrEmpty(PartialTemplate))
 			{
 				throw new Exception("Connection template is empty");
 			}
@@ -201,6 +207,62 @@ namespace ST_ConnectionRestApi
 			operationsFromTemplate.Count.Should().Be(5);
 
 			// TODO - validate cssId for stiffening member - shoul be 5
+		}
+
+		[Test]
+		[TestCase(new int[] { 1, 2 }, true, 0)]
+		[TestCase(new int[] { 2, 3 }, false, 1)]
+		public async Task ShouldPartialyApplyTemplate(int[] memberIds, bool resultOfApplication, int issuesCount)
+		{
+			if (ConnectionApiClient == null)
+			{
+				throw new Exception("ConnectionApiClient is null");
+			}
+
+			string connProjectFilePath = Path.Combine(ProjectPath, "ConnForPartialTempApp.ideaCon");
+			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
+			this.ActiveProjectId = Project.ProjectId;
+			if (this.ActiveProjectId == Guid.Empty)
+			{
+				throw new Exception("Project is not opened");
+			}
+
+			var connection = Project!.Connections.First();
+
+			ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
+			{
+				Template = this.PartialTemplate,
+				MemberIds = memberIds.ToList()
+			};
+			var templateMapping = await ConnectionApiClient.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
+			if (templateMapping == null)
+			{
+				throw new Exception("Template mapping is null");
+			}
+
+			templateMapping.Should().NotBeNull();
+			templateMapping.Conversions.Should().NotBeNull();
+			templateMapping.Conversions.Count.Should().Be(5);
+
+			ConTemplateApplyParam conTemplateApply = new ConTemplateApplyParam
+			{
+				ConnectionTemplate = this.PartialTemplate,
+				Mapping = templateMapping
+			};
+			var conTemplateApplyResult = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conTemplateApply);
+
+			conTemplateApplyResult.Should().NotBeNull();
+			conTemplateApplyResult.Should().NotBeNull();
+			conTemplateApplyResult.AppliedWithoutIssues.Should().Be(resultOfApplication);
+			conTemplateApplyResult!.Issues.Count.Should().Be(issuesCount);
+			conTemplateApplyResult.TemplateModel.Should().NotBeNull();
+			conTemplateApplyResult.TemplateModel.Members.Should().HaveCount(2);
+			conTemplateApplyResult.TemplateModel.Operations.Count.Should().Be(1);
+			conTemplateApplyResult.TemplateModel.ParameterKeys.Count.Should().Be(24);
+			conTemplateApplyResult.TemplateModel.CommonProperties.Should().NotBeNull();
+			conTemplateApplyResult.TemplateModel.CommonProperties.PlateMaterialId.Should().BeNull();
+			conTemplateApplyResult.TemplateModel.CommonProperties.WeldMaterialId.Should().Be(2);
+			conTemplateApplyResult.TemplateModel.CommonProperties.BoltAssemblyId.Should().BeNull();
 		}
 
 		[Test]

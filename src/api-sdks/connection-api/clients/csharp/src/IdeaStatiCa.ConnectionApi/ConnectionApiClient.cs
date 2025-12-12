@@ -33,6 +33,8 @@ namespace IdeaStatiCa.ConnectionApi
 		public ICalculationApiAsync Calculation { get; private set; }
 		/// <inheritdoc cref="IConnectionApiClient.Connection"/>
 		public IConnectionApiAsync Connection { get; private set; }
+		/// <inheritdoc cref="IConnectionApiClient.ConnectionLibrary"/>
+		public IConnectionLibraryApiAsync ConnectionLibrary { get; private set; }	
 		/// <inheritdoc cref="IConnectionApiClient.Export"/>
 		public IExportApiExtAsync Export { get; private set; }
 		/// <inheritdoc cref="IConnectionApiClient.LoadEffect"/>
@@ -107,6 +109,7 @@ namespace IdeaStatiCa.ConnectionApi
 
 			this.Calculation = null;
 			this.Connection = null;
+			this.ConnectionLibrary = null;
 			this.Export = null;
 			this.LoadEffect = null;
 			this.Material = null;
@@ -134,7 +137,8 @@ namespace IdeaStatiCa.ConnectionApi
 			configuration.DefaultHeaders.Add("ClientId", ClientId);
 
 			this.Calculation = new CalculationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			this.Connection = new IdeaStatiCa.ConnectionApi.Api.ConnectionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.Connection = new Api.ConnectionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.ConnectionLibrary = new ConnectionLibraryApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Export = new ExportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.LoadEffect = new LoadEffectApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Material = new MaterialApi(clientApi.Client, clientApi.AsynchronousClient, configuration);

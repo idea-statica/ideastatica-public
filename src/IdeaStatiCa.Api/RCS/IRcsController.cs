@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace IdeaStatiCa.Api.RCS
 {
-	public interface IRcsController : IDisposable
+	public interface IRcsController : IAsyncDisposable
 	{
 		bool OpenIdeaProject(string ideaProjectPath);
 		bool OpenIdeaProjectFromIdeaOpenModel(string ideaOpenModelProjectPath, string projectName, string ideaOpenMessagesPath);

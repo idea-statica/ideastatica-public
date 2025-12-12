@@ -23,13 +23,14 @@ docs/ClientApi.md
 docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
-docs/ConCalculationParameter.md
 docs/ConConnection.md
 docs/ConConnectionLibrarySearchParameters.md
+docs/ConConnectionTemplate.md
 docs/ConConversionSettings.md
 docs/ConDesignItem.md
 docs/ConDesignSet.md
 docs/ConDesignSetType.md
+docs/ConItem.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
 docs/ConLoadEffectPositionEnum.md
@@ -44,6 +45,8 @@ docs/ConMemberPlatePartTypeEnum.md
 docs/ConMemberPosition.md
 docs/ConMprlCrossSection.md
 docs/ConMprlElement.md
+docs/ConNonConformityIssue.md
+docs/ConNonConformityIssueSeverity.md
 docs/ConOperation.md
 docs/ConOperationCommonProperties.md
 docs/ConProductionCost.md
@@ -51,6 +54,7 @@ docs/ConProject.md
 docs/ConProjectData.md
 docs/ConResultSummary.md
 docs/ConTemplateApplyParam.md
+docs/ConTemplateApplyResult.md
 docs/ConTemplateMappingGetParam.md
 docs/ConTemplatePublishParam.md
 docs/ConWeldSizingMethodEnum.md
@@ -151,13 +155,14 @@ ideastatica_connection_api/models/check_res_weld.py
 ideastatica_connection_api/models/con_aligned_plate.py
 ideastatica_connection_api/models/con_aligned_plate_side_code_enum.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
-ideastatica_connection_api/models/con_calculation_parameter.py
 ideastatica_connection_api/models/con_connection.py
 ideastatica_connection_api/models/con_connection_library_search_parameters.py
+ideastatica_connection_api/models/con_connection_template.py
 ideastatica_connection_api/models/con_conversion_settings.py
 ideastatica_connection_api/models/con_design_item.py
 ideastatica_connection_api/models/con_design_set.py
 ideastatica_connection_api/models/con_design_set_type.py
+ideastatica_connection_api/models/con_item.py
 ideastatica_connection_api/models/con_load_effect.py
 ideastatica_connection_api/models/con_load_effect_member_load.py
 ideastatica_connection_api/models/con_load_effect_position_enum.py
@@ -172,6 +177,8 @@ ideastatica_connection_api/models/con_member_plate_part_type_enum.py
 ideastatica_connection_api/models/con_member_position.py
 ideastatica_connection_api/models/con_mprl_cross_section.py
 ideastatica_connection_api/models/con_mprl_element.py
+ideastatica_connection_api/models/con_non_conformity_issue.py
+ideastatica_connection_api/models/con_non_conformity_issue_severity.py
 ideastatica_connection_api/models/con_operation.py
 ideastatica_connection_api/models/con_operation_common_properties.py
 ideastatica_connection_api/models/con_production_cost.py
@@ -179,6 +186,7 @@ ideastatica_connection_api/models/con_project.py
 ideastatica_connection_api/models/con_project_data.py
 ideastatica_connection_api/models/con_result_summary.py
 ideastatica_connection_api/models/con_template_apply_param.py
+ideastatica_connection_api/models/con_template_apply_result.py
 ideastatica_connection_api/models/con_template_mapping_get_param.py
 ideastatica_connection_api/models/con_template_publish_param.py
 ideastatica_connection_api/models/con_weld_sizing_method_enum.py
