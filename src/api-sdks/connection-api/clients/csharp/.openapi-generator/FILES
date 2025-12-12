@@ -23,13 +23,14 @@ docs/ClientApi.md
 docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
-docs/ConCalculationParameter.md
 docs/ConConnection.md
 docs/ConConnectionLibrarySearchParameters.md
+docs/ConConnectionTemplate.md
 docs/ConConversionSettings.md
 docs/ConDesignItem.md
 docs/ConDesignSet.md
 docs/ConDesignSetType.md
+docs/ConItem.md
 docs/ConLoadEffect.md
 docs/ConLoadEffectMemberLoad.md
 docs/ConLoadEffectPositionEnum.md
@@ -44,6 +45,8 @@ docs/ConMemberPlatePartTypeEnum.md
 docs/ConMemberPosition.md
 docs/ConMprlCrossSection.md
 docs/ConMprlElement.md
+docs/ConNonConformityIssue.md
+docs/ConNonConformityIssueSeverity.md
 docs/ConOperation.md
 docs/ConOperationCommonProperties.md
 docs/ConProductionCost.md
@@ -51,6 +54,7 @@ docs/ConProject.md
 docs/ConProjectData.md
 docs/ConResultSummary.md
 docs/ConTemplateApplyParam.md
+docs/ConTemplateApplyResult.md
 docs/ConTemplateMappingGetParam.md
 docs/ConTemplatePublishParam.md
 docs/ConWeldSizingMethodEnum.md
@@ -162,13 +166,14 @@ src/IdeaStatiCa.ConnectionApi/Model/CheckResWeld.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlateSideCodeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
-src/IdeaStatiCa.ConnectionApi/Model/ConCalculationParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnectionLibrarySearchParameters.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConConnectionTemplate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConversionSettings.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignItem.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignSet.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignSetType.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConItem.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffect.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectMemberLoad.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConLoadEffectPositionEnum.cs
@@ -183,6 +188,8 @@ src/IdeaStatiCa.ConnectionApi/Model/ConMemberPlatePartTypeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConMemberPosition.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConMprlCrossSection.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConMprlElement.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConNonConformityIssue.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConNonConformityIssueSeverity.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConOperation.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConOperationCommonProperties.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConProductionCost.cs
@@ -190,6 +197,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConProject.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConProjectData.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConResultSummary.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyParam.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyResult.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateMappingGetParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplatePublishParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConWeldSizingMethodEnum.cs

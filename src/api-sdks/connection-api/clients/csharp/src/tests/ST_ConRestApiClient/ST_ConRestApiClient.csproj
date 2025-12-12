@@ -30,6 +30,9 @@
 	  <None Update="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Projects\ConnForPartialTempApp.ideaCon">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Projects\ConTemplate-Empty.ideaCon">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
@@ -69,6 +72,9 @@
 	  <None Update="Projects\Parametric.ideaCon">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Projects\PartialTemplate.contemp">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Projects\ProjectWithoutLoadEffect.ideaCon">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
@@ -78,10 +84,6 @@
 	  <None Update="Projects\template 1.contemp">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Projects\" />
 	</ItemGroup>
 
 	<ItemGroup>

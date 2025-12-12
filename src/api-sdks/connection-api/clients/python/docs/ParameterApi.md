@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**clear_parameters**](ParameterApi.md#clear_parameters) | Clear parameters and links for the connection connectionId in the project projectId
+[**delete_parameters**](ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
 [**evaluate_expression**](ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result
 [**get_parameters**](ParameterApi.md#get_parameters) | Get all parameters which are defined for projectId and connectionId
 [**update**](ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
 
 
-<a id="clear_parameters"></a>
-# **clear_parameters**
-> clear_parameters(project_id, connection_id)
+<a id="delete_parameters"></a>
+# **delete_parameters**
+> delete_parameters(project_id, connection_id)
 
-Clear parameters and links for the connection connectionId in the project projectId
+Delete all parameters and parameter model links for the connection connectionId in the project projectId
 
 ### Parameters
 
@@ -22,7 +22,7 @@ Clear parameters and links for the connection connectionId in the project projec
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection where to clear the parameters | 
+ **connection_id** | **int**| Id of the connection where to delete parameters | 
 
 ### Return type
 
@@ -41,16 +41,16 @@ from pprint import pprint
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
 
 ```python
-def clear_parametersExampleFunc(api_client):
+def delete_parametersExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection where to clear the parameters
+    connection_id = 56 # int | Id of the connection where to delete parameters
 
     try:
-        # Clear parameters and links for the connection connectionId in the project projectId
-        api_client.parameter.clear_parameters(project_id, connection_id)
+        # Delete all parameters and parameter model links for the connection connectionId in the project projectId
+        api_client.parameter.delete_parameters(project_id, connection_id)
     except Exception as e:
-        print("Exception when calling ParameterApi->clear_parameters: %s\n" % e)
+        print("Exception when calling ParameterApi->delete_parameters: %s\n" % e)
 ```
 
 
@@ -65,7 +65,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/clear-parameters 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -144,7 +144,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 ### Authorization
 
@@ -224,7 +224,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -305,7 +305,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 

@@ -67,7 +67,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/change-code 
+> **POST** /api/3/projects/{projectId}/change-code 
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/get-default-mapping 
+> **GET** /api/3/projects/{projectId}/get-default-mapping 
 
 ### Authorization
 

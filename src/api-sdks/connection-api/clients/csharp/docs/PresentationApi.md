@@ -93,7 +93,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/presentations 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/presentations 
 
 #### Using the GetDataScene3DWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -220,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/presentations/text 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/presentations/text 
 
 #### Using the GetDataScene3DTextWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

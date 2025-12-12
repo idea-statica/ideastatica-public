@@ -66,7 +66,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/2/projects/{projectId}/connections/{connectionId}/operations 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -144,7 +144,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 ### Authorization
 
@@ -222,7 +222,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/operations 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -302,7 +302,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
 
 ### Authorization
 
@@ -379,7 +379,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 ### Authorization
 

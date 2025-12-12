@@ -8,11 +8,12 @@ Method | Description
 [**get_design_sets**](ConnectionLibraryApi.md#get_design_sets) | Retrieves a list of design sets available for the user.
 [**get_template**](ConnectionLibraryApi.md#get_template) | Retrieves the template associated with the specified design set and design item.
 [**propose**](ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
+[**publish_connection**](ConnectionLibraryApi.md#publish_connection) | Publish template to Private or Company set
 
 
 <a id="get_design_item_picture"></a>
 # **get_design_item_picture**
-> get_design_item_picture(design_set_id=design_set_id, design_item_id=design_item_id)
+> get_design_item_picture(design_item_id=design_item_id)
 
 Retrieves the picture associated with the specified design item as a PNG image.
 
@@ -23,8 +24,7 @@ This method is mapped to API version 2 and produces a PNG image. The image is re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **design_set_id** | **str**| The unique identifier of the design set. | [optional] 
- **design_item_id** | **str**| The unique identifier of the design item for which the template is requested. | [optional] 
+ **design_item_id** | **str**| The unique identifier of the design item whose picture is to be retrieved. | [optional] 
 
 ### Return type
 
@@ -45,12 +45,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_design_item_pictureExampleFunc(api_client):
     
-    design_set_id = 'design_set_id_example' # str | The unique identifier of the design set. (optional)
-    design_item_id = 'design_item_id_example' # str | The unique identifier of the design item for which the template is requested. (optional)
+    design_item_id = 'design_item_id_example' # str | The unique identifier of the design item whose picture is to be retrieved. (optional)
 
     try:
         # Retrieves the picture associated with the specified design item as a PNG image.
-        api_client.connectionlibrary.get_design_item_picture(design_set_id=design_set_id, design_item_id=design_item_id)
+        api_client.connectionlibrary.get_design_item_picture(design_item_id=design_item_id)
     except Exception as e:
         print("Exception when calling ConnectionLibraryApi->get_design_item_picture: %s\n" % e)
 ```
@@ -67,7 +66,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/connection-library/get-picture 
+> **GET** /api/3/connection-library/get-picture 
 
 ### Authorization
 
@@ -141,7 +140,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/connection-library/get-design-sets 
+> **GET** /api/3/connection-library/get-design-sets 
 
 ### Authorization
 
@@ -220,7 +219,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/connection-library/get-template 
+> **GET** /api/3/connection-library/get-template 
 
 ### Authorization
 
@@ -303,7 +302,87 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/3/connection-library/projects/{projectId}/connections/{connectionId}/propose 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="publish_connection"></a>
+# **publish_connection**
+> bool publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
+
+Publish template to Private or Company set
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **con_template_publish_param** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md)|  | [optional] 
+
+### Return type
+
+**bool**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_template_publish_param import ConTemplatePublishParam
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def publish_connectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    con_template_publish_param = ideastatica_connection_api.ConTemplatePublishParam() # ConTemplatePublishParam |  (optional)
+
+    try:
+        # Publish template to Private or Company set
+        api_response = api_client.connectionlibrary.publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
+        print("The response of ConnectionLibraryApi->publish_connection:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling ConnectionLibraryApi->publish_connection: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/publish 
 
 ### Authorization
 

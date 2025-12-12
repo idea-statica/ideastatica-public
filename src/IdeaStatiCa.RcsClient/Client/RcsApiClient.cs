@@ -100,7 +100,7 @@ namespace IdeaStatiCa.RcsClient.Client
 			pluginLogger.LogDebug($"RcsApiClient.CalculateResultsAsync projectId = {activeProjectId}");
 			try
 			{
-				var res = await httpClient.PostAsync<List<RcsSectionResultOverview>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/calculate", parameters, token, "application/xml");
+				var res = await httpClient.PostAsync<List<RcsSectionResultOverview>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/calculate", parameters, token);
 				return res;
 			}
 			catch (OperationCanceledException ex)

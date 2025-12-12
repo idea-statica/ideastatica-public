@@ -6,10 +6,11 @@
 | [**GetDesignSetsAsync**](ConnectionLibraryApi.md#getdesignsetsasync) | Retrieves a list of design sets available for the user. |
 | [**GetTemplateAsync**](ConnectionLibraryApi.md#gettemplateasync) | Retrieves the template associated with the specified design set and design item. |
 | [**ProposeAsync**](ConnectionLibraryApi.md#proposeasync) | Proposes a list of design items for a specified connection within a project. |
+| [**PublishConnectionAsync**](ConnectionLibraryApi.md#publishconnectionasync) | Publish template to Private or Company set |
 
 <a id="getdesignitempicture"></a>
 ## **GetDesignItemPictureAsync**
-> **void GetDesignItemPictureAsync (Guid? designSetId = null, Guid? designItemId = null)**
+> **void GetDesignItemPictureAsync (Guid? designItemId = null)**
 
 Retrieves the picture associated with the specified design item as a PNG image.
 
@@ -21,8 +22,7 @@ This method is mapped to API version 2 and produces a PNG image. The image is re
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **designSetId** | **Guid?** | The unique identifier of the design set. | [optional]  |
-| **designItemId** | **Guid?** | The unique identifier of the design item for which the template is requested. | [optional]  |
+| **designItemId** | **Guid?** | The unique identifier of the design item whose picture is to be retrieved. | [optional]  |
 
 ### Return type
 
@@ -61,7 +61,7 @@ namespace Example
                     try
                     {
                         // Retrieves the picture associated with the specified design item as a PNG image.
-                        conClient.ConnectionLibrary.GetDesignItemPictureAsync(designSetId, designItemId);
+                        conClient.ConnectionLibrary.GetDesignItemPictureAsync(designItemId);
                     }
                     catch (ApiException  e)
                     {
@@ -91,7 +91,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/connection-library/get-picture 
+> **GET** /api/3/connection-library/get-picture 
 
 #### Using the GetDesignItemPictureWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -100,7 +100,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Retrieves the picture associated with the specified design item as a PNG image.
-    conClient.ConnectionLibrary.GetDesignItemPictureWithHttpInfo(designSetId, designItemId);
+    conClient.ConnectionLibrary.GetDesignItemPictureWithHttpInfo(designItemId);
 }
 catch (ApiException e)
 {
@@ -207,7 +207,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/connection-library/get-design-sets 
+> **GET** /api/3/connection-library/get-design-sets 
 
 #### Using the GetDesignSetsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -331,7 +331,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/connection-library/get-template 
+> **GET** /api/3/connection-library/get-template 
 
 #### Using the GetTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -462,7 +462,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/3/connection-library/projects/{projectId}/connections/{connectionId}/propose 
 
 #### Using the ProposeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -479,6 +479,135 @@ try
 catch (ApiException e)
 {
     Debug.Print("Exception when calling ConnectionLibraryApi.ProposeWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="publishconnection"></a>
+## **PublishConnectionAsync**
+> **bool PublishConnectionAsync (Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = null)**
+
+Publish template to Private or Company set
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **conTemplatePublishParam** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md) |  | [optional]  |
+
+### Return type
+
+**bool**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class PublishConnectionAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    var conTemplatePublishParam = new ConTemplatePublishParam(); // ConTemplatePublishParam |  (optional) 
+
+                    try
+                    {
+                        // Publish template to Private or Company set
+                        bool result = await conClient.ConnectionLibrary.PublishConnectionAsync(projectId, connectionId, conTemplatePublishParam);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling ConnectionLibrary.PublishConnectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/PublishConnection.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/publish 
+
+#### Using the PublishConnectionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Publish template to Private or Company set
+    ApiResponse<bool> response = conClient.ConnectionLibrary.PublishConnectionWithHttpInfo(projectId, connectionId, conTemplatePublishParam);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ConnectionLibraryApi.PublishConnectionWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
