@@ -13,7 +13,7 @@ Method | Description
 
 <a id="get_design_item_picture"></a>
 # **get_design_item_picture**
-> get_design_item_picture(design_item_id=design_item_id)
+> get_design_item_picture(design_set_id=design_set_id, design_item_id=design_item_id)
 
 Retrieves the picture associated with the specified design item as a PNG image.
 
@@ -24,7 +24,8 @@ This method is mapped to API version 2 and produces a PNG image. The image is re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **design_item_id** | **str**| The unique identifier of the design item whose picture is to be retrieved. | [optional] 
+ **design_set_id** | **str**| The unique identifier of the design set. | [optional] 
+ **design_item_id** | **str**| The unique identifier of the design item for which the template is requested. | [optional] 
 
 ### Return type
 
@@ -45,11 +46,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_design_item_pictureExampleFunc(api_client):
     
-    design_item_id = 'design_item_id_example' # str | The unique identifier of the design item whose picture is to be retrieved. (optional)
+    design_set_id = 'design_set_id_example' # str | The unique identifier of the design set. (optional)
+    design_item_id = 'design_item_id_example' # str | The unique identifier of the design item for which the template is requested. (optional)
 
     try:
         # Retrieves the picture associated with the specified design item as a PNG image.
-        api_client.connectionlibrary.get_design_item_picture(design_item_id=design_item_id)
+        api_client.connectionlibrary.get_design_item_picture(design_set_id=design_set_id, design_item_id=design_item_id)
     except Exception as e:
         print("Exception when calling ConnectionLibraryApi->get_design_item_picture: %s\n" % e)
 ```
@@ -302,7 +304,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/connection-library/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/propose 
 
 ### Authorization
 
