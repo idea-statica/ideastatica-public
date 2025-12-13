@@ -529,7 +529,7 @@ namespace IdeaStatiCa.Api.Connection
 
 		Task<string> GetTemplateAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
 
-		Task<Stream> GetDesignItemPictureAsync(Guid designItemId, CancellationToken token = default);
+		Task<Stream> GetDesignItemPictureAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
 
 		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignSet>> GetDesignSetsAsync(CancellationToken cancellation = default);
 	}
