@@ -132,7 +132,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 				if (GetRawXmlResults)
 				{
-					var rawResults = await ConApiClient.Calculation.GetRawJsonResultsAsync(ProjectInfo.ProjectId, calculationParameter, 0, cts.Token);
+					var rawResults = await ConApiClient.Calculation.GetRawJsonResultsAsync(ProjectInfo.ProjectId, connectionIdList, 0, cts.Token);
 					rawResultsXml = rawResults!.Any() ? rawResults[0] : string.Empty;
 				}
 
@@ -723,7 +723,7 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				topologyJsonString = await ConApiClient.Template.GetConnectionTopologyAsync(ProjectInfo.ProjectId, SelectedConnection.Id, 0, cts.Token);
+				topologyJsonString = await ConApiClient.Connection.GetConnectionTopologyAsync(ProjectInfo.ProjectId, SelectedConnection.Id, 0, cts.Token);
 
 				if (string.IsNullOrEmpty(topologyJsonString))
 				{
