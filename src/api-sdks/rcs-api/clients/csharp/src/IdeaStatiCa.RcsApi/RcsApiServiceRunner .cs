@@ -30,7 +30,7 @@ namespace IdeaStatiCa.RcsApi
 			launchPath = setupDir;
 		}
 
-		/// <inheritdoc cref="IApiServiceFactory.CreateConnectionApiClient"/>
+		/// <inheritdoc cref="IApiServiceFactory{T}.CreateApiClient"/>
 		public async Task<IRcsApiClient> CreateApiClient()
 		{
 			var url = await StartService();
@@ -142,7 +142,7 @@ namespace IdeaStatiCa.RcsApi
 							return true;
 						}
 					}
-					catch (HttpRequestException ex)
+					catch (HttpRequestException)
 					{
 						// API is not ready yet. Wait and try it again
 						await Task.Delay(3000, cts);
