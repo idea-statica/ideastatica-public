@@ -19,7 +19,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.BaseUrl = baseUrl;
 		}
 
-		/// <inheritdoc cref="IApiServiceFactory.CreateConnectionApiClient"/>
+		/// <inheritdoc cref="IApiServiceFactory{T}.CreateApiClient"/>
 		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var client = new ConnectionApiClient(BaseUrl);

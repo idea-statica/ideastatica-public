@@ -55,7 +55,7 @@ namespace IdeaStatiCa.RcsApi.Api
 			this.rcsApiClient = rcsApiClient;
 		}
 
-		/// <inheritdoc cref="IRcsApiClient.ProjectId"/>/>
+		/// <inheritdoc cref="IProjectApiExtAsync.ProjectId"/>/>
 		public Guid ProjectId
 		{
 			get => activeProjectId;

@@ -51,7 +51,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			this._connectionApiClient = connectionApiClient;
 		}
 
-		/// <inheritdoc cref="IConnectionApiClient.ProjectId"/>/>
+		/// <inheritdoc cref="IProjectApiExtAsync.ProjectId"/>/>
 		public Guid ProjectId
 		{
 			get => activeProjectId;
