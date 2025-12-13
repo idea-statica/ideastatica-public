@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,20 @@ namespace ConApiWpfClientApp.ViewModels
 	{
 		private readonly IdeaStatiCa.Api.Connection.Model.ConDesignItem _cdi;
 		private readonly IConnectionApiClient _connectionApiClient;
+		private readonly IPluginLogger _logger;
 		private bool hasDetails = false;
 		private Guid _projectId;
 		private int _connectionId;
-		private string templateXml;
-		private byte[] pictureData;
+		private string? templateXml;
+		private byte[]? pictureData;
 
-		public ProposedCdiViewModel(IConnectionApiClient connectionApiClient, Guid projectId, int connectionId, IdeaStatiCa.Api.Connection.Model.ConDesignItem cdi)
+		public ProposedCdiViewModel(IConnectionApiClient connectionApiClient, Guid projectId, int connectionId, IdeaStatiCa.Api.Connection.Model.ConDesignItem cdi, IPluginLogger logger)
 		{
 			_cdi = cdi;
 			_connectionApiClient = connectionApiClient;
 			_projectId = projectId;
 			_connectionId = connectionId;
+			_logger = logger;
 		}
 
 		public Guid ConDesignItemId
@@ -61,7 +64,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 			catch (Exception e)
 			{
-
+				_logger.LogInformation("ProposedCdiViewModel.InitDetailsAsync  : GetDesignItemPictureDataAsync FAILED", e);
 			}
 
 			hasDetails = true;
@@ -71,8 +74,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public ConDesignItem Cdi => _cdi;
 
-		public string TemplateXml { get => templateXml; set => SetProperty(ref templateXml, value); }
+		public string? TemplateXml { get => templateXml; set => SetProperty(ref templateXml, value); }
 
-		public byte[] PictureData { get => pictureData; set => SetProperty (ref pictureData, value); }
+		public byte[]? PictureData { get => pictureData; set => SetProperty (ref pictureData, value); }
 	}
 }

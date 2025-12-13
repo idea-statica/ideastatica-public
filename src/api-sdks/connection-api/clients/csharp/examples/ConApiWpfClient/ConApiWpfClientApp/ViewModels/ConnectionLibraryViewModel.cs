@@ -2,12 +2,11 @@
 using ConApiWpfClientApp.Models;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
+using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,21 +14,24 @@ namespace ConApiWpfClientApp.ViewModels
 {
 	public class ConnectionLibraryViewModel : ViewModelBase
 	{
+		private readonly IPluginLogger _logger;
 		private readonly IConnectionApiClient _connectionApiClient;
 		private readonly ConnectionLibraryModel _model;
 		ObservableCollection<ProposedCdiViewModel>? _allProposedCdi;
 		ProposedCdiViewModel? _selectedCdiVM;
 		string? _filterJson;
 
-		public ConnectionLibraryViewModel(ConnectionLibraryModel model, IConnectionApiClient connectionApiClient)
+		public ConnectionLibraryViewModel(IPluginLogger logger, ConnectionLibraryModel model, IConnectionApiClient connectionApiClient)
 		{
 			_connectionApiClient = connectionApiClient;
 			_model = model;
+			_logger = logger;
 			ProposeCommand = new AsyncRelayCommand(ProposeAsync, () => true);
 		}
 
 		public async Task InitAsync(Guid projectId, int connectionId, CancellationToken cts)
 		{
+			_logger.LogInformation($"ConnectionLibraryViewModel.InitAsync projectId = {projectId} connectionId = {connectionId}");
 			_model.ProjectId = projectId;
 			_model.ConnectionId = connectionId;
 
@@ -65,7 +67,9 @@ namespace ConApiWpfClientApp.ViewModels
 
 		private async Task ProposeAsync()
 		{
-			if(string.IsNullOrEmpty(FilterJson))
+			_logger.LogInformation("ConnectionLibraryViewModel.ProposeAsync");
+
+			if (string.IsNullOrEmpty(FilterJson))
 			{
 				return;
 			}
@@ -76,14 +80,15 @@ namespace ConApiWpfClientApp.ViewModels
 
 				_model.ProposedDesignItems = await _connectionApiClient.ConnectionLibrary.ProposeAsync(_model.ProjectId, _model.ConnectionId, filter, 0, CancellationToken.None);
 
-				ProposedCdiVMs = new ObservableCollection<ProposedCdiViewModel>(_model.ProposedDesignItems.Select(c => new ProposedCdiViewModel(_connectionApiClient, _model.ProjectId, _model.ConnectionId, c)));
+				ProposedCdiVMs = new ObservableCollection<ProposedCdiViewModel>(_model.ProposedDesignItems.Select(c => new ProposedCdiViewModel(_connectionApiClient, _model.ProjectId, _model.ConnectionId, c, _logger)));
 				SelectedCdiVM = ProposedCdiVMs.FirstOrDefault();
 
 				_model.SearchParameters = filter;
-
+				_logger.LogInformation($"ConnectionLibraryViewModel.ProposeAsync {ProposedCdiVMs?.Count} design items is proposed");
 			}
-			catch
+			catch(Exception e)
 			{
+				_logger.LogInformation("ConnectionLibraryViewModel.ProposeAsync : Failed", e);
 				return;
 			}
 		}

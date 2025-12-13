@@ -19,8 +19,8 @@ namespace ConApiWpfClientApp.Models
 
 		public List<ConDesignItem> ProposedDesignItems { get; set; }
 
-		public string SelectedTemplateXml { get; set; }
+		public string? SelectedTemplateXml { get; set; }
 
-		public byte[] PictureData { get; set; }
+		public byte[]? PictureData { get; set; }
 	}
 }
