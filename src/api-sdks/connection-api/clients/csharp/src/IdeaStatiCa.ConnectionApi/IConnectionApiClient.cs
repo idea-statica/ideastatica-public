@@ -38,11 +38,6 @@ namespace IdeaStatiCa.ConnectionApi
 		IConnectionApiAsync Connection { get; }
 
 		/// <summary>
-		/// Get ConnectionLibrary API
-		/// </summary>
-		IConnectionLibraryApiAsync ConnectionLibrary { get; }
-
-		/// <summary>
 		/// Get Export API
 		/// </summary>
 		IExportApiExtAsync Export { get; }
