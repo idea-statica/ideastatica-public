@@ -90,6 +90,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			WeldSizingCommand = new AsyncRelayCommand(DoWeldSizingAsync, () => SelectedConnection != null);
 
+			UpdateConnectionLoadingCommand = new AsyncRelayCommand(UpdateConnectionLoadingAsync, () => SelectedConnection != null);
+
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -274,6 +276,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand UpdateSettingsCommand { get; }
 
 		public AsyncRelayCommand WeldSizingCommand { get; }
+
+		public AsyncRelayCommand UpdateConnectionLoadingCommand { get; }
 
 		private async Task ShowIdeaStatiCaLogsAsync()
 		{
@@ -897,6 +901,64 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task UpdateConnectionLoadingAsync()
+		{
+			_logger.LogInformation("UpdateConnectionLoadingCommand");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var connectionLoadingData = await ConApiClient.LoadEffect.GetLoadEffectsAsync(ProjectInfo.ProjectId, SelectedConnection.Id, false, 0, cts.Token);
+
+				if (connectionLoadingData == null || connectionLoadingData.Any() == false)
+				{
+					_logger.LogInformation("UpdateConnectionLoadingCommand : no loading for connection");
+					return;
+				}
+
+				var jsonEditorService = new JsonEditorService<List<ConLoadEffect>>();
+				var editedLoadEffects = await jsonEditorService.EditAsync(connectionLoadingData);
+
+				if(editedLoadEffects == null || editedLoadEffects.Any() == false)
+				{
+					return;
+				}
+
+				foreach (var loadEffect in editedLoadEffects)
+				{
+					var updateRes = await ConApiClient.LoadEffect.UpdateLoadEffectAsync(ProjectInfo.ProjectId, SelectedConnection.Id, loadEffect, 0, cts.Token);
+				}
+
+				OutputText = "Loading was updated";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("UpdateConnectionLoadingCommand failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+		}
+
 		private async Task DeleteOperationsAsync()
 		{
 			_logger.LogInformation("DeleteOperationsAsync");
@@ -1251,6 +1313,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
 			this.UpdateSettingsCommand.NotifyCanExecuteChanged();
 			this.WeldSizingCommand.NotifyCanExecuteChanged();
+			this.UpdateConnectionLoadingCommand.NotifyCanExecuteChanged();
 
 			this.OnPropertyChanged("CanStartService");
 		}
