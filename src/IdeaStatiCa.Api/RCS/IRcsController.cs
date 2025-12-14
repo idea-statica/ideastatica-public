@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Concrete.CheckResult;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Api.RCS.Model;
 using System;
@@ -30,16 +31,16 @@ namespace IdeaStatiCa.Api.RCS
 		/// Update data of a RCS section in the RCS project. The section is taken according to pass value in <paramref name="modifiedSectionData"/>
 		/// <see cref="RcsSection.Id"/>
 		/// </summary>
-		/// <param name="modifiedData">Data to set</param>
+		/// <param name="modifiedSectionData">Data to set</param>
 		/// <returns>Data of the modified section</returns>
 		RcsSection UpdateSection(RcsSection modifiedSectionData);
 
 		/// <summary>
-		/// 
+		/// Import reinforced cross-section from template
 		/// </summary>
-		/// <param name="importSetting"></param>
-		/// <param name="reinfCssTemplate"></param>
-		/// <returns></returns>
+		/// <param name="importSetting">Import settings</param>
+		/// <param name="reinfCssTemplate">Template content</param>
+		/// <returns>Created reinforced cross-section info</returns>
 		RcsReinforcedCrossSection ImportReinforcedCrossSection(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate);
 
 		/// <summary>
@@ -55,5 +56,34 @@ namespace IdeaStatiCa.Api.RCS
 		/// <param name="sectionId">Id of a section to update</param>
 		/// <param name="loadingXML">New loading data</param>
 		void SetLoadingInSectionXML(int sectionId, string loadingXML);
+
+		/// <summary>
+		/// Add a new reinforced cross-section from embedded geometry data
+		/// </summary>
+		/// <param name="reinforcedCrossSection">Reinforced cross-section definition with geometry</param>
+		/// <returns>Created reinforced cross-section info</returns>
+		RcsReinforcedCrossSection AddReinforcedCrossSection(ReinforcedCrossSectionData reinforcedCrossSection);
+
+		/// <summary>
+		/// Get reinforced cross-section in IOM format with full geometry
+		/// </summary>
+		/// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+		/// <returns>IOM ReinforcedCrossSection</returns>
+		ReinforcedCrossSection GetReinforcedCrossSectionIOM(int reinforcedCssSectionId);
+
+		/// <summary>
+		/// Get materials from the project
+		/// </summary>
+		/// <param name="materialType">Type of material to get, or null for all materials</param>
+		/// <returns>List of materials</returns>
+		IEnumerable<RcsMaterial> GetMaterials(RcsMaterialType? materialType = null);
+
+		/// <summary>
+		/// Add material to project by MPRL name
+		/// </summary>
+		/// <param name="materialType">Type of material</param>
+		/// <param name="mprlName">MPRL material name</param>
+		/// <returns>Created material info</returns>
+		RcsMaterial AddMaterial(RcsMaterialType materialType, string mprlName);
 	}
 }
