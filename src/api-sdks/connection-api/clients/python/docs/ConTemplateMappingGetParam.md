@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **template** | **str** |  | [optional] 
+**member_ids** | **List[int]** |  | [optional] 
 
 ## Example
 

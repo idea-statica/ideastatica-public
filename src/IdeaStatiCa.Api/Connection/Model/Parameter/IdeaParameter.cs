@@ -26,13 +26,13 @@
 
 		public string Expression { get; set; }
 
+		public string Default { get; set; }
+
 		public dynamic Value { get; set; }
 
 		public string Unit { get; set; }
 
 		public string ParameterType { get; set; }
-
-		public string ValidationExpression { get; set; }
 
 		public string Description { get; set; }
 

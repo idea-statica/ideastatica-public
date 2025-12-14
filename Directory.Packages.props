@@ -7,15 +7,15 @@
     <PackageVersion Include="AutoFixture.NUnit3" Version="4.18.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="FluentAssertions" Version="6.8.0" />
-    <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.RcsApi" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.Api" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.Plugin" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatica.BimApiLink" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.Public" Version="25.1.0.4141" />
-    <PackageVersion Include="IdeaStatiCa.OpenModel" Version="25.1.0.4141" />
+    <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.RcsApi" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.Api" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.Plugin" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatica.BimApiLink" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.Public" Version="25.1.1.923" />
+    <PackageVersion Include="IdeaStatiCa.OpenModel" Version="25.1.1.923" />
     <PackageVersion Include="IdeaStatiCa.ConRestApiClientUI" Version="1.2.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="9.0.8" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
@@ -31,6 +31,7 @@
     <PackageVersion Include="NUnit" Version="3.14.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.10.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.8" />
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.8" />
@@ -45,9 +46,9 @@
     <PackageVersion Include="MathNet.Spatial" Version="0.6.0" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageVersion Include="Grpc.Core" Version="2.46.3" />
-<!--    <PackageVersion Include="Grpc.Core" Version="2.46.6" />-->
-<!--    <PackageVersion Include="Grpc.Net.Client" Version="2.71.0" />-->
-<!--    <PackageVersion Include="Grpc.Tools" Version="2.72.0" />-->
+    <!--    <PackageVersion Include="Grpc.Core" Version="2.46.6" />-->
+    <!--    <PackageVersion Include="Grpc.Net.Client" Version="2.71.0" />-->
+    <!--    <PackageVersion Include="Grpc.Tools" Version="2.72.0" />-->
     <PackageVersion Include="Grpc.Net.Client" Version="2.46.0" />
     <PackageVersion Include="Grpc.Tools" Version="2.46.3" />
     <PackageVersion Include="ini-parser" Version="2.5.2" />

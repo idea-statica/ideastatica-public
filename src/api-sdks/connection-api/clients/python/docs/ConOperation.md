@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**is_imported** | **bool** |  | [optional] 
 **id** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
-**is_active** | **bool** |  | [optional] 
-**is_imported** | **bool** |  | [optional] 
+**active** | **bool** |  | [optional] 
 
 ## Example
 

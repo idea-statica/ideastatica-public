@@ -96,5 +96,10 @@ namespace IdeaStatiCa.ConnectionApi
 		/// Get Settings API
 		/// </summary>
 		ISettingsApiAsync Settings { get; }
+
+		/// <summary>
+		/// Gets the API extension for managing connection libraries.
+		/// </summary>
+		IConnectionLibraryApiExt ConnectionLibrary { get; }
 	}
 }

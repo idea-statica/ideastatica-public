@@ -75,7 +75,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/3/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/cross-sections 
+> **POST** /api/3/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -225,7 +225,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/3/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -300,7 +300,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/concrete 
+> **POST** /api/3/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -375,7 +375,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/steel 
+> **POST** /api/3/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -450,7 +450,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/materials/welding 
+> **POST** /api/3/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -525,7 +525,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials 
+> **GET** /api/3/projects/{projectId}/materials 
 
 ### Authorization
 
@@ -600,7 +600,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/3/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -675,7 +675,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/3/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -750,7 +750,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/concrete 
+> **GET** /api/3/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -825,7 +825,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/cross-sections 
+> **GET** /api/3/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -900,7 +900,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/steel 
+> **GET** /api/3/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -975,7 +975,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/materials/welding 
+> **GET** /api/3/projects/{projectId}/materials/welding 
 
 ### Authorization
 

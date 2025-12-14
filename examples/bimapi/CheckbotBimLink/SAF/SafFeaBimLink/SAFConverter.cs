@@ -29,13 +29,13 @@ namespace SafFeaBimLink
 
 		public ModelBIM ImportConnections(SAFModel model, CountryCode countryCode)
 		{
-			IBimImporter importer = BimImporter.Create(model, _project, _pluginLogger);
+			IBimImporter importer = BimImporter.Create(model, _project, _pluginLogger, configuration: new SAFBimImporterConfiguration());
 			return importer.ImportConnections(countryCode);
 		}
 
 		public ModelBIM ImportMember(SAFModel model, CountryCode countryCode)
 		{
-			IBimImporter importer = BimImporter.Create(model, _project, _pluginLogger);
+			IBimImporter importer = BimImporter.Create(model, _project, _pluginLogger, configuration: new SAFBimImporterConfiguration());
 			return importer.ImportMembers(countryCode);
 		}
 

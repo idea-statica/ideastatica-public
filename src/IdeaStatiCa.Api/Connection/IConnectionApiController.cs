@@ -1,6 +1,5 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
-using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
@@ -93,16 +92,16 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<ConnectionCheckRes>> ResultsAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// Get mapping for connection template <paramref name="templateXml"/> on connection with <paramref name="connectionId"/>
+		/// Get mapping for connection template <paramref name="template"/> on connection with <paramref name="connectionId"/>
 		/// in the active project.
 		/// </summary>
 		/// <param name="connectionId">Id of the connection to apply template</param>
-		/// <param name="templateXml">Connection template in xml string</param>
+		/// <param name="template">Connection template with member ids string</param>
 		/// <param name="cancellationToken"></param>
 		/// <returns>Mapping of the provided connection on the requested connection</returns>
-		Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default);
+		Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, ConTemplateMappingGetParam template, CancellationToken cancellationToken = default);
 
-		Task<ConTemplateApplyResult> ApplyConnectionTemplateAsync(int connectionId, string templateXml, TemplateConversions templateMapping, CancellationToken cancellationToken = default);
+		Task<ConTemplateApplyResult> ApplyConnectionTemplateAsync(int connectionId, ConTemplateApplyParam templateApplyParam, CancellationToken cancellationToken = default);
 
 
 		/// Creates Idea connection project from given <paramref name="iomContainerXmlFileName"/> and projects
@@ -282,6 +281,22 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<IdeaParameter>> GetParametersAsync(int connectionId, bool includeHidden);
 
 		/// <summary>
+		/// Update parameters
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="parameters"></param>
+		/// <returns></returns>
+		Task<ParameterUpdateResponse> UpdateParametersV2(int connectionId, List<IdeaParameterUpdate> parameters);
+
+		/// <summary>
+		/// Delete all parameters
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <returns></returns>
+		Task DeleteParameters(int connectionId);
+
+
+		/// <summary>
 		/// Get service version
 		/// </summary>
 		/// <returns></returns>
@@ -303,6 +318,22 @@ namespace IdeaStatiCa.Api.Connection
 		/// <returns>contemp string</returns>
 		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
 
+		/// <summary>
+		/// Get specific template in connection by id
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConConnectionTemplate> GetTemplateInConnection(int connectionId, int templateId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get all templates in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConConnectionTemplate>> GetTemplatesInConnection(int connectionId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Set bearing member
@@ -420,5 +451,86 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task DeleteConnectionAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Explode all templates in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<object> ExplodeAllTemplates(int connectionId, CancellationToken cancellation = default);
+
+		/// <summary>
+		/// Explode specific template in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<object> ExplodeTemplate(int connectionId, Guid templateId, CancellationToken cancellation = default);
+
+		/// <summary>
+		/// Delete all templates in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<object> DeleteAllTemplates(int connectionId, CancellationToken cancellation = default);
+
+		/// <summary>
+		/// Delete specific template in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<object> DeleteTemplate(int connectionId, Guid templateId, CancellationToken cancellation = default);
+
+		/// <summary>
+		/// Get common properties for given connection & template
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<ConOperationCommonProperties> GetTemplateCommonProperties(int connectionId, Guid templateId, CancellationToken cancellation = default);
+
+
+		/// <summary>
+		/// Set common properties for given connection & template
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="commonProperties"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<string> SetTemplateCommonProperties(int connectionId, Guid templateId, ConOperationCommonProperties commonProperties, CancellationToken cancellation = default);
+
+		/// <summary>
+		/// Load parameter defaults for given connection & template
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="templateId"></param>
+		/// <param name="cancellation"></param>
+		/// <returns></returns>
+		Task<ParameterUpdateResponse> LoadParameterDefaults(int connectionId, Guid templateId, CancellationToken cancellation = default);
+
+		/// <summary>
+		/// Proposes a list of design items for a specified connection based on the given search parameters.
+		/// </summary>
+		/// <remarks>This method performs an asynchronous operation to propose design items that match the specified
+		/// criteria. The operation can be cancelled by passing a cancellation token.</remarks>
+		/// <param name="connectionId">The unique identifier of the connection for which design items are proposed.</param>
+		/// <param name="searchParameters">The parameters used to filter and search for suitable design items.</param>
+		/// <param name="cancellation">A token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains a list of proposed design items for
+		/// the specified connection.</returns>
+		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignItem>> Propose(int connectionId, ConConnectionLibrarySearchParameters searchParameters, CancellationToken cancellation = default);
+
+		Task<string> GetTemplateAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
+
+		Task<Stream> GetDesignItemPictureAsync(Guid designSetId, Guid designItemId, CancellationToken token = default);
+
+		Task<List<IdeaStatiCa.Api.Connection.Model.ConDesignSet>> GetDesignSetsAsync(CancellationToken cancellation = default);
 	}
 }

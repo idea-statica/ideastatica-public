@@ -10,16 +10,17 @@ info:
     name: IDEA StatiCa License
     url: https://github.com/idea-statica/ideastatica-public/blob/main/LICENSE
   termsOfService: https://www.ideastatica.com/end-user-license-agreement
-  title: Connection Rest API 2.0
-  version: "2.0"
+  title: Connection Rest API 3.0
+  version: "3.0"
 servers:
 - url: /
 paths:
-  /api/2/projects/{projectId}/connections/calculate:
+  /api/3/projects/{projectId}/connections/calculate:
     post:
       operationId: Calculate
       parameters:
-      - explode: false
+      - description: Project unique identifier
+        explode: false
         in: path
         name: projectId
         required: true
@@ -35,6 +36,7 @@ paths:
                 format: int32
                 type: integer
               type: array
+        description: List of connection ids to calculate
         required: true
       responses:
         "200":
@@ -45,11 +47,12 @@ paths:
                   $ref: '#/components/schemas/ConResultSummary'
                 type: array
           description: OK
+      summary: Run CBFEM caluclation and return the summary of the results
       tags:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections/results:
+  /api/3/projects/{projectId}/connections/results:
     post:
       operationId: GetResults
       parameters:
@@ -87,7 +90,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections/rawresults-text:
+  /api/3/projects/{projectId}/connections/rawresults-text:
     post:
       operationId: GetRawJsonResults
       parameters:
@@ -105,8 +108,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ConCalculationParameter'
-        description: Type of requested analysis and connection to calculate
+              items:
+                format: int32
+                type: integer
+              type: array
+        description: List of connections to calculate and a type of CBFEM analysis
+        required: true
       responses:
         "200":
           content:
@@ -122,7 +129,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/clients/connect-client:
+  /api/3/clients/connect-client:
     get:
       operationId: ConnectClient
       responses:
@@ -141,7 +148,7 @@ paths:
       - Client
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/clients/idea-service-version:
+  /api/3/clients/idea-service-version:
     get:
       operationId: GetVersion
       responses:
@@ -156,7 +163,7 @@ paths:
       - Client
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections:
+  /api/3/projects/{projectId}/connections:
     get:
       operationId: GetConnections
       parameters:
@@ -184,7 +191,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections/{connectionId}:
+  /api/3/projects/{projectId}/connections/{connectionId}:
     delete:
       operationId: DeleteConnection
       parameters:
@@ -291,7 +298,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/production-cost:
+  /api/3/projects/{projectId}/connections/{connectionId}/production-cost:
     get:
       operationId: GetProductionCost
       parameters:
@@ -326,7 +333,228 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/get-default-mapping:
+  /api/3/projects/{projectId}/connections/{connectionId}/get-topology:
+    get:
+      operationId: GetConnectionTopology
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection where to clear the design
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: OK
+      summary: Get topology of the connection in json format
+      tags:
+      - Connection
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/connection-library/get-design-sets:
+    get:
+      description: "This method returns a collection of design sets that are mapped\
+        \ and ready for use. It throws an\r\n            exception if no design sets\
+        \ are available for the user."
+      operationId: GetDesignSets
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConDesignSet'
+                type: array
+          description: OK
+      summary: Retrieves a list of design sets available for the user.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: false
+      x-requiresConnection: false
+  /api/3/projects/{projectId}/connections/{connectionId}/propose:
+    post:
+      description: "This method retrieves the connection model from the specified\
+        \ project and classifies its\r\n            typology. It then filters and\
+        \ proposes design items based on the connection's typology and design code."
+      operationId: Propose
+      parameters:
+      - description: The unique identifier of the project containing the connection.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The identifier of the connection for which design items are proposed.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConConnectionLibrarySearchParameters'
+        description: "Parameters used to filter and refine the search for proposed\
+          \ connection design items, such as set membership and required connection\
+          \ features."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConDesignItem'
+                type: array
+          description: OK
+      summary: Proposes a list of design items for a specified connection within a
+        project.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/connection-library/get-template:
+    get:
+      description: "This method is mapped to API version 2 and produces a plain text\
+        \ response. It is intended to be\r\n            used in scenarios where the\
+        \ template of a design item needs to be retrieved for further processing or\r\
+        \n            display."
+      operationId: GetTemplate
+      parameters:
+      - description: The unique identifier of the design set.
+        explode: true
+        in: query
+        name: designSetId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: The unique identifier of the design item for which the template
+          is requested.
+        explode: true
+        in: query
+        name: designItemId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+      summary: Retrieves the template associated with the specified design set and
+        design item.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: false
+      x-requiresConnection: false
+  /api/3/connection-library/get-picture:
+    get:
+      description: "This method is mapped to API version 2 and produces a PNG image.\
+        \ The image is returned as a file\r\n            stream result with the file\
+        \ name set to the design item's ID."
+      operationId: GetDesignItemPicture
+      parameters:
+      - description: The unique identifier of the design set.
+        explode: true
+        in: query
+        name: designSetId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: The unique identifier of the design item for which the template
+          is requested.
+        explode: true
+        in: query
+        name: designItemId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Retrieves the picture associated with the specified design item as
+        a PNG image.
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: false
+      x-requiresConnection: false
+  /api/3/projects/{projectId}/connections/{connectionId}/publish:
+    post:
+      operationId: PublishConnection
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConTemplatePublishParam'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: OK
+      summary: Publish template to Private or Company set
+      tags:
+      - ConnectionLibrary
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/get-default-mapping:
     get:
       operationId: GetConversionMapping
       parameters:
@@ -361,7 +589,7 @@ paths:
       - Conversion
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/change-code:
+  /api/3/projects/{projectId}/change-code:
     post:
       operationId: ChangeCode
       parameters:
@@ -394,7 +622,7 @@ paths:
       - Conversion
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections/{connectionId}/export-iom:
+  /api/3/projects/{projectId}/connections/{connectionId}/export-iom:
     get:
       operationId: ExportIom
       parameters:
@@ -439,7 +667,7 @@ paths:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
+  /api/3/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
     get:
       operationId: ExportIomConnectionData
       parameters:
@@ -477,7 +705,7 @@ paths:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/export-ifc:
+  /api/3/projects/{projectId}/connections/{connectionId}/export-ifc:
     get:
       operationId: ExportIFC
       parameters:
@@ -512,7 +740,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: ExportIfcFile
-  /api/2/projects/{projectId}/connections/{connectionId}/load-effects:
+  /api/3/projects/{projectId}/connections/{connectionId}/load-effects:
     get:
       operationId: GetLoadEffects
       parameters:
@@ -634,7 +862,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
+  /api/3/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
     delete:
       operationId: DeleteLoadEffect
       parameters:
@@ -728,7 +956,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
+  /api/3/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
     get:
       operationId: GetLoadSettings
       parameters:
@@ -762,7 +990,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
+  /api/3/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
     post:
       operationId: SetLoadSettings
       parameters:
@@ -802,7 +1030,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/materials:
+  /api/3/projects/{projectId}/materials:
     get:
       operationId: GetAllMaterials
       parameters:
@@ -829,7 +1057,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/materials/steel:
+  /api/3/projects/{projectId}/materials/steel:
     get:
       operationId: GetSteelMaterials
       parameters:
@@ -883,7 +1111,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/materials/concrete:
+  /api/3/projects/{projectId}/materials/concrete:
     get:
       operationId: GetConcreteMaterials
       parameters:
@@ -937,7 +1165,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/materials/bolt-grade:
+  /api/3/projects/{projectId}/materials/bolt-grade:
     get:
       operationId: GetBoltGradeMaterials
       parameters:
@@ -991,7 +1219,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/materials/welding:
+  /api/3/projects/{projectId}/materials/welding:
     get:
       operationId: GetWeldingMaterials
       parameters:
@@ -1045,7 +1273,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/materials/cross-sections:
+  /api/3/projects/{projectId}/materials/cross-sections:
     get:
       operationId: GetCrossSections
       parameters:
@@ -1099,7 +1327,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/materials/bolt-assemblies:
+  /api/3/projects/{projectId}/materials/bolt-assemblies:
     get:
       operationId: GetBoltAssemblies
       parameters:
@@ -1153,7 +1381,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections/{connectionId}/members:
+  /api/3/projects/{projectId}/connections/{connectionId}/members:
     get:
       operationId: GetMembers
       parameters:
@@ -1230,7 +1458,7 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/members/{memberId}:
+  /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId}:
     get:
       operationId: GetMember
       parameters:
@@ -1274,7 +1502,7 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
+  /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
     put:
       operationId: SetBearingMember
       parameters:
@@ -1317,7 +1545,7 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/operations:
+  /api/3/projects/{projectId}/connections/{connectionId}/operations:
     delete:
       operationId: DeleteOperations
       parameters:
@@ -1384,7 +1612,7 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/operations/common-properties:
+  /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties:
     get:
       operationId: GetCommonOperationProperties
       parameters:
@@ -1453,7 +1681,7 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
+  /api/3/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
     post:
       operationId: PreDesignWelds
       parameters:
@@ -1495,7 +1723,38 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/parameters:
+  /api/3/projects/{projectId}/connections/{connectionId}/parameters:
+    delete:
+      operationId: DeleteParameters
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection where to delete parameters
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Delete all parameters and parameter model links for the connection
+        connectionId in the project projectId
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
     get:
       operationId: GetParameters
       parameters:
@@ -1584,7 +1843,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/evaluate-expression:
+  /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression:
     post:
       operationId: EvaluateExpression
       parameters:
@@ -1625,39 +1884,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/clear-parameters:
-    post:
-      operationId: ClearParameters
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: Id of the connection where to clear the parameters
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          description: OK
-      summary: Clear parameters and links for the connection connectionId in the project
-        projectId
-      tags:
-      - Parameter
-      x-requiresProject: true
-      x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/presentations:
+  /api/3/projects/{projectId}/connections/{connectionId}/presentations:
     get:
       operationId: GetDataScene3D
       parameters:
@@ -1692,7 +1919,7 @@ paths:
       - Presentation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/presentations/text:
+  /api/3/projects/{projectId}/connections/{connectionId}/presentations/text:
     get:
       operationId: GetDataScene3DText
       parameters:
@@ -1729,7 +1956,7 @@ paths:
       - Presentation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/open:
+  /api/3/projects/open:
     post:
       operationId: OpenProject
       requestBody:
@@ -1753,7 +1980,7 @@ paths:
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: OpenProject
-  /api/2/projects/{projectId}/close:
+  /api/3/projects/{projectId}/close:
     get:
       operationId: CloseProject
       parameters:
@@ -1778,7 +2005,7 @@ paths:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects:
+  /api/3/projects:
     get:
       operationId: GetActiveProjects
       responses:
@@ -1796,7 +2023,7 @@ paths:
       - Project
       x-requiresProject: false
       x-requiresConnection: false
-  /api/2/projects/{projectId}/download:
+  /api/3/projects/{projectId}/download:
     get:
       operationId: DownloadProject
       parameters:
@@ -1820,7 +2047,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveProject
-  /api/2/projects/{projectId}:
+  /api/3/projects/{projectId}:
     get:
       operationId: GetProjectData
       parameters:
@@ -1875,7 +2102,7 @@ paths:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/import-iom-file:
+  /api/3/projects/import-iom-file:
     post:
       operationId: ImportIOM
       requestBody:
@@ -1903,7 +2130,7 @@ paths:
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: CreateProjectFromIomFile
-  /api/2/projects/{projectId}/update-iom-file:
+  /api/3/projects/{projectId}/update-iom-file:
     post:
       operationId: UpdateFromIOM
       parameters:
@@ -1941,7 +2168,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: UpdateProjectFromIomFile
-  /api/2/projects/{projectId}/reports/pdf:
+  /api/3/projects/{projectId}/reports/pdf:
     post:
       operationId: GeneratePdfForMutliple
       parameters:
@@ -1970,7 +2197,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveReportPdf
-  /api/2/projects/{projectId}/reports/word:
+  /api/3/projects/{projectId}/reports/word:
     post:
       operationId: GenerateWordForMultiple
       parameters:
@@ -1999,7 +2226,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveReportWord
-  /api/2/projects/{projectId}/connections/{connectionId}/reports/pdf:
+  /api/3/projects/{projectId}/connections/{connectionId}/reports/pdf:
     get:
       operationId: GeneratePdf
       parameters:
@@ -2030,7 +2257,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportPdf
-  /api/2/projects/{projectId}/connections/{connectionId}/reports/word:
+  /api/3/projects/{projectId}/connections/{connectionId}/reports/word:
     get:
       operationId: GenerateWord
       parameters:
@@ -2061,7 +2288,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportWord
-  /api/2/projects/{projectId}/settings:
+  /api/3/projects/{projectId}/settings:
     get:
       operationId: GetSettings
       parameters:
@@ -2127,7 +2354,122 @@ paths:
       - Settings
       x-requiresProject: true
       x-requiresConnection: false
-  /api/2/projects/{projectId}/connections/{connectionId}/get-template:
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId}:
+    get:
+      operationId: GetTemplateInConnection
+      parameters:
+      - description: The unique identifier of the project containing the connection.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The identifier of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The instance identifier of the template to retrieve.
+        explode: false
+        in: path
+        name: templateInstanceId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConConnectionTemplate'
+          description: OK
+      summary: Retrieves a specific template by its ID for a given connection within
+        a project.
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/templates:
+    delete:
+      operationId: DeleteAll
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Delete all templates in connection
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+    get:
+      description: "This method fetches the templates applied to a connection within\
+        \ a project. Each template\r\n            includes details such as its ID\
+        \ within the project, template id, members, operations, parameters, and associated\
+        \ common properties."
+      operationId: GetTemplatesInConnection
+      parameters:
+      - description: The unique identifier of the project containing the connection.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The identifier of the connection for which templates are to be
+          retrieved.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConConnectionTemplate'
+                type: array
+          description: OK
+      summary: Retrieves a list of templates associated with a specific connection
+        within a project.
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/get-template:
     get:
       operationId: CreateConTemplate
       parameters:
@@ -2162,7 +2504,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/get-default-mapping:
+  /api/3/projects/{projectId}/connections/{connectionId}/get-default-mapping:
     post:
       description: "The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault\
         \ mapping to apply the passed template.\r\nIt can be modified by a user and\
@@ -2208,7 +2550,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/apply-template:
+  /api/3/projects/{projectId}/connections/{connectionId}/apply-template:
     post:
       operationId: ApplyTemplate
       parameters:
@@ -2250,12 +2592,11 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/clear-design:
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/explode:
     post:
-      operationId: ClearDesign
+      operationId: ExplodeAll
       parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+      - description: ""
         explode: false
         in: path
         name: projectId
@@ -2264,7 +2605,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection where to clear the design
+      - description: ""
         explode: false
         in: path
         name: connectionId
@@ -2276,49 +2617,92 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Clear the design of the connection connectionId in the project projectId
+      summary: "Explode all templates (delete parameters, keep operations)"
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/get-topology:
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode:
+    post:
+      operationId: Explode
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: "Explode specific template (delete parameters, keep operations)"
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}:
+    delete:
+      operationId: Delete
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Delete specific template
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties:
     get:
-      operationId: GetConnectionTopology
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: Id of the connection where to clear the design
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            text/plain:
-              schema:
-                type: string
-          description: OK
-      summary: Get topology of the connection in json format
-      tags:
-      - Template
-      x-requiresProject: true
-      x-requiresConnection: true
-  /api/2/projects/{projectId}/connections/{connectionId}/publish:
-    post:
-      operationId: PublishConnection
+      operationId: GetTemplateCommonOperationProperties
       parameters:
       - description: ""
         explode: false
@@ -2338,20 +2722,110 @@ paths:
           format: int32
           type: integer
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ConTemplatePublishParam'
-        description: ""
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                type: boolean
+                $ref: '#/components/schemas/ConOperationCommonProperties'
           description: OK
-      summary: ""
+      summary: Get Common properties for specific template
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateTemplateCommonOperationProperties
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConOperationCommonProperties'
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Set common properties for specific template
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults:
+    post:
+      operationId: LoadDefaults
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterUpdateResponse'
+          description: OK
+      summary: Load parameter defaults for specific template.
       tags:
       - Template
       x-requiresProject: true
@@ -3121,23 +3595,6 @@ components:
       - fireRestance
       - buckling
       type: string
-    ConCalculationParameter:
-      additionalProperties: false
-      example:
-        connectionIds:
-        - 0
-        - 0
-        analysisType: stress_Strain
-      properties:
-        connectionIds:
-          items:
-            format: int32
-            type: integer
-          nullable: true
-          type: array
-        analysisType:
-          $ref: '#/components/schemas/ConAnalysisTypeEnum'
-      type: object
     ConConnection:
       additionalProperties: false
       example:
@@ -3164,10 +3621,109 @@ components:
         analysisType:
           $ref: '#/components/schemas/ConAnalysisTypeEnum'
         isCalculated:
+          deprecated: true
           readOnly: true
           type: boolean
         includeBuckling:
           type: boolean
+      type: object
+    ConConnectionLibrarySearchParameters:
+      additionalProperties: false
+      example:
+        inCompanySet: true
+        hasClipAngles: null
+        isMoment: null
+        members:
+        - 0
+        - 0
+        isParametric: null
+        isShear: null
+        inPredefinedSet: true
+        inPersonalSet: true
+        hasAnchor: null
+        isTruss: null
+        hasBolts: ignore
+        hasWelds: null
+      properties:
+        members:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        inPredefinedSet:
+          type: boolean
+        inCompanySet:
+          type: boolean
+        inPersonalSet:
+          type: boolean
+        hasBolts:
+          $ref: '#/components/schemas/SearchOption'
+        hasWelds:
+          $ref: '#/components/schemas/SearchOption'
+        hasAnchor:
+          $ref: '#/components/schemas/SearchOption'
+        hasClipAngles:
+          $ref: '#/components/schemas/SearchOption'
+        isMoment:
+          $ref: '#/components/schemas/SearchOption'
+        isShear:
+          $ref: '#/components/schemas/SearchOption'
+        isTruss:
+          $ref: '#/components/schemas/SearchOption'
+        isParametric:
+          $ref: '#/components/schemas/SearchOption'
+      type: object
+    ConConnectionTemplate:
+      additionalProperties: false
+      example:
+        commonProperties:
+          boltAssemblyId: 1
+          plateMaterialId: 6
+          weldMaterialId: 0
+        operations:
+        - name: name
+          active: true
+          id: 6
+        - name: name
+          active: true
+          id: 6
+        parameterKeys:
+        - parameterKeys
+        - parameterKeys
+        libraryTemplateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        members:
+        - name: name
+          active: true
+          id: 6
+        - name: name
+          active: true
+          id: 6
+        templateId: 0
+      properties:
+        libraryTemplateId:
+          format: uuid
+          type: string
+        templateId:
+          format: int32
+          type: integer
+        members:
+          items:
+            $ref: '#/components/schemas/ConItem'
+          nullable: true
+          type: array
+        operations:
+          items:
+            $ref: '#/components/schemas/ConItem'
+          nullable: true
+          type: array
+        parameterKeys:
+          items:
+            type: string
+          nullable: true
+          type: array
+        commonProperties:
+          $ref: '#/components/schemas/ConOperationCommonProperties'
       type: object
     ConConversionSettings:
       additionalProperties: false
@@ -3237,11 +3793,77 @@ components:
           nullable: true
           type: array
       type: object
+    ConDesignItem:
+      additionalProperties: false
+      example:
+        name: name
+        conDesignSetId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        conDesignItemId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        version: version
+        designCode: designCode
+      properties:
+        version:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        designCode:
+          nullable: true
+          type: string
+        conDesignSetId:
+          format: uuid
+          type: string
+        conDesignItemId:
+          format: uuid
+          type: string
+      type: object
+    ConDesignSet:
+      additionalProperties: false
+      example:
+        name: name
+        description: description
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ownerId: ownerId
+        type: type
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        ownerId:
+          nullable: true
+          type: string
+        type:
+          nullable: true
+          type: string
+      type: object
     ConDesignSetType:
       enum:
       - private
       - company
       type: string
+    ConItem:
+      additionalProperties: false
+      example:
+        name: name
+        active: true
+        id: 6
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
     ConLoadEffect:
       additionalProperties: false
       example:
@@ -3563,23 +4185,50 @@ components:
           nullable: true
           type: string
       type: object
+    ConNonConformityIssue:
+      additionalProperties: false
+      example:
+        severity: info
+        operationId: 0
+        description: description
+        details: details
+      properties:
+        operationId:
+          format: int32
+          type: integer
+        description:
+          nullable: true
+          type: string
+        details:
+          nullable: true
+          type: string
+        severity:
+          $ref: '#/components/schemas/ConNonConformityIssueSeverity'
+      type: object
+    ConNonConformityIssueSeverity:
+      enum:
+      - info
+      - warning
+      - error
+      - terminatedError
+      type: string
     ConOperation:
       additionalProperties: false
       example:
         isImported: true
         name: name
+        active: true
         id: 0
-        isActive: true
       properties:
+        isImported:
+          type: boolean
         id:
           format: int32
           type: integer
         name:
           nullable: true
           type: string
-        isActive:
-          type: boolean
-        isImported:
+        active:
           type: boolean
       type: object
     ConOperationCommonProperties:
@@ -3734,15 +4383,69 @@ components:
       type: object
     ConTemplateApplyResult:
       additionalProperties: false
+      example:
+        appliedWithoutIssues: true
+        templateModel:
+          commonProperties:
+            boltAssemblyId: 1
+            plateMaterialId: 6
+            weldMaterialId: 0
+          operations:
+          - name: name
+            active: true
+            id: 6
+          - name: name
+            active: true
+            id: 6
+          parameterKeys:
+          - parameterKeys
+          - parameterKeys
+          libraryTemplateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          members:
+          - name: name
+            active: true
+            id: 6
+          - name: name
+            active: true
+            id: 6
+          templateId: 0
+        issues:
+        - severity: info
+          operationId: 0
+          description: description
+          details: details
+        - severity: info
+          operationId: 0
+          description: description
+          details: details
+      properties:
+        appliedWithoutIssues:
+          type: boolean
+        templateModel:
+          $ref: '#/components/schemas/ConConnectionTemplate'
+        issues:
+          items:
+            $ref: '#/components/schemas/ConNonConformityIssue'
+          nullable: true
+          type: array
       type: object
     ConTemplateMappingGetParam:
       additionalProperties: false
       example:
         template: template
+        memberIds:
+        - 0
+        - 0
       properties:
         template:
           nullable: true
           type: string
+        memberIds:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
       type: object
     ConTemplatePublishParam:
       additionalProperties: false
@@ -5899,8 +6602,8 @@ components:
       additionalProperties: false
       example:
         parameterType: parameterType
+        default: default
         unit: unit
-        validationExpression: validationExpression
         expression: expression
         upperBound: upperBound
         description: description
@@ -5925,15 +6628,15 @@ components:
         expression:
           nullable: true
           type: string
+        default:
+          nullable: true
+          type: string
         value:
           nullable: true
         unit:
           nullable: true
           type: string
         parameterType:
-          nullable: true
-          type: string
-        validationExpression:
           nullable: true
           type: string
         description:
@@ -6140,8 +6843,8 @@ components:
           key: key
         parameters:
         - parameterType: parameterType
+          default: default
           unit: unit
-          validationExpression: validationExpression
           expression: expression
           upperBound: upperBound
           description: description
@@ -6160,8 +6863,8 @@ components:
           validationStatus: validationStatus
           key: key
         - parameterType: parameterType
+          default: default
           unit: unit
-          validationExpression: validationExpression
           expression: expression
           upperBound: upperBound
           description: description
@@ -6526,6 +7229,12 @@ components:
           nullable: true
           type: array
       type: object
+    SearchOption:
+      enum:
+      - ignore
+      - must
+      - mustNot
+      type: string
     Segment2D:
       additionalProperties: false
       description: Represents a segment in two-dimensional space.

@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** |  | [optional] 
 **expression** | **str** |  | [optional] 
+**default** | **str** |  | [optional] 
 **value** | **object** |  | [optional] 
 **unit** | **str** |  | [optional] 
 **parameter_type** | **str** |  | [optional] 
-**validation_expression** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **validation_status** | **str** |  | [optional] 
 **is_visible** | **bool** |  | [optional] 

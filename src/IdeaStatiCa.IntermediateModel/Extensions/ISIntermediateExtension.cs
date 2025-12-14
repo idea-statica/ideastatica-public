@@ -313,7 +313,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 					sObject.RemoveElementProperty(property);
 					break;
 				case SList sList:
-					sList.RemoveElementProperty(property);
+					sList.Remove(property);
 					break;
 				default:
 					throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}");

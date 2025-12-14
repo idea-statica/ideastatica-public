@@ -3,15 +3,21 @@
 | Method  | Description |
 |--------|-------------|
 | [**ApplyTemplateAsync**](TemplateApi.md#applytemplateasync) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId |
-| [**ClearDesignAsync**](TemplateApi.md#cleardesignasync) | Clear the design of the connection connectionId in the project projectId |
 | [**CreateConTemplateAsync**](TemplateApi.md#createcontemplateasync) | Create a template for the connection connectionId in the project projectId |
-| [**GetConnectionTopologyAsync**](TemplateApi.md#getconnectiontopologyasync) | Get topology of the connection in json format |
+| [**DeleteAsync**](TemplateApi.md#deleteasync) | Delete specific template |
+| [**DeleteAllAsync**](TemplateApi.md#deleteallasync) | Delete all templates in connection |
+| [**ExplodeAsync**](TemplateApi.md#explodeasync) | Explode specific template (delete parameters, keep operations) |
+| [**ExplodeAllAsync**](TemplateApi.md#explodeallasync) | Explode all templates (delete parameters, keep operations) |
 | [**GetDefaultTemplateMappingAsync**](TemplateApi.md#getdefaulttemplatemappingasync) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId |
-| [**PublishConnectionAsync**](TemplateApi.md#publishconnectionasync) |  |
+| [**GetTemplateCommonOperationPropertiesAsync**](TemplateApi.md#gettemplatecommonoperationpropertiesasync) | Get Common properties for specific template |
+| [**GetTemplateInConnectionAsync**](TemplateApi.md#gettemplateinconnectionasync) | Retrieves a specific template by its ID for a given connection within a project. |
+| [**GetTemplatesInConnectionAsync**](TemplateApi.md#gettemplatesinconnectionasync) | Retrieves a list of templates associated with a specific connection within a project. |
+| [**LoadDefaultsAsync**](TemplateApi.md#loaddefaultsasync) | Load parameter defaults for specific template. |
+| [**UpdateTemplateCommonOperationPropertiesAsync**](TemplateApi.md#updatetemplatecommonoperationpropertiesasync) | Set common properties for specific template |
 
 <a id="applytemplate"></a>
 ## **ApplyTemplateAsync**
-> **Object ApplyTemplateAsync (Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = null)**
+> **ConTemplateApplyResult ApplyTemplateAsync (Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = null)**
 
 Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
 
@@ -27,7 +33,7 @@ Apply the connection template applyTemplateParam on the connection connectionId 
 
 ### Return type
 
-**Object**
+[**ConTemplateApplyResult**](ConTemplateApplyResult.md)
 
 ### Example
 
@@ -67,7 +73,7 @@ namespace Example
                     try
                     {
                         // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-                        Object result = await conClient.Template.ApplyTemplateAsync(projectId, connectionId, conTemplateApplyParam);
+                        ConTemplateApplyResult result = await conClient.Template.ApplyTemplateAsync(projectId, connectionId, conTemplateApplyParam);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -99,7 +105,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/apply-template 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/apply-template 
 
 #### Using the ApplyTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -108,7 +114,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-    ApiResponse<Object> response = conClient.Template.ApplyTemplateWithHttpInfo(projectId, connectionId, conTemplateApplyParam);
+    ApiResponse<ConTemplateApplyResult> response = conClient.Template.ApplyTemplateWithHttpInfo(projectId, connectionId, conTemplateApplyParam);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -129,129 +135,6 @@ No authorization required
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
-
-#### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="cleardesign"></a>
-## **ClearDesignAsync**
-> **void ClearDesignAsync (Guid projectId, int connectionId)**
-
-Clear the design of the connection connectionId in the project projectId
-
-
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection where to clear the design |  |
-
-### Return type
-
-void (empty response body)
-
-### Example
-
-Note: this example is autogenerated.
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
-
-namespace Example
-{
-    public class ClearDesignAsyncExample
-    {
-        public static async Task Main()
-        {
-            string ideaConFile = "testCon.ideaCon";
-            
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
-            
-            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
-            {
-                using (var conClient = await clientFactory.CreateApiClient())
-                {
-
-                    // Open the project and get its id
-                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
-                    Guid projectId = projData.ProjectId;
-                    
-                    // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection where to clear the design
-
-                    try
-                    {
-                        // Clear the design of the connection connectionId in the project projectId
-                        conClient.Template.ClearDesignAsync(projectId, connectionId);
-                    }
-                    catch (ApiException  e)
-                    {
-                        Console.WriteLine("Exception when calling Template.ClearDesignAsync: " + e.Message);
-                        Console.WriteLine("Status Code: " + e.ErrorCode);
-                        Console.WriteLine(e.StackTrace);
-                    }
-                    finally
-                    {
-                        await conClient.Project.CloseProjectAsync(projectId);
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-### Code Samples
-
-[!code-csharp[](../examples/CodeSamples/Samples/ClearDesign.cs)]
-
-Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
-
-### REST Usage
-
-#### Http Request
-
-All URIs are relative to *http://localhost*
-
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/clear-design 
-
-#### Using the ClearDesignWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Clear the design of the connection connectionId in the project projectId
-    conClient.Template.ClearDesignWithHttpInfo(projectId, connectionId);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling TemplateApi.ClearDesignWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-#### Authorization
-
-No authorization required
-
-#### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
 
 
 #### HTTP response details
@@ -349,7 +232,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/get-template 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/get-template 
 
 #### Using the CreateConTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -388,11 +271,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getconnectiontopology"></a>
-## **GetConnectionTopologyAsync**
-> **string GetConnectionTopologyAsync (Guid projectId, int connectionId)**
+<a id="delete"></a>
+## **DeleteAsync**
+> **void DeleteAsync (Guid projectId, int connectionId, Guid templateId)**
 
-Get topology of the connection in json format
+Delete specific template
 
 
 
@@ -400,12 +283,13 @@ Get topology of the connection in json format
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection where to clear the design |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
 
 ### Return type
 
-**string**
+void (empty response body)
 
 ### Example
 
@@ -421,7 +305,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetConnectionTopologyAsyncExample
+    public class DeleteAsyncExample
     {
         public static async Task Main()
         {
@@ -439,17 +323,16 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection where to clear the design
+                    connectionId = 56;  // int | 
 
                     try
                     {
-                        // Get topology of the connection in json format
-                        string result = await conClient.Template.GetConnectionTopologyAsync(projectId, connectionId);
-                        Debug.WriteLine(result);
+                        // Delete specific template
+                        conClient.Template.DeleteAsync(projectId, connectionId, templateId);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Template.GetConnectionTopologyAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling Template.DeleteAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -466,7 +349,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/GetConnectionTopology.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/Delete.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -476,23 +359,20 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/2/projects/{projectId}/connections/{connectionId}/get-topology 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
 
-#### Using the GetConnectionTopologyWithHttpInfo variant
+#### Using the DeleteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Get topology of the connection in json format
-    ApiResponse<string> response = conClient.Template.GetConnectionTopologyWithHttpInfo(projectId, connectionId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
+    // Delete specific template
+    conClient.Template.DeleteWithHttpInfo(projectId, connectionId, templateId);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling TemplateApi.GetConnectionTopologyWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling TemplateApi.DeleteWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -505,7 +385,377 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: Not defined
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="deleteall"></a>
+## **DeleteAllAsync**
+> **void DeleteAllAsync (Guid projectId, int connectionId)**
+
+Delete all templates in connection
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class DeleteAllAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Delete all templates in connection
+                        conClient.Template.DeleteAllAsync(projectId, connectionId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.DeleteAllAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/DeleteAll.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/templates 
+
+#### Using the DeleteAllWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Delete all templates in connection
+    conClient.Template.DeleteAllWithHttpInfo(projectId, connectionId);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.DeleteAllWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="explode"></a>
+## **ExplodeAsync**
+> **void ExplodeAsync (Guid projectId, int connectionId, Guid templateId)**
+
+Explode specific template (delete parameters, keep operations)
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class ExplodeAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Explode specific template (delete parameters, keep operations)
+                        conClient.Template.ExplodeAsync(projectId, connectionId, templateId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.ExplodeAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/Explode.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
+
+#### Using the ExplodeWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Explode specific template (delete parameters, keep operations)
+    conClient.Template.ExplodeWithHttpInfo(projectId, connectionId, templateId);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.ExplodeWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="explodeall"></a>
+## **ExplodeAllAsync**
+> **void ExplodeAllAsync (Guid projectId, int connectionId)**
+
+Explode all templates (delete parameters, keep operations)
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class ExplodeAllAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Explode all templates (delete parameters, keep operations)
+                        conClient.Template.ExplodeAllAsync(projectId, connectionId);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.ExplodeAllAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/ExplodeAll.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/explode 
+
+#### Using the ExplodeAllWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Explode all templates (delete parameters, keep operations)
+    conClient.Template.ExplodeAllWithHttpInfo(projectId, connectionId);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.ExplodeAllWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 
 #### HTTP response details
@@ -607,7 +857,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 #### Using the GetDefaultTemplateMappingWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -646,11 +896,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="publishconnection"></a>
-## **PublishConnectionAsync**
-> **bool PublishConnectionAsync (Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = null)**
+<a id="gettemplatecommonoperationproperties"></a>
+## **GetTemplateCommonOperationPropertiesAsync**
+> **ConOperationCommonProperties GetTemplateCommonOperationPropertiesAsync (Guid projectId, int connectionId, Guid templateId)**
 
-
+Get Common properties for specific template
 
 
 
@@ -660,11 +910,11 @@ No authorization required
 |------|------|-------------|-------|
 | **projectId** | **Guid** |  |  |
 | **connectionId** | **int** |  |  |
-| **conTemplatePublishParam** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md) |  | [optional]  |
+| **templateId** | **Guid** |  |  |
 
 ### Return type
 
-**bool**
+[**ConOperationCommonProperties**](ConOperationCommonProperties.md)
 
 ### Example
 
@@ -680,7 +930,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class PublishConnectionAsyncExample
+    public class GetTemplateCommonOperationPropertiesAsyncExample
     {
         public static async Task Main()
         {
@@ -699,16 +949,16 @@ namespace Example
                     
                     // (Required) Select parameters
                     connectionId = 56;  // int | 
-                    var conTemplatePublishParam = new ConTemplatePublishParam(); // ConTemplatePublishParam |  (optional) 
 
                     try
                     {
-                        bool result = await conClient.Template.PublishConnectionAsync(projectId, connectionId, conTemplatePublishParam);
+                        // Get Common properties for specific template
+                        ConOperationCommonProperties result = await conClient.Template.GetTemplateCommonOperationPropertiesAsync(projectId, connectionId, templateId);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Template.PublishConnectionAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling Template.GetTemplateCommonOperationPropertiesAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -725,7 +975,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/PublishConnection.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/GetTemplateCommonOperationProperties.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -735,22 +985,535 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/2/projects/{projectId}/connections/{connectionId}/publish 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
-#### Using the PublishConnectionWithHttpInfo variant
+#### Using the GetTemplateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    ApiResponse<bool> response = conClient.Template.PublishConnectionWithHttpInfo(projectId, connectionId, conTemplatePublishParam);
+    // Get Common properties for specific template
+    ApiResponse<ConOperationCommonProperties> response = conClient.Template.GetTemplateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, templateId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling TemplateApi.PublishConnectionWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling TemplateApi.GetTemplateCommonOperationPropertiesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="gettemplateinconnection"></a>
+## **GetTemplateInConnectionAsync**
+> **ConConnectionTemplate GetTemplateInConnectionAsync (Guid projectId, int connectionId, int templateInstanceId)**
+
+Retrieves a specific template by its ID for a given connection within a project.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the project containing the connection. |  |
+| **connectionId** | **int** | The identifier of the connection. |  |
+| **templateInstanceId** | **int** | The instance identifier of the template to retrieve. |  |
+
+### Return type
+
+[**ConConnectionTemplate**](ConConnectionTemplate.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetTemplateInConnectionAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | The identifier of the connection.
+                    templateInstanceId = 56;  // int | The instance identifier of the template to retrieve.
+
+                    try
+                    {
+                        // Retrieves a specific template by its ID for a given connection within a project.
+                        ConConnectionTemplate result = await conClient.Template.GetTemplateInConnectionAsync(projectId, connectionId, templateInstanceId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.GetTemplateInConnectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetTemplateInConnection.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
+
+#### Using the GetTemplateInConnectionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Retrieves a specific template by its ID for a given connection within a project.
+    ApiResponse<ConConnectionTemplate> response = conClient.Template.GetTemplateInConnectionWithHttpInfo(projectId, connectionId, templateInstanceId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.GetTemplateInConnectionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="gettemplatesinconnection"></a>
+## **GetTemplatesInConnectionAsync**
+> **List&lt;ConConnectionTemplate&gt; GetTemplatesInConnectionAsync (Guid projectId, int connectionId)**
+
+Retrieves a list of templates associated with a specific connection within a project.
+
+This method fetches the templates applied to a connection within a project. Each template              includes details such as its ID within the project, template id, members, operations, parameters, and associated common properties.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the project containing the connection. |  |
+| **connectionId** | **int** | The identifier of the connection for which templates are to be retrieved. |  |
+
+### Return type
+
+[**List&lt;ConConnectionTemplate&gt;**](ConConnectionTemplate.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetTemplatesInConnectionAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | The identifier of the connection for which templates are to be retrieved.
+
+                    try
+                    {
+                        // Retrieves a list of templates associated with a specific connection within a project.
+                        List<ConConnectionTemplate> result = await conClient.Template.GetTemplatesInConnectionAsync(projectId, connectionId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.GetTemplatesInConnectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetTemplatesInConnection.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates 
+
+#### Using the GetTemplatesInConnectionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Retrieves a list of templates associated with a specific connection within a project.
+    ApiResponse<List<ConConnectionTemplate>> response = conClient.Template.GetTemplatesInConnectionWithHttpInfo(projectId, connectionId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.GetTemplatesInConnectionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="loaddefaults"></a>
+## **LoadDefaultsAsync**
+> **ParameterUpdateResponse LoadDefaultsAsync (Guid projectId, int connectionId, Guid templateId)**
+
+Load parameter defaults for specific template.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
+
+### Return type
+
+[**ParameterUpdateResponse**](ParameterUpdateResponse.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class LoadDefaultsAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+
+                    try
+                    {
+                        // Load parameter defaults for specific template.
+                        ParameterUpdateResponse result = await conClient.Template.LoadDefaultsAsync(projectId, connectionId, templateId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.LoadDefaultsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/LoadDefaults.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
+
+#### Using the LoadDefaultsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Load parameter defaults for specific template.
+    ApiResponse<ParameterUpdateResponse> response = conClient.Template.LoadDefaultsWithHttpInfo(projectId, connectionId, templateId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.LoadDefaultsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="updatetemplatecommonoperationproperties"></a>
+## **UpdateTemplateCommonOperationPropertiesAsync**
+> **void UpdateTemplateCommonOperationPropertiesAsync (Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = null)**
+
+Set common properties for specific template
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
+| **conOperationCommonProperties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md) |  | [optional]  |
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class UpdateTemplateCommonOperationPropertiesAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    connectionId = 56;  // int | 
+                    var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties |  (optional) 
+
+                    try
+                    {
+                        // Set common properties for specific template
+                        conClient.Template.UpdateTemplateCommonOperationPropertiesAsync(projectId, connectionId, templateId, conOperationCommonProperties);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Template.UpdateTemplateCommonOperationPropertiesAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/UpdateTemplateCommonOperationProperties.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+
+#### Using the UpdateTemplateCommonOperationPropertiesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Set common properties for specific template
+    conClient.Template.UpdateTemplateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, templateId, conOperationCommonProperties);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.UpdateTemplateCommonOperationPropertiesWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -763,7 +1526,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details

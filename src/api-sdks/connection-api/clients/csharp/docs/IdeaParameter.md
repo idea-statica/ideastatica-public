@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** |  | [optional] 
 **Expression** | **string** |  | [optional] 
+**Default** | **string** |  | [optional] 
 **Value** | **Object** |  | [optional] 
 **Unit** | **string** |  | [optional] 
 **ParameterType** | **string** |  | [optional] 
-**ValidationExpression** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **ValidationStatus** | **string** |  | [optional] 
 **IsVisible** | **bool?** |  | [optional] 
