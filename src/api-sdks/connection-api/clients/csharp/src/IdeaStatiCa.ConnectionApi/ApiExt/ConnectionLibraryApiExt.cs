@@ -35,7 +35,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		{
 		}
 
-		/// <inheritdoc cref="IConnectionLibraryApiExt.GetDesignItemPictureDataAsync(ValueTuple{Guid, Guid, System.Threading.CancellationToken})"/>
+		/// <inheritdoc cref="IConnectionLibraryApiExt.GetDesignItemPictureDataAsync(Guid, Guid, System.Threading.CancellationToken)"/>
 		public async Task<byte[]> GetDesignItemPictureDataAsync(Guid designSetId, Guid designItemId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			var response = await base.GetDesignItemPictureWithHttpInfoAsync(designSetId, designItemId, "image/png", 0, cancellationToken);
