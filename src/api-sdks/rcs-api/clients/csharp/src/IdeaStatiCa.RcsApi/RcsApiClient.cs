@@ -99,7 +99,8 @@ namespace IdeaStatiCa.RcsApi
 			{
 				if (disposing)
 				{
-					CloseAsync().Wait();
+					// perform destruction on the background task to avoid deadlock
+					Task.Run(() => CloseAsync()).Wait();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
