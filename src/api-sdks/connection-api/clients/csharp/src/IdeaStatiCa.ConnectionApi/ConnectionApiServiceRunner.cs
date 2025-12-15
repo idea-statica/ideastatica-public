@@ -116,6 +116,7 @@ namespace IdeaStatiCa.ConnectionApi
 				serviceProcess.Dispose();
 				serviceProcess = null;
 			}
+			GC.SuppressFinalize(this);
 		}
 
 		private async Task<bool> WaitForApiToBeReady(Uri apiUrl, Process process, CancellationToken cts)

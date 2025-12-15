@@ -65,7 +65,7 @@ namespace ConApiWpfClientApp
 		{
 			if (this.mainWindowViewModel != null)
 			{
-				Task.Run(() => this.mainWindowViewModel.DisposeAsync()).Wait();
+				Task.Run(() => this.mainWindowViewModel.OnExitApplication()).Wait();
 				this.mainWindowViewModel = null;
 			}
 			
