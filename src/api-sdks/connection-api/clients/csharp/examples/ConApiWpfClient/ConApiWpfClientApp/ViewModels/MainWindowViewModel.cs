@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.ViewModels
 {
-	public class MainWindowViewModel : ViewModelBase, IDisposable
+	public class MainWindowViewModel : ViewModelBase, IAsyncDisposable
 	{
 		private IApiServiceFactory<IConnectionApiClient>? _connectionApiClientFactory;
 		private readonly IConfiguration _configuration;
@@ -1103,37 +1103,31 @@ namespace ConApiWpfClientApp.ViewModels
 
 		}
 
-		protected virtual void Dispose(bool disposing)
+		public async ValueTask DisposeAsync()
 		{
 			if (!disposedValue)
 			{
-				if (disposing)
+				if(ConApiClient != null)
 				{
-					if(ConApiClient != null)
-					{
-						ConApiClient.Dispose();
-						ConApiClient = null;
-					}
+					await ConApiClient.DisposeAsync();
+					ConApiClient = null;
+				}
 
-					if (RunApiServer == true && _connectionApiClientFactory != null)
+				if (RunApiServer == true && _connectionApiClientFactory != null)
+				{
+					if (_connectionApiClientFactory is IAsyncDisposable asyncDisp)
 					{
-						if (_connectionApiClientFactory is IDisposable disp)
-						{ 
-							disp.Dispose();
-						}
-						_connectionApiClientFactory = null;
+						await asyncDisp.DisposeAsync();
 					}
+					else if (_connectionApiClientFactory is IDisposable disp)
+					{ 
+						disp.Dispose();
+					}
+					_connectionApiClientFactory = null;
 				}
 
 				disposedValue = true;
 			}
-		}
-
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-			Dispose(disposing: true);
-			GC.SuppressFinalize(this);
 		}
 
 		private void RefreshCommands()
