@@ -74,6 +74,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
+			GetMembersCommand = new AsyncRelayCommand(GetMembersAsync, () => SelectedConnection != null);
+
 			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
 
 			DeleteOperationsCommand = new AsyncRelayCommand(DeleteOperationsAsync, () => SelectedConnection != null);
@@ -249,6 +251,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
 		public AsyncRelayCommand<object?> ApplyTemplateCommand { get; }
+
+		public AsyncRelayCommand GetMembersCommand { get; }
 
 		public AsyncRelayCommand GetOperationsCommand { get; }
 
@@ -1045,6 +1049,52 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		private async Task GetMembersAsync()
+		{
+			_logger.LogInformation("GetMembersAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var members = await ConApiClient.Member.GetMembersAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				if (members == null)
+				{
+					OutputText = "No members";
+				}
+				else
+				{
+					OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(members);
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetMembersAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
 		private async Task GenerateReportAsync(object? parameter)
 		{
 			_logger.LogInformation("GenerateReportAsync");
@@ -1306,6 +1356,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
 			this.GetTopologyCommand.NotifyCanExecuteChanged();
 			this.GetSceneDataCommand.NotifyCanExecuteChanged();
+			this.GetMembersCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
 			this.DeleteOperationsCommand.NotifyCanExecuteChanged();
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
