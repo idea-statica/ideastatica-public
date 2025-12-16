@@ -21,8 +21,6 @@ namespace IdeaStatiCa.Api.RCS
 		object GetSettings();
 		object SetSettings(List<RcsSetting> changes);
 
-		[Obsolete]
-		void SaveAsIdeaProjectFile(string ideaProjectPath);
 		Task SaveAsIdeaProjectFileAsync(string ideaProjectPath);
 
 		bool Calculate(IEnumerable<int> sections);
