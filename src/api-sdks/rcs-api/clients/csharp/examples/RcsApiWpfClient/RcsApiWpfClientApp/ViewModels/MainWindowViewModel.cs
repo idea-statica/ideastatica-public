@@ -1,16 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.Api.Connection;
-using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RcsApi;
 using IdeaStatiCa.RcsClient.Services;
-using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace RcsApiWpfClientApp.ViewModels
 {
-	public class MainWindowViewModel :ViewModelBase, IAsyncDisposable
+	public class MainWindowViewModel :ViewModelBase
 	{
 		private IApiServiceFactory<IRcsApiClient>? _rcsApiClientFactory;
 		private readonly IConfiguration _configuration;
@@ -882,31 +877,30 @@ namespace RcsApiWpfClientApp.ViewModels
 		//	}
 		//}
 
-		public async ValueTask DisposeAsync()
+		public Task OnExitApplication()
 		{
-			if (!disposedValue)
+			return Task.Run(() =>
 			{
-				if (RcsApiClient != null)
+				if (!disposedValue)
 				{
-					await RcsApiClient.DisposeAsync();
-					RcsApiClient = null;
-				}
-
-				if (RunApiServer == true && _rcsApiClientFactory != null)
-				{
-					if (_rcsApiClientFactory is IAsyncDisposable asyncDisp)
+					if (RcsApiClient != null)
 					{
-						await asyncDisp.DisposeAsync();
+						RcsApiClient.Dispose();
+						RcsApiClient = null;
 					}
-					else if (_rcsApiClientFactory is IDisposable disp)
-					{
-						disp.Dispose();
-					}
-					_rcsApiClientFactory = null;
-				}
 
-				disposedValue = true;
-			}
+					if (RunApiServer == true && _rcsApiClientFactory != null)
+					{
+						if (_rcsApiClientFactory is IDisposable disp)
+						{
+							disp.Dispose();
+						}
+						_rcsApiClientFactory = null;
+					}
+
+					disposedValue = true;
+				}
+			});
 		}
 
 		private void RefreshCommands()
