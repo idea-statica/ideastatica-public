@@ -99,7 +99,8 @@ namespace IdeaStatiCa.RcsApi
 			{
 				if (disposing)
 				{
-					CloseAsync().Wait();
+					// perform destruction on the background task to avoid deadlock
+					Task.Run(() => CloseAsync()).Wait();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
@@ -128,7 +129,6 @@ namespace IdeaStatiCa.RcsApi
 		/// C# 8.0 and higher should use DisposeAsync
 		/// <see href="https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-disposeasync"/>
 		/// </summary>
-		[Obsolete("Use DisposeAsync")]
 		public void Dispose()
 		{
 			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
