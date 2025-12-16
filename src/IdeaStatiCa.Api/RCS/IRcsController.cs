@@ -5,6 +5,7 @@ using IdeaStatiCa.Api.RCS.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Api.RCS
 {
@@ -20,7 +21,9 @@ namespace IdeaStatiCa.Api.RCS
 		object GetSettings();
 		object SetSettings(List<RcsSetting> changes);
 
+		[Obsolete]
 		void SaveAsIdeaProjectFile(string ideaProjectPath);
+		Task SaveAsIdeaProjectFileAsync(string ideaProjectPath);
 
 		bool Calculate(IEnumerable<int> sections);
 		IEnumerable<SectionConcreteCheckResult> GetResultOnSections(CancellationToken cancellationToken, params int[] sections);
