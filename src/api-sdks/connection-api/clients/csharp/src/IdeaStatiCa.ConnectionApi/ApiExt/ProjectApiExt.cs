@@ -51,11 +51,25 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			this._connectionApiClient = connectionApiClient;
 		}
 
-		/// <inheritdoc cref="IConnectionApiClient.ProjectId"/>/>
+		/// <inheritdoc cref="IProjectApiExtAsync.ProjectId"/>/>
 		public Guid ProjectId
 		{
 			get => activeProjectId;
 			private set => activeProjectId = value;
+		}
+
+		/// <inheritdoc cref="IProjectApiAsync.CloseProjectAsync(Guid, int, System.Threading.CancellationToken)"/>/>
+		public new async System.Threading.Tasks.Task<string> CloseProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			try
+			{
+				var res = await base.CloseProjectAsync(projectId, operationIndex, cancellationToken);
+				return res;
+			}
+			finally
+			{
+				ProjectId = Guid.Empty;
+			}
 		}
 
 		public async Task<ConProject> OpenProjectAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))

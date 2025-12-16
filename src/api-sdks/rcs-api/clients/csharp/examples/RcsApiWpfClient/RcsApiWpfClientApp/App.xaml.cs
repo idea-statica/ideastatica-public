@@ -7,6 +7,7 @@ using RcsApiClient.Services;
 using RcsApiWpfClientApp.ViewModels;
 using RcsApiWpfClientApp.Views;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace RcsApiWpfClientApp
@@ -54,7 +55,7 @@ namespace RcsApiWpfClientApp
 		{
 			if (this.mainWindowViewModel != null)
 			{
-				this.mainWindowViewModel.Dispose();
+				Task.Run(() => this.mainWindowViewModel.OnExitApplication()).Wait();
 				this.mainWindowViewModel = null;
 			}
 			

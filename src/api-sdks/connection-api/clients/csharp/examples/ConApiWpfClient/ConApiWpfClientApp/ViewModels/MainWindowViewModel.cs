@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.ViewModels
 {
-	public class MainWindowViewModel : ViewModelBase, IDisposable
+	public class MainWindowViewModel : ViewModelBase
 	{
 		private IApiServiceFactory<IConnectionApiClient>? _connectionApiClientFactory;
 		private readonly IConfiguration _configuration;
@@ -1316,13 +1316,13 @@ namespace ConApiWpfClientApp.ViewModels
 
 		}
 
-		protected virtual void Dispose(bool disposing)
+		public Task OnExitApplication()
 		{
-			if (!disposedValue)
+			return Task.Run(() =>
 			{
-				if (disposing)
+				if (!disposedValue)
 				{
-					if(ConApiClient != null)
+					if (ConApiClient != null)
 					{
 						ConApiClient.Dispose();
 						ConApiClient = null;
@@ -1331,22 +1331,15 @@ namespace ConApiWpfClientApp.ViewModels
 					if (RunApiServer == true && _connectionApiClientFactory != null)
 					{
 						if (_connectionApiClientFactory is IDisposable disp)
-						{ 
+						{
 							disp.Dispose();
 						}
 						_connectionApiClientFactory = null;
 					}
+
+					disposedValue = true;
 				}
-
-				disposedValue = true;
-			}
-		}
-
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-			Dispose(disposing: true);
-			GC.SuppressFinalize(this);
+			});
 		}
 
 		private void RefreshCommands()
