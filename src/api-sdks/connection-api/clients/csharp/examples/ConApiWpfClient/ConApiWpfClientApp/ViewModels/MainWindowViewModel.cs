@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using ConApiWpfClientApp.Models;
+using ConApiWpfClientApp.Services;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
@@ -64,7 +66,7 @@ namespace ConApiWpfClientApp.ViewModels
 
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
 
-			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
+			ApplyTemplateCommand = new AsyncRelayCommand<object?>((p) => ApplyTemplateAsync(p), (p) => SelectedConnection != null);
 
 			CreateTemplateCommand = new AsyncRelayCommand(CreateTemplateAsync, () => SelectedConnection != null);
 
@@ -73,7 +75,11 @@ namespace ConApiWpfClientApp.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
+			GetMembersCommand = new AsyncRelayCommand(GetMembersAsync, () => SelectedConnection != null);
+
 			GetOperationsCommand = new AsyncRelayCommand(GetOperationsAsync, () => SelectedConnection != null);
+
+			DeleteOperationsCommand = new AsyncRelayCommand(DeleteOperationsAsync, () => SelectedConnection != null);
 
 			GenerateReportCommand = new AsyncRelayCommand<object>(GenerateReportAsync, (param) => SelectedConnection != null);
 
@@ -86,6 +92,8 @@ namespace ConApiWpfClientApp.ViewModels
 			UpdateSettingsCommand = new AsyncRelayCommand(UpdateSettingsAsync, () => this.ProjectInfo != null);
 
 			WeldSizingCommand = new AsyncRelayCommand(DoWeldSizingAsync, () => SelectedConnection != null);
+
+			UpdateConnectionLoadingCommand = new AsyncRelayCommand(UpdateConnectionLoadingAsync, () => SelectedConnection != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
@@ -243,9 +251,13 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
-		public AsyncRelayCommand ApplyTemplateCommand { get; }
+		public AsyncRelayCommand<object?> ApplyTemplateCommand { get; }
+
+		public AsyncRelayCommand GetMembersCommand { get; }
 
 		public AsyncRelayCommand GetOperationsCommand { get; }
+
+		public AsyncRelayCommand DeleteOperationsCommand { get; }
 
 		public AsyncRelayCommand CreateTemplateCommand { get; }
 
@@ -269,6 +281,8 @@ namespace ConApiWpfClientApp.ViewModels
 		public AsyncRelayCommand UpdateSettingsCommand { get; }
 
 		public AsyncRelayCommand WeldSizingCommand { get; }
+
+		public AsyncRelayCommand UpdateConnectionLoadingCommand { get; }
 
 		private async Task ShowIdeaStatiCaLogsAsync()
 		{
@@ -611,6 +625,44 @@ namespace ConApiWpfClientApp.ViewModels
 			await Task.CompletedTask;
 		}
 
+		internal async Task ProposeDesignAsync()
+		{
+			_logger.LogInformation("ProposeDesignAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var searchParameters = new IdeaStatiCa.Api.Connection.Model.ConConnectionLibrarySearchParameters();
+
+				var proposedDesignItems = await ConApiClient.ConnectionLibrary.ProposeAsync(ProjectInfo.ProjectId, SelectedConnection!.Id, searchParameters, 0, cts.Token);
+
+				var proposedItemsJson = Tools.JsonTools.ToFormatedJson(proposedDesignItems);
+				OutputText = proposedItemsJson;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("ProposeDesignAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
 		internal async Task DownloadProjectAsync()
 		{
 			_logger.LogInformation("DownloadProjectAsync");
@@ -759,7 +811,7 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
-		private async Task ApplyTemplateAsync()
+		private async Task ApplyTemplateAsync(object? arg)
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
 
@@ -781,19 +833,35 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				OpenFileDialog openFileDialog = new OpenFileDialog();
-				openFileDialog.Filter = "Connection Template | *.conTemp";
-				if (openFileDialog.ShowDialog() != true)
+				ConnectionLibraryModel? templateRes = null;
+				if (arg?.ToString()?.Equals("ConnectionLibrary", StringComparison.InvariantCultureIgnoreCase) == true)
 				{
-					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
+					var proposeService = new ConnectionLibraryProposer(ConApiClient, _logger);
+
+					templateRes = await proposeService.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
+				}
+				else
+				{
+					ITemplateProvider templateProvider = new TemplateProviderFile();
+					templateRes = await templateProvider.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
+				}
+
+
+				if (templateRes == null || string.IsNullOrEmpty(templateRes.SelectedTemplateXml) == true)
+				{
+					_logger.LogInformation("ApplyTemplateAsync : no template, leaving");
 					return;
 				}
 
-				var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
 				var getTemplateParam = new ConTemplateMappingGetParam()
 				{
-					Template = templateXml
+					Template = templateRes.SelectedTemplateXml,
 				};
+
+				if(templateRes?.SearchParameters?.Members?.Any() == true)
+				{
+					getTemplateParam.MemberIds = templateRes.SearchParameters.Members;
+				}
 
 				var templateMapping = await ConApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
 					selectedConnection.Id,
@@ -815,8 +883,9 @@ namespace ConApiWpfClientApp.ViewModels
 
 				var applyTemplateParam = new ConTemplateApplyParam()
 				{
-					ConnectionTemplate = templateXml,
-					Mapping = modifiedTemplateMapping
+					ConnectionTemplate = templateRes.SelectedTemplateXml,
+					Mapping = modifiedTemplateMapping,
+					
 				};
 
 				var applyTemplateResult = await ConApiClient.Template.ApplyTemplateAsync(ProjectInfo.ProjectId,
@@ -837,6 +906,104 @@ namespace ConApiWpfClientApp.ViewModels
 				IsBusy = false;
 				RefreshCommands();
 
+				await ShowClientUIAsync();
+			}
+		}
+
+		private async Task UpdateConnectionLoadingAsync()
+		{
+			_logger.LogInformation("UpdateConnectionLoadingCommand");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var connectionLoadingData = await ConApiClient.LoadEffect.GetLoadEffectsAsync(ProjectInfo.ProjectId, SelectedConnection.Id, false, 0, cts.Token);
+
+				if (connectionLoadingData == null || connectionLoadingData.Any() == false)
+				{
+					_logger.LogInformation("UpdateConnectionLoadingCommand : no loading for connection");
+					return;
+				}
+
+				var jsonEditorService = new JsonEditorService<List<ConLoadEffect>>();
+				var editedLoadEffects = await jsonEditorService.EditAsync(connectionLoadingData);
+
+				if(editedLoadEffects == null || editedLoadEffects.Any() == false)
+				{
+					return;
+				}
+
+				foreach (var loadEffect in editedLoadEffects)
+				{
+					var updateRes = await ConApiClient.LoadEffect.UpdateLoadEffectAsync(ProjectInfo.ProjectId, SelectedConnection.Id, loadEffect, 0, cts.Token);
+				}
+
+				OutputText = "Loading was updated";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("UpdateConnectionLoadingCommand failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+		}
+
+		private async Task DeleteOperationsAsync()
+		{
+			_logger.LogInformation("DeleteOperationsAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				await ConApiClient.Operation.DeleteOperationsAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				OutputText = "Operations were removed";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("DeleteOperationsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
 				await ShowClientUIAsync();
 			}
 		}
@@ -878,6 +1045,52 @@ namespace ConApiWpfClientApp.ViewModels
 			catch (Exception ex)
 			{
 				_logger.LogWarning("GetOperationsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task GetMembersAsync()
+		{
+			_logger.LogInformation("GetMembersAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConApiClient == null)
+			{
+				return;
+			}
+
+			if (SelectedConnection == null || SelectedConnection.Id < 1)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var members = await ConApiClient.Member.GetMembersAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id, 0, cts.Token);
+
+				if (members == null)
+				{
+					OutputText = "No members";
+				}
+				else
+				{
+					OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(members);
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetMembersAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -1141,12 +1354,16 @@ namespace ConApiWpfClientApp.ViewModels
 			this.CreateTemplateCommand.NotifyCanExecuteChanged();
 			this.GetTopologyCommand.NotifyCanExecuteChanged();
 			this.GetSceneDataCommand.NotifyCanExecuteChanged();
+			this.GetMembersCommand.NotifyCanExecuteChanged();
 			this.GetOperationsCommand.NotifyCanExecuteChanged();
+			this.DeleteOperationsCommand.NotifyCanExecuteChanged();
 			this.GenerateReportCommand.NotifyCanExecuteChanged();
 			this.ExportCommand.NotifyCanExecuteChanged();
 			this.GetSettingsCommand.NotifyCanExecuteChanged();
 			this.UpdateSettingsCommand.NotifyCanExecuteChanged();
 			this.WeldSizingCommand.NotifyCanExecuteChanged();
+			this.UpdateConnectionLoadingCommand.NotifyCanExecuteChanged();
+
 			this.OnPropertyChanged("CanStartService");
 		}
 
