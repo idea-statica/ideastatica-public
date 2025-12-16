@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using ConApiWpfClientApp.Models;
 using ConApiWpfClientApp.Services;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
@@ -832,21 +833,21 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				string templateXml = string.Empty;
+				ConnectionLibraryModel? templateRes = null;
 				if (arg?.ToString()?.Equals("ConnectionLibrary", StringComparison.InvariantCultureIgnoreCase) == true)
 				{
 					var proposeService = new ConnectionLibraryProposer(ConApiClient, _logger);
 
-					templateXml = await proposeService.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
+					templateRes = await proposeService.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
 				}
 				else
 				{
 					ITemplateProvider templateProvider = new TemplateProviderFile();
-					templateXml = await templateProvider.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
+					templateRes = await templateProvider.GetTemplateAsync(ProjectInfo.ProjectId, selectedConnection.Id, cts.Token);
 				}
 
 
-				if (string.IsNullOrEmpty(templateXml))
+				if (templateRes == null || string.IsNullOrEmpty(templateRes.SelectedTemplateXml) == true)
 				{
 					_logger.LogInformation("ApplyTemplateAsync : no template, leaving");
 					return;
@@ -854,10 +855,13 @@ namespace ConApiWpfClientApp.ViewModels
 
 				var getTemplateParam = new ConTemplateMappingGetParam()
 				{
-					Template = templateXml
+					Template = templateRes.SelectedTemplateXml,
 				};
 
-
+				if(templateRes?.SearchParameters?.Members?.Any() == true)
+				{
+					getTemplateParam.MemberIds = templateRes.SearchParameters.Members;
+				}
 
 				var templateMapping = await ConApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
 					selectedConnection.Id,
@@ -879,8 +883,9 @@ namespace ConApiWpfClientApp.ViewModels
 
 				var applyTemplateParam = new ConTemplateApplyParam()
 				{
-					ConnectionTemplate = templateXml,
-					Mapping = modifiedTemplateMapping
+					ConnectionTemplate = templateRes.SelectedTemplateXml,
+					Mapping = modifiedTemplateMapping,
+					
 				};
 
 				var applyTemplateResult = await ConApiClient.Template.ApplyTemplateAsync(ProjectInfo.ProjectId,

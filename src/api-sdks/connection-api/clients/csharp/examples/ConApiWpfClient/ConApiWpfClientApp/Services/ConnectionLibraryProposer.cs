@@ -4,6 +4,7 @@ using ConApiWpfClientApp.Views;
 using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.Plugin;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,14 +22,17 @@ namespace ConApiWpfClientApp.Services
 			_logger = logger;
 		}
 
-		public async Task<string> GetTemplateAsync(Guid projectId, int connectionId, CancellationToken cts)
+		public async Task<ConnectionLibraryModel?> GetTemplateAsync(Guid projectId, int connectionId, CancellationToken cts)
 		{
 			_logger.LogInformation("ConnectionLibraryProposer.GetTemplateAsync");
+
+			var members = await _connectionApiClient.Member.GetMembersAsync(projectId, connectionId, 0, cts);
 
 			var model = new ConnectionLibraryModel();
 			model.SearchParameters.InPredefinedSet = true;
 			model.SearchParameters.InCompanySet = true;
 			model.SearchParameters.InPersonalSet = true;
+			model.SearchParameters.Members = members.Select(m => m.Id).ToList();
 
 			var vm = new ConnectionLibraryViewModel(_logger, model, _connectionApiClient);
 
@@ -43,11 +47,12 @@ namespace ConApiWpfClientApp.Services
 			if(dlgRes != true || string.IsNullOrEmpty(vm?.SelectedCdiVM?.TemplateXml))
 			{
 				_logger.LogInformation("ConnectionLibraryProposer.GetTemplateAsync : Operation is cancelled");
-				return string.Empty;
+				return null;
 			}
 
 			_logger.LogInformation("ConnectionLibraryProposer.GetTemplateAsync : Returning the selected template");
-			return vm.SelectedCdiVM.TemplateXml;
+			model.SelectedTemplateXml = vm.SelectedCdiVM.TemplateXml;
+			return model;
 		}
 	}
 }
