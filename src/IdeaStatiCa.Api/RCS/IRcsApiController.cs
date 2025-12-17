@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Api.RCS
 {
+	/// <summary>
+	/// Defines the contract for controlling and interacting with an RCS (Reinforced Concrete Structure) project, including
+	/// project management, calculation, data retrieval, and settings operations.
+	/// </summary>
+	/// <remarks>This interface provides asynchronous methods for opening, creating, calculating, and managing RCS
+	/// projects and their associated data. Implementations are expected to manage the lifecycle of a project and support
+	/// cancellation via provided tokens. The interface inherits from <see cref="IDisposable"/>, indicating that resources
+	/// should be released when the controller is no longer needed.</remarks>
 	public interface IRcsApiController : IDisposable
 	{
 		/// <summary>
