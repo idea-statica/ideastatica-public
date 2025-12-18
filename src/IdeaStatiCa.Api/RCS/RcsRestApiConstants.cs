@@ -5,6 +5,7 @@
 		public const string Projects = "projects";
 		public const string Sections = "sections";
 		public const string CrossSections = "cross-sections";
+		public const string ReinforcedCrossSections = "reinforced-cross-sections";
 		public const string InternalForces = "internal-forces";
 		public const string Materials = "materials";
 	}
