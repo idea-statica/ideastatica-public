@@ -17,10 +17,13 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
+from pydantic import Field, StrictInt, StrictStr
 from typing import List, Optional
+from typing_extensions import Annotated
 from ideastatica_rcs_api.models.rcs_reinforced_cross_section import RcsReinforcedCrossSection
 from ideastatica_rcs_api.models.rcs_reinforced_cross_section_import_data import RcsReinforcedCrossSectionImportData
+from ideastatica_rcs_api.models.reinforced_cross_section import ReinforcedCrossSection
+from ideastatica_rcs_api.models.reinforced_cross_section_data import ReinforcedCrossSectionData
 
 from ideastatica_rcs_api.api_client import ApiClient, RequestSerialized
 from ideastatica_rcs_api.api_response import ApiResponse
@@ -41,10 +44,10 @@ class CrossSectionApi:
 
 
     @validate_call
-    def import_reinforced_cross_section(
+    def add_reinforced_cross_section(
         self,
-        project_id: StrictStr,
-        rcs_reinforced_cross_section_import_data: Optional[RcsReinforcedCrossSectionImportData] = None,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        reinforced_cross_section_data: Annotated[Optional[ReinforcedCrossSectionData], Field(description="Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -58,12 +61,575 @@ class CrossSectionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RcsReinforcedCrossSection:
-        """Import reinforced cross-section
+        """Add a new reinforced cross-section to the project from embedded geometry
 
 
-        :param project_id:  (required)
+        :param project_id: Project ID (required)
         :type project_id: str
-        :param rcs_reinforced_cross_section_import_data: 
+        :param reinforced_cross_section_data: Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID.
+        :type reinforced_cross_section_data: ReinforcedCrossSectionData
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_reinforced_cross_section_serialize(
+            project_id=project_id,
+            reinforced_cross_section_data=reinforced_cross_section_data,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "RcsReinforcedCrossSection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def add_reinforced_cross_section_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        reinforced_cross_section_data: Annotated[Optional[ReinforcedCrossSectionData], Field(description="Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[RcsReinforcedCrossSection]:
+        """Add a new reinforced cross-section to the project from embedded geometry
+
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param reinforced_cross_section_data: Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID.
+        :type reinforced_cross_section_data: ReinforcedCrossSectionData
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_reinforced_cross_section_serialize(
+            project_id=project_id,
+            reinforced_cross_section_data=reinforced_cross_section_data,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "RcsReinforcedCrossSection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def add_reinforced_cross_section_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        reinforced_cross_section_data: Annotated[Optional[ReinforcedCrossSectionData], Field(description="Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Add a new reinforced cross-section to the project from embedded geometry
+
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param reinforced_cross_section_data: Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID.
+        :type reinforced_cross_section_data: ReinforcedCrossSectionData
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_reinforced_cross_section_serialize(
+            project_id=project_id,
+            reinforced_cross_section_data=reinforced_cross_section_data,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "RcsReinforcedCrossSection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _add_reinforced_cross_section_serialize(
+        self,
+        project_id,
+        reinforced_cross_section_data,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if reinforced_cross_section_data is not None:
+            _body_params = reinforced_cross_section_data
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/xml', 
+                        'text/xml', 
+                        'application/*+xml', 
+                        'application/json-patch+json', 
+                        'application/json', 
+                        'text/json', 
+                        'application/*+json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/1/projects/{projectId}/cross-sections/reinforced-cross-sections',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_reinforced_cross_section_data(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        reinforced_css_section_id: Annotated[StrictInt, Field(description="Reinforced cross-section ID")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReinforcedCrossSection:
+        """Get reinforced cross-section with full geometry (IOM format)
+
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param reinforced_css_section_id: Reinforced cross-section ID (required)
+        :type reinforced_css_section_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_reinforced_cross_section_data_serialize(
+            project_id=project_id,
+            reinforced_css_section_id=reinforced_css_section_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReinforcedCrossSection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_reinforced_cross_section_data_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        reinforced_css_section_id: Annotated[StrictInt, Field(description="Reinforced cross-section ID")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReinforcedCrossSection]:
+        """Get reinforced cross-section with full geometry (IOM format)
+
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param reinforced_css_section_id: Reinforced cross-section ID (required)
+        :type reinforced_css_section_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_reinforced_cross_section_data_serialize(
+            project_id=project_id,
+            reinforced_css_section_id=reinforced_css_section_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReinforcedCrossSection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_reinforced_cross_section_data_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        reinforced_css_section_id: Annotated[StrictInt, Field(description="Reinforced cross-section ID")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get reinforced cross-section with full geometry (IOM format)
+
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param reinforced_css_section_id: Reinforced cross-section ID (required)
+        :type reinforced_css_section_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_reinforced_cross_section_data_serialize(
+            project_id=project_id,
+            reinforced_css_section_id=reinforced_css_section_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReinforcedCrossSection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_reinforced_cross_section_data_serialize(
+        self,
+        project_id,
+        reinforced_css_section_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if reinforced_css_section_id is not None:
+            _path_params['reinforcedCssSectionId'] = reinforced_css_section_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/1/projects/{projectId}/cross-sections/reinforced-cross-sections/{reinforcedCssSectionId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def import_reinforced_cross_section(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        rcs_reinforced_cross_section_import_data: Annotated[Optional[RcsReinforcedCrossSectionImportData], Field(description="Import data containing settings and template")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RcsReinforcedCrossSection:
+        """Import reinforced cross-section from template
+
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param rcs_reinforced_cross_section_import_data: Import data containing settings and template
         :type rcs_reinforced_cross_section_import_data: RcsReinforcedCrossSectionImportData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -113,8 +679,8 @@ class CrossSectionApi:
     @validate_call
     def import_reinforced_cross_section_with_http_info(
         self,
-        project_id: StrictStr,
-        rcs_reinforced_cross_section_import_data: Optional[RcsReinforcedCrossSectionImportData] = None,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        rcs_reinforced_cross_section_import_data: Annotated[Optional[RcsReinforcedCrossSectionImportData], Field(description="Import data containing settings and template")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -128,12 +694,12 @@ class CrossSectionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[RcsReinforcedCrossSection]:
-        """Import reinforced cross-section
+        """Import reinforced cross-section from template
 
 
-        :param project_id:  (required)
+        :param project_id: Project ID (required)
         :type project_id: str
-        :param rcs_reinforced_cross_section_import_data: 
+        :param rcs_reinforced_cross_section_import_data: Import data containing settings and template
         :type rcs_reinforced_cross_section_import_data: RcsReinforcedCrossSectionImportData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -183,8 +749,8 @@ class CrossSectionApi:
     @validate_call
     def import_reinforced_cross_section_without_preload_content(
         self,
-        project_id: StrictStr,
-        rcs_reinforced_cross_section_import_data: Optional[RcsReinforcedCrossSectionImportData] = None,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        rcs_reinforced_cross_section_import_data: Annotated[Optional[RcsReinforcedCrossSectionImportData], Field(description="Import data containing settings and template")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -198,12 +764,12 @@ class CrossSectionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Import reinforced cross-section
+        """Import reinforced cross-section from template
 
 
-        :param project_id:  (required)
+        :param project_id: Project ID (required)
         :type project_id: str
-        :param rcs_reinforced_cross_section_import_data: 
+        :param rcs_reinforced_cross_section_import_data: Import data containing settings and template
         :type rcs_reinforced_cross_section_import_data: RcsReinforcedCrossSectionImportData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -334,7 +900,7 @@ class CrossSectionApi:
     @validate_call
     def reinforced_cross_sections(
         self,
-        project_id: StrictStr,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -351,7 +917,7 @@ class CrossSectionApi:
         """Get reinforced cross sections
 
 
-        :param project_id:  (required)
+        :param project_id: Project ID (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -400,7 +966,7 @@ class CrossSectionApi:
     @validate_call
     def reinforced_cross_sections_with_http_info(
         self,
-        project_id: StrictStr,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -417,7 +983,7 @@ class CrossSectionApi:
         """Get reinforced cross sections
 
 
-        :param project_id:  (required)
+        :param project_id: Project ID (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -466,7 +1032,7 @@ class CrossSectionApi:
     @validate_call
     def reinforced_cross_sections_without_preload_content(
         self,
-        project_id: StrictStr,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -483,7 +1049,7 @@ class CrossSectionApi:
         """Get reinforced cross sections
 
 
-        :param project_id:  (required)
+        :param project_id: Project ID (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

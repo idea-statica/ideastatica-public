@@ -133,11 +133,36 @@ paths:
       summary: Get calculated results in XML format
       tags:
       - Calculation
+  /api/1/clients/idea-service-version:
+    get:
+      operationId: GetVersion
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: OK
+      summary: Get the IdeaStatica version
+      tags:
+      - Client
   /api/1/projects/{projectId}/cross-sections/reinforced-cross-sections:
     get:
       operationId: ReinforcedCrossSections
       parameters:
-      - description: ""
+      - description: Project ID
         explode: false
         in: path
         name: projectId
@@ -158,11 +183,59 @@ paths:
       summary: Get reinforced cross sections
       tags:
       - CrossSection
+    post:
+      operationId: AddReinforcedCrossSection
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ReinforcedCrossSectionData'
+        description: "Reinforced cross-section with embedded geometry.\r\n       \
+          \     Materials can be referenced by name (must exist in project) or by\
+          \ ID."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsReinforcedCrossSection'
+          description: OK
+      summary: Add a new reinforced cross-section to the project from embedded geometry
+      tags:
+      - CrossSection
   /api/1/projects/{projectId}/cross-sections/import-reinforced-cross-section:
     post:
       operationId: ImportReinforcedCrossSection
       parameters:
-      - description: ""
+      - description: Project ID
         explode: false
         in: path
         name: projectId
@@ -194,7 +267,7 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/RcsReinforcedCrossSectionImportData'
-        description: ""
+        description: Import data containing settings and template
       responses:
         "200":
           content:
@@ -202,7 +275,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/RcsReinforcedCrossSection'
           description: OK
-      summary: Import reinforced cross-section
+      summary: Import reinforced cross-section from template
+      tags:
+      - CrossSection
+  /api/1/projects/{projectId}/cross-sections/reinforced-cross-sections/{reinforcedCssSectionId}:
+    get:
+      operationId: GetReinforcedCrossSectionData
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Reinforced cross-section ID
+        explode: false
+        in: path
+        name: reinforcedCssSectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReinforcedCrossSection'
+          description: OK
+      summary: Get reinforced cross-section with full geometry (IOM format)
       tags:
       - CrossSection
   /api/1/projects/{projectId}/design-members:
@@ -317,6 +422,197 @@ paths:
       summary: Set section loading
       tags:
       - InternalForces
+  /api/1/projects/{projectId}/materials:
+    get:
+      operationId: GetAllMaterials
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsMaterial'
+                type: array
+          description: OK
+      summary: Get materials from the project. Use specific path to filter by material
+        type.
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/concrete:
+    get:
+      operationId: GetConcreteMaterials
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsMaterial'
+                type: array
+          description: OK
+      summary: Get materials from the project. Use specific path to filter by material
+        type.
+      tags:
+      - Material
+    post:
+      operationId: AddConcreteMaterial
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsMprlElement'
+        description: Material data to add (MPRL name)
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsMaterial'
+          description: OK
+      summary: Add a new material to the project. The material type is determined
+        by the endpoint path.
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/reinforcement:
+    get:
+      operationId: GetReinforcementMaterials
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsMaterial'
+                type: array
+          description: OK
+      summary: Get materials from the project. Use specific path to filter by material
+        type.
+      tags:
+      - Material
+    post:
+      operationId: AddReinforcementMaterial
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsMprlElement'
+        description: Material data to add (MPRL name)
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsMaterial'
+          description: OK
+      summary: Add a new material to the project. The material type is determined
+        by the endpoint path.
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/prestress:
+    get:
+      operationId: GetPrestressMaterials
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RcsMaterial'
+                type: array
+          description: OK
+      summary: Get materials from the project. Use specific path to filter by material
+        type.
+      tags:
+      - Material
+    post:
+      operationId: AddPrestressMaterial
+      parameters:
+      - description: Project ID
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RcsMprlElement'
+        description: Material data to add (MPRL name)
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsMaterial'
+          description: OK
+      summary: Add a new material to the project. The material type is determined
+        by the endpoint path.
+      tags:
+      - Material
   /api/1/projects/open-project:
     post:
       operationId: OpenProject
@@ -971,6 +1267,16 @@ components:
         overall:
           $ref: '#/components/schemas/ConcreteCheckResultOverall'
       type: object
+    FatigueTypeOfPrestressingSteel:
+      description: Posttensioned reinforcement type
+      enum:
+      - postTensioningSingleStrandsInPlasticDucts
+      - postTensioningStraightTendonsOrCurvedTendonsInPlasticDucts
+      - postTensioningCurvedTendonsInSteelDucts
+      - postTensioningSplicingDevices
+      - preTensioning
+      - externalTendon
+      type: string
     Loading:
       additionalProperties: false
       description: Loading identification
@@ -991,6 +1297,12 @@ components:
       - loadCase
       - combination
       - resultClass
+      type: string
+    MaterialDuct:
+      description: Tendon ducts material type
+      enum:
+      - metal
+      - plastic
       type: string
     NonConformity:
       additionalProperties: false
@@ -1033,6 +1345,58 @@ components:
       - error
       - terminatedError
       type: string
+    OpenElementId:
+      additionalProperties: false
+      description: "Open element base class\r\nPOS - class can not be abstract -it\
+        \ causes problems with serialization"
+      example:
+        id: 6
+      properties:
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    Point2D:
+      additionalProperties: false
+      description: Represents an x- and y-coordinate pair in two-dimensional space.
+      example:
+        x: 5.962133916683182
+        "y": 5.637376656633329
+      properties:
+        x:
+          description: Gets or sets the X-coordinate value
+          format: double
+          type: number
+        "y":
+          description: Gets or sets the Y-coordinate value
+          format: double
+          type: number
+      type: object
+    PolyLine2D:
+      additionalProperties: false
+      description: Represents a polyline in two-dimensional space.
+      example:
+        startPoint:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+        segments:
+        - endPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - endPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+      properties:
+        startPoint:
+          $ref: '#/components/schemas/Point2D'
+        segments:
+          description: Gets segments of `PolyLine2D`.
+          items:
+            $ref: '#/components/schemas/Segment2D'
+          nullable: true
+          type: array
+      type: object
     RcsCalculationParameters:
       additionalProperties: false
       example:
@@ -1056,6 +1420,183 @@ components:
         id:
           format: int32
           type: integer
+        name:
+          nullable: true
+          type: string
+      type: object
+    RcsCrossSectionData:
+      additionalProperties: false
+      example:
+        components:
+        - phase: 1
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          geometry:
+            outline:
+              startPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              segments:
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+            openings:
+            - startPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              segments:
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+            - startPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              segments:
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+        - phase: 1
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          geometry:
+            outline:
+              startPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              segments:
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+            openings:
+            - startPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              segments:
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+            - startPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              segments:
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+              - endPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+        name: name
+        crossSectionRotation: 0.8008281904610115
+      properties:
+        name:
+          nullable: true
+          type: string
+        crossSectionRotation:
+          format: double
+          type: number
+        components:
+          items:
+            $ref: '#/components/schemas/RcsCssComponentData'
+          nullable: true
+          type: array
+      type: object
+    RcsCssComponentData:
+      additionalProperties: false
+      example:
+        phase: 1
+        material:
+          materialType: concrete
+          name: name
+          id: 6
+        geometry:
+          outline:
+            startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+          openings:
+          - startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+          - startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+      properties:
+        material:
+          $ref: '#/components/schemas/RcsMaterial'
+        phase:
+          format: int32
+          type: integer
+        geometry:
+          $ref: '#/components/schemas/Region2D'
+      type: object
+    RcsMaterial:
+      additionalProperties: false
+      example:
+        materialType: concrete
+        name: name
+        id: 6
+      properties:
+        id:
+          format: int32
+          nullable: true
+          type: integer
+        name:
+          nullable: true
+          type: string
+        materialType:
+          $ref: '#/components/schemas/RcsMaterialType'
+      type: object
+    RcsMaterialType:
+      enum:
+      - concrete
+      - reinforcement
+      - prestress
+      type: string
+    RcsMprlElement:
+      additionalProperties: false
+      example:
+        name: name
+      properties:
         name:
           nullable: true
           type: string
@@ -1158,6 +1699,26 @@ components:
           type: string
         fireResistanceCheck:
           type: boolean
+      type: object
+    RcsReinforcedBarData:
+      additionalProperties: false
+      example:
+        diameter: 2.3021358869347655
+        material:
+          materialType: concrete
+          name: name
+          id: 6
+        point:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        diameter:
+          format: double
+          type: number
+        point:
+          $ref: '#/components/schemas/Point2D'
+        material:
+          $ref: '#/components/schemas/RcsMaterial'
       type: object
     RcsReinforcedCrossSection:
       additionalProperties: false
@@ -1571,6 +2132,584 @@ components:
         value:
           nullable: true
       type: object
+    RcsStirrupsData:
+      additionalProperties: false
+      example:
+        shearCheck: true
+        diameterOfMandrel: 9.301444243932576
+        torsionCheck: true
+        diameter: 7.061401241503109
+        material:
+          materialType: concrete
+          name: name
+          id: 6
+        isClosed: true
+        distance: 3.616076749251911
+        geometry:
+          startPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          segments:
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+      properties:
+        diameter:
+          format: double
+          type: number
+        material:
+          $ref: '#/components/schemas/RcsMaterial'
+        diameterOfMandrel:
+          format: double
+          type: number
+        isClosed:
+          type: boolean
+        shearCheck:
+          type: boolean
+        torsionCheck:
+          type: boolean
+        distance:
+          format: double
+          type: number
+        geometry:
+          $ref: '#/components/schemas/PolyLine2D'
+      type: object
+    RcsTendonBarData:
+      additionalProperties: false
+      example:
+        prestressingOrder: 4
+        material:
+          materialType: concrete
+          name: name
+          id: 6
+        tendonDuct:
+          diameter: 7.386281948385884
+          isDebondingTube: true
+          materialDuct: metal
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        numStrandsInTendon: 2
+        point:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        point:
+          $ref: '#/components/schemas/Point2D'
+        material:
+          $ref: '#/components/schemas/RcsMaterial'
+        numStrandsInTendon:
+          format: int32
+          type: integer
+        prestressingOrder:
+          format: int32
+          type: integer
+        tendonDuct:
+          $ref: '#/components/schemas/RcsTendonDuctData'
+      type: object
+    RcsTendonDuctData:
+      additionalProperties: false
+      example:
+        diameter: 7.386281948385884
+        isDebondingTube: true
+        materialDuct: metal
+        point:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        point:
+          $ref: '#/components/schemas/Point2D'
+        diameter:
+          format: double
+          type: number
+        isDebondingTube:
+          type: boolean
+        materialDuct:
+          $ref: '#/components/schemas/MaterialDuct'
+      type: object
+    ReferenceElement:
+      additionalProperties: false
+      description: Reference element class
+      example:
+        typeName: typeName
+        id: 0
+        element:
+          id: 6
+      properties:
+        typeName:
+          description: Element type name
+          nullable: true
+          type: string
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+        element:
+          $ref: '#/components/schemas/OpenElementId'
+      type: object
+    Region2D:
+      additionalProperties: false
+      description: Represents a region in two-dimensional space included outline (border)
+        and openings.
+      example:
+        outline:
+          startPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          segments:
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+        openings:
+        - startPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          segments:
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+        - startPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          segments:
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+      properties:
+        outline:
+          $ref: '#/components/schemas/PolyLine2D'
+        openings:
+          description: Gets or sets the list of openings in the Region2D.
+          items:
+            $ref: '#/components/schemas/PolyLine2D'
+          nullable: true
+          type: array
+      type: object
+    ReinforcedBar:
+      additionalProperties: false
+      description: Reinforced bar
+      example:
+        diameter: 1.4658129805029452
+        material:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        point:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        point:
+          $ref: '#/components/schemas/Point2D'
+        diameter:
+          description: Diameter
+          format: double
+          type: number
+        material:
+          $ref: '#/components/schemas/ReferenceElement'
+      type: object
+    ReinforcedCrossSection:
+      additionalProperties: false
+      description: Reinforced cross-section
+      example:
+        stirrups:
+        - shearCheck: true
+          diameterOfMandrel: 2.3021358869347655
+          torsionCheck: true
+          diameter: 5.962133916683182
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          isClosed: true
+          distance: 7.061401241503109
+          geometry:
+            startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+          anchorageLenght: 5.637376656633329
+        - shearCheck: true
+          diameterOfMandrel: 2.3021358869347655
+          torsionCheck: true
+          diameter: 5.962133916683182
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          isClosed: true
+          distance: 7.061401241503109
+          geometry:
+            startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+          anchorageLenght: 5.637376656633329
+        name: name
+        tendonBars:
+        - prestressingOrder: 3
+          phase: 4
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          tendonType: posttensioned
+          tendonDuct:
+            isDebondingTube: true
+            diameter: 1.2315135367772556
+            materialDuct: metal
+            id: 7
+            point:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          prestressReinforcementType: postTensioningSingleStrandsInPlasticDucts
+          numStrandsInTendon: 2
+          id: 9
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - prestressingOrder: 3
+          phase: 4
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          tendonType: posttensioned
+          tendonDuct:
+            isDebondingTube: true
+            diameter: 1.2315135367772556
+            materialDuct: metal
+            id: 7
+            point:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          prestressReinforcementType: postTensioningSingleStrandsInPlasticDucts
+          numStrandsInTendon: 2
+          id: 9
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        crossSection:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        id: 1
+        bars:
+        - diameter: 1.4658129805029452
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - diameter: 1.4658129805029452
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        tendonDucts:
+        - isDebondingTube: true
+          diameter: 1.2315135367772556
+          materialDuct: metal
+          id: 7
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - isDebondingTube: true
+          diameter: 1.2315135367772556
+          materialDuct: metal
+          id: 7
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+      properties:
+        name:
+          description: Name of cross-section
+          nullable: true
+          type: string
+        crossSection:
+          $ref: '#/components/schemas/ReferenceElement'
+        bars:
+          description: Reinforced bars
+          items:
+            $ref: '#/components/schemas/ReinforcedBar'
+          nullable: true
+          type: array
+        stirrups:
+          description: Stirrups
+          items:
+            $ref: '#/components/schemas/Stirrup'
+          nullable: true
+          type: array
+        tendonBars:
+          description: Tendon bars
+          items:
+            $ref: '#/components/schemas/TendonBar'
+          nullable: true
+          type: array
+        tendonDucts:
+          description: Tendon ducts
+          items:
+            $ref: '#/components/schemas/TendonDuct'
+          nullable: true
+          type: array
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    ReinforcedCrossSectionData:
+      additionalProperties: false
+      example:
+        stirrups:
+        - shearCheck: true
+          diameterOfMandrel: 9.301444243932576
+          torsionCheck: true
+          diameter: 7.061401241503109
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          isClosed: true
+          distance: 3.616076749251911
+          geometry:
+            startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+        - shearCheck: true
+          diameterOfMandrel: 9.301444243932576
+          torsionCheck: true
+          diameter: 7.061401241503109
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          isClosed: true
+          distance: 3.616076749251911
+          geometry:
+            startPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            segments:
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+            - endPoint:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+        name: name
+        tendonBars:
+        - prestressingOrder: 4
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          tendonDuct:
+            diameter: 7.386281948385884
+            isDebondingTube: true
+            materialDuct: metal
+            point:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          numStrandsInTendon: 2
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - prestressingOrder: 4
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          tendonDuct:
+            diameter: 7.386281948385884
+            isDebondingTube: true
+            materialDuct: metal
+            point:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          numStrandsInTendon: 2
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        crossSection:
+          components:
+          - phase: 1
+            material:
+              materialType: concrete
+              name: name
+              id: 6
+            geometry:
+              outline:
+                startPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                segments:
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+              openings:
+              - startPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                segments:
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+              - startPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                segments:
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+          - phase: 1
+            material:
+              materialType: concrete
+              name: name
+              id: 6
+            geometry:
+              outline:
+                startPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                segments:
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+              openings:
+              - startPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                segments:
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+              - startPoint:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                segments:
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                - endPoint:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+          name: name
+          crossSectionRotation: 0.8008281904610115
+        bars:
+        - diameter: 2.3021358869347655
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - diameter: 2.3021358869347655
+          material:
+            materialType: concrete
+            name: name
+            id: 6
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        tendonDucts:
+        - diameter: 7.386281948385884
+          isDebondingTube: true
+          materialDuct: metal
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        - diameter: 7.386281948385884
+          isDebondingTube: true
+          materialDuct: metal
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+      properties:
+        name:
+          nullable: true
+          type: string
+        crossSection:
+          $ref: '#/components/schemas/RcsCrossSectionData'
+        bars:
+          items:
+            $ref: '#/components/schemas/RcsReinforcedBarData'
+          nullable: true
+          type: array
+        stirrups:
+          items:
+            $ref: '#/components/schemas/RcsStirrupsData'
+          nullable: true
+          type: array
+        tendonBars:
+          items:
+            $ref: '#/components/schemas/RcsTendonBarData'
+          nullable: true
+          type: array
+        tendonDucts:
+          items:
+            $ref: '#/components/schemas/RcsTendonDuctData'
+          nullable: true
+          type: array
+      type: object
     ResultOfInternalForces:
       additionalProperties: false
       description: Result of internal forces in the one position
@@ -1933,6 +3072,163 @@ components:
             $ref: '#/components/schemas/ConcreteCheckResults'
           nullable: true
           type: array
+      type: object
+    Segment2D:
+      additionalProperties: false
+      description: Represents a segment in two-dimensional space.
+      example:
+        endPoint:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        endPoint:
+          $ref: '#/components/schemas/Point2D'
+      type: object
+    Stirrup:
+      additionalProperties: false
+      description: Stirrup
+      example:
+        shearCheck: true
+        diameterOfMandrel: 2.3021358869347655
+        torsionCheck: true
+        diameter: 5.962133916683182
+        material:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        isClosed: true
+        distance: 7.061401241503109
+        geometry:
+          startPoint:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          segments:
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+          - endPoint:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+        anchorageLenght: 5.637376656633329
+      properties:
+        geometry:
+          $ref: '#/components/schemas/PolyLine2D'
+        diameter:
+          description: Diameter
+          format: double
+          type: number
+        material:
+          $ref: '#/components/schemas/ReferenceElement'
+        anchorageLenght:
+          description: Anchorage Lenght
+          format: double
+          type: number
+        diameterOfMandrel:
+          description: Radius of stirrup mandrel - refering to stirrup axis
+          format: double
+          type: number
+        isClosed:
+          description: Open / Closed stirrup
+          type: boolean
+        distance:
+          description: Longitudinal distance between stirrups
+          format: double
+          type: number
+        shearCheck:
+          description: "Status of shear check, not possible for detailing stirrup"
+          type: boolean
+        torsionCheck:
+          description: "Status of torsion check, not possible for detailing stirrup"
+          type: boolean
+      type: object
+    TendonBar:
+      additionalProperties: false
+      description: Tendon bar
+      example:
+        prestressingOrder: 3
+        phase: 4
+        material:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        tendonType: posttensioned
+        tendonDuct:
+          isDebondingTube: true
+          diameter: 1.2315135367772556
+          materialDuct: metal
+          id: 7
+          point:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+        prestressReinforcementType: postTensioningSingleStrandsInPlasticDucts
+        numStrandsInTendon: 2
+        id: 9
+        point:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        id:
+          description: Tendon Id
+          format: int32
+          type: integer
+        tendonType:
+          $ref: '#/components/schemas/TendonBarType'
+        point:
+          $ref: '#/components/schemas/Point2D'
+        material:
+          $ref: '#/components/schemas/ReferenceElement'
+        prestressingOrder:
+          description: order of tendon prestessing
+          format: int32
+          type: integer
+        numStrandsInTendon:
+          description: number of ropes in tendon
+          format: int32
+          type: integer
+        prestressReinforcementType:
+          $ref: '#/components/schemas/FatigueTypeOfPrestressingSteel'
+        phase:
+          description: Phase
+          format: int32
+          type: integer
+        tendonDuct:
+          $ref: '#/components/schemas/TendonDuct'
+      type: object
+    TendonBarType:
+      description: Tendon bar type
+      enum:
+      - posttensioned
+      - pretensioned
+      type: string
+    TendonDuct:
+      additionalProperties: false
+      description: Tendon duct
+      example:
+        isDebondingTube: true
+        diameter: 1.2315135367772556
+        materialDuct: metal
+        id: 7
+        point:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+      properties:
+        id:
+          description: Tendon duct Id
+          format: int32
+          type: integer
+        point:
+          $ref: '#/components/schemas/Point2D'
+        materialDuct:
+          $ref: '#/components/schemas/MaterialDuct'
+        isDebondingTube:
+          description: "rue for debonding tubes, false for tendon ducts"
+          type: boolean
+        diameter:
+          description: Diameter
+          format: double
+          type: number
       type: object
     OpenProject_request:
       properties:
