@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Api.Common
 {
-	public interface IApiClient : IDisposable
+	public interface IApiClient : IDisposable, IAsyncDisposable
 	{
 		/// <summary>
 		/// Innialize instance of client
