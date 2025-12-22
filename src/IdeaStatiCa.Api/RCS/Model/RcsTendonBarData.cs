@@ -15,7 +15,7 @@ namespace IdeaStatiCa.Api.RCS.Model
 		/// <summary>
 		/// Reference to the prestress steel material (must exist in project)
 		/// </summary>
-		public RcsMaterial Material { get; set; }
+		public string MaterialName { get; set; }
 
 		/// <summary>
 		/// Number of strands in tendon

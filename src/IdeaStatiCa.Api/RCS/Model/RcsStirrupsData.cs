@@ -15,7 +15,7 @@ namespace IdeaStatiCa.Api.RCS.Model
 		/// <summary>
 		/// Reference to the reinforcement material (must exist in project)
 		/// </summary>
-		public RcsMaterial Material { get; set; }
+		public string MaterialName { get; set; }
 
 		/// <summary>
 		/// Diameter of mandrel for bending

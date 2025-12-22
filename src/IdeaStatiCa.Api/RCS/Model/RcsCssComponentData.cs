@@ -10,7 +10,7 @@ namespace IdeaStatiCa.Api.RCS.Model
 		/// <summary>
 		/// Reference to the concrete material (must exist in project)
 		/// </summary>
-		public RcsMaterial Material { get; set; }
+		public string MaterialName { get; set; }
 
 		/// <summary>
 		/// Construction phase
