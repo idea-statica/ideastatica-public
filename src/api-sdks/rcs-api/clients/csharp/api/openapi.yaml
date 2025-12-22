@@ -440,8 +440,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/RcsMaterial'
+                items: {}
                 type: array
           description: OK
       summary: Get materials from the project. Use specific path to filter by material
@@ -466,8 +465,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/RcsMaterial'
+                items: {}
                 type: array
           description: OK
       summary: Get materials from the project. Use specific path to filter by material
@@ -494,10 +492,6 @@ paths:
         description: Material data to add (MPRL name)
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RcsMaterial'
           description: OK
       summary: Add a new material to the project. The material type is determined
         by the endpoint path.
@@ -521,8 +515,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/RcsMaterial'
+                items: {}
                 type: array
           description: OK
       summary: Get materials from the project. Use specific path to filter by material
@@ -549,10 +542,6 @@ paths:
         description: Material data to add (MPRL name)
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RcsMaterial'
           description: OK
       summary: Add a new material to the project. The material type is determined
         by the endpoint path.
@@ -576,8 +565,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/RcsMaterial'
+                items: {}
                 type: array
           description: OK
       summary: Get materials from the project. Use specific path to filter by material
@@ -604,10 +592,6 @@ paths:
         description: Material data to add (MPRL name)
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RcsMaterial'
           description: OK
       summary: Add a new material to the project. The material type is determined
         by the endpoint path.

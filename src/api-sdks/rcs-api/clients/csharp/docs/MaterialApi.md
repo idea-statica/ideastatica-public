@@ -12,7 +12,7 @@
 
 <a id="addconcretematerial"></a>
 ## **AddConcreteMaterial**
-> **RcsMaterial AddConcreteMaterial (Guid projectId, RcsMprlElement rcsMprlElement = null)**
+> **void AddConcreteMaterial (Guid projectId, RcsMprlElement rcsMprlElement = null)**
 
 Add a new material to the project. The material type is determined by the endpoint path.
 
@@ -27,7 +27,7 @@ Add a new material to the project. The material type is determined by the endpoi
 
 ### Return type
 
-[**RcsMaterial**](RcsMaterial.md)
+void (empty response body)
 
 ### Example
 
@@ -57,8 +57,7 @@ namespace Example
                 try
                 {
                     // Add a new material to the project. The material type is determined by the endpoint path.
-                    RcsMaterial result = conClient.Material.AddConcreteMaterial(projectId, rcsMprlElement);
-                    Debug.WriteLine(result);
+                    conClient.Material.AddConcreteMaterial(projectId, rcsMprlElement);
                 }
                 catch (ApiException  e)
                 {
@@ -96,10 +95,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Add a new material to the project. The material type is determined by the endpoint path.
-    ApiResponse<RcsMaterial> response = conClient.Material.AddConcreteMaterialWithHttpInfo(projectId, rcsMprlElement);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
+    conClient.Material.AddConcreteMaterialWithHttpInfo(projectId, rcsMprlElement);
 }
 catch (ApiException e)
 {
@@ -116,7 +112,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
@@ -128,7 +124,7 @@ No authorization required
 
 <a id="addprestressmaterial"></a>
 ## **AddPrestressMaterial**
-> **RcsMaterial AddPrestressMaterial (Guid projectId, RcsMprlElement rcsMprlElement = null)**
+> **void AddPrestressMaterial (Guid projectId, RcsMprlElement rcsMprlElement = null)**
 
 Add a new material to the project. The material type is determined by the endpoint path.
 
@@ -143,7 +139,7 @@ Add a new material to the project. The material type is determined by the endpoi
 
 ### Return type
 
-[**RcsMaterial**](RcsMaterial.md)
+void (empty response body)
 
 ### Example
 
@@ -173,8 +169,7 @@ namespace Example
                 try
                 {
                     // Add a new material to the project. The material type is determined by the endpoint path.
-                    RcsMaterial result = conClient.Material.AddPrestressMaterial(projectId, rcsMprlElement);
-                    Debug.WriteLine(result);
+                    conClient.Material.AddPrestressMaterial(projectId, rcsMprlElement);
                 }
                 catch (ApiException  e)
                 {
@@ -212,10 +207,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Add a new material to the project. The material type is determined by the endpoint path.
-    ApiResponse<RcsMaterial> response = conClient.Material.AddPrestressMaterialWithHttpInfo(projectId, rcsMprlElement);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
+    conClient.Material.AddPrestressMaterialWithHttpInfo(projectId, rcsMprlElement);
 }
 catch (ApiException e)
 {
@@ -232,7 +224,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
@@ -244,7 +236,7 @@ No authorization required
 
 <a id="addreinforcementmaterial"></a>
 ## **AddReinforcementMaterial**
-> **RcsMaterial AddReinforcementMaterial (Guid projectId, RcsMprlElement rcsMprlElement = null)**
+> **void AddReinforcementMaterial (Guid projectId, RcsMprlElement rcsMprlElement = null)**
 
 Add a new material to the project. The material type is determined by the endpoint path.
 
@@ -259,7 +251,7 @@ Add a new material to the project. The material type is determined by the endpoi
 
 ### Return type
 
-[**RcsMaterial**](RcsMaterial.md)
+void (empty response body)
 
 ### Example
 
@@ -289,8 +281,7 @@ namespace Example
                 try
                 {
                     // Add a new material to the project. The material type is determined by the endpoint path.
-                    RcsMaterial result = conClient.Material.AddReinforcementMaterial(projectId, rcsMprlElement);
-                    Debug.WriteLine(result);
+                    conClient.Material.AddReinforcementMaterial(projectId, rcsMprlElement);
                 }
                 catch (ApiException  e)
                 {
@@ -328,10 +319,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Add a new material to the project. The material type is determined by the endpoint path.
-    ApiResponse<RcsMaterial> response = conClient.Material.AddReinforcementMaterialWithHttpInfo(projectId, rcsMprlElement);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
+    conClient.Material.AddReinforcementMaterialWithHttpInfo(projectId, rcsMprlElement);
 }
 catch (ApiException e)
 {
@@ -348,7 +336,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
@@ -360,7 +348,7 @@ No authorization required
 
 <a id="getallmaterials"></a>
 ## **GetAllMaterials**
-> **List&lt;RcsMaterial&gt; GetAllMaterials (Guid projectId)**
+> **List&lt;Object&gt; GetAllMaterials (Guid projectId)**
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -374,7 +362,7 @@ Get materials from the project. Use specific path to filter by material type.
 
 ### Return type
 
-[**List&lt;RcsMaterial&gt;**](RcsMaterial.md)
+**List<Object>**
 
 ### Example
 
@@ -403,7 +391,7 @@ namespace Example
                 try
                 {
                     // Get materials from the project. Use specific path to filter by material type.
-                    List<RcsMaterial> result = conClient.Material.GetAllMaterials(projectId);
+                    List<Object> result = conClient.Material.GetAllMaterials(projectId);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -442,7 +430,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Get materials from the project. Use specific path to filter by material type.
-    ApiResponse<List<RcsMaterial>> response = conClient.Material.GetAllMaterialsWithHttpInfo(projectId);
+    ApiResponse<List<Object>> response = conClient.Material.GetAllMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -474,7 +462,7 @@ No authorization required
 
 <a id="getconcretematerials"></a>
 ## **GetConcreteMaterials**
-> **List&lt;RcsMaterial&gt; GetConcreteMaterials (Guid projectId)**
+> **List&lt;Object&gt; GetConcreteMaterials (Guid projectId)**
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -488,7 +476,7 @@ Get materials from the project. Use specific path to filter by material type.
 
 ### Return type
 
-[**List&lt;RcsMaterial&gt;**](RcsMaterial.md)
+**List<Object>**
 
 ### Example
 
@@ -517,7 +505,7 @@ namespace Example
                 try
                 {
                     // Get materials from the project. Use specific path to filter by material type.
-                    List<RcsMaterial> result = conClient.Material.GetConcreteMaterials(projectId);
+                    List<Object> result = conClient.Material.GetConcreteMaterials(projectId);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -556,7 +544,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Get materials from the project. Use specific path to filter by material type.
-    ApiResponse<List<RcsMaterial>> response = conClient.Material.GetConcreteMaterialsWithHttpInfo(projectId);
+    ApiResponse<List<Object>> response = conClient.Material.GetConcreteMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -588,7 +576,7 @@ No authorization required
 
 <a id="getprestressmaterials"></a>
 ## **GetPrestressMaterials**
-> **List&lt;RcsMaterial&gt; GetPrestressMaterials (Guid projectId)**
+> **List&lt;Object&gt; GetPrestressMaterials (Guid projectId)**
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -602,7 +590,7 @@ Get materials from the project. Use specific path to filter by material type.
 
 ### Return type
 
-[**List&lt;RcsMaterial&gt;**](RcsMaterial.md)
+**List<Object>**
 
 ### Example
 
@@ -631,7 +619,7 @@ namespace Example
                 try
                 {
                     // Get materials from the project. Use specific path to filter by material type.
-                    List<RcsMaterial> result = conClient.Material.GetPrestressMaterials(projectId);
+                    List<Object> result = conClient.Material.GetPrestressMaterials(projectId);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -670,7 +658,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Get materials from the project. Use specific path to filter by material type.
-    ApiResponse<List<RcsMaterial>> response = conClient.Material.GetPrestressMaterialsWithHttpInfo(projectId);
+    ApiResponse<List<Object>> response = conClient.Material.GetPrestressMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -702,7 +690,7 @@ No authorization required
 
 <a id="getreinforcementmaterials"></a>
 ## **GetReinforcementMaterials**
-> **List&lt;RcsMaterial&gt; GetReinforcementMaterials (Guid projectId)**
+> **List&lt;Object&gt; GetReinforcementMaterials (Guid projectId)**
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -716,7 +704,7 @@ Get materials from the project. Use specific path to filter by material type.
 
 ### Return type
 
-[**List&lt;RcsMaterial&gt;**](RcsMaterial.md)
+**List<Object>**
 
 ### Example
 
@@ -745,7 +733,7 @@ namespace Example
                 try
                 {
                     // Get materials from the project. Use specific path to filter by material type.
-                    List<RcsMaterial> result = conClient.Material.GetReinforcementMaterials(projectId);
+                    List<Object> result = conClient.Material.GetReinforcementMaterials(projectId);
                     Debug.WriteLine(result);
                 }
                 catch (ApiException  e)
@@ -784,7 +772,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Get materials from the project. Use specific path to filter by material type.
-    ApiResponse<List<RcsMaterial>> response = conClient.Material.GetReinforcementMaterialsWithHttpInfo(projectId);
+    ApiResponse<List<Object>> response = conClient.Material.GetReinforcementMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);

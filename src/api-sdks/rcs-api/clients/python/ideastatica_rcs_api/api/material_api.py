@@ -18,9 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
-from typing import List, Optional
+from typing import Any, List, Optional
 from typing_extensions import Annotated
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.models.rcs_mprl_element import RcsMprlElement
 
 from ideastatica_rcs_api.api_client import ApiClient, RequestSerialized
@@ -58,7 +57,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RcsMaterial:
+    ) -> None:
         """Add a new material to the project. The material type is determined by the endpoint path.
 
 
@@ -98,7 +97,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -128,7 +127,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[RcsMaterial]:
+    ) -> ApiResponse[None]:
         """Add a new material to the project. The material type is determined by the endpoint path.
 
 
@@ -168,7 +167,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -238,7 +237,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -282,13 +281,6 @@ class MaterialApi:
             _body_params = rcs_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -343,7 +335,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RcsMaterial:
+    ) -> None:
         """Add a new material to the project. The material type is determined by the endpoint path.
 
 
@@ -383,7 +375,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -413,7 +405,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[RcsMaterial]:
+    ) -> ApiResponse[None]:
         """Add a new material to the project. The material type is determined by the endpoint path.
 
 
@@ -453,7 +445,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -523,7 +515,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -567,13 +559,6 @@ class MaterialApi:
             _body_params = rcs_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -628,7 +613,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RcsMaterial:
+    ) -> None:
         """Add a new material to the project. The material type is determined by the endpoint path.
 
 
@@ -668,7 +653,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -698,7 +683,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[RcsMaterial]:
+    ) -> ApiResponse[None]:
         """Add a new material to the project. The material type is determined by the endpoint path.
 
 
@@ -738,7 +723,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -808,7 +793,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RcsMaterial",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -852,13 +837,6 @@ class MaterialApi:
             _body_params = rcs_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -912,7 +890,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[RcsMaterial]:
+    ) -> List[object]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -949,7 +927,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -978,7 +956,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[RcsMaterial]]:
+    ) -> ApiResponse[List[object]]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1015,7 +993,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1081,7 +1059,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1169,7 +1147,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[RcsMaterial]:
+    ) -> List[object]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1206,7 +1184,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1235,7 +1213,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[RcsMaterial]]:
+    ) -> ApiResponse[List[object]]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1272,7 +1250,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1338,7 +1316,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1426,7 +1404,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[RcsMaterial]:
+    ) -> List[object]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1463,7 +1441,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1492,7 +1470,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[RcsMaterial]]:
+    ) -> ApiResponse[List[object]]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1529,7 +1507,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1595,7 +1573,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1683,7 +1661,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[RcsMaterial]:
+    ) -> List[object]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1720,7 +1698,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1749,7 +1727,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[RcsMaterial]]:
+    ) -> ApiResponse[List[object]]:
         """Get materials from the project. Use specific path to filter by material type.
 
 
@@ -1786,7 +1764,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1852,7 +1830,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[RcsMaterial]",
+            '200': "List[object]",
         }
         response_data = self.api_client.call_api(
             *_param,

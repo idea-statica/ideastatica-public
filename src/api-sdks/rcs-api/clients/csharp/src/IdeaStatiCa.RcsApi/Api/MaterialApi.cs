@@ -16,6 +16,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi.Client;
 using IdeaStatiCa.RcsApi.Model;
@@ -36,8 +37,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>object</returns>
-        object AddConcreteMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddConcreteMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
@@ -50,8 +51,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of object</returns>
-        ApiResponse<object> AddConcreteMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddConcreteMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
         /// </summary>
@@ -59,8 +60,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>object</returns>
-        object AddPrestressMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddPrestressMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
@@ -73,8 +74,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of object</returns>
-        ApiResponse<object> AddPrestressMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddPrestressMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
         /// </summary>
@@ -82,8 +83,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>object</returns>
-        object AddReinforcementMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddReinforcementMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
@@ -96,16 +97,16 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of object</returns>
-        ApiResponse<object> AddReinforcementMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddReinforcementMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        List<object> GetAllMaterials(Guid projectId, int operationIndex = 0);
+        /// <returns>List&lt;Object&gt;</returns>
+        List<Object> GetAllMaterials(Guid projectId, int operationIndex = 0);
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -117,16 +118,16 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        ApiResponse<List<object>> GetAllMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        ApiResponse<List<Object>> GetAllMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        List<object> GetConcreteMaterials(Guid projectId, int operationIndex = 0);
+        /// <returns>List&lt;Object&gt;</returns>
+        List<Object> GetConcreteMaterials(Guid projectId, int operationIndex = 0);
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -138,16 +139,16 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        ApiResponse<List<object>> GetConcreteMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        ApiResponse<List<Object>> GetConcreteMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        List<object> GetPrestressMaterials(Guid projectId, int operationIndex = 0);
+        /// <returns>List&lt;Object&gt;</returns>
+        List<Object> GetPrestressMaterials(Guid projectId, int operationIndex = 0);
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -159,16 +160,16 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        ApiResponse<List<object>> GetPrestressMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        ApiResponse<List<Object>> GetPrestressMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        List<object> GetReinforcementMaterials(Guid projectId, int operationIndex = 0);
+        /// <returns>List&lt;Object&gt;</returns>
+        List<Object> GetReinforcementMaterials(Guid projectId, int operationIndex = 0);
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -180,8 +181,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        ApiResponse<List<object>> GetReinforcementMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        ApiResponse<List<Object>> GetReinforcementMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -202,8 +203,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of object</returns>
-        System.Threading.Tasks.Task<object> AddConcreteMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddConcreteMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
@@ -217,8 +218,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<object>> AddConcreteMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddConcreteMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
         /// </summary>
@@ -230,36 +231,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of object</returns>
-        System.Threading.Tasks.Task<object> AddPrestressMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Add a new material to the project. The material type is determined by the endpoint path.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project ID</param>
-        /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<object>> AddPrestressMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Add a new material to the project. The material type is determined by the endpoint path.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project ID</param>
-        /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of object</returns>
-        System.Threading.Tasks.Task<object> AddReinforcementMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddPrestressMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add a new material to the project. The material type is determined by the endpoint path.
@@ -273,8 +246,36 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<object>> AddReinforcementMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddPrestressMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Add a new material to the project. The material type is determined by the endpoint path.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddReinforcementMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Add a new material to the project. The material type is determined by the endpoint path.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddReinforcementMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
@@ -285,8 +286,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        System.Threading.Tasks.Task<List<object>> GetAllMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        System.Threading.Tasks.Task<List<Object>> GetAllMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -299,8 +300,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<object>>> GetAllMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetAllMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
@@ -311,8 +312,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        System.Threading.Tasks.Task<List<object>> GetConcreteMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        System.Threading.Tasks.Task<List<Object>> GetConcreteMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -325,8 +326,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<object>>> GetConcreteMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetConcreteMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
@@ -337,8 +338,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        System.Threading.Tasks.Task<List<object>> GetPrestressMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        System.Threading.Tasks.Task<List<Object>> GetPrestressMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -351,8 +352,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<object>>> GetPrestressMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetPrestressMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
         /// </summary>
@@ -363,8 +364,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        System.Threading.Tasks.Task<List<object>> GetReinforcementMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        System.Threading.Tasks.Task<List<Object>> GetReinforcementMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Get materials from the project. Use specific path to filter by material type.
@@ -377,8 +378,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<object>>> GetReinforcementMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetReinforcementMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -506,11 +507,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>object</returns>
-        public object AddConcreteMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddConcreteMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<object> localVarResponse = AddConcreteMaterialWithHttpInfo(projectId, rcsMprlElement);
-            return localVarResponse.Data;
+            AddConcreteMaterialWithHttpInfo(projectId, rcsMprlElement);
         }
 
         /// <summary>
@@ -521,8 +521,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of object</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<object> AddConcreteMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<Object> AddConcreteMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -532,7 +532,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -560,7 +559,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<object>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddConcreteMaterial", localVarResponse);
@@ -581,11 +580,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of object</returns>
-        public async System.Threading.Tasks.Task<object> AddConcreteMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddConcreteMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<object> localVarResponse = await AddConcreteMaterialWithHttpInfoAsync(projectId, rcsMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddConcreteMaterialWithHttpInfoAsync(projectId, rcsMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -597,8 +595,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (object)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<object>> AddConcreteMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<Object>> AddConcreteMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -609,7 +607,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -637,7 +634,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<object>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -658,11 +655,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>object</returns>
-        public object AddPrestressMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddPrestressMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<object> localVarResponse = AddPrestressMaterialWithHttpInfo(projectId, rcsMprlElement);
-            return localVarResponse.Data;
+            AddPrestressMaterialWithHttpInfo(projectId, rcsMprlElement);
         }
 
         /// <summary>
@@ -673,8 +669,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of object</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<object> AddPrestressMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<Object> AddPrestressMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -684,7 +680,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -712,7 +707,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<object>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddPrestressMaterial", localVarResponse);
@@ -733,11 +728,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of object</returns>
-        public async System.Threading.Tasks.Task<object> AddPrestressMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddPrestressMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<object> localVarResponse = await AddPrestressMaterialWithHttpInfoAsync(projectId, rcsMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddPrestressMaterialWithHttpInfoAsync(projectId, rcsMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -749,8 +743,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (object)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<object>> AddPrestressMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<Object>> AddPrestressMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -761,7 +755,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -789,7 +782,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<object>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -810,11 +803,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>object</returns>
-        public object AddReinforcementMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddReinforcementMaterial(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<object> localVarResponse = AddReinforcementMaterialWithHttpInfo(projectId, rcsMprlElement);
-            return localVarResponse.Data;
+            AddReinforcementMaterialWithHttpInfo(projectId, rcsMprlElement);
         }
 
         /// <summary>
@@ -825,8 +817,8 @@ namespace IdeaStatiCa.RcsApi.Api
 /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of object</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<object> AddReinforcementMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<Object> AddReinforcementMaterialWithHttpInfo(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -836,7 +828,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -864,7 +855,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<object>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddReinforcementMaterial", localVarResponse);
@@ -885,11 +876,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="rcsMprlElement">Material data to add (MPRL name) (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of object</returns>
-        public async System.Threading.Tasks.Task<object> AddReinforcementMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddReinforcementMaterialAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<object> localVarResponse = await AddReinforcementMaterialWithHttpInfoAsync(projectId, rcsMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddReinforcementMaterialWithHttpInfoAsync(projectId, rcsMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -901,8 +891,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (object)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<object>> AddReinforcementMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<Object>> AddReinforcementMaterialWithHttpInfoAsync(Guid projectId, RcsMprlElement rcsMprlElement = default(RcsMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -913,7 +903,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -941,7 +930,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<object>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -961,10 +950,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        public List<object> GetAllMaterials(Guid projectId, int operationIndex = 0)
+        /// <returns>List&lt;Object&gt;</returns>
+        public List<Object> GetAllMaterials(Guid projectId, int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = GetAllMaterialsWithHttpInfo(projectId);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = GetAllMaterialsWithHttpInfo(projectId);
             return localVarResponse.Data;
         }
 
@@ -975,8 +964,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> GetAllMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> GetAllMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -1012,7 +1001,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<object>>("/api/1/projects/{projectId}/materials", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<List<Object>>("/api/1/projects/{projectId}/materials", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetAllMaterials", localVarResponse);
@@ -1032,10 +1021,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        public async System.Threading.Tasks.Task<List<object>> GetAllMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Object>> GetAllMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = await GetAllMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = await GetAllMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1047,8 +1036,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>>> GetAllMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>>> GetAllMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -1085,7 +1074,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<object>>("/api/1/projects/{projectId}/materials", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Object>>("/api/1/projects/{projectId}/materials", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1105,10 +1094,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        public List<object> GetConcreteMaterials(Guid projectId, int operationIndex = 0)
+        /// <returns>List&lt;Object&gt;</returns>
+        public List<Object> GetConcreteMaterials(Guid projectId, int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = GetConcreteMaterialsWithHttpInfo(projectId);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = GetConcreteMaterialsWithHttpInfo(projectId);
             return localVarResponse.Data;
         }
 
@@ -1119,8 +1108,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> GetConcreteMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> GetConcreteMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -1156,7 +1145,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<object>>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<List<Object>>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetConcreteMaterials", localVarResponse);
@@ -1176,10 +1165,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        public async System.Threading.Tasks.Task<List<object>> GetConcreteMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Object>> GetConcreteMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = await GetConcreteMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = await GetConcreteMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1191,8 +1180,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>>> GetConcreteMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>>> GetConcreteMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -1229,7 +1218,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<object>>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Object>>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1249,10 +1238,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        public List<object> GetPrestressMaterials(Guid projectId, int operationIndex = 0)
+        /// <returns>List&lt;Object&gt;</returns>
+        public List<Object> GetPrestressMaterials(Guid projectId, int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = GetPrestressMaterialsWithHttpInfo(projectId);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = GetPrestressMaterialsWithHttpInfo(projectId);
             return localVarResponse.Data;
         }
 
@@ -1263,8 +1252,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> GetPrestressMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> GetPrestressMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -1300,7 +1289,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<object>>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<List<Object>>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetPrestressMaterials", localVarResponse);
@@ -1320,10 +1309,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        public async System.Threading.Tasks.Task<List<object>> GetPrestressMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Object>> GetPrestressMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = await GetPrestressMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = await GetPrestressMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1335,8 +1324,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>>> GetPrestressMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>>> GetPrestressMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -1373,7 +1362,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<object>>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Object>>("/api/1/projects/{projectId}/materials/prestress", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1393,10 +1382,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;object&gt;</returns>
-        public List<object> GetReinforcementMaterials(Guid projectId, int operationIndex = 0)
+        /// <returns>List&lt;Object&gt;</returns>
+        public List<Object> GetReinforcementMaterials(Guid projectId, int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = GetReinforcementMaterialsWithHttpInfo(projectId);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = GetReinforcementMaterialsWithHttpInfo(projectId);
             return localVarResponse.Data;
         }
 
@@ -1407,8 +1396,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;object&gt;</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> GetReinforcementMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> GetReinforcementMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -1444,7 +1433,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<List<object>>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<List<Object>>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetReinforcementMaterials", localVarResponse);
@@ -1464,10 +1453,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;object&gt;</returns>
-        public async System.Threading.Tasks.Task<List<object>> GetReinforcementMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Object>> GetReinforcementMaterialsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>> localVarResponse = await GetReinforcementMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>> localVarResponse = await GetReinforcementMaterialsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1479,8 +1468,8 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;object&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<object>>> GetReinforcementMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<List<Object>>> GetReinforcementMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -1517,7 +1506,7 @@ namespace IdeaStatiCa.RcsApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<object>>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Object>>("/api/1/projects/{projectId}/materials/reinforcement", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

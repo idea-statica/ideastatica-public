@@ -15,7 +15,7 @@ Method | Description
 
 <a id="add_concrete_material"></a>
 # **add_concrete_material**
-> RcsMaterial add_concrete_material(project_id, rcs_mprl_element=rcs_mprl_element)
+> add_concrete_material(project_id, rcs_mprl_element=rcs_mprl_element)
 
 Add a new material to the project. The material type is determined by the endpoint path.
 
@@ -29,14 +29,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RcsMaterial**](RcsMaterial.md)
+void (empty response body)
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.models.rcs_mprl_element import RcsMprlElement
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
@@ -58,9 +57,7 @@ with ideastatica_rcs_api.ApiClient(configuration) as api_client:
 
     try:
         # Add a new material to the project. The material type is determined by the endpoint path.
-        api_response = api_instance.add_concrete_material(project_id, rcs_mprl_element=rcs_mprl_element)
-        print("The response of MaterialApi->add_concrete_material:\n")
-        pprint(api_response)
+        api_instance.add_concrete_material(project_id, rcs_mprl_element=rcs_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_concrete_material: %s\n" % e)
 ```
@@ -86,7 +83,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -98,7 +95,7 @@ No authorization required
 
 <a id="add_prestress_material"></a>
 # **add_prestress_material**
-> RcsMaterial add_prestress_material(project_id, rcs_mprl_element=rcs_mprl_element)
+> add_prestress_material(project_id, rcs_mprl_element=rcs_mprl_element)
 
 Add a new material to the project. The material type is determined by the endpoint path.
 
@@ -112,14 +109,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RcsMaterial**](RcsMaterial.md)
+void (empty response body)
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.models.rcs_mprl_element import RcsMprlElement
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
@@ -141,9 +137,7 @@ with ideastatica_rcs_api.ApiClient(configuration) as api_client:
 
     try:
         # Add a new material to the project. The material type is determined by the endpoint path.
-        api_response = api_instance.add_prestress_material(project_id, rcs_mprl_element=rcs_mprl_element)
-        print("The response of MaterialApi->add_prestress_material:\n")
-        pprint(api_response)
+        api_instance.add_prestress_material(project_id, rcs_mprl_element=rcs_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_prestress_material: %s\n" % e)
 ```
@@ -169,7 +163,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -181,7 +175,7 @@ No authorization required
 
 <a id="add_reinforcement_material"></a>
 # **add_reinforcement_material**
-> RcsMaterial add_reinforcement_material(project_id, rcs_mprl_element=rcs_mprl_element)
+> add_reinforcement_material(project_id, rcs_mprl_element=rcs_mprl_element)
 
 Add a new material to the project. The material type is determined by the endpoint path.
 
@@ -195,14 +189,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RcsMaterial**](RcsMaterial.md)
+void (empty response body)
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.models.rcs_mprl_element import RcsMprlElement
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
@@ -224,9 +217,7 @@ with ideastatica_rcs_api.ApiClient(configuration) as api_client:
 
     try:
         # Add a new material to the project. The material type is determined by the endpoint path.
-        api_response = api_instance.add_reinforcement_material(project_id, rcs_mprl_element=rcs_mprl_element)
-        print("The response of MaterialApi->add_reinforcement_material:\n")
-        pprint(api_response)
+        api_instance.add_reinforcement_material(project_id, rcs_mprl_element=rcs_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_reinforcement_material: %s\n" % e)
 ```
@@ -252,7 +243,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -264,7 +255,7 @@ No authorization required
 
 <a id="get_all_materials"></a>
 # **get_all_materials**
-> List[RcsMaterial] get_all_materials(project_id)
+> List[object] get_all_materials(project_id)
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -277,14 +268,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[RcsMaterial]**](RcsMaterial.md)
+**List[object]**
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
 
@@ -344,7 +334,7 @@ No authorization required
 
 <a id="get_concrete_materials"></a>
 # **get_concrete_materials**
-> List[RcsMaterial] get_concrete_materials(project_id)
+> List[object] get_concrete_materials(project_id)
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -357,14 +347,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[RcsMaterial]**](RcsMaterial.md)
+**List[object]**
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
 
@@ -424,7 +413,7 @@ No authorization required
 
 <a id="get_prestress_materials"></a>
 # **get_prestress_materials**
-> List[RcsMaterial] get_prestress_materials(project_id)
+> List[object] get_prestress_materials(project_id)
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -437,14 +426,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[RcsMaterial]**](RcsMaterial.md)
+**List[object]**
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
 
@@ -504,7 +492,7 @@ No authorization required
 
 <a id="get_reinforcement_materials"></a>
 # **get_reinforcement_materials**
-> List[RcsMaterial] get_reinforcement_materials(project_id)
+> List[object] get_reinforcement_materials(project_id)
 
 Get materials from the project. Use specific path to filter by material type.
 
@@ -517,14 +505,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[RcsMaterial]**](RcsMaterial.md)
+**List[object]**
 
 ### Example
 
 
 ```python
 import ideastatica_rcs_api
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.rest import ApiException
 from pprint import pprint
 
