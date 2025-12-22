@@ -123,7 +123,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessDeclaration(XmlReader reader, SModel model)
 		{
-			_logger.LogTrace("ProcessDeclaration TypeName {reader.Name}");
+			_logger.LogTrace($"ProcessDeclaration TypeName {reader.Name}");
 			var element = new SObject { TypeName = reader.Name };
 			model.ModelDeclaration = element;
 
@@ -132,7 +132,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessStartElement(XmlReader reader, Stack<SObject> processItemStack, SModel model)
 		{
-			_logger.LogTrace("ProcessStartElement TypeName {reader.Name}");
+			_logger.LogTrace($"ProcessStartElement TypeName {reader.Name}");
 			var element = new SObject { TypeName = reader.Name };
 
 			//if its not root element assign element to the parent
@@ -145,7 +145,7 @@ namespace IdeaStatiCa.IntermediateModel
 			//if its not empty element
 			if (!reader.IsEmptyElement)
 			{
-				_logger.LogTrace("ProcessStartElement add to fuhrer proses");
+				_logger.LogTrace("ProcessStartElement add to process further");
 				//new parent
 				processItemStack.Push(element);
 			}
