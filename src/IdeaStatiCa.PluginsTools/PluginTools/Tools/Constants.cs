@@ -16,7 +16,6 @@ namespace IdeaRS
 		public static readonly string LibraryEntityDir = @"Library";
 		public static readonly string ProjectTempDirName = @"Temp";
 		public static readonly string SharedReposParam = @"-libReposPath:";
-		public static readonly string ProjectDirectoryParam = @"-projectDirPath:";
 		public static readonly string DesignCodeParam = @"-designCode:";
 		public static readonly string IdeaRsTempDirName = "IDEA_RS";
 		public static readonly string WsTempDirName = "TempWS";
