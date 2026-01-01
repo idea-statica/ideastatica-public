@@ -37,9 +37,9 @@
 				<ComboBox ItemsSource="{Binding AvailableAnalysisTypes}" SelectedItem="{Binding SelectedAnalysisType, Mode=TwoWay}" MinWidth="120"/>
 				<CheckBox IsChecked="{Binding CalculateBuckling, Mode=TwoWay}" ToolTip="Calculate also buckling">Is Buckling</CheckBox>
 				<CheckBox IsChecked="{Binding GetRawXmlResults, Mode=TwoWay}" ToolTip="Get raw results of the analysis in XML format">DetailRes</CheckBox>
-				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
-				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
-				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}">Get Operations </Button>
+				<Button Command="{Binding GetMembersCommand, Mode=OneWay}">Get Members</Button>
+				<Button Command="{Binding GetOperationsCommand, Mode=OneWay}">Get Operations</Button>
+				<Button Command="{Binding DeleteOperationsCommand, Mode=OneWay}" ToolTip="Delete all operations in the connection">Delete Operations</Button>
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="pdf">Report PDF</Button>
 				<Button Command="{Binding GenerateReportCommand, Mode=OneWay}" CommandParameter="docx">Report Word</Button>
 				<Button Command="{Binding ExportCommand, Mode=OneWay}" CommandParameter="iom" ToolTip="Export selected connection to IdeaOpenModel">Export IOM</Button>
@@ -52,6 +52,17 @@
 				<Button Command="{Binding WeldSizingCommand, Mode=OneWay}">WeldSizing</Button>
 				<ComboBox ItemsSource="{Binding AvailableWeldSizingTypes}" SelectedItem="{Binding WeldSizingType, Mode=TwoWay}" MinWidth="120"/>
 			</ToolBar>
+
+			<ToolBar Band="3">
+				<Button Command="{Binding CreateTemplateCommand, Mode=OneWay}">Create template</Button>
+				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}" CommandParameter="FromFile" ToolTip="Select a connection template on a disk and apply it on the active connection">Apply template</Button>
+				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}" CommandParameter="ConnectionLibrary" ToolTip="Propose a connection design for the active connection from Connection Library and apply it">Apply from CL</Button>
+			</ToolBar>
+
+			<ToolBar Band="3">
+				<Button Command="{Binding UpdateConnectionLoadingCommand, Mode=OneWay}" ToolTip="Get loading for the selected connection. Allows their editing as the JSON text and updating the connection">Update loading</Button>
+			</ToolBar>
+
 		</ToolBarTray>
 		<Grid>
 			<Grid.ColumnDefinitions>
