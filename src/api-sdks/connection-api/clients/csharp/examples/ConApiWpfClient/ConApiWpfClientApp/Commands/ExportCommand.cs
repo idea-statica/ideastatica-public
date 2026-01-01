@@ -7,15 +7,25 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to export the selected connection to IOM or IFC format.
+	/// </summary>
 	public class ExportCommand : AsyncCommandBase
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ExportCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
 		public ExportCommand(MainWindowViewModel viewModel, IPluginLogger logger)
 			: base(viewModel, logger)
 		{
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => _viewModel.SelectedConnection != null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("ExportConnectionAsync");

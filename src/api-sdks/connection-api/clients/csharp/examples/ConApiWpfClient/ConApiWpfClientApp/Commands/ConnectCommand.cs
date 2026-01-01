@@ -7,18 +7,29 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to connect to the Connection API service by either starting a new service or attaching to an existing one.
+	/// </summary>
 	public class ConnectCommand : AsyncCommandBase
 	{
 		private readonly IConfiguration _configuration;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConnectCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
+		/// <param name="configuration">Application configuration settings.</param>
 		public ConnectCommand(MainWindowViewModel viewModel, IPluginLogger logger, IConfiguration configuration)
 			: base(viewModel, logger)
 		{
 			_configuration = configuration;
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => ConApiClient == null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("ConnectAsync");

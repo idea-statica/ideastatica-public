@@ -8,15 +8,25 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to create a new project by importing an IOM (IDEA Open Model) file.
+	/// </summary>
 	public class ImportIomCommand : AsyncCommandBase
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ImportIomCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
 		public ImportIomCommand(MainWindowViewModel viewModel, IPluginLogger logger)
 			: base(viewModel, logger)
 		{
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => ConApiClient != null && _viewModel.ProjectInfo == null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("\t\tprivate async Task ImportIomAsync()\r\n");

@@ -8,15 +8,25 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to open an existing IdeaConnection project file (.ideacon).
+	/// </summary>
 	public class OpenProjectCommand : AsyncCommandBase
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OpenProjectCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
 		public OpenProjectCommand(MainWindowViewModel viewModel, IPluginLogger logger)
 			: base(viewModel, logger)
 		{
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => ConApiClient != null && _viewModel.ProjectInfo == null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("OpenProjectAsync");

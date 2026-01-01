@@ -7,18 +7,29 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to close the currently open project.
+	/// </summary>
 	public class CloseProjectCommand : AsyncCommandBase
 	{
 		private readonly CancellationTokenSource _cts;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CloseProjectCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
+		/// <param name="cts">Cancellation token source for async operations.</param>
 		public CloseProjectCommand(MainWindowViewModel viewModel, IPluginLogger logger, CancellationTokenSource cts)
 			: base(viewModel, logger)
 		{
 			_cts = cts;
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => _viewModel.ProjectInfo != null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("CloseProjectAsync");

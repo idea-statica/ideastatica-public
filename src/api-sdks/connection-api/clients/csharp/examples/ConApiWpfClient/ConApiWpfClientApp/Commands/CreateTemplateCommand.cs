@@ -8,18 +8,29 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to create a connection template from the selected connection and save it to a file.
+	/// </summary>
 	public class CreateTemplateCommand : AsyncCommandBase
 	{
 		private readonly CancellationTokenSource _cts;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CreateTemplateCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
+		/// <param name="cts">Cancellation token source for async operations.</param>
 		public CreateTemplateCommand(MainWindowViewModel viewModel, IPluginLogger logger, CancellationTokenSource cts)
 			: base(viewModel, logger)
 		{
 			_cts = cts;
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => _viewModel.SelectedConnection != null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("CreateTemplateAsync");

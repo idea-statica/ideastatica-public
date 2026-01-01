@@ -11,11 +11,21 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Commands
 {
+	/// <summary>
+	/// Command to apply a connection template to the selected connection, either from a file or the connection library.
+	/// </summary>
 	public class ApplyTemplateCommand : AsyncCommandBase
 	{
 		private readonly CancellationTokenSource _cts;
 		private readonly IdeaStatiCa.ConRestApiClientUI.ISceneController _sceneController;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ApplyTemplateCommand"/> class.
+		/// </summary>
+		/// <param name="viewModel">The view model that owns this command.</param>
+		/// <param name="logger">Logger for tracking command execution.</param>
+		/// <param name="cts">Cancellation token source for async operations.</param>
+		/// <param name="sceneController">Controller for rendering 3D scenes.</param>
 		public ApplyTemplateCommand(MainWindowViewModel viewModel, IPluginLogger logger, CancellationTokenSource cts, ISceneController sceneController)
 			: base(viewModel, logger)
 		{
@@ -23,8 +33,10 @@ namespace ConApiWpfClientApp.Commands
 			_sceneController = sceneController;
 		}
 
+		/// <inheritdoc/>
 		public override bool CanExecute(object? parameter) => _viewModel.SelectedConnection != null;
 
+		/// <inheritdoc/>
 		protected override async Task ExecuteAsync(object? parameter)
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
