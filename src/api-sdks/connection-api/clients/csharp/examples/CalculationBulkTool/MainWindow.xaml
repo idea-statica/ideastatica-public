@@ -8,19 +8,19 @@
 
 		<!-- Set Idea StatiCa API Path -->
 		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-			<Button Content="Set IDEA StatiCa API Path" Width="150" Click="LoadIdeaPath_Click"/>
+			<Button Content="Path to IDEA StatiCa install folder" Width="200" Click="LoadIdeaPath_Click"/>
 			<TextBox x:Name="IdeaPathText" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" Width="500"/>
 		</StackPanel>
 
 		<!-- Select Folder -->
 		<StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-			<Button Content="Select folder" Width="150" Click="SelectFolder_Click"/>
+			<Button Content="Select folder with project files" Width="200" Click="SelectFolder_Click"/>
 			<TextBox x:Name="SelectedFolderTextBox" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" Width="500"/>
 		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,8">
-			<Button Name="LoadItemsButton" Content="Load Project Items" IsEnabled="False" Width="150" Click="ProcessFiles_Click" Margin="0,0,10,0"/>
-			<Button Name="CalculateButton" IsEnabled="False" Content="Calculate + Export" Width="150" Click="CalculateAll_Click" Margin="0,0,0,0"/>
+			<Button Name="LoadItemsButton" Content="Load Project Items" IsEnabled="False" Width="200" Click="ProcessFiles_Click" Margin="0,0,10,0"/>
+			<Button Name="CalculateButton" IsEnabled="False" Content="Calculate + Export" Width="200" Click="CalculateAll_Click" Margin="0,0,0,0"/>
 
 		</StackPanel>
 
