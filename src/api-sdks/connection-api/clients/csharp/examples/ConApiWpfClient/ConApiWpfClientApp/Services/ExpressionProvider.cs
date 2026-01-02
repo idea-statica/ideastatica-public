@@ -19,6 +19,17 @@ namespace ConApiWpfClientApp.Services
 			_logger = logger;
 		}
 
+		/// <summary>
+		/// Asynchronously modifies the expression.
+		/// </summary>
+		/// <remarks>If the connection contains members, the default expression is generated based on the first member's
+		/// cross-section height. If the connection has no members, a default expression is used. The generated expression is
+		/// then modified using a text editor service. Look at https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html for more details about expressions.</remarks>
+		/// <param name="projectId">The unique identifier of the project containing the connection.</param>
+		/// <param name="connectionId">The identifier of the connection whose members are used to generate the expression.</param>
+		/// <param name="cts">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result is an <see cref="ExpressionModel"/> containing
+		/// the modified expression, or <see langword="null"/> if the expression could not be modified.</returns>
 		public async Task<ExpressionModel?> GetExpressionAsync(Guid projectId, int connectionId, CancellationToken cts)
 		{
 			string expression = string.Empty;
@@ -34,7 +45,7 @@ namespace ConApiWpfClientApp.Services
 			}
 			else
 			{
-				// there are no members in the connection - return som expression
+				// there are no members in the connection - return some arithmetic expression as the example.
 				expression = "Abs(-1 - 5)";
 			}
 
