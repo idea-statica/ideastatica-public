@@ -1,15 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.RcsApi;
 using IdeaStatiCa.RcsClient.Services;
-using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace RcsApiWpfClientApp.ViewModels
 {
-	public class MainWindowViewModel : ViewModelBase, IDisposable
+	public class MainWindowViewModel :ViewModelBase
 	{
 		private IApiServiceFactory<IRcsApiClient>? _rcsApiClientFactory;
 		private readonly IConfiguration _configuration;
@@ -881,42 +877,30 @@ namespace RcsApiWpfClientApp.ViewModels
 		//	}
 		//}
 
-		protected virtual void Dispose(bool disposing)
+		public Task OnExitApplication()
 		{
-			if (!disposedValue)
+			return Task.Run(() =>
 			{
-				if (disposing)
+				if (!disposedValue)
 				{
-					try
+					if (RcsApiClient != null)
 					{
-						if (RcsApiClient != null)
-						{
-							RcsApiClient.Dispose();
-							RcsApiClient = null;
-						}
+						RcsApiClient.Dispose();
+						RcsApiClient = null;
 					}
-					finally
+
+					if (RunApiServer == true && _rcsApiClientFactory != null)
 					{
-						if (RunApiServer == true && _rcsApiClientFactory != null)
+						if (_rcsApiClientFactory is IDisposable disp)
 						{
-							if (_rcsApiClientFactory is IDisposable disp)
-							{
-								disp.Dispose();
-							}
-							_rcsApiClientFactory = null;
+							disp.Dispose();
 						}
+						_rcsApiClientFactory = null;
 					}
+
+					disposedValue = true;
 				}
-
-				disposedValue = true;
-			}
-		}
-
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-			Dispose(disposing: true);
-			GC.SuppressFinalize(this);
+			});
 		}
 
 		private void RefreshCommands()

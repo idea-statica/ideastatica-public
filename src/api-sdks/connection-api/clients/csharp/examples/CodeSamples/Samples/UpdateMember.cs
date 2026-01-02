@@ -100,5 +100,46 @@ namespace CodeSamples
 
 			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 		}
+
+
+		/// <summary>
+		/// Update a members cross-section with an avaliable one in the project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
+		public static async Task UpdateMemberPositionByVector(IConnectionApiClient conClient)
+		{
+			string filePath = "Inputs/simple cleat connection - sections.ideaCon";
+			await conClient.Project.OpenProjectAsync(filePath);
+
+			//Get First Connection
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
+			int connectionId = connections[0].Id;
+
+			//Get Member Information.
+			List<ConMember> members = await conClient.Member.GetMembersAsync(conClient.ActiveProjectId, connectionId);
+
+			string memberName = "B";
+			
+			//Get the member with the provided MemberId.
+			ConMember conMember = members.FirstOrDefault(x => x.Name == memberName);
+
+			conMember.Position.DefinedBy = ConMemberPlacementDefinitionTypeEnum.DirectionVector;
+			conMember.Position.AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D(0.7071067811865476, 0, 0.7071067811865476);
+
+			//Update the member.
+			var updatedMember = await conClient.Member.UpdateMemberAsync(conClient.ActiveProjectId, connectionId, conMember);
+
+			string exampleFolder = GetExampleFolderPathOnDesktop("UpdateMemberPositionVector");
+			string fileName = "simple cleat - member position update.ideaCon";
+			string saveFilePath = Path.Combine(exampleFolder, fileName);
+
+			//Save the applied template
+			await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, saveFilePath);
+			Console.WriteLine("Project saved to: " + saveFilePath);
+
+			await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
+		}
+
+
 	}
 }

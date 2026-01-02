@@ -68,6 +68,9 @@ namespace IdeaStatiCa.ConnectionApi
 		/// <inheritdoc cref="IConnectionApiClient.Settings"/>
 		public ISettingsApiAsync Settings { get; private set; }
 
+		/// <inheritdoc cref="IConnectionApiClient.ConnectionLibrary"/>
+		public IConnectionLibraryApiExt ConnectionLibrary { get; private set; }
+
 		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>
 		public string ClientId { get; private set; }
 
@@ -117,7 +120,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Conversion = null;
 			this.ClientApi = null;
 			this.Settings = null;
-
+			this.ConnectionLibrary = null;
 		}
 
 		private async Task<string> CreateClientAsync()
@@ -144,6 +147,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Template = new TemplateApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Conversion = new ConversionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Settings = new SettingsApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.ConnectionLibrary = new ConnectionLibraryApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
 			return ClientId;
@@ -155,7 +159,8 @@ namespace IdeaStatiCa.ConnectionApi
 			{
 				if (disposing)
 				{
-					CloseAsync().Wait();
+					// perform destruction on the background task to avoid deadlock
+					Task.Run(() => CloseAsync()).Wait();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
@@ -180,11 +185,10 @@ namespace IdeaStatiCa.ConnectionApi
 		}
 
 		/// <summary>
-		/// Dispose for oll .Net Frameworks
+		/// Dispose for all .Net Frameworks
 		/// C# 8.0 and higher should use DisposeAsync
 		/// <see href="https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-disposeasync"/>
 		/// </summary>
-		[Obsolete("Use DisposeAsync")]
 		public void Dispose()
 		{
 			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using IdeaStatiCa.ConRestApiClientUI;
+using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp
 {
@@ -64,7 +65,7 @@ namespace ConApiWpfClientApp
 		{
 			if (this.mainWindowViewModel != null)
 			{
-				this.mainWindowViewModel.Dispose();
+				Task.Run(() => this.mainWindowViewModel.OnExitApplication()).Wait();
 				this.mainWindowViewModel = null;
 			}
 			

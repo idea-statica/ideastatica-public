@@ -1,9 +1,9 @@
 # IdeaStatiCa.ConnectionApi
 
-The C# library for the Connection Rest API 2.0
+The C# library for the Connection Rest API 3.0
 
-- API version: 2.0
-- SDK version: 25.1.2.0791
+- API version: 3.0
+- SDK version: 25.1.3.0478
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -115,7 +115,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**Calculate**](docs/CalculationApi.md#calculate) | 
+[**Calculate**](docs/CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results
 [**GetRawJsonResults**](docs/CalculationApi.md#getrawjsonresults) | Get json string which represents raw CBFEM results (an instance of CheckResultsData)
 [**GetResults**](docs/CalculationApi.md#getresults) | Get detailed results of the CBFEM analysis
   ### ClientApi
@@ -134,9 +134,21 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**DeleteConnection**](docs/ConnectionApi.md#deleteconnection) | 
 [**GetConnection**](docs/ConnectionApi.md#getconnection) | Get data about a specific connection in the project
+[**GetConnectionTopology**](docs/ConnectionApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetConnections**](docs/ConnectionApi.md#getconnections) | Get data about all connections in the project
 [**GetProductionCost**](docs/ConnectionApi.md#getproductioncost) | Get production cost of the connection
 [**UpdateConnection**](docs/ConnectionApi.md#updateconnection) | Update data of a specific connection in the project
+  ### ConnectionLibraryApi
+
+  
+  
+  Method | Description
+  ------------- | -------------
+[**GetDesignItemPicture**](docs/ConnectionLibraryApi.md#getdesignitempicture) | Retrieves the picture associated with the specified design item as a PNG image.
+[**GetDesignSets**](docs/ConnectionLibraryApi.md#getdesignsets) | Retrieves a list of design sets available for the user.
+[**GetTemplate**](docs/ConnectionLibraryApi.md#gettemplate) | Retrieves the template associated with the specified design set and design item.
+[**Propose**](docs/ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
+[**PublishConnection**](docs/ConnectionLibraryApi.md#publishconnection) | Publish template to Private or Company set
   ### ConversionApi
 
   
@@ -213,7 +225,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**ClearParameters**](docs/ParameterApi.md#clearparameters) | Clear parameters and links for the connection connectionId in the project projectId
+[**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
 [**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result
 [**GetParameters**](docs/ParameterApi.md#getparameters) | Get all parameters which are defined for projectId and connectionId
 [**Update**](docs/ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
@@ -264,17 +276,16 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**ApplyTemplate**](docs/TemplateApi.md#applytemplate) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**ClearDesign**](docs/TemplateApi.md#cleardesign) | Clears the entire design of the specified connection, including all operations  and parameters, in the given project. This reset is performed regardless of  whether the design originated from a template or was created manually.
 [**CreateConTemplate**](docs/TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId
 [**Delete**](docs/TemplateApi.md#delete) | Delete specific template
 [**DeleteAll**](docs/TemplateApi.md#deleteall) | Delete all templates in connection
 [**Explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
 [**ExplodeAll**](docs/TemplateApi.md#explodeall) | Explode all templates (delete parameters, keep operations)
-[**GetConnectionTopology**](docs/TemplateApi.md#getconnectiontopology) | Get topology of the connection in json format
 [**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 [**GetTemplateCommonOperationProperties**](docs/TemplateApi.md#gettemplatecommonoperationproperties) | Get Common properties for specific template
+[**GetTemplateInConnection**](docs/TemplateApi.md#gettemplateinconnection) | Retrieves a specific template by its ID for a given connection within a project.
+[**GetTemplatesInConnection**](docs/TemplateApi.md#gettemplatesinconnection) | Retrieves a list of templates associated with a specific connection within a project.
 [**LoadDefaults**](docs/TemplateApi.md#loaddefaults) | Load parameter defaults for specific template.
-[**PublishConnection**](docs/TemplateApi.md#publishconnection) | Publish template to Private or Company set
 [**UpdateTemplateCommonOperationProperties**](docs/TemplateApi.md#updatetemplatecommonoperationproperties) | Set common properties for specific template
 
 <a id="documentation-for-models"></a>
@@ -297,10 +308,14 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [Model.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [Model.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
- - [Model.ConCalculationParameter](docs/ConCalculationParameter.md)
  - [Model.ConConnection](docs/ConConnection.md)
+ - [Model.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
+ - [Model.ConConnectionTemplate](docs/ConConnectionTemplate.md)
  - [Model.ConConversionSettings](docs/ConConversionSettings.md)
+ - [Model.ConDesignItem](docs/ConDesignItem.md)
+ - [Model.ConDesignSet](docs/ConDesignSet.md)
  - [Model.ConDesignSetType](docs/ConDesignSetType.md)
+ - [Model.ConItem](docs/ConItem.md)
  - [Model.ConLoadEffect](docs/ConLoadEffect.md)
  - [Model.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [Model.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
@@ -315,6 +330,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConMemberPosition](docs/ConMemberPosition.md)
  - [Model.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [Model.ConMprlElement](docs/ConMprlElement.md)
+ - [Model.ConNonConformityIssue](docs/ConNonConformityIssue.md)
+ - [Model.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [Model.ConOperation](docs/ConOperation.md)
  - [Model.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
  - [Model.ConProductionCost](docs/ConProductionCost.md)
@@ -322,6 +339,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConProjectData](docs/ConProjectData.md)
  - [Model.ConResultSummary](docs/ConResultSummary.md)
  - [Model.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
+ - [Model.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [Model.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [Model.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
@@ -357,6 +375,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.PolyLine2D](docs/PolyLine2D.md)
  - [Model.ReferenceElement](docs/ReferenceElement.md)
  - [Model.Region2D](docs/Region2D.md)
+ - [Model.SearchOption](docs/SearchOption.md)
  - [Model.Segment2D](docs/Segment2D.md)
  - [Model.Selected](docs/Selected.md)
  - [Model.SelectedType](docs/SelectedType.md)
@@ -378,8 +397,8 @@ Endpoints do not require authorization.
 
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 2.0
-- SDK version: 25.1.2.0791
+- API version: 3.0
+- SDK version: 25.1.3.0478
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

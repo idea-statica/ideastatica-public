@@ -126,7 +126,7 @@ namespace CalculationBulkTool
 					try
 					{
 						var files = Directory
-							.GetFiles(selectedFolderPath!, "*.ideaCon", SearchOption.AllDirectories)
+							.GetFiles(selectedFolderPath!, "*.ideaCon", System.IO.SearchOption.AllDirectories)
 							.OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase)
 							.ToArray();
 

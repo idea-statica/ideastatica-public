@@ -26,6 +26,11 @@ namespace IdeaStatiCa.IntermediateModel.IRModel
 			Items.Add(sIntermediateItem);
 		}
 
+		public void Remove(ISIntermediate sIntermediateItem)
+		{
+			Items.Remove(sIntermediateItem);
+		}
+
 		public ISIntermediate First()
 		{
 			return Items.First();
