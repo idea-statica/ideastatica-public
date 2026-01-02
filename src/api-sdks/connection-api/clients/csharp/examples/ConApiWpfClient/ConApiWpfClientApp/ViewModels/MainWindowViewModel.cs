@@ -85,6 +85,7 @@ namespace ConApiWpfClientApp.ViewModels
 			UpdateSettingsCommand = new UpdateSettingsCommand(this, logger, cts);
 			WeldSizingCommand = new WeldSizingCommand(this, logger, cts);
 			UpdateConnectionLoadingCommand = new UpdateConnectionLoadingCommand(this, logger, cts);
+			EvaluateExpressionCommand = new EvaluateExpressionCommand(this, logger, cts);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
@@ -212,7 +213,7 @@ namespace ConApiWpfClientApp.ViewModels
 		public ICommand WeldSizingCommand { get; }
 
 		public ICommand UpdateConnectionLoadingCommand { get; }
-
+	public ICommand EvaluateExpressionCommand { get; }
 		internal async Task ShowClientUIAsync()
 		{
 			_logger.LogInformation("ShowClientUI");
@@ -328,6 +329,8 @@ namespace ConApiWpfClientApp.ViewModels
 				weldSizingCmd.RaiseCanExecuteChanged();
 			if (UpdateConnectionLoadingCommand is AsyncCommandBase updateConnectionLoadingCmd)
 				updateConnectionLoadingCmd.RaiseCanExecuteChanged();
+			if (EvaluateExpressionCommand is AsyncCommandBase evaluateExpressionCmd)
+				evaluateExpressionCmd.RaiseCanExecuteChanged();
 
 			this.OnPropertyChanged("CanStartService");
 		}
