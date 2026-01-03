@@ -64,6 +64,10 @@
 				<Button Command="{Binding UpdateConnectionLoadingCommand, Mode=OneWay}" ToolTip="Get loading for the selected connection. Allows their editing as the JSON text and updating the connection">Update loading</Button>
 			</ToolBar>
 
+			<ToolBar Band="3">
+				<Button Command="{Binding EditParametersCommand, Mode=OneWay}" ToolTip="Edit existing parameters for the selected connection">Edit Parameters</Button>
+			</ToolBar>
+
 		</ToolBarTray>
 		<Grid>
 			<Grid.ColumnDefinitions>
