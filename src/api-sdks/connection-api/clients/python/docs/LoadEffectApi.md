@@ -4,10 +4,10 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**add_load_effect**](LoadEffectApi.md#add_load_effect) | Add new load effect to the connection
+[**add_load_effect**](LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
 [**delete_load_effect**](LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId
-[**get_load_effect**](LoadEffectApi.md#get_load_effect) | Get load impulses from loadEffectId
-[**get_load_effects**](LoadEffectApi.md#get_load_effects) | Get all load effects which are defined in connectionId
+[**get_load_effect**](LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
+[**get_load_effects**](LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
 [**get_load_settings**](LoadEffectApi.md#get_load_settings) | Get Load settings for connection in project
 [**set_load_settings**](LoadEffectApi.md#set_load_settings) | Set Load settings for connection in project
 [**update_load_effect**](LoadEffectApi.md#update_load_effect) | Update load impulses in conLoading
@@ -17,16 +17,16 @@ Method | Description
 # **add_load_effect**
 > ConLoadEffect add_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
 
-Add new load effect to the connection
+Adds a new load effect to the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **con_load_effect** | [**ConLoadEffect**](ConLoadEffect.md)|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **con_load_effect** | [**ConLoadEffect**](ConLoadEffect.md)| The load effect data to add. | [optional] 
 
 ### Return type
 
@@ -48,12 +48,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_load_effectExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    con_load_effect = ideastatica_connection_api.ConLoadEffect() # ConLoadEffect |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    con_load_effect = ideastatica_connection_api.ConLoadEffect() # ConLoadEffect | The load effect data to add. (optional)
 
     try:
-        # Add new load effect to the connection
+        # Adds a new load effect to the connection.
         api_response = api_client.loadeffect.add_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
         print("The response of LoadEffectApi->add_load_effect:\n")
         pprint(api_response)
@@ -176,17 +176,17 @@ No authorization required
 # **get_load_effect**
 > ConLoadEffect get_load_effect(project_id, connection_id, load_effect_id, is_percentage=is_percentage)
 
-Get load impulses from loadEffectId
+Gets load impulses from the specified load effect.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **load_effect_id** | **int**|  | 
- **is_percentage** | **bool**|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **load_effect_id** | **int**| The ID of the load effect to retrieve. | 
+ **is_percentage** | **bool**| Optional flag indicating whether to return percentage-based load effects. | [optional] 
 
 ### Return type
 
@@ -208,13 +208,13 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_load_effectExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    load_effect_id = 56 # int | 
-    is_percentage = True # bool |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    load_effect_id = 56 # int | The ID of the load effect to retrieve.
+    is_percentage = True # bool | Optional flag indicating whether to return percentage-based load effects. (optional)
 
     try:
-        # Get load impulses from loadEffectId
+        # Gets load impulses from the specified load effect.
         api_response = api_client.loadeffect.get_load_effect(project_id, connection_id, load_effect_id, is_percentage=is_percentage)
         print("The response of LoadEffectApi->get_load_effect:\n")
         pprint(api_response)
@@ -258,16 +258,16 @@ No authorization required
 # **get_load_effects**
 > List[ConLoadEffect] get_load_effects(project_id, connection_id, is_percentage=is_percentage)
 
-Get all load effects which are defined in connectionId
+Gets all load effects defined in the specified connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **is_percentage** | **bool**|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **is_percentage** | **bool**| Optional flag indicating whether to return percentage-based load effects. | [optional] 
 
 ### Return type
 
@@ -289,12 +289,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_load_effectsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    is_percentage = True # bool |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    is_percentage = True # bool | Optional flag indicating whether to return percentage-based load effects. (optional)
 
     try:
-        # Get all load effects which are defined in connectionId
+        # Gets all load effects defined in the specified connection.
         api_response = api_client.loadeffect.get_load_effects(project_id, connection_id, is_percentage=is_percentage)
         print("The response of LoadEffectApi->get_load_effects:\n")
         pprint(api_response)

@@ -34,72 +34,72 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Export connection to IFC format
+        /// Exports the connection to IFC format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         string ExportIFC(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Export connection to IFC format
+        /// Exports the connection to IFC format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> ExportIFCWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
+        /// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         string ExportIom(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0);
 
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to export.</param>
+/// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> ExportIomWithHttpInfo(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConnectionData</returns>
         ConnectionData ExportIomConnectionData(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConnectionData</returns>
@@ -114,86 +114,86 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Export connection to IFC format
+        /// Exports the connection to IFC format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
         System.Threading.Tasks.Task<string> ExportIFCAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Export connection to IFC format
+        /// Exports the connection to IFC format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> ExportIFCWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
+        /// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
         System.Threading.Tasks.Task<string> ExportIomAsync(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
+        /// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> ExportIomWithHttpInfoAsync(Guid projectId, int connectionId, string version = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConnectionData</returns>
         System.Threading.Tasks.Task<ConnectionData> ExportIomConnectionDataAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -320,11 +320,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to IFC format 
+        /// Exports the connection to IFC format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         public string ExportIFC(Guid projectId, int connectionId, int operationIndex = 0)
@@ -334,11 +334,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to IFC format 
+        /// Exports the connection to IFC format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -393,11 +393,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to IFC format 
+        /// Exports the connection to IFC format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
@@ -408,11 +408,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to IFC format 
+        /// Exports the connection to IFC format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -470,12 +470,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs 
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
+        /// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         public string ExportIom(Guid projectId, int connectionId, string version = default(string), int operationIndex = 0)
@@ -485,12 +485,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs 
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to export.</param>
+/// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -550,12 +550,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs 
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
+        /// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
@@ -566,12 +566,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs 
+        /// Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="version"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
+        /// <param name="version">Optional version string for downgrading the IOM model. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -634,11 +634,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection 
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConnectionData</returns>
         public ConnectionData ExportIomConnectionData(Guid projectId, int connectionId, int operationIndex = 0)
@@ -648,11 +648,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection 
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConnectionData</returns>
@@ -708,11 +708,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection 
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConnectionData</returns>
@@ -723,11 +723,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection 
+        /// Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to export.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

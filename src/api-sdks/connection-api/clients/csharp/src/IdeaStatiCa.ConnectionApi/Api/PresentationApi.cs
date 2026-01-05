@@ -34,47 +34,47 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Returns data for scene3D
+        /// Returns data for Scene3D visualization.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>DrawData</returns>
         DrawData GetDataScene3D(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Returns data for scene3D
+        /// Returns data for Scene3D visualization.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of DrawData</returns>
         ApiResponse<DrawData> GetDataScene3DWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Return serialized data for scene3D in json format
+        /// Returns serialized data for Scene3D in JSON format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         string GetDataScene3DText(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Return serialized data for scene3D in json format
+        /// Returns serialized data for Scene3D in JSON format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -89,56 +89,56 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Returns data for scene3D
+        /// Returns data for Scene3D visualization.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of DrawData</returns>
         System.Threading.Tasks.Task<DrawData> GetDataScene3DAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Returns data for scene3D
+        /// Returns data for Scene3D visualization.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (DrawData)</returns>
         System.Threading.Tasks.Task<ApiResponse<DrawData>> GetDataScene3DWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Return serialized data for scene3D in json format
+        /// Returns serialized data for Scene3D in JSON format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
         System.Threading.Tasks.Task<string> GetDataScene3DTextAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Return serialized data for scene3D in json format
+        /// Returns serialized data for Scene3D in JSON format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -265,11 +265,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Returns data for scene3D 
+        /// Returns data for Scene3D visualization. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>DrawData</returns>
         public DrawData GetDataScene3D(Guid projectId, int connectionId, int operationIndex = 0)
@@ -279,11 +279,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Returns data for scene3D 
+        /// Returns data for Scene3D visualization. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of DrawData</returns>
@@ -338,11 +338,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Returns data for scene3D 
+        /// Returns data for Scene3D visualization. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of DrawData</returns>
@@ -353,11 +353,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Returns data for scene3D 
+        /// Returns data for Scene3D visualization. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the open project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to be presented to scene3D</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to be presented in Scene3D.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -415,11 +415,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Return serialized data for scene3D in json format 
+        /// Returns serialized data for Scene3D in JSON format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         public string GetDataScene3DText(Guid projectId, int connectionId, int operationIndex = 0)
@@ -429,11 +429,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Return serialized data for scene3D in json format 
+        /// Returns serialized data for Scene3D in JSON format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -489,11 +489,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Return serialized data for scene3D in json format 
+        /// Returns serialized data for Scene3D in JSON format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
@@ -504,11 +504,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Return serialized data for scene3D in json format 
+        /// Returns serialized data for Scene3D in JSON format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to be presented.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

@@ -42,8 +42,8 @@ class PresentationApi:
     @validate_call
     def get_data_scene3_d(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the open project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to be presented to scene3D")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to be presented in Scene3D.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -57,12 +57,12 @@ class PresentationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> DrawData:
-        """Returns data for scene3D
+        """Returns data for Scene3D visualization.
 
 
-        :param project_id: The unique identifier of the open project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to be presented to scene3D (required)
+        :param connection_id: The ID of the connection to be presented in Scene3D. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -112,8 +112,8 @@ class PresentationApi:
     @validate_call
     def get_data_scene3_d_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the open project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to be presented to scene3D")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to be presented in Scene3D.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -127,12 +127,12 @@ class PresentationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[DrawData]:
-        """Returns data for scene3D
+        """Returns data for Scene3D visualization.
 
 
-        :param project_id: The unique identifier of the open project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to be presented to scene3D (required)
+        :param connection_id: The ID of the connection to be presented in Scene3D. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -182,8 +182,8 @@ class PresentationApi:
     @validate_call
     def get_data_scene3_d_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the open project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to be presented to scene3D")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to be presented in Scene3D.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -197,12 +197,12 @@ class PresentationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Returns data for scene3D
+        """Returns data for Scene3D visualization.
 
 
-        :param project_id: The unique identifier of the open project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to be presented to scene3D (required)
+        :param connection_id: The ID of the connection to be presented in Scene3D. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -314,8 +314,8 @@ class PresentationApi:
     @validate_call
     def get_data_scene3_d_text(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to be presented.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -329,12 +329,12 @@ class PresentationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Return serialized data for scene3D in json format
+        """Returns serialized data for Scene3D in JSON format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to be presented. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -384,8 +384,8 @@ class PresentationApi:
     @validate_call
     def get_data_scene3_d_text_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to be presented.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -399,12 +399,12 @@ class PresentationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Return serialized data for scene3D in json format
+        """Returns serialized data for Scene3D in JSON format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to be presented. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -454,8 +454,8 @@ class PresentationApi:
     @validate_call
     def get_data_scene3_d_text_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to be presented.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -469,12 +469,12 @@ class PresentationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Return serialized data for scene3D in json format
+        """Returns serialized data for Scene3D in JSON format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to be presented. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

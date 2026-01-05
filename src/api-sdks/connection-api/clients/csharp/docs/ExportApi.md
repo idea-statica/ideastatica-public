@@ -2,15 +2,15 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ExportIFCAsync**](ExportApi.md#exportifcasync) | Export connection to IFC format |
-| [**ExportIomAsync**](ExportApi.md#exportiomasync) | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs |
-| [**ExportIomConnectionDataAsync**](ExportApi.md#exportiomconnectiondataasync) | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection |
+| [**ExportIFCAsync**](ExportApi.md#exportifcasync) | Exports the connection to IFC format. |
+| [**ExportIomAsync**](ExportApi.md#exportiomasync) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs). |
+| [**ExportIomConnectionDataAsync**](ExportApi.md#exportiomconnectiondataasync) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs). |
 
 <a id="exportifc"></a>
 ## **ExportIFCAsync**
 > **string ExportIFCAsync (Guid projectId, int connectionId)**
 
-Export connection to IFC format
+Exports the connection to IFC format.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -21,8 +21,8 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection to export. |  |
 
 ### Return type
 
@@ -60,11 +60,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection to export.
 
                     try
                     {
-                        // Export connection to IFC format
+                        // Exports the connection to IFC format.
                         string result = await conClient.Export.ExportIFCAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -105,7 +105,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Export connection to IFC format
+    // Exports the connection to IFC format.
     ApiResponse<string> response = conClient.Export.ExportIFCWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -140,7 +140,7 @@ No authorization required
 ## **ExportIomAsync**
 > **string ExportIomAsync (Guid projectId, int connectionId, string version = null)**
 
-Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 
 
 
@@ -148,9 +148,9 @@ Export connection to XML which includes https://github.com/idea-statica/ideastat
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **version** | **string** |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection to export. |  |
+| **version** | **string** | Optional version string for downgrading the IOM model. | [optional]  |
 
 ### Return type
 
@@ -188,12 +188,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    version = "version_example";  // string |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection to export.
+                    version = "version_example";  // string | Optional version string for downgrading the IOM model. (optional) 
 
                     try
                     {
-                        // Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+                        // Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
                         string result = await conClient.Export.ExportIomAsync(projectId, connectionId, version);
                         Debug.WriteLine(result);
                     }
@@ -234,7 +234,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+    // Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
     ApiResponse<string> response = conClient.Export.ExportIomWithHttpInfo(projectId, connectionId, version);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -269,7 +269,7 @@ No authorization required
 ## **ExportIomConnectionDataAsync**
 > **ConnectionData ExportIomConnectionDataAsync (Guid projectId, int connectionId)**
 
-Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
 
 
@@ -277,8 +277,8 @@ Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.Open
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection to export. |  |
 
 ### Return type
 
@@ -316,11 +316,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection to export.
 
                     try
                     {
-                        // Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+                        // Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
                         ConnectionData result = await conClient.Export.ExportIomConnectionDataAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -361,7 +361,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+    // Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
     ApiResponse<ConnectionData> response = conClient.Export.ExportIomConnectionDataWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

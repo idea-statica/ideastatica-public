@@ -2,18 +2,18 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**DeleteConnectionAsync**](ConnectionApi.md#deleteconnectionasync) |  |
-| [**GetConnectionAsync**](ConnectionApi.md#getconnectionasync) | Get data about a specific connection in the project |
-| [**GetConnectionTopologyAsync**](ConnectionApi.md#getconnectiontopologyasync) | Get topology of the connection in json format |
-| [**GetConnectionsAsync**](ConnectionApi.md#getconnectionsasync) | Get data about all connections in the project |
-| [**GetProductionCostAsync**](ConnectionApi.md#getproductioncostasync) | Get production cost of the connection |
-| [**UpdateConnectionAsync**](ConnectionApi.md#updateconnectionasync) | Update data of a specific connection in the project |
+| [**DeleteConnectionAsync**](ConnectionApi.md#deleteconnectionasync) | Deletes a specific connection from the project. |
+| [**GetConnectionAsync**](ConnectionApi.md#getconnectionasync) | Gets data about a specific connection in the project. |
+| [**GetConnectionTopologyAsync**](ConnectionApi.md#getconnectiontopologyasync) | Gets the topology of the connection in JSON format. |
+| [**GetConnectionsAsync**](ConnectionApi.md#getconnectionsasync) | Gets data about all connections in the project. |
+| [**GetProductionCostAsync**](ConnectionApi.md#getproductioncostasync) | Gets the production cost of the connection. |
+| [**UpdateConnectionAsync**](ConnectionApi.md#updateconnectionasync) | Updates data of a specific connection in the project. |
 
 <a id="deleteconnection"></a>
 ## **DeleteConnectionAsync**
 > **List&lt;ConConnection&gt; DeleteConnectionAsync (Guid projectId, int connectionId)**
 
-
+Deletes a specific connection from the project.
 
 
 
@@ -21,8 +21,8 @@
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection to delete. |  |
 
 ### Return type
 
@@ -60,10 +60,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection to delete.
 
                     try
                     {
+                        // Deletes a specific connection from the project.
                         List<ConConnection> result = await conClient.Connection.DeleteConnectionAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -104,6 +105,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
+    // Deletes a specific connection from the project.
     ApiResponse<List<ConConnection>> response = conClient.Connection.DeleteConnectionWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -138,7 +140,7 @@ No authorization required
 ## **GetConnectionAsync**
 > **ConConnection GetConnectionAsync (Guid projectId, int connectionId)**
 
-Get data about a specific connection in the project
+Gets data about a specific connection in the project.
 
 
 
@@ -146,8 +148,8 @@ Get data about a specific connection in the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | The id of the requested connection |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the requested connection. |  |
 
 ### Return type
 
@@ -185,11 +187,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The id of the requested connection
+                    connectionId = 56;  // int | The ID of the requested connection.
 
                     try
                     {
-                        // Get data about a specific connection in the project
+                        // Gets data about a specific connection in the project.
                         ConConnection result = await conClient.Connection.GetConnectionAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -230,7 +232,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get data about a specific connection in the project
+    // Gets data about a specific connection in the project.
     ApiResponse<ConConnection> response = conClient.Connection.GetConnectionWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -265,7 +267,7 @@ No authorization required
 ## **GetConnectionTopologyAsync**
 > **string GetConnectionTopologyAsync (Guid projectId, int connectionId)**
 
-Get topology of the connection in json format
+Gets the topology of the connection in JSON format.
 
 
 
@@ -273,8 +275,8 @@ Get topology of the connection in json format
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection where to clear the design |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection for which to retrieve the topology. |  |
 
 ### Return type
 
@@ -312,11 +314,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection where to clear the design
+                    connectionId = 56;  // int | The ID of the connection for which to retrieve the topology.
 
                     try
                     {
-                        // Get topology of the connection in json format
+                        // Gets the topology of the connection in JSON format.
                         string result = await conClient.Connection.GetConnectionTopologyAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -357,7 +359,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get topology of the connection in json format
+    // Gets the topology of the connection in JSON format.
     ApiResponse<string> response = conClient.Connection.GetConnectionTopologyWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -392,7 +394,7 @@ No authorization required
 ## **GetConnectionsAsync**
 > **List&lt;ConConnection&gt; GetConnectionsAsync (Guid projectId)**
 
-Get data about all connections in the project
+Gets data about all connections in the project.
 
 
 
@@ -400,7 +402,7 @@ Get data about all connections in the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -441,7 +443,7 @@ namespace Example
 
                     try
                     {
-                        // Get data about all connections in the project
+                        // Gets data about all connections in the project.
                         List<ConConnection> result = await conClient.Connection.GetConnectionsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -482,7 +484,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get data about all connections in the project
+    // Gets data about all connections in the project.
     ApiResponse<List<ConConnection>> response = conClient.Connection.GetConnectionsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -517,7 +519,7 @@ No authorization required
 ## **GetProductionCostAsync**
 > **ConProductionCost GetProductionCostAsync (Guid projectId, int connectionId)**
 
-Get production cost of the connection
+Gets the production cost of the connection.
 
 
 
@@ -525,8 +527,8 @@ Get production cost of the connection
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the requested connection |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the requested connection. |  |
 
 ### Return type
 
@@ -564,11 +566,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the requested connection
+                    connectionId = 56;  // int | The ID of the requested connection.
 
                     try
                     {
-                        // Get production cost of the connection
+                        // Gets the production cost of the connection.
                         ConProductionCost result = await conClient.Connection.GetProductionCostAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -609,7 +611,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get production cost of the connection
+    // Gets the production cost of the connection.
     ApiResponse<ConProductionCost> response = conClient.Connection.GetProductionCostWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -644,7 +646,7 @@ No authorization required
 ## **UpdateConnectionAsync**
 > **ConConnection UpdateConnectionAsync (Guid projectId, int connectionId, ConConnection conConnection = null)**
 
-Update data of a specific connection in the project
+Updates data of a specific connection in the project.
 
 
 
@@ -652,9 +654,9 @@ Update data of a specific connection in the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to be update |  |
-| **conConnection** | [**ConConnection**](ConConnection.md) | New connection data to be set | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection to be updated. |  |
+| **conConnection** | [**ConConnection**](ConConnection.md) | New connection data to be applied. | [optional]  |
 
 ### Return type
 
@@ -692,12 +694,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to be update
-                    var conConnection = new ConConnection(); // ConConnection | New connection data to be set (optional) 
+                    connectionId = 56;  // int | The ID of the connection to be updated.
+                    var conConnection = new ConConnection(); // ConConnection | New connection data to be applied. (optional) 
 
                     try
                     {
-                        // Update data of a specific connection in the project
+                        // Updates data of a specific connection in the project.
                         ConConnection result = await conClient.Connection.UpdateConnectionAsync(projectId, connectionId, conConnection);
                         Debug.WriteLine(result);
                     }
@@ -738,7 +740,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update data of a specific connection in the project
+    // Updates data of a specific connection in the project.
     ApiResponse<ConConnection> response = conClient.Connection.UpdateConnectionWithHttpInfo(projectId, connectionId, conConnection);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

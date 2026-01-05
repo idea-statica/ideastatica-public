@@ -600,8 +600,8 @@ class MaterialApi:
     @validate_call
     def add_material_bolt_grade(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -615,12 +615,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -670,8 +670,8 @@ class MaterialApi:
     @validate_call
     def add_material_bolt_grade_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -685,12 +685,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -740,8 +740,8 @@ class MaterialApi:
     @validate_call
     def add_material_bolt_grade_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -755,12 +755,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -878,8 +878,8 @@ class MaterialApi:
     @validate_call
     def add_material_concrete(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -893,12 +893,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -948,8 +948,8 @@ class MaterialApi:
     @validate_call
     def add_material_concrete_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -963,12 +963,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1018,8 +1018,8 @@ class MaterialApi:
     @validate_call
     def add_material_concrete_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1033,12 +1033,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1156,8 +1156,8 @@ class MaterialApi:
     @validate_call
     def add_material_steel(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1171,12 +1171,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1226,8 +1226,8 @@ class MaterialApi:
     @validate_call
     def add_material_steel_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1241,12 +1241,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1296,8 +1296,8 @@ class MaterialApi:
     @validate_call
     def add_material_steel_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1311,12 +1311,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1434,8 +1434,8 @@ class MaterialApi:
     @validate_call
     def add_material_weld(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1449,12 +1449,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1504,8 +1504,8 @@ class MaterialApi:
     @validate_call
     def add_material_weld_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1519,12 +1519,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1574,8 +1574,8 @@ class MaterialApi:
     @validate_call
     def add_material_weld_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of a new material to be added to the project")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        con_mprl_element: Annotated[Optional[ConMprlElement], Field(description="Definition of the new material to be added to the project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1589,12 +1589,12 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add material to the project
+        """Adds a material to the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_mprl_element: Definition of a new material to be added to the project
+        :param con_mprl_element: Definition of the new material to be added to the project.
         :type con_mprl_element: ConMprlElement
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1712,7 +1712,7 @@ class MaterialApi:
     @validate_call
     def get_all_materials(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1726,10 +1726,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1778,7 +1778,7 @@ class MaterialApi:
     @validate_call
     def get_all_materials_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1792,10 +1792,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1844,7 +1844,7 @@ class MaterialApi:
     @validate_call
     def get_all_materials_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1858,10 +1858,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1969,7 +1969,7 @@ class MaterialApi:
     @validate_call
     def get_bolt_assemblies(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1983,10 +1983,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get bolt assemblies which are used in the project projectId
+        """Gets bolt assemblies used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2035,7 +2035,7 @@ class MaterialApi:
     @validate_call
     def get_bolt_assemblies_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2049,10 +2049,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get bolt assemblies which are used in the project projectId
+        """Gets bolt assemblies used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2101,7 +2101,7 @@ class MaterialApi:
     @validate_call
     def get_bolt_assemblies_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2115,10 +2115,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get bolt assemblies which are used in the project projectId
+        """Gets bolt assemblies used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2226,7 +2226,7 @@ class MaterialApi:
     @validate_call
     def get_bolt_grade_materials(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2240,10 +2240,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2292,7 +2292,7 @@ class MaterialApi:
     @validate_call
     def get_bolt_grade_materials_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2306,10 +2306,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2358,7 +2358,7 @@ class MaterialApi:
     @validate_call
     def get_bolt_grade_materials_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2372,10 +2372,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2483,7 +2483,7 @@ class MaterialApi:
     @validate_call
     def get_concrete_materials(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2497,10 +2497,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2549,7 +2549,7 @@ class MaterialApi:
     @validate_call
     def get_concrete_materials_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2563,10 +2563,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2615,7 +2615,7 @@ class MaterialApi:
     @validate_call
     def get_concrete_materials_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2629,10 +2629,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2740,7 +2740,7 @@ class MaterialApi:
     @validate_call
     def get_cross_sections(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2754,10 +2754,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get cross sections which are used in the project projectId
+        """Gets cross sections used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2806,7 +2806,7 @@ class MaterialApi:
     @validate_call
     def get_cross_sections_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2820,10 +2820,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get cross sections which are used in the project projectId
+        """Gets cross sections used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2872,7 +2872,7 @@ class MaterialApi:
     @validate_call
     def get_cross_sections_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2886,10 +2886,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get cross sections which are used in the project projectId
+        """Gets cross sections used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2997,7 +2997,7 @@ class MaterialApi:
     @validate_call
     def get_steel_materials(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3011,10 +3011,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3063,7 +3063,7 @@ class MaterialApi:
     @validate_call
     def get_steel_materials_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3077,10 +3077,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3129,7 +3129,7 @@ class MaterialApi:
     @validate_call
     def get_steel_materials_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3143,10 +3143,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3254,7 +3254,7 @@ class MaterialApi:
     @validate_call
     def get_welding_materials(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3268,10 +3268,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[object]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3320,7 +3320,7 @@ class MaterialApi:
     @validate_call
     def get_welding_materials_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3334,10 +3334,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[object]]:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3386,7 +3386,7 @@ class MaterialApi:
     @validate_call
     def get_welding_materials_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3400,10 +3400,10 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get materials which are used in the project projectId
+        """Gets materials used in the specified project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
