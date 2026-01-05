@@ -28,10 +28,11 @@ class ConOperation(BaseModel):
     ConOperation
     """ # noqa: E501
     is_imported: Optional[StrictBool] = Field(default=None, alias="isImported")
+    operation_type: Optional[StrictStr] = Field(default=None, alias="operationType")
     id: Optional[StrictInt] = None
     name: Optional[StrictStr] = None
     active: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["isImported", "id", "name", "active"]
+    __properties: ClassVar[List[str]] = ["isImported", "operationType", "id", "name", "active"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +73,11 @@ class ConOperation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if operation_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.operation_type is None and "operation_type" in self.model_fields_set:
+            _dict['operationType'] = None
+
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -90,6 +96,7 @@ class ConOperation(BaseModel):
 
         _obj = cls.model_validate({
             "isImported": obj.get("isImported"),
+            "operationType": obj.get("operationType"),
             "id": obj.get("id"),
             "name": obj.get("name"),
             "active": obj.get("active")

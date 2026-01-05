@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ChangeCodeAsync**](ConversionApi.md#changecodeasync) | Change design code of project. |
-| [**GetConversionMappingAsync**](ConversionApi.md#getconversionmappingasync) | Get default conversions for converting the project to different design code. |
+| [**ChangeCodeAsync**](ConversionApi.md#changecodeasync) | Changes the design code of the project. |
+| [**GetConversionMappingAsync**](ConversionApi.md#getconversionmappingasync) | Gets default conversion mappings for converting the project to a different design code. |
 
 <a id="changecode"></a>
 ## **ChangeCodeAsync**
 > **string ChangeCodeAsync (Guid projectId, ConConversionSettings conConversionSettings = null)**
 
-Change design code of project.
+Changes the design code of the project.
 
 
 
@@ -17,8 +17,8 @@ Change design code of project.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) |  |
-| **conConversionSettings** | [**ConConversionSettings**](ConConversionSettings.md) | Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported). |  |
+| **conConversionSettings** | [**ConConversionSettings**](ConConversionSettings.md) | Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). | [optional]  |
 
 ### Return type
 
@@ -56,11 +56,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conConversionSettings = new ConConversionSettings(); // ConConversionSettings | Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL') (optional) 
+                    var conConversionSettings = new ConConversionSettings(); // ConConversionSettings | Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL'). (optional) 
 
                     try
                     {
-                        // Change design code of project.
+                        // Changes the design code of the project.
                         string result = await conClient.Conversion.ChangeCodeAsync(projectId, conConversionSettings);
                         Debug.WriteLine(result);
                     }
@@ -101,7 +101,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Change design code of project.
+    // Changes the design code of the project.
     ApiResponse<string> response = conClient.Conversion.ChangeCodeWithHttpInfo(projectId, conConversionSettings);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -136,7 +136,7 @@ No authorization required
 ## **GetConversionMappingAsync**
 > **ConConversionSettings GetConversionMappingAsync (Guid projectId, CountryCode? countryCode = null)**
 
-Get default conversions for converting the project to different design code.
+Gets default conversion mappings for converting the project to a different design code.
 
 
 
@@ -144,8 +144,8 @@ Get default conversions for converting the project to different design code.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported) |  |
-| **countryCode** | **CountryCode?** | Requested design code in the converted project. | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported). |  |
+| **countryCode** | **CountryCode?** | The requested design code for the converted project. | [optional]  |
 
 ### Return type
 
@@ -183,11 +183,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    countryCode = (CountryCode) "none";  // CountryCode? | Requested design code in the converted project. (optional) 
+                    countryCode = (CountryCode) "none";  // CountryCode? | The requested design code for the converted project. (optional) 
 
                     try
                     {
-                        // Get default conversions for converting the project to different design code.
+                        // Gets default conversion mappings for converting the project to a different design code.
                         ConConversionSettings result = await conClient.Conversion.GetConversionMappingAsync(projectId, countryCode);
                         Debug.WriteLine(result);
                     }
@@ -228,7 +228,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get default conversions for converting the project to different design code.
+    // Gets default conversion mappings for converting the project to a different design code.
     ApiResponse<ConConversionSettings> response = conClient.Conversion.GetConversionMappingWithHttpInfo(projectId, countryCode);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

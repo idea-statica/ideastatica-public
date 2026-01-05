@@ -3,9 +3,9 @@
 | Method  | Description |
 |--------|-------------|
 | [**DeleteParametersAsync**](ParameterApi.md#deleteparametersasync) | Delete all parameters and parameter model links for the connection connectionId in the project projectId |
-| [**EvaluateExpressionAsync**](ParameterApi.md#evaluateexpressionasync) | Evaluate the expression and return the result |
-| [**GetParametersAsync**](ParameterApi.md#getparametersasync) | Get all parameters which are defined for projectId and connectionId |
-| [**UpdateAsync**](ParameterApi.md#updateasync) | Update parameters for the connection connectionId in the project projectId by values passed in parameters |
+| [**EvaluateExpressionAsync**](ParameterApi.md#evaluateexpressionasync) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html |
+| [**GetParametersAsync**](ParameterApi.md#getparametersasync) | Gets all parameters defined for the specified project and connection. |
+| [**UpdateAsync**](ParameterApi.md#updateasync) | Updates parameters for the specified connection in the project with the values provided. |
 
 <a id="deleteparameters"></a>
 ## **DeleteParametersAsync**
@@ -134,7 +134,7 @@ No authorization required
 ## **EvaluateExpressionAsync**
 > **string EvaluateExpressionAsync (Guid projectId, int connectionId, string body = null)**
 
-Evaluate the expression and return the result
+Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
 
 
 
@@ -142,9 +142,9 @@ Evaluate the expression and return the result
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to use for evaluation expression |  |
-| **body** | **string** | Expression to evaluate | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | Id of the connection to use for evaluation expression. |  |
+| **body** | **string** | Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html | [optional]  |
 
 ### Return type
 
@@ -182,12 +182,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to use for evaluation expression
-                    body = "body_example";  // string | Expression to evaluate (optional) 
+                    connectionId = 56;  // int | Id of the connection to use for evaluation expression.
+                    body = "body_example";  // string | Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional) 
 
                     try
                     {
-                        // Evaluate the expression and return the result
+                        // Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
                         string result = await conClient.Parameter.EvaluateExpressionAsync(projectId, connectionId, body);
                         Debug.WriteLine(result);
                     }
@@ -228,7 +228,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Evaluate the expression and return the result
+    // Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
     ApiResponse<string> response = conClient.Parameter.EvaluateExpressionWithHttpInfo(projectId, connectionId, body);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -263,7 +263,7 @@ No authorization required
 ## **GetParametersAsync**
 > **List&lt;IdeaParameter&gt; GetParametersAsync (Guid projectId, int connectionId, bool? includeHidden = null)**
 
-Get all parameters which are defined for projectId and connectionId
+Gets all parameters defined for the specified project and connection.
 
 
 
@@ -271,9 +271,9 @@ Get all parameters which are defined for projectId and connectionId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to get its parameters |  |
-| **includeHidden** | **bool?** | Include also hidden parameters | [optional] [default to false] |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection from which to retrieve parameters. |  |
+| **includeHidden** | **bool?** | If true, includes hidden parameters in the result. | [optional] [default to false] |
 
 ### Return type
 
@@ -311,12 +311,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to get its parameters
-                    includeHidden = false;  // bool? | Include also hidden parameters (optional)  (default to false)
+                    connectionId = 56;  // int | The ID of the connection from which to retrieve parameters.
+                    includeHidden = false;  // bool? | If true, includes hidden parameters in the result. (optional)  (default to false)
 
                     try
                     {
-                        // Get all parameters which are defined for projectId and connectionId
+                        // Gets all parameters defined for the specified project and connection.
                         List<IdeaParameter> result = await conClient.Parameter.GetParametersAsync(projectId, connectionId, includeHidden);
                         Debug.WriteLine(result);
                     }
@@ -357,7 +357,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get all parameters which are defined for projectId and connectionId
+    // Gets all parameters defined for the specified project and connection.
     ApiResponse<List<IdeaParameter>> response = conClient.Parameter.GetParametersWithHttpInfo(projectId, connectionId, includeHidden);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -392,7 +392,7 @@ No authorization required
 ## **UpdateAsync**
 > **ParameterUpdateResponse UpdateAsync (Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = null)**
 
-Update parameters for the connection connectionId in the project projectId by values passed in parameters
+Updates parameters for the specified connection in the project with the values provided.
 
 
 
@@ -400,9 +400,9 @@ Update parameters for the connection connectionId in the project projectId by va
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to apply template |  |
-| **ideaParameterUpdate** | [**List&lt;IdeaParameterUpdate&gt;**](IdeaParameterUpdate.md) | New values of parameters | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection to update. |  |
+| **ideaParameterUpdate** | [**List&lt;IdeaParameterUpdate&gt;**](IdeaParameterUpdate.md) | New values of parameters to apply. | [optional]  |
 
 ### Return type
 
@@ -440,12 +440,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to apply template
-                    var ideaParameterUpdate = new List<IdeaParameterUpdate>(); // List<IdeaParameterUpdate> | New values of parameters (optional) 
+                    connectionId = 56;  // int | The ID of the connection to update.
+                    var ideaParameterUpdate = new List<IdeaParameterUpdate>(); // List<IdeaParameterUpdate> | New values of parameters to apply. (optional) 
 
                     try
                     {
-                        // Update parameters for the connection connectionId in the project projectId by values passed in parameters
+                        // Updates parameters for the specified connection in the project with the values provided.
                         ParameterUpdateResponse result = await conClient.Parameter.UpdateAsync(projectId, connectionId, ideaParameterUpdate);
                         Debug.WriteLine(result);
                     }
@@ -486,7 +486,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update parameters for the connection connectionId in the project projectId by values passed in parameters
+    // Updates parameters for the specified connection in the project with the values provided.
     ApiResponse<ParameterUpdateResponse> response = conClient.Parameter.UpdateWithHttpInfo(projectId, connectionId, ideaParameterUpdate);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

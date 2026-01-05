@@ -3,10 +3,10 @@
 | Method  | Description |
 |--------|-------------|
 | [**DeleteOperationsAsync**](OperationApi.md#deleteoperationsasync) | Delete all operations for the connection |
-| [**GetCommonOperationPropertiesAsync**](OperationApi.md#getcommonoperationpropertiesasync) | Get common operation properties |
-| [**GetOperationsAsync**](OperationApi.md#getoperationsasync) | Get the list of operations for the connection |
-| [**PreDesignWeldsAsync**](OperationApi.md#predesignweldsasync) | Predesign welds |
-| [**UpdateCommonOperationPropertiesAsync**](OperationApi.md#updatecommonoperationpropertiesasync) | Update common properties for all operations |
+| [**GetCommonOperationPropertiesAsync**](OperationApi.md#getcommonoperationpropertiesasync) | Gets common operation properties. |
+| [**GetOperationsAsync**](OperationApi.md#getoperationsasync) | Gets the list of operations for the connection. |
+| [**PreDesignWeldsAsync**](OperationApi.md#predesignweldsasync) | Pre-designs welds in the connection. |
+| [**UpdateCommonOperationPropertiesAsync**](OperationApi.md#updatecommonoperationpropertiesasync) | Updates common properties for all operations. |
 
 <a id="deleteoperations"></a>
 ## **DeleteOperationsAsync**
@@ -135,7 +135,7 @@ No authorization required
 ## **GetCommonOperationPropertiesAsync**
 > **ConOperationCommonProperties GetCommonOperationPropertiesAsync (Guid projectId, int connectionId)**
 
-Get common operation properties
+Gets common operation properties.
 
 
 
@@ -143,8 +143,8 @@ Get common operation properties
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
 
 ### Return type
 
@@ -182,11 +182,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection.
 
                     try
                     {
-                        // Get common operation properties
+                        // Gets common operation properties.
                         ConOperationCommonProperties result = await conClient.Operation.GetCommonOperationPropertiesAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -227,7 +227,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get common operation properties
+    // Gets common operation properties.
     ApiResponse<ConOperationCommonProperties> response = conClient.Operation.GetCommonOperationPropertiesWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -262,7 +262,7 @@ No authorization required
 ## **GetOperationsAsync**
 > **List&lt;ConOperation&gt; GetOperationsAsync (Guid projectId, int connectionId)**
 
-Get the list of operations for the connection
+Gets the list of operations for the connection.
 
 
 
@@ -270,8 +270,8 @@ Get the list of operations for the connection
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the requested connection |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the requested connection. |  |
 
 ### Return type
 
@@ -309,11 +309,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the requested connection
+                    connectionId = 56;  // int | The ID of the requested connection.
 
                     try
                     {
-                        // Get the list of operations for the connection
+                        // Gets the list of operations for the connection.
                         List<ConOperation> result = await conClient.Operation.GetOperationsAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -354,7 +354,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get the list of operations for the connection
+    // Gets the list of operations for the connection.
     ApiResponse<List<ConOperation>> response = conClient.Operation.GetOperationsWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -389,7 +389,7 @@ No authorization required
 ## **PreDesignWeldsAsync**
 > **string PreDesignWeldsAsync (Guid projectId, int connectionId, ConWeldSizingMethodEnum? designType = null)**
 
-Predesign welds
+Pre-designs welds in the connection.
 
 
 
@@ -397,9 +397,9 @@ Predesign welds
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **designType** | **ConWeldSizingMethodEnum?** |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **designType** | **ConWeldSizingMethodEnum?** | The weld sizing method to apply (default is FullStrength). | [optional]  |
 
 ### Return type
 
@@ -437,12 +437,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    designType = (ConWeldSizingMethodEnum) "fullStrength";  // ConWeldSizingMethodEnum? |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    designType = (ConWeldSizingMethodEnum) "fullStrength";  // ConWeldSizingMethodEnum? | The weld sizing method to apply (default is FullStrength). (optional) 
 
                     try
                     {
-                        // Predesign welds
+                        // Pre-designs welds in the connection.
                         string result = await conClient.Operation.PreDesignWeldsAsync(projectId, connectionId, designType);
                         Debug.WriteLine(result);
                     }
@@ -483,7 +483,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Predesign welds
+    // Pre-designs welds in the connection.
     ApiResponse<string> response = conClient.Operation.PreDesignWeldsWithHttpInfo(projectId, connectionId, designType);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -518,7 +518,7 @@ No authorization required
 ## **UpdateCommonOperationPropertiesAsync**
 > **void UpdateCommonOperationPropertiesAsync (Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = null)**
 
-Update common properties for all operations
+Updates common properties for all operations.
 
 
 
@@ -526,9 +526,9 @@ Update common properties for all operations
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **conOperationCommonProperties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md) | Specify id of material, or keep as null | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **conOperationCommonProperties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md) | Common properties to apply (specify material IDs, or keep as null). | [optional]  |
 
 ### Return type
 
@@ -566,12 +566,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties | Specify id of material, or keep as null (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties | Common properties to apply (specify material IDs, or keep as null). (optional) 
 
                     try
                     {
-                        // Update common properties for all operations
+                        // Updates common properties for all operations.
                         conClient.Operation.UpdateCommonOperationPropertiesAsync(projectId, connectionId, conOperationCommonProperties);
                     }
                     catch (ApiException  e)
@@ -611,7 +611,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update common properties for all operations
+    // Updates common properties for all operations.
     conClient.Operation.UpdateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, conOperationCommonProperties);
 }
 catch (ApiException e)

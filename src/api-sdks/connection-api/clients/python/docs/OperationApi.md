@@ -5,10 +5,10 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**delete_operations**](OperationApi.md#delete_operations) | Delete all operations for the connection
-[**get_common_operation_properties**](OperationApi.md#get_common_operation_properties) | Get common operation properties
-[**get_operations**](OperationApi.md#get_operations) | Get the list of operations for the connection
-[**pre_design_welds**](OperationApi.md#pre_design_welds) | Predesign welds
-[**update_common_operation_properties**](OperationApi.md#update_common_operation_properties) | Update common properties for all operations
+[**get_common_operation_properties**](OperationApi.md#get_common_operation_properties) | Gets common operation properties.
+[**get_operations**](OperationApi.md#get_operations) | Gets the list of operations for the connection.
+[**pre_design_welds**](OperationApi.md#pre_design_welds) | Pre-designs welds in the connection.
+[**update_common_operation_properties**](OperationApi.md#update_common_operation_properties) | Updates common properties for all operations.
 
 
 <a id="delete_operations"></a>
@@ -89,15 +89,15 @@ No authorization required
 # **get_common_operation_properties**
 > ConOperationCommonProperties get_common_operation_properties(project_id, connection_id)
 
-Get common operation properties
+Gets common operation properties.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
 
 ### Return type
 
@@ -119,11 +119,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_common_operation_propertiesExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
 
     try:
-        # Get common operation properties
+        # Gets common operation properties.
         api_response = api_client.operation.get_common_operation_properties(project_id, connection_id)
         print("The response of OperationApi->get_common_operation_properties:\n")
         pprint(api_response)
@@ -167,15 +167,15 @@ No authorization required
 # **get_operations**
 > List[ConOperation] get_operations(project_id, connection_id)
 
-Get the list of operations for the connection
+Gets the list of operations for the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the requested connection | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the requested connection. | 
 
 ### Return type
 
@@ -197,11 +197,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_operationsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the requested connection
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the requested connection.
 
     try:
-        # Get the list of operations for the connection
+        # Gets the list of operations for the connection.
         api_response = api_client.operation.get_operations(project_id, connection_id)
         print("The response of OperationApi->get_operations:\n")
         pprint(api_response)
@@ -245,16 +245,16 @@ No authorization required
 # **pre_design_welds**
 > str pre_design_welds(project_id, connection_id, design_type=design_type)
 
-Predesign welds
+Pre-designs welds in the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **design_type** | [**ConWeldSizingMethodEnum**](.md)|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **design_type** | [**ConWeldSizingMethodEnum**](.md)| The weld sizing method to apply (default is FullStrength). | [optional] 
 
 ### Return type
 
@@ -276,12 +276,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def pre_design_weldsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    design_type = ideastatica_connection_api.ConWeldSizingMethodEnum() # ConWeldSizingMethodEnum |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    design_type = ideastatica_connection_api.ConWeldSizingMethodEnum() # ConWeldSizingMethodEnum | The weld sizing method to apply (default is FullStrength). (optional)
 
     try:
-        # Predesign welds
+        # Pre-designs welds in the connection.
         api_response = api_client.operation.pre_design_welds(project_id, connection_id, design_type=design_type)
         print("The response of OperationApi->pre_design_welds:\n")
         pprint(api_response)
@@ -325,16 +325,16 @@ No authorization required
 # **update_common_operation_properties**
 > update_common_operation_properties(project_id, connection_id, con_operation_common_properties=con_operation_common_properties)
 
-Update common properties for all operations
+Updates common properties for all operations.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **con_operation_common_properties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md)| Specify id of material, or keep as null | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **con_operation_common_properties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md)| Common properties to apply (specify material IDs, or keep as null). | [optional] 
 
 ### Return type
 
@@ -356,12 +356,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_common_operation_propertiesExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties | Specify id of material, or keep as null (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties | Common properties to apply (specify material IDs, or keep as null). (optional)
 
     try:
-        # Update common properties for all operations
+        # Updates common properties for all operations.
         api_client.operation.update_common_operation_properties(project_id, connection_id, con_operation_common_properties=con_operation_common_properties)
     except Exception as e:
         print("Exception when calling OperationApi->update_common_operation_properties: %s\n" % e)

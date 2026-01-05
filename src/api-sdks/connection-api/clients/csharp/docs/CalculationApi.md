@@ -2,15 +2,15 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**CalculateAsync**](CalculationApi.md#calculateasync) | Run CBFEM caluclation and return the summary of the results |
-| [**GetRawJsonResultsAsync**](CalculationApi.md#getrawjsonresultsasync) | Get json string which represents raw CBFEM results (an instance of CheckResultsData) |
-| [**GetResultsAsync**](CalculationApi.md#getresultsasync) | Get detailed results of the CBFEM analysis |
+| [**CalculateAsync**](CalculationApi.md#calculateasync) | Runs CBFEM calculation and returns the summary of the results. |
+| [**GetRawJsonResultsAsync**](CalculationApi.md#getrawjsonresultsasync) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). |
+| [**GetResultsAsync**](CalculationApi.md#getresultsasync) | Gets detailed results of the CBFEM analysis. |
 
 <a id="calculate"></a>
 ## **CalculateAsync**
 > **List&lt;ConResultSummary&gt; CalculateAsync (Guid projectId, List<int> requestBody)**
 
-Run CBFEM caluclation and return the summary of the results
+Runs CBFEM calculation and returns the summary of the results.
 
 
 
@@ -18,8 +18,8 @@ Run CBFEM caluclation and return the summary of the results
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | Project unique identifier |  |
-| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection ids to calculate |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection IDs to calculate. |  |
 
 ### Return type
 
@@ -57,11 +57,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new List<int>(); // List<int> | List of connection ids to calculate
+                    var requestBody = new List<int>(); // List<int> | List of connection IDs to calculate.
 
                     try
                     {
-                        // Run CBFEM caluclation and return the summary of the results
+                        // Runs CBFEM calculation and returns the summary of the results.
                         List<ConResultSummary> result = await conClient.Calculation.CalculateAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
@@ -102,7 +102,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Run CBFEM caluclation and return the summary of the results
+    // Runs CBFEM calculation and returns the summary of the results.
     ApiResponse<List<ConResultSummary>> response = conClient.Calculation.CalculateWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -137,7 +137,7 @@ No authorization required
 ## **GetRawJsonResultsAsync**
 > **List&lt;string&gt; GetRawJsonResultsAsync (Guid projectId, List<int> requestBody)**
 
-Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 
 
 
@@ -145,8 +145,8 @@ Get json string which represents raw CBFEM results (an instance of CheckResultsD
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened connection in the ConnectionRestApi service |  |
-| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connections to calculate and a type of CBFEM analysis |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection IDs to calculate. |  |
 
 ### Return type
 
@@ -184,11 +184,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new List<int>(); // List<int> | List of connections to calculate and a type of CBFEM analysis
+                    var requestBody = new List<int>(); // List<int> | List of connection IDs to calculate.
 
                     try
                     {
-                        // Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+                        // Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
                         List<string> result = await conClient.Calculation.GetRawJsonResultsAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
@@ -229,7 +229,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+    // Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
     ApiResponse<List<string>> response = conClient.Calculation.GetRawJsonResultsWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -264,7 +264,7 @@ No authorization required
 ## **GetResultsAsync**
 > **List&lt;ConnectionCheckRes&gt; GetResultsAsync (Guid projectId, List<int> requestBody)**
 
-Get detailed results of the CBFEM analysis
+Gets detailed results of the CBFEM analysis.
 
 
 
@@ -272,8 +272,8 @@ Get detailed results of the CBFEM analysis
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connections to calculate and a type of CBFEM analysis |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection IDs to calculate. |  |
 
 ### Return type
 
@@ -311,11 +311,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new List<int>(); // List<int> | List of connections to calculate and a type of CBFEM analysis
+                    var requestBody = new List<int>(); // List<int> | List of connection IDs to calculate.
 
                     try
                     {
-                        // Get detailed results of the CBFEM analysis
+                        // Gets detailed results of the CBFEM analysis.
                         List<ConnectionCheckRes> result = await conClient.Calculation.GetResultsAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
@@ -356,7 +356,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get detailed results of the CBFEM analysis
+    // Gets detailed results of the CBFEM analysis.
     ApiResponse<List<ConnectionCheckRes>> response = conClient.Calculation.GetResultsWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

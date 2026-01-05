@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 3.0
 
 - API version: 3.0
-- SDK version: 25.1.3.0478
+- SDK version: 25.1.3.1273
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -115,29 +115,29 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**Calculate**](docs/CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results
-[**GetRawJsonResults**](docs/CalculationApi.md#getrawjsonresults) | Get json string which represents raw CBFEM results (an instance of CheckResultsData)
-[**GetResults**](docs/CalculationApi.md#getresults) | Get detailed results of the CBFEM analysis
+[**Calculate**](docs/CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
+[**GetRawJsonResults**](docs/CalculationApi.md#getrawjsonresults) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+[**GetResults**](docs/CalculationApi.md#getresults) | Gets detailed results of the CBFEM analysis.
   ### ClientApi
 
   
   
   Method | Description
   ------------- | -------------
-[**ConnectClient**](docs/ClientApi.md#connectclient) | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
-[**GetVersion**](docs/ClientApi.md#getversion) | Get the IdeaStatica version
+[**ConnectClient**](docs/ClientApi.md#connectclient) | Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
+[**GetVersion**](docs/ClientApi.md#getversion) | Gets the IdeaStatica API assembly version.
   ### ConnectionApi
 
   
   
   Method | Description
   ------------- | -------------
-[**DeleteConnection**](docs/ConnectionApi.md#deleteconnection) | 
-[**GetConnection**](docs/ConnectionApi.md#getconnection) | Get data about a specific connection in the project
-[**GetConnectionTopology**](docs/ConnectionApi.md#getconnectiontopology) | Get topology of the connection in json format
-[**GetConnections**](docs/ConnectionApi.md#getconnections) | Get data about all connections in the project
-[**GetProductionCost**](docs/ConnectionApi.md#getproductioncost) | Get production cost of the connection
-[**UpdateConnection**](docs/ConnectionApi.md#updateconnection) | Update data of a specific connection in the project
+[**DeleteConnection**](docs/ConnectionApi.md#deleteconnection) | Deletes a specific connection from the project.
+[**GetConnection**](docs/ConnectionApi.md#getconnection) | Gets data about a specific connection in the project.
+[**GetConnectionTopology**](docs/ConnectionApi.md#getconnectiontopology) | Gets the topology of the connection in JSON format.
+[**GetConnections**](docs/ConnectionApi.md#getconnections) | Gets data about all connections in the project.
+[**GetProductionCost**](docs/ConnectionApi.md#getproductioncost) | Gets the production cost of the connection.
+[**UpdateConnection**](docs/ConnectionApi.md#updateconnection) | Updates data of a specific connection in the project.
   ### ConnectionLibraryApi
 
   
@@ -155,27 +155,27 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**ChangeCode**](docs/ConversionApi.md#changecode) | Change design code of project.
-[**GetConversionMapping**](docs/ConversionApi.md#getconversionmapping) | Get default conversions for converting the project to different design code.
+[**ChangeCode**](docs/ConversionApi.md#changecode) | Changes the design code of the project.
+[**GetConversionMapping**](docs/ConversionApi.md#getconversionmapping) | Gets default conversion mappings for converting the project to a different design code.
   ### ExportApi
 
   
   
   Method | Description
   ------------- | -------------
-[**ExportIFC^**](docs/ExportApi.md#exportifc) | Export connection to IFC format
-[**ExportIom**](docs/ExportApi.md#exportiom) | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
-[**ExportIomConnectionData**](docs/ExportApi.md#exportiomconnectiondata) | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+[**ExportIFC^**](docs/ExportApi.md#exportifc) | Exports the connection to IFC format.
+[**ExportIom**](docs/ExportApi.md#exportiom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+[**ExportIomConnectionData**](docs/ExportApi.md#exportiomconnectiondata) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
   ### LoadEffectApi
 
   
   
   Method | Description
   ------------- | -------------
-[**AddLoadEffect**](docs/LoadEffectApi.md#addloadeffect) | Add new load effect to the connection
+[**AddLoadEffect**](docs/LoadEffectApi.md#addloadeffect) | Adds a new load effect to the connection.
 [**DeleteLoadEffect**](docs/LoadEffectApi.md#deleteloadeffect) | Delete load effect loadEffectId
-[**GetLoadEffect**](docs/LoadEffectApi.md#getloadeffect) | Get load impulses from loadEffectId
-[**GetLoadEffects**](docs/LoadEffectApi.md#getloadeffects) | Get all load effects which are defined in connectionId
+[**GetLoadEffect**](docs/LoadEffectApi.md#getloadeffect) | Gets load impulses from the specified load effect.
+[**GetLoadEffects**](docs/LoadEffectApi.md#getloadeffects) | Gets all load effects defined in the specified connection.
 [**GetLoadSettings**](docs/LoadEffectApi.md#getloadsettings) | Get Load settings for connection in project
 [**SetLoadSettings**](docs/LoadEffectApi.md#setloadsettings) | Set Load settings for connection in project
 [**UpdateLoadEffect**](docs/LoadEffectApi.md#updateloadeffect) | Update load impulses in conLoading
@@ -187,27 +187,27 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**AddBoltAssembly**](docs/MaterialApi.md#addboltassembly) | Add bolt assembly to the project
 [**AddCrossSection**](docs/MaterialApi.md#addcrosssection) | Add cross section to the project
-[**AddMaterialBoltGrade**](docs/MaterialApi.md#addmaterialboltgrade) | Add material to the project
-[**AddMaterialConcrete**](docs/MaterialApi.md#addmaterialconcrete) | Add material to the project
-[**AddMaterialSteel**](docs/MaterialApi.md#addmaterialsteel) | Add material to the project
-[**AddMaterialWeld**](docs/MaterialApi.md#addmaterialweld) | Add material to the project
-[**GetAllMaterials**](docs/MaterialApi.md#getallmaterials) | Get materials which are used in the project projectId
-[**GetBoltAssemblies**](docs/MaterialApi.md#getboltassemblies) | Get bolt assemblies which are used in the project projectId
-[**GetBoltGradeMaterials**](docs/MaterialApi.md#getboltgradematerials) | Get materials which are used in the project projectId
-[**GetConcreteMaterials**](docs/MaterialApi.md#getconcretematerials) | Get materials which are used in the project projectId
-[**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Get cross sections which are used in the project projectId
-[**GetSteelMaterials**](docs/MaterialApi.md#getsteelmaterials) | Get materials which are used in the project projectId
-[**GetWeldingMaterials**](docs/MaterialApi.md#getweldingmaterials) | Get materials which are used in the project projectId
+[**AddMaterialBoltGrade**](docs/MaterialApi.md#addmaterialboltgrade) | Adds a material to the project.
+[**AddMaterialConcrete**](docs/MaterialApi.md#addmaterialconcrete) | Adds a material to the project.
+[**AddMaterialSteel**](docs/MaterialApi.md#addmaterialsteel) | Adds a material to the project.
+[**AddMaterialWeld**](docs/MaterialApi.md#addmaterialweld) | Adds a material to the project.
+[**GetAllMaterials**](docs/MaterialApi.md#getallmaterials) | Gets materials used in the specified project.
+[**GetBoltAssemblies**](docs/MaterialApi.md#getboltassemblies) | Gets bolt assemblies used in the specified project.
+[**GetBoltGradeMaterials**](docs/MaterialApi.md#getboltgradematerials) | Gets materials used in the specified project.
+[**GetConcreteMaterials**](docs/MaterialApi.md#getconcretematerials) | Gets materials used in the specified project.
+[**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Gets cross sections used in the specified project.
+[**GetSteelMaterials**](docs/MaterialApi.md#getsteelmaterials) | Gets materials used in the specified project.
+[**GetWeldingMaterials**](docs/MaterialApi.md#getweldingmaterials) | Gets materials used in the specified project.
   ### MemberApi
 
   
   
   Method | Description
   ------------- | -------------
-[**GetMember**](docs/MemberApi.md#getmember) | Get information about the requires member in the connection
-[**GetMembers**](docs/MemberApi.md#getmembers) | Get information about all members in the connection
+[**GetMember**](docs/MemberApi.md#getmember) | Gets information about the specified member in the connection.
+[**GetMembers**](docs/MemberApi.md#getmembers) | Gets information about all members in the connection.
 [**SetBearingMember**](docs/MemberApi.md#setbearingmember) | Set bearing member for memberIt
-[**UpdateMember**](docs/MemberApi.md#updatemember) | Update the member in the connection by newMemberData
+[**UpdateMember**](docs/MemberApi.md#updatemember) | Updates the member in the connection with the provided data.
   ### OperationApi
 
   
@@ -215,10 +215,10 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**DeleteOperations**](docs/OperationApi.md#deleteoperations) | Delete all operations for the connection
-[**GetCommonOperationProperties**](docs/OperationApi.md#getcommonoperationproperties) | Get common operation properties
-[**GetOperations**](docs/OperationApi.md#getoperations) | Get the list of operations for the connection
-[**PreDesignWelds**](docs/OperationApi.md#predesignwelds) | Predesign welds
-[**UpdateCommonOperationProperties**](docs/OperationApi.md#updatecommonoperationproperties) | Update common properties for all operations
+[**GetCommonOperationProperties**](docs/OperationApi.md#getcommonoperationproperties) | Gets common operation properties.
+[**GetOperations**](docs/OperationApi.md#getoperations) | Gets the list of operations for the connection.
+[**PreDesignWelds**](docs/OperationApi.md#predesignwelds) | Pre-designs welds in the connection.
+[**UpdateCommonOperationProperties**](docs/OperationApi.md#updatecommonoperationproperties) | Updates common properties for all operations.
   ### ParameterApi
 
   
@@ -226,29 +226,29 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
-[**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result
-[**GetParameters**](docs/ParameterApi.md#getparameters) | Get all parameters which are defined for projectId and connectionId
-[**Update**](docs/ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
+[**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
+[**GetParameters**](docs/ParameterApi.md#getparameters) | Gets all parameters defined for the specified project and connection.
+[**Update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
   ### PresentationApi
 
   
   
   Method | Description
   ------------- | -------------
-[**GetDataScene3D**](docs/PresentationApi.md#getdatascene3d) | Returns data for scene3D
-[**GetDataScene3DText**](docs/PresentationApi.md#getdatascene3dtext) | Return serialized data for scene3D in json format
+[**GetDataScene3D**](docs/PresentationApi.md#getdatascene3d) | Returns data for Scene3D visualization.
+[**GetDataScene3DText**](docs/PresentationApi.md#getdatascene3dtext) | Returns serialized data for Scene3D in JSON format.
   ### ProjectApi
 
   
   
   Method | Description
   ------------- | -------------
-[**CloseProject**](docs/ProjectApi.md#closeproject) | Close the project. Needed for releasing resources in the service.
-[**DownloadProject^**](docs/ProjectApi.md#downloadproject) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
-[**GetActiveProjects**](docs/ProjectApi.md#getactiveprojects) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+[**CloseProject**](docs/ProjectApi.md#closeproject) | Closes the project and releases resources in the service.
+[**DownloadProject^**](docs/ProjectApi.md#downloadproject) | Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
+[**GetActiveProjects**](docs/ProjectApi.md#getactiveprojects) | Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 [**GetProjectData**](docs/ProjectApi.md#getprojectdata) | Get data of the project.
 [**ImportIOM^**](docs/ProjectApi.md#importiom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
-[**OpenProject^**](docs/ProjectApi.md#openproject) | Open ideacon project from ideaConFile
+[**OpenProject^**](docs/ProjectApi.md#openproject) | Opens an IdeaCon project from the provided file.
 [**UpdateFromIOM^**](docs/ProjectApi.md#updatefromiom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
 [**UpdateProjectData**](docs/ProjectApi.md#updateprojectdata) | Updates ConProjectData of project
   ### ReportApi
@@ -257,18 +257,18 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**GeneratePdf^**](docs/ReportApi.md#generatepdf) | Generates report for projectId and connectionId
-[**GeneratePdfForMutliple^**](docs/ReportApi.md#generatepdfformutliple) | 
-[**GenerateWord^**](docs/ReportApi.md#generateword) | Generates report for projectId and connectionId
-[**GenerateWordForMultiple^**](docs/ReportApi.md#generatewordformultiple) | 
+[**GeneratePdf^**](docs/ReportApi.md#generatepdf) | Generates a report for the specified connection in PDF or Word format.
+[**GeneratePdfForMutliple^**](docs/ReportApi.md#generatepdfformutliple) | Generates a report for multiple connections in PDF or Word format.
+[**GenerateWord^**](docs/ReportApi.md#generateword) | Generates a report for the specified connection in PDF or Word format.
+[**GenerateWordForMultiple^**](docs/ReportApi.md#generatewordformultiple) | Generates a report for multiple connections in PDF or Word format.
   ### SettingsApi
 
   
   
   Method | Description
   ------------- | -------------
-[**GetSettings**](docs/SettingsApi.md#getsettings) | Get setting values
-[**UpdateSettings**](docs/SettingsApi.md#updatesettings) | Update one or multiple setting values
+[**GetSettings**](docs/SettingsApi.md#getsettings) | Gets setting values for the project.
+[**UpdateSettings**](docs/SettingsApi.md#updatesettings) | Updates one or multiple setting values in the project.
   ### TemplateApi
 
   
@@ -398,7 +398,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 3.0
-- SDK version: 25.1.3.0478
+- SDK version: 25.1.3.1273
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)
