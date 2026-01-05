@@ -27,10 +27,5 @@
 		/// True if operation is active
 		/// </summary>
 		public bool Active { get; set; }
-
-		/// <summary>
-		/// Type of the manufacturing operation
-		/// </summary>
-		public string OperationType { get; set; }
 	}
 }
