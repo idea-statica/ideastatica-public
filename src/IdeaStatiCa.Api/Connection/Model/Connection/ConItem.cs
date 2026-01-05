@@ -18,8 +18,19 @@
 		// ID will be automatically generated
 		public int Id { get; set; }
 
+		/// <summary>
+		/// User defined name of the operation
+		/// </summary>
 		public string Name { get; set; }
 
+		/// <summary>
+		/// True if operation is active
+		/// </summary>
 		public bool Active { get; set; }
+
+		/// <summary>
+		/// Type of the manufacturing operation
+		/// </summary>
+		public string OperationType { get; set; }
 	}
 }
