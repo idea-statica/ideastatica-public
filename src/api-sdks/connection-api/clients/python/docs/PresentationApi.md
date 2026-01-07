@@ -4,23 +4,23 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**get_data_scene3_d**](PresentationApi.md#get_data_scene3_d) | Returns data for scene3D
-[**get_data_scene3_d_text**](PresentationApi.md#get_data_scene3_d_text) | Return serialized data for scene3D in json format
+[**get_data_scene3_d**](PresentationApi.md#get_data_scene3_d) | Returns data for Scene3D visualization.
+[**get_data_scene3_d_text**](PresentationApi.md#get_data_scene3_d_text) | Returns serialized data for Scene3D in JSON format.
 
 
 <a id="get_data_scene3_d"></a>
 # **get_data_scene3_d**
 > DrawData get_data_scene3_d(project_id, connection_id)
 
-Returns data for scene3D
+Returns data for Scene3D visualization.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the open project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be presented to scene3D | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to be presented in Scene3D. | 
 
 ### Return type
 
@@ -42,11 +42,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_data_scene3_dExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the open project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to be presented to scene3D
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to be presented in Scene3D.
 
     try:
-        # Returns data for scene3D
+        # Returns data for Scene3D visualization.
         api_response = api_client.presentation.get_data_scene3_d(project_id, connection_id)
         print("The response of PresentationApi->get_data_scene3_d:\n")
         pprint(api_response)
@@ -90,15 +90,15 @@ No authorization required
 # **get_data_scene3_d_text**
 > str get_data_scene3_d_text(project_id, connection_id)
 
-Return serialized data for scene3D in json format
+Returns serialized data for Scene3D in JSON format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection to be presented. | 
 
 ### Return type
 
@@ -119,11 +119,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_data_scene3_d_textExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection to be presented.
 
     try:
-        # Return serialized data for scene3D in json format
+        # Returns serialized data for Scene3D in JSON format.
         api_response = api_client.presentation.get_data_scene3_d_text(project_id, connection_id)
         print("The response of PresentationApi->get_data_scene3_d_text:\n")
         pprint(api_response)

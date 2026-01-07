@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictInt, StrictStr
+from pydantic import Field, StrictInt, StrictStr
 from typing import Optional
+from typing_extensions import Annotated
 from ideastatica_connection_api.models.connection_data import ConnectionData
 
 from ideastatica_connection_api.api_client import ApiClient, RequestSerialized
@@ -42,8 +43,8 @@ class ExportApi:
     @validate_call
     def export_ifc(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -57,12 +58,12 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Export connection to IFC format
+        """Exports the connection to IFC format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -112,8 +113,8 @@ class ExportApi:
     @validate_call
     def export_ifc_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -127,12 +128,12 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Export connection to IFC format
+        """Exports the connection to IFC format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -182,8 +183,8 @@ class ExportApi:
     @validate_call
     def export_ifc_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -197,12 +198,12 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Export connection to IFC format
+        """Exports the connection to IFC format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -314,9 +315,9 @@ class ExportApi:
     @validate_call
     def export_iom(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        version: Optional[StrictStr] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
+        version: Annotated[Optional[StrictStr], Field(description="Optional version string for downgrading the IOM model.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -330,14 +331,14 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        """Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
-        :param version: 
+        :param version: Optional version string for downgrading the IOM model.
         :type version: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -388,9 +389,9 @@ class ExportApi:
     @validate_call
     def export_iom_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        version: Optional[StrictStr] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
+        version: Annotated[Optional[StrictStr], Field(description="Optional version string for downgrading the IOM model.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -404,14 +405,14 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        """Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
-        :param version: 
+        :param version: Optional version string for downgrading the IOM model.
         :type version: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -462,9 +463,9 @@ class ExportApi:
     @validate_call
     def export_iom_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        version: Optional[StrictStr] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
+        version: Annotated[Optional[StrictStr], Field(description="Optional version string for downgrading the IOM model.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -478,14 +479,14 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        """Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
-        :param version: 
+        :param version: Optional version string for downgrading the IOM model.
         :type version: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -604,8 +605,8 @@ class ExportApi:
     @validate_call
     def export_iom_connection_data(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -619,12 +620,12 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConnectionData:
-        """Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        """Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -674,8 +675,8 @@ class ExportApi:
     @validate_call
     def export_iom_connection_data_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -689,12 +690,12 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConnectionData]:
-        """Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        """Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -744,8 +745,8 @@ class ExportApi:
     @validate_call
     def export_iom_connection_data_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to export.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -759,12 +760,12 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        """Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to export. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

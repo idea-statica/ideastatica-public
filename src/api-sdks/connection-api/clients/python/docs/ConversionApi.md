@@ -4,23 +4,23 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**change_code**](ConversionApi.md#change_code) | Change design code of project.
-[**get_conversion_mapping**](ConversionApi.md#get_conversion_mapping) | Get default conversions for converting the project to different design code.
+[**change_code**](ConversionApi.md#change_code) | Changes the design code of the project.
+[**get_conversion_mapping**](ConversionApi.md#get_conversion_mapping) | Gets default conversion mappings for converting the project to a different design code.
 
 
 <a id="change_code"></a>
 # **change_code**
 > str change_code(project_id, con_conversion_settings=con_conversion_settings)
 
-Change design code of project.
+Changes the design code of the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) | 
- **con_conversion_settings** | [**ConConversionSettings**](ConConversionSettings.md)| Conversion table for materials in the project. (pairs &#39;ECEN MATERIAL&#39; -&gt; &#39;TARGET DESIGN CODE MATERIAL&#39;) | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported). | 
+ **con_conversion_settings** | [**ConConversionSettings**](ConConversionSettings.md)| Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). | [optional] 
 
 ### Return type
 
@@ -42,11 +42,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def change_codeExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)
-    con_conversion_settings = ideastatica_connection_api.ConConversionSettings() # ConConversionSettings | Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL') (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).
+    con_conversion_settings = ideastatica_connection_api.ConConversionSettings() # ConConversionSettings | Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL'). (optional)
 
     try:
-        # Change design code of project.
+        # Changes the design code of the project.
         api_response = api_client.conversion.change_code(project_id, con_conversion_settings=con_conversion_settings)
         print("The response of ConversionApi->change_code:\n")
         pprint(api_response)
@@ -90,15 +90,15 @@ No authorization required
 # **get_conversion_mapping**
 > ConConversionSettings get_conversion_mapping(project_id, country_code=country_code)
 
-Get default conversions for converting the project to different design code.
+Gets default conversion mappings for converting the project to a different design code.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported) | 
- **country_code** | [**CountryCode**](.md)| Requested design code in the converted project. | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported). | 
+ **country_code** | [**CountryCode**](.md)| The requested design code for the converted project. | [optional] 
 
 ### Return type
 
@@ -121,11 +121,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_conversion_mappingExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported)
-    country_code = ideastatica_connection_api.CountryCode() # CountryCode | Requested design code in the converted project. (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).
+    country_code = ideastatica_connection_api.CountryCode() # CountryCode | The requested design code for the converted project. (optional)
 
     try:
-        # Get default conversions for converting the project to different design code.
+        # Gets default conversion mappings for converting the project to a different design code.
         api_response = api_client.conversion.get_conversion_mapping(project_id, country_code=country_code)
         print("The response of ConversionApi->get_conversion_mapping:\n")
         pprint(api_response)

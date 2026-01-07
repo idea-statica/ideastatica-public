@@ -34,70 +34,70 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results
+        /// Runs CBFEM calculation and returns the summary of the results.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-        /// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConResultSummary&gt;</returns>
         List<ConResultSummary> Calculate(Guid projectId, List<int> requestBody, int operationIndex = 0);
 
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results
+        /// Runs CBFEM calculation and returns the summary of the results.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-/// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConResultSummary&gt;</returns>
         ApiResponse<List<ConResultSummary>> CalculateWithHttpInfo(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
         List<string> GetRawJsonResults(Guid projectId, List<int> requestBody, int operationIndex = 0);
 
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-/// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         ApiResponse<List<string>> GetRawJsonResultsWithHttpInfo(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get detailed results of the CBFEM analysis
+        /// Gets detailed results of the CBFEM analysis.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConnectionCheckRes&gt;</returns>
         List<ConnectionCheckRes> GetResults(Guid projectId, List<int> requestBody, int operationIndex = 0);
 
         /// <summary>
-        /// Get detailed results of the CBFEM analysis
+        /// Gets detailed results of the CBFEM analysis.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConnectionCheckRes&gt;</returns>
@@ -112,84 +112,84 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results
+        /// Runs CBFEM calculation and returns the summary of the results.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-        /// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConResultSummary&gt;</returns>
         System.Threading.Tasks.Task<List<ConResultSummary>> CalculateAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results
+        /// Runs CBFEM calculation and returns the summary of the results.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-        /// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConResultSummary&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ConResultSummary>>> CalculateWithHttpInfoAsync(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
         System.Threading.Tasks.Task<List<string>> GetRawJsonResultsAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<string>>> GetRawJsonResultsWithHttpInfoAsync(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get detailed results of the CBFEM analysis
+        /// Gets detailed results of the CBFEM analysis.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConnectionCheckRes&gt;</returns>
         System.Threading.Tasks.Task<List<ConnectionCheckRes>> GetResultsAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get detailed results of the CBFEM analysis
+        /// Gets detailed results of the CBFEM analysis.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -316,11 +316,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results 
+        /// Runs CBFEM calculation and returns the summary of the results. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-        /// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConResultSummary&gt;</returns>
         public List<ConResultSummary> Calculate(Guid projectId, List<int> requestBody, int operationIndex = 0)
@@ -330,11 +330,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results 
+        /// Runs CBFEM calculation and returns the summary of the results. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-/// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConResultSummary&gt;</returns>
@@ -396,11 +396,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results 
+        /// Runs CBFEM calculation and returns the summary of the results. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-        /// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConResultSummary&gt;</returns>
@@ -411,11 +411,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Run CBFEM caluclation and return the summary of the results 
+        /// Runs CBFEM calculation and returns the summary of the results. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project unique identifier</param>
-        /// <param name="requestBody">List of connection ids to calculate</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -480,11 +480,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData) 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
         public List<string> GetRawJsonResults(Guid projectId, List<int> requestBody, int operationIndex = 0)
@@ -494,11 +494,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData) 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-/// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
@@ -560,11 +560,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData) 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
@@ -575,11 +575,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get json string which represents raw CBFEM results (an instance of CheckResultsData) 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened connection in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -644,11 +644,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get detailed results of the CBFEM analysis 
+        /// Gets detailed results of the CBFEM analysis. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConnectionCheckRes&gt;</returns>
         public List<ConnectionCheckRes> GetResults(Guid projectId, List<int> requestBody, int operationIndex = 0)
@@ -658,11 +658,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get detailed results of the CBFEM analysis 
+        /// Gets detailed results of the CBFEM analysis. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConnectionCheckRes&gt;</returns>
@@ -724,11 +724,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get detailed results of the CBFEM analysis 
+        /// Gets detailed results of the CBFEM analysis. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConnectionCheckRes&gt;</returns>
@@ -739,11 +739,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get detailed results of the CBFEM analysis 
+        /// Gets detailed results of the CBFEM analysis. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestBody">List of connections to calculate and a type of CBFEM analysis</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestBody">List of connection IDs to calculate.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

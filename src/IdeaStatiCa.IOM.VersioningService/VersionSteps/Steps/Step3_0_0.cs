@@ -4,6 +4,7 @@ using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -41,14 +42,14 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			//	element.RemoveElementProperty("InsertionPoint");
 
 			//	ISIntermediate eccBegin = element.TakeElementProperty("EccentricityBegin");
-			//	double eccBeginX = double.Parse(eccBegin.GetElementValue("X"));
-			//	double eccBeginY = double.Parse(eccBegin.GetElementValue("Y"));
-			//	double eccBeginZ = double.Parse(eccBegin.GetElementValue("Z"));
+			//	double eccBeginX = double.Parse(eccBegin.GetElementValue("X"),CultureInfo.InvariantCulture);
+			//	double eccBeginY = double.Parse(eccBegin.GetElementValue("Y"),CultureInfo.InvariantCulture);
+			//	double eccBeginZ = double.Parse(eccBegin.GetElementValue("Z"),CultureInfo.InvariantCulture);
 
 			//	ISIntermediate eccEnd = element.TakeElementProperty("EccentricityEnd");
-			//	double eccEndX = double.Parse(eccEnd.GetElementValue("X"));
-			//	double eccEndY = double.Parse(eccEnd.GetElementValue("Y"));
-			//	double eccEndZ = double.Parse(eccEnd.GetElementValue("Z"));
+			//	double eccEndX = double.Parse(eccEnd.GetElementValue("X"),CultureInfo.InvariantCulture);
+			//	double eccEndY = double.Parse(eccEnd.GetElementValue("Y"),CultureInfo.InvariantCulture);
+			//	double eccEndZ = double.Parse(eccEnd.GetElementValue("Z"),CultureInfo.InvariantCulture);
 
 			//	// TODO conversion from GCS to LCS
 
@@ -103,14 +104,14 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				}
 
 				SObject eccBeginObj = member.CreateElementProperty("EccentricityBegin");
-				eccBeginObj.CreateElementProperty("X", eccBegin.X.ToString());
-				eccBeginObj.CreateElementProperty("Y", eccBegin.Y.ToString());
-				eccBeginObj.CreateElementProperty("Z", eccBegin.Z.ToString());
+				eccBeginObj.CreateElementProperty("X", eccBegin.X.ToString(CultureInfo.InvariantCulture));
+				eccBeginObj.CreateElementProperty("Y", eccBegin.Y.ToString(CultureInfo.InvariantCulture));
+				eccBeginObj.CreateElementProperty("Z", eccBegin.Z.ToString(CultureInfo.InvariantCulture));
 
 				SObject eccEndObj = member.CreateElementProperty("EccentricityEnd");
-				eccEndObj.CreateElementProperty("X", eccEnd.X.ToString());
-				eccEndObj.CreateElementProperty("Y", eccEnd.Y.ToString());
-				eccEndObj.CreateElementProperty("Z", eccEnd.Z.ToString());
+				eccEndObj.CreateElementProperty("X", eccEnd.X.ToString(CultureInfo.InvariantCulture));
+				eccEndObj.CreateElementProperty("Y", eccEnd.Y.ToString(CultureInfo.InvariantCulture));
+				eccEndObj.CreateElementProperty("Z", eccEnd.Z.ToString(CultureInfo.InvariantCulture));
 
 				member.CreateElementProperty("InsertionPoint", "CenterOfGravity");
 				member.CreateElementProperty("EccentricityReference", "LocalCoordinateSystem");
@@ -121,9 +122,9 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		{
 			string prefix = end ? "EccentricityEnd" : "EccentricityBegin";
 
-			double x = double.Parse(element.GetElementValue(prefix + "X"));
-			double y = double.Parse(element.GetElementValue(prefix + "Y"));
-			double z = double.Parse(element.GetElementValue(prefix + "Z"));
+			double x = double.Parse(element.GetElementValue(prefix + "X"), CultureInfo.InvariantCulture);
+			double y = double.Parse(element.GetElementValue(prefix + "Y"), CultureInfo.InvariantCulture);
+			double z = double.Parse(element.GetElementValue(prefix + "Z"), CultureInfo.InvariantCulture);
 
 			return (x, y, z);
 		}

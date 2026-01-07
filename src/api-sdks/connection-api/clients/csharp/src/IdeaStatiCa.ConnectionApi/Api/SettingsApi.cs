@@ -33,47 +33,47 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Get setting values
+        /// Gets setting values for the project.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Dictionary&lt;string, Object&gt;</returns>
         Dictionary<string, Object> GetSettings(Guid projectId, string search = default(string), int operationIndex = 0);
 
         /// <summary>
-        /// Get setting values
+        /// Gets setting values for the project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-/// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+/// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
         ApiResponse<Dictionary<string, Object>> GetSettingsWithHttpInfo(Guid projectId, string search = default(string), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Update one or multiple setting values
+        /// Updates one or multiple setting values in the project.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Dictionary&lt;string, Object&gt;</returns>
         Dictionary<string, Object> UpdateSettings(Guid projectId, Dictionary<string, Object> requestBody = default(Dictionary<string, Object>), int operationIndex = 0);
 
         /// <summary>
-        /// Update one or multiple setting values
+        /// Updates one or multiple setting values in the project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-/// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+/// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
@@ -88,56 +88,56 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Get setting values
+        /// Gets setting values for the project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
         System.Threading.Tasks.Task<Dictionary<string, Object>> GetSettingsAsync(Guid projectId, string search = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get setting values
+        /// Gets setting values for the project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Dictionary&lt;string, Object&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> GetSettingsWithHttpInfoAsync(Guid projectId, string search = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Update one or multiple setting values
+        /// Updates one or multiple setting values in the project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
         System.Threading.Tasks.Task<Dictionary<string, Object>> UpdateSettingsAsync(Guid projectId, Dictionary<string, Object> requestBody = default(Dictionary<string, Object>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Update one or multiple setting values
+        /// Updates one or multiple setting values in the project.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -264,11 +264,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get setting values 
+        /// Gets setting values for the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Dictionary&lt;string, Object&gt;</returns>
         public Dictionary<string, Object> GetSettings(Guid projectId, string search = default(string), int operationIndex = 0)
@@ -278,11 +278,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get setting values 
+        /// Gets setting values for the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-/// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+/// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
@@ -340,11 +340,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get setting values 
+        /// Gets setting values for the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
@@ -355,11 +355,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get setting values 
+        /// Gets setting values for the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="search">Optional parameter to search keywords in settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="search">Optional parameter to search for keywords in settings. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -420,11 +420,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update one or multiple setting values 
+        /// Updates one or multiple setting values in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Dictionary&lt;string, Object&gt;</returns>
         public Dictionary<string, Object> UpdateSettings(Guid projectId, Dictionary<string, Object> requestBody = default(Dictionary<string, Object>), int operationIndex = 0)
@@ -434,11 +434,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update one or multiple setting values 
+        /// Updates one or multiple setting values in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-/// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+/// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
@@ -494,11 +494,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update one or multiple setting values 
+        /// Updates one or multiple setting values in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
@@ -509,11 +509,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update one or multiple setting values 
+        /// Updates one or multiple setting values in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">Project Id</param>
-        /// <param name="requestBody">Dictionary of key-value settings (optional)</param>
+        /// <param name="projectId">The unique identifier of the project.</param>
+        /// <param name="requestBody">Dictionary of key-value pairs representing settings to update. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

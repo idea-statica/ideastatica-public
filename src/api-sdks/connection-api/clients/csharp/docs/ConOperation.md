@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsImported** | **bool** |  | [optional] 
+**OperationType** | **string** |  | [optional] 
 **Id** | **int** |  | [optional] 
 **Name** | **string** |  | [optional] 
 **Active** | **bool** |  | [optional] 
