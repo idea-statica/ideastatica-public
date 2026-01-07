@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ConnectionIomGeneratorApp"
         xmlns:Views="clr-namespace:ConnectionIomGenerator.UI.Views;assembly=ConnectionIomGenerator.UI" x:Class="ConnectionIomGeneratorApp.View.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Connection IOM Generator" Height="450" Width="800">
 
 	<Views:ConnectionInputView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
 

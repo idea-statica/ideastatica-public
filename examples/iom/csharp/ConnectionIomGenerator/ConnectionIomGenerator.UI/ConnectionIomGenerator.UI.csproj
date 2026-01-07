@@ -7,11 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm"  />
-		<PackageReference Include="Microsoft.Extensions.Configuration"  />
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables"  />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json"  />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection"  />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ConnectionIomGenerator\ConnectionIomGenerator.csproj" />
 	</ItemGroup>
 
 </Project>
