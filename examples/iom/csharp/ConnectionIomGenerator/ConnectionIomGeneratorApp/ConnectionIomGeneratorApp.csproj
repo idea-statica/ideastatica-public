@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm"  />
+		<PackageReference Include="Microsoft.Extensions.Configuration"  />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables"  />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json"  />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection"  />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>
