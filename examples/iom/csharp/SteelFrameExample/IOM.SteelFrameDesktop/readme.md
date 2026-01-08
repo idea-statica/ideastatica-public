@@ -79,7 +79,7 @@ The application creates:
 
 ## Additional Resources
 
-- [IDEA StatiCa Connection API Documentation](../../../../../src/api-sdks/connection-api)
+- [IDEA StatiCa Connection API Documentation](../../../../../src/api-sdks/connection-api/clients/csharp/src/IdeaStatiCa.ConnectionApi)
 - [OpenModel Documentation](../../../../../src/IdeaRS.OpenModel)
 
 ## Notes
