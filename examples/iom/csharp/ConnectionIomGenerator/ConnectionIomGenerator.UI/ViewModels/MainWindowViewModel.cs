@@ -1,6 +1,8 @@
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
+using ConnectionIomGenerator.Model;
 using ConnectionIomGenerator.UI.Services;
+using ConnectionIomGenerator.UI.Tools;
+using System.Threading.Tasks;
 
 namespace ConnectionIomGenerator.UI.ViewModels
 {
@@ -10,20 +12,36 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		public MainWindowViewModel(IProjectService projectService)
 		{
 			this.projectService = projectService;
-			DoSomethingCommand = new AsyncRelayCommand<string>(DoSomethingAsync, CanDoSomethingAsync);
+			GenerateIomCommand = new AsyncRelayCommand(DoSomethingAsync, CanDoSomethingAsync);
+
+			ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(ConnectionInput.GetDefaultECEN());
 		}
 
-		public IAsyncRelayCommand<string> DoSomethingCommand { get; }
+		public AsyncRelayCommand GenerateIomCommand { get; }
 
-		private bool CanDoSomethingAsync(string? name)
+		private bool CanDoSomethingAsync()
 		{
 			return true;
 		}
 
-		private async Task DoSomethingAsync(string? name)
+		private async Task DoSomethingAsync()
 		{
 			var projInfo = await projectService.CreateProjectAsync();
-			Status = projInfo.Id;
+			MessageText = projInfo.Id;
+		}
+
+		private string? connectionDefinitionJson;
+		public string? ConnectionDefinitionJson
+		{
+			get => connectionDefinitionJson;
+			set => SetProperty(ref connectionDefinitionJson, value);
+		}
+
+		private string? messageText;
+		public string? MessageText
+		{
+			get => messageText;
+			set => SetProperty(ref messageText, value);
 		}
 
 		private string? status;
