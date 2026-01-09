@@ -11,12 +11,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>$(OutputPath)\$(TargetFramework)\Ram25ToIdea_Internal\</OutputPath>
   </PropertyGroup>
-
-
-  <ItemGroup>
-
-    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-  </ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.RamContracts\IdeaStatiCa.RamContracts.csproj" />
   </ItemGroup>
