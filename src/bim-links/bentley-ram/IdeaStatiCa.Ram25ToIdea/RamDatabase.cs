@@ -4,6 +4,7 @@ using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Providers;
 using IdeaStatiCa.RamToIdea.Sections;
+using Microsoft.Win32;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,49 @@ namespace IdeaStatiCa.RamToIdea
 		{
 			try
 			{
+				//Check that nuget is working
 				_ = new RamDataAccess1();
-				return true;
+				return CheckRegistry();
 			}
 			catch (COMException)
 			{
 				return false;
 			}
+		}
+
+		private static bool CheckRegistry()
+		{
+			var bentleyProductsKey = @"SOFTWARE\Bentley\Installed_Products";
+
+			using var baseKey = Registry.LocalMachine.OpenSubKey(bentleyProductsKey);
+			if (baseKey == null)
+			{
+				return false;
+			}
+
+			foreach (var subKeyName in baseKey.GetSubKeyNames())
+			{
+				using var productKey = baseKey.OpenSubKey(subKeyName);
+				if (productKey == null)
+				{
+					continue;
+				}
+
+				var productName = productKey.GetValue("ProductName") as string;
+
+				// RAM Structural System
+				if (string.Equals(productName, "RAMSS",
+								  StringComparison.OrdinalIgnoreCase))
+				{
+					var version = productKey.GetValue("Version") as string;
+					if (version.StartsWith("25"))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 
 		public RamDatabase(string path, IdeaRS.OpenModel.CountryCode countryCode)
