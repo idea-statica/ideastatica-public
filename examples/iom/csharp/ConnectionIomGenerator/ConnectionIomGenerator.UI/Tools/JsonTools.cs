@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConnectionIomGenerator.UI.Tools
 {
@@ -26,6 +21,12 @@ namespace ConnectionIomGenerator.UI.Tools
 		{
 			var defaultConversionsJson = JsonConvert.SerializeObject(obj, Formatting.Indented, _jsonSettings);
 			return defaultConversionsJson;
+		}
+
+		internal static T? DeserializeJson<T>(string jsonText)
+		{
+			T? res = JsonConvert.DeserializeObject<T>(jsonText, _jsonSettings);
+			return res;
 		}
 	}
 }

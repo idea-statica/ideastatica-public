@@ -1,6 +1,8 @@
 ﻿using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGeneratorApp.View;
+using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -20,6 +22,12 @@ namespace ConnectionIomGeneratorApp
 		{
 			IConfiguration configuration = BuildConfiguration();
 			var services = new ServiceCollection();
+
+			services.AddSingleton<IPluginLogger>(serviceProvider =>
+			{
+				SerilogFacade.Initialize();
+				return LoggerProvider.GetLogger("ConnectionIomGeneratorApp");
+			});
 
 			services.AddTransient<IProjectService, ProjectService>();
 			services.AddSingleton<MainWindowViewModel>();

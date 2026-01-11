@@ -1,7 +1,9 @@
 using CommunityToolkit.Mvvm.Input;
 using ConnectionIomGenerator.Model;
+using ConnectionIomGenerator.Service;
 using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.Tools;
+using IdeaStatiCa.Plugin;
 using System.Threading.Tasks;
 
 namespace ConnectionIomGenerator.UI.ViewModels
@@ -9,25 +11,42 @@ namespace ConnectionIomGenerator.UI.ViewModels
 	public class MainWindowViewModel : ViewModelBase
 	{
 		private readonly IProjectService projectService;
-		public MainWindowViewModel(IProjectService projectService)
+		private readonly IPluginLogger _logger;
+		public MainWindowViewModel(IProjectService projectService, IPluginLogger pluginLogger)
 		{
+			this._logger = pluginLogger;
 			this.projectService = projectService;
-			GenerateIomCommand = new AsyncRelayCommand(DoSomethingAsync, CanDoSomethingAsync);
+			GenerateIomCommand = new AsyncRelayCommand(GenerateIomAsync, CanGenerateIomAsync);
 
 			ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(ConnectionInput.GetDefaultECEN());
 		}
 
 		public AsyncRelayCommand GenerateIomCommand { get; }
 
-		private bool CanDoSomethingAsync()
+		private bool CanGenerateIomAsync()
 		{
 			return true;
 		}
 
-		private async Task DoSomethingAsync()
+		private async Task GenerateIomAsync()
 		{
-			var projInfo = await projectService.CreateProjectAsync();
-			MessageText = projInfo.Id;
+			// get input
+			if(string.IsNullOrEmpty(ConnectionDefinitionJson))
+			{
+				_logger.LogWarning("GenerateIomAsync : Leaving - no input data");
+				return;
+			}
+
+			var input = JsonTools.DeserializeJson<ConnectionInput>(ConnectionDefinitionJson);
+
+			if (input == null)
+			{
+				_logger.LogWarning("GenerateIomAsync : Leaving - null instance of ConnectionInput");
+				return;
+			}
+
+			var generator = new IomGenerator();
+			var iom = await generator.GenerateIomAsync(input);
 		}
 
 		private string? connectionDefinitionJson;

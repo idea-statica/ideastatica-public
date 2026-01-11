@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConnectionIomGenerator.Model;
+using IdeaRS.OpenModel;
 
 namespace ConnectionIomGenerator.Service
 {
-	public class IomGenerator
+	public class IomGenerator : IIomGenerator
 	{
+		public IomGenerator()
+		{
+		}
+
+		public async Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input)
+		{
+			var res = new OpenModelContainer();
+
+			var generator = new FeaGenerator();
+			var feaModel =generator.Generate(input);
+
+			return await Task.FromResult(res);
+		}
 	}
 }

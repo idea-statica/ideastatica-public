@@ -17,6 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
 	  <ProjectReference Include="..\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj" />
 	  <ProjectReference Include="..\ConnectionIomGenerator\ConnectionIomGenerator.csproj" />
 	</ItemGroup>
