@@ -59,12 +59,21 @@ namespace ConnectionIomGenerator.Service
 
 			foreach(var memInput in connectionInput.Members)
 			{
-				// calculate direction vector
+				// Calculate direction vector
 				Vector3 dir = AxisX;
 
+				// Rotation around Y axis (pitch)
 				float pitchInRadians = memInput.Pitch * MathF.PI / 180f;
-				Matrix4x4 rotationMatrix = Matrix4x4.CreateFromAxisAngle(AxisY, pitchInRadians);
+				Matrix4x4 rotationAroundY = Matrix4x4.CreateFromAxisAngle(AxisY, pitchInRadians);
 
+				// Rotation around Z axis (from Rotation property)
+				float rotationInRadians = memInput.Direction * MathF.PI / 180f;
+				Matrix4x4 rotationAroundZ = Matrix4x4.CreateFromAxisAngle(AxisZ, rotationInRadians);
+
+				// Combine rotations (apply pitch first, then rotation around Z)
+				Matrix4x4 rotationMatrix = rotationAroundY * rotationAroundZ;
+
+				// Extract the coordinate system vectors
 				Vector3 vecX = new Vector3(rotationMatrix.M11, rotationMatrix.M21, rotationMatrix.M31);
 				Vector3 vecY = new Vector3(rotationMatrix.M12, rotationMatrix.M22, rotationMatrix.M32);
 				Vector3 vecZ = new Vector3(rotationMatrix.M13, rotationMatrix.M23, rotationMatrix.M33);
@@ -168,8 +177,8 @@ namespace ConnectionIomGenerator.Service
 
 					IdeaLineSegment3D lineSegment1 = new IdeaLineSegment3D(currentSegmentId)
 					{
-						StartNode = beginNode,
-						EndNode = connectionNode,
+						StartNode = connectionNode,
+						EndNode = beginNode,
 						LocalCoordinateSystem = lcs
 					};
 
