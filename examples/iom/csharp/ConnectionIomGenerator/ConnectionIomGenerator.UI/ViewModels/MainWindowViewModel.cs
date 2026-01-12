@@ -45,8 +45,11 @@ namespace ConnectionIomGenerator.UI.ViewModels
 				return;
 			}
 
-			var generator = new IomGenerator();
+			// Pass logger to IomGenerator
+			var generator = new IomGenerator(_logger);
 			var iom = await generator.GenerateIomAsync(input);
+			
+			_logger.LogInformation($"IOM generated successfully");
 		}
 
 		private string? connectionDefinitionJson;

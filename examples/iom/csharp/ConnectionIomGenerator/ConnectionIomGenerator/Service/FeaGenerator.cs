@@ -1,6 +1,7 @@
 ﻿using ConnectionIomGenerator.Fea;
 using ConnectionIomGenerator.Model;
 using IdeaRS.OpenModel.Geometry3D;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
 using System.Numerics;
 
@@ -58,10 +59,8 @@ namespace ConnectionIomGenerator.Service
 
 			foreach(var memInput in connectionInput.Members)
 			{
-
 				// calculate direction vector
 				Vector3 dir = AxisX;
-
 
 				float pitchInRadians = memInput.Pitch * MathF.PI / 180f;
 				Matrix4x4 rotationMatrix = Matrix4x4.CreateFromAxisAngle(AxisY, pitchInRadians);
@@ -163,7 +162,6 @@ namespace ConnectionIomGenerator.Service
 				else
 				{
 					// add Ended member with one segment
-
 					int currentMemberId = memberId++;
 					int currentElementId = elementId++;
 					int currentSegmentId = segmentId++;
@@ -197,8 +195,48 @@ namespace ConnectionIomGenerator.Service
 				}
 			}
 
+			// Create connection point at origin with all members
+			CreateConnectionPoint(feaModel, connectionInput);
+
 			return feaModel;
-			
+		}
+
+		private void CreateConnectionPoint(FeaModel feaModel, ConnectionInput connectionInput)
+		{
+			// Get the connection node (node at origin - ID = 1)
+			var connectionNode = feaModel.Nodes[ConnectionPointId];
+
+			// Create list of connected members
+			var connectedMembers = new List<IIdeaConnectedMember>();
+
+			// Add all members from FeaModel to the connection
+			// The IsContinuous flag is taken from the corresponding member in ConnectionInput
+			int memberIndex = 0;
+			foreach (var member in feaModel.Members1D.Values)
+			{
+				// Get the corresponding member input to determine if it's continuous
+				var memberInput = connectionInput.Members[memberIndex];
+				
+				var connectedMember = new IdeaConnectedMember(member.Id.ToString())
+				{
+					IdeaMember = member,
+					GeometricalType = memberInput.IsContinuous ? IdeaGeometricalType.Continuous : IdeaGeometricalType.Ended,
+					ConnectedMemberType = IdeaConnectedMemberType.Structural
+				};
+
+				connectedMembers.Add(connectedMember);
+
+				memberIndex++;
+			}
+
+			// Create connection point with the list of connected members
+			var connectionPoint = new IdeaConnectionPoint(ConnectionPointId)
+			{
+				Node = connectionNode,
+				ConnectedMembers = connectedMembers
+			};
+
+			feaModel.ConnectionPoints.Add(ConnectionPointId, connectionPoint);
 		}
 	}
 }

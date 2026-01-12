@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApiLink.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.BimApi;
 
 namespace ConnectionIomGenerator.Fea
 {
@@ -12,6 +13,7 @@ namespace ConnectionIomGenerator.Fea
 			LineSegments = new Dictionary<int, IdeaLineSegment3D>();
 			Elements1D = new Dictionary<int, IdeaElement1D>();
 			Members1D = new Dictionary<int, IdeaMember1D>();
+			ConnectionPoints = new Dictionary<int, IIdeaConnectionPoint>();
 		}
 
 		internal Dictionary<int, IdeaMaterialByName> Materials { get; set; }
@@ -21,7 +23,11 @@ namespace ConnectionIomGenerator.Fea
 		internal Dictionary<int, IdeaNode> Nodes { get; set; }
 
 		internal Dictionary<int, IdeaLineSegment3D> LineSegments { get; set; }
+		
 		internal Dictionary<int, IdeaElement1D> Elements1D { get; set; }
+		
 		internal Dictionary<int, IdeaMember1D> Members1D { get; set; }
+		
+		internal Dictionary<int, IIdeaConnectionPoint> ConnectionPoints { get; set; }
 	}
 }
