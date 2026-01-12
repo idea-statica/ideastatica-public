@@ -4,6 +4,8 @@ using ConnectionIomGenerator.Service;
 using ConnectionIomGenerator.UI.Tools;
 using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
+using Microsoft.Win32;
+using System;
 using System.Threading.Tasks;
 
 namespace ConnectionIomGenerator.UI.ViewModels
@@ -16,15 +18,22 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		{
 			this._logger = pluginLogger;
 			GenerateIomCommand = new AsyncRelayCommand(GenerateIomAsync, CanGenerateIomAsync);
+			SaveIomCommand = new AsyncRelayCommand(SaveIomAsync, CanSaveIomAsync);
 
 			ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(ConnectionInput.GetDefaultECEN());
 		}
 
 		public AsyncRelayCommand GenerateIomCommand { get; }
+		public AsyncRelayCommand SaveIomCommand { get; }
 
 		private bool CanGenerateIomAsync()
 		{
 			return true;
+		}
+
+		private bool CanSaveIomAsync()
+		{
+			return IomContainer != null;
 		}
 
 		private async Task GenerateIomAsync()
@@ -49,9 +58,9 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			IomContainer = await generator.GenerateIomAsync(input);
 
 			// Serialize OpenModel to formatted XML
-			if (iomContainer?.OpenModel != null)
+			if (IomContainer?.OpenModel != null)
 			{
-				IomXml = IdeaRS.OpenModel.Tools.SerializeModel(IomContainer);
+				IomXml = IdeaRS.OpenModel.Tools.SerializeModel(IomContainer.OpenModel);
 				_logger.LogInformation("IOM serialized to XML successfully");
 			}
 			else
@@ -61,6 +70,47 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			}
 
 			_logger.LogInformation($"IOM generated successfully");
+		}
+
+		private async Task SaveIomAsync()
+		{
+			if (IomContainer == null)
+			{
+				_logger.LogWarning("SaveIomAsync : IomContainer is null");
+				return;
+			}
+
+			// Show save file dialog
+			var saveFileDialog = new SaveFileDialog
+			{
+				Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+				DefaultExt = "xml",
+				FileName = "Connection.xml",
+				Title = "Save IOM to XML file"
+			};
+
+			if (saveFileDialog.ShowDialog() == true)
+			{
+				try
+				{
+					_logger.LogInformation($"Saving IOM to file: {saveFileDialog.FileName}");
+					
+					// Save OpenModelContainer to XML file
+					await Task.Run(() => IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IomContainer, saveFileDialog.FileName));
+					
+					_logger.LogInformation($"IOM saved successfully to: {saveFileDialog.FileName}");
+					Status = $"IOM saved to: {saveFileDialog.FileName}";
+				}
+				catch (Exception ex)
+				{
+					_logger.LogError($"Failed to save IOM to file: {saveFileDialog.FileName}", ex);
+					Status = $"Error saving IOM: {ex.Message}";
+				}
+			}
+			else
+			{
+				_logger.LogDebug("SaveIomAsync : User cancelled save operation");
+			}
 		}
 
 		private string? connectionDefinitionJson;
@@ -95,7 +145,14 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		public OpenModelContainer? IomContainer
 		{
 			get => iomContainer;
-			set => SetProperty(ref iomContainer, value);
+			set
+			{
+				if (SetProperty(ref iomContainer, value))
+				{
+					// Notify that CanExecute for SaveIomCommand has changed
+					SaveIomCommand.NotifyCanExecuteChanged();
+				}
+			}
 		}
 	}
 }

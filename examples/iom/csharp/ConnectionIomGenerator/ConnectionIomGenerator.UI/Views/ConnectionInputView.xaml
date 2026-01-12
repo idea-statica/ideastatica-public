@@ -11,6 +11,7 @@
 			<ToolBarTray DockPanel.Dock="Top">
 				<ToolBar Band="1" DockPanel.Dock="Top">
 					<Button Command="{Binding GenerateIomCommand, Mode=OneWay}">Generate IOM</Button>
+					<Button Command="{Binding SaveIomCommand, Mode=OneWay}">Save IOM</Button>
 				</ToolBar>
 			</ToolBarTray>
 			<StackPanel DockPanel.Dock="Bottom">
