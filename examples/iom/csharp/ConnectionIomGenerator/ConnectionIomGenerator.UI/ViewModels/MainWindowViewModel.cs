@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.Input;
 using ConnectionIomGenerator.Model;
 using ConnectionIomGenerator.Service;
 using ConnectionIomGenerator.UI.Tools;
+using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
 using System.Threading.Tasks;
 
@@ -45,12 +46,12 @@ namespace ConnectionIomGenerator.UI.ViewModels
 
 			// Pass logger to IomGenerator
 			var generator = new IomGenerator(_logger);
-			var iom = await generator.GenerateIomAsync(input);
+			IomContainer = await generator.GenerateIomAsync(input);
 
 			// Serialize OpenModel to formatted XML
-			if (iom?.OpenModel != null)
+			if (iomContainer?.OpenModel != null)
 			{
-				IomXml = IdeaRS.OpenModel.Tools.SerializeModel(iom.OpenModel);
+				IomXml = IdeaRS.OpenModel.Tools.SerializeModel(IomContainer);
 				_logger.LogInformation("IOM serialized to XML successfully");
 			}
 			else
@@ -88,6 +89,13 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		{
 			get => status;
 			set => SetProperty(ref status, value);
+		}
+
+		private OpenModelContainer? iomContainer;
+		public OpenModelContainer? IomContainer
+		{
+			get => iomContainer;
+			set => SetProperty(ref iomContainer, value);
 		}
 	}
 }
