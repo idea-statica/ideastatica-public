@@ -1,13 +1,11 @@
 using ConnectionIomGenerator.Fea;
 using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ConnectionIomGenerator.Service
 {
 	/// <summary>
-	/// Wrapper for FeaModel that implements IIdeaModel interface for BimImporter
+	/// Wrapper for FeaModel that implements <see cref="IIdeaModel"/> interface for BimImporter
 	/// </summary>
 	internal class FeaModelWrapper : IIdeaModel
 	{
