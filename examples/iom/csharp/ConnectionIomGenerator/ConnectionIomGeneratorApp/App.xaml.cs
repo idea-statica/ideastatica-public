@@ -1,5 +1,4 @@
-﻿using ConnectionIomGenerator.UI.Services;
-using ConnectionIomGenerator.UI.ViewModels;
+﻿using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGeneratorApp.View;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
@@ -29,7 +28,6 @@ namespace ConnectionIomGeneratorApp
 				return LoggerProvider.GetLogger("ConnectionIomGeneratorApp");
 			});
 
-			services.AddTransient<IProjectService, ProjectService>();
 			services.AddSingleton<MainWindowViewModel>();
 
 			services.AddTransient<MainWindow>(serviceProvider => new MainWindow

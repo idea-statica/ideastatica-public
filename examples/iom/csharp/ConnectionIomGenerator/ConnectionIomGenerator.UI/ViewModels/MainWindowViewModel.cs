@@ -1,9 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
 using ConnectionIomGenerator.Model;
 using ConnectionIomGenerator.Service;
-using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.Tools;
-using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
 using System.Threading.Tasks;
 
@@ -11,13 +9,11 @@ namespace ConnectionIomGenerator.UI.ViewModels
 {
 	public class MainWindowViewModel : ViewModelBase
 	{
-		private readonly IProjectService projectService;
 		private readonly IPluginLogger _logger;
 		
-		public MainWindowViewModel(IProjectService projectService, IPluginLogger pluginLogger)
+		public MainWindowViewModel(IPluginLogger pluginLogger)
 		{
 			this._logger = pluginLogger;
-			this.projectService = projectService;
 			GenerateIomCommand = new AsyncRelayCommand(GenerateIomAsync, CanGenerateIomAsync);
 
 			ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(ConnectionInput.GetDefaultECEN());
