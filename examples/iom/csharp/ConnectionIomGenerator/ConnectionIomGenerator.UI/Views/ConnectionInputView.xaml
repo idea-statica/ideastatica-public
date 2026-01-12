@@ -51,7 +51,10 @@
 										Grid.Column="1"
 										Width="5">
 				</GridSplitter>
-		  
+
+				<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2">
+					<TextBox Text="{Binding IomXml, Mode=OneWay}" IsReadOnly="True"></TextBox>
+				</ScrollViewer>
 			</Grid>
 		</DockPanel>
 	</Grid>

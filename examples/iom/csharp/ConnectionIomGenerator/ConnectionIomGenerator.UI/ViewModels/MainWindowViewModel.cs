@@ -3,6 +3,7 @@ using ConnectionIomGenerator.Model;
 using ConnectionIomGenerator.Service;
 using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.Tools;
+using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 	{
 		private readonly IProjectService projectService;
 		private readonly IPluginLogger _logger;
+		
 		public MainWindowViewModel(IProjectService projectService, IPluginLogger pluginLogger)
 		{
 			this._logger = pluginLogger;
@@ -48,7 +50,19 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			// Pass logger to IomGenerator
 			var generator = new IomGenerator(_logger);
 			var iom = await generator.GenerateIomAsync(input);
-			
+
+			// Serialize OpenModel to formatted XML
+			if (iom?.OpenModel != null)
+			{
+				IomXml = IdeaRS.OpenModel.Tools.SerializeModel(iom.OpenModel);
+				_logger.LogInformation("IOM serialized to XML successfully");
+			}
+			else
+			{
+				_logger.LogWarning("Generated IOM or OpenModel is null");
+				IomXml = null;
+			}
+
 			_logger.LogInformation($"IOM generated successfully");
 		}
 
@@ -57,6 +71,13 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		{
 			get => connectionDefinitionJson;
 			set => SetProperty(ref connectionDefinitionJson, value);
+		}
+
+		private string? iomXml;
+		public string? IomXml
+		{
+			get => iomXml;
+			set => SetProperty(ref iomXml, value);
 		}
 
 		private string? messageText;
