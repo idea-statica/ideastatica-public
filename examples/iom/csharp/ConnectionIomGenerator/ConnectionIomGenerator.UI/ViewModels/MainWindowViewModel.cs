@@ -1,22 +1,32 @@
 using CommunityToolkit.Mvvm.Input;
 using ConnectionIomGenerator.Model;
-using ConnectionIomGenerator.Service;
+using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.Tools;
 using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
-using Microsoft.Win32;
 using System;
 using System.Threading.Tasks;
 
 namespace ConnectionIomGenerator.UI.ViewModels
 {
+	/// <summary>
+	/// Main window view model for IOM generation
+	/// </summary>
 	public class MainWindowViewModel : ViewModelBase
 	{
 		private readonly IPluginLogger _logger;
+		private readonly IIomService _iomService;
+		private readonly IFileDialogService _fileDialogService;
 		
-		public MainWindowViewModel(IPluginLogger pluginLogger)
+		public MainWindowViewModel(
+			IPluginLogger logger,
+			IIomService iomService,
+			IFileDialogService fileDialogService)
 		{
-			this._logger = pluginLogger;
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			_iomService = iomService ?? throw new ArgumentNullException(nameof(iomService));
+			_fileDialogService = fileDialogService ?? throw new ArgumentNullException(nameof(fileDialogService));
+
 			GenerateIomCommand = new AsyncRelayCommand(GenerateIomAsync, CanGenerateIomAsync);
 			SaveIomCommand = new AsyncRelayCommand(SaveIomAsync, CanSaveIomAsync);
 
@@ -28,7 +38,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 
 		private bool CanGenerateIomAsync()
 		{
-			return true;
+			return !string.IsNullOrEmpty(ConnectionDefinitionJson);
 		}
 
 		private bool CanSaveIomAsync()
@@ -38,79 +48,87 @@ namespace ConnectionIomGenerator.UI.ViewModels
 
 		private async Task GenerateIomAsync()
 		{
-			// get input
-			if(string.IsNullOrEmpty(ConnectionDefinitionJson))
+			try
 			{
-				_logger.LogWarning("GenerateIomAsync : Leaving - no input data");
-				return;
+				var input = DeserializeInput();
+				if (input == null) return;
+
+				IomContainer = await _iomService.GenerateIomAsync(input);
+
+				if (IomContainer?.OpenModel != null)
+				{
+					IomXml = _iomService.SerializeToXml(IomContainer.OpenModel);
+					_logger.LogInformation("IOM generated and serialized successfully");
+					Status = $"IOM generated with {IomContainer.OpenModel.Member1D?.Count ?? 0} members";
+				}
+				else
+				{
+					_logger.LogWarning("Generated IOM or OpenModel is null");
+					IomXml = null;
+					Status = "Generation failed";
+				}
 			}
-
-			var input = JsonTools.DeserializeJson<ConnectionInput>(ConnectionDefinitionJson);
-
-			if (input == null)
+			catch (Exception ex)
 			{
-				_logger.LogWarning("GenerateIomAsync : Leaving - null instance of ConnectionInput");
-				return;
+				_logger.LogError("Failed to generate IOM", ex);
+				Status = $"Error: {ex.Message}";
+				MessageText = ex.ToString();
 			}
-
-			// Pass logger to IomGenerator
-			var generator = new IomGenerator(_logger);
-			IomContainer = await generator.GenerateIomAsync(input);
-
-			// Serialize OpenModel to formatted XML
-			if (IomContainer?.OpenModel != null)
-			{
-				IomXml = IdeaRS.OpenModel.Tools.SerializeModel(IomContainer.OpenModel);
-				_logger.LogInformation("IOM serialized to XML successfully");
-			}
-			else
-			{
-				_logger.LogWarning("Generated IOM or OpenModel is null");
-				IomXml = null;
-			}
-
-			_logger.LogInformation($"IOM generated successfully");
 		}
 
 		private async Task SaveIomAsync()
 		{
 			if (IomContainer == null)
 			{
-				_logger.LogWarning("SaveIomAsync : IomContainer is null");
+				_logger.LogWarning("SaveIomAsync: IomContainer is null");
 				return;
 			}
 
-			// Show save file dialog
-			var saveFileDialog = new SaveFileDialog
+			try
 			{
-				Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
-				DefaultExt = "xml",
-				FileName = "Connection.xml",
-				Title = "Save IOM to XML file"
-			};
+				var filePath = _fileDialogService.ShowSaveFileDialog(
+					filter: "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+					defaultExt: "xml",
+					defaultFileName: "Connection.xml",
+					title: "Save IOM to XML file");
 
-			if (saveFileDialog.ShowDialog() == true)
-			{
-				try
+				if (string.IsNullOrEmpty(filePath))
 				{
-					_logger.LogInformation($"Saving IOM to file: {saveFileDialog.FileName}");
-					
-					// Save OpenModelContainer to XML file
-					await Task.Run(() => IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IomContainer, saveFileDialog.FileName));
-					
-					_logger.LogInformation($"IOM saved successfully to: {saveFileDialog.FileName}");
-					Status = $"IOM saved to: {saveFileDialog.FileName}";
+					_logger.LogDebug("SaveIomAsync: User cancelled save operation");
+					return;
 				}
-				catch (Exception ex)
-				{
-					_logger.LogError($"Failed to save IOM to file: {saveFileDialog.FileName}", ex);
-					Status = $"Error saving IOM: {ex.Message}";
-				}
+
+				_logger.LogInformation($"Saving IOM to file: {filePath}");
+				await _iomService.SaveToFileAsync(IomContainer, filePath);
+				
+				_logger.LogInformation($"IOM saved successfully to: {filePath}");
+				Status = $"IOM saved to: {filePath}";
 			}
-			else
+			catch (Exception ex)
 			{
-				_logger.LogDebug("SaveIomAsync : User cancelled save operation");
+				_logger.LogError("Failed to save IOM to file", ex);
+				Status = $"Error saving IOM: {ex.Message}";
+				MessageText = ex.ToString();
 			}
+		}
+
+		private ConnectionInput? DeserializeInput()
+		{
+			if (string.IsNullOrEmpty(ConnectionDefinitionJson))
+			{
+				_logger.LogWarning("No input data provided");
+				Status = "No input data";
+				return null;
+			}
+
+			var input = JsonTools.DeserializeJson<ConnectionInput>(ConnectionDefinitionJson);
+			if (input == null)
+			{
+				_logger.LogWarning("Failed to deserialize ConnectionInput");
+				Status = "Invalid input format";
+			}
+
+			return input;
 		}
 
 		private string? connectionDefinitionJson;
@@ -149,7 +167,6 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			{
 				if (SetProperty(ref iomContainer, value))
 				{
-					// Notify that CanExecute for SaveIomCommand has changed
 					SaveIomCommand.NotifyCanExecuteChanged();
 				}
 			}

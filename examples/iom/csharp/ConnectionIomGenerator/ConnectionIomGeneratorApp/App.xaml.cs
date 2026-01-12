@@ -1,4 +1,6 @@
-﻿using ConnectionIomGenerator.UI.ViewModels;
+﻿using ConnectionIomGenerator.Service;
+using ConnectionIomGenerator.UI.Services;
+using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGeneratorApp.View;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
@@ -30,14 +32,14 @@ namespace ConnectionIomGeneratorApp
 
 			services.AddSingleton<MainWindowViewModel>();
 
+			services.AddTransient<IFileDialogService, FileDialogService>();
+			services.AddTransient<IIomService, IomService>();
+			services.AddTransient<IIomGenerator, IomGenerator>();
+
 			services.AddTransient<MainWindow>(serviceProvider => new MainWindow
 			{
 				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
 			});
-
-			//services.AddTransient<MainWindowViewModel>();
-
-
 
 			var serviceProvider = services.BuildServiceProvider();
 			if(serviceProvider == null)
