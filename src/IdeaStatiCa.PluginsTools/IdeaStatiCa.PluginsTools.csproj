@@ -8,6 +8,7 @@
 		<Description>Tools for IDEA Statica plugins</Description>
 		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 		<UseWPF>true</UseWPF>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">

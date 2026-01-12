@@ -5,6 +5,8 @@
     <TargetFrameworks>net48;net8.0</TargetFrameworks>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
+    <Configurations>Release;Debug</Configurations>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

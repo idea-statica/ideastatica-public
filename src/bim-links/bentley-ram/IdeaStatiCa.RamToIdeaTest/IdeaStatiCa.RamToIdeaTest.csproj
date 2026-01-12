@@ -3,6 +3,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

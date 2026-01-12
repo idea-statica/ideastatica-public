@@ -3,11 +3,12 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
+		<Configurations>Debug;Release;Debug_IdeaStatiCa_Internal;Release_IdeaStatiCa_Internal</Configurations>
 		<PackageId>IdeaStatiCa.OpenModel</PackageId>
 		<Product>IdeaStatiCa.OpenModel</Product>
 		<PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
 		<Description>OpenModel used for IdeaStatiCa.Plugin, containing all base classes required for Plugin to fully work.</Description>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,15 +18,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<WarningsNotAsErrors>1591</WarningsNotAsErrors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
-		<WarningsNotAsErrors>1591</WarningsNotAsErrors>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
-		<WarningsNotAsErrors>1591</WarningsNotAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
