@@ -22,6 +22,7 @@ namespace ConnectionIomGenerator.Fea
 			Elements1D = new Dictionary<int, IdeaElement1D>();
 			Members1D = new Dictionary<int, IdeaMember1D>();
 			ConnectionPoints = new Dictionary<int, IIdeaConnectionPoint>();
+			Loading = new Dictionary<int, IIdeaLoading>();
 		}
 
 		/// <summary>
@@ -72,5 +73,10 @@ namespace ConnectionIomGenerator.Fea
 		/// connected members, plates, bolts, welds, and other connection components.
 		/// </summary>
 		internal Dictionary<int, IIdeaConnectionPoint> ConnectionPoints { get; set; }
+
+		/// <summary>
+		/// Gets or sets the collection of loadings, indexed by their unique identifiers.
+		/// </summary>
+		internal Dictionary<int, IIdeaLoading> Loading { get; set; }
 	}
 }

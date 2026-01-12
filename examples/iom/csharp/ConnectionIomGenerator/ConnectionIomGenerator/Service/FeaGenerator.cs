@@ -18,7 +18,7 @@ namespace ConnectionIomGenerator.Service
 
 		public FeaGenerator() { }
 
-		public FeaModel Generate(ConnectionInput connectionInput)
+		public FeaModel Generate(ConnectionInput connectionInput, LoadingInput? loadingInput)
 		{
 			var feaModel = new FeaModel();
 
@@ -207,6 +207,16 @@ namespace ConnectionIomGenerator.Service
 			// Create connection point at origin with all members
 			CreateConnectionPoint(feaModel, connectionInput);
 
+			if (loadingInput != null)
+			{
+				// add load cases
+				foreach (var lc in loadingInput.LoadCases)
+				{
+					var ideaLoading = new IdeaLoadCase(lc.Id) { Name = lc.Name };
+					feaModel.Loading.Add(lc.Id, ideaLoading);
+				}
+			}
+
 			return feaModel;
 		}
 
@@ -226,6 +236,7 @@ namespace ConnectionIomGenerator.Service
 			}
 
 			var loadCase = new LoadCase() { Id = 1, Name = "LC1", LoadImpulses = loadImpulses };
+			loadCases.Add(loadCase);
 
 			var res = new LoadingInput() {LoadCases = loadCases };
 			return res;

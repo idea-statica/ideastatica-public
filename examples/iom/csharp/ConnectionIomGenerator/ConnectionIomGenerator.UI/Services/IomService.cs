@@ -19,10 +19,10 @@ namespace ConnectionIomGenerator.UI.Services
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
-		public async Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input)
+		public async Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input, LoadingInput? loadingInput)
 		{
 			var generator = new IomGenerator(_logger);
-			return await generator.GenerateIomAsync(input);
+			return await generator.GenerateIomAsync(input, loadingInput);
 		}
 
 		public string SerializeToXml(OpenModel openModel)

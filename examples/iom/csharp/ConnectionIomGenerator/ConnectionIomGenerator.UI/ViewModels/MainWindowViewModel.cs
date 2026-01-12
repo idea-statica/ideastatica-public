@@ -70,9 +70,16 @@ namespace ConnectionIomGenerator.UI.ViewModels
 					return;
 				}
 
+
+				LoadingInput? loadingInput = null;
+				if(!string.IsNullOrEmpty(LoadingDefinitionJson))
+				{
+					loadingInput = JsonTools.DeserializeJson<LoadingInput>(LoadingDefinitionJson);
+				}
+
 				_model.IomContainer = null;
 				_model.ConnectionInput = input;
-				_model.IomContainer = await _iomService.GenerateIomAsync(input);
+				_model.IomContainer = await _iomService.GenerateIomAsync(input, loadingInput);
 
 				if (_model.IomContainer?.OpenModel != null)
 				{

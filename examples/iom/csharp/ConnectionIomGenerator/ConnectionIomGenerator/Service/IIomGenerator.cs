@@ -5,6 +5,6 @@ namespace ConnectionIomGenerator.Service
 {
 	public interface IIomGenerator
 	{
-		Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input);
+		Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input, LoadingInput? loadingInput);
 	}
 }

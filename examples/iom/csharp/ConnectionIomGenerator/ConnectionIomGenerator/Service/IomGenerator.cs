@@ -14,7 +14,7 @@ namespace ConnectionIomGenerator.Service
 			_logger = logger;
 		}
 
-		public async Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input)
+		public async Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input, LoadingInput? loadingInput)
 		{
 			_logger.LogInformation("Starting IOM generation");
 
@@ -25,7 +25,7 @@ namespace ConnectionIomGenerator.Service
 				// Generate FEA model
 				_logger.LogDebug("Generating FEA model");
 				var generator = new FeaGenerator();
-				var feaModel = generator.Generate(input);
+				var feaModel = generator.Generate(input, loadingInput);
 
 				// Wrap FeaModel to implement IIdeaModel
 				_logger.LogDebug("Creating FEA model wrapper");
