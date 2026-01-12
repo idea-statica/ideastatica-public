@@ -4,6 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Configurations>Debug;Release;Debug_IdeaStatiCa_Internal;Release_IdeaStatiCa_Internal</Configurations>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <Import Project="..\SerilogFacade\SerilogFacade.projitems" Label="Shared" />
