@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace ConnectionIomGenerator.Service
 {
-	internal class FeaGenerator
+	public class FeaGenerator
 	{
 		static readonly int ConnectionPointId = 1;
 		static readonly Vector3 Origin = new Vector3(0, 0, 0);
@@ -18,7 +18,7 @@ namespace ConnectionIomGenerator.Service
 
 		public FeaGenerator() { }
 
-		internal FeaModel Generate(ConnectionInput connectionInput)
+		public FeaModel Generate(ConnectionInput connectionInput)
 		{
 			var feaModel = new FeaModel();
 
@@ -208,6 +208,27 @@ namespace ConnectionIomGenerator.Service
 			CreateConnectionPoint(feaModel, connectionInput);
 
 			return feaModel;
+		}
+
+		public LoadingInput CreateLoadingForConnection(ConnectionInput connectionInput)
+		{
+			var loadCases = new List<LoadCase>();
+
+			var loadImpulses = new List<LoadImpulse>();
+
+			foreach(var mem in connectionInput.Members)
+			{
+				loadImpulses.Add(new LoadImpulse() { MemberId = mem.Id, Position = 0 });
+				if(mem.IsContinuous)
+				{
+					loadImpulses.Add(new LoadImpulse() { MemberId = mem.Id, Position = 1 });
+				}
+			}
+
+			var loadCase = new LoadCase() { Id = 1, Name = "LC1", LoadImpulses = loadImpulses };
+
+			var res = new LoadingInput() {LoadCases = loadCases };
+			return res;
 		}
 
 		private void CreateConnectionPoint(FeaModel feaModel, ConnectionInput connectionInput)

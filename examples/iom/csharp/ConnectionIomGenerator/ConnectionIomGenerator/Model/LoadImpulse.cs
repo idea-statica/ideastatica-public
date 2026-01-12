@@ -4,11 +4,11 @@
 	{
 		public required int MemberId { get; init; }
 		public required int Position { get; init; }
-		public required double N { get; init; }
-		public required double Vy { get; init; }
-		public required double Vz { get; init; }
-		public required double Mx { get; init; }
-		public required double My { get; init; }
-		public required double Mz { get; init; }
+		public double N { get; init; }
+		public double Vy { get; init; }
+		public  double Vz { get; init; }
+		public  double Mx { get; init; }
+		public  double My { get; init; }
+		public  double Mz { get; init; }
 	}
 }

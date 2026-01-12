@@ -7,7 +7,7 @@ namespace ConnectionIomGenerator.Fea
 	/// Represents a Finite Element Analysis (FEA) model containing structural elements and connection points.
 	/// This model serves as an intermediate representation before conversion to IDEA StatiCa Open Model (IOM).
 	/// </summary>
-	internal class FeaModel
+	public class FeaModel
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FeaModel"/> class.

@@ -11,6 +11,7 @@
 			<ToolBarTray DockPanel.Dock="Top">
 				<ToolBar Band="1" DockPanel.Dock="Top">
 					<Button Command="{Binding GenerateIomCommand, Mode=OneWay}">Generate IOM</Button>
+					<Button Command="{Binding GenerateLoadingCommand, Mode=OneWay}" ToolTip="Generate loading for actual geometry">Generate loading</Button>
 					<Button Command="{Binding SaveIomCommand, Mode=OneWay}">Save IOM</Button>
 				</ToolBar>
 			</ToolBarTray>
@@ -30,10 +31,28 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="1*"></RowDefinition>
 					</Grid.RowDefinitions>
-			
-					<ScrollViewer VerticalScrollBarVisibility="Auto">
-						<TextBox Text="{Binding ConnectionDefinitionJson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-					</ScrollViewer>
+
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+
+						<ScrollViewer VerticalScrollBarVisibility="Auto">
+							<TextBox Text="{Binding ConnectionDefinitionJson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+						</ScrollViewer>
+
+						<GridSplitter HorizontalAlignment="Center"
+										VerticalAlignment="Stretch"
+										Grid.Column="1"
+										Width="5">
+						</GridSplitter>
+
+						<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2">
+							<TextBox Text="{Binding LoadingDefinitionJson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+						</ScrollViewer>
+					</Grid>
 
 					<GridSplitter HorizontalAlignment="Stretch"
 										VerticalAlignment="Center"

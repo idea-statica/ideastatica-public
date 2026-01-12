@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using ConnectionIomGenerator.Model;
+using ConnectionIomGenerator.Service;
 using ConnectionIomGenerator.UI.Models;
 using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.Tools;
@@ -34,17 +35,24 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			};
 
 			GenerateIomCommand = new AsyncRelayCommand(GenerateIomAsync, CanGenerateIomAsync);
+			GenerateLoadingCommand = new AsyncRelayCommand(GenerateLoadingAsync, CanGenerateLoadingAsync);
 			SaveIomCommand = new AsyncRelayCommand(SaveIomAsync, CanSaveIomAsync);
 
 			ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(_model.ConnectionInput);
 		}
 
 		public AsyncRelayCommand GenerateIomCommand { get; }
+		public AsyncRelayCommand GenerateLoadingCommand { get; }
 		public AsyncRelayCommand SaveIomCommand { get; }
 
 		private bool CanGenerateIomAsync()
 		{
 			return !string.IsNullOrEmpty(ConnectionDefinitionJson);
+		}
+
+		private bool CanGenerateLoadingAsync()
+		{
+			return _model.ConnectionInput != null;
 		}
 
 		private bool CanSaveIomAsync()
@@ -87,6 +95,27 @@ namespace ConnectionIomGenerator.UI.ViewModels
 				Status = $"Error: {ex.Message}";
 				MessageText = ex.ToString();
 			}
+		}
+
+		private async Task GenerateLoadingAsync()
+		{
+			var input = DeserializeInput();
+			if (input == null)
+			{
+				return;
+			}
+
+			var feaGenerator = new FeaGenerator();
+			var loading = feaGenerator.CreateLoadingForConnection(input);
+
+			if(loading == null)
+			{
+				return;
+			}
+
+			var loadingJson = JsonTools.GetJsonText<LoadingInput>(loading);
+			this.LoadingDefinitionJson = loadingJson;
+			await Task.CompletedTask;
 		}
 
 		private async Task SaveIomAsync()
@@ -149,6 +178,19 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		{
 			get => connectionDefinitionJson;
 			set => SetProperty(ref connectionDefinitionJson, value);
+		}
+
+		private string? loadingDefinitionJson;
+		public string? LoadingDefinitionJson
+		{
+			get => loadingDefinitionJson;
+			set
+			{
+				if (SetProperty(ref loadingDefinitionJson, value))
+				{
+					GenerateLoadingCommand.NotifyCanExecuteChanged();
+				}
+			}
 		}
 
 		private string? iomXml;
