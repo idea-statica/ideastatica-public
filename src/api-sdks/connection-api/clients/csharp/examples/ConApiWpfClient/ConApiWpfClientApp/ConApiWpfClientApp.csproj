@@ -11,24 +11,20 @@
 		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<Folder Include="Models\" />
-		<Folder Include="Tools\" />
-	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm"/>
-		<PackageReference Include="IdeaStatiCa.ConRestApiClientUI"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json"/>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="IdeaStatiCa.ConRestApiClientUI" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.ConnectionApi"/>
-		<PackageReference Include="IdeaStatiCa.OpenModel"/>
-		<PackageReference Include="IdeaStatiCa.PluginLogger"/>
+		<PackageReference Include="IdeaStatiCa.ConnectionApi" />
+		<PackageReference Include="IdeaStatiCa.OpenModel" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
