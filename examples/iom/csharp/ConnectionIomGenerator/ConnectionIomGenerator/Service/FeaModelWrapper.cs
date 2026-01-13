@@ -24,7 +24,7 @@ namespace ConnectionIomGenerator.Service
 		public ISet<IIdeaLoading> GetLoads()
 		{
 			// No loads in current implementation
-			return new HashSet<IIdeaLoading>();
+			return new HashSet<IIdeaLoading>(_feaModel.Loading.Values);
 		}
 
 		public OriginSettings GetOriginSettings()

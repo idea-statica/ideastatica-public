@@ -1,7 +1,11 @@
-﻿using ConnectionIomGenerator.Model;
+﻿using Castle.Core.Internal;
+using ConnectionIomGenerator.Model;
 using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Model;
+using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using System.Text.RegularExpressions;
 
 namespace ConnectionIomGenerator.Service
 {
@@ -51,6 +55,49 @@ namespace ConnectionIomGenerator.Service
 				// Assign the imported OpenModel to the container
 				res.OpenModel = modelBim.Model;
 
+				// add loading if exists
+				if(loadingInput != null)
+				{
+					IdeaRS.OpenModel.Result.OpenModelResult openModelResult = new IdeaRS.OpenModel.Result.OpenModelResult();
+
+					///openModelResult.
+					var resOnMembers = new IdeaRS.OpenModel.Result.ResultOnMembers();
+					
+					foreach (var lc in res.OpenModel.LoadCase)
+					{
+						resOnMembers.Loading = new IdeaRS.OpenModel.Result.Loading(IdeaRS.OpenModel.Result.LoadingType.LoadCase, lc.Id);
+
+
+						foreach (var mem1D in res.OpenModel.Member1D)
+						{
+							var memBimId = project.GetBimApiId(mem1D.Id);
+							int feaMemMemId = ParseBimId(memBimId);
+							int elInx = 0;
+							input.Members.First(m => m.Id == feaMemMemId);
+							foreach (var refEl in mem1D.Elements1D)
+							{
+								var element1D = refEl.Element;
+								var elBimId = project.GetBimApiId(refEl.Id);
+
+								int feaElMemId = ParseBimId(elBimId);
+
+								var resOnMember = new ResultOnMember();
+								resOnMember.ResultType = ResultType.InternalForces;
+								resOnMember.Member = new IdeaRS.OpenModel.Result.Member(MemberType.Element1D, element1D.Id);
+
+								
+
+								elInx++;
+							}
+						}
+					}
+
+							//resOnMember.
+						
+
+					openModelResult.ResultOnMembers.Add(resOnMembers);
+				}
+
 				_logger.LogInformation($"IOM generation completed successfully with {res.OpenModel?.Member1D?.Count ?? 0} members");
 			}
 			catch (Exception ex)
@@ -60,6 +107,13 @@ namespace ConnectionIomGenerator.Service
 			}
 
 			return await Task.FromResult(res);
+		}
+
+		static int ParseBimId(string bimApiId)
+		{
+			int inx = bimApiId.IndexOf("-");
+			string parsedId = bimApiId.Substring(inx+1, bimApiId.Length - inx - 1);
+			return Int32.Parse(parsedId);
 		}
 	}
 }
