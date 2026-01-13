@@ -6,17 +6,17 @@ Method | Description
 ------------- | -------------
 [**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project
 [**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project
-[**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Add material to the project
-[**add_material_concrete**](MaterialApi.md#add_material_concrete) | Add material to the project
-[**add_material_steel**](MaterialApi.md#add_material_steel) | Add material to the project
-[**add_material_weld**](MaterialApi.md#add_material_weld) | Add material to the project
-[**get_all_materials**](MaterialApi.md#get_all_materials) | Get materials which are used in the project projectId
-[**get_bolt_assemblies**](MaterialApi.md#get_bolt_assemblies) | Get bolt assemblies which are used in the project projectId
-[**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Get materials which are used in the project projectId
-[**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Get materials which are used in the project projectId
-[**get_cross_sections**](MaterialApi.md#get_cross_sections) | Get cross sections which are used in the project projectId
-[**get_steel_materials**](MaterialApi.md#get_steel_materials) | Get materials which are used in the project projectId
-[**get_welding_materials**](MaterialApi.md#get_welding_materials) | Get materials which are used in the project projectId
+[**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
+[**add_material_concrete**](MaterialApi.md#add_material_concrete) | Adds a material to the project.
+[**add_material_steel**](MaterialApi.md#add_material_steel) | Adds a material to the project.
+[**add_material_weld**](MaterialApi.md#add_material_weld) | Adds a material to the project.
+[**get_all_materials**](MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
+[**get_bolt_assemblies**](MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
+[**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
+[**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
+[**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
+[**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
+[**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
 
 
 <a id="add_bolt_assembly"></a>
@@ -173,15 +173,15 @@ No authorization required
 # **add_material_bolt_grade**
 > add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
 
-Add material to the project
+Adds a material to the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new material to be added to the project | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
 
 ### Return type
 
@@ -203,11 +203,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_material_bolt_gradeExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new material to be added to the project (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
 
     try:
-        # Add material to the project
+        # Adds a material to the project.
         api_client.material.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_bolt_grade: %s\n" % e)
@@ -248,15 +248,15 @@ No authorization required
 # **add_material_concrete**
 > add_material_concrete(project_id, con_mprl_element=con_mprl_element)
 
-Add material to the project
+Adds a material to the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new material to be added to the project | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
 
 ### Return type
 
@@ -278,11 +278,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_material_concreteExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new material to be added to the project (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
 
     try:
-        # Add material to the project
+        # Adds a material to the project.
         api_client.material.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_concrete: %s\n" % e)
@@ -323,15 +323,15 @@ No authorization required
 # **add_material_steel**
 > add_material_steel(project_id, con_mprl_element=con_mprl_element)
 
-Add material to the project
+Adds a material to the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new material to be added to the project | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
 
 ### Return type
 
@@ -353,11 +353,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_material_steelExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new material to be added to the project (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
 
     try:
-        # Add material to the project
+        # Adds a material to the project.
         api_client.material.add_material_steel(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_steel: %s\n" % e)
@@ -398,15 +398,15 @@ No authorization required
 # **add_material_weld**
 > add_material_weld(project_id, con_mprl_element=con_mprl_element)
 
-Add material to the project
+Adds a material to the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new material to be added to the project | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
 
 ### Return type
 
@@ -428,11 +428,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_material_weldExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new material to be added to the project (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
 
     try:
-        # Add material to the project
+        # Adds a material to the project.
         api_client.material.add_material_weld(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_weld: %s\n" % e)
@@ -473,14 +473,14 @@ No authorization required
 # **get_all_materials**
 > List[object] get_all_materials(project_id)
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -501,10 +501,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_all_materialsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get materials which are used in the project projectId
+        # Gets materials used in the specified project.
         api_response = api_client.material.get_all_materials(project_id)
         print("The response of MaterialApi->get_all_materials:\n")
         pprint(api_response)
@@ -548,14 +548,14 @@ No authorization required
 # **get_bolt_assemblies**
 > List[object] get_bolt_assemblies(project_id)
 
-Get bolt assemblies which are used in the project projectId
+Gets bolt assemblies used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -576,10 +576,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_bolt_assembliesExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get bolt assemblies which are used in the project projectId
+        # Gets bolt assemblies used in the specified project.
         api_response = api_client.material.get_bolt_assemblies(project_id)
         print("The response of MaterialApi->get_bolt_assemblies:\n")
         pprint(api_response)
@@ -623,14 +623,14 @@ No authorization required
 # **get_bolt_grade_materials**
 > List[object] get_bolt_grade_materials(project_id)
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -651,10 +651,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_bolt_grade_materialsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get materials which are used in the project projectId
+        # Gets materials used in the specified project.
         api_response = api_client.material.get_bolt_grade_materials(project_id)
         print("The response of MaterialApi->get_bolt_grade_materials:\n")
         pprint(api_response)
@@ -698,14 +698,14 @@ No authorization required
 # **get_concrete_materials**
 > List[object] get_concrete_materials(project_id)
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -726,10 +726,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_concrete_materialsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get materials which are used in the project projectId
+        # Gets materials used in the specified project.
         api_response = api_client.material.get_concrete_materials(project_id)
         print("The response of MaterialApi->get_concrete_materials:\n")
         pprint(api_response)
@@ -773,14 +773,14 @@ No authorization required
 # **get_cross_sections**
 > List[object] get_cross_sections(project_id)
 
-Get cross sections which are used in the project projectId
+Gets cross sections used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -801,10 +801,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_cross_sectionsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get cross sections which are used in the project projectId
+        # Gets cross sections used in the specified project.
         api_response = api_client.material.get_cross_sections(project_id)
         print("The response of MaterialApi->get_cross_sections:\n")
         pprint(api_response)
@@ -848,14 +848,14 @@ No authorization required
 # **get_steel_materials**
 > List[object] get_steel_materials(project_id)
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -876,10 +876,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_steel_materialsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get materials which are used in the project projectId
+        # Gets materials used in the specified project.
         api_response = api_client.material.get_steel_materials(project_id)
         print("The response of MaterialApi->get_steel_materials:\n")
         pprint(api_response)
@@ -923,14 +923,14 @@ No authorization required
 # **get_welding_materials**
 > List[object] get_welding_materials(project_id)
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -951,10 +951,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_welding_materialsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get materials which are used in the project projectId
+        # Gets materials used in the specified project.
         api_response = api_client.material.get_welding_materials(project_id)
         print("The response of MaterialApi->get_welding_materials:\n")
         pprint(api_response)

@@ -19,7 +19,8 @@ paths:
     post:
       operationId: Calculate
       parameters:
-      - description: Project unique identifier
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -36,7 +37,7 @@ paths:
                 format: int32
                 type: integer
               type: array
-        description: List of connection ids to calculate
+        description: List of connection IDs to calculate.
         required: true
       responses:
         "200":
@@ -47,7 +48,7 @@ paths:
                   $ref: '#/components/schemas/ConResultSummary'
                 type: array
           description: OK
-      summary: Run CBFEM caluclation and return the summary of the results
+      summary: Runs CBFEM calculation and returns the summary of the results.
       tags:
       - Calculation
       x-requiresProject: true
@@ -57,7 +58,7 @@ paths:
       operationId: GetResults
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -74,7 +75,7 @@ paths:
                 format: int32
                 type: integer
               type: array
-        description: List of connections to calculate and a type of CBFEM analysis
+        description: List of connection IDs to calculate.
         required: true
       responses:
         "200":
@@ -85,7 +86,7 @@ paths:
                   $ref: '#/components/schemas/ConnectionCheckRes'
                 type: array
           description: OK
-      summary: Get detailed results of the CBFEM analysis
+      summary: Gets detailed results of the CBFEM analysis.
       tags:
       - Calculation
       x-requiresProject: true
@@ -94,8 +95,8 @@ paths:
     post:
       operationId: GetRawJsonResults
       parameters:
-      - description: The unique identifier of the opened connection in the ConnectionRestApi
-          service
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -112,7 +113,7 @@ paths:
                 format: int32
                 type: integer
               type: array
-        description: List of connections to calculate and a type of CBFEM analysis
+        description: List of connection IDs to calculate.
         required: true
       responses:
         "200":
@@ -123,8 +124,8 @@ paths:
                   type: string
                 type: array
           description: OK
-      summary: Get json string which represents raw CBFEM results (an instance of
-        CheckResultsData)
+      summary: Gets JSON string which represents raw CBFEM results (an instance of
+        CheckResultsData).
       tags:
       - Calculation
       x-requiresProject: true
@@ -142,8 +143,8 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Connect a client to the ConnectionRestApi service. Method returns a
-        unique identifier of the client.
+      summary: Connects a client to the ConnectionRestApi service and returns a unique
+        identifier for the client.
       tags:
       - Client
       x-requiresProject: false
@@ -158,7 +159,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Get the IdeaStatica version
+      summary: Gets the IdeaStatica API assembly version.
       tags:
       - Client
       x-requiresProject: false
@@ -168,7 +169,7 @@ paths:
       operationId: GetConnections
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -186,7 +187,7 @@ paths:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
           description: OK
-      summary: Get data about all connections in the project
+      summary: Gets data about all connections in the project.
       tags:
       - Connection
       x-requiresProject: true
@@ -195,7 +196,9 @@ paths:
     delete:
       operationId: DeleteConnection
       parameters:
-      - explode: false
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
         in: path
         name: projectId
         required: true
@@ -203,7 +206,8 @@ paths:
           format: uuid
           type: string
         style: simple
-      - explode: false
+      - description: The ID of the connection to delete.
+        explode: false
         in: path
         name: connectionId
         required: true
@@ -220,6 +224,7 @@ paths:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
           description: OK
+      summary: Deletes a specific connection from the project.
       tags:
       - Connection
       x-requiresProject: true
@@ -228,7 +233,7 @@ paths:
       operationId: GetConnection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -237,7 +242,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The id of the requested connection
+      - description: The ID of the requested connection.
         explode: false
         in: path
         name: connectionId
@@ -253,7 +258,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
-      summary: Get data about a specific connection in the project
+      summary: Gets data about a specific connection in the project.
       tags:
       - Connection
       x-requiresProject: true
@@ -262,7 +267,7 @@ paths:
       operationId: UpdateConnection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -271,7 +276,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to be update
+      - description: The ID of the connection to be updated.
         explode: false
         in: path
         name: connectionId
@@ -285,7 +290,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConConnection'
-        description: New connection data to be set
+        description: New connection data to be applied.
       responses:
         "200":
           content:
@@ -293,7 +298,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
-      summary: Update data of a specific connection in the project
+      summary: Updates data of a specific connection in the project.
       tags:
       - Connection
       x-requiresProject: true
@@ -303,7 +308,7 @@ paths:
       operationId: GetProductionCost
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -312,7 +317,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the requested connection
+      - description: The ID of the requested connection.
         explode: false
         in: path
         name: connectionId
@@ -328,7 +333,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProductionCost'
           description: OK
-      summary: Get production cost of the connection
+      summary: Gets the production cost of the connection.
       tags:
       - Connection
       x-requiresProject: true
@@ -338,7 +343,7 @@ paths:
       operationId: GetConnectionTopology
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -347,7 +352,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection where to clear the design
+      - description: The ID of the connection for which to retrieve the topology.
         explode: false
         in: path
         name: connectionId
@@ -366,7 +371,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Get topology of the connection in json format
+      summary: Gets the topology of the connection in JSON format.
       tags:
       - Connection
       x-requiresProject: true
@@ -559,7 +564,7 @@ paths:
       operationId: GetConversionMapping
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service. (only ECEN design code is supported)
+          service (only ECEN design code is supported).
         explode: false
         in: path
         name: projectId
@@ -568,7 +573,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Requested design code in the converted project.
+      - description: The requested design code for the converted project.
         explode: true
         in: query
         name: countryCode
@@ -583,8 +588,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConversionSettings'
           description: OK
-      summary: Get default conversions for converting the project to different design
-        code.
+      summary: Gets default conversion mappings for converting the project to a different
+        design code.
       tags:
       - Conversion
       x-requiresProject: true
@@ -594,7 +599,7 @@ paths:
       operationId: ChangeCode
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service. (only ECEN projects are supported)
+          service (only ECEN projects are supported).
         explode: false
         in: path
         name: projectId
@@ -608,8 +613,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConConversionSettings'
-        description: Conversion table for materials in the project. (pairs 'ECEN MATERIAL'
-          -> 'TARGET DESIGN CODE MATERIAL')
+        description: Conversion table for materials in the project (pairs 'ECEN MATERIAL'
+          to 'TARGET DESIGN CODE MATERIAL').
       responses:
         "200":
           content:
@@ -617,7 +622,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Change design code of project.
+      summary: Changes the design code of the project.
       tags:
       - Conversion
       x-requiresProject: true
@@ -626,7 +631,7 @@ paths:
     get:
       operationId: ExportIom
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -635,7 +640,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection to export.
         explode: false
         in: path
         name: connectionId
@@ -644,7 +649,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: Optional version string for downgrading the IOM model.
         explode: true
         in: query
         name: version
@@ -662,7 +667,8 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+      summary: Exports the connection to XML which includes the OpenModelContainer
+        (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
       tags:
       - Export
       x-requiresProject: true
@@ -671,7 +677,7 @@ paths:
     get:
       operationId: ExportIomConnectionData
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -680,7 +686,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection to export.
         explode: false
         in: path
         name: connectionId
@@ -699,8 +705,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConnectionData'
           description: OK
-      summary: Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-        for required connection
+      summary: Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
       tags:
       - Export
       x-requiresProject: true
@@ -709,7 +714,7 @@ paths:
     get:
       operationId: ExportIFC
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -718,7 +723,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection to export.
         explode: false
         in: path
         name: connectionId
@@ -734,7 +739,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Export connection to IFC format
+      summary: Exports the connection to IFC format.
       tags:
       - Export
       x-requiresProject: true
@@ -744,7 +749,7 @@ paths:
     get:
       operationId: GetLoadEffects
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -753,7 +758,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -762,7 +767,8 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: Optional flag indicating whether to return percentage-based load
+          effects.
         explode: true
         in: query
         name: isPercentage
@@ -779,7 +785,7 @@ paths:
                   $ref: '#/components/schemas/ConLoadEffect'
                 type: array
           description: OK
-      summary: Get all load effects which are defined in connectionId
+      summary: Gets all load effects defined in the specified connection.
       tags:
       - LoadEffect
       x-requiresProject: true
@@ -787,7 +793,7 @@ paths:
     post:
       operationId: AddLoadEffect
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -796,7 +802,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -810,7 +816,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConLoadEffect'
-        description: ""
+        description: The load effect data to add.
       responses:
         "200":
           content:
@@ -818,7 +824,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
-      summary: Add new load effect to the connection
+      summary: Adds a new load effect to the connection.
       tags:
       - LoadEffect
       x-requiresProject: true
@@ -909,7 +915,7 @@ paths:
     get:
       operationId: GetLoadEffect
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -918,7 +924,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -927,7 +933,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the load effect to retrieve.
         explode: false
         in: path
         name: loadEffectId
@@ -936,7 +942,8 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: Optional flag indicating whether to return percentage-based load
+          effects.
         explode: true
         in: query
         name: isPercentage
@@ -951,7 +958,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
-      summary: Get load impulses from loadEffectId
+      summary: Gets load impulses from the specified load effect.
       tags:
       - LoadEffect
       x-requiresProject: true
@@ -1035,7 +1042,7 @@ paths:
       operationId: GetAllMaterials
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1052,7 +1059,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get materials which are used in the project projectId
+      summary: Gets materials used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1062,7 +1069,7 @@ paths:
       operationId: GetSteelMaterials
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1079,7 +1086,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get materials which are used in the project projectId
+      summary: Gets materials used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1088,7 +1095,7 @@ paths:
       operationId: AddMaterialSteel
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1102,11 +1109,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlElement'
-        description: Definition of a new material to be added to the project
+        description: Definition of the new material to be added to the project.
       responses:
         "200":
           description: OK
-      summary: Add material to the project
+      summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
@@ -1116,7 +1123,7 @@ paths:
       operationId: GetConcreteMaterials
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1133,7 +1140,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get materials which are used in the project projectId
+      summary: Gets materials used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1142,7 +1149,7 @@ paths:
       operationId: AddMaterialConcrete
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1156,11 +1163,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlElement'
-        description: Definition of a new material to be added to the project
+        description: Definition of the new material to be added to the project.
       responses:
         "200":
           description: OK
-      summary: Add material to the project
+      summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
@@ -1170,7 +1177,7 @@ paths:
       operationId: GetBoltGradeMaterials
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1187,7 +1194,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get materials which are used in the project projectId
+      summary: Gets materials used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1196,7 +1203,7 @@ paths:
       operationId: AddMaterialBoltGrade
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1210,11 +1217,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlElement'
-        description: Definition of a new material to be added to the project
+        description: Definition of the new material to be added to the project.
       responses:
         "200":
           description: OK
-      summary: Add material to the project
+      summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
@@ -1224,7 +1231,7 @@ paths:
       operationId: GetWeldingMaterials
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1241,7 +1248,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get materials which are used in the project projectId
+      summary: Gets materials used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1250,7 +1257,7 @@ paths:
       operationId: AddMaterialWeld
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1264,11 +1271,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlElement'
-        description: Definition of a new material to be added to the project
+        description: Definition of the new material to be added to the project.
       responses:
         "200":
           description: OK
-      summary: Add material to the project
+      summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
@@ -1278,7 +1285,7 @@ paths:
       operationId: GetCrossSections
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1295,7 +1302,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get cross sections which are used in the project projectId
+      summary: Gets cross sections used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1332,7 +1339,7 @@ paths:
       operationId: GetBoltAssemblies
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1349,7 +1356,7 @@ paths:
                 items: {}
                 type: array
           description: OK
-      summary: Get bolt assemblies which are used in the project projectId
+      summary: Gets bolt assemblies used in the specified project.
       tags:
       - Material
       x-requiresProject: true
@@ -1386,7 +1393,7 @@ paths:
       operationId: GetMembers
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1395,7 +1402,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to get its members
+      - description: The ID of the connection from which to retrieve members.
         explode: false
         in: path
         name: connectionId
@@ -1413,7 +1420,7 @@ paths:
                   $ref: '#/components/schemas/ConMember'
                 type: array
           description: OK
-      summary: Get information about all members in the connection
+      summary: Gets information about all members in the connection.
       tags:
       - Member
       x-requiresProject: true
@@ -1422,7 +1429,7 @@ paths:
       operationId: UpdateMember
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1431,7 +1438,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to to update is member newMemberData
+      - description: The ID of the connection containing the member to update.
         explode: false
         in: path
         name: connectionId
@@ -1445,7 +1452,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMember'
-        description: New member data
+        description: The new member data to apply.
       responses:
         "200":
           content:
@@ -1453,7 +1460,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
-      summary: Update the member in the connection by newMemberData
+      summary: Updates the member in the connection with the provided data.
       tags:
       - Member
       x-requiresProject: true
@@ -1463,7 +1470,7 @@ paths:
       operationId: GetMember
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1472,7 +1479,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to get its member
+      - description: The ID of the connection containing the member.
         explode: false
         in: path
         name: connectionId
@@ -1481,7 +1488,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: Id of the requested member in the connection
+      - description: The ID of the requested member in the connection.
         explode: false
         in: path
         name: memberId
@@ -1497,7 +1504,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
-      summary: Get information about the requires member in the connection
+      summary: Gets information about the specified member in the connection.
       tags:
       - Member
       x-requiresProject: true
@@ -1580,7 +1587,7 @@ paths:
       operationId: GetOperations
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1589,7 +1596,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the requested connection
+      - description: The ID of the requested connection.
         explode: false
         in: path
         name: connectionId
@@ -1607,7 +1614,7 @@ paths:
                   $ref: '#/components/schemas/ConOperation'
                 type: array
           description: OK
-      summary: Get the list of operations for the connection
+      summary: Gets the list of operations for the connection.
       tags:
       - Operation
       x-requiresProject: true
@@ -1616,7 +1623,7 @@ paths:
     get:
       operationId: GetCommonOperationProperties
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1625,7 +1632,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -1641,7 +1648,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConOperationCommonProperties'
           description: OK
-      summary: Get common operation properties
+      summary: Gets common operation properties.
       tags:
       - Operation
       x-requiresProject: true
@@ -1649,7 +1656,7 @@ paths:
     put:
       operationId: UpdateCommonOperationProperties
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1658,7 +1665,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -1672,11 +1679,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConOperationCommonProperties'
-        description: "Specify id of material, or keep as null"
+        description: "Common properties to apply (specify material IDs, or keep as\
+          \ null)."
       responses:
         "200":
           description: OK
-      summary: Update common properties for all operations
+      summary: Updates common properties for all operations.
       tags:
       - Operation
       x-requiresProject: true
@@ -1685,7 +1693,7 @@ paths:
     post:
       operationId: PreDesignWelds
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1694,7 +1702,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -1703,7 +1711,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The weld sizing method to apply (default is FullStrength).
         explode: true
         in: query
         name: designType
@@ -1718,7 +1726,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Predesign welds
+      summary: Pre-designs welds in the connection.
       tags:
       - Operation
       x-requiresProject: true
@@ -1759,7 +1767,7 @@ paths:
       operationId: GetParameters
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1768,7 +1776,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to get its parameters
+      - description: The ID of the connection from which to retrieve parameters.
         explode: false
         in: path
         name: connectionId
@@ -1777,7 +1785,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: Include also hidden parameters
+      - description: "If true, includes hidden parameters in the result."
         explode: true
         in: query
         name: includeHidden
@@ -1795,7 +1803,7 @@ paths:
                   $ref: '#/components/schemas/IdeaParameter'
                 type: array
           description: OK
-      summary: Get all parameters which are defined for projectId and connectionId
+      summary: Gets all parameters defined for the specified project and connection.
       tags:
       - Parameter
       x-requiresProject: true
@@ -1804,7 +1812,7 @@ paths:
       operationId: Update
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1813,7 +1821,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to apply template
+      - description: The ID of the connection to update.
         explode: false
         in: path
         name: connectionId
@@ -1829,7 +1837,7 @@ paths:
               items:
                 $ref: '#/components/schemas/IdeaParameterUpdate'
               type: array
-        description: New values of parameters
+        description: New values of parameters to apply.
       responses:
         "200":
           content:
@@ -1837,8 +1845,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ParameterUpdateResponse'
           description: OK
-      summary: Update parameters for the connection connectionId in the project projectId
-        by values passed in parameters
+      summary: Updates parameters for the specified connection in the project with
+        the values provided.
       tags:
       - Parameter
       x-requiresProject: true
@@ -1848,7 +1856,7 @@ paths:
       operationId: EvaluateExpression
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1857,7 +1865,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to use for evaluation expression
+      - description: Id of the connection to use for evaluation expression.
         explode: false
         in: path
         name: connectionId
@@ -1871,7 +1879,8 @@ paths:
           application/json:
             schema:
               type: string
-        description: Expression to evaluate
+        description: "Expression to evaluate. See the API documentation for supported\
+          \ syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html"
       responses:
         "200":
           content:
@@ -1879,7 +1888,9 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Evaluate the expression and return the result
+      summary: "Evaluate the expression and return the result.\r\nFor more details\
+        \ see documentation about parameters:\r\nhttps://developer.ideastatica.com/docs/api/api_parameters_getting_started.html\r\
+        \nor\r\nhttps://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html"
       tags:
       - Parameter
       x-requiresProject: true
@@ -1888,8 +1899,8 @@ paths:
     get:
       operationId: GetDataScene3D
       parameters:
-      - description: The unique identifier of the open project in the ConnectionRestApi
-          service
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -1898,7 +1909,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to be presented to scene3D
+      - description: The ID of the connection to be presented in Scene3D.
         explode: false
         in: path
         name: connectionId
@@ -1914,7 +1925,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/DrawData'
           description: OK
-      summary: Returns data for scene3D
+      summary: Returns data for Scene3D visualization.
       tags:
       - Presentation
       x-requiresProject: true
@@ -1923,7 +1934,7 @@ paths:
     get:
       operationId: GetDataScene3DText
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1932,7 +1943,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection to be presented.
         explode: false
         in: path
         name: connectionId
@@ -1951,7 +1962,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Return serialized data for scene3D in json format
+      summary: Returns serialized data for Scene3D in JSON format.
       tags:
       - Presentation
       x-requiresProject: true
@@ -1974,7 +1985,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
-      summary: Open ideacon project from ideaConFile
+      summary: Opens an IdeaCon project from the provided file.
       tags:
       - Project
       x-requiresProject: false
@@ -1984,7 +1995,7 @@ paths:
     get:
       operationId: CloseProject
       parameters:
-      - description: The unique identifier of the project to be closed
+      - description: The unique identifier of the project to be closed.
         explode: false
         in: path
         name: projectId
@@ -2000,7 +2011,7 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Close the project. Needed for releasing resources in the service.
+      summary: Closes the project and releases resources in the service.
       tags:
       - Project
       x-requiresProject: true
@@ -2017,8 +2028,8 @@ paths:
                   $ref: '#/components/schemas/ConProject'
                 type: array
           description: OK
-      summary: Get the list of projects in the service which were opened by the client
-        which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+      summary: Gets the list of projects in the service that were opened by the client
+        connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
       tags:
       - Project
       x-requiresProject: false
@@ -2028,7 +2039,7 @@ paths:
       operationId: DownloadProject
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -2040,8 +2051,8 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Download the actual ideacon project from the service. It includes alle
-        changes which were made by previous API calls.
+      summary: "Downloads the current IdeaCon project from the service, including\
+        \ all changes made by previous API calls."
       tags:
       - Project
       x-requiresProject: true
@@ -2172,7 +2183,8 @@ paths:
     post:
       operationId: GeneratePdfForMutliple
       parameters:
-      - explode: false
+      - description: The unique identifier of the opened project.
+        explode: false
         in: path
         name: projectId
         required: true
@@ -2188,10 +2200,12 @@ paths:
                 format: int32
                 type: integer
               type: array
+        description: List of connection IDs to include in the report.
         required: true
       responses:
         "200":
           description: OK
+      summary: Generates a report for multiple connections in PDF or Word format.
       tags:
       - Report
       x-requiresProject: true
@@ -2201,7 +2215,8 @@ paths:
     post:
       operationId: GenerateWordForMultiple
       parameters:
-      - explode: false
+      - description: The unique identifier of the opened project.
+        explode: false
         in: path
         name: projectId
         required: true
@@ -2217,10 +2232,12 @@ paths:
                 format: int32
                 type: integer
               type: array
+        description: List of connection IDs to include in the report.
         required: true
       responses:
         "200":
           description: OK
+      summary: Generates a report for multiple connections in PDF or Word format.
       tags:
       - Report
       x-requiresProject: true
@@ -2230,7 +2247,7 @@ paths:
     get:
       operationId: GeneratePdf
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -2239,7 +2256,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection to report.
         explode: false
         in: path
         name: connectionId
@@ -2251,7 +2268,7 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Generates report for projectId and connectionId
+      summary: Generates a report for the specified connection in PDF or Word format.
       tags:
       - Report
       x-requiresProject: true
@@ -2261,7 +2278,7 @@ paths:
     get:
       operationId: GenerateWord
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -2270,7 +2287,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection to report.
         explode: false
         in: path
         name: connectionId
@@ -2282,7 +2299,7 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Generates report for projectId and connectionId
+      summary: Generates a report for the specified connection in PDF or Word format.
       tags:
       - Report
       x-requiresProject: true
@@ -2292,7 +2309,7 @@ paths:
     get:
       operationId: GetSettings
       parameters:
-      - description: Project Id
+      - description: The unique identifier of the project.
         explode: false
         in: path
         name: projectId
@@ -2301,7 +2318,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Optional parameter to search keywords in settings
+      - description: Optional parameter to search for keywords in settings.
         explode: true
         in: query
         name: search
@@ -2317,7 +2334,7 @@ paths:
                 additionalProperties: {}
                 type: object
           description: OK
-      summary: Get setting values
+      summary: Gets setting values for the project.
       tags:
       - Settings
       x-requiresProject: true
@@ -2325,7 +2342,7 @@ paths:
     put:
       operationId: UpdateSettings
       parameters:
-      - description: Project Id
+      - description: The unique identifier of the project.
         explode: false
         in: path
         name: projectId
@@ -2340,7 +2357,7 @@ paths:
             schema:
               additionalProperties: {}
               type: object
-        description: Dictionary of key-value settings
+        description: Dictionary of key-value pairs representing settings to update.
       responses:
         "200":
           content:
@@ -2349,7 +2366,7 @@ paths:
                 additionalProperties: {}
                 type: object
           description: OK
-      summary: Update one or multiple setting values
+      summary: Updates one or multiple setting values in the project.
       tags:
       - Settings
       x-requiresProject: true
@@ -4218,10 +4235,14 @@ components:
         isImported: true
         name: name
         active: true
+        operationType: operationType
         id: 0
       properties:
         isImported:
           type: boolean
+        operationType:
+          nullable: true
+          type: string
         id:
           format: int32
           type: integer
@@ -7449,7 +7470,7 @@ components:
     OpenProject_request:
       properties:
         ideaConFile:
-          description: Ideacon file
+          description: The IdeaCon file to open.
           format: binary
           type: string
       type: object

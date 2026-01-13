@@ -32,7 +32,8 @@
 				<ComboBoxItem Content="CSA (Canada)" />
 				<ComboBoxItem Content="AS (Australia)" />
 				<ComboBoxItem Content="GB (China)" />
-				<ComboBoxItem Content="HKG (Honk Kong)" />
+				<ComboBoxItem Content="HKG (Hong Kong)" />
+				<ComboBoxItem Content="SP (Russia)" />
 			</ComboBox>
 		</StackPanel>
 

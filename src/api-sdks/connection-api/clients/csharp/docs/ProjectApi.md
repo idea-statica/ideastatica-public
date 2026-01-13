@@ -2,12 +2,12 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**CloseProjectAsync**](ProjectApi.md#closeprojectasync) | Close the project. Needed for releasing resources in the service. |
-| [**DownloadProjectAsync**](ProjectApi.md#downloadprojectasync) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. |
-| [**GetActiveProjectsAsync**](ProjectApi.md#getactiveprojectsasync) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient |
+| [**CloseProjectAsync**](ProjectApi.md#closeprojectasync) | Closes the project and releases resources in the service. |
+| [**DownloadProjectAsync**](ProjectApi.md#downloadprojectasync) | Downloads the current IdeaCon project from the service, including all changes made by previous API calls. |
+| [**GetActiveProjectsAsync**](ProjectApi.md#getactiveprojectsasync) | Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient. |
 | [**GetProjectDataAsync**](ProjectApi.md#getprojectdataasync) | Get data of the project. |
 | [**ImportIOMAsync**](ProjectApi.md#importiomasync) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) |
-| [**OpenProjectAsync**](ProjectApi.md#openprojectasync) | Open ideacon project from ideaConFile |
+| [**OpenProjectAsync**](ProjectApi.md#openprojectasync) | Opens an IdeaCon project from the provided file. |
 | [**UpdateFromIOMAsync**](ProjectApi.md#updatefromiomasync) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string |
 | [**UpdateProjectDataAsync**](ProjectApi.md#updateprojectdataasync) | Updates ConProjectData of project |
 
@@ -15,7 +15,7 @@
 ## **CloseProjectAsync**
 > **string CloseProjectAsync (Guid projectId)**
 
-Close the project. Needed for releasing resources in the service.
+Closes the project and releases resources in the service.
 
 
 
@@ -23,7 +23,7 @@ Close the project. Needed for releasing resources in the service.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the project to be closed |  |
+| **projectId** | **Guid** | The unique identifier of the project to be closed. |  |
 
 ### Return type
 
@@ -64,7 +64,7 @@ namespace Example
 
                     try
                     {
-                        // Close the project. Needed for releasing resources in the service.
+                        // Closes the project and releases resources in the service.
                         string result = await conClient.Project.CloseProjectAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -105,7 +105,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Close the project. Needed for releasing resources in the service.
+    // Closes the project and releases resources in the service.
     ApiResponse<string> response = conClient.Project.CloseProjectWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -140,7 +140,7 @@ No authorization required
 ## **DownloadProjectAsync**
 > **void DownloadProjectAsync (Guid projectId)**
 
-Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -151,7 +151,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -192,7 +192,7 @@ namespace Example
 
                     try
                     {
-                        // Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+                        // Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
                         conClient.Project.DownloadProjectAsync(projectId);
                     }
                     catch (ApiException  e)
@@ -232,7 +232,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+    // Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
     conClient.Project.DownloadProjectWithHttpInfo(projectId);
 }
 catch (ApiException e)
@@ -264,7 +264,7 @@ No authorization required
 ## **GetActiveProjectsAsync**
 > **List&lt;ConProject&gt; GetActiveProjectsAsync ()**
 
-Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 
 
 
@@ -306,7 +306,7 @@ namespace Example
 
                     try
                     {
-                        // Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+                        // Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
                         List<ConProject> result = await conClient.Project.GetActiveProjectsAsync();
                         Debug.WriteLine(result);
                     }
@@ -346,7 +346,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+    // Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
     ApiResponse<List<ConProject>> response = conClient.Project.GetActiveProjectsWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -633,7 +633,7 @@ No authorization required
 ## **OpenProjectAsync**
 > **ConProject OpenProjectAsync (System.IO.Stream ideaConFile = null)**
 
-Open ideacon project from ideaConFile
+Opens an IdeaCon project from the provided file.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -644,7 +644,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **ideaConFile** | **System.IO.Stream****System.IO.Stream** | Ideacon file | [optional]  |
+| **ideaConFile** | **System.IO.Stream****System.IO.Stream** | The IdeaCon file to open. | [optional]  |
 
 ### Return type
 
@@ -679,11 +679,11 @@ namespace Example
 
                     
                     // (Required) Select parameters
-                    ideaConFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | Ideacon file (optional) 
+                    ideaConFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | The IdeaCon file to open. (optional) 
 
                     try
                     {
-                        // Open ideacon project from ideaConFile
+                        // Opens an IdeaCon project from the provided file.
                         ConProject result = await conClient.Project.OpenProjectAsync(ideaConFile);
                         Debug.WriteLine(result);
                     }
@@ -723,7 +723,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Open ideacon project from ideaConFile
+    // Opens an IdeaCon project from the provided file.
     ApiResponse<ConProject> response = conClient.Project.OpenProjectWithHttpInfo(ideaConFile);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
