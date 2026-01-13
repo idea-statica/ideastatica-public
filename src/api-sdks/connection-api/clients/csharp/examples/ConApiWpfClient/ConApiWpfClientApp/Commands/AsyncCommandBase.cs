@@ -35,6 +35,11 @@ namespace ConApiWpfClientApp.Commands
 		/// <param name="logger">Logger for tracking command execution.</param>
 		protected AsyncCommandBase(MainWindowViewModel viewModel, IPluginLogger logger)
 		{
+			if(viewModel == null)
+			{
+				throw new ArgumentNullException(nameof(viewModel));
+			}
+
 			_viewModel = viewModel;
 			_logger = logger;
 		}
