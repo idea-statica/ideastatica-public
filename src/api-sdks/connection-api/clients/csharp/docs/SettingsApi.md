@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetSettingsAsync**](SettingsApi.md#getsettingsasync) | Get setting values |
-| [**UpdateSettingsAsync**](SettingsApi.md#updatesettingsasync) | Update one or multiple setting values |
+| [**GetSettingsAsync**](SettingsApi.md#getsettingsasync) | Gets setting values for the project. |
+| [**UpdateSettingsAsync**](SettingsApi.md#updatesettingsasync) | Updates one or multiple setting values in the project. |
 
 <a id="getsettings"></a>
 ## **GetSettingsAsync**
 > **Dictionary&lt;string, Object&gt; GetSettingsAsync (Guid projectId, string search = null)**
 
-Get setting values
+Gets setting values for the project.
 
 
 
@@ -17,8 +17,8 @@ Get setting values
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | Project Id |  |
-| **search** | **string** | Optional parameter to search keywords in settings | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the project. |  |
+| **search** | **string** | Optional parameter to search for keywords in settings. | [optional]  |
 
 ### Return type
 
@@ -56,11 +56,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    search = "search_example";  // string | Optional parameter to search keywords in settings (optional) 
+                    search = "search_example";  // string | Optional parameter to search for keywords in settings. (optional) 
 
                     try
                     {
-                        // Get setting values
+                        // Gets setting values for the project.
                         Dictionary<string, Object> result = await conClient.Settings.GetSettingsAsync(projectId, search);
                         Debug.WriteLine(result);
                     }
@@ -101,7 +101,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get setting values
+    // Gets setting values for the project.
     ApiResponse<Dictionary<string, Object>> response = conClient.Settings.GetSettingsWithHttpInfo(projectId, search);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -136,7 +136,7 @@ No authorization required
 ## **UpdateSettingsAsync**
 > **Dictionary&lt;string, Object&gt; UpdateSettingsAsync (Guid projectId, Dictionary<string, Object> requestBody = null)**
 
-Update one or multiple setting values
+Updates one or multiple setting values in the project.
 
 
 
@@ -144,8 +144,8 @@ Update one or multiple setting values
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | Project Id |  |
-| **requestBody** | [**Dictionary&lt;string, Object&gt;**](Object.md) | Dictionary of key-value settings | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the project. |  |
+| **requestBody** | [**Dictionary&lt;string, Object&gt;**](Object.md) | Dictionary of key-value pairs representing settings to update. | [optional]  |
 
 ### Return type
 
@@ -183,11 +183,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new Dictionary<string, Object>(); // Dictionary<string, Object> | Dictionary of key-value settings (optional) 
+                    var requestBody = new Dictionary<string, Object>(); // Dictionary<string, Object> | Dictionary of key-value pairs representing settings to update. (optional) 
 
                     try
                     {
-                        // Update one or multiple setting values
+                        // Updates one or multiple setting values in the project.
                         Dictionary<string, Object> result = await conClient.Settings.UpdateSettingsAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
@@ -228,7 +228,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update one or multiple setting values
+    // Updates one or multiple setting values in the project.
     ApiResponse<Dictionary<string, Object>> response = conClient.Settings.UpdateSettingsWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

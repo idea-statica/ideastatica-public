@@ -57,76 +57,76 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteParametersWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Evaluate the expression and return the result
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-        /// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+        /// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         string EvaluateExpression(Guid projectId, int connectionId, string body = default(string), int operationIndex = 0);
 
         /// <summary>
-        /// Evaluate the expression and return the result
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-/// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+/// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> EvaluateExpressionWithHttpInfo(Guid projectId, int connectionId, string body = default(string), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId
+        /// Gets all parameters defined for the specified project and connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its parameters</param>
-        /// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+        /// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;IdeaParameter&gt;</returns>
         List<IdeaParameter> GetParameters(Guid projectId, int connectionId, bool? includeHidden = default(bool?), int operationIndex = 0);
 
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId
+        /// Gets all parameters defined for the specified project and connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to get its parameters</param>
-/// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+/// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
         ApiResponse<List<IdeaParameter>> GetParametersWithHttpInfo(Guid projectId, int connectionId, bool? includeHidden = default(bool?), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// Updates parameters for the specified connection in the project with the values provided.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to update.</param>
+        /// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ParameterUpdateResponse</returns>
         ParameterUpdateResponse Update(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0);
 
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// Updates parameters for the specified connection in the project with the values provided.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to apply template</param>
-/// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to update.</param>
+/// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ParameterUpdateResponse</returns>
@@ -169,90 +169,90 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteParametersWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Evaluate the expression and return the result
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-        /// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+        /// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
         System.Threading.Tasks.Task<string> EvaluateExpressionAsync(Guid projectId, int connectionId, string body = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Evaluate the expression and return the result
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-        /// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+        /// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> EvaluateExpressionWithHttpInfoAsync(Guid projectId, int connectionId, string body = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId
+        /// Gets all parameters defined for the specified project and connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its parameters</param>
-        /// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+        /// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
         System.Threading.Tasks.Task<List<IdeaParameter>> GetParametersAsync(Guid projectId, int connectionId, bool? includeHidden = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId
+        /// Gets all parameters defined for the specified project and connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its parameters</param>
-        /// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+        /// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<IdeaParameter>>> GetParametersWithHttpInfoAsync(Guid projectId, int connectionId, bool? includeHidden = default(bool?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// Updates parameters for the specified connection in the project with the values provided.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to update.</param>
+        /// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ParameterUpdateResponse</returns>
         System.Threading.Tasks.Task<ParameterUpdateResponse> UpdateAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        /// Updates parameters for the specified connection in the project with the values provided.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to update.</param>
+        /// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -525,12 +525,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Evaluate the expression and return the result 
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-        /// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+        /// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         public string EvaluateExpression(Guid projectId, int connectionId, string body = default(string), int operationIndex = 0)
@@ -540,12 +540,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Evaluate the expression and return the result 
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-/// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+/// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -602,12 +602,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Evaluate the expression and return the result 
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-        /// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+        /// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
@@ -618,12 +618,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Evaluate the expression and return the result 
+        /// Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to use for evaluation expression</param>
-        /// <param name="body">Expression to evaluate (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection to use for evaluation expression.</param>
+        /// <param name="body">Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -683,12 +683,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId 
+        /// Gets all parameters defined for the specified project and connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its parameters</param>
-        /// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+        /// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;IdeaParameter&gt;</returns>
         public List<IdeaParameter> GetParameters(Guid projectId, int connectionId, bool? includeHidden = default(bool?), int operationIndex = 0)
@@ -698,12 +698,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId 
+        /// Gets all parameters defined for the specified project and connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to get its parameters</param>
-/// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+/// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
@@ -762,12 +762,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId 
+        /// Gets all parameters defined for the specified project and connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its parameters</param>
-        /// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+        /// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
@@ -778,12 +778,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all parameters which are defined for projectId and connectionId 
+        /// Gets all parameters defined for the specified project and connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its parameters</param>
-        /// <param name="includeHidden">Include also hidden parameters (optional, default to false)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve parameters.</param>
+        /// <param name="includeHidden">If true, includes hidden parameters in the result. (optional, default to false)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -845,12 +845,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// Updates parameters for the specified connection in the project with the values provided. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to update.</param>
+        /// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ParameterUpdateResponse</returns>
         public ParameterUpdateResponse Update(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0)
@@ -860,12 +860,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// Updates parameters for the specified connection in the project with the values provided. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to apply template</param>
-/// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to update.</param>
+/// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ParameterUpdateResponse</returns>
@@ -922,12 +922,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// Updates parameters for the specified connection in the project with the values provided. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to update.</param>
+        /// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ParameterUpdateResponse</returns>
@@ -938,12 +938,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update parameters for the connection connectionId in the project projectId by values passed in parameters 
+        /// Updates parameters for the specified connection in the project with the values provided. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to apply template</param>
-        /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to update.</param>
+        /// <param name="ideaParameterUpdate">New values of parameters to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

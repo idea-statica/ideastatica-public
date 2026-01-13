@@ -4,25 +4,25 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**generate_pdf**](ReportApi.md#generate_pdf) | Generates report for projectId and connectionId
-[**generate_pdf_for_mutliple**](ReportApi.md#generate_pdf_for_mutliple) | 
-[**generate_word**](ReportApi.md#generate_word) | Generates report for projectId and connectionId
-[**generate_word_for_multiple**](ReportApi.md#generate_word_for_multiple) | 
+[**generate_pdf**](ReportApi.md#generate_pdf) | Generates a report for the specified connection in PDF or Word format.
+[**generate_pdf_for_mutliple**](ReportApi.md#generate_pdf_for_mutliple) | Generates a report for multiple connections in PDF or Word format.
+[**generate_word**](ReportApi.md#generate_word) | Generates a report for the specified connection in PDF or Word format.
+[**generate_word_for_multiple**](ReportApi.md#generate_word_for_multiple) | Generates a report for multiple connections in PDF or Word format.
 
 
 <a id="generate_pdf"></a>
 # **generate_pdf**
 > generate_pdf(project_id, connection_id)
 
-Generates report for projectId and connectionId
+Generates a report for the specified connection in PDF or Word format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection to report. | 
 
 ### Return type
 
@@ -43,11 +43,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def generate_pdfExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection to report.
 
     try:
-        # Generates report for projectId and connectionId
+        # Generates a report for the specified connection in PDF or Word format.
         api_client.report.generate_pdf(project_id, connection_id)
     except Exception as e:
         print("Exception when calling ReportApi->generate_pdf: %s\n" % e)
@@ -88,15 +88,15 @@ No authorization required
 # **generate_pdf_for_mutliple**
 > generate_pdf_for_mutliple(project_id, request_body)
 
-
+Generates a report for multiple connections in PDF or Word format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **request_body** | [**List[int]**](int.md)|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **request_body** | [**List[int]**](int.md)| List of connection IDs to include in the report. | 
 
 ### Return type
 
@@ -117,10 +117,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def generate_pdf_for_mutlipleExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    request_body = [56] # List[int] | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    request_body = [56] # List[int] | List of connection IDs to include in the report.
 
     try:
+        # Generates a report for multiple connections in PDF or Word format.
         api_client.report.generate_pdf_for_mutliple(project_id, request_body)
     except Exception as e:
         print("Exception when calling ReportApi->generate_pdf_for_mutliple: %s\n" % e)
@@ -161,15 +162,15 @@ No authorization required
 # **generate_word**
 > generate_word(project_id, connection_id)
 
-Generates report for projectId and connectionId
+Generates a report for the specified connection in PDF or Word format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection to report. | 
 
 ### Return type
 
@@ -190,11 +191,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def generate_wordExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection to report.
 
     try:
-        # Generates report for projectId and connectionId
+        # Generates a report for the specified connection in PDF or Word format.
         api_client.report.generate_word(project_id, connection_id)
     except Exception as e:
         print("Exception when calling ReportApi->generate_word: %s\n" % e)
@@ -235,15 +236,15 @@ No authorization required
 # **generate_word_for_multiple**
 > generate_word_for_multiple(project_id, request_body)
 
-
+Generates a report for multiple connections in PDF or Word format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **request_body** | [**List[int]**](int.md)|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **request_body** | [**List[int]**](int.md)| List of connection IDs to include in the report. | 
 
 ### Return type
 
@@ -264,10 +265,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def generate_word_for_multipleExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    request_body = [56] # List[int] | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    request_body = [56] # List[int] | List of connection IDs to include in the report.
 
     try:
+        # Generates a report for multiple connections in PDF or Word format.
         api_client.report.generate_word_for_multiple(project_id, request_body)
     except Exception as e:
         print("Exception when calling ReportApi->generate_word_for_multiple: %s\n" % e)

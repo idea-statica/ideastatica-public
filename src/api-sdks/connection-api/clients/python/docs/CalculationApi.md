@@ -4,24 +4,24 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**calculate**](CalculationApi.md#calculate) | Run CBFEM caluclation and return the summary of the results
-[**get_raw_json_results**](CalculationApi.md#get_raw_json_results) | Get json string which represents raw CBFEM results (an instance of CheckResultsData)
-[**get_results**](CalculationApi.md#get_results) | Get detailed results of the CBFEM analysis
+[**calculate**](CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
+[**get_raw_json_results**](CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+[**get_results**](CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
 
 
 <a id="calculate"></a>
 # **calculate**
 > List[ConResultSummary] calculate(project_id, request_body)
 
-Run CBFEM caluclation and return the summary of the results
+Runs CBFEM calculation and returns the summary of the results.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project unique identifier | 
- **request_body** | [**List[int]**](int.md)| List of connection ids to calculate | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **request_body** | [**List[int]**](int.md)| List of connection IDs to calculate. | 
 
 ### Return type
 
@@ -43,11 +43,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def calculateExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | Project unique identifier
-    request_body = [56] # List[int] | List of connection ids to calculate
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    request_body = [56] # List[int] | List of connection IDs to calculate.
 
     try:
-        # Run CBFEM caluclation and return the summary of the results
+        # Runs CBFEM calculation and returns the summary of the results.
         api_response = api_client.calculation.calculate(project_id, request_body)
         print("The response of CalculationApi->calculate:\n")
         pprint(api_response)
@@ -91,15 +91,15 @@ No authorization required
 # **get_raw_json_results**
 > List[str] get_raw_json_results(project_id, request_body)
 
-Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened connection in the ConnectionRestApi service | 
- **request_body** | [**List[int]**](int.md)| List of connections to calculate and a type of CBFEM analysis | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **request_body** | [**List[int]**](int.md)| List of connection IDs to calculate. | 
 
 ### Return type
 
@@ -120,11 +120,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_raw_json_resultsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened connection in the ConnectionRestApi service
-    request_body = [56] # List[int] | List of connections to calculate and a type of CBFEM analysis
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    request_body = [56] # List[int] | List of connection IDs to calculate.
 
     try:
-        # Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        # Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         api_response = api_client.calculation.get_raw_json_results(project_id, request_body)
         print("The response of CalculationApi->get_raw_json_results:\n")
         pprint(api_response)
@@ -168,15 +168,15 @@ No authorization required
 # **get_results**
 > List[ConnectionCheckRes] get_results(project_id, request_body)
 
-Get detailed results of the CBFEM analysis
+Gets detailed results of the CBFEM analysis.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **request_body** | [**List[int]**](int.md)| List of connections to calculate and a type of CBFEM analysis | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **request_body** | [**List[int]**](int.md)| List of connection IDs to calculate. | 
 
 ### Return type
 
@@ -198,11 +198,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_resultsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    request_body = [56] # List[int] | List of connections to calculate and a type of CBFEM analysis
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    request_body = [56] # List[int] | List of connection IDs to calculate.
 
     try:
-        # Get detailed results of the CBFEM analysis
+        # Gets detailed results of the CBFEM analysis.
         api_response = api_client.calculation.get_results(project_id, request_body)
         print("The response of CalculationApi->get_results:\n")
         pprint(api_response)

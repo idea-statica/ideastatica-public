@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ConnectClientAsync**](ClientApi.md#connectclientasync) | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. |
-| [**GetVersionAsync**](ClientApi.md#getversionasync) | Get the IdeaStatica version |
+| [**ConnectClientAsync**](ClientApi.md#connectclientasync) | Connects a client to the ConnectionRestApi service and returns a unique identifier for the client. |
+| [**GetVersionAsync**](ClientApi.md#getversionasync) | Gets the IdeaStatica API assembly version. |
 
 <a id="connectclient"></a>
 ## **ConnectClientAsync**
 > **string ConnectClientAsync ()**
 
-Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
 
 
 
@@ -51,7 +51,7 @@ namespace Example
 
                     try
                     {
-                        // Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+                        // Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
                         string result = await conClient.Client.ConnectClientAsync();
                         Debug.WriteLine(result);
                     }
@@ -91,7 +91,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+    // Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
     ApiResponse<string> response = conClient.Client.ConnectClientWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -126,7 +126,7 @@ No authorization required
 ## **GetVersionAsync**
 > **string GetVersionAsync ()**
 
-Get the IdeaStatica version
+Gets the IdeaStatica API assembly version.
 
 
 
@@ -168,7 +168,7 @@ namespace Example
 
                     try
                     {
-                        // Get the IdeaStatica version
+                        // Gets the IdeaStatica API assembly version.
                         string result = await conClient.Client.GetVersionAsync();
                         Debug.WriteLine(result);
                     }
@@ -208,7 +208,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get the IdeaStatica version
+    // Gets the IdeaStatica API assembly version.
     ApiResponse<string> response = conClient.Client.GetVersionWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

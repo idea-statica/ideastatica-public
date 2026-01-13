@@ -57,97 +57,97 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteOperationsWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get common operation properties
+        /// Gets common operation properties.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConOperationCommonProperties</returns>
         ConOperationCommonProperties GetCommonOperationProperties(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Get common operation properties
+        /// Gets common operation properties.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConOperationCommonProperties</returns>
         ApiResponse<ConOperationCommonProperties> GetCommonOperationPropertiesWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get the list of operations for the connection
+        /// Gets the list of operations for the connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConOperation&gt;</returns>
         List<ConOperation> GetOperations(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Get the list of operations for the connection
+        /// Gets the list of operations for the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConOperation&gt;</returns>
         ApiResponse<List<ConOperation>> GetOperationsWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Predesign welds
+        /// Pre-designs welds in the connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         string PreDesignWelds(Guid projectId, int connectionId, ConWeldSizingMethodEnum? designType = default(ConWeldSizingMethodEnum?), int operationIndex = 0);
 
         /// <summary>
-        /// Predesign welds
+        /// Pre-designs welds in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> PreDesignWeldsWithHttpInfo(Guid projectId, int connectionId, ConWeldSizingMethodEnum? designType = default(ConWeldSizingMethodEnum?), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Update common properties for all operations
+        /// Updates common properties for all operations.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void UpdateCommonOperationProperties(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0);
 
         /// <summary>
-        /// Update common properties for all operations
+        /// Updates common properties for all operations.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -190,116 +190,116 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteOperationsWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get common operation properties
+        /// Gets common operation properties.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConOperationCommonProperties</returns>
         System.Threading.Tasks.Task<ConOperationCommonProperties> GetCommonOperationPropertiesAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get common operation properties
+        /// Gets common operation properties.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConOperationCommonProperties)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConOperationCommonProperties>> GetCommonOperationPropertiesWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get the list of operations for the connection
+        /// Gets the list of operations for the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConOperation&gt;</returns>
         System.Threading.Tasks.Task<List<ConOperation>> GetOperationsAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get the list of operations for the connection
+        /// Gets the list of operations for the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConOperation&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ConOperation>>> GetOperationsWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Predesign welds
+        /// Pre-designs welds in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
         System.Threading.Tasks.Task<string> PreDesignWeldsAsync(Guid projectId, int connectionId, ConWeldSizingMethodEnum? designType = default(ConWeldSizingMethodEnum?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Predesign welds
+        /// Pre-designs welds in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> PreDesignWeldsWithHttpInfoAsync(Guid projectId, int connectionId, ConWeldSizingMethodEnum? designType = default(ConWeldSizingMethodEnum?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Update common properties for all operations
+        /// Updates common properties for all operations.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task UpdateCommonOperationPropertiesAsync(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Update common properties for all operations
+        /// Updates common properties for all operations.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -572,11 +572,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get common operation properties 
+        /// Gets common operation properties. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConOperationCommonProperties</returns>
         public ConOperationCommonProperties GetCommonOperationProperties(Guid projectId, int connectionId, int operationIndex = 0)
@@ -586,11 +586,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get common operation properties 
+        /// Gets common operation properties. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConOperationCommonProperties</returns>
@@ -645,11 +645,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get common operation properties 
+        /// Gets common operation properties. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConOperationCommonProperties</returns>
@@ -660,11 +660,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get common operation properties 
+        /// Gets common operation properties. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -722,11 +722,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of operations for the connection 
+        /// Gets the list of operations for the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConOperation&gt;</returns>
         public List<ConOperation> GetOperations(Guid projectId, int connectionId, int operationIndex = 0)
@@ -736,11 +736,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of operations for the connection 
+        /// Gets the list of operations for the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConOperation&gt;</returns>
@@ -795,11 +795,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of operations for the connection 
+        /// Gets the list of operations for the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConOperation&gt;</returns>
@@ -810,11 +810,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of operations for the connection 
+        /// Gets the list of operations for the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the requested connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the requested connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -872,12 +872,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Predesign welds 
+        /// Pre-designs welds in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         public string PreDesignWelds(Guid projectId, int connectionId, ConWeldSizingMethodEnum? designType = default(ConWeldSizingMethodEnum?), int operationIndex = 0)
@@ -887,12 +887,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Predesign welds 
+        /// Pre-designs welds in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -951,12 +951,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Predesign welds 
+        /// Pre-designs welds in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
@@ -967,12 +967,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Predesign welds 
+        /// Pre-designs welds in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="designType"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="designType">The weld sizing method to apply (default is FullStrength). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1034,12 +1034,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update common properties for all operations 
+        /// Updates common properties for all operations. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void UpdateCommonOperationProperties(Guid projectId, int connectionId, ConOperationCommonProperties conOperationCommonProperties = default(ConOperationCommonProperties), int operationIndex = 0)
@@ -1048,12 +1048,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update common properties for all operations 
+        /// Updates common properties for all operations. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -1109,12 +1109,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update common properties for all operations 
+        /// Updates common properties for all operations. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -1124,12 +1124,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update common properties for all operations 
+        /// Updates common properties for all operations. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conOperationCommonProperties">Specify id of material, or keep as null (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conOperationCommonProperties">Common properties to apply (specify material IDs, or keep as null). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

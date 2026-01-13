@@ -33,93 +33,93 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void GeneratePdf(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> GeneratePdfWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void GeneratePdfForMutliple(Guid projectId, List<int> requestBody, int operationIndex = 0);
 
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> GeneratePdfForMutlipleWithHttpInfo(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void GenerateWord(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> GenerateWordWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void GenerateWordForMultiple(Guid projectId, List<int> requestBody, int operationIndex = 0);
 
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -134,112 +134,112 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task GeneratePdfAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GeneratePdfWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task GeneratePdfForMutlipleAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GeneratePdfForMutlipleWithHttpInfoAsync(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task GenerateWordAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Generates report for projectId and connectionId
+        /// Generates a report for the specified connection in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GenerateWordWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task GenerateWordForMultipleAsync(Guid projectId, List<int> requestBody, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// 
+        /// Generates a report for multiple connections in PDF or Word format.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -366,11 +366,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void GeneratePdf(Guid projectId, int connectionId, int operationIndex = 0)
@@ -379,11 +379,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -437,11 +437,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -451,11 +451,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -512,11 +512,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void GeneratePdfForMutliple(Guid projectId, List<int> requestBody, int operationIndex = 0)
@@ -525,11 +525,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -590,11 +590,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -604,11 +604,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -672,11 +672,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void GenerateWord(Guid projectId, int connectionId, int operationIndex = 0)
@@ -685,11 +685,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -743,11 +743,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -757,11 +757,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Generates report for projectId and connectionId 
+        /// Generates a report for the specified connection in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection to report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -818,11 +818,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void GenerateWordForMultiple(Guid projectId, List<int> requestBody, int operationIndex = 0)
@@ -831,11 +831,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -896,11 +896,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -910,11 +910,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Generates a report for multiple connections in PDF or Word format. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="requestBody"></param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="requestBody">List of connection IDs to include in the report.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

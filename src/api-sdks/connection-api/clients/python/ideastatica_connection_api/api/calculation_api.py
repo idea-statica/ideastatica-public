@@ -44,8 +44,8 @@ class CalculationApi:
     @validate_call
     def calculate(
         self,
-        project_id: Annotated[StrictStr, Field(description="Project unique identifier")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connection ids to calculate")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -59,12 +59,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConResultSummary]:
-        """Run CBFEM caluclation and return the summary of the results
+        """Runs CBFEM calculation and returns the summary of the results.
 
 
-        :param project_id: Project unique identifier (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connection ids to calculate (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -114,8 +114,8 @@ class CalculationApi:
     @validate_call
     def calculate_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="Project unique identifier")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connection ids to calculate")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -129,12 +129,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConResultSummary]]:
-        """Run CBFEM caluclation and return the summary of the results
+        """Runs CBFEM calculation and returns the summary of the results.
 
 
-        :param project_id: Project unique identifier (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connection ids to calculate (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -184,8 +184,8 @@ class CalculationApi:
     @validate_call
     def calculate_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="Project unique identifier")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connection ids to calculate")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -199,12 +199,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Run CBFEM caluclation and return the summary of the results
+        """Runs CBFEM calculation and returns the summary of the results.
 
 
-        :param project_id: Project unique identifier (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connection ids to calculate (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -330,8 +330,8 @@ class CalculationApi:
     @validate_call
     def get_raw_json_results(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened connection in the ConnectionRestApi service")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -345,12 +345,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[str]:
-        """Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        """Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 
 
-        :param project_id: The unique identifier of the opened connection in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connections to calculate and a type of CBFEM analysis (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -400,8 +400,8 @@ class CalculationApi:
     @validate_call
     def get_raw_json_results_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened connection in the ConnectionRestApi service")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -415,12 +415,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[str]]:
-        """Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        """Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 
 
-        :param project_id: The unique identifier of the opened connection in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connections to calculate and a type of CBFEM analysis (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -470,8 +470,8 @@ class CalculationApi:
     @validate_call
     def get_raw_json_results_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened connection in the ConnectionRestApi service")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -485,12 +485,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get json string which represents raw CBFEM results (an instance of CheckResultsData)
+        """Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 
 
-        :param project_id: The unique identifier of the opened connection in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connections to calculate and a type of CBFEM analysis (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -616,8 +616,8 @@ class CalculationApi:
     @validate_call
     def get_results(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -631,12 +631,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConnectionCheckRes]:
-        """Get detailed results of the CBFEM analysis
+        """Gets detailed results of the CBFEM analysis.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connections to calculate and a type of CBFEM analysis (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -686,8 +686,8 @@ class CalculationApi:
     @validate_call
     def get_results_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -701,12 +701,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConnectionCheckRes]]:
-        """Get detailed results of the CBFEM analysis
+        """Gets detailed results of the CBFEM analysis.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connections to calculate and a type of CBFEM analysis (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -756,8 +756,8 @@ class CalculationApi:
     @validate_call
     def get_results_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        request_body: Annotated[List[StrictInt], Field(description="List of connections to calculate and a type of CBFEM analysis")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to calculate.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -771,12 +771,12 @@ class CalculationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get detailed results of the CBFEM analysis
+        """Gets detailed results of the CBFEM analysis.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param request_body: List of connections to calculate and a type of CBFEM analysis (required)
+        :param request_body: List of connection IDs to calculate. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
