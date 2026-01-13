@@ -2,14 +2,14 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetDataScene3DAsync**](PresentationApi.md#getdatascene3dasync) | Returns data for scene3D |
-| [**GetDataScene3DTextAsync**](PresentationApi.md#getdatascene3dtextasync) | Return serialized data for scene3D in json format |
+| [**GetDataScene3DAsync**](PresentationApi.md#getdatascene3dasync) | Returns data for Scene3D visualization. |
+| [**GetDataScene3DTextAsync**](PresentationApi.md#getdatascene3dtextasync) | Returns serialized data for Scene3D in JSON format. |
 
 <a id="getdatascene3d"></a>
 ## **GetDataScene3DAsync**
 > **DrawData GetDataScene3DAsync (Guid projectId, int connectionId)**
 
-Returns data for scene3D
+Returns data for Scene3D visualization.
 
 
 
@@ -17,8 +17,8 @@ Returns data for scene3D
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the open project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to be presented to scene3D |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection to be presented in Scene3D. |  |
 
 ### Return type
 
@@ -56,11 +56,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to be presented to scene3D
+                    connectionId = 56;  // int | The ID of the connection to be presented in Scene3D.
 
                     try
                     {
-                        // Returns data for scene3D
+                        // Returns data for Scene3D visualization.
                         DrawData result = await conClient.Presentation.GetDataScene3DAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -101,7 +101,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Returns data for scene3D
+    // Returns data for Scene3D visualization.
     ApiResponse<DrawData> response = conClient.Presentation.GetDataScene3DWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -136,7 +136,7 @@ No authorization required
 ## **GetDataScene3DTextAsync**
 > **string GetDataScene3DTextAsync (Guid projectId, int connectionId)**
 
-Return serialized data for scene3D in json format
+Returns serialized data for Scene3D in JSON format.
 
 
 
@@ -144,8 +144,8 @@ Return serialized data for scene3D in json format
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection to be presented. |  |
 
 ### Return type
 
@@ -183,11 +183,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection to be presented.
 
                     try
                     {
-                        // Return serialized data for scene3D in json format
+                        // Returns serialized data for Scene3D in JSON format.
                         string result = await conClient.Presentation.GetDataScene3DTextAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -228,7 +228,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Return serialized data for scene3D in json format
+    // Returns serialized data for Scene3D in JSON format.
     ApiResponse<string> response = conClient.Presentation.GetDataScene3DTextWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **is_imported** | **bool** |  | [optional] 
+**operation_type** | **str** |  | [optional] 
 **id** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
 **active** | **bool** |  | [optional] 

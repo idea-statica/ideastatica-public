@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**connect_client**](ClientApi.md#connect_client) | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
-[**get_version**](ClientApi.md#get_version) | Get the IdeaStatica version
+[**connect_client**](ClientApi.md#connect_client) | Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
+[**get_version**](ClientApi.md#get_version) | Gets the IdeaStatica API assembly version.
 
 
 <a id="connect_client"></a>
 # **connect_client**
 > str connect_client()
 
-Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
 
 ### Parameters
 
@@ -39,7 +39,7 @@ def connect_clientExampleFunc(api_client):
     
 
     try:
-        # Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        # Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
         api_response = api_client.client.connect_client()
         print("The response of ClientApi->connect_client:\n")
         pprint(api_response)
@@ -83,7 +83,7 @@ No authorization required
 # **get_version**
 > str get_version()
 
-Get the IdeaStatica version
+Gets the IdeaStatica API assembly version.
 
 ### Parameters
 
@@ -110,7 +110,7 @@ def get_versionExampleFunc(api_client):
     
 
     try:
-        # Get the IdeaStatica version
+        # Gets the IdeaStatica API assembly version.
         api_response = api_client.client.get_version()
         print("The response of ClientApi->get_version:\n")
         pprint(api_response)

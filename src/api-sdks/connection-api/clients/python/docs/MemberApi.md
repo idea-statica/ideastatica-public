@@ -4,26 +4,26 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**get_member**](MemberApi.md#get_member) | Get information about the requires member in the connection
-[**get_members**](MemberApi.md#get_members) | Get information about all members in the connection
+[**get_member**](MemberApi.md#get_member) | Gets information about the specified member in the connection.
+[**get_members**](MemberApi.md#get_members) | Gets information about all members in the connection.
 [**set_bearing_member**](MemberApi.md#set_bearing_member) | Set bearing member for memberIt
-[**update_member**](MemberApi.md#update_member) | Update the member in the connection by newMemberData
+[**update_member**](MemberApi.md#update_member) | Updates the member in the connection with the provided data.
 
 
 <a id="get_member"></a>
 # **get_member**
 > ConMember get_member(project_id, connection_id, member_id)
 
-Get information about the requires member in the connection
+Gets information about the specified member in the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get its member | 
- **member_id** | **int**| Id of the requested member in the connection | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the member. | 
+ **member_id** | **int**| The ID of the requested member in the connection. | 
 
 ### Return type
 
@@ -45,12 +45,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_memberExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to get its member
-    member_id = 56 # int | Id of the requested member in the connection
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the member.
+    member_id = 56 # int | The ID of the requested member in the connection.
 
     try:
-        # Get information about the requires member in the connection
+        # Gets information about the specified member in the connection.
         api_response = api_client.member.get_member(project_id, connection_id, member_id)
         print("The response of MemberApi->get_member:\n")
         pprint(api_response)
@@ -94,15 +94,15 @@ No authorization required
 # **get_members**
 > List[ConMember] get_members(project_id, connection_id)
 
-Get information about all members in the connection
+Gets information about all members in the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get its members | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection from which to retrieve members. | 
 
 ### Return type
 
@@ -124,11 +124,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_membersExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to get its members
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection from which to retrieve members.
 
     try:
-        # Get information about all members in the connection
+        # Gets information about all members in the connection.
         api_response = api_client.member.get_members(project_id, connection_id)
         print("The response of MemberApi->get_members:\n")
         pprint(api_response)
@@ -252,16 +252,16 @@ No authorization required
 # **update_member**
 > ConMember update_member(project_id, connection_id, con_member=con_member)
 
-Update the member in the connection by newMemberData
+Updates the member in the connection with the provided data.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to to update is member newMemberData | 
- **con_member** | [**ConMember**](ConMember.md)| New member data | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the member to update. | 
+ **con_member** | [**ConMember**](ConMember.md)| The new member data to apply. | [optional] 
 
 ### Return type
 
@@ -283,12 +283,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_memberExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to to update is member newMemberData
-    con_member = ideastatica_connection_api.ConMember() # ConMember | New member data (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the member to update.
+    con_member = ideastatica_connection_api.ConMember() # ConMember | The new member data to apply. (optional)
 
     try:
-        # Update the member in the connection by newMemberData
+        # Updates the member in the connection with the provided data.
         api_response = api_client.member.update_member(project_id, connection_id, con_member=con_member)
         print("The response of MemberApi->update_member:\n")
         pprint(api_response)

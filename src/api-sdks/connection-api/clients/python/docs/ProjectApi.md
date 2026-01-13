@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**close_project**](ProjectApi.md#close_project) | Close the project. Needed for releasing resources in the service.
-[**download_project**](ProjectApi.md#download_project) | Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
-[**get_active_projects**](ProjectApi.md#get_active_projects) | Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+[**close_project**](ProjectApi.md#close_project) | Closes the project and releases resources in the service.
+[**download_project**](ProjectApi.md#download_project) | Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
+[**get_active_projects**](ProjectApi.md#get_active_projects) | Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 [**get_project_data**](ProjectApi.md#get_project_data) | Get data of the project.
 [**import_iom**](ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
-[**open_project**](ProjectApi.md#open_project) | Open ideacon project from ideaConFile
+[**open_project**](ProjectApi.md#open_project) | Opens an IdeaCon project from the provided file.
 [**update_from_iom**](ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
 [**update_project_data**](ProjectApi.md#update_project_data) | Updates ConProjectData of project
 
@@ -18,14 +18,14 @@ Method | Description
 # **close_project**
 > str close_project(project_id)
 
-Close the project. Needed for releasing resources in the service.
+Closes the project and releases resources in the service.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the project to be closed | 
+ **project_id** | **str**| The unique identifier of the project to be closed. | 
 
 ### Return type
 
@@ -46,10 +46,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def close_projectExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the project to be closed
+    project_id = 'project_id_example' # str | The unique identifier of the project to be closed.
 
     try:
-        # Close the project. Needed for releasing resources in the service.
+        # Closes the project and releases resources in the service.
         api_response = api_client.project.close_project(project_id)
         print("The response of ProjectApi->close_project:\n")
         pprint(api_response)
@@ -93,14 +93,14 @@ No authorization required
 # **download_project**
 > download_project(project_id)
 
-Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -121,10 +121,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def download_projectExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        # Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
         api_client.project.download_project(project_id)
     except Exception as e:
         print("Exception when calling ProjectApi->download_project: %s\n" % e)
@@ -165,7 +165,7 @@ No authorization required
 # **get_active_projects**
 > List[ConProject] get_active_projects()
 
-Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 
 ### Parameters
 
@@ -193,7 +193,7 @@ def get_active_projectsExampleFunc(api_client):
     
 
     try:
-        # Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        # Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
         api_response = api_client.project.get_active_projects()
         print("The response of ProjectApi->get_active_projects:\n")
         pprint(api_response)
@@ -391,14 +391,14 @@ No authorization required
 # **open_project**
 > ConProject open_project(idea_con_file=idea_con_file)
 
-Open ideacon project from ideaConFile
+Opens an IdeaCon project from the provided file.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idea_con_file** | **bytearray**| Ideacon file | [optional] 
+ **idea_con_file** | **bytearray**| The IdeaCon file to open. | [optional] 
 
 ### Return type
 
@@ -420,10 +420,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def open_projectExampleFunc(api_client):
     
-    idea_con_file = None # bytearray | Ideacon file (optional)
+    idea_con_file = None # bytearray | The IdeaCon file to open. (optional)
 
     try:
-        # Open ideacon project from ideaConFile
+        # Opens an IdeaCon project from the provided file.
         api_response = api_client.project.open_project(idea_con_file=idea_con_file)
         print("The response of ProjectApi->open_project:\n")
         pprint(api_response)

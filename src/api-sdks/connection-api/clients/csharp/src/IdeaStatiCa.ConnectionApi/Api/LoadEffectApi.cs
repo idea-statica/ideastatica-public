@@ -34,26 +34,26 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Add new load effect to the connection
+        /// Adds a new load effect to the connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConLoadEffect</returns>
         ConLoadEffect AddLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0);
 
         /// <summary>
-        /// Add new load effect to the connection
+        /// Adds a new load effect to the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConLoadEffect</returns>
@@ -84,53 +84,53 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of int</returns>
         ApiResponse<int> DeleteLoadEffectWithHttpInfo(Guid projectId, int connectionId, int loadEffectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get load impulses from loadEffectId
+        /// Gets load impulses from the specified load effect.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConLoadEffect</returns>
         ConLoadEffect GetLoadEffect(Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = default(bool?), int operationIndex = 0);
 
         /// <summary>
-        /// Get load impulses from loadEffectId
+        /// Gets load impulses from the specified load effect.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="loadEffectId"></param>
-/// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+/// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConLoadEffect</returns>
         ApiResponse<ConLoadEffect> GetLoadEffectWithHttpInfo(Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = default(bool?), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get all load effects which are defined in connectionId
+        /// Gets all load effects defined in the specified connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConLoadEffect&gt;</returns>
         List<ConLoadEffect> GetLoadEffects(Guid projectId, int connectionId, bool? isPercentage = default(bool?), int operationIndex = 0);
 
         /// <summary>
-        /// Get all load effects which are defined in connectionId
+        /// Gets all load effects defined in the specified connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConLoadEffect&gt;</returns>
@@ -218,30 +218,30 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Add new load effect to the connection
+        /// Adds a new load effect to the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConLoadEffect</returns>
         System.Threading.Tasks.Task<ConLoadEffect> AddLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Add new load effect to the connection
+        /// Adds a new load effect to the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -278,62 +278,62 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (int)</returns>
         System.Threading.Tasks.Task<ApiResponse<int>> DeleteLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, int loadEffectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get load impulses from loadEffectId
+        /// Gets load impulses from the specified load effect.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConLoadEffect</returns>
         System.Threading.Tasks.Task<ConLoadEffect> GetLoadEffectAsync(Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get load impulses from loadEffectId
+        /// Gets load impulses from the specified load effect.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConLoadEffect)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConLoadEffect>> GetLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = default(bool?), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get all load effects which are defined in connectionId
+        /// Gets all load effects defined in the specified connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConLoadEffect&gt;</returns>
         System.Threading.Tasks.Task<List<ConLoadEffect>> GetLoadEffectsAsync(Guid projectId, int connectionId, bool? isPercentage = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get all load effects which are defined in connectionId
+        /// Gets all load effects defined in the specified connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -548,12 +548,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add new load effect to the connection 
+        /// Adds a new load effect to the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConLoadEffect</returns>
         public ConLoadEffect AddLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0)
@@ -563,12 +563,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add new load effect to the connection 
+        /// Adds a new load effect to the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConLoadEffect</returns>
@@ -625,12 +625,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add new load effect to the connection 
+        /// Adds a new load effect to the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConLoadEffect</returns>
@@ -641,12 +641,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add new load effect to the connection 
+        /// Adds a new load effect to the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="conLoadEffect"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="conLoadEffect">The load effect data to add. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -862,13 +862,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get load impulses from loadEffectId 
+        /// Gets load impulses from the specified load effect. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConLoadEffect</returns>
         public ConLoadEffect GetLoadEffect(Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = default(bool?), int operationIndex = 0)
@@ -878,13 +878,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get load impulses from loadEffectId 
+        /// Gets load impulses from the specified load effect. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="loadEffectId"></param>
-/// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+/// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConLoadEffect</returns>
@@ -944,13 +944,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get load impulses from loadEffectId 
+        /// Gets load impulses from the specified load effect. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConLoadEffect</returns>
@@ -961,13 +961,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get load impulses from loadEffectId 
+        /// Gets load impulses from the specified load effect. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="loadEffectId">The ID of the load effect to retrieve.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1030,12 +1030,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all load effects which are defined in connectionId 
+        /// Gets all load effects defined in the specified connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConLoadEffect&gt;</returns>
         public List<ConLoadEffect> GetLoadEffects(Guid projectId, int connectionId, bool? isPercentage = default(bool?), int operationIndex = 0)
@@ -1045,12 +1045,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all load effects which are defined in connectionId 
+        /// Gets all load effects defined in the specified connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="connectionId"></param>
-/// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+/// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConLoadEffect&gt;</returns>
@@ -1109,12 +1109,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all load effects which are defined in connectionId 
+        /// Gets all load effects defined in the specified connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConLoadEffect&gt;</returns>
@@ -1125,12 +1125,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get all load effects which are defined in connectionId 
+        /// Gets all load effects defined in the specified connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="isPercentage"> (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="isPercentage">Optional flag indicating whether to return percentage-based load effects. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

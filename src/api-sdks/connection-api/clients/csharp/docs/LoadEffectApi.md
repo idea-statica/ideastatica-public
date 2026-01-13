@@ -2,10 +2,10 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**AddLoadEffectAsync**](LoadEffectApi.md#addloadeffectasync) | Add new load effect to the connection |
+| [**AddLoadEffectAsync**](LoadEffectApi.md#addloadeffectasync) | Adds a new load effect to the connection. |
 | [**DeleteLoadEffectAsync**](LoadEffectApi.md#deleteloadeffectasync) | Delete load effect loadEffectId |
-| [**GetLoadEffectAsync**](LoadEffectApi.md#getloadeffectasync) | Get load impulses from loadEffectId |
-| [**GetLoadEffectsAsync**](LoadEffectApi.md#getloadeffectsasync) | Get all load effects which are defined in connectionId |
+| [**GetLoadEffectAsync**](LoadEffectApi.md#getloadeffectasync) | Gets load impulses from the specified load effect. |
+| [**GetLoadEffectsAsync**](LoadEffectApi.md#getloadeffectsasync) | Gets all load effects defined in the specified connection. |
 | [**GetLoadSettingsAsync**](LoadEffectApi.md#getloadsettingsasync) | Get Load settings for connection in project |
 | [**SetLoadSettingsAsync**](LoadEffectApi.md#setloadsettingsasync) | Set Load settings for connection in project |
 | [**UpdateLoadEffectAsync**](LoadEffectApi.md#updateloadeffectasync) | Update load impulses in conLoading |
@@ -14,7 +14,7 @@
 ## **AddLoadEffectAsync**
 > **ConLoadEffect AddLoadEffectAsync (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)**
 
-Add new load effect to the connection
+Adds a new load effect to the connection.
 
 
 
@@ -22,9 +22,9 @@ Add new load effect to the connection
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **conLoadEffect** | [**ConLoadEffect**](ConLoadEffect.md) |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **conLoadEffect** | [**ConLoadEffect**](ConLoadEffect.md) | The load effect data to add. | [optional]  |
 
 ### Return type
 
@@ -62,12 +62,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    var conLoadEffect = new ConLoadEffect(); // ConLoadEffect | The load effect data to add. (optional) 
 
                     try
                     {
-                        // Add new load effect to the connection
+                        // Adds a new load effect to the connection.
                         ConLoadEffect result = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, conLoadEffect);
                         Debug.WriteLine(result);
                     }
@@ -108,7 +108,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add new load effect to the connection
+    // Adds a new load effect to the connection.
     ApiResponse<ConLoadEffect> response = conClient.LoadEffect.AddLoadEffectWithHttpInfo(projectId, connectionId, conLoadEffect);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -272,7 +272,7 @@ No authorization required
 ## **GetLoadEffectAsync**
 > **ConLoadEffect GetLoadEffectAsync (Guid projectId, int connectionId, int loadEffectId, bool? isPercentage = null)**
 
-Get load impulses from loadEffectId
+Gets load impulses from the specified load effect.
 
 
 
@@ -280,10 +280,10 @@ Get load impulses from loadEffectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **loadEffectId** | **int** |  |  |
-| **isPercentage** | **bool?** |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **loadEffectId** | **int** | The ID of the load effect to retrieve. |  |
+| **isPercentage** | **bool?** | Optional flag indicating whether to return percentage-based load effects. | [optional]  |
 
 ### Return type
 
@@ -321,13 +321,13 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    loadEffectId = 56;  // int | 
-                    isPercentage = true;  // bool? |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    loadEffectId = 56;  // int | The ID of the load effect to retrieve.
+                    isPercentage = true;  // bool? | Optional flag indicating whether to return percentage-based load effects. (optional) 
 
                     try
                     {
-                        // Get load impulses from loadEffectId
+                        // Gets load impulses from the specified load effect.
                         ConLoadEffect result = await conClient.LoadEffect.GetLoadEffectAsync(projectId, connectionId, loadEffectId, isPercentage);
                         Debug.WriteLine(result);
                     }
@@ -368,7 +368,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get load impulses from loadEffectId
+    // Gets load impulses from the specified load effect.
     ApiResponse<ConLoadEffect> response = conClient.LoadEffect.GetLoadEffectWithHttpInfo(projectId, connectionId, loadEffectId, isPercentage);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -403,7 +403,7 @@ No authorization required
 ## **GetLoadEffectsAsync**
 > **List&lt;ConLoadEffect&gt; GetLoadEffectsAsync (Guid projectId, int connectionId, bool? isPercentage = null)**
 
-Get all load effects which are defined in connectionId
+Gets all load effects defined in the specified connection.
 
 
 
@@ -411,9 +411,9 @@ Get all load effects which are defined in connectionId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **isPercentage** | **bool?** |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **isPercentage** | **bool?** | Optional flag indicating whether to return percentage-based load effects. | [optional]  |
 
 ### Return type
 
@@ -451,12 +451,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    isPercentage = true;  // bool? |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    isPercentage = true;  // bool? | Optional flag indicating whether to return percentage-based load effects. (optional) 
 
                     try
                     {
-                        // Get all load effects which are defined in connectionId
+                        // Gets all load effects defined in the specified connection.
                         List<ConLoadEffect> result = await conClient.LoadEffect.GetLoadEffectsAsync(projectId, connectionId, isPercentage);
                         Debug.WriteLine(result);
                     }
@@ -497,7 +497,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get all load effects which are defined in connectionId
+    // Gets all load effects defined in the specified connection.
     ApiResponse<List<ConLoadEffect>> response = conClient.LoadEffect.GetLoadEffectsWithHttpInfo(projectId, connectionId, isPercentage);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

@@ -44,7 +44,7 @@ class ProjectApi:
     @validate_call
     def close_project(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the project to be closed")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the project to be closed.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -58,10 +58,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Close the project. Needed for releasing resources in the service.
+        """Closes the project and releases resources in the service.
 
 
-        :param project_id: The unique identifier of the project to be closed (required)
+        :param project_id: The unique identifier of the project to be closed. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -110,7 +110,7 @@ class ProjectApi:
     @validate_call
     def close_project_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the project to be closed")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the project to be closed.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -124,10 +124,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Close the project. Needed for releasing resources in the service.
+        """Closes the project and releases resources in the service.
 
 
-        :param project_id: The unique identifier of the project to be closed (required)
+        :param project_id: The unique identifier of the project to be closed. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -176,7 +176,7 @@ class ProjectApi:
     @validate_call
     def close_project_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the project to be closed")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the project to be closed.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -190,10 +190,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Close the project. Needed for releasing resources in the service.
+        """Closes the project and releases resources in the service.
 
 
-        :param project_id: The unique identifier of the project to be closed (required)
+        :param project_id: The unique identifier of the project to be closed. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -301,7 +301,7 @@ class ProjectApi:
     @validate_call
     def download_project(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -315,10 +315,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        """Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -367,7 +367,7 @@ class ProjectApi:
     @validate_call
     def download_project_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -381,10 +381,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        """Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -433,7 +433,7 @@ class ProjectApi:
     @validate_call
     def download_project_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -447,10 +447,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        """Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -564,7 +564,7 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConProject]:
-        """Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        """Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -626,7 +626,7 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConProject]]:
-        """Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        """Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -688,7 +688,7 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        """Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -1336,7 +1336,7 @@ class ProjectApi:
     @validate_call
     def open_project(
         self,
-        idea_con_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Ideacon file")] = None,
+        idea_con_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The IdeaCon file to open.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1350,10 +1350,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConProject:
-        """Open ideacon project from ideaConFile
+        """Opens an IdeaCon project from the provided file.
 
 
-        :param idea_con_file: Ideacon file
+        :param idea_con_file: The IdeaCon file to open.
         :type idea_con_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1402,7 +1402,7 @@ class ProjectApi:
     @validate_call
     def open_project_with_http_info(
         self,
-        idea_con_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Ideacon file")] = None,
+        idea_con_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The IdeaCon file to open.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1416,10 +1416,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConProject]:
-        """Open ideacon project from ideaConFile
+        """Opens an IdeaCon project from the provided file.
 
 
-        :param idea_con_file: Ideacon file
+        :param idea_con_file: The IdeaCon file to open.
         :type idea_con_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1468,7 +1468,7 @@ class ProjectApi:
     @validate_call
     def open_project_without_preload_content(
         self,
-        idea_con_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Ideacon file")] = None,
+        idea_con_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The IdeaCon file to open.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1482,10 +1482,10 @@ class ProjectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Open ideacon project from ideaConFile
+        """Opens an IdeaCon project from the provided file.
 
 
-        :param idea_con_file: Ideacon file
+        :param idea_con_file: The IdeaCon file to open.
         :type idea_con_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

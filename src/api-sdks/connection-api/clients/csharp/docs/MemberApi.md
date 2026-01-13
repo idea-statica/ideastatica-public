@@ -2,16 +2,16 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GetMemberAsync**](MemberApi.md#getmemberasync) | Get information about the requires member in the connection |
-| [**GetMembersAsync**](MemberApi.md#getmembersasync) | Get information about all members in the connection |
+| [**GetMemberAsync**](MemberApi.md#getmemberasync) | Gets information about the specified member in the connection. |
+| [**GetMembersAsync**](MemberApi.md#getmembersasync) | Gets information about all members in the connection. |
 | [**SetBearingMemberAsync**](MemberApi.md#setbearingmemberasync) | Set bearing member for memberIt |
-| [**UpdateMemberAsync**](MemberApi.md#updatememberasync) | Update the member in the connection by newMemberData |
+| [**UpdateMemberAsync**](MemberApi.md#updatememberasync) | Updates the member in the connection with the provided data. |
 
 <a id="getmember"></a>
 ## **GetMemberAsync**
 > **ConMember GetMemberAsync (Guid projectId, int connectionId, int memberId)**
 
-Get information about the requires member in the connection
+Gets information about the specified member in the connection.
 
 
 
@@ -19,9 +19,9 @@ Get information about the requires member in the connection
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to get its member |  |
-| **memberId** | **int** | Id of the requested member in the connection |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection containing the member. |  |
+| **memberId** | **int** | The ID of the requested member in the connection. |  |
 
 ### Return type
 
@@ -59,12 +59,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to get its member
-                    memberId = 56;  // int | Id of the requested member in the connection
+                    connectionId = 56;  // int | The ID of the connection containing the member.
+                    memberId = 56;  // int | The ID of the requested member in the connection.
 
                     try
                     {
-                        // Get information about the requires member in the connection
+                        // Gets information about the specified member in the connection.
                         ConMember result = await conClient.Member.GetMemberAsync(projectId, connectionId, memberId);
                         Debug.WriteLine(result);
                     }
@@ -105,7 +105,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get information about the requires member in the connection
+    // Gets information about the specified member in the connection.
     ApiResponse<ConMember> response = conClient.Member.GetMemberWithHttpInfo(projectId, connectionId, memberId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -140,7 +140,7 @@ No authorization required
 ## **GetMembersAsync**
 > **List&lt;ConMember&gt; GetMembersAsync (Guid projectId, int connectionId)**
 
-Get information about all members in the connection
+Gets information about all members in the connection.
 
 
 
@@ -148,8 +148,8 @@ Get information about all members in the connection
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to get its members |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection from which to retrieve members. |  |
 
 ### Return type
 
@@ -187,11 +187,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to get its members
+                    connectionId = 56;  // int | The ID of the connection from which to retrieve members.
 
                     try
                     {
-                        // Get information about all members in the connection
+                        // Gets information about all members in the connection.
                         List<ConMember> result = await conClient.Member.GetMembersAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -232,7 +232,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get information about all members in the connection
+    // Gets information about all members in the connection.
     ApiResponse<List<ConMember>> response = conClient.Member.GetMembersWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -396,7 +396,7 @@ No authorization required
 ## **UpdateMemberAsync**
 > **ConMember UpdateMemberAsync (Guid projectId, int connectionId, ConMember conMember = null)**
 
-Update the member in the connection by newMemberData
+Updates the member in the connection with the provided data.
 
 
 
@@ -404,9 +404,9 @@ Update the member in the connection by newMemberData
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to to update is member newMemberData |  |
-| **conMember** | [**ConMember**](ConMember.md) | New member data | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection containing the member to update. |  |
+| **conMember** | [**ConMember**](ConMember.md) | The new member data to apply. | [optional]  |
 
 ### Return type
 
@@ -444,12 +444,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to to update is member newMemberData
-                    var conMember = new ConMember(); // ConMember | New member data (optional) 
+                    connectionId = 56;  // int | The ID of the connection containing the member to update.
+                    var conMember = new ConMember(); // ConMember | The new member data to apply. (optional) 
 
                     try
                     {
-                        // Update the member in the connection by newMemberData
+                        // Updates the member in the connection with the provided data.
                         ConMember result = await conClient.Member.UpdateMemberAsync(projectId, connectionId, conMember);
                         Debug.WriteLine(result);
                     }
@@ -490,7 +490,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update the member in the connection by newMemberData
+    // Updates the member in the connection with the provided data.
     ApiResponse<ConMember> response = conClient.Member.UpdateMemberWithHttpInfo(projectId, connectionId, conMember);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

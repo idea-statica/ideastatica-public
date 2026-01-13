@@ -4,24 +4,24 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**export_ifc**](ExportApi.md#export_ifc) | Export connection to IFC format
-[**export_iom**](ExportApi.md#export_iom) | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
-[**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+[**export_ifc**](ExportApi.md#export_ifc) | Exports the connection to IFC format.
+[**export_iom**](ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+[**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
 
 <a id="export_ifc"></a>
 # **export_ifc**
 > str export_ifc(project_id, connection_id)
 
-Export connection to IFC format
+Exports the connection to IFC format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection to export. | 
 
 ### Return type
 
@@ -42,11 +42,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def export_ifcExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection to export.
 
     try:
-        # Export connection to IFC format
+        # Exports the connection to IFC format.
         api_response = api_client.export.export_ifc(project_id, connection_id)
         print("The response of ExportApi->export_ifc:\n")
         pprint(api_response)
@@ -90,16 +90,16 @@ No authorization required
 # **export_iom**
 > str export_iom(project_id, connection_id, version=version)
 
-Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **version** | **str**|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection to export. | 
+ **version** | **str**| Optional version string for downgrading the IOM model. | [optional] 
 
 ### Return type
 
@@ -120,12 +120,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def export_iomExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    version = 'version_example' # str |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection to export.
+    version = 'version_example' # str | Optional version string for downgrading the IOM model. (optional)
 
     try:
-        # Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+        # Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
         api_response = api_client.export.export_iom(project_id, connection_id, version=version)
         print("The response of ExportApi->export_iom:\n")
         pprint(api_response)
@@ -169,15 +169,15 @@ No authorization required
 # **export_iom_connection_data**
 > ConnectionData export_iom_connection_data(project_id, connection_id)
 
-Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection to export. | 
 
 ### Return type
 
@@ -199,11 +199,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def export_iom_connection_dataExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection to export.
 
     try:
-        # Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+        # Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
         api_response = api_client.export.export_iom_connection_data(project_id, connection_id)
         print("The response of ExportApi->export_iom_connection_data:\n")
         pprint(api_response)

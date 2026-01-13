@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.RamContracts;
 using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Providers;
 using IdeaStatiCa.RamToIdea.Sections;
+using Microsoft.Win32;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
@@ -27,8 +29,9 @@ namespace IdeaStatiCa.RamToIdea
 		{
 			try
 			{
+				//Check that nuget is working
 				_ = new RamDataAccess1();
-				return true;
+				return RamRegistryHelper.CheckRegistry("25");
 			}
 			catch (COMException)
 			{

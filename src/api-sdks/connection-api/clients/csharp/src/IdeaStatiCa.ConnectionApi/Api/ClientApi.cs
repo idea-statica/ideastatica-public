@@ -33,7 +33,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -41,7 +41,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         string ConnectClient(int operationIndex = 0);
 
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
         /// </summary>
         /// <remarks>
         /// 
@@ -52,7 +52,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> ConnectClientWithHttpInfo(string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get the IdeaStatica version
+        /// Gets the IdeaStatica API assembly version.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -60,7 +60,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         string GetVersion(int operationIndex = 0);
 
         /// <summary>
-        /// Get the IdeaStatica version
+        /// Gets the IdeaStatica API assembly version.
         /// </summary>
         /// <remarks>
         /// 
@@ -80,7 +80,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
         /// </summary>
         /// <remarks>
         /// 
@@ -92,7 +92,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<string> ConnectClientAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
         /// </summary>
         /// <remarks>
         /// 
@@ -104,7 +104,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> ConnectClientWithHttpInfoAsync(string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get the IdeaStatica version
+        /// Gets the IdeaStatica API assembly version.
         /// </summary>
         /// <remarks>
         /// 
@@ -116,7 +116,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<string> GetVersionAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get the IdeaStatica version
+        /// Gets the IdeaStatica API assembly version.
         /// </summary>
         /// <remarks>
         /// 
@@ -248,7 +248,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. 
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -260,7 +260,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. 
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
                 /// <param name="requestedType">Requested content type in the response.</param>
@@ -316,7 +316,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. 
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -329,7 +329,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client. 
+        /// Connects a client to the ConnectionRestApi service and returns a unique identifier for the client. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="requestedType">Requested content type in the response.</param>
@@ -388,7 +388,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the IdeaStatica version 
+        /// Gets the IdeaStatica API assembly version. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -400,7 +400,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the IdeaStatica version 
+        /// Gets the IdeaStatica API assembly version. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
                 /// <param name="requestedType">Requested content type in the response.</param>
@@ -455,7 +455,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the IdeaStatica version 
+        /// Gets the IdeaStatica API assembly version. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -468,7 +468,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the IdeaStatica version 
+        /// Gets the IdeaStatica API assembly version. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="requestedType">Requested content type in the response.</param>

@@ -2,16 +2,16 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**GeneratePdfAsync**](ReportApi.md#generatepdfasync) | Generates report for projectId and connectionId |
-| [**GeneratePdfForMutlipleAsync**](ReportApi.md#generatepdfformutlipleasync) |  |
-| [**GenerateWordAsync**](ReportApi.md#generatewordasync) | Generates report for projectId and connectionId |
-| [**GenerateWordForMultipleAsync**](ReportApi.md#generatewordformultipleasync) |  |
+| [**GeneratePdfAsync**](ReportApi.md#generatepdfasync) | Generates a report for the specified connection in PDF or Word format. |
+| [**GeneratePdfForMutlipleAsync**](ReportApi.md#generatepdfformutlipleasync) | Generates a report for multiple connections in PDF or Word format. |
+| [**GenerateWordAsync**](ReportApi.md#generatewordasync) | Generates a report for the specified connection in PDF or Word format. |
+| [**GenerateWordForMultipleAsync**](ReportApi.md#generatewordformultipleasync) | Generates a report for multiple connections in PDF or Word format. |
 
 <a id="generatepdf"></a>
 ## **GeneratePdfAsync**
 > **void GeneratePdfAsync (Guid projectId, int connectionId)**
 
-Generates report for projectId and connectionId
+Generates a report for the specified connection in PDF or Word format.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -22,8 +22,8 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection to report. |  |
 
 ### Return type
 
@@ -61,11 +61,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection to report.
 
                     try
                     {
-                        // Generates report for projectId and connectionId
+                        // Generates a report for the specified connection in PDF or Word format.
                         conClient.Report.GeneratePdfAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
@@ -105,7 +105,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Generates report for projectId and connectionId
+    // Generates a report for the specified connection in PDF or Word format.
     conClient.Report.GeneratePdfWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
@@ -137,7 +137,7 @@ No authorization required
 ## **GeneratePdfForMutlipleAsync**
 > **void GeneratePdfForMutlipleAsync (Guid projectId, List<int> requestBody)**
 
-
+Generates a report for multiple connections in PDF or Word format.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -148,8 +148,8 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **requestBody** | [**List&lt;int&gt;**](int.md) |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection IDs to include in the report. |  |
 
 ### Return type
 
@@ -187,10 +187,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new List<int>(); // List<int> | 
+                    var requestBody = new List<int>(); // List<int> | List of connection IDs to include in the report.
 
                     try
                     {
+                        // Generates a report for multiple connections in PDF or Word format.
                         conClient.Report.GeneratePdfForMutlipleAsync(projectId, requestBody);
                     }
                     catch (ApiException  e)
@@ -230,6 +231,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
+    // Generates a report for multiple connections in PDF or Word format.
     conClient.Report.GeneratePdfForMutlipleWithHttpInfo(projectId, requestBody);
 }
 catch (ApiException e)
@@ -261,7 +263,7 @@ No authorization required
 ## **GenerateWordAsync**
 > **void GenerateWordAsync (Guid projectId, int connectionId)**
 
-Generates report for projectId and connectionId
+Generates a report for the specified connection in PDF or Word format.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -272,8 +274,8 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection to report. |  |
 
 ### Return type
 
@@ -311,11 +313,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection to report.
 
                     try
                     {
-                        // Generates report for projectId and connectionId
+                        // Generates a report for the specified connection in PDF or Word format.
                         conClient.Report.GenerateWordAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
@@ -355,7 +357,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Generates report for projectId and connectionId
+    // Generates a report for the specified connection in PDF or Word format.
     conClient.Report.GenerateWordWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
@@ -387,7 +389,7 @@ No authorization required
 ## **GenerateWordForMultipleAsync**
 > **void GenerateWordForMultipleAsync (Guid projectId, List<int> requestBody)**
 
-
+Generates a report for multiple connections in PDF or Word format.
 
 #### Extension Methods
 This operation has an avaliable client extension method. Refer to code samples for extension method usage.
@@ -398,8 +400,8 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **requestBody** | [**List&lt;int&gt;**](int.md) |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection IDs to include in the report. |  |
 
 ### Return type
 
@@ -437,10 +439,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var requestBody = new List<int>(); // List<int> | 
+                    var requestBody = new List<int>(); // List<int> | List of connection IDs to include in the report.
 
                     try
                     {
+                        // Generates a report for multiple connections in PDF or Word format.
                         conClient.Report.GenerateWordForMultipleAsync(projectId, requestBody);
                     }
                     catch (ApiException  e)
@@ -480,6 +483,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
+    // Generates a report for multiple connections in PDF or Word format.
     conClient.Report.GenerateWordForMultipleWithHttpInfo(projectId, requestBody);
 }
 catch (ApiException e)

@@ -34,49 +34,49 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Get information about the requires member in the connection
+        /// Gets information about the specified member in the connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its member</param>
-        /// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member.</param>
+        /// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConMember</returns>
         ConMember GetMember(Guid projectId, int connectionId, int memberId, int operationIndex = 0);
 
         /// <summary>
-        /// Get information about the requires member in the connection
+        /// Gets information about the specified member in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to get its member</param>
-/// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection containing the member.</param>
+/// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConMember</returns>
         ApiResponse<ConMember> GetMemberWithHttpInfo(Guid projectId, int connectionId, int memberId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get information about all members in the connection
+        /// Gets information about all members in the connection.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConMember&gt;</returns>
         List<ConMember> GetMembers(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
-        /// Get information about all members in the connection
+        /// Gets information about all members in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConMember&gt;</returns>
@@ -107,26 +107,26 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConMember</returns>
         ApiResponse<ConMember> SetBearingMemberWithHttpInfo(Guid projectId, int connectionId, int memberId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Update the member in the connection by newMemberData
+        /// Updates the member in the connection with the provided data.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-        /// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member to update.</param>
+        /// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConMember</returns>
         ConMember UpdateMember(Guid projectId, int connectionId, ConMember conMember = default(ConMember), int operationIndex = 0);
 
         /// <summary>
-        /// Update the member in the connection by newMemberData
+        /// Updates the member in the connection with the provided data.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-/// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection containing the member to update.</param>
+/// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConMember</returns>
@@ -141,58 +141,58 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Get information about the requires member in the connection
+        /// Gets information about the specified member in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its member</param>
-        /// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member.</param>
+        /// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConMember</returns>
         System.Threading.Tasks.Task<ConMember> GetMemberAsync(Guid projectId, int connectionId, int memberId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get information about the requires member in the connection
+        /// Gets information about the specified member in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its member</param>
-        /// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member.</param>
+        /// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConMember)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConMember>> GetMemberWithHttpInfoAsync(Guid projectId, int connectionId, int memberId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get information about all members in the connection
+        /// Gets information about all members in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConMember&gt;</returns>
         System.Threading.Tasks.Task<List<ConMember>> GetMembersAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get information about all members in the connection
+        /// Gets information about all members in the connection.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -229,30 +229,30 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConMember)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConMember>> SetBearingMemberWithHttpInfoAsync(Guid projectId, int connectionId, int memberId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Update the member in the connection by newMemberData
+        /// Updates the member in the connection with the provided data.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-        /// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member to update.</param>
+        /// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConMember</returns>
         System.Threading.Tasks.Task<ConMember> UpdateMemberAsync(Guid projectId, int connectionId, ConMember conMember = default(ConMember), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Update the member in the connection by newMemberData
+        /// Updates the member in the connection with the provided data.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-        /// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member to update.</param>
+        /// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -379,12 +379,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about the requires member in the connection 
+        /// Gets information about the specified member in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its member</param>
-        /// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member.</param>
+        /// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConMember</returns>
         public ConMember GetMember(Guid projectId, int connectionId, int memberId, int operationIndex = 0)
@@ -394,12 +394,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about the requires member in the connection 
+        /// Gets information about the specified member in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to get its member</param>
-/// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection containing the member.</param>
+/// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConMember</returns>
@@ -455,12 +455,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about the requires member in the connection 
+        /// Gets information about the specified member in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its member</param>
-        /// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member.</param>
+        /// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConMember</returns>
@@ -471,12 +471,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about the requires member in the connection 
+        /// Gets information about the specified member in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its member</param>
-        /// <param name="memberId">Id of the requested member in the connection</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member.</param>
+        /// <param name="memberId">The ID of the requested member in the connection.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -535,11 +535,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about all members in the connection 
+        /// Gets information about all members in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;ConMember&gt;</returns>
         public List<ConMember> GetMembers(Guid projectId, int connectionId, int operationIndex = 0)
@@ -549,11 +549,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about all members in the connection 
+        /// Gets information about all members in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;ConMember&gt;</returns>
@@ -608,11 +608,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about all members in the connection 
+        /// Gets information about all members in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;ConMember&gt;</returns>
@@ -623,11 +623,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get information about all members in the connection 
+        /// Gets information about all members in the connection. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to get its members</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection from which to retrieve members.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -841,12 +841,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update the member in the connection by newMemberData 
+        /// Updates the member in the connection with the provided data. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-        /// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member to update.</param>
+        /// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConMember</returns>
         public ConMember UpdateMember(Guid projectId, int connectionId, ConMember conMember = default(ConMember), int operationIndex = 0)
@@ -856,12 +856,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update the member in the connection by newMemberData 
+        /// Updates the member in the connection with the provided data. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-/// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-/// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection containing the member to update.</param>
+/// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConMember</returns>
@@ -918,12 +918,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update the member in the connection by newMemberData 
+        /// Updates the member in the connection with the provided data. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-        /// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member to update.</param>
+        /// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConMember</returns>
@@ -934,12 +934,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update the member in the connection by newMemberData 
+        /// Updates the member in the connection with the provided data. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="connectionId">Id of the connection to to update is member newMemberData</param>
-        /// <param name="conMember">New member data (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection containing the member to update.</param>
+        /// <param name="conMember">The new member data to apply. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
