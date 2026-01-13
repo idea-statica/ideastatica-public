@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictBool, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import List, Optional
+from typing_extensions import Annotated
 from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.models.con_load_settings import ConLoadSettings
 
@@ -43,9 +44,9 @@ class LoadEffectApi:
     @validate_call
     def add_load_effect(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        con_load_effect: Optional[ConLoadEffect] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        con_load_effect: Annotated[Optional[ConLoadEffect], Field(description="The load effect data to add.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -59,14 +60,14 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConLoadEffect:
-        """Add new load effect to the connection
+        """Adds a new load effect to the connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param con_load_effect: 
+        :param con_load_effect: The load effect data to add.
         :type con_load_effect: ConLoadEffect
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -117,9 +118,9 @@ class LoadEffectApi:
     @validate_call
     def add_load_effect_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        con_load_effect: Optional[ConLoadEffect] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        con_load_effect: Annotated[Optional[ConLoadEffect], Field(description="The load effect data to add.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -133,14 +134,14 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConLoadEffect]:
-        """Add new load effect to the connection
+        """Adds a new load effect to the connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param con_load_effect: 
+        :param con_load_effect: The load effect data to add.
         :type con_load_effect: ConLoadEffect
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -191,9 +192,9 @@ class LoadEffectApi:
     @validate_call
     def add_load_effect_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        con_load_effect: Optional[ConLoadEffect] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        con_load_effect: Annotated[Optional[ConLoadEffect], Field(description="The load effect data to add.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -207,14 +208,14 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add new load effect to the connection
+        """Adds a new load effect to the connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param con_load_effect: 
+        :param con_load_effect: The load effect data to add.
         :type con_load_effect: ConLoadEffect
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -630,10 +631,10 @@ class LoadEffectApi:
     @validate_call
     def get_load_effect(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        load_effect_id: StrictInt,
-        is_percentage: Optional[StrictBool] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        load_effect_id: Annotated[StrictInt, Field(description="The ID of the load effect to retrieve.")],
+        is_percentage: Annotated[Optional[StrictBool], Field(description="Optional flag indicating whether to return percentage-based load effects.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -647,16 +648,16 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConLoadEffect:
-        """Get load impulses from loadEffectId
+        """Gets load impulses from the specified load effect.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param load_effect_id:  (required)
+        :param load_effect_id: The ID of the load effect to retrieve. (required)
         :type load_effect_id: int
-        :param is_percentage: 
+        :param is_percentage: Optional flag indicating whether to return percentage-based load effects.
         :type is_percentage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -708,10 +709,10 @@ class LoadEffectApi:
     @validate_call
     def get_load_effect_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        load_effect_id: StrictInt,
-        is_percentage: Optional[StrictBool] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        load_effect_id: Annotated[StrictInt, Field(description="The ID of the load effect to retrieve.")],
+        is_percentage: Annotated[Optional[StrictBool], Field(description="Optional flag indicating whether to return percentage-based load effects.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -725,16 +726,16 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConLoadEffect]:
-        """Get load impulses from loadEffectId
+        """Gets load impulses from the specified load effect.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param load_effect_id:  (required)
+        :param load_effect_id: The ID of the load effect to retrieve. (required)
         :type load_effect_id: int
-        :param is_percentage: 
+        :param is_percentage: Optional flag indicating whether to return percentage-based load effects.
         :type is_percentage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -786,10 +787,10 @@ class LoadEffectApi:
     @validate_call
     def get_load_effect_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        load_effect_id: StrictInt,
-        is_percentage: Optional[StrictBool] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        load_effect_id: Annotated[StrictInt, Field(description="The ID of the load effect to retrieve.")],
+        is_percentage: Annotated[Optional[StrictBool], Field(description="Optional flag indicating whether to return percentage-based load effects.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -803,16 +804,16 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get load impulses from loadEffectId
+        """Gets load impulses from the specified load effect.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param load_effect_id:  (required)
+        :param load_effect_id: The ID of the load effect to retrieve. (required)
         :type load_effect_id: int
-        :param is_percentage: 
+        :param is_percentage: Optional flag indicating whether to return percentage-based load effects.
         :type is_percentage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -934,9 +935,9 @@ class LoadEffectApi:
     @validate_call
     def get_load_effects(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        is_percentage: Optional[StrictBool] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        is_percentage: Annotated[Optional[StrictBool], Field(description="Optional flag indicating whether to return percentage-based load effects.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -950,14 +951,14 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConLoadEffect]:
-        """Get all load effects which are defined in connectionId
+        """Gets all load effects defined in the specified connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param is_percentage: 
+        :param is_percentage: Optional flag indicating whether to return percentage-based load effects.
         :type is_percentage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1008,9 +1009,9 @@ class LoadEffectApi:
     @validate_call
     def get_load_effects_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        is_percentage: Optional[StrictBool] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        is_percentage: Annotated[Optional[StrictBool], Field(description="Optional flag indicating whether to return percentage-based load effects.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1024,14 +1025,14 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConLoadEffect]]:
-        """Get all load effects which are defined in connectionId
+        """Gets all load effects defined in the specified connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param is_percentage: 
+        :param is_percentage: Optional flag indicating whether to return percentage-based load effects.
         :type is_percentage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1082,9 +1083,9 @@ class LoadEffectApi:
     @validate_call
     def get_load_effects_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        is_percentage: Optional[StrictBool] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        is_percentage: Annotated[Optional[StrictBool], Field(description="Optional flag indicating whether to return percentage-based load effects.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1098,14 +1099,14 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get all load effects which are defined in connectionId
+        """Gets all load effects defined in the specified connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param is_percentage: 
+        :param is_percentage: Optional flag indicating whether to return percentage-based load effects.
         :type is_percentage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

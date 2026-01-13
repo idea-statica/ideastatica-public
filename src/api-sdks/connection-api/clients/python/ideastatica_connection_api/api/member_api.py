@@ -43,9 +43,9 @@ class MemberApi:
     @validate_call
     def get_member(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to get its member")],
-        member_id: Annotated[StrictInt, Field(description="Id of the requested member in the connection")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the member.")],
+        member_id: Annotated[StrictInt, Field(description="The ID of the requested member in the connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -59,14 +59,14 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConMember:
-        """Get information about the requires member in the connection
+        """Gets information about the specified member in the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to get its member (required)
+        :param connection_id: The ID of the connection containing the member. (required)
         :type connection_id: int
-        :param member_id: Id of the requested member in the connection (required)
+        :param member_id: The ID of the requested member in the connection. (required)
         :type member_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -117,9 +117,9 @@ class MemberApi:
     @validate_call
     def get_member_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to get its member")],
-        member_id: Annotated[StrictInt, Field(description="Id of the requested member in the connection")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the member.")],
+        member_id: Annotated[StrictInt, Field(description="The ID of the requested member in the connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -133,14 +133,14 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConMember]:
-        """Get information about the requires member in the connection
+        """Gets information about the specified member in the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to get its member (required)
+        :param connection_id: The ID of the connection containing the member. (required)
         :type connection_id: int
-        :param member_id: Id of the requested member in the connection (required)
+        :param member_id: The ID of the requested member in the connection. (required)
         :type member_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -191,9 +191,9 @@ class MemberApi:
     @validate_call
     def get_member_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to get its member")],
-        member_id: Annotated[StrictInt, Field(description="Id of the requested member in the connection")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the member.")],
+        member_id: Annotated[StrictInt, Field(description="The ID of the requested member in the connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -207,14 +207,14 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get information about the requires member in the connection
+        """Gets information about the specified member in the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to get its member (required)
+        :param connection_id: The ID of the connection containing the member. (required)
         :type connection_id: int
-        :param member_id: Id of the requested member in the connection (required)
+        :param member_id: The ID of the requested member in the connection. (required)
         :type member_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -330,8 +330,8 @@ class MemberApi:
     @validate_call
     def get_members(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to get its members")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection from which to retrieve members.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -345,12 +345,12 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConMember]:
-        """Get information about all members in the connection
+        """Gets information about all members in the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to get its members (required)
+        :param connection_id: The ID of the connection from which to retrieve members. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -400,8 +400,8 @@ class MemberApi:
     @validate_call
     def get_members_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to get its members")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection from which to retrieve members.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -415,12 +415,12 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConMember]]:
-        """Get information about all members in the connection
+        """Gets information about all members in the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to get its members (required)
+        :param connection_id: The ID of the connection from which to retrieve members. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -470,8 +470,8 @@ class MemberApi:
     @validate_call
     def get_members_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to get its members")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection from which to retrieve members.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -485,12 +485,12 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get information about all members in the connection
+        """Gets information about all members in the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to get its members (required)
+        :param connection_id: The ID of the connection from which to retrieve members. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -889,9 +889,9 @@ class MemberApi:
     @validate_call
     def update_member(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to to update is member newMemberData")],
-        con_member: Annotated[Optional[ConMember], Field(description="New member data")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the member to update.")],
+        con_member: Annotated[Optional[ConMember], Field(description="The new member data to apply.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -905,14 +905,14 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConMember:
-        """Update the member in the connection by newMemberData
+        """Updates the member in the connection with the provided data.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to to update is member newMemberData (required)
+        :param connection_id: The ID of the connection containing the member to update. (required)
         :type connection_id: int
-        :param con_member: New member data
+        :param con_member: The new member data to apply.
         :type con_member: ConMember
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -963,9 +963,9 @@ class MemberApi:
     @validate_call
     def update_member_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to to update is member newMemberData")],
-        con_member: Annotated[Optional[ConMember], Field(description="New member data")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the member to update.")],
+        con_member: Annotated[Optional[ConMember], Field(description="The new member data to apply.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -979,14 +979,14 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConMember]:
-        """Update the member in the connection by newMemberData
+        """Updates the member in the connection with the provided data.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to to update is member newMemberData (required)
+        :param connection_id: The ID of the connection containing the member to update. (required)
         :type connection_id: int
-        :param con_member: New member data
+        :param con_member: The new member data to apply.
         :type con_member: ConMember
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1037,9 +1037,9 @@ class MemberApi:
     @validate_call
     def update_member_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the connection to to update is member newMemberData")],
-        con_member: Annotated[Optional[ConMember], Field(description="New member data")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the member to update.")],
+        con_member: Annotated[Optional[ConMember], Field(description="The new member data to apply.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1053,14 +1053,14 @@ class MemberApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update the member in the connection by newMemberData
+        """Updates the member in the connection with the provided data.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the connection to to update is member newMemberData (required)
+        :param connection_id: The ID of the connection containing the member to update. (required)
         :type connection_id: int
-        :param con_member: New member data
+        :param con_member: The new member data to apply.
         :type con_member: ConMember
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

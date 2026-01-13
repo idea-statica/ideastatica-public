@@ -1,25 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\..\..\Common.props" />
-	<PropertyGroup>
-		<ProjectGuid>{881C74B0-CF8E-4911-9FB1-7DF91AF04036}</ProjectGuid>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="Autofac" />
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
-		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
-		<PackageReference Include="Idea.Bentley.Ram" />
-		<PackageReference Include="MathNet.Numerics" />
-		<PackageReference Include="MathNet.Spatial" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	</ItemGroup>
-	<Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
+  <Import Project="..\..\..\Common.props" />
+  <PropertyGroup>
+    <ProjectGuid>{881C74B0-CF8E-4911-9FB1-7DF91AF04036}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <!-- Set OutputPath for *_Internal configurations -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release_IdeaStatiCa_Internal' Or '$(Configuration)' == 'Debug_IdeaStatiCa_Internal'">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(OutputPath)\$(TargetFramework)\Ram25ToIdea_Internal\</OutputPath>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.RamContracts\IdeaStatiCa.RamContracts.csproj" />
+  </ItemGroup>
 </Project>

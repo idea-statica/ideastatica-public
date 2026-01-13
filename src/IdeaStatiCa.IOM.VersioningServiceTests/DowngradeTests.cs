@@ -61,6 +61,7 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 		[TestCase("ConnectionPoint-1_2.1.0.xml", "ConnectionPoint-1_2.0.0-Downgraded.xml")]
 		[TestCase("LoadOnSurface_3_0_0.xml", "LoadOnSurface_downgraded_2_0_0.xml")]
 		[TestCase("OpenModel-GCss-3_1_0.xml", "OpenModel-GCss-Downgraded.xml")]
+		[TestCase("OpenModel-Css.xml", "OpenModel-Css-Downgraded.xml")]
 		public void FromParsedXml_Downgrade_LargeFile(string fileName, string expectedFile)
 		{
 			string xmlContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, fileName));

@@ -44,8 +44,8 @@ class ConversionApi:
     @validate_call
     def change_code(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)")],
-        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).")],
+        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL').")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -59,12 +59,12 @@ class ConversionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Change design code of project.
+        """Changes the design code of the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported). (required)
         :type project_id: str
-        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')
+        :param con_conversion_settings: Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL').
         :type con_conversion_settings: ConConversionSettings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -114,8 +114,8 @@ class ConversionApi:
     @validate_call
     def change_code_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)")],
-        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).")],
+        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL').")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -129,12 +129,12 @@ class ConversionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Change design code of project.
+        """Changes the design code of the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported). (required)
         :type project_id: str
-        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')
+        :param con_conversion_settings: Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL').
         :type con_conversion_settings: ConConversionSettings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -184,8 +184,8 @@ class ConversionApi:
     @validate_call
     def change_code_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported)")],
-        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).")],
+        con_conversion_settings: Annotated[Optional[ConConversionSettings], Field(description="Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL').")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -199,12 +199,12 @@ class ConversionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Change design code of project.
+        """Changes the design code of the project.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN projects are supported) (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported). (required)
         :type project_id: str
-        :param con_conversion_settings: Conversion table for materials in the project. (pairs 'ECEN MATERIAL' -> 'TARGET DESIGN CODE MATERIAL')
+        :param con_conversion_settings: Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL').
         :type con_conversion_settings: ConConversionSettings
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -329,8 +329,8 @@ class ConversionApi:
     @validate_call
     def get_conversion_mapping(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported)")],
-        country_code: Annotated[Optional[CountryCode], Field(description="Requested design code in the converted project.")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).")],
+        country_code: Annotated[Optional[CountryCode], Field(description="The requested design code for the converted project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -344,12 +344,12 @@ class ConversionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConConversionSettings:
-        """Get default conversions for converting the project to different design code.
+        """Gets default conversion mappings for converting the project to a different design code.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported) (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported). (required)
         :type project_id: str
-        :param country_code: Requested design code in the converted project.
+        :param country_code: The requested design code for the converted project.
         :type country_code: CountryCode
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -399,8 +399,8 @@ class ConversionApi:
     @validate_call
     def get_conversion_mapping_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported)")],
-        country_code: Annotated[Optional[CountryCode], Field(description="Requested design code in the converted project.")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).")],
+        country_code: Annotated[Optional[CountryCode], Field(description="The requested design code for the converted project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -414,12 +414,12 @@ class ConversionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConConversionSettings]:
-        """Get default conversions for converting the project to different design code.
+        """Gets default conversion mappings for converting the project to a different design code.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported) (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported). (required)
         :type project_id: str
-        :param country_code: Requested design code in the converted project.
+        :param country_code: The requested design code for the converted project.
         :type country_code: CountryCode
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -469,8 +469,8 @@ class ConversionApi:
     @validate_call
     def get_conversion_mapping_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported)")],
-        country_code: Annotated[Optional[CountryCode], Field(description="Requested design code in the converted project.")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).")],
+        country_code: Annotated[Optional[CountryCode], Field(description="The requested design code for the converted project.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -484,12 +484,12 @@ class ConversionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get default conversions for converting the project to different design code.
+        """Gets default conversion mappings for converting the project to a different design code.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (only ECEN design code is supported) (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported). (required)
         :type project_id: str
-        :param country_code: Requested design code in the converted project.
+        :param country_code: The requested design code for the converted project.
         :type country_code: CountryCode
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

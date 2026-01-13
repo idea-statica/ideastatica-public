@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictInt, StrictStr
+from pydantic import Field, StrictInt, StrictStr
 from typing import List
+from typing_extensions import Annotated
 
 from ideastatica_connection_api.api_client import ApiClient, RequestSerialized
 from ideastatica_connection_api.api_response import ApiResponse
@@ -41,8 +42,8 @@ class ReportApi:
     @validate_call
     def generate_pdf(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -56,12 +57,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Generates report for projectId and connectionId
+        """Generates a report for the specified connection in PDF or Word format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to report. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -111,8 +112,8 @@ class ReportApi:
     @validate_call
     def generate_pdf_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -126,12 +127,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Generates report for projectId and connectionId
+        """Generates a report for the specified connection in PDF or Word format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to report. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -181,8 +182,8 @@ class ReportApi:
     @validate_call
     def generate_pdf_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -196,12 +197,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Generates report for projectId and connectionId
+        """Generates a report for the specified connection in PDF or Word format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to report. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -306,8 +307,8 @@ class ReportApi:
     @validate_call
     def generate_pdf_for_mutliple(
         self,
-        project_id: StrictStr,
-        request_body: List[StrictInt],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to include in the report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -321,12 +322,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """generate_pdf_for_mutliple
+        """Generates a report for multiple connections in PDF or Word format.
 
 
-        :param project_id: (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param request_body: (required)
+        :param request_body: List of connection IDs to include in the report. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -376,8 +377,8 @@ class ReportApi:
     @validate_call
     def generate_pdf_for_mutliple_with_http_info(
         self,
-        project_id: StrictStr,
-        request_body: List[StrictInt],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to include in the report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -391,12 +392,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """generate_pdf_for_mutliple
+        """Generates a report for multiple connections in PDF or Word format.
 
 
-        :param project_id: (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param request_body: (required)
+        :param request_body: List of connection IDs to include in the report. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -446,8 +447,8 @@ class ReportApi:
     @validate_call
     def generate_pdf_for_mutliple_without_preload_content(
         self,
-        project_id: StrictStr,
-        request_body: List[StrictInt],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to include in the report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -461,12 +462,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """generate_pdf_for_mutliple
+        """Generates a report for multiple connections in PDF or Word format.
 
 
-        :param project_id: (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param request_body: (required)
+        :param request_body: List of connection IDs to include in the report. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -585,8 +586,8 @@ class ReportApi:
     @validate_call
     def generate_word(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -600,12 +601,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Generates report for projectId and connectionId
+        """Generates a report for the specified connection in PDF or Word format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to report. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -655,8 +656,8 @@ class ReportApi:
     @validate_call
     def generate_word_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -670,12 +671,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Generates report for projectId and connectionId
+        """Generates a report for the specified connection in PDF or Word format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to report. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -725,8 +726,8 @@ class ReportApi:
     @validate_call
     def generate_word_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection to report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -740,12 +741,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Generates report for projectId and connectionId
+        """Generates a report for the specified connection in PDF or Word format.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection to report. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -850,8 +851,8 @@ class ReportApi:
     @validate_call
     def generate_word_for_multiple(
         self,
-        project_id: StrictStr,
-        request_body: List[StrictInt],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to include in the report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -865,12 +866,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """generate_word_for_multiple
+        """Generates a report for multiple connections in PDF or Word format.
 
 
-        :param project_id: (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param request_body: (required)
+        :param request_body: List of connection IDs to include in the report. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -920,8 +921,8 @@ class ReportApi:
     @validate_call
     def generate_word_for_multiple_with_http_info(
         self,
-        project_id: StrictStr,
-        request_body: List[StrictInt],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to include in the report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -935,12 +936,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """generate_word_for_multiple
+        """Generates a report for multiple connections in PDF or Word format.
 
 
-        :param project_id: (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param request_body: (required)
+        :param request_body: List of connection IDs to include in the report. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -990,8 +991,8 @@ class ReportApi:
     @validate_call
     def generate_word_for_multiple_without_preload_content(
         self,
-        project_id: StrictStr,
-        request_body: List[StrictInt],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        request_body: Annotated[List[StrictInt], Field(description="List of connection IDs to include in the report.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1005,12 +1006,12 @@ class ReportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """generate_word_for_multiple
+        """Generates a report for multiple connections in PDF or Word format.
 
 
-        :param project_id: (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param request_body: (required)
+        :param request_body: List of connection IDs to include in the report. (required)
         :type request_body: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
