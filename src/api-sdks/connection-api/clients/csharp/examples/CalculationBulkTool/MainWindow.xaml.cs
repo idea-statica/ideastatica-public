@@ -32,6 +32,7 @@ namespace CalculationBulkTool
 		{
 			_logger.Information("Initializing MainWindow");
 			InitializeComponent();
+			DataContext = this;
 			ProjectsList.ItemsSource = projectFiles;
 			IdeaPathText.Text = ideaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\";
 			this.Closed += MainWindow_Closed;
@@ -178,6 +179,7 @@ namespace CalculationBulkTool
 		private async void CalculateAll_Click(object sender, RoutedEventArgs e)
 		{
 			_logger.Information("Starting CalculateAll for {Count} projects", projectFiles.Count);
+			StatusMessage = "Preparing calculation...";
 			LoadItemsButton.IsEnabled = false;
 			CalculateButton.IsEnabled = false;
 			int totalProjectItemCount = 0;
@@ -210,6 +212,7 @@ namespace CalculationBulkTool
 						try
 						{
 							_logger.Information("Opening project: {ProjectFile}", file.FilePath);
+							StatusMessage = $"Opening file: {file.FileName}";
 							CalculationResults results = new CalculationResults();
 							project = await conClient.Project.OpenProjectAsync(file.FilePath);
 							results.FileName = file.FileName;
@@ -223,6 +226,7 @@ namespace CalculationBulkTool
 								try
 								{
 									_logger.Information("Calculating connectionId={ConnectionId} in projectId={ProjectId}", connectionId, project.ProjectId);
+									StatusMessage = $"Calculating {file.FileName} – {project.Connections.First(x => x.Id == connectionId).Name}";
 									var briefResults = await conClient.Calculation.CalculateAsync(project.ProjectId, new List<int> { connectionId });
 									if (briefResults[0].Passed)
 									{
@@ -284,11 +288,13 @@ namespace CalculationBulkTool
 								catch (Exception ex)
 								{
 									_logger.Error(ex, "Error calculating connectionId={ConnectionId} in project {Project}", connectionId, file.FileName);
+									StatusMessage = $"Error in {file.FileName}, continuing...";
 									File.AppendAllLines(failedProjects, [$"{file.FileName} - {file.Connections.First(x => x.ConnectionId == connectionId).Name} - {ex.Message}"]);
 									failedProjectItemCount++;
 								}
 							}
 
+							StatusMessage = "Calculation completed.";
 							file.IsProcessed = true;
 							SaveCsvToFile(results, fileName);
 						}
@@ -298,6 +304,8 @@ namespace CalculationBulkTool
 						}
 						finally
 						{
+
+							StatusMessage = "";
 							if (project != null)
 							{
 								_logger.Information("Closing projectId={ProjectId}", project.ProjectId);
@@ -367,12 +375,22 @@ namespace CalculationBulkTool
 			_logger.Information("Processing files to load connections. Files count: {Count}", projectFiles.Count);
 			LoadItemsButton.IsEnabled = false;
 			CalculateButton.IsEnabled = false;
+
+			IsBusy = true;
+			StatusMessage = "Loading projects...";
+
 			try
 			{
 				await using (IConnectionApiClient conClient = await CreateClientAsync())
 				{
+
+					int index = 1;
+
 					foreach (var file in projectFiles)
 					{
+						StatusMessage = $"Loading {index}/{projectFiles.Count}: {file.FileName}";
+						index++;
+
 						try
 						{
 							_logger.Information("Opening project: {ProjectFile}", file.FilePath);
@@ -390,10 +408,19 @@ namespace CalculationBulkTool
 
 							await conClient.Project.CloseProjectAsync(project.ProjectId);
 							_logger.Information("Closed project {Project}", file.FileName);
+
+							StatusMessage = "Projects loaded successfully.";
 						}
 						catch (Exception ex)
 						{
+							StatusMessage = "Failed to load projects.";
 							_logger.Error(ex, "Error loading connections for project {ProjectFile}", file.FilePath);
+						}
+						finally
+						{
+							IsBusy = false;
+							LoadItemsButton.IsEnabled = true;
+							CalculateButton.IsEnabled = true;
 						}
 					}
 				}
@@ -494,5 +521,34 @@ namespace CalculationBulkTool
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
+	}
+
+	public partial class MainWindow : Window, INotifyPropertyChanged
+	{
+		private string _statusMessage = "";
+		public string StatusMessage
+		{
+			get => _statusMessage;
+			set
+			{
+				_statusMessage = value;
+				OnPropertyChanged(nameof(StatusMessage));
+			}
+		}
+
+		private bool _isBusy;
+		public bool IsBusy
+		{
+			get => _isBusy;
+			set
+			{
+				_isBusy = value;
+				OnPropertyChanged(nameof(IsBusy));
+			}
+		}
+
+		public event PropertyChangedEventHandler? PropertyChanged;
+		protected void OnPropertyChanged(string name)
+			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 	}
 }
