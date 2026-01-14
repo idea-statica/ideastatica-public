@@ -4,17 +4,17 @@
 |--------|-------------|
 | [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project |
 | [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project |
-| [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Add material to the project |
-| [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Add material to the project |
-| [**AddMaterialSteelAsync**](MaterialApi.md#addmaterialsteelasync) | Add material to the project |
-| [**AddMaterialWeldAsync**](MaterialApi.md#addmaterialweldasync) | Add material to the project |
-| [**GetAllMaterialsAsync**](MaterialApi.md#getallmaterialsasync) | Get materials which are used in the project projectId |
-| [**GetBoltAssembliesAsync**](MaterialApi.md#getboltassembliesasync) | Get bolt assemblies which are used in the project projectId |
-| [**GetBoltGradeMaterialsAsync**](MaterialApi.md#getboltgradematerialsasync) | Get materials which are used in the project projectId |
-| [**GetConcreteMaterialsAsync**](MaterialApi.md#getconcretematerialsasync) | Get materials which are used in the project projectId |
-| [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Get cross sections which are used in the project projectId |
-| [**GetSteelMaterialsAsync**](MaterialApi.md#getsteelmaterialsasync) | Get materials which are used in the project projectId |
-| [**GetWeldingMaterialsAsync**](MaterialApi.md#getweldingmaterialsasync) | Get materials which are used in the project projectId |
+| [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Adds a material to the project. |
+| [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Adds a material to the project. |
+| [**AddMaterialSteelAsync**](MaterialApi.md#addmaterialsteelasync) | Adds a material to the project. |
+| [**AddMaterialWeldAsync**](MaterialApi.md#addmaterialweldasync) | Adds a material to the project. |
+| [**GetAllMaterialsAsync**](MaterialApi.md#getallmaterialsasync) | Gets materials used in the specified project. |
+| [**GetBoltAssembliesAsync**](MaterialApi.md#getboltassembliesasync) | Gets bolt assemblies used in the specified project. |
+| [**GetBoltGradeMaterialsAsync**](MaterialApi.md#getboltgradematerialsasync) | Gets materials used in the specified project. |
+| [**GetConcreteMaterialsAsync**](MaterialApi.md#getconcretematerialsasync) | Gets materials used in the specified project. |
+| [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Gets cross sections used in the specified project. |
+| [**GetSteelMaterialsAsync**](MaterialApi.md#getsteelmaterialsasync) | Gets materials used in the specified project. |
+| [**GetWeldingMaterialsAsync**](MaterialApi.md#getweldingmaterialsasync) | Gets materials used in the specified project. |
 
 <a id="addboltassembly"></a>
 ## **AddBoltAssemblyAsync**
@@ -266,7 +266,7 @@ No authorization required
 ## **AddMaterialBoltGradeAsync**
 > **void AddMaterialBoltGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add material to the project
+Adds a material to the project.
 
 
 
@@ -274,8 +274,8 @@ Add material to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new material to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of the new material to be added to the project. | [optional]  |
 
 ### Return type
 
@@ -313,11 +313,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of the new material to be added to the project. (optional) 
 
                     try
                     {
-                        // Add material to the project
+                        // Adds a material to the project.
                         conClient.Material.AddMaterialBoltGradeAsync(projectId, conMprlElement);
                     }
                     catch (ApiException  e)
@@ -357,7 +357,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add material to the project
+    // Adds a material to the project.
     conClient.Material.AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
 }
 catch (ApiException e)
@@ -389,7 +389,7 @@ No authorization required
 ## **AddMaterialConcreteAsync**
 > **void AddMaterialConcreteAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add material to the project
+Adds a material to the project.
 
 
 
@@ -397,8 +397,8 @@ Add material to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new material to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of the new material to be added to the project. | [optional]  |
 
 ### Return type
 
@@ -436,11 +436,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of the new material to be added to the project. (optional) 
 
                     try
                     {
-                        // Add material to the project
+                        // Adds a material to the project.
                         conClient.Material.AddMaterialConcreteAsync(projectId, conMprlElement);
                     }
                     catch (ApiException  e)
@@ -480,7 +480,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add material to the project
+    // Adds a material to the project.
     conClient.Material.AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
 }
 catch (ApiException e)
@@ -512,7 +512,7 @@ No authorization required
 ## **AddMaterialSteelAsync**
 > **void AddMaterialSteelAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add material to the project
+Adds a material to the project.
 
 
 
@@ -520,8 +520,8 @@ Add material to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new material to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of the new material to be added to the project. | [optional]  |
 
 ### Return type
 
@@ -559,11 +559,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of the new material to be added to the project. (optional) 
 
                     try
                     {
-                        // Add material to the project
+                        // Adds a material to the project.
                         conClient.Material.AddMaterialSteelAsync(projectId, conMprlElement);
                     }
                     catch (ApiException  e)
@@ -603,7 +603,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add material to the project
+    // Adds a material to the project.
     conClient.Material.AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
 }
 catch (ApiException e)
@@ -635,7 +635,7 @@ No authorization required
 ## **AddMaterialWeldAsync**
 > **void AddMaterialWeldAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add material to the project
+Adds a material to the project.
 
 
 
@@ -643,8 +643,8 @@ Add material to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new material to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of the new material to be added to the project. | [optional]  |
 
 ### Return type
 
@@ -682,11 +682,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new material to be added to the project (optional) 
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of the new material to be added to the project. (optional) 
 
                     try
                     {
-                        // Add material to the project
+                        // Adds a material to the project.
                         conClient.Material.AddMaterialWeldAsync(projectId, conMprlElement);
                     }
                     catch (ApiException  e)
@@ -726,7 +726,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add material to the project
+    // Adds a material to the project.
     conClient.Material.AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
 }
 catch (ApiException e)
@@ -758,7 +758,7 @@ No authorization required
 ## **GetAllMaterialsAsync**
 > **List&lt;Object&gt; GetAllMaterialsAsync (Guid projectId)**
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 
 
@@ -766,7 +766,7 @@ Get materials which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -807,7 +807,7 @@ namespace Example
 
                     try
                     {
-                        // Get materials which are used in the project projectId
+                        // Gets materials used in the specified project.
                         List<Object> result = await conClient.Material.GetAllMaterialsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -848,7 +848,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get materials which are used in the project projectId
+    // Gets materials used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetAllMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -883,7 +883,7 @@ No authorization required
 ## **GetBoltAssembliesAsync**
 > **List&lt;Object&gt; GetBoltAssembliesAsync (Guid projectId)**
 
-Get bolt assemblies which are used in the project projectId
+Gets bolt assemblies used in the specified project.
 
 
 
@@ -891,7 +891,7 @@ Get bolt assemblies which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -932,7 +932,7 @@ namespace Example
 
                     try
                     {
-                        // Get bolt assemblies which are used in the project projectId
+                        // Gets bolt assemblies used in the specified project.
                         List<Object> result = await conClient.Material.GetBoltAssembliesAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -973,7 +973,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get bolt assemblies which are used in the project projectId
+    // Gets bolt assemblies used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetBoltAssembliesWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1008,7 +1008,7 @@ No authorization required
 ## **GetBoltGradeMaterialsAsync**
 > **List&lt;Object&gt; GetBoltGradeMaterialsAsync (Guid projectId)**
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 
 
@@ -1016,7 +1016,7 @@ Get materials which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -1057,7 +1057,7 @@ namespace Example
 
                     try
                     {
-                        // Get materials which are used in the project projectId
+                        // Gets materials used in the specified project.
                         List<Object> result = await conClient.Material.GetBoltGradeMaterialsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -1098,7 +1098,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get materials which are used in the project projectId
+    // Gets materials used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetBoltGradeMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1133,7 +1133,7 @@ No authorization required
 ## **GetConcreteMaterialsAsync**
 > **List&lt;Object&gt; GetConcreteMaterialsAsync (Guid projectId)**
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 
 
@@ -1141,7 +1141,7 @@ Get materials which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -1182,7 +1182,7 @@ namespace Example
 
                     try
                     {
-                        // Get materials which are used in the project projectId
+                        // Gets materials used in the specified project.
                         List<Object> result = await conClient.Material.GetConcreteMaterialsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -1223,7 +1223,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get materials which are used in the project projectId
+    // Gets materials used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetConcreteMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1258,7 +1258,7 @@ No authorization required
 ## **GetCrossSectionsAsync**
 > **List&lt;Object&gt; GetCrossSectionsAsync (Guid projectId)**
 
-Get cross sections which are used in the project projectId
+Gets cross sections used in the specified project.
 
 
 
@@ -1266,7 +1266,7 @@ Get cross sections which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -1307,7 +1307,7 @@ namespace Example
 
                     try
                     {
-                        // Get cross sections which are used in the project projectId
+                        // Gets cross sections used in the specified project.
                         List<Object> result = await conClient.Material.GetCrossSectionsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -1348,7 +1348,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get cross sections which are used in the project projectId
+    // Gets cross sections used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetCrossSectionsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1383,7 +1383,7 @@ No authorization required
 ## **GetSteelMaterialsAsync**
 > **List&lt;Object&gt; GetSteelMaterialsAsync (Guid projectId)**
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 
 
@@ -1391,7 +1391,7 @@ Get materials which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -1432,7 +1432,7 @@ namespace Example
 
                     try
                     {
-                        // Get materials which are used in the project projectId
+                        // Gets materials used in the specified project.
                         List<Object> result = await conClient.Material.GetSteelMaterialsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -1473,7 +1473,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get materials which are used in the project projectId
+    // Gets materials used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetSteelMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1508,7 +1508,7 @@ No authorization required
 ## **GetWeldingMaterialsAsync**
 > **List&lt;Object&gt; GetWeldingMaterialsAsync (Guid projectId)**
 
-Get materials which are used in the project projectId
+Gets materials used in the specified project.
 
 
 
@@ -1516,7 +1516,7 @@ Get materials which are used in the project projectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 
 ### Return type
 
@@ -1557,7 +1557,7 @@ namespace Example
 
                     try
                     {
-                        // Get materials which are used in the project projectId
+                        // Gets materials used in the specified project.
                         List<Object> result = await conClient.Material.GetWeldingMaterialsAsync(projectId);
                         Debug.WriteLine(result);
                     }
@@ -1598,7 +1598,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get materials which are used in the project projectId
+    // Gets materials used in the specified project.
     ApiResponse<List<Object>> response = conClient.Material.GetWeldingMaterialsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

@@ -310,8 +310,8 @@ class OperationApi:
     @validate_call
     def get_common_operation_properties(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -325,12 +325,12 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConOperationCommonProperties:
-        """Get common operation properties
+        """Gets common operation properties.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -380,8 +380,8 @@ class OperationApi:
     @validate_call
     def get_common_operation_properties_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -395,12 +395,12 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConOperationCommonProperties]:
-        """Get common operation properties
+        """Gets common operation properties.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -450,8 +450,8 @@ class OperationApi:
     @validate_call
     def get_common_operation_properties_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -465,12 +465,12 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get common operation properties
+        """Gets common operation properties.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -582,8 +582,8 @@ class OperationApi:
     @validate_call
     def get_operations(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the requested connection")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the requested connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -597,12 +597,12 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ConOperation]:
-        """Get the list of operations for the connection
+        """Gets the list of operations for the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the requested connection (required)
+        :param connection_id: The ID of the requested connection. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -652,8 +652,8 @@ class OperationApi:
     @validate_call
     def get_operations_with_http_info(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the requested connection")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the requested connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -667,12 +667,12 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ConOperation]]:
-        """Get the list of operations for the connection
+        """Gets the list of operations for the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the requested connection (required)
+        :param connection_id: The ID of the requested connection. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -722,8 +722,8 @@ class OperationApi:
     @validate_call
     def get_operations_without_preload_content(
         self,
-        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service")],
-        connection_id: Annotated[StrictInt, Field(description="Id of the requested connection")],
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the requested connection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -737,12 +737,12 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the list of operations for the connection
+        """Gets the list of operations for the connection.
 
 
-        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service (required)
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param connection_id: Id of the requested connection (required)
+        :param connection_id: The ID of the requested connection. (required)
         :type connection_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -854,9 +854,9 @@ class OperationApi:
     @validate_call
     def pre_design_welds(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        design_type: Optional[ConWeldSizingMethodEnum] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        design_type: Annotated[Optional[ConWeldSizingMethodEnum], Field(description="The weld sizing method to apply (default is FullStrength).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -870,14 +870,14 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Predesign welds
+        """Pre-designs welds in the connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param design_type: 
+        :param design_type: The weld sizing method to apply (default is FullStrength).
         :type design_type: ConWeldSizingMethodEnum
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -928,9 +928,9 @@ class OperationApi:
     @validate_call
     def pre_design_welds_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        design_type: Optional[ConWeldSizingMethodEnum] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        design_type: Annotated[Optional[ConWeldSizingMethodEnum], Field(description="The weld sizing method to apply (default is FullStrength).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -944,14 +944,14 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Predesign welds
+        """Pre-designs welds in the connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param design_type: 
+        :param design_type: The weld sizing method to apply (default is FullStrength).
         :type design_type: ConWeldSizingMethodEnum
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1002,9 +1002,9 @@ class OperationApi:
     @validate_call
     def pre_design_welds_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        design_type: Optional[ConWeldSizingMethodEnum] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        design_type: Annotated[Optional[ConWeldSizingMethodEnum], Field(description="The weld sizing method to apply (default is FullStrength).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1018,14 +1018,14 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Predesign welds
+        """Pre-designs welds in the connection.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param design_type: 
+        :param design_type: The weld sizing method to apply (default is FullStrength).
         :type design_type: ConWeldSizingMethodEnum
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1143,9 +1143,9 @@ class OperationApi:
     @validate_call
     def update_common_operation_properties(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Specify id of material, or keep as null")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Common properties to apply (specify material IDs, or keep as null).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1159,14 +1159,14 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Update common properties for all operations
+        """Updates common properties for all operations.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param con_operation_common_properties: Specify id of material, or keep as null
+        :param con_operation_common_properties: Common properties to apply (specify material IDs, or keep as null).
         :type con_operation_common_properties: ConOperationCommonProperties
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1217,9 +1217,9 @@ class OperationApi:
     @validate_call
     def update_common_operation_properties_with_http_info(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Specify id of material, or keep as null")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Common properties to apply (specify material IDs, or keep as null).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1233,14 +1233,14 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Update common properties for all operations
+        """Updates common properties for all operations.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param con_operation_common_properties: Specify id of material, or keep as null
+        :param con_operation_common_properties: Common properties to apply (specify material IDs, or keep as null).
         :type con_operation_common_properties: ConOperationCommonProperties
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1291,9 +1291,9 @@ class OperationApi:
     @validate_call
     def update_common_operation_properties_without_preload_content(
         self,
-        project_id: StrictStr,
-        connection_id: StrictInt,
-        con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Specify id of material, or keep as null")] = None,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project.")],
+        connection_id: Annotated[StrictInt, Field(description="The ID of the connection.")],
+        con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Common properties to apply (specify material IDs, or keep as null).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1307,14 +1307,14 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update common properties for all operations
+        """Updates common properties for all operations.
 
 
-        :param project_id:  (required)
+        :param project_id: The unique identifier of the opened project. (required)
         :type project_id: str
-        :param connection_id:  (required)
+        :param connection_id: The ID of the connection. (required)
         :type connection_id: int
-        :param con_operation_common_properties: Specify id of material, or keep as null
+        :param con_operation_common_properties: Common properties to apply (specify material IDs, or keep as null).
         :type con_operation_common_properties: ConOperationCommonProperties
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

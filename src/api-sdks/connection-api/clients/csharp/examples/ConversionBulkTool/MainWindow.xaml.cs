@@ -76,11 +76,12 @@ namespace IdeaConWpfApp
 		public static CountryCode GetCountryCode(string selectedCode) => selectedCode switch
 		{
 			"AISC (America)" => CountryCode.American,
-			"IS800 (India)" => CountryCode.India,
+			"IS (India)" => CountryCode.India,
 			"CSA (Canada)" => CountryCode.Canada,
 			"AS (Australia)" => CountryCode.Australia,
 			"GB (China)" => CountryCode.CHN,
-			"HKG (Honk Kong)" => CountryCode.HKG,
+			"HKG (Hong Kong)" => CountryCode.HKG,
+			"SP (Russia)" => CountryCode.RUS,
 			_ => throw new NotImplementedException($"Selected code not implemented {selectedCode}")
 		};
 
@@ -149,7 +150,7 @@ namespace IdeaConWpfApp
 
 							await conClient.Project.CloseProjectAsync(conClient.ActiveProjectId);
 						}
-						catch (Exception ex)
+						catch (Exception)
 						{
 							project.IsFailed = true;      // ❌ mark failure
 							Dispatcher.Invoke(() => MessageLabel.Text = $"Failed: {project.FilePath}");

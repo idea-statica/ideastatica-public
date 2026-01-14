@@ -53,7 +53,7 @@ class ClientApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        """Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -115,7 +115,7 @@ class ClientApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        """Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -177,7 +177,7 @@ class ClientApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+        """Connects a client to the ConnectionRestApi service and returns a unique identifier for the client.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -296,7 +296,7 @@ class ClientApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Get the IdeaStatica version
+        """Gets the IdeaStatica API assembly version.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -358,7 +358,7 @@ class ClientApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Get the IdeaStatica version
+        """Gets the IdeaStatica API assembly version.
 
 
         :param _request_timeout: timeout setting for this request. If one
@@ -420,7 +420,7 @@ class ClientApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get the IdeaStatica version
+        """Gets the IdeaStatica API assembly version.
 
 
         :param _request_timeout: timeout setting for this request. If one

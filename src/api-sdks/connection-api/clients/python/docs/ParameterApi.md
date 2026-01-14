@@ -5,9 +5,9 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**delete_parameters**](ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
-[**evaluate_expression**](ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result
-[**get_parameters**](ParameterApi.md#get_parameters) | Get all parameters which are defined for projectId and connectionId
-[**update**](ParameterApi.md#update) | Update parameters for the connection connectionId in the project projectId by values passed in parameters
+[**evaluate_expression**](ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
+[**get_parameters**](ParameterApi.md#get_parameters) | Gets all parameters defined for the specified project and connection.
+[**update**](ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
 
 
 <a id="delete_parameters"></a>
@@ -88,16 +88,16 @@ No authorization required
 # **evaluate_expression**
 > str evaluate_expression(project_id, connection_id, body=body)
 
-Evaluate the expression and return the result
+Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to use for evaluation expression | 
- **body** | **str**| Expression to evaluate | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| Id of the connection to use for evaluation expression. | 
+ **body** | **str**| Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html | [optional] 
 
 ### Return type
 
@@ -118,12 +118,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def evaluate_expressionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to use for evaluation expression
-    body = 'body_example' # str | Expression to evaluate (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | Id of the connection to use for evaluation expression.
+    body = 'body_example' # str | Expression to evaluate. See the API documentation for supported syntax and examples: https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html (optional)
 
     try:
-        # Evaluate the expression and return the result
+        # Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
         api_response = api_client.parameter.evaluate_expression(project_id, connection_id, body=body)
         print("The response of ParameterApi->evaluate_expression:\n")
         pprint(api_response)
@@ -167,16 +167,16 @@ No authorization required
 # **get_parameters**
 > List[IdeaParameter] get_parameters(project_id, connection_id, include_hidden=include_hidden)
 
-Get all parameters which are defined for projectId and connectionId
+Gets all parameters defined for the specified project and connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get its parameters | 
- **include_hidden** | **bool**| Include also hidden parameters | [optional] [default to False]
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection from which to retrieve parameters. | 
+ **include_hidden** | **bool**| If true, includes hidden parameters in the result. | [optional] [default to False]
 
 ### Return type
 
@@ -198,12 +198,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_parametersExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to get its parameters
-    include_hidden = False # bool | Include also hidden parameters (optional) (default to False)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection from which to retrieve parameters.
+    include_hidden = False # bool | If true, includes hidden parameters in the result. (optional) (default to False)
 
     try:
-        # Get all parameters which are defined for projectId and connectionId
+        # Gets all parameters defined for the specified project and connection.
         api_response = api_client.parameter.get_parameters(project_id, connection_id, include_hidden=include_hidden)
         print("The response of ParameterApi->get_parameters:\n")
         pprint(api_response)
@@ -247,16 +247,16 @@ No authorization required
 # **update**
 > ParameterUpdateResponse update(project_id, connection_id, idea_parameter_update=idea_parameter_update)
 
-Update parameters for the connection connectionId in the project projectId by values passed in parameters
+Updates parameters for the specified connection in the project with the values provided.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to apply template | 
- **idea_parameter_update** | [**List[IdeaParameterUpdate]**](IdeaParameterUpdate.md)| New values of parameters | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to update. | 
+ **idea_parameter_update** | [**List[IdeaParameterUpdate]**](IdeaParameterUpdate.md)| New values of parameters to apply. | [optional] 
 
 ### Return type
 
@@ -279,12 +279,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def updateExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to apply template
-    idea_parameter_update = [ideastatica_connection_api.IdeaParameterUpdate()] # List[IdeaParameterUpdate] | New values of parameters (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to update.
+    idea_parameter_update = [ideastatica_connection_api.IdeaParameterUpdate()] # List[IdeaParameterUpdate] | New values of parameters to apply. (optional)
 
     try:
-        # Update parameters for the connection connectionId in the project projectId by values passed in parameters
+        # Updates parameters for the specified connection in the project with the values provided.
         api_response = api_client.parameter.update(project_id, connection_id, idea_parameter_update=idea_parameter_update)
         print("The response of ParameterApi->update:\n")
         pprint(api_response)

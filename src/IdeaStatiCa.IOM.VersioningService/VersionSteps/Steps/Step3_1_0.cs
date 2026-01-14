@@ -3,6 +3,7 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -26,26 +27,18 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
-			ISIntermediate element = openModel.GetElements("CrossSection").FirstOrDefault();
-			if(element != null)
+			List<ISIntermediate> csss = openModel.GetElements("CrossSection;CrossSection")?.ToList();
+			if (csss != null)
 			{
-				// take will remove the element from the parent
-				SList crossSectionList = element.TryTakeElementProperty("CrossSection") as SList;
-				if(crossSectionList != null)
+				foreach (SObject css in csss.OfType<SObject>())
 				{
-					foreach (var el in crossSectionList.GetElements("CrossSection").ToList())
+					string cssType = css.GetElementValue("xsi:type");
+					if (cssType == null || cssType != "GeneralCrossSection")
 					{
-						string cssType = el.GetElementValue("xsi:type");
-						if (cssType != null && cssType == "GeneralCrossSection")
-						{
-							crossSectionList.RemoveElementProperty(el);
-
-							// TODO: we can add cross-section as CrossSectionParameter with UniqueName (of the original css) only
-							// since downgrade is not used anywhere, we leave it like this for now
-						}
+						continue;
 					}
-					// add back the modified list
-					element.AddElementProperty(crossSectionList);
+
+					ProcessCrossSection(css);
 				}
 			}
 		}
@@ -53,6 +46,40 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		public override void DoUpStep(SModel _model)
 		{
 			// No action needed in UpStep
+		}
+
+		private static void ProcessCrossSection(SObject css)
+		{
+			SObject cssNew = new SObject();
+
+			cssNew.AddElementProperty(new SAttribute()
+			{
+				Prefix = "xsi",
+				LocalName = "type",
+				Value = "GeneralCrossSection",
+			});
+			cssNew.CreateElementProperty("Id", css.GetElementValue("Id"));
+			cssNew.CreateElementProperty("Name", css.GetElementValue("Name"));
+			cssNew.CreateElementProperty("IsInPrincipal", css.GetElementValue("IsInPrincipal"));
+			cssNew.CreateElementProperty("CrossSectionType", "UniqueName");
+
+			SList parameters = cssNew.CreateListProperty("Parameters");
+			SObject paramUniqueName = new SObject()
+			{
+				TypeName = "Parameter"
+			};
+			parameters.AddElementProperty(paramUniqueName);
+
+			paramUniqueName.AddElementProperty(new SAttribute()
+			{
+				Prefix = "xsi",
+				LocalName = "type",
+				Value = "ParameterString",
+			});
+			paramUniqueName.CreateElementProperty("Name", "UniqueName");
+			paramUniqueName.CreateElementProperty("Value", css.GetElementValue("Name"));
+
+			css.Properties = cssNew.Properties;
 		}
 	}
 }

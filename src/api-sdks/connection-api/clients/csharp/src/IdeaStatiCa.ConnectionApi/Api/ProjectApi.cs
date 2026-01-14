@@ -34,49 +34,49 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service.
+        /// Closes the project and releases resources in the service.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         string CloseProject(Guid projectId, int operationIndex = 0);
 
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service.
+        /// Closes the project and releases resources in the service.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> CloseProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void DownloadProject(Guid projectId, int operationIndex = 0);
 
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DownloadProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -84,7 +84,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         List<ConProject> GetActiveProjects(int operationIndex = 0);
 
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
         /// </summary>
         /// <remarks>
         /// 
@@ -139,22 +139,22 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConProject</returns>
         ApiResponse<ConProject> ImportIOMWithHttpInfo(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Open ideacon project from ideaConFile
+        /// Opens an IdeaCon project from the provided file.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
         ConProject OpenProject(System.IO.Stream ideaConFile = default(System.IO.Stream), int operationIndex = 0);
 
         /// <summary>
-        /// Open ideacon project from ideaConFile
+        /// Opens an IdeaCon project from the provided file.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
@@ -215,59 +215,59 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service.
+        /// Closes the project and releases resources in the service.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
         System.Threading.Tasks.Task<string> CloseProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service.
+        /// Closes the project and releases resources in the service.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> CloseProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task DownloadProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DownloadProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
         /// </summary>
         /// <remarks>
         /// 
@@ -279,7 +279,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<List<ConProject>> GetActiveProjectsAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
         /// </summary>
         /// <remarks>
         /// 
@@ -345,26 +345,26 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConProject)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConProject>> ImportIOMWithHttpInfoAsync(System.IO.Stream containerXmlFile = default(System.IO.Stream), List<int> connectionsToCreate = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Open ideacon project from ideaConFile
+        /// Opens an IdeaCon project from the provided file.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
         System.Threading.Tasks.Task<ConProject> OpenProjectAsync(System.IO.Stream ideaConFile = default(System.IO.Stream), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Open ideacon project from ideaConFile
+        /// Opens an IdeaCon project from the provided file.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -547,10 +547,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service. 
+        /// Closes the project and releases resources in the service. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
         public string CloseProject(Guid projectId, int operationIndex = 0)
@@ -560,10 +560,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service. 
+        /// Closes the project and releases resources in the service. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
@@ -617,10 +617,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service. 
+        /// Closes the project and releases resources in the service. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
@@ -631,10 +631,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Close the project. Needed for releasing resources in the service. 
+        /// Closes the project and releases resources in the service. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the project to be closed</param>
+        /// <param name="projectId">The unique identifier of the project to be closed.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -691,10 +691,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. 
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void DownloadProject(Guid projectId, int operationIndex = 0)
@@ -703,10 +703,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. 
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -759,10 +759,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. 
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -772,10 +772,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls. 
+        /// Downloads the current IdeaCon project from the service, including all changes made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -831,7 +831,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient 
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -843,7 +843,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient 
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
                 /// <param name="requestedType">Requested content type in the response.</param>
@@ -898,7 +898,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient 
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -911,7 +911,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get the list of projects in the service which were opened by the client which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient 
+        /// Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="requestedType">Requested content type in the response.</param>
@@ -1301,10 +1301,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Open ideacon project from ideaConFile 
+        /// Opens an IdeaCon project from the provided file. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
         public ConProject OpenProject(System.IO.Stream ideaConFile = default(System.IO.Stream), int operationIndex = 0)
@@ -1314,10 +1314,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Open ideacon project from ideaConFile 
+        /// Opens an IdeaCon project from the provided file. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
@@ -1375,10 +1375,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Open ideacon project from ideaConFile 
+        /// Opens an IdeaCon project from the provided file. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
@@ -1389,10 +1389,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Open ideacon project from ideaConFile 
+        /// Opens an IdeaCon project from the provided file. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ideaConFile">Ideacon file (optional)</param>
+        /// <param name="ideaConFile">The IdeaCon file to open. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

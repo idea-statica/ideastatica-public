@@ -4,27 +4,27 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**delete_connection**](ConnectionApi.md#delete_connection) | 
-[**get_connection**](ConnectionApi.md#get_connection) | Get data about a specific connection in the project
-[**get_connection_topology**](ConnectionApi.md#get_connection_topology) | Get topology of the connection in json format
-[**get_connections**](ConnectionApi.md#get_connections) | Get data about all connections in the project
-[**get_production_cost**](ConnectionApi.md#get_production_cost) | Get production cost of the connection
-[**update_connection**](ConnectionApi.md#update_connection) | Update data of a specific connection in the project
+[**delete_connection**](ConnectionApi.md#delete_connection) | Deletes a specific connection from the project.
+[**get_connection**](ConnectionApi.md#get_connection) | Gets data about a specific connection in the project.
+[**get_connection_topology**](ConnectionApi.md#get_connection_topology) | Gets the topology of the connection in JSON format.
+[**get_connections**](ConnectionApi.md#get_connections) | Gets data about all connections in the project.
+[**get_production_cost**](ConnectionApi.md#get_production_cost) | Gets the production cost of the connection.
+[**update_connection**](ConnectionApi.md#update_connection) | Updates data of a specific connection in the project.
 
 
 <a id="delete_connection"></a>
 # **delete_connection**
 > List[ConConnection] delete_connection(project_id, connection_id)
 
-
+Deletes a specific connection from the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to delete. | 
 
 ### Return type
 
@@ -46,10 +46,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def delete_connectionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to delete.
 
     try:
+        # Deletes a specific connection from the project.
         api_response = api_client.connection.delete_connection(project_id, connection_id)
         print("The response of ConnectionApi->delete_connection:\n")
         pprint(api_response)
@@ -93,15 +94,15 @@ No authorization required
 # **get_connection**
 > ConConnection get_connection(project_id, connection_id)
 
-Get data about a specific connection in the project
+Gets data about a specific connection in the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| The id of the requested connection | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the requested connection. | 
 
 ### Return type
 
@@ -123,11 +124,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_connectionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | The id of the requested connection
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the requested connection.
 
     try:
-        # Get data about a specific connection in the project
+        # Gets data about a specific connection in the project.
         api_response = api_client.connection.get_connection(project_id, connection_id)
         print("The response of ConnectionApi->get_connection:\n")
         pprint(api_response)
@@ -171,15 +172,15 @@ No authorization required
 # **get_connection_topology**
 > str get_connection_topology(project_id, connection_id)
 
-Get topology of the connection in json format
+Gets the topology of the connection in JSON format.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection where to clear the design | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection for which to retrieve the topology. | 
 
 ### Return type
 
@@ -200,11 +201,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_connection_topologyExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection where to clear the design
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection for which to retrieve the topology.
 
     try:
-        # Get topology of the connection in json format
+        # Gets the topology of the connection in JSON format.
         api_response = api_client.connection.get_connection_topology(project_id, connection_id)
         print("The response of ConnectionApi->get_connection_topology:\n")
         pprint(api_response)
@@ -248,14 +249,14 @@ No authorization required
 # **get_connections**
 > List[ConConnection] get_connections(project_id)
 
-Get data about all connections in the project
+Gets data about all connections in the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
 
 ### Return type
 
@@ -277,10 +278,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_connectionsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Get data about all connections in the project
+        # Gets data about all connections in the project.
         api_response = api_client.connection.get_connections(project_id)
         print("The response of ConnectionApi->get_connections:\n")
         pprint(api_response)
@@ -324,15 +325,15 @@ No authorization required
 # **get_production_cost**
 > ConProductionCost get_production_cost(project_id, connection_id)
 
-Get production cost of the connection
+Gets the production cost of the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the requested connection | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the requested connection. | 
 
 ### Return type
 
@@ -354,11 +355,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_production_costExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the requested connection
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the requested connection.
 
     try:
-        # Get production cost of the connection
+        # Gets the production cost of the connection.
         api_response = api_client.connection.get_production_cost(project_id, connection_id)
         print("The response of ConnectionApi->get_production_cost:\n")
         pprint(api_response)
@@ -402,16 +403,16 @@ No authorization required
 # **update_connection**
 > ConConnection update_connection(project_id, connection_id, con_connection=con_connection)
 
-Update data of a specific connection in the project
+Updates data of a specific connection in the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be update | 
- **con_connection** | [**ConConnection**](ConConnection.md)| New connection data to be set | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to be updated. | 
+ **con_connection** | [**ConConnection**](ConConnection.md)| New connection data to be applied. | [optional] 
 
 ### Return type
 
@@ -433,12 +434,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_connectionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to be update
-    con_connection = ideastatica_connection_api.ConConnection() # ConConnection | New connection data to be set (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to be updated.
+    con_connection = ideastatica_connection_api.ConConnection() # ConConnection | New connection data to be applied. (optional)
 
     try:
-        # Update data of a specific connection in the project
+        # Updates data of a specific connection in the project.
         api_response = api_client.connection.update_connection(project_id, connection_id, con_connection=con_connection)
         print("The response of ConnectionApi->update_connection:\n")
         pprint(api_response)

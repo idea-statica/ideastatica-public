@@ -14,5 +14,11 @@ namespace IdeaStatiCa.Api.Connection.Model
 		}
 
 		public bool IsImported { get; set; }
+
+
+		/// <summary>
+		/// Type of the manufacturing operation
+		/// </summary>
+		public string OperationType { get; set; }
 	}
 }

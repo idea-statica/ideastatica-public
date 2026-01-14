@@ -43,7 +43,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 
 		public static string GetElementName(this SAttribute sAttribute)
 		{
-			throw new NotImplementedException();
+			if (string.IsNullOrEmpty(sAttribute.Prefix))
+			{
+				return sAttribute.LocalName;
+			}
+
+			return sAttribute.Prefix + ":" + sAttribute.LocalName;
 		}
 
 		public static ISIntermediate TakeElementProperty(this SAttribute sAttribute, string filter)
