@@ -26,7 +26,23 @@ namespace IdeaRS.OpenModel.Parameters
 		/// <summary>
 		/// Hook
 		/// </summary>
-		Hook
+		Hook,
+
+		/// <summary>
+		/// Headed stud
+		/// </summary>
+		HeadedStud,
+
+		/// <summary>
+		/// Reinforcement
+		/// </summary>
+		Reinforcement,
+
+
+		/// <summary>
+		/// General anchor
+		/// </summary>
+		GeneralAnchor
 	}
 
 	/// <summary>
