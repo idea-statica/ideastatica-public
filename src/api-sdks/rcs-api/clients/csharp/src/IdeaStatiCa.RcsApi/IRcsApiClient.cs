@@ -41,5 +41,10 @@ namespace IdeaStatiCa.RcsApi
 		/// Get Section API
 		/// </summary>
 		ISectionApiAsync Section { get; }
+
+		/// <summary>
+		/// Get Materials API
+		/// </summary>
+		IMaterialApiAsync Material { get; }
 	}
 }

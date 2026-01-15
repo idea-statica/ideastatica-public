@@ -15,13 +15,15 @@
 """  # noqa: E501
 
 
-__version__ = "25.1.3.1326"
+__version__ = "25.1.3.0859"
 
 # import apis into sdk package
 from ideastatica_rcs_api.api.calculation_api import CalculationApi
+from ideastatica_rcs_api.api.client_api import ClientApi
 from ideastatica_rcs_api.api.cross_section_api import CrossSectionApi
 from ideastatica_rcs_api.api.design_member_api import DesignMemberApi
 from ideastatica_rcs_api.api.internal_forces_api import InternalForcesApi
+from ideastatica_rcs_api.api.material_api import MaterialApi
 from ideastatica_rcs_api.api.project_api import ProjectApi
 from ideastatica_rcs_api.api.section_api import SectionApi
 
@@ -45,15 +47,26 @@ from ideastatica_rcs_api.models.concrete_check_result_base import ConcreteCheckR
 from ideastatica_rcs_api.models.concrete_check_result_overall import ConcreteCheckResultOverall
 from ideastatica_rcs_api.models.concrete_check_result_overall_item import ConcreteCheckResultOverallItem
 from ideastatica_rcs_api.models.concrete_check_results import ConcreteCheckResults
+from ideastatica_rcs_api.models.fatigue_type_of_prestressing_steel import FatigueTypeOfPrestressingSteel
 from ideastatica_rcs_api.models.loading import Loading
 from ideastatica_rcs_api.models.loading_type import LoadingType
+from ideastatica_rcs_api.models.material_duct import MaterialDuct
 from ideastatica_rcs_api.models.non_conformity import NonConformity
 from ideastatica_rcs_api.models.non_conformity_issue import NonConformityIssue
 from ideastatica_rcs_api.models.non_conformity_severity import NonConformitySeverity
+from ideastatica_rcs_api.models.open_element_id import OpenElementId
+from ideastatica_rcs_api.models.point2_d import Point2D
+from ideastatica_rcs_api.models.poly_line2_d import PolyLine2D
 from ideastatica_rcs_api.models.rcs_calculation_parameters import RcsCalculationParameters
 from ideastatica_rcs_api.models.rcs_check_member import RcsCheckMember
+from ideastatica_rcs_api.models.rcs_cross_section_data import RcsCrossSectionData
+from ideastatica_rcs_api.models.rcs_css_component_data import RcsCssComponentData
+from ideastatica_rcs_api.models.rcs_material import RcsMaterial
+from ideastatica_rcs_api.models.rcs_material_type import RcsMaterialType
+from ideastatica_rcs_api.models.rcs_mprl_element import RcsMprlElement
 from ideastatica_rcs_api.models.rcs_project import RcsProject
 from ideastatica_rcs_api.models.rcs_project_data import RcsProjectData
+from ideastatica_rcs_api.models.rcs_reinforced_bar_data import RcsReinforcedBarData
 from ideastatica_rcs_api.models.rcs_reinforced_cross_section import RcsReinforcedCrossSection
 from ideastatica_rcs_api.models.rcs_reinforced_cross_section_import_data import RcsReinforcedCrossSectionImportData
 from ideastatica_rcs_api.models.rcs_reinforced_crosss_section_import_setting import RcsReinforcedCrosssSectionImportSetting
@@ -63,7 +76,20 @@ from ideastatica_rcs_api.models.rcs_section_loading import RcsSectionLoading
 from ideastatica_rcs_api.models.rcs_section_result_detailed import RcsSectionResultDetailed
 from ideastatica_rcs_api.models.rcs_section_result_overview import RcsSectionResultOverview
 from ideastatica_rcs_api.models.rcs_setting import RcsSetting
+from ideastatica_rcs_api.models.rcs_stirrups_data import RcsStirrupsData
+from ideastatica_rcs_api.models.rcs_tendon_bar_data import RcsTendonBarData
+from ideastatica_rcs_api.models.rcs_tendon_duct_data import RcsTendonDuctData
+from ideastatica_rcs_api.models.reference_element import ReferenceElement
+from ideastatica_rcs_api.models.region2_d import Region2D
+from ideastatica_rcs_api.models.reinforced_bar import ReinforcedBar
+from ideastatica_rcs_api.models.reinforced_cross_section import ReinforcedCrossSection
+from ideastatica_rcs_api.models.reinforced_cross_section_data import ReinforcedCrossSectionData
 from ideastatica_rcs_api.models.result_of_internal_forces import ResultOfInternalForces
 from ideastatica_rcs_api.models.result_of_loading import ResultOfLoading
 from ideastatica_rcs_api.models.result_of_loading_item import ResultOfLoadingItem
 from ideastatica_rcs_api.models.section_concrete_check_result import SectionConcreteCheckResult
+from ideastatica_rcs_api.models.segment2_d import Segment2D
+from ideastatica_rcs_api.models.stirrup import Stirrup
+from ideastatica_rcs_api.models.tendon_bar import TendonBar
+from ideastatica_rcs_api.models.tendon_bar_type import TendonBarType
+from ideastatica_rcs_api.models.tendon_duct import TendonDuct

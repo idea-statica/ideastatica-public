@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.RCS;
 using IdeaStatiCa.Api.RCS.Model;
@@ -35,6 +36,8 @@ namespace IdeaStatiCa.RcsClient.Client
 
 		/// <inheritdoc cref="IRcsApiController.ActiveProjectId"/>
 		public Guid ActiveProjectId { get => activeProjectId; }
+
+		#region Project Management
 
 		/// <inheritdoc cref="IRcsApiController.OpenProjectAsync(string, CancellationToken)"/>
 		public async Task<bool> OpenProjectAsync(string path, CancellationToken token = default)
@@ -94,6 +97,33 @@ namespace IdeaStatiCa.RcsClient.Client
 			return true;
 		}
 
+		/// <inheritdoc cref="IRcsApiController.DownloadAsync(CancellationToken) "/>
+		public async Task<Stream> DownloadProjectAsync(CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.DownloadProjectAsync projectId = {activeProjectId}");
+			var result = await httpClient.GetAsync<MemoryStream>($"{RcsRestApiConstants.Projects}/{activeProjectId}/download", token, "application/octet-stream");
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.SaveProjectAsync(string, CancellationToken)"/>
+		public async Task SaveProjectAsync(string outputPath, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.SaveProjectAsync projectId = {activeProjectId} outputPath = '{outputPath}'");
+			using (var rcsProjectStream = await DownloadProjectAsync(token))
+			{
+				rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
+				using (FileStream fileStream = File.Create(outputPath))
+				{
+					await rcsProjectStream.CopyToAsync(fileStream);
+				}
+
+			}
+		}
+
+		#endregion
+
+		#region Calculation
+
 		/// <inheritdoc cref="IRcsApiController.CalculateAsync(RcsCalculationParameters, CancellationToken) "/>
 		public async Task<List<RcsSectionResultOverview>> CalculateAsync(RcsCalculationParameters parameters, CancellationToken token = default)
 		{
@@ -110,6 +140,16 @@ namespace IdeaStatiCa.RcsClient.Client
 			}
 		}
 
+		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsResultParameters, CancellationToken)"/>
+		public async Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
+		{
+			return await httpClient.PostAsync<List<RcsSectionResultDetailed>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/get-results", parameters, token, "application/xml");
+		}
+
+		#endregion
+
+		#region Project Data
+
 		/// <inheritdoc cref="IRcsApiController.GetProjectSummaryAsync(CancellationToken) "/>
 		public async Task<RcsProjectSummary> GetProjectSummaryAsync(CancellationToken token = default)
 		{
@@ -124,20 +164,6 @@ namespace IdeaStatiCa.RcsClient.Client
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectDataAsync projectId = {activeProjectId}");
 			var res = await httpClient.GetAsync<RcsProject>($"{RcsRestApiConstants.Projects}/active-project", token);
 			return res.ProjectData;
-		}
-
-		/// <inheritdoc cref="IRcsApiController.DownloadAsync(CancellationToken) "/>
-		public async Task<Stream> DownloadProjectAsync(CancellationToken token = default)
-		{
-			pluginLogger.LogDebug($"RcsApiClient.DownloadProjectAsync projectId = {activeProjectId}");
-			var result = await httpClient.GetAsync<MemoryStream>($"{RcsRestApiConstants.Projects}/{activeProjectId}/download", token, "application/octet-stream");
-			return result;
-		}
-
-		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsResultParameters, CancellationToken)"/>
-		public async Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
-		{
-			return await httpClient.PostAsync<List<RcsSectionResultDetailed>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/get-results", parameters, token, "application/xml");
 		}
 
 		/// <inheritdoc cref="IRcsApiController.GetProjectSectionsAsync(CancellationToken)  "/>
@@ -162,37 +188,9 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 
-		/// <inheritdoc cref="IRcsApiController.UpdateSectionAsync(RcsSection, CancellationToken)"/>
-		public async Task<RcsSection> UpdateSectionAsync(RcsSection newSectionData, CancellationToken token = default)
-		{
-			pluginLogger.LogDebug($"RcsApiClient.UpdateSectionAsync projectId = {activeProjectId} sectionId = {newSectionData.Id} reinforcedSectionId = {newSectionData.RCSId}");
-			var result = await httpClient.PutAsync<RcsSection>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Sections}", newSectionData, token);
-			return result;
-		}
+		#endregion
 
-		/// <inheritdoc cref="IRcsApiController.ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting, string)"/>
-		public async Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
-		{
-			var data = new RcsReinforcedCrossSectionImportData() { Setting = importSetting, Template = reinfCssTemplate };
-			pluginLogger.LogDebug($"RcsApiClient.ImportReinforcedCrossSectionAsync projectId = {activeProjectId} reinfCssId = {importSetting?.ReinforcedCrossSectionId}");
-			var result = await httpClient.PostAsync<RcsReinforcedCrossSection>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.CrossSections}/import-reinforced-cross-section", data, token);
-			return result;
-		}
-
-		/// <inheritdoc cref="IRcsApiController.SaveProjectAsync(string, CancellationToken)"/>
-		public async Task SaveProjectAsync(string outputPath, CancellationToken token = default)
-		{
-			pluginLogger.LogDebug($"RcsApiClient.SaveProjectAsync projectId = {activeProjectId} outputPath = '{outputPath}'");
-			using (var rcsProjectStream = await DownloadProjectAsync(token))
-			{
-				rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
-				using (FileStream fileStream = File.Create(outputPath))
-				{
-					await rcsProjectStream.CopyToAsync(fileStream);
-				}
-
-			}
-		}
+		#region Settings
 
 		/// <inheritdoc cref="IRcsApiController.GetCodeSettings(CancellationToken)"/>
 		public async Task<string> GetCodeSettings(CancellationToken token = default)
@@ -208,6 +206,51 @@ namespace IdeaStatiCa.RcsClient.Client
 			return await httpClient.PutAsync<bool>($"{RcsRestApiConstants.Projects}/{activeProjectId}/code-settings", setup, token);
 		}
 
+		#endregion
+
+		#region Sections
+
+		/// <inheritdoc cref="IRcsApiController.UpdateSectionAsync(RcsSection, CancellationToken)"/>
+		public async Task<RcsSection> UpdateSectionAsync(RcsSection newSectionData, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.UpdateSectionAsync projectId = {activeProjectId} sectionId = {newSectionData.Id} reinforcedSectionId = {newSectionData.RCSId}");
+			var result = await httpClient.PutAsync<RcsSection>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Sections}", newSectionData, token);
+			return result;
+		}
+
+		#endregion
+
+		#region Cross-Sections
+
+		/// <inheritdoc cref="IRcsApiController.ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting, string, CancellationToken)"/>
+		public async Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
+		{
+			var data = new RcsReinforcedCrossSectionImportData() { Setting = importSetting, Template = reinfCssTemplate };
+			pluginLogger.LogDebug($"RcsApiClient.ImportReinforcedCrossSectionAsync projectId = {activeProjectId} reinfCssId = {importSetting?.ReinforcedCrossSectionId}");
+			var result = await httpClient.PostAsync<RcsReinforcedCrossSection>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.CrossSections}/import-reinforced-cross-section", data, token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.AddReinforcedCrossSectionAsync(ReinforcedCrossSectionData, CancellationToken)"/>
+		public async Task<RcsReinforcedCrossSection> AddReinforcedCrossSectionAsync(ReinforcedCrossSectionData reinforcedCrossSection, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.AddReinforcedCrossSectionAsync projectId = {activeProjectId}");
+			var result = await httpClient.PostAsync<RcsReinforcedCrossSection>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.CrossSections}/{RcsRestApiConstants.ReinforcedCrossSections}", reinforcedCrossSection, token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetReinforcedCrossSectionDataAsync(int, CancellationToken)"/>
+		public async Task<ReinforcedCrossSection> GetReinforcedCrossSectionDataAsync(int reinforcedCssSectionId, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.GetReinforcedCrossSectionDataAsync projectId = {activeProjectId}, reinforcedCssSectionId = {reinforcedCssSectionId}");
+			var result = await httpClient.GetAsync<ReinforcedCrossSection>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.CrossSections}/{RcsRestApiConstants.ReinforcedCrossSections}/{reinforcedCssSectionId}", token);
+			return result;
+		}
+
+		#endregion
+
+		#region Internal Forces
+
 		/// <inheritdoc cref="IRcsApiController.GetLoadingInSectionAsync(int, CancellationToken)"/>
 		public async Task<string> GetLoadingInSectionAsync(int sectionId, CancellationToken token = default)
 		{
@@ -222,6 +265,73 @@ namespace IdeaStatiCa.RcsClient.Client
 			pluginLogger.LogDebug($"RcsApiClient.SetLoadingInSectionAsync projectId = {activeProjectId} sectionId = {sectionId}");
 			var result = await httpClient.PostAsync<string>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Sections}/{sectionId}/{RcsRestApiConstants.InternalForces}", data, token, "text/plain");
 		}
+
+		#endregion
+
+		#region Materials
+
+		/// <inheritdoc cref="IRcsApiController.GetConcreteMaterialsAsync(CancellationToken)"/>
+		public async Task<List<object>> GetConcreteMaterialsAsync(CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.GetConcreteMaterialsAsync projectId = {activeProjectId}");
+			var result = await httpClient.GetAsync<List<object>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}/concrete", token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetReinforcementMaterialsAsync(CancellationToken)"/>
+		public async Task<List<object>> GetReinforcementMaterialsAsync(CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.GetReinforcementMaterialsAsync projectId = {activeProjectId}");
+			var result = await httpClient.GetAsync<List<object>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}/reinforcement", token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetPrestressMaterialsAsync(CancellationToken)"/>
+		public async Task<List<object>> GetPrestressMaterialsAsync(CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.GetPrestressMaterialsAsync projectId = {activeProjectId}");
+			var result = await httpClient.GetAsync<List<object>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}/prestress", token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetAllMaterialsAsync(CancellationToken)"/>
+		public async Task<List<object>> GetAllMaterialsAsync(CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.GetAllMaterialsAsync projectId = {activeProjectId}");
+			var result = await httpClient.GetAsync<List<object>>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}", token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.AddConcreteMaterialAsync(string, CancellationToken)"/>
+		public async Task<object> AddConcreteMaterialAsync(string mprlName, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.AddConcreteMaterialAsync projectId = {activeProjectId}, mprlName = {mprlName}");
+			var material = new RcsMprlElement { Name = mprlName };
+			var result = await httpClient.PostAsync<object>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}/concrete", material, token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.AddReinforcementMaterialAsync(string, CancellationToken)"/>
+		public async Task<object> AddReinforcementMaterialAsync(string mprlName, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.AddReinforcementMaterialAsync projectId = {activeProjectId}, mprlName = {mprlName}");
+			var material = new RcsMprlElement { Name = mprlName };
+			var result = await httpClient.PostAsync<object>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}/reinforcement", material, token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.AddPrestressMaterialAsync(string, CancellationToken)"/>
+		public async Task<object> AddPrestressMaterialAsync(string mprlName, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.AddPrestressMaterialAsync projectId = {activeProjectId}, mprlName = {mprlName}");
+			var material = new RcsMprlElement { Name = mprlName };
+			var result = await httpClient.PostAsync<object>($"{RcsRestApiConstants.Projects}/{activeProjectId}/{RcsRestApiConstants.Materials}/prestress", material, token);
+			return result;
+		}
+
+		#endregion
+
+		#region Dispose
 
 		protected virtual void Dispose(bool disposing)
 		{
@@ -241,33 +351,18 @@ namespace IdeaStatiCa.RcsClient.Client
 							}
 						}
 					}
-					//else
-					//{
-					//	try
-					//	{
-
-					//	}
-					//}
 				}
 
-				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
-				// TODO: set large fields to null
 				disposedValue = true;
 			}
 		}
 
-		// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-		// ~RcsApiClient()
-		// {
-		//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-		//     Dispose(disposing: false);
-		// }
-
 		public void Dispose()
 		{
-			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
+
+		#endregion
 	}
 }

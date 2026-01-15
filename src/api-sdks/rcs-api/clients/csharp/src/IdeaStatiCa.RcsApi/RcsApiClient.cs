@@ -32,6 +32,9 @@ namespace IdeaStatiCa.RcsApi
 		/// <inheritdoc cref="IRcsApiClient.Section"/>/
 		public ISectionApiAsync Section { get; private set; }
 
+		/// <inheritdoc cref="IRcsApiClient.Material"/>
+		public IMaterialApiAsync Material { get; private set; }
+
 
 		/// <summary>
 		/// 
@@ -70,6 +73,7 @@ namespace IdeaStatiCa.RcsApi
 			this.InternalForces = null;
 			this.Project = null;
 			this.Section = null;
+			this.Material = null;
 		}
 
 		private async Task<string> CreateClientAsync()
@@ -89,6 +93,7 @@ namespace IdeaStatiCa.RcsApi
 			this.InternalForces = new InternalForcesApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
 			this.Project = new ProjectApiExt(this, calculationApi.Client, calculationApi.AsynchronousClient, configuration);
 			this.Section = new SectionApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
+			this.Material = new MaterialApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
 
 			return await Task.FromResult(string.Empty);
 		}
