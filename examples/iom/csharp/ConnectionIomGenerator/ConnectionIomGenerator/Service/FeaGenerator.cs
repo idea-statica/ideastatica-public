@@ -228,10 +228,10 @@ namespace ConnectionIomGenerator.Service
 
 			foreach(var mem in connectionInput.Members)
 			{
-				loadImpulses.Add(new LoadImpulse() { MemberId = mem.Id, Position = 0 });
+				loadImpulses.Add(new LoadImpulse() { MemberId = mem.Id, Position = 0, N = 1 });
 				if(mem.IsContinuous)
 				{
-					loadImpulses.Add(new LoadImpulse() { MemberId = mem.Id, Position = 1 });
+					loadImpulses.Add(new LoadImpulse() { MemberId = mem.Id, Position = 1, N = 1 });
 				}
 			}
 

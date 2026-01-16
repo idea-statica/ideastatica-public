@@ -5,6 +5,7 @@ using IdeaRS.OpenModel.Model;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
 namespace ConnectionIomGenerator.Service
@@ -65,15 +66,47 @@ namespace ConnectionIomGenerator.Service
 					
 					foreach (var lc in res.OpenModel.LoadCase)
 					{
-						resOnMembers.Loading = new IdeaRS.OpenModel.Result.Loading(IdeaRS.OpenModel.Result.LoadingType.LoadCase, lc.Id);
+						LoadCase? feaLc = null;
 
+						try
+						{
+							// convert id from iom to original Id in input
+							var loadCaseBimId = project.GetBimApiId(lc.Id);
+							int feaLcId = ParseBimId(loadCaseBimId);
+							// find loading in loadingInput
+							feaLc = loadingInput.LoadCases.FirstOrDefault(l => l.Id == feaLcId);
+
+						}
+						catch(Exception ex)
+						{
+							_logger.LogWarning($"Invalid input for Loadcase {lc.Id}", ex);
+						}
+
+						resOnMembers.Loading = new IdeaRS.OpenModel.Result.Loading(IdeaRS.OpenModel.Result.LoadingType.LoadCase, lc.Id);
 
 						foreach (var mem1D in res.OpenModel.Member1D)
 						{
-							var memBimId = project.GetBimApiId(mem1D.Id);
-							int feaMemMemId = ParseBimId(memBimId);
-							int elInx = 0;
-							input.Members.First(m => m.Id == feaMemMemId);
+							Model.Member? member = null;
+							try
+							{
+								var memBimId = project.GetBimApiId(mem1D.Id);
+								int feaMemMemId = ParseBimId(memBimId);
+								int elInx = 0;
+								member = input.Members.FirstOrDefault(m => m.Id == feaMemMemId);
+							}
+							catch (Exception ex)
+							{
+								_logger.LogWarning($"Invalid input for Member {mem1D.Id}", ex);
+							}
+
+							List<LoadImpulse> loadImpulsesForMember = null;
+							if (feaLc != null && member != null)
+							{
+								loadImpulsesForMember = feaLc.LoadImpulses.Where(i => i.MemberId == member.Id).ToList();
+							}
+
+							// there should be one element for ended member and two elements for continuous member
+							int elmInx = 0;
 							foreach (var refEl in mem1D.Elements1D)
 							{
 								var element1D = refEl.Element;
@@ -86,6 +119,25 @@ namespace ConnectionIomGenerator.Service
 								resOnMember.Member = new IdeaRS.OpenModel.Result.Member(MemberType.Element1D, element1D.Id);
 
 								ResultOfInternalForces intForce1 = new ResultOfInternalForces() { N = 1}; // Do not generate a zero impulse; it will be omitted when the connection is created.
+								if(loadImpulsesForMember != null)
+								{
+									try
+									{
+										var inpulseForElement = loadImpulsesForMember[elmInx];
+										intForce1.N = inpulseForElement.N;
+										intForce1.Qy = inpulseForElement.Vy;
+										intForce1.Qz = inpulseForElement.Vz;
+										intForce1.Mx = inpulseForElement.Mx;
+										intForce1.My = inpulseForElement.My;
+										intForce1.Mz = inpulseForElement.Mz;
+									}
+									catch (Exception ex)
+									{
+										_logger.LogWarning($"Invalid load impulses for member {mem1D.Id}", ex);
+									}
+								}
+								
+
 								List<SectionResultBase> forcesList = new List<SectionResultBase>() { intForce1 };
 
 								ResultOnSection resInSection0 = new ResultOnSection() { AbsoluteRelative = AbsoluteRelative.Relative, Position = 0, Results = forcesList };
@@ -95,7 +147,7 @@ namespace ConnectionIomGenerator.Service
 								resOnMember.Results.Add(resInSection0);
 								resOnMember.Results.Add(resInSection1);
 								resOnMembers.Members.Add(resOnMember);
-								elInx++;
+								elmInx++;
 							}
 						}
 					}
