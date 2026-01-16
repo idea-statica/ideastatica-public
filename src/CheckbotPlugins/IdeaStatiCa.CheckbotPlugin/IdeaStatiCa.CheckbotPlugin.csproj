@@ -6,6 +6,8 @@
     <RootNamespace>IdeaStatiCa.CheckbotPlugin</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1591</NoWarn>
+    <Configurations>Release;Debug</Configurations>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

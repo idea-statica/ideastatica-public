@@ -2,6 +2,8 @@
 	<Import Project="..\Common.props" />
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<Configurations>Release;Debug;Debug_IdeaStatiCa_Internal;Release_IdeaStatiCa_Internal</Configurations>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj" />
