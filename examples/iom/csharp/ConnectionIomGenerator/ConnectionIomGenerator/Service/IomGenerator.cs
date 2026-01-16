@@ -85,8 +85,16 @@ namespace ConnectionIomGenerator.Service
 								resOnMember.ResultType = ResultType.InternalForces;
 								resOnMember.Member = new IdeaRS.OpenModel.Result.Member(MemberType.Element1D, element1D.Id);
 
-								
+								ResultOfInternalForces intForce1 = new ResultOfInternalForces() { N = 1}; // Do not generate a zero impulse; it will be omitted when the connection is created.
+								List<SectionResultBase> forcesList = new List<SectionResultBase>() { intForce1 };
 
+								ResultOnSection resInSection0 = new ResultOnSection() { AbsoluteRelative = AbsoluteRelative.Relative, Position = 0, Results = forcesList };
+								ResultOnSection resInSection1 = new ResultOnSection() { AbsoluteRelative = AbsoluteRelative.Relative, Position = 1, Results = forcesList };
+								//forcesList.Add(resInSection0);
+								//resOnMember.Results = new ResultOnSection
+								resOnMember.Results.Add(resInSection0);
+								resOnMember.Results.Add(resInSection1);
+								resOnMembers.Members.Add(resOnMember);
 								elInx++;
 							}
 						}
@@ -96,6 +104,7 @@ namespace ConnectionIomGenerator.Service
 						
 
 					openModelResult.ResultOnMembers.Add(resOnMembers);
+					res.OpenModelResult = openModelResult;
 				}
 
 				_logger.LogInformation($"IOM generation completed successfully with {res.OpenModel?.Member1D?.Count ?? 0} members");
