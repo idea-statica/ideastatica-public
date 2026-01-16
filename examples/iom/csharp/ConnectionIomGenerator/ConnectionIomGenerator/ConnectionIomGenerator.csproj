@@ -1,15 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-    <ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
-    <ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+		<PackageReference Include="IdeaStatiCa.OpenModel" />
+		<PackageReference Include="IdeaStatiCa.BimApiLink" />
+		<PackageReference Include="IdeaStatiCa.BimApi" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+		<ProjectReference Include="..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+	</ItemGroup>
 
 </Project>

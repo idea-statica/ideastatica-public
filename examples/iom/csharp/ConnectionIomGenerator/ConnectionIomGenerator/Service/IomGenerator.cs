@@ -91,7 +91,6 @@ namespace ConnectionIomGenerator.Service
 							{
 								var memBimId = project.GetBimApiId(mem1D.Id);
 								int feaMemMemId = ParseBimId(memBimId);
-								int elInx = 0;
 								member = input.Members.FirstOrDefault(m => m.Id == feaMemMemId);
 							}
 							catch (Exception ex)

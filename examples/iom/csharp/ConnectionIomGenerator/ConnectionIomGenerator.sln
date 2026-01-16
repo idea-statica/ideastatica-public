@@ -9,98 +9,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGeneratorApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator", "ConnectionIomGenerator\ConnectionIomGenerator.csproj", "{1E1D158E-FFDE-40DB-A095-90A0D00ED603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaRS.OpenModel", "..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj", "{30845CC8-2B28-A667-6FA9-097FE1D7A845}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BimApi", "BimApi", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.BimApi", "..\..\..\..\src\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj", "{A0857C89-DC70-FBF6-7C68-1BDD7FC46068}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.BimImporter", "..\..\..\..\src\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj", "{E36A21ED-DC07-1671-1074-98B005BB9A1A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Plugin", "..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj", "{3A74A419-D9B5-D8EC-78AC-CD96A37B3509}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{17C19DB8-5884-44B9-8A1D-56C724509FD8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginLogger", "..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{A6B3B700-44A6-3D3A-41B6-0285790BD5C5}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "..\..\..\..\src\Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Public", "..\..\..\..\src\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj", "{261A0ECF-767F-9D7E-BE53-EF3471DC6F94}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.NetFrameworkPort", "..\..\..\..\src\IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj", "{AF1397F8-9A45-0946-E61A-DE46E64EFAFF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.BimApiLink", "..\..\..\..\src\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj", "{8AEE5164-9EF1-6527-AFF4-B7371C7F775A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{328E237B-5FCC-7067-A50A-000818B13FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{328E237B-5FCC-7067-A50A-000818B13FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{328E237B-5FCC-7067-A50A-000818B13FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{328E237B-5FCC-7067-A50A-000818B13FDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30845CC8-2B28-A667-6FA9-097FE1D7A845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30845CC8-2B28-A667-6FA9-097FE1D7A845}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30845CC8-2B28-A667-6FA9-097FE1D7A845}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30845CC8-2B28-A667-6FA9-097FE1D7A845}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0857C89-DC70-FBF6-7C68-1BDD7FC46068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0857C89-DC70-FBF6-7C68-1BDD7FC46068}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0857C89-DC70-FBF6-7C68-1BDD7FC46068}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0857C89-DC70-FBF6-7C68-1BDD7FC46068}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E36A21ED-DC07-1671-1074-98B005BB9A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E36A21ED-DC07-1671-1074-98B005BB9A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E36A21ED-DC07-1671-1074-98B005BB9A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E36A21ED-DC07-1671-1074-98B005BB9A1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A74A419-D9B5-D8EC-78AC-CD96A37B3509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A74A419-D9B5-D8EC-78AC-CD96A37B3509}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A74A419-D9B5-D8EC-78AC-CD96A37B3509}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A74A419-D9B5-D8EC-78AC-CD96A37B3509}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6B3B700-44A6-3D3A-41B6-0285790BD5C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6B3B700-44A6-3D3A-41B6-0285790BD5C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6B3B700-44A6-3D3A-41B6-0285790BD5C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6B3B700-44A6-3D3A-41B6-0285790BD5C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{261A0ECF-767F-9D7E-BE53-EF3471DC6F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{261A0ECF-767F-9D7E-BE53-EF3471DC6F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{261A0ECF-767F-9D7E-BE53-EF3471DC6F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{261A0ECF-767F-9D7E-BE53-EF3471DC6F94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF1397F8-9A45-0946-E61A-DE46E64EFAFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF1397F8-9A45-0946-E61A-DE46E64EFAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF1397F8-9A45-0946-E61A-DE46E64EFAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF1397F8-9A45-0946-E61A-DE46E64EFAFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AEE5164-9EF1-6527-AFF4-B7371C7F775A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AEE5164-9EF1-6527-AFF4-B7371C7F775A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AEE5164-9EF1-6527-AFF4-B7371C7F775A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AEE5164-9EF1-6527-AFF4-B7371C7F775A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{328E237B-5FCC-7067-A50A-000818B13FDE}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{328E237B-5FCC-7067-A50A-000818B13FDE}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{328E237B-5FCC-7067-A50A-000818B13FDE}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{328E237B-5FCC-7067-A50A-000818B13FDE}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{29DA570F-B27E-5277-3D03-9B8BE2F3677A}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{1E1D158E-FFDE-40DB-A095-90A0D00ED603}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{30845CC8-2B28-A667-6FA9-097FE1D7A845} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{A0857C89-DC70-FBF6-7C68-1BDD7FC46068} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{E36A21ED-DC07-1671-1074-98B005BB9A1A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{3A74A419-D9B5-D8EC-78AC-CD96A37B3509} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{A6B3B700-44A6-3D3A-41B6-0285790BD5C5} = {17C19DB8-5884-44B9-8A1D-56C724509FD8}
-		{D09CA0D0-737E-4481-8D89-371388E70F03} = {17C19DB8-5884-44B9-8A1D-56C724509FD8}
-		{261A0ECF-767F-9D7E-BE53-EF3471DC6F94} = {17C19DB8-5884-44B9-8A1D-56C724509FD8}
-		{AF1397F8-9A45-0946-E61A-DE46E64EFAFF} = {17C19DB8-5884-44B9-8A1D-56C724509FD8}
-		{8AEE5164-9EF1-6527-AFF4-B7371C7F775A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3EB00E1-189E-4E58-BA84-DD6EBE9D061A}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\..\..\src\Logger\SerilogFacade\SerilogFacade.projitems*{a6b3b700-44a6-3d3a-41b6-0285790bd5c5}*SharedItemsImports = 5
-		..\..\..\..\src\Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
