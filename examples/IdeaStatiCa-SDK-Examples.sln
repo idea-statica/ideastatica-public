@@ -51,6 +51,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafFeaApi_MOCK", "bimapi\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafFeaTestApp", "bimapi\CheckbotBimLink\SAF\SafFeaExample\SafFeaTestApp\SafFeaTestApp.csproj", "{4683D216-80DD-40CF-BECE-AAA71F5D0303}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConnectionIomGenerator", "ConnectionIomGenerator", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		iom\csharp\ConnectionIomGenerator\readme.md = iom\csharp\ConnectionIomGenerator\readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator", "iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj", "{E701C18F-2653-A78A-87C6-F8DF29ED3B40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator.UI", "iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj", "{AB067CFD-304C-000C-3EDF-2C70FA23501C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGeneratorApp", "iom\csharp\ConnectionIomGenerator\ConnectionIomGeneratorApp\ConnectionIomGeneratorApp.csproj", "{99BEBD56-ACF3-270B-0AE0-E87876B903AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +128,18 @@ Global
 		{4683D216-80DD-40CF-BECE-AAA71F5D0303}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4683D216-80DD-40CF-BECE-AAA71F5D0303}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4683D216-80DD-40CF-BECE-AAA71F5D0303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E701C18F-2653-A78A-87C6-F8DF29ED3B40}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{E701C18F-2653-A78A-87C6-F8DF29ED3B40}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{E701C18F-2653-A78A-87C6-F8DF29ED3B40}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{E701C18F-2653-A78A-87C6-F8DF29ED3B40}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{AB067CFD-304C-000C-3EDF-2C70FA23501C}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{AB067CFD-304C-000C-3EDF-2C70FA23501C}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{AB067CFD-304C-000C-3EDF-2C70FA23501C}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{AB067CFD-304C-000C-3EDF-2C70FA23501C}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{99BEBD56-ACF3-270B-0AE0-E87876B903AD}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{99BEBD56-ACF3-270B-0AE0-E87876B903AD}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{99BEBD56-ACF3-270B-0AE0-E87876B903AD}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{99BEBD56-ACF3-270B-0AE0-E87876B903AD}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,6 +167,10 @@ Global
 		{197706FB-15EC-4C1F-A04E-5EDF32236A31} = {1D3F7C4E-6978-483D-A780-98AB143AAAD9}
 		{EB423B8C-384F-43F2-AA5E-0082E709B411} = {1D3F7C4E-6978-483D-A780-98AB143AAAD9}
 		{4683D216-80DD-40CF-BECE-AAA71F5D0303} = {1D3F7C4E-6978-483D-A780-98AB143AAAD9}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {464D1A19-FD4D-4060-B89B-18B471A1609B}
+		{E701C18F-2653-A78A-87C6-F8DF29ED3B40} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AB067CFD-304C-000C-3EDF-2C70FA23501C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{99BEBD56-ACF3-270B-0AE0-E87876B903AD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {390F0CF4-59F4-444F-9602-87026AB46610}
