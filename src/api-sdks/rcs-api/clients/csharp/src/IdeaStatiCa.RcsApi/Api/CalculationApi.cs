@@ -16,6 +16,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi.Client;
 using IdeaStatiCa.RcsApi.Model;

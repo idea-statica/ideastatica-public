@@ -3,7 +3,7 @@
 The C# library for the RCS Rest API 1.0
 
 - API version: 1.0
-- SDK version: 25.1.3.1326
+- SDK version: 25.1.3.0859
 
 IDEA StatiCa RCS API, used for the automated design and calculation of reinforced concrete sections.
 
@@ -116,13 +116,22 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**Calculate**](docs/CalculationApi.md#calculate) | Calculate RCS project
 [**GetRawResults**](docs/CalculationApi.md#getrawresults) | Get calculated results in XML format
 [**GetResults**](docs/CalculationApi.md#getresults) | Get calculated results
+  ### ClientApi
+
+  
+  
+  Method | Description
+  ------------- | -------------
+[**GetVersion**](docs/ClientApi.md#getversion) | Get the IdeaStatica version
   ### CrossSectionApi
 
   
   
   Method | Description
   ------------- | -------------
-[**ImportReinforcedCrossSection**](docs/CrossSectionApi.md#importreinforcedcrosssection) | Import reinforced cross-section
+[**AddReinforcedCrossSection**](docs/CrossSectionApi.md#addreinforcedcrosssection) | Add a new reinforced cross-section to the project from embedded geometry
+[**GetReinforcedCrossSectionData**](docs/CrossSectionApi.md#getreinforcedcrosssectiondata) | Get reinforced cross-section with full geometry (IOM format)
+[**ImportReinforcedCrossSection**](docs/CrossSectionApi.md#importreinforcedcrosssection) | Import reinforced cross-section from template
 [**ReinforcedCrossSections**](docs/CrossSectionApi.md#reinforcedcrosssections) | Get reinforced cross sections
   ### DesignMemberApi
 
@@ -139,6 +148,19 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**GetSectionLoading**](docs/InternalForcesApi.md#getsectionloading) | Get section loading
 [**SetSectionLoading**](docs/InternalForcesApi.md#setsectionloading) | Set section loading
+  ### MaterialApi
+
+  
+  
+  Method | Description
+  ------------- | -------------
+[**AddConcreteMaterial**](docs/MaterialApi.md#addconcretematerial) | Add a new material to the project. The material type is determined by the endpoint path.
+[**AddPrestressMaterial**](docs/MaterialApi.md#addprestressmaterial) | Add a new material to the project. The material type is determined by the endpoint path.
+[**AddReinforcementMaterial**](docs/MaterialApi.md#addreinforcementmaterial) | Add a new material to the project. The material type is determined by the endpoint path.
+[**GetAllMaterials**](docs/MaterialApi.md#getallmaterials) | Get materials from the project. Use specific path to filter by material type.
+[**GetConcreteMaterials**](docs/MaterialApi.md#getconcretematerials) | Get materials from the project. Use specific path to filter by material type.
+[**GetPrestressMaterials**](docs/MaterialApi.md#getprestressmaterials) | Get materials from the project. Use specific path to filter by material type.
+[**GetReinforcementMaterials**](docs/MaterialApi.md#getreinforcementmaterials) | Get materials from the project. Use specific path to filter by material type.
   ### ProjectApi
 
   
@@ -175,15 +197,26 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConcreteCheckResultOverall](docs/ConcreteCheckResultOverall.md)
  - [Model.ConcreteCheckResultOverallItem](docs/ConcreteCheckResultOverallItem.md)
  - [Model.ConcreteCheckResults](docs/ConcreteCheckResults.md)
+ - [Model.FatigueTypeOfPrestressingSteel](docs/FatigueTypeOfPrestressingSteel.md)
  - [Model.Loading](docs/Loading.md)
  - [Model.LoadingType](docs/LoadingType.md)
+ - [Model.MaterialDuct](docs/MaterialDuct.md)
  - [Model.NonConformity](docs/NonConformity.md)
  - [Model.NonConformityIssue](docs/NonConformityIssue.md)
  - [Model.NonConformitySeverity](docs/NonConformitySeverity.md)
+ - [Model.OpenElementId](docs/OpenElementId.md)
+ - [Model.Point2D](docs/Point2D.md)
+ - [Model.PolyLine2D](docs/PolyLine2D.md)
  - [Model.RcsCalculationParameters](docs/RcsCalculationParameters.md)
  - [Model.RcsCheckMember](docs/RcsCheckMember.md)
+ - [Model.RcsCrossSectionData](docs/RcsCrossSectionData.md)
+ - [Model.RcsCssComponentData](docs/RcsCssComponentData.md)
+ - [Model.RcsMaterial](docs/RcsMaterial.md)
+ - [Model.RcsMaterialType](docs/RcsMaterialType.md)
+ - [Model.RcsMprlElement](docs/RcsMprlElement.md)
  - [Model.RcsProject](docs/RcsProject.md)
  - [Model.RcsProjectData](docs/RcsProjectData.md)
+ - [Model.RcsReinforcedBarData](docs/RcsReinforcedBarData.md)
  - [Model.RcsReinforcedCrossSection](docs/RcsReinforcedCrossSection.md)
  - [Model.RcsReinforcedCrossSectionImportData](docs/RcsReinforcedCrossSectionImportData.md)
  - [Model.RcsReinforcedCrosssSectionImportSetting](docs/RcsReinforcedCrosssSectionImportSetting.md)
@@ -193,10 +226,23 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.RcsSectionResultDetailed](docs/RcsSectionResultDetailed.md)
  - [Model.RcsSectionResultOverview](docs/RcsSectionResultOverview.md)
  - [Model.RcsSetting](docs/RcsSetting.md)
+ - [Model.RcsStirrupsData](docs/RcsStirrupsData.md)
+ - [Model.RcsTendonBarData](docs/RcsTendonBarData.md)
+ - [Model.RcsTendonDuctData](docs/RcsTendonDuctData.md)
+ - [Model.ReferenceElement](docs/ReferenceElement.md)
+ - [Model.Region2D](docs/Region2D.md)
+ - [Model.ReinforcedBar](docs/ReinforcedBar.md)
+ - [Model.ReinforcedCrossSection](docs/ReinforcedCrossSection.md)
+ - [Model.ReinforcedCrossSectionData](docs/ReinforcedCrossSectionData.md)
  - [Model.ResultOfInternalForces](docs/ResultOfInternalForces.md)
  - [Model.ResultOfLoading](docs/ResultOfLoading.md)
  - [Model.ResultOfLoadingItem](docs/ResultOfLoadingItem.md)
  - [Model.SectionConcreteCheckResult](docs/SectionConcreteCheckResult.md)
+ - [Model.Segment2D](docs/Segment2D.md)
+ - [Model.Stirrup](docs/Stirrup.md)
+ - [Model.TendonBar](docs/TendonBar.md)
+ - [Model.TendonBarType](docs/TendonBarType.md)
+ - [Model.TendonDuct](docs/TendonDuct.md)
 
 
 <a id="documentation-for-authorization"></a>
@@ -210,7 +256,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 1.0
-- SDK version: 25.1.3.1326
+- SDK version: 25.1.3.0859
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

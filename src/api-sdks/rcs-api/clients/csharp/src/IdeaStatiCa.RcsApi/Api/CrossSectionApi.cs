@@ -16,6 +16,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi.Client;
 using IdeaStatiCa.RcsApi.Model;
@@ -30,24 +31,70 @@ namespace IdeaStatiCa.RcsApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Import reinforced cross-section
+        /// Add a new reinforced cross-section to the project from embedded geometry
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>RcsReinforcedCrossSection</returns>
-        RcsReinforcedCrossSection ImportReinforcedCrossSection(Guid projectId, RcsReinforcedCrossSectionImportData rcsReinforcedCrossSectionImportData = default(RcsReinforcedCrossSectionImportData), int operationIndex = 0);
+        RcsReinforcedCrossSection AddReinforcedCrossSection(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), int operationIndex = 0);
 
         /// <summary>
-        /// Import reinforced cross-section
+        /// Add a new reinforced cross-section to the project from embedded geometry
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+/// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of RcsReinforcedCrossSection</returns>
+        ApiResponse<RcsReinforcedCrossSection> AddReinforcedCrossSectionWithHttpInfo(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format)
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ReinforcedCrossSection</returns>
+        ReinforcedCrossSection GetReinforcedCrossSectionData(Guid projectId, int reinforcedCssSectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+/// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ReinforcedCrossSection</returns>
+        ApiResponse<ReinforcedCrossSection> GetReinforcedCrossSectionDataWithHttpInfo(Guid projectId, int reinforcedCssSectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Import reinforced cross-section from template
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>RcsReinforcedCrossSection</returns>
+        RcsReinforcedCrossSection ImportReinforcedCrossSection(Guid projectId, RcsReinforcedCrossSectionImportData rcsReinforcedCrossSectionImportData = default(RcsReinforcedCrossSectionImportData), int operationIndex = 0);
+
+        /// <summary>
+        /// Import reinforced cross-section from template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+/// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of RcsReinforcedCrossSection</returns>
@@ -56,7 +103,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Get reinforced cross sections
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;RcsReinforcedCrossSection&gt;</returns>
         List<RcsReinforcedCrossSection> ReinforcedCrossSections(Guid projectId, int operationIndex = 0);
@@ -68,7 +115,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;RcsReinforcedCrossSection&gt;</returns>
@@ -83,28 +130,84 @@ namespace IdeaStatiCa.RcsApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Import reinforced cross-section
+        /// Add a new reinforced cross-section to the project from embedded geometry
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of RcsReinforcedCrossSection</returns>
+        System.Threading.Tasks.Task<RcsReinforcedCrossSection> AddReinforcedCrossSectionAsync(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Add a new reinforced cross-section to the project from embedded geometry
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (RcsReinforcedCrossSection)</returns>
+        System.Threading.Tasks.Task<ApiResponse<RcsReinforcedCrossSection>> AddReinforcedCrossSectionWithHttpInfoAsync(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ReinforcedCrossSection</returns>
+        System.Threading.Tasks.Task<ReinforcedCrossSection> GetReinforcedCrossSectionDataAsync(Guid projectId, int reinforcedCssSectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format)
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ReinforcedCrossSection)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ReinforcedCrossSection>> GetReinforcedCrossSectionDataWithHttpInfoAsync(Guid projectId, int reinforcedCssSectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Import reinforced cross-section from template
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of RcsReinforcedCrossSection</returns>
         System.Threading.Tasks.Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(Guid projectId, RcsReinforcedCrossSectionImportData rcsReinforcedCrossSectionImportData = default(RcsReinforcedCrossSectionImportData), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Import reinforced cross-section
+        /// Import reinforced cross-section from template
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -117,7 +220,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;RcsReinforcedCrossSection&gt;</returns>
@@ -130,7 +233,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -257,11 +360,325 @@ namespace IdeaStatiCa.RcsApi.Api
         }
 
         /// <summary>
-        /// Import reinforced cross-section 
+        /// Add a new reinforced cross-section to the project from embedded geometry 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>RcsReinforcedCrossSection</returns>
+        public RcsReinforcedCrossSection AddReinforcedCrossSection(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), int operationIndex = 0)
+        {
+            IdeaStatiCa.RcsApi.Client.ApiResponse<RcsReinforcedCrossSection> localVarResponse = AddReinforcedCrossSectionWithHttpInfo(projectId, reinforcedCrossSectionData);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Add a new reinforced cross-section to the project from embedded geometry 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+/// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of RcsReinforcedCrossSection</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<RcsReinforcedCrossSection> AddReinforcedCrossSectionWithHttpInfo(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/xml",
+                "text/xml",
+                "application/*+xml",
+                "application/json-patch+json",
+                "application/json",
+                "text/json",
+                "application/*+json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.Data = reinforcedCrossSectionData;
+
+            localVarRequestOptions.Operation = "CrossSectionApi.AddReinforcedCrossSection";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<RcsReinforcedCrossSection>("/api/1/projects/{projectId}/cross-sections/reinforced-cross-sections", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("AddReinforcedCrossSection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Add a new reinforced cross-section to the project from embedded geometry 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of RcsReinforcedCrossSection</returns>
+        public async System.Threading.Tasks.Task<RcsReinforcedCrossSection> AddReinforcedCrossSectionAsync(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.RcsApi.Client.ApiResponse<RcsReinforcedCrossSection> localVarResponse = await AddReinforcedCrossSectionWithHttpInfoAsync(projectId, reinforcedCrossSectionData, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Add a new reinforced cross-section to the project from embedded geometry 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCrossSectionData">Reinforced cross-section with embedded geometry.              Materials can be referenced by name (must exist in project) or by ID. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (RcsReinforcedCrossSection)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<RcsReinforcedCrossSection>> AddReinforcedCrossSectionWithHttpInfoAsync(Guid projectId, ReinforcedCrossSectionData reinforcedCrossSectionData = default(ReinforcedCrossSectionData), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/xml", 
+                "text/xml", 
+                "application/*+xml", 
+                "application/json-patch+json", 
+                "application/json", 
+                "text/json", 
+                "application/*+json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.Data = reinforcedCrossSectionData;
+
+            localVarRequestOptions.Operation = "CrossSectionApi.AddReinforcedCrossSection";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<RcsReinforcedCrossSection>("/api/1/projects/{projectId}/cross-sections/reinforced-cross-sections", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("AddReinforcedCrossSection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ReinforcedCrossSection</returns>
+        public ReinforcedCrossSection GetReinforcedCrossSectionData(Guid projectId, int reinforcedCssSectionId, int operationIndex = 0)
+        {
+            IdeaStatiCa.RcsApi.Client.ApiResponse<ReinforcedCrossSection> localVarResponse = GetReinforcedCrossSectionDataWithHttpInfo(projectId, reinforcedCssSectionId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+/// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ReinforcedCrossSection</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<ReinforcedCrossSection> GetReinforcedCrossSectionDataWithHttpInfo(Guid projectId, int reinforcedCssSectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("reinforcedCssSectionId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(reinforcedCssSectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "CrossSectionApi.GetReinforcedCrossSectionData";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<ReinforcedCrossSection>("/api/1/projects/{projectId}/cross-sections/reinforced-cross-sections/{reinforcedCssSectionId}", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetReinforcedCrossSectionData", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ReinforcedCrossSection</returns>
+        public async System.Threading.Tasks.Task<ReinforcedCrossSection> GetReinforcedCrossSectionDataAsync(Guid projectId, int reinforcedCssSectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.RcsApi.Client.ApiResponse<ReinforcedCrossSection> localVarResponse = await GetReinforcedCrossSectionDataWithHttpInfoAsync(projectId, reinforcedCssSectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get reinforced cross-section with full geometry (IOM format) 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="reinforcedCssSectionId">Reinforced cross-section ID</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ReinforcedCrossSection)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<ReinforcedCrossSection>> GetReinforcedCrossSectionDataWithHttpInfoAsync(Guid projectId, int reinforcedCssSectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("reinforcedCssSectionId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(reinforcedCssSectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "CrossSectionApi.GetReinforcedCrossSectionData";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<ReinforcedCrossSection>("/api/1/projects/{projectId}/cross-sections/reinforced-cross-sections/{reinforcedCssSectionId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetReinforcedCrossSectionData", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Import reinforced cross-section from template 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>RcsReinforcedCrossSection</returns>
         public RcsReinforcedCrossSection ImportReinforcedCrossSection(Guid projectId, RcsReinforcedCrossSectionImportData rcsReinforcedCrossSectionImportData = default(RcsReinforcedCrossSectionImportData), int operationIndex = 0)
@@ -271,11 +688,11 @@ namespace IdeaStatiCa.RcsApi.Api
         }
 
         /// <summary>
-        /// Import reinforced cross-section 
+        /// Import reinforced cross-section from template 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-/// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+/// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of RcsReinforcedCrossSection</returns>
@@ -337,11 +754,11 @@ namespace IdeaStatiCa.RcsApi.Api
         }
 
         /// <summary>
-        /// Import reinforced cross-section 
+        /// Import reinforced cross-section from template 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of RcsReinforcedCrossSection</returns>
@@ -352,11 +769,11 @@ namespace IdeaStatiCa.RcsApi.Api
         }
 
         /// <summary>
-        /// Import reinforced cross-section 
+        /// Import reinforced cross-section from template 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
-        /// <param name="rcsReinforcedCrossSectionImportData"> (optional)</param>
+        /// <param name="projectId">Project ID</param>
+        /// <param name="rcsReinforcedCrossSectionImportData">Import data containing settings and template (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -424,7 +841,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Get reinforced cross sections 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;RcsReinforcedCrossSection&gt;</returns>
         public List<RcsReinforcedCrossSection> ReinforcedCrossSections(Guid projectId, int operationIndex = 0)
@@ -437,7 +854,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Get reinforced cross sections 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;RcsReinforcedCrossSection&gt;</returns>
@@ -494,7 +911,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Get reinforced cross sections 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;RcsReinforcedCrossSection&gt;</returns>
@@ -508,7 +925,7 @@ namespace IdeaStatiCa.RcsApi.Api
         /// Get reinforced cross sections 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">Project ID</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>

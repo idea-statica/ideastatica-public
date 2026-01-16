@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConApiWpfClientApp.Views"
         mc:Ignorable="d"
-        Title="JsonEditorWindow" Height="450" Width="800">
+        Title="Text Editor" Height="450" Width="800">
     <DockPanel LastChildFill="True" Margin="5">
         <Grid HorizontalAlignment="Right" DockPanel.Dock="Bottom">
             <Button Margin="5" Click="Button_Click">Ok</Button>
