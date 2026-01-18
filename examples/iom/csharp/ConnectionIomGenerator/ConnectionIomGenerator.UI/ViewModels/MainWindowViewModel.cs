@@ -18,7 +18,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		private readonly IPluginLogger _logger;
 		private readonly IIomService _iomService;
 		private readonly IFileDialogService _fileDialogService;
-		private IomGeneratorModel _model;
+		private readonly IomGeneratorModel _model;
 		
 		public MainWindowViewModel(
 			IPluginLogger logger,
@@ -44,6 +44,11 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		public AsyncRelayCommand GenerateIomCommand { get; }
 		public AsyncRelayCommand GenerateLoadingCommand { get; }
 		public AsyncRelayCommand SaveIomCommand { get; }
+
+		/// <summary>
+		/// Gets the underlying model. This is updated when JSON is deserialized.
+		/// </summary>
+		public IomGeneratorModel Model => _model;
 
 		private bool CanGenerateIomAsync()
 		{
@@ -220,7 +225,5 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			get => status;
 			set => SetProperty(ref status, value);
 		}
-
-		public IomGeneratorModel Model => _model;
 	}
 }
