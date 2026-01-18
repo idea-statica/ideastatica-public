@@ -1,6 +1,7 @@
 using ConApiWpfClientApp.Services;
 using ConApiWpfClientApp.ViewModels;
 using ConnectionIomGenerator.UI.Services;
+using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGenerator.UI.Views;
 using IdeaStatiCa.Plugin;
 using Microsoft.Win32;
@@ -57,22 +58,20 @@ namespace ConApiWpfClientApp.Commands
 				var iomService = new IomService(_logger);
 				var fileDialogService = new ConnectionIomGenerator.UI.Services.FileDialogService();
 
-				var iomGeneratorVM = new ConnectionIomGenerator.UI.ViewModels.MainWindowViewModel(_logger, iomService, fileDialogService);
-
+				var editorWindowVM = new IomEditorWindowViewModel(_logger, iomService, fileDialogService);
 
 				// Create and show the IOM editor dialog
-				var editorWindow = new IomEditorWindow()
+				var editorWindow = new IomEditorWindow(editorWindowVM)
 				{
 					Owner = System.Windows.Application.Current.MainWindow,
-					DataContext = iomGeneratorVM
 				};
 
 				bool? dialogResult = editorWindow.ShowDialog();
 
 				// If user clicked OK and we have a result
-				if (dialogResult == true && iomGeneratorVM?.Model?.IomContainer != null)
+				if (dialogResult == true && editorWindowVM?.IomEditorViewModel != null)
 				{
-					var model = iomGeneratorVM.Model;
+					var model = await editorWindowVM.GetResultModelAsync();
 
 					// Check if IOM was generated
 					if (model.IomContainer != null)

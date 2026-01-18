@@ -11,21 +11,30 @@ namespace ConnectionIomGenerator.UI.Views
 	/// </summary>
 	public partial class IomEditorWindow : Window
 	{
-		public IomEditorWindow()
+		private readonly IomEditorWindowViewModel _viewModel;
+
+		public IomEditorWindow(IomEditorWindowViewModel vm)
 		{
+			_viewModel = vm;
+			this.DataContext = vm;
 			InitializeComponent();
+
+			// Subscribe to close request
+			_viewModel.CloseRequested += OnCloseRequested;
 		}
 
-		private void Button_Click_Ok(object sender, RoutedEventArgs e)
+
+		private void OnCloseRequested(object? sender, DialogCloseRequestedEventArgs e)
 		{
-			this.DialogResult = true;
+			DialogResult = e.DialogResult;
 			Close();
 		}
 
-		private void Button_Click_Cancel(object sender, RoutedEventArgs e)
+		protected override void OnClosed(System.EventArgs e)
 		{
-			this.DialogResult = false;
-			Close();
+			// Unsubscribe from event
+			_viewModel.CloseRequested -= OnCloseRequested;
+			base.OnClosed(e);
 		}
 	}
 }
