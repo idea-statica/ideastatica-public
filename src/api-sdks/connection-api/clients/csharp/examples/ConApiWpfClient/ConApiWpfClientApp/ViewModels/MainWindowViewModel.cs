@@ -87,6 +87,7 @@ namespace ConApiWpfClientApp.ViewModels
 			UpdateConnectionLoadingCommand = new UpdateConnectionLoadingCommand(this, logger, cts);
 			EvaluateExpressionCommand = new EvaluateExpressionCommand(this, logger, cts);
 			EditParametersCommand = new EditParametersCommand(this, logger, cts);
+			ConIomGeneratorCommand = new GenerateConnectionIomCommand(this, logger, cts);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
@@ -219,6 +220,8 @@ namespace ConApiWpfClientApp.ViewModels
 
 	public ICommand EditParametersCommand { get; }
 
+	public ICommand ConIomGeneratorCommand { get; }
+
 	internal async Task ShowClientUIAsync()
 		{
 			_logger.LogInformation("ShowClientUI");
@@ -338,6 +341,8 @@ namespace ConApiWpfClientApp.ViewModels
 				evaluateExpressionCmd.RaiseCanExecuteChanged();
 			if (EditParametersCommand is AsyncCommandBase editParametersCmd)
 				editParametersCmd.RaiseCanExecuteChanged();
+			if (ConIomGeneratorCommand is AsyncCommandBase conIomGeneratorCmd)
+				conIomGeneratorCmd.RaiseCanExecuteChanged();
 
 			this.OnPropertyChanged("CanStartService");
 		}
