@@ -76,5 +76,10 @@
 		/// direction type of load - local/global
 		/// </summary>
 		public IdeaRS.OpenModel.Loading.LoadDirection Direction { get; set; }
+		
+		/// <summary>
+		/// Positioning type relative to the master component.
+		/// </summary>
+		public PositionRelatedToMasterType PositionRelatedToMasterType { get; set; }
 	}
 }
