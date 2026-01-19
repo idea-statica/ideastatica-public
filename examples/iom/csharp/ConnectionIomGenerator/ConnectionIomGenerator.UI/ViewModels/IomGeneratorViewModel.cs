@@ -13,7 +13,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 	/// <summary>
 	/// Main window view model for IOM generation
 	/// </summary>
-	public class MainWindowViewModel : ViewModelBase
+	public class IomGeneratorViewModel : ViewModelBase
 	{
 		private readonly IPluginLogger _logger;
 		private readonly IIomService _iomService;
@@ -21,7 +21,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		private readonly IomGeneratorModel _model;
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+		/// Initializes a new instance of the <see cref="IomGeneratorViewModel"/> class.
 		/// </summary>
 		/// <remarks>This constructor initializes the commands for generating and saving IOM data, and sets up the
 		/// initial state of the view model. If the <paramref name="model"/> contains a non-<see langword="null"/>
@@ -34,7 +34,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		/// <param name="fileDialogService">The service used for handling file dialog operations. This parameter cannot be <see langword="null"/>.</param>
 		/// <exception cref="ArgumentNullException">Thrown if <paramref name="logger"/>, <paramref name="iomService"/>, or <paramref name="fileDialogService"/> is
 		/// <see langword="null"/>.</exception>
-		public MainWindowViewModel(
+		public IomGeneratorViewModel(
 			IomGeneratorModel model,
 			IPluginLogger logger,
 			IIomService iomService,

@@ -14,7 +14,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 	/// </summary>
 	public class IomEditorWindowViewModel : ViewModelBase
 	{
-		private readonly ConnectionIomGenerator.UI.ViewModels.MainWindowViewModel _iomEditorViewModel;
+		private readonly ConnectionIomGenerator.UI.ViewModels.IomGeneratorViewModel _iomEditorViewModel;
 		private string? _validationMessage;
 
 		/// <summary>
@@ -35,7 +35,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 				throw new ArgumentNullException(nameof(model));
 			}
 
-			_iomEditorViewModel = new MainWindowViewModel(model, logger, iomService, fileDialogService);
+			_iomEditorViewModel = new IomGeneratorViewModel(model, logger, iomService, fileDialogService);
 			
 			OkCommand = new RelayCommand(ExecuteOk, CanExecuteOk);
 			CancelCommand = new RelayCommand(ExecuteCancel);
@@ -45,7 +45,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		/// Gets the wrapped MainWindowViewModel.
 		/// This is bound to the ConnectionInputView DataContext.
 		/// </summary>
-		public MainWindowViewModel IomEditorViewModel => _iomEditorViewModel;
+		public IomGeneratorViewModel IomEditorViewModel => _iomEditorViewModel;
 
 		/// <summary>
 		/// Gets the command for the OK button.

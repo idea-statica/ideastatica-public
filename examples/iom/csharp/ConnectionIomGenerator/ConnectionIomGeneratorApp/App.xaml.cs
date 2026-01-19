@@ -20,7 +20,7 @@ namespace ConnectionIomGeneratorApp
 	public partial class App : Application
 	{
 		private readonly IServiceProvider _serviceProvider;
-		private MainWindowViewModel? _mainViewModel;
+		private IomGeneratorViewModel? _mainViewModel;
 
 		public App()
 		{
@@ -33,7 +33,7 @@ namespace ConnectionIomGeneratorApp
 				return LoggerProvider.GetLogger("ConnectionIomGeneratorApp");
 			});
 
-			services.AddSingleton<MainWindowViewModel>();
+			services.AddSingleton<IomGeneratorViewModel>();
 
 			services.AddSingleton<IomGeneratorModel>(serviceProvider =>
 			{
@@ -49,7 +49,7 @@ namespace ConnectionIomGeneratorApp
 
 			services.AddTransient<MainWindow>(serviceProvider => new MainWindow
 			{
-				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
+				DataContext = serviceProvider.GetRequiredService<IomGeneratorViewModel>()
 			});
 
 			var serviceProvider = services.BuildServiceProvider();
@@ -65,7 +65,7 @@ namespace ConnectionIomGeneratorApp
 		{
 			var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 			mainWindow.Show();
-			var vm = mainWindow.DataContext as MainWindowViewModel;
+			var vm = mainWindow.DataContext as IomGeneratorViewModel;
 			if(vm == null)
 			{
 				throw new Exception();

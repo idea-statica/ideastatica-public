@@ -1,5 +1,4 @@
 using ConApiWpfClientApp.ViewModels;
-using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.Views;
 using IdeaStatiCa.Plugin;
 using System;

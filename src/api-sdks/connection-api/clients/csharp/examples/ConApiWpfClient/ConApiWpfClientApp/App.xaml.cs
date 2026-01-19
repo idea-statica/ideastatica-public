@@ -63,7 +63,6 @@ namespace ConApiWpfClientApp
 
 			#region Services required by IOM generator
 			services.AddSingleton<ConnectionIomGenerator.UI.ViewModels.IomEditorWindowViewModel>();
-			services.AddSingleton<ConnectionIomGenerator.UI.ViewModels.MainWindowViewModel>();
 
 			services.AddSingleton<IomGeneratorModel>(serviceProvider =>
 			{
