@@ -15,7 +15,6 @@ namespace ConnectionIomGenerator.UI.ViewModels
 	public class IomEditorWindowViewModel : ViewModelBase
 	{
 		private readonly ConnectionIomGenerator.UI.ViewModels.IomGeneratorViewModel _iomEditorViewModel;
-		private string? _validationMessage;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IomEditorWindowViewModel"/> class with initial model.

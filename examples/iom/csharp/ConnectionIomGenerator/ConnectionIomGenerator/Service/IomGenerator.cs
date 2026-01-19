@@ -348,7 +348,7 @@ namespace ConnectionIomGenerator.Service
 								_logger.LogWarning($"Invalid input for Member {mem1D.Id}", ex);
 							}
 
-							List<LoadImpulse> loadImpulsesForMember = null;
+							List<LoadImpulse>? loadImpulsesForMember = null;
 							if (feaLc != null && member != null)
 							{
 								loadImpulsesForMember = feaLc.LoadImpulses.Where(i => i.MemberId == member.Id).ToList();

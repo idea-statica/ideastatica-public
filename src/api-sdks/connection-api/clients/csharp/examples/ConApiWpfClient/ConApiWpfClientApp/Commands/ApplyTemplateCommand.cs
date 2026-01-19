@@ -108,7 +108,7 @@ namespace ConApiWpfClientApp.Commands
 
 				var applyTemplateParam = new ConTemplateApplyParam()
 				{
-					ConnectionTemplate = templateRes.SelectedTemplateXml,
+					ConnectionTemplate = templateRes!.SelectedTemplateXml,
 					Mapping = modifiedTemplateMapping,
 
 				};

@@ -18,7 +18,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		private readonly IPluginLogger _logger;
 		private readonly IIomService _iomService;
 		private readonly IFileDialogService _fileDialogService;
-		private readonly IomGeneratorModel _model;
+		private readonly IomGeneratorModel? _model;
 		
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IomGeneratorViewModel"/> class.
@@ -40,7 +40,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			IIomService iomService,
 			IFileDialogService fileDialogService)
 		{
-			_model = model;
+			_model = model ?? throw new ArgumentNullException(nameof(model));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_iomService = iomService ?? throw new ArgumentNullException(nameof(iomService));
 			_fileDialogService = fileDialogService ?? throw new ArgumentNullException(nameof(fileDialogService));
@@ -62,7 +62,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		/// <summary>
 		/// Gets the underlying model. This is updated when JSON is deserialized.
 		/// </summary>
-		public IomGeneratorModel Model => _model;
+		public IomGeneratorModel Model => _model!;
 
 		private bool CanGenerateIomAsync()
 		{
@@ -71,12 +71,12 @@ namespace ConnectionIomGenerator.UI.ViewModels
 
 		private bool CanGenerateLoadingAsync()
 		{
-			return _model.ConnectionInput != null;
+			return _model!.ConnectionInput != null;
 		}
 
 		private bool CanSaveIomAsync()
 		{
-			return _model.IomContainer != null;
+			return _model!.IomContainer != null;
 		}
 
 		private async Task GenerateIomAsync()
@@ -96,7 +96,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 					loadingInput = JsonTools.DeserializeJson<LoadingInput>(LoadingDefinitionJson);
 				}
 
-				_model.IomContainer = null;
+				_model!.IomContainer = null;
 				_model.ConnectionInput = input;
 				_model.IomContainer = await _iomService.GenerateIomAsync(input, loadingInput);
 
@@ -146,7 +146,7 @@ namespace ConnectionIomGenerator.UI.ViewModels
 
 		private async Task SaveIomAsync()
 		{
-			if (_model.IomContainer == null)
+			if (_model!.IomContainer == null)
 			{
 				_logger.LogWarning("SaveIomAsync: IomContainer is null");
 				return;

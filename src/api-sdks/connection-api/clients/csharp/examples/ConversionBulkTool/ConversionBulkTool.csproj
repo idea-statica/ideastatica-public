@@ -26,10 +26,13 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.ConnectionApi"/>
+		<PackageReference Include="IdeaStatiCa.ConnectionApi" />
+		<PackageReference Include="IdeaStatiCa.OpenModel" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" />
 	</ItemGroup>
-	
+
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
 		<ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
 	</ItemGroup>
+	
 </Project>

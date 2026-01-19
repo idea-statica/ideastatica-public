@@ -58,7 +58,7 @@ namespace ConApiWpfClientApp.Commands
 				_logger.LogInformation("Editing parameters for connection");
 
 				// get existing parameters from the selected connection
-				var existingParameters = await _viewModel.ConApiClient.Parameter.GetParametersAsync(_viewModel.ProjectInfo.ProjectId, _viewModel.SelectedConnection.Id, null, 0, _cts.Token);
+				var existingParameters = await _viewModel.ConApiClient!.Parameter.GetParametersAsync(_viewModel.ProjectInfo.ProjectId, _viewModel.SelectedConnection.Id, null, 0, _cts.Token);
 
 				if(existingParameters == null || existingParameters.Any() == false)
 				{

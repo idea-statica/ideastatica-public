@@ -29,7 +29,7 @@ namespace ConnectionIomGenerator.Service
 
 		public string GetBimApiId(int iomId)
 		{
-			if (!_iomToBimIdMap.TryGetValue(iomId, out string bimApiId))
+			if (!_iomToBimIdMap.TryGetValue(iomId, out var bimApiId))
 			{
 				throw new KeyNotFoundException($"No mapping found for IOM ID: {iomId}");
 			}
