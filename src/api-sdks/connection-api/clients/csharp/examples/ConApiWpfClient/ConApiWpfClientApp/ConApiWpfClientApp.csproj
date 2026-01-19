@@ -38,6 +38,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj" />
+	  <ProjectReference Include="..\..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
