@@ -63,20 +63,27 @@ namespace ConnectionIomGenerator.Service
 				Vector3 dir = AxisX;
 
 				// Rotation around Y axis (pitch)
-				float pitchInRadians = memInput.Pitch * MathF.PI / 180f;
+				float pitchInRadians = -1 * memInput.Pitch * MathF.PI / 180f;
 				Matrix4x4 rotationAroundY = Matrix4x4.CreateFromAxisAngle(AxisY, pitchInRadians);
+
+				var rotatedVectX =  Vector3.Transform(AxisX, rotationAroundY);
+				var rotatedVectY = Vector3.Transform(AxisY, rotationAroundY);
+				var rotatedVectZ = Vector3.Transform(AxisZ, rotationAroundY);
 
 				// Rotation around Z axis (from Rotation property)
 				float rotationInRadians = memInput.Direction * MathF.PI / 180f;
 				Matrix4x4 rotationAroundZ = Matrix4x4.CreateFromAxisAngle(AxisZ, rotationInRadians);
 
-				// Combine rotations (apply pitch first, then rotation around Z)
-				Matrix4x4 rotationMatrix = rotationAroundY * rotationAroundZ;
+				var vecX = Vector3.Transform(rotatedVectX, rotationAroundZ);
+				var vecY = Vector3.Transform(rotatedVectY, rotationAroundZ);
+				var vecZ = Vector3.Transform(rotatedVectZ, rotationAroundZ);
 
-				// Extract the coordinate system vectors
-				Vector3 vecX = new Vector3(rotationMatrix.M11, rotationMatrix.M21, rotationMatrix.M31);
-				Vector3 vecY = new Vector3(rotationMatrix.M12, rotationMatrix.M22, rotationMatrix.M32);
-				Vector3 vecZ = new Vector3(rotationMatrix.M13, rotationMatrix.M23, rotationMatrix.M33);
+				// rotation around local axis X
+				float rotationXInRadians = memInput.Rotation * MathF.PI / 180f;
+				Matrix4x4 rotationAroundLocalX = Matrix4x4.CreateFromAxisAngle(vecX, rotationXInRadians);
+
+				vecY = Vector3.Transform(vecY, rotationAroundLocalX);
+				vecZ = Vector3.Transform(vecZ, rotationAroundLocalX);
 
 				CoordSystemByVector lcs = new CoordSystemByVector()
 				{
@@ -85,7 +92,7 @@ namespace ConnectionIomGenerator.Service
 					VecZ = new Vector3D(vecZ.X, vecZ.Y, vecZ.Z)
 				};
 
-				dir = Vector3.Transform(dir, rotationMatrix);
+				dir = vecX;
 
 				Vector3 memberOriginPt = Origin + dir * MemberLength;
 

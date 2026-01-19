@@ -40,7 +40,8 @@
 						</Grid.ColumnDefinitions>
 
 						<ScrollViewer VerticalScrollBarVisibility="Auto">
-							<TextBox Text="{Binding ConnectionDefinitionJson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+							<TextBox Text="{Binding ConnectionDefinitionJson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					   AcceptsReturn="True"></TextBox>
 						</ScrollViewer>
 
 						<GridSplitter HorizontalAlignment="Center"
