@@ -1,17 +1,20 @@
 ﻿using ConApiWpfClientApp.ViewModels;
 using ConApiWpfClientApp.Views;
+using ConnectionIomGenerator.Model;
+using ConnectionIomGenerator.Service;
+using ConnectionIomGenerator.UI.Models;
+using ConnectionIomGenerator.UI.Services;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.ConnectionApi;
-
+using IdeaStatiCa.ConRestApiClientUI;
 //using IdeaStatiCa.ConnectionApi.Factory;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Windows;
-using IdeaStatiCa.ConRestApiClientUI;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ConApiWpfClientApp
 {
@@ -57,6 +60,22 @@ namespace ConApiWpfClientApp
 			services.AddSingleton<IClientHost, ClientHost>();
 
 			services.AddSingleton<IConRestApiClientViewModel, ConRestApiClientViewModel>();
+
+			#region Services required by IOM generator
+			services.AddSingleton<ConnectionIomGenerator.UI.ViewModels.IomEditorWindowViewModel>();
+
+			services.AddSingleton<IomGeneratorModel>(serviceProvider =>
+			{
+				return new IomGeneratorModel
+				{
+					ConnectionInput = ConnectionInput.GetDefaultECEN()
+				};
+			});
+
+			services.AddTransient<IFileDialogService, FileDialogService>();
+			services.AddTransient<IIomService, IomService>();
+			services.AddTransient<IIomGenerator, IomGenerator>(); 
+			#endregion
 
 			serviceProvider = services.BuildServiceProvider();
 		}

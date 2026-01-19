@@ -1,7 +1,10 @@
-﻿using ConnectionIomGenerator.Service;
+﻿using ConnectionIomGenerator.Model;
+using ConnectionIomGenerator.Service;
+using ConnectionIomGenerator.UI.Models;
 using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGeneratorApp.View;
+using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +20,7 @@ namespace ConnectionIomGeneratorApp
 	public partial class App : Application
 	{
 		private readonly IServiceProvider _serviceProvider;
-		private MainWindowViewModel? _mainViewModel;
+		private IomGeneratorViewModel? _mainViewModel;
 
 		public App()
 		{
@@ -30,7 +33,15 @@ namespace ConnectionIomGeneratorApp
 				return LoggerProvider.GetLogger("ConnectionIomGeneratorApp");
 			});
 
-			services.AddSingleton<MainWindowViewModel>();
+			services.AddSingleton<IomGeneratorViewModel>();
+
+			services.AddSingleton<IomGeneratorModel>(serviceProvider =>
+			{
+				return new IomGeneratorModel
+				{
+					ConnectionInput = ConnectionInput.GetDefaultECEN()
+				};
+			});
 
 			services.AddTransient<IFileDialogService, FileDialogService>();
 			services.AddTransient<IIomService, IomService>();
@@ -38,7 +49,7 @@ namespace ConnectionIomGeneratorApp
 
 			services.AddTransient<MainWindow>(serviceProvider => new MainWindow
 			{
-				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
+				DataContext = serviceProvider.GetRequiredService<IomGeneratorViewModel>()
 			});
 
 			var serviceProvider = services.BuildServiceProvider();
@@ -54,7 +65,7 @@ namespace ConnectionIomGeneratorApp
 		{
 			var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 			mainWindow.Show();
-			var vm = mainWindow.DataContext as MainWindowViewModel;
+			var vm = mainWindow.DataContext as IomGeneratorViewModel;
 			if(vm == null)
 			{
 				throw new Exception();

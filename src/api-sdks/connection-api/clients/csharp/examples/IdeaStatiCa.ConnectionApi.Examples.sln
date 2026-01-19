@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeSamples", "CodeSamples\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConApiWpfClientApp", "ConApiWpfClient\ConApiWpfClientApp\ConApiWpfClientApp.csproj", "{9A83AA73-D2B9-84E4-37ED-8291BC961350}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IomGenerator", "IomGenerator", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator", "..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj", "{1D7B65D6-C586-FC4D-0EA2-4C6B90E05CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator.UI", "..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj", "{82AE5FA6-AA0F-2A69-8914-71CC13233696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,21 @@ Global
 		{9A83AA73-D2B9-84E4-37ED-8291BC961350}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
 		{9A83AA73-D2B9-84E4-37ED-8291BC961350}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
 		{9A83AA73-D2B9-84E4-37ED-8291BC961350}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{1D7B65D6-C586-FC4D-0EA2-4C6B90E05CE9}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{1D7B65D6-C586-FC4D-0EA2-4C6B90E05CE9}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{1D7B65D6-C586-FC4D-0EA2-4C6B90E05CE9}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{1D7B65D6-C586-FC4D-0EA2-4C6B90E05CE9}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{82AE5FA6-AA0F-2A69-8914-71CC13233696}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{82AE5FA6-AA0F-2A69-8914-71CC13233696}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{82AE5FA6-AA0F-2A69-8914-71CC13233696}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{82AE5FA6-AA0F-2A69-8914-71CC13233696}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D7B65D6-C586-FC4D-0EA2-4C6B90E05CE9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{82AE5FA6-AA0F-2A69-8914-71CC13233696} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F0F6EBA-0938-406F-A9E8-221603494EAE}

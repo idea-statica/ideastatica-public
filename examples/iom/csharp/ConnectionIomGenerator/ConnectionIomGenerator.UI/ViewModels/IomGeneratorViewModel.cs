@@ -13,37 +13,56 @@ namespace ConnectionIomGenerator.UI.ViewModels
 	/// <summary>
 	/// Main window view model for IOM generation
 	/// </summary>
-	public class MainWindowViewModel : ViewModelBase
+	public class IomGeneratorViewModel : ViewModelBase
 	{
 		private readonly IPluginLogger _logger;
 		private readonly IIomService _iomService;
 		private readonly IFileDialogService _fileDialogService;
-		private IomGeneratorModel _model;
+		private readonly IomGeneratorModel _model;
 		
-		public MainWindowViewModel(
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IomGeneratorViewModel"/> class.
+		/// </summary>
+		/// <remarks>This constructor initializes the commands for generating and saving IOM data, and sets up the
+		/// initial state of the view model. If the <paramref name="model"/> contains a non-<see langword="null"/>
+		/// <c>ConnectionInput</c>, its JSON representation is assigned to the <c>ConnectionDefinitionJson</c>
+		/// property.</remarks>
+		/// <param name="model">The data model containing the connection input and other relevant data for the view model.</param>
+		/// <param name="logger">The logger instance used for logging application events. This parameter cannot be <see langword="null"/>.</param>
+		/// <param name="iomService">The service responsible for handling IOM (Input/Output Model) operations. This parameter cannot be <see
+		/// langword="null"/>.</param>
+		/// <param name="fileDialogService">The service used for handling file dialog operations. This parameter cannot be <see langword="null"/>.</param>
+		/// <exception cref="ArgumentNullException">Thrown if <paramref name="logger"/>, <paramref name="iomService"/>, or <paramref name="fileDialogService"/> is
+		/// <see langword="null"/>.</exception>
+		public IomGeneratorViewModel(
+			IomGeneratorModel model,
 			IPluginLogger logger,
 			IIomService iomService,
 			IFileDialogService fileDialogService)
 		{
+			_model = model;
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_iomService = iomService ?? throw new ArgumentNullException(nameof(iomService));
 			_fileDialogService = fileDialogService ?? throw new ArgumentNullException(nameof(fileDialogService));
-
-			_model = new IomGeneratorModel
-			{
-				ConnectionInput = ConnectionInput.GetDefaultECEN()
-			};
 
 			GenerateIomCommand = new AsyncRelayCommand(GenerateIomAsync, CanGenerateIomAsync);
 			GenerateLoadingCommand = new AsyncRelayCommand(GenerateLoadingAsync, CanGenerateLoadingAsync);
 			SaveIomCommand = new AsyncRelayCommand(SaveIomAsync, CanSaveIomAsync);
 
-			ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(_model.ConnectionInput);
+			if (_model?.ConnectionInput != null)
+			{
+				ConnectionDefinitionJson = JsonTools.GetJsonText<ConnectionInput>(_model.ConnectionInput);
+			}
 		}
 
 		public AsyncRelayCommand GenerateIomCommand { get; }
 		public AsyncRelayCommand GenerateLoadingCommand { get; }
 		public AsyncRelayCommand SaveIomCommand { get; }
+
+		/// <summary>
+		/// Gets the underlying model. This is updated when JSON is deserialized.
+		/// </summary>
+		public IomGeneratorModel Model => _model;
 
 		private bool CanGenerateIomAsync()
 		{
@@ -220,7 +239,5 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			get => status;
 			set => SetProperty(ref status, value);
 		}
-
-		public IomGeneratorModel Model => _model;
 	}
 }

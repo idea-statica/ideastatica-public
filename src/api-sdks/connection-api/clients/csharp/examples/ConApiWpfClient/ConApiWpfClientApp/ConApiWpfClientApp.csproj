@@ -28,11 +28,18 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-		<ProjectReference Include="..\..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
-		<ProjectReference Include="..\..\..\..\..\..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
-		<ProjectReference Include="..\..\..\..\..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\..\src\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\..\src\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
 		<ProjectReference Include="..\..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj" />
+		<ProjectReference Include="..\..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator.UI\ConnectionIomGenerator.UI.csproj" />
+	  <ProjectReference Include="..\..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
