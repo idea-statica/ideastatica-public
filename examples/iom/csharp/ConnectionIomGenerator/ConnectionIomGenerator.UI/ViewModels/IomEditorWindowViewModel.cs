@@ -18,24 +18,6 @@ namespace ConnectionIomGenerator.UI.ViewModels
 		private string? _validationMessage;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IomEditorWindowViewModel"/> class.
-		/// </summary>
-		/// <param name="logger">Logger for tracking operations.</param>
-		/// <param name="iomService">Service for IOM operations.</param>
-		/// <param name="fileDialogService">Service for file dialogs.</param>
-		public IomEditorWindowViewModel(
-			IPluginLogger logger,
-			IIomService iomService,
-			IFileDialogService fileDialogService)
-		{
-			// MainWindowViewModel constructor already calls ConnectionInput.GetDefaultECEN()
-			_iomEditorViewModel = new MainWindowViewModel(logger, iomService, fileDialogService);
-			
-			OkCommand = new RelayCommand(ExecuteOk, CanExecuteOk);
-			CancelCommand = new RelayCommand(ExecuteCancel);
-		}
-
-		/// <summary>
 		/// Initializes a new instance of the <see cref="IomEditorWindowViewModel"/> class with initial model.
 		/// </summary>
 		/// <param name="model">Initial model data.</param>
@@ -49,9 +31,11 @@ namespace ConnectionIomGenerator.UI.ViewModels
 			IFileDialogService fileDialogService)
 		{
 			if (model == null)
+			{
 				throw new ArgumentNullException(nameof(model));
+			}
 
-			_iomEditorViewModel = new MainWindowViewModel(logger, iomService, fileDialogService);
+			_iomEditorViewModel = new MainWindowViewModel(model, logger, iomService, fileDialogService);
 			
 			OkCommand = new RelayCommand(ExecuteOk, CanExecuteOk);
 			CancelCommand = new RelayCommand(ExecuteCancel);

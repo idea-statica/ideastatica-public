@@ -13,16 +13,17 @@ namespace ConnectionIomGenerator.UI.Services
 	public class IomService : IIomService
 	{
 		private readonly IPluginLogger _logger;
+		private readonly IIomGenerator _iomGenerator;
 
-		public IomService(IPluginLogger logger)
+		public IomService(IIomGenerator iomGenerator, IPluginLogger logger)
 		{
+			_iomGenerator = iomGenerator;
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
 		public async Task<OpenModelContainer> GenerateIomAsync(ConnectionInput input, LoadingInput? loadingInput)
 		{
-			var generator = new IomGenerator(_logger);
-			return await generator.GenerateIomAsync(input, loadingInput);
+			return await _iomGenerator.GenerateIomAsync(input, loadingInput);
 		}
 
 		public string SerializeToXml(OpenModel openModel)

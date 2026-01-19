@@ -1,10 +1,7 @@
-using ConApiWpfClientApp.Services;
 using ConApiWpfClientApp.ViewModels;
 using ConnectionIomGenerator.UI.Services;
-using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGenerator.UI.Views;
 using IdeaStatiCa.Plugin;
-using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -26,12 +23,12 @@ namespace ConApiWpfClientApp.Commands
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GenerateConnectionIomCommand"/> class.
 		/// </summary>
-		/// <param name="viewModel">The view model that owns this command.</param>
-		/// <param name="logger">Logger for tracking command execution.</param>
-		/// <param name="cts">Cancellation token source for async operations.</param>
+		/// <param name="viewModel">The main window view model associated with this command.</param>
+		/// <param name="logger">The logger instance used to log diagnostic and operational information.</param>
+		/// <param name="cts">The <see cref="CancellationTokenSource"/> used to manage cancellation of the command's execution.</param>
 		public GenerateConnectionIomCommand(
-			ConApiWpfClientApp.ViewModels.MainWindowViewModel viewModel, 
-			IPluginLogger logger, 
+			ConApiWpfClientApp.ViewModels.MainWindowViewModel viewModel,
+			IPluginLogger logger,
 			CancellationTokenSource cts)
 			: base(viewModel, logger)
 		{
@@ -55,10 +52,8 @@ namespace ConApiWpfClientApp.Commands
 			try
 			{
 				// Create services for IomEditorWindow
-				var iomService = new IomService(_logger);
-				var fileDialogService = new ConnectionIomGenerator.UI.Services.FileDialogService();
 
-				var editorWindowVM = new IomEditorWindowViewModel(_logger, iomService, fileDialogService);
+				var editorWindowVM = _viewModel._iomEditorViewModel;
 
 				// Create and show the IOM editor dialog
 				var editorWindow = new IomEditorWindow(editorWindowVM)

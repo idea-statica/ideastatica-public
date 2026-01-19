@@ -1,7 +1,10 @@
-﻿using ConnectionIomGenerator.Service;
+﻿using ConnectionIomGenerator.Model;
+using ConnectionIomGenerator.Service;
+using ConnectionIomGenerator.UI.Models;
 using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGeneratorApp.View;
+using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +34,14 @@ namespace ConnectionIomGeneratorApp
 			});
 
 			services.AddSingleton<MainWindowViewModel>();
+
+			services.AddSingleton<IomGeneratorModel>(serviceProvider =>
+			{
+				return new IomGeneratorModel
+				{
+					ConnectionInput = ConnectionInput.GetDefaultECEN()
+				};
+			});
 
 			services.AddTransient<IFileDialogService, FileDialogService>();
 			services.AddTransient<IIomService, IomService>();

@@ -1,12 +1,8 @@
-﻿using Castle.Core.Internal;
-using ConnectionIomGenerator.Model;
+﻿using ConnectionIomGenerator.Model;
 using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Model;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 
 namespace ConnectionIomGenerator.Service
 {

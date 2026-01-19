@@ -1,6 +1,7 @@
 ﻿using ConApiWpfClientApp.Commands;
 using ConApiWpfClientApp.Models;
 using ConApiWpfClientApp.Services;
+using ConnectionIomGenerator.UI.ViewModels;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
@@ -24,6 +25,7 @@ namespace ConApiWpfClientApp.ViewModels
 		private readonly IConfiguration _configuration;
 		private readonly IPluginLogger _logger;
 		private readonly ISceneController _sceneController;
+		internal readonly IomEditorWindowViewModel _iomEditorViewModel;
 
 		private bool _isBusy;
 		private bool _runApiServer;
@@ -49,7 +51,7 @@ namespace ConApiWpfClientApp.ViewModels
 		}
 
 		public MainWindowViewModel(IConfiguration configuration,
-			IPluginLogger logger, ISceneController sceneController)
+			IPluginLogger logger, IomEditorWindowViewModel iomEditorViewModel, ISceneController sceneController)
 		{
 			this._connectionApiClientFactory = null;
 			this.cts = new CancellationTokenSource();
@@ -59,6 +61,7 @@ namespace ConApiWpfClientApp.ViewModels
 			this._conAnalysisType = ConAnalysisTypeEnum.Stress_Strain;
 			this._calculateBuckling = false;
 			this._getRawResults = false;
+			this._iomEditorViewModel = iomEditorViewModel;
 
 			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
 			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
