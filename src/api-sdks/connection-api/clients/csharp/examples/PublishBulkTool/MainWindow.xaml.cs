@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using SearchOption = System.IO.SearchOption;
 
 namespace PublishBulkTool
 {
@@ -117,7 +118,7 @@ namespace PublishBulkTool
 						foreach (var connection in file.Connections)
 						{
 							publishParams.Name = connection.Name;
-							await conClient.Template.PublishConnectionAsync(project.ProjectId, connection.ConnectionId, publishParams);
+							await conClient.ConnectionLibrary.PublishConnectionAsync(project.ProjectId, connection.ConnectionId, publishParams);
 						}
 
 						// Mark as success
