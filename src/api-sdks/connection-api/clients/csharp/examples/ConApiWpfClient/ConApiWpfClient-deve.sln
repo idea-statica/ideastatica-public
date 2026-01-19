@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Public", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginLogger", "..\..\..\..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectDividerConsole", "..\ProjectDividerConsole\ProjectDividerConsole.csproj", "{BB5E9C7C-5188-4379-A0DC-622816FFE330}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IomGenerator", "IomGenerator", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator", "..\..\..\..\..\..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj", "{9D2EA87E-744F-1ED4-02A5-A7AC24FCD05D}"
@@ -55,6 +57,10 @@ Global
 		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A4EA04C-C52A-4A98-8F18-DBD29E5C7348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB5E9C7C-5188-4379-A0DC-622816FFE330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5E9C7C-5188-4379-A0DC-622816FFE330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5E9C7C-5188-4379-A0DC-622816FFE330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5E9C7C-5188-4379-A0DC-622816FFE330}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D2EA87E-744F-1ED4-02A5-A7AC24FCD05D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D2EA87E-744F-1ED4-02A5-A7AC24FCD05D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D2EA87E-744F-1ED4-02A5-A7AC24FCD05D}.Release|Any CPU.ActiveCfg = Release|Any CPU
