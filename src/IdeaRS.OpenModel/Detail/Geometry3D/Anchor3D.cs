@@ -255,5 +255,10 @@ namespace IdeaRS.OpenModel.Detail
 		/// Position related to edge or center point
 		/// </summary>
 		public PositionRelatedToMasterType PositionRelatedToMasterType { get; set; }
+
+		/// <summary>
+		/// Cut threads.
+		/// </summary>
+		public bool CutThreads { get; set; }
 	}
 }
