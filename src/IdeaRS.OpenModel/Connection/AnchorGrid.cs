@@ -3,6 +3,13 @@ using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Connection
 {
+	[DataContract]
+	public enum InstallationProcessTypeEnum
+	{
+		PostInstalled,
+		CastInPlace,
+	}
+
 	/// <summary>
 	/// Data of the anchor grid
 	/// </summary>
@@ -27,6 +34,11 @@ namespace IdeaRS.OpenModel.Connection
 		[DataMember]
 		public AnchorType AnchorType { get; set; }
 
+		/// <summary>
+		/// Anchor installation process
+		/// </summary>
+		[DataMember]
+		public InstallationProcessTypeEnum AnchorInstallationProcess { get; set; }
 
 		/// <summary>
 		/// Washer Size used if AnchorType is washer
@@ -56,5 +68,12 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public ReferenceElement BoltAssembly { get; set; }
+
+		/// <summary>
+		/// Mutually exclusive with BoltAssembly property
+		/// for Reinforcement & Headed stud
+		/// </summary>
+		[DataMember]
+		public ReferenceElement Material { get; set; }
 	}
 }
