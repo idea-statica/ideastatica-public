@@ -57,8 +57,8 @@ namespace IdeaRS.OpenModel.Connection
 		}
 
 		/// <summary>
-		/// Length of anchor hook<br/>
-		/// (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)
+		/// Length of anchor hook. Distance from the inner surface of the anchor shaft
+		/// to the outer tip of the hook specified as an anchor diameter multiplier.
 		/// </summary>
 		[DataMember]
 		public double HookLength { get; set; }
