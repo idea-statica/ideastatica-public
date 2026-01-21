@@ -70,8 +70,7 @@ namespace IdeaRS.OpenModel.Connection
 		public ReferenceElement BoltAssembly { get; set; }
 
 		/// <summary>
-		/// Mutually exclusive with BoltAssembly property
-		/// for Reinforcement & Headed stud
+		/// Material for Reinforcement & Headed stud. Mutually exclusive with BoltAssembly property 
 		/// </summary>
 		[DataMember]
 		public ReferenceElement Material { get; set; }
