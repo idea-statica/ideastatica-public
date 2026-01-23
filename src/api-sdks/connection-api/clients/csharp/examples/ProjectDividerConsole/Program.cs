@@ -41,52 +41,58 @@ namespace ProjectDividerConsole
 
 				try
 				{
-					var tempProject = await client.Project.OpenProjectAsync(file);
+					// 1️⃣ otevřeme zdrojový projekt JEDNOU (jen metadata)
+					var sourceProject = await client.Project.OpenProjectAsync(file);
 
-					var connectionsMeta = tempProject.Connections
-						.Select((c, index) => new
+					var connections = sourceProject.Connections
+						.Select(c => new
 						{
 							c.Id,
-							c.Name,
-							Index = index
+							c.Name
 						})
 						.ToList();
 
-					await client.Project.CloseProjectAsync(tempProject.ProjectId);
+					await client.Project.CloseProjectAsync(sourceProject.ProjectId);
 
-					Console.WriteLine($"Found {connectionsMeta.Count} connections");
+					Console.WriteLine($"Found {connections.Count} connections");
 
-					for (int i = 0; i < connectionsMeta.Count; i++)
+					// 2️⃣ pro každý connection vytvoříme kopii projektu
+					for (int i = 0; i < connections.Count; i++)
 					{
+						var keep = connections[i];
+
 						try
 						{
-							var meta = connectionsMeta[i];
-
+							// otevřeme NOVOU instanci projektu
 							var project = await client.Project.OpenProjectAsync(file);
 
-							var connectionToKeep =
-								project.Connections.FirstOrDefault(c => c.Id == meta.Id)
-								?? project.Connections.ElementAt(meta.Index);
-
-							foreach (var conn in project.Connections.ToList())
+							// smažeme všechny ostatní connection
+							foreach (var conn in project.Connections)
 							{
-								if (conn.Id != connectionToKeep.Id)
+								if (conn.Id != keep.Id)
 								{
-									project.Connections.Remove(conn);
+									await client.Connection.DeleteConnectionAsync(
+										project.ProjectId,
+										conn.Id
+									);
 								}
 							}
 
 							var baseName = Path.GetFileNameWithoutExtension(file);
 							var safeName = string.Concat(
-								connectionToKeep.Name.Split(Path.GetInvalidFileNameChars())
+								keep.Name.Split(Path.GetInvalidFileNameChars())
 							);
 
 							var outputPath = Path.Combine(
 								outputFolder,
-								$"{baseName}_{i + 1}_{safeName}.idea"
+								$"{baseName}_{i + 1}_{safeName}.ideaCon"
 							);
 
-							await client.Project.SaveProjectAsync(project.ProjectId, outputPath);
+							await client.Project.SaveProjectAsync(
+								project.ProjectId,
+								outputPath
+							);
+
 							await client.Project.CloseProjectAsync(project.ProjectId);
 
 							Console.WriteLine($"Saved: {outputPath}");
@@ -104,8 +110,9 @@ namespace ProjectDividerConsole
 				}
 			}
 
-			runner?.Dispose();
 			client?.Dispose();
+			runner?.Dispose();
+
 			Console.WriteLine("Done.");
 		}
 	}
