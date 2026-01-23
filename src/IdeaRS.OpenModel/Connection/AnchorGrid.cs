@@ -63,6 +63,12 @@ namespace IdeaRS.OpenModel.Connection
 		[DataMember]
 		public double HookLength { get; set; }
 
+		[DataMember]
+		/// <summary>
+		/// Diameter for headed stud or reinforcement
+		/// </summary>
+		public double Diameter { get; set; }
+
 		/// <summary>
 		/// Assembly
 		/// </summary>
