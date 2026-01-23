@@ -85,7 +85,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			string projectPath = CreateProjectDirectory(container.Resolve<IModelClient>());
 
 			BimLink bimLink = TeklaCadBimLink.Create(LinkName, projectPath)
-				.WithTaskScheduler(TaskScheduler.FromCurrentSynchronizationContext());
+				.WithTaskScheduler(TaskScheduler.FromCurrentSynchronizationContext())
+				.WithIdeaStatiCa(GetCheckbotLocation());
 
 			AppVisibility appVisibility = container.Resolve<AppVisibility>();
 
