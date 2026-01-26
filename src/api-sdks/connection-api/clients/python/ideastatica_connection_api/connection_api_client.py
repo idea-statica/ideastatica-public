@@ -1,7 +1,7 @@
 import logging
 from ideastatica_connection_api import Configuration, ClientApi, CalculationApi, ConnectionApi, ConnectionLibraryApi, ExportApi, \
     LoadEffectApi, MaterialApi, MemberApi, OperationApi, ParameterApi, PresentationApi, ReportApi, TemplateApi, \
-    ConversionApi, ConnectionLibraryApi, SettingsApi
+    ConversionApi, SettingsApi
 import ideastatica_connection_api.api_client as api_client
 import ideastatica_connection_api.api_ext.project_ext_api as project_ext_api
 import ideastatica_connection_api.api_ext.export_ext_api as export_ext_api
@@ -20,7 +20,7 @@ class ConnectionApiClient:
 
         self.calculation: Optional[CalculationApi] = None
         self.connection: Optional[ConnectionApi] = None
-        self.connection_library: Optional[ConnectionApi] = None
+        self.connection_library: Optional[ConnectionLibraryApi] = None
         self.export: Optional[export_ext_api.ExportExtApi] = None
         self.load_effect: Optional[LoadEffectApi] = None
         self.material: Optional[MaterialApi] = None
@@ -33,7 +33,6 @@ class ConnectionApiClient:
         self.template: Optional[TemplateApi] = None
         self.conversion: Optional[ConversionApi] = None
         self.settings: Optional[SettingsApi] = None
-        self.connection_library: Optional[ConnectionLibraryApi] = None
 
     def __enter__(self):
         # Initialize the client with the provided config
@@ -62,7 +61,6 @@ class ConnectionApiClient:
         self.template = TemplateApi(self.client)
         self.conversion = ConversionApi(self.client)
         self.settings = SettingsApi(self.client)
-        self.connection_library = ConnectionLibraryApi(self.client)
 
         logger.info(f"Client ready to use.")  
 
