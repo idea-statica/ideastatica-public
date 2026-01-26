@@ -17,4 +17,4 @@ from ideastatica_connection_api.api.project_api import ProjectApi
 from ideastatica_connection_api.api.report_api import ReportApi
 from ideastatica_connection_api.api.settings_api import SettingsApi
 from ideastatica_connection_api.api.template_api import TemplateApi
-
+from ideastatica_connection_api.api.connection_library_api import ConnectionLibraryApi
