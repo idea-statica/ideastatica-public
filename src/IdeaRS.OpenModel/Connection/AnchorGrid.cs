@@ -3,6 +3,13 @@ using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Connection
 {
+	[DataContract]
+	public enum InstallationProcessTypeEnum
+	{
+		PostInstalled,
+		CastInPlace,
+	}
+
 	/// <summary>
 	/// Data of the anchor grid
 	/// </summary>
@@ -27,6 +34,11 @@ namespace IdeaRS.OpenModel.Connection
 		[DataMember]
 		public AnchorType AnchorType { get; set; }
 
+		/// <summary>
+		/// Anchor installation process
+		/// </summary>
+		[DataMember]
+		public InstallationProcessTypeEnum AnchorInstallationProcess { get; set; }
 
 		/// <summary>
 		/// Washer Size used if AnchorType is washer
@@ -45,16 +57,28 @@ namespace IdeaRS.OpenModel.Connection
 		}
 
 		/// <summary>
-		/// Length of anchor hook<br/>
-		/// (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)
+		/// Length of anchor hook. Distance from the inner surface of the anchor shaft
+		/// to the outer tip of the hook specified as an anchor diameter multiplier.
 		/// </summary>
 		[DataMember]
 		public double HookLength { get; set; }
+
+		[DataMember]
+		/// <summary>
+		/// Diameter for headed stud or reinforcement
+		/// </summary>
+		public double Diameter { get; set; }
 
 		/// <summary>
 		/// Assembly
 		/// </summary>
 		[DataMember]
 		public ReferenceElement BoltAssembly { get; set; }
+
+		/// <summary>
+		/// Material for Reinforcement and Headed stud. Mutually exclusive with BoltAssembly property 
+		/// </summary>
+		[DataMember]
+		public ReferenceElement Material { get; set; }
 	}
 }
