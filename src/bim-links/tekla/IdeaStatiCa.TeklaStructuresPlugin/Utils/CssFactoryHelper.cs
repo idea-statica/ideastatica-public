@@ -929,20 +929,44 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		// subprofile PROFILE_ZZ
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertZZProfile(LibraryProfileItem profileItem)
 		{
-			CrossSectionParameter cssParameter = new CrossSectionParameter
+			if (profileItem.ProfileItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_ZZ_SYMMETRICAL)
 			{
-				Name = profileItem.ProfileName,
-			};
-			Hashtable cssProperties = GetCssProperties(profileItem);
+				CrossSectionParameter cssParameter = new CrossSectionParameter
+				{
+					Name = profileItem.ProfileName,
+				};
+				Hashtable cssProperties = GetCssProperties(profileItem);
 
-			var dWidth = ((double)cssProperties[FlangeWidthKey1]).MilimetersToMeters() + ((double)cssProperties[FlangeWidthKey2]).MilimetersToMeters();
-			var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
-			double plateThickness = ((double)cssProperties[PlateThicknessKey]).MilimetersToMeters();
+				var dWidth = ((double)cssProperties[FlangeWidthKey1]).MilimetersToMeters() + ((double)cssProperties[FlangeWidthKey2]).MilimetersToMeters();
+				var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
+				double plateThickness = ((double)cssProperties[PlateThicknessKey]).MilimetersToMeters();
 
-			double lip = Math.Min(((double)cssProperties[EdgeFold1Key]).MilimetersToMeters(), ((double)cssProperties[EdgeFold2Key]).MilimetersToMeters());
+				double lip = Math.Min(((double)cssProperties[EdgeFold1Key]).MilimetersToMeters(), ((double)cssProperties[EdgeFold2Key]).MilimetersToMeters());
 
-			CrossSectionFactory.FillColdFormedZed(cssParameter, dWidth, dHeight, plateThickness, 0.001, lip);
-			return cssParameter;
+				CrossSectionFactory.FillColdFormedZed(cssParameter, dWidth, dHeight, plateThickness, 0.001, lip);
+				return cssParameter;
+			}
+			else
+			{
+				Hashtable cssProperties = GetCssProperties(profileItem);
+				var dTopFlangeWidth = ((double)cssProperties[FlangeWidthKey1]).MilimetersToMeters();
+				var dBottomFlangeWidth = ((double)cssProperties[FlangeWidthKey2]).MilimetersToMeters();
+
+				var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
+				double plateThickness = ((double)cssProperties[PlateThicknessKey]).MilimetersToMeters();
+
+				double topLip = ((double)cssProperties[EdgeFold1Key]).MilimetersToMeters();
+				double bottomLip = ((double)cssProperties[EdgeFold2Key]).MilimetersToMeters();
+
+				Region2D region2D = CreateCenterline_ZZ(dHeight, dTopFlangeWidth, dBottomFlangeWidth, plateThickness, topLip, bottomLip);
+				CrossSectionGeneralColdFormed crossSectionGeneralColdFormed = new CrossSectionGeneralColdFormed()
+				{
+					Name = profileItem.ProfileName,
+					CrossSectionType = CrossSectionType.CFGeneral,
+				};
+				CrossSectionFactory.FillColdFormedGeneral(crossSectionGeneralColdFormed, region2D, plateThickness, 0.001); // zde zkousim naplnit CF general
+				return crossSectionGeneralColdFormed;
+			}
 		}
 
 
@@ -1215,5 +1239,91 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				Outline = centerline,
 			};
 		}
+
+		/// <summary>
+		/// Create the center line of ZZ shape. 
+		/// </summary>
+		/// <param name="h">Height</param>
+		/// <param name="b1">top flange width</param>
+		/// <param name="b2">bottom flange width</param>
+		/// <param name="t">thickness</param>
+		/// <param name="e1">top edge fold length (down from top)</param>
+		/// <param name="e2">bottom edge fold length (up from bottom)</param>
+		/// <param name="mirrorX">flips: top↔left, bottom↔right</param>
+		/// <param name="shiftPositiveX">translate so all X >= 0</param>
+		/// <returns></returns>
+
+		public static Region2D CreateCenterline_ZZ(
+			double h,    // height
+			double b1,   // top flange width
+			double b2,   // bottom flange width
+			double t,    // thickness
+			double e1,   // top edge fold length (down from top)
+			double e2,   // bottom edge fold length (up from bottom)
+			bool mirrorX = false,        // flips: top↔left, bottom↔right
+			bool shiftPositiveX = true   // translate so all X >= 0
+		)
+		{
+			// Sanity checks (optional)
+			if (t <= 0)
+			{
+				throw new ArgumentException("thickness must be > 0", nameof(t));
+			}
+			if (h <= t)
+			{
+				throw new ArgumentException("height must be > thickness", nameof(h));
+			}
+			if (b1 <= t)
+			{
+				throw new ArgumentException("b1 must be > thickness", nameof(b1));
+			}
+			if (b2 <= t)
+			{
+				throw new ArgumentException("b2 must be > thickness", nameof(b2));
+			}
+			if (e1 < 0 || e1 > h)
+			{
+				throw new ArgumentException("e1 must be within [0, h]", nameof(e1));
+			}
+			if (e2 < 0 || e2 > h)
+			{
+				throw new ArgumentException("e2 must be within [0, h]", nameof(e2));
+			}
+
+			double halfT = 0.5 * t;
+
+			// Orientation:
+			// Default: top flange to +X, bottom flange to -X (Z-shape).
+			// Mirror: invert both sides (top to -X, bottom to +X).
+			int topSign = +1;
+			int botSign = -1;
+			if (mirrorX) { topSign = -topSign; botSign = -botSign; }
+
+			// Unshifted X coordinates for key verticals (center line)
+			double xWeb = 0.0;                             // web center line
+			double xTopFE = topSign * (b1 - halfT);          // free edge center line @ top flange
+			double xBotFE = botSign * (b2 - halfT);          // free edge center line @ bottom flange
+
+			// Optional shift so every X is >= 0 (nice if your system assumes positive coords)
+			double xMin = Math.Min(0.0, Math.Min(xTopFE, xBotFE));
+			double xShift = shiftPositiveX ? -xMin : 0.0;
+
+			// Points (centerline), matching your picture’s semantics:
+			// Start at the TOP free edge lip, go up to top flange midline, across to web,
+			// down the web, across bottom flange to its free edge, then up the bottom lip.
+			var cl = new PolyLine2D
+			{
+				StartPoint = new Point2D { X = xShift + xTopFE, Y = h - e1 }  // P0: top lip end (center line)
+			};
+
+			cl.Segments.Add(new LineSegment2D { EndPoint = new Point2D { X = xShift + xTopFE, Y = h - halfT } }); // P1: up to top flange midline
+			cl.Segments.Add(new LineSegment2D { EndPoint = new Point2D { X = xShift + xWeb, Y = h - halfT } }); // P2: left/right to web
+			cl.Segments.Add(new LineSegment2D { EndPoint = new Point2D { X = xShift + xWeb, Y = halfT } });     // P3: down the web
+			cl.Segments.Add(new LineSegment2D { EndPoint = new Point2D { X = xShift + xBotFE, Y = halfT } });     // P4: to bottom flange free edge midline
+			cl.Segments.Add(new LineSegment2D { EndPoint = new Point2D { X = xShift + xBotFE, Y = e2 } });        // P5: up bottom lip end (center line)
+
+			return new Region2D { Outline = cl };
+		}
+
 	}
 }

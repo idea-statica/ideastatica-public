@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\AnchorGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\ConcreteBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)bimapi\FoldedPlate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)bimapi\library\CrossSectionByCenterLine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\NegativePlate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\Plate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IModelClient.cs" />
