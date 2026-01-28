@@ -42,7 +42,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			};
 		}
 
-		public CrossSectionByParameters GetCrossSectionByLibraryItem(ProfileItem profile, string cssId, string materialNo)
+		public IIdeaCrossSection GetCrossSectionByLibraryItem(ProfileItem profile, string cssId, string materialNo)
 		{
 			if (profile is LibraryProfileItem libraryProfileItem)
 			{
@@ -59,6 +59,19 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 							Parameters = new HashSet<IdeaRS.OpenModel.CrossSection.Parameter>(cssParam.Parameters),
 							Type = cssParam.CrossSectionType,
 						};
+					}
+					else if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionGeneralColdFormed cssCF)
+					{
+						return new CrossSectionByCenterLine(cssId)
+						{
+							MaterialNo = materialNo,
+							Name = libraryProfileItem.ProfileName,
+							Type = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFGeneral,
+							Thickness = cssCF.Thickness,
+							CenterLine = cssCF.Centerline,
+							Radius = cssCF.Radius,
+						};
+
 					}
 					else if (iomCss != null)
 					{
