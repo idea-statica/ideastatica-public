@@ -25,8 +25,27 @@ class ReportExtApi(ReportApi):
         with open(file_name, 'wb') as file:
             file.write(response.raw_data)
 
+    def save_multiple_report_pdf(self, project_id: str, connection_ids: list[int], file_name: str):
+        """
+        Saves the report for the specified project and multiple connections as a PDF file.
 
-    def save_report_words(self, project_id: StrictStr, connection_id: StrictInt, file_name: str):
+        Args:
+            project_id (str): The ID of the project.
+            connection_ids list[int]: The list of the connection ids.
+            file_name (str): The name of the file to save the report.
+
+        Returns:
+            None
+        """
+        response = super().generate_pdf_for_mutliple_with_http_info(
+            project_id,
+            connection_ids,
+            "application/octet-stream"
+        )
+        with open(file_name, 'wb') as file:
+            file.write(response.raw_data)
+
+    def save_report_word(self, project_id: StrictStr, connection_id: StrictInt, file_name: str):
         """
         Saves the report for the specified project and connection as a Word file.
 
@@ -39,5 +58,25 @@ class ReportExtApi(ReportApi):
             None
         """
         response = super().generate_word_with_http_info(project_id, connection_id)
+        with open(file_name, 'wb') as file:
+            file.write(response.raw_data)
+
+    def save_multiple_report_word(self, project_id: str, connection_ids: list[int], file_name: str):
+        """
+        Saves the report for the specified project and multiple connections as a Word file.
+
+        Args:
+            project_id (str): The ID of the project.
+            connection_ids list[int]: The list of the connection ids.
+            file_name (str): The name of the file to save the report.
+
+        Returns:
+            None
+        """
+        response = super().generate_word_for_multiple_with_http_info(
+            project_id,
+            connection_ids,
+            "application/octet-stream"
+        )
         with open(file_name, 'wb') as file:
             file.write(response.raw_data)
