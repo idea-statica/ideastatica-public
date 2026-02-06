@@ -3,6 +3,13 @@ using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Connection
 {
+	[DataContract]
+	public enum InstallationProcessTypeEnum
+	{
+		PostInstalled,
+		CastInPlace,
+	}
+
 	/// <summary>
 	/// Data of the anchor grid
 	/// </summary>
@@ -27,6 +34,11 @@ namespace IdeaRS.OpenModel.Connection
 		[DataMember]
 		public AnchorType AnchorType { get; set; }
 
+		/// <summary>
+		/// Anchor installation process
+		/// </summary>
+		[DataMember]
+		public InstallationProcessTypeEnum AnchorInstallationProcess { get; set; }
 
 		/// <summary>
 		/// Washer Size used if AnchorType is washer
@@ -45,11 +57,25 @@ namespace IdeaRS.OpenModel.Connection
 		}
 
 		/// <summary>
-		/// Length of anchor hook<br/>
-		/// (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)
+		/// Length of anchor hook. Distance from the inner surface of the anchor shaft
+		/// to the outer tip of the hook specified as an anchor diameter multiplier.
 		/// </summary>
 		[DataMember]
 		public double HookLength { get; set; }
+
+		/// <summary>
+		/// Head diameter of headed stud anchor.
+		/// Used when <see cref="AnchorType"/> is <see cref="AnchorType.HeadedStud"/>.
+		/// </summary>
+		[DataMember]
+		public double HeadedStudHeadDiameter { get; set; }
+
+		/// <summary>
+		/// Mandrel diameter of reinforcement anchor.
+		/// Used when <see cref="AnchorType"/> is <see cref="AnchorType.Reinforcement"/>.
+		/// </summary>
+		[DataMember]
+		public double ReinforcementMandrelDiameter { get; set; }
 
 		/// <summary>
 		/// Assembly
