@@ -18,10 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_rcs_api.models.poly_line2_d import PolyLine2D
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,14 +29,14 @@ class RcsStirrupsData(BaseModel):
     RcsStirrupsData
     """ # noqa: E501
     diameter: Optional[Union[StrictFloat, StrictInt]] = None
-    material: Optional[RcsMaterial] = None
+    material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
     diameter_of_mandrel: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="diameterOfMandrel")
     is_closed: Optional[StrictBool] = Field(default=None, alias="isClosed")
     shear_check: Optional[StrictBool] = Field(default=None, alias="shearCheck")
     torsion_check: Optional[StrictBool] = Field(default=None, alias="torsionCheck")
     distance: Optional[Union[StrictFloat, StrictInt]] = None
     geometry: Optional[PolyLine2D] = None
-    __properties: ClassVar[List[str]] = ["diameter", "material", "diameterOfMandrel", "isClosed", "shearCheck", "torsionCheck", "distance", "geometry"]
+    __properties: ClassVar[List[str]] = ["diameter", "materialName", "diameterOfMandrel", "isClosed", "shearCheck", "torsionCheck", "distance", "geometry"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,12 +77,14 @@ class RcsStirrupsData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of material
-        if self.material:
-            _dict['material'] = self.material.to_dict()
         # override the default output from pydantic by calling `to_dict()` of geometry
         if self.geometry:
             _dict['geometry'] = self.geometry.to_dict()
+        # set to None if material_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.material_name is None and "material_name" in self.model_fields_set:
+            _dict['materialName'] = None
+
         return _dict
 
     @classmethod
@@ -97,7 +98,7 @@ class RcsStirrupsData(BaseModel):
 
         _obj = cls.model_validate({
             "diameter": obj.get("diameter"),
-            "material": RcsMaterial.from_dict(obj["material"]) if obj.get("material") is not None else None,
+            "materialName": obj.get("materialName"),
             "diameterOfMandrel": obj.get("diameterOfMandrel"),
             "isClosed": obj.get("isClosed"),
             "shearCheck": obj.get("shearCheck"),

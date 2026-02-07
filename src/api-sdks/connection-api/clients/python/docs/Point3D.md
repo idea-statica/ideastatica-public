@@ -1,15 +1,14 @@
 # Point3D
 
-Represents an x- , y- an z-coordinates in three-dimensional space.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**x** | **float** | Gets or sets the X-coordinate value | [optional] 
-**y** | **float** | Gets or sets the Y-coordinate value | [optional] 
-**z** | **float** | Gets or sets the Z-coordinate value | [optional] 
-**id** | **int** | Element Id | [optional] 
+**x** | **float** |  | [optional] 
+**y** | **float** |  | [optional] 
+**z** | **float** |  | [optional] 
+**id** | **int** |  | [optional] 
 
 ## Example
 

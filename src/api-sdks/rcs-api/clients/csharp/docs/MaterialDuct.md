@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.MaterialDuct
-Tendon ducts material type
 
 ## Properties
 

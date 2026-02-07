@@ -27,11 +27,11 @@ from typing_extensions import Self
 
 class ConcreteCheckResultOverallItem(BaseModel):
     """
-    Overal check item
+    ConcreteCheckResultOverallItem
     """ # noqa: E501
     result_type: Optional[CheckResultType] = Field(default=None, alias="resultType")
     result: Optional[CheckResult] = None
-    check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="calculated limited value, calculated as strain to limit strain", alias="checkValue")
+    check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="checkValue")
     __properties: ClassVar[List[str]] = ["resultType", "result", "checkValue"]
 
     model_config = ConfigDict(

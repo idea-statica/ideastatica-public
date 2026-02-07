@@ -1,6 +1,5 @@
 # CheckResult
 
-The number in enum value description means the priority for extreme check evaluation.
 
 ## Enum
 

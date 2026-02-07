@@ -1,6 +1,5 @@
 # CutData
 
-Provides data of the cut beam
 
 ## Properties
 
@@ -9,7 +8,7 @@ Name | Type | Description | Notes
 **plane_point** | [**Point3D**](Point3D.md) |  | [optional] 
 **normal_vector** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **direction** | [**CutOrientation**](CutOrientation.md) |  | [optional] 
-**offset** | **float** | Offset - shift of cut | [optional] 
+**offset** | **float** |  | [optional] 
 
 ## Example
 

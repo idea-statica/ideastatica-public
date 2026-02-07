@@ -1,13 +1,12 @@
 # FoldedPlateData
 
-Provides data of the folded plate
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**plates** | [**List[PlateData]**](PlateData.md) | List of plates belong to folded plate | [optional] 
-**bends** | [**List[BendData]**](BendData.md) | List of bends connected plates of foldedplate | [optional] 
+**plates** | [**List[PlateData]**](PlateData.md) |  | [optional] 
+**bends** | [**List[BendData]**](BendData.md) |  | [optional] 
 
 ## Example
 

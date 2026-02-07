@@ -1,6 +1,5 @@
 # WeldType
 
-enum of weld types
 
 ## Enum
 

@@ -35,18 +35,18 @@ from typing_extensions import Self
 
 class ConnectionData(BaseModel):
     """
-    Provides data of the connection
+    ConnectionData
     """ # noqa: E501
     connection_point: Optional[ReferenceElement] = Field(default=None, alias="connectionPoint")
-    beams: Optional[List[BeamData]] = Field(default=None, description="Connected beams")
-    plates: Optional[List[PlateData]] = Field(default=None, description="Plates of the connection")
-    folded_plates: Optional[List[FoldedPlateData]] = Field(default=None, description="Folded plate of the connection", alias="foldedPlates")
-    bolt_grids: Optional[List[BoltGrid]] = Field(default=None, description="Bolt grids which belongs to the connection", alias="boltGrids")
-    anchor_grids: Optional[List[AnchorGrid]] = Field(default=None, description="Anchor grids which belongs to the connection", alias="anchorGrids")
-    pin_grids: Optional[List[PinGrid]] = Field(default=None, description="Pin grids which belongs to the connection", alias="pinGrids")
-    welds: Optional[List[WeldData]] = Field(default=None, description="Welds of the connection")
-    concrete_blocks: Optional[List[ConcreteBlockData]] = Field(default=None, description="ConcreteBlocksof the connection", alias="concreteBlocks")
-    cut_beam_by_beams: Optional[List[CutBeamByBeamData]] = Field(default=None, description="cut beam by beams", alias="cutBeamByBeams")
+    beams: Optional[List[BeamData]] = None
+    plates: Optional[List[PlateData]] = None
+    folded_plates: Optional[List[FoldedPlateData]] = Field(default=None, alias="foldedPlates")
+    bolt_grids: Optional[List[BoltGrid]] = Field(default=None, alias="boltGrids")
+    anchor_grids: Optional[List[AnchorGrid]] = Field(default=None, alias="anchorGrids")
+    pin_grids: Optional[List[PinGrid]] = Field(default=None, alias="pinGrids")
+    welds: Optional[List[WeldData]] = None
+    concrete_blocks: Optional[List[ConcreteBlockData]] = Field(default=None, alias="concreteBlocks")
+    cut_beam_by_beams: Optional[List[CutBeamByBeamData]] = Field(default=None, alias="cutBeamByBeams")
     __properties: ClassVar[List[str]] = ["connectionPoint", "beams", "plates", "foldedPlates", "boltGrids", "anchorGrids", "pinGrids", "welds", "concreteBlocks", "cutBeamByBeams"]
 
     model_config = ConfigDict(

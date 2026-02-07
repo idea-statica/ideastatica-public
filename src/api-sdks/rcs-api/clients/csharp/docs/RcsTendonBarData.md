@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Point** | [**Point2D**](Point2D.md) |  | [optional] 
-**Material** | [**RcsMaterial**](RcsMaterial.md) |  | [optional] 
+**MaterialName** | **string** |  | [optional] 
 **NumStrandsInTendon** | **int** |  | [optional] 
 **PrestressingOrder** | **int** |  | [optional] 
 **TendonDuct** | [**RcsTendonDuctData**](RcsTendonDuctData.md) |  | [optional] 

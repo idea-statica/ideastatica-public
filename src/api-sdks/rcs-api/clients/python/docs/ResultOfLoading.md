@@ -1,14 +1,13 @@
 # ResultOfLoading
 
-Result Of Loading
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**List[ResultOfLoadingItem]**](ResultOfLoadingItem.md) | Items od loading | [optional] 
+**items** | [**List[ResultOfLoadingItem]**](ResultOfLoadingItem.md) |  | [optional] 
 **loading_type** | [**LoadingType**](LoadingType.md) |  | [optional] 
-**id** | **int** | Id of loading | [optional] 
+**id** | **int** |  | [optional] 
 
 ## Example
 

@@ -1,13 +1,12 @@
 # ConcreteCheckResult
 
-Concrete Check results
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **result_type** | [**CheckResultType**](CheckResultType.md) |  | [optional] 
-**check_results** | [**List[ConcreteCheckResultBase]**](ConcreteCheckResultBase.md) | All results - first is extreme | [optional] 
+**check_results** | [**List[ConcreteCheckResultBase]**](ConcreteCheckResultBase.md) |  | [optional] 
 
 ## Example
 

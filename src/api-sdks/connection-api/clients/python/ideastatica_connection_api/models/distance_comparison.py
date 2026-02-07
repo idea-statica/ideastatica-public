@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class DistanceComparison(str, Enum):
     """
-    Represents the result of comparison of distances of two object from the same point
+    DistanceComparison
     """
 
     """

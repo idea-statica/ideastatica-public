@@ -27,13 +27,13 @@ from typing_extensions import Self
 
 class TendonDuct(BaseModel):
     """
-    Tendon duct
+    TendonDuct
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Tendon duct Id")
+    id: Optional[StrictInt] = None
     point: Optional[Point2D] = None
     material_duct: Optional[MaterialDuct] = Field(default=None, alias="materialDuct")
-    is_debonding_tube: Optional[StrictBool] = Field(default=None, description="rue for debonding tubes, false for tendon ducts", alias="isDebondingTube")
-    diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Diameter")
+    is_debonding_tube: Optional[StrictBool] = Field(default=None, alias="isDebondingTube")
+    diameter: Optional[Union[StrictFloat, StrictInt]] = None
     __properties: ClassVar[List[str]] = ["id", "point", "materialDuct", "isDebondingTube", "diameter"]
 
     model_config = ConfigDict(

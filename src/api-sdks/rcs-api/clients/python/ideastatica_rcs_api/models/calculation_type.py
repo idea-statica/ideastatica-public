@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class CalculationType(str, Enum):
     """
-    Calculation type
+    CalculationType
     """
 
     """

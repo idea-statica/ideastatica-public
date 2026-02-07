@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **diameter** | **float** |  | [optional] 
-**material** | [**RcsMaterial**](RcsMaterial.md) |  | [optional] 
+**material_name** | **str** |  | [optional] 
 **diameter_of_mandrel** | **float** |  | [optional] 
 **is_closed** | **bool** |  | [optional] 
 **shear_check** | **bool** |  | [optional] 

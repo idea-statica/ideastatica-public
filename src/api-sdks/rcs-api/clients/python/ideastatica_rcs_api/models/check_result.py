@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class CheckResult(str, Enum):
     """
-    The number in enum value description means the priority for extreme check evaluation.
+    CheckResult
     """
 
     """

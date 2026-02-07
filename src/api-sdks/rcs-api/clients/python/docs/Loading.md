@@ -1,13 +1,12 @@
 # Loading
 
-Loading identification
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **loading_type** | [**LoadingType**](LoadingType.md) |  | [optional] 
-**id** | **int** | Id of loading | [optional] 
+**id** | **int** |  | [optional] 
 
 ## Example
 

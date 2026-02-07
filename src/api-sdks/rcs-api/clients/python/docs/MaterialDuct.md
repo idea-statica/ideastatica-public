@@ -1,6 +1,5 @@
 # MaterialDuct
 
-Tendon ducts material type
 
 ## Enum
 

@@ -26,7 +26,7 @@ from typing_extensions import Self
 
 class Segment2D(BaseModel):
     """
-    Represents a segment in two-dimensional space.
+    Segment2D
     """ # noqa: E501
     end_point: Optional[Point2D] = Field(default=None, alias="endPoint")
     __properties: ClassVar[List[str]] = ["endPoint"]

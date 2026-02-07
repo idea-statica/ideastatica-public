@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "25.1.3.0859"
+__version__ = "25.1.5.0492"
 
 # import apis into sdk package
 from ideastatica_rcs_api.api.calculation_api import CalculationApi
@@ -61,8 +61,6 @@ from ideastatica_rcs_api.models.rcs_calculation_parameters import RcsCalculation
 from ideastatica_rcs_api.models.rcs_check_member import RcsCheckMember
 from ideastatica_rcs_api.models.rcs_cross_section_data import RcsCrossSectionData
 from ideastatica_rcs_api.models.rcs_css_component_data import RcsCssComponentData
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
-from ideastatica_rcs_api.models.rcs_material_type import RcsMaterialType
 from ideastatica_rcs_api.models.rcs_mprl_element import RcsMprlElement
 from ideastatica_rcs_api.models.rcs_project import RcsProject
 from ideastatica_rcs_api.models.rcs_project_data import RcsProjectData

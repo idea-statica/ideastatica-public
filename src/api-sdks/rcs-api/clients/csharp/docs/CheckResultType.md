@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.CheckResultType
-Check result type
 
 ## Properties
 

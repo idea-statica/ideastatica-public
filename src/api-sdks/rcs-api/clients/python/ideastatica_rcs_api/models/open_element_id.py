@@ -18,16 +18,16 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
 class OpenElementId(BaseModel):
     """
-    Open element base class  POS - class can not be abstract -it causes problems with serialization
+    OpenElementId
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(

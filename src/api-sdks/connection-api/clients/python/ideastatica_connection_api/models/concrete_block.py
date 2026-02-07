@@ -18,19 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
 class ConcreteBlock(BaseModel):
     """
-    Data of concrete block
+    ConcreteBlock
     """ # noqa: E501
-    lenght: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Lenght of ConcreteBlock")
-    width: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Width of ConcreteBlock")
-    height: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Height of ConcreteBlock")
-    material: Optional[StrictStr] = Field(default=None, description="Material of ConcreteBlock")
+    lenght: Optional[Union[StrictFloat, StrictInt]] = None
+    width: Optional[Union[StrictFloat, StrictInt]] = None
+    height: Optional[Union[StrictFloat, StrictInt]] = None
+    material: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["lenght", "width", "height", "material"]
 
     model_config = ConfigDict(

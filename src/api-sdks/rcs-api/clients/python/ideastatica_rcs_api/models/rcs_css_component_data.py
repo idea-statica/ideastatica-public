@@ -18,9 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.models.region2_d import Region2D
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,10 +28,10 @@ class RcsCssComponentData(BaseModel):
     """
     RcsCssComponentData
     """ # noqa: E501
-    material: Optional[RcsMaterial] = None
+    material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
     phase: Optional[StrictInt] = None
     geometry: Optional[Region2D] = None
-    __properties: ClassVar[List[str]] = ["material", "phase", "geometry"]
+    __properties: ClassVar[List[str]] = ["materialName", "phase", "geometry"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,12 +72,14 @@ class RcsCssComponentData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of material
-        if self.material:
-            _dict['material'] = self.material.to_dict()
         # override the default output from pydantic by calling `to_dict()` of geometry
         if self.geometry:
             _dict['geometry'] = self.geometry.to_dict()
+        # set to None if material_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.material_name is None and "material_name" in self.model_fields_set:
+            _dict['materialName'] = None
+
         return _dict
 
     @classmethod
@@ -91,7 +92,7 @@ class RcsCssComponentData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "material": RcsMaterial.from_dict(obj["material"]) if obj.get("material") is not None else None,
+            "materialName": obj.get("materialName"),
             "phase": obj.get("phase"),
             "geometry": Region2D.from_dict(obj["geometry"]) if obj.get("geometry") is not None else None
         })

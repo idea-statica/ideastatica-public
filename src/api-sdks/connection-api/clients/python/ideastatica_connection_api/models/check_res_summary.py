@@ -25,14 +25,14 @@ from typing_extensions import Self
 
 class CheckResSummary(BaseModel):
     """
-    Check summary
+    CheckResSummary
     """ # noqa: E501
-    check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Check value", alias="checkValue")
-    check_status: Optional[StrictBool] = Field(default=None, description="Status of check", alias="checkStatus")
-    load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
-    name: Optional[StrictStr] = Field(default=None, description="Name")
-    unity_check_message: Optional[StrictStr] = Field(default=None, description="Detail message about overall check", alias="unityCheckMessage")
-    skipped: Optional[StrictBool] = Field(default=None, description="Whether the check was calculated or not.  If true, the check was not calculated and IdeaRS.OpenModel.Connection.CheckResSummary.CheckValue should be ignored, otherwise false.")
+    check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="checkValue")
+    check_status: Optional[StrictBool] = Field(default=None, alias="checkStatus")
+    load_case_id: Optional[StrictInt] = Field(default=None, alias="loadCaseId")
+    name: Optional[StrictStr] = None
+    unity_check_message: Optional[StrictStr] = Field(default=None, alias="unityCheckMessage")
+    skipped: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["checkValue", "checkStatus", "loadCaseId", "name", "unityCheckMessage", "skipped"]
 
     model_config = ConfigDict(

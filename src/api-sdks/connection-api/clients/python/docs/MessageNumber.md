@@ -1,6 +1,5 @@
 # MessageNumber
 
-Message numbers
 
 ## Enum
 

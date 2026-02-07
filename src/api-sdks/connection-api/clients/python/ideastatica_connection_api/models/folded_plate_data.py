@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.bend_data import BendData
 from ideastatica_connection_api.models.plate_data import PlateData
@@ -27,10 +27,10 @@ from typing_extensions import Self
 
 class FoldedPlateData(BaseModel):
     """
-    Provides data of the folded plate
+    FoldedPlateData
     """ # noqa: E501
-    plates: Optional[List[PlateData]] = Field(default=None, description="List of plates belong to folded plate")
-    bends: Optional[List[BendData]] = Field(default=None, description="List of bends connected plates of foldedplate")
+    plates: Optional[List[PlateData]] = None
+    bends: Optional[List[BendData]] = None
     __properties: ClassVar[List[str]] = ["plates", "bends"]
 
     model_config = ConfigDict(

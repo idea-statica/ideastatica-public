@@ -1,6 +1,5 @@
 # ConcreteCheckResultOverallItem
 
-Overal check item
 
 ## Properties
 
@@ -8,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **result_type** | [**CheckResultType**](CheckResultType.md) |  | [optional] 
 **result** | [**CheckResult**](CheckResult.md) |  | [optional] 
-**check_value** | **float** | calculated limited value, calculated as strain to limit strain | [optional] 
+**check_value** | **float** |  | [optional] 
 
 ## Example
 

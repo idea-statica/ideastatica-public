@@ -1,6 +1,5 @@
 # FatigueTypeOfPrestressingSteel
 
-Posttensioned reinforcement type
 
 ## Enum
 

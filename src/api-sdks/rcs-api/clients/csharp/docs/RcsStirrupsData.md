@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Diameter** | **double** |  | [optional] 
-**Material** | [**RcsMaterial**](RcsMaterial.md) |  | [optional] 
+**MaterialName** | **string** |  | [optional] 
 **DiameterOfMandrel** | **double** |  | [optional] 
 **IsClosed** | **bool** |  | [optional] 
 **ShearCheck** | **bool** |  | [optional] 

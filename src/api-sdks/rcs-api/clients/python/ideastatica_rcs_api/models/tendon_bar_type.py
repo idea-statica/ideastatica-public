@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class TendonBarType(str, Enum):
     """
-    Tendon bar type
+    TendonBarType
     """
 
     """

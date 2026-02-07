@@ -1,20 +1,19 @@
 # Stirrup
 
-Stirrup
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **geometry** | [**PolyLine2D**](PolyLine2D.md) |  | [optional] 
-**diameter** | **float** | Diameter | [optional] 
+**diameter** | **float** |  | [optional] 
 **material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**anchorage_lenght** | **float** | Anchorage Lenght | [optional] 
-**diameter_of_mandrel** | **float** | Radius of stirrup mandrel - refering to stirrup axis | [optional] 
-**is_closed** | **bool** | Open / Closed stirrup | [optional] 
-**distance** | **float** | Longitudinal distance between stirrups | [optional] 
-**shear_check** | **bool** | Status of shear check, not possible for detailing stirrup | [optional] 
-**torsion_check** | **bool** | Status of torsion check, not possible for detailing stirrup | [optional] 
+**anchorage_lenght** | **float** |  | [optional] 
+**diameter_of_mandrel** | **float** |  | [optional] 
+**is_closed** | **bool** |  | [optional] 
+**distance** | **float** |  | [optional] 
+**shear_check** | **bool** |  | [optional] 
+**torsion_check** | **bool** |  | [optional] 
 
 ## Example
 

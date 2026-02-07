@@ -1,14 +1,13 @@
 # BucklingRes
 
-Results of the buckling analysis
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **load_case_id** | **int** |  | [optional] 
-**shape** | **int** | Shape lc calculated by solver | [optional] 
-**factor** | **float** | Buckling factor | [optional] 
+**shape** | **int** |  | [optional] 
+**factor** | **float** |  | [optional] 
 
 ## Example
 

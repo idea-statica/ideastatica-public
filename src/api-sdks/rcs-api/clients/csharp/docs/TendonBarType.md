@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.TendonBarType
-Tendon bar type
 
 ## Properties
 

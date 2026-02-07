@@ -25,11 +25,11 @@ from typing_extensions import Self
 
 class CheckResAnchor(BaseModel):
     """
-    Check value for Anchor
+    CheckResAnchor
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name")
-    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check", alias="unityCheck")
-    check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
+    name: Optional[StrictStr] = None
+    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unityCheck")
+    check_status: Optional[StrictBool] = Field(default=None, alias="checkStatus")
     __properties: ClassVar[List[str]] = ["name", "unityCheck", "checkStatus"]
 
     model_config = ConfigDict(

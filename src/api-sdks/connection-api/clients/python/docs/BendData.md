@@ -1,14 +1,13 @@
 # BendData
 
-Provides data of bend
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**plate1_id** | **int** | First plate | [optional] 
-**plate2_id** | **int** | Second plate | [optional] 
-**radius** | **float** | Radius of bend | [optional] 
+**plate1_id** | **int** |  | [optional] 
+**plate2_id** | **int** |  | [optional] 
+**radius** | **float** |  | [optional] 
 **point1_of_side_boundary1** | [**Point3D**](Point3D.md) |  | [optional] 
 **point2_of_side_boundary1** | [**Point3D**](Point3D.md) |  | [optional] 
 **end_face_normal1** | [**Vector3D**](Vector3D.md) |  | [optional] 

@@ -31,20 +31,20 @@ from typing_extensions import Self
 
 class CutBeamByBeamData(BaseModel):
     """
-    Provides data of the cut objec by object
+    CutBeamByBeamData
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the cut")
+    name: Optional[StrictStr] = None
     modified_object: Optional[ReferenceElement] = Field(default=None, alias="modifiedObject")
     cutting_object: Optional[ReferenceElement] = Field(default=None, alias="cuttingObject")
-    is_weld: Optional[StrictBool] = Field(default=None, description="is cut welded", alias="isWeld")
-    weld_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Thickness of the weld - value 0 = recommended size", alias="weldThickness")
+    is_weld: Optional[StrictBool] = Field(default=None, alias="isWeld")
+    weld_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="weldThickness")
     weld_type: Optional[WeldType] = Field(default=None, alias="weldType")
-    offset: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Offset")
+    offset: Optional[Union[StrictFloat, StrictInt]] = None
     method: Optional[CutMethod] = None
     orientation: Optional[CutOrientation] = None
     plane_on_cutting_object: Optional[DistanceComparison] = Field(default=None, alias="planeOnCuttingObject")
     cut_part: Optional[CutPart] = Field(default=None, alias="cutPart")
-    extend_before_cut: Optional[StrictBool] = Field(default=None, description="Extend before cut - for cuts where user can decide if modified beam will be extended or not", alias="extendBeforeCut")
+    extend_before_cut: Optional[StrictBool] = Field(default=None, alias="extendBeforeCut")
     __properties: ClassVar[List[str]] = ["name", "modifiedObject", "cuttingObject", "isWeld", "weldThickness", "weldType", "offset", "method", "orientation", "planeOnCuttingObject", "cutPart", "extendBeforeCut"]
 
     model_config = ConfigDict(

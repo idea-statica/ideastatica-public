@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_rcs_api.models.result_of_loading import ResultOfLoading
 from typing import Optional, Set
@@ -26,14 +26,14 @@ from typing_extensions import Self
 
 class ResultOfInternalForces(BaseModel):
     """
-    Result of internal forces in the one position
+    ResultOfInternalForces
     """ # noqa: E501
-    n: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Normal force")
-    qy: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Shear force in y dirrection")
-    qz: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Shear force in z dirrection")
-    mx: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Bending moment around x-axis")
-    my: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Bending moment around y-axis")
-    mz: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Bending moment around z-axis")
+    n: Optional[Union[StrictFloat, StrictInt]] = None
+    qy: Optional[Union[StrictFloat, StrictInt]] = None
+    qz: Optional[Union[StrictFloat, StrictInt]] = None
+    mx: Optional[Union[StrictFloat, StrictInt]] = None
+    my: Optional[Union[StrictFloat, StrictInt]] = None
+    mz: Optional[Union[StrictFloat, StrictInt]] = None
     loading: Optional[ResultOfLoading] = None
     __properties: ClassVar[List[str]] = ["n", "qy", "qz", "mx", "my", "mz", "loading"]
 

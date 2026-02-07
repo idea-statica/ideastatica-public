@@ -1,16 +1,15 @@
 # ConcreteCheckResultBase
 
-Concrete result base class
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **internal_fores** | [**ResultOfInternalForces**](ResultOfInternalForces.md) |  | [optional] 
-**non_conformities** | [**List[NonConformity]**](NonConformity.md) | Returns nonconformity in section | [optional] 
+**non_conformities** | [**List[NonConformity]**](NonConformity.md) |  | [optional] 
 **result** | [**CheckResult**](CheckResult.md) |  | [optional] 
-**check_value** | **float** | calculated limited value, calculated as strain to limit strain | [optional] 
-**limit_check_value** | **float** | limit check value for result check | [optional] 
+**check_value** | **float** |  | [optional] 
+**limit_check_value** | **float** |  | [optional] 
 **check** | [**CalculationType**](CalculationType.md) |  | [optional] 
 
 ## Example

@@ -25,14 +25,14 @@ from typing_extensions import Self
 
 class CheckResWeld(BaseModel):
     """
-    Check value for Weld
+    CheckResWeld
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of Weld")
-    id: Optional[StrictInt] = Field(default=None, description="Unique id of weld")
-    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check Stress", alias="unityCheck")
-    check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
-    load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
-    items: Optional[List[StrictInt]] = Field(default=None, description="In case of presentation of groups plates (uncoiled beams)")
+    name: Optional[StrictStr] = None
+    id: Optional[StrictInt] = None
+    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unityCheck")
+    check_status: Optional[StrictBool] = Field(default=None, alias="checkStatus")
+    load_case_id: Optional[StrictInt] = Field(default=None, alias="loadCaseId")
+    items: Optional[List[StrictInt]] = None
     __properties: ClassVar[List[str]] = ["name", "id", "unityCheck", "checkStatus", "loadCaseId", "items"]
 
     model_config = ConfigDict(

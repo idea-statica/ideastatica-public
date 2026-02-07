@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_rcs_api.models.non_conformity_severity import NonConformitySeverity
 from typing import Optional, Set
@@ -26,9 +26,9 @@ from typing_extensions import Self
 
 class NonConformity(BaseModel):
     """
-    Non-conformity
+    NonConformity
     """ # noqa: E501
-    guid: Optional[StrictStr] = Field(default=None, description="Description of the nonconformity")
+    guid: Optional[StrictStr] = None
     severity: Optional[NonConformitySeverity] = None
     __properties: ClassVar[List[str]] = ["guid", "severity"]
 

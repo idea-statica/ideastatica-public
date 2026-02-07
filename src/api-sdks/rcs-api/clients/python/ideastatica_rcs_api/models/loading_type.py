@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class LoadingType(str, Enum):
     """
-    Type of loading
+    LoadingType
     """
 
     """

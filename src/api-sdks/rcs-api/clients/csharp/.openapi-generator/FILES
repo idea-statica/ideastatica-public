@@ -33,8 +33,6 @@ docs/RcsCalculationParameters.md
 docs/RcsCheckMember.md
 docs/RcsCrossSectionData.md
 docs/RcsCssComponentData.md
-docs/RcsMaterial.md
-docs/RcsMaterialType.md
 docs/RcsMprlElement.md
 docs/RcsProject.md
 docs/RcsProjectData.md
@@ -115,8 +113,6 @@ src/IdeaStatiCa.RcsApi/Model/RcsCalculationParameters.cs
 src/IdeaStatiCa.RcsApi/Model/RcsCheckMember.cs
 src/IdeaStatiCa.RcsApi/Model/RcsCrossSectionData.cs
 src/IdeaStatiCa.RcsApi/Model/RcsCssComponentData.cs
-src/IdeaStatiCa.RcsApi/Model/RcsMaterial.cs
-src/IdeaStatiCa.RcsApi/Model/RcsMaterialType.cs
 src/IdeaStatiCa.RcsApi/Model/RcsMprlElement.cs
 src/IdeaStatiCa.RcsApi/Model/RcsProject.cs
 src/IdeaStatiCa.RcsApi/Model/RcsProjectData.cs

@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class NonConformitySeverity(str, Enum):
     """
-    Nonconformity severities
+    NonConformitySeverity
     """
 
     """

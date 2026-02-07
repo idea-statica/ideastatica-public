@@ -1,6 +1,5 @@
 # CalculationType
 
-Calculation type
 
 ## Enum
 

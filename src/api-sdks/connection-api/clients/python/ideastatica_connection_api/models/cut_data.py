@@ -28,12 +28,12 @@ from typing_extensions import Self
 
 class CutData(BaseModel):
     """
-    Provides data of the cut beam
+    CutData
     """ # noqa: E501
     plane_point: Optional[Point3D] = Field(default=None, alias="planePoint")
     normal_vector: Optional[Vector3D] = Field(default=None, alias="normalVector")
     direction: Optional[CutOrientation] = None
-    offset: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Offset - shift of cut")
+    offset: Optional[Union[StrictFloat, StrictInt]] = None
     __properties: ClassVar[List[str]] = ["planePoint", "normalVector", "direction", "offset"]
 
     model_config = ConfigDict(

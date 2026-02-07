@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.LoadingType
-Type of loading
 
 ## Properties
 

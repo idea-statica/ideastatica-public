@@ -1,12 +1,11 @@
 # ConcreteCheckResultOverall
 
-Concrete check result
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**checks** | [**List[ConcreteCheckResultOverallItem]**](ConcreteCheckResultOverallItem.md) | All check by the type | [optional] 
+**checks** | [**List[ConcreteCheckResultOverallItem]**](ConcreteCheckResultOverallItem.md) |  | [optional] 
 
 ## Example
 

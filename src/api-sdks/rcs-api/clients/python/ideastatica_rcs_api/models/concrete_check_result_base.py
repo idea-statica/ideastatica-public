@@ -29,13 +29,13 @@ from typing_extensions import Self
 
 class ConcreteCheckResultBase(BaseModel):
     """
-    Concrete result base class
+    ConcreteCheckResultBase
     """ # noqa: E501
     internal_fores: Optional[ResultOfInternalForces] = Field(default=None, alias="internalFores")
-    non_conformities: Optional[List[NonConformity]] = Field(default=None, description="Returns nonconformity in section", alias="nonConformities")
+    non_conformities: Optional[List[NonConformity]] = Field(default=None, alias="nonConformities")
     result: Optional[CheckResult] = None
-    check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="calculated limited value, calculated as strain to limit strain", alias="checkValue")
-    limit_check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="limit check value for result check", alias="limitCheckValue")
+    check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="checkValue")
+    limit_check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="limitCheckValue")
     check: Optional[CalculationType] = None
     __properties: ClassVar[List[str]] = ["internalFores", "nonConformities", "result", "checkValue", "limitCheckValue", "check"]
 

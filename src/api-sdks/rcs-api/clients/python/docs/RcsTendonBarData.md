@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **point** | [**Point2D**](Point2D.md) |  | [optional] 
-**material** | [**RcsMaterial**](RcsMaterial.md) |  | [optional] 
+**material_name** | **str** |  | [optional] 
 **num_strands_in_tendon** | **int** |  | [optional] 
 **prestressing_order** | **int** |  | [optional] 
 **tendon_duct** | [**RcsTendonDuctData**](RcsTendonDuctData.md) |  | [optional] 

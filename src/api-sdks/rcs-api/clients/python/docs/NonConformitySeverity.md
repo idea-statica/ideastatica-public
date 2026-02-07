@@ -1,6 +1,5 @@
 # NonConformitySeverity
 
-Nonconformity severities
 
 ## Enum
 

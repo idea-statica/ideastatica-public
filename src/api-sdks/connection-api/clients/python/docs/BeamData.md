@@ -1,26 +1,25 @@
 # BeamData
 
-Provides data of the connected beam
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Name of the beam | [optional] 
-**plates** | [**List[PlateData]**](PlateData.md) | Plates of the beam | [optional] 
-**cross_section_type** | **str** | Type of cross section | [optional] 
-**mprl_name** | **str** | MPRL name of beam | [optional] 
-**original_model_id** | **str** | Get or set the identification in the original model  In the case of the imported connection from another application | [optional] 
-**cuts** | [**List[CutData]**](CutData.md) | Cuts on the beam | [optional] 
-**is_added** | **bool** | Is added beam | [optional] 
-**added_member_length** | **float** | Added beam lenght | [optional] 
-**is_negative_object** | **bool** | Is negative object | [optional] 
+**name** | **str** |  | [optional] 
+**plates** | [**List[PlateData]**](PlateData.md) |  | [optional] 
+**cross_section_type** | **str** |  | [optional] 
+**mprl_name** | **str** |  | [optional] 
+**original_model_id** | **str** |  | [optional] 
+**cuts** | [**List[CutData]**](CutData.md) |  | [optional] 
+**is_added** | **bool** |  | [optional] 
+**added_member_length** | **float** |  | [optional] 
+**is_negative_object** | **bool** |  | [optional] 
 **added_member** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**mirror_y** | **bool** | Mirror by Y | [optional] 
-**ref_line_in_center_of_gravity** | **bool** | The reference line of the member is in the center of gravity of the cross-section | [optional] 
-**is_bearing_member** | **bool** | Is beam bearing member | [optional] 
-**auto_add_cut_by_workplane** | **bool** | Automaticali add cut by workplane if it not defined | [optional] 
-**id** | **int** | Element Id | [optional] 
+**mirror_y** | **bool** |  | [optional] 
+**ref_line_in_center_of_gravity** | **bool** |  | [optional] 
+**is_bearing_member** | **bool** |  | [optional] 
+**auto_add_cut_by_workplane** | **bool** |  | [optional] 
+**id** | **int** |  | [optional] 
 
 ## Example
 

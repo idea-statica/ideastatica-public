@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_rcs_api.models.concrete_check_result_overall_item import ConcreteCheckResultOverallItem
 from typing import Optional, Set
@@ -26,9 +26,9 @@ from typing_extensions import Self
 
 class ConcreteCheckResultOverall(BaseModel):
     """
-    Concrete check result
+    ConcreteCheckResultOverall
     """ # noqa: E501
-    checks: Optional[List[ConcreteCheckResultOverallItem]] = Field(default=None, description="All check by the type")
+    checks: Optional[List[ConcreteCheckResultOverallItem]] = None
     __properties: ClassVar[List[str]] = ["checks"]
 
     model_config = ConfigDict(

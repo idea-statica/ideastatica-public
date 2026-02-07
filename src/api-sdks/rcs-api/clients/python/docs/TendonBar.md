@@ -1,19 +1,18 @@
 # TendonBar
 
-Tendon bar
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Tendon Id | [optional] 
+**id** | **int** |  | [optional] 
 **tendon_type** | [**TendonBarType**](TendonBarType.md) |  | [optional] 
 **point** | [**Point2D**](Point2D.md) |  | [optional] 
 **material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**prestressing_order** | **int** | order of tendon prestessing | [optional] 
-**num_strands_in_tendon** | **int** | number of ropes in tendon | [optional] 
+**prestressing_order** | **int** |  | [optional] 
+**num_strands_in_tendon** | **int** |  | [optional] 
 **prestress_reinforcement_type** | [**FatigueTypeOfPrestressingSteel**](FatigueTypeOfPrestressingSteel.md) |  | [optional] 
-**phase** | **int** | Phase | [optional] 
+**phase** | **int** |  | [optional] 
 **tendon_duct** | [**TendonDuct**](TendonDuct.md) |  | [optional] 
 
 ## Example

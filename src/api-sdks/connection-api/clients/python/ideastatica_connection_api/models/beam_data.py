@@ -28,23 +28,23 @@ from typing_extensions import Self
 
 class BeamData(BaseModel):
     """
-    Provides data of the connected beam
+    BeamData
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the beam")
-    plates: Optional[List[PlateData]] = Field(default=None, description="Plates of the beam")
-    cross_section_type: Optional[StrictStr] = Field(default=None, description="Type of cross section", alias="crossSectionType")
-    mprl_name: Optional[StrictStr] = Field(default=None, description="MPRL name of beam", alias="mprlName")
-    original_model_id: Optional[StrictStr] = Field(default=None, description="Get or set the identification in the original model  In the case of the imported connection from another application", alias="originalModelId")
-    cuts: Optional[List[CutData]] = Field(default=None, description="Cuts on the beam")
-    is_added: Optional[StrictBool] = Field(default=None, description="Is added beam", alias="isAdded")
-    added_member_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Added beam lenght", alias="addedMemberLength")
-    is_negative_object: Optional[StrictBool] = Field(default=None, description="Is negative object", alias="isNegativeObject")
+    name: Optional[StrictStr] = None
+    plates: Optional[List[PlateData]] = None
+    cross_section_type: Optional[StrictStr] = Field(default=None, alias="crossSectionType")
+    mprl_name: Optional[StrictStr] = Field(default=None, alias="mprlName")
+    original_model_id: Optional[StrictStr] = Field(default=None, alias="originalModelId")
+    cuts: Optional[List[CutData]] = None
+    is_added: Optional[StrictBool] = Field(default=None, alias="isAdded")
+    added_member_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="addedMemberLength")
+    is_negative_object: Optional[StrictBool] = Field(default=None, alias="isNegativeObject")
     added_member: Optional[ReferenceElement] = Field(default=None, alias="addedMember")
-    mirror_y: Optional[StrictBool] = Field(default=None, description="Mirror by Y", alias="mirrorY")
-    ref_line_in_center_of_gravity: Optional[StrictBool] = Field(default=None, description="The reference line of the member is in the center of gravity of the cross-section", alias="refLineInCenterOfGravity")
-    is_bearing_member: Optional[StrictBool] = Field(default=None, description="Is beam bearing member", alias="isBearingMember")
-    auto_add_cut_by_workplane: Optional[StrictBool] = Field(default=None, description="Automaticali add cut by workplane if it not defined", alias="autoAddCutByWorkplane")
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    mirror_y: Optional[StrictBool] = Field(default=None, alias="mirrorY")
+    ref_line_in_center_of_gravity: Optional[StrictBool] = Field(default=None, alias="refLineInCenterOfGravity")
+    is_bearing_member: Optional[StrictBool] = Field(default=None, alias="isBearingMember")
+    auto_add_cut_by_workplane: Optional[StrictBool] = Field(default=None, alias="autoAddCutByWorkplane")
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["name", "plates", "crossSectionType", "mprlName", "originalModelId", "cuts", "isAdded", "addedMemberLength", "isNegativeObject", "addedMember", "mirrorY", "refLineInCenterOfGravity", "isBearingMember", "autoAddCutByWorkplane", "id"]
 
     model_config = ConfigDict(

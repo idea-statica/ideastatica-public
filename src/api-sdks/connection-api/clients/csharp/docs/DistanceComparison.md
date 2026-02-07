@@ -1,5 +1,4 @@
 # IdeaStatiCa.ConnectionApi.Model.DistanceComparison
-Represents the result of comparison of distances of two object from the same point
 
 ## Properties
 

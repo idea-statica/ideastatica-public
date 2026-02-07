@@ -1,13 +1,12 @@
 # ResultOfLoadingItem
 
-Item of Result of Loading
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **loading** | [**Loading**](Loading.md) |  | [optional] 
-**coefficient** | **float** | Coefficient of loading | [optional] 
+**coefficient** | **float** |  | [optional] 
 
 ## Example
 

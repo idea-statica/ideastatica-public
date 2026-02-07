@@ -1,18 +1,17 @@
 # ReinforcedCrossSection
 
-Reinforced cross-section
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Name of cross-section | [optional] 
+**name** | **str** |  | [optional] 
 **cross_section** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**bars** | [**List[ReinforcedBar]**](ReinforcedBar.md) | Reinforced bars | [optional] 
-**stirrups** | [**List[Stirrup]**](Stirrup.md) | Stirrups | [optional] 
-**tendon_bars** | [**List[TendonBar]**](TendonBar.md) | Tendon bars | [optional] 
-**tendon_ducts** | [**List[TendonDuct]**](TendonDuct.md) | Tendon ducts | [optional] 
-**id** | **int** | Element Id | [optional] 
+**bars** | [**List[ReinforcedBar]**](ReinforcedBar.md) |  | [optional] 
+**stirrups** | [**List[Stirrup]**](Stirrup.md) |  | [optional] 
+**tendon_bars** | [**List[TendonBar]**](TendonBar.md) |  | [optional] 
+**tendon_ducts** | [**List[TendonDuct]**](TendonDuct.md) |  | [optional] 
+**id** | **int** |  | [optional] 
 
 ## Example
 

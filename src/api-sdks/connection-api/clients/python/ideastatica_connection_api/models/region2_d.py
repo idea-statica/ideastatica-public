@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.poly_line2_d import PolyLine2D
 from typing import Optional, Set
@@ -26,10 +26,10 @@ from typing_extensions import Self
 
 class Region2D(BaseModel):
     """
-    Represents a region in two-dimensional space included outline (border) and openings.
+    Region2D
     """ # noqa: E501
     outline: Optional[PolyLine2D] = None
-    openings: Optional[List[PolyLine2D]] = Field(default=None, description="Gets or sets the list of openings in the Region2D.")
+    openings: Optional[List[PolyLine2D]] = None
     __properties: ClassVar[List[str]] = ["outline", "openings"]
 
     model_config = ConfigDict(

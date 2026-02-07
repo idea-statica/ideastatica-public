@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class AnchorType(str, Enum):
     """
-    Defines a type of anchor end.
+    AnchorType
     """
 
     """
@@ -31,6 +31,9 @@ class AnchorType(str, Enum):
     WASHERPLATECIRCULAR = 'washerPlateCircular'
     WASHERPLATERECTANGULAR = 'washerPlateRectangular'
     HOOK = 'hook'
+    HEADEDSTUD = 'headedStud'
+    REINFORCEMENT = 'reinforcement'
+    GENERALANCHOR = 'generalAnchor'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

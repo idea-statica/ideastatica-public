@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_rcs_api.models.loading import Loading
 from typing import Optional, Set
@@ -26,10 +26,10 @@ from typing_extensions import Self
 
 class ResultOfLoadingItem(BaseModel):
     """
-    Item of Result of Loading
+    ResultOfLoadingItem
     """ # noqa: E501
     loading: Optional[Loading] = None
-    coefficient: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Coefficient of loading")
+    coefficient: Optional[Union[StrictFloat, StrictInt]] = None
     __properties: ClassVar[List[str]] = ["loading", "coefficient"]
 
     model_config = ConfigDict(

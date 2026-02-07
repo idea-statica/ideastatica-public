@@ -1,17 +1,16 @@
 # CheckResWeld
 
-Check value for Weld
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Name of Weld | [optional] 
-**id** | **int** | Unique id of weld | [optional] 
-**unity_check** | **float** | Unity Check Stress | [optional] 
-**check_status** | **bool** | Status of the Check | [optional] 
-**load_case_id** | **int** | Id of Load Case | [optional] 
-**items** | **List[int]** | In case of presentation of groups plates (uncoiled beams) | [optional] 
+**name** | **str** |  | [optional] 
+**id** | **int** |  | [optional] 
+**unity_check** | **float** |  | [optional] 
+**check_status** | **bool** |  | [optional] 
+**load_case_id** | **int** |  | [optional] 
+**items** | **List[int]** |  | [optional] 
 
 ## Example
 

@@ -1,13 +1,12 @@
 # SectionConcreteCheckResult
 
-ection concrete result
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**section_id** | **int** | Id Of section | [optional] 
-**extreme_results** | [**List[ConcreteCheckResults]**](ConcreteCheckResults.md) | Extreme results | [optional] 
+**section_id** | **int** |  | [optional] 
+**extreme_results** | [**List[ConcreteCheckResults]**](ConcreteCheckResults.md) |  | [optional] 
 
 ## Example
 
