@@ -57,10 +57,9 @@ namespace ConApiWpfClientApp.ViewModels
 		private string? _outputText;
 
 		/// <summary>
-		/// Gets or sets the currently open project information, or <see langword="null"/> if no project is open.
+		/// Gets the project model holding the currently open project data.
 		/// </summary>
-		[ObservableProperty]
-		private ConProject? _projectInfo;
+		public ProjectModel Model { get; }
 
 		/// <summary>
 		/// Gets or sets the collection of connections in the current project.
@@ -106,15 +105,18 @@ namespace ConApiWpfClientApp.ViewModels
 		/// <param name="configuration">The application configuration providing setup paths and endpoints.</param>
 		/// <param name="logger">The logger for diagnostic output.</param>
 		/// <param name="iomEditorViewModel">The view model for the IOM editor dialog.</param>
+		/// <param name="projectModel">The project model holding the currently open project data.</param>
 		/// <param name="sceneController">The controller for rendering 3D connection scenes.</param>
 		public MainWindowViewModel(
 			IConnectionApiService connectionApiService,
 			IConfiguration configuration,
 			IPluginLogger logger,
 			IomEditorWindowViewModel iomEditorViewModel,
+			ProjectModel projectModel,
 			ISceneController sceneController)
 		{
 			_connectionApiService = connectionApiService;
+			Model = projectModel;
 			_configuration = configuration;
 			_logger = logger;
 			_sceneController = sceneController;
@@ -212,10 +214,10 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				ProjectInfo = await _connectionApiService.OpenProjectAsync(openFileDialog.FileName);
-				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
-				OutputText = $"ClientId = {_connectionApiService.ClientId}, ProjectId = {ProjectInfo.ProjectId}\n\n{projectInfoJson}";
-				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+				Model.ProjectInfo = await _connectionApiService.OpenProjectAsync(openFileDialog.FileName);
+				var projectInfoJson = Tools.JsonTools.ToFormatedJson(Model.ProjectInfo);
+				OutputText = $"ClientId = {_connectionApiService.ClientId}, ProjectId = {Model.ProjectId}\n\n{projectInfoJson}";
+				Connections = new ObservableCollection<ConnectionViewModel>(Model.ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 			}
 			catch (Exception ex)
 			{
@@ -256,10 +258,10 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				ProjectInfo = await _connectionApiService.ImportIomFileAsync(openFileDialog.FileName);
-				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
-				OutputText = $"ProjectId = {ProjectInfo.ProjectId}\n\n{projectInfoJson}";
-				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+				Model.ProjectInfo = await _connectionApiService.ImportIomFileAsync(openFileDialog.FileName);
+				var projectInfoJson = Tools.JsonTools.ToFormatedJson(Model.ProjectInfo);
+				OutputText = $"ProjectId = {Model.ProjectId}\n\n{projectInfoJson}";
+				Connections = new ObservableCollection<ConnectionViewModel>(Model.ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 			}
 			catch (Exception ex)
 			{
@@ -315,10 +317,10 @@ namespace ConApiWpfClientApp.ViewModels
 						using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString)))
 						{
 							memoryStream.Seek(0, SeekOrigin.Begin);
-							ProjectInfo = await _connectionApiService.ImportIomStreamAsync(memoryStream, _cts.Token);
-							var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
-							OutputText = $"ProjectId = {ProjectInfo.ProjectId}\n\n{projectInfoJson}";
-							Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+							Model.ProjectInfo = await _connectionApiService.ImportIomStreamAsync(memoryStream, _cts.Token);
+							var projectInfoJson = Tools.JsonTools.ToFormatedJson(Model.ProjectInfo);
+							OutputText = $"ProjectId = {Model.ProjectId}\n\n{projectInfoJson}";
+							Connections = new ObservableCollection<ConnectionViewModel>(Model.ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 						}
 					}
 				}
@@ -357,7 +359,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("CloseProjectAsync");
 
-			if (ProjectInfo == null)
+			if (Model.ProjectInfo == null)
 			{
 				return;
 			}
@@ -365,8 +367,8 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				await _connectionApiService.CloseProjectAsync(ProjectInfo.ProjectId, _cts.Token);
-				ProjectInfo = null;
+				await _connectionApiService.CloseProjectAsync(Model.ProjectId, _cts.Token);
+				Model.Clear();
 				SelectedConnection = null;
 				Connections = new ObservableCollection<ConnectionViewModel>();
 				OutputText = string.Empty;
@@ -391,7 +393,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("DownloadProjectAsync");
 
-			if (ProjectInfo == null)
+			if (Model.ProjectInfo == null)
 			{
 				return;
 			}
@@ -403,7 +405,7 @@ namespace ConApiWpfClientApp.ViewModels
 				saveFileDialog.Filter = "IdeaConnection | *.ideacon";
 				if (saveFileDialog.ShowDialog() == true)
 				{
-					await _connectionApiService.SaveProjectAsync(ProjectInfo.ProjectId, saveFileDialog.FileName, _cts.Token);
+					await _connectionApiService.SaveProjectAsync(Model.ProjectId, saveFileDialog.FileName, _cts.Token);
 				}
 			}
 			catch (Exception ex)
@@ -426,7 +428,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("CalculateAsync");
 
-			if (ProjectInfo == null)
+			if (Model.ProjectInfo == null)
 			{
 				return;
 			}
@@ -435,7 +437,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.CalculateAsync(
-					ProjectInfo.ProjectId,
+					Model.ProjectId,
 					SelectedConnection!.Id,
 					SelectedAnalysisType,
 					CalculateBuckling,
@@ -462,7 +464,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("GetMembersAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -471,7 +473,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.GetMembersJsonAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -493,7 +495,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("GetOperationsAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -502,7 +504,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.GetOperationsJsonAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -524,7 +526,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("DeleteOperationsAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -533,7 +535,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				await _connectionApiService.DeleteOperationsAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 				OutputText = "Operations were removed";
 			}
 			catch (Exception ex)
@@ -558,7 +560,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("GenerateReportAsync");
 
-			if (ProjectInfo == null || format == null)
+			if (Model.ProjectInfo == null || format == null)
 			{
 				return;
 			}
@@ -581,12 +583,12 @@ namespace ConApiWpfClientApp.ViewModels
 				if (format.Equals("pdf"))
 				{
 					await _connectionApiService.SaveReportPdfAsync(
-						ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+						Model.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
 				}
 				else if (format.Equals("docx"))
 				{
 					await _connectionApiService.SaveReportWordAsync(
-						ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+						Model.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
 				}
 				else
 				{
@@ -616,7 +618,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("ExportConnectionAsync");
 
-			if (ProjectInfo == null || format == null)
+			if (Model.ProjectInfo == null || format == null)
 			{
 				return;
 			}
@@ -639,14 +641,14 @@ namespace ConApiWpfClientApp.ViewModels
 				if (format.Equals("iom"))
 				{
 					var iomContainerXml = await _connectionApiService.ExportIomAsync(
-						ProjectInfo.ProjectId, SelectedConnection.Id);
+						Model.ProjectId, SelectedConnection.Id);
 					await File.WriteAllTextAsync(saveFileDialog.FileName, iomContainerXml);
 					OutputText = iomContainerXml;
 				}
 				else if (format.Equals("ifc"))
 				{
 					await _connectionApiService.ExportIfcAsync(
-						ProjectInfo.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+						Model.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
 					var ifc = await File.ReadAllTextAsync(saveFileDialog.FileName);
 					OutputText = ifc;
 				}
@@ -675,7 +677,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("GetTopologyAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -684,7 +686,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.GetTopologyJsonAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -706,7 +708,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("GetSceneDataAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -715,7 +717,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.GetSceneDataJsonAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id);
+					Model.ProjectId, SelectedConnection.Id);
 			}
 			catch (Exception ex)
 			{
@@ -738,7 +740,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("EvaluateExpressionAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -748,7 +750,7 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				var expressionProvider = new ExpressionProvider(_connectionApiService.Client!, _logger);
 				var expressionModel = await expressionProvider.GetExpressionAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 
 				if (expressionModel == null || string.IsNullOrEmpty(expressionModel.Expression))
 				{
@@ -759,7 +761,7 @@ namespace ConApiWpfClientApp.ViewModels
 				_logger.LogInformation($"Evaluating expression: {expressionModel.Expression}");
 
 				OutputText = await _connectionApiService.EvaluateExpressionAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, expressionModel.Expression, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, expressionModel.Expression, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -782,7 +784,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("DoWeldSizingAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null)
+			if (Model.ProjectInfo == null || SelectedConnection == null)
 			{
 				return;
 			}
@@ -791,7 +793,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.WeldSizingAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id,
+					Model.ProjectId, SelectedConnection.Id,
 					IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum.FullStrength);
 			}
 			catch (Exception ex)
@@ -815,7 +817,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("CreateTemplateAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -824,7 +826,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				var conTempXmlString = await _connectionApiService.CreateTemplateXmlAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 				OutputText = conTempXmlString;
 
 				if (!string.IsNullOrEmpty(conTempXmlString))
@@ -861,7 +863,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null)
+			if (Model.ProjectInfo == null || SelectedConnection == null)
 			{
 				return;
 			}
@@ -873,12 +875,12 @@ namespace ConApiWpfClientApp.ViewModels
 				if (source?.Equals("ConnectionLibrary", StringComparison.InvariantCultureIgnoreCase) == true)
 				{
 					var proposeService = new ConnectionLibraryProposer(_connectionApiService.Client!, _logger);
-					templateRes = await proposeService.GetTemplateAsync(ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					templateRes = await proposeService.GetTemplateAsync(Model.ProjectId, SelectedConnection.Id, _cts.Token);
 				}
 				else
 				{
 					ITemplateProvider templateProvider = new TemplateProviderFile();
-					templateRes = await templateProvider.GetTemplateAsync(ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					templateRes = await templateProvider.GetTemplateAsync(Model.ProjectId, SelectedConnection.Id, _cts.Token);
 				}
 
 				if (templateRes == null || string.IsNullOrEmpty(templateRes.SelectedTemplateXml))
@@ -898,7 +900,7 @@ namespace ConApiWpfClientApp.ViewModels
 				}
 
 				var templateMapping = await _connectionApiService.GetDefaultTemplateMappingAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, getTemplateParam, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, getTemplateParam, _cts.Token);
 
 				if (templateMapping == null)
 				{
@@ -919,7 +921,7 @@ namespace ConApiWpfClientApp.ViewModels
 				};
 
 				OutputText = await _connectionApiService.ApplyTemplateAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, applyTemplateParam, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, applyTemplateParam, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -942,7 +944,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("GetSettingsAsync");
 
-			if (ProjectInfo == null)
+			if (Model.ProjectInfo == null)
 			{
 				return;
 			}
@@ -950,7 +952,7 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				OutputText = await _connectionApiService.GetSettingsJsonAsync(ProjectInfo.ProjectId, _cts.Token);
+				OutputText = await _connectionApiService.GetSettingsJsonAsync(Model.ProjectId, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -972,7 +974,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("UpdateSettingsAsync");
 
-			if (ProjectInfo == null || string.IsNullOrEmpty(OutputText))
+			if (Model.ProjectInfo == null || string.IsNullOrEmpty(OutputText))
 			{
 				return;
 			}
@@ -981,7 +983,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				OutputText = await _connectionApiService.UpdateSettingsAsync(
-					ProjectInfo.ProjectId, OutputText!, _cts.Token);
+					Model.ProjectId, OutputText!, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -1004,7 +1006,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("UpdateConnectionLoadingAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null)
+			if (Model.ProjectInfo == null || SelectedConnection == null)
 			{
 				return;
 			}
@@ -1013,7 +1015,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				var connectionLoadingData = await _connectionApiService.GetLoadEffectsAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 
 				if (connectionLoadingData == null || !connectionLoadingData.Any())
 				{
@@ -1030,7 +1032,7 @@ namespace ConApiWpfClientApp.ViewModels
 				}
 
 				await _connectionApiService.UpdateLoadEffectsAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, editedLoadEffects, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, editedLoadEffects, _cts.Token);
 				OutputText = "Loading was updated";
 			}
 			catch (Exception ex)
@@ -1054,7 +1056,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("EditParametersAsync");
 
-			if (ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
+			if (Model.ProjectInfo == null || SelectedConnection == null || SelectedConnection.Id < 1)
 			{
 				return;
 			}
@@ -1063,7 +1065,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				var existingParameters = await _connectionApiService.GetParametersAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, _cts.Token);
 
 				if (existingParameters == null || !existingParameters.Any())
 				{
@@ -1086,7 +1088,7 @@ namespace ConApiWpfClientApp.ViewModels
 				}).ToList();
 
 				await _connectionApiService.UpdateParametersAsync(
-					ProjectInfo.ProjectId, SelectedConnection.Id, parameterUpdate, _cts.Token);
+					Model.ProjectId, SelectedConnection.Id, parameterUpdate, _cts.Token);
 			}
 			catch (Exception ex)
 			{
@@ -1153,7 +1155,7 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("ShowClientUI");
 
-			if (ProjectInfo == null)
+			if (Model.ProjectInfo == null)
 			{
 				await _sceneController.PresentAsync(string.Empty);
 				return;
@@ -1174,7 +1176,7 @@ namespace ConApiWpfClientApp.ViewModels
 			try
 			{
 				var sceneJson = await _connectionApiService.GetScene3DTextAsync(
-					ProjectInfo.ProjectId, SelectedConnection!.Id, _cts.Token);
+					Model.ProjectId, SelectedConnection!.Id, _cts.Token);
 
 				if (string.IsNullOrEmpty(sceneJson))
 				{
@@ -1245,8 +1247,8 @@ namespace ConApiWpfClientApp.ViewModels
 		}
 
 		private bool CanConnect() => !_connectionApiService.IsConnected;
-		private bool CanOpenProject() => _connectionApiService.IsConnected && ProjectInfo == null;
-		private bool HasProjectInfo() => ProjectInfo != null;
+		private bool CanOpenProject() => _connectionApiService.IsConnected && Model.ProjectInfo == null;
+		private bool HasProjectInfo() => Model.ProjectInfo != null;
 		private bool HasSelectedConnection() => SelectedConnection != null;
 	}
 }

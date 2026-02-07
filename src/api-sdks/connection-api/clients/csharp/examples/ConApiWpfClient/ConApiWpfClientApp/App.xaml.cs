@@ -1,4 +1,5 @@
-﻿using ConApiWpfClientApp.Services;
+﻿using ConApiWpfClientApp.Models;
+using ConApiWpfClientApp.Services;
 using ConApiWpfClientApp.ViewModels;
 using ConApiWpfClientApp.Views;
 using ConnectionIomGenerator.Model;
@@ -42,6 +43,7 @@ namespace ConApiWpfClientApp
 			});
 
 			services.AddSingleton<IConnectionApiService, ConnectionApiService>();
+			services.AddSingleton<ProjectModel>();
 
 			services.AddTransient<MainWindow>(serviceProvider =>
 			{
