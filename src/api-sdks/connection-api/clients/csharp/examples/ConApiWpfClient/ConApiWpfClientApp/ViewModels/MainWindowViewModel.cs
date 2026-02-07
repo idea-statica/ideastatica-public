@@ -21,6 +21,11 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.ViewModels
 {
+	/// <summary>
+	/// Main view model for the Connection API WPF client application.
+	/// Manages the application state, user interactions, and delegates API operations
+	/// to <see cref="IConnectionApiService"/>.
+	/// </summary>
 	public partial class MainWindowViewModel : ViewModelBase
 	{
 		private readonly IConnectionApiService _connectionApiService;
@@ -30,36 +35,78 @@ namespace ConApiWpfClientApp.ViewModels
 		private readonly IomEditorWindowViewModel _iomEditorViewModel;
 		private readonly CancellationTokenSource _cts;
 
+		/// <summary>
+		/// Gets or sets a value indicating whether a long-running operation is in progress.
+		/// When <see langword="true"/>, the UI should display a busy indicator.
+		/// </summary>
 		[ObservableProperty]
 		private bool _isBusy;
 
+		/// <summary>
+		/// Gets or sets a value indicating whether to start a new API server process
+		/// or attach to an existing endpoint.
+		/// </summary>
 		[ObservableProperty]
 		private bool _runApiServer;
 
+		/// <summary>
+		/// Gets or sets the text displayed in the output panel, typically containing
+		/// JSON results, status messages, or error information.
+		/// </summary>
 		[ObservableProperty]
 		private string? _outputText;
 
+		/// <summary>
+		/// Gets or sets the currently open project information, or <see langword="null"/> if no project is open.
+		/// </summary>
 		[ObservableProperty]
 		private ConProject? _projectInfo;
 
+		/// <summary>
+		/// Gets or sets the collection of connections in the current project.
+		/// </summary>
 		[ObservableProperty]
 		private ObservableCollection<ConnectionViewModel>? _connections;
 
+		/// <summary>
+		/// Gets or sets the currently selected connection. When changed, triggers
+		/// a 3D scene refresh and command state update.
+		/// </summary>
 		[ObservableProperty]
 		private ConnectionViewModel? _selectedConnection;
 
+		/// <summary>
+		/// Gets or sets the analysis type to use for calculations (e.g., Stress_Strain, Stiffness).
+		/// </summary>
 		[ObservableProperty]
 		private ConAnalysisTypeEnum _selectedAnalysisType;
 
+		/// <summary>
+		/// Gets or sets a value indicating whether buckling analysis should be included in calculations.
+		/// </summary>
 		[ObservableProperty]
 		private bool _calculateBuckling;
 
+		/// <summary>
+		/// Gets or sets a value indicating whether raw XML results should be retrieved after calculation.
+		/// </summary>
 		[ObservableProperty]
 		private bool _getRawXmlResults;
 
+		/// <summary>
+		/// Gets or sets the weld sizing method to use for weld pre-design operations.
+		/// </summary>
 		[ObservableProperty]
 		private IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum _weldSizingType;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+		/// </summary>
+		/// <param name="connectionApiService">The service for Connection API operations.</param>
+		/// <param name="configuration">The application configuration providing setup paths and endpoints.</param>
+		/// <param name="logger">The logger for diagnostic output.</param>
+		/// <param name="iomEditorViewModel">The view model for the IOM editor dialog.</param>
+		/// <param name="sceneController">The controller for rendering 3D connection scenes.</param>
 		public MainWindowViewModel(
 			IConnectionApiService connectionApiService,
 			IConfiguration configuration,
@@ -85,14 +132,32 @@ namespace ConApiWpfClientApp.ViewModels
 			Connections = new ObservableCollection<ConnectionViewModel>();
 		}
 
+		/// <summary>
+		/// Gets or sets the API endpoint URI used when attaching to an existing service.
+		/// </summary>
 		public Uri? ApiUri { get; set; }
 
+		/// <summary>
+		/// Gets a value indicating whether the Connect command should be available.
+		/// Returns <see langword="true"/> when not yet connected to the API service.
+		/// </summary>
 		public bool CanStartService => !_connectionApiService.IsConnected;
 
+		/// <summary>
+		/// Gets all available analysis types for the analysis type selector.
+		/// </summary>
 		public Array AvailableAnalysisTypes => Enum.GetValues(typeof(ConAnalysisTypeEnum));
 
+		/// <summary>
+		/// Gets all available weld sizing methods for the weld sizing selector.
+		/// </summary>
 		public Array AvailableWeldSizingTypes => Enum.GetValues(typeof(IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum));
 
+		/// <summary>
+		/// Called when <see cref="SelectedConnection"/> changes. Refreshes connection-dependent
+		/// commands and updates the 3D scene.
+		/// </summary>
+		/// <param name="value">The newly selected connection, or <see langword="null"/>.</param>
 		partial void OnSelectedConnectionChanged(ConnectionViewModel? value)
 		{
 			RefreshConnectionChanged();
@@ -101,6 +166,9 @@ namespace ConApiWpfClientApp.ViewModels
 
 		#region Commands
 
+		/// <summary>
+		/// Connects to the Connection API service using the configured mode (run server or attach to endpoint).
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(CanConnect))]
 		private async Task ConnectAsync()
 		{
@@ -126,6 +194,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Opens an IDEA Connection project file (.ideacon) selected by the user via a file dialog.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(CanOpenProject))]
 		private async Task OpenProjectAsync()
 		{
@@ -167,6 +238,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Imports an IOM (IDEA Open Model) file selected by the user and creates a new project.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(CanOpenProject))]
 		private async Task ImportIomAsync()
 		{
@@ -208,6 +282,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Opens the IOM generator dialog to create a connection from user-defined input,
+		/// then imports the generated IOM into a new project.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(CanOpenProject))]
 		private async Task ConIomGeneratorAsync()
 		{
@@ -271,6 +349,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Closes the currently open project and clears the UI state.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasProjectInfo))]
 		private async Task CloseProjectAsync()
 		{
@@ -302,6 +383,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Saves the current project to a file chosen by the user via a save file dialog.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasProjectInfo))]
 		private async Task DownloadProjectAsync()
 		{
@@ -334,6 +418,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Runs a structural analysis calculation on the selected connection using the current analysis settings.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task CalculationAsync()
 		{
@@ -367,6 +454,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Retrieves and displays the members (beams/columns) of the selected connection.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task GetMembersAsync()
 		{
@@ -395,6 +485,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Retrieves and displays the manufacturing operations of the selected connection.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task GetOperationsAsync()
 		{
@@ -423,6 +516,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Deletes all manufacturing operations from the selected connection and refreshes the 3D scene.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task DeleteOperationsAsync()
 		{
@@ -453,6 +549,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Generates a report for the selected connection in the specified format and saves it to a user-chosen file.
+		/// </summary>
+		/// <param name="format">The report format: "pdf" or "docx". Passed via XAML CommandParameter.</param>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task GenerateReportAsync(string? format)
 		{
@@ -507,6 +607,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Exports the selected connection in the specified format and saves it to a user-chosen file.
+		/// </summary>
+		/// <param name="format">The export format: "iom" or "ifc". Passed via XAML CommandParameter.</param>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task ExportAsync(string? format)
 		{
@@ -563,6 +667,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Retrieves and displays the topology (geometry and connectivity data) of the selected connection.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task GetTopologyAsync()
 		{
@@ -591,6 +698,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Retrieves and displays the raw 3D scene data JSON for the selected connection.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task GetSceneDataAsync()
 		{
@@ -619,6 +729,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Evaluates a parametric expression in the context of the selected connection.
+		/// Opens a text editor for the user to modify the expression before evaluation.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task EvaluateExpressionAsync()
 		{
@@ -659,6 +773,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Performs weld pre-design (sizing) on the selected connection using the full-strength method
+		/// and refreshes the 3D scene.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task WeldSizingAsync()
 		{
@@ -689,6 +807,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Creates a connection template XML from the selected connection and optionally saves it to a file.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task CreateTemplateAsync()
 		{
@@ -729,6 +850,12 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Applies a connection template to the selected connection. The template can be loaded
+		/// from a file or from the connection library, depending on the source parameter.
+		/// </summary>
+		/// <param name="source">The template source: "FromFile" to load from disk, or "ConnectionLibrary"
+		/// to browse and select from the connection library. Passed via XAML CommandParameter.</param>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task ApplyTemplateAsync(string? source)
 		{
@@ -807,6 +934,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Retrieves and displays the project settings as formatted JSON.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasProjectInfo))]
 		private async Task GetSettingsAsync()
 		{
@@ -834,6 +964,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Updates the project settings using the JSON currently displayed in the output panel.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasProjectInfo))]
 		private async Task UpdateSettingsAsync()
 		{
@@ -862,6 +995,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Opens a JSON editor for the user to modify the load effects of the selected connection,
+		/// then updates them on the server.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task UpdateConnectionLoadingAsync()
 		{
@@ -908,6 +1045,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Opens a JSON editor for the user to modify the parameters of the selected connection,
+		/// then updates them on the server and refreshes the 3D scene.
+		/// </summary>
 		[RelayCommand(CanExecute = nameof(HasSelectedConnection))]
 		private async Task EditParametersAsync()
 		{
@@ -960,6 +1101,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Opens Windows Explorer at the IDEA StatiCa logs directory.
+		/// </summary>
 		[RelayCommand]
 		private void ShowLogs()
 		{
@@ -978,6 +1122,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Opens the IDEA StatiCa diagnostics configuration file in Notepad for editing.
+		/// </summary>
 		[RelayCommand]
 		private void EditDiagnostics()
 		{
@@ -998,6 +1145,10 @@ namespace ConApiWpfClientApp.ViewModels
 
 		#endregion
 
+		/// <summary>
+		/// Updates the 3D scene visualization for the currently selected connection.
+		/// Clears the scene if no project is open or no connection is selected.
+		/// </summary>
 		internal async Task ShowClientUIAsync()
 		{
 			_logger.LogInformation("ShowClientUI");
@@ -1044,11 +1195,18 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Performs cleanup when the application is exiting by disconnecting from the API service.
+		/// </summary>
+		/// <returns>A task representing the asynchronous disconnect operation.</returns>
 		public Task OnExitApplication()
 		{
 			return _connectionApiService.DisconnectAsync();
 		}
 
+		/// <summary>
+		/// Notifies all commands that their CanExecute state may have changed.
+		/// </summary>
 		private void RefreshCommands()
 		{
 			ConnectCommand.NotifyCanExecuteChanged();
@@ -1077,6 +1235,9 @@ namespace ConApiWpfClientApp.ViewModels
 			OnPropertyChanged(nameof(CanStartService));
 		}
 
+		/// <summary>
+		/// Notifies connection-dependent commands that the selected connection has changed.
+		/// </summary>
 		private void RefreshConnectionChanged()
 		{
 			ApplyTemplateCommand.NotifyCanExecuteChanged();

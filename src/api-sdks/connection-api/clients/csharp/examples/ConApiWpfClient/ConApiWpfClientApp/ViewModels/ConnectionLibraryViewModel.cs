@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.ViewModels
 {
+	/// <summary>
+	/// View model for the connection library window, allowing users to search for and select
+	/// connection design items from the IDEA StatiCa connection library.
+	/// </summary>
 	public class ConnectionLibraryViewModel : ViewModelBase
 	{
 		private readonly IPluginLogger _logger;
@@ -21,6 +25,12 @@ namespace ConApiWpfClientApp.ViewModels
 		ProposedCdiViewModel? _selectedCdiVM;
 		string? _filterJson;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConnectionLibraryViewModel"/> class.
+		/// </summary>
+		/// <param name="logger">The logger for diagnostic output.</param>
+		/// <param name="model">The model containing search parameters and results.</param>
+		/// <param name="connectionApiClient">The API client for querying the connection library.</param>
 		public ConnectionLibraryViewModel(IPluginLogger logger, ConnectionLibraryModel model, IConnectionApiClient connectionApiClient)
 		{
 			_connectionApiClient = connectionApiClient;
@@ -29,6 +39,12 @@ namespace ConApiWpfClientApp.ViewModels
 			ProposeCommand = new AsyncRelayCommand(ProposeAsync, () => true);
 		}
 
+		/// <summary>
+		/// Initializes the view model with the specified project and connection context, then performs an initial search.
+		/// </summary>
+		/// <param name="projectId">The unique identifier of the project.</param>
+		/// <param name="connectionId">The identifier of the connection.</param>
+		/// <param name="cts">A cancellation token to cancel the operation.</param>
 		public async Task InitAsync(Guid projectId, int connectionId, CancellationToken cts)
 		{
 			_logger.LogInformation($"ConnectionLibraryViewModel.InitAsync projectId = {projectId} connectionId = {connectionId}");
@@ -40,8 +56,14 @@ namespace ConApiWpfClientApp.ViewModels
 			await ProposeAsync();
 		}
 
+		/// <summary>
+		/// Gets the command that triggers a new search in the connection library.
+		/// </summary>
 		public AsyncRelayCommand ProposeCommand { get; }
 
+		/// <summary>
+		/// Gets or sets the collection of proposed connection design item view models.
+		/// </summary>
 		public ObservableCollection<ProposedCdiViewModel>? ProposedCdiVMs
 		{
 			get => _allProposedCdi;
@@ -51,6 +73,10 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the currently selected connection design item.
+		/// When changed, triggers loading of the item's detail data.
+		/// </summary>
 		public ProposedCdiViewModel? SelectedCdiVM
 		{
 			get => _selectedCdiVM;
@@ -58,13 +84,16 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				if (_selectedCdiVM != value)
 				{
-					// TODO Correct Synchronization 
+					// TODO Correct Synchronization
 					SetProperty(ref _selectedCdiVM, value);
 					UpdateDetails();
 				}
 			}
 		}
 
+		/// <summary>
+		/// Searches the connection library using the current filter and populates the proposed design items.
+		/// </summary>
 		private async Task ProposeAsync()
 		{
 			_logger.LogInformation("ConnectionLibraryViewModel.ProposeAsync");
@@ -93,6 +122,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the JSON string representing the search filter parameters.
+		/// </summary>
 		public string? FilterJson
 		{
 			get => _filterJson;
@@ -102,6 +134,9 @@ namespace ConApiWpfClientApp.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Triggers asynchronous loading of detail data for the selected design item.
+		/// </summary>
 		private void UpdateDetails()
 		{
 			_selectedCdiVM?.InitDetailsAsync();

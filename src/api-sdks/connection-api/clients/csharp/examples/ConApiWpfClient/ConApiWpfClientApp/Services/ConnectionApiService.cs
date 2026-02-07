@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Services
 {
+	/// <summary>
+	/// Default implementation of <see cref="IConnectionApiService"/> that manages the lifecycle of
+	/// the Connection API client and delegates business logic to the underlying API endpoints.
+	/// </summary>
 	public class ConnectionApiService : IConnectionApiService
 	{
 		private readonly IPluginLogger _logger;
@@ -19,16 +23,28 @@ namespace ConApiWpfClientApp.Services
 		private IConnectionApiClient? _client;
 		private bool _disposed;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConnectionApiService"/> class.
+		/// </summary>
+		/// <param name="logger">The logger used for diagnostic output.</param>
 		public ConnectionApiService(IPluginLogger logger)
 		{
 			_logger = logger;
 		}
 
+		/// <inheritdoc/>
 		public bool IsConnected => _client != null;
+
+		/// <inheritdoc/>
 		public string? ServiceUrl => _client?.ClientApi?.Configuration?.BasePath;
+
+		/// <inheritdoc/>
 		public string? ClientId => _client?.ClientId;
+
+		/// <inheritdoc/>
 		public IConnectionApiClient? Client => _client;
 
+		/// <inheritdoc/>
 		public async Task ConnectAsync(bool runServer, string? setupPath, string? endpoint)
 		{
 			_logger.LogInformation("ConnectionApiService.ConnectAsync");
@@ -60,6 +76,7 @@ namespace ConApiWpfClientApp.Services
 			}
 		}
 
+		/// <inheritdoc/>
 		public Task DisconnectAsync()
 		{
 			return Task.Run(() =>
@@ -78,18 +95,21 @@ namespace ConApiWpfClientApp.Services
 			});
 		}
 
+		/// <inheritdoc/>
 		public async Task<ConProject> OpenProjectAsync(string filePath)
 		{
 			EnsureConnected();
 			return await _client!.Project.OpenProjectAsync(filePath);
 		}
 
+		/// <inheritdoc/>
 		public async Task<ConProject> ImportIomFileAsync(string filePath)
 		{
 			EnsureConnected();
 			return await _client!.Project.CreateProjectFromIomFileAsync(filePath);
 		}
 
+		/// <inheritdoc/>
 		public async Task<ConProject> ImportIomStreamAsync(Stream stream, CancellationToken ct)
 		{
 			EnsureConnected();
@@ -100,18 +120,21 @@ namespace ConApiWpfClientApp.Services
 			return response.Data;
 		}
 
+		/// <inheritdoc/>
 		public async Task CloseProjectAsync(Guid projectId, CancellationToken ct)
 		{
 			EnsureConnected();
 			await _client!.Project.CloseProjectAsync(projectId, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task SaveProjectAsync(Guid projectId, string filePath, CancellationToken ct)
 		{
 			EnsureConnected();
 			await _client!.Project.SaveProjectAsync(projectId, filePath, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> CalculateAsync(Guid projectId, int connectionId,
 			ConAnalysisTypeEnum analysisType, bool includeBuckling,
 			bool getRawResults, CancellationToken ct)
@@ -141,6 +164,7 @@ namespace ConApiWpfClientApp.Services
 			return $"{Tools.JsonTools.ToFormatedJson(calculationResults)}\n\n{rawResultsXml}";
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> GetMembersJsonAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
@@ -148,6 +172,7 @@ namespace ConApiWpfClientApp.Services
 			return members == null ? "No members" : Tools.JsonTools.ToFormatedJson(members);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> GetOperationsJsonAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
@@ -155,12 +180,14 @@ namespace ConApiWpfClientApp.Services
 			return operations == null ? "No operations" : Tools.JsonTools.ToFormatedJson(operations);
 		}
 
+		/// <inheritdoc/>
 		public async Task DeleteOperationsAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
 			await _client!.Operation.DeleteOperationsAsync(projectId, connectionId, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> GetTopologyJsonAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
@@ -181,24 +208,28 @@ namespace ConApiWpfClientApp.Services
 			return "Error";
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> GetSceneDataJsonAsync(Guid projectId, int connectionId)
 		{
 			EnsureConnected();
 			return await _client!.Presentation.GetDataScene3DTextAsync(projectId, connectionId);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> GetScene3DTextAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
 			return await _client!.Presentation.GetDataScene3DTextAsync(projectId, connectionId, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> CreateTemplateXmlAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
 			return await _client!.Template.CreateConTemplateAsync(projectId, connectionId, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<TemplateConversions> GetDefaultTemplateMappingAsync(Guid projectId, int connectionId,
 			ConTemplateMappingGetParam param, CancellationToken ct)
 		{
@@ -206,6 +237,7 @@ namespace ConApiWpfClientApp.Services
 			return await _client!.Template.GetDefaultTemplateMappingAsync(projectId, connectionId, param, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> ApplyTemplateAsync(Guid projectId, int connectionId,
 			ConTemplateApplyParam param, CancellationToken ct)
 		{
@@ -214,6 +246,7 @@ namespace ConApiWpfClientApp.Services
 			return "Template was applied";
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> WeldSizingAsync(Guid projectId, int connectionId,
 			IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum method)
 		{
@@ -221,6 +254,7 @@ namespace ConApiWpfClientApp.Services
 			return await _client!.Operation.PreDesignWeldsAsync(projectId, connectionId, method);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> GetSettingsJsonAsync(Guid projectId, CancellationToken ct)
 		{
 			EnsureConnected();
@@ -228,6 +262,7 @@ namespace ConApiWpfClientApp.Services
 			return Tools.JsonTools.ToFormatedJson(settings);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> UpdateSettingsAsync(Guid projectId, string settingsJson, CancellationToken ct)
 		{
 			EnsureConnected();
@@ -237,12 +272,14 @@ namespace ConApiWpfClientApp.Services
 			return Tools.JsonTools.ToFormatedJson(newSettings);
 		}
 
+		/// <inheritdoc/>
 		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
 			return await _client!.LoadEffect.GetLoadEffectsAsync(projectId, connectionId, false, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task UpdateLoadEffectsAsync(Guid projectId, int connectionId,
 			List<ConLoadEffect> loadEffects, CancellationToken ct)
 		{
@@ -253,6 +290,7 @@ namespace ConApiWpfClientApp.Services
 			}
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> EvaluateExpressionAsync(Guid projectId, int connectionId,
 			string expression, CancellationToken ct)
 		{
@@ -261,12 +299,14 @@ namespace ConApiWpfClientApp.Services
 			return await _client!.Parameter.EvaluateExpressionAsync(projectId, connectionId, expressionText, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<List<IdeaParameter>> GetParametersAsync(Guid projectId, int connectionId, CancellationToken ct)
 		{
 			EnsureConnected();
 			return await _client!.Parameter.GetParametersAsync(projectId, connectionId, null, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task UpdateParametersAsync(Guid projectId, int connectionId,
 			List<IdeaParameterUpdate> parameters, CancellationToken ct)
 		{
@@ -274,30 +314,38 @@ namespace ConApiWpfClientApp.Services
 			await _client!.Parameter.UpdateAsync(projectId, connectionId, parameters, 0, ct);
 		}
 
+		/// <inheritdoc/>
 		public async Task<string> ExportIomAsync(Guid projectId, int connectionId)
 		{
 			EnsureConnected();
 			return await _client!.Export.ExportIomAsync(projectId, connectionId);
 		}
 
+		/// <inheritdoc/>
 		public async Task ExportIfcAsync(Guid projectId, int connectionId, string filePath)
 		{
 			EnsureConnected();
 			await _client!.Export.ExportIfcFileAsync(projectId, connectionId, filePath);
 		}
 
+		/// <inheritdoc/>
 		public async Task SaveReportPdfAsync(Guid projectId, int connectionId, string filePath)
 		{
 			EnsureConnected();
 			await _client!.Report.SaveReportPdfAsync(projectId, connectionId, filePath);
 		}
 
+		/// <inheritdoc/>
 		public async Task SaveReportWordAsync(Guid projectId, int connectionId, string filePath)
 		{
 			EnsureConnected();
 			await _client!.Report.SaveReportWordAsync(projectId, connectionId, filePath);
 		}
 
+		/// <summary>
+		/// Releases all resources used by the <see cref="ConnectionApiService"/>.
+		/// Disposes of the API client and client factory.
+		/// </summary>
 		public void Dispose()
 		{
 			if (!_disposed)
@@ -315,6 +363,10 @@ namespace ConApiWpfClientApp.Services
 			}
 		}
 
+		/// <summary>
+		/// Throws <see cref="InvalidOperationException"/> if the API client is not connected.
+		/// </summary>
+		/// <exception cref="InvalidOperationException">Thrown when <see cref="_client"/> is <see langword="null"/>.</exception>
 		private void EnsureConnected()
 		{
 			if (_client == null)
