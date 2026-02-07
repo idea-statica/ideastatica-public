@@ -27,9 +27,9 @@ from typing_extensions import Self
 
 class ConcreteCheckResults(BaseModel):
     """
-    Concrete Check results
+    ConcreteCheckResults
     """ # noqa: E501
-    check_results: Optional[List[ConcreteCheckResult]] = Field(default=None, description="All results", alias="checkResults")
+    check_results: Optional[List[ConcreteCheckResult]] = Field(default=None, alias="checkResults")
     overall: Optional[ConcreteCheckResultOverall] = None
     __properties: ClassVar[List[str]] = ["checkResults", "overall"]
 

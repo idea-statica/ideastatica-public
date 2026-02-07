@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class BoltShearType(str, Enum):
     """
-    Defines a transfer of shear force in bolts.
+    BoltShearType
     """
 
     """

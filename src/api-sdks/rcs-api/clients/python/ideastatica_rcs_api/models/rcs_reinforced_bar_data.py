@@ -18,10 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_rcs_api.models.point2_d import Point2D
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,8 +30,8 @@ class RcsReinforcedBarData(BaseModel):
     """ # noqa: E501
     diameter: Optional[Union[StrictFloat, StrictInt]] = None
     point: Optional[Point2D] = None
-    material: Optional[RcsMaterial] = None
-    __properties: ClassVar[List[str]] = ["diameter", "point", "material"]
+    material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
+    __properties: ClassVar[List[str]] = ["diameter", "point", "materialName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,9 +75,11 @@ class RcsReinforcedBarData(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of point
         if self.point:
             _dict['point'] = self.point.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of material
-        if self.material:
-            _dict['material'] = self.material.to_dict()
+        # set to None if material_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.material_name is None and "material_name" in self.model_fields_set:
+            _dict['materialName'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +94,7 @@ class RcsReinforcedBarData(BaseModel):
         _obj = cls.model_validate({
             "diameter": obj.get("diameter"),
             "point": Point2D.from_dict(obj["point"]) if obj.get("point") is not None else None,
-            "material": RcsMaterial.from_dict(obj["material"]) if obj.get("material") is not None else None
+            "materialName": obj.get("materialName")
         })
         return _obj
 

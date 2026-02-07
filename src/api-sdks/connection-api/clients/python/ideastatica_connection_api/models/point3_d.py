@@ -18,19 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
 class Point3D(BaseModel):
     """
-    Represents an x- , y- an z-coordinates in three-dimensional space.
+    Point3D
     """ # noqa: E501
-    x: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gets or sets the X-coordinate value")
-    y: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gets or sets the Y-coordinate value")
-    z: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gets or sets the Z-coordinate value")
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    x: Optional[Union[StrictFloat, StrictInt]] = None
+    y: Optional[Union[StrictFloat, StrictInt]] = None
+    z: Optional[Union[StrictFloat, StrictInt]] = None
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["x", "y", "z", "id"]
 
     model_config = ConfigDict(

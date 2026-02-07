@@ -33,8 +33,6 @@ docs/RcsCalculationParameters.md
 docs/RcsCheckMember.md
 docs/RcsCrossSectionData.md
 docs/RcsCssComponentData.md
-docs/RcsMaterial.md
-docs/RcsMaterialType.md
 docs/RcsMprlElement.md
 docs/RcsProject.md
 docs/RcsProjectData.md
@@ -104,8 +102,6 @@ ideastatica_rcs_api/models/rcs_calculation_parameters.py
 ideastatica_rcs_api/models/rcs_check_member.py
 ideastatica_rcs_api/models/rcs_cross_section_data.py
 ideastatica_rcs_api/models/rcs_css_component_data.py
-ideastatica_rcs_api/models/rcs_material.py
-ideastatica_rcs_api/models/rcs_material_type.py
 ideastatica_rcs_api/models/rcs_mprl_element.py
 ideastatica_rcs_api/models/rcs_project.py
 ideastatica_rcs_api/models/rcs_project_data.py

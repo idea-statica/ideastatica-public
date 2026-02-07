@@ -1,13 +1,12 @@
 # Region2D
 
-Represents a region in two-dimensional space included outline (border) and openings.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **outline** | [**PolyLine2D**](PolyLine2D.md) |  | [optional] 
-**openings** | [**List[PolyLine2D]**](PolyLine2D.md) | Gets or sets the list of openings in the Region2D. | [optional] 
+**openings** | [**List[PolyLine2D]**](PolyLine2D.md) |  | [optional] 
 
 ## Example
 

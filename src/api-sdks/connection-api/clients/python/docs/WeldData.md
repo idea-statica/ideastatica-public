@@ -1,18 +1,17 @@
 # WeldData
 
-Provides data of the single weld
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Id of the weld | [optional] 
-**name** | **str** | Name of the weld | [optional] 
-**thickness** | **float** | Thickness of the weld | [optional] 
-**material** | **str** | Name of the material | [optional] 
+**id** | **int** |  | [optional] 
+**name** | **str** |  | [optional] 
+**thickness** | **float** |  | [optional] 
+**material** | **str** |  | [optional] 
 **weld_material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **weld_type** | [**WeldType**](WeldType.md) |  | [optional] 
-**connected_part_ids** | **List[str]** | Id of the weld | [optional] 
+**connected_part_ids** | **List[str]** |  | [optional] 
 **start** | [**Point3D**](Point3D.md) |  | [optional] 
 **end** | [**Point3D**](Point3D.md) |  | [optional] 
 

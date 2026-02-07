@@ -28,19 +28,19 @@ from typing_extensions import Self
 
 class PinGrid(BaseModel):
     """
-    Data of the pin grid
+    PinGrid
     """ # noqa: E501
-    is_replaceable: Optional[StrictBool] = Field(default=None, description="Replaceable pin", alias="isReplaceable")
+    is_replaceable: Optional[StrictBool] = Field(default=None, alias="isReplaceable")
     pin: Optional[ReferenceElement] = None
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
     axis_y: Optional[Vector3D] = Field(default=None, alias="axisY")
     axis_z: Optional[Vector3D] = Field(default=None, alias="axisZ")
-    positions: Optional[List[Point3D]] = Field(default=None, description="Positions of holes in the local coordinate system of the grid")
-    connected_parts: Optional[List[ReferenceElement]] = Field(default=None, description="List of the connected parts", alias="connectedParts")
-    name: Optional[StrictStr] = Field(default=None, description="Name")
-    length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    positions: Optional[List[Point3D]] = None
+    connected_parts: Optional[List[ReferenceElement]] = Field(default=None, alias="connectedParts")
+    name: Optional[StrictStr] = None
+    length: Optional[Union[StrictFloat, StrictInt]] = None
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["isReplaceable", "pin", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
 
     model_config = ConfigDict(

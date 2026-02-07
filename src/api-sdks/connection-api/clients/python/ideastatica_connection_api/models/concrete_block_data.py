@@ -28,20 +28,20 @@ from typing_extensions import Self
 
 class ConcreteBlockData(BaseModel):
     """
-    Provides data of the single concrete block
+    ConcreteBlockData
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Plate unique ID")
-    name: Optional[StrictStr] = Field(default=None, description="Name of the concrete block")
-    depth: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Depth of the concrete block")
-    material: Optional[StrictStr] = Field(default=None, description="Name of the material")
+    id: Optional[StrictInt] = None
+    name: Optional[StrictStr] = None
+    depth: Optional[Union[StrictFloat, StrictInt]] = None
+    material: Optional[StrictStr] = None
     center: Optional[Point3D] = None
-    outline_points: Optional[List[Point2D]] = Field(default=None, description="Outline points", alias="outlinePoints")
+    outline_points: Optional[List[Point2D]] = Field(default=None, alias="outlinePoints")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
     axis_y: Optional[Vector3D] = Field(default=None, alias="axisY")
     axis_z: Optional[Vector3D] = Field(default=None, alias="axisZ")
-    region: Optional[StrictStr] = Field(default=None, description="Geometry of the concrete block in svg format")
-    original_model_id: Optional[StrictStr] = Field(default=None, description="Get or set the identification in the original model  In the case of the imported connection from another application", alias="originalModelId")
+    region: Optional[StrictStr] = None
+    original_model_id: Optional[StrictStr] = Field(default=None, alias="originalModelId")
     __properties: ClassVar[List[str]] = ["id", "name", "depth", "material", "center", "outlinePoints", "origin", "axisX", "axisY", "axisZ", "region", "originalModelId"]
 
     model_config = ConfigDict(

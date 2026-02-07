@@ -25,14 +25,14 @@ from typing_extensions import Self
 
 class CheckResPlate(BaseModel):
     """
-    Check value for Plate
+    CheckResPlate
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of Plate")
-    check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
-    load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
-    max_strain: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Max Strain", alias="maxStrain")
-    max_stress: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Max Stress", alias="maxStress")
-    items: Optional[List[StrictInt]] = Field(default=None, description="In case of presentation of groups plates (uncoiled beams)")
+    name: Optional[StrictStr] = None
+    check_status: Optional[StrictBool] = Field(default=None, alias="checkStatus")
+    load_case_id: Optional[StrictInt] = Field(default=None, alias="loadCaseId")
+    max_strain: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="maxStrain")
+    max_stress: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="maxStress")
+    items: Optional[List[StrictInt]] = None
     __properties: ClassVar[List[str]] = ["name", "checkStatus", "loadCaseId", "maxStrain", "maxStress", "items"]
 
     model_config = ConfigDict(

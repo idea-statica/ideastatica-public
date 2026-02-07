@@ -1,21 +1,20 @@
 # ConnectionCheckRes
 
-Results for connection in project
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**check_res_summary** | [**List[CheckResSummary]**](CheckResSummary.md) | List of CheckResSummary | [optional] 
-**check_res_plate** | [**List[CheckResPlate]**](CheckResPlate.md) | List of check results for plates | [optional] 
-**check_res_weld** | [**List[CheckResWeld]**](CheckResWeld.md) | List of check results for welds | [optional] 
-**check_res_bolt** | [**List[CheckResBolt]**](CheckResBolt.md) | List of check results for bolts | [optional] 
-**check_res_anchor** | [**List[CheckResAnchor]**](CheckResAnchor.md) | List of check results for anchors | [optional] 
-**check_res_concrete_block** | [**List[CheckResConcreteBlock]**](CheckResConcreteBlock.md) | List of check results for concrete blocks | [optional] 
-**buckling_results** | [**List[BucklingRes]**](BucklingRes.md) | List of results of buckling analysis | [optional] 
-**name** | **str** | Name of connection | [optional] 
-**connection_id** | **str** | Guid of connection | [optional] 
-**id** | **int** | Integer Id of connection | [optional] 
+**check_res_summary** | [**List[CheckResSummary]**](CheckResSummary.md) |  | [optional] 
+**check_res_plate** | [**List[CheckResPlate]**](CheckResPlate.md) |  | [optional] 
+**check_res_weld** | [**List[CheckResWeld]**](CheckResWeld.md) |  | [optional] 
+**check_res_bolt** | [**List[CheckResBolt]**](CheckResBolt.md) |  | [optional] 
+**check_res_anchor** | [**List[CheckResAnchor]**](CheckResAnchor.md) |  | [optional] 
+**check_res_concrete_block** | [**List[CheckResConcreteBlock]**](CheckResConcreteBlock.md) |  | [optional] 
+**buckling_results** | [**List[BucklingRes]**](BucklingRes.md) |  | [optional] 
+**name** | **str** |  | [optional] 
+**connection_id** | **str** |  | [optional] 
+**id** | **int** |  | [optional] 
 **messages** | [**OpenMessages**](OpenMessages.md) |  | [optional] 
 
 ## Example

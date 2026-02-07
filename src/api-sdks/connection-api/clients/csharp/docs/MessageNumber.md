@@ -1,5 +1,4 @@
 # IdeaStatiCa.ConnectionApi.Model.MessageNumber
-Message numbers
 
 ## Properties
 

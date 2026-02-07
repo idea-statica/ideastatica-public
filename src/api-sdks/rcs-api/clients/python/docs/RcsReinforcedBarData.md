@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **diameter** | **float** |  | [optional] 
 **point** | [**Point2D**](Point2D.md) |  | [optional] 
-**material** | [**RcsMaterial**](RcsMaterial.md) |  | [optional] 
+**material_name** | **str** |  | [optional] 
 
 ## Example
 

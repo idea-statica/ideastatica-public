@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.NonConformitySeverity
-Nonconformity severities
 
 ## Properties
 

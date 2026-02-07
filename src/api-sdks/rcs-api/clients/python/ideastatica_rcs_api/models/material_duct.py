@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class MaterialDuct(str, Enum):
     """
-    Tendon ducts material type
+    MaterialDuct
     """
 
     """

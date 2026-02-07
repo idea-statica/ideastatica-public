@@ -1,16 +1,15 @@
 # TendonDuct
 
-Tendon duct
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Tendon duct Id | [optional] 
+**id** | **int** |  | [optional] 
 **point** | [**Point2D**](Point2D.md) |  | [optional] 
 **material_duct** | [**MaterialDuct**](MaterialDuct.md) |  | [optional] 
-**is_debonding_tube** | **bool** | rue for debonding tubes, false for tendon ducts | [optional] 
-**diameter** | **float** | Diameter | [optional] 
+**is_debonding_tube** | **bool** |  | [optional] 
+**diameter** | **float** |  | [optional] 
 
 ## Example
 

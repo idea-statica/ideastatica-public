@@ -1,13 +1,12 @@
 # ReinforcedBar
 
-Reinforced bar
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **point** | [**Point2D**](Point2D.md) |  | [optional] 
-**diameter** | **float** | Diameter | [optional] 
+**diameter** | **float** |  | [optional] 
 **material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 
 ## Example

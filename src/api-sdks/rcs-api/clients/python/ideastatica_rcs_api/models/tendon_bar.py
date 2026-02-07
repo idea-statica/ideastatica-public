@@ -30,16 +30,16 @@ from typing_extensions import Self
 
 class TendonBar(BaseModel):
     """
-    Tendon bar
+    TendonBar
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Tendon Id")
+    id: Optional[StrictInt] = None
     tendon_type: Optional[TendonBarType] = Field(default=None, alias="tendonType")
     point: Optional[Point2D] = None
     material: Optional[ReferenceElement] = None
-    prestressing_order: Optional[StrictInt] = Field(default=None, description="order of tendon prestessing", alias="prestressingOrder")
-    num_strands_in_tendon: Optional[StrictInt] = Field(default=None, description="number of ropes in tendon", alias="numStrandsInTendon")
+    prestressing_order: Optional[StrictInt] = Field(default=None, alias="prestressingOrder")
+    num_strands_in_tendon: Optional[StrictInt] = Field(default=None, alias="numStrandsInTendon")
     prestress_reinforcement_type: Optional[FatigueTypeOfPrestressingSteel] = Field(default=None, alias="prestressReinforcementType")
-    phase: Optional[StrictInt] = Field(default=None, description="Phase")
+    phase: Optional[StrictInt] = None
     tendon_duct: Optional[TendonDuct] = Field(default=None, alias="tendonDuct")
     __properties: ClassVar[List[str]] = ["id", "tendonType", "point", "material", "prestressingOrder", "numStrandsInTendon", "prestressReinforcementType", "phase", "tendonDuct"]
 

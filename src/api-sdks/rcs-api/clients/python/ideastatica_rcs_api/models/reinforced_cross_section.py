@@ -30,15 +30,15 @@ from typing_extensions import Self
 
 class ReinforcedCrossSection(BaseModel):
     """
-    Reinforced cross-section
+    ReinforcedCrossSection
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of cross-section")
+    name: Optional[StrictStr] = None
     cross_section: Optional[ReferenceElement] = Field(default=None, alias="crossSection")
-    bars: Optional[List[ReinforcedBar]] = Field(default=None, description="Reinforced bars")
-    stirrups: Optional[List[Stirrup]] = Field(default=None, description="Stirrups")
-    tendon_bars: Optional[List[TendonBar]] = Field(default=None, description="Tendon bars", alias="tendonBars")
-    tendon_ducts: Optional[List[TendonDuct]] = Field(default=None, description="Tendon ducts", alias="tendonDucts")
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    bars: Optional[List[ReinforcedBar]] = None
+    stirrups: Optional[List[Stirrup]] = None
+    tendon_bars: Optional[List[TendonBar]] = Field(default=None, alias="tendonBars")
+    tendon_ducts: Optional[List[TendonDuct]] = Field(default=None, alias="tendonDucts")
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["name", "crossSection", "bars", "stirrups", "tendonBars", "tendonDucts", "id"]
 
     model_config = ConfigDict(

@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.FatigueTypeOfPrestressingSteel
-Posttensioned reinforcement type
 
 ## Properties
 

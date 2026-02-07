@@ -1,17 +1,16 @@
 # CheckResSummary
 
-Check summary
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**check_value** | **float** | Check value | [optional] 
-**check_status** | **bool** | Status of check | [optional] 
-**load_case_id** | **int** | Id of Load Case | [optional] 
-**name** | **str** | Name | [optional] 
-**unity_check_message** | **str** | Detail message about overall check | [optional] 
-**skipped** | **bool** | Whether the check was calculated or not.  If true, the check was not calculated and IdeaRS.OpenModel.Connection.CheckResSummary.CheckValue should be ignored, otherwise false. | [optional] 
+**check_value** | **float** |  | [optional] 
+**check_status** | **bool** |  | [optional] 
+**load_case_id** | **int** |  | [optional] 
+**name** | **str** |  | [optional] 
+**unity_check_message** | **str** |  | [optional] 
+**skipped** | **bool** |  | [optional] 
 
 ## Example
 

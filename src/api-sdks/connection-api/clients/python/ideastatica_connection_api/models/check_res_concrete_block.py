@@ -25,12 +25,12 @@ from typing_extensions import Self
 
 class CheckResConcreteBlock(BaseModel):
     """
-    Check value for Concrete Block
+    CheckResConcreteBlock
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of Concrete Block")
-    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check", alias="unityCheck")
-    check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
-    load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
+    name: Optional[StrictStr] = None
+    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unityCheck")
+    check_status: Optional[StrictBool] = Field(default=None, alias="checkStatus")
+    load_case_id: Optional[StrictInt] = Field(default=None, alias="loadCaseId")
     __properties: ClassVar[List[str]] = ["name", "unityCheck", "checkStatus", "loadCaseId"]
 
     model_config = ConfigDict(

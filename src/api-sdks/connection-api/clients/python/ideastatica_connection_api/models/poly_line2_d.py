@@ -27,10 +27,10 @@ from typing_extensions import Self
 
 class PolyLine2D(BaseModel):
     """
-    Represents a polyline in two-dimensional space.
+    PolyLine2D
     """ # noqa: E501
     start_point: Optional[Point2D] = Field(default=None, alias="startPoint")
-    segments: Optional[List[Segment2D]] = Field(default=None, description="Gets segments of `PolyLine2D`.")
+    segments: Optional[List[Segment2D]] = None
     __properties: ClassVar[List[str]] = ["startPoint", "segments"]
 
     model_config = ConfigDict(

@@ -1,17 +1,16 @@
 # ResultOfInternalForces
 
-Result of internal forces in the one position
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**n** | **float** | Normal force | [optional] 
-**qy** | **float** | Shear force in y dirrection | [optional] 
-**qz** | **float** | Shear force in z dirrection | [optional] 
-**mx** | **float** | Bending moment around x-axis | [optional] 
-**my** | **float** | Bending moment around y-axis | [optional] 
-**mz** | **float** | Bending moment around z-axis | [optional] 
+**n** | **float** |  | [optional] 
+**qy** | **float** |  | [optional] 
+**qz** | **float** |  | [optional] 
+**mx** | **float** |  | [optional] 
+**my** | **float** |  | [optional] 
+**mz** | **float** |  | [optional] 
 **loading** | [**ResultOfLoading**](ResultOfLoading.md) |  | [optional] 
 
 ## Example

@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class CutMethod(str, Enum):
     """
-    Cut method
+    CutMethod
     """
 
     """

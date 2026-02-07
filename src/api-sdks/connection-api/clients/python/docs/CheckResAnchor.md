@@ -1,14 +1,13 @@
 # CheckResAnchor
 
-Check value for Anchor
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Name | [optional] 
-**unity_check** | **float** | Unity Check | [optional] 
-**check_status** | **bool** | Status of the Check | [optional] 
+**name** | **str** |  | [optional] 
+**unity_check** | **float** |  | [optional] 
+**check_status** | **bool** |  | [optional] 
 
 ## Example
 

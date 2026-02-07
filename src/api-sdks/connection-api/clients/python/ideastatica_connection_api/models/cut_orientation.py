@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class CutOrientation(str, Enum):
     """
-    Represents the type of the cut
+    CutOrientation
     """
 
     """

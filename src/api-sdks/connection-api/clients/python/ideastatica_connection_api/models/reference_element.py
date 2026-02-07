@@ -26,10 +26,10 @@ from typing_extensions import Self
 
 class ReferenceElement(BaseModel):
     """
-    Reference element class
+    ReferenceElement
     """ # noqa: E501
-    type_name: Optional[StrictStr] = Field(default=None, description="Element type name", alias="typeName")
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    type_name: Optional[StrictStr] = Field(default=None, alias="typeName")
+    id: Optional[StrictInt] = None
     element: Optional[OpenElementId] = None
     __properties: ClassVar[List[str]] = ["typeName", "id", "element"]
 

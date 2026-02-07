@@ -1,5 +1,4 @@
 # IdeaStatiCa.ConnectionApi.Model.Segment2D
-Represents a segment in two-dimensional space.
 
 ## Properties
 

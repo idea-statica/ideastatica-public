@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class WeldType(str, Enum):
     """
-    enum of weld types
+    WeldType
     """
 
     """

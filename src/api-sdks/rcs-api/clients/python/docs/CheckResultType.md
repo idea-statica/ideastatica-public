@@ -1,6 +1,5 @@
 # CheckResultType
 
-Check result type
 
 ## Enum
 

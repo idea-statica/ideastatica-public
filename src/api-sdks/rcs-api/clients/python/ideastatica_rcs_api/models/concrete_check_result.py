@@ -27,10 +27,10 @@ from typing_extensions import Self
 
 class ConcreteCheckResult(BaseModel):
     """
-    Concrete Check results
+    ConcreteCheckResult
     """ # noqa: E501
     result_type: Optional[CheckResultType] = Field(default=None, alias="resultType")
-    check_results: Optional[List[ConcreteCheckResultBase]] = Field(default=None, description="All results - first is extreme", alias="checkResults")
+    check_results: Optional[List[ConcreteCheckResultBase]] = Field(default=None, alias="checkResults")
     __properties: ClassVar[List[str]] = ["resultType", "checkResults"]
 
     model_config = ConfigDict(

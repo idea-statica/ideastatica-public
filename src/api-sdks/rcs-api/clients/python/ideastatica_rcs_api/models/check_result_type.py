@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class CheckResultType(str, Enum):
     """
-    Check result type
+    CheckResultType
     """
 
     """

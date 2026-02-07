@@ -26,10 +26,10 @@ from typing_extensions import Self
 
 class SectionConcreteCheckResult(BaseModel):
     """
-    ection concrete result
+    SectionConcreteCheckResult
     """ # noqa: E501
-    section_id: Optional[StrictInt] = Field(default=None, description="Id Of section", alias="sectionId")
-    extreme_results: Optional[List[ConcreteCheckResults]] = Field(default=None, description="Extreme results", alias="extremeResults")
+    section_id: Optional[StrictInt] = Field(default=None, alias="sectionId")
+    extreme_results: Optional[List[ConcreteCheckResults]] = Field(default=None, alias="extremeResults")
     __properties: ClassVar[List[str]] = ["sectionId", "extremeResults"]
 
     model_config = ConfigDict(

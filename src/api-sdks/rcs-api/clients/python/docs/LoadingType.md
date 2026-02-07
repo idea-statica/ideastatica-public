@@ -1,6 +1,5 @@
 # LoadingType
 
-Type of loading
 
 ## Enum
 

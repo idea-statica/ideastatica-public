@@ -25,11 +25,11 @@ from typing_extensions import Self
 
 class BucklingRes(BaseModel):
     """
-    Results of the buckling analysis
+    BucklingRes
     """ # noqa: E501
     load_case_id: Optional[StrictInt] = Field(default=None, alias="loadCaseId")
-    shape: Optional[StrictInt] = Field(default=None, description="Shape lc calculated by solver")
-    factor: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Buckling factor")
+    shape: Optional[StrictInt] = None
+    factor: Optional[Union[StrictFloat, StrictInt]] = None
     __properties: ClassVar[List[str]] = ["loadCaseId", "shape", "factor"]
 
     model_config = ConfigDict(

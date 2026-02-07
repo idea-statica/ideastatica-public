@@ -30,24 +30,24 @@ from typing_extensions import Self
 
 class AnchorGrid(BaseModel):
     """
-    Data of the anchor grid
+    AnchorGrid
     """ # noqa: E501
-    shear_in_thread: Optional[StrictBool] = Field(default=None, description="Indicates, whether a shear plane is in the thread of a bolt.", alias="shearInThread")
+    shear_in_thread: Optional[StrictBool] = Field(default=None, alias="shearInThread")
     concrete_block: Optional[ConcreteBlock] = Field(default=None, alias="concreteBlock")
     anchor_type: Optional[AnchorType] = Field(default=None, alias="anchorType")
-    washer_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Washer Size used if AnchorType is washer", alias="washerSize")
-    anchoring_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Anchoring Length", alias="anchoringLength")
-    hook_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length of anchor hook    (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)", alias="hookLength")
+    washer_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="washerSize")
+    anchoring_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="anchoringLength")
+    hook_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="hookLength")
     bolt_assembly: Optional[ReferenceElement] = Field(default=None, alias="boltAssembly")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
     axis_y: Optional[Vector3D] = Field(default=None, alias="axisY")
     axis_z: Optional[Vector3D] = Field(default=None, alias="axisZ")
-    positions: Optional[List[Point3D]] = Field(default=None, description="Positions of holes in the local coordinate system of the grid")
-    connected_parts: Optional[List[ReferenceElement]] = Field(default=None, description="List of the connected parts", alias="connectedParts")
-    name: Optional[StrictStr] = Field(default=None, description="Name")
-    length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
-    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    positions: Optional[List[Point3D]] = None
+    connected_parts: Optional[List[ReferenceElement]] = Field(default=None, alias="connectedParts")
+    name: Optional[StrictStr] = None
+    length: Optional[Union[StrictFloat, StrictInt]] = None
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["shearInThread", "concreteBlock", "anchorType", "washerSize", "anchoringLength", "hookLength", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
 
     model_config = ConfigDict(

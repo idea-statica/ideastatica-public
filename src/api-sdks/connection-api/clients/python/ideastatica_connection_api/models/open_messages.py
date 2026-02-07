@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.open_message import OpenMessage
 from typing import Optional, Set
@@ -26,9 +26,9 @@ from typing_extensions import Self
 
 class OpenMessages(BaseModel):
     """
-    Open messages collection
+    OpenMessages
     """ # noqa: E501
-    messages: Optional[List[OpenMessage]] = Field(default=None, description="List of messages")
+    messages: Optional[List[OpenMessage]] = None
     __properties: ClassVar[List[str]] = ["messages"]
 
     model_config = ConfigDict(

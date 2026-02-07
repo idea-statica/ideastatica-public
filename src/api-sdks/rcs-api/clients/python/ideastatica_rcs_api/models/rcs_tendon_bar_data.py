@@ -18,10 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_rcs_api.models.point2_d import Point2D
-from ideastatica_rcs_api.models.rcs_material import RcsMaterial
 from ideastatica_rcs_api.models.rcs_tendon_duct_data import RcsTendonDuctData
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,11 +30,11 @@ class RcsTendonBarData(BaseModel):
     RcsTendonBarData
     """ # noqa: E501
     point: Optional[Point2D] = None
-    material: Optional[RcsMaterial] = None
+    material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
     num_strands_in_tendon: Optional[StrictInt] = Field(default=None, alias="numStrandsInTendon")
     prestressing_order: Optional[StrictInt] = Field(default=None, alias="prestressingOrder")
     tendon_duct: Optional[RcsTendonDuctData] = Field(default=None, alias="tendonDuct")
-    __properties: ClassVar[List[str]] = ["point", "material", "numStrandsInTendon", "prestressingOrder", "tendonDuct"]
+    __properties: ClassVar[List[str]] = ["point", "materialName", "numStrandsInTendon", "prestressingOrder", "tendonDuct"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,12 +78,14 @@ class RcsTendonBarData(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of point
         if self.point:
             _dict['point'] = self.point.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of material
-        if self.material:
-            _dict['material'] = self.material.to_dict()
         # override the default output from pydantic by calling `to_dict()` of tendon_duct
         if self.tendon_duct:
             _dict['tendonDuct'] = self.tendon_duct.to_dict()
+        # set to None if material_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.material_name is None and "material_name" in self.model_fields_set:
+            _dict['materialName'] = None
+
         return _dict
 
     @classmethod
@@ -98,7 +99,7 @@ class RcsTendonBarData(BaseModel):
 
         _obj = cls.model_validate({
             "point": Point2D.from_dict(obj["point"]) if obj.get("point") is not None else None,
-            "material": RcsMaterial.from_dict(obj["material"]) if obj.get("material") is not None else None,
+            "materialName": obj.get("materialName"),
             "numStrandsInTendon": obj.get("numStrandsInTendon"),
             "prestressingOrder": obj.get("prestressingOrder"),
             "tendonDuct": RcsTendonDuctData.from_dict(obj["tendonDuct"]) if obj.get("tendonDuct") is not None else None

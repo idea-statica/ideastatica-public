@@ -1,15 +1,14 @@
 # ConcreteBlock
 
-Data of concrete block
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**lenght** | **float** | Lenght of ConcreteBlock | [optional] 
-**width** | **float** | Width of ConcreteBlock | [optional] 
-**height** | **float** | Height of ConcreteBlock | [optional] 
-**material** | **str** | Material of ConcreteBlock | [optional] 
+**lenght** | **float** |  | [optional] 
+**width** | **float** |  | [optional] 
+**height** | **float** |  | [optional] 
+**material** | **str** |  | [optional] 
 
 ## Example
 

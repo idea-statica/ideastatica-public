@@ -1,17 +1,16 @@
 # CheckResPlate
 
-Check value for Plate
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Name of Plate | [optional] 
-**check_status** | **bool** | Status of the Check | [optional] 
-**load_case_id** | **int** | Id of Load Case | [optional] 
-**max_strain** | **float** | Max Strain | [optional] 
-**max_stress** | **float** | Max Stress | [optional] 
-**items** | **List[int]** | In case of presentation of groups plates (uncoiled beams) | [optional] 
+**name** | **str** |  | [optional] 
+**check_status** | **bool** |  | [optional] 
+**load_case_id** | **int** |  | [optional] 
+**max_strain** | **float** |  | [optional] 
+**max_stress** | **float** |  | [optional] 
+**items** | **List[int]** |  | [optional] 
 
 ## Example
 

@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class MessageNumber(str, Enum):
     """
-    Message numbers
+    MessageNumber
     """
 
     """

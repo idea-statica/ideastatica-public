@@ -1,6 +1,5 @@
 # CountryCode
 
-CountryCode
 
 ## Enum
 

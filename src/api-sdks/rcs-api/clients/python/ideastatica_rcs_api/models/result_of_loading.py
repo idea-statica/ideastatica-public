@@ -27,11 +27,11 @@ from typing_extensions import Self
 
 class ResultOfLoading(BaseModel):
     """
-    Result Of Loading
+    ResultOfLoading
     """ # noqa: E501
-    items: Optional[List[ResultOfLoadingItem]] = Field(default=None, description="Items od loading")
+    items: Optional[List[ResultOfLoadingItem]] = None
     loading_type: Optional[LoadingType] = Field(default=None, alias="loadingType")
-    id: Optional[StrictInt] = Field(default=None, description="Id of loading")
+    id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["items", "loadingType", "id"]
 
     model_config = ConfigDict(

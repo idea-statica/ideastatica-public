@@ -1,22 +1,21 @@
 # PinGrid
 
-Data of the pin grid
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**is_replaceable** | **bool** | Replaceable pin | [optional] 
+**is_replaceable** | **bool** |  | [optional] 
 **pin** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_y** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_z** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**positions** | [**List[Point3D]**](Point3D.md) | Positions of holes in the local coordinate system of the grid | [optional] 
-**connected_parts** | [**List[ReferenceElement]**](ReferenceElement.md) | List of the connected parts | [optional] 
-**name** | **str** | Name | [optional] 
-**length** | **float** | Length | [optional] 
-**id** | **int** | Element Id | [optional] 
+**positions** | [**List[Point3D]**](Point3D.md) |  | [optional] 
+**connected_parts** | [**List[ReferenceElement]**](ReferenceElement.md) |  | [optional] 
+**name** | **str** |  | [optional] 
+**length** | **float** |  | [optional] 
+**id** | **int** |  | [optional] 
 
 ## Example
 

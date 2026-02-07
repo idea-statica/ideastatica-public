@@ -1,12 +1,11 @@
 # NonConformity
 
-Non-conformity
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **str** | Description of the nonconformity | [optional] 
+**guid** | **str** |  | [optional] 
 **severity** | [**NonConformitySeverity**](NonConformitySeverity.md) |  | [optional] 
 
 ## Example

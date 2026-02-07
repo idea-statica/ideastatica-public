@@ -21,7 +21,7 @@ from typing_extensions import Self
 
 class FatigueTypeOfPrestressingSteel(str, Enum):
     """
-    Posttensioned reinforcement type
+    FatigueTypeOfPrestressingSteel
     """
 
     """

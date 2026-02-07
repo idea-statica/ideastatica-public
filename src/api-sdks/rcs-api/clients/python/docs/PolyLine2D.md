@@ -1,13 +1,12 @@
 # PolyLine2D
 
-Represents a polyline in two-dimensional space.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **start_point** | [**Point2D**](Point2D.md) |  | [optional] 
-**segments** | [**List[Segment2D]**](Segment2D.md) | Gets segments of &#x60;PolyLine2D&#x60;. | [optional] 
+**segments** | [**List[Segment2D]**](Segment2D.md) |  | [optional] 
 
 ## Example
 

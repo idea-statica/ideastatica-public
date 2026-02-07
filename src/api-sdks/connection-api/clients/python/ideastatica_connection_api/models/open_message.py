@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.message_number import MessageNumber
 from typing import Optional, Set
@@ -26,10 +26,10 @@ from typing_extensions import Self
 
 class OpenMessage(BaseModel):
     """
-    Open message base class
+    OpenMessage
     """ # noqa: E501
     number: Optional[MessageNumber] = None
-    description: Optional[StrictStr] = Field(default=None, description="Description of message")
+    description: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["number", "description"]
 
     model_config = ConfigDict(

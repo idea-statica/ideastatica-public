@@ -1,5 +1,4 @@
 # IdeaStatiCa.RcsApi.Model.CalculationType
-Calculation type
 
 ## Properties
 

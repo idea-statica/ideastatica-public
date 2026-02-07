@@ -1,13 +1,12 @@
 # OpenMessage
 
-Open message base class
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **number** | [**MessageNumber**](MessageNumber.md) |  | [optional] 
-**description** | **str** | Description of message | [optional] 
+**description** | **str** |  | [optional] 
 
 ## Example
 

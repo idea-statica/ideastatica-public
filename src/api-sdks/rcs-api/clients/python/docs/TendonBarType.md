@@ -1,6 +1,5 @@
 # TendonBarType
 
-Tendon bar type
 
 ## Enum
 

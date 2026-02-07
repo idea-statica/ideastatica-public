@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**material** | [**RcsMaterial**](RcsMaterial.md) |  | [optional] 
+**material_name** | **str** |  | [optional] 
 **phase** | **int** |  | [optional] 
 **geometry** | [**Region2D**](Region2D.md) |  | [optional] 
 
