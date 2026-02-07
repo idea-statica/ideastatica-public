@@ -1,13 +1,11 @@
-﻿using ConApiWpfClientApp.ViewModels;
+﻿using ConApiWpfClientApp.Services;
+using ConApiWpfClientApp.ViewModels;
 using ConApiWpfClientApp.Views;
 using ConnectionIomGenerator.Model;
 using ConnectionIomGenerator.Service;
 using ConnectionIomGenerator.UI.Models;
 using ConnectionIomGenerator.UI.Services;
-using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.ConRestApiClientUI;
-//using IdeaStatiCa.ConnectionApi.Factory;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +36,8 @@ namespace ConApiWpfClientApp
 				SerilogFacade.Initialize();
 				return LoggerProvider.GetLogger("con.restapi.client");
 			});
+
+			services.AddSingleton<IConnectionApiService, ConnectionApiService>();
 
 			services.AddTransient<MainWindow>(serviceProvider =>
 			{
