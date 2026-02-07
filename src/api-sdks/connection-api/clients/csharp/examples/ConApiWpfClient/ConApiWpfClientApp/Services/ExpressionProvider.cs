@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace ConApiWpfClientApp.Services
 {
+	/// <summary>
+	/// Generates a default parametric expression based on connection members
+	/// and allows the user to modify it in a text editor before evaluation.
+	/// </summary>
 	public class ExpressionProvider : IExpressionProvider
 	{
 		private readonly IConnectionApiClient _connectionApiClient;
 		private readonly IPluginLogger _logger;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ExpressionProvider"/> class.
+		/// </summary>
+		/// <param name="connectionApiClient">The API client for querying connection members.</param>
+		/// <param name="logger">The logger for diagnostic output.</param>
 		public ExpressionProvider(IConnectionApiClient connectionApiClient, IPluginLogger logger)
 		{
 			_connectionApiClient = connectionApiClient;

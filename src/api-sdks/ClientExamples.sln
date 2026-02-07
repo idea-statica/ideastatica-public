@@ -38,6 +38,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.BimImporter", "..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj", "{1662FC00-0572-CB9F-D6FF-97191EBA9E76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConFromIomGenerator", "ConFromIomGenerator", "{F9E449D8-B126-40E6-93E4-C0D2D8E9CE1F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\examples\iom\csharp\ConnectionIomGenerator\readme.md = ..\..\examples\iom\csharp\ConnectionIomGenerator\readme.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionIomGenerator", "..\..\examples\iom\csharp\ConnectionIomGenerator\ConnectionIomGenerator\ConnectionIomGenerator.csproj", "{B724032A-13F2-E05F-9063-4465C2196BBB}"
 EndProject

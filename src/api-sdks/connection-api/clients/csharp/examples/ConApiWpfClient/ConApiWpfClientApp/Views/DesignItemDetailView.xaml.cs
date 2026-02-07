@@ -16,10 +16,14 @@ using System.Windows.Shapes;
 namespace ConApiWpfClientApp.Views
 {
 	/// <summary>
-	/// Interaction logic for DesigItemDetailView.xaml
+	/// User control that displays the details of a selected connection design item,
+	/// including its template XML and preview picture.
 	/// </summary>
 	public partial class DesignItemDetailView : UserControl
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DesignItemDetailView"/> class.
+		/// </summary>
 		public DesignItemDetailView()
 		{
 			InitializeComponent();

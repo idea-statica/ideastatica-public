@@ -15,15 +15,21 @@ using System.Windows.Shapes;
 namespace ConApiWpfClientApp.Views
 {
 	/// <summary>
-	/// Interaction logic for ConnectionLibraryWindow.xaml
+	/// Modal dialog window for browsing and selecting connection design items from the connection library.
 	/// </summary>
 	public partial class ConnectionLibraryWindow : Window
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConnectionLibraryWindow"/> class.
+		/// </summary>
 		public ConnectionLibraryWindow()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Handles the OK button click by setting the dialog result to <see langword="true"/> and closing the window.
+		/// </summary>
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			this.DialogResult = true;

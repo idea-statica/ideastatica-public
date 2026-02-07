@@ -15,15 +15,22 @@ using System.Windows.Shapes;
 namespace ConApiWpfClientApp.Views
 {
 	/// <summary>
-	/// Interaction logic for JsonEditorWindow.xaml
+	/// Modal dialog window for editing JSON or plain text content.
+	/// Used by <see cref="Services.JsonEditorService{T}"/> and <see cref="Services.TextEditorService"/>.
 	/// </summary>
 	public partial class JsonEditorWindow : Window
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="JsonEditorWindow"/> class.
+		/// </summary>
 		public JsonEditorWindow()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Handles the OK button click by setting the dialog result to <see langword="true"/> and closing the window.
+		/// </summary>
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			// Close the modal window
