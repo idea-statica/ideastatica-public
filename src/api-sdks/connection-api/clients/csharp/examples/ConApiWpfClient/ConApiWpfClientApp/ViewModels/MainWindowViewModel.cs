@@ -2,13 +2,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ConApiWpfClientApp.Models;
 using ConApiWpfClientApp.Services;
+using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGenerator.UI.Views;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConRestApiClientUI;
 using IdeaStatiCa.Plugin;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,6 +29,7 @@ namespace ConApiWpfClientApp.ViewModels
 	public partial class MainWindowViewModel : ViewModelBase
 	{
 		private readonly IConnectionApiService _connectionApiService;
+		private readonly IFileDialogService _fileDialogService;
 		private readonly IConfiguration _configuration;
 		private readonly IPluginLogger _logger;
 		private readonly ISceneController _sceneController;
@@ -105,10 +106,12 @@ namespace ConApiWpfClientApp.ViewModels
 		/// <param name="configuration">The application configuration providing setup paths and endpoints.</param>
 		/// <param name="logger">The logger for diagnostic output.</param>
 		/// <param name="iomEditorViewModel">The view model for the IOM editor dialog.</param>
+		/// <param name="fileDialogService">The service for displaying file open/save dialogs.</param>
 		/// <param name="projectModel">The project model holding the currently open project data.</param>
 		/// <param name="sceneController">The controller for rendering 3D connection scenes.</param>
 		public MainWindowViewModel(
 			IConnectionApiService connectionApiService,
+			IFileDialogService fileDialogService,
 			IConfiguration configuration,
 			IPluginLogger logger,
 			IomEditorWindowViewModel iomEditorViewModel,
@@ -116,6 +119,7 @@ namespace ConApiWpfClientApp.ViewModels
 			ISceneController sceneController)
 		{
 			_connectionApiService = connectionApiService;
+			_fileDialogService = fileDialogService;
 			Model = projectModel;
 			_configuration = configuration;
 			_logger = logger;
@@ -204,9 +208,8 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("OpenProjectAsync");
 
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "IdeaConnection | *.ideacon";
-			if (openFileDialog.ShowDialog() != true)
+			var filePath = _fileDialogService.ShowOpenFileDialog("IdeaConnection | *.ideacon", "Open Project");
+			if (filePath == null)
 			{
 				return;
 			}
@@ -214,7 +217,7 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				Model.ProjectInfo = await _connectionApiService.OpenProjectAsync(openFileDialog.FileName);
+				Model.ProjectInfo = await _connectionApiService.OpenProjectAsync(filePath);
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(Model.ProjectInfo);
 				OutputText = $"ClientId = {_connectionApiService.ClientId}, ProjectId = {Model.ProjectId}\n\n{projectInfoJson}";
 				Connections = new ObservableCollection<ConnectionViewModel>(Model.ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
@@ -248,9 +251,8 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("ImportIomAsync");
 
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "Iom files|*.iom;*.xml";
-			if (openFileDialog.ShowDialog() != true)
+			var filePath = _fileDialogService.ShowOpenFileDialog("Iom files|*.iom;*.xml", "Import IOM");
+			if (filePath == null)
 			{
 				return;
 			}
@@ -258,7 +260,7 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				Model.ProjectInfo = await _connectionApiService.ImportIomFileAsync(openFileDialog.FileName);
+				Model.ProjectInfo = await _connectionApiService.ImportIomFileAsync(filePath);
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(Model.ProjectInfo);
 				OutputText = $"ProjectId = {Model.ProjectId}\n\n{projectInfoJson}";
 				Connections = new ObservableCollection<ConnectionViewModel>(Model.ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
@@ -401,11 +403,10 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				SaveFileDialog saveFileDialog = new SaveFileDialog();
-				saveFileDialog.Filter = "IdeaConnection | *.ideacon";
-				if (saveFileDialog.ShowDialog() == true)
+				var filePath = _fileDialogService.ShowSaveFileDialog("IdeaConnection | *.ideacon", ".ideacon", "", "Download Project");
+				if (filePath != null)
 				{
-					await _connectionApiService.SaveProjectAsync(Model.ProjectId, saveFileDialog.FileName, _cts.Token);
+					await _connectionApiService.SaveProjectAsync(Model.ProjectId, filePath, _cts.Token);
 				}
 			}
 			catch (Exception ex)
@@ -573,9 +574,8 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				SaveFileDialog saveFileDialog = new SaveFileDialog();
-				saveFileDialog.Filter = $"{format} file| *.{format}";
-				if (saveFileDialog.ShowDialog() != true)
+				var filePath = _fileDialogService.ShowSaveFileDialog($"{format} file| *.{format}", $".{format}", "", "Generate Report");
+				if (filePath == null)
 				{
 					return;
 				}
@@ -583,12 +583,12 @@ namespace ConApiWpfClientApp.ViewModels
 				if (format.Equals("pdf"))
 				{
 					await _connectionApiService.SaveReportPdfAsync(
-						Model.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+						Model.ProjectId, SelectedConnection.Id, filePath);
 				}
 				else if (format.Equals("docx"))
 				{
 					await _connectionApiService.SaveReportWordAsync(
-						Model.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
+						Model.ProjectId, SelectedConnection.Id, filePath);
 				}
 				else
 				{
@@ -631,9 +631,8 @@ namespace ConApiWpfClientApp.ViewModels
 			IsBusy = true;
 			try
 			{
-				SaveFileDialog saveFileDialog = new SaveFileDialog();
-				saveFileDialog.Filter = $"{format} file| *.{format}";
-				if (saveFileDialog.ShowDialog() != true)
+				var filePath = _fileDialogService.ShowSaveFileDialog($"{format} file| *.{format}", $".{format}", "", "Export Connection");
+				if (filePath == null)
 				{
 					return;
 				}
@@ -642,14 +641,14 @@ namespace ConApiWpfClientApp.ViewModels
 				{
 					var iomContainerXml = await _connectionApiService.ExportIomAsync(
 						Model.ProjectId, SelectedConnection.Id);
-					await File.WriteAllTextAsync(saveFileDialog.FileName, iomContainerXml);
+					await File.WriteAllTextAsync(filePath, iomContainerXml);
 					OutputText = iomContainerXml;
 				}
 				else if (format.Equals("ifc"))
 				{
 					await _connectionApiService.ExportIfcAsync(
-						Model.ProjectId, SelectedConnection.Id, saveFileDialog.FileName);
-					var ifc = await File.ReadAllTextAsync(saveFileDialog.FileName);
+						Model.ProjectId, SelectedConnection.Id, filePath);
+					var ifc = await File.ReadAllTextAsync(filePath);
 					OutputText = ifc;
 				}
 				else
@@ -831,12 +830,10 @@ namespace ConApiWpfClientApp.ViewModels
 
 				if (!string.IsNullOrEmpty(conTempXmlString))
 				{
-					SaveFileDialog saveTemplateFileDialog = new SaveFileDialog();
-					saveTemplateFileDialog.Filter = "Connection template | *.contemp";
-					saveTemplateFileDialog.OverwritePrompt = true;
-					if (saveTemplateFileDialog.ShowDialog() == true)
+					var filePath = _fileDialogService.ShowSaveFileDialog("Connection template | *.contemp", ".contemp", "", "Save Template");
+					if (filePath != null)
 					{
-						await File.WriteAllTextAsync(saveTemplateFileDialog.FileName, conTempXmlString, Encoding.Unicode);
+						await File.WriteAllTextAsync(filePath, conTempXmlString, Encoding.Unicode);
 					}
 				}
 			}
