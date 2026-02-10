@@ -14,6 +14,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private Server server;
 		public readonly IPluginLogger Logger;
 		private readonly IBlobStorageProvider blobStorageProvider;
+		private readonly IParentAppNotificationHandler _parentAppNotificationHandler;
 		private readonly int MaxDataLength;
 		private readonly int chunkSize;
 
@@ -40,12 +41,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="logger">Logger</param>
 		/// <param name="grpcService"></param>
 		/// <param name="blobStorageProvider">Provider of blob storages</param>
-		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider = null)
+		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider = null, IParentAppNotificationHandler parentAppNotificationHandler = null)
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
 			Logger.LogDebug("GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider)");
 			this.blobStorageProvider = blobStorageProvider;
+			_parentAppNotificationHandler = parentAppNotificationHandler;
 			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
 			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
 			Host = "localhost";
@@ -65,7 +67,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 				Services =
 				{
 					Grpc.GrpcService.BindService(grpcServiceBase),
-					Grpc.GrpcBlobStorageService.BindService(new Services.GrpcBlobStorageService(Logger, blobStorageProvider, chunkSize))
+					Grpc.GrpcBlobStorageService.BindService(new Services.GrpcBlobStorageService(Logger, blobStorageProvider, chunkSize)),
+					Grpc.GrpcNotificationService.BindService(new Services.GrpcNotificationService(Logger, _parentAppNotificationHandler))
 				},
 				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }
 			};

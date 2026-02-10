@@ -16,6 +16,11 @@ service GrpcBlobStorageService {
     rpc GetEntries (GetEntriesRequest) returns (GetEntriesResponse);
 }
 
+// service for notifying application about changes in currently opened model
+service GrpcNotificationService {
+    rpc CurrentlyOpenedItemModified (ItemNotifyRequest) returns (VoidResponse);
+}
+
 message GrpcMessage {
     string messageName = 1;
     string data = 2;
@@ -32,6 +37,10 @@ message GrpcMessage {
 }
 
 message VoidResponse {}
+
+message ItemNotifyRequest {
+    int32 itemKey = 1;
+}
 
 message ContentData {
     bytes data = 1;
