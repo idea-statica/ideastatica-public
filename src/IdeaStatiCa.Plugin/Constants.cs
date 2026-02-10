@@ -20,9 +20,6 @@
 		public const string ProjectParam = "-project";
 		public const string LibraryReposPath = "-libReposPath";
 
-		public const string ConnectionChangedEventFormat = "IdeaStatiCaConnectionChanged{0}";
-		public const string MemberChangedEventFormat = "IdeaStatiCaMemberChanged{0}";
-		public const string DetailChangedEventFormat = "IdeaStatiCaDetailChanged{0}";
 		public const string ServerClosedEventFormat = "IdeaStatiCaServerClosed{0}";
 
 		#region BIM Plugin default constants
