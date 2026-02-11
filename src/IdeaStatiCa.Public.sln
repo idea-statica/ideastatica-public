@@ -165,8 +165,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IdeaStatiCa.TeklaStructures
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.TeklaStructuresResources", "bim-links\tekla\IdeaStatiCa.TeklaStructuresResources\IdeaStatiCa.TeklaStructuresResources.csproj", "{31BB5228-B7E2-4700-855D-636BB937A4A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.TeklaStructuresTest", "bim-links\tekla\IdeaStatiCa.TeklaStructuresTest\IdeaStatiCa.TeklaStructuresTest.csproj", "{8CB29DA8-7874-410A-976F-8E88C9ED2785}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiClient", "..\examples\api\csharp\rcs\RcsApiClient\RcsApiClient.csproj", "{D8592C4A-B184-47CD-BA1B-6C23676EFC48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IntermediateModel", "IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj", "{2AC104BD-4E78-4B63-8D8F-3828A0E98A07}"
@@ -403,10 +401,6 @@ Global
 		{31BB5228-B7E2-4700-855D-636BB937A4A4}.Debug|x64.Build.0 = Debug|x64
 		{31BB5228-B7E2-4700-855D-636BB937A4A4}.Release|x64.ActiveCfg = Release|x64
 		{31BB5228-B7E2-4700-855D-636BB937A4A4}.Release|x64.Build.0 = Release|x64
-		{8CB29DA8-7874-410A-976F-8E88C9ED2785}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8CB29DA8-7874-410A-976F-8E88C9ED2785}.Debug|x64.Build.0 = Debug|Any CPU
-		{8CB29DA8-7874-410A-976F-8E88C9ED2785}.Release|x64.ActiveCfg = Release|Any CPU
-		{8CB29DA8-7874-410A-976F-8E88C9ED2785}.Release|x64.Build.0 = Release|Any CPU
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48}.Debug|x64.Build.0 = Debug|Any CPU
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48}.Release|x64.ActiveCfg = Release|Any CPU
@@ -491,7 +485,6 @@ Global
 		{18713F20-462D-427E-8B7C-07046A62DF8A} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{49C9086C-9A4A-4F9F-8246-D1093668E806} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{31BB5228-B7E2-4700-855D-636BB937A4A4} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
-		{8CB29DA8-7874-410A-976F-8E88C9ED2785} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48} = {AD9AA2F4-2BB8-4AA0-8DFC-FAB7A5CCE3FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
