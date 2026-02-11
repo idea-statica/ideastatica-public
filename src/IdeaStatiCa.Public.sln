@@ -173,8 +173,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IntermediateMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IOM.VersioningService", "IdeaStatiCa.IOM.VersioningService\IdeaStatiCa.IOM.VersioningService.csproj", "{07472F67-E838-4861-8540-2C9DD4B697AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IOM.VersioningServiceTests", "IdeaStatiCa.IOM.VersioningServiceTests\IdeaStatiCa.IOM.VersioningServiceTests.csproj", "{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -417,10 +415,6 @@ Global
 		{07472F67-E838-4861-8540-2C9DD4B697AD}.Debug|x64.Build.0 = Debug|Any CPU
 		{07472F67-E838-4861-8540-2C9DD4B697AD}.Release|x64.ActiveCfg = Release|Any CPU
 		{07472F67-E838-4861-8540-2C9DD4B697AD}.Release|x64.Build.0 = Release|Any CPU
-		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Debug|x64.Build.0 = Debug|Any CPU
-		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Release|x64.ActiveCfg = Release|Any CPU
-		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
