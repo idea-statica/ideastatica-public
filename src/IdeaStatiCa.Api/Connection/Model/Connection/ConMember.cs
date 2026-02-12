@@ -30,6 +30,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		public ConMemberModel Model { get; set; }
 
+		public ConStiffnessAnalysis StiffnessAnalysis { get; set; }
 	}
 
 	public class ConMemberModel
@@ -93,6 +94,15 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ConAlignedPlate RelatedPlate { get; set; }
+	}
+
+	public class ConStiffnessAnalysis
+	{
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public double? TheoreticalLengthZ { get; set; }
+
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public double? TheoreticalLengthY { get; set; }
 	}
 
 	public enum ConAlignedPlateSideCodeEnum : int
