@@ -28,6 +28,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// This property is not longer supported. Use the <see cref="Node"/> property instead of this one.
 		/// </remarks>
 		[System.Obsolete("Use the Node reference element.")]
+		[System.Xml.Serialization.XmlIgnore]
 		public int NodeId { get; set; }
 
 		/// <summary>
