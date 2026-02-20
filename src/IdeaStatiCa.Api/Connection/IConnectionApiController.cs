@@ -141,6 +141,15 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns>Stream of IFC data</returns>
 		Task<Stream> ExportToIfcAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Export <paramref name="connectionId"/> to DXF
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Stream of DXF data</returns>
+		Task<Stream> ExportToDxfAsync(int connectionId, CancellationToken cancellationToken = default);
+
 		/// <summary>
 		/// Get all members in connection
 		/// </summary>
