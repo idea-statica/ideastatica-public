@@ -17,6 +17,6 @@ namespace IdeaRS.OpenModel.Material
 		/// Collection of material strength levels
 		/// </summary>
 		[DataMember]
-		public List<MaterialStrength> List { get; set; }
+		public List<MaterialStrength> List { get; set; } = new List<MaterialStrength>();
 	}
 }
