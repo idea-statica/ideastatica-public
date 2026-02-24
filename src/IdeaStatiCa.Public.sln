@@ -145,7 +145,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BulkSelection", "BulkSelect
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ItemsSorter", "IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj", "{FA10298F-F62D-4B09-80EB-B41D04408FB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.RamContracts", "bim-links\bentley-ram\IdeaStatiCa.RamContracts\IdeaStatiCa.RamContracts.csproj", "{75B0622B-4882-7D48-CD27-17D2CDDFD8C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.RamContracts", "bim-links\bentley-ram\IdeaStatiCa.RamContracts\IdeaStatiCa.RamContracts.csproj", "{75B0622B-4882-7D48-CD27-17D2CDDFD8C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "yjk", "yjk", "{FB643303-C03F-4C51-9DCB-6A83D45F03E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yjk", "yjk\yjk.csproj", "{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -943,6 +947,22 @@ Global
 		{75B0622B-4882-7D48-CD27-17D2CDDFD8C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75B0622B-4882-7D48-CD27-17D2CDDFD8C5}.Release|x64.ActiveCfg = Release|Any CPU
 		{75B0622B-4882-7D48-CD27-17D2CDDFD8C5}.Release|x64.Build.0 = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug_IdeaStatiCa_Internal|x64.ActiveCfg = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug_IdeaStatiCa_Internal|x64.Build.0 = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Debug|x64.Build.0 = Debug|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release_IdeaStatiCa_Internal|x64.ActiveCfg = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release_IdeaStatiCa_Internal|x64.Build.0 = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release|x64.ActiveCfg = Release|Any CPU
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -995,6 +1015,8 @@ Global
 		{8CB29DA8-7874-410A-976F-8E88C9ED2785} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6} = {A3D7AABE-EDFE-460B-87B2-2B69914D4E04}
 		{75B0622B-4882-7D48-CD27-17D2CDDFD8C5} = {A140BC08-DF0F-45A8-84EA-E3855D907B47}
+		{FB643303-C03F-4C51-9DCB-6A83D45F03E3} = {2B90DD40-F065-4518-BEA5-188E150DD004}
+		{4AB9B2F8-5F30-4BD3-966F-F70FF50E538E} = {FB643303-C03F-4C51-9DCB-6A83D45F03E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
