@@ -4,17 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using yjk.ViewModels;
 using System.Windows.Threading;
+using System.IO;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using IdeaStatiCa.Plugin;
+using IdeaStatiCa.BimApiLink;
+using yjk.ViewModels;
+using yjk.FeaApis;
+using yjk.Importers;
+using yjk.Helpers;
 
 namespace yjk
 {
 	public class Main
 	{
+		static WindowHelper _windowHelper;
+
 		[CommandMethod("test_idea_plugin")]
 		public void Test()
 		{
 			MessageBox.Show("Import completed");
+		}
+
+		[CommandMethod("idea_statica")]
+		public void Run()
+		{
+			if (_windowHelper == null)
+			{
+				_windowHelper = new WindowHelper();
+				_windowHelper.Show();
+			}
+
+			try
+			{
+				Task.Run(() => RunAsync());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				throw; // or swallow depending on host
+			}
 		}
 
 		public static async Task RunAsync()

@@ -20,8 +20,11 @@ namespace yjk.FeaApis
 
 	internal class FeaGeometryApi : IFeaGeometryApi
 	{
-		private List<IFeaMember> _members = InitializeMembers();
-		private List<IFeaNode> _nodes = InitializeNodes();
+/*		private List<IFeaMember> _members = InitializeMembers();
+		private List<IFeaNode> _nodes = InitializeNodes();*/
+
+		private List<IFeaMember> _members;
+		private List<IFeaNode> _nodes;
 
 		public IFeaMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
 
@@ -60,7 +63,7 @@ namespace yjk.FeaApis
 			return (memberX.Normalize(), memberY, memberX.CrossProduct(memberY).Normalize());
 		}
 
-		private static List<IFeaMember> InitializeMembers()
+/*		private static List<IFeaMember> InitializeMembers()
 		{
 			return new List<IFeaMember>()
 			{
@@ -77,6 +80,6 @@ namespace yjk.FeaApis
 				new FeaNode(2, 0, 0, 3),
 				new FeaNode(3, 5, 0, 3),
 			};
-		}
+		}*/
 	}
 }
