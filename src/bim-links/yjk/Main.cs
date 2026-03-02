@@ -14,6 +14,7 @@ using yjk.ViewModels;
 using yjk.FeaApis;
 using yjk.Importers;
 using yjk.Helpers;
+using System.Diagnostics;
 
 namespace yjk
 {
@@ -38,7 +39,19 @@ namespace yjk
 
 			try
 			{
-				Task.Run(() => RunAsync());
+				Task.Run(async () =>
+				{
+					try
+					{
+						Debug.WriteLine("Before");
+						await RunAsync();
+						Debug.WriteLine("After");
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine(ex.ToString());
+					}
+				});
 			}
 			catch (Exception ex)
 			{

@@ -6,6 +6,8 @@ using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 using yjk.FeaApis;
+using yjk.Helpers;
+using System.Threading;
 
 namespace yjk
 {
@@ -13,12 +15,16 @@ namespace yjk
 	{
 		private readonly IFeaGeometryApi geometry;
 		private readonly IFeaLoadsApi loads;
+		private readonly IFeaResultsApi results;
 		private readonly IProgressMessaging messagingService;
 
-		public Model(IFeaGeometryApi geometry, IFeaLoadsApi loads, IProgressMessaging messagingService)
+		private static int _entered = 0;
+
+		public Model(IFeaGeometryApi geometry, IFeaLoadsApi loads, IFeaResultsApi results, IProgressMessaging messagingService)
 		{
 			this.geometry = geometry;
 			this.loads = loads;
+			this.results = results;
 			this.messagingService = messagingService;
 		}
 
@@ -49,15 +55,45 @@ namespace yjk
 		/// <returns></returns>
 		public FeaUserSelection GetUserSelection()
 		{
-			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesIdentifiers()
-				.Select(x => new IntIdentifier<IIdeaNode>(x))
-				.Cast<Identifier<IIdeaNode>>()
-				.ToList();
+			//Get selected IDs in YJK
+			Dictionary<int, List<int>> selectedIds = geometry.GetSelectedIds();
 
+			//Get force
+			// marshal back to YJK thread
+			YjkDispatcher.Invoke(() =>
+			{
+			if (Interlocked.Exchange(ref _entered, 1) == 1)
+				return;
+
+			try
+			{
+				var _YJKSUI = new ClrYJKSUI();
+				_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
+
+				//Get load cases and combinations
+
+				geometry.GetSelected(selectedIds, results);
+
+				}
+				finally
+				{
+					_entered = 0;
+				}
+
+
+			});
+
+			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesIdentifiers()
+					.Select(x => new IntIdentifier<IIdeaNode>(x))
+					.Cast<Identifier<IIdeaNode>>()
+					.ToList();
+
+			
 			List<Identifier<IIdeaMember1D>> members = geometry.GetMembersIdentifiers()
 				.Select(x => new IntIdentifier<IIdeaMember1D>(x))
 				.Cast<Identifier<IIdeaMember1D>>()
 				.ToList();
+
 
 			return new FeaUserSelection()
 			{

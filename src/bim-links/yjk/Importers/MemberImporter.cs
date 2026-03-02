@@ -34,8 +34,8 @@ namespace yjk.Importers
 
 			return new Segment3D(member.Id)
 			{
-				StartNodeNo = member.BeginNode,
-				EndNodeNo = member.EndNode,
+				StartNodeNo = member.BeginNodeId,
+				EndNodeNo = member.EndNodeId,
 				LocalCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
 				{
 					VecX = ConvertVector(lcs.X),

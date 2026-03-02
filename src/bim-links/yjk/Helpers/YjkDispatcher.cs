@@ -16,7 +16,7 @@ namespace yjk.Helpers
 			if (Dispatcher.CheckAccess())
 				action();
 			else
-				Dispatcher.BeginInvoke(action);
+				Dispatcher.Invoke(action);
 		}
 	}
 }
