@@ -22,7 +22,7 @@ namespace yjk.FeaApis
 		IEnumerable<int> GetNodesIdentifiers();
 
 		Dictionary<int, List<int>> GetSelectedIds();
-		void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaResultsApi results);
+		void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi loads, IFeaResultsApi results);
 	}
 
 	internal class FeaGeometryApi : IFeaGeometryApi
@@ -33,6 +33,7 @@ namespace yjk.FeaApis
 		private List<IFeaMember> _members;
 		private List<IFeaNode> _nodes;
 		private IFeaResultsApi _results;
+		private IFeaLoadsApi _loads;
 
 		public IFeaMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
 
@@ -56,23 +57,24 @@ namespace yjk.FeaApis
 			return selectedIds;
 		}
 
-		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaResultsApi results)
+		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi loads, IFeaResultsApi results)
 		{
-			_members = new List<IFeaMember>();
+			 _members = new List<IFeaMember>();
 			_nodes = new List<IFeaNode>();
 			_results = results;
+			_loads = loads;
 
 			GetColumns(selectedIds);
 			GetBeams(selectedIds);
 			GetBraces(selectedIds);
 
 			//For each nodes, see what members are connected to it
-/*			GetConnectedColumns(_nodes);
-			GetConnectedBeams(_nodes);
-			GetConnectedBraces(_nodes);*/
+			GetConnectedColumns();
+			GetConnectedBeams();
+			GetConnectedBraces();
 		}
 
-		private void GetConnectedColumns(List<IFeaNode> nodes)
+		private void GetConnectedColumns()
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
@@ -95,21 +97,27 @@ namespace yjk.FeaApis
 					int j2 = 0;
 					_cToSDesign.ColumnJD(idFlrColumns[j], ref j1, ref j2);
 
-					foreach(IFeaNode node in _nodes)
+					List<IFeaNode> nodesCopy = new List<IFeaNode>(_nodes);
+					foreach (IFeaNode node in nodesCopy)
 					{
 						if (node.Id == j1 ||  node.Id == j2)
 						{
-							AddMember(idFlrColumns[j], j1, j2);
+							bool exists = _members.Any(p => p.Id == idFlrColumns[j]);
 
-							//Record result (force)
-							_results.SetResultForColumn(iFlr, idFlrColumns[j]);
+							if (!exists)
+							{
+								AddMember(idFlrColumns[j], j1, j2);
+
+								//Record result (force)
+								_results.SetResultForColumn(iFlr, idFlrColumns[j], _loads);
+							}
 						}
 					}						
 				}
 			}
 		}
 
-		private void GetConnectedBeams(List<IFeaNode> nodes)
+		private void GetConnectedBeams()
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
@@ -132,14 +140,20 @@ namespace yjk.FeaApis
 					int j2 = 0;
 					_cToSDesign.BeamJD(idFlrBeams[j], ref j1, ref j2);
 
-					foreach (IFeaNode node in _nodes)
+					List<IFeaNode> nodesCopy = new List<IFeaNode>(_nodes);
+					foreach (IFeaNode node in nodesCopy)
 					{
 						if (node.Id == j1 || node.Id == j2)
 						{
-							AddMember(idFlrBeams[j], j1, j2);
+							bool exists = _members.Any(p => p.Id == idFlrBeams[j]);
 
-							//Record result (force)
-							_results.SetResultForBeam(iFlr, idFlrBeams[j]);
+							if (!exists)
+							{
+								AddMember(idFlrBeams[j], j1, j2);
+
+								//Record result (force)
+								_results.SetResultForBeam(iFlr, idFlrBeams[j], _loads);
+							}
 						}
 					}
 										
@@ -148,7 +162,7 @@ namespace yjk.FeaApis
 			}
 		}
 
-		private void GetConnectedBraces(List<IFeaNode> nodes)
+		private void GetConnectedBraces()
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
@@ -171,14 +185,20 @@ namespace yjk.FeaApis
 					int j2 = 0;
 					_cToSDesign.BraceJD(idFlrBraces[j], ref j1, ref j2);
 
-					foreach (IFeaNode node in _nodes)
+					List<IFeaNode> nodesCopy = new List<IFeaNode>(_nodes);
+					foreach (IFeaNode node in nodesCopy)
 					{
 						if (node.Id == j1 || node.Id == j2)
 						{
-							AddMember(idFlrBraces[j], j1, j2);
+							bool exists = _members.Any(p => p.Id == idFlrBraces[j]);
 
-							//Record result (force)
-							_results.SetResultForBeam(iFlr, idFlrBraces[j]);
+							if (!exists)
+							{
+								AddMember(idFlrBraces[j], j1, j2);
+
+								//Record result (force)
+								_results.SetResultForBeam(iFlr, idFlrBraces[j], _loads);
+							}
 						}
 					}
 					
@@ -218,11 +238,8 @@ namespace yjk.FeaApis
 
 							AddMember(idFlrColumns[j], j1, j2);
 
-							GetNodeDetailAndAdd(j1);
-							GetNodeDetailAndAdd(j2);
-
 							//Record result (force)
-							_results.SetResultForColumn(iFlr, idFlrColumns[j]);
+							_results.SetResultForColumn(iFlr, idFlrColumns[j], _loads);
 						}
 					}
 				}
@@ -259,11 +276,8 @@ namespace yjk.FeaApis
 
 							AddMember(idFlrBeams[j], j1, j2);
 
-							GetNodeDetailAndAdd(j1);
-							GetNodeDetailAndAdd(j2);
-
 							//Record result (force)
-							_results.SetResultForBeam(iFlr, idFlrBeams[j]);
+							_results.SetResultForBeam(iFlr, idFlrBeams[j], _loads);
 						}
 					}
 				}
@@ -300,11 +314,8 @@ namespace yjk.FeaApis
 
 							AddMember(idFlrBraces[j], j1, j2);
 
-							GetNodeDetailAndAdd(j1);
-							GetNodeDetailAndAdd(j2);
-
 							//Record result (force)
-							_results.SetResultForBrace(iFlr, idFlrBraces[j]);
+							_results.SetResultForBrace(iFlr, idFlrBraces[j], _loads);
 						}
 					}
 				}
@@ -316,20 +327,28 @@ namespace yjk.FeaApis
 			FeaMember member = new FeaMember(memberId, j1, j2, 1);
 
 			_members.Add(member);
+
+			GetNodeDetailAndAdd(j1);
+			GetNodeDetailAndAdd(j2);
 		}
 
 		private void GetNodeDetailAndAdd(int nodeId)
 		{
-			var _hi_CToSDesign = new Hi_CToSDesign();
+			bool exists = _nodes.Any(p => p.Id == nodeId);
 
-			float x = 0;
-			float y = 0;
-			float z = 0;
-			_hi_CToSDesign.XYZ(nodeId, ref x, ref y, ref z);
+			if (!exists)
+			{
+				var _hi_CToSDesign = new Hi_CToSDesign();
 
-			FeaNode node = new FeaNode(nodeId, x, y, z);
+				float x = 0;
+				float y = 0;
+				float z = 0;
+				_hi_CToSDesign.XYZ(nodeId, ref x, ref y, ref z);
 
-			_nodes.Add(node);
+				FeaNode node = new FeaNode(nodeId, x, y, z);
+
+				_nodes.Add(node);
+			}
 
 		}
 

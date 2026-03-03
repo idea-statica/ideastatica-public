@@ -58,8 +58,7 @@ namespace yjk
 			//Get selected IDs in YJK
 			Dictionary<int, List<int>> selectedIds = geometry.GetSelectedIds();
 
-			//Get force
-			// marshal back to YJK thread
+			//Marshal back to YJK thread
 			YjkDispatcher.Invoke(() =>
 			{
 			if (Interlocked.Exchange(ref _entered, 1) == 1)
@@ -71,8 +70,12 @@ namespace yjk
 				_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
 
 				//Get load cases and combinations
+				loads.GetLoadCasesAndCombos();
 
-				geometry.GetSelected(selectedIds, results);
+				//Reset result (forces)
+				results.ClearResults();
+
+				geometry.GetSelected(selectedIds, loads, results);
 
 				}
 				finally

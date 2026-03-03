@@ -23,7 +23,7 @@ namespace yjk.Importers
 			{
 				Name = loadCase.Name,
 				LoadGroup = Get<IIdeaLoadGroup>(loadCase.LoadGroupId),
-				LoadType = loadType.Item1,				
+				LoadType = loadType.Item1,
 				Type = loadType.Item2,
 				Variable = VariableType.Standard
 			};
