@@ -16,9 +16,9 @@ namespace yjk.FeaApis
 	public interface IFeaResultsApi
 	{
 		IEnumerable<IFeaMemberResult> GetMemberInternalForces(int memberId, int loadCaseId);
-		void SetResultForColumn(int iFlr, int memberDesignId, IFeaLoadsApi loads);
-		void SetResultForBeam(int iFlr, int memberDesignId, IFeaLoadsApi loads);
-		void SetResultForBrace(int iFlr, int memberDesignId, IFeaLoadsApi loads);
+		void SetResultForColumn(int iFlr, FeaMember member, IFeaLoadsApi loads);
+		void SetResultForBeam(int iFlr, FeaMember member, IFeaLoadsApi loads);
+		void SetResultForBrace(int iFlr, FeaMember member, IFeaLoadsApi loads);
 		void ClearResults();
 	}
 
@@ -48,150 +48,76 @@ namespace yjk.FeaApis
 			_resultsForMembers.Clear();
 		}
 
-		public void SetResultForColumn(int iFlr, int memberDesignId, IFeaLoadsApi loads)
+		public void SetResultForColumn(int iFlr, FeaMember member, IFeaLoadsApi loads)
 		{
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
 			foreach (int loadCaseId in loads.GetLoadCasesIds())
 			{
 				int nSect = 0;
-				float[,] force = new float[2, 6];
-				_Hi_DesignData.dsnGetColumnStdForce(iFlr, memberDesignId, loadCaseId, 1, ref nSect, ref force);
-
-				FeaMemberResult feaMemberResult = new FeaMemberResult()
-				{
-					MemberId = memberDesignId,
-					ResultType = "Load case",
-					LoadCaseId = loadCaseId,
-					Location = 0,
-					Index = 1,
-					N = -1.2994820556640625,
-					Vy = 0,
-					Vz = -0.22673919677734375,
-					Mx = 0,
-					My = 0.21835110473632813,
-					Mz = 0
-				};
-
-				feaMemberResults.Add(feaMemberResult);
-
-				FeaMemberResult feaMemberResult2 = new FeaMemberResult()
-				{
-					MemberId = memberDesignId,
-					ResultType = "Load case",
-					LoadCaseId = loadCaseId,
-					Location = 1,
-					Index = 2,
-					N = -1.2994820556640625,
-					Vy = 0,
-					Vz = -0.22673919677734375,
-					Mx = 0,
-					My = 0.21835110473632813,
-					Mz = 0
-				};
-
-				feaMemberResults.Add(feaMemberResult2);
+				float[,] force = new float[0, 0];
+				_Hi_DesignData.dsnGetColumnStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
 			}
 
-			_resultsForMembers.Add(memberDesignId, feaMemberResults);
+			_resultsForMembers.Add(member.Id, feaMemberResults);
 		}
 
-		public void SetResultForBeam(int iFlr, int memberDesignId, IFeaLoadsApi loads)
+		public void SetResultForBeam(int iFlr, FeaMember member, IFeaLoadsApi loads)
 		{
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
 			foreach (int loadCaseId in loads.GetLoadCasesIds())
 			{
 				int nSect = 0;
-				float[,] force = new float[6, 6];
-				_Hi_DesignData.dsnGetBeamStdForce(iFlr, memberDesignId, 1, 1, ref nSect, ref force);
-
-				FeaMemberResult feaMemberResult = new FeaMemberResult()
-				{
-					MemberId = memberDesignId,
-					ResultType = "Load case",
-					LoadCaseId = loadCaseId,
-					Location = 0,
-					Index = 1,
-					N = -1.2994820556640625,
-					Vy = 0,
-					Vz = -0.22673919677734375,
-					Mx = 0,
-					My = 0.21835110473632813,
-					Mz = 0
-				};
-
-				feaMemberResults.Add(feaMemberResult);
-
-
-				FeaMemberResult feaMemberResult2 = new FeaMemberResult()
-				{
-					MemberId = memberDesignId,
-					ResultType = "Load case",
-					LoadCaseId = loadCaseId,
-					Location = 1,
-					Index = 2,
-					N = -1.2994820556640625,
-					Vy = 0,
-					Vz = -0.22673919677734375,
-					Mx = 0,
-					My = 0.21835110473632813,
-					Mz = 0
-				};
-
-				feaMemberResults.Add(feaMemberResult2);
-
+				float[,] force = new float[0, 0];
+				_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, 1, 1, ref nSect, ref force);
+				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
 			}
 
-			_resultsForMembers.Add(memberDesignId, feaMemberResults);
+			_resultsForMembers.Add(member.Id, feaMemberResults);
 		}
 
-		public void SetResultForBrace(int iFlr, int memberDesignId, IFeaLoadsApi loads)
+		public void SetResultForBrace(int iFlr, FeaMember member, IFeaLoadsApi loads)
 		{
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
 			foreach (int loadCaseId in loads.GetLoadCasesIds())
 			{
 				int nSect = 0;
-				float[,] force = new float[6, 6];
-				_Hi_DesignData.dsnGetBraceStdForce(iFlr, memberDesignId, 1, 1, ref nSect, ref force);
+				float[,] force = new float[0, 0];
+				_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, 1, 1, ref nSect, ref force);
+				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
+			}
 
+			_resultsForMembers.Add(member.Id, feaMemberResults);
+		}
+
+		public List<IFeaMemberResult> GetFeaMemberResult(FeaMember member, int nSect, float[,] force, int loadCaseId)
+		{
+			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
+
+			for (int i = 0; i < nSect; i++)
+			{
 				FeaMemberResult feaMemberResult = new FeaMemberResult()
 				{
-					MemberId = memberDesignId,
+					MemberId = member.Id,
 					ResultType = "Load case",
 					LoadCaseId = loadCaseId,
-					Location = 0,
-					Index = 1,
-					N = -1.2994820556640625,
-					Vy = 0,
-					Vz = -0.22673919677734375,
-					Mx = 0,
-					My = 0.21835110473632813,
-					Mz = 0
+					Location = (double)i / ((double)nSect - 1) * member.GetLength(),
+					Index = i + 1,
+					N = force[i, 4],
+					Vy = force[i, 2],
+					Vz = force[i, 3],
+					Mx = force[i, 5],
+					My = force[i, 0],
+					Mz = force[i, 1],
 				};
 
 				feaMemberResults.Add(feaMemberResult);
-
-				FeaMemberResult feaMemberResult2 = new FeaMemberResult()
-				{
-					MemberId = memberDesignId,
-					ResultType = "Load case",
-					LoadCaseId = loadCaseId,
-					Location = 1,
-					Index = 2,
-					N = -1.2994820556640625,
-					Vy = 0,
-					Vz = -0.22673919677734375,
-					Mx = 0,
-					My = 0.21835110473632813,
-					Mz = 0
-				};
-
-				feaMemberResults.Add(feaMemberResult2);
 			}
 
-			_resultsForMembers.Add(memberDesignId, feaMemberResults);
+			return feaMemberResults;
 		}
 	}		
 }

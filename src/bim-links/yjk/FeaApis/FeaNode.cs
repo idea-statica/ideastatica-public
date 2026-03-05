@@ -12,7 +12,7 @@ namespace yjk.FeaApis
 		Point3D Point { get; }
 	}
 
-	internal class FeaNode : IFeaNode
+	public class FeaNode : IFeaNode
 	{
 		public FeaNode(int id, double x, double y, double z)
 		{

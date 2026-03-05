@@ -42,7 +42,7 @@ namespace yjk
 		/// <returns>All members in the model to be able find all related (connected) members, when select node only.</returns>
 		public IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers()
 		{
-			return geometry.GetMembersIdentifiers()
+			return geometry.GetMembersSelectedIdentifiers()
 				.Select(x => new IntIdentifier<IIdeaMember1D>(x));
 		}
 
@@ -86,13 +86,13 @@ namespace yjk
 
 			});
 
-			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesIdentifiers()
+			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesSelectedIdentifiers()
 					.Select(x => new IntIdentifier<IIdeaNode>(x))
 					.Cast<Identifier<IIdeaNode>>()
 					.ToList();
 
 			
-			List<Identifier<IIdeaMember1D>> members = geometry.GetMembersIdentifiers()
+			List<Identifier<IIdeaMember1D>> members = geometry.GetMembersSelectedIdentifiers()
 				.Select(x => new IntIdentifier<IIdeaMember1D>(x))
 				.Cast<Identifier<IIdeaMember1D>>()
 				.ToList();
