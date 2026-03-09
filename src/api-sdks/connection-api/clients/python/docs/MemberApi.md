@@ -4,11 +4,92 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
+[**add_member**](MemberApi.md#add_member) | Adds a new member to the connection.
 [**get_member**](MemberApi.md#get_member) | Gets information about the specified member in the connection.
 [**get_members**](MemberApi.md#get_members) | Gets information about all members in the connection.
 [**set_bearing_member**](MemberApi.md#set_bearing_member) | Set bearing member for memberIt
 [**update_member**](MemberApi.md#update_member) | Updates the member in the connection with the provided data.
 
+
+<a id="add_member"></a>
+# **add_member**
+> ConMember add_member(project_id, connection_id, con_member=con_member)
+
+Adds a new member to the connection.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to add the member to. | 
+ **con_member** | [**ConMember**](ConMember.md)| The member data for the new member. | [optional] 
+
+### Return type
+
+[**ConMember**](ConMember.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_member import ConMember
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_memberExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to add the member to.
+    con_member = ideastatica_connection_api.ConMember() # ConMember | The member data for the new member. (optional)
+
+    try:
+        # Adds a new member to the connection.
+        api_response = api_client.member.add_member(project_id, connection_id, con_member=con_member)
+        print("The response of MemberApi->add_member:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MemberApi->add_member: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/members 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="get_member"></a>
 # **get_member**

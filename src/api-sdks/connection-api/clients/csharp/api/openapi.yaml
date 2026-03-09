@@ -1425,6 +1425,46 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
+    post:
+      operationId: AddMember
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection to add the member to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMember'
+        description: The member data for the new member.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMember'
+          description: OK
+      summary: Adds a new member to the connection.
+      tags:
+      - Member
+      x-requiresProject: true
+      x-requiresConnection: true
     put:
       operationId: UpdateMember
       parameters:
@@ -3950,6 +3990,9 @@ components:
     ConMember:
       additionalProperties: false
       example:
+        stiffnessAnalysis:
+          theoreticalLengthY: 7.386281948385884
+          theoreticalLengthZ: 4.145608029883936
         name: name
         active: true
         isContinuous: true
@@ -3981,7 +4024,7 @@ components:
             partType: notSpecified
             memberId: 9
           align: none
-        id: 4
+        id: 1
         crossSectionId: 0
         isBearing: true
       properties:
@@ -4003,6 +4046,8 @@ components:
           $ref: '#/components/schemas/ConMemberPosition'
         model:
           $ref: '#/components/schemas/ConMemberModel'
+        stiffnessAnalysis:
+          $ref: '#/components/schemas/ConStiffnessAnalysis'
         id:
           format: int32
           type: integer
@@ -4334,6 +4379,21 @@ components:
             $ref: '#/components/schemas/CheckResSummary'
           nullable: true
           type: array
+      type: object
+    ConStiffnessAnalysis:
+      additionalProperties: false
+      example:
+        theoreticalLengthY: 7.386281948385884
+        theoreticalLengthZ: 4.145608029883936
+      properties:
+        theoreticalLengthZ:
+          format: double
+          nullable: true
+          type: number
+        theoreticalLengthY:
+          format: double
+          nullable: true
+          type: number
       type: object
     ConTemplateApplyParam:
       additionalProperties: false
