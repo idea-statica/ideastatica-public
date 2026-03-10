@@ -16,6 +16,8 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 
 		public virtual IIdeaWeld Weld { get; set; }
 
+		public virtual IIdeaWeld FlangesWeld { get; set; }
+
 		public CutMethod CutMethod { get; set; }
 
 		public CutOrientation CutOrientation { get; set; }

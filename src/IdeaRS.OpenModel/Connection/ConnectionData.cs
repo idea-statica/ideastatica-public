@@ -1,4 +1,5 @@
 using IdeaRS.OpenModel.Geometry2D;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -305,6 +306,27 @@ namespace IdeaRS.OpenModel.Connection
 	}
 
 	/// <summary>
+	/// Weld definition for cut operations (web or flange weld).
+	/// </summary>
+	public class CutWeldData
+	{
+		/// <summary>
+		/// Thickness of the weld - value 0 = recommended size
+		/// </summary>
+		public double Thickness { get; set; }
+
+		/// <summary>
+		/// Type of the weld
+		/// </summary>
+		public WeldType WeldType { get; set; }
+
+		/// <summary>
+		/// Name of the weld material. Null or empty = taken from connected member.
+		/// </summary>
+		public string WeldMaterial { get; set; }
+	}
+
+	/// <summary>
 	/// Provides data of the single weld
 	/// </summary>
 	public class WeldData
@@ -551,15 +573,30 @@ namespace IdeaRS.OpenModel.Connection
 		public bool IsWeld { get; set; }
 
 		/// <summary>
-		/// Thickness of the weld - value 0 = recommended size
+		/// Thickness of the weld - value 0 = recommended size.
+		/// Obsolete: Use <see cref="WebWeld"/> and <see cref="FlangeWeld"/> instead.
+		/// Kept for backward compatibility with older consumers.
 		/// </summary>
+		[Obsolete("Use WebWeld and FlangeWeld instead.")]
 		public double WeldThickness { get; set; }
 
 		/// <summary>
-		/// Type of the weld
+		/// Type of the weld.
+		/// Obsolete: Use <see cref="WebWeld"/> and <see cref="FlangeWeld"/> instead.
+		/// Kept for backward compatibility with older consumers.
 		/// </summary>
+		[Obsolete("Use WebWeld and FlangeWeld instead.")]
 		public WeldType WeldType { get; set; }
 
+		/// <summary>
+		/// Web weld definition. Null when reading older IOM files — use legacy WeldThickness/WeldType as fallback.
+		/// </summary>
+		public CutWeldData WebWeld { get; set; }
+
+		/// <summary>
+		/// Flange weld definition. Null when reading older IOM files or when no separate flange weld is defined.
+		/// </summary>
+		public CutWeldData FlangeWeld { get; set; }
 
 		/// <summary>
 		/// Offset

@@ -3,6 +3,10 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
+<<<<<<< HEAD
+=======
+using System.Collections.Generic;
+>>>>>>> ad444292 (Weld support in IOM)
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -26,11 +30,25 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
+<<<<<<< HEAD
 			DowngradeAnchorGrids(openModel);
+=======
+			// Strip WebWeld and FlangeWeld elements from CutBeamByBeamData nodes
+			var cutBeamByBeams = openModel.GetElements("Connections;ConnectionData;CutBeamByBeams;CutBeamByBeamData")?.ToList();
+			if (cutBeamByBeams != null)
+			{
+				foreach (SObject cutBeam in cutBeamByBeams.OfType<SObject>())
+				{
+					cutBeam.RemoveElementProperty("WebWeld");
+					cutBeam.RemoveElementProperty("FlangeWeld");
+				}
+			}
+>>>>>>> ad444292 (Weld support in IOM)
 		}
 
 		public override void DoUpStep(SModel _model)
 		{
+<<<<<<< HEAD
 			ISIntermediate openModel = _model.GetModelElement();
 			if (openModel == null)
 			{
@@ -76,6 +94,9 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				anchorGrid.CreateElementProperty("HeadedStudHeadDiameter", "0");
 				anchorGrid.CreateElementProperty("ReinforcementMandrelDiameter", "0");
 			}
+=======
+			// No action needed - null WebWeld/FlangeWeld properties are handled by import fallback logic
+>>>>>>> ad444292 (Weld support in IOM)
 		}
 	}
 }
