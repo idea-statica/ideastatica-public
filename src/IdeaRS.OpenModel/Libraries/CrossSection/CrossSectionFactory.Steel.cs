@@ -51,7 +51,7 @@
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = d });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
-			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value =  w });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = wt });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = ft });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = 0 });
@@ -482,6 +482,70 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webTh });
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		/// <summary>
+		/// Box 2I - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">Height</param>
+		/// <param name="w">Width</param>
+		/// <param name="fTh">Flange thickness</param>
+		/// <param name="webTh">Web thickness</param>
+		/// <param name="fTap">Flange tapper</param>
+		/// <param name="fRrad">Flange edge radius</param>
+		/// <param name="radius">Radius</param>
+		public static void FillBox2I(CrossSectionParameter css, double h, double w, double fTh, double webTh, double fTap, double fRrad, double radius)
+		{
+			css.CrossSectionType = CrossSectionType.Box2I;
+
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = fTh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webTh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = fTap });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeEdgeRadius", Value = fRrad });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+		}
+
+		/// <summary>
+		/// Box 2L - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="w">Width</param>
+		/// <param name="d">Depth</param>
+		/// <param name="th">Thickness</param>
+		/// <param name="radius">Radius</param>
+		/// <param name="toeRadius">Toe radius</param>
+		public static void FillBox2L(CrossSectionParameter css, double w, double d, double th, double radius, double toeRadius)
+		{
+			css.CrossSectionType = CrossSectionType.Box2L;
+
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
+			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = d });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "ToeRadius", Value = toeRadius });
+		}
+
+		/// <summary>
+		/// Box 4L - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="w">Width</param>
+		/// <param name="d">Depth</param>
+		/// <param name="th">Thickness</param>
+		/// <param name="radius">Radius</param>
+		/// <param name="toeRadius">Toe radius</param>
+		public static void FillBox4L(CrossSectionParameter css, double w, double d, double th, double radius, double toeRadius)
+		{
+			css.CrossSectionType = CrossSectionType.Box4L;
+
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
+			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = d });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "ToeRadius", Value = toeRadius });
 		}
 	}
 }
