@@ -99,7 +99,7 @@ Below indicates which `CrossSectionFactory` method should be used to generate se
 
 IDEA Shape Ref | Image | Factory Method  `CrossSectionFactory.` | Notes
 ---------|----------|--------- |---------
- 2I | ![double I](images/double_I.png) |  _Not Implemented_ | 
+ 2I | ![double I](images/double_I.png) |  `FillRolledDoubleI(…)` | 
  2Uo | ![2Uo](images/double_channel.png)|  `FillShapeDbLU(…)` | You need to specify section shapes manually for this method.
  2Uc | ![2Uc](images/double_channel_flipped.png) | `FillWelded2Uc(…)` | This method requires the Name of an IDEAStatica Library Channel.
  2Lt | ![2Lt](images/double_L.png) | `FillWelded2Lt(…)` | This method requires the Name of an IDEAStatica Library Angle.
@@ -108,13 +108,13 @@ IDEA Shape Ref | Image | Factory Method  `CrossSectionFactory.` | Notes
  Iwn | ![Iwn](images/welded_asymetric_I.png)| `FillWeldedAsymI(…)` | This item can be used to define a asymmetric ‘rolled’ I section.
  Tw | ![Tw](images/welded_T.png)| `FillWeldedT(…)` | 
  Box FI | ![Box FI](images/welded_box_1.png) | `FillBox2(…)` | 
- Box Web | ![Box Web](images/welded_box_2.png) | _Not Implemented_ | Define this using the `CrossSectionComponent` class
- Box 2I | ![Box 2I](images/welded_box_2I.png) | _Not Implemented_ | 
+ Box Web | ![Box Web](images/welded_box_2.png) | `FillWeldedBoxWeb(…)` 
+ Box 2I | ![Box 2I](images/welded_box_2I.png) | `FillBox2I(…)` 
  Box 2U | ![Box 2U](images/welded_box_2U.png) | `FillWelded2Uc(…)` | Set 'distance' parameter to zero.
- Box 2L | ![Box 2L](images/welded_box_2L.png) | _Not Implemented_
- Box 4L | ![Box 4L](images/welded_box_4L.png) | _Not Implemented_
- Box Delta |  ![Box Delta](images/welded_box_delta.png) | _Not Implemented_ | Define this using the `CrossSectionComponent` class
- Box Triangle | ![Box Delta](images/welded_box_triangle.png) | _Not Implemented_ | Define this using the `CrossSectionComponent` class
+ Box 2L | ![Box 2L](images/welded_box_2L.png) | `FillBox2L(…)`
+ Box 4L | ![Box 4L](images/welded_box_4L.png) |  `FillBox4L(…)`
+ Box Delta |  ![Box Delta](images/welded_box_delta.png) | `FillWeldedBoxDelta(…)`
+ Box Triangle | ![Box Delta](images/welded_box_triangle.png) | `FillWeldedTriangle(…)`
  General Steel | ![Box Delta](images/welded_general.png)| Does not use `CrossSectionFactory` | Define this using the `CrossSectionComponent` class. An example is show below.
 
 
@@ -176,7 +176,7 @@ IDEA Shape Ref | Image | Factory Method  `CrossSectionFactory.` | Notes
  ------ | ------| ------ | ------
  CF Omega | ![CF Omega](images/cf_Omega.png) | `.FillColdFormedOmega(…)`	|
  CF C |![CF C](images/cf_C.png) | `.FillColdFormedC(…)`	|
- CF C+ | ![CF Cplus](images/cf_Cplus.png)| _Not Implemented_	|
+ CF C+ | ![CF Cplus](images/cf_Cplus.png)| `FillColdFormedCp(…)`	|
  CF L | ![CF L](images/cf_L.png)| `.FillColdFormedL (…)` |	
  CF Lgen | ![CF Lgen](images/cf_Lgen.png)| `.FillColdFormedLgen(…)` |	
  CF Z | ![CF Z](images/cf_regular_polygon.png) | `.FillColdFormedZ(…)` |
@@ -186,8 +186,8 @@ IDEA Shape Ref | Image | Factory Method  `CrossSectionFactory.` | Notes
  CF ZED | ![CF ZED](images/cf_ZED.png) | `.FillColdFormedZed(…)` |
  CF RHS | ![CF RHS](images/cf_RHS.png) | `.FillColdFormedRHS(…)` |
  General Tube |  ![CF Tube](images/cf_tube.png)  | `.FillSteelTube(…)` |
- CF 2Co | ![CF 2Co](images/cf_2Co.png) | _Not Implemented_	|
- CF 2C+o | ![CF 2C+o](images/cf_2Coplus.png) | _Not Implemented_	|
+ CF 2Co | ![CF 2Co](images/cf_2Co.png) | `FillColdFormedCF2Co(…)`	|
+ CF 2C+o | ![CF 2C+o](images/cf_2Coplus.png) | `FillColdFormedCF2Cpo(…)`	|
  CF General Shape | ![CF General Shape](images/cf_general.png) | `.FillColdFormedGeneral(…)` |	The general cold-formed section is not a parametric section and therefore has its own class, `CrossSectionGeneralColdFormed` to store the polyline which defines its shape. Refer below for an example. 
 
 
