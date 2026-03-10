@@ -488,23 +488,23 @@
 		/// Box 2I - steel shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="h">Height</param>
-		/// <param name="w">Width</param>
-		/// <param name="fTh">Flange thickness</param>
-		/// <param name="webTh">Web thickness</param>
-		/// <param name="fTap">Flange tapper</param>
-		/// <param name="fRrad">Flange edge radius</param>
+		/// <param name="height">Height</param>
+		/// <param name="width">Width</param>
+		/// <param name="flangeThickness">Flange thickness</param>
+		/// <param name="webThickness">Web thickness</param>
+		/// <param name="flangeTapper">Flange tapper</param>
+		/// <param name="flangeEdgeRadius">Flange edge radius</param>
 		/// <param name="radius">Radius</param>
-		public static void FillBox2I(CrossSectionParameter css, double h, double w, double fTh, double webTh, double fTap, double fRrad, double radius)
+		public static void FillBox2I(CrossSectionParameter css, double height, double width, double flangeThickness, double webThickness, double flangeTapper, double flangeEdgeRadius, double radius)
 		{
 			css.CrossSectionType = CrossSectionType.Box2I;
 
-			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = fTh });
-			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
-			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webTh });
-			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
-			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = fTap });
-			css.Parameters.Add(new ParameterDouble() { Name = "FlangeEdgeRadius", Value = fRrad });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = flangeThickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webThickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = flangeTapper });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeEdgeRadius", Value = flangeEdgeRadius });
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
 		}
 
@@ -512,18 +512,18 @@
 		/// Box 2L - steel shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="w">Width</param>
-		/// <param name="d">Depth</param>
-		/// <param name="th">Thickness</param>
+		/// <param name="width">Width</param>
+		/// <param name="depth">Depth</param>
+		/// <param name="thickness">Thickness</param>
 		/// <param name="radius">Radius</param>
 		/// <param name="toeRadius">Toe radius</param>
-		public static void FillBox2L(CrossSectionParameter css, double w, double d, double th, double radius, double toeRadius)
+		public static void FillBox2L(CrossSectionParameter css, double width, double depth, double thickness, double radius, double toeRadius)
 		{
 			css.CrossSectionType = CrossSectionType.Box2L;
 
-			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
-			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = d });
-			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = depth });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
 			css.Parameters.Add(new ParameterDouble() { Name = "ToeRadius", Value = toeRadius });
 		}
@@ -532,18 +532,18 @@
 		/// Box 4L - steel shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="w">Width</param>
-		/// <param name="d">Depth</param>
-		/// <param name="th">Thickness</param>
+		/// <param name="width">Width</param>
+		/// <param name="depth">Depth</param>
+		/// <param name="thickness">Thickness</param>
 		/// <param name="radius">Radius</param>
 		/// <param name="toeRadius">Toe radius</param>
-		public static void FillBox4L(CrossSectionParameter css, double w, double d, double th, double radius, double toeRadius)
+		public static void FillBox4L(CrossSectionParameter css, double width, double depth, double thickness, double radius, double toeRadius)
 		{
 			css.CrossSectionType = CrossSectionType.Box4L;
 
-			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
-			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = d });
-			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = depth });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
 			css.Parameters.Add(new ParameterDouble() { Name = "ToeRadius", Value = toeRadius });
 		}
