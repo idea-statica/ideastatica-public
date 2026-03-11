@@ -1,4 +1,5 @@
 using IdeaRS.OpenModel.Geometry2D;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -305,6 +306,27 @@ namespace IdeaRS.OpenModel.Connection
 	}
 
 	/// <summary>
+	/// Weld definition for cut operations (web or flange weld).
+	/// </summary>
+	public class WeldDefinition
+	{
+		/// <summary>
+		/// Thickness of the weld - value 0 = recommended size
+		/// </summary>
+		public double Thickness { get; set; }
+
+		/// <summary>
+		/// Type of the weld
+		/// </summary>
+		public WeldType WeldType { get; set; }
+
+		/// <summary>
+		/// Material of the weld. Null = taken from connected member.
+		/// </summary>
+		public ReferenceElement WeldMaterial { get; set; }
+	}
+
+	/// <summary>
 	/// Provides data of the single weld
 	/// </summary>
 	public class WeldData
@@ -551,15 +573,14 @@ namespace IdeaRS.OpenModel.Connection
 		public bool IsWeld { get; set; }
 
 		/// <summary>
-		/// Thickness of the weld - value 0 = recommended size
+		/// Web weld definition. When null, no weld is applied to the web.
 		/// </summary>
-		public double WeldThickness { get; set; }
+		public WeldDefinition WebWeld { get; set; }
 
 		/// <summary>
-		/// Type of the weld
+		/// Flange weld definition. When null, the web weld is used for both web and flanges.
 		/// </summary>
-		public WeldType WeldType { get; set; }
-
+		public WeldDefinition FlangeWeld { get; set; }
 
 		/// <summary>
 		/// Offset

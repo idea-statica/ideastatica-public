@@ -23,9 +23,14 @@ namespace IdeaStatiCa.BimApi
 		double Offset { get; }
 
 		/// <summary>
-		/// Weld of cut
+		/// Weld of cut (web weld when separate flange weld is defined)
 		/// </summary>
 		IIdeaWeld Weld { get; }
+
+		/// <summary>
+		/// Flange weld of cut. Null means same as Weld or no separate flange weld.
+		/// </summary>
+		IIdeaWeld FlangesWeld { get; }
 
 		/// <summary>
 		/// Cut Method

@@ -52,8 +52,20 @@ namespace IdeaStatiCa.BimImporter.Importers
 						Method = cut.CutMethod,
 						Orientation = cut.CutOrientation,
 						PlaneOnCuttingObject = cut.DistanceComparison,
-						WeldThickness = (cut.Weld?.Thickness) ?? 0.0,
-						WeldType = cut.Weld != null ? cut.Weld.WeldType : WeldType.Fillet,
+						WebWeld = cut.Weld != null ? new WeldDefinition
+						{
+							Thickness = cut.Weld.Thickness,
+							WeldType = cut.Weld.WeldType,
+						} : null,
+						FlangeWeld = cut.FlangesWeld != null ? new WeldDefinition
+						{
+							Thickness = cut.FlangesWeld.Thickness,
+							WeldType = cut.FlangesWeld.WeldType,
+						} : (cut.Weld != null ? new WeldDefinition
+						{
+							Thickness = cut.Weld.Thickness,
+							WeldType = cut.Weld.WeldType,
+						} : null),
 						ExtendBeforeCut = cut.ExtendBeforeCut,
 						Name = cut.Name,
 					};
