@@ -3,10 +3,7 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
-<<<<<<< HEAD
-=======
 using System.Collections.Generic;
->>>>>>> ad444292 (Weld support in IOM)
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -30,73 +27,35 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
-<<<<<<< HEAD
-			DowngradeAnchorGrids(openModel);
-=======
 			// Strip WebWeld and FlangeWeld elements from CutBeamByBeamData nodes
 			var cutBeamByBeams = openModel.GetElements("Connections;ConnectionData;CutBeamByBeams;CutBeamByBeamData")?.ToList();
-			if (cutBeamByBeams != null)
+			if (cutBeamByBeams == null)
 			{
-				foreach (SObject cutBeam in cutBeamByBeams.OfType<SObject>())
+				return;
+			}
+
+			foreach (SObject cutBeam in cutBeamByBeams.OfType<SObject>())
+			{
+				// Extract values from WebWeld to re-populate legacy WeldThickness/WeldType
+				var webWeld = cutBeam.GetElements("WebWeld")?.FirstOrDefault() as SObject;
+				if (webWeld != null)
 				{
-					cutBeam.RemoveElementProperty("WebWeld");
-					cutBeam.RemoveElementProperty("FlangeWeld");
+					var thickness = webWeld.GetElementValue("Thickness") ?? "0";
+					var weldType = webWeld.GetElementValue("WeldType") ?? "NotSpecified";
+
+					cutBeam.CreateElementProperty("WeldThickness", thickness);
+					cutBeam.CreateElementProperty("WeldType", weldType);
 				}
+
+				cutBeam.RemoveElementProperty("WebWeld");
+				cutBeam.RemoveElementProperty("FlangeWeld");
 			}
 >>>>>>> ad444292 (Weld support in IOM)
 		}
 
 		public override void DoUpStep(SModel _model)
 		{
-<<<<<<< HEAD
-			ISIntermediate openModel = _model.GetModelElement();
-			if (openModel == null)
-			{
-				_logger.LogInformation($"OpenModel not found. UpStep {Version} was skipped");
-				return;
-			}
-
-			UpgradeAnchorGrids(openModel);
-		}
-
-		private void DowngradeAnchorGrids(ISIntermediate openModel)
-		{
-			var anchorGrids = openModel.GetElements("Connections;ConnectionData;AnchorGrids;AnchorGrid")?.ToList();
-			if (anchorGrids == null)
-			{
-				return;
-			}
-
-			foreach (SObject anchorGrid in anchorGrids.OfType<SObject>())
-			{
-				anchorGrid.RemoveElementProperty("AnchorInstallationProcess");
-				anchorGrid.RemoveElementProperty("HeadedStudHeadDiameter");
-				anchorGrid.RemoveElementProperty("ReinforcementMandrelDiameter");
-			}
-		}
-
-		private void UpgradeAnchorGrids(ISIntermediate openModel)
-		{
-			var anchorGrids = openModel.GetElements("Connections;ConnectionData;AnchorGrids;AnchorGrid")?.ToList();
-			if (anchorGrids == null)
-			{
-				return;
-			}
-
-			foreach (SObject anchorGrid in anchorGrids.OfType<SObject>())
-			{
-				if (anchorGrid.GetElements("AnchorInstallationProcess")?.FirstOrDefault() != null)
-				{
-					continue;
-				}
-
-				anchorGrid.CreateElementProperty("AnchorInstallationProcess", "PostInstalled");
-				anchorGrid.CreateElementProperty("HeadedStudHeadDiameter", "0");
-				anchorGrid.CreateElementProperty("ReinforcementMandrelDiameter", "0");
-			}
-=======
 			// No action needed - null WebWeld/FlangeWeld properties are handled by import fallback logic
->>>>>>> ad444292 (Weld support in IOM)
 		}
 	}
 }

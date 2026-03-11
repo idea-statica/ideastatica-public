@@ -308,7 +308,7 @@ namespace IdeaRS.OpenModel.Connection
 	/// <summary>
 	/// Weld definition for cut operations (web or flange weld).
 	/// </summary>
-	public class CutWeldData
+	public class WeldDefinition
 	{
 		/// <summary>
 		/// Thickness of the weld - value 0 = recommended size
@@ -321,9 +321,9 @@ namespace IdeaRS.OpenModel.Connection
 		public WeldType WeldType { get; set; }
 
 		/// <summary>
-		/// Name of the weld material. Null or empty = taken from connected member.
+		/// Material of the weld. Null = taken from connected member.
 		/// </summary>
-		public string WeldMaterial { get; set; }
+		public ReferenceElement WeldMaterial { get; set; }
 	}
 
 	/// <summary>
@@ -573,30 +573,14 @@ namespace IdeaRS.OpenModel.Connection
 		public bool IsWeld { get; set; }
 
 		/// <summary>
-		/// Thickness of the weld - value 0 = recommended size.
-		/// Obsolete: Use <see cref="WebWeld"/> and <see cref="FlangeWeld"/> instead.
-		/// Kept for backward compatibility with older consumers.
+		/// Web weld definition. When null, no weld is applied to the web.
 		/// </summary>
-		[Obsolete("Use WebWeld and FlangeWeld instead.")]
-		public double WeldThickness { get; set; }
+		public WeldDefinition WebWeld { get; set; }
 
 		/// <summary>
-		/// Type of the weld.
-		/// Obsolete: Use <see cref="WebWeld"/> and <see cref="FlangeWeld"/> instead.
-		/// Kept for backward compatibility with older consumers.
+		/// Flange weld definition. When null, the web weld is used for both web and flanges.
 		/// </summary>
-		[Obsolete("Use WebWeld and FlangeWeld instead.")]
-		public WeldType WeldType { get; set; }
-
-		/// <summary>
-		/// Web weld definition. Null when reading older IOM files — use legacy WeldThickness/WeldType as fallback.
-		/// </summary>
-		public CutWeldData WebWeld { get; set; }
-
-		/// <summary>
-		/// Flange weld definition. Null when reading older IOM files or when no separate flange weld is defined.
-		/// </summary>
-		public CutWeldData FlangeWeld { get; set; }
+		public WeldDefinition FlangeWeld { get; set; }
 
 		/// <summary>
 		/// Offset

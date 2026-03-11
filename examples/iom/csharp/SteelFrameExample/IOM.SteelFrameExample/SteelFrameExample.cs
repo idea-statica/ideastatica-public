@@ -162,8 +162,11 @@ namespace IOM.GeneratorExample
 					CuttingObject = new ReferenceElement(plateData),
 					ModifiedObject = new ReferenceElement(beam1Data),
 					Orientation = CutOrientation.Parallel,
-					WeldType = WeldType.DoubleFillet,
 					IsWeld = true,
+					WebWeld = new IdeaRS.OpenModel.Connection.WeldDefinition
+					{
+						WeldType = WeldType.DoubleFillet,
+					},
 				}
 			};
 
