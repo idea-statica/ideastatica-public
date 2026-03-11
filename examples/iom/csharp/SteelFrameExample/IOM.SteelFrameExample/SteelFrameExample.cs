@@ -163,10 +163,6 @@ namespace IOM.GeneratorExample
 					ModifiedObject = new ReferenceElement(beam1Data),
 					Orientation = CutOrientation.Parallel,
 					IsWeld = true,
-					WebWeld = new IdeaRS.OpenModel.Connection.WeldDefinition
-					{
-						WeldType = WeldType.DoubleFillet,
-					},
 				}
 			};
 
