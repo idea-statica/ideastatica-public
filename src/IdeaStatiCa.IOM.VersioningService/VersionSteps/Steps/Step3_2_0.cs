@@ -26,7 +26,6 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
-			// Strip WebWeld and FlangeWeld elements from CutBeamByBeamData nodes
 			var cutBeamByBeams = openModel.GetElements("Connections;ConnectionData;CutBeamByBeams;CutBeamByBeamData")?.ToList();
 			if (cutBeamByBeams == null)
 			{
@@ -61,7 +60,42 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 
 		public override void DoUpStep(SModel _model)
 		{
-			// No action needed — WebWeld/FlangeWeld are optional and handled by import logic
+			ISIntermediate openModel = _model.GetModelElement();
+			if (openModel == null)
+			{
+				_logger.LogInformation($"OpenModel not found. UpStep {Version} was skipped");
+				return;
+			}
+
+			var cutBeamByBeams = openModel.GetElements("Connections;ConnectionData;CutBeamByBeams;CutBeamByBeamData")?.ToList();
+			if (cutBeamByBeams == null)
+			{
+				return;
+			}
+
+			foreach (SObject cutBeam in cutBeamByBeams.OfType<SObject>())
+			{
+				// Skip if already has WebWeld (already upgraded)
+				var existingWebWeld = cutBeam.GetElements("WebWeld")?.FirstOrDefault();
+				if (existingWebWeld != null)
+				{
+					continue;
+				}
+
+				var thickness = cutBeam.GetElementValue("WeldThickness") ?? "0";
+				var weldType = cutBeam.GetElementValue("WeldType") ?? "NotSpecified";
+
+				SObject webWeldObj = cutBeam.CreateElementProperty("WebWeld");
+				webWeldObj.CreateElementProperty("Thickness", thickness);
+				webWeldObj.CreateElementProperty("WeldType", weldType);
+
+				SObject flangeWeldObj = cutBeam.CreateElementProperty("FlangeWeld");
+				flangeWeldObj.CreateElementProperty("Thickness", thickness);
+				flangeWeldObj.CreateElementProperty("WeldType", weldType);
+
+				cutBeam.RemoveElementProperty("WeldThickness");
+				cutBeam.RemoveElementProperty("WeldType");
+			}
 		}
 	}
 }
