@@ -3,6 +3,7 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -26,6 +27,25 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
+			DowngradeCutBeamByBeamWelds(openModel);
+			DowngradeAnchorGrids(openModel);
+		}
+
+		public override void DoUpStep(SModel _model)
+		{
+			ISIntermediate openModel = _model.GetModelElement();
+			if (openModel == null)
+			{
+				_logger.LogInformation($"OpenModel not found. UpStep {Version} was skipped");
+				return;
+			}
+
+			UpgradeCutBeamByBeamWelds(openModel);
+			UpgradeAnchorGrids(openModel);
+		}
+
+		private void DowngradeCutBeamByBeamWelds(ISIntermediate openModel)
+		{
 			var cutBeamByBeams = openModel.GetElements("Connections;ConnectionData;CutBeamByBeams;CutBeamByBeamData")?.ToList();
 			if (cutBeamByBeams == null)
 			{
@@ -55,18 +75,26 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				cutBeam.RemoveElementProperty("WebWeld");
 				cutBeam.RemoveElementProperty("FlangeWeld");
 			}
->>>>>>> ad444292 (Weld support in IOM)
 		}
 
-		public override void DoUpStep(SModel _model)
+		private void DowngradeAnchorGrids(ISIntermediate openModel)
 		{
-			ISIntermediate openModel = _model.GetModelElement();
-			if (openModel == null)
+			var anchorGrids = openModel.GetElements("Connections;ConnectionData;AnchorGrids;AnchorGrid")?.ToList();
+			if (anchorGrids == null)
 			{
-				_logger.LogInformation($"OpenModel not found. UpStep {Version} was skipped");
 				return;
 			}
 
+			foreach (SObject anchorGrid in anchorGrids.OfType<SObject>())
+			{
+				anchorGrid.RemoveElementProperty("AnchorInstallationProcess");
+				anchorGrid.RemoveElementProperty("HeadedStudHeadDiameter");
+				anchorGrid.RemoveElementProperty("ReinforcementMandrelDiameter");
+			}
+		}
+
+		private void UpgradeCutBeamByBeamWelds(ISIntermediate openModel)
+		{
 			var cutBeamByBeams = openModel.GetElements("Connections;ConnectionData;CutBeamByBeams;CutBeamByBeamData")?.ToList();
 			if (cutBeamByBeams == null)
 			{
@@ -95,6 +123,27 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 
 				cutBeam.RemoveElementProperty("WeldThickness");
 				cutBeam.RemoveElementProperty("WeldType");
+			}
+		}
+
+		private void UpgradeAnchorGrids(ISIntermediate openModel)
+		{
+			var anchorGrids = openModel.GetElements("Connections;ConnectionData;AnchorGrids;AnchorGrid")?.ToList();
+			if (anchorGrids == null)
+			{
+				return;
+			}
+
+			foreach (SObject anchorGrid in anchorGrids.OfType<SObject>())
+			{
+				if (anchorGrid.GetElements("AnchorInstallationProcess")?.FirstOrDefault() != null)
+				{
+					continue;
+				}
+
+				anchorGrid.CreateElementProperty("AnchorInstallationProcess", "PostInstalled");
+				anchorGrid.CreateElementProperty("HeadedStudHeadDiameter", "0");
+				anchorGrid.CreateElementProperty("ReinforcementMandrelDiameter", "0");
 			}
 		}
 	}
