@@ -3,7 +3,6 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.Plugin;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -36,14 +35,21 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 
 			foreach (SObject cutBeam in cutBeamByBeams.OfType<SObject>())
 			{
-				// Extract values from WebWeld to re-populate legacy WeldThickness/WeldType
 				var webWeld = cutBeam.GetElements("WebWeld")?.FirstOrDefault() as SObject;
-				if (webWeld != null)
-				{
-					var thickness = webWeld.GetElementValue("Thickness") ?? "0";
-					var weldType = webWeld.GetElementValue("WeldType") ?? "NotSpecified";
+				var flangeWeld = cutBeam.GetElements("FlangeWeld")?.FirstOrDefault() as SObject;
 
-					cutBeam.CreateElementProperty("WeldThickness", thickness);
+				if (webWeld != null || flangeWeld != null)
+				{
+					var webThicknessStr = webWeld?.GetElementValue("Thickness") ?? "0";
+					var flangeThicknessStr = flangeWeld?.GetElementValue("Thickness") ?? "0";
+
+					double.TryParse(webThicknessStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var webThickness);
+					double.TryParse(flangeThicknessStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var flangeThickness);
+
+					var maxThickness = Math.Max(webThickness, flangeThickness);
+					var weldType = webWeld?.GetElementValue("WeldType") ?? flangeWeld?.GetElementValue("WeldType") ?? "NotSpecified";
+
+					cutBeam.CreateElementProperty("WeldThickness", maxThickness.ToString(CultureInfo.InvariantCulture));
 					cutBeam.CreateElementProperty("WeldType", weldType);
 				}
 
@@ -55,7 +61,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 
 		public override void DoUpStep(SModel _model)
 		{
-			// No action needed - null WebWeld/FlangeWeld properties are handled by import fallback logic
+			// No action needed — WebWeld/FlangeWeld are optional and handled by import logic
 		}
 	}
 }
