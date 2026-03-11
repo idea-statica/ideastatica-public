@@ -52,20 +52,16 @@ namespace IdeaStatiCa.BimImporter.Importers
 						Method = cut.CutMethod,
 						Orientation = cut.CutOrientation,
 						PlaneOnCuttingObject = cut.DistanceComparison,
-#pragma warning disable CS0618 // Obsolete - kept for backward compatibility with older consumers
-						WeldThickness = (cut.Weld?.Thickness) ?? 0.0,
-						WeldType = cut.Weld != null ? cut.Weld.WeldType : WeldType.Fillet,
-#pragma warning restore CS0618
-						WebWeld = cut.Weld != null ? new CutWeldData
+						WebWeld = cut.Weld != null ? new WeldDefinition
 						{
 							Thickness = cut.Weld.Thickness,
 							WeldType = cut.Weld.WeldType,
 						} : null,
-						FlangeWeld = cut.FlangesWeld != null ? new CutWeldData
+						FlangeWeld = cut.FlangesWeld != null ? new WeldDefinition
 						{
 							Thickness = cut.FlangesWeld.Thickness,
 							WeldType = cut.FlangesWeld.WeldType,
-						} : (cut.Weld != null ? new CutWeldData
+						} : (cut.Weld != null ? new WeldDefinition
 						{
 							Thickness = cut.Weld.Thickness,
 							WeldType = cut.Weld.WeldType,
