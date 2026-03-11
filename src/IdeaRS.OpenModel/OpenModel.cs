@@ -40,7 +40,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = "3.1.0";
+			Version = "3.2.0";
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();
