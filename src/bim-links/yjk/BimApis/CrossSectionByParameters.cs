@@ -1,0 +1,21 @@
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.BimApi;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace yjk.BimApis
+{
+	internal class CrossSectionByParameters : IdeaCrossSectionByParameters
+	{
+		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
+
+		public int MaterialNo { get; set; }
+
+		public CrossSectionByParameters(int no) : base(no)
+		{
+		}
+	}
+}

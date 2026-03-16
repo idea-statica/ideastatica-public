@@ -107,18 +107,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BimApis\CrossSectionByName.cs" />
+    <Compile Include="BimApis\CrossSectionByParameters.cs" />
     <Compile Include="BimApis\Member1D.cs" />
     <Compile Include="BimApis\Segment3D.cs" />
     <Compile Include="FeaApis\FeaApi.cs" />
+    <Compile Include="FeaApis\FeaCrossSection.cs" />
+    <Compile Include="FeaApis\FeaCrossSectionApi.cs" />
     <Compile Include="FeaApis\FeaGeometryApi.cs" />
     <Compile Include="FeaApis\FeaLoadCase.cs" />
     <Compile Include="FeaApis\FeaLoadCombination.cs" />
     <Compile Include="FeaApis\FeaLoadGroup.cs" />
     <Compile Include="FeaApis\FeaLoadsApi.cs" />
+    <Compile Include="FeaApis\FeaMaterial.cs" />
+    <Compile Include="FeaApis\FeaMaterialApi.cs" />
     <Compile Include="FeaApis\FeaMember.cs" />
     <Compile Include="FeaApis\FeaNode.cs" />
     <Compile Include="FeaApis\FeaResult.cs" />
     <Compile Include="FeaApis\FeaResultsApi.cs" />
+    <Compile Include="Helpers\UnitConverter.cs" />
     <Compile Include="Helpers\WindowHelper.xaml.cs">
       <DependentUpon>WindowHelper.xaml</DependentUpon>
     </Compile>

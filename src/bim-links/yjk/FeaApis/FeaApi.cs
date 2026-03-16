@@ -4,15 +4,19 @@
 	{
 		IFeaGeometryApi Geometry { get; }		
 
-		IFeaLoadsApi Loads { get; }
+		IFeaLoadsApi Load { get; }
 
-		IFeaResultsApi Results { get; }
+		IFeaResultsApi Result { get; }
+		IFeaCrossSectionApi CrossSection { get; }
+		IFeaMaterialApi MaterialApi { get; }
 	}
 
 	public class FeaApi : IFeaApi
 	{
 		public IFeaGeometryApi Geometry { get; } = new FeaGeometryApi();		
-		public IFeaLoadsApi Loads { get;  } = new FeaLoadsApi();
-		public IFeaResultsApi Results { get; } = new FeaResultsApi();
+		public IFeaLoadsApi Load { get;  } = new FeaLoadsApi();
+		public IFeaResultsApi Result { get; } = new FeaResultsApi();
+		public IFeaCrossSectionApi CrossSection { get; } = new FeaCrossSectionApi();
+		public IFeaMaterialApi MaterialApi { get; } = new FeaMaterialApi();
 	}
 }

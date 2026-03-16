@@ -43,9 +43,7 @@ namespace yjk
 				{
 					try
 					{
-						Debug.WriteLine("Before");
 						await RunAsync();
-						Debug.WriteLine("After");
 					}
 					catch (Exception ex)
 					{
@@ -104,18 +102,16 @@ namespace yjk
 			}
 		}
 
-
-
-
-
 		private static IContainer BuildContainer(IProgressMessaging messagingService, IFeaApi feaApi)
 		{
 			ContainerBuilder builder = new ContainerBuilder();
 
 			// Register FEA application API (geometry, loads, results, ...)
 			builder.Register(x => feaApi.Geometry);
-			builder.Register(x => feaApi.Loads);
-			builder.Register(x => feaApi.Results);
+			builder.Register(x => feaApi.Load);
+			builder.Register(x => feaApi.Result);
+			builder.Register(x => feaApi.CrossSection);
+			builder.Register(x => feaApi.MaterialApi);
 
 			// Register messaging service (progress, ...)
 			builder.RegisterInstance(messagingService);

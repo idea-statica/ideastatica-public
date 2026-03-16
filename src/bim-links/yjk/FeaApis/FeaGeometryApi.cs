@@ -6,6 +6,8 @@ using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
 using System.Windows;
+using System;
+using IdeaRS.OpenModel.CrossSection;
 
 namespace yjk.FeaApis
 {
@@ -22,7 +24,8 @@ namespace yjk.FeaApis
 		IEnumerable<int> GetNodesSelectedIdentifiers();
 
 		Dictionary<int, List<int>> GetSelectedIds();
-		void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi loads, IFeaResultsApi results);
+		void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result, 
+			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi);
 	}
 
 	internal class FeaGeometryApi : IFeaGeometryApi
@@ -33,8 +36,10 @@ namespace yjk.FeaApis
 		private List<IFeaMember> _members;
 		private List<IFeaNode> _nodesSelected;
 		private List<IFeaNode> _nodes;
-		private IFeaResultsApi _results;
-		private IFeaLoadsApi _loads;
+		private IFeaResultsApi _result;
+		private IFeaLoadsApi _load;
+		private IFeaCrossSectionApi _crossSection;
+		private IFeaMaterialApi _materialApi;
 
 		public IFeaMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
 
@@ -49,37 +54,40 @@ namespace yjk.FeaApis
 		public Dictionary<int, List<int>> GetSelectedIds()
 		{
 			//YJK API
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
+			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
 			//Get selected IDs
 			Dictionary<int, List<int>> selectedIds = new Dictionary<int, List<int>>();
-			selectedIds = _hi_AddToAndReadYjk.GetSelectSetIDs();
+			selectedIds = hi_AddToAndReadYjk.GetSelectSetIDs();
 
 			return selectedIds;
 		}
 
-		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi loads, IFeaResultsApi results)
+		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result, 
+			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi)
 		{
 			_members = new List<IFeaMember>();
 			_nodesSelected = new List<IFeaNode>();
 			_nodes = new List<IFeaNode>();
-			_results = results;
-			_loads = loads;
+			_result = result;
+			_load = load;
+			_crossSection = crossSection;
+			_materialApi = materialApi;
 
-			GetColumns(selectedIds);
-			GetBeams(selectedIds);
-			GetBraces(selectedIds);
+			GetMembers(selectedIds, MemberType.Column);
+			GetMembers(selectedIds, MemberType.Beam);
+			GetMembers(selectedIds, MemberType.Brace);
 
 			//For each nodes, see what members are connected to it
 			//Fixed the list of nodes to look at
 			List<IFeaNode> nodesCopy = new List<IFeaNode>(_nodes);
 
-			GetConnectedColumns(nodesCopy);
-			GetConnectedBeams(nodesCopy);
-			GetConnectedBraces(nodesCopy);
+			GetConnectedMembers(nodesCopy, MemberType.Column);
+			GetConnectedMembers(nodesCopy, MemberType.Beam);
+			GetConnectedMembers(nodesCopy, MemberType.Brace);
 		}
 
-		private void GetConnectedColumns(List<IFeaNode> nodesCopy)
+		private void GetConnectedMembers(List<IFeaNode> nodesCopy, MemberType type)
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
@@ -89,128 +97,77 @@ namespace yjk.FeaApis
 			for (int i = 1; i < numFloor + 1; i++)
 			{
 				int iFlr = i;
-				int nColumn = _hi_CToSDesign.NColumn(iFlr);
-				var idFlrColumns = _hi_CToSDesign.FlrColumns(iFlr, nColumn);
 
-				for (int j = 0; j < nColumn; j++)
+				int nMember = 0;
+				List<int> idFlrMembers = new List<int>();
+				switch (type)
 				{
-					int no = _hi_CToSDesign.ColumnONO(idFlrColumns[j]);
-					int flrNo = _hi_CToSDesign.ColumnOFlr(idFlrColumns[j]);
-					int modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_COLM, no, flrNo);
-
-					int j1 = 0;
-					int j2 = 0;
-					_cToSDesign.ColumnJD(idFlrColumns[j], ref j1, ref j2);
-
-					foreach (IFeaNode node in nodesCopy)
-					{
-						if (node.Id == j1 ||  node.Id == j2)
-						{
-							bool exists = _members.Any(p => p.Id == idFlrColumns[j]);
-
-							if (!exists)
-							{
-								FeaMember member = AddMember(idFlrColumns[j], j1, j2, false);
-
-								//Record result (force)
-								_results.SetResultForColumn(iFlr, member, _loads);
-							}
-						}
-					}						
+					case MemberType.Column:
+						nMember = _hi_CToSDesign.NColumn(iFlr);
+						idFlrMembers = _hi_CToSDesign.FlrColumns(iFlr, nMember);
+						break;
+					case MemberType.Beam:
+						nMember = _hi_CToSDesign.NBeam(iFlr);
+						idFlrMembers = _hi_CToSDesign.FlrBeams(iFlr, nMember);
+						break;
+					case MemberType.Brace:
+						nMember = _hi_CToSDesign.NBrace(iFlr);
+						idFlrMembers = _hi_CToSDesign.FlrBraces(iFlr, nMember);
+						break;
 				}
-			}
-		}
 
-		private void GetConnectedBeams(List<IFeaNode> nodesCopy)
-		{
-			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			var _cToSDesign = new Hi_CToSDesign();
-
-			int numFloor = _hi_CToSDesign.NZRC();
-			for (int i = 1; i < numFloor + 1; i++)
-			{
-				int iFlr = i;
-				int nBeam = _hi_CToSDesign.NBeam(iFlr);
-				var idFlrBeams = _hi_CToSDesign.FlrBeams(iFlr, nBeam);
-
-				for (int j = 0; j < nBeam; j++)
+				for (int j = 0; j < nMember; j++)
 				{
-					int no = _hi_CToSDesign.BeamONO(idFlrBeams[j]);
-					int flrNo = _hi_CToSDesign.BeamOFlr(idFlrBeams[j]);
-					int modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
-
 					int j1 = 0;
 					int j2 = 0;
-					_cToSDesign.BeamJD(idFlrBeams[j], ref j1, ref j2);
+					FeaMember member = null;
 
-					
-					foreach (IFeaNode node in nodesCopy)
+					switch (type)
 					{
-						if (node.Id == j1 || node.Id == j2)
-						{
-							bool exists = _members.Any(p => p.Id == idFlrBeams[j]);
-
-							if (!exists)
-							{
-								FeaMember member = AddMember(idFlrBeams[j], j1, j2, false);
-
-								//Record result (force)
-								_results.SetResultForBeam(iFlr, member, _loads);
-							}
-						}
+						case MemberType.Column:
+							_cToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
+							break;
+						case MemberType.Beam:
+							_cToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
+							break;
+						case MemberType.Brace:
+							_cToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
+							break;
 					}
-										
-				}
-				
-			}
-		}
-
-		private void GetConnectedBraces(List<IFeaNode> nodesCopy)
-		{
-			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			var _cToSDesign = new Hi_CToSDesign();
-
-			int numFloor = _hi_CToSDesign.NZRC();
-			for (int i = 1; i < numFloor + 1; i++)
-			{
-				int iFlr = i;
-				int nBrace = _hi_CToSDesign.NBrace(iFlr);
-				var idFlrBraces = _hi_CToSDesign.FlrBraces(iFlr, nBrace);
-
-				for (int j = 0; j < nBrace; j++)
-				{
-					int no = _hi_CToSDesign.BraceONO(idFlrBraces[j]);
-					int flrNo = _hi_CToSDesign.BraceOFlr(idFlrBraces[j]);
-					int modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
-
-					int j1 = 0;
-					int j2 = 0;
-					_cToSDesign.BraceJD(idFlrBraces[j], ref j1, ref j2);
 
 					foreach (IFeaNode node in nodesCopy)
 					{
 						if (node.Id == j1 || node.Id == j2)
 						{
-							bool exists = _members.Any(p => p.Id == idFlrBraces[j]);
+							bool exists = _members.Any(p => p.Id == idFlrMembers[j]);
 
 							if (!exists)
 							{
-								FeaMember member = AddMember(idFlrBraces[j], j1, j2, false);
+								member = AddMember(idFlrMembers[j], j1, j2, false, type);
 
-								//Record result (force)
-								_results.SetResultForBeam(iFlr, member, _loads);
+								switch (type)
+								{
+									case MemberType.Column:
+										//Record result (force)
+										_result.SetResultForColumn(iFlr, member, _load);
+										break;
+									case MemberType.Beam:
+										//Record result (force)
+										_result.SetResultForBeam(iFlr, member, _load);
+										break;
+									case MemberType.Brace:
+										//Record result (force)
+										_result.SetResultForBrace(iFlr, member, _load);
+										break;
+								}
 							}
 						}
 					}
-					
 				}
-				
 			}
 		}
 
-		private void GetColumns(Dictionary<int, List<int>> selectedIds)
+		private void GetMembers(Dictionary<int, List<int>> selectedIds, MemberType type)
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
@@ -220,113 +177,97 @@ namespace yjk.FeaApis
 			for (int i = 1; i < numFloor + 1; i++)
 			{
 				int iFlr = i;
-				int nColumn = _hi_CToSDesign.NColumn(iFlr);
-				var idFlrColumns = _hi_CToSDesign.FlrColumns(iFlr, nColumn);
+
+				int nMember = 0;
+				List<int> idFlrMembers = new List<int>();
+				int keyToCheck = 0;
+				switch (type)
+				{
+					case MemberType.Column:
+						nMember = _hi_CToSDesign.NColumn(iFlr);
+						idFlrMembers = _hi_CToSDesign.FlrColumns(iFlr, nMember);
+						keyToCheck = 11;
+						break;
+					case MemberType.Beam:
+						nMember = _hi_CToSDesign.NBeam(iFlr);
+						idFlrMembers = _hi_CToSDesign.FlrBeams(iFlr, nMember);
+						keyToCheck = 12;
+						break;
+					case MemberType.Brace:
+						nMember = _hi_CToSDesign.NBrace(iFlr);
+						idFlrMembers = _hi_CToSDesign.FlrBraces(iFlr, nMember);
+						keyToCheck = 12;
+						break;
+				}
 
 				//Check if column is selected
-				if (selectedIds.ContainsKey(11))
+				if (selectedIds.ContainsKey(keyToCheck))
 				{
 
-					for (int j = 0; j < nColumn; j++)
+					for (int j = 0; j < nMember; j++)
 					{
-						int no = _hi_CToSDesign.ColumnONO(idFlrColumns[j]);
-						int flrNo = _hi_CToSDesign.ColumnOFlr(idFlrColumns[j]);
-						int modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_COLM, no, flrNo);
+						int no = 0;
+						int flrNo = 0;
+						int modellingId = 0;
 
-						if (selectedIds[11].Contains(modellingId))
+						switch (type)
+						{
+							case MemberType.Column:
+								no = _hi_CToSDesign.ColumnONO(idFlrMembers[j]);
+								flrNo = _hi_CToSDesign.ColumnOFlr(idFlrMembers[j]);
+								modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_COLM, no, flrNo);
+								break;
+							case MemberType.Beam:
+								no = _hi_CToSDesign.BeamONO(idFlrMembers[j]);
+								flrNo = _hi_CToSDesign.BeamOFlr(idFlrMembers[j]);
+								modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
+								break;
+							case MemberType.Brace:
+								no = _hi_CToSDesign.BraceONO(idFlrMembers[j]);
+								flrNo = _hi_CToSDesign.BraceOFlr(idFlrMembers[j]);
+								modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
+								break;
+						}
+
+						if (selectedIds[keyToCheck].Contains(modellingId))
 						{
 							int j1 = 0;
 							int j2 = 0;
-							_cToSDesign.ColumnJD(idFlrColumns[j], ref j1, ref j2);
+							FeaMember member = null;
 
-							FeaMember member = AddMember(idFlrColumns[j], j1, j2, true);
+							switch (type)
+							{
+								case MemberType.Column:
+									_cToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
+									member = AddMember(idFlrMembers[j], j1, j2, true, type);
+									//Record result (force)
+									_result.SetResultForColumn(iFlr, member, _load);
+									break;
+								case MemberType.Beam:
+									_cToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
+									member = AddMember(idFlrMembers[j], j1, j2, true, type);
+									//Record result (force)
+									_result.SetResultForBeam(iFlr, member, _load);
+									break;
+								case MemberType.Brace:
+									_cToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
+									member = AddMember(idFlrMembers[j], j1, j2, true, type);
+									//Record result (force)
+									_result.SetResultForBrace(iFlr, member, _load);
+									break;
+							}
 
-							//Record result (force)
-							_results.SetResultForColumn(iFlr, member, _loads);
+
 						}
 					}
 				}
 			}
 		}
 
-		private void GetBeams(Dictionary<int, List<int>> selectedIds)
+		private FeaMember AddMember(int memberId, int j1, int j2, bool addNodeSelected, MemberType memberType)
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			var _cToSDesign = new Hi_CToSDesign();
 
-			int numFloor = _hi_CToSDesign.NZRC();
-			for (int i = 1; i < numFloor + 1; i++)
-			{
-				int iFlr = i;
-				int nBeam = _hi_CToSDesign.NBeam(iFlr);
-				var idFlrBeams = _hi_CToSDesign.FlrBeams(iFlr, nBeam);
-
-				//Check if beam/brace is selected
-				if (selectedIds.ContainsKey(12))
-				{
-					for (int j = 0; j < nBeam; j++)
-					{
-						int no = _hi_CToSDesign.BeamONO(idFlrBeams[j]);
-						int flrNo = _hi_CToSDesign.BeamOFlr(idFlrBeams[j]);
-						int modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
-
-						if (selectedIds[12].Contains(modellingId))
-						{
-							int j1 = 0;
-							int j2 = 0;
-							_cToSDesign.BeamJD(idFlrBeams[j], ref j1, ref j2);
-
-							FeaMember member = AddMember(idFlrBeams[j], j1, j2, true);
-
-							//Record result (force)
-							_results.SetResultForBeam(iFlr, member, _loads);
-						}
-					}
-				}
-			}
-		}
-
-		private void GetBraces(Dictionary<int, List<int>> selectedIds)
-		{
-			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			var _cToSDesign = new Hi_CToSDesign();
-
-			int numFloor = _hi_CToSDesign.NZRC();
-			for (int i = 1; i < numFloor + 1; i++)
-			{
-				int iFlr = i;
-				int nBrace = _hi_CToSDesign.NBrace(iFlr);
-				var idFlrBraces = _hi_CToSDesign.FlrBraces(iFlr, nBrace);
-
-				//Check if beam/brace is selected
-				if (selectedIds.ContainsKey(12))
-				{
-					for (int j = 0; j < nBrace; j++)
-					{
-						int no = _hi_CToSDesign.BraceONO(idFlrBraces[j]);
-						int flrNo = _hi_CToSDesign.BraceOFlr(idFlrBraces[j]);
-						int modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_COLM, no, flrNo);
-
-						if (selectedIds[12].Contains(modellingId))
-						{
-							int j1 = 0;
-							int j2 = 0;
-							_cToSDesign.BraceJD(idFlrBraces[j], ref j1, ref j2);
-
-							FeaMember member = AddMember(idFlrBraces[j], j1, j2, true);
-
-							//Record result (force)
-							_results.SetResultForBrace(iFlr, member, _loads);
-						}
-					}
-				}
-			}
-		}
-
-		private FeaMember AddMember(int memberId, int j1, int j2, bool addNodeSelected)
-		{
 			float x1 = 0;
 			float y1 = 0;
 			float z1 = 0;
@@ -337,7 +278,32 @@ namespace yjk.FeaApis
 			float z2 = 0;
 			(x2, y2, z2) = GetNodeDetail(j2);
 
-			FeaMember member = new FeaMember(memberId, new FeaNode(j1, x1, y1, z1), new FeaNode(j2, x2, y2, z2), 1);
+			//Get cross section and material id
+			int yjkCrossSectionId = 0;
+			int matType = 0;
+			float matGrade = 0;
+			float matGrade2 = 0;
+			float matGrade3 = 0;
+			switch (memberType)
+			{
+				case MemberType.Column:
+					yjkCrossSectionId = _hi_CToSDesign.ColumnOLX(memberId);
+					_hi_CToSDesign.ColumnMat(memberId, ref matType, ref matGrade, ref matGrade2, ref matGrade3);
+					break;
+				case MemberType.Beam:
+					yjkCrossSectionId = _hi_CToSDesign.BeamOLX(memberId);
+					_hi_CToSDesign.BeamMat(memberId, ref matType, ref matGrade, ref matGrade2);
+					break;
+				case MemberType.Brace:
+					yjkCrossSectionId = _hi_CToSDesign.BraceOLX(memberId);
+					_hi_CToSDesign.BraceMat(memberId, ref matType, ref matGrade, ref matGrade2, ref matGrade3);
+					break;
+			}
+
+			int crossSectionId = _crossSection.GetCrossSectionId(memberId, memberType, yjkCrossSectionId, matType, matGrade, 
+				matGrade2, matGrade3, _materialApi);
+
+			FeaMember member = new FeaMember(memberId, new FeaNode(j1, x1, y1, z1), new FeaNode(j2, x2, y2, z2), crossSectionId, memberType);
 			_members.Add(member);
 
 			AddNode(j1, x1, y1, z1, addNodeSelected);

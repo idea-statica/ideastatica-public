@@ -8,23 +8,30 @@ using System.Linq;
 using yjk.FeaApis;
 using yjk.Helpers;
 using System.Threading;
+using CsToYjk;
+using System.Windows.Controls.Primitives;
+using IdeaRS.OpenModel.CrossSection;
 
 namespace yjk
 {
 	internal class Model : IFeaModel
 	{
 		private readonly IFeaGeometryApi geometry;
-		private readonly IFeaLoadsApi loads;
-		private readonly IFeaResultsApi results;
+		private readonly IFeaLoadsApi load;
+		private readonly IFeaResultsApi result;
+		private readonly IFeaCrossSectionApi crossSection;
+		private readonly IFeaMaterialApi materialApi;
 		private readonly IProgressMessaging messagingService;
 
 		private static int _entered = 0;
 
-		public Model(IFeaGeometryApi geometry, IFeaLoadsApi loads, IFeaResultsApi results, IProgressMessaging messagingService)
+		public Model(IFeaGeometryApi geometry, IFeaLoadsApi load, IFeaResultsApi result, IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi, IProgressMessaging messagingService)
 		{
 			this.geometry = geometry;
-			this.loads = loads;
-			this.results = results;
+			this.load = load;
+			this.result = result;
+			this.crossSection = crossSection;
+			this.materialApi = materialApi;
 			this.messagingService = messagingService;
 		}
 
@@ -58,6 +65,15 @@ namespace yjk
 			//Get selected IDs in YJK
 			Dictionary<int, List<int>> selectedIds = geometry.GetSelectedIds();
 
+			//Read model
+			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
+			ClrYJKSCommand yjkscmd = new ClrYJKSCommand();
+			yjkscmd.CsRunCommand("yjk_save");
+			APIData.Hi_DbModelData model = hi_AddToAndReadYjk.ReadFromYJK();
+
+			//Get cross sections
+			crossSection.ReadFromModel(model);
+
 			//Marshal back to YJK thread
 			YjkDispatcher.Invoke(() =>
 			{
@@ -70,12 +86,13 @@ namespace yjk
 				_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
 
 				//Get load cases and combinations
-				loads.GetLoadCasesAndCombos();
+				load.GetLoadCasesAndCombos();
 
-				//Reset result (forces)
-				results.ClearResults();
+				//Reset
+				result.ClearResults();
+				crossSection.ClearCrossSections();
 
-				geometry.GetSelected(selectedIds, loads, results);
+				geometry.GetSelected(selectedIds, load, result, crossSection, materialApi);
 
 				}
 				finally
@@ -107,7 +124,7 @@ namespace yjk
 
 		public IEnumerable<Identifier<IIdeaCombiInput>> GetAllCombinations()
 		{
-			return loads.GetLoadCombinationsIds()
+			return load.GetLoadCombinationsIds()
 				.Select(x => new IntIdentifier<IIdeaCombiInput>(x))
 				.Cast<Identifier<IIdeaCombiInput>>()
 				.ToList();

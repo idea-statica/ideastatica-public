@@ -70,7 +70,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>ModelBIM</returns>
 		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project, CountryCode countryCode)
 		{
-			//_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportStarted);
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportStarted);
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration, countryCode);
 
 			if (!(bimItems is null))
@@ -79,7 +79,7 @@ namespace IdeaStatiCa.BimImporter
 				int count = bimItems.Count();
 				foreach (IBimItem bimItem in bimItems)
 				{
-					//_remoteApp?.SetStageLocalised(i, count, bimItem is Member ? LocalisedMessage.ImportingMembers : LocalisedMessage.ImportingConnections);
+					_remoteApp?.SetStageLocalised(i, count, bimItem is Member ? LocalisedMessage.ImportingMembers : LocalisedMessage.ImportingConnections);
 					importContext.ImportBimItem(bimItem);
 					i++;
 				}
@@ -87,12 +87,12 @@ namespace IdeaStatiCa.BimImporter
 
 			if (!(objects is null))
 			{
-				//_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.InternalImport);
+				_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.InternalImport);
 				int i = 1;
 				int count = objects.Count();
 				foreach (IIdeaObject obj in objects)
 				{
-					//_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.ImportingIOMObject);
+					_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.ImportingIOMObject);
 					importContext.Import(obj);
 					i++;
 				}
