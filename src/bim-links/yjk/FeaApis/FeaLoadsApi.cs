@@ -75,10 +75,37 @@ namespace yjk.FeaApis
 			//Load combinations
 			var _hi_CToSDesign = new Hi_CToSDesign();
 
-			int nComKind = (int)PostGjKind.COM_COLUMN;
 			int nFloor = 1; //Take 1 random floor
+
 			int numCol = _hi_CToSDesign.NColumn(nFloor);
-			int nTotID = _hi_CToSDesign.FlrColumns(nFloor, numCol)[0]; //Take 1 random column
+			int nComKind = (int)PostGjKind.COM_COLUMN;
+			int nTotID = 0;
+
+			if (numCol > 0) 
+			{
+				nTotID = _hi_CToSDesign.FlrColumns(nFloor, numCol)[0]; //Take 1 random column
+			}
+			else
+			{
+				int numBeam = _hi_CToSDesign.NBeam(nFloor);
+				nComKind = (int)PostGjKind.COM_BEAM;
+
+				if (numBeam > 0)
+				{
+					nTotID = _hi_CToSDesign.FlrBeams(nFloor, numBeam)[0]; //Take 1 random beam
+				}
+				else
+				{
+					int numBrace = _hi_CToSDesign.NBrace(nFloor);
+					nComKind = (int)PostGjKind.COM_BRACE;
+
+					if (numBrace > 0)
+					{
+						nTotID = _hi_CToSDesign.FlrBraces(nFloor, numBrace)[0]; //Take 1 random brace
+					}
+				}
+			}
+
 			int nsectDSNType = (int)PostSectDsnType.SECTDSNTYPE_M; //Take 1 random load type
 
 			List<Dictionary<int, float>> vecLDCombCoe = new List<Dictionary<int, float>>();
