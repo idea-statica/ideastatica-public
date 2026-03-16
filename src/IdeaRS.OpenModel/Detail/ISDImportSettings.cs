@@ -14,11 +14,14 @@ namespace IdeaRS.OpenModel.Detail
 		public ISDImportSettings()
 		{
 			UseWizard = true;
+			IsUpdate = false;
 		}
 
 		/// <summary>
 		/// Open import wizard window
 		/// </summary>
 		public bool UseWizard { get; set; }
+
+		public bool IsUpdate { get; set; }
 	}
 }

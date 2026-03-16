@@ -13,5 +13,9 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		[DataMember]
 		public System.Int32 Id { get; set; }
+
+		
+		[DataMember]
+		public System.Int32 SyncId { get; set; }		
 	}
 }
