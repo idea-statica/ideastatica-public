@@ -1,11 +1,11 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Hooks;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApiLink.Persistence;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimApiLink.Scoping;
-using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using System;
@@ -40,7 +40,7 @@ namespace IdeaStatiCa.BimApiLink
 			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler,
-			bool highlightSelection = true):
+			bool highlightSelection = true) :
 			base(pluginLogger)
 		{
 			ApplicationName = applicationName;
@@ -59,7 +59,7 @@ namespace IdeaStatiCa.BimApiLink
 
 		public override void ActivateInBIM(List<BIMItemId> items)
 		{
-			if (_highlightSelection) 
+			if (_highlightSelection)
 			{
 				Task task = Task.Factory.StartNew(() =>
 				{
@@ -70,7 +70,7 @@ namespace IdeaStatiCa.BimApiLink
 				_taskScheduler);
 
 				task.GetAwaiter().GetResult();
-			}					
+			}
 		}
 
 		protected virtual void ActivateMethod(List<BIMItemId> items)
@@ -99,11 +99,19 @@ namespace IdeaStatiCa.BimApiLink
 		{
 			Task<ModelBIM> task = Task.Factory.StartNew(() =>
 			{
-				_logger.LogEventInformation(new BimConnectionsImportEvent(
-					   ApplicationName,
-					   Enum.GetName(typeof(RequestedItemsType), requestedType),
-					   Enum.GetName(typeof(CountryCode), countryCode))
-					);
+				try
+				{
+					_logger.LogEventInformation(new BimConnectionsImportEvent(
+						   ApplicationName,
+						   Enum.GetName(typeof(RequestedItemsType), requestedType),
+						   Enum.GetName(typeof(CountryCode), countryCode))
+						);
+				}
+				catch (Exception ex)
+				{
+					_logger.LogWarning("LogEventInformation failed", ex);
+				}
+
 				using (CreateScope(countryCode))
 				{
 					_pluginHook.EnterImport(countryCode);
@@ -133,10 +141,18 @@ namespace IdeaStatiCa.BimApiLink
 		{
 			Task<List<ModelBIM>> task = Task.Factory.StartNew(() =>
 			{
-				_logger.LogEventInformation(new BimConnectionsSynchronizeEvent(
+				try
+				{
+					_logger.LogEventInformation(new BimConnectionsSynchronizeEvent(
 					   ApplicationName,
 					   Enum.GetName(typeof(CountryCode), countryCode))
 					);
+				}
+				catch (Exception ex)
+				{
+					_logger.LogWarning("LogEventInformation failed", ex);
+				}
+
 				using (CreateScope(countryCode))
 				{
 					_pluginHook.EnterImport(countryCode);
