@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using IdeaRS.OpenModel.Detail;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Detail.Loading
 {
@@ -52,13 +54,18 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// <summary>
 	/// Representation of Point Load 3D in IDEA StatiCa Detail
 	/// </summary>
-	public class ForcesLoad3D : LoadBase
+	public class ForcesLoad3D : LoadBase, ISynchronization
 	{
 		public ForcesLoad3D() 
 			: base ()
 		{
 			Forces = new List<ForceLoad3D> ();
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public System.Int32 SyncId { get; set; }
 
 		/// <summary>
 		/// Name of 3D element

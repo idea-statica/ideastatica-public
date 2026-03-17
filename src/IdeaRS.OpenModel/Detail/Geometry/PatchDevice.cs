@@ -7,7 +7,7 @@ namespace IdeaRS.OpenModel.Detail
 	/// </summary>
 	[XmlInclude(typeof(PatchLoad))]
 	[XmlInclude(typeof(PatchSupport))]
-	public abstract class PatchDevice : OpenElementId
+	public abstract class PatchDevice : OpenElementId, ISynchronization
 	{
 		/// <summary>
 		/// Constructor
@@ -15,6 +15,11 @@ namespace IdeaRS.OpenModel.Detail
 		public PatchDevice()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public System.Int32 SyncId { get; set; }
 
 		/// <summary>
 		/// Id representing geometrical parts of Detail

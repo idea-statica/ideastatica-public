@@ -23,13 +23,18 @@ namespace IdeaRS.OpenModel.Detail
 	/// Representation of Solid Block in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(SolidBlock3D))]
-	public class SolidBlock3D : OpenElementId
+	public class SolidBlock3D : OpenElementId, ISynchronization
 	{
 		public SolidBlock3D()
 			: base()
 		{
 
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the code of the solid block:
