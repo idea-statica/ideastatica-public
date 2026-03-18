@@ -138,7 +138,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			if (profileItem.ProfileItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_SYMMETRICAL)
 			{
-				dHeight -= (dFlange * 2);
+				dHeight -= dFlange * 2;
 				CrossSectionFactory.FillWeldedI(cssParameter, dWidth, dHeight, dWeb, dFlange);
 			}
 			else
@@ -200,8 +200,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			}
 			double dFlangeThickness = ((double)cssProperties[PlateThicknessKey]).MilimetersToMeters();
 			double dRoundingRadius = ((double)cssProperties[RoundingRadiusKey]).MilimetersToMeters();
-			double r1 = (dRoundingRadius - dFlangeThickness > 0.001 ? dRoundingRadius - dFlangeThickness : 0.001);
-			double r2 = (dRoundingRadius > 0.001 ? dRoundingRadius : 0.001);
+			double r1 = dRoundingRadius - dFlangeThickness > 0.001 ? dRoundingRadius - dFlangeThickness : 0.001;
+			double r2 = dRoundingRadius > 0.001 ? dRoundingRadius : 0.001;
 
 			CrossSectionFactory.FillRolledRHS(cssParameter, dHeight, dWidth, dFlangeThickness, r1, r2, 0.001);
 			return cssParameter;
@@ -288,7 +288,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			var dWidth = ((double)cssProperties[TubeDiameterKey]).MilimetersToMeters();
 
 			//test min width 
-			dWidth = (dWidth >= MinCssDimension ? dWidth : MinCssDimension + 0.0001);
+			dWidth = dWidth >= MinCssDimension ? dWidth : MinCssDimension + 0.0001;
 
 			CrossSectionFactory.FillCircle(cssParameter, dWidth);
 			return cssParameter;
@@ -312,7 +312,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			double webEdgeRounding = 0.00001;
 
 			insideradius = insideradius > 0.001 ? insideradius : 0.001;
-			flangeEdgeRoundingRadius = (flangeEdgeRoundingRadius > 0.001 ? flangeEdgeRoundingRadius : 0.001);
+			flangeEdgeRoundingRadius = flangeEdgeRoundingRadius > 0.001 ? flangeEdgeRoundingRadius : 0.001;
 
 			CrossSectionFactory.FillRolledT(cssParameter, dWidth, dHeight, webThickness, flangethickness, insideradius, flangeEdgeRoundingRadius, webEdgeRounding, 0.00001, 0.00001);
 			return cssParameter;
@@ -388,7 +388,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 			var dWidth = par1Item.Value.MilimetersToMeters();
 			//test min width 
-			dWidth = (dWidth > MinCssDimension ? dWidth : MinCssDimension + 0.0001);
+			dWidth = dWidth > MinCssDimension ? dWidth : MinCssDimension + 0.0001;
 			CrossSectionFactory.FillCircle(cssParameter, dWidth);
 			return cssParameter;
 		}
@@ -631,7 +631,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_SYMMETRICAL
 					|| paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_SYMMETRICAL2)
 				{
-					CrossSectionFactory.FillWeldedI(cssParameter, dWidth, dHeight - 2 * dFlange, dWeb, dFlange);
+					CrossSectionFactory.FillWeldedI(cssParameter, dWidth, dHeight - (2 * dFlange), dWeb, dFlange);
 				}
 				else
 				{
@@ -990,7 +990,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double lip = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
 			}
 			else
 			{
@@ -998,15 +998,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
+				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
+				double lipB = par5Item.Value.MilimetersToMeters();
 				var dWidth = Math.Max(widthB, widthT);
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT);
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
 			}
 
 			return cssParameter;
@@ -1032,7 +1034,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			double lip = par3Item.Value.MilimetersToMeters();
 			var dWidth = par4Item.Value.MilimetersToMeters();
 
-			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
+			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
 			return cssParameter;
 		}
 
@@ -1056,7 +1058,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			double widthB = par5Item.Value.MilimetersToMeters();
 			var dWidth = Math.Max(widthB, widthT);
 
-			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
+			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
 			return cssParameter;
 		}
 
@@ -1122,7 +1124,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			double webThickness = par3Item.Value.MilimetersToMeters();
 			var dHeight = par2Item.Value.MilimetersToMeters();
 			double flangeThickness = par4Item.Value.MilimetersToMeters();
-			dHeight -= (flangeThickness * 2);
+			dHeight -= flangeThickness * 2;
 			CrossSectionFactory.FillWeldedAsymI(cssParameter, dWidth, dWidth, dHeight, webThickness, flangeThickness, flangeThickness);
 			return cssParameter;
 		}
@@ -1180,7 +1182,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			else
 			{
 				dHeight = par2Item.Value.MilimetersToMeters();
-				dHeight -= (flangeThickness * 2);
+				dHeight -= flangeThickness * 2;
 			}
 
 			CrossSectionFactory.FillRolledT(cssParameter, dWidth, dHeight, webThickness, flangeThickness, 0.00001, 0.00001, 0.00001, 0.00001, 0.00001);
