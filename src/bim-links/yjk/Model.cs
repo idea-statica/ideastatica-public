@@ -88,9 +88,8 @@ namespace yjk
 				//Get load cases and combinations
 				load.GetLoadCasesAndCombos();
 
-				//Reset
+				//Reset result
 				result.ClearResults();
-				crossSection.ClearCrossSections();
 
 				geometry.GetSelected(selectedIds, load, result, crossSection, materialApi);
 

@@ -32,6 +32,21 @@ namespace yjk.Importers
 		{
 			var lcs = geometry.GetMemberLcs(member.Id);
 
+/*			IdeaRS.OpenModel.Geometry3D.CoordSystemByVector localCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector() { };
+
+			if (member.Type == MemberType.Column)
+			{
+				localCoordinateSystem.VecX = ConvertVector(lcs.Y);
+				localCoordinateSystem.VecY = ConvertVector(lcs.X);
+				localCoordinateSystem.VecZ = ConvertVector(lcs.Z);
+			}
+			else
+			{
+				localCoordinateSystem.VecX = ConvertVector(lcs.X);
+				localCoordinateSystem.VecY = ConvertVector(lcs.Y);
+				localCoordinateSystem.VecZ = ConvertVector(lcs.Z);
+			}*/
+
 			return new Segment3D(member.Id)
 			{
 				StartNodeNo = member.BeginNodeId,

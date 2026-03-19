@@ -358,7 +358,7 @@ namespace yjk.FeaApis
 			if (memberX.IsParallelTo(globalZ))
 			{
 				// column
-				memberY = UnitVector3D.YAxis;
+				memberY = UnitVector3D.XAxis.Negate();
 			}
 			else
 			{

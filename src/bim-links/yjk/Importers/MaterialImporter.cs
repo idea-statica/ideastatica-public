@@ -31,7 +31,6 @@ namespace yjk.Importers
 						Fck = materialConcrete.Fck,
 					};
 
-
 					return new IdeaMaterialConcrete(id)
 					{
 						Name = materialConcrete.Name,
@@ -39,10 +38,6 @@ namespace yjk.Importers
 					};
 
 				case MaterialType.Steel:
-					MatSteelAISC matSteel = new MatSteelAISC()
-					{
-						fy = 500000
-					};
 
 					return new IdeaMaterialByName(id)
 					{

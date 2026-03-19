@@ -41,6 +41,27 @@ namespace yjk.FeaApis
 						case 80202:
 							matGrade2Translated = "Q345";
 							break;
+						case 80203:
+							matGrade2Translated = "Q390";
+							break;
+						case 80204:
+							matGrade2Translated = "Q420";
+							break;
+						case 80205:
+							matGrade2Translated = "Q460";
+							break;
+						case 80206:
+							matGrade2Translated = "Q500";
+							break;
+						case 80207:
+							matGrade2Translated = "Q550";
+							break;
+						case 80208:
+							matGrade2Translated = "Q620";
+							break;
+						case 80209:
+							matGrade2Translated = "Q690";
+							break;
 					}
 
 					//Look at available materials

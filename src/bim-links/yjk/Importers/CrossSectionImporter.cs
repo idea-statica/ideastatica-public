@@ -21,30 +21,29 @@ namespace yjk.Importers
 		{
 			IFeaCrossSection crossSection = crossSectionApi.GetCrossSection(id);
 
-			switch (crossSection.CrossSectionType)
+			if (crossSection.CrossSectionBy == CrossSectionBy.ByParameters)
 			{
-				case CrossSectionType.Rect:
-					List<Parameter> parameters = new List<Parameter>();
-					parameters.Add(new ParameterDouble { Name = "Width", Value = crossSection.ShapeParameters[0] });
-					parameters.Add(new ParameterDouble { Name = "Height", Value = crossSection.ShapeParameters[1] });
-
-					return new CrossSectionByParameters(id)
-					{
-						MaterialNo = 1,
-						Name = "IPE200",
-						Parameters = parameters.ToHashSet(),
-						Type = CrossSectionType.Rect,
-					};
-
+				return new CrossSectionByParameters(id)
+				{
+					MaterialNo = crossSection.MaterialId,
+					Name = crossSection.Name,
+					Parameters = crossSection.CrossSectionByParameters.Parameters.ToHashSet(),
+					Type = crossSection.CrossSectionByParameters.CrossSectionType,
+				};
 			}
-
-
-
+			else if (crossSection.CrossSectionBy == CrossSectionBy.ByName)
+			{
+				return new CrossSectionByName(id)
+				{
+					MaterialNo = crossSection.MaterialId,
+					Name = crossSection.Name,
+				};
+			}
 
 			return new CrossSectionByName(id)
 			{
-				MaterialNo = 1,
-				Name = "IPE200",
+				MaterialNo = crossSection.MaterialId,
+				Name = crossSection.Name,
 			};
 		}
 	}
