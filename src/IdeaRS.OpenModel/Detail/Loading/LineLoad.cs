@@ -62,7 +62,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// <summary>
 	/// Line load
 	/// </summary>
-	public class LineLoad : LoadBase
+	public class LineLoad : LoadBase, ISynchronization
 	{
 		/// <summary>
 		/// constructor
@@ -86,6 +86,11 @@ namespace IdeaRS.OpenModel.Detail.Loading
 			GeneralLine = null;
 			//LineVertexesInputData = new Line2DInputData();
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or set the name

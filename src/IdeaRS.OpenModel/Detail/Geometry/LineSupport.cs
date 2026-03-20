@@ -36,7 +36,7 @@ namespace IdeaRS.OpenModel.Detail
 	/// <summary>
 	/// Line support
 	/// </summary>
-	public class LineSupport : OpenElementId
+	public class LineSupport : OpenElementId, ISynchronization
 	{
 		/// <summary>
 		/// constructor
@@ -63,6 +63,11 @@ namespace IdeaRS.OpenModel.Detail
 			StiffnessY = 0.0;
 			StiffnessRz = 0.0;
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or set the name

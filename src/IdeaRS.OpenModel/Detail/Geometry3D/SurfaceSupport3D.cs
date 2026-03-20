@@ -20,13 +20,18 @@ namespace IdeaRS.OpenModel.Detail
 	/// Representation of Surface Support 3D in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(SurfaceSupport3D))]
-	public class SurfaceSupport3D : OpenElementId
+	public class SurfaceSupport3D : OpenElementId, ISynchronization
 	{
 		public SurfaceSupport3D()
 			: base()
 		{
 
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Name of 3D element

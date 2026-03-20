@@ -51,7 +51,7 @@
 	/// Representing hanging in IDEA StatiCa Detail
 	/// </summary>
 	[OpenModelClass(typeof(Reinforcement))]
-	public class Hanging : Reinforcement
+	public class Hanging : Reinforcement, ISynchronization
 	{
 		/// <summary>
 		/// Constructor
@@ -59,6 +59,11 @@
 		public Hanging()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Master component of hanging
