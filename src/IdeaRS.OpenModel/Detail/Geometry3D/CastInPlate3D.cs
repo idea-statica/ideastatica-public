@@ -17,13 +17,18 @@ namespace IdeaRS.OpenModel.Detail
 	/// Representation of Cast-in Plate3D 3D in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(CastInPlate3D))]
-	public class CastInPlate3D : OpenElementId
+	public class CastInPlate3D : OpenElementId, ISynchronization
 	{
 		public CastInPlate3D()
 			: base()
 		{
 			Fasteners = new List<ReferenceElement>();
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public System.Int32 SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the code of the base plate block:

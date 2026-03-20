@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Representation of 1D member in IDEA StatiCa Detail
 	/// </summary>
-	public class Beam : Model.Element1D, IGeometryPart
+	public class Beam : Model.Element1D, IGeometryPart, ISynchronization
 	{
 		/// <summary>
 		/// Constructor
@@ -12,6 +12,11 @@
 		{
 			Edges = new System.Collections.Generic.List<ReferenceElement>();
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public System.Int32 SyncId { get; set; }
 
 		/// <summary>
 		/// Id representing geometrical parts of Detail

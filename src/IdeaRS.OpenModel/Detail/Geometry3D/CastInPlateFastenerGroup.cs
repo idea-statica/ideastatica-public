@@ -4,11 +4,16 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel.Detail
 {
 	[XmlInclude(typeof(CastInPlateFastenerGroup))]
-	public class CastInPlateFastenerGroup : CastInPlateFastenerBase
+	public class CastInPlateFastenerGroup : CastInPlateFastenerBase, ISynchronization
 	{
 		public CastInPlateFastenerGroup()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public System.Int32 SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the rows of a fasteners positions.
