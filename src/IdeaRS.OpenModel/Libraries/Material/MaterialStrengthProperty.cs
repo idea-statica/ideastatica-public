@@ -9,7 +9,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Class defines the strength of material acc. to materieal thickness
 	/// </summary>
-	[OpenModelClass("IdeaRS.MprlModel.Material.MaterialStrengthProperty,CI.BasicTypes")]
+	[OpenModelClass("IdeaRS.MprlModel.Material.MaterialStrengthProperty,IdeaStatiCa.BasicTypes")]
 	[DataContract]
 	public class MaterialStrengthProperty : OpenObject
 	{

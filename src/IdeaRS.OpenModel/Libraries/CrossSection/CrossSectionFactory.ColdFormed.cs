@@ -261,5 +261,52 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterDouble() { Name = "Lip2Angle", Value = lip2Angle });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
+
+
+		/// <summary>
+		/// Cold-formed 2C closed section (back-to-back C sections)
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="width">Width</param>
+		/// <param name="height">Height</param>
+		/// <param name="lip">Lip length</param>
+		/// <param name="thickness">Thickness</param>
+		/// <param name="distance">Distance between C sections</param>
+		/// <param name="radius">Inside radius</param>
+		public static void FillColdFormedCF2Co(CrossSectionParameter css, double width, double height, double lip, double thickness, double distance, double radius)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CF2Co;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+		}
+
+		/// <summary>
+		/// Cold-formed 2C+ open section (back-to-back C+ sections)
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="width">Width</param>
+		/// <param name="height">Height</param>
+		/// <param name="lip">Length of the first lip</param>
+		/// <param name="thickness">Thickness</param>
+		/// <param name="distance">Distance between C+ sections</param>
+		/// <param name="radius">Inside radius</param>
+		/// <param name="lip2">Length of the second lip</param>
+		/// <param name="lip2Angle">Angle between lips</param>
+		public static void FillColdFormedCF2Cpo(CrossSectionParameter css, double width, double height, double lip, double thickness, double distance, double radius, double lip2, double lip2Angle)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CF2Cpo;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "Lip2Angle", Value = lip2Angle });
+			css.Parameters.Add(new ParameterDouble() { Name = "Lip2", Value = lip2 });
+		}
 	}
 }

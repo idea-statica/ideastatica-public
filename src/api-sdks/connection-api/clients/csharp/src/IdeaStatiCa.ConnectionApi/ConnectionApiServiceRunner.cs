@@ -63,7 +63,7 @@ namespace IdeaStatiCa.ConnectionApi
 						serviceProcess = new Process();
 						serviceProcess.StartInfo.FileName = apiExecutablePath;
 						serviceProcess.StartInfo.Arguments = arguments;
-						serviceProcess.StartInfo.UseShellExecute = true;
+						serviceProcess.StartInfo.UseShellExecute = false;
 
 						if(!serviceProcess.Start())
 						{

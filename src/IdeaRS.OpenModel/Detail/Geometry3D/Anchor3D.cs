@@ -118,13 +118,18 @@ namespace IdeaRS.OpenModel.Detail
 	/// Representation of Anchor 3D in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(Anchor3D))]
-	public class Anchor3D : OpenElementId
+	public class Anchor3D : OpenElementId, ISynchronization
 	{
 		public Anchor3D()
 			: base()
 		{
 
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Type of anchor

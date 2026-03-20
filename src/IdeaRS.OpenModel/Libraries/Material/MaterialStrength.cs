@@ -6,7 +6,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Strength of material with specific thickness range
 	/// </summary>
-	[OpenModelClass("IdeaRS.MprlModel.Material.MaterialStrength,CI.BasicTypes")]
+	[OpenModelClass("IdeaRS.MprlModel.Material.MaterialStrength,IdeaStatiCa.BasicTypes")]
 	[DataContract]
 	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MaterialStrength : OpenObject

@@ -51,7 +51,7 @@
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = d });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
-			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value =  w });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = wt });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = ft });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = 0 });
@@ -482,6 +482,70 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webTh });
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		/// <summary>
+		/// Box 2I - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="height">Height</param>
+		/// <param name="width">Width</param>
+		/// <param name="flangeThickness">Flange thickness</param>
+		/// <param name="webThickness">Web thickness</param>
+		/// <param name="flangeTapper">Flange tapper</param>
+		/// <param name="flangeEdgeRadius">Flange edge radius</param>
+		/// <param name="radius">Radius</param>
+		public static void FillBox2I(CrossSectionParameter css, double height, double width, double flangeThickness, double webThickness, double flangeTapper, double flangeEdgeRadius, double radius)
+		{
+			css.CrossSectionType = CrossSectionType.Box2I;
+
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = flangeThickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webThickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = flangeTapper });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeEdgeRadius", Value = flangeEdgeRadius });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+		}
+
+		/// <summary>
+		/// Box 2L - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="width">Width</param>
+		/// <param name="depth">Depth</param>
+		/// <param name="thickness">Thickness</param>
+		/// <param name="radius">Radius</param>
+		/// <param name="toeRadius">Toe radius</param>
+		public static void FillBox2L(CrossSectionParameter css, double width, double depth, double thickness, double radius, double toeRadius)
+		{
+			css.CrossSectionType = CrossSectionType.Box2L;
+
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = depth });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "ToeRadius", Value = toeRadius });
+		}
+
+		/// <summary>
+		/// Box 4L - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="width">Width</param>
+		/// <param name="depth">Depth</param>
+		/// <param name="thickness">Thickness</param>
+		/// <param name="radius">Radius</param>
+		/// <param name="toeRadius">Toe radius</param>
+		public static void FillBox4L(CrossSectionParameter css, double width, double depth, double thickness, double radius, double toeRadius)
+		{
+			css.CrossSectionType = CrossSectionType.Box4L;
+
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Depth", Value = depth });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "ToeRadius", Value = toeRadius });
 		}
 	}
 }

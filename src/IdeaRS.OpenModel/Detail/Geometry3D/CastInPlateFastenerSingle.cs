@@ -4,11 +4,16 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel.Detail
 {
 	[XmlInclude(typeof(CastInPlateFastenerSingle))]
-	public class CastInPlateFastenerSingle : CastInPlateFastenerBase
+	public class CastInPlateFastenerSingle : CastInPlateFastenerBase, ISynchronization
 	{
 		public CastInPlateFastenerSingle()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Positioning type relative to the master component.
