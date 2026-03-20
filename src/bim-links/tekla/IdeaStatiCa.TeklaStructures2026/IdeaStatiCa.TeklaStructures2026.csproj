@@ -15,6 +15,7 @@
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" />
 		<PackageReference Include="morelinq" />
 		<PackageReference Include="System.Management" />
+		<PackageReference Include="System.Memory" VersionOverride="4.6.3" />		
 		<PackageReference Include="Tekla.Structures" VersionOverride="2026.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<ExcludeAssets>runtime</ExcludeAssets>
