@@ -6696,8 +6696,22 @@
 							<Id>22</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-						<WeldThickness>0</WeldThickness>
-						<WeldType>Fillet</WeldType>
+
+						<WebWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</WebWeld>
+
+						<FlangeWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</FlangeWeld>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
@@ -6714,8 +6728,22 @@
 							<Id>23</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-						<WeldThickness>0</WeldThickness>
-						<WeldType>Fillet</WeldType>
+
+						<WebWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</WebWeld>
+
+						<FlangeWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</FlangeWeld>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
@@ -6732,8 +6760,22 @@
 							<Id>24</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-						<WeldThickness>0</WeldThickness>
-						<WeldType>Fillet</WeldType>
+
+						<WebWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</WebWeld>
+
+						<FlangeWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</FlangeWeld>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
@@ -6750,8 +6792,22 @@
 							<Id>22</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-						<WeldThickness>0</WeldThickness>
-						<WeldType>Fillet</WeldType>
+
+						<WebWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</WebWeld>
+
+						<FlangeWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</FlangeWeld>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
@@ -6768,8 +6824,22 @@
 							<Id>23</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-						<WeldThickness>0</WeldThickness>
-						<WeldType>Fillet</WeldType>
+
+						<WebWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</WebWeld>
+
+						<FlangeWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</FlangeWeld>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
@@ -6786,8 +6856,22 @@
 							<Id>24</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-						<WeldThickness>0</WeldThickness>
-						<WeldType>Fillet</WeldType>
+
+						<WebWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</WebWeld>
+
+						<FlangeWeld>
+
+							<Thickness>0</Thickness>
+
+							<WeldType>Fillet</WeldType>
+
+						</FlangeWeld>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
