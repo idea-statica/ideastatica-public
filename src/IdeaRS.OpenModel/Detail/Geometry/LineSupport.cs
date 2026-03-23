@@ -67,7 +67,7 @@ namespace IdeaRS.OpenModel.Detail
 		/// <summary>
 		/// Synchronization ID for element tracking during OpenModel to Detail updates.
 		/// </summary>
-		public System.Int32 SyncId { get; set; }
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or set the name
