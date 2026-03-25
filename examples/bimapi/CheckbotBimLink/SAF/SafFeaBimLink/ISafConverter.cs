@@ -10,6 +10,6 @@ namespace SafFeaBimLink
 
 		ModelBIM ImportMember(SAFModel model, CountryCode countryCode);
 
-		ModelBIM Import(SAFModel model, List<BIMItemId> items, CountryCode countryCode);
+		IReadOnlyList<ModelBIM> Import(SAFModel model, IEnumerable<BIMItemsGroup> groups, CountryCode countryCode);
 	}
 }

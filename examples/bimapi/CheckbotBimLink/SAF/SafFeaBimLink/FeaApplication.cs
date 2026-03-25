@@ -138,9 +138,7 @@ namespace SafFeaBimLink
 				SAFModel safModel = ConvertSafFile(path, countryCode);
 
 				_progressMessaging?.SetStage(1, 0, $"Processing {items.Count} models");
-				List<ModelBIM> models = items
-					.Select(x => _converter.Import(safModel, x.Items, countryCode))
-					.ToList();
+				List<ModelBIM> models = _converter.Import(safModel, items, countryCode).ToList();
 
 #if DEBUG
 				_progressMessaging?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.SavingData);
