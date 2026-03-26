@@ -17,7 +17,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override InsertionPoints InsertionPoint => InsertionPoints.Top;
 
-		protected override RamMemberProperties Properties { get; }
+		public override RamMemberProperties Properties { get; }
 
 		private readonly IGeometry _geometry;
 		private readonly IBeam _beam;
@@ -39,7 +39,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				SectionID = _beam.lSectionID,
 				SectionLabel = _beam.strSectionLabel,
 				Story = _beam.lStoryID,
-				CanBeSubdivided = true,
+				CanBeSubdivided = true,				
 			};
 
 			Init();
