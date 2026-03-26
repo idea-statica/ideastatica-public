@@ -1,7 +1,5 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
-using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.SAF2IOM;
@@ -39,21 +37,28 @@ namespace SafFeaBimLink
 			return importer.ImportMembers(countryCode);
 		}
 
-		public ModelBIM Import(SAFModel model, List<BIMItemId> items, CountryCode countryCode)
+		public IReadOnlyList<ModelBIM> Import(SAFModel model, IEnumerable<BIMItemsGroup> groups, CountryCode countryCode)
 		{
-			IEnumerable<IBimItem> bimItems = items.Select(x => CreateSyncItem(model, x));
+			IBimImporter importer = BimImporter.Create(model, _project, _pluginLogger, configuration: new SAFBimImporterConfiguration());
 
-			return _bimObjectImporter.Import(
-				Enumerable.Empty<IIdeaObject>(),
-				bimItems,
-				_project,
-				countryCode);
-		}
+			var grouped = groups.GroupBy(x => x.Type);
+			var retVal = new List<ModelBIM>();
 
-		private SyncItem CreateSyncItem(SAFModel model, BIMItemId item)
-		{
-			PersistenceToken token = (PersistenceToken)_project.GetPersistenceToken(item.Id);
-			return new SyncItem(item.Type, model.GetObject(token.SafId));
-		}
+			foreach (var group in grouped)
+			{
+				ModelBIM modelBim = group.Key switch
+				{
+					RequestedItemsType.Connections => importer.ImportConnections(countryCode),
+					RequestedItemsType.Substructure => importer.ImportMembers(countryCode),
+					RequestedItemsType.SingleConnection => importer.ImportSingleConnection(countryCode),
+					RequestedItemsType.WholeModel => importer.ImportWholeModel(countryCode),
+					RequestedItemsType.Members2D => importer.ImportMembers2D(countryCode),
+					_ => throw new NotSupportedException($"{group.Key} is not supported"),
+				};
+				retVal.Add(modelBim);
+			}
+
+			return retVal;			
+		}		
 	}
 }
