@@ -14,7 +14,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override MemberType MemberType => MemberType.HorizontalBrace;
 
-		protected override RamMemberProperties Properties { get; }
+		public override RamMemberProperties Properties { get; }
 
 		private readonly IHorizBrace _brace;
 

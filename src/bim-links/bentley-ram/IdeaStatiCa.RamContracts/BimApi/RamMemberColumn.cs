@@ -17,7 +17,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override InsertionPoints InsertionPoint { get; } = InsertionPoints.CenterOfGravity;
 
-		protected override RamMemberProperties Properties { get; }
+		public override RamMemberProperties Properties { get; }
 
 		private readonly IColumn _column;
 
@@ -25,7 +25,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			ISegmentFactory segmentFactory, IColumn column)
 			: base(objectFactory, sectionProvider, resultsFactory, geometry, segmentFactory)
 		{
-			_column = column;
+			_column = column;			
 
 			Properties = new RamMemberProperties()
 			{
@@ -38,6 +38,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				SectionLabel = _column.strSectionLabel,
 				Story = _column.lStoryID,
 				CanBeSubdivided = _column.eFramingType == EFRAMETYPE.MemberIsLateral,
+				StartNodeHasSupport = _column.bTorFixedBot >= 0 || 
+									_column.bMajAxisBendFixedBot >= 0 || 
+									_column.bMinAxisBendFixedBot >= 0,
+				EndNodeHasSupport = _column.bTorFixedTop >= 0 || 
+									_column.bMajAxisBendFixedTop >= 0 ||
+									_column.bMinAxisBendFixedTop >= 0
 			};
 
 			Init();

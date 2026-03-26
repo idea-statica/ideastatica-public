@@ -58,7 +58,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public abstract MemberType MemberType { get; }
 
-		protected abstract RamMemberProperties Properties { get; }
+		public abstract RamMemberProperties Properties { get; }
 
 		protected IResultsFactory ResultsFactory { get; }
 

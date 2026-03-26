@@ -55,8 +55,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public BulkSelection GetBulkSelection()
 		{
-			var nodes = new HashSet<IIdeaNode>();
-			var members = _members.ToHashSet();
+			var nodes = GetAllSupports();
+			var members = _members;
 
 			return new BulkSelection(nodes, members);
 		}
@@ -94,6 +94,26 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 		}
 
+		private HashSet<IIdeaNode> GetAllSupports()
+		{
+			var supports = new HashSet<IIdeaNode>();
+			foreach (var member in _members)
+			{
+				if (member is RamMemberColumn column)
+				{
+					if (column.Properties.StartNodeHasSupport)
+					{ 
+						supports.Add(column.Elements.First().Segment.StartNode);
+					}
+					if (column.Properties.EndNodeHasSupport)
+					{
+						supports.Add(column.Elements.Last().Segment.EndNode);
+					}
+				}
+			}
+			return supports;
+		}
+
 		private IEnumerable<IIdeaMember1D> GetAllStoryMembers(IStory story)
 		{
 			IEnumerable<IIdeaMember1D> a = GetColumns(story).Select(x => _objectFactory.GetColumn(x));
@@ -110,7 +130,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			int count = columns.GetCount();
 
 			for (int i = 0; i < count; i++)
-			{
+			{				
 				yield return columns.GetAt(i);
 			}
 		}

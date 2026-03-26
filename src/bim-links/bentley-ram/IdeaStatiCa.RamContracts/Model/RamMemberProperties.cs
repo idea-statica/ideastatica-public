@@ -13,5 +13,7 @@ namespace IdeaStatiCa.RamToIdea.Model
 		public int MaterialUID;
 		public int Story;
 		public bool CanBeSubdivided;
+		public bool StartNodeHasSupport;
+		public bool EndNodeHasSupport;
 	}
 }
