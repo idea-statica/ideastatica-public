@@ -40,7 +40,7 @@ class ReportExtApi(ReportApi):
         response = super().generate_pdf_for_mutliple_with_http_info(
             project_id,
             connection_ids,
-            "application/octet-stream"
+            _content_type="application/octet-stream"
         )
         with open(file_name, 'wb') as file:
             file.write(response.raw_data)
@@ -76,7 +76,7 @@ class ReportExtApi(ReportApi):
         response = super().generate_word_for_multiple_with_http_info(
             project_id,
             connection_ids,
-            "application/octet-stream"
+            _content_type="application/octet-stream"
         )
         with open(file_name, 'wb') as file:
             file.write(response.raw_data)
