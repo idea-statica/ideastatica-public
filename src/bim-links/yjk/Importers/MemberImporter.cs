@@ -5,6 +5,7 @@ using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;
+using static yjk.Helpers.UnitConverter;
 
 namespace yjk.Importers
 {
@@ -24,7 +25,12 @@ namespace yjk.Importers
 			{
 				Type = IdeaRS.OpenModel.Model.Member1DType.Beam,
 				CrossSectionNo = member.CrossSectionId,
-				Elements = new List<IIdeaElement1D>() { new IdeaElement1D(id) { Segment = CreateSegment(member), }, },
+				Elements = new List<IIdeaElement1D>() { 
+					new IdeaElement1D(id) { 
+							Segment = CreateSegment(member), 
+							RotationRx = DegToRad(member.RotationAngle)
+					}, 
+				},
 			};
 		}
 

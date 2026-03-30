@@ -72,7 +72,7 @@ namespace yjk
 			APIData.Hi_DbModelData model = hi_AddToAndReadYjk.ReadFromYJK();
 
 			//Get cross sections
-			crossSection.ReadFromModel(model);
+			geometry.ReadFromModel(model);
 
 			//Marshal back to YJK thread
 			YjkDispatcher.Invoke(() =>

@@ -19,6 +19,8 @@ namespace yjk.FeaApis
 		void SetResultForColumn(int iFlr, FeaMember member, IFeaLoadsApi loads);
 		void SetResultForBeam(int iFlr, FeaMember member, IFeaLoadsApi loads);
 		void SetResultForBrace(int iFlr, FeaMember member, IFeaLoadsApi loads);
+
+		void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType);
 		void ClearResults();
 	}
 
@@ -71,7 +73,7 @@ namespace yjk.FeaApis
 			{
 				int nSect = 0;
 				float[,] force = new float[0, 0];
-				_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, 1, 1, ref nSect, ref force);
+				_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
 				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
 			}
 
@@ -86,14 +88,41 @@ namespace yjk.FeaApis
 			{
 				int nSect = 0;
 				float[,] force = new float[0, 0];
-				_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, 1, 1, ref nSect, ref force);
+				_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
 				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
 			}
 
 			_resultsForMembers.Add(member.Id, feaMemberResults);
 		}
 
-		public List<IFeaMemberResult> GetFeaMemberResult(FeaMember member, int nSect, float[,] force, int loadCaseId)
+		public void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType)
+		{
+			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
+
+			foreach (int loadCaseId in loads.GetLoadCasesIds())
+			{
+				int nSect = 0;
+				float[,] force = new float[0, 0];
+
+				switch (memberType)
+				{
+					case MemberType.Column:
+						_Hi_DesignData.dsnGetColumnStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+						break;
+					case MemberType.Beam:
+						_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+						break;
+					case MemberType.Brace:
+						_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+						break;
+				}
+				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
+			}
+
+			_resultsForMembers.Add(member.Id, feaMemberResults);
+		}
+
+		private List<IFeaMemberResult> GetFeaMemberResult(FeaMember member, int nSect, float[,] force, int loadCaseId)
 		{
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 

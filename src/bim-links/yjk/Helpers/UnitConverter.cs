@@ -9,10 +9,14 @@ namespace yjk.Helpers
 {
 	internal static class UnitConverter
 	{
-		public static double CrossSectionDim(double dimension)
+		public static double MmToM(double mm)
 		{
-			//mm to m
-			return dimension / 1000;
+			return mm / 1000;
+		}
+
+		public static double DegToRad(double degree)
+		{
+			return degree * Math.PI / 180;
 		}
 	}
 }

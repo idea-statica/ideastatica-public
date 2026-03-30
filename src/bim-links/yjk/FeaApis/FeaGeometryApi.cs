@@ -26,6 +26,8 @@ namespace yjk.FeaApis
 		Dictionary<int, List<int>> GetSelectedIds();
 		void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result, 
 			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi);
+
+		void ReadFromModel(APIData.Hi_DbModelData model);
 	}
 
 	internal class FeaGeometryApi : IFeaGeometryApi
@@ -40,6 +42,9 @@ namespace yjk.FeaApis
 		private IFeaLoadsApi _load;
 		private IFeaCrossSectionApi _crossSection;
 		private IFeaMaterialApi _materialApi;
+		private APIData.Hi_DbModelData _model;
+
+		public void ReadFromModel(APIData.Hi_DbModelData model){ _model = model; }
 
 		public IFeaMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
 
@@ -87,11 +92,10 @@ namespace yjk.FeaApis
 			GetConnectedMembers(nodesCopy, MemberType.Brace);
 		}
 
-		private void GetConnectedMembers(List<IFeaNode> nodesCopy, MemberType type)
+		private void GetConnectedMembers(List<IFeaNode> nodesCopy, MemberType memberType)
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			var _cToSDesign = new Hi_CToSDesign();
 
 			int numFloor = _hi_CToSDesign.NZRC();
 			for (int i = 1; i < numFloor + 1; i++)
@@ -100,7 +104,7 @@ namespace yjk.FeaApis
 
 				int nMember = 0;
 				List<int> idFlrMembers = new List<int>();
-				switch (type)
+				switch (memberType)
 				{
 					case MemberType.Column:
 						nMember = _hi_CToSDesign.NColumn(iFlr);
@@ -122,16 +126,16 @@ namespace yjk.FeaApis
 					int j2 = 0;
 					FeaMember member = null;
 
-					switch (type)
+					switch (memberType)
 					{
 						case MemberType.Column:
-							_cToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
+							_hi_CToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
 							break;
 						case MemberType.Beam:
-							_cToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
+							_hi_CToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
 							break;
 						case MemberType.Brace:
-							_cToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
+							_hi_CToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
 							break;
 					}
 
@@ -143,23 +147,12 @@ namespace yjk.FeaApis
 
 							if (!exists)
 							{
-								member = AddMember(idFlrMembers[j], j1, j2, false, type);
+								int modellingId = GetModellingId(idFlrMembers[j], memberType);
+								double rotationAngle = GetRotationAngle(modellingId, memberType);
+								member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
 
-								switch (type)
-								{
-									case MemberType.Column:
-										//Record result (force)
-										_result.SetResultForColumn(iFlr, member, _load);
-										break;
-									case MemberType.Beam:
-										//Record result (force)
-										_result.SetResultForBeam(iFlr, member, _load);
-										break;
-									case MemberType.Brace:
-										//Record result (force)
-										_result.SetResultForBrace(iFlr, member, _load);
-										break;
-								}
+								//Record result (force)
+								_result.SetResult(iFlr, member, _load, memberType);
 							}
 						}
 					}
@@ -167,11 +160,10 @@ namespace yjk.FeaApis
 			}
 		}
 
-		private void GetMembers(Dictionary<int, List<int>> selectedIds, MemberType type)
+		private void GetMembers(Dictionary<int, List<int>> selectedIds, MemberType memberType)
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			var _cToSDesign = new Hi_CToSDesign();
 
 			int numFloor = _hi_CToSDesign.NZRC();
 			for (int i = 1; i < numFloor + 1; i++)
@@ -181,7 +173,7 @@ namespace yjk.FeaApis
 				int nMember = 0;
 				List<int> idFlrMembers = new List<int>();
 				int keyToCheck = 0;
-				switch (type)
+				switch (memberType)
 				{
 					case MemberType.Column:
 						nMember = _hi_CToSDesign.NColumn(iFlr);
@@ -203,31 +195,9 @@ namespace yjk.FeaApis
 				//Check if column is selected
 				if (selectedIds.ContainsKey(keyToCheck))
 				{
-
 					for (int j = 0; j < nMember; j++)
 					{
-						int no = 0;
-						int flrNo = 0;
-						int modellingId = 0;
-
-						switch (type)
-						{
-							case MemberType.Column:
-								no = _hi_CToSDesign.ColumnONO(idFlrMembers[j]);
-								flrNo = _hi_CToSDesign.ColumnOFlr(idFlrMembers[j]);
-								modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_COLM, no, flrNo);
-								break;
-							case MemberType.Beam:
-								no = _hi_CToSDesign.BeamONO(idFlrMembers[j]);
-								flrNo = _hi_CToSDesign.BeamOFlr(idFlrMembers[j]);
-								modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
-								break;
-							case MemberType.Brace:
-								no = _hi_CToSDesign.BraceONO(idFlrMembers[j]);
-								flrNo = _hi_CToSDesign.BraceOFlr(idFlrMembers[j]);
-								modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
-								break;
-						}
+						int modellingId = GetModellingId(idFlrMembers[j], memberType);
 
 						if (selectedIds[keyToCheck].Contains(modellingId))
 						{
@@ -235,36 +205,87 @@ namespace yjk.FeaApis
 							int j2 = 0;
 							FeaMember member = null;
 
-							switch (type)
+							double rotationAngle = GetRotationAngle(modellingId, memberType);
+
+							switch (memberType)
 							{
 								case MemberType.Column:
-									_cToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
-									member = AddMember(idFlrMembers[j], j1, j2, true, type);
-									//Record result (force)
-									_result.SetResultForColumn(iFlr, member, _load);
+									_hi_CToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
+									member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
 									break;
 								case MemberType.Beam:
-									_cToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
-									member = AddMember(idFlrMembers[j], j1, j2, true, type);
-									//Record result (force)
-									_result.SetResultForBeam(iFlr, member, _load);
+									_hi_CToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
+									member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
 									break;
 								case MemberType.Brace:
-									_cToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
-									member = AddMember(idFlrMembers[j], j1, j2, true, type);
-									//Record result (force)
-									_result.SetResultForBrace(iFlr, member, _load);
+									_hi_CToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
+									member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
 									break;
 							}
 
-
+							//Record result (force)
+							_result.SetResult(iFlr, member, _load, memberType);
 						}
 					}
 				}
 			}
 		}
 
-		private FeaMember AddMember(int memberId, int j1, int j2, bool addNodeSelected, MemberType memberType)
+		private int GetModellingId(int memberId, MemberType memberType)
+		{
+			var _hi_CToSDesign = new Hi_CToSDesign();
+			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
+
+			int no = 0;
+			int flrNo = 0;
+			int modellingId = 0;
+
+			switch (memberType)
+			{
+				case MemberType.Column:
+					no = _hi_CToSDesign.ColumnONO(memberId);
+					flrNo = _hi_CToSDesign.ColumnOFlr(memberId);
+					modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_COLM, no, flrNo);
+					return modellingId;
+				case MemberType.Beam:
+					no = _hi_CToSDesign.BeamONO(memberId);
+					flrNo = _hi_CToSDesign.BeamOFlr(memberId);
+					modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
+					return modellingId;
+				case MemberType.Brace:
+					no = _hi_CToSDesign.BraceONO(memberId);
+					flrNo = _hi_CToSDesign.BraceOFlr(memberId);
+					modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
+					return modellingId;
+			}
+			return -1;
+		}
+
+		private double GetRotationAngle(int modellingId, MemberType memberType)
+		{
+			switch (memberType)
+			{
+				case MemberType.Column:
+					{
+						Mdl_ColSeg segment = _model.m_ColSeg.FirstOrDefault(m => m.ID == modellingId);
+						return segment.Rotation;
+					}
+				case MemberType.Beam:
+					{
+						Mdl_BeamSeg segment = _model.m_BeamSeg.FirstOrDefault(m => m.ID == modellingId);
+						return segment.Rotation;
+					}
+				case MemberType.Brace:
+					{
+						Mdl_BraceSeg segment = _model.m_BraceSeg.FirstOrDefault(m => m.ID == modellingId);
+						return segment.Rotation;
+					}
+			}
+
+			return -1;
+		}
+
+		private FeaMember AddMember(int memberId, int j1, int j2, bool addNodeSelected, MemberType memberType, double rotationAngle)
 		{
 			var _hi_CToSDesign = new Hi_CToSDesign();
 
@@ -301,9 +322,10 @@ namespace yjk.FeaApis
 			}
 
 			int crossSectionId = _crossSection.GetCrossSectionId(memberId, memberType, yjkCrossSectionId, matType, matGrade, 
-				matGrade2, matGrade3, _materialApi);
+				matGrade2, matGrade3, _materialApi, _model);
 
-			FeaMember member = new FeaMember(memberId, new FeaNode(j1, x1, y1, z1), new FeaNode(j2, x2, y2, z2), crossSectionId, memberType);
+			FeaMember member = new FeaMember(memberId, new FeaNode(j1, x1, y1, z1), new FeaNode(j2, x2, y2, z2), 
+				crossSectionId, memberType, rotationAngle);
 			_members.Add(member);
 
 			AddNode(j1, x1, y1, z1, addNodeSelected);

@@ -14,27 +14,21 @@ namespace yjk.FeaApis
 {
 	public interface IFeaCrossSectionApi
 	{
-		void ReadFromModel(APIData.Hi_DbModelData model);
-		int GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi);
+		int GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
+			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi, APIData.Hi_DbModelData model);
 		IFeaCrossSection GetCrossSection(int id);
 		void ClearCrossSections();
 	}
 
 	internal class FeaCrossSectionApi : IFeaCrossSectionApi
 	{
-		APIData.Hi_DbModelData _model;
 		List<FeaCrossSection> _crossSections = new List<FeaCrossSection>();
 		int _id = 1;
 
 		public void ClearCrossSections() { _crossSections.Clear(); }
 
-		public void ReadFromModel(APIData.Hi_DbModelData model)
-		{
-			_model = model;
-		}
-
 		public int GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
-			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi)
+			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi, APIData.Hi_DbModelData model)
 		{
 			int materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
 
@@ -53,7 +47,7 @@ namespace yjk.FeaApis
 
 			string name = "";
 			CrossSectionBy crossSectionBy = CrossSectionBy.ByParameters;
-			(name, crossSectionBy) = CreateCrossSection(css, yjkCrossSectionId, memberType);
+			(name, crossSectionBy) = CreateCrossSection(css, yjkCrossSectionId, memberType, model);
 
 			_crossSections.Add(new FeaCrossSection(_id, yjkCrossSectionId, name, materialId, memberType, css, crossSectionBy));
 			_id++;
@@ -61,22 +55,23 @@ namespace yjk.FeaApis
 			return _id - 1;
 		}
 
-		public (string, CrossSectionBy) CreateCrossSection(CrossSectionParameter css, int yjkCrossSectionId, MemberType memberType)
+		private (string, CrossSectionBy) CreateCrossSection(CrossSectionParameter css, int yjkCrossSectionId, 
+			MemberType memberType, APIData.Hi_DbModelData model)
 		{
 			Mdl_Section section = new Mdl_Section();
 
 			switch (memberType)
 			{
 				case MemberType.Column:
-					section = _model.m_ColSect.FirstOrDefault(m => m.No == yjkCrossSectionId);
+					section = model.m_ColSect.FirstOrDefault(m => m.No == yjkCrossSectionId);
 					break;
 
 				case MemberType.Beam:
-					section = _model.m_BeamSect.FirstOrDefault(m => m.No == yjkCrossSectionId);
+					section = model.m_BeamSect.FirstOrDefault(m => m.No == yjkCrossSectionId);
 					break;
 
 				case MemberType.Brace:
-					section = _model.m_BraceSect.FirstOrDefault(m => m.No == yjkCrossSectionId);
+					section = model.m_BraceSect.FirstOrDefault(m => m.No == yjkCrossSectionId);
 					break;
 			}
 
@@ -92,8 +87,8 @@ namespace yjk.FeaApis
 				//Rectangle
 				case 1:
 					{
-						double width = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
+						double width = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
 
 						CrossSectionFactory.FillRectangle(css, width, height);
 						break;
@@ -103,12 +98,12 @@ namespace yjk.FeaApis
 				case 2:
 					{
 
-						double webThk = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double upperFlangeWidth = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double upperFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
-						double bottomFlageWidth = CrossSectionDim(double.Parse(splitShapeVal[5]));
-						double bottomFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[6]));
+						double webThk = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double upperFlangeWidth = MmToM(double.Parse(splitShapeVal[3]));
+						double upperFlangeThk = MmToM(double.Parse(splitShapeVal[4]));
+						double bottomFlageWidth = MmToM(double.Parse(splitShapeVal[5]));
+						double bottomFlangeThk = MmToM(double.Parse(splitShapeVal[6]));
 
 						if (upperFlangeWidth == bottomFlageWidth && upperFlangeThk == bottomFlangeThk)
 						{
@@ -128,7 +123,7 @@ namespace yjk.FeaApis
 				//Circle
 				case 3:
 					{
-						double diameter = CrossSectionDim(double.Parse(splitShapeVal[1]));
+						double diameter = MmToM(double.Parse(splitShapeVal[1]));
 						CrossSectionFactory.FillCircle(css, diameter);
 						break;
 					}
@@ -137,8 +132,8 @@ namespace yjk.FeaApis
 				case 4:
 					{
 						//Not implemented, use filled circle
-						double diameter = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double numSides = CrossSectionDim(double.Parse(splitShapeVal[2]));
+						double diameter = MmToM(double.Parse(splitShapeVal[1]));
+						double numSides = MmToM(double.Parse(splitShapeVal[2]));
 
 						CrossSectionFactory.FillCircle(css, diameter);
 						break;
@@ -147,12 +142,12 @@ namespace yjk.FeaApis
 				//Channel
 				case 5:
 					{
-						double webThk = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double topFlangeWidth = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double topFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
-						double bottomFlangeWidth = CrossSectionDim(double.Parse(splitShapeVal[5]));
-						double bottomFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[6]));
+						double webThk = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double topFlangeWidth = MmToM(double.Parse(splitShapeVal[3]));
+						double topFlangeThk = MmToM(double.Parse(splitShapeVal[4]));
+						double bottomFlangeWidth = MmToM(double.Parse(splitShapeVal[5]));
+						double bottomFlangeThk = MmToM(double.Parse(splitShapeVal[6]));
 
 						if (topFlangeWidth == bottomFlangeWidth && topFlangeThk == bottomFlangeThk)
 						{
@@ -170,12 +165,12 @@ namespace yjk.FeaApis
 				//Box
 				case 7:
 					{
-						double width = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double topFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double leftFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
-						double bottomFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[5]));
-						double rightFlangeThk = CrossSectionDim(double.Parse(splitShapeVal[6]));
+						double width = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double topFlangeThk = MmToM(double.Parse(splitShapeVal[3]));
+						double leftFlangeThk = MmToM(double.Parse(splitShapeVal[4]));
+						double bottomFlangeThk = MmToM(double.Parse(splitShapeVal[5]));
+						double rightFlangeThk = MmToM(double.Parse(splitShapeVal[6]));
 
 						if (leftFlangeThk == rightFlangeThk)
 						{
@@ -193,8 +188,8 @@ namespace yjk.FeaApis
 				//Circular hollow section
 				case 8:
 					{
-						double outerDiameter = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double innerDiameter = CrossSectionDim(double.Parse(splitShapeVal[2]));
+						double outerDiameter = MmToM(double.Parse(splitShapeVal[1]));
+						double innerDiameter = MmToM(double.Parse(splitShapeVal[2]));
 
 						CrossSectionFactory.FillRolledCHS(css, outerDiameter * 0.5, (outerDiameter - innerDiameter) * 0.5);
 
@@ -204,12 +199,12 @@ namespace yjk.FeaApis
 				//Double channel 2Uc
 				case 9:
 					{
-						double webThk = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double topFlangeWidth = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double flangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
-						double bottomFlangeWidth = CrossSectionDim(double.Parse(splitShapeVal[5]));
-						double spacing = CrossSectionDim(double.Parse(splitShapeVal[6]));
+						double webThk = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double topFlangeWidth = MmToM(double.Parse(splitShapeVal[3]));
+						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
+						double bottomFlangeWidth = MmToM(double.Parse(splitShapeVal[5]));
+						double spacing = MmToM(double.Parse(splitShapeVal[6]));
 
 						if (topFlangeWidth == bottomFlangeWidth)
 						{
@@ -229,10 +224,10 @@ namespace yjk.FeaApis
 				//L
 				case 28:
 					{
-						double webThk = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double flangeWidth = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double flangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
+						double webThk = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double flangeWidth = MmToM(double.Parse(splitShapeVal[3]));
+						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
 
 						if (webThk == flangeThk)
 						{
@@ -250,10 +245,10 @@ namespace yjk.FeaApis
 				//T
 				case 29:
 					{
-						double webThk = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double flangeWidth = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double flangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
+						double webThk = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double flangeWidth = MmToM(double.Parse(splitShapeVal[3]));
+						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
 
 						CrossSectionFactory.FillRolledT(css, flangeWidth, height, webThk, flangeThk, 0, 0, 0, 0, 0, true);
 
@@ -266,10 +261,10 @@ namespace yjk.FeaApis
 						Debug.WriteLine("a");
 
 
-						double webThk = CrossSectionDim(double.Parse(splitShapeVal[1]));
-						double height = CrossSectionDim(double.Parse(splitShapeVal[2]));
-						double flangeWidth = CrossSectionDim(double.Parse(splitShapeVal[3]));
-						double flangeThk = CrossSectionDim(double.Parse(splitShapeVal[4]));
+						double webThk = MmToM(double.Parse(splitShapeVal[1]));
+						double height = MmToM(double.Parse(splitShapeVal[2]));
+						double flangeWidth = MmToM(double.Parse(splitShapeVal[3]));
+						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
 
 						CrossSectionFactory.FillRolledT(css, flangeWidth, height, webThk, flangeThk, 0, 0, 0, 0, 0);
 
