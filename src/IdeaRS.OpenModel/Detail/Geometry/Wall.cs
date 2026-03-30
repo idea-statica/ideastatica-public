@@ -7,7 +7,7 @@ namespace IdeaRS.OpenModel.Detail
 	/// Representation of Wall in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(WallRect))]
-	public class Wall : Model.Element2D, IGeometryPart
+	public class Wall : Model.Element2D, IGeometryPart, ISynchronization
 	{
 		/// <summary>
 		/// Constructor
@@ -16,6 +16,11 @@ namespace IdeaRS.OpenModel.Detail
 		{
 			Edges = new System.Collections.Generic.List<ReferenceElement>();
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Id representing geometrical parts of Detail

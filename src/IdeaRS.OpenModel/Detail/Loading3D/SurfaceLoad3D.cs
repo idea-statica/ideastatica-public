@@ -5,7 +5,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// <summary>
 	/// Representation of Surface Load 3D in IDEA StatiCa Detail
 	/// </summary>
-	public class SurfaceLoad3D : LoadBase
+	public class SurfaceLoad3D : LoadBase, ISynchronization
 	{
 		public SurfaceLoad3D()
 			: base()
@@ -13,6 +13,10 @@ namespace IdeaRS.OpenModel.Detail.Loading
 		
 		}
 
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 		/// <summary>
 		/// Name of 3D element
 		/// </summary>

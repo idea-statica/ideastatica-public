@@ -19,6 +19,7 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel
 {
 	///Version history
+	/// V3.2 10.03.2026 Added WebWeld and FlangeWeld to CutBeamByBeamData for separate web/flange weld definitions
 	/// V3.1 05.12.2025 Added GeneralCrossSection
 	/// V3.0 24.9.2025 Replaced Eccentricity properties by a single vector. Added CardinalPoint and EccentricityReference to Element1D
 	/// V2.2 19.6.2025 Added new property 'ReferencedGeometry' to 'LoadOnSurface' object
@@ -40,7 +41,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = "3.1.0";
+			Version = "3.2.0";
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();

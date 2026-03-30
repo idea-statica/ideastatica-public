@@ -14,11 +14,21 @@ namespace IdeaRS.OpenModel.Detail
 		public ISDImportSettings()
 		{
 			UseWizard = true;
+			IsUpdate = false;
+			UseSync = false;
 		}
 
 		/// <summary>
 		/// Open import wizard window
 		/// </summary>
 		public bool UseWizard { get; set; }
+
+		public bool IsUpdate { get; set; }
+
+		/// <summary>
+		/// Enable synchronization data tracking (SyncId and SyncData file).
+		/// When false, no synchronization file will be created and SyncIds will not be used.
+		/// </summary>
+		public bool UseSync { get; set; }
 	}
 }

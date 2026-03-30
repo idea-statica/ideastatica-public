@@ -36,12 +36,17 @@ namespace IdeaRS.OpenModel.Detail
 	/// Representation of Base Plate 3D in IDEA StatiCa Detail
 	/// </summary>
 	[XmlInclude(typeof(BasePlate3D))]
-	public class BasePlate3D : OpenElementId
+	public class BasePlate3D : OpenElementId, ISynchronization
 	{
 		public BasePlate3D()
 			: base()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the code of the base plate block:

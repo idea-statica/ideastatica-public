@@ -53,6 +53,7 @@ docs/ConProductionCost.md
 docs/ConProject.md
 docs/ConProjectData.md
 docs/ConResultSummary.md
+docs/ConStiffnessAnalysis.md
 docs/ConTemplateApplyParam.md
 docs/ConTemplateApplyResult.md
 docs/ConTemplateMappingGetParam.md
@@ -185,6 +186,7 @@ ideastatica_connection_api/models/con_production_cost.py
 ideastatica_connection_api/models/con_project.py
 ideastatica_connection_api/models/con_project_data.py
 ideastatica_connection_api/models/con_result_summary.py
+ideastatica_connection_api/models/con_stiffness_analysis.py
 ideastatica_connection_api/models/con_template_apply_param.py
 ideastatica_connection_api/models/con_template_apply_result.py
 ideastatica_connection_api/models/con_template_mapping_get_param.py

@@ -8,6 +8,7 @@
 		public double LCSPrecisionForNormalization { get; set; }
 		public bool ThrowOnResultsDuplicate { get; set; }
 		public bool IgnoreOutOfBoundsResultSections { get; set; }
+		public bool AutoCreateConnFromTwoMembers { get; set; }
 
 		public BimImporterConfiguration()
 		{
@@ -17,6 +18,7 @@
 			LCSPrecisionForNormalization = 1e-6;
 			ThrowOnResultsDuplicate = false;
 			IgnoreOutOfBoundsResultSections = true;
+			AutoCreateConnFromTwoMembers = true;
 		}
 	}
 }

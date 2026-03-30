@@ -3,12 +3,17 @@
 	/// <summary>
 	/// Representation of Point Load 3D in IDEA StatiCa Detail
 	/// </summary>
-	public class PointLoad3D : LoadBase
+	public class PointLoad3D : LoadBase, ISynchronization
 	{
 		public PointLoad3D() 
 			: base ()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Name of 3D element

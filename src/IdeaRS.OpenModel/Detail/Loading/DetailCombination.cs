@@ -54,7 +54,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// <summary>
 	/// Load case
 	/// </summary>
-	public class DetailCombination : CalculationCase
+	public class DetailCombination : CalculationCase, ISynchronization
 	{
 		/// <summary>
 		/// Constructor
@@ -63,6 +63,11 @@ namespace IdeaRS.OpenModel.Detail.Loading
 		{
 			Items = new List<CombinationItem>();
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Type of load case

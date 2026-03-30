@@ -8,7 +8,7 @@ namespace IdeaRS.OpenModel.Detail
 	[XmlInclude(typeof(OpeningRect))]
 	[XmlInclude(typeof(OpeningCirc))]
 	[XmlInclude(typeof(OpeningRectOffsets))]
-	public class Opening : OpenElementId
+	public class Opening : OpenElementId, ISynchronization
 	{
 		/// <summary>
 		/// Constructor
@@ -16,6 +16,11 @@ namespace IdeaRS.OpenModel.Detail
 		public Opening()
 		{
 		}
+
+		/// <summary>
+		/// Synchronization ID for element tracking during OpenModel to Detail updates.
+		/// </summary>
+		public int SyncId { get; set; }
 
 		/// <summary>
 		/// Name

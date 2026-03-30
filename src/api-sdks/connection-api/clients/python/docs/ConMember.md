@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **is_bearing** | **bool** |  | [optional] 
 **position** | [**ConMemberPosition**](ConMemberPosition.md) |  | [optional] 
 **model** | [**ConMemberModel**](ConMemberModel.md) |  | [optional] 
+**stiffness_analysis** | [**ConStiffnessAnalysis**](ConStiffnessAnalysis.md) |  | [optional] 
 **id** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
 **active** | **bool** |  | [optional] 
