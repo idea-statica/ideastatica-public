@@ -111,7 +111,7 @@ namespace IdeaStatiCa.BimImporter
 			{
 				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selection.Members))
 				{
-					if (selection.Nodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
+					if (selection.Nodes.Contains(keyValue.Key) || (_configuration.AutoCreateConnFromTwoMembers ? keyValue.Value.Count >= 2 : false))
 					{
 						Connection newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
 
@@ -458,6 +458,6 @@ namespace IdeaStatiCa.BimImporter
 
 				yield return segment.EndNode;
 			}
-		}
+		}		
 	}
 }
