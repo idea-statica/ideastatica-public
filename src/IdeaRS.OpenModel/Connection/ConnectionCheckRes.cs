@@ -198,7 +198,15 @@ namespace IdeaRS.OpenModel.Connection
 	}
 
 	/// <summary>
-	/// Check value for Bolts
+	/// Check value for Bolts.
+	/// <para>
+	/// <strong>Bolt identification:</strong> Bolt identifiers (used as dictionary keys in raw CBFEM results
+	/// and reflected in <see cref="Name"/>) are opaque internal solver identifiers. They may start at any number,
+	/// are not necessarily sequential, and may contain gaps. When a bolt group is exploded or bolt positions
+	/// are modified, the identifiers may shift. Do not perform arithmetic on bolt identifiers or assume
+	/// they correspond to a zero-based or one-based index. To map bolts to sequential positions,
+	/// sort the bolt keys numerically and use the resulting order.
+	/// </para>
 	/// </summary>
 	[XmlRootAttribute(ElementName = "CheckResBolt", IsNullable = false)]
 	[Serializable]
@@ -206,7 +214,8 @@ namespace IdeaRS.OpenModel.Connection
 	public class CheckResBolt
 	{
 		/// <summary>
-		/// Name
+		/// Name of the bolt (e.g., "B15"). The numeric suffix is an opaque CBFEM solver identifier —
+		/// it may not start at 1 and may not be sequential. See <see cref="CheckResBolt"/> remarks for details.
 		/// </summary>
 		[DataMember]
 		public string Name { get; set; }
