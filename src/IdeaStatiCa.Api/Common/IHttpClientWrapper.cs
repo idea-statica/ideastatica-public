@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Api.Common
 {
-	public interface IHttpClientWrapper
+	public interface IHttpClientWrapper : IDisposable
 	{
 		void AddRequestHeader(string header, string value);
 
