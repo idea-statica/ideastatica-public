@@ -100,15 +100,18 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			//Provide the current application domain evidence for the assembly.
 
+			// Extract the simple name from the full assembly name (e.g. "Foo, Version=1.0, ..." -> "Foo")
+			string simpleName = new AssemblyName(args.Name).Name;
+
 			//Make an array for the list of assemblies.
 			Assembly[] assems = currentDomain.GetAssemblies();
 
-			var foundAssembly = Array.Find(assems, asem => (asem.ManifestModule.Name == args.Name || asem.ManifestModule.Name == args.Name + ".dll"));
-			//for framework 4.8 app it trying load System.Core assembly and it cause crash. in assembly list its System.Core.dll 
+			var foundAssembly = Array.Find(assems, asem => (asem.ManifestModule.Name == simpleName || asem.ManifestModule.Name == simpleName + ".dll"));
+			//for framework 4.8 app it trying load System.Core assembly and it cause crash. in assembly list its System.Core.dll
 			if (foundAssembly == null)
 			{
 				string curAssPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-				return Assembly.LoadFrom(Path.Combine(curAssPath,args.Name + ".dll"));
+				return Assembly.LoadFrom(Path.Combine(curAssPath, simpleName + ".dll"));
 			}
 			else
 			{
