@@ -170,9 +170,11 @@ namespace IdeaStatiCa.ConnectionApi.Client
     /// Provides a default implementation of an Api client (both synchronous and asynchronous implementations),
     /// encapsulating general REST accessor use cases.
     /// </summary>
-    public partial class ApiClient : ISynchronousClient, IAsynchronousClient
+    public partial class ApiClient : ISynchronousClient, IAsynchronousClient, IDisposable
     {
         private readonly string _baseUrl;
+        private RestClient _restClient;
+        private readonly object _restClientLock = new object();
 
         /// <summary>
         /// Specifies the settings on a <see cref="JsonSerializer" /> object.
@@ -212,6 +214,42 @@ namespace IdeaStatiCa.ConnectionApi.Client
                 throw new ArgumentException("basePath cannot be empty");
 
             _baseUrl = basePath;
+        }
+
+        private RestClient GetOrCreateRestClient(string baseUrl, IReadableConfiguration configuration)
+        {
+            if (_restClient == null)
+            {
+                lock (_restClientLock)
+                {
+                    if (_restClient == null)
+                    {
+                        var clientOptions = new RestClientOptions(baseUrl)
+                        {
+                            ClientCertificates = configuration.ClientCertificates,
+                            MaxTimeout = configuration.Timeout,
+                            Proxy = configuration.Proxy,
+                            UserAgent = configuration.UserAgent,
+                            UseDefaultCredentials = configuration.UseDefaultCredentials,
+                            RemoteCertificateValidationCallback = configuration.RemoteCertificateValidationCallback
+                        };
+
+                        _restClient = new RestClient(clientOptions,
+                            configureSerialization: serializerConfig => serializerConfig.UseSerializer(() => new CustomJsonCodec(SerializerSettings, configuration)));
+                    }
+                }
+            }
+
+            return _restClient;
+        }
+
+        /// <summary>
+        /// Disposes the underlying RestClient and its HttpClient to release sockets.
+        /// </summary>
+        public void Dispose()
+        {
+            _restClient?.Dispose();
+            _restClient = null;
         }
 
         /// <summary>
@@ -456,100 +494,86 @@ namespace IdeaStatiCa.ConnectionApi.Client
         private ApiResponse<T> ExecClient<T>(Func<RestClient, RestResponse<T>> getResponse, Action<RestClientOptions> setOptions, RestRequest request, RequestOptions options, IReadableConfiguration configuration)
         {
             var baseUrl = configuration.GetOperationServerUrl(options.Operation, options.OperationIndex) ?? _baseUrl;
+            var client = GetOrCreateRestClient(baseUrl, configuration);
 
-            var clientOptions = new RestClientOptions(baseUrl)
+            InterceptRequest(request);
+
+            RestResponse<T> response = getResponse(client);
+
+            if (response.ContentType == "text/plain" && typeof(T).Name == "Object")
             {
-                ClientCertificates = configuration.ClientCertificates,
-                MaxTimeout = configuration.Timeout,
-                Proxy = configuration.Proxy,
-                UserAgent = configuration.UserAgent,
-                UseDefaultCredentials = configuration.UseDefaultCredentials,
-                RemoteCertificateValidationCallback = configuration.RemoteCertificateValidationCallback
-            };
-            setOptions(clientOptions);
-            
-            using (RestClient client = new RestClient(clientOptions,
-                configureSerialization: serializerConfig => serializerConfig.UseSerializer(() => new CustomJsonCodec(SerializerSettings, configuration))))
-            {
-                InterceptRequest(request);
-
-                RestResponse<T> response = getResponse(client);
-
-                if (response.ContentType == "text/plain" && typeof(T).Name == "Object")
-                {
-                  response.Data = (T)(object)response.Content.ToString();
-                  var res = ToApiResponse(response);
-                  return res;
-                }
-
-                if((response.ContentType == "application/octet-stream" || response.ContentType == "image/png") && typeof(T).Name == "Object")
-                {
-                    response.Data = (T)(object)response.RawBytes;
-                    var res = ToApiResponse(response);
-                    return res;
-                }
-
-                // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-                if (typeof(AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
-                {
-                    try
-                    {
-                        response.Data = (T)typeof(T).GetMethod("FromJson").Invoke(null, new object[] { response.Content });
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex.InnerException != null ? ex.InnerException : ex;
-                    }
-                }
-                else if (typeof(T).Name == "Stream") // for binary response
-                {
-                    response.Data = (T)(object)new MemoryStream(response.RawBytes);
-                }
-                else if (typeof(T).Name == "Byte[]") // for byte response
-                {
-                    response.Data = (T)(object)response.RawBytes;
-                }
-                else if (typeof(T).Name == "String") // for string response
-                {
-                    response.Data = (T)(object)response.Content;
-                }
-
-                InterceptResponse(request, response);
-
-                var result = ToApiResponse(response);
-                if (response.ErrorMessage != null)
-                {
-                    result.ErrorText = response.ErrorMessage;
-                }
-
-                if (response.Cookies != null && response.Cookies.Count > 0)
-                {
-                    if (result.Cookies == null) result.Cookies = new List<Cookie>();
-                    foreach (var restResponseCookie in response.Cookies.Cast<Cookie>())
-                    {
-                        var cookie = new Cookie(
-                            restResponseCookie.Name,
-                            restResponseCookie.Value,
-                            restResponseCookie.Path,
-                            restResponseCookie.Domain
-                        )
-                        {
-                            Comment = restResponseCookie.Comment,
-                            CommentUri = restResponseCookie.CommentUri,
-                            Discard = restResponseCookie.Discard,
-                            Expired = restResponseCookie.Expired,
-                            Expires = restResponseCookie.Expires,
-                            HttpOnly = restResponseCookie.HttpOnly,
-                            Port = restResponseCookie.Port,
-                            Secure = restResponseCookie.Secure,
-                            Version = restResponseCookie.Version
-                        };
-
-                        result.Cookies.Add(cookie);
-                    }
-                }
-                return result;
+              response.Data = (T)(object)response.Content.ToString();
+              var res = ToApiResponse(response);
+              return res;
             }
+
+            if((response.ContentType == "application/octet-stream" || response.ContentType == "image/png") && typeof(T).Name == "Object")
+            {
+                response.Data = (T)(object)response.RawBytes;
+                var res = ToApiResponse(response);
+                return res;
+            }
+
+            // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
+            if (typeof(AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
+            {
+                try
+                {
+                    response.Data = (T)typeof(T).GetMethod("FromJson").Invoke(null, new object[] { response.Content });
+                }
+                catch (Exception ex)
+                {
+                    throw ex.InnerException != null ? ex.InnerException : ex;
+                }
+            }
+            else if (typeof(T).Name == "Stream") // for binary response
+            {
+                response.Data = (T)(object)new MemoryStream(response.RawBytes);
+            }
+            else if (typeof(T).Name == "Byte[]") // for byte response
+            {
+                response.Data = (T)(object)response.RawBytes;
+            }
+            else if (typeof(T).Name == "String") // for string response
+            {
+                response.Data = (T)(object)response.Content;
+            }
+
+            InterceptResponse(request, response);
+
+            var result = ToApiResponse(response);
+            if (response.ErrorMessage != null)
+            {
+                result.ErrorText = response.ErrorMessage;
+            }
+
+            if (response.Cookies != null && response.Cookies.Count > 0)
+            {
+                if (result.Cookies == null) result.Cookies = new List<Cookie>();
+                foreach (var restResponseCookie in response.Cookies.Cast<Cookie>())
+                {
+                    var cookie = new Cookie(
+                        restResponseCookie.Name,
+                        restResponseCookie.Value,
+                        restResponseCookie.Path,
+                        restResponseCookie.Domain
+                    )
+                    {
+                        Comment = restResponseCookie.Comment,
+                        CommentUri = restResponseCookie.CommentUri,
+                        Discard = restResponseCookie.Discard,
+                        Expired = restResponseCookie.Expired,
+                        Expires = restResponseCookie.Expires,
+                        HttpOnly = restResponseCookie.HttpOnly,
+                        Port = restResponseCookie.Port,
+                        Secure = restResponseCookie.Secure,
+                        Version = restResponseCookie.Version
+                    };
+
+                    result.Cookies.Add(cookie);
+                }
+            }
+            return result;
         }
 
         /// <summary>
@@ -565,100 +589,86 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		private async Task<ApiResponse<T>> ExecClientAsync<T>(Func<RestClient, Task<RestResponse<T>>> getResponseAsync, Action<RestClientOptions> setOptions, RestRequest request, RequestOptions options, IReadableConfiguration configuration)
 		{
 			var baseUrl = configuration.GetOperationServerUrl(options.Operation, options.OperationIndex) ?? _baseUrl;
+			var client = GetOrCreateRestClient(baseUrl, configuration);
 
-			var clientOptions = new RestClientOptions(baseUrl)
+			InterceptRequest(request);
+
+			RestResponse<T> response = await getResponseAsync(client);
+
+			if (response.ContentType == "text/plain" && typeof(T).Name == "Object")
 			{
-				ClientCertificates = configuration.ClientCertificates,
-				MaxTimeout = configuration.Timeout,
-				Proxy = configuration.Proxy,
-				UserAgent = configuration.UserAgent,
-				UseDefaultCredentials = configuration.UseDefaultCredentials,
-				RemoteCertificateValidationCallback = configuration.RemoteCertificateValidationCallback
-			};
-			setOptions(clientOptions);
-
-			using (RestClient client = new RestClient(clientOptions,
-				configureSerialization: serializerConfig => serializerConfig.UseSerializer(() => new CustomJsonCodec(SerializerSettings, configuration))))
-			{
-				InterceptRequest(request);
-
-				RestResponse<T> response = await getResponseAsync(client);
-
-				if (response.ContentType == "text/plain" && typeof(T).Name == "Object")
-				{
-					response.Data = (T)(object)response.Content.ToString();
-					var res = ToApiResponse(response);
-					return res;
-				}
-
-				if((response.ContentType == "application/octet-stream" || response.ContentType == "image/png") && typeof(T).Name == "Object")
-				{
-					response.Data = (T)(object)response.RawBytes;
-					var res = ToApiResponse(response);
-					return res;
-				}
-
-				// if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-				if (typeof(AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
-				{
-					try
-					{
-						response.Data = (T)typeof(T).GetMethod("FromJson").Invoke(null, new object[] { response.Content });
-					}
-					catch (Exception ex)
-					{
-						throw ex.InnerException != null ? ex.InnerException : ex;
-					}
-				}
-				else if (typeof(T).Name == "Stream") // for binary response
-				{
-					response.Data = (T)(object)new MemoryStream(response.RawBytes);
-				}
-				else if (typeof(T).Name == "Byte[]") // for byte response
-				{
-					response.Data = (T)(object)response.RawBytes;
-				}
-				else if (typeof(T).Name == "String") // for string response
-				{
-					response.Data = (T)(object)response.Content;
-				}
-
-				InterceptResponse(request, response);
-
-				var result = ToApiResponse(response);
-				if (response.ErrorMessage != null)
-				{
-					result.ErrorText = response.ErrorMessage;
-				}
-
-				if (response.Cookies != null && response.Cookies.Count > 0)
-				{
-					if (result.Cookies == null) result.Cookies = new List<Cookie>();
-					foreach (var restResponseCookie in response.Cookies.Cast<Cookie>())
-					{
-						var cookie = new Cookie(
-							restResponseCookie.Name,
-							restResponseCookie.Value,
-							restResponseCookie.Path,
-							restResponseCookie.Domain
-						)
-						{
-							Comment = restResponseCookie.Comment,
-							CommentUri = restResponseCookie.CommentUri,
-							Discard = restResponseCookie.Discard,
-							Expired = restResponseCookie.Expired,
-							Expires = restResponseCookie.Expires,
-							HttpOnly = restResponseCookie.HttpOnly,
-							Port = restResponseCookie.Port,
-							Secure = restResponseCookie.Secure,
-							Version = restResponseCookie.Version
-						};
-
-						result.Cookies.Add(cookie);
-					}
-				}
-				return result;
+				response.Data = (T)(object)response.Content.ToString();
+				var res = ToApiResponse(response);
+				return res;
 			}
+
+			if((response.ContentType == "application/octet-stream" || response.ContentType == "image/png") && typeof(T).Name == "Object")
+			{
+				response.Data = (T)(object)response.RawBytes;
+				var res = ToApiResponse(response);
+				return res;
+			}
+
+			// if the response type is oneOf/anyOf, call FromJSON to deserialize the data
+			if (typeof(AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
+			{
+				try
+				{
+					response.Data = (T)typeof(T).GetMethod("FromJson").Invoke(null, new object[] { response.Content });
+				}
+				catch (Exception ex)
+				{
+					throw ex.InnerException != null ? ex.InnerException : ex;
+				}
+			}
+			else if (typeof(T).Name == "Stream") // for binary response
+			{
+				response.Data = (T)(object)new MemoryStream(response.RawBytes);
+			}
+			else if (typeof(T).Name == "Byte[]") // for byte response
+			{
+				response.Data = (T)(object)response.RawBytes;
+			}
+			else if (typeof(T).Name == "String") // for string response
+			{
+				response.Data = (T)(object)response.Content;
+			}
+
+			InterceptResponse(request, response);
+
+			var result = ToApiResponse(response);
+			if (response.ErrorMessage != null)
+			{
+				result.ErrorText = response.ErrorMessage;
+			}
+
+			if (response.Cookies != null && response.Cookies.Count > 0)
+			{
+				if (result.Cookies == null) result.Cookies = new List<Cookie>();
+				foreach (var restResponseCookie in response.Cookies.Cast<Cookie>())
+				{
+					var cookie = new Cookie(
+						restResponseCookie.Name,
+						restResponseCookie.Value,
+						restResponseCookie.Path,
+						restResponseCookie.Domain
+					)
+					{
+						Comment = restResponseCookie.Comment,
+						CommentUri = restResponseCookie.CommentUri,
+						Discard = restResponseCookie.Discard,
+						Expired = restResponseCookie.Expired,
+						Expires = restResponseCookie.Expires,
+						HttpOnly = restResponseCookie.HttpOnly,
+						Port = restResponseCookie.Port,
+						Secure = restResponseCookie.Secure,
+						Version = restResponseCookie.Version
+					};
+
+					result.Cookies.Add(cookie);
+				}
+			}
+			return result;
 		}
 
         private RestResponse<T> DeserializeRestResponseFromPolicy<T>(RestClient client, RestRequest request, PolicyResult<RestResponse> policyResult)
@@ -678,19 +688,15 @@ namespace IdeaStatiCa.ConnectionApi.Client
                 
         private ApiResponse<T> Exec<T>(RestRequest request, RequestOptions options, IReadableConfiguration configuration)
         {
-            Action<RestClientOptions> setOptions = (clientOptions) =>
+            if (options.Cookies != null && options.Cookies.Count > 0)
             {
-                var cookies = new CookieContainer();
-
-                if (options.Cookies != null && options.Cookies.Count > 0)
+                foreach (var cookie in options.Cookies)
                 {
-                    foreach (var cookie in options.Cookies)
-                    {
-                        cookies.Add(new Cookie(cookie.Name, cookie.Value));
-                    }
+                    request.AddCookie(cookie.Name, cookie.Value, "/", "");
                 }
-                clientOptions.CookieContainer = cookies;
-            };
+            }
+
+            Action<RestClientOptions> setOptions = (clientOptions) => { };
 
             Func<RestClient, RestResponse<T>> getResponse = (client) =>
             {
