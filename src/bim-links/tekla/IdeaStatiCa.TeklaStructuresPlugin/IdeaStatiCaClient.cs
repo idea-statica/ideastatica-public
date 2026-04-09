@@ -141,18 +141,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 				if (!File.Exists(checkbotLocation))
 				{
-					//checkbot app is in net8.0-windows folder and teklaPlugin is in base of setup
-					checkbotLocation = Path.Combine(checkbotRoot, "net8.0-windows", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
+					//checkbot app is in net10.0-windows folder and teklaPlugin is in base of setup
+					checkbotLocation = Path.Combine(checkbotRoot, "net10.0-windows", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
 				}
 
 				if (!File.Exists(checkbotLocation))
 				{
-					//checkbot app is in net8.0-windows folder and teklaPlugin is in net48  of setup
-					checkbotLocation = Path.Combine(checkbotRoot, "..\\net8.0-windows", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
+					//checkbot app is in net10.0-windows folder and teklaPlugin is in net48  of setup
+					checkbotLocation = Path.Combine(checkbotRoot, "..\\net10.0-windows", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
 				}
 				if (!File.Exists(checkbotLocation))
 				{
-					//checkbot app is in net48 folder and teklaPlugin is in net8.0-windows  of setup
+					//checkbot app is in net48 folder and teklaPlugin is in net10.0-windows  of setup
 					checkbotLocation = Path.Combine(checkbotRoot, "..\\net48", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
 				}
 
