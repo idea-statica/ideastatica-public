@@ -6,6 +6,7 @@ using IdeaStatiCa.BimApiLink.BimApi;
 using System.Collections.Generic;
 using System.Linq;
 using yjk.FeaApis;
+using static yjk.Helpers.UnitConverter;
 
 namespace yjk.Importers
 {
@@ -29,6 +30,7 @@ namespace yjk.Importers
 					Name = crossSection.Name,
 					Parameters = crossSection.CrossSectionByParameters.Parameters.ToHashSet(),
 					Type = crossSection.CrossSectionByParameters.CrossSectionType,
+					//Rotation = DegToRad(90)
 				};
 			}
 			else if (crossSection.CrossSectionBy == CrossSectionBy.ByName)
@@ -37,6 +39,7 @@ namespace yjk.Importers
 				{
 					MaterialNo = crossSection.MaterialId,
 					Name = crossSection.Name,
+					Rotation = DegToRad(180)
 				};
 			}
 

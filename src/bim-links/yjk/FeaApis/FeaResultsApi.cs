@@ -16,10 +16,6 @@ namespace yjk.FeaApis
 	public interface IFeaResultsApi
 	{
 		IEnumerable<IFeaMemberResult> GetMemberInternalForces(int memberId, int loadCaseId);
-		void SetResultForColumn(int iFlr, FeaMember member, IFeaLoadsApi loads);
-		void SetResultForBeam(int iFlr, FeaMember member, IFeaLoadsApi loads);
-		void SetResultForBrace(int iFlr, FeaMember member, IFeaLoadsApi loads);
-
 		void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType);
 		void ClearResults();
 	}
@@ -50,51 +46,6 @@ namespace yjk.FeaApis
 			_resultsForMembers.Clear();
 		}
 
-		public void SetResultForColumn(int iFlr, FeaMember member, IFeaLoadsApi loads)
-		{
-			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
-
-			foreach (int loadCaseId in loads.GetLoadCasesIds())
-			{
-				int nSect = 0;
-				float[,] force = new float[0, 0];
-				_Hi_DesignData.dsnGetColumnStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
-				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
-			}
-
-			_resultsForMembers.Add(member.Id, feaMemberResults);
-		}
-
-		public void SetResultForBeam(int iFlr, FeaMember member, IFeaLoadsApi loads)
-		{
-			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
-
-			foreach (int loadCaseId in loads.GetLoadCasesIds())
-			{
-				int nSect = 0;
-				float[,] force = new float[0, 0];
-				_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
-				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
-			}
-
-			_resultsForMembers.Add(member.Id, feaMemberResults);
-		}
-
-		public void SetResultForBrace(int iFlr, FeaMember member, IFeaLoadsApi loads)
-		{
-			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
-
-			foreach (int loadCaseId in loads.GetLoadCasesIds())
-			{
-				int nSect = 0;
-				float[,] force = new float[0, 0];
-				_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
-				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
-			}
-
-			_resultsForMembers.Add(member.Id, feaMemberResults);
-		}
-
 		public void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType)
 		{
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
@@ -116,13 +67,14 @@ namespace yjk.FeaApis
 						_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
 						break;
 				}
-				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId));
+				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId, memberType));
 			}
 
 			_resultsForMembers.Add(member.Id, feaMemberResults);
 		}
 
-		private List<IFeaMemberResult> GetFeaMemberResult(FeaMember member, int nSect, float[,] force, int loadCaseId)
+		private List<IFeaMemberResult> GetFeaMemberResult(FeaMember member, int nSect, float[,] force, int loadCaseId,
+			MemberType memberType)
 		{
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
@@ -142,6 +94,15 @@ namespace yjk.FeaApis
 					My = force[i, 0],
 					Mz = force[i, 1],
 				};
+
+				feaMemberResult.Mz *= -1;
+				feaMemberResult.Vy *= -1;
+
+				//Probably reverse in sign agreement in YJK
+				if (memberType == MemberType.Column)
+				{
+					feaMemberResult.My *= -1;
+				}
 
 				feaMemberResults.Add(feaMemberResult);
 			}

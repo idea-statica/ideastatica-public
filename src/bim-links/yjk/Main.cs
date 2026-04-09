@@ -15,6 +15,7 @@ using yjk.FeaApis;
 using yjk.Importers;
 using yjk.Helpers;
 using System.Diagnostics;
+using IdeaStatiCa.BimImporter;
 
 namespace yjk
 {
@@ -71,28 +72,46 @@ namespace yjk
 			}
 
 			logger.LogInformation($"Starting plugin with checkbot location {checkbotLocation}");
-			var workingDirectory = Path.GetFullPath("BimApiExampleProj");
-			if (!Directory.Exists(workingDirectory))
+
+			//var workingDirectory = Path.GetFullPath("BimApiExampleProj");
+			var workingDirectory = Directory.GetCurrentDirectory();
+
+			var yjkFiles = Directory.GetFiles(workingDirectory, "*.yjk");
+			var yjkFileName = "";
+			if (yjkFiles.Length == 1)
 			{
-				Directory.CreateDirectory(workingDirectory);
+				yjkFileName = Path.GetFileNameWithoutExtension(yjkFiles[0]);
+			}
+
+			var fullWorkingDirectory = Path.Combine(workingDirectory, "IdeaStatiCa-" + yjkFileName);
+
+			if (!Directory.Exists(fullWorkingDirectory))
+			{
+				Directory.CreateDirectory(fullWorkingDirectory);
 			}
 
 			try
 			{
 				GrpcBimHostingFactory bimHostingFactory = new GrpcBimHostingFactory();
 
-				logger.LogInformation($"Project working directory is {workingDirectory}");
+				logger.LogInformation($"Project working directory is {fullWorkingDirectory}");
 
 				var container = BuildContainer(bimHostingFactory.InitGrpcClient(logger), feaApi);
 
 				Model model = container.Resolve<Model>();
 
-				await FeaBimLink.Create("My application name", workingDirectory)
+				BimImporterConfiguration bimImporterConfiguration = new BimImporterConfiguration
+				{ 
+					AutoCreateConnFromTwoMembers = false 
+				};
+
+				await FeaBimLink.Create("YJK", fullWorkingDirectory)
 					.WithIdeaStatiCa(checkbotLocation)
 					.WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
 					.WithResultsImporters(x => x.RegisterImporter(container.Resolve<ResultsImporter>()))
 					.WithLogger(logger)
 					.WithBimHostingFactory(bimHostingFactory)
+					.WithBimImporterConfiguration(bimImporterConfiguration)
 					.Run(model);
 			}
 			catch (Exception ex)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace yjk.BimApis
 {
@@ -13,6 +14,8 @@ namespace yjk.BimApis
 		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
 
 		public int MaterialNo { get; set; }
+
+		override public double  Rotation { get; set; }
 
 		public CrossSectionByParameters(int no) : base(no)
 		{

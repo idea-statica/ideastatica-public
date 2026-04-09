@@ -171,6 +171,10 @@
       <Project>{e983f5ef-c464-42ec-b67a-2d9061298aba}</Project>
       <Name>IdeaStatiCa.BimApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj">
+      <Project>{00078bc6-30d1-4afe-bec0-a6d1af570a4e}</Project>
+      <Name>IdeaStatiCa.BimImporter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj">
       <Project>{7c5fc60f-cc3e-45b3-a38a-aa167a9d1333}</Project>
       <Name>IdeaStatiCa.Plugin</Name>

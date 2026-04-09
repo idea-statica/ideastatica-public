@@ -77,7 +77,9 @@ namespace yjk.FeaApis
 
 			int kind = section.Kind;
 			string shapeVal = section.ShapeVal;
-			string name = section.Name;
+
+			//string name = section.Name;
+			string name = section.ShapeVal;
 
 			string[] splitShapeVal = shapeVal.Split(',');
 			CrossSectionBy crossSectionBy = CrossSectionBy.ByParameters;
@@ -220,6 +222,15 @@ namespace yjk.FeaApis
 						break;
 					}
 
+				//Use steel profile
+				case 26:
+					{
+						name = section.Name;
+
+						//Still return by name
+						goto default;
+					}
+
 
 				//L
 				case 28:
@@ -258,17 +269,10 @@ namespace yjk.FeaApis
 				//Cold formed profile
 				case 303:
 					{
-						Debug.WriteLine("a");
+						name = section.Name;
 
-
-						double webThk = MmToM(double.Parse(splitShapeVal[1]));
-						double height = MmToM(double.Parse(splitShapeVal[2]));
-						double flangeWidth = MmToM(double.Parse(splitShapeVal[3]));
-						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
-
-						CrossSectionFactory.FillRolledT(css, flangeWidth, height, webThk, flangeThk, 0, 0, 0, 0, 0);
-
-						break;
+						//Still return by name
+						goto default;
 					}
 
 				default:

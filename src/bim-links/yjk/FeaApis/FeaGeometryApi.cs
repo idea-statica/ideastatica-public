@@ -149,7 +149,18 @@ namespace yjk.FeaApis
 							{
 								int modellingId = GetModellingId(idFlrMembers[j], memberType);
 								double rotationAngle = GetRotationAngle(modellingId, memberType);
-								member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
+
+								switch (memberType)
+								{
+									case MemberType.Column:
+										member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
+										break;
+									case MemberType.Beam:
+									case MemberType.Brace:
+										member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
+										break;
+
+								}
 
 								//Record result (force)
 								_result.SetResult(iFlr, member, _load, memberType);
@@ -255,7 +266,7 @@ namespace yjk.FeaApis
 				case MemberType.Brace:
 					no = _hi_CToSDesign.BraceONO(memberId);
 					flrNo = _hi_CToSDesign.BraceOFlr(memberId);
-					modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_BEAM, no, flrNo);
+					modellingId = _hi_AddToAndReadYjk.ReadIdByNO(GjKind.IDK_CL3D, no, flrNo);
 					return modellingId;
 			}
 			return -1;
@@ -268,17 +279,17 @@ namespace yjk.FeaApis
 				case MemberType.Column:
 					{
 						Mdl_ColSeg segment = _model.m_ColSeg.FirstOrDefault(m => m.ID == modellingId);
-						return segment.Rotation;
+						return segment.Rotation * -1;
 					}
 				case MemberType.Beam:
 					{
 						Mdl_BeamSeg segment = _model.m_BeamSeg.FirstOrDefault(m => m.ID == modellingId);
-						return segment.Rotation;
+						return segment.Rotation * -1;
 					}
 				case MemberType.Brace:
 					{
 						Mdl_BraceSeg segment = _model.m_BraceSeg.FirstOrDefault(m => m.ID == modellingId);
-						return segment.Rotation;
+						return segment.Rotation * -1;
 					}
 			}
 
@@ -376,19 +387,22 @@ namespace yjk.FeaApis
 			UnitVector3D globalZ = UnitVector3D.ZAxis;
 
 			UnitVector3D memberY;
+			UnitVector3D memberZ;
 
 			if (memberX.IsParallelTo(globalZ))
 			{
 				// column
 				memberY = UnitVector3D.XAxis.Negate();
+				memberZ = memberX.CrossProduct(memberY).Normalize();
 			}
 			else
 			{
 				// beam
 				memberY = memberX.CrossProduct(globalZ).Normalize().Negate();
+				memberZ = memberX.CrossProduct(memberY).Normalize();
 			}
 
-			return (memberX.Normalize(), memberY, memberX.CrossProduct(memberY).Normalize());
+			return (memberX.Normalize(), memberY, memberZ);
 		}
 
 /*		private static List<IFeaMember> InitializeMembers()

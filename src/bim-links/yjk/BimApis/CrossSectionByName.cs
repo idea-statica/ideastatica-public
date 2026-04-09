@@ -9,6 +9,8 @@ namespace yjk.BimApis
 
 		public int MaterialNo { get; set; }
 
+		override public double Rotation { get; set; }
+
 		public CrossSectionByName(int no) : base(no)
 		{
 		}
