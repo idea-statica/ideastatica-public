@@ -100,7 +100,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		public async Task<ConProject> CreateProjectFromIomFileAsync(string fileName, List<int> connectionsToCreate = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			string xmlString = string.Empty;
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 			xmlString = await System.IO.File.ReadAllTextAsync(fileName);
 #else
 			xmlString = System.IO.File.ReadAllText(fileName);
@@ -121,7 +121,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		public async Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			string xmlString = string.Empty;
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 			xmlString = await System.IO.File.ReadAllTextAsync(iomFilePath);
 #else
 			xmlString = System.IO.File.ReadAllText(iomFilePath);
