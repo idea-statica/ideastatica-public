@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main, release_* ]
 env:
-  DOTNET_VERSION: '9.0.301'
+  DOTNET_VERSION: '10.0.105'
   NUGET_BINARY_VERSION: '6.13.2'
 
 jobs:
