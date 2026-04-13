@@ -90,7 +90,7 @@ namespace IdeaStatiCa.BimImporter
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 
 			BulkSelection selection = InitBulkImport();
-			return ProcessSelectedModel(countryCode, new BulkSelection(selection.Nodes, selection.Members, selection.ConnectionPoints));
+			return ProcessSelectedModel(countryCode, selection);
 		}
 
 		private ModelBIM ProcessSelectedModel(CountryCode countryCode, BulkSelection selection)
