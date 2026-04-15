@@ -2,7 +2,7 @@ name: .NET build verification
 
 on:
   push:
-    branches: [ main_* ]
+    branches: [ main, main_* ]
   pull_request:
     branches: [ main, main_*, release_* ]
 env:
