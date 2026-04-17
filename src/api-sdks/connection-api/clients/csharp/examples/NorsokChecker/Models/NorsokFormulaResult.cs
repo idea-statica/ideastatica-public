@@ -3,6 +3,9 @@ namespace NorsokChecker.Models
 	/// <summary>
 	/// Result of evaluating a single Norsok formula (e.g., §6.3.2 Axial Tension).
 	/// Contains the formula reference, all populated variable values, and the verdict.
+	///
+	/// Report output mimics IDEA StatiCa CHECK tab format:
+	///   formula → substituted values → "Where:" block explaining each variable
 	/// </summary>
 	public class NorsokFormulaResult
 	{
@@ -18,6 +21,12 @@ namespace NorsokChecker.Models
 		/// <summary>The check expression, e.g. "N_Sd ≤ N_t,Rd"</summary>
 		public string CheckExpression { get; set; } = string.Empty;
 
+		/// <summary>The formula with symbols, e.g. "N_t,Rd = A · f_y / γ_M"</summary>
+		public string Formula { get; set; } = string.Empty;
+
+		/// <summary>The formula with substituted numbers, e.g. "N_t,Rd = 30159 × 355 / 1.15 = 9310 kN"</summary>
+		public string FormulaSubstituted { get; set; } = string.Empty;
+
 		/// <summary>All variable values used in the formula evaluation.</summary>
 		public List<FormulaVariable> Variables { get; set; } = new();
 
@@ -27,30 +36,57 @@ namespace NorsokChecker.Models
 		/// <summary>The capacity value (right-hand side), e.g. N_t,Rd</summary>
 		public double Capacity { get; set; }
 
-		/// <summary>Utilization ratio = Demand / Capacity (or interaction value for combined checks)</summary>
+		/// <summary>Utilization ratio = Demand / Capacity</summary>
 		public double Utilization { get; set; }
 
 		/// <summary>True if check passes (utilization ≤ 1.0)</summary>
 		public bool Passed { get; set; }
 
-		/// <summary>Generates a formatted report string for this formula.</summary>
+		/// <summary>Generates a report string mimicking IDEA StatiCa CHECK tab format.</summary>
 		public string ToReportString()
 		{
 			var sb = new System.Text.StringBuilder();
-			sb.AppendLine($"§{Section} {Title} — Equation ({Equation})");
-			sb.AppendLine($"  Check: {CheckExpression}");
-			sb.AppendLine();
+			string passSymbol = Passed ? "✓" : "✗";
+			string passText = Passed ? "PASS" : "FAIL";
 
-			foreach (var v in Variables)
+			// ── Header ──
+			sb.AppendLine($"┌─────────────────────────────────────────────────────────");
+			sb.AppendLine($"│ NORSOK N-004 §{Section} — {Title}   (Eq. {Equation})");
+			sb.AppendLine($"├─────────────────────────────────────────────────────────");
+
+			// ── Check condition ──
+			sb.AppendLine($"│");
+			sb.AppendLine($"│  Check:  {CheckExpression}");
+
+			// ── Formula (symbolic) ──
+			if (!string.IsNullOrEmpty(Formula))
 			{
-				sb.AppendLine($"  {v.Symbol,-12} = {v.FormattedValue,-16} ({v.Description})");
+				sb.AppendLine($"│");
+				sb.AppendLine($"│  {Formula}");
 			}
 
-			sb.AppendLine();
-			sb.AppendLine($"  Demand:      {Demand:F2}");
-			sb.AppendLine($"  Capacity:    {Capacity:F2}");
-			sb.AppendLine($"  Utilization: {Utilization:F4}");
-			sb.AppendLine($"  Result:      {(Passed ? "PASS" : "FAIL")}");
+			// ── Formula (substituted values) ──
+			if (!string.IsNullOrEmpty(FormulaSubstituted))
+			{
+				sb.AppendLine($"│  {FormulaSubstituted}");
+			}
+
+			// ── Where block ──
+			if (Variables.Count > 0)
+			{
+				sb.AppendLine($"│");
+				sb.AppendLine($"│  Where:");
+				foreach (var v in Variables)
+				{
+					sb.AppendLine($"│    {v.Symbol,-16} = {v.FormattedValue,-16}  — {v.Description}");
+				}
+			}
+
+			// ── Result ──
+			sb.AppendLine($"│");
+			sb.AppendLine($"│  Utilization:  {Demand:G5} / {Capacity:G5} = {Utilization:F4}");
+			sb.AppendLine($"│  Result:       {Utilization:F4} ≤ 1.0  →  {passSymbol} {passText}");
+			sb.AppendLine($"└─────────────────────────────────────────────────────────");
 
 			return sb.ToString();
 		}

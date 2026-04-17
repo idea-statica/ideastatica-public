@@ -3,20 +3,20 @@ using System.Text.Json;
 namespace NorsokChecker.Services
 {
 	/// <summary>
-	/// Parses the raw JSON string from GetRawJsonResultsAsync (CheckResultsData)
-	/// into structured data we can feed into Norsok formula evaluations.
+	/// Parses the raw JSON string from GetRawJsonResultsAsync (CheckResultsData).
 	///
-	/// The raw JSON is a serialized CheckResultsData with dictionaries:
-	///   Plates: { id -> PlateCheckResData }
-	///   Welds:  { id -> WeldCheckResData }
-	///   Bolts:  { id -> BoltCheckResData }
-	///   PlatesInfo, WeldsInfo, BoltsInfo for material properties
+	/// IMPORTANT: The raw JSON uses:
+	///   - camelCase property names (e.g. "maxStress", "materialFy")
+	///   - SI base units: Pa for stress, m for lengths, N for forces
+	///
+	/// This parser converts everything to engineering units:
+	///   - Stress: Pa → MPa (÷ 1e6)
+	///   - Length: m → mm (× 1000)
+	///   - Force: N → kN (÷ 1000)
+	///   - Modulus: Pa → MPa (÷ 1e6)
 	/// </summary>
 	public class RawResultsParser
 	{
-		/// <summary>
-		/// Parses the raw JSON and extracts plate, weld, and bolt check data.
-		/// </summary>
 		public static ParsedRawResults Parse(string rawJson)
 		{
 			var result = new ParsedRawResults();
@@ -24,81 +24,81 @@ namespace NorsokChecker.Services
 			using var doc = JsonDocument.Parse(rawJson);
 			var root = doc.RootElement;
 
-			// Parse Plates
-			if (root.TryGetProperty("Plates", out var plates))
+			// Parse Plates — JSON key is "plates" (lowercase)
+			if (root.TryGetProperty("plates", out var plates))
 			{
 				foreach (var kvp in plates.EnumerateObject())
 				{
 					var p = kvp.Value;
 					result.Plates.Add(new PlateData
 					{
-						Id = GetInt(p, "Id"),
-						Name = GetString(p, "Name"),
-						MaxStress = GetDouble(p, "MaxStress"),
-						MaxStrain = GetDouble(p, "MaxStrain"),
-						MaxUnityCheck = GetDouble(p, "MaxUnityCheck"),
-						Thickness = GetDouble(p, "Thickness"),
-						MaterialFy = GetDouble(p, "MaterialFy"),
-						MaterialDesignFy = GetDouble(p, "MaterialDesignFy"),
-						MaterialModulusOfElasticity = GetDouble(p, "MaterialModulusOfElasticity"),
-						MaterialSafetyFactor = GetDouble(p, "MaterialSafetyFactor"),
-						MaterialName = GetString(p, "MaterialName"),
-						CheckStatus = GetBool(p, "CheckStatus"),
-						LoadCaseId = GetInt(p, "LoadCaseId"),
+						Id = GetInt(p, "id"),
+						Name = GetString(p, "name"),
+						MaxStress = GetDouble(p, "maxStress") / 1e6,             // Pa → MPa
+						MaxStrain = GetDouble(p, "maxStrain"),
+						MaxUnityCheck = GetDouble(p, "maxUnityCheck"),
+						Thickness = GetDouble(p, "thickness") * 1000.0,           // m → mm
+						MaterialFy = GetDouble(p, "materialFy") / 1e6,            // Pa → MPa
+						MaterialDesignFy = GetDouble(p, "materialDesignFy") / 1e6, // Pa → MPa
+						MaterialModulusOfElasticity = GetDouble(p, "materialModulusOfElasticity") / 1e6, // Pa → MPa
+						MaterialSafetyFactor = GetDouble(p, "materialSafetyFactor"),
+						MaterialName = GetString(p, "materialName"),
+						CheckStatus = GetBool(p, "checkStatus"),
+						LoadCaseId = GetInt(p, "loadCaseId"),
 					});
 				}
 			}
 
-			// Parse Welds
-			if (root.TryGetProperty("Welds", out var welds))
+			// Parse Welds — JSON key is "welds" (lowercase)
+			if (root.TryGetProperty("welds", out var welds))
 			{
 				foreach (var kvp in welds.EnumerateObject())
 				{
 					var w = kvp.Value;
 					result.Welds.Add(new WeldData
 					{
-						Id = GetInt(w, "Id"),
-						Name = GetString(w, "Name"),
-						MaxEquivalentStress = GetDouble(w, "MaxEquivalentStress"),
-						UnityCheckWeld = GetDouble(w, "UnityCheckWeld"),
-						UnityCheckBaseMetal = GetDouble(w, "UnityCheckBaseMetal"),
-						MaxUnityCheck = GetDouble(w, "MaxUnityCheck"),
-						Thickness = GetDouble(w, "Thickness"),
-						DesignedThickness = GetDouble(w, "DesignedThickness"),
-						Length = GetDouble(w, "Length"),
-						MaterialFu = GetDouble(w, "MaterialFu"),
-						BetaW = GetDouble(w, "BetaW"),
-						GammaM2 = GetDouble(w, "GammaM2"),
-						SigmaPerpendicular = GetDouble(w, "SigmaPerpendicular"),
-						Tauy = GetDouble(w, "Tauy"),
-						Taux = GetDouble(w, "Taux"),
-						CheckStatus = GetBool(w, "CheckStatus"),
-						LoadCaseId = GetInt(w, "LoadCaseId"),
+						Id = GetInt(w, "id"),
+						Name = GetString(w, "name"),
+						MaxEquivalentStress = GetDouble(w, "maxEquivalentStress") / 1e6, // Pa → MPa
+						UnityCheckWeld = GetDouble(w, "unityCheckWeld"),
+						UnityCheckBaseMetal = GetDouble(w, "unityCheckBaseMetal"),
+						MaxUnityCheck = GetDouble(w, "maxUnityCheck"),
+						Thickness = GetDouble(w, "thickness") * 1000.0,                  // m → mm
+						DesignedThickness = GetDouble(w, "designedThickness") * 1000.0,  // m → mm
+						Length = GetDouble(w, "length") * 1000.0,                         // m → mm
+						MaterialFu = GetDouble(w, "materialFu") / 1e6,                   // Pa → MPa
+						BetaW = GetDouble(w, "betaW"),
+						GammaM2 = GetDouble(w, "gammaM2"),
+						SigmaPerpendicular = GetDouble(w, "sigmaPerpendicular") / 1e6,   // Pa → MPa
+						Tauy = GetDouble(w, "tauy") / 1e6,                               // Pa → MPa
+						Taux = GetDouble(w, "taux") / 1e6,                               // Pa → MPa
+						CheckStatus = GetBool(w, "checkStatus"),
+						LoadCaseId = GetInt(w, "loadCaseId"),
 					});
 				}
 			}
 
-			// Parse Bolts
-			if (root.TryGetProperty("Bolts", out var bolts))
+			// Parse Bolts — JSON key is "bolts" (lowercase)
+			if (root.TryGetProperty("bolts", out var bolts))
 			{
 				foreach (var kvp in bolts.EnumerateObject())
 				{
 					var b = kvp.Value;
 					result.Bolts.Add(new BoltData
 					{
-						Id = GetInt(b, "Id"),
-						Name = GetString(b, "Name"),
-						BoltTensionForce = GetDouble(b, "BoltTensionForce"),
-						BoltShearForce = GetDouble(b, "BoltShearForce"),
-						BoltTensionResistance = GetDouble(b, "BoltTensionResistance"),
-						BoltShearResistance = GetDouble(b, "BoltShearResistance"),
-						UnityCheckTension = GetDouble(b, "UnityCheckTension"),
-						UnityCheckShear = GetDouble(b, "UnityCheckShear"),
-						InteractionTensionShear = GetDouble(b, "InteractionTensionShear"),
-						MaxUnityCheck = GetDouble(b, "MaxUnityCheck"),
-						BoltAssemblyName = GetString(b, "BoltAssemblyName"),
-						CheckStatus = GetBool(b, "CheckStatus"),
-						LoadCaseId = GetInt(b, "LoadCaseId"),
+						Id = GetInt(b, "id"),
+						Name = GetString(b, "name"),
+						BoltTensionForce = GetDouble(b, "boltTensionForce") / 1000.0,       // N → kN
+						BoltShearForce = GetDouble(b, "boltShearForce") / 1000.0,            // N → kN
+						BoltTensionResistance = GetDouble(b, "boltTensionResistance") / 1000.0, // N → kN
+						BoltShearResistance = GetDouble(b, "boltShearResistance") / 1000.0,  // N → kN
+						UnityCheckTension = GetDouble(b, "unityCheckTension"),
+						UnityCheckShear = GetDouble(b, "unityCheckShear"),
+						InteractionTensionShear = GetDouble(b, "interactionTensionShear"),
+						MaxUnityCheck = GetDouble(b, "maxUnityCheck"),
+						BoltAssemblyName = GetString(b, "boltAssemblyName"),
+						CheckStatus = GetBool(b, "checkStatus"),
+						LoadCaseId = GetInt(b, "loadCaseId"),
 					});
 				}
 			}
@@ -108,8 +108,14 @@ namespace NorsokChecker.Services
 
 		private static double GetDouble(JsonElement el, string prop)
 		{
-			if (el.TryGetProperty(prop, out var val) && val.ValueKind == JsonValueKind.Number)
-				return val.GetDouble();
+			if (el.TryGetProperty(prop, out var val))
+			{
+				if (val.ValueKind == JsonValueKind.Number)
+					return val.GetDouble();
+				// Handle "NaN" strings
+				if (val.ValueKind == JsonValueKind.String && val.GetString() == "NaN")
+					return 0;
+			}
 			return 0;
 		}
 
@@ -138,7 +144,7 @@ namespace NorsokChecker.Services
 		}
 	}
 
-	// ── Parsed data models ──
+	// ── Parsed data models (all values in engineering units: MPa, mm, kN) ──
 
 	public class ParsedRawResults
 	{
@@ -151,13 +157,13 @@ namespace NorsokChecker.Services
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
-		public double MaxStress { get; set; }
+		public double MaxStress { get; set; }              // MPa
 		public double MaxStrain { get; set; }
 		public double MaxUnityCheck { get; set; }
-		public double Thickness { get; set; }
-		public double MaterialFy { get; set; }
-		public double MaterialDesignFy { get; set; }
-		public double MaterialModulusOfElasticity { get; set; }
+		public double Thickness { get; set; }              // mm
+		public double MaterialFy { get; set; }             // MPa
+		public double MaterialDesignFy { get; set; }       // MPa
+		public double MaterialModulusOfElasticity { get; set; } // MPa
 		public double MaterialSafetyFactor { get; set; }
 		public string MaterialName { get; set; } = string.Empty;
 		public bool CheckStatus { get; set; }
@@ -168,19 +174,19 @@ namespace NorsokChecker.Services
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
-		public double MaxEquivalentStress { get; set; }
+		public double MaxEquivalentStress { get; set; }    // MPa
 		public double UnityCheckWeld { get; set; }
 		public double UnityCheckBaseMetal { get; set; }
 		public double MaxUnityCheck { get; set; }
-		public double Thickness { get; set; }
-		public double DesignedThickness { get; set; }
-		public double Length { get; set; }
-		public double MaterialFu { get; set; }
+		public double Thickness { get; set; }              // mm
+		public double DesignedThickness { get; set; }      // mm
+		public double Length { get; set; }                  // mm
+		public double MaterialFu { get; set; }             // MPa
 		public double BetaW { get; set; }
 		public double GammaM2 { get; set; }
-		public double SigmaPerpendicular { get; set; }
-		public double Tauy { get; set; }
-		public double Taux { get; set; }
+		public double SigmaPerpendicular { get; set; }     // MPa
+		public double Tauy { get; set; }                   // MPa
+		public double Taux { get; set; }                   // MPa
 		public bool CheckStatus { get; set; }
 		public int LoadCaseId { get; set; }
 	}
@@ -189,10 +195,10 @@ namespace NorsokChecker.Services
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
-		public double BoltTensionForce { get; set; }
-		public double BoltShearForce { get; set; }
-		public double BoltTensionResistance { get; set; }
-		public double BoltShearResistance { get; set; }
+		public double BoltTensionForce { get; set; }       // kN
+		public double BoltShearForce { get; set; }         // kN
+		public double BoltTensionResistance { get; set; }  // kN
+		public double BoltShearResistance { get; set; }    // kN
 		public double UnityCheckTension { get; set; }
 		public double UnityCheckShear { get; set; }
 		public double InteractionTensionShear { get; set; }

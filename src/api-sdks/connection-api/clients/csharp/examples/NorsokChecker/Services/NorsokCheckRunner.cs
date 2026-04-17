@@ -108,7 +108,9 @@ namespace NorsokChecker.Services
 					Section = "6.3.2",
 					Equation = "6.1",
 					Title = $"Plate: {plate.Name}",
-					CheckExpression = "σ_vM ≤ f_y / γ_M",
+					CheckExpression = "σ_Ed ≤ f_yd = f_y / γ_M",
+					Formula = "f_yd = f_y / γ_M",
+					FormulaSubstituted = $"f_yd = {f_y:F1} / {gammaM:F2} = {f_d:F1} MPa",
 					Demand = plate.MaxStress,
 					Capacity = f_d,
 					Utilization = utilization,
@@ -141,7 +143,9 @@ namespace NorsokChecker.Services
 					Section = "Weld",
 					Equation = "EN 1993-1-8 §4.5",
 					Title = $"Weld: {weld.Name}",
-					CheckExpression = "σ_w ≤ f_u / (β_w · γ_M2)",
+					CheckExpression = "σ_w ≤ f_w,Rd = f_u / (β_w · γ_M2)",
+					Formula = "f_w,Rd = f_u / (β_w · γ_M2)",
+					FormulaSubstituted = $"f_w,Rd = {fu:F1} / ({betaW:F2} × {gammaM2:F2}) = {resistance:F1} MPa",
 					Demand = weld.MaxEquivalentStress,
 					Capacity = resistance,
 					Utilization = utilization,
@@ -181,10 +185,10 @@ namespace NorsokChecker.Services
 					Passed = interactionCheck <= 1.0,
 					Variables = new List<FormulaVariable>
 					{
-						new() { Symbol = "F_t,Sd", Description = "Bolt tension force", Value = bolt.BoltTensionForce / 1000.0, Unit = "kN" },
-						new() { Symbol = "F_v,Sd", Description = "Bolt shear force", Value = bolt.BoltShearForce / 1000.0, Unit = "kN" },
-						new() { Symbol = "F_t,Rd", Description = "Tension resistance", Value = bolt.BoltTensionResistance / 1000.0, Unit = "kN" },
-						new() { Symbol = "F_v,Rd", Description = "Shear resistance", Value = bolt.BoltShearResistance / 1000.0, Unit = "kN" },
+						new() { Symbol = "F_t,Sd", Description = "Bolt tension force", Value = bolt.BoltTensionForce, Unit = "kN" },
+						new() { Symbol = "F_v,Sd", Description = "Bolt shear force", Value = bolt.BoltShearForce, Unit = "kN" },
+						new() { Symbol = "F_t,Rd", Description = "Tension resistance", Value = bolt.BoltTensionResistance, Unit = "kN" },
+						new() { Symbol = "F_v,Rd", Description = "Shear resistance", Value = bolt.BoltShearResistance, Unit = "kN" },
 						new() { Symbol = "UC_tension", Description = "Tension utilization", Value = bolt.UnityCheckTension, Unit = "-" },
 						new() { Symbol = "UC_shear", Description = "Shear utilization", Value = bolt.UnityCheckShear, Unit = "-" },
 						new() { Symbol = "Interaction", Description = "Combined check", Value = interactionCheck, Unit = "-" },
@@ -232,13 +236,13 @@ namespace NorsokChecker.Services
 					if (ml.SectionLoad == null) continue;
 					var sl = ml.SectionLoad;
 
-					// Convert API forces (assumed kN and kNm) to formula inputs
-					double N = sl.N;      // Axial force [kN]
-					double Vy = sl.Vy;    // Shear Y [kN]
-					double Vz = sl.Vz;    // Shear Z [kN]
-					double Mx = sl.Mx;    // Torsion [kNm]
-					double My = sl.My;    // Bending Y [kNm]
-					double Mz = sl.Mz;    // Bending Z [kNm]
+					// API returns forces in N and moments in N·m — convert to kN and kNm
+					double N = sl.N / 1000.0;      // N → kN
+					double Vy = sl.Vy / 1000.0;    // N → kN
+					double Vz = sl.Vz / 1000.0;    // N → kN
+					double Mx = sl.Mx / 1000.0;    // N·m → kN·m
+					double My = sl.My / 1000.0;    // N·m → kN·m
+					double Mz = sl.Mz / 1000.0;    // N·m → kN·m
 
 					double V_total = Math.Sqrt(Vy * Vy + Vz * Vz); // Resultant shear [kN]
 

@@ -18,8 +18,12 @@ namespace NorsokChecker.Services.Formulas
 			double M_Sd, double M_Rd,
 			double V_Sd, double V_Rd)
 		{
-			double shearRatio = V_Sd / V_Rd;
-			double bendingRatio = M_Sd / M_Rd;
+			// Use absolute values — the formulas check magnitudes
+			M_Sd = Math.Abs(M_Sd);
+			V_Sd = Math.Abs(V_Sd);
+
+			double shearRatio = V_Rd > 0 ? V_Sd / V_Rd : 0;
+			double bendingRatio = M_Rd > 0 ? M_Sd / M_Rd : 0;
 
 			bool highShear = V_Sd >= 0.4 * V_Rd;
 			double allowable;
@@ -30,6 +34,10 @@ namespace NorsokChecker.Services.Formulas
 				// Eq. 6.31: linear interaction for high shear
 				allowable = 1.4 - shearRatio;
 				equation = "6.31";
+
+				// If shear alone exceeds 1.4×V_Rd, the allowable goes ≤ 0 → automatic fail
+				if (allowable <= 0)
+					allowable = 0.001; // avoid division by zero, will show very high utilization
 			}
 			else
 			{

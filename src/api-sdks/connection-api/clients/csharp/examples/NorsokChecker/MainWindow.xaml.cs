@@ -259,28 +259,25 @@ namespace NorsokChecker
 					{
 						Log($"  Evaluating formulas for: {con.Name}");
 
-						// Fetch load effects (internal forces) from API
+						// Fetch load effects (internal forces) from API — always fetch, even with cached results
 						List<IdeaStatiCa.Api.Connection.Model.ConLoadEffect>? loadEffects = null;
-						if (!useCache)
+						try
 						{
-							try
+							loadEffects = await checker.GetLoadEffectsAsync(con.Id);
+							Log($"    Load effects: {loadEffects.Count} load case(s)");
+							foreach (var le in loadEffects)
 							{
-								loadEffects = await checker.GetLoadEffectsAsync(con.Id);
-								Log($"    Load effects: {loadEffects.Count} load case(s)");
-								foreach (var le in loadEffects)
+								foreach (var ml in le.MemberLoadings ?? new())
 								{
-									foreach (var ml in le.MemberLoadings ?? new())
-									{
-										if (ml.SectionLoad == null) continue;
-										var sl = ml.SectionLoad;
-										Log($"      Member {ml.MemberId}: N={sl.N:F1} Vy={sl.Vy:F1} Vz={sl.Vz:F1} Mx={sl.Mx:F2} My={sl.My:F2} Mz={sl.Mz:F2}");
-									}
+									if (ml.SectionLoad == null) continue;
+									var sl = ml.SectionLoad;
+									Log($"      Member {ml.MemberId}: N={sl.N:F1} Vy={sl.Vy:F1} Vz={sl.Vz:F1} Mx={sl.Mx:F2} My={sl.My:F2} Mz={sl.Mz:F2}");
 								}
 							}
-							catch (Exception ex)
-							{
-								Log($"    WARNING: Could not fetch load effects: {ex.Message}");
-							}
+						}
+						catch (Exception ex)
+						{
+							Log($"    WARNING: Could not fetch load effects: {ex.Message}");
 						}
 
 						var formulaResults = checker.EvaluateNorsokFormulas(
