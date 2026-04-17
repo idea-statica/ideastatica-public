@@ -1,3 +1,4 @@
+using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
 using NorsokChecker.Models;
 using NorsokChecker.Services.Formulas;
@@ -6,16 +7,11 @@ namespace NorsokChecker.Services
 {
 	/// <summary>
 	/// Orchestrates NORSOK N-004 compliance checking.
-	/// Parses raw CBFEM results and evaluates Norsok §6.3 formulas.
 	///
-	/// Strategy:
-	/// 1. Parse raw JSON → extract plate stresses, weld utilization, bolt forces
-	/// 2. For plate-level checks: use max stress vs. f_y with Norsok γ_M
-	/// 3. For member-level formulas (6.3.2–6.3.8): use plate data as proxy
-	///    for stress state (the CBFEM results give plate-level stresses, not
-	///    member internal forces directly — those would need structural analysis).
-	/// 4. Each formula is evaluated and a NorsokFormulaResult is returned with
-	///    all variable values for full traceability in the report.
+	/// Data sources:
+	/// 1. Raw JSON (CheckResultsData) → plate stresses, weld utilization, bolt forces
+	/// 2. LoadEffect API → member internal forces (N, Vy, Vz, Mx, My, Mz)
+	/// 3. User-provided tubular geometry (D, t, L, k) for §6.3 member formulas
 	/// </summary>
 	public class NorsokCheckRunner
 	{
@@ -31,13 +27,27 @@ namespace NorsokChecker.Services
 		}
 
 		/// <summary>
-		/// Evaluate all applicable Norsok §6.3 formulas against raw CBFEM results.
-		/// Returns a list of NorsokFormulaResult, one per formula evaluated.
+		/// Fetch load effects (internal forces) for a connection from the API.
 		/// </summary>
-		public List<NorsokFormulaResult> EvaluateNorsokFormulas(int connectionId, string rawJsonResults)
+		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int connectionId, CancellationToken ct = default)
+		{
+			return await _client.LoadEffect.GetLoadEffectsAsync(_projectId, connectionId, cancellationToken: ct);
+		}
+
+		/// <summary>
+		/// Evaluate all Norsok formulas using raw results, load effects, and tubular geometry.
+		/// </summary>
+		public List<NorsokFormulaResult> EvaluateNorsokFormulas(
+			int connectionId,
+			string rawJsonResults,
+			List<ConLoadEffect>? loadEffects = null,
+			TubularGeometry? geometry = null,
+			double memberLength = 0,
+			double kFactor = 0.7)
 		{
 			var results = new List<NorsokFormulaResult>();
 
+			// Parse raw CBFEM results
 			ParsedRawResults parsed;
 			try
 			{
@@ -49,75 +59,82 @@ namespace NorsokChecker.Services
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "6.3", Equation = "-", Title = "Parse Error",
-					CheckExpression = ex.Message,
-					Passed = false
+					CheckExpression = ex.Message, Passed = false
 				});
 				return results;
 			}
 
 			_log($"    Parsed: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
 
-			// ─── PLATE CHECKS ───
-			// For each plate, evaluate Norsok stress-based formulas using the CBFEM stresses.
-			// The plate's MaxStress is the von Mises equivalent stress from the FE model.
-			// We compare this against f_y/γ_M (Norsok material factor).
+			double gammaM0 = ProjectSettingsService.GammaM0_Norsok;
+			double gammaM2 = ProjectSettingsService.GammaM2_Norsok;
 
+			// ─── PLATE STRESS CHECKS ───
+			EvaluatePlateChecks(parsed, gammaM0, results);
+
+			// ─── WELD CHECKS ───
+			EvaluateWeldChecks(parsed, gammaM2, results);
+
+			// ─── BOLT CHECKS ───
+			EvaluateBoltChecks(parsed, results);
+
+			// ─── TUBULAR MEMBER FORMULAS (§6.3.2–6.3.8) ───
+			// These require: load effects (N, V, M) + tubular geometry (D, t) + member length
+			if (loadEffects != null && loadEffects.Count > 0 && geometry != null)
+			{
+				EvaluateTubularMemberFormulas(loadEffects, geometry, memberLength, kFactor, gammaM0, results);
+			}
+			else
+			{
+				string reason = geometry == null ? "tubular geometry not provided" : "no load effects available";
+				_log($"    Skipping §6.3 tubular member formulas ({reason})");
+			}
+
+			return results;
+		}
+
+		private void EvaluatePlateChecks(ParsedRawResults parsed, double gammaM, List<NorsokFormulaResult> results)
+		{
 			foreach (var plate in parsed.Plates)
 			{
 				if (plate.MaterialFy <= 0) continue;
 
 				double f_y = plate.MaterialFy;
-				double gammaM = ProjectSettingsService.GammaM0_Norsok; // 1.15
-				double maxStress = plate.MaxStress;
-				double thickness = plate.Thickness;
-
-				// §6.3.2 analogy — plate axial stress check
-				// MaxStress from CBFEM is von Mises equivalent stress.
-				// Compare against f_y / γ_M as per Norsok.
 				double f_d = f_y / gammaM;
-				double utilization = maxStress / f_d;
+				double utilization = plate.MaxStress / f_d;
 
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "6.3.2",
 					Equation = "6.1",
-					Title = $"Plate Stress: {plate.Name}",
+					Title = $"Plate: {plate.Name}",
 					CheckExpression = "σ_vM ≤ f_y / γ_M",
-					Demand = maxStress,
+					Demand = plate.MaxStress,
 					Capacity = f_d,
 					Utilization = utilization,
 					Passed = utilization <= 1.0,
 					Variables = new List<FormulaVariable>
 					{
-						new() { Symbol = "σ_vM", Description = $"Von Mises stress ({plate.Name})", Value = maxStress, Unit = "MPa" },
+						new() { Symbol = "σ_vM", Description = $"Von Mises stress ({plate.Name})", Value = plate.MaxStress, Unit = "MPa" },
 						new() { Symbol = "f_y", Description = $"Yield strength ({plate.MaterialName})", Value = f_y, Unit = "MPa" },
 						new() { Symbol = "γ_M", Description = "Norsok material factor (§6.3.7)", Value = gammaM, Unit = "-" },
 						new() { Symbol = "f_d", Description = "Design strength = f_y/γ_M", Value = f_d, Unit = "MPa" },
-						new() { Symbol = "t", Description = "Plate thickness", Value = thickness, Unit = "mm" },
+						new() { Symbol = "t", Description = "Plate thickness", Value = plate.Thickness, Unit = "mm" },
 						new() { Symbol = "ε_max", Description = "Max strain", Value = plate.MaxStrain, Unit = "-" },
 						new() { Symbol = "LC", Description = "Critical load case ID", Value = plate.LoadCaseId, Unit = "-" },
 					}
 				});
-
-				// If plate is tubular (CHS), also run the tubular-specific checks
-				// This requires D and t — we can infer if the plate represents a tubular member.
-				// For now, we flag tubular geometry checks as needing user input.
 			}
+		}
 
-			// ─── WELD CHECKS ───
-			// Norsok requires minimum weld quality level B (ISO 5817).
-			// Here we re-check weld utilization with Norsok γ_M2 = 1.25.
-
+		private void EvaluateWeldChecks(ParsedRawResults parsed, double gammaM2, List<NorsokFormulaResult> results)
+		{
 			foreach (var weld in parsed.Welds)
 			{
-				double gammaM2 = ProjectSettingsService.GammaM2_Norsok; // 1.25
-				double maxStress = weld.MaxEquivalentStress;
 				double fu = weld.MaterialFu;
-				double betaW = weld.BetaW > 0 ? weld.BetaW : 0.85; // default correlation factor
-
-				// Weld resistance: f_u / (β_w · γ_M2)
+				double betaW = weld.BetaW > 0 ? weld.BetaW : 0.85;
 				double resistance = fu > 0 ? fu / (betaW * gammaM2) : 0;
-				double utilization = resistance > 0 ? maxStress / resistance : 0;
+				double utilization = resistance > 0 ? weld.MaxEquivalentStress / resistance : 0;
 
 				results.Add(new NorsokFormulaResult
 				{
@@ -125,44 +142,39 @@ namespace NorsokChecker.Services
 					Equation = "EN 1993-1-8 §4.5",
 					Title = $"Weld: {weld.Name}",
 					CheckExpression = "σ_w ≤ f_u / (β_w · γ_M2)",
-					Demand = maxStress,
+					Demand = weld.MaxEquivalentStress,
 					Capacity = resistance,
 					Utilization = utilization,
 					Passed = utilization <= 1.0,
 					Variables = new List<FormulaVariable>
 					{
-						new() { Symbol = "σ_w", Description = "Max equivalent weld stress", Value = maxStress, Unit = "MPa" },
+						new() { Symbol = "σ_w", Description = "Max equivalent weld stress", Value = weld.MaxEquivalentStress, Unit = "MPa" },
 						new() { Symbol = "σ_⊥", Description = "Perpendicular stress", Value = weld.SigmaPerpendicular, Unit = "MPa" },
 						new() { Symbol = "τ_⊥", Description = "Shear perpendicular", Value = weld.Tauy, Unit = "MPa" },
-						new() { Symbol = "τ_∥", Description = "Shear parallel (along weld)", Value = weld.Taux, Unit = "MPa" },
+						new() { Symbol = "τ_∥", Description = "Shear parallel", Value = weld.Taux, Unit = "MPa" },
 						new() { Symbol = "f_u", Description = "Ultimate tensile strength", Value = fu, Unit = "MPa" },
 						new() { Symbol = "β_w", Description = "Correlation factor", Value = betaW, Unit = "-" },
 						new() { Symbol = "γ_M2", Description = "Norsok weld safety factor", Value = gammaM2, Unit = "-" },
 						new() { Symbol = "Resistance", Description = "f_u/(β_w·γ_M2)", Value = resistance, Unit = "MPa" },
 						new() { Symbol = "a", Description = "Weld throat thickness", Value = weld.DesignedThickness, Unit = "mm" },
 						new() { Symbol = "L", Description = "Weld length", Value = weld.Length, Unit = "mm" },
-						new() { Symbol = "LC", Description = "Critical load case ID", Value = weld.LoadCaseId, Unit = "-" },
 					}
 				});
 			}
+		}
 
-			// ─── BOLT CHECKS ───
-			// Norsok M-001 §9.3: Only 8.8 and 10.9 grade bolts allowed.
-			// Re-check bolt utilization with Norsok factors.
-
+		private void EvaluateBoltChecks(ParsedRawResults parsed, List<NorsokFormulaResult> results)
+		{
 			foreach (var bolt in parsed.Bolts)
 			{
-				// Bolt interaction: combined tension + shear
 				double interactionCheck = bolt.InteractionTensionShear;
-				double tensionUC = bolt.UnityCheckTension;
-				double shearUC = bolt.UnityCheckShear;
 
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "Bolt",
 					Equation = "EN 1993-1-8 §3.6",
 					Title = $"Bolt: {bolt.Name}",
-					CheckExpression = "F_t,Sd/F_t,Rd + F_v,Sd/(1.4·F_v,Rd) ≤ 1.0",
+					CheckExpression = "F_t/(F_t,Rd) + F_v/(1.4·F_v,Rd) ≤ 1.0",
 					Demand = interactionCheck,
 					Capacity = 1.0,
 					Utilization = interactionCheck,
@@ -173,52 +185,184 @@ namespace NorsokChecker.Services
 						new() { Symbol = "F_v,Sd", Description = "Bolt shear force", Value = bolt.BoltShearForce / 1000.0, Unit = "kN" },
 						new() { Symbol = "F_t,Rd", Description = "Tension resistance", Value = bolt.BoltTensionResistance / 1000.0, Unit = "kN" },
 						new() { Symbol = "F_v,Rd", Description = "Shear resistance", Value = bolt.BoltShearResistance / 1000.0, Unit = "kN" },
-						new() { Symbol = "UC_tension", Description = "Tension utilization", Value = tensionUC, Unit = "-" },
-						new() { Symbol = "UC_shear", Description = "Shear utilization", Value = shearUC, Unit = "-" },
-						new() { Symbol = "Interaction", Description = "Combined tension+shear check", Value = interactionCheck, Unit = "-" },
-						new() { Symbol = "Assembly", Description = "Bolt assembly", Value = 0, Unit = bolt.BoltAssemblyName },
-						new() { Symbol = "LC", Description = "Critical load case ID", Value = bolt.LoadCaseId, Unit = "-" },
+						new() { Symbol = "UC_tension", Description = "Tension utilization", Value = bolt.UnityCheckTension, Unit = "-" },
+						new() { Symbol = "UC_shear", Description = "Shear utilization", Value = bolt.UnityCheckShear, Unit = "-" },
+						new() { Symbol = "Interaction", Description = "Combined check", Value = interactionCheck, Unit = "-" },
+						new() { Symbol = "Assembly", Description = bolt.BoltAssemblyName, Value = 0, Unit = "" },
 					}
 				});
 			}
+		}
 
-			// ─── TUBULAR MEMBER FORMULAS (demo with first plate's material data) ───
-			// If we have plate data, demonstrate the tubular formulas with example geometry.
-			// In production, these would be fed from actual member cross-section data.
+		/// <summary>
+		/// Evaluate Norsok §6.3 tubular member formulas using load effects and geometry.
+		/// Runs for each active load case — picks the worst envelope.
+		/// </summary>
+		private void EvaluateTubularMemberFormulas(
+			List<ConLoadEffect> loadEffects,
+			TubularGeometry geo,
+			double memberLength,
+			double kFactor,
+			double gammaM,
+			List<NorsokFormulaResult> results)
+		{
+			_log($"    Running §6.3 tubular checks: D={geo.D}mm, t={geo.t}mm, L={memberLength}mm, k={kFactor}");
+			_log($"    Geometry: A={geo.A:F0}mm², W={geo.W:F0}mm³, Z={geo.Z:F0}mm³, i={geo.i:F1}mm");
 
-			var refPlate = parsed.Plates.FirstOrDefault(p => p.MaterialFy > 0);
-			if (refPlate != null)
+			// Use first plate's f_y as reference (all tubular members should share the same material)
+			// This will be overridden if we can read material from the API
+			double f_y = 355; // Default S355
+
+			// Track worst-case results across all load cases
+			NorsokFormulaResult? worstTension = null;
+			NorsokFormulaResult? worstCompression = null;
+			NorsokFormulaResult? worstBending = null;
+			NorsokFormulaResult? worstShear = null;
+			NorsokFormulaResult? worstTensionBending = null;
+			NorsokFormulaResult? worstCompBending627 = null;
+			NorsokFormulaResult? worstCompBending628 = null;
+			NorsokFormulaResult? worstShearBending = null;
+
+			foreach (var le in loadEffects)
 			{
-				double f_y = refPlate.MaterialFy;
-				double gammaM = ProjectSettingsService.GammaM0_Norsok;
+				if (le.MemberLoadings == null || le.MemberLoadings.Count == 0) continue;
 
-				// Extract max plate stress as proxy for axial stress
-				double maxPlateStress = parsed.Plates.Max(p => p.MaxStress);
-
-				// For demonstration: use the reference plate's material for tubular formulas.
-				// Actual D and t should come from the tubular member geometry.
-				// We add an informational result indicating tubular checks require geometry input.
-				results.Add(new NorsokFormulaResult
+				foreach (var ml in le.MemberLoadings)
 				{
-					Section = "6.3",
-					Equation = "-",
-					Title = "Tubular Member Checks (geometry required)",
-					CheckExpression = "§6.3.2–6.3.8 require tubular D, t, member length — provide via parameters",
-					Demand = maxPlateStress,
-					Capacity = f_y / gammaM,
-					Utilization = maxPlateStress / (f_y / gammaM),
-					Passed = maxPlateStress <= f_y / gammaM,
-					Variables = new List<FormulaVariable>
+					if (ml.SectionLoad == null) continue;
+					var sl = ml.SectionLoad;
+
+					// Convert API forces (assumed kN and kNm) to formula inputs
+					double N = sl.N;      // Axial force [kN]
+					double Vy = sl.Vy;    // Shear Y [kN]
+					double Vz = sl.Vz;    // Shear Z [kN]
+					double Mx = sl.Mx;    // Torsion [kNm]
+					double My = sl.My;    // Bending Y [kNm]
+					double Mz = sl.Mz;    // Bending Z [kNm]
+
+					double V_total = Math.Sqrt(Vy * Vy + Vz * Vz); // Resultant shear [kN]
+
+					// §6.3.2 Axial Tension (N > 0 means tension)
+					if (N > 0)
 					{
-						new() { Symbol = "σ_max", Description = "Max plate stress (all plates)", Value = maxPlateStress, Unit = "MPa" },
-						new() { Symbol = "f_y", Description = "Reference yield strength", Value = f_y, Unit = "MPa" },
-						new() { Symbol = "f_d", Description = "Design strength = f_y/γ_M", Value = f_y / gammaM, Unit = "MPa" },
-						new() { Symbol = "γ_M", Description = "Norsok material factor", Value = gammaM, Unit = "-" },
+						var r = AxialTensionCheck.Evaluate(N, geo.A, f_y, gammaM);
+						if (worstTension == null || r.Utilization > worstTension.Utilization)
+							worstTension = r;
 					}
-				});
+
+					// §6.3.3 Axial Compression (N < 0 means compression, pass as positive)
+					if (N < 0)
+					{
+						var r = AxialCompressionCheck.Evaluate(
+							Math.Abs(N), geo.A, f_y, geo.D, geo.t,
+							kFactor, memberLength, geo.i, gammaM);
+						if (worstCompression == null || r.Utilization > worstCompression.Utilization)
+							worstCompression = r;
+					}
+
+					// §6.3.4 Bending (resultant moment)
+					double M_resultant = Math.Sqrt(My * My + Mz * Mz);
+					if (M_resultant > 0)
+					{
+						var r = BendingCheck.Evaluate(M_resultant, geo.W, geo.Z, f_y, geo.D, geo.t, gammaM);
+						if (worstBending == null || r.Utilization > worstBending.Utilization)
+							worstBending = r;
+					}
+
+					// §6.3.5 Beam Shear
+					if (V_total > 0)
+					{
+						var r = ShearCheck.EvaluateBeamShear(V_total, geo.A, f_y, gammaM);
+						if (worstShear == null || r.Utilization > worstShear.Utilization)
+							worstShear = r;
+					}
+
+					// §6.3.8.1 Tension + Bending
+					if (N > 0 && M_resultant > 0)
+					{
+						double N_t_Rd = geo.A * f_y / gammaM / 1000.0;
+						double M_Rd = GetBendingResistance(geo, f_y, gammaM);
+						var r = TensionBendingCheck.Evaluate(N, N_t_Rd, My, Mz, M_Rd);
+						if (worstTensionBending == null || r.Utilization > worstTensionBending.Utilization)
+							worstTensionBending = r;
+					}
+
+					// §6.3.8.2 Compression + Bending (both equations)
+					if (N < 0 && M_resultant > 0)
+					{
+						double N_abs = Math.Abs(N);
+						double M_Rd = GetBendingResistance(geo, f_y, gammaM);
+
+						// N_c,Rd from axial compression formula
+						var compResult = AxialCompressionCheck.Evaluate(
+							N_abs, geo.A, f_y, geo.D, geo.t,
+							kFactor, memberLength, geo.i, gammaM);
+						double N_c_Rd = compResult.Capacity;
+
+						// Euler buckling loads
+						double N_Ey = CompressionBendingCheck.EulerBucklingLoad(geo.A, kFactor, memberLength, geo.i);
+						double N_Ez = N_Ey; // Same for tubular (symmetric)
+
+						// Cm factors — use 0.85 as default (conservative, Table 6-2)
+						double Cmy = 0.85;
+						double Cmz = 0.85;
+
+						// Eq. 6.27 stability check
+						var r627 = CompressionBendingCheck.EvaluateStability(
+							N_abs, N_c_Rd, My, Mz, M_Rd, Cmy, Cmz, N_Ey, N_Ez);
+						if (worstCompBending627 == null || r627.Utilization > worstCompBending627.Utilization)
+							worstCompBending627 = r627;
+
+						// Eq. 6.28 cross-section check
+						double f_cl = GetLocalBucklingStrength(f_y, geo.D, geo.t);
+						double N_cl_Rd = geo.A * f_cl / gammaM / 1000.0;
+						var r628 = CompressionBendingCheck.EvaluateCrossSection(N_abs, N_cl_Rd, My, Mz, M_Rd);
+						if (worstCompBending628 == null || r628.Utilization > worstCompBending628.Utilization)
+							worstCompBending628 = r628;
+					}
+
+					// §6.3.8.3 Shear + Bending
+					if (V_total > 0 && M_resultant > 0)
+					{
+						double M_Rd = GetBendingResistance(geo, f_y, gammaM);
+						double V_Rd = geo.A * f_y / (2.0 * Math.Sqrt(3.0) * gammaM) / 1000.0;
+						var r = ShearBendingCheck.Evaluate(M_resultant, M_Rd, V_total, V_Rd);
+						if (worstShearBending == null || r.Utilization > worstShearBending.Utilization)
+							worstShearBending = r;
+					}
+				}
 			}
 
-			return results;
+			// Add worst-case results
+			if (worstTension != null) results.Add(worstTension);
+			if (worstCompression != null) results.Add(worstCompression);
+			if (worstBending != null) results.Add(worstBending);
+			if (worstShear != null) results.Add(worstShear);
+			if (worstTensionBending != null) results.Add(worstTensionBending);
+			if (worstCompBending627 != null) results.Add(worstCompBending627);
+			if (worstCompBending628 != null) results.Add(worstCompBending628);
+			if (worstShearBending != null) results.Add(worstShearBending);
+
+			int memberCheckCount = results.Count(r => r.Section.StartsWith("6.3"));
+			_log($"    {memberCheckCount} tubular member formula(s) evaluated");
+		}
+
+		/// <summary>Get bending resistance M_Rd [kNm] per §6.3.4</summary>
+		private static double GetBendingResistance(TubularGeometry geo, double f_y, double gammaM)
+		{
+			var bendingResult = BendingCheck.Evaluate(1.0, geo.W, geo.Z, f_y, geo.D, geo.t, gammaM);
+			return bendingResult.Capacity; // M_Rd in kNm
+		}
+
+		/// <summary>Get local buckling strength f_cl [MPa] per Eq. 6.6–6.8</summary>
+		private static double GetLocalBucklingStrength(double f_y, double D, double t)
+		{
+			double f_cle = 2.0 * 0.3 * 2.1e5 * t / D;
+			double ratio = f_y / f_cle;
+
+			if (ratio <= 0.170) return f_y;
+			if (ratio <= 1.911) return (1.047 - 0.274 * ratio) * f_y;
+			return f_cle;
 		}
 	}
 }

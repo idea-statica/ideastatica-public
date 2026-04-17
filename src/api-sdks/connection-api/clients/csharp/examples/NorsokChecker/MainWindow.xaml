@@ -96,8 +96,41 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Load project and run Norsok M-001 compliance checks on all connections."
-                               Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,0,0,12"/>
+                    <TextBlock Grid.Row="0" Text="Load project and run NORSOK N-004 compliance checks on all connections."
+                               Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,0,0,4"/>
+
+                    <!-- Tubular geometry input (optional, for §6.3 member checks) -->
+                    <Expander Grid.Row="0" Header="  Tubular Member Geometry (optional — for §6.3 member formulas)"
+                              IsExpanded="False" Margin="0,4,0,8"
+                              Background="Transparent">
+                        <Grid Margin="8,4,8,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="D (mm):" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBox Grid.Column="1" x:Name="TxtDiameter" Text="500"
+                                     md:HintAssist.Hint="Outside dia" />
+                            <TextBlock Grid.Column="3" Text="t (mm):" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBox Grid.Column="4" x:Name="TxtThickness" Text="20"
+                                     md:HintAssist.Hint="Wall thickness" />
+                            <TextBlock Grid.Column="6" Text="L (mm):" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBox Grid.Column="7" x:Name="TxtLength" Text="5000"
+                                     md:HintAssist.Hint="Unbraced length" />
+                            <TextBlock Grid.Column="9" Text="k:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBox Grid.Column="10" x:Name="TxtKFactor" Text="0.7"
+                                     md:HintAssist.Hint="Eff. length" />
+                        </Grid>
+                    </Expander>
 
                     <!-- Connections list / results will go here -->
                     <DataGrid Grid.Row="1" x:Name="ConnectionsGrid" AutoGenerateColumns="False"

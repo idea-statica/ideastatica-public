@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -233,6 +234,21 @@ namespace NorsokChecker
 					}
 				}
 
+				// Parse tubular geometry from UI (optional)
+				TubularGeometry? geometry = null;
+				double memberLength = 0;
+				double kFactor = 0.7;
+
+				if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) &&
+					double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) &&
+					D > 0 && t > 0)
+				{
+					geometry = TubularGeometryCalc.Calculate(D, t);
+					double.TryParse(TxtLength.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out memberLength);
+					double.TryParse(TxtKFactor.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out kFactor);
+					Log($"Tubular geometry: D={D}mm, t={t}mm, L={memberLength}mm, k={kFactor}");
+				}
+
 				// Evaluate Norsok formulas on raw results
 				Log("Evaluating Norsok N-004 §6.3 formulas...");
 				var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
@@ -243,7 +259,32 @@ namespace NorsokChecker
 					{
 						Log($"  Evaluating formulas for: {con.Name}");
 
-						var formulaResults = checker.EvaluateNorsokFormulas(con.Id, rawJson);
+						// Fetch load effects (internal forces) from API
+						List<IdeaStatiCa.Api.Connection.Model.ConLoadEffect>? loadEffects = null;
+						if (!useCache)
+						{
+							try
+							{
+								loadEffects = await checker.GetLoadEffectsAsync(con.Id);
+								Log($"    Load effects: {loadEffects.Count} load case(s)");
+								foreach (var le in loadEffects)
+								{
+									foreach (var ml in le.MemberLoadings ?? new())
+									{
+										if (ml.SectionLoad == null) continue;
+										var sl = ml.SectionLoad;
+										Log($"      Member {ml.MemberId}: N={sl.N:F1} Vy={sl.Vy:F1} Vz={sl.Vz:F1} Mx={sl.Mx:F2} My={sl.My:F2} Mz={sl.Mz:F2}");
+									}
+								}
+							}
+							catch (Exception ex)
+							{
+								Log($"    WARNING: Could not fetch load effects: {ex.Message}");
+							}
+						}
+
+						var formulaResults = checker.EvaluateNorsokFormulas(
+							con.Id, rawJson, loadEffects, geometry, memberLength, kFactor);
 						_formulaResults[con.Id] = formulaResults;
 
 						// Determine worst-case Norsok utilization
