@@ -357,30 +357,28 @@ namespace NorsokChecker
 			PopulateReportTab();
 		}
 
-		private void PopulateReportTab()
+		private async void PopulateReportTab()
 		{
-			var sb = new System.Text.StringBuilder();
-			sb.AppendLine("═══════════════════════════════════════════════════════════════");
-			sb.AppendLine("  NORSOK N-004 COMPLIANCE REPORT");
-			sb.AppendLine("  Generated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-			sb.AppendLine("  Project: " + Path.GetFileName(TxtProjectFile.Text));
-			sb.AppendLine("═══════════════════════════════════════════════════════════════");
-			sb.AppendLine();
+			var allResults = new List<(string connectionName, List<NorsokFormulaResult> formulas)>();
 
 			foreach (var (conId, formulas) in _formulaResults)
 			{
 				var conName = _connections.FirstOrDefault(c => c.Id == conId)?.Name ?? $"Connection {conId}";
-				sb.AppendLine($"─── {conName} ───");
-				sb.AppendLine();
-
-				foreach (var fr in formulas)
-				{
-					sb.AppendLine(fr.ToReportString());
-					sb.AppendLine();
-				}
+				allResults.Add((conName, formulas));
 			}
 
-			ReportText.Text = sb.ToString();
+			var html = NorsokHtmlReportGenerator.GenerateReport(
+				Path.GetFileName(TxtProjectFile.Text), allResults);
+
+			try
+			{
+				await ReportWebView.EnsureCoreWebView2Async();
+				ReportWebView.NavigateToString(html);
+			}
+			catch (Exception ex)
+			{
+				Log($"WARNING: WebView2 not available ({ex.Message}). Report tab may not render.");
+			}
 		}
 
 		protected override void OnClosed(EventArgs e)

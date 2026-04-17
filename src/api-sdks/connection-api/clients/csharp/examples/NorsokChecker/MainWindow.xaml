@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         Title="IDEA StatiCa — Norsok Checker"
         Width="1100" Height="750"
         WindowStartupLocation="CenterScreen"
@@ -204,12 +205,8 @@
                         <TextBlock Text="Report" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Margin="12">
-                    <TextBox x:Name="ReportText" IsReadOnly="True"
-                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                             TextWrapping="NoWrap" FontFamily="Consolas" FontSize="12"
-                             Background="#FAFAFA" BorderThickness="0"
-                             AcceptsReturn="True"/>
+                <Grid Margin="4">
+                    <wv2:WebView2 x:Name="ReportWebView" />
                 </Grid>
             </TabItem>
         </TabControl>

@@ -1,0 +1,361 @@
+using System.Text;
+using NorsokChecker.Models;
+
+namespace NorsokChecker.Services
+{
+	/// <summary>
+	/// Generates an HTML report with KaTeX-rendered formulas for Norsok check results.
+	/// Produces output that looks like the formulas in the NORSOK N-004 PDF and
+	/// the IDEA StatiCa CHECK tab formula explanations.
+	/// </summary>
+	public static class NorsokHtmlReportGenerator
+	{
+		/// <summary>
+		/// KaTeX formula mappings: section → (symbolic formula in LaTeX, check expression in LaTeX)
+		/// </summary>
+		private static readonly Dictionary<string, (string latex, string check)> FormulaLatex = new()
+		{
+			["6.3.2"] = (
+				@"N_{t,Rd} = \frac{A \cdot f_y}{\gamma_M}",
+				@"N_{Sd} \leq N_{t,Rd}"
+			),
+			["6.3.3"] = (
+				@"N_{c,Rd} = \frac{A \cdot f_c}{\gamma_M}",
+				@"N_{Sd} \leq N_{c,Rd}"
+			),
+			["6.3.4"] = (
+				@"M_{Rd} = \frac{f_m \cdot W}{\gamma_M}",
+				@"M_{Sd} \leq M_{Rd}"
+			),
+			["6.3.5"] = (
+				@"V_{Rd} = \frac{A \cdot f_y}{2\sqrt{3} \cdot \gamma_M}",
+				@"V_{Sd} \leq V_{Rd}"
+			),
+			["6.3.8.1"] = (
+				@"\left(\frac{N_{Sd}}{N_{t,Rd}}\right)^{1.75} + \frac{\sqrt{M_{y,Sd}^2 + M_{z,Sd}^2}}{M_{Rd}} \leq 1.0",
+				@"\text{Interaction} \leq 1.0"
+			),
+			["6.3.8.2"] = (
+				@"\frac{N_{Sd}}{N_{c,Rd}} + \frac{1}{M_{Rd}}\sqrt{\left(\frac{C_{my} \cdot M_{y,Sd}}{1-\frac{N_{Sd}}{N_{Ey}}}\right)^2 + \left(\frac{C_{mz} \cdot M_{z,Sd}}{1-\frac{N_{Sd}}{N_{Ez}}}\right)^2} \leq 1.0",
+				@"\text{Interaction} \leq 1.0"
+			),
+			["6.3.8.3"] = (
+				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}",
+				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}"
+			),
+		};
+
+		public static string GenerateReport(
+			string projectName,
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+		{
+			var sb = new StringBuilder();
+
+			sb.AppendLine("<!DOCTYPE html>");
+			sb.AppendLine("<html><head>");
+			sb.AppendLine("<meta charset='utf-8'/>");
+			sb.AppendLine("<title>NORSOK N-004 Compliance Report</title>");
+
+			// KaTeX from CDN
+			sb.AppendLine("<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'/>");
+			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js'></script>");
+			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js'");
+			sb.AppendLine("  onload=\"renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});\"></script>");
+
+			sb.AppendLine("<style>");
+			sb.AppendLine(CssStyles);
+			sb.AppendLine("</style>");
+			sb.AppendLine("</head><body>");
+
+			// Report header
+			sb.AppendLine("<div class='report-header'>");
+			sb.AppendLine("  <h1>NORSOK N-004 Compliance Report</h1>");
+			sb.AppendLine($"  <p class='subtitle'>Project: {Esc(projectName)} &mdash; Generated: {DateTime.Now:yyyy-MM-dd HH:mm}</p>");
+			sb.AppendLine("</div>");
+
+			// Norm reference box
+			sb.AppendLine("<div class='norm-box'>");
+			sb.AppendLine("  <strong>Design Code:</strong> NORSOK N-004, Rev. 3, February 2013 &mdash; Design of Steel Structures<br/>");
+			sb.AppendLine("  <strong>Chapter 6.3:</strong> Tubular Members &mdash; Strength and Stability Requirements");
+			sb.AppendLine("</div>");
+
+			foreach (var (connectionName, formulas) in allResults)
+			{
+				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
+
+				foreach (var fr in formulas)
+				{
+					RenderFormulaCard(sb, fr);
+				}
+			}
+
+			sb.AppendLine("</body></html>");
+			return sb.ToString();
+		}
+
+		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr)
+		{
+			string statusClass = fr.Passed ? "pass" : "fail";
+			string statusIcon = fr.Passed ? "&#x2714;" : "&#x2718;";
+			string statusText = fr.Passed ? "PASS" : "FAIL";
+
+			sb.AppendLine($"<div class='check-card {statusClass}'>");
+
+			// Card header with section and title
+			sb.AppendLine($"  <div class='card-header {statusClass}'>");
+			sb.AppendLine($"    <span class='status-icon'>{statusIcon}</span>");
+			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
+			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
+			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
+			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization:F3}</span>");
+			sb.AppendLine("  </div>");
+
+			sb.AppendLine("  <div class='card-body'>");
+
+			// Main formula in KaTeX (display math)
+			if (FormulaLatex.TryGetValue(fr.Section, out var latex))
+			{
+				sb.AppendLine("    <div class='formula-block'>");
+				sb.AppendLine($"      <p class='formula-label'>Check condition:</p>");
+				sb.AppendLine($"      <div class='formula-math'>$${latex.check}$$</div>");
+				sb.AppendLine($"      <p class='formula-label'>Design resistance:</p>");
+				sb.AppendLine($"      <div class='formula-math'>$${latex.latex}$$</div>");
+				sb.AppendLine("    </div>");
+			}
+
+			// Substituted values
+			if (!string.IsNullOrEmpty(fr.FormulaSubstituted))
+			{
+				sb.AppendLine("    <div class='substituted'>");
+				sb.AppendLine($"      <p class='formula-label'>Substitution:</p>");
+				sb.AppendLine($"      <p class='formula-sub'>{Esc(fr.FormulaSubstituted)}</p>");
+				sb.AppendLine("    </div>");
+			}
+
+			// Where block
+			if (fr.Variables.Count > 0)
+			{
+				sb.AppendLine("    <div class='where-block'>");
+				sb.AppendLine("      <p class='where-header'>Where:</p>");
+				sb.AppendLine("      <table class='where-table'>");
+
+				foreach (var v in fr.Variables)
+				{
+					string katexSymbol = SymbolToKatex(v.Symbol);
+					sb.AppendLine("        <tr>");
+					sb.AppendLine($"          <td class='var-symbol'>$ {katexSymbol} $</td>");
+					sb.AppendLine($"          <td class='var-eq'>=</td>");
+					sb.AppendLine($"          <td class='var-value'>{v.FormattedValue}</td>");
+					sb.AppendLine($"          <td class='var-desc'>&mdash; {Esc(v.Description)}</td>");
+					sb.AppendLine("        </tr>");
+				}
+
+				sb.AppendLine("      </table>");
+				sb.AppendLine("    </div>");
+			}
+
+			// Result bar
+			sb.AppendLine($"    <div class='result-bar {statusClass}'>");
+			sb.AppendLine($"      <span>Utilization: <strong>{fr.Utilization:F4}</strong> &le; 1.0</span>");
+			sb.AppendLine($"      <span class='result-verdict'>{statusIcon} {statusText}</span>");
+			sb.AppendLine("    </div>");
+
+			sb.AppendLine("  </div>"); // card-body
+			sb.AppendLine("</div>"); // check-card
+		}
+
+		/// <summary>Convert variable symbol names to KaTeX notation.</summary>
+		private static string SymbolToKatex(string symbol)
+		{
+			return symbol
+				.Replace("γ_M", @"\gamma_M")
+				.Replace("σ_vM", @"\sigma_{vM}")
+				.Replace("σ_Ed", @"\sigma_{Ed}")
+				.Replace("σ_⊥", @"\sigma_{\perp}")
+				.Replace("σ_w", @"\sigma_w")
+				.Replace("σ_max", @"\sigma_{max}")
+				.Replace("τ_⊥", @"\tau_{\perp}")
+				.Replace("τ_∥", @"\tau_{\parallel}")
+				.Replace("τ_T,Sd", @"\tau_{T,Sd}")
+				.Replace("τ/f_d", @"\tau / f_d")
+				.Replace("ε_max", @"\varepsilon_{max}")
+				.Replace("λ_s", @"\lambda_s")
+				.Replace("λ", @"\lambda")
+				.Replace("β_w", @"\beta_w")
+				.Replace("N_Sd", @"N_{Sd}")
+				.Replace("N_Ey", @"N_{Ey}")
+				.Replace("N_Ez", @"N_{Ez}")
+				.Replace("N_t,Rd", @"N_{t,Rd}")
+				.Replace("N_c,Rd", @"N_{c,Rd}")
+				.Replace("N_cl,Rd", @"N_{cl,Rd}")
+				.Replace("M_Sd", @"M_{Sd}")
+				.Replace("M_Rd", @"M_{Rd}")
+				.Replace("M_Red,Rd", @"M_{Red,Rd}")
+				.Replace("M_y,Sd", @"M_{y,Sd}")
+				.Replace("M_z,Sd", @"M_{z,Sd}")
+				.Replace("M_T,Sd", @"M_{T,Sd}")
+				.Replace("M_T,Rd", @"M_{T,Rd}")
+				.Replace("V_Sd", @"V_{Sd}")
+				.Replace("V_Rd", @"V_{Rd}")
+				.Replace("F_t,Sd", @"F_{t,Sd}")
+				.Replace("F_v,Sd", @"F_{v,Sd}")
+				.Replace("F_t,Rd", @"F_{t,Rd}")
+				.Replace("F_v,Rd", @"F_{v,Rd}")
+				.Replace("C_my", @"C_{my}")
+				.Replace("C_mz", @"C_{mz}")
+				.Replace("C_e", @"C_e")
+				.Replace("f_y", @"f_y")
+				.Replace("f_u", @"f_u")
+				.Replace("f_c", @"f_c")
+				.Replace("f_m", @"f_m")
+				.Replace("f_d", @"f_d")
+				.Replace("f_cl", @"f_{cl}")
+				.Replace("f_cle", @"f_{cle}")
+				.Replace("f_E", @"f_E")
+				.Replace("f_m,Red", @"f_{m,Red}")
+				.Replace("f_w,Rd", @"f_{w,Rd}")
+				.Replace("I_p", @"I_p")
+				.Replace("kl/i", @"kl/i")
+				.Replace("Z/W", @"Z/W")
+				.Replace("(N/N_t)^1.75", @"(N/N_t)^{1.75}")
+				.Replace("√(M²y+M²z)/M_Rd", @"\sqrt{M_y^2+M_z^2}/M_{Rd}")
+				.Replace("f_y·D/(E·t)", @"f_y \cdot D / (E \cdot t)")
+				.Replace("f_y/f_cle", @"f_y / f_{cle}")
+				.Replace("0.4·V_Rd", @"0.4 \cdot V_{Rd}")
+				.Replace("UC_tension", @"\text{UC}_{tension}")
+				.Replace("UC_shear", @"\text{UC}_{shear}")
+				.Replace("Interaction", @"\text{Interaction}")
+				.Replace("Axial term", @"\text{Axial term}")
+				.Replace("Moment term", @"\text{Moment term}")
+				.Replace("Allowable", @"\text{Allowable}")
+				.Replace("Assembly", @"\text{Assembly}")
+				.Replace("Resistance", @"\text{Resistance}")
+				.Replace("Class", @"\text{Class}")
+				.Replace("LC", @"\text{LC}");
+		}
+
+		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
+
+		private const string CssStyles = @"
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+  font-size: 14px;
+  color: #333;
+  background: #f5f5f5;
+  padding: 24px;
+  line-height: 1.5;
+}
+.report-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.report-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #00695c;
+}
+.subtitle { color: #757575; font-size: 13px; margin-top: 4px; }
+.norm-box {
+  background: #e0f2f1;
+  border-left: 4px solid #00897b;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.connection-header {
+  font-size: 17px;
+  color: #00695c;
+  border-bottom: 2px solid #00897b;
+  padding-bottom: 6px;
+  margin: 24px 0 12px 0;
+}
+.check-card {
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-weight: 500;
+}
+.card-header.pass { background: #e8f5e9; border-left: 4px solid #4caf50; }
+.card-header.fail { background: #ffebee; border-left: 4px solid #f44336; }
+.status-icon { font-size: 18px; }
+.pass .status-icon { color: #2e7d32; }
+.fail .status-icon { color: #c62828; }
+.section-ref { color: #00695c; font-weight: 600; }
+.card-title { flex: 1; }
+.eq-ref { color: #9e9e9e; font-size: 12px; }
+.util-badge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.util-badge.pass { background: #c8e6c9; color: #2e7d32; }
+.util-badge.fail { background: #ffcdd2; color: #c62828; }
+.card-body { padding: 12px 20px 16px 20px; }
+.formula-block { margin-bottom: 12px; }
+.formula-label {
+  font-size: 12px;
+  color: #757575;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  margin-top: 8px;
+}
+.formula-math {
+  padding: 8px 0;
+  font-size: 16px;
+}
+.substituted {
+  background: #fafafa;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  border: 1px solid #e0e0e0;
+}
+.formula-sub {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  color: #424242;
+}
+.where-block { margin-bottom: 12px; }
+.where-header {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+}
+.where-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.where-table tr:nth-child(even) { background: #fafafa; }
+.where-table td { padding: 4px 8px; vertical-align: middle; }
+.var-symbol { width: 140px; text-align: right; }
+.var-eq { width: 20px; text-align: center; color: #999; }
+.var-value { width: 140px; font-family: 'Consolas', monospace; font-size: 13px; }
+.var-desc { color: #757575; font-size: 13px; }
+.result-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.result-bar.pass { background: #e8f5e9; }
+.result-bar.fail { background: #ffebee; }
+.result-verdict { font-weight: 700; font-size: 15px; }
+.pass .result-verdict { color: #2e7d32; }
+.fail .result-verdict { color: #c62828; }
+";
+	}
+}
