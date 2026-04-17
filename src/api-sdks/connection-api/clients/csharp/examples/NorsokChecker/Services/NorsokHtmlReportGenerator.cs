@@ -89,6 +89,18 @@ namespace NorsokChecker.Services
 				}
 			}
 
+			// Script: auto-expand FAIL cards, re-render KaTeX when toggled
+			sb.AppendLine("<script>");
+			sb.AppendLine("document.addEventListener('DOMContentLoaded', function() {");
+			sb.AppendLine("  document.querySelectorAll('details.fail').forEach(d => d.open = true);");
+			sb.AppendLine("  document.querySelectorAll('details').forEach(d => {");
+			sb.AppendLine("    d.addEventListener('toggle', function() {");
+			sb.AppendLine("      if (d.open && typeof renderMathInElement === 'function') renderMathInElement(d, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});");
+			sb.AppendLine("    });");
+			sb.AppendLine("  });");
+			sb.AppendLine("});");
+			sb.AppendLine("</script>");
+
 			sb.AppendLine("</body></html>");
 			return sb.ToString();
 		}
@@ -99,16 +111,16 @@ namespace NorsokChecker.Services
 			string statusIcon = fr.Passed ? "&#x2714;" : "&#x2718;";
 			string statusText = fr.Passed ? "PASS" : "FAIL";
 
-			sb.AppendLine($"<div class='check-card {statusClass}'>");
+			sb.AppendLine($"<details class='check-card {statusClass}'>");
 
-			// Card header with section and title
-			sb.AppendLine($"  <div class='card-header {statusClass}'>");
+			// Collapsible header — click to expand/collapse
+			sb.AppendLine($"  <summary class='card-header {statusClass}'>");
 			sb.AppendLine($"    <span class='status-icon'>{statusIcon}</span>");
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
 			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
 			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
 			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization:F3}</span>");
-			sb.AppendLine("  </div>");
+			sb.AppendLine("  </summary>");
 
 			sb.AppendLine("  <div class='card-body'>");
 
@@ -161,7 +173,7 @@ namespace NorsokChecker.Services
 			sb.AppendLine("    </div>");
 
 			sb.AppendLine("  </div>"); // card-body
-			sb.AppendLine("</div>"); // check-card
+			sb.AppendLine("</details>"); // check-card
 		}
 
 		/// <summary>Convert variable symbol names to KaTeX notation.</summary>
@@ -278,13 +290,28 @@ body {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   overflow: hidden;
 }
+.check-card > summary { list-style: none; cursor: pointer; }
+.check-card > summary::-webkit-details-marker { display: none; }
+.check-card > summary::before {
+  content: '▸';
+  display: inline-block;
+  width: 16px;
+  font-size: 14px;
+  color: #999;
+  transition: transform 0.15s;
+}
+.check-card[open] > summary::before {
+  transform: rotate(90deg);
+}
 .card-header {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
   font-weight: 500;
+  user-select: none;
 }
+.card-header:hover { filter: brightness(0.97); }
 .card-header.pass { background: #e8f5e9; border-left: 4px solid #4caf50; }
 .card-header.fail { background: #ffebee; border-left: 4px solid #f44336; }
 .status-icon { font-size: 18px; }
