@@ -58,7 +58,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="IDEA StatiCa folder:"
                                VerticalAlignment="Center" Margin="0,0,12,0"/>
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtApiPath"
-                             Text="C:\Program Files\IDEA StatiCa\StatiCa 25.1"
+                             Text="C:\Program Files\IDEA StatiCa\StatiCa 26.0"
                              md:HintAssist.Hint="Path to installation or service URL"
                              Margin="0,0,8,0"/>
                     <Button Grid.Row="1" Grid.Column="2" Content="Browse..." Click="BrowseApiPath_Click"
