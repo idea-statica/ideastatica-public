@@ -1,0 +1,195 @@
+<Window x:Class="NorsokChecker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="IDEA StatiCa — Norsok Checker"
+        Width="1100" Height="750"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <md:ColorZone Grid.Row="0" Mode="PrimaryDark" Padding="16" md:ElevationAssist.Elevation="Dp4">
+            <StackPanel Orientation="Horizontal">
+                <md:PackIcon Kind="ShieldCheck" Width="28" Height="28" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <TextBlock Text="Norsok Checker" Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                           VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock Text="  —  NORSOK M-001 Connection Compliance" VerticalAlignment="Center"
+                           Foreground="#B0BEC5" Margin="8,0,0,0"
+                           Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+            </StackPanel>
+        </md:ColorZone>
+
+        <!-- Configuration Card -->
+        <md:Card Grid.Row="1" Margin="16,12,16,4" Padding="0" md:ElevationAssist.Elevation="Dp2">
+            <Expander Header="  API Configuration" IsExpanded="True"
+                      md:ExpanderAssist.HorizontalHeaderPadding="16"
+                      Background="Transparent">
+                <Grid Margin="16,4,16,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Mode selection -->
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,0,0,8">
+                        <RadioButton x:Name="RbSpawn" Content="Spawn local API" IsChecked="True"
+                                     Margin="0,0,24,0" Style="{StaticResource MaterialDesignRadioButton}"/>
+                        <RadioButton x:Name="RbAttach" Content="Attach to running service"
+                                     Style="{StaticResource MaterialDesignRadioButton}"/>
+                    </StackPanel>
+
+                    <!-- API path / URL -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="IDEA StatiCa folder:"
+                               VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtApiPath"
+                             Text="C:\Program Files\IDEA StatiCa\StatiCa 25.1"
+                             md:HintAssist.Hint="Path to installation or service URL"
+                             Margin="0,0,8,0"/>
+                    <Button Grid.Row="1" Grid.Column="2" Content="Browse..." Click="BrowseApiPath_Click"
+                            Style="{StaticResource MaterialDesignOutlinedButton}" Padding="12,4"/>
+
+                    <!-- Project file -->
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Project file (.ideaCon):"
+                               VerticalAlignment="Center" Margin="0,8,12,0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="TxtProjectFile"
+                             md:HintAssist.Hint="Select an .ideaCon project file"
+                             Margin="0,8,8,0"/>
+                    <Button Grid.Row="2" Grid.Column="2" Content="Browse..." Click="BrowseProject_Click"
+                            Style="{StaticResource MaterialDesignOutlinedButton}" Padding="12,4"
+                            Margin="0,8,0,0"/>
+                </Grid>
+            </Expander>
+        </md:Card>
+
+        <!-- Main workspace -->
+        <TabControl Grid.Row="2" Margin="16,8,16,8"
+                    Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+
+            <!-- Tab 1: Norsok Check -->
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <md:PackIcon Kind="ClipboardCheck" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Check" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Load project and run Norsok M-001 compliance checks on all connections."
+                               Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,0,0,12"/>
+
+                    <!-- Connections list / results will go here -->
+                    <DataGrid Grid.Row="1" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
+                              IsReadOnly="True" CanUserAddRows="False"
+                              md:DataGridAssist.CellPadding="8 4"
+                              VerticalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120"/>
+                            <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilization, StringFormat=F2}" Width="120"/>
+                            <DataGridTextColumn Header="Norsok Pass" Binding="{Binding NorsokPass}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button x:Name="BtnLoadProject" Content="  Load Project" Click="LoadProject_Click"
+                                Margin="0,0,8,0" Style="{StaticResource MaterialDesignRaisedButton}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                        <TextBlock Text="Load Project" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+                        <Button x:Name="BtnRunCheck" Content="Run Norsok Check" IsEnabled="False"
+                                Click="RunCheck_Click" Style="{StaticResource MaterialDesignRaisedButton}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="PlayCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                        <TextBlock Text="Run Norsok Check" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 2: Results -->
+            <TabItem x:Name="TabResults" IsEnabled="False">
+                <TabItem.Header>
+                    <StackPanel>
+                        <md:PackIcon Kind="ChartBar" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Results" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Norsok M-001 compliance results and detailed check breakdown."
+                               Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,0,0,12"/>
+
+                    <DataGrid Grid.Row="1" x:Name="ResultsGrid" AutoGenerateColumns="True"
+                              IsReadOnly="True" CanUserAddRows="False"
+                              md:DataGridAssist.CellPadding="8 4"
+                              VerticalScrollBarVisibility="Auto"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 3: Report -->
+            <TabItem x:Name="TabReport" IsEnabled="False">
+                <TabItem.Header>
+                    <StackPanel>
+                        <md:PackIcon Kind="FileDocument" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Report" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="12">
+                    <TextBlock Text="Report generation — coming soon."
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Log panel -->
+        <md:Card Grid.Row="3" Margin="16,0,16,12" Padding="0" md:ElevationAssist.Elevation="Dp1">
+            <Expander Header="  Log" IsExpanded="True"
+                      md:ExpanderAssist.HorizontalHeaderPadding="16"
+                      Background="Transparent">
+                <TextBox x:Name="LogBox" Height="120" IsReadOnly="True"
+                         VerticalScrollBarVisibility="Auto"
+                         TextWrapping="Wrap" FontFamily="Consolas" FontSize="12"
+                         Margin="12,0,12,8" Background="#FAFAFA"
+                         BorderThickness="0"/>
+            </Expander>
+        </md:Card>
+    </Grid>
+</Window>
