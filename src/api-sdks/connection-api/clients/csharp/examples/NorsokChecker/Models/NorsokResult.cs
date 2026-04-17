@@ -1,7 +1,7 @@
 namespace NorsokChecker.Models
 {
 	/// <summary>
-	/// Result of a Norsok M-001 compliance check for a single connection.
+	/// Aggregated Norsok N-004 compliance result for a single connection.
 	/// </summary>
 	public class NorsokResult
 	{
@@ -9,6 +9,7 @@ namespace NorsokChecker.Models
 		public double MaxUtilization { get; set; }
 		public bool Passed { get; set; }
 		public bool OverallPassed { get; set; }
+		public List<NorsokFormulaResult> FormulaResults { get; set; } = new();
 		public List<NorsokCheckItem> CheckItems { get; set; } = new();
 	}
 

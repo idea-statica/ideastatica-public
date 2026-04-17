@@ -23,7 +23,7 @@
                 <md:PackIcon Kind="ShieldCheck" Width="28" Height="28" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <TextBlock Text="Norsok Checker" Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                            VerticalAlignment="Center" Foreground="White"/>
-                <TextBlock Text="  —  NORSOK M-001 Connection Compliance" VerticalAlignment="Center"
+                <TextBlock Text="  —  NORSOK N-004 Connection Compliance" VerticalAlignment="Center"
                            Foreground="#B0BEC5" Margin="8,0,0,0"
                            Style="{StaticResource MaterialDesignBody1TextBlock}"/>
             </StackPanel>
@@ -153,7 +153,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Norsok M-001 compliance results and detailed check breakdown."
+                    <TextBlock Grid.Row="0" Text="Norsok N-004 §6.3 formula results — per connection, per equation."
                                Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,0,0,12"/>
 
                     <DataGrid Grid.Row="1" x:Name="ResultsGrid" AutoGenerateColumns="True"
@@ -172,9 +172,11 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="12">
-                    <TextBlock Text="Report generation — coming soon."
-                               Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="ReportText" IsReadOnly="True"
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                             TextWrapping="NoWrap" FontFamily="Consolas" FontSize="12"
+                             Background="#FAFAFA" BorderThickness="0"
+                             AcceptsReturn="True"/>
                 </Grid>
             </TabItem>
         </TabControl>
