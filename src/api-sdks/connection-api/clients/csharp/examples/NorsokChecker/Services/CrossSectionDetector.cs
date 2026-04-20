@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.ConnectionApi;
 
 namespace NorsokChecker.Services
@@ -67,63 +68,107 @@ namespace NorsokChecker.Services
 		{
 			try
 			{
-				string json = cssObj?.ToString() ?? "";
-				string name = "";
+				var result = new DetectedCrossSection();
 
-				// Handle Newtonsoft JObject (from Connection API deserialization)
-				if (cssObj is Newtonsoft.Json.Linq.JObject jObj)
+				// The API returns CrossSectionParameter objects directly
+				if (cssObj is CrossSectionParameter cssPar)
 				{
-					name = jObj.Value<string>("mprlName") ?? jObj.Value<string>("MprlName")
-						?? jObj.Value<string>("name") ?? jObj.Value<string>("Name") ?? "";
-					json = jObj.ToString();
-				}
-				// Handle System.Text.Json JsonElement
-				else if (cssObj is JsonElement elem && elem.ValueKind == JsonValueKind.Object)
-				{
-					json = elem.GetRawText();
-					if (elem.TryGetProperty("mprlName", out var mp)) name = mp.GetString() ?? "";
-					else if (elem.TryGetProperty("MprlName", out var mp2)) name = mp2.GetString() ?? "";
-					else if (elem.TryGetProperty("name", out var n)) name = n.GetString() ?? "";
+					result.Name = cssPar.Name ?? cssPar.CrossSectionType.ToString();
+					_log($"      CSS: '{result.Name}' type={cssPar.CrossSectionType}");
+
+					// Detect shape from CrossSectionType enum
+					switch (cssPar.CrossSectionType)
+					{
+						case CrossSectionType.RolledCHS:
+						case CrossSectionType.CHSPar:
+						case CrossSectionType.CHSg:
+						case CrossSectionType.O:
+						case CrossSectionType.Oval:
+						case CrossSectionType.CFRegPolygon:
+							result.IsCHS = true;
+							result.ShapeType = "CHS";
+							// Extract D and t from parameters
+							foreach (var p in cssPar.Parameters)
+							{
+								if (p is not ParameterDouble pd) continue;
+								var pName = p.Name?.ToUpperInvariant() ?? "";
+								_log($"        param: {p.Name} = {pd.Value}");
+								if (pName == "D" || pName == "DIAMETER")
+									result.Diameter = pd.Value;
+								else if (pName == "R" || pName == "RADIUS")
+									result.Diameter = pd.Value * 2;
+								else if (pName == "T" || pName == "THICKNESS" || pName == "T1")
+									result.Thickness = pd.Value;
+							}
+							// If dimensions in meters, convert to mm
+							if (result.Diameter > 0 && result.Diameter < 10)
+								result.Diameter *= 1000;
+							if (result.Thickness > 0 && result.Thickness < 1)
+								result.Thickness *= 1000;
+							_log($"      → CHS D={result.Diameter:F1}mm t={result.Thickness:F1}mm");
+							break;
+
+						case CrossSectionType.RolledRHS:
+						case CrossSectionType.RHSg:
+						case CrossSectionType.CFRhs:
+							result.ShapeType = "RHS";
+							break;
+
+						case CrossSectionType.RolledI:
+						case CrossSectionType.RolledIPar:
+						case CrossSectionType.Iw:
+						case CrossSectionType.Iwn:
+						case CrossSectionType.Ign:
+						case CrossSectionType.Igh:
+							result.ShapeType = "I-section";
+							break;
+
+						case CrossSectionType.RolledU:
+						case CrossSectionType.RolledUPar:
+							result.ShapeType = "Channel";
+							break;
+
+						case CrossSectionType.RolledAngle:
+						case CrossSectionType.RolledLPar:
+							result.ShapeType = "Angle";
+							break;
+
+						default:
+							result.ShapeType = "Other";
+							break;
+					}
+
+					// Also try to parse dimensions from the name string
+					if (result.IsCHS && result.Diameter == 0 && !string.IsNullOrEmpty(result.Name))
+					{
+						var match = ChsDimensionRegex.Match(result.Name);
+						if (match.Success)
+						{
+							result.Diameter = double.Parse(match.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
+							result.Thickness = double.Parse(match.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture);
+						}
+					}
+
+					return result;
 				}
 
-				if (string.IsNullOrEmpty(name))
-					name = json.Length > 200 ? json[..200] : json;
-
+				// Fallback: try name-based detection for other object types
+				string name = cssObj?.ToString() ?? "";
 				_log($"      CSS raw: '{name}' (type: {cssObj?.GetType().Name})");
+				result.Name = name;
+				result.ShapeType = "Other";
 
-				var result = new DetectedCrossSection { Name = name };
-
-				// Check if CHS
-				bool isChs = ChsIndicators.Any(indicator =>
-					name.IndexOf(indicator, StringComparison.OrdinalIgnoreCase) >= 0);
-
+				bool isChs = ChsIndicators.Any(ind => name.IndexOf(ind, StringComparison.OrdinalIgnoreCase) >= 0);
 				if (isChs)
 				{
 					result.IsCHS = true;
 					result.ShapeType = "CHS";
-
-					// Parse dimensions
 					var match = ChsDimensionRegex.Match(name);
 					if (match.Success)
 					{
 						result.Diameter = double.Parse(match.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
 						result.Thickness = double.Parse(match.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture);
 					}
-				}
-				else if (name.IndexOf("RHS", StringComparison.OrdinalIgnoreCase) >= 0 ||
-						 name.IndexOf("SHS", StringComparison.OrdinalIgnoreCase) >= 0)
-				{
-					result.ShapeType = "RHS";
-				}
-				else if (name.IndexOf("HE", StringComparison.OrdinalIgnoreCase) >= 0 ||
-						 name.IndexOf("IPE", StringComparison.OrdinalIgnoreCase) >= 0 ||
-						 name.IndexOf("W ", StringComparison.OrdinalIgnoreCase) >= 0)
-				{
-					result.ShapeType = "I-section";
-				}
-				else
-				{
-					result.ShapeType = "Other";
 				}
 
 				return result;
