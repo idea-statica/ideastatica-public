@@ -15,6 +15,7 @@ namespace NorsokChecker
 	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		private readonly ObservableCollection<ConnectionCheckResult> _connections = new();
+		private readonly ObservableCollection<MemberDisplayInfo> _members = new();
 		private ConnectionApiServiceRunner? _runner;
 		private IConnectionApiClient? _apiClient;
 		private Guid _projectId;
@@ -31,6 +32,7 @@ namespace NorsokChecker
 		{
 			InitializeComponent();
 			ConnectionsGrid.ItemsSource = _connections;
+			MembersGrid.ItemsSource = _members;
 			DataContext = this;
 			Log("Norsok Checker ready. Configure API path and load a project.");
 		}
@@ -125,76 +127,49 @@ namespace NorsokChecker
 
 				Log($"Found {connections.Count} connection(s).");
 
-				// Detect cross-section shapes (CHS / I-section / RHS)
-				try
-				{
-					var cssDetector = new CrossSectionDetector(_apiClient, Log);
-					var detectedCss = await cssDetector.DetectAsync(_projectId);
-
-					var chsSections = detectedCss.Where(c => c.IsCHS).ToList();
-					if (chsSections.Count > 0)
-					{
-						Log($"  Tubular sections detected: {chsSections.Count} CHS profile(s)");
-
-						// Auto-populate geometry from largest and smallest CHS (chord vs brace)
-						var sorted = chsSections.OrderByDescending(c => c.Diameter).ToList();
-						var chordCss = sorted.First();
-						var braceCss = sorted.Count > 1 ? sorted.Last() : sorted.First();
-
-						if (chordCss.Diameter > 0)
-						{
-							TxtChordD.Text = chordCss.Diameter.ToString("F0", CultureInfo.InvariantCulture);
-							TxtChordT.Text = chordCss.Thickness.ToString("F1", CultureInfo.InvariantCulture);
-							TxtDiameter.Text = chordCss.Diameter.ToString("F0", CultureInfo.InvariantCulture);
-							Log($"  Auto-filled chord: D={chordCss.Diameter}mm T={chordCss.Thickness}mm from '{chordCss.Name}'");
-						}
-						if (braceCss.Diameter > 0)
-						{
-							TxtBraceD.Text = braceCss.Diameter.ToString("F0", CultureInfo.InvariantCulture);
-							TxtBraceT.Text = braceCss.Thickness.ToString("F1", CultureInfo.InvariantCulture);
-							TxtThickness.Text = braceCss.Thickness.ToString("F1", CultureInfo.InvariantCulture);
-							Log($"  Auto-filled brace: d={braceCss.Diameter}mm t={braceCss.Thickness}mm from '{braceCss.Name}'");
-						}
-					}
-					else
-					{
-						Log($"  No CHS profiles detected — §6.3/§6.4 tubular checks will use manual geometry input");
-					}
-				}
-				catch (Exception ex)
-				{
-					Log($"  WARNING: Cross-section detection failed: {ex.Message}");
-				}
-
-				// Read member geometry from API (fallback for wall thickness / fy)
+				// Read members and cross-sections
+				_members.Clear();
 				if (connections.Count > 0)
 				{
 					try
 					{
+						// Get members from API
+						var memberApi = await _apiClient.Member.GetMembersAsync(_projectId, connections[0].Id);
+						// Get cross-sections
+						var cssDetector = new CrossSectionDetector(_apiClient, Log);
+						var detectedCss = await cssDetector.DetectAsync(_projectId);
+						// Get plate data for wall thickness
 						var geoReader = new MemberGeometryReader(_apiClient, Log);
 						var memberInfos = await geoReader.ReadMembersAsync(_projectId, connections[0].Id, ct: default);
 
-						var chord = memberInfos.FirstOrDefault(m => m.IsContinuous);
-						var brace = memberInfos.FirstOrDefault(m => !m.IsContinuous);
-
-						if (chord != null && chord.WallThickness > 0)
+						foreach (var m in memberApi)
 						{
-							TxtChordT.Text = chord.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
-							if (chord.Fy > 0)
-								TxtFyChord.Text = chord.Fy.ToString("F0", CultureInfo.InvariantCulture);
-							Log($"  Auto-filled chord T={chord.WallThickness:F1}mm, fy={chord.Fy:F0}MPa from '{chord.Name}'");
+							var info = memberInfos.FirstOrDefault(mi => mi.Id == m.Id);
+							// Match cross-section by ID — find the CSS with matching name
+							var css = detectedCss.FirstOrDefault(); // simplified: use first detected CSS per member type
+							if (m.IsContinuous && detectedCss.Count > 0)
+								css = detectedCss.OrderByDescending(c => c.Diameter).FirstOrDefault();
+							else if (!m.IsContinuous && detectedCss.Count > 0)
+								css = detectedCss.OrderBy(c => c.Diameter).FirstOrDefault();
+
+							_members.Add(new MemberDisplayInfo
+							{
+								Id = m.Id,
+								Name = m.Name ?? $"Member {m.Id}",
+								Role = m.IsContinuous ? "Chord" : "Brace",
+								Shape = css?.ShapeType ?? "Other",
+								Diameter = css?.Diameter ?? 0,
+								WallThickness = info?.WallThickness ?? css?.Thickness ?? 0,
+								Fy = info?.Fy ?? 355,
+								MaterialName = info?.MaterialName ?? "",
+							});
 						}
 
-						if (brace != null && brace.WallThickness > 0)
-						{
-							TxtBraceT.Text = brace.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
-							TxtThickness.Text = brace.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
-							Log($"  Auto-filled brace t={brace.WallThickness:F1}mm from '{brace.Name}'");
-						}
+						Log($"  Members loaded: {_members.Count} ({_members.Count(m => m.IsCHS)} CHS)");
 					}
 					catch (Exception ex)
 					{
-						Log($"  WARNING: Could not read member geometry: {ex.Message}");
+						Log($"  WARNING: Could not read members: {ex.Message}");
 					}
 				}
 
@@ -418,45 +393,40 @@ namespace NorsokChecker
 			return new double[] { sigmaA, sigmaMy, sigmaMz };
 		}
 
+		/// <summary>Parse CHS geometry from the largest CHS member (chord).</summary>
 		private TubularGeometry? ParseCHSGeometry()
 		{
-			if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) &&
-				double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) &&
-				D > 0 && t > 0)
-			{
-				return TubularGeometryCalc.Calculate(D, t);
-			}
+			var chsMember = _members.FirstOrDefault(m => m.IsCHS);
+			if (chsMember != null && chsMember.Diameter > 0 && chsMember.WallThickness > 0)
+				return TubularGeometryCalc.Calculate(chsMember.Diameter, chsMember.WallThickness);
 			return null;
 		}
 
+		/// <summary>Parse joint geometry from chord + brace members.</summary>
 		private TubularJointGeometry? ParseJointGeometry()
 		{
-			if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordD) &&
-				double.TryParse(TxtChordT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordT) &&
-				double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceD) &&
-				double.TryParse(TxtBraceT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceT) &&
-				chordD > 0 && chordT > 0 && braceD > 0 && braceT > 0)
+			var chord = _members.FirstOrDefault(m => m.Role == "Chord" && m.IsCHS);
+			var brace = _members.FirstOrDefault(m => m.Role == "Brace" && m.IsCHS);
+
+			if (chord == null || brace == null || chord.Diameter <= 0 || brace.Diameter <= 0)
+				return null;
+
+			double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle);
+			double.TryParse(TxtGap.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var gap);
+			if (angle <= 0) angle = 90;
+
+			var jtStr = (CmbJointType.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "T/Y";
+			JointType jt = jtStr switch { "K" => JointType.K, "X" => JointType.X, _ => JointType.T_Y };
+
+			return new TubularJointGeometry
 			{
-				double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle);
-				double.TryParse(TxtFyChord.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var fyChord);
-				double.TryParse(TxtGap.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var gap);
-				if (angle <= 0) angle = 90;
-				if (fyChord <= 0) fyChord = 355;
-
-				var jtStr = (CmbJointType.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "T/Y";
-				JointType jt = jtStr switch { "K" => JointType.K, "X" => JointType.X, _ => JointType.T_Y };
-
-				return new TubularJointGeometry
-				{
-					D = chordD, T = chordT,
-					d = braceD, t = braceT,
-					ThetaDeg = angle,
-					FyChord = fyChord, FyBrace = fyChord,
-					Gap = gap,
-					JointType = jt
-				};
-			}
-			return null;
+				D = chord.Diameter, T = chord.WallThickness,
+				d = brace.Diameter, t = brace.WallThickness,
+				ThetaDeg = angle,
+				FyChord = chord.Fy, FyBrace = brace.Fy,
+				Gap = gap,
+				JointType = jt
+			};
 		}
 
 		private void PopulateResultsTab()
@@ -510,19 +480,17 @@ namespace NorsokChecker
 
 		private bool ValidateGeometryInputs()
 		{
-			if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) && D > 0)
+			foreach (var m in _members.Where(m => m.IsCHS))
 			{
-				if (double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) && t > 0)
-				{
-					if (t >= D / 2) Log($"WARNING: CHS wall thickness t={t}mm must be less than D/2={D / 2}mm");
-					if (D / t >= 120) Log($"WARNING: CHS D/t={D / t:F0} exceeds limit of 120 (§6.3.1)");
-				}
+				if (m.WallThickness >= m.Diameter / 2)
+					Log($"WARNING: {m.Name} t={m.WallThickness}mm must be < D/2={m.Diameter / 2}mm");
+				if (m.Diameter / m.WallThickness >= 120)
+					Log($"WARNING: {m.Name} D/t={m.Diameter / m.WallThickness:F0} exceeds limit of 120 (§6.3.1)");
 			}
-			if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cD) && cD > 0 &&
-				double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var bD) && bD > 0)
-			{
-				if (bD > cD) Log($"WARNING: Brace d={bD}mm cannot exceed chord D={cD}mm");
-			}
+			var chord = _members.FirstOrDefault(m => m.Role == "Chord" && m.IsCHS);
+			var brace = _members.FirstOrDefault(m => m.Role == "Brace" && m.IsCHS);
+			if (chord != null && brace != null && brace.Diameter > chord.Diameter)
+				Log($"WARNING: Brace d={brace.Diameter}mm cannot exceed chord D={chord.Diameter}mm");
 			if (double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle))
 			{
 				if (angle < 30 || angle > 90) Log($"WARNING: Brace angle θ={angle}° outside range 30°–90° (§6.4.3.1)");

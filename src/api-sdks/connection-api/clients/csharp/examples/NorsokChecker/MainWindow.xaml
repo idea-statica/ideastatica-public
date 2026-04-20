@@ -179,42 +179,40 @@
                     <!-- Expanders — docked to top, stacking vertically -->
                     <StackPanel DockPanel.Dock="Top">
 
-                    <!-- CHS geometry input -->
-                    <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
+                    <!-- Members (auto-populated from API) -->
+                    <Expander IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
                                              Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
-                                <TextBlock Text="CHS Cross-Section" FontWeight="Medium"/>
+                                <TextBlock Text="Members" FontWeight="Medium"/>
                             </StackPanel>
                         </Expander.Header>
-                        <Grid Margin="8,4,8,4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="80"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="D (mm):" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <TextBox Grid.Column="1" x:Name="TxtDiameter" Text="500"
-                                     md:HintAssist.Hint="Outside dia" />
-                            <TextBlock Grid.Column="3" Text="t (mm):" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <TextBox Grid.Column="4" x:Name="TxtThickness" Text="20"
-                                     md:HintAssist.Hint="Wall thickness" />
-                            <TextBlock Grid.Column="6" Text="L (mm):" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <TextBox Grid.Column="7" x:Name="TxtLength" Text="5000"
-                                     md:HintAssist.Hint="Unbraced length" />
-                            <TextBlock Grid.Column="9" Text="k:" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <TextBox Grid.Column="10" x:Name="TxtKFactor" Text="0.7"
-                                     md:HintAssist.Hint="Eff. length" />
-                        </Grid>
+                        <StackPanel Margin="8,4,8,4">
+                            <DataGrid x:Name="MembersGrid" AutoGenerateColumns="False"
+                                      IsReadOnly="True" CanUserAddRows="False"
+                                      md:DataGridAssist.CellPadding="6 3"
+                                      GridLinesVisibility="Horizontal" BorderThickness="0"
+                                      MaxHeight="120" VerticalScrollBarVisibility="Auto"
+                                      FontSize="12">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="80"/>
+                                    <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="70"/>
+                                    <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, StringFormat=F0}" Width="70"/>
+                                    <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, StringFormat=F1}" Width="70"/>
+                                    <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, StringFormat=F0}" Width="70"/>
+                                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <!-- Buckling parameters -->
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBlock Text="L (mm):" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="12"/>
+                                <TextBox x:Name="TxtLength" Text="5000" Width="80" md:HintAssist.Hint="Unbraced" FontSize="12"/>
+                                <TextBlock Text="k:" VerticalAlignment="Center" Margin="16,0,6,0" FontSize="12"/>
+                                <TextBox x:Name="TxtKFactor" Text="0.7" Width="60" md:HintAssist.Hint="Eff. length" FontSize="12"/>
+                            </StackPanel>
+                        </StackPanel>
                     </Expander>
 
                     <!-- Design Classification (§5) -->
@@ -259,71 +257,34 @@
                         </Grid>
                     </Expander>
 
-                    <!-- Tubular Joint geometry input -->
+                    <!-- Joint Configuration (§6.4) -->
                     <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="VectorCircleVariant" Width="18" Height="18" VerticalAlignment="Center"
                                              Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
-                                <TextBlock Text="Tubular Joint Geometry (§6.4)" FontWeight="Medium"/>
+                                <TextBlock Text="Joint Configuration (§6.4)" FontWeight="Medium"/>
                             </StackPanel>
                         </Expander.Header>
-                        <Grid Margin="8,4,8,4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="16"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="16"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition Width="16"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="90"/>
-                            </Grid.ColumnDefinitions>
-                            <!-- Row 0: Chord -->
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Chord D:" VerticalAlignment="Center" Margin="0,0,6,4"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtChordD" Text="800" Margin="0,0,0,4"
-                                     md:HintAssist.Hint="mm"/>
-                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Chord T:" VerticalAlignment="Center" Margin="0,0,6,4"/>
-                            <TextBox Grid.Row="0" Grid.Column="4" x:Name="TxtChordT" Text="25" Margin="0,0,0,4"
-                                     md:HintAssist.Hint="mm"/>
-                            <TextBlock Grid.Row="0" Grid.Column="6" Text="f_y chord:" VerticalAlignment="Center" Margin="0,0,6,4"/>
-                            <TextBox Grid.Row="0" Grid.Column="7" x:Name="TxtFyChord" Text="355" Margin="0,0,0,4"
-                                     md:HintAssist.Hint="MPa"/>
-                            <!-- Row 1: Brace -->
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Brace d:" VerticalAlignment="Center" Margin="0,0,6,4"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtBraceD" Text="400" Margin="0,0,0,4"
-                                     md:HintAssist.Hint="mm"/>
-                            <TextBlock Grid.Row="1" Grid.Column="3" Text="Brace t:" VerticalAlignment="Center" Margin="0,0,6,4"/>
-                            <TextBox Grid.Row="1" Grid.Column="4" x:Name="TxtBraceT" Text="16" Margin="0,0,0,4"
-                                     md:HintAssist.Hint="mm"/>
-                            <TextBlock Grid.Row="1" Grid.Column="6" Text="θ (deg):" VerticalAlignment="Center" Margin="0,0,6,4"/>
-                            <TextBox Grid.Row="1" Grid.Column="7" x:Name="TxtBraceAngle" Text="90" Margin="0,0,0,4"
-                                     md:HintAssist.Hint="degrees"/>
-                            <!-- Row 2: Joint type + gap -->
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Joint type:" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="CmbJointType" SelectedIndex="1"
-                                      md:HintAssist.Hint="Type" SelectionChanged="JointType_Changed">
-                                <ComboBoxItem Content="K" Tag="K-joint: Two braces on same side with gap g (Fig. 6-5)"/>
-                                <ComboBoxItem Content="T/Y" Tag="T/Y-joint: Single brace at angle θ to chord (Fig. 6-3)"/>
-                                <ComboBoxItem Content="X" Tag="X-joint: Braces pass through chord on both sides (Fig. 6-4)"/>
+                        <StackPanel Orientation="Horizontal" Margin="8,4,8,4">
+                            <TextBlock Text="Joint type:" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12"/>
+                            <ComboBox x:Name="CmbJointType" SelectedIndex="1" Width="80"
+                                      md:HintAssist.Hint="Type" SelectionChanged="JointType_Changed" FontSize="12">
+                                <ComboBoxItem Content="K"/>
+                                <ComboBoxItem Content="T/Y"/>
+                                <ComboBoxItem Content="X"/>
                             </ComboBox>
-                            <TextBlock Grid.Row="2" Grid.Column="3" x:Name="LblGap" Text="Gap g:" VerticalAlignment="Center" Margin="0,0,6,0"
-                                       Visibility="Collapsed"/>
-                            <TextBox Grid.Row="2" Grid.Column="4" x:Name="TxtGap" Text="50" md:HintAssist.Hint="mm"
-                                     Visibility="Collapsed"/>
+                            <TextBlock x:Name="LblGap" Text="Gap g (mm):" VerticalAlignment="Center" Margin="16,0,8,0"
+                                       Visibility="Collapsed" FontSize="12"/>
+                            <TextBox x:Name="TxtGap" Text="50" Width="60" md:HintAssist.Hint="mm"
+                                     Visibility="Collapsed" FontSize="12"/>
+                            <TextBlock Text="θ (deg):" VerticalAlignment="Center" Margin="16,0,8,0" FontSize="12"/>
+                            <TextBox x:Name="TxtBraceAngle" Text="90" Width="60" md:HintAssist.Hint="degrees" FontSize="12"/>
 
-                            <!-- Joint type schematic (inline SVG via Canvas) -->
-                            <Border Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="5"
-                                    BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4"
-                                    Padding="8,4" Background="#FAFAFA" MinWidth="260" Height="80">
+                            <!-- Joint schematic -->
+                            <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4"
+                                    Padding="8,4" Background="#FAFAFA" Margin="16,0,0,0"
+                                    MinWidth="260" Height="80">
                                 <Grid>
                                     <Canvas x:Name="JointSchematic" Width="240" Height="68"/>
                                     <TextBlock x:Name="JointTypeLabel" Text="T/Y-joint (Fig. 6-3)"
@@ -332,7 +293,7 @@
                                                Margin="0,0,4,0"/>
                                 </Grid>
                             </Border>
-                        </Grid>
+                        </StackPanel>
                     </Expander>
 
                     </StackPanel> <!-- end expanders stack -->
