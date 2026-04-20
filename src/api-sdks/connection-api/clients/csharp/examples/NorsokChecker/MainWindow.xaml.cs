@@ -485,12 +485,23 @@ namespace NorsokChecker
 
 		private void ShowStatus(string text)
 		{
-			Dispatcher.Invoke(() => { StatusText.Text = text; StatusBar.Visibility = Visibility.Visible; });
+			Dispatcher.Invoke(() =>
+			{
+				StatusText.Text = text;
+				StatusBar.Visibility = Visibility.Visible;
+				var sb = (System.Windows.Media.Animation.Storyboard)StatusBar.Resources["SpinAnimation"];
+				sb.Begin();
+			});
 		}
 
 		private void HideStatus()
 		{
-			Dispatcher.Invoke(() => StatusBar.Visibility = Visibility.Collapsed);
+			Dispatcher.Invoke(() =>
+			{
+				var sb = (System.Windows.Media.Animation.Storyboard)StatusBar.Resources["SpinAnimation"];
+				sb.Stop();
+				StatusBar.Visibility = Visibility.Collapsed;
+			});
 		}
 
 		protected override void OnClosed(EventArgs e)

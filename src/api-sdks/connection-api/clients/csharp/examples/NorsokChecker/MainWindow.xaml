@@ -382,12 +382,19 @@
         <Border Grid.Row="3" Margin="16,0,16,4" Padding="8,4"
                 Background="#FFF8E1" CornerRadius="4"
                 Visibility="Collapsed" x:Name="StatusBar">
+            <Border.Resources>
+                <Storyboard x:Key="SpinAnimation" RepeatBehavior="Forever">
+                    <DoubleAnimation Storyboard.TargetName="SpinnerIcon"
+                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                     From="0" To="360" Duration="0:0:1"/>
+                </Storyboard>
+            </Border.Resources>
             <StackPanel Orientation="Horizontal">
-                <md:PackIcon Kind="Loading" Width="16" Height="16" Foreground="#F57C00"
-                             VerticalAlignment="Center" Margin="0,0,8,0"
+                <md:PackIcon x:Name="SpinnerIcon" Kind="Loading" Width="16" Height="16"
+                             Foreground="#F57C00" VerticalAlignment="Center" Margin="0,0,8,0"
                              RenderTransformOrigin="0.5,0.5">
                     <md:PackIcon.RenderTransform>
-                        <RotateTransform x:Name="SpinnerRotation"/>
+                        <RotateTransform/>
                     </md:PackIcon.RenderTransform>
                 </md:PackIcon>
                 <TextBlock x:Name="StatusText" Text="Calculating..." Foreground="#F57C00"
