@@ -43,6 +43,14 @@ namespace NorsokChecker.Services
 				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}",
 				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}"
 			),
+			["Bolt"] = (
+				@"\frac{F_{t,Sd}}{F_{t,Rd}} + \frac{F_{v,Sd}}{1.4 \cdot F_{v,Rd}} \leq 1.0",
+				@"\text{Interaction}_{tension+shear} \leq 1.0"
+			),
+			["Weld"] = (
+				@"f_{w,Rd} = \frac{f_u}{\beta_w \cdot \gamma_{M2}}",
+				@"\sigma_w \leq f_{w,Rd}"
+			),
 		};
 
 		public static string GenerateReport(

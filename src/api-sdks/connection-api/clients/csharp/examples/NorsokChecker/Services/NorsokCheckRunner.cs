@@ -173,12 +173,17 @@ namespace NorsokChecker.Services
 			{
 				double interactionCheck = bolt.InteractionTensionShear;
 
+				double tensionTerm = bolt.BoltTensionResistance > 0 ? bolt.BoltTensionForce / bolt.BoltTensionResistance : 0;
+				double shearTerm = bolt.BoltShearResistance > 0 ? bolt.BoltShearForce / (1.4 * bolt.BoltShearResistance) : 0;
+
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "Bolt",
 					Equation = "EN 1993-1-8 §3.6",
 					Title = $"Bolt: {bolt.Name}",
-					CheckExpression = "F_t/(F_t,Rd) + F_v/(1.4·F_v,Rd) ≤ 1.0",
+					CheckExpression = "F_t,Sd/F_t,Rd + F_v,Sd/(1.4·F_v,Rd) ≤ 1.0",
+					Formula = "Interaction = F_t,Sd/F_t,Rd + F_v,Sd/(1.4·F_v,Rd)",
+					FormulaSubstituted = $"= {bolt.BoltTensionForce:F1}/{bolt.BoltTensionResistance:F1} + {bolt.BoltShearForce:F1}/(1.4×{bolt.BoltShearResistance:F1}) = {tensionTerm:F4} + {shearTerm:F4} = {interactionCheck:F4}",
 					Demand = interactionCheck,
 					Capacity = 1.0,
 					Utilization = interactionCheck,
@@ -192,7 +197,7 @@ namespace NorsokChecker.Services
 						new() { Symbol = "UC_tension", Description = "Tension utilization", Value = bolt.UnityCheckTension, Unit = "-" },
 						new() { Symbol = "UC_shear", Description = "Shear utilization", Value = bolt.UnityCheckShear, Unit = "-" },
 						new() { Symbol = "Interaction", Description = "Combined check", Value = interactionCheck, Unit = "-" },
-						new() { Symbol = "Assembly", Description = bolt.BoltAssemblyName, Value = 0, Unit = "" },
+						new() { Symbol = "Assembly", Description = $"Bolt assembly: {bolt.BoltAssemblyName}", Value = 0, Unit = bolt.BoltAssemblyName },
 					}
 				});
 			}
