@@ -561,72 +561,149 @@ namespace NorsokChecker
 		private void DrawJointSchematic(int jointTypeIndex)
 		{
 			JointSchematic.Children.Clear();
-			var chordBrush = new System.Windows.Media.SolidColorBrush(
-				System.Windows.Media.Color.FromRgb(0x78, 0x90, 0x9C)); // blue-grey
-			var braceBrush = new System.Windows.Media.SolidColorBrush(
-				System.Windows.Media.Color.FromRgb(0xF5, 0x7C, 0x00)); // IDEA orange
-			var dimBrush = new System.Windows.Media.SolidColorBrush(
-				System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
-			double strokeW = 3;
 
-			// Chord = horizontal line
-			var chord = new System.Windows.Shapes.Line
-			{ X1 = 10, Y1 = 35, X2 = 230, Y2 = 35, Stroke = chordBrush, StrokeThickness = strokeW + 2 };
-			JointSchematic.Children.Add(chord);
+			var chordBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x60, 0x7D, 0x8B));
+			var chordFill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 0x60, 0x7D, 0x8B));
+			var braceBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xF5, 0x7C, 0x00));
+			var braceFill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 0xF5, 0x7C, 0x00));
+			var dimBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
+			var dashStyle = new System.Windows.Media.DoubleCollection { 3, 2 };
 
-			// Labels
-			AddLabel("D, T", 4, 42, dimBrush);
-			AddLabel("chord", 180, 42, chordBrush);
+			// Chord — double-line tubular representation
+			double cy = 38; // chord centerline Y
+			double cw = 6;  // chord half-width (wall representation)
+			AddLine(8, cy - cw, 232, cy - cw, chordBrush, 1.5);    // top wall
+			AddLine(8, cy + cw, 232, cy + cw, chordBrush, 1.5);    // bottom wall
+			AddLine(8, cy, 232, cy, dimBrush, 0.5, dashStyle);      // centerline
 
 			switch (jointTypeIndex)
 			{
-				case 0: // K-joint: two braces from top with gap
-					var k1 = new System.Windows.Shapes.Line
-					{ X1 = 90, Y1 = 35, X2 = 60, Y2 = 2, Stroke = braceBrush, StrokeThickness = strokeW };
-					var k2 = new System.Windows.Shapes.Line
-					{ X1 = 140, Y1 = 35, X2 = 170, Y2 = 2, Stroke = braceBrush, StrokeThickness = strokeW };
-					JointSchematic.Children.Add(k1);
-					JointSchematic.Children.Add(k2);
-					AddLabel("d, t", 42, 0, braceBrush);
-					AddLabel("d, t", 164, 0, braceBrush);
-					AddLabel("g", 108, 22, dimBrush);
-					// Gap dimension line
-					var gapLine = new System.Windows.Shapes.Line
-					{ X1 = 93, Y1 = 32, X2 = 137, Y2 = 32, Stroke = dimBrush, StrokeThickness = 1, StrokeDashArray = new System.Windows.Media.DoubleCollection { 2, 2 } };
-					JointSchematic.Children.Add(gapLine);
-					JointTypeLabel.Text = "K-joint (Fig. 6-5)";
+				case 0: // K-joint (Fig. 6-5): two braces with gap
+					double k1x = 85, k2x = 155;
+					DrawBrace(k1x, cy, -55, 48, braceBrush, braceFill, dimBrush);
+					DrawBrace(k2x, cy, -125, 48, braceBrush, braceFill, dimBrush);
+					// Gap dimension
+					AddLine(k1x + 3, cy - 3, k2x - 3, cy - 3, dimBrush, 1, dashStyle);
+					AddLabel("g", (k1x + k2x) / 2 - 3, cy - 16, dimBrush, 10);
+					// Labels
+					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
+					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
+					AddLabel("dA, tA", 48, 2, braceBrush, 8, true);
+					AddLabel("dB, tB", 170, 2, braceBrush, 8, true);
+					AddLabel("θA", k1x - 18, cy - 20, dimBrush, 9, true);
+					AddLabel("θB", k2x + 6, cy - 20, dimBrush, 9, true);
+					// Formulas
+					AddLabel("β = d/D", 175, cy + 10, dimBrush, 8);
+					AddLabel("γ = D/2T", 175, cy + 20, dimBrush, 8);
+					JointTypeLabel.Text = "K-joint — Fig. 6-5";
 					break;
 
-				case 1: // T/Y-joint: single brace at angle
-					var ty = new System.Windows.Shapes.Line
-					{ X1 = 120, Y1 = 35, X2 = 90, Y2 = 2, Stroke = braceBrush, StrokeThickness = strokeW };
-					JointSchematic.Children.Add(ty);
-					AddLabel("d, t", 72, 0, braceBrush);
-					AddLabel("θ", 122, 18, dimBrush);
-					// Angle arc indicator
-					var arc = new System.Windows.Shapes.Ellipse
-					{ Width = 16, Height = 16, Stroke = dimBrush, StrokeThickness = 0.8, Fill = null };
-					System.Windows.Controls.Canvas.SetLeft(arc, 113);
-					System.Windows.Controls.Canvas.SetTop(arc, 26);
-					JointSchematic.Children.Add(arc);
-					JointTypeLabel.Text = "T/Y-joint (Fig. 6-3)";
+				case 1: // T/Y-joint (Fig. 6-3): single brace at angle
+					double bx = 120;
+					DrawBrace(bx, cy, -60, 52, braceBrush, braceFill, dimBrush);
+					// Angle arc
+					AddArc(bx, cy, 18, dimBrush);
+					AddLabel("θ", bx + 14, cy - 22, dimBrush, 10, true);
+					// Dimension labels
+					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
+					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
+					AddLabel("d", bx - 30, 4, braceBrush, 9, true);
+					AddLabel("t", bx - 18, 12, braceBrush, 9, true);
+					AddLabel("crown", bx + 8, cy - 8, dimBrush, 7);
+					AddLabel("saddle", bx - 4, cy + 10, dimBrush, 7);
+					// Formulas
+					AddLabel("β = d/D", 175, 8, dimBrush, 8);
+					AddLabel("γ = D/(2T)", 175, 18, dimBrush, 8);
+					AddLabel("τ = t/T", 175, 28, dimBrush, 8);
+					JointTypeLabel.Text = "T/Y-joint — Fig. 6-3";
 					break;
 
-				case 2: // X-joint: brace passes through
-					var x1 = new System.Windows.Shapes.Line
-					{ X1 = 120, Y1 = 2, X2 = 120, Y2 = 58, Stroke = braceBrush, StrokeThickness = strokeW };
-					JointSchematic.Children.Add(x1);
-					AddLabel("d, t", 128, 4, braceBrush);
-					JointTypeLabel.Text = "X-joint (Fig. 6-4)";
+				case 2: // X-joint (Fig. 6-4): brace through chord
+					double xx = 120;
+					DrawBrace(xx, cy, -70, 36, braceBrush, braceFill, dimBrush);  // top
+					DrawBrace(xx, cy, -110, 36, braceBrush, braceFill, dimBrush); // bottom (opposite side)
+					AddArc(xx, cy, 18, dimBrush);
+					AddLabel("θ", xx + 14, cy - 22, dimBrush, 10, true);
+					// Labels
+					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
+					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
+					AddLabel("d", xx + 10, 4, braceBrush, 9, true);
+					AddLabel("t", xx + 22, 12, braceBrush, 9, true);
+					// Formulas
+					AddLabel("β = d/D", 175, 8, dimBrush, 8);
+					AddLabel("γ = D/(2T)", 175, 18, dimBrush, 8);
+					AddLabel("τ = t/T", 175, 28, dimBrush, 8);
+					JointTypeLabel.Text = "X-joint — Fig. 6-4";
 					break;
 			}
 		}
 
-		private void AddLabel(string text, double x, double y, System.Windows.Media.Brush foreground)
+		private void DrawBrace(double baseX, double baseY, double angleDeg, double length,
+			System.Windows.Media.Brush stroke, System.Windows.Media.Brush fill, System.Windows.Media.Brush dimBrush)
+		{
+			double rad = angleDeg * Math.PI / 180.0;
+			double ex = baseX + length * Math.Cos(rad);
+			double ey = baseY + length * Math.Sin(rad);
+			double bw = 3; // brace half-width
+			double nx = -Math.Sin(rad) * bw;
+			double ny = Math.Cos(rad) * bw;
+
+			// Brace as a parallelogram (two walls)
+			var poly = new System.Windows.Shapes.Polygon
+			{
+				Points = new System.Windows.Media.PointCollection
+				{
+					new(baseX - nx, baseY - ny), new(ex - nx, ey - ny),
+					new(ex + nx, ey + ny), new(baseX + nx, baseY + ny)
+				},
+				Stroke = stroke,
+				StrokeThickness = 1.2,
+				Fill = fill
+			};
+			JointSchematic.Children.Add(poly);
+
+			// Centerline
+			AddLine(baseX, baseY, ex, ey, dimBrush, 0.4,
+				new System.Windows.Media.DoubleCollection { 2, 2 });
+		}
+
+		private void AddLine(double x1, double y1, double x2, double y2,
+			System.Windows.Media.Brush stroke, double thickness,
+			System.Windows.Media.DoubleCollection? dash = null)
+		{
+			var line = new System.Windows.Shapes.Line
+			{
+				X1 = x1, Y1 = y1, X2 = x2, Y2 = y2,
+				Stroke = stroke, StrokeThickness = thickness
+			};
+			if (dash != null) line.StrokeDashArray = dash;
+			JointSchematic.Children.Add(line);
+		}
+
+		private void AddArc(double cx, double cy, double radius, System.Windows.Media.Brush stroke)
+		{
+			var arc = new System.Windows.Shapes.Path
+			{
+				Stroke = stroke, StrokeThickness = 0.8,
+				Data = new System.Windows.Media.StreamGeometry()
+			};
+			using (var ctx = ((System.Windows.Media.StreamGeometry)arc.Data).Open())
+			{
+				ctx.BeginFigure(new System.Windows.Point(cx + radius, cy), false, false);
+				ctx.ArcTo(new System.Windows.Point(cx, cy - radius),
+					new System.Windows.Size(radius, radius), 0, false,
+					System.Windows.Media.SweepDirection.Counterclockwise, true, false);
+			}
+			JointSchematic.Children.Add(arc);
+		}
+
+		private void AddLabel(string text, double x, double y, System.Windows.Media.Brush foreground,
+			double fontSize = 10, bool italic = false)
 		{
 			var tb = new System.Windows.Controls.TextBlock
 			{
-				Text = text, FontSize = 10, Foreground = foreground, FontStyle = FontStyles.Italic
+				Text = text, FontSize = fontSize, Foreground = foreground,
+				FontStyle = italic ? FontStyles.Italic : FontStyles.Normal
 			};
 			System.Windows.Controls.Canvas.SetLeft(tb, x);
 			System.Windows.Controls.Canvas.SetTop(tb, y);

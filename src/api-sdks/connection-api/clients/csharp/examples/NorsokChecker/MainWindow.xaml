@@ -323,9 +323,9 @@
                             <!-- Joint type schematic (inline SVG via Canvas) -->
                             <Border Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="5"
                                     BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4"
-                                    Padding="8,4" Background="#FAFAFA" MinWidth="260" Height="70">
+                                    Padding="8,4" Background="#FAFAFA" MinWidth="260" Height="80">
                                 <Grid>
-                                    <Canvas x:Name="JointSchematic" Width="240" Height="60"/>
+                                    <Canvas x:Name="JointSchematic" Width="240" Height="68"/>
                                     <TextBlock x:Name="JointTypeLabel" Text="T/Y-joint (Fig. 6-3)"
                                                FontSize="9" Foreground="#9E9E9E"
                                                VerticalAlignment="Bottom" HorizontalAlignment="Right"
