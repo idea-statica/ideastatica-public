@@ -204,6 +204,13 @@ namespace NorsokChecker
 					useCache = (answer == MessageBoxResult.Yes);
 				}
 
+				if (!useCache && ResultCache.Exists(projectPath))
+				{
+					// Delete stale cache before recalculating
+					ResultCache.Delete(projectPath);
+					Log("Old cached results deleted.");
+				}
+
 				if (useCache)
 				{
 					Log("Loading cached raw results from disk...");
