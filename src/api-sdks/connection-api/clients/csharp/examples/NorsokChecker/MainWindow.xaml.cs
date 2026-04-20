@@ -142,8 +142,21 @@ namespace NorsokChecker
 						ParsedRawResults? parsed = null;
 						if (rawForDetection.Count > 0)
 						{
-							try { parsed = RawResultsParser.Parse(rawForDetection[0]); }
-							catch { /* ignore parse errors during detection */ }
+							try
+							{
+								parsed = RawResultsParser.Parse(rawForDetection[0]);
+								Log($"  Raw results for detection: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds");
+								foreach (var p in parsed.Plates.Take(5))
+									Log($"    plate: '{p.Name}' t={p.Thickness:F1}mm fy={p.MaterialFy:F0}");
+							}
+							catch (Exception ex)
+							{
+								Log($"  WARNING: Raw results parse failed: {ex.Message}");
+							}
+						}
+						else
+						{
+							Log("  WARNING: No raw results returned for detection");
 						}
 
 						// Read members with shape detection from plate names

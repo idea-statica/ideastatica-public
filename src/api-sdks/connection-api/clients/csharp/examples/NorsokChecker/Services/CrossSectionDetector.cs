@@ -67,23 +67,29 @@ namespace NorsokChecker.Services
 		{
 			try
 			{
-				// The API returns List<Object> which are JSON elements
-				string json = cssObj is JsonElement je ? je.GetRawText() : cssObj.ToString() ?? "";
-
-				// Try to extract name from JSON
+				string json = cssObj?.ToString() ?? "";
 				string name = "";
-				if (cssObj is JsonElement elem && elem.ValueKind == JsonValueKind.Object)
+
+				// Handle Newtonsoft JObject (from Connection API deserialization)
+				if (cssObj is Newtonsoft.Json.Linq.JObject jObj)
 				{
-					if (elem.TryGetProperty("mprlName", out var mprlName))
-						name = mprlName.GetString() ?? "";
-					else if (elem.TryGetProperty("MprlName", out var mprlName2))
-						name = mprlName2.GetString() ?? "";
-					else if (elem.TryGetProperty("name", out var nameEl))
-						name = nameEl.GetString() ?? "";
+					name = jObj.Value<string>("mprlName") ?? jObj.Value<string>("MprlName")
+						?? jObj.Value<string>("name") ?? jObj.Value<string>("Name") ?? "";
+					json = jObj.ToString();
+				}
+				// Handle System.Text.Json JsonElement
+				else if (cssObj is JsonElement elem && elem.ValueKind == JsonValueKind.Object)
+				{
+					json = elem.GetRawText();
+					if (elem.TryGetProperty("mprlName", out var mp)) name = mp.GetString() ?? "";
+					else if (elem.TryGetProperty("MprlName", out var mp2)) name = mp2.GetString() ?? "";
+					else if (elem.TryGetProperty("name", out var n)) name = n.GetString() ?? "";
 				}
 
 				if (string.IsNullOrEmpty(name))
-					name = json.Length > 100 ? json[..100] : json;
+					name = json.Length > 200 ? json[..200] : json;
+
+				_log($"      CSS raw: '{name}' (type: {cssObj?.GetType().Name})");
 
 				var result = new DetectedCrossSection { Name = name };
 
