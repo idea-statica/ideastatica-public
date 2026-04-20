@@ -315,8 +315,10 @@
                                 <ComboBoxItem Content="T/Y" Tag="T/Y-joint: Single brace at angle θ to chord (Fig. 6-3)"/>
                                 <ComboBoxItem Content="X" Tag="X-joint: Braces pass through chord on both sides (Fig. 6-4)"/>
                             </ComboBox>
-                            <TextBlock Grid.Row="2" Grid.Column="3" Text="Gap g:" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <TextBox Grid.Row="2" Grid.Column="4" x:Name="TxtGap" Text="50" md:HintAssist.Hint="mm (K only)"/>
+                            <TextBlock Grid.Row="2" Grid.Column="3" x:Name="LblGap" Text="Gap g:" VerticalAlignment="Center" Margin="0,0,6,0"
+                                       Visibility="Collapsed"/>
+                            <TextBox Grid.Row="2" Grid.Column="4" x:Name="TxtGap" Text="50" md:HintAssist.Hint="mm"
+                                     Visibility="Collapsed"/>
 
                             <!-- Joint type schematic (inline SVG via Canvas) -->
                             <Border Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="5"

@@ -125,7 +125,48 @@ namespace NorsokChecker
 
 				Log($"Found {connections.Count} connection(s).");
 
-				// Read member geometry from API
+				// Detect cross-section shapes (CHS / I-section / RHS)
+				try
+				{
+					var cssDetector = new CrossSectionDetector(_apiClient, Log);
+					var detectedCss = await cssDetector.DetectAsync(_projectId);
+
+					var chsSections = detectedCss.Where(c => c.IsCHS).ToList();
+					if (chsSections.Count > 0)
+					{
+						Log($"  Tubular sections detected: {chsSections.Count} CHS profile(s)");
+
+						// Auto-populate geometry from largest and smallest CHS (chord vs brace)
+						var sorted = chsSections.OrderByDescending(c => c.Diameter).ToList();
+						var chordCss = sorted.First();
+						var braceCss = sorted.Count > 1 ? sorted.Last() : sorted.First();
+
+						if (chordCss.Diameter > 0)
+						{
+							TxtChordD.Text = chordCss.Diameter.ToString("F0", CultureInfo.InvariantCulture);
+							TxtChordT.Text = chordCss.Thickness.ToString("F1", CultureInfo.InvariantCulture);
+							TxtDiameter.Text = chordCss.Diameter.ToString("F0", CultureInfo.InvariantCulture);
+							Log($"  Auto-filled chord: D={chordCss.Diameter}mm T={chordCss.Thickness}mm from '{chordCss.Name}'");
+						}
+						if (braceCss.Diameter > 0)
+						{
+							TxtBraceD.Text = braceCss.Diameter.ToString("F0", CultureInfo.InvariantCulture);
+							TxtBraceT.Text = braceCss.Thickness.ToString("F1", CultureInfo.InvariantCulture);
+							TxtThickness.Text = braceCss.Thickness.ToString("F1", CultureInfo.InvariantCulture);
+							Log($"  Auto-filled brace: d={braceCss.Diameter}mm t={braceCss.Thickness}mm from '{braceCss.Name}'");
+						}
+					}
+					else
+					{
+						Log($"  No CHS profiles detected — §6.3/§6.4 tubular checks will use manual geometry input");
+					}
+				}
+				catch (Exception ex)
+				{
+					Log($"  WARNING: Cross-section detection failed: {ex.Message}");
+				}
+
+				// Read member geometry from API (fallback for wall thickness / fy)
 				if (connections.Count > 0)
 				{
 					try
@@ -510,6 +551,11 @@ namespace NorsokChecker
 		{
 			if (JointSchematic == null) return;
 			DrawJointSchematic(CmbJointType.SelectedIndex);
+
+			// Gap only applies to K-joints
+			var gapVis = CmbJointType.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+			LblGap.Visibility = gapVis;
+			TxtGap.Visibility = gapVis;
 		}
 
 		private void DrawJointSchematic(int jointTypeIndex)
