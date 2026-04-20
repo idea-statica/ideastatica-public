@@ -310,13 +310,26 @@
                             <!-- Row 2: Joint type + gap -->
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Joint type:" VerticalAlignment="Center" Margin="0,0,6,0"/>
                             <ComboBox Grid.Row="2" Grid.Column="1" x:Name="CmbJointType" SelectedIndex="1"
-                                      md:HintAssist.Hint="Type">
-                                <ComboBoxItem Content="K"/>
-                                <ComboBoxItem Content="T/Y"/>
-                                <ComboBoxItem Content="X"/>
+                                      md:HintAssist.Hint="Type" SelectionChanged="JointType_Changed">
+                                <ComboBoxItem Content="K" Tag="K-joint: Two braces on same side with gap g (Fig. 6-5)"/>
+                                <ComboBoxItem Content="T/Y" Tag="T/Y-joint: Single brace at angle θ to chord (Fig. 6-3)"/>
+                                <ComboBoxItem Content="X" Tag="X-joint: Braces pass through chord on both sides (Fig. 6-4)"/>
                             </ComboBox>
                             <TextBlock Grid.Row="2" Grid.Column="3" Text="Gap g:" VerticalAlignment="Center" Margin="0,0,6,0"/>
                             <TextBox Grid.Row="2" Grid.Column="4" x:Name="TxtGap" Text="50" md:HintAssist.Hint="mm (K only)"/>
+
+                            <!-- Joint type schematic (inline SVG via Canvas) -->
+                            <Border Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="5"
+                                    BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4"
+                                    Padding="8,4" Background="#FAFAFA" MinWidth="260" Height="70">
+                                <Grid>
+                                    <Canvas x:Name="JointSchematic" Width="240" Height="60"/>
+                                    <TextBlock x:Name="JointTypeLabel" Text="T/Y-joint (Fig. 6-3)"
+                                               FontSize="9" Foreground="#9E9E9E"
+                                               VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                               Margin="0,0,4,0"/>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </Expander>
 

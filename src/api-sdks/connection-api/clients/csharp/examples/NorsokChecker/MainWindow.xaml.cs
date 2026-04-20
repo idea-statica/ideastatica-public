@@ -506,6 +506,87 @@ namespace NorsokChecker
 			});
 		}
 
+		private void JointType_Changed(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			if (JointSchematic == null) return;
+			DrawJointSchematic(CmbJointType.SelectedIndex);
+		}
+
+		private void DrawJointSchematic(int jointTypeIndex)
+		{
+			JointSchematic.Children.Clear();
+			var chordBrush = new System.Windows.Media.SolidColorBrush(
+				System.Windows.Media.Color.FromRgb(0x78, 0x90, 0x9C)); // blue-grey
+			var braceBrush = new System.Windows.Media.SolidColorBrush(
+				System.Windows.Media.Color.FromRgb(0xF5, 0x7C, 0x00)); // IDEA orange
+			var dimBrush = new System.Windows.Media.SolidColorBrush(
+				System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
+			double strokeW = 3;
+
+			// Chord = horizontal line
+			var chord = new System.Windows.Shapes.Line
+			{ X1 = 10, Y1 = 35, X2 = 230, Y2 = 35, Stroke = chordBrush, StrokeThickness = strokeW + 2 };
+			JointSchematic.Children.Add(chord);
+
+			// Labels
+			AddLabel("D, T", 4, 42, dimBrush);
+			AddLabel("chord", 180, 42, chordBrush);
+
+			switch (jointTypeIndex)
+			{
+				case 0: // K-joint: two braces from top with gap
+					var k1 = new System.Windows.Shapes.Line
+					{ X1 = 90, Y1 = 35, X2 = 60, Y2 = 2, Stroke = braceBrush, StrokeThickness = strokeW };
+					var k2 = new System.Windows.Shapes.Line
+					{ X1 = 140, Y1 = 35, X2 = 170, Y2 = 2, Stroke = braceBrush, StrokeThickness = strokeW };
+					JointSchematic.Children.Add(k1);
+					JointSchematic.Children.Add(k2);
+					AddLabel("d, t", 42, 0, braceBrush);
+					AddLabel("d, t", 164, 0, braceBrush);
+					AddLabel("g", 108, 22, dimBrush);
+					// Gap dimension line
+					var gapLine = new System.Windows.Shapes.Line
+					{ X1 = 93, Y1 = 32, X2 = 137, Y2 = 32, Stroke = dimBrush, StrokeThickness = 1, StrokeDashArray = new System.Windows.Media.DoubleCollection { 2, 2 } };
+					JointSchematic.Children.Add(gapLine);
+					JointTypeLabel.Text = "K-joint (Fig. 6-5)";
+					break;
+
+				case 1: // T/Y-joint: single brace at angle
+					var ty = new System.Windows.Shapes.Line
+					{ X1 = 120, Y1 = 35, X2 = 90, Y2 = 2, Stroke = braceBrush, StrokeThickness = strokeW };
+					JointSchematic.Children.Add(ty);
+					AddLabel("d, t", 72, 0, braceBrush);
+					AddLabel("θ", 122, 18, dimBrush);
+					// Angle arc indicator
+					var arc = new System.Windows.Shapes.Ellipse
+					{ Width = 16, Height = 16, Stroke = dimBrush, StrokeThickness = 0.8, Fill = null };
+					System.Windows.Controls.Canvas.SetLeft(arc, 113);
+					System.Windows.Controls.Canvas.SetTop(arc, 26);
+					JointSchematic.Children.Add(arc);
+					JointTypeLabel.Text = "T/Y-joint (Fig. 6-3)";
+					break;
+
+				case 2: // X-joint: brace passes through
+					var x1 = new System.Windows.Shapes.Line
+					{ X1 = 120, Y1 = 2, X2 = 120, Y2 = 58, Stroke = braceBrush, StrokeThickness = strokeW };
+					JointSchematic.Children.Add(x1);
+					AddLabel("d, t", 128, 4, braceBrush);
+					JointTypeLabel.Text = "X-joint (Fig. 6-4)";
+					break;
+			}
+		}
+
+		private void AddLabel(string text, double x, double y, System.Windows.Media.Brush foreground)
+		{
+			var tb = new System.Windows.Controls.TextBlock
+			{
+				Text = text, FontSize = 10, Foreground = foreground, FontStyle = FontStyles.Italic
+			};
+			System.Windows.Controls.Canvas.SetLeft(tb, x);
+			System.Windows.Controls.Canvas.SetTop(tb, y);
+			JointSchematic.Children.Add(tb);
+		}
+
 		protected override void OnClosed(EventArgs e)
 		{
 			try { _runner?.Dispose(); _runner = null; } catch { }
