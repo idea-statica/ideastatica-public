@@ -199,6 +199,67 @@
                         </Grid>
                     </Expander>
 
+                    <!-- Tubular Joint geometry input -->
+                    <Expander Grid.Row="0" IsExpanded="False" Margin="0,0,0,8" Background="Transparent">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="VectorCircleVariant" Width="18" Height="18" VerticalAlignment="Center"
+                                             Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
+                                <TextBlock Text="Tubular Joint Geometry (§6.4)" FontWeight="Medium"/>
+                            </StackPanel>
+                        </Expander.Header>
+                        <Grid Margin="8,4,8,4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="90"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- Row 0: Chord -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Chord D:" VerticalAlignment="Center" Margin="0,0,6,4"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtChordD" Text="800" Margin="0,0,0,4"
+                                     md:HintAssist.Hint="mm"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Chord T:" VerticalAlignment="Center" Margin="0,0,6,4"/>
+                            <TextBox Grid.Row="0" Grid.Column="4" x:Name="TxtChordT" Text="25" Margin="0,0,0,4"
+                                     md:HintAssist.Hint="mm"/>
+                            <TextBlock Grid.Row="0" Grid.Column="6" Text="f_y chord:" VerticalAlignment="Center" Margin="0,0,6,4"/>
+                            <TextBox Grid.Row="0" Grid.Column="7" x:Name="TxtFyChord" Text="355" Margin="0,0,0,4"
+                                     md:HintAssist.Hint="MPa"/>
+                            <!-- Row 1: Brace -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Brace d:" VerticalAlignment="Center" Margin="0,0,6,4"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtBraceD" Text="400" Margin="0,0,0,4"
+                                     md:HintAssist.Hint="mm"/>
+                            <TextBlock Grid.Row="1" Grid.Column="3" Text="Brace t:" VerticalAlignment="Center" Margin="0,0,6,4"/>
+                            <TextBox Grid.Row="1" Grid.Column="4" x:Name="TxtBraceT" Text="16" Margin="0,0,0,4"
+                                     md:HintAssist.Hint="mm"/>
+                            <TextBlock Grid.Row="1" Grid.Column="6" Text="θ (deg):" VerticalAlignment="Center" Margin="0,0,6,4"/>
+                            <TextBox Grid.Row="1" Grid.Column="7" x:Name="TxtBraceAngle" Text="90" Margin="0,0,0,4"
+                                     md:HintAssist.Hint="degrees"/>
+                            <!-- Row 2: Joint type + gap -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Joint type:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="CmbJointType" SelectedIndex="1"
+                                      md:HintAssist.Hint="Type">
+                                <ComboBoxItem Content="K"/>
+                                <ComboBoxItem Content="T/Y"/>
+                                <ComboBoxItem Content="X"/>
+                            </ComboBox>
+                            <TextBlock Grid.Row="2" Grid.Column="3" Text="Gap g:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBox Grid.Row="2" Grid.Column="4" x:Name="TxtGap" Text="50" md:HintAssist.Hint="mm (K only)"/>
+                        </Grid>
+                    </Expander>
+
                     <!-- Connections grid -->
                     <DataGrid Grid.Row="1" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
                               IsReadOnly="True" CanUserAddRows="False"

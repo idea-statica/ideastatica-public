@@ -249,6 +249,36 @@ namespace NorsokChecker
 					Log($"Tubular geometry: D={D}mm, t={t}mm, L={memberLength}mm, k={kFactor}");
 				}
 
+				// Parse tubular joint geometry (optional, for §6.4 joint checks)
+				TubularJointGeometry? jointGeometry = null;
+				if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordD) &&
+					double.TryParse(TxtChordT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordT) &&
+					double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceD) &&
+					double.TryParse(TxtBraceT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceT) &&
+					chordD > 0 && chordT > 0 && braceD > 0 && braceT > 0)
+				{
+					double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle);
+					double.TryParse(TxtFyChord.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var fyChord);
+					double.TryParse(TxtGap.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var gap);
+					if (angle <= 0) angle = 90;
+					if (fyChord <= 0) fyChord = 355;
+
+					var jtStr = (CmbJointType.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "T/Y";
+					JointType jt = jtStr switch { "K" => JointType.K, "X" => JointType.X, _ => JointType.T_Y };
+
+					jointGeometry = new TubularJointGeometry
+					{
+						D = chordD, T = chordT,
+						d = braceD, t = braceT,
+						ThetaDeg = angle,
+						FyChord = fyChord, FyBrace = fyChord,
+						Gap = gap,
+						JointType = jt
+					};
+
+					Log($"Joint geometry: Chord {chordD}×{chordT}, Brace {braceD}×{braceT}, θ={angle}°, {jtStr}, gap={gap}mm");
+				}
+
 				// Evaluate Norsok formulas on raw results
 				Log("Evaluating Norsok N-004 §6.3 formulas...");
 				var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
@@ -281,7 +311,7 @@ namespace NorsokChecker
 						}
 
 						var formulaResults = checker.EvaluateNorsokFormulas(
-							con.Id, rawJson, loadEffects, geometry, memberLength, kFactor);
+							con.Id, rawJson, loadEffects, geometry, memberLength, kFactor, jointGeometry);
 						_formulaResults[con.Id] = formulaResults;
 
 						// Determine worst-case Norsok utilization

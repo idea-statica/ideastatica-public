@@ -43,6 +43,10 @@ namespace NorsokChecker.Services
 				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}",
 				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}"
 			),
+			["6.4.3.6"] = (
+				@"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
+				@"\frac{N_{Sd}}{N_{Rd}} + \left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \frac{M_{z,Sd}}{M_{z,Rd}} \leq 1.0"
+			),
 			["Bolt"] = (
 				@"\frac{F_{t,Sd}}{F_{t,Rd}} + \frac{F_{v,Sd}}{1.4 \cdot F_{v,Rd}} \leq 1.0",
 				@"\text{Interaction}_{tension+shear} \leq 1.0"
@@ -272,7 +276,20 @@ namespace NorsokChecker.Services
 				.Replace("Assembly", @"\text{Assembly}")
 				.Replace("Resistance", @"\text{Resistance}")
 				.Replace("Class", @"\text{Class}")
-				.Replace("LC", @"\text{LC}");
+				.Replace("LC", @"\text{LC}")
+				.Replace("Qu_axial", @"Q_{u,axial}")
+				.Replace("Qu_IPB", @"Q_{u,IPB}")
+				.Replace("Qu_OPB", @"Q_{u,OPB}")
+				.Replace("Qf_axial", @"Q_{f,axial}")
+				.Replace("Qf_moment", @"Q_{f,moment}")
+				.Replace("N/N_Rd", @"N_{Sd}/N_{Rd}")
+				.Replace("(My/MyRd)²", @"(M_y/M_{y,Rd})^2")
+				.Replace("Mz/MzRd", @"M_z/M_{z,Rd}")
+				.Replace("N_Rd", @"N_{Rd}")
+				.Replace("θ", @"\theta")
+				.Replace("β", @"\beta")
+				.Replace("γ", @"\gamma")
+				.Replace("τ", @"\tau");
 		}
 
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
