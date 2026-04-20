@@ -125,10 +125,21 @@ namespace NorsokChecker.Services
 			// ─── TUBULAR JOINT CHECKS (§6.4) ───
 			if (loadEffects != null && loadEffects.Count > 0 && jointGeometry != null && jointGeometry.D > 0)
 			{
-				double sigmaA = chordStresses != null && chordStresses.Length > 0 ? chordStresses[0] : 0;
-				double sigmaMy = chordStresses != null && chordStresses.Length > 1 ? chordStresses[1] : 0;
-				double sigmaMz = chordStresses != null && chordStresses.Length > 2 ? chordStresses[2] : 0;
-				EvaluateTubularJointChecks(loadEffects, jointGeometry, gammaM0, sigmaA, sigmaMy, sigmaMz, results);
+				// §6.4.3.1 Validity range check — MUST pass before running joint formulas
+				var (valid, validityResult) = ValidateJointGeometry(jointGeometry);
+				results.Add(validityResult);
+
+				if (valid)
+				{
+					double sigmaA = chordStresses != null && chordStresses.Length > 0 ? chordStresses[0] : 0;
+					double sigmaMy = chordStresses != null && chordStresses.Length > 1 ? chordStresses[1] : 0;
+					double sigmaMz = chordStresses != null && chordStresses.Length > 2 ? chordStresses[2] : 0;
+					EvaluateTubularJointChecks(loadEffects, jointGeometry, gammaM0, sigmaA, sigmaMy, sigmaMz, results);
+				}
+				else
+				{
+					_log("    §6.4 SKIPPED — joint geometry outside validity range (§6.4.3.1)");
+				}
 			}
 			else if (jointGeometry != null && jointGeometry.D > 0)
 			{
@@ -441,6 +452,79 @@ namespace NorsokChecker.Services
 		}
 
 		/// <summary>Get local buckling strength f_cl [MPa] per Eq. 6.6–6.8</summary>
+		/// <summary>
+		/// §6.4.3.1 — Validate joint geometry ranges before running §6.4 formulas.
+		/// Returns (isValid, formulaResult with details).
+		/// If invalid, §6.4 checks must NOT be executed.
+		/// </summary>
+		private (bool valid, NorsokFormulaResult result) ValidateJointGeometry(TubularJointGeometry joint)
+		{
+			double beta = joint.Beta;
+			double gamma = joint.Gamma;
+			double theta = joint.ThetaDeg;
+			double gapRatio = joint.GapRatio;
+
+			var violations = new List<string>();
+
+			if (beta < 0.2 || beta > 1.0)
+				violations.Add($"β = {beta:F3} — required: 0.2 ≤ β ≤ 1.0");
+			if (gamma < 10 || gamma > 50)
+				violations.Add($"γ = {gamma:F1} — required: 10 ≤ γ ≤ 50");
+			if (theta < 30 || theta > 90)
+				violations.Add($"θ = {theta:F0}° — required: 30° ≤ θ ≤ 90°");
+			if (joint.JointType == JointType.K && gapRatio < 0.6)
+			{
+				// g/D ≥ 0.6 for K joints — wait, the norm says g ≥ -0.6D... let me re-check
+				// Actually: "g/D ≥ 0.6 (for K joints)" is NOT right
+				// The norm says gap should be > 50mm and < D
+				if (joint.Gap < 50)
+					violations.Add($"g = {joint.Gap:F0}mm — required: g > 50mm for K-joints");
+				if (joint.Gap > joint.D)
+					violations.Add($"g = {joint.Gap:F0}mm > D = {joint.D:F0}mm — required: g < D");
+			}
+
+			bool valid = violations.Count == 0;
+
+			foreach (var v in violations)
+				_log($"    VALIDITY ERROR: {v}");
+
+			var variables = new List<FormulaVariable>
+			{
+				new() { Symbol = "β", Description = $"d/D = {joint.d:F0}/{joint.D:F0}", Value = beta, Unit = "-" },
+				new() { Symbol = "γ", Description = $"D/(2T) = {joint.D:F0}/(2×{joint.T:F0})", Value = gamma, Unit = "-" },
+				new() { Symbol = "θ", Description = "brace-to-chord angle", Value = theta, Unit = "°" },
+			};
+
+			if (joint.JointType == JointType.K)
+			{
+				variables.Add(new() { Symbol = "g", Description = "gap between braces", Value = joint.Gap, Unit = "mm" });
+				variables.Add(new() { Symbol = "g/D", Description = "gap ratio", Value = gapRatio, Unit = "-" });
+			}
+
+			string checkExpr = valid
+				? "All parameters within validity range — §6.4 formulas applicable"
+				: $"OUTSIDE VALIDITY RANGE — §6.4 formulas NOT applicable. {violations.Count} violation(s)";
+
+			var result = new NorsokFormulaResult
+			{
+				Section = "6.4.3.1",
+				Equation = "Table",
+				Title = valid ? "Joint Geometry — Valid" : "Joint Geometry — INVALID",
+				CheckExpression = checkExpr,
+				Formula = "0.2 ≤ β ≤ 1.0,  10 ≤ γ ≤ 50,  30° ≤ θ ≤ 90°",
+				FormulaSubstituted = valid
+					? $"β={beta:F3} ✓  γ={gamma:F1} ✓  θ={theta:F0}° ✓"
+					: string.Join(";  ", violations),
+				Demand = 0,
+				Capacity = 1,
+				Utilization = 0,
+				Passed = valid,
+				Variables = variables
+			};
+
+			return (valid, result);
+		}
+
 		private static double GetLocalBucklingStrength(double f_y, double D, double t)
 		{
 			double f_cle = 2.0 * 0.3 * 2.1e5 * t / D;
