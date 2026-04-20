@@ -110,12 +110,31 @@ namespace NorsokChecker.Services
 				_ => ""
 			};
 
+			string icRequirement = inspectionCategory switch
+			{
+				"A" => "100% NDT of all welds (MPI + UT/RT)",
+				"B" => "> 50% NDT at hotspot regions, 20% elsewhere",
+				"C" => "20% NDT, mandatory inspection at stress concentrations",
+				"D" => "10% NDT, visual inspection of all welds",
+				"E" => "Visual inspection only",
+				_ => ""
+			};
+
+			string sqlRequirement = steelQualityLevel switch
+			{
+				"I" => "Highest toughness — Charpy test per NORSOK M-120, full traceability",
+				"II" => "High toughness — Charpy test required",
+				"III" => "Standard toughness",
+				"IV" => "Basic requirements",
+				_ => ""
+			};
+
 			return new NorsokFormulaResult
 			{
 				Section = "5",
 				Equation = "Table 5-1",
 				Title = $"Design Classification — {dc}",
-				CheckExpression = $"Design Class: {dc} → Steel Quality Level: {steelQualityLevel} → Inspection Category: {inspectionCategory}",
+				CheckExpression = $"{dc}: {dcDesc}",
 				Formula = "",
 				FormulaSubstituted = "",
 				Demand = 0,
@@ -125,10 +144,13 @@ namespace NorsokChecker.Services
 				Variables = new List<FormulaVariable>
 				{
 					new() { Symbol = "DC", Description = dcDesc, Value = (int)dc, Unit = dc.ToString() },
-					new() { Symbol = "SQL", Description = $"Steel Quality Level (Table 5-2)", Value = 0, Unit = steelQualityLevel },
-					new() { Symbol = "IC", Description = $"NDT Inspection Category (Table 5-3/5-4)", Value = 0, Unit = inspectionCategory },
-					new() { Symbol = "σ_max/f_d", Description = "Max weld utilization (for stress classification)", Value = maxWeldUtilization, Unit = "-" },
-					new() { Symbol = "Fatigue", Description = highFatigueUtilisation ? "High fatigue utilisation (DFF < 3)" : "Low fatigue utilisation (DFF ≥ 3)", Value = 0, Unit = highFatigueUtilisation ? "High" : "Low" },
+					new() { Symbol = "SQL", Description = $"Steel Quality Level {steelQualityLevel}: {sqlRequirement}", Value = 0, Unit = steelQualityLevel },
+					new() { Symbol = "IC", Description = $"Inspection Category {inspectionCategory}: {icRequirement}", Value = 0, Unit = inspectionCategory },
+					new() { Symbol = "σ_max/f_d", Description = $"Max weld utilization → stress level: {DesignClassification.ClassifyStressLevel(maxWeldUtilization)}", Value = maxWeldUtilization, Unit = "-" },
+					new() { Symbol = "Fatigue", Description = highFatigueUtilisation
+						? "High fatigue utilisation (DFF < 3) — use Table 5-4 for inspection"
+						: "Low fatigue utilisation (DFF ≥ 3) — use Table 5-3 for inspection",
+						Value = 0, Unit = highFatigueUtilisation ? "High" : "Low" },
 				}
 			};
 		}
