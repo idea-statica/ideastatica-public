@@ -92,6 +92,22 @@ namespace NorsokChecker.Services
 			sb.AppendLine("  <strong>Engine:</strong> IDEA StatiCa Connection CBFEM Analysis via REST API");
 			sb.AppendLine("</div>");
 
+			// Table 6-1 Material factors
+			sb.AppendLine("<div class='settings-card'>");
+			sb.AppendLine("  <h3 class='settings-title'>Table 6-1 &mdash; Material Factors Applied to Project</h3>");
+			sb.AppendLine("  <table class='settings-table'>");
+			sb.AppendLine("    <thead><tr><th>Factor</th><th>Value</th><th>EC3 Default</th><th>Application</th></tr></thead>");
+			sb.AppendLine("    <tbody>");
+			sb.AppendLine("      <tr><td>$ \\gamma_{M0} $</td><td class='val-norsok'>1.15</td><td class='val-ec3'>1.00</td><td>Resistance of Class 1, 2 or 3 cross-sections</td></tr>");
+			sb.AppendLine("      <tr><td>$ \\gamma_{M1} $</td><td class='val-norsok'>1.15</td><td class='val-ec3'>1.00</td><td>Resistance of Class 4 cross-sections; buckling</td></tr>");
+			sb.AppendLine("      <tr><td>$ \\gamma_{M2} $</td><td class='val-norsok'>1.30</td><td class='val-ec3'>1.25</td><td>Net section at bolt holes; fillet &amp; partial penetration welds; bolted connections</td></tr>");
+			sb.AppendLine("      <tr><td>$ \\gamma_{M3} $</td><td class='val-norsok'>1.30</td><td class='val-ec3'>1.25</td><td>Slip-resistant connections</td></tr>");
+			sb.AppendLine("      <tr class='row-note'><td>$ \\gamma_{BC} $</td><td class='val-norsok'>1.05</td><td class='val-ec3'>&mdash;</td><td>Additional building code factor (&sect;6.1) &mdash; multiplied with EN 1993 factors where applicable</td></tr>");
+			sb.AppendLine("    </tbody>");
+			sb.AppendLine("  </table>");
+			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise.&rdquo;</p>");
+			sb.AppendLine("</div>");
+
 			foreach (var (connectionName, formulas) in allResults)
 			{
 				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
@@ -298,6 +314,47 @@ body {
   margin-bottom: 24px;
   border-radius: 4px;
   font-size: 13px;
+}
+.settings-card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.settings-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #00838F;
+  margin-bottom: 12px;
+}
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.settings-table thead th {
+  background: #1B2A4A;
+  color: #fff;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 500;
+}
+.settings-table thead th:first-child { border-radius: 4px 0 0 0; }
+.settings-table thead th:last-child { border-radius: 0 4px 0 0; }
+.settings-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+.settings-table tr:nth-child(even) { background: #fafafa; }
+.val-norsok { font-weight: 700; color: #00838F; text-align: center; }
+.val-ec3 { color: #999; text-align: center; }
+.row-note { border-top: 2px solid #e0e0e0; }
+.settings-note {
+  font-size: 12px;
+  color: #757575;
+  margin-top: 10px;
+  font-style: italic;
 }
 .connection-header {
   font-size: 17px;
