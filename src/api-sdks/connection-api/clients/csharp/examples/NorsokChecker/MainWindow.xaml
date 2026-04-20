@@ -226,21 +226,37 @@
                                 <TextBlock Text="Design Classification (§5)" FontWeight="Medium"/>
                             </StackPanel>
                         </Expander.Header>
-                        <StackPanel Margin="8,4,8,4">
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
-                                <CheckBox x:Name="ChkSubstantialConsequences" Content="Substantial consequences of failure"
-                                          IsChecked="True" Margin="0,0,24,0"/>
-                                <CheckBox x:Name="ChkResidualStrength" Content="Residual strength available"
-                                          Margin="0,0,24,0"/>
-                                <CheckBox x:Name="ChkHighComplexity" Content="High joint complexity"
-                                          IsChecked="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox x:Name="ChkHighFatigue" Content="High fatigue utilisation (DFF &lt; 3)"
-                                          Margin="0,0,24,0"/>
-                                <CheckBox x:Name="ChkThroughThickness" Content="Through-thickness stresses present"/>
-                            </StackPanel>
-                        </StackPanel>
+                        <Grid Margin="8,4,8,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Row 0: DC selection -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Design Class:" VerticalAlignment="Center" Margin="0,0,8,6"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="CmbDesignClass" SelectedIndex="0" Margin="0,0,0,6">
+                                <ComboBoxItem Content="DC1 — High consequence, no residual, complex"/>
+                                <ComboBoxItem Content="DC2 — High consequence, no residual, simple"/>
+                                <ComboBoxItem Content="DC3 — Residual strength, complex"/>
+                                <ComboBoxItem Content="DC4 — Residual strength, simple"/>
+                                <ComboBoxItem Content="DC5 — No substantial consequences"/>
+                            </ComboBox>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Fatigue:" VerticalAlignment="Center" Margin="0,0,8,6"/>
+                            <ComboBox Grid.Row="0" Grid.Column="4" x:Name="CmbFatigueUtil" SelectedIndex="0" Margin="0,0,0,6">
+                                <ComboBoxItem Content="Low (DFF ≥ 3)"/>
+                                <ComboBoxItem Content="High (DFF &lt; 3)"/>
+                            </ComboBox>
+                            <CheckBox Grid.Row="0" Grid.Column="6" x:Name="ChkThroughThickness"
+                                      Content="Through-thickness stresses" VerticalAlignment="Center" Margin="0,0,0,6"/>
+                        </Grid>
                     </Expander>
 
                     <!-- Tubular Joint geometry input -->

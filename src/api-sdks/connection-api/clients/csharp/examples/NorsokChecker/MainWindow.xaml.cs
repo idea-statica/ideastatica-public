@@ -231,12 +231,14 @@ namespace NorsokChecker
 				if (jointGeometry != null)
 					Log($"Joint geometry: Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
 
+				// Design Classification — from dropdown (Table 5-1 decision tree)
+				int dcIdx = CmbDesignClass.SelectedIndex;
 				var dcInput = new DesignClassificationInput
 				{
-					SubstantialConsequences = ChkSubstantialConsequences.IsChecked == true,
-					ResidualStrength = ChkResidualStrength.IsChecked == true,
-					HighComplexity = ChkHighComplexity.IsChecked == true,
-					HighFatigue = ChkHighFatigue.IsChecked == true,
+					SubstantialConsequences = dcIdx <= 1,          // DC1,DC2
+					ResidualStrength = dcIdx == 2 || dcIdx == 3,   // DC3,DC4
+					HighComplexity = dcIdx == 0 || dcIdx == 2,     // DC1,DC3
+					HighFatigue = CmbFatigueUtil.SelectedIndex == 1,
 					ThroughThickness = ChkThroughThickness.IsChecked == true,
 				};
 
