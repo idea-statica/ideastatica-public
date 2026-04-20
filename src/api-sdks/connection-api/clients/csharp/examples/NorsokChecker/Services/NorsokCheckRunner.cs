@@ -159,6 +159,7 @@ namespace NorsokChecker.Services
 					Capacity = f_d,
 					Utilization = utilization,
 					Passed = utilization <= 1.0,
+					LoadCaseId = plate.LoadCaseId,
 					Variables = new List<FormulaVariable>
 					{
 						new() { Symbol = "σ_vM", Description = $"Von Mises stress ({plate.Name})", Value = plate.MaxStress, Unit = "MPa" },
@@ -167,7 +168,6 @@ namespace NorsokChecker.Services
 						new() { Symbol = "f_d", Description = "Design strength = f_y/γ_M", Value = f_d, Unit = "MPa" },
 						new() { Symbol = "t", Description = "Plate thickness", Value = plate.Thickness, Unit = "mm" },
 						new() { Symbol = "ε_max", Description = "Max strain", Value = plate.MaxStrain, Unit = "-" },
-						new() { Symbol = "LC", Description = "Critical load case ID", Value = plate.LoadCaseId, Unit = "-" },
 					}
 				});
 			}
@@ -194,6 +194,7 @@ namespace NorsokChecker.Services
 					Capacity = resistance,
 					Utilization = utilization,
 					Passed = utilization <= 1.0,
+					LoadCaseId = weld.LoadCaseId,
 					Variables = new List<FormulaVariable>
 					{
 						new() { Symbol = "σ_w", Description = "Max equivalent weld stress", Value = weld.MaxEquivalentStress, Unit = "MPa" },
@@ -232,6 +233,7 @@ namespace NorsokChecker.Services
 					Capacity = 1.0,
 					Utilization = interactionCheck,
 					Passed = interactionCheck <= 1.0,
+					LoadCaseId = bolt.LoadCaseId,
 					Variables = new List<FormulaVariable>
 					{
 						new() { Symbol = "F_t,Sd", Description = "Bolt tension force", Value = bolt.BoltTensionForce, Unit = "kN" },

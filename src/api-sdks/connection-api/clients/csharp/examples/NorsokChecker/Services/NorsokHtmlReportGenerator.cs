@@ -208,6 +208,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
 			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
 			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
+			if (fr.LoadCaseId > 0)
+				sb.AppendLine($"    <span class='lc-badge'>LE{fr.LoadCaseId}</span>");
 			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization * 100:F1}%</span>");
 			sb.AppendLine("  </summary>");
 
@@ -473,6 +475,14 @@ body {
 .section-ref { color: #00695c; font-weight: 600; }
 .card-title { flex: 1; }
 .eq-ref { color: #9e9e9e; font-size: 12px; }
+.lc-badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #E3F2FD;
+  color: #1565C0;
+}
 .util-badge {
   padding: 2px 10px;
   border-radius: 12px;
