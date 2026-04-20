@@ -127,59 +127,50 @@ namespace NorsokChecker
 
 				Log($"Found {connections.Count} connection(s).");
 
-				// Read members — first do a quick calculation to get raw results for shape detection
+				// Read members and cross-sections (GET only — no calculation)
 				_members.Clear();
 				if (connections.Count > 0)
 				{
 					try
 					{
-						// Quick calculate to get raw results (needed for plate-based shape detection)
-						ShowStatus("Detecting member cross-sections...");
-						var conIds = connections.Select(c => c.Id).ToList();
-						await _apiClient.Calculation.CalculateAsync(_projectId, conIds);
-						var rawForDetection = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, conIds);
+						ShowStatus("Reading members and cross-sections...");
 
-						ParsedRawResults? parsed = null;
-						if (rawForDetection.Count > 0)
-						{
-							try
-							{
-								parsed = RawResultsParser.Parse(rawForDetection[0]);
-								Log($"  Raw results for detection: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds");
-								foreach (var p in parsed.Plates.Take(5))
-									Log($"    plate: '{p.Name}' t={p.Thickness:F1}mm fy={p.MaterialFy:F0}");
-							}
-							catch (Exception ex)
-							{
-								Log($"  WARNING: Raw results parse failed: {ex.Message}");
-							}
-						}
-						else
-						{
-							Log("  WARNING: No raw results returned for detection");
-						}
-
-						// Read members with shape detection from plate names
+						// GET members
 						var geoReader = new MemberGeometryReader(_apiClient, Log);
 						var memberInfos = await geoReader.ReadMembersAsync(
-							_projectId, connections[0].Id, parsed, ct: default);
+							_projectId, connections[0].Id, rawResults: null, ct: default);
 
-						// Also try to get CHS diameters from cross-section catalog names
+						// GET cross-section catalog names for diameter detection
 						var cssDetector = new CrossSectionDetector(_apiClient, Log);
 						var detectedCss = await cssDetector.DetectAsync(_projectId);
 
 						foreach (var info in memberInfos)
 						{
-							// If CHS detected from plates but no diameter yet, try CSS catalog
 							double diameter = 0;
-							if (info.IsCHS && detectedCss.Count > 0)
+							double wallThickness = info.WallThickness;
+							string shape = info.ShapeType; // Will be "Other" without raw results
+
+							// Try to detect CHS from cross-section catalog name
+							if (detectedCss.Count > 0)
 							{
-								// Match: largest CHS for chord, smallest for brace
 								var matchCss = info.IsContinuous
-									? detectedCss.Where(c => c.IsCHS).OrderByDescending(c => c.Diameter).FirstOrDefault()
-									: detectedCss.Where(c => c.IsCHS).OrderBy(c => c.Diameter).FirstOrDefault();
+									? detectedCss.OrderByDescending(c => c.Diameter).FirstOrDefault()
+									: detectedCss.OrderBy(c => c.Diameter).FirstOrDefault();
+
 								if (matchCss != null)
-									diameter = matchCss.Diameter;
+								{
+									if (matchCss.IsCHS)
+									{
+										shape = "CHS";
+										diameter = matchCss.Diameter;
+										if (matchCss.Thickness > 0)
+											wallThickness = matchCss.Thickness;
+									}
+									else if (!string.IsNullOrEmpty(matchCss.ShapeType))
+									{
+										shape = matchCss.ShapeType;
+									}
+								}
 							}
 
 							_members.Add(new MemberDisplayInfo
@@ -187,10 +178,10 @@ namespace NorsokChecker
 								Id = info.Id,
 								Name = info.Name,
 								Role = info.IsContinuous ? "Chord" : "Brace",
-								Shape = info.ShapeType,
+								Shape = shape,
 								Diameter = diameter,
-								WallThickness = info.WallThickness,
-								Fy = info.Fy,
+								WallThickness = wallThickness,
+								Fy = info.Fy > 0 ? info.Fy : 355,
 								MaterialName = info.MaterialName,
 							});
 						}
@@ -198,9 +189,9 @@ namespace NorsokChecker
 						int chsCount = _members.Count(m => m.IsCHS);
 						Log($"  Members loaded: {_members.Count} total, {chsCount} CHS");
 						if (chsCount > 0)
-							Log($"  Tubular connection detected — §6.3 + §6.4 checks will run");
+							Log($"  Tubular connection detected — §6.3 + §6.4 checks will run on calculation");
 						else
-							Log($"  Non-tubular connection — only plate/weld/bolt checks (§6.3/§6.4 require CHS)");
+							Log($"  Non-tubular connection — §6.3/§6.4 need CHS; check cross-section names");
 					}
 					catch (Exception ex)
 					{
@@ -266,6 +257,57 @@ namespace NorsokChecker
 					}
 					con.MaxUtilization = maxUtil;
 					con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
+				}
+
+				// ── Refine member shapes from raw results plate names ──
+				if (rawResults.Count > 0)
+				{
+					try
+					{
+						var parsed = RawResultsParser.Parse(rawResults[0]);
+						Log($"  Raw results: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
+
+						// Detect shape per member from plate names
+						foreach (var member in _members)
+						{
+							string prefix = $"{member.Name}-";
+							var memberPlates = parsed.Plates
+								.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+								.ToList();
+
+							if (memberPlates.Count > 0)
+							{
+								bool hasArc = memberPlates.Any(p => p.Name.Contains("arc", StringComparison.OrdinalIgnoreCase));
+								if (hasArc && member.Shape != "CHS")
+								{
+									member.Shape = "CHS";
+									Log($"  Member '{member.Name}' detected as CHS from plate names");
+								}
+
+								// Update wall thickness and fy from plates
+								var thicknesses = memberPlates.Where(p => p.Thickness > 0).Select(p => p.Thickness).ToList();
+								if (thicknesses.Count > 0)
+									member.WallThickness = thicknesses.GroupBy(t => Math.Round(t, 1)).OrderByDescending(g => g.Count()).First().Key;
+
+								var refPlate = memberPlates.FirstOrDefault(p => p.MaterialFy > 0);
+								if (refPlate != null)
+								{
+									member.Fy = refPlate.MaterialFy;
+									member.MaterialName = refPlate.MaterialName;
+								}
+							}
+						}
+
+						// Refresh grid
+						MembersGrid.Items.Refresh();
+						int chsCount = _members.Count(m => m.IsCHS);
+						if (chsCount > 0)
+							Log($"  Tubular members confirmed: {chsCount} CHS after plate analysis");
+					}
+					catch (Exception ex)
+					{
+						Log($"  WARNING: Shape refinement failed: {ex.Message}");
+					}
 				}
 
 				// ── Parse geometry from members grid ──
