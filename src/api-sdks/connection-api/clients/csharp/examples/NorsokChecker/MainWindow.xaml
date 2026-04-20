@@ -154,15 +154,32 @@
                         <TextBlock Text="Check" HorizontalAlignment="Center" FontSize="11"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Margin="12">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <DockPanel Margin="12" LastChildFill="True">
 
-                    <!-- Tubular geometry input -->
-                    <Expander Grid.Row="0" IsExpanded="False" Margin="0,0,0,8" Background="Transparent">
+                    <!-- Action buttons — docked to bottom -->
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+                                HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button x:Name="BtnLoadProject" Click="LoadProject_Click"
+                                Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Load Project" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnRunCheck" IsEnabled="False" Click="RunCheck_Click"
+                                Style="{StaticResource IdeaPrimaryButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="PlayCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Run Norsok Check" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Expanders — docked to top, stacking vertically -->
+                    <StackPanel DockPanel.Dock="Top">
+
+                    <!-- CHS geometry input -->
+                    <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
@@ -200,7 +217,7 @@
                     </Expander>
 
                     <!-- Design Classification (§5) -->
-                    <Expander Grid.Row="0" IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
+                    <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="Certificate" Width="18" Height="18" VerticalAlignment="Center"
@@ -226,7 +243,7 @@
                     </Expander>
 
                     <!-- Tubular Joint geometry input -->
-                    <Expander Grid.Row="0" IsExpanded="False" Margin="0,0,0,8" Background="Transparent">
+                    <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="VectorCircleVariant" Width="18" Height="18" VerticalAlignment="Center"
@@ -286,8 +303,10 @@
                         </Grid>
                     </Expander>
 
-                    <!-- Connections grid -->
-                    <DataGrid Grid.Row="1" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
+                    </StackPanel> <!-- end expanders stack -->
+
+                    <!-- Connections grid — fills remaining space -->
+                    <DataGrid x:Name="ConnectionsGrid" AutoGenerateColumns="False"
                               IsReadOnly="True" CanUserAddRows="False"
                               md:DataGridAssist.CellPadding="10 6"
                               VerticalScrollBarVisibility="Auto"
@@ -301,24 +320,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <!-- Action buttons -->
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-                        <Button x:Name="BtnLoadProject" Click="LoadProject_Click"
-                                Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0">
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock Text="Load Project" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="BtnRunCheck" IsEnabled="False" Click="RunCheck_Click"
-                                Style="{StaticResource IdeaPrimaryButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="PlayCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock Text="Run Norsok Check" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
-                </Grid>
+                </DockPanel>
             </TabItem>
 
             <!-- Tab 2: Results -->
