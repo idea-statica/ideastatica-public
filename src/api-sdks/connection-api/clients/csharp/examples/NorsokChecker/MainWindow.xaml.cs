@@ -343,9 +343,9 @@ namespace NorsokChecker
 						fr.Section,
 						fr.Title,
 						fr.Equation,
-						Demand = fr.Demand,
-						Capacity = fr.Capacity,
-						Utilization = fr.Utilization,
+						Demand = Math.Round(fr.Demand, 2),
+						Capacity = Math.Round(fr.Capacity, 2),
+						Utilization = $"{fr.Utilization * 100:F1}%",
 						Result = fr.Passed ? "PASS" : "FAIL"
 					});
 				}

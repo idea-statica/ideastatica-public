@@ -210,7 +210,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="130"/>
-                            <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilization, StringFormat=F3}" Width="130"/>
+                            <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilization, StringFormat={}{0:P1}}" Width="130"/>
                             <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
                         </DataGrid.Columns>
                     </DataGrid>

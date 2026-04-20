@@ -132,7 +132,7 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
 			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
 			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
-			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization:F3}</span>");
+			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization * 100:F1}%</span>");
 			sb.AppendLine("  </summary>");
 
 			sb.AppendLine("  <div class='card-body'>");
@@ -181,7 +181,7 @@ namespace NorsokChecker.Services
 
 			// Result bar
 			sb.AppendLine($"    <div class='result-bar {statusClass}'>");
-			sb.AppendLine($"      <span>Utilization: <strong>{fr.Utilization:F4}</strong> &le; 1.0</span>");
+			sb.AppendLine($"      <span>Utilization: <strong>{fr.Utilization * 100:F1}%</strong> (= {fr.Utilization:F4} &le; 1.0)</span>");
 			sb.AppendLine($"      <span class='result-verdict'>{statusIcon} {statusText}</span>");
 			sb.AppendLine("    </div>");
 
