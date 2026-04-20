@@ -116,6 +116,9 @@ namespace NorsokChecker.Services
 			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise.&rdquo;</p>");
 			sb.AppendLine("</div>");
 
+			// ── Executive Summary Card ──
+			RenderSummaryCard(sb, allResults);
+
 			foreach (var (connectionName, formulas) in allResults)
 			{
 				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
@@ -140,6 +143,55 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("</body></html>");
 			return sb.ToString();
+		}
+
+		private static void RenderSummaryCard(StringBuilder sb,
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+		{
+			int totalChecks = allResults.Sum(r => r.formulas.Count);
+			int passed = allResults.Sum(r => r.formulas.Count(f => f.Passed));
+			int failed = totalChecks - passed;
+			bool allPass = failed == 0;
+
+			// Find governing formula (highest utilization)
+			NorsokFormulaResult? governing = null;
+			string? governingConnection = null;
+			foreach (var (name, formulas) in allResults)
+			{
+				foreach (var f in formulas)
+				{
+					if (governing == null || f.Utilization > governing.Utilization)
+					{
+						governing = f;
+						governingConnection = name;
+					}
+				}
+			}
+
+			string statusClass = allPass ? "pass" : "fail";
+			string verdict = allPass ? "COMPLIANT" : "NON-COMPLIANT";
+			string icon = allPass ? "&#x2714;" : "&#x2718;";
+
+			sb.AppendLine($"<div class='summary-card {statusClass}'>");
+			sb.AppendLine($"  <div class='summary-verdict'>");
+			sb.AppendLine($"    <span class='summary-icon'>{icon}</span>");
+			sb.AppendLine($"    <span class='summary-text'>NORSOK N-004: <strong>{verdict}</strong></span>");
+			sb.AppendLine($"  </div>");
+			sb.AppendLine($"  <div class='summary-stats'>");
+			sb.AppendLine($"    <div class='stat'><span class='stat-value'>{totalChecks}</span><span class='stat-label'>Total Checks</span></div>");
+			sb.AppendLine($"    <div class='stat stat-pass'><span class='stat-value'>{passed}</span><span class='stat-label'>Passed</span></div>");
+			sb.AppendLine($"    <div class='stat stat-fail'><span class='stat-value'>{failed}</span><span class='stat-label'>Failed</span></div>");
+
+			if (governing != null)
+			{
+				sb.AppendLine($"    <div class='stat stat-governing'>");
+				sb.AppendLine($"      <span class='stat-value'>{governing.Utilization * 100:F1}%</span>");
+				sb.AppendLine($"      <span class='stat-label'>Governing: &sect;{Esc(governing.Section)} {Esc(governing.Title)}</span>");
+				sb.AppendLine($"    </div>");
+			}
+
+			sb.AppendLine($"  </div>");
+			sb.AppendLine($"</div>");
 		}
 
 		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr)
@@ -484,6 +536,66 @@ body {
 .result-verdict { font-weight: 700; font-size: 15px; }
 .pass .result-verdict { color: #2e7d32; }
 .fail .result-verdict { color: #c62828; }
+
+/* Summary card */
+.summary-card {
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.summary-card.pass {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  border: 2px solid #4caf50;
+}
+.summary-card.fail {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  border: 2px solid #f44336;
+}
+.summary-verdict {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.summary-icon { font-size: 32px; }
+.summary-card.pass .summary-icon { color: #2e7d32; }
+.summary-card.fail .summary-icon { color: #c62828; }
+.summary-text { font-size: 20px; color: #333; }
+.summary-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.stat {
+  text-align: center;
+}
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+.stat-pass .stat-value { color: #2e7d32; }
+.stat-fail .stat-value { color: #c62828; }
+.stat-governing .stat-value { color: #F57C00; }
+.stat-label {
+  display: block;
+  font-size: 11px;
+  color: #757575;
+  margin-top: 2px;
+}
+
+/* Print styles */
+@media print {
+  body { background: #fff; padding: 12px; }
+  .check-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  .summary-card { break-after: avoid; }
+  details { open: true; }
+  details > summary::before { display: none; }
+}
 ";
 	}
 }

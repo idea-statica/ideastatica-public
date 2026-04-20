@@ -41,6 +41,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- ═══ Header — IDEA StatiCa primary with orange accent ═══ -->
@@ -312,6 +313,19 @@
                               VerticalScrollBarVisibility="Auto"
                               GridLinesVisibility="Horizontal"
                               BorderThickness="0">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding NorsokPass}" Value="FAIL">
+                                        <Setter Property="Background" Value="#FFEBEE"/>
+                                        <Setter Property="Foreground" Value="#C62828"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
+                                        <Setter Property="Background" Value="#E8F5E9"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="130"/>
@@ -364,8 +378,25 @@
             </TabItem>
         </TabControl>
 
+        <!-- ═══ Status bar ═══ -->
+        <Border Grid.Row="3" Margin="16,0,16,4" Padding="8,4"
+                Background="#FFF8E1" CornerRadius="4"
+                Visibility="Collapsed" x:Name="StatusBar">
+            <StackPanel Orientation="Horizontal">
+                <md:PackIcon Kind="Loading" Width="16" Height="16" Foreground="#F57C00"
+                             VerticalAlignment="Center" Margin="0,0,8,0"
+                             RenderTransformOrigin="0.5,0.5">
+                    <md:PackIcon.RenderTransform>
+                        <RotateTransform x:Name="SpinnerRotation"/>
+                    </md:PackIcon.RenderTransform>
+                </md:PackIcon>
+                <TextBlock x:Name="StatusText" Text="Calculating..." Foreground="#F57C00"
+                           FontWeight="Medium" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
         <!-- ═══ Log panel ═══ -->
-        <md:Card Grid.Row="3" Margin="16,0,16,12" Padding="0" md:ElevationAssist.Elevation="Dp1">
+        <md:Card Grid.Row="4" Margin="16,0,16,12" Padding="0" md:ElevationAssist.Elevation="Dp1">
             <Expander IsExpanded="True" md:ExpanderAssist.HorizontalHeaderPadding="16"
                       Background="Transparent">
                 <Expander.Header>

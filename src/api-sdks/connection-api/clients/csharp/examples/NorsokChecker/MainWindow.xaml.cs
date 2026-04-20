@@ -189,6 +189,8 @@ namespace NorsokChecker
 			try
 			{
 				BtnRunCheck.IsEnabled = false;
+				ValidateGeometryInputs();
+				ShowStatus("Running NORSOK N-004 compliance check...");
 				Log("Starting Norsok N-004 compliance check...");
 
 				// Check for cached results
@@ -233,6 +235,7 @@ namespace NorsokChecker
 						con.Status = "Calculating...";
 					}
 
+					ShowStatus("Running CBFEM calculation...");
 					Log("Running CBFEM calculation...");
 					var calcResults = await _apiClient.Calculation.CalculateAsync(
 						_projectId, connectionIds);
@@ -332,6 +335,7 @@ namespace NorsokChecker
 				};
 
 				// Evaluate Norsok formulas on raw results
+				ShowStatus("Evaluating Norsok N-004 formulas...");
 				Log("Evaluating Norsok N-004 §6.3 formulas...");
 				var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
 
@@ -407,6 +411,7 @@ namespace NorsokChecker
 			finally
 			{
 				BtnRunCheck.IsEnabled = true;
+				HideStatus();
 			}
 		}
 
@@ -461,6 +466,53 @@ namespace NorsokChecker
 			{
 				Log($"WARNING: WebView2 not available ({ex.Message}). Report tab may not render.");
 			}
+		}
+
+		private bool ValidateGeometryInputs()
+		{
+			var errors = new List<string>();
+
+			if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) && D > 0)
+			{
+				if (double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) && t > 0)
+				{
+					if (t >= D / 2) errors.Add($"CHS wall thickness t={t}mm must be less than D/2={D / 2}mm");
+					if (D / t >= 120) errors.Add($"CHS D/t={D / t:F0} exceeds limit of 120 (§6.3.1)");
+				}
+			}
+
+			if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cD) && cD > 0 &&
+				double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var bD) && bD > 0)
+			{
+				if (bD > cD) errors.Add($"Brace d={bD}mm cannot exceed chord D={cD}mm");
+			}
+
+			if (double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle))
+			{
+				if (angle < 30 || angle > 90) errors.Add($"Brace angle θ={angle}° outside validity range 30°–90° (§6.4.3.1)");
+			}
+
+			if (errors.Count > 0)
+			{
+				foreach (var err in errors)
+					Log($"WARNING: {err}");
+			}
+
+			return true; // Warnings only, don't block execution
+		}
+
+		private void ShowStatus(string text)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				StatusText.Text = text;
+				StatusBar.Visibility = Visibility.Visible;
+			});
+		}
+
+		private void HideStatus()
+		{
+			Dispatcher.Invoke(() => StatusBar.Visibility = Visibility.Collapsed);
 		}
 
 		protected override void OnClosed(EventArgs e)
