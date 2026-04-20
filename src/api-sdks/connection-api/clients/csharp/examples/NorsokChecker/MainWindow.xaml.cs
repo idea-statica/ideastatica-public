@@ -131,6 +131,41 @@ namespace NorsokChecker
 				}
 
 				Log($"Found {connections.Count} connection(s).");
+
+				// Read member geometry from API
+				if (connections.Count > 0)
+				{
+					try
+					{
+						var geoReader = new MemberGeometryReader(_apiClient, Log);
+						var memberInfos = await geoReader.ReadMembersAsync(_projectId, connections[0].Id, ct: default);
+
+						// Auto-populate CHS fields from member data
+						var chord = memberInfos.FirstOrDefault(m => m.IsContinuous);
+						var brace = memberInfos.FirstOrDefault(m => !m.IsContinuous);
+
+						if (chord != null && chord.WallThickness > 0)
+						{
+							TxtChordT.Text = chord.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
+							if (chord.Fy > 0)
+								TxtFyChord.Text = chord.Fy.ToString("F0", CultureInfo.InvariantCulture);
+							Log($"  Auto-filled chord T={chord.WallThickness:F1}mm, fy={chord.Fy:F0}MPa from member '{chord.Name}'");
+						}
+
+						if (brace != null && brace.WallThickness > 0)
+						{
+							TxtBraceT.Text = brace.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
+							// Also set CHS member thickness
+							TxtThickness.Text = brace.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
+							Log($"  Auto-filled brace t={brace.WallThickness:F1}mm from member '{brace.Name}'");
+						}
+					}
+					catch (Exception ex)
+					{
+						Log($"  WARNING: Could not read member geometry: {ex.Message}");
+					}
+				}
+
 				BtnRunCheck.IsEnabled = true;
 			}
 			catch (Exception ex)
