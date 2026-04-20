@@ -46,7 +46,8 @@ namespace NorsokChecker.Services
 			double kFactor = 0.7,
 			TubularJointGeometry? jointGeometry = null,
 			DesignClassificationInput? dcInput = null,
-			double[]? chordStresses = null)
+			double[]? chordStresses = null,
+			bool isTubularConnection = false)
 		{
 			var results = new List<NorsokFormulaResult>();
 

@@ -333,20 +333,24 @@ namespace NorsokChecker
 					_formulaResults[con.Id] = formulaResults;
 
 					// Determine worst-case Norsok utilization
+					// Skip informational results (DC classification has Utilization=0)
 					double maxNorsokUtil = 0;
 					bool allPassed = true;
 					foreach (var fr in formulaResults)
 					{
-						if (fr.Utilization > maxNorsokUtil)
-							maxNorsokUtil = fr.Utilization;
-						if (!fr.Passed)
-							allPassed = false;
+						// Only count actual checks (not informational like DC)
+						if (fr.Section != "5")
+						{
+							if (fr.Utilization > maxNorsokUtil)
+								maxNorsokUtil = fr.Utilization;
+							if (!fr.Passed)
+								allPassed = false;
+						}
 						Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {(fr.Passed ? "PASS" : "FAIL")}");
 					}
 
 					con.NorsokPass = allPassed ? "PASS" : "FAIL";
-					if (maxNorsokUtil > con.MaxUtilization)
-						con.MaxUtilization = maxNorsokUtil;
+					con.MaxUtilization = maxNorsokUtil;
 					con.Status = allPassed ? "Norsok OK" : "Norsok FAIL";
 				}
 

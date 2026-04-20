@@ -32,8 +32,12 @@ namespace NorsokChecker.Models
 		public double MaxUtilization
 		{
 			get => _maxUtilization;
-			set { _maxUtilization = value; OnPropertyChanged(); }
+			set { _maxUtilization = value; OnPropertyChanged(); OnPropertyChanged(nameof(MaxUtilizationDisplay)); }
 		}
+
+		/// <summary>Display string: "72.4%" for 0.724, capped at 999.9%</summary>
+		public string MaxUtilizationDisplay =>
+			MaxUtilization > 9.999 ? ">999%" : $"{MaxUtilization * 100:F1}%";
 
 		public string NorsokPass
 		{
