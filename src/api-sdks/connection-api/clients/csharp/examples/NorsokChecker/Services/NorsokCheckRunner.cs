@@ -66,13 +66,21 @@ namespace NorsokChecker.Services
 
 			_log($"    Parsed: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
 
-			double gammaM0 = ProjectSettingsService.GammaM0_Norsok;
-			double gammaM2 = ProjectSettingsService.GammaM2_Norsok;
+			double gammaM0 = ProjectSettingsService.GammaM0_Norsok;  // 1.15
+			double gammaM2 = ProjectSettingsService.GammaM2_Norsok;  // 1.30
+			// Note: γBC = 1.05 (ProjectSettingsService.GammaBC) is the additional
+			// building code factor per §6.1. It is applied implicitly when the CBFEM
+			// engine uses the updated γM values. For standalone formula checks on
+			// tubular members (§6.3), the Norsok γM = 1.15 already accounts for this.
 
 			// ─── PLATE STRESS CHECKS ───
+			// Note: IDEA StatiCa already applies γM0 in the CBFEM. The raw results
+			// materialSafetyFactor shows 1.15 when Norsok settings are applied.
+			// We re-check here with Norsok γM0 for the explicit formula report.
 			EvaluatePlateChecks(parsed, gammaM0, results);
 
 			// ─── WELD CHECKS ───
+			// Norsok Table 6-1: γM2 = 1.30 for welds (not EC3 default 1.25)
 			EvaluateWeldChecks(parsed, gammaM2, results);
 
 			// ─── BOLT CHECKS ───
@@ -119,7 +127,7 @@ namespace NorsokChecker.Services
 					{
 						new() { Symbol = "σ_vM", Description = $"Von Mises stress ({plate.Name})", Value = plate.MaxStress, Unit = "MPa" },
 						new() { Symbol = "f_y", Description = $"Yield strength ({plate.MaterialName})", Value = f_y, Unit = "MPa" },
-						new() { Symbol = "γ_M", Description = "Norsok material factor (§6.3.7)", Value = gammaM, Unit = "-" },
+						new() { Symbol = "γ_M", Description = "Norsok material factor γM0 (Table 6-1)", Value = gammaM, Unit = "-" },
 						new() { Symbol = "f_d", Description = "Design strength = f_y/γ_M", Value = f_d, Unit = "MPa" },
 						new() { Symbol = "t", Description = "Plate thickness", Value = plate.Thickness, Unit = "mm" },
 						new() { Symbol = "ε_max", Description = "Max strain", Value = plate.MaxStrain, Unit = "-" },
@@ -158,7 +166,7 @@ namespace NorsokChecker.Services
 						new() { Symbol = "τ_∥", Description = "Shear parallel", Value = weld.Taux, Unit = "MPa" },
 						new() { Symbol = "f_u", Description = "Ultimate tensile strength", Value = fu, Unit = "MPa" },
 						new() { Symbol = "β_w", Description = "Correlation factor", Value = betaW, Unit = "-" },
-						new() { Symbol = "γ_M2", Description = "Norsok weld safety factor", Value = gammaM2, Unit = "-" },
+						new() { Symbol = "γ_M2", Description = "Norsok material factor γM2 = 1.30 (Table 6-1: welds, bolts)", Value = gammaM2, Unit = "-" },
 						new() { Symbol = "Resistance", Description = "f_u/(β_w·γ_M2)", Value = resistance, Unit = "MPa" },
 						new() { Symbol = "a", Description = "Weld throat thickness", Value = weld.DesignedThickness, Unit = "mm" },
 						new() { Symbol = "L", Description = "Weld length", Value = weld.Length, Unit = "mm" },

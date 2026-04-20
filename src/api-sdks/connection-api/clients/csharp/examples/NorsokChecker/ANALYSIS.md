@@ -21,11 +21,13 @@ Before any calculation, the app must set the correct material factors via `Setti
 
 **NORSOK N-004 material factor (§6.3.7):**
 
-| Factor | Norsok Value | EC3 Default | Key |
-|--------|-------------|-------------|-----|
-| γM  | **1.15** | 1.0 | `yM0` |
-| γM1 | **1.15** | 1.0 | `yM1` |
-| γM2 | **1.25** | 1.25 | `yM2` |
+| Factor | Norsok Value | EC3 Default | Purpose |
+|--------|-------------|-------------|---------|
+| γM0 | **1.15** | 1.0 | Class 1,2,3 cross-sections |
+| γM1 | **1.15** | 1.0 | Class 4 cross-sections, buckling |
+| γM2 | **1.30** | 1.25 | Net section at bolt holes, welds, bolts |
+| γM3 | **1.30** | 1.25 | Slip-resistant connections |
+| γBC | **1.05** | N/A | Additional building code factor (§6.1) |
 
 > **Note**: γM is not constant for class 4 cross-sections — see §6.3.7 Equation (6.22).
 > For λs < 0.5: γM = 1.15
