@@ -55,23 +55,24 @@ namespace NorsokChecker.Services.Formulas
 			JointType jointType, BraceActionType actionType,
 			double beta, double gamma, double Qg, double QBeta)
 		{
+			// Table 6-3 — Qu values
+			// IMPORTANT: exponents from PDF are on β and γ, NOT multipliers
 			switch (jointType)
 			{
 				case JointType.K:
 					switch (actionType)
 					{
 						case BraceActionType.AxialTension:
-							return (Math.Min(16.0 + 1.2 * gamma, 40.0 * beta) + beta * Qg,
-								"K tension: min(16+1.2γ, 40β) + β·Qg");
 						case BraceActionType.AxialCompression:
-							return (Math.Min(16.0 + 1.2 * gamma, 40.0 * beta) + beta * Qg,
-								"K compression: min(16+1.2γ, 40β) + β·Qg");
+							// Qu = (16+1.2γ)β^1.2 · Qg  but ≤ 40β·Qg (for compression)
+							return (Math.Min(16.0 + 1.2 * gamma, 40.0 * beta) * Qg,
+								"K axial: min(16+1.2γ, 40β)·Qg");
 						case BraceActionType.InPlaneBending:
-							return (5.0 + 0.7 * gamma * beta * 1.2,
-								"K IPB: 5+0.7γβ^1.2");
+							return (5.0 + 0.7 * gamma * Math.Pow(beta, 1.2),
+								"K IPB: 5+0.7γ·β^1.2");
 						case BraceActionType.OutOfPlaneBending:
-							return (2.5 + 4.5 * beta * beta * 0.2 * gamma * 2.6,
-								"K OPB: 2.5+4.5β^0.2·γ^2.6");
+							return (2.5 + 4.5 * Math.Pow(beta, 0.2) * Math.Pow(gamma, 0.6),
+								"K OPB: 2.5+4.5·β^0.2·γ^0.6");
 					}
 					break;
 
@@ -79,11 +80,13 @@ namespace NorsokChecker.Services.Formulas
 					switch (actionType)
 					{
 						case BraceActionType.AxialTension:
-							return ((2.8 + 20.0 + 0.8 * gamma) * beta * 1.6,
+							// Qu = (2.8+20+0.8γ)·β^1.6
+							return ((2.8 + 20.0 + 0.8 * gamma) * Math.Pow(beta, 1.6),
 								"T/Y tension: (2.8+20+0.8γ)·β^1.6");
 						case BraceActionType.AxialCompression:
-							return (Math.Min(2.8 + 36.0 * beta * 1.6, (2.8 + 12.0 + 0.1 * gamma) * beta * QBeta),
-								"T/Y compression: min(2.8+36β^1.6, (2.8+12+0.1γ)β·Qβ)");
+							// Qu = min(2.8+36·β^1.6, (2.8+12+0.1γ)·β·Qβ)
+							return (Math.Min(2.8 + 36.0 * Math.Pow(beta, 1.6), (2.8 + 12.0 + 0.1 * gamma) * beta * QBeta),
+								"T/Y compression: min(2.8+36·β^1.6, (2.8+12+0.1γ)·β·Qβ)");
 						case BraceActionType.InPlaneBending:
 							return (5.0 + 0.7 * gamma * Math.Pow(beta, 1.2),
 								"T/Y IPB: 5+0.7γ·β^1.2");
@@ -97,11 +100,16 @@ namespace NorsokChecker.Services.Formulas
 					switch (actionType)
 					{
 						case BraceActionType.AxialTension:
-							return (Math.Min((2.8 + 20.0 + 0.8 * gamma) * beta * 1.6, 30.0 * beta + 6.4 * gamma * 0.6 * beta * beta),
-								"X tension: min((2.8+20+0.8γ)β^1.6, 30β+6.4γ^0.6·β²)");
+							// Qu = min((2.8+20+0.8γ)·β^1.6, 30β+6.4·γ^0.6·β²)
+							return (Math.Min(
+								(2.8 + 20.0 + 0.8 * gamma) * Math.Pow(beta, 1.6),
+								30.0 * beta + 6.4 * Math.Pow(gamma, 0.6) * beta * beta),
+								"X tension: min((2.8+20+0.8γ)·β^1.6, 30β+6.4·γ^0.6·β²)");
 						case BraceActionType.AxialCompression:
-							return (Math.Min(2.8 + 36.0 * beta * 1.6, (2.8 + 12.0 + 0.1 * gamma) * beta * QBeta),
-								"X compression: min(2.8+36β^1.6, (2.8+12+0.1γ)β·Qβ)");
+							return (Math.Min(
+								2.8 + 36.0 * Math.Pow(beta, 1.6),
+								(2.8 + 12.0 + 0.1 * gamma) * beta * QBeta),
+								"X compression: min(2.8+36·β^1.6, (2.8+12+0.1γ)·β·Qβ)");
 						case BraceActionType.InPlaneBending:
 							return (5.0 + 0.7 * gamma * Math.Pow(beta, 1.2),
 								"X IPB: 5+0.7γ·β^1.2");
