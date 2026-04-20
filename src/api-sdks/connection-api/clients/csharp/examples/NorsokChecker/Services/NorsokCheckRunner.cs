@@ -44,7 +44,8 @@ namespace NorsokChecker.Services
 			TubularGeometry? geometry = null,
 			double memberLength = 0,
 			double kFactor = 0.7,
-			TubularJointGeometry? jointGeometry = null)
+			TubularJointGeometry? jointGeometry = null,
+			DesignClassificationInput? dcInput = null)
 		{
 			var results = new List<NorsokFormulaResult>();
 
@@ -74,10 +75,30 @@ namespace NorsokChecker.Services
 			// engine uses the updated γM values. For standalone formula checks on
 			// tubular members (§6.3), the Norsok γM = 1.15 already accounts for this.
 
+			// ─── DESIGN CLASSIFICATION (§5) ───
+			if (dcInput != null)
+			{
+				var dc = DesignClassification.ClassifyJoint(
+					dcInput.SubstantialConsequences, dcInput.ResidualStrength, dcInput.HighComplexity);
+
+				// Use max weld utilization for stress classification
+				double maxWeldUtil = parsed.Welds.Count > 0
+					? parsed.Welds.Max(w => w.MaxUnityCheck) : 0;
+				var stressLevel = DesignClassification.ClassifyStressLevel(maxWeldUtil);
+
+				string sql = DesignClassification.GetSteelQualityLevel(dc, dcInput.ThroughThickness);
+				string ic = dcInput.HighFatigue
+					? DesignClassification.GetInspectionCategory_HighFatigue(dc, true)
+					: DesignClassification.GetInspectionCategory_LowFatigue(dc, stressLevel);
+
+				var dcResult = DesignClassification.GenerateClassificationReport(
+					dc, sql, ic, maxWeldUtil, dcInput.HighFatigue);
+				results.Add(dcResult);
+
+				_log($"    §5 Classification: {dc}, SQL={sql}, Inspection={ic}");
+			}
+
 			// ─── PLATE STRESS CHECKS ───
-			// Note: IDEA StatiCa already applies γM0 in the CBFEM. The raw results
-			// materialSafetyFactor shows 1.15 when Norsok settings are applied.
-			// We re-check here with Norsok γM0 for the explicit formula report.
 			EvaluatePlateChecks(parsed, gammaM0, results);
 
 			// ─── WELD CHECKS ───
@@ -237,9 +258,39 @@ namespace NorsokChecker.Services
 			_log($"    Running §6.3 tubular checks: D={geo.D}mm, t={geo.t}mm, L={memberLength}mm, k={kFactor}");
 			_log($"    Geometry: A={geo.A:F0}mm², W={geo.W:F0}mm³, Z={geo.Z:F0}mm³, i={geo.i:F1}mm");
 
-			// Use first plate's f_y as reference (all tubular members should share the same material)
-			// This will be overridden if we can read material from the API
 			double f_y = 355; // Default S355
+
+			// §6.3.7 Variable material factor for class 4 sections
+			double f_cle = 2.0 * 0.3 * 2.1e5 * geo.t / geo.D;
+			double f_cl = GetLocalBucklingStrength(f_y, geo.D, geo.t);
+			bool isClass4 = f_y / f_cle > 0.170;
+			if (isClass4)
+			{
+				// Evaluate variable γM per Eq. 6.22
+				// Use a conservative σ_c,Sd estimate from first load case
+				double sigma_c_est = 0;
+				if (loadEffects.Count > 0)
+				{
+					foreach (var ml in loadEffects[0].MemberLoadings ?? new())
+					{
+						if (ml.SectionLoad == null) continue;
+						double N = Math.Abs(ml.SectionLoad.N / 1000.0); // kN
+						double M = Math.Sqrt(Math.Pow(ml.SectionLoad.My / 1000.0, 2) + Math.Pow(ml.SectionLoad.Mz / 1000.0, 2)); // kNm
+						sigma_c_est = Math.Max(sigma_c_est, N * 1000.0 / geo.A + M * 1e6 / geo.W); // MPa
+					}
+				}
+
+				var (varGammaM, gammaResult) = Formulas.MaterialFactorCalc.Calculate(
+					sigma_c_est, f_cl, f_y, f_cle);
+
+				gammaM = varGammaM;
+				results.Add(gammaResult);
+				_log($"    §6.3.7 Class 4 section: f_y/f_cle={f_y / f_cle:F3}, γM={gammaM:F3}");
+			}
+			else
+			{
+				_log($"    §6.3.7 Class 1-3 section: f_y/f_cle={f_y / f_cle:F3}, γM={gammaM} (constant)");
+			}
 
 			// Track worst-case results across all load cases
 			NorsokFormulaResult? worstTension = null;
@@ -342,8 +393,8 @@ namespace NorsokChecker.Services
 							worstCompBending627 = r627;
 
 						// Eq. 6.28 cross-section check
-						double f_cl = GetLocalBucklingStrength(f_y, geo.D, geo.t);
-						double N_cl_Rd = geo.A * f_cl / gammaM / 1000.0;
+						double f_cl_local = GetLocalBucklingStrength(f_y, geo.D, geo.t);
+						double N_cl_Rd = geo.A * f_cl_local / gammaM / 1000.0;
 						var r628 = CompressionBendingCheck.EvaluateCrossSection(N_abs, N_cl_Rd, My, Mz, M_Rd);
 						if (worstCompBending628 == null || r628.Utilization > worstCompBending628.Utilization)
 							worstCompBending628 = r628;

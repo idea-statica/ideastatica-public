@@ -15,6 +15,10 @@ namespace NorsokChecker.Services
 		/// </summary>
 		private static readonly Dictionary<string, (string latex, string check)> FormulaLatex = new()
 		{
+			["5"] = (
+				@"\text{DC} \rightarrow \text{Steel Quality Level} \rightarrow \text{Inspection Category}",
+				@"\text{Table 5-1} \rightarrow \text{Table 5-2} \rightarrow \text{Table 5-3/5-4}"
+			),
 			["6.3.2"] = (
 				@"N_{t,Rd} = \frac{A \cdot f_y}{\gamma_M}",
 				@"N_{Sd} \leq N_{t,Rd}"

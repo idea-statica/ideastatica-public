@@ -199,6 +199,32 @@
                         </Grid>
                     </Expander>
 
+                    <!-- Design Classification (§5) -->
+                    <Expander Grid.Row="0" IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Certificate" Width="18" Height="18" VerticalAlignment="Center"
+                                             Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
+                                <TextBlock Text="Design Classification (§5)" FontWeight="Medium"/>
+                            </StackPanel>
+                        </Expander.Header>
+                        <StackPanel Margin="8,4,8,4">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <CheckBox x:Name="ChkSubstantialConsequences" Content="Substantial consequences of failure"
+                                          IsChecked="True" Margin="0,0,24,0"/>
+                                <CheckBox x:Name="ChkResidualStrength" Content="Residual strength available"
+                                          Margin="0,0,24,0"/>
+                                <CheckBox x:Name="ChkHighComplexity" Content="High joint complexity"
+                                          IsChecked="True"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox x:Name="ChkHighFatigue" Content="High fatigue utilisation (DFF &lt; 3)"
+                                          Margin="0,0,24,0"/>
+                                <CheckBox x:Name="ChkThroughThickness" Content="Through-thickness stresses present"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+
                     <!-- Tubular Joint geometry input -->
                     <Expander Grid.Row="0" IsExpanded="False" Margin="0,0,0,8" Background="Transparent">
                         <Expander.Header>

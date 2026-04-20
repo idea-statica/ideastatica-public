@@ -314,6 +314,16 @@ namespace NorsokChecker
 					Log($"Joint geometry: Chord {chordD}×{chordT}, Brace {braceD}×{braceT}, θ={angle}°, {jtStr}, gap={gap}mm");
 				}
 
+				// Design Classification inputs
+				var dcInput = new DesignClassificationInput
+				{
+					SubstantialConsequences = ChkSubstantialConsequences.IsChecked == true,
+					ResidualStrength = ChkResidualStrength.IsChecked == true,
+					HighComplexity = ChkHighComplexity.IsChecked == true,
+					HighFatigue = ChkHighFatigue.IsChecked == true,
+					ThroughThickness = ChkThroughThickness.IsChecked == true,
+				};
+
 				// Evaluate Norsok formulas on raw results
 				Log("Evaluating Norsok N-004 §6.3 formulas...");
 				var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
@@ -346,7 +356,7 @@ namespace NorsokChecker
 						}
 
 						var formulaResults = checker.EvaluateNorsokFormulas(
-							con.Id, rawJson, loadEffects, geometry, memberLength, kFactor, jointGeometry);
+							con.Id, rawJson, loadEffects, geometry, memberLength, kFactor, jointGeometry, dcInput);
 						_formulaResults[con.Id] = formulaResults;
 
 						// Determine worst-case Norsok utilization
