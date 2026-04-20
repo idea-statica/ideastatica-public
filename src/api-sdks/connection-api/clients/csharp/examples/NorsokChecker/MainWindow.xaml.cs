@@ -150,26 +150,19 @@ namespace NorsokChecker
 							double wallThickness = info.WallThickness;
 							string shape = info.ShapeType; // Will be "Other" without raw results
 
-							// Try to detect CHS from cross-section catalog name
+							// Try to detect shape from cross-section catalog
+							DetectedCrossSection? matchCss = null;
 							if (detectedCss.Count > 0)
 							{
-								var matchCss = info.IsContinuous
+								matchCss = info.IsContinuous
 									? detectedCss.OrderByDescending(c => c.Diameter).FirstOrDefault()
 									: detectedCss.OrderBy(c => c.Diameter).FirstOrDefault();
 
 								if (matchCss != null)
 								{
-									if (matchCss.IsCHS)
-									{
-										shape = "CHS";
-										diameter = matchCss.Diameter;
-										if (matchCss.Thickness > 0)
-											wallThickness = matchCss.Thickness;
-									}
-									else if (!string.IsNullOrEmpty(matchCss.ShapeType))
-									{
-										shape = matchCss.ShapeType;
-									}
+									shape = matchCss.ShapeType;
+									if (matchCss.Diameter > 0) diameter = matchCss.Diameter;
+									if (matchCss.Thickness > 0) wallThickness = matchCss.Thickness;
 								}
 							}
 
@@ -179,6 +172,7 @@ namespace NorsokChecker
 								Name = info.Name,
 								Role = info.IsContinuous ? "Chord" : "Brace",
 								Shape = shape,
+								Profile = matchCss?.Name ?? "",
 								Diameter = diameter,
 								WallThickness = wallThickness,
 								Fy = info.Fy > 0 ? info.Fy : 355,

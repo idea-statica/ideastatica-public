@@ -92,6 +92,7 @@ namespace NorsokChecker.Services
 							{
 								if (p is not ParameterDouble pd) continue;
 								var pName = p.Name?.ToUpperInvariant() ?? "";
+								result.AllParams[p.Name ?? ""] = pd.Value;
 								_log($"        param: {p.Name} = {pd.Value}");
 								if (pName == "D" || pName == "DIAMETER")
 									result.Diameter = pd.Value;
@@ -121,6 +122,17 @@ namespace NorsokChecker.Services
 						case CrossSectionType.Ign:
 						case CrossSectionType.Igh:
 							result.ShapeType = "I-section";
+							// Extract h and tw
+							foreach (var p in cssPar.Parameters)
+							{
+								if (p is not ParameterDouble pd) continue;
+								var pn = p.Name?.ToUpperInvariant() ?? "";
+								result.AllParams[p.Name ?? ""] = pd.Value;
+								if (pn == "H" || pn == "HEIGHT")
+									result.Diameter = pd.Value > 10 ? pd.Value : pd.Value * 1000; // m→mm
+								else if (pn == "TW" || pn == "WEBTHICKNESS")
+									result.Thickness = pd.Value > 1 ? pd.Value : pd.Value * 1000;
+							}
 							break;
 
 						case CrossSectionType.RolledU:
@@ -185,7 +197,11 @@ namespace NorsokChecker.Services
 		public string Name { get; set; } = string.Empty;
 		public string ShapeType { get; set; } = "Other";
 		public bool IsCHS { get; set; }
+		/// <summary>CHS: outside diameter [mm]. I: height h [mm].</summary>
 		public double Diameter { get; set; }
+		/// <summary>CHS: wall thickness [mm]. I: web thickness [mm].</summary>
 		public double Thickness { get; set; }
+		/// <summary>All parameters from the cross-section</summary>
+		public Dictionary<string, double> AllParams { get; set; } = new();
 	}
 }
