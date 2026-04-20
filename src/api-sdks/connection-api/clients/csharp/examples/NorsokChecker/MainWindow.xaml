@@ -190,28 +190,25 @@
                         </Expander.Header>
                         <StackPanel Margin="8,4,8,4">
                             <DataGrid x:Name="MembersGrid" AutoGenerateColumns="False"
-                                      IsReadOnly="True" CanUserAddRows="False"
+                                      CanUserAddRows="False"
                                       md:DataGridAssist.CellPadding="6 3"
                                       GridLinesVisibility="Horizontal" BorderThickness="0"
-                                      MaxHeight="120" VerticalScrollBarVisibility="Auto"
+                                      MaxHeight="140" VerticalScrollBarVisibility="Auto"
                                       FontSize="12">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="*"/>
-                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="80"/>
-                                    <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="70"/>
-                                    <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, StringFormat=F0}" Width="70"/>
-                                    <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, StringFormat=F1}" Width="70"/>
-                                    <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, StringFormat=F0}" Width="70"/>
-                                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="80"/>
+                                    <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="70" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="70" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, StringFormat=F0}" Width="65" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, StringFormat=F1}" Width="60" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="f_y" Binding="{Binding Fy, StringFormat=F0}" Width="50" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="L [mm]" Binding="{Binding L, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="70"
+                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
+                                    <DataGridTextColumn Header="k" Binding="{Binding K, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="50"
+                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
+                                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="70" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <!-- Buckling parameters -->
-                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                                <TextBlock Text="L (mm):" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="12"/>
-                                <TextBox x:Name="TxtLength" Text="5000" Width="80" md:HintAssist.Hint="Unbraced" FontSize="12"/>
-                                <TextBlock Text="k:" VerticalAlignment="Center" Margin="16,0,6,0" FontSize="12"/>
-                                <TextBox x:Name="TxtKFactor" Text="0.7" Width="60" md:HintAssist.Hint="Eff. length" FontSize="12"/>
-                            </StackPanel>
                         </StackPanel>
                     </Expander>
 

@@ -127,45 +127,67 @@ namespace NorsokChecker
 
 				Log($"Found {connections.Count} connection(s).");
 
-				// Read members and cross-sections
+				// Read members — first do a quick calculation to get raw results for shape detection
 				_members.Clear();
 				if (connections.Count > 0)
 				{
 					try
 					{
-						// Get members from API
-						var memberApi = await _apiClient.Member.GetMembersAsync(_projectId, connections[0].Id);
-						// Get cross-sections
+						// Quick calculate to get raw results (needed for plate-based shape detection)
+						ShowStatus("Detecting member cross-sections...");
+						var conIds = connections.Select(c => c.Id).ToList();
+						await _apiClient.Calculation.CalculateAsync(_projectId, conIds);
+						var rawForDetection = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, conIds);
+
+						ParsedRawResults? parsed = null;
+						if (rawForDetection.Count > 0)
+						{
+							try { parsed = RawResultsParser.Parse(rawForDetection[0]); }
+							catch { /* ignore parse errors during detection */ }
+						}
+
+						// Read members with shape detection from plate names
+						var geoReader = new MemberGeometryReader(_apiClient, Log);
+						var memberInfos = await geoReader.ReadMembersAsync(
+							_projectId, connections[0].Id, parsed, ct: default);
+
+						// Also try to get CHS diameters from cross-section catalog names
 						var cssDetector = new CrossSectionDetector(_apiClient, Log);
 						var detectedCss = await cssDetector.DetectAsync(_projectId);
-						// Get plate data for wall thickness
-						var geoReader = new MemberGeometryReader(_apiClient, Log);
-						var memberInfos = await geoReader.ReadMembersAsync(_projectId, connections[0].Id, ct: default);
 
-						foreach (var m in memberApi)
+						foreach (var info in memberInfos)
 						{
-							var info = memberInfos.FirstOrDefault(mi => mi.Id == m.Id);
-							// Match cross-section by ID — find the CSS with matching name
-							var css = detectedCss.FirstOrDefault(); // simplified: use first detected CSS per member type
-							if (m.IsContinuous && detectedCss.Count > 0)
-								css = detectedCss.OrderByDescending(c => c.Diameter).FirstOrDefault();
-							else if (!m.IsContinuous && detectedCss.Count > 0)
-								css = detectedCss.OrderBy(c => c.Diameter).FirstOrDefault();
+							// If CHS detected from plates but no diameter yet, try CSS catalog
+							double diameter = 0;
+							if (info.IsCHS && detectedCss.Count > 0)
+							{
+								// Match: largest CHS for chord, smallest for brace
+								var matchCss = info.IsContinuous
+									? detectedCss.Where(c => c.IsCHS).OrderByDescending(c => c.Diameter).FirstOrDefault()
+									: detectedCss.Where(c => c.IsCHS).OrderBy(c => c.Diameter).FirstOrDefault();
+								if (matchCss != null)
+									diameter = matchCss.Diameter;
+							}
 
 							_members.Add(new MemberDisplayInfo
 							{
-								Id = m.Id,
-								Name = m.Name ?? $"Member {m.Id}",
-								Role = m.IsContinuous ? "Chord" : "Brace",
-								Shape = css?.ShapeType ?? "Other",
-								Diameter = css?.Diameter ?? 0,
-								WallThickness = info?.WallThickness ?? css?.Thickness ?? 0,
-								Fy = info?.Fy ?? 355,
-								MaterialName = info?.MaterialName ?? "",
+								Id = info.Id,
+								Name = info.Name,
+								Role = info.IsContinuous ? "Chord" : "Brace",
+								Shape = info.ShapeType,
+								Diameter = diameter,
+								WallThickness = info.WallThickness,
+								Fy = info.Fy,
+								MaterialName = info.MaterialName,
 							});
 						}
 
-						Log($"  Members loaded: {_members.Count} ({_members.Count(m => m.IsCHS)} CHS)");
+						int chsCount = _members.Count(m => m.IsCHS);
+						Log($"  Members loaded: {_members.Count} total, {chsCount} CHS");
+						if (chsCount > 0)
+							Log($"  Tubular connection detected — §6.3 + §6.4 checks will run");
+						else
+							Log($"  Non-tubular connection — only plate/weld/bolt checks (§6.3/§6.4 require CHS)");
 					}
 					catch (Exception ex)
 					{
@@ -233,15 +255,13 @@ namespace NorsokChecker
 					con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
 				}
 
-				// ── Parse geometry from UI ──
+				// ── Parse geometry from members grid ──
 				TubularGeometry? geometry = ParseCHSGeometry();
-				double memberLength = 0, kFactor = 0.7;
+				var chsMember = _members.FirstOrDefault(m => m.IsCHS);
+				double memberLength = chsMember?.L ?? 5000;
+				double kFactor = chsMember?.K ?? 0.7;
 				if (geometry != null)
-				{
-					double.TryParse(TxtLength.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out memberLength);
-					double.TryParse(TxtKFactor.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out kFactor);
 					Log($"CHS geometry: D={geometry.D}mm, t={geometry.t}mm, L={memberLength}mm, k={kFactor}");
-				}
 
 				TubularJointGeometry? jointGeometry = ParseJointGeometry();
 				if (jointGeometry != null)
@@ -304,7 +324,7 @@ namespace NorsokChecker
 					var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
 					var formulaResults = checker.EvaluateNorsokFormulas(
 						con.Id, rawJson, loadEffects, geometry, memberLength, kFactor,
-						jointGeometry, dcInput, chordStresses);
+						jointGeometry, dcInput, chordStresses, _members.ToList());
 					_formulaResults[con.Id] = formulaResults;
 
 					// Determine worst-case Norsok utilization

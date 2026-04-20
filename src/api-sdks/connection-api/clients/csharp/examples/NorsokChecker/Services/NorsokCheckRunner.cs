@@ -47,7 +47,7 @@ namespace NorsokChecker.Services
 			TubularJointGeometry? jointGeometry = null,
 			DesignClassificationInput? dcInput = null,
 			double[]? chordStresses = null,
-			bool isTubularConnection = false)
+			List<MemberDisplayInfo>? members = null)
 		{
 			var results = new List<NorsokFormulaResult>();
 
@@ -114,7 +114,7 @@ namespace NorsokChecker.Services
 			// These require: load effects (N, V, M) + tubular geometry (D, t) + member length
 			if (loadEffects != null && loadEffects.Count > 0 && geometry != null)
 			{
-				EvaluateTubularMemberFormulas(loadEffects, geometry, memberLength, kFactor, gammaM0, results);
+				EvaluateTubularMemberFormulas(loadEffects, geometry, memberLength, kFactor, gammaM0, results, members);
 			}
 			else
 			{
@@ -271,7 +271,8 @@ namespace NorsokChecker.Services
 			double memberLength,
 			double kFactor,
 			double gammaM,
-			List<NorsokFormulaResult> results)
+			List<NorsokFormulaResult> results,
+			List<MemberDisplayInfo>? members = null)
 		{
 			_log($"    Running §6.3 tubular checks: D={geo.D}mm, t={geo.t}mm, L={memberLength}mm, k={kFactor}");
 			_log($"    Geometry: A={geo.A:F0}mm², W={geo.W:F0}mm³, Z={geo.Z:F0}mm³, i={geo.i:F1}mm");
@@ -329,6 +330,15 @@ namespace NorsokChecker.Services
 					if (ml.SectionLoad == null) continue;
 					var sl = ml.SectionLoad;
 
+					// Per-member L and k from members grid
+					double mL = memberLength;
+					double mK = kFactor;
+					if (members != null)
+					{
+						var mdi = members.FirstOrDefault(m => m.Id == ml.MemberId);
+						if (mdi != null) { mL = mdi.L; mK = mdi.K; }
+					}
+
 					// API returns forces in N and moments in N·m — convert to kN and kNm
 					double N = sl.N / 1000.0;      // N → kN
 					double Vy = sl.Vy / 1000.0;    // N → kN
@@ -352,7 +362,7 @@ namespace NorsokChecker.Services
 					{
 						var r = AxialCompressionCheck.Evaluate(
 							Math.Abs(N), geo.A, f_y, geo.D, geo.t,
-							kFactor, memberLength, geo.i, gammaM);
+							mK, mL, geo.i, gammaM);
 						if (worstCompression == null || r.Utilization > worstCompression.Utilization)
 							worstCompression = r;
 					}
@@ -393,11 +403,11 @@ namespace NorsokChecker.Services
 						// N_c,Rd from axial compression formula
 						var compResult = AxialCompressionCheck.Evaluate(
 							N_abs, geo.A, f_y, geo.D, geo.t,
-							kFactor, memberLength, geo.i, gammaM);
+							mK, mL, geo.i, gammaM);
 						double N_c_Rd = compResult.Capacity;
 
 						// Euler buckling loads
-						double N_Ey = CompressionBendingCheck.EulerBucklingLoad(geo.A, kFactor, memberLength, geo.i);
+						double N_Ey = CompressionBendingCheck.EulerBucklingLoad(geo.A, mK, mL, geo.i);
 						double N_Ez = N_Ey; // Same for tubular (symmetric)
 
 						// Cm factors — use 0.85 as default (conservative, Table 6-2)

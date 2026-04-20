@@ -41,6 +41,9 @@ namespace NorsokChecker.Services
 
 			_log($"    Members: {members.Count}");
 
+			// Build a map of member prefix → plates from raw results
+			// Plate naming: "{MemberName}-{part} {id}" e.g. "C-bfl 1", "C-w 1", "D-arc 1"
+			// Part types: bfl/tfl/w = I-section, arc = CHS
 			foreach (var m in members)
 			{
 				var info = new MemberInfo
@@ -51,18 +54,47 @@ namespace NorsokChecker.Services
 					CrossSectionId = m.CrossSectionId,
 				};
 
-				// Try to extract wall thickness from raw results plates
-				// Plate naming convention: prefix "C-" for chord (continuous), "B-" for brace
 				if (rawResults != null)
 				{
-					string prefix = m.IsContinuous ? "C-" : "B-";
+					// Match plates by member name prefix: "C-xxx" for member "C"
+					string prefix = $"{m.Name}-";
 					var memberPlates = rawResults.Plates
 						.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
 						.ToList();
 
+					// Also try single-letter prefix patterns
+					if (memberPlates.Count == 0 && m.IsContinuous)
+					{
+						memberPlates = rawResults.Plates
+							.Where(p => p.Name.StartsWith("C-", StringComparison.OrdinalIgnoreCase))
+							.ToList();
+					}
+					if (memberPlates.Count == 0 && !m.IsContinuous)
+					{
+						memberPlates = rawResults.Plates
+							.Where(p => p.Name.StartsWith("B-", StringComparison.OrdinalIgnoreCase))
+							.ToList();
+					}
+
 					if (memberPlates.Count > 0)
 					{
-						// Wall thickness = most common plate thickness for this member
+						// Detect shape from plate names:
+						// "arc" in name → CHS (circular arc segments)
+						// "bfl"/"tfl"/"w" → I-section (bottom flange/top flange/web)
+						bool hasArc = memberPlates.Any(p => p.Name.Contains("arc", StringComparison.OrdinalIgnoreCase));
+						bool hasFlange = memberPlates.Any(p => p.Name.Contains("fl", StringComparison.OrdinalIgnoreCase));
+						bool hasWeb = memberPlates.Any(p => p.Name.Contains("-w ", StringComparison.OrdinalIgnoreCase));
+
+						if (hasArc)
+							info.ShapeType = "CHS";
+						else if (hasFlange && hasWeb)
+							info.ShapeType = "I-section";
+						else if (hasFlange)
+							info.ShapeType = "RHS";
+						else
+							info.ShapeType = "Other";
+
+						// Wall thickness = most common plate thickness
 						var thicknesses = memberPlates
 							.Where(p => p.Thickness > 0)
 							.Select(p => p.Thickness)
@@ -76,7 +108,7 @@ namespace NorsokChecker.Services
 								.First().Key;
 						}
 
-						// Material properties from first plate
+						// Material from first plate with f_y
 						var refPlate = memberPlates.FirstOrDefault(p => p.MaterialFy > 0);
 						if (refPlate != null)
 						{
@@ -86,7 +118,7 @@ namespace NorsokChecker.Services
 					}
 				}
 
-				_log($"      [{m.Id}] {info.Name} — continuous={m.IsContinuous}, cssId={m.CrossSectionId}, t={info.WallThickness:F1}mm, fy={info.Fy:F0}MPa ({info.MaterialName})");
+				_log($"      [{m.Id}] {info.Name} — {(m.IsContinuous ? "chord" : "brace")}, shape={info.ShapeType}, t={info.WallThickness:F1}mm, fy={info.Fy:F0}MPa ({info.MaterialName})");
 				result.Add(info);
 			}
 
@@ -100,8 +132,11 @@ namespace NorsokChecker.Services
 		public string Name { get; set; } = string.Empty;
 		public bool IsContinuous { get; set; }
 		public int? CrossSectionId { get; set; }
+		/// <summary>"CHS", "I-section", "RHS", "Other"</summary>
+		public string ShapeType { get; set; } = "Other";
 		public double WallThickness { get; set; }
 		public double Fy { get; set; } = 355;
 		public string MaterialName { get; set; } = string.Empty;
+		public bool IsCHS => ShapeType == "CHS";
 	}
 }
