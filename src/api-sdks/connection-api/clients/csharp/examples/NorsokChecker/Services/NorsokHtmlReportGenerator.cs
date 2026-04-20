@@ -75,16 +75,21 @@ namespace NorsokChecker.Services
 			sb.AppendLine("</style>");
 			sb.AppendLine("</head><body>");
 
-			// Report header
+			// Report header — IDEA StatiCa primary, Norsok as feature
 			sb.AppendLine("<div class='report-header'>");
-			sb.AppendLine("  <h1>NORSOK N-004 Compliance Report</h1>");
+			sb.AppendLine("  <div class='brand-line'>");
+			sb.AppendLine("    <span class='idea-brand'><span class='idea-orange'>IDEA</span> StatiCa</span>");
+			sb.AppendLine("    <span class='brand-sep'>|</span>");
+			sb.AppendLine("    <span class='norsok-badge'>NORSOK N-004 Compliance Report</span>");
+			sb.AppendLine("  </div>");
 			sb.AppendLine($"  <p class='subtitle'>Project: {Esc(projectName)} &mdash; Generated: {DateTime.Now:yyyy-MM-dd HH:mm}</p>");
 			sb.AppendLine("</div>");
 
 			// Norm reference box
 			sb.AppendLine("<div class='norm-box'>");
 			sb.AppendLine("  <strong>Design Code:</strong> NORSOK N-004, Rev. 3, February 2013 &mdash; Design of Steel Structures<br/>");
-			sb.AppendLine("  <strong>Chapter 6.3:</strong> Tubular Members &mdash; Strength and Stability Requirements");
+			sb.AppendLine("  <strong>Chapter 6.3:</strong> Tubular Members &mdash; Strength and Stability Requirements<br/>");
+			sb.AppendLine("  <strong>Engine:</strong> IDEA StatiCa Connection CBFEM Analysis via REST API");
 			sb.AppendLine("</div>");
 
 			foreach (var (connectionName, formulas) in allResults)
@@ -270,15 +275,25 @@ body {
   text-align: center;
   margin-bottom: 16px;
 }
-.report-header h1 {
-  font-size: 22px;
+.brand-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.idea-brand { font-size: 22px; font-weight: 700; color: #2D2D2D; }
+.idea-orange { color: #F57C00; }
+.brand-sep { color: #ccc; font-size: 22px; font-weight: 300; }
+.norsok-badge {
+  font-size: 18px;
   font-weight: 600;
-  color: #00695c;
+  color: #00838F;
 }
 .subtitle { color: #757575; font-size: 13px; margin-top: 4px; }
 .norm-box {
-  background: #e0f2f1;
-  border-left: 4px solid #00897b;
+  background: #FFF3E0;
+  border-left: 4px solid #F57C00;
   padding: 12px 16px;
   margin-bottom: 24px;
   border-radius: 4px;
@@ -286,8 +301,8 @@ body {
 }
 .connection-header {
   font-size: 17px;
-  color: #00695c;
-  border-bottom: 2px solid #00897b;
+  color: #2D2D2D;
+  border-bottom: 2px solid #F57C00;
   padding-bottom: 6px;
   margin: 24px 0 12px 0;
 }
