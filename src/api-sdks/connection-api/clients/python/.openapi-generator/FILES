@@ -82,6 +82,7 @@ docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
 docs/IdeaParameterValidation.md
 docs/IdeaParameterValidationResponse.md
+docs/InstallationProcessTypeEnum.md
 docs/Line.md
 docs/LoadEffectApi.md
 docs/MaterialApi.md
@@ -114,6 +115,7 @@ docs/Text.md
 docs/TextPosition.md
 docs/Vector3D.md
 docs/WeldData.md
+docs/WeldDefinition.md
 docs/WeldType.md
 git_push.sh
 ideastatica_connection_api/__init__.py
@@ -211,6 +213,7 @@ ideastatica_connection_api/models/idea_parameter.py
 ideastatica_connection_api/models/idea_parameter_update.py
 ideastatica_connection_api/models/idea_parameter_validation.py
 ideastatica_connection_api/models/idea_parameter_validation_response.py
+ideastatica_connection_api/models/installation_process_type_enum.py
 ideastatica_connection_api/models/line.py
 ideastatica_connection_api/models/message_number.py
 ideastatica_connection_api/models/open_element_id.py
@@ -233,6 +236,7 @@ ideastatica_connection_api/models/text.py
 ideastatica_connection_api/models/text_position.py
 ideastatica_connection_api/models/vector3_d.py
 ideastatica_connection_api/models/weld_data.py
+ideastatica_connection_api/models/weld_definition.py
 ideastatica_connection_api/models/weld_type.py
 ideastatica_connection_api/py.typed
 ideastatica_connection_api/rest.py

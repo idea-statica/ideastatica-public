@@ -93,6 +93,21 @@ paths:
       x-requiresConnection: false
   /api/3/projects/{projectId}/connections/rawresults-text:
     post:
+      description: "\r\n<strong>Bolt identifiers:</strong> Bolt keys in the raw results\
+        \ (e.g., in `boltCheckResDataTimbers`)\r\n            are opaque internal\
+        \ CBFEM solver identifiers. They may start at any number, are not necessarily\
+        \ sequential,\r\n            and may contain gaps. When a user explodes a\
+        \ bolt group or modifies bolt positions, the identifiers may shift.\r\n  \
+        \          Do not assume bolt keys start at 1 or can be used as array indices.\
+        \ To map bolts to sequential positions,\r\n            sort the keys numerically\
+        \ and use the resulting order.\r\n\r\n<strong>\r\n    `forcesAllLoadCases`\
+        \ dictionary keys:</strong> In the per-bolt results within\r\n           \
+        \ `boltCheckResDataTimbers`, the `forcesAllLoadCases` dictionary is keyed\
+        \ by the\r\n            load case's internal numeric identifier (as a string).\
+        \ The key is <em>not</em> always `\"1\"`\r\n            — it corresponds to\
+        \ the load case ID. For example, if only load case LE2 is active,\r\n    \
+        \        the sole key will be `\"2\"`. API consumers should iterate over available\
+        \ keys\r\n            rather than assuming a specific key value."
       operationId: GetRawJsonResults
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
@@ -2074,6 +2089,29 @@ paths:
       - Project
       x-requiresProject: false
       x-requiresConnection: false
+    post:
+      operationId: CreateEmptyProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+        description: "Optional project metadata. The DesignCode field determines\r\
+          \n            the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults\
+          \ to ECEN if not provided."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: OK
+      summary: Creates a new empty IdeaCon project with no connections.
+      tags:
+      - Project
+      x-requiresProject: false
+      x-requiresConnection: false
+      x-extensionMethodName: CreateEmptyProject
   /api/3/projects/{projectId}/download:
     get:
       operationId: DownloadProject
@@ -2599,7 +2637,7 @@ paths:
     post:
       description: "The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault\
         \ mapping to apply the passed template.\r\nIt can be modified by a user and\
-        \ used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam)\
+        \ used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam,System.Threading.CancellationToken)\
         \ method."
       operationId: GetDefaultTemplateMapping
       parameters:
@@ -2947,7 +2985,8 @@ components:
           z: 9.301444243932576
           id: 3
         shearInThread: true
-        length: 6.965117697638846
+        length: 2.8841621266687802
+        anchorInstallationProcess: postInstalled
         positions:
         - x: 2.3021358869347655
           "y": 7.061401241503109
@@ -2957,6 +2996,7 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
+        headedStudHeadDiameter: 6.965117697638846
         axisZ:
           x: 2.027123023002322
           "y": 4.145608029883936
@@ -2976,7 +3016,8 @@ components:
           element:
             id: 6
         hookLength: 3.5571952270680973
-        id: 1
+        reinforcementMandrelDiameter: 1.284659006116532
+        id: 6
         anchorType: straight
         anchoringLength: 6.438423552598547
       properties:
@@ -2986,6 +3027,8 @@ components:
           $ref: '#/components/schemas/ConcreteBlock'
         anchorType:
           $ref: '#/components/schemas/AnchorType'
+        anchorInstallationProcess:
+          $ref: '#/components/schemas/InstallationProcessTypeEnum'
         washerSize:
           format: double
           type: number
@@ -2993,6 +3036,12 @@ components:
           format: double
           type: number
         hookLength:
+          format: double
+          type: number
+        headedStudHeadDiameter:
+          format: double
+          type: number
+        reinforcementMandrelDiameter:
           format: double
           type: number
         boltAssembly:
@@ -4537,7 +4586,7 @@ components:
       additionalProperties: false
       example:
         originalModelId: originalModelId
-        depth: 3.353193347011243
+        depth: 7.143538047012306
         outlinePoints:
         - x: 5.962133916683182
           "y": 5.637376656633329
@@ -4567,7 +4616,7 @@ components:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        id: 6
+        id: 3
         region: region
       properties:
         id:
@@ -5080,7 +5129,7 @@ components:
           - connectedPartIds
           - connectedPartIds
           material: material
-          thickness: 5.944895607614016
+          thickness: 3.353193347011243
           weldType: notSpecified
           name: name
           start:
@@ -5103,7 +5152,7 @@ components:
           - connectedPartIds
           - connectedPartIds
           material: material
-          thickness: 5.944895607614016
+          thickness: 3.353193347011243
           weldType: notSpecified
           name: name
           start:
@@ -5254,10 +5303,16 @@ components:
             element:
               id: 6
           orientation: null
-          weldThickness: 3.0937452626664474
-          offset: 7.143538047012306
+          offset: 7.058770351582356
           method: boundingBox
-          weldType: null
+          webWeld:
+            thickness: 0.8851374739011653
+            weldType: null
+            weldMaterial:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
           name: name
           modifiedObject:
             typeName: typeName
@@ -5265,6 +5320,14 @@ components:
             element:
               id: 6
           isWeld: true
+          flangeWeld:
+            thickness: 0.8851374739011653
+            weldType: null
+            weldMaterial:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
           planeOnCuttingObject: closer
           cutPart: begin
           extendBeforeCut: true
@@ -5274,10 +5337,16 @@ components:
             element:
               id: 6
           orientation: null
-          weldThickness: 3.0937452626664474
-          offset: 7.143538047012306
+          offset: 7.058770351582356
           method: boundingBox
-          weldType: null
+          webWeld:
+            thickness: 0.8851374739011653
+            weldType: null
+            weldMaterial:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
           name: name
           modifiedObject:
             typeName: typeName
@@ -5285,6 +5354,14 @@ components:
             element:
               id: 6
           isWeld: true
+          flangeWeld:
+            thickness: 0.8851374739011653
+            weldType: null
+            weldMaterial:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
           planeOnCuttingObject: closer
           cutPart: begin
           extendBeforeCut: true
@@ -5310,7 +5387,8 @@ components:
             z: 9.301444243932576
             id: 3
           shearInThread: true
-          length: 6.965117697638846
+          length: 2.8841621266687802
+          anchorInstallationProcess: postInstalled
           positions:
           - x: 2.3021358869347655
             "y": 7.061401241503109
@@ -5320,6 +5398,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
+          headedStudHeadDiameter: 6.965117697638846
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -5339,7 +5418,8 @@ components:
             element:
               id: 6
           hookLength: 3.5571952270680973
-          id: 1
+          reinforcementMandrelDiameter: 1.284659006116532
+          id: 6
           anchorType: straight
           anchoringLength: 6.438423552598547
         - connectedParts:
@@ -5363,7 +5443,8 @@ components:
             z: 9.301444243932576
             id: 3
           shearInThread: true
-          length: 6.965117697638846
+          length: 2.8841621266687802
+          anchorInstallationProcess: postInstalled
           positions:
           - x: 2.3021358869347655
             "y": 7.061401241503109
@@ -5373,6 +5454,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
+          headedStudHeadDiameter: 6.965117697638846
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -5392,12 +5474,13 @@ components:
             element:
               id: 6
           hookLength: 3.5571952270680973
-          id: 1
+          reinforcementMandrelDiameter: 1.284659006116532
+          id: 6
           anchorType: straight
           anchoringLength: 6.438423552598547
         concreteBlocks:
         - originalModelId: originalModelId
-          depth: 3.353193347011243
+          depth: 7.143538047012306
           outlinePoints:
           - x: 5.962133916683182
             "y": 5.637376656633329
@@ -5427,10 +5510,10 @@ components:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          id: 6
+          id: 3
           region: region
         - originalModelId: originalModelId
-          depth: 3.353193347011243
+          depth: 7.143538047012306
           outlinePoints:
           - x: 5.962133916683182
             "y": 5.637376656633329
@@ -5460,7 +5543,7 @@ components:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          id: 6
+          id: 3
           region: region
         connectionPoint:
           typeName: typeName
@@ -5861,7 +5944,7 @@ components:
             "y": 4.145608029883936
             z: 7.386281948385884
           name: name
-          length: 2.8841621266687802
+          length: 6.878052220127876
           isReplaceable: true
           positions:
           - x: 2.3021358869347655
@@ -5872,7 +5955,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 6
+          id: 5
         - connectedParts:
           - typeName: typeName
             id: 0
@@ -5905,7 +5988,7 @@ components:
             "y": 4.145608029883936
             z: 7.386281948385884
           name: name
-          length: 2.8841621266687802
+          length: 6.878052220127876
           isReplaceable: true
           positions:
           - x: 2.3021358869347655
@@ -5916,7 +5999,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 6
+          id: 5
         boltGrids:
         - connectedParts:
           - typeName: typeName
@@ -6092,10 +6175,16 @@ components:
           element:
             id: 6
         orientation: null
-        weldThickness: 3.0937452626664474
-        offset: 7.143538047012306
+        offset: 7.058770351582356
         method: boundingBox
-        weldType: null
+        webWeld:
+          thickness: 0.8851374739011653
+          weldType: null
+          weldMaterial:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
         name: name
         modifiedObject:
           typeName: typeName
@@ -6103,6 +6192,14 @@ components:
           element:
             id: 6
         isWeld: true
+        flangeWeld:
+          thickness: 0.8851374739011653
+          weldType: null
+          weldMaterial:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
         planeOnCuttingObject: closer
         cutPart: begin
         extendBeforeCut: true
@@ -6116,11 +6213,10 @@ components:
           $ref: '#/components/schemas/ReferenceElement'
         isWeld:
           type: boolean
-        weldThickness:
-          format: double
-          type: number
-        weldType:
-          $ref: '#/components/schemas/WeldType'
+        webWeld:
+          $ref: '#/components/schemas/WeldDefinition'
+        flangeWeld:
+          $ref: '#/components/schemas/WeldDefinition'
         offset:
           format: double
           type: number
@@ -6709,6 +6805,11 @@ components:
           nullable: true
           type: string
       type: object
+    InstallationProcessTypeEnum:
+      enum:
+      - postInstalled
+      - castInPlace
+      type: string
     Line:
       additionalProperties: false
       example:
@@ -6909,7 +7010,7 @@ components:
           "y": 4.145608029883936
           z: 7.386281948385884
         name: name
-        length: 2.8841621266687802
+        length: 6.878052220127876
         isReplaceable: true
         positions:
         - x: 2.3021358869347655
@@ -6920,7 +7021,7 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        id: 6
+        id: 5
       properties:
         isReplaceable:
           type: boolean
@@ -7319,7 +7420,7 @@ components:
         - connectedPartIds
         - connectedPartIds
         material: material
-        thickness: 5.944895607614016
+        thickness: 3.353193347011243
         weldType: notSpecified
         name: name
         start:
@@ -7364,6 +7465,25 @@ components:
           $ref: '#/components/schemas/Point3D'
         end:
           $ref: '#/components/schemas/Point3D'
+      type: object
+    WeldDefinition:
+      additionalProperties: false
+      example:
+        thickness: 0.8851374739011653
+        weldType: null
+        weldMaterial:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+      properties:
+        thickness:
+          format: double
+          type: number
+        weldType:
+          $ref: '#/components/schemas/WeldType'
+        weldMaterial:
+          $ref: '#/components/schemas/ReferenceElement'
       type: object
     WeldType:
       enum:

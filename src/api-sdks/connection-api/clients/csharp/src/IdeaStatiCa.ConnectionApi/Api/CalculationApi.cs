@@ -59,6 +59,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <summary>
         /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
+        /// <remarks>
+        ///   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
+        /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="requestBody">List of connection IDs to calculate.</param>
@@ -70,7 +73,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
-        /// 
+        ///   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -143,7 +146,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
-        /// 
+        ///   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -157,7 +160,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
-        /// 
+        ///   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -480,7 +483,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -494,7 +497,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -560,7 +563,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -575,7 +578,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData). 
+        /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).   &lt;strong&gt;Bolt identifiers:&lt;/strong&gt; Bolt keys in the raw results (e.g., in &#x60;boltCheckResDataTimbers&#x60;)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    &lt;strong&gt;      &#x60;forcesAllLoadCases&#x60; dictionary keys:&lt;/strong&gt; In the per-bolt results within              &#x60;boltCheckResDataTimbers&#x60;, the &#x60;forcesAllLoadCases&#x60; dictionary is keyed by the              load case&#39;s internal numeric identifier (as a string). The key is &lt;em&gt;not&lt;/em&gt; always &#x60;\&quot;1\&quot;&#x60;              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be &#x60;\&quot;2\&quot;&#x60;. API consumers should iterate over available keys              rather than assuming a specific key value.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>

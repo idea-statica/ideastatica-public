@@ -139,6 +139,8 @@ No authorization required
 
 Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 
+  <strong>Bolt identifiers:</strong> Bolt keys in the raw results (e.g., in `boltCheckResDataTimbers`)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    <strong>      `forcesAllLoadCases` dictionary keys:</strong> In the per-bolt results within              `boltCheckResDataTimbers`, the `forcesAllLoadCases` dictionary is keyed by the              load case's internal numeric identifier (as a string). The key is <em>not</em> always `\"1\"`              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be `\"2\"`. API consumers should iterate over available keys              rather than assuming a specific key value.
+
 
 
 ### Parameters

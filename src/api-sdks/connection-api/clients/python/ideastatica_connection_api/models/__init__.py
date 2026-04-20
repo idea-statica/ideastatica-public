@@ -87,6 +87,7 @@ from ideastatica_connection_api.models.idea_parameter import IdeaParameter
 from ideastatica_connection_api.models.idea_parameter_update import IdeaParameterUpdate
 from ideastatica_connection_api.models.idea_parameter_validation import IdeaParameterValidation
 from ideastatica_connection_api.models.idea_parameter_validation_response import IdeaParameterValidationResponse
+from ideastatica_connection_api.models.installation_process_type_enum import InstallationProcessTypeEnum
 from ideastatica_connection_api.models.line import Line
 from ideastatica_connection_api.models.message_number import MessageNumber
 from ideastatica_connection_api.models.open_element_id import OpenElementId
@@ -109,4 +110,5 @@ from ideastatica_connection_api.models.text import Text
 from ideastatica_connection_api.models.text_position import TextPosition
 from ideastatica_connection_api.models.vector3_d import Vector3D
 from ideastatica_connection_api.models.weld_data import WeldData
+from ideastatica_connection_api.models.weld_definition import WeldDefinition
 from ideastatica_connection_api.models.weld_type import WeldType

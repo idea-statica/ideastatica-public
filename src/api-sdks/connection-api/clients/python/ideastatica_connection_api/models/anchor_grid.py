@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.anchor_type import AnchorType
 from ideastatica_connection_api.models.concrete_block import ConcreteBlock
+from ideastatica_connection_api.models.installation_process_type_enum import InstallationProcessTypeEnum
 from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.vector3_d import Vector3D
@@ -35,9 +36,12 @@ class AnchorGrid(BaseModel):
     shear_in_thread: Optional[StrictBool] = Field(default=None, alias="shearInThread")
     concrete_block: Optional[ConcreteBlock] = Field(default=None, alias="concreteBlock")
     anchor_type: Optional[AnchorType] = Field(default=None, alias="anchorType")
+    anchor_installation_process: Optional[InstallationProcessTypeEnum] = Field(default=None, alias="anchorInstallationProcess")
     washer_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="washerSize")
     anchoring_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="anchoringLength")
     hook_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="hookLength")
+    headed_stud_head_diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="headedStudHeadDiameter")
+    reinforcement_mandrel_diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="reinforcementMandrelDiameter")
     bolt_assembly: Optional[ReferenceElement] = Field(default=None, alias="boltAssembly")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
@@ -48,7 +52,7 @@ class AnchorGrid(BaseModel):
     name: Optional[StrictStr] = None
     length: Optional[Union[StrictFloat, StrictInt]] = None
     id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["shearInThread", "concreteBlock", "anchorType", "washerSize", "anchoringLength", "hookLength", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
+    __properties: ClassVar[List[str]] = ["shearInThread", "concreteBlock", "anchorType", "anchorInstallationProcess", "washerSize", "anchoringLength", "hookLength", "headedStudHeadDiameter", "reinforcementMandrelDiameter", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -151,9 +155,12 @@ class AnchorGrid(BaseModel):
             "shearInThread": obj.get("shearInThread"),
             "concreteBlock": ConcreteBlock.from_dict(obj["concreteBlock"]) if obj.get("concreteBlock") is not None else None,
             "anchorType": obj.get("anchorType"),
+            "anchorInstallationProcess": obj.get("anchorInstallationProcess"),
             "washerSize": obj.get("washerSize"),
             "anchoringLength": obj.get("anchoringLength"),
             "hookLength": obj.get("hookLength"),
+            "headedStudHeadDiameter": obj.get("headedStudHeadDiameter"),
+            "reinforcementMandrelDiameter": obj.get("reinforcementMandrelDiameter"),
             "boltAssembly": ReferenceElement.from_dict(obj["boltAssembly"]) if obj.get("boltAssembly") is not None else None,
             "origin": Point3D.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "axisX": Vector3D.from_dict(obj["axisX"]) if obj.get("axisX") is not None else None,
