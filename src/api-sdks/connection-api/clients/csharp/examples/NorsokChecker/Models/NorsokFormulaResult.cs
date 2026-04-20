@@ -42,6 +42,9 @@ namespace NorsokChecker.Models
 		/// <summary>True if check passes (utilization ≤ 1.0)</summary>
 		public bool Passed { get; set; }
 
+		/// <summary>Load case ID (0 = envelope/all). For per-LC breakdown.</summary>
+		public int LoadCaseId { get; set; }
+
 		/// <summary>Generates a report string mimicking IDEA StatiCa CHECK tab format.</summary>
 		public string ToReportString()
 		{

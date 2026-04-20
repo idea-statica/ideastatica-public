@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
 using Microsoft.Win32;
 using NorsokChecker.Models;
@@ -18,7 +19,7 @@ namespace NorsokChecker
 		private IConnectionApiClient? _apiClient;
 		private Guid _projectId;
 
-		/// <summary>Raw JSON results per connection ID (from API or cache).</summary>
+		/// <summary>Raw JSON results per connection ID.</summary>
 		private readonly Dictionary<int, string> _rawResultsPerConnection = new();
 
 		/// <summary>All formula evaluation results, keyed by connection ID.</summary>
@@ -46,15 +47,9 @@ namespace NorsokChecker
 
 		private void BrowseApiPath_Click(object sender, RoutedEventArgs e)
 		{
-			var dialog = new OpenFolderDialog
-			{
-				Title = "Select IDEA StatiCa installation folder"
-			};
-
+			var dialog = new OpenFolderDialog { Title = "Select IDEA StatiCa installation folder" };
 			if (dialog.ShowDialog() == true)
-			{
 				TxtApiPath.Text = dialog.FolderName;
-			}
 		}
 
 		private void BrowseProject_Click(object sender, RoutedEventArgs e)
@@ -64,11 +59,8 @@ namespace NorsokChecker
 				Filter = "IDEA Connection files (*.ideaCon)|*.ideaCon|All files (*.*)|*.*",
 				Title = "Select Connection project file"
 			};
-
 			if (dialog.ShowDialog() == true)
-			{
 				TxtProjectFile.Text = dialog.FileName;
-			}
 		}
 
 		private async Task<IConnectionApiClient> CreateApiClientAsync()
@@ -99,6 +91,7 @@ namespace NorsokChecker
 			try
 			{
 				BtnLoadProject.IsEnabled = false;
+				ShowStatus("Connecting to API...");
 				Log("Connecting to Connection API...");
 
 				_apiClient = await CreateApiClientAsync();
@@ -140,7 +133,6 @@ namespace NorsokChecker
 						var geoReader = new MemberGeometryReader(_apiClient, Log);
 						var memberInfos = await geoReader.ReadMembersAsync(_projectId, connections[0].Id, ct: default);
 
-						// Auto-populate CHS fields from member data
 						var chord = memberInfos.FirstOrDefault(m => m.IsContinuous);
 						var brace = memberInfos.FirstOrDefault(m => !m.IsContinuous);
 
@@ -149,15 +141,14 @@ namespace NorsokChecker
 							TxtChordT.Text = chord.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
 							if (chord.Fy > 0)
 								TxtFyChord.Text = chord.Fy.ToString("F0", CultureInfo.InvariantCulture);
-							Log($"  Auto-filled chord T={chord.WallThickness:F1}mm, fy={chord.Fy:F0}MPa from member '{chord.Name}'");
+							Log($"  Auto-filled chord T={chord.WallThickness:F1}mm, fy={chord.Fy:F0}MPa from '{chord.Name}'");
 						}
 
 						if (brace != null && brace.WallThickness > 0)
 						{
 							TxtBraceT.Text = brace.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
-							// Also set CHS member thickness
 							TxtThickness.Text = brace.WallThickness.ToString("F1", CultureInfo.InvariantCulture);
-							Log($"  Auto-filled brace t={brace.WallThickness:F1}mm from member '{brace.Name}'");
+							Log($"  Auto-filled brace t={brace.WallThickness:F1}mm from '{brace.Name}'");
 						}
 					}
 					catch (Exception ex)
@@ -176,6 +167,7 @@ namespace NorsokChecker
 			finally
 			{
 				BtnLoadProject.IsEnabled = true;
+				HideStatus();
 			}
 		}
 
@@ -184,8 +176,6 @@ namespace NorsokChecker
 			if (_apiClient == null)
 				return;
 
-			var projectPath = TxtProjectFile.Text.Trim();
-
 			try
 			{
 				BtnRunCheck.IsEnabled = false;
@@ -193,138 +183,54 @@ namespace NorsokChecker
 				ShowStatus("Running NORSOK N-004 compliance check...");
 				Log("Starting Norsok N-004 compliance check...");
 
-				// Check for cached results
-				bool useCache = false;
-				if (ResultCache.Exists(projectPath))
-				{
-					var answer = MessageBox.Show(
-						"Stored results found on disk.\n\nUse cached results instead of running a new calculation?",
-						"Cached Results Available",
-						MessageBoxButton.YesNo,
-						MessageBoxImage.Question);
+				// ── Calculate all connections ──
+				var connectionIds = _connections.Select(c => c.Id).ToList();
 
-					useCache = (answer == MessageBoxResult.Yes);
+				foreach (var con in _connections)
+					con.Status = "Calculating...";
+
+				ShowStatus("Running CBFEM calculation...");
+				Log("Running CBFEM calculation...");
+				var calcResults = await _apiClient.Calculation.CalculateAsync(_projectId, connectionIds);
+
+				ShowStatus("Retrieving raw results...");
+				Log("Retrieving raw JSON results...");
+				var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, connectionIds);
+
+				// Store per-connection raw results
+				_rawResultsPerConnection.Clear();
+				for (int idx = 0; idx < connectionIds.Count && idx < rawResults.Count; idx++)
+					_rawResultsPerConnection[connectionIds[idx]] = rawResults[idx];
+
+				// Update connection status from structured results
+				for (int idx = 0; idx < _connections.Count && idx < calcResults.Count; idx++)
+				{
+					var con = _connections[idx];
+					var summary = calcResults[idx];
+					double maxUtil = 0;
+					foreach (var s in summary.ResultSummary ?? new())
+					{
+						if (!s.Skipped && s.CheckValue > maxUtil)
+							maxUtil = s.CheckValue;
+					}
+					con.MaxUtilization = maxUtil;
+					con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
 				}
 
-				if (!useCache && ResultCache.Exists(projectPath))
+				// ── Parse geometry from UI ──
+				TubularGeometry? geometry = ParseCHSGeometry();
+				double memberLength = 0, kFactor = 0.7;
+				if (geometry != null)
 				{
-					// Delete stale cache before recalculating
-					ResultCache.Delete(projectPath);
-					Log("Old cached results deleted.");
-				}
-
-				if (useCache)
-				{
-					Log("Loading cached raw results from disk...");
-					var cached = ResultCache.Load(projectPath);
-					// For now, store as single blob for connection 0.
-					// TODO: When we have multi-connection caching, split per connection.
-					foreach (var con in _connections)
-					{
-						_rawResultsPerConnection[con.Id] = cached;
-					}
-					Log($"Cached results loaded ({cached.Length:N0} chars).");
-				}
-				else
-				{
-					// Run calculation and get raw results
-					var connectionIds = _connections.Select(c => c.Id).ToList();
-
-					foreach (var con in _connections)
-					{
-						con.Status = "Calculating...";
-					}
-
-					ShowStatus("Running CBFEM calculation...");
-					Log("Running CBFEM calculation...");
-					var calcResults = await _apiClient.Calculation.CalculateAsync(
-						_projectId, connectionIds);
-
-					Log("Retrieving raw JSON results...");
-					var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(
-						_projectId, connectionIds);
-
-					// Store per-connection raw results
-					for (int i = 0; i < connectionIds.Count && i < rawResults.Count; i++)
-					{
-						_rawResultsPerConnection[connectionIds[i]] = rawResults[i];
-					}
-
-					// Cache to disk (save the first connection's raw results for now)
-					if (rawResults.Count > 0)
-					{
-						ResultCache.Save(projectPath, rawResults[0]);
-						Log($"Raw results cached to: {ResultCache.GetCachePath(projectPath)}");
-					}
-
-					// Also get structured results for utilization summary
-					var detailedResults = await _apiClient.Calculation.GetResultsAsync(
-						_projectId, connectionIds);
-
-					// Update connection status from structured results
-					for (int i = 0; i < _connections.Count && i < calcResults.Count; i++)
-					{
-						var con = _connections[i];
-						var summary = calcResults[i];
-
-						double maxUtil = 0;
-						foreach (var s in summary.ResultSummary ?? new())
-						{
-							if (!s.Skipped && s.CheckValue > maxUtil)
-								maxUtil = s.CheckValue;
-						}
-
-						con.MaxUtilization = maxUtil;
-						con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
-					}
-				}
-
-				// Parse tubular geometry from UI (optional)
-				TubularGeometry? geometry = null;
-				double memberLength = 0;
-				double kFactor = 0.7;
-
-				if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) &&
-					double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) &&
-					D > 0 && t > 0)
-				{
-					geometry = TubularGeometryCalc.Calculate(D, t);
 					double.TryParse(TxtLength.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out memberLength);
 					double.TryParse(TxtKFactor.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out kFactor);
-					Log($"Tubular geometry: D={D}mm, t={t}mm, L={memberLength}mm, k={kFactor}");
+					Log($"CHS geometry: D={geometry.D}mm, t={geometry.t}mm, L={memberLength}mm, k={kFactor}");
 				}
 
-				// Parse tubular joint geometry (optional, for §6.4 joint checks)
-				TubularJointGeometry? jointGeometry = null;
-				if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordD) &&
-					double.TryParse(TxtChordT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordT) &&
-					double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceD) &&
-					double.TryParse(TxtBraceT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceT) &&
-					chordD > 0 && chordT > 0 && braceD > 0 && braceT > 0)
-				{
-					double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle);
-					double.TryParse(TxtFyChord.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var fyChord);
-					double.TryParse(TxtGap.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var gap);
-					if (angle <= 0) angle = 90;
-					if (fyChord <= 0) fyChord = 355;
+				TubularJointGeometry? jointGeometry = ParseJointGeometry();
+				if (jointGeometry != null)
+					Log($"Joint geometry: Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
 
-					var jtStr = (CmbJointType.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "T/Y";
-					JointType jt = jtStr switch { "K" => JointType.K, "X" => JointType.X, _ => JointType.T_Y };
-
-					jointGeometry = new TubularJointGeometry
-					{
-						D = chordD, T = chordT,
-						d = braceD, t = braceT,
-						ThetaDeg = angle,
-						FyChord = fyChord, FyBrace = fyChord,
-						Gap = gap,
-						JointType = jt
-					};
-
-					Log($"Joint geometry: Chord {chordD}×{chordT}, Brace {braceD}×{braceT}, θ={angle}°, {jtStr}, gap={gap}mm");
-				}
-
-				// Design Classification inputs
 				var dcInput = new DesignClassificationInput
 				{
 					SubstantialConsequences = ChkSubstantialConsequences.IsChecked == true,
@@ -334,71 +240,75 @@ namespace NorsokChecker
 					ThroughThickness = ChkThroughThickness.IsChecked == true,
 				};
 
-				// Evaluate Norsok formulas on raw results
+				// ── Evaluate Norsok per connection ──
 				ShowStatus("Evaluating Norsok N-004 formulas...");
-				Log("Evaluating Norsok N-004 §6.3 formulas...");
-				var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
+				Log("Evaluating Norsok N-004 formulas...");
+				_formulaResults.Clear();
 
 				foreach (var con in _connections)
 				{
-					if (_rawResultsPerConnection.TryGetValue(con.Id, out var rawJson))
-					{
-						Log($"  Evaluating formulas for: {con.Name}");
-
-						// Fetch load effects (internal forces) from API — always fetch, even with cached results
-						List<IdeaStatiCa.Api.Connection.Model.ConLoadEffect>? loadEffects = null;
-						try
-						{
-							loadEffects = await checker.GetLoadEffectsAsync(con.Id);
-							Log($"    Load effects: {loadEffects.Count} load case(s)");
-							foreach (var le in loadEffects)
-							{
-								foreach (var ml in le.MemberLoadings ?? new())
-								{
-									if (ml.SectionLoad == null) continue;
-									var sl = ml.SectionLoad;
-									Log($"      Member {ml.MemberId}: N={sl.N:F1} Vy={sl.Vy:F1} Vz={sl.Vz:F1} Mx={sl.Mx:F2} My={sl.My:F2} Mz={sl.Mz:F2}");
-								}
-							}
-						}
-						catch (Exception ex)
-						{
-							Log($"    WARNING: Could not fetch load effects: {ex.Message}");
-						}
-
-						var formulaResults = checker.EvaluateNorsokFormulas(
-							con.Id, rawJson, loadEffects, geometry, memberLength, kFactor, jointGeometry, dcInput);
-						_formulaResults[con.Id] = formulaResults;
-
-						// Determine worst-case Norsok utilization
-						double maxNorsokUtil = 0;
-						bool allPassed = true;
-
-						foreach (var fr in formulaResults)
-						{
-							if (fr.Utilization > maxNorsokUtil)
-								maxNorsokUtil = fr.Utilization;
-							if (!fr.Passed)
-								allPassed = false;
-
-							Log($"    {fr.Section} {fr.Title}: util={fr.Utilization:F4} {(fr.Passed ? "PASS" : "FAIL")}");
-						}
-
-						con.NorsokPass = allPassed ? "PASS" : "FAIL";
-						if (maxNorsokUtil > con.MaxUtilization)
-							con.MaxUtilization = maxNorsokUtil;
-						con.Status = allPassed ? "Norsok OK" : "Norsok FAIL";
-					}
-					else
+					if (!_rawResultsPerConnection.TryGetValue(con.Id, out var rawJson))
 					{
 						con.Status = "No results";
 						con.NorsokPass = "N/A";
+						continue;
 					}
+
+					Log($"  ── Connection: {con.Name} ──");
+					ShowStatus($"Evaluating: {con.Name}...");
+
+					// Fetch load effects for this connection
+					List<ConLoadEffect>? loadEffects = null;
+					try
+					{
+						loadEffects = await _apiClient.LoadEffect.GetLoadEffectsAsync(_projectId, con.Id);
+						Log($"    Load effects: {loadEffects.Count} load case(s)");
+
+						// Log per member per LC
+						foreach (var le in loadEffects)
+						{
+							foreach (var ml in le.MemberLoadings ?? new())
+							{
+								if (ml.SectionLoad == null) continue;
+								var sl = ml.SectionLoad;
+								Log($"      LC[{le.Id}] Member {ml.MemberId}: N={sl.N:F0} Vy={sl.Vy:F0} Vz={sl.Vz:F0} Mx={sl.Mx:F0} My={sl.My:F0} Mz={sl.Mz:F0}");
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						Log($"    WARNING: Could not fetch load effects: {ex.Message}");
+					}
+
+					// Find chord member load effects for Qf calculation
+					double[] chordStresses = ExtractChordStresses(loadEffects, jointGeometry);
+
+					var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
+					var formulaResults = checker.EvaluateNorsokFormulas(
+						con.Id, rawJson, loadEffects, geometry, memberLength, kFactor,
+						jointGeometry, dcInput, chordStresses);
+					_formulaResults[con.Id] = formulaResults;
+
+					// Determine worst-case Norsok utilization
+					double maxNorsokUtil = 0;
+					bool allPassed = true;
+					foreach (var fr in formulaResults)
+					{
+						if (fr.Utilization > maxNorsokUtil)
+							maxNorsokUtil = fr.Utilization;
+						if (!fr.Passed)
+							allPassed = false;
+						Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {(fr.Passed ? "PASS" : "FAIL")}");
+					}
+
+					con.NorsokPass = allPassed ? "PASS" : "FAIL";
+					if (maxNorsokUtil > con.MaxUtilization)
+						con.MaxUtilization = maxNorsokUtil;
+					con.Status = allPassed ? "Norsok OK" : "Norsok FAIL";
 				}
 
-				// Populate results tab
+				// Populate tabs
 				PopulateResultsTab();
-
 				TabResults.IsEnabled = true;
 				TabReport.IsEnabled = true;
 				Log("Norsok check completed.");
@@ -415,10 +325,96 @@ namespace NorsokChecker
 			}
 		}
 
+		/// <summary>
+		/// Extract chord stresses from load effects for Qf calculation.
+		/// Returns [sigmaA, sigmaMy, sigmaMz] in MPa.
+		/// The chord is the continuous member (highest member ID or IsContinuous).
+		/// </summary>
+		private double[] ExtractChordStresses(List<ConLoadEffect>? loadEffects, TubularJointGeometry? joint)
+		{
+			if (loadEffects == null || joint == null || joint.D <= 0 || joint.T <= 0)
+				return new double[] { 0, 0, 0 };
+
+			// Chord cross-section properties for stress calculation
+			var chordGeo = TubularGeometryCalc.Calculate(joint.D, joint.T);
+			double sigmaA = 0, sigmaMy = 0, sigmaMz = 0;
+
+			foreach (var le in loadEffects)
+			{
+				if (le.MemberLoadings == null) continue;
+
+				// Find the chord member (typically the first/continuous member)
+				// In a typical joint, member with the largest N is the chord
+				foreach (var ml in le.MemberLoadings)
+				{
+					if (ml.SectionLoad == null) continue;
+					var sl = ml.SectionLoad;
+
+					// Convert N→kN, N·m→kNm, then to stress
+					double N_kN = sl.N / 1000.0;
+					double My_kNm = sl.My / 1000.0;
+					double Mz_kNm = sl.Mz / 1000.0;
+
+					// Axial stress = N/A [kN/mm² → MPa: ×1000/A]
+					double sA = Math.Abs(N_kN * 1000.0 / chordGeo.A);
+					double sMy = Math.Abs(My_kNm * 1e6 / chordGeo.W);
+					double sMz = Math.Abs(Mz_kNm * 1e6 / chordGeo.W);
+
+					// Take worst envelope
+					if (sA > Math.Abs(sigmaA)) sigmaA = N_kN >= 0 ? sA : -sA; // Keep sign
+					if (sMy > Math.Abs(sigmaMy)) sigmaMy = sMy;
+					if (sMz > Math.Abs(sigmaMz)) sigmaMz = sMz;
+				}
+			}
+
+			Log($"    Chord stresses for Qf: σ_a={sigmaA:F1} MPa, σ_my={sigmaMy:F1} MPa, σ_mz={sigmaMz:F1} MPa");
+			return new double[] { sigmaA, sigmaMy, sigmaMz };
+		}
+
+		private TubularGeometry? ParseCHSGeometry()
+		{
+			if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) &&
+				double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) &&
+				D > 0 && t > 0)
+			{
+				return TubularGeometryCalc.Calculate(D, t);
+			}
+			return null;
+		}
+
+		private TubularJointGeometry? ParseJointGeometry()
+		{
+			if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordD) &&
+				double.TryParse(TxtChordT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var chordT) &&
+				double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceD) &&
+				double.TryParse(TxtBraceT.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var braceT) &&
+				chordD > 0 && chordT > 0 && braceD > 0 && braceT > 0)
+			{
+				double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle);
+				double.TryParse(TxtFyChord.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var fyChord);
+				double.TryParse(TxtGap.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var gap);
+				if (angle <= 0) angle = 90;
+				if (fyChord <= 0) fyChord = 355;
+
+				var jtStr = (CmbJointType.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "T/Y";
+				JointType jt = jtStr switch { "K" => JointType.K, "X" => JointType.X, _ => JointType.T_Y };
+
+				return new TubularJointGeometry
+				{
+					D = chordD, T = chordT,
+					d = braceD, t = braceT,
+					ThetaDeg = angle,
+					FyChord = fyChord, FyBrace = fyChord,
+					Gap = gap,
+					JointType = jt
+				};
+			}
+			return null;
+		}
+
 		private void PopulateResultsTab()
 		{
 			var allFormulas = new List<object>();
-
 			foreach (var (conId, formulas) in _formulaResults)
 			{
 				var conName = _connections.FirstOrDefault(c => c.Id == conId)?.Name ?? $"Con {conId}";
@@ -430,6 +426,7 @@ namespace NorsokChecker
 						fr.Section,
 						fr.Title,
 						fr.Equation,
+						LoadCase = fr.LoadCaseId > 0 ? $"LC{fr.LoadCaseId}" : "envelope",
 						Demand = Math.Round(fr.Demand, 2),
 						Capacity = Math.Round(fr.Capacity, 2),
 						Utilization = $"{fr.Utilization * 100:F1}%",
@@ -437,17 +434,13 @@ namespace NorsokChecker
 					});
 				}
 			}
-
 			ResultsGrid.ItemsSource = allFormulas;
-
-			// Populate report text
 			PopulateReportTab();
 		}
 
 		private async void PopulateReportTab()
 		{
 			var allResults = new List<(string connectionName, List<NorsokFormulaResult> formulas)>();
-
 			foreach (var (conId, formulas) in _formulaResults)
 			{
 				var conName = _connections.FirstOrDefault(c => c.Id == conId)?.Name ?? $"Connection {conId}";
@@ -464,50 +457,35 @@ namespace NorsokChecker
 			}
 			catch (Exception ex)
 			{
-				Log($"WARNING: WebView2 not available ({ex.Message}). Report tab may not render.");
+				Log($"WARNING: WebView2 not available ({ex.Message}).");
 			}
 		}
 
 		private bool ValidateGeometryInputs()
 		{
-			var errors = new List<string>();
-
 			if (double.TryParse(TxtDiameter.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var D) && D > 0)
 			{
 				if (double.TryParse(TxtThickness.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) && t > 0)
 				{
-					if (t >= D / 2) errors.Add($"CHS wall thickness t={t}mm must be less than D/2={D / 2}mm");
-					if (D / t >= 120) errors.Add($"CHS D/t={D / t:F0} exceeds limit of 120 (§6.3.1)");
+					if (t >= D / 2) Log($"WARNING: CHS wall thickness t={t}mm must be less than D/2={D / 2}mm");
+					if (D / t >= 120) Log($"WARNING: CHS D/t={D / t:F0} exceeds limit of 120 (§6.3.1)");
 				}
 			}
-
 			if (double.TryParse(TxtChordD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cD) && cD > 0 &&
 				double.TryParse(TxtBraceD.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var bD) && bD > 0)
 			{
-				if (bD > cD) errors.Add($"Brace d={bD}mm cannot exceed chord D={cD}mm");
+				if (bD > cD) Log($"WARNING: Brace d={bD}mm cannot exceed chord D={cD}mm");
 			}
-
 			if (double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle))
 			{
-				if (angle < 30 || angle > 90) errors.Add($"Brace angle θ={angle}° outside validity range 30°–90° (§6.4.3.1)");
+				if (angle < 30 || angle > 90) Log($"WARNING: Brace angle θ={angle}° outside range 30°–90° (§6.4.3.1)");
 			}
-
-			if (errors.Count > 0)
-			{
-				foreach (var err in errors)
-					Log($"WARNING: {err}");
-			}
-
-			return true; // Warnings only, don't block execution
+			return true;
 		}
 
 		private void ShowStatus(string text)
 		{
-			Dispatcher.Invoke(() =>
-			{
-				StatusText.Text = text;
-				StatusBar.Visibility = Visibility.Visible;
-			});
+			Dispatcher.Invoke(() => { StatusText.Text = text; StatusBar.Visibility = Visibility.Visible; });
 		}
 
 		private void HideStatus()

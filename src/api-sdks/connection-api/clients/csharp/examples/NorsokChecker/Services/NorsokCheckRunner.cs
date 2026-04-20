@@ -45,7 +45,8 @@ namespace NorsokChecker.Services
 			double memberLength = 0,
 			double kFactor = 0.7,
 			TubularJointGeometry? jointGeometry = null,
-			DesignClassificationInput? dcInput = null)
+			DesignClassificationInput? dcInput = null,
+			double[]? chordStresses = null)
 		{
 			var results = new List<NorsokFormulaResult>();
 
@@ -123,7 +124,10 @@ namespace NorsokChecker.Services
 			// ─── TUBULAR JOINT CHECKS (§6.4) ───
 			if (loadEffects != null && loadEffects.Count > 0 && jointGeometry != null && jointGeometry.D > 0)
 			{
-				EvaluateTubularJointChecks(loadEffects, jointGeometry, gammaM0, results);
+				double sigmaA = chordStresses != null && chordStresses.Length > 0 ? chordStresses[0] : 0;
+				double sigmaMy = chordStresses != null && chordStresses.Length > 1 ? chordStresses[1] : 0;
+				double sigmaMz = chordStresses != null && chordStresses.Length > 2 ? chordStresses[2] : 0;
+				EvaluateTubularJointChecks(loadEffects, jointGeometry, gammaM0, sigmaA, sigmaMy, sigmaMz, results);
 			}
 			else if (jointGeometry != null && jointGeometry.D > 0)
 			{
@@ -451,18 +455,17 @@ namespace NorsokChecker.Services
 			List<ConLoadEffect> loadEffects,
 			TubularJointGeometry joint,
 			double gammaM,
+			double sigmaA_chord, double sigmaMy_chord, double sigmaMz_chord,
 			List<NorsokFormulaResult> results)
 		{
-			_log($"    Running §6.4 joint checks: Chord D={joint.D}mm T={joint.T}mm, Brace d={joint.d}mm t={joint.t}mm, θ={joint.ThetaDeg}°, type={joint.JointType}");
+			_log($"    Running §6.4 joint checks: Chord {joint.D}×{joint.T}, Brace {joint.d}×{joint.t}, θ={joint.ThetaDeg}°, {joint.JointType}");
 			_log($"    β={joint.Beta:F3}, γ={joint.Gamma:F1}, τ={joint.Tau:F3}");
+			_log($"    Chord stresses for Qf: σ_a={sigmaA_chord:F1}, σ_my={sigmaMy_chord:F1}, σ_mz={sigmaMz_chord:F1} MPa");
 
-			// Validate ranges per §6.4.3.1
 			if (joint.Beta < 0.2 || joint.Beta > 1.0)
 				_log($"    WARNING: β={joint.Beta:F3} outside validity range 0.2–1.0");
 			if (joint.Gamma < 10 || joint.Gamma > 50)
 				_log($"    WARNING: γ={joint.Gamma:F1} outside validity range 10–50");
-			if (joint.ThetaDeg < 30 || joint.ThetaDeg > 90)
-				_log($"    WARNING: θ={joint.ThetaDeg:F0}° outside validity range 30°–90°");
 
 			NorsokFormulaResult? worstJoint = null;
 
@@ -475,23 +478,14 @@ namespace NorsokChecker.Services
 					if (ml.SectionLoad == null) continue;
 					var sl = ml.SectionLoad;
 
-					// API returns N and N·m
 					double N_kN = sl.N / 1000.0;
 					double My_kNm = sl.My / 1000.0;
 					double Mz_kNm = sl.Mz / 1000.0;
 
-					// For Qf, we need chord stresses. Approximate from chord geometry.
-					// In a real implementation, chord stresses would come from the other
-					// member's load effects at the same joint.
-					// For now, assume zero chord stress (Qf = 1.0) — conservative for tension,
-					// slightly unconservative for compression. User can refine.
-					double sigmaA_chord = 0;
-					double sigmaMy_chord = 0;
-					double sigmaMz_chord = 0;
-
 					var r = TubularJointCheck.EvaluateJointInteraction(
 						joint, N_kN, My_kNm, Mz_kNm,
 						sigmaA_chord, sigmaMy_chord, sigmaMz_chord, gammaM);
+					r.LoadCaseId = le.Id;
 
 					if (worstJoint == null || r.Utilization > worstJoint.Utilization)
 						worstJoint = r;
@@ -501,7 +495,7 @@ namespace NorsokChecker.Services
 			if (worstJoint != null)
 			{
 				results.Add(worstJoint);
-				_log($"    §6.4.3.6 Joint interaction: util={worstJoint.Utilization:F4} {(worstJoint.Passed ? "PASS" : "FAIL")}");
+				_log($"    §6.4.3.6 Joint interaction: util={worstJoint.Utilization * 100:F1}% LC{worstJoint.LoadCaseId} {(worstJoint.Passed ? "PASS" : "FAIL")}");
 			}
 		}
 	}
