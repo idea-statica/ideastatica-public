@@ -167,8 +167,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
                                              Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
-                                <TextBlock Text="Tubular Member Geometry (optional — for §6.3 member formulas)"
-                                           FontWeight="Medium"/>
+                                <TextBlock Text="CHS Cross-Section" FontWeight="Medium"/>
                             </StackPanel>
                         </Expander.Header>
                         <Grid Margin="8,4,8,4">
