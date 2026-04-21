@@ -25,7 +25,7 @@ from ideastatica_connection_api.models.cut_orientation import CutOrientation
 from ideastatica_connection_api.models.cut_part import CutPart
 from ideastatica_connection_api.models.distance_comparison import DistanceComparison
 from ideastatica_connection_api.models.reference_element import ReferenceElement
-from ideastatica_connection_api.models.weld_type import WeldType
+from ideastatica_connection_api.models.weld_definition import WeldDefinition
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -37,15 +37,15 @@ class CutBeamByBeamData(BaseModel):
     modified_object: Optional[ReferenceElement] = Field(default=None, alias="modifiedObject")
     cutting_object: Optional[ReferenceElement] = Field(default=None, alias="cuttingObject")
     is_weld: Optional[StrictBool] = Field(default=None, alias="isWeld")
-    weld_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="weldThickness")
-    weld_type: Optional[WeldType] = Field(default=None, alias="weldType")
+    web_weld: Optional[WeldDefinition] = Field(default=None, alias="webWeld")
+    flange_weld: Optional[WeldDefinition] = Field(default=None, alias="flangeWeld")
     offset: Optional[Union[StrictFloat, StrictInt]] = None
     method: Optional[CutMethod] = None
     orientation: Optional[CutOrientation] = None
     plane_on_cutting_object: Optional[DistanceComparison] = Field(default=None, alias="planeOnCuttingObject")
     cut_part: Optional[CutPart] = Field(default=None, alias="cutPart")
     extend_before_cut: Optional[StrictBool] = Field(default=None, alias="extendBeforeCut")
-    __properties: ClassVar[List[str]] = ["name", "modifiedObject", "cuttingObject", "isWeld", "weldThickness", "weldType", "offset", "method", "orientation", "planeOnCuttingObject", "cutPart", "extendBeforeCut"]
+    __properties: ClassVar[List[str]] = ["name", "modifiedObject", "cuttingObject", "isWeld", "webWeld", "flangeWeld", "offset", "method", "orientation", "planeOnCuttingObject", "cutPart", "extendBeforeCut"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,6 +92,12 @@ class CutBeamByBeamData(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of cutting_object
         if self.cutting_object:
             _dict['cuttingObject'] = self.cutting_object.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of web_weld
+        if self.web_weld:
+            _dict['webWeld'] = self.web_weld.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of flange_weld
+        if self.flange_weld:
+            _dict['flangeWeld'] = self.flange_weld.to_dict()
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -113,8 +119,8 @@ class CutBeamByBeamData(BaseModel):
             "modifiedObject": ReferenceElement.from_dict(obj["modifiedObject"]) if obj.get("modifiedObject") is not None else None,
             "cuttingObject": ReferenceElement.from_dict(obj["cuttingObject"]) if obj.get("cuttingObject") is not None else None,
             "isWeld": obj.get("isWeld"),
-            "weldThickness": obj.get("weldThickness"),
-            "weldType": obj.get("weldType"),
+            "webWeld": WeldDefinition.from_dict(obj["webWeld"]) if obj.get("webWeld") is not None else None,
+            "flangeWeld": WeldDefinition.from_dict(obj["flangeWeld"]) if obj.get("flangeWeld") is not None else None,
             "offset": obj.get("offset"),
             "method": obj.get("method"),
             "orientation": obj.get("orientation"),
