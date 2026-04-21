@@ -577,7 +577,7 @@ namespace NorsokChecker
 			}
 			else
 			{
-				JointConfigStatus.Text = $"  — no CHS members detected — §6.4 not applicable";
+				JointConfigStatus.Text = $"  — not all members are tubular — §6.4 not applicable";
 				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
 					System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
 				Log($"  No CHS members → plate/weld/bolt checks only, §6.3/§6.4 disabled");
