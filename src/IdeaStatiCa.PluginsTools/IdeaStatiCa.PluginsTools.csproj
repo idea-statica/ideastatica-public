@@ -10,7 +10,7 @@
 		<UseWPF>true</UseWPF>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
@@ -35,15 +35,10 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net10.0-windows|AnyCPU'">
 	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="System.Net.Http" />
-		<PackageReference Include="System.Text.RegularExpressions" />
 	</ItemGroup>
 
 </Project>
