@@ -34,6 +34,7 @@ namespace IdeaStatiCa.BimApiLink.Results
 				_resultsData.Add(new ResultsData<T>(obj, result));
 
 				sections = new Sections(loadCase, result);
+				_sections[(obj.Id, loadCase.Id)] = sections;
 			}
 
 			return sections;
