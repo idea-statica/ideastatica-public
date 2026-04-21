@@ -198,7 +198,7 @@ namespace NorsokChecker.Services
 				{
 					Section = "Weld",
 					Equation = "EN 1993-1-8 §4.5",
-					Title = $"Weld: {weld.Name}",
+					Title = $"Weld: {(string.IsNullOrEmpty(weld.Name) ? $"#{weld.Id}" : weld.Name)}",
 					CheckExpression = "σ_w ≤ f_w,Rd = f_u / (β_w · γ_M2)",
 					Formula = "f_w,Rd = f_u / (β_w · γ_M2)",
 					FormulaSubstituted = $"f_w,Rd = {fu:F1} / ({betaW:F2} × {gammaM2:F2}) = {resistance:F1} MPa",

@@ -123,9 +123,42 @@ namespace NorsokChecker.Services
 			{
 				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
 
-				foreach (var fr in formulas)
+				// Group by chapter
+				var groups = new (string key, string title, string icon)[]
 				{
-					RenderFormulaCard(sb, fr);
+					("5", "§5 — Design Classification", "certificate"),
+					("6.3.2", "§6.3.2 — Plate Stress Checks", "layers"),
+					("Weld", "Weld Checks (EN 1993-1-8)", "flash"),
+					("Bolt", "Bolt Checks (EN 1993-1-8)", "screw-machine-round-top"),
+					("6.3", "§6.3 — Tubular Member Checks", "pipe"),
+					("6.4", "§6.4 — Tubular Joint Checks", "vector-circle"),
+				};
+
+				foreach (var (key, title, icon) in groups)
+				{
+					var groupFormulas = formulas.Where(f => f.Section.StartsWith(key)).ToList();
+					if (groupFormulas.Count == 0) continue;
+
+					sb.AppendLine($"<div class='chapter-group'>");
+					sb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
+
+					foreach (var fr in groupFormulas)
+					{
+						RenderFormulaCard(sb, fr);
+					}
+					sb.AppendLine($"</div>");
+				}
+
+				// Any uncategorized
+				var categorized = groups.SelectMany(g => formulas.Where(f => f.Section.StartsWith(g.key))).ToHashSet();
+				var uncategorized = formulas.Where(f => !categorized.Contains(f)).ToList();
+				if (uncategorized.Count > 0)
+				{
+					sb.AppendLine($"<div class='chapter-group'>");
+					sb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{uncategorized.Count}</span></h3>");
+					foreach (var fr in uncategorized)
+						RenderFormulaCard(sb, fr);
+					sb.AppendLine($"</div>");
 				}
 			}
 
@@ -437,6 +470,25 @@ body {
   border-bottom: 2px solid #F57C00;
   padding-bottom: 6px;
   margin: 24px 0 12px 0;
+}
+.chapter-group { margin-bottom: 20px; }
+.chapter-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00838F;
+  padding: 8px 0 4px 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 8px;
+}
+.chapter-count {
+  display: inline-block;
+  background: #e0f2f1;
+  color: #00695c;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 1px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
 }
 .check-card {
   background: #fff;
