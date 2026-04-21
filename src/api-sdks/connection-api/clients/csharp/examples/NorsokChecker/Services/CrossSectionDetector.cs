@@ -121,17 +121,34 @@ namespace NorsokChecker.Services
 						case CrossSectionType.Iwn:
 						case CrossSectionType.Ign:
 						case CrossSectionType.Igh:
+						case CrossSectionType.BeamShapeIHaunchChamfer:
+						case CrossSectionType.BeamShapeIHaunchChamferAssym:
+						case CrossSectionType.BeamShapeIrevDegen:
+						case CrossSectionType.BeamShapeIrevDegenAdd:
 							result.ShapeType = "I-section";
-							// Extract h and tw
 							foreach (var p in cssPar.Parameters)
 							{
 								if (p is not ParameterDouble pd) continue;
-								var pn = p.Name?.ToUpperInvariant() ?? "";
 								result.AllParams[p.Name ?? ""] = pd.Value;
-								if (pn == "H" || pn == "HEIGHT")
-									result.Diameter = pd.Value > 10 ? pd.Value : pd.Value * 1000; // m→mm
-								else if (pn == "TW" || pn == "WEBTHICKNESS")
-									result.Thickness = pd.Value > 1 ? pd.Value : pd.Value * 1000;
+								_log($"        param: {p.Name} = {pd.Value}");
+							}
+							// Height: typically first large parameter, or named H/h
+							// For rolled sections (HEA, HEB, IPE) parameters may just be positional
+							if (cssPar.Parameters.Count > 0)
+							{
+								var doubles = cssPar.Parameters.OfType<ParameterDouble>().ToList();
+								// Try named parameters first
+								var hParam = doubles.FirstOrDefault(p => p.Name?.ToUpperInvariant() is "H" or "HEIGHT");
+								var twParam = doubles.FirstOrDefault(p => p.Name?.ToUpperInvariant() is "TW" or "WEBTHICKNESS" or "S");
+								// Fallback: for rolled sections, first param is typically height
+								if (hParam == null && doubles.Count > 0)
+									hParam = doubles[0]; // first param = height
+								if (twParam == null && doubles.Count > 2)
+									twParam = doubles[2]; // third param often = web thickness
+								if (hParam != null)
+									result.Diameter = hParam.Value < 10 ? hParam.Value * 1000 : hParam.Value;
+								if (twParam != null)
+									result.Thickness = twParam.Value < 1 ? twParam.Value * 1000 : twParam.Value;
 							}
 							break;
 

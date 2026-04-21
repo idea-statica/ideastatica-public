@@ -196,18 +196,18 @@
                                       MaxHeight="140" VerticalScrollBarVisibility="Auto"
                                       FontSize="12">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="60" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="55" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="*" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="65" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="65"/>
-                                    <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="60"/>
-                                    <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" Width="65"/>
-                                    <DataGridTextColumn Header="L [mm]" Binding="{Binding L, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="60"
+                                    <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="*" MinWidth="90" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="55"/>
+                                    <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="50"/>
+                                    <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" Width="SizeToHeader" MinWidth="60"/>
+                                    <DataGridTextColumn Header="L [mm]" Binding="{Binding L, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="SizeToHeader" MinWidth="55"
                                                         Foreground="{StaticResource IdeaOrangeBrush}"/>
-                                    <DataGridTextColumn Header="k" Binding="{Binding K, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="40"
+                                    <DataGridTextColumn Header="k" Binding="{Binding K, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="SizeToHeader" MinWidth="35"
                                                         Foreground="{StaticResource IdeaOrangeBrush}"/>
-                                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="65" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>

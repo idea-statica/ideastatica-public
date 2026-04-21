@@ -35,6 +35,9 @@ namespace NorsokChecker
 			MembersGrid.ItemsSource = _members;
 			DataContext = this;
 			Log("Norsok Checker ready. Configure API path and load a project.");
+
+			// Draw initial joint schematic for default selection (T/Y)
+			Loaded += (_, _) => DrawJointSchematic(CmbJointType.SelectedIndex);
 		}
 
 		private void Log(string message)
@@ -619,23 +622,23 @@ namespace NorsokChecker
 
 			switch (jointTypeIndex)
 			{
-				case 0: // K-joint (Fig. 6-5): two braces with gap
-					double k1x = 85, k2x = 155;
-					DrawBrace(k1x, cy, -55, 48, braceBrush, braceFill, dimBrush);
-					DrawBrace(k2x, cy, -125, 48, braceBrush, braceFill, dimBrush);
+				case 0: // K-joint (Fig. 6-5): two braces on same side, angled apart
+					double k1x = 90, k2x = 150;
+					// Brace A leans left, Brace B leans right — both go UP from chord
+					DrawBrace(k1x, cy, -120, 46, braceBrush, braceFill, dimBrush); // A: up-left
+					DrawBrace(k2x, cy, -60, 46, braceBrush, braceFill, dimBrush);  // B: up-right
 					// Gap dimension
-					AddLine(k1x + 3, cy - 3, k2x - 3, cy - 3, dimBrush, 1, dashStyle);
-					AddLabel("g", (k1x + k2x) / 2 - 3, cy - 16, dimBrush, 10);
+					AddLine(k1x + 2, cy - 4, k2x - 2, cy - 4, dimBrush, 0.8, dashStyle);
+					AddLabel("g", (k1x + k2x) / 2 - 3, cy - 15, dimBrush, 9);
 					// Labels
 					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
 					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
-					AddLabel("dA, tA", 48, 2, braceBrush, 8, true);
-					AddLabel("dB, tB", 170, 2, braceBrush, 8, true);
-					AddLabel("θA", k1x - 18, cy - 20, dimBrush, 9, true);
-					AddLabel("θB", k2x + 6, cy - 20, dimBrush, 9, true);
-					// Formulas
-					AddLabel("β = d/D", 175, cy + 10, dimBrush, 8);
-					AddLabel("γ = D/2T", 175, cy + 20, dimBrush, 8);
+					AddLabel("dA", 52, 2, braceBrush, 8, true);
+					AddLabel("dB", 168, 2, braceBrush, 8, true);
+					AddLabel("θA", k1x + 4, cy - 22, dimBrush, 8, true);
+					AddLabel("θB", k2x - 20, cy - 22, dimBrush, 8, true);
+					AddLabel("β = d/D", 185, cy + 10, dimBrush, 8);
+					AddLabel("γ = D/2T", 185, cy + 20, dimBrush, 8);
 					JointTypeLabel.Text = "K-joint — Fig. 6-5";
 					break;
 
@@ -659,21 +662,20 @@ namespace NorsokChecker
 					JointTypeLabel.Text = "T/Y-joint — Fig. 6-3";
 					break;
 
-				case 2: // X-joint (Fig. 6-4): brace through chord
+				case 2: // X-joint (Fig. 6-4): brace passes straight through chord
 					double xx = 120;
-					DrawBrace(xx, cy, -70, 36, braceBrush, braceFill, dimBrush);  // top
-					DrawBrace(xx, cy, -110, 36, braceBrush, braceFill, dimBrush); // bottom (opposite side)
+					// One continuous brace through the chord — top and bottom are the same member
+					DrawBrace(xx, cy, -65, 44, braceBrush, braceFill, dimBrush);   // top half (up-right)
+					DrawBrace(xx, cy, 115, 44, braceBrush, braceFill, dimBrush);   // bottom half (down-left, same angle)
 					AddArc(xx, cy, 18, dimBrush);
 					AddLabel("θ", xx + 14, cy - 22, dimBrush, 10, true);
-					// Labels
 					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
 					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
-					AddLabel("d", xx + 10, 4, braceBrush, 9, true);
-					AddLabel("t", xx + 22, 12, braceBrush, 9, true);
-					// Formulas
-					AddLabel("β = d/D", 175, 8, dimBrush, 8);
-					AddLabel("γ = D/(2T)", 175, 18, dimBrush, 8);
-					AddLabel("τ = t/T", 175, 28, dimBrush, 8);
+					AddLabel("d", xx + 16, 2, braceBrush, 9, true);
+					AddLabel("t", xx + 26, 10, braceBrush, 9, true);
+					AddLabel("β = d/D", 185, 8, dimBrush, 8);
+					AddLabel("γ = D/(2T)", 185, 18, dimBrush, 8);
+					AddLabel("τ = t/T", 185, 28, dimBrush, 8);
 					JointTypeLabel.Text = "X-joint — Fig. 6-4";
 					break;
 			}
