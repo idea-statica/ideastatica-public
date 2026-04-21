@@ -460,14 +460,14 @@ namespace IdeaStatiCa.ConnectionApi.Client
             var clientOptions = new RestClientOptions(baseUrl)
             {
                 ClientCertificates = configuration.ClientCertificates,
-                MaxTimeout = configuration.Timeout,
+                Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : (TimeSpan?)null,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
                 UseDefaultCredentials = configuration.UseDefaultCredentials,
                 RemoteCertificateValidationCallback = configuration.RemoteCertificateValidationCallback
             };
             setOptions(clientOptions);
-            
+
             using (RestClient client = new RestClient(clientOptions,
                 configureSerialization: serializerConfig => serializerConfig.UseSerializer(() => new CustomJsonCodec(SerializerSettings, configuration))))
             {
@@ -569,7 +569,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var clientOptions = new RestClientOptions(baseUrl)
 			{
 				ClientCertificates = configuration.ClientCertificates,
-				MaxTimeout = configuration.Timeout,
+				Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : (TimeSpan?)null,
 				Proxy = configuration.Proxy,
 				UserAgent = configuration.UserAgent,
 				UseDefaultCredentials = configuration.UseDefaultCredentials,
@@ -663,9 +663,11 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
         private RestResponse<T> DeserializeRestResponseFromPolicy<T>(RestClient client, RestRequest request, PolicyResult<RestResponse> policyResult)
         {
-            if (policyResult.Outcome == OutcomeType.Successful) 
+            if (policyResult.Outcome == OutcomeType.Successful)
             {
+#pragma warning disable CS0618 // sync Deserialize<T> is obsolete in RestSharp 112+; keeping sync path here by design
                 return client.Deserialize<T>(policyResult.Result);
+#pragma warning restore CS0618
             }
             else
             {
