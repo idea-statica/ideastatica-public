@@ -183,12 +183,8 @@ namespace NorsokChecker
 							});
 						}
 
-						int chsCount = _members.Count(m => m.IsCHS);
-						Log($"  Members loaded: {_members.Count} total, {chsCount} CHS");
-						if (chsCount > 0)
-							Log($"  Tubular connection detected — §6.3 + §6.4 checks will run on calculation");
-						else
-							Log($"  Non-tubular connection — §6.3/§6.4 need CHS; check cross-section names");
+						Log($"  Members loaded: {_members.Count}");
+						UpdateTubularState();
 					}
 					catch (Exception ex)
 					{
@@ -297,9 +293,7 @@ namespace NorsokChecker
 
 						// Refresh grid
 						MembersGrid.Items.Refresh();
-						int chsCount = _members.Count(m => m.IsCHS);
-						if (chsCount > 0)
-							Log($"  Tubular members confirmed: {chsCount} CHS after plate analysis");
+						UpdateTubularState();
 					}
 					catch (Exception ex)
 					{
@@ -465,18 +459,25 @@ namespace NorsokChecker
 			return new double[] { sigmaA, sigmaMy, sigmaMz };
 		}
 
-		/// <summary>Parse CHS geometry from the largest CHS member (chord).</summary>
+		/// <summary>Parse CHS geometry from the largest CHS member. Only for tubular connections.</summary>
 		private TubularGeometry? ParseCHSGeometry()
 		{
-			var chsMember = _members.FirstOrDefault(m => m.IsCHS);
-			if (chsMember != null && chsMember.Diameter > 0 && chsMember.WallThickness > 0)
+			// §6.3 tubular member formulas require CHS members
+			var chsMember = _members.Where(m => m.IsCHS && m.Diameter > 0 && m.WallThickness > 0)
+				.OrderByDescending(m => m.Diameter)
+				.FirstOrDefault();
+			if (chsMember != null)
 				return TubularGeometryCalc.Calculate(chsMember.Diameter, chsMember.WallThickness);
 			return null;
 		}
 
-		/// <summary>Parse joint geometry from chord + brace members.</summary>
+		/// <summary>Parse joint geometry from chord + brace members. Returns null if not all CHS.</summary>
 		private TubularJointGeometry? ParseJointGeometry()
 		{
+			// §6.4 only applies when ALL members are CHS
+			bool allCHS = _members.Count > 0 && _members.All(m => m.IsCHS);
+			if (!allCHS) return null;
+
 			var chord = _members.FirstOrDefault(m => m.Role == "Chord" && m.IsCHS);
 			var brace = _members.FirstOrDefault(m => m.Role == "Brace" && m.IsCHS);
 
@@ -547,6 +548,39 @@ namespace NorsokChecker
 			catch (Exception ex)
 			{
 				Log($"WARNING: WebView2 not available ({ex.Message}).");
+			}
+		}
+
+		/// <summary>
+		/// Check if all members are CHS. Enable/disable §6.4 joint UI accordingly.
+		/// </summary>
+		private void UpdateTubularState()
+		{
+			bool allCHS = _members.Count > 0 && _members.All(m => m.IsCHS);
+			int chsCount = _members.Count(m => m.IsCHS);
+
+			JointConfigExpander.IsEnabled = allCHS;
+
+			if (allCHS)
+			{
+				JointConfigStatus.Text = $"  — all {_members.Count} members are CHS ✓";
+				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
+					System.Windows.Media.Color.FromRgb(0x2E, 0x7D, 0x32));
+				Log($"  All members CHS → §6.3 (member) + §6.4 (joint) checks enabled");
+			}
+			else if (chsCount > 0)
+			{
+				JointConfigStatus.Text = $"  — mixed sections ({chsCount} CHS, {_members.Count - chsCount} other) — §6.4 disabled";
+				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
+					System.Windows.Media.Color.FromRgb(0xF5, 0x7C, 0x00));
+				Log($"  Mixed sections: {chsCount} CHS + {_members.Count - chsCount} other → §6.3 only, §6.4 disabled");
+			}
+			else
+			{
+				JointConfigStatus.Text = $"  — no CHS members detected — §6.4 not applicable";
+				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
+					System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
+				Log($"  No CHS members → plate/weld/bolt checks only, §6.3/§6.4 disabled");
 			}
 		}
 

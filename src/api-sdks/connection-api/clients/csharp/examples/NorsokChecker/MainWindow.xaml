@@ -255,13 +255,16 @@
                         </Grid>
                     </Expander>
 
-                    <!-- Joint Configuration (§6.4) -->
-                    <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
+                    <!-- Joint Configuration (§6.4) — only enabled for all-CHS connections -->
+                    <Expander x:Name="JointConfigExpander" IsExpanded="False" Margin="0,0,0,4"
+                              Background="Transparent" IsEnabled="False">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="VectorCircleVariant" Width="18" Height="18" VerticalAlignment="Center"
                                              Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
                                 <TextBlock Text="Joint Configuration (§6.4)" FontWeight="Medium"/>
+                                <TextBlock x:Name="JointConfigStatus" Text="  — requires all members to be CHS"
+                                           FontSize="11" Foreground="#9E9E9E" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
                         <StackPanel Orientation="Horizontal" Margin="8,4,8,4">
