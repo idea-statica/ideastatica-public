@@ -267,20 +267,24 @@
                                            FontSize="11" Foreground="#9E9E9E" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
-                        <StackPanel Orientation="Horizontal" Margin="8,4,8,4">
+                        <StackPanel Orientation="Horizontal" Margin="8,4,8,4" VerticalAlignment="Center">
                             <TextBlock Text="Joint type:" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12"/>
                             <ComboBox x:Name="CmbJointType" SelectedIndex="1" Width="80"
-                                      md:HintAssist.Hint="Type" SelectionChanged="JointType_Changed" FontSize="12">
+                                      md:HintAssist.Hint="Type" SelectionChanged="JointType_Changed" FontSize="12"
+                                      VerticalAlignment="Center">
                                 <ComboBoxItem Content="K"/>
                                 <ComboBoxItem Content="T/Y"/>
                                 <ComboBoxItem Content="X"/>
                             </ComboBox>
-                            <TextBlock x:Name="LblGap" Text="Gap g (mm):" VerticalAlignment="Center" Margin="16,0,8,0"
-                                       Visibility="Collapsed" FontSize="12"/>
-                            <TextBox x:Name="TxtGap" Text="50" Width="60" md:HintAssist.Hint="mm"
-                                     Visibility="Collapsed" FontSize="12"/>
+                            <StackPanel x:Name="GapPanel" Orientation="Horizontal" Visibility="Collapsed"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="Gap g (mm):" VerticalAlignment="Center" Margin="16,0,8,0" FontSize="12"/>
+                                <TextBox x:Name="TxtGap" Text="50" Width="60" md:HintAssist.Hint="mm"
+                                         FontSize="12" VerticalAlignment="Center"/>
+                            </StackPanel>
                             <TextBlock Text="θ (deg):" VerticalAlignment="Center" Margin="16,0,8,0" FontSize="12"/>
-                            <TextBox x:Name="TxtBraceAngle" Text="90" Width="60" md:HintAssist.Hint="degrees" FontSize="12"/>
+                            <TextBox x:Name="TxtBraceAngle" Text="90" Width="60" md:HintAssist.Hint="degrees"
+                                     FontSize="12" VerticalAlignment="Center"/>
 
                             <!-- Joint schematic -->
                             <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4"

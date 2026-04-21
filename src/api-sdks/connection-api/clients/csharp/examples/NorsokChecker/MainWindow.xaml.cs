@@ -631,9 +631,7 @@ namespace NorsokChecker
 			DrawJointSchematic(CmbJointType.SelectedIndex);
 
 			// Gap only applies to K-joints
-			var gapVis = CmbJointType.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
-			LblGap.Visibility = gapVis;
-			TxtGap.Visibility = gapVis;
+			GapPanel.Visibility = CmbJointType.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void DrawJointSchematic(int jointTypeIndex)
