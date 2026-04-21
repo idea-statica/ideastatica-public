@@ -123,35 +123,37 @@ namespace NorsokChecker.Services
 			{
 				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
 
-				// Group by chapter
-				var groups = new (string key, string title, string icon)[]
+				// Group by chapter — each formula assigned to exactly one group
+				var groups = new (string key, string title)[]
 				{
-					("5", "§5 — Design Classification", "certificate"),
-					("6.3.2", "§6.3.2 — Plate Stress Checks", "layers"),
-					("Weld", "Weld Checks (EN 1993-1-8)", "flash"),
-					("Bolt", "Bolt Checks (EN 1993-1-8)", "screw-machine-round-top"),
-					("6.3", "§6.3 — Tubular Member Checks", "pipe"),
-					("6.4", "§6.4 — Tubular Joint Checks", "vector-circle"),
+					("5", "§5 — Design Classification"),
+					("6.3.2", "§6.3 — Plate Stress Checks"),
+					("Weld", "Weld Checks (EN 1993-1-8)"),
+					("Bolt", "Bolt Checks (EN 1993-1-8)"),
+					("6.3", "§6.3 — Tubular Member Checks"),
+					("6.4", "§6.4 — Tubular Joint Checks"),
 				};
 
-				foreach (var (key, title, icon) in groups)
+				var assigned = new HashSet<NorsokFormulaResult>();
+
+				foreach (var (key, title) in groups)
 				{
-					var groupFormulas = formulas.Where(f => f.Section.StartsWith(key)).ToList();
+					var groupFormulas = formulas
+						.Where(f => !assigned.Contains(f) && f.Section.StartsWith(key))
+						.ToList();
 					if (groupFormulas.Count == 0) continue;
+
+					foreach (var f in groupFormulas) assigned.Add(f);
 
 					sb.AppendLine($"<div class='chapter-group'>");
 					sb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
-
 					foreach (var fr in groupFormulas)
-					{
 						RenderFormulaCard(sb, fr);
-					}
 					sb.AppendLine($"</div>");
 				}
 
 				// Any uncategorized
-				var categorized = groups.SelectMany(g => formulas.Where(f => f.Section.StartsWith(g.key))).ToHashSet();
-				var uncategorized = formulas.Where(f => !categorized.Contains(f)).ToList();
+				var uncategorized = formulas.Where(f => !assigned.Contains(f)).ToList();
 				if (uncategorized.Count > 0)
 				{
 					sb.AppendLine($"<div class='chapter-group'>");
