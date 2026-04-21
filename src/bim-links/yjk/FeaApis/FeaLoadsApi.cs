@@ -1,7 +1,9 @@
 ﻿using APIData;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using yjk.ViewModels;
 
 namespace yjk.FeaApis
 {
@@ -23,6 +25,7 @@ namespace yjk.FeaApis
 		private List<IFeaLoadCombination> _loadCombinations;
 		private List<IFeaLoadGroup> _loadGroups;
 
+		private IPluginLogger _logger = AppLogger.Instance;
 
 		public IFeaLoadCase GetLoadCase(int id) => _loadCases.FirstOrDefault(x => x.Id == id);
 
@@ -38,6 +41,8 @@ namespace yjk.FeaApis
 
 		public void GetLoadCasesAndCombos()
 		{
+			_logger.LogInformation("FeaLoadsApi.GetLoadCasesAndCombos");
+
 			_loadCases = new List<IFeaLoadCase>();
 			_loadCombinations = new List<IFeaLoadCombination>();
 			_loadGroups = InitializeLoadGroups();
@@ -48,6 +53,7 @@ namespace yjk.FeaApis
 			int[] LDCaseOld = new int[0];
 			int[] LDKind = new int[0];
 
+			_logger.LogInformation("Read load case from YJK");
 			_Hi_DesignData.dsnGetLDCaseBySortNew(ref nLDCaseNum, ref LDCase, ref LDCaseOld, ref LDKind, true, true, true, true, true, true, true, true);
 
 			//Load cases
@@ -58,6 +64,7 @@ namespace yjk.FeaApis
 				string LDCaseName = "";
 				_Hi_DesignData.dsnGetLDCaseName_EN(LDCase[i], ref LDCaseName);
 
+				_logger.LogInformation($"Add load case {LDCase[i]}, {LDCaseName}, {ActionType.Permanent}, {TypeOfLoadCase.Selfweight}, {1}");
 				_loadCases.Add(
 					new FeaLoadCase()
 					{
@@ -123,11 +130,12 @@ namespace yjk.FeaApis
 
 				}
 
+				_logger.LogInformation($"Add load combination {loadCombId}, {"COMB" + loadCombId.ToString()}, {Category.ULS}, {Type.Linear}, {combiFactors}");
 				_loadCombinations.Add(
 					new FeaLoadCombination()
 					{
 						Id = loadCombId,
-						Name = loadCombId.ToString(),
+						Name = "COMB" + loadCombId.ToString(),
 						Category = Category.ULS,
 						Type = Type.Linear,
 						CombiFactors = combiFactors

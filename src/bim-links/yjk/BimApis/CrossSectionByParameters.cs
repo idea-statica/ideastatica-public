@@ -1,7 +1,9 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimImporter;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +17,12 @@ namespace yjk.BimApis
 
 		public int MaterialNo { get; set; }
 
-		override public double  Rotation { get; set; }
+		//override public double  Rotation { get; set; }
 
 		public CrossSectionByParameters(int no) : base(no)
 		{
 		}
+
+
 	}
 }

@@ -28,8 +28,8 @@ namespace yjk.Importers
 				{
 					MaterialNo = crossSection.MaterialId,
 					Name = crossSection.Name,
-					Parameters = crossSection.CrossSectionByParameters.Parameters.ToHashSet(),
-					Type = crossSection.CrossSectionByParameters.CrossSectionType,
+					Parameters = crossSection.CrossSectionParameterYjk.Parameters.ToHashSet(),
+					Type = crossSection.CrossSectionParameterYjk.CrossSectionType,
 					//Rotation = DegToRad(90)
 				};
 			}

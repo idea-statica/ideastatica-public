@@ -16,12 +16,14 @@ using yjk.Importers;
 using yjk.Helpers;
 using System.Diagnostics;
 using IdeaStatiCa.BimImporter;
+using IdeaStatiCa.PluginLogger;
 
 namespace yjk
 {
 	public class Main
 	{
-		static WindowHelper _windowHelper;
+		private static WindowHelper _windowHelper;
+		private static IPluginLogger _logger = AppLogger.Instance;		
 
 		[CommandMethod("test_idea_plugin")]
 		public void Test()
@@ -61,17 +63,21 @@ namespace yjk
 
 		public static async Task RunAsync()
 		{
+			//_logger.EnableDebug = true;
+
+			_logger.LogInformation("Main.RunAsync");
+
 			string checkbotLocation = Properties.Settings.Default.CheckbotLocation;
 
-			AppLogger logger = new AppLogger(Dispatcher.CurrentDispatcher) { EnableDebug = true, };
+
 			IFeaApi feaApi = new FeaApi();
 
-			if (logger is null)
+			if (_logger is null)
 			{
-				throw new ArgumentNullException(nameof(logger));
+				throw new ArgumentNullException(nameof(_logger));
 			}
 
-			logger.LogInformation($"Starting plugin with checkbot location {checkbotLocation}");
+			_logger.LogInformation($"Starting plugin with checkbot location {checkbotLocation}");
 
 			//var workingDirectory = Path.GetFullPath("BimApiExampleProj");
 			var workingDirectory = Directory.GetCurrentDirectory();
@@ -94,9 +100,9 @@ namespace yjk
 			{
 				GrpcBimHostingFactory bimHostingFactory = new GrpcBimHostingFactory();
 
-				logger.LogInformation($"Project working directory is {fullWorkingDirectory}");
+				_logger.LogInformation($"Project working directory is {fullWorkingDirectory}");
 
-				var container = BuildContainer(bimHostingFactory.InitGrpcClient(logger), feaApi);
+				var container = BuildContainer(bimHostingFactory.InitGrpcClient(_logger), feaApi);
 
 				Model model = container.Resolve<Model>();
 
@@ -109,14 +115,14 @@ namespace yjk
 					.WithIdeaStatiCa(checkbotLocation)
 					.WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
 					.WithResultsImporters(x => x.RegisterImporter(container.Resolve<ResultsImporter>()))
-					.WithLogger(logger)
+					.WithLogger(_logger)
 					.WithBimHostingFactory(bimHostingFactory)
 					.WithBimImporterConfiguration(bimImporterConfiguration)
 					.Run(model);
 			}
 			catch (Exception ex)
 			{
-				logger.LogError("BimApi failed", ex);
+				_logger.LogError("BimApi failed", ex);
 				throw;
 			}
 		}

@@ -1,16 +1,17 @@
-﻿using IdeaRS.OpenModel;
+﻿using CsToYjk;
+using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.CrossSection;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
-using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Windows.Controls.Primitives;
 using yjk.FeaApis;
 using yjk.Helpers;
-using System.Threading;
-using CsToYjk;
-using System.Windows.Controls.Primitives;
-using IdeaRS.OpenModel.CrossSection;
+using yjk.ViewModels;
 
 namespace yjk
 {
@@ -22,6 +23,7 @@ namespace yjk
 		private readonly IFeaCrossSectionApi crossSection;
 		private readonly IFeaMaterialApi materialApi;
 		private readonly IProgressMessaging messagingService;
+		private readonly IPluginLogger _logger = AppLogger.Instance;
 
 		private static int _entered = 0;
 
@@ -62,16 +64,21 @@ namespace yjk
 		/// <returns></returns>
 		public FeaUserSelection GetUserSelection()
 		{
+			_logger.LogInformation("Model.GetUserSelection");
+
 			//Get selected IDs in YJK
 			Dictionary<int, List<int>> selectedIds = geometry.GetSelectedIds();
 
 			//Read model
+			_logger.LogInformation("Read model DB");
+
 			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 			ClrYJKSCommand yjkscmd = new ClrYJKSCommand();
 			yjkscmd.CsRunCommand("yjk_save");
 			APIData.Hi_DbModelData model = hi_AddToAndReadYjk.ReadFromYJK();
 
 			//Get cross sections
+			_logger.LogInformation("From model DB, get cross sections information");
 			geometry.ReadFromModel(model);
 
 			//Marshal back to YJK thread
@@ -82,6 +89,7 @@ namespace yjk
 
 			try
 			{
+				_logger.LogInformation("Move YJK to design window");
 				var _YJKSUI = new ClrYJKSUI();
 				_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
 
@@ -89,6 +97,7 @@ namespace yjk
 				load.GetLoadCasesAndCombos();
 
 				//Reset result
+				_logger.LogInformation("Clear result");
 				result.ClearResults();
 
 				geometry.GetSelected(selectedIds, load, result, crossSection, materialApi);

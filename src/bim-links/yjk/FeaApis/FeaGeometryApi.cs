@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Windows;
 using System;
 using IdeaRS.OpenModel.CrossSection;
+using IdeaStatiCa.Plugin;
+using yjk.ViewModels;
 
 namespace yjk.FeaApis
 {
@@ -43,6 +45,7 @@ namespace yjk.FeaApis
 		private IFeaCrossSectionApi _crossSection;
 		private IFeaMaterialApi _materialApi;
 		private APIData.Hi_DbModelData _model;
+		private IPluginLogger _logger = AppLogger.Instance;
 
 		public void ReadFromModel(APIData.Hi_DbModelData model){ _model = model; }
 
@@ -71,6 +74,8 @@ namespace yjk.FeaApis
 		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result, 
 			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi)
 		{
+			_logger.LogInformation("FeaGeometryApi.GetSelected");
+
 			_members = new List<IFeaMember>();
 			_nodesSelected = new List<IFeaNode>();
 			_nodes = new List<IFeaNode>();

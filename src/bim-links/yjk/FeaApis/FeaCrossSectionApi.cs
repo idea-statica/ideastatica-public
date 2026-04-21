@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using yjk.BimApis;
 using static yjk.Helpers.UnitConverter;
 
 namespace yjk.FeaApis
@@ -32,30 +34,46 @@ namespace yjk.FeaApis
 		{
 			int materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
 
-			//Look for existing
-			foreach (FeaCrossSection crossSection in _crossSections)
-			{
-				if (crossSection.YjkId == yjkCrossSectionId && crossSection.MaterialId == materialId /*&& 
-					crossSection.MemberType == memberType*/)
-				{
-					return crossSection.Id;
-				}
-			}
+			/*			//Look for existing
+						foreach (FeaCrossSection crossSection in _crossSections)
+						{
+							if (crossSection.YjkId == yjkCrossSectionId && crossSection.MaterialId == materialId *//*&& 
+								crossSection.MemberType == memberType*//*)
+							{
+								return crossSection.Id;
+							}
+						}*/
 
 			//Add new cross section
-			CrossSectionParameter css = new CrossSectionParameter();
+			CrossSectionParameterYjk crossSectionParameterYjk = new CrossSectionParameterYjk();
 
 			string name = "";
 			CrossSectionBy crossSectionBy = CrossSectionBy.ByParameters;
-			(name, crossSectionBy) = CreateCrossSection(css, yjkCrossSectionId, memberType, model);
+			(name, crossSectionBy) = CreateCrossSection(crossSectionParameterYjk, yjkCrossSectionId, memberType, model);
 
-			_crossSections.Add(new FeaCrossSection(_id, yjkCrossSectionId, name, materialId, memberType, css, crossSectionBy));
+			FeaCrossSection newFeaCrossSection = new FeaCrossSection(_id, yjkCrossSectionId, name, materialId, memberType, crossSectionParameterYjk, crossSectionBy);
+
+			//Look for existing
+			foreach (FeaCrossSection crossSection in _crossSections)
+			{
+				if (newFeaCrossSection.MaterialId == crossSection.MaterialId &&
+					newFeaCrossSection.MemberType == crossSection.MemberType &&
+					newFeaCrossSection.CrossSectionParameterYjk == crossSection.CrossSectionParameterYjk &&
+					newFeaCrossSection.CrossSectionBy == crossSection.CrossSectionBy
+					)
+				{
+					return crossSection.Id;
+				}
+
+			}
+
+			_crossSections.Add(newFeaCrossSection);
 			_id++;
 
 			return _id - 1;
 		}
 
-		private (string, CrossSectionBy) CreateCrossSection(CrossSectionParameter css, int yjkCrossSectionId, 
+		private (string, CrossSectionBy) CreateCrossSection(CrossSectionParameterYjk crossSectionParameterYjk, int yjkCrossSectionId, 
 			MemberType memberType, APIData.Hi_DbModelData model)
 		{
 			Mdl_Section section = new Mdl_Section();
@@ -92,7 +110,7 @@ namespace yjk.FeaApis
 						double width = MmToM(double.Parse(splitShapeVal[1]));
 						double height = MmToM(double.Parse(splitShapeVal[2]));
 
-						CrossSectionFactory.FillRectangle(css, width, height);
+						CrossSectionFactory.FillRectangle(crossSectionParameterYjk, width, height);
 						break;
 					}
 
@@ -110,13 +128,13 @@ namespace yjk.FeaApis
 						if (upperFlangeWidth == bottomFlageWidth && upperFlangeThk == bottomFlangeThk)
 						{
 							//RolledI
-							CrossSectionFactory.FillRolledI(css, upperFlangeWidth, height, webThk,
+							CrossSectionFactory.FillRolledI(crossSectionParameterYjk, upperFlangeWidth, height, webThk,
 								upperFlangeThk, 0, 0, 0);
 						}
 						else
 						{
 							//WeldedAsymI
-							CrossSectionFactory.FillWeldedAsymI(css, upperFlangeWidth, bottomFlageWidth,
+							CrossSectionFactory.FillWeldedAsymI(crossSectionParameterYjk, upperFlangeWidth, bottomFlageWidth,
 								height - upperFlangeThk - bottomFlangeThk, webThk, upperFlangeThk, bottomFlangeThk);
 						}
 						break;
@@ -126,7 +144,7 @@ namespace yjk.FeaApis
 				case 3:
 					{
 						double diameter = MmToM(double.Parse(splitShapeVal[1]));
-						CrossSectionFactory.FillCircle(css, diameter);
+						CrossSectionFactory.FillCircle(crossSectionParameterYjk, diameter);
 						break;
 					}
 
@@ -137,7 +155,7 @@ namespace yjk.FeaApis
 						double diameter = MmToM(double.Parse(splitShapeVal[1]));
 						double numSides = MmToM(double.Parse(splitShapeVal[2]));
 
-						CrossSectionFactory.FillCircle(css, diameter);
+						CrossSectionFactory.FillCircle(crossSectionParameterYjk, diameter);
 						break;
 					}
 
@@ -153,7 +171,7 @@ namespace yjk.FeaApis
 
 						if (topFlangeWidth == bottomFlangeWidth && topFlangeThk == bottomFlangeThk)
 						{
-							CrossSectionFactory.FillRolledChannel(css, topFlangeWidth+webThk, height, webThk, 
+							CrossSectionFactory.FillRolledChannel(crossSectionParameterYjk, topFlangeWidth+webThk, height, webThk, 
 								topFlangeThk, 0, 0, 0);
 						}
 						else
@@ -176,7 +194,7 @@ namespace yjk.FeaApis
 
 						if (leftFlangeThk == rightFlangeThk)
 						{
-							CrossSectionFactory.FillWeldedBoxFlange(css, width, width, height - topFlangeThk - bottomFlangeThk,
+							CrossSectionFactory.FillWeldedBoxFlange(crossSectionParameterYjk, width, width, height - topFlangeThk - bottomFlangeThk,
 								width - leftFlangeThk - rightFlangeThk, leftFlangeThk, topFlangeThk, bottomFlangeThk);
 						}
 						else
@@ -193,7 +211,7 @@ namespace yjk.FeaApis
 						double outerDiameter = MmToM(double.Parse(splitShapeVal[1]));
 						double innerDiameter = MmToM(double.Parse(splitShapeVal[2]));
 
-						CrossSectionFactory.FillRolledCHS(css, outerDiameter * 0.5, (outerDiameter - innerDiameter) * 0.5);
+						CrossSectionFactory.FillRolledCHS(crossSectionParameterYjk, outerDiameter * 0.5, (outerDiameter - innerDiameter) * 0.5);
 
 						break;
 					}
@@ -210,7 +228,7 @@ namespace yjk.FeaApis
 
 						if (topFlangeWidth == bottomFlangeWidth)
 						{
-							CrossSectionFactory.FillComposedDblUo(css, topFlangeWidth + flangeThk, height, flangeThk,
+							CrossSectionFactory.FillComposedDblUo(crossSectionParameterYjk, topFlangeWidth + flangeThk, height, flangeThk,
 								flangeThk, spacing);
 						}
 						else
@@ -242,7 +260,7 @@ namespace yjk.FeaApis
 
 						if (webThk == flangeThk)
 						{
-							CrossSectionFactory.FillRolledAngle(css, flangeWidth + webThk, height, webThk, 0, 0, 0);
+							CrossSectionFactory.FillRolledAngle(crossSectionParameterYjk, flangeWidth + webThk, height, webThk, 0, 0, 0);
 						}
 						else
 						{
@@ -261,7 +279,7 @@ namespace yjk.FeaApis
 						double flangeWidth = MmToM(double.Parse(splitShapeVal[3]));
 						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
 
-						CrossSectionFactory.FillRolledT(css, flangeWidth, height, webThk, flangeThk, 0, 0, 0, 0, 0, true);
+						CrossSectionFactory.FillRolledT(crossSectionParameterYjk, flangeWidth, height, webThk, flangeThk, 0, 0, 0, 0, 0, true);
 
 						break;
 					}

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.Public;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,20 @@ namespace yjk.ViewModels
 {
 	internal class AppLogger : IPluginLogger
 	{
-		private readonly Dispatcher uiDispatcher;
+		private IPluginLogger _logger;
 
-		public AppLogger(Dispatcher uiDispatcher)
+		// Public static property provides the global access point
+		public static AppLogger Instance => _instance;
+
+		// The single instance is stored in a private static field
+		private static readonly AppLogger _instance = new AppLogger();
+
+		public AppLogger()
 		{
-			this.uiDispatcher = uiDispatcher;
-
 			ClearCommand = new RelayCommand(OnClear);
+
+			SerilogFacade.Initialize("IdeaYJKPlugin.log");
+			_logger = LoggerProvider.GetLogger("con.restapi.client");
 		}
 
 		public ICommand ClearCommand { get; }
@@ -32,13 +40,13 @@ namespace yjk.ViewModels
 		{
 			if (EnableDebug)
 			{
-				Log(MessageSeverity.Debug, message, ex);
+				_logger.LogDebug(message, ex);
 			}
 		}
 
 		public void LogError(string message, Exception ex = null)
 		{
-			Log(MessageSeverity.Error, message, ex);
+			_logger.LogError(message, ex);
 		}
 
 		public void LogEventInformation(IIdeaUserEvent userEvent, string screenName = null, Dictionary<int, string> eventCustomDimensions = null)
@@ -47,28 +55,20 @@ namespace yjk.ViewModels
 
 		public void LogInformation(string message, Exception ex = null)
 		{
-			Log(MessageSeverity.Information, message, ex);
+			_logger.LogInformation(message);
 		}
 
 		public void LogTrace(string message, Exception ex = null)
 		{
 			if (EnableTrace)
 			{
-				Log(MessageSeverity.Trace, message, ex);
+				_logger.LogTrace(message, ex);
 			}
 		}
 
 		public void LogWarning(string message, Exception ex = null)
 		{
-			Log(MessageSeverity.Warning, message, ex);
-		}
-
-		private void Log(MessageSeverity severity, string message, Exception ex)
-		{
-			uiDispatcher.BeginInvoke(new Action(() =>
-			{
-				Messages.Add(new MessageViewModel(severity, message, ex));
-			}));
+			_logger.LogWarning(message, ex);
 		}
 
 		private void OnClear()
