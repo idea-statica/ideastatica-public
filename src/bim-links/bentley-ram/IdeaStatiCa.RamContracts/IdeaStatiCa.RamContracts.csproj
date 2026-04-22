@@ -1,16 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 <Import Project="..\..\..\Common.props" />
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
 	<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
 	<!-- Set OutputPath for *_Internal configurations -->
-	
+
 	<ItemGroup>
 		<PackageReference Include="Autofac" />
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
 		<PackageReference Include="Idea.Bentley.Ram" />
 		<PackageReference Include="MathNet.Numerics" />

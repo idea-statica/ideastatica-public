@@ -29,6 +29,10 @@
     <PackageReference Include="Polly"/>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces"/>
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
     <ProjectReference Include="..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
