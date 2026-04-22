@@ -10,7 +10,7 @@ using static yjk.Helpers.UnitConverter;
 
 namespace yjk.Importers
 {
-	internal class CrossSectionImporter : IntIdentifierImporter<IIdeaCrossSection>
+	internal class CrossSectionImporter : StringIdentifierImporter<IIdeaCrossSection>
 	{
 		private readonly IFeaCrossSectionApi crossSectionApi;
 		public CrossSectionImporter(IFeaCrossSectionApi crossSectionApi)
@@ -18,7 +18,7 @@ namespace yjk.Importers
 			this.crossSectionApi = crossSectionApi;
 		}
 
-		public override IIdeaCrossSection Create(int id)
+		public override IIdeaCrossSection Create(string id)
 		{
 			IFeaCrossSection crossSection = crossSectionApi.GetCrossSection(id);
 

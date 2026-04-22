@@ -14,7 +14,7 @@ namespace yjk.FeaApis
 {
 	public interface IFeaCrossSection
 	{
-		int Id { get; set; }
+		string Id { get; set; }
 		int YjkId { get; set; }
 		string Name { get; set; }
 		int MaterialId { get; set; }
@@ -25,7 +25,7 @@ namespace yjk.FeaApis
 
 	internal class FeaCrossSection : IFeaCrossSection
 	{
-		public FeaCrossSection(int id, int yjkId, string name, int materialId, MemberType memberType, 
+		public FeaCrossSection(string id, int yjkId, string name, int materialId, MemberType memberType, 
 			CrossSectionParameterYjk crossSectionParameterYjk, CrossSectionBy crossSectionBy)
 		{
 			Id = id;
@@ -38,7 +38,7 @@ namespace yjk.FeaApis
 		}
 
 
-		public int Id { get; set;  }
+		public string Id { get; set;  }
 		public int YjkId { get; set; }
 		public string Name { get; set; }
 		public int MaterialId { get; set; }

@@ -11,7 +11,7 @@ namespace yjk.BimApis
 
 		override public double Rotation { get; set; }
 
-		public CrossSectionByName(int no) : base(no)
+		public CrossSectionByName(string stringId) : base(stringId)
 		{
 		}
 	}

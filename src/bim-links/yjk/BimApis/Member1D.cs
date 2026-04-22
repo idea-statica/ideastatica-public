@@ -5,9 +5,9 @@ namespace yjk.BimApis
 {
 	internal class Member1D : IdeaMember1D
 	{
-		public int CrossSectionNo { get; set; }
+		public string CrossSectionId { get; set; }
 
-		public override IIdeaCrossSection CrossSection => Get<IIdeaCrossSection>(CrossSectionNo);
+		public override IIdeaCrossSection CrossSection => Get<IIdeaCrossSection>(CrossSectionId);
 
 		public Member1D(int no) : base(no)
 		{

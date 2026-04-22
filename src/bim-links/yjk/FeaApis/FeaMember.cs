@@ -8,7 +8,7 @@ namespace yjk.FeaApis
 		int Id { get; }
 		int BeginNodeId { get; }
 		int EndNodeId { get; }
-		int CrossSectionId { get; }
+		string CrossSectionId { get; }
 		FeaNode BeginNode { get; }
 		FeaNode EndNode { get; }
 		MemberType Type { get; }
@@ -24,7 +24,7 @@ namespace yjk.FeaApis
 
 	public class FeaMember : IFeaMember
 	{
-		public FeaMember(int id, FeaNode beginNode, FeaNode endNode, int crossSectionId, MemberType type, double rotationAngle)
+		public FeaMember(int id, FeaNode beginNode, FeaNode endNode, string crossSectionId, MemberType type, double rotationAngle)
 		{
 			Id = id;
 			BeginNodeId = beginNode.Id;
@@ -39,7 +39,7 @@ namespace yjk.FeaApis
 		public int Id { get; set; }
 		public int BeginNodeId { get; set; }
 		public int EndNodeId { get; set; }
-		public int CrossSectionId { get; set; }
+		public string CrossSectionId { get; set; }
 		public FeaNode BeginNode { get; set; }
 		public FeaNode EndNode { get; set; }
 		public MemberType Type { get; set; }

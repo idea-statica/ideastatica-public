@@ -136,6 +136,7 @@
     <Compile Include="BimApis\Member1D.cs" />
     <Compile Include="BimApis\ParameterDoubleYjk.cs" />
     <Compile Include="BimApis\Segment3D.cs" />
+    <Compile Include="BimApis\YjkApplication.cs" />
     <Compile Include="FeaApis\FeaApi.cs" />
     <Compile Include="FeaApis\FeaCrossSection.cs" />
     <Compile Include="FeaApis\FeaCrossSectionApi.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="FeaApis\FeaNode.cs" />
     <Compile Include="FeaApis\FeaResult.cs" />
     <Compile Include="FeaApis\FeaResultsApi.cs" />
+    <Compile Include="Helpers\BimApiData.cs" />
     <Compile Include="Helpers\UnitConverter.cs" />
     <Compile Include="Helpers\WindowHelper.xaml.cs">
       <DependentUpon>WindowHelper.xaml</DependentUpon>
@@ -215,6 +217,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

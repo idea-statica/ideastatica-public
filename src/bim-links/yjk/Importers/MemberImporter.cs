@@ -24,7 +24,7 @@ namespace yjk.Importers
 			return new Member1D(id)
 			{
 				Type = IdeaRS.OpenModel.Model.Member1DType.Beam,
-				CrossSectionNo = member.CrossSectionId,
+				CrossSectionId = member.CrossSectionId,
 				Elements = new List<IIdeaElement1D>() { 
 					new IdeaElement1D(id) { 
 							Segment = CreateSegment(member), 

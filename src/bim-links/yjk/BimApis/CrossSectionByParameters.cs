@@ -19,7 +19,9 @@ namespace yjk.BimApis
 
 		//override public double  Rotation { get; set; }
 
-		public CrossSectionByParameters(int no) : base(no)
+		//override public IdeaRS.OpenModel.CrossSection.CrossSectionType Type { get; set; }
+
+		public CrossSectionByParameters(string stringId) : base(stringId)
 		{
 		}
 

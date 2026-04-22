@@ -38,22 +38,19 @@ namespace yjk.Importers
 		{
 			IntIdentifier<IIdeaLoadCase>[] loadCases = loadsApi.GetLoadCasesIds().Select(x => new IntIdentifier<IIdeaLoadCase>(x)).ToArray();
 			InternalForcesBuilder<IIdeaMember1D> builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Local);
-			
-
-
 
 			foreach (IdeaMember1D member in members) 
 			{
-				CrossSectionType type = new CrossSectionType();
 
-				var ty = member.CrossSection.GetType();
-
-/*				if (member.CrossSection.GetType() == CrossSectionByParameters)
+				if (member.CrossSection.GetType().Name == "CrossSectionByParameters")
 				{
 					CrossSectionByParameters cs = (CrossSectionByParameters)member.CrossSection;
-					type = cs.Type;
-				}*/
 
+					if (cs.Type == CrossSectionType.RolledAngle)
+					{
+						//builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Principle);
+					}
+				}
 
 
 				foreach (var loadCase in loadCases)

@@ -11,14 +11,15 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using yjk.BimApis;
 using static yjk.Helpers.UnitConverter;
+using IdeaStatiCa.BimApiLink.Scoping;
 
 namespace yjk.FeaApis
 {
 	public interface IFeaCrossSectionApi
 	{
-		int GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
+		string GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
 			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi, APIData.Hi_DbModelData model);
-		IFeaCrossSection GetCrossSection(int id);
+		IFeaCrossSection GetCrossSection(string id);
 		void ClearCrossSections();
 	}
 
@@ -29,7 +30,7 @@ namespace yjk.FeaApis
 
 		public void ClearCrossSections() { _crossSections.Clear(); }
 
-		public int GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
+		public string GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
 			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi, APIData.Hi_DbModelData model)
 		{
 			int materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
@@ -51,26 +52,39 @@ namespace yjk.FeaApis
 			CrossSectionBy crossSectionBy = CrossSectionBy.ByParameters;
 			(name, crossSectionBy) = CreateCrossSection(crossSectionParameterYjk, yjkCrossSectionId, memberType, model);
 
-			FeaCrossSection newFeaCrossSection = new FeaCrossSection(_id, yjkCrossSectionId, name, materialId, memberType, crossSectionParameterYjk, crossSectionBy);
-
+			FeaCrossSection newFeaCrossSection = new FeaCrossSection(name, yjkCrossSectionId, name, materialId, memberType, crossSectionParameterYjk, crossSectionBy);
+			
+			//TO CONSIDER: DONT NEED TO LOOK FOR EXISTING, JUST REPLACE THE ONE WITH THE SAME ID?
 			//Look for existing
-			foreach (FeaCrossSection crossSection in _crossSections)
+/*			foreach (FeaCrossSection crossSection in _crossSections)
 			{
-				if (newFeaCrossSection.MaterialId == crossSection.MaterialId &&
-					newFeaCrossSection.MemberType == crossSection.MemberType &&
-					newFeaCrossSection.CrossSectionParameterYjk == crossSection.CrossSectionParameterYjk &&
-					newFeaCrossSection.CrossSectionBy == crossSection.CrossSectionBy
-					)
+				if (newFeaCrossSection.CrossSectionBy == crossSection.CrossSectionBy && 
+					newFeaCrossSection.MaterialId == crossSection.MaterialId)
 				{
-					return crossSection.Id;
+					if (newFeaCrossSection.CrossSectionBy == CrossSectionBy.ByName)
+					{
+						if (newFeaCrossSection.Name == crossSection.Name)						{
+							return crossSection.Id;
+						}
+					}
+					else if (newFeaCrossSection.CrossSectionBy == CrossSectionBy.ByParameters)
+					{
+						if (newFeaCrossSection.CrossSectionParameterYjk == crossSection.CrossSectionParameterYjk)
+						{
+							return crossSection.Id;
+						}
+					}
+
 				}
 
-			}
+			}*/
 
 			_crossSections.Add(newFeaCrossSection);
-			_id++;
 
-			return _id - 1;
+			//Check if cross section ID already used
+			//_id++;
+
+			return name;
 		}
 
 		private (string, CrossSectionBy) CreateCrossSection(CrossSectionParameterYjk crossSectionParameterYjk, int yjkCrossSectionId, 
@@ -303,7 +317,7 @@ namespace yjk.FeaApis
 		}
 	
 		
-		public IFeaCrossSection GetCrossSection(int id) => _crossSections.FirstOrDefault(n => n.Id == id);
+		public IFeaCrossSection GetCrossSection(string id) => _crossSections.FirstOrDefault(n => n.Id == id);
 
 	}
 }

@@ -1,22 +1,24 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using IdeaStatiCa.BimApiLink;
+using IdeaStatiCa.BimImporter;
+using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
+using Newtonsoft.Json;
+using Register;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using System.IO;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using IdeaStatiCa.Plugin;
-using IdeaStatiCa.BimApiLink;
-using yjk.ViewModels;
 using yjk.FeaApis;
-using yjk.Importers;
 using yjk.Helpers;
-using System.Diagnostics;
-using IdeaStatiCa.BimImporter;
-using IdeaStatiCa.PluginLogger;
+using yjk.Importers;
+using yjk.ViewModels;
 
 namespace yjk
 {
@@ -69,7 +71,6 @@ namespace yjk
 
 			string checkbotLocation = Properties.Settings.Default.CheckbotLocation;
 
-
 			IFeaApi feaApi = new FeaApi();
 
 			if (_logger is null)
@@ -95,6 +96,16 @@ namespace yjk
 			{
 				Directory.CreateDirectory(fullWorkingDirectory);
 			}
+
+			/*
+			//Read json file to prevent duplicate cross section and material id
+			var jsonPath = Path.Combine(fullWorkingDirectory, "bimapi-data.json");
+			if (File.Exists(jsonPath))
+			{
+				string jsonString = File.ReadAllText(jsonPath);
+				var bimApiData = JsonConvert.DeserializeObject<BimApiData>(jsonString);
+			}
+			*/
 
 			try
 			{

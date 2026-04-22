@@ -337,7 +337,7 @@ namespace yjk.FeaApis
 					break;
 			}
 
-			int crossSectionId = _crossSection.GetCrossSectionId(memberId, memberType, yjkCrossSectionId, matType, matGrade, 
+			string crossSectionId = _crossSection.GetCrossSectionId(memberId, memberType, yjkCrossSectionId, matType, matGrade, 
 				matGrade2, matGrade3, _materialApi, _model);
 
 			FeaMember member = new FeaMember(memberId, new FeaNode(j1, x1, y1, z1), new FeaNode(j2, x2, y2, z2), 
