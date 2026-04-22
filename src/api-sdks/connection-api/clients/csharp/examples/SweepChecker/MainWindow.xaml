@@ -1,0 +1,338 @@
+<Window x:Class="SweepChecker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        Title="Sweep Checker" Height="960" Width="1500"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
+        TextElement.FontFamily="{md:MaterialDesignFont}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- header -->
+            <RowDefinition Height="Auto"/>   <!-- project / IDEA path -->
+            <RowDefinition Height="*" MinHeight="320"/> <!-- params + tabs -->
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="150"/>    <!-- log -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <md:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="16,10">
+            <DockPanel LastChildFill="False">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <md:PackIcon Kind="TuneVariant" Width="26" Height="26" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock Text="Sweep Checker"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock DockPanel.Dock="Right"
+                           Text="IDEA StatiCa Connection · parameter sweep + postprocess"
+                           Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                           VerticalAlignment="Center" Opacity="0.8"/>
+            </DockPanel>
+        </md:ColorZone>
+
+        <!-- Row 1: IDEA path + project file + load parameters -->
+        <md:Card Grid.Row="1" Margin="8,8,8,0" Padding="0">
+            <Expander IsExpanded="True">
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="ServerNetwork" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="IDEA StatiCa Connection" VerticalAlignment="Center"
+                                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                    </StackPanel>
+                </Expander.Header>
+                <Grid Margin="16,4,16,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Mode toggle: Spawn local exe vs. Attach to running service -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                        <RadioButton x:Name="ModeSpawnRadio" Content="Launch local API exe"
+                                     IsChecked="True" GroupName="ApiMode" Margin="0,0,16,0"
+                                     Checked="ApiMode_Changed"/>
+                        <RadioButton x:Name="ModeAttachRadio" Content="Attach to running API service"
+                                     GroupName="ApiMode" Checked="ApiMode_Changed"/>
+                    </StackPanel>
+
+                    <!-- Spawn-mode: folder containing IdeaStatiCa.ConnectionRestApi.exe -->
+                    <DockPanel Grid.Row="1" x:Name="SpawnRow" Margin="0,0,0,8">
+                        <Button DockPanel.Dock="Right" x:Name="BrowseIdeaPathButton" Click="BrowseIdeaPathButton_Click"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Height="40" Padding="12,0" Margin="8,0,0,0"
+                                ToolTip="Pick the folder containing IdeaStatiCa.ConnectionRestApi.exe">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FolderSearchOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Browse folder..." VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBox x:Name="IdeaPathBox"
+                                 md:HintAssist.Hint="Folder containing IdeaStatiCa.ConnectionRestApi.exe"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Text="C:\Dev\IdeaStatiCa\bin\Debug\net8.0-windows"/>
+                    </DockPanel>
+
+                    <!-- Attach-mode: base URL of running service -->
+                    <DockPanel Grid.Row="2" x:Name="AttachRow" Margin="0,0,0,8" Visibility="Collapsed">
+                        <TextBox x:Name="ApiUrlBox"
+                                 md:HintAssist.Hint="API base URL (e.g. http://localhost:5000)"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Text="http://localhost:5000"/>
+                    </DockPanel>
+
+                    <!-- Project file row -->
+                    <DockPanel Grid.Row="3">
+                        <Button DockPanel.Dock="Right" x:Name="LoadProjectButton" Click="LoadProjectButton_Click"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Height="40" Padding="14,0" Margin="8,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Load Parameters" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button DockPanel.Dock="Right" x:Name="BrowseProjectButton" Click="BrowseProjectButton_Click"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Height="40" Padding="12,0" Margin="8,0,0,0"
+                                ToolTip="Select an IDEA Connection project file">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FileSearchOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Browse..." VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBox x:Name="ProjectPathBox"
+                                 md:HintAssist.Hint="Project file (*.ideaCon)"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    </DockPanel>
+                </Grid>
+            </Expander>
+        </md:Card>
+
+        <!-- Row 2: main workspace with two tabs -->
+        <md:Card Grid.Row="2" Margin="8,8,8,0" Padding="0">
+            <TabControl x:Name="MainTabs" Style="{StaticResource MaterialDesignTabControl}">
+
+                <!-- ═══ TAB 1: Sweep Runner ═══ -->
+                <TabItem Header="Sweep Runner">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <md:ColorZone Grid.Row="0" Mode="PrimaryLight" Padding="12,6">
+                            <DockPanel LastChildFill="False">
+                                <TextBlock DockPanel.Dock="Left"
+                                           Text="Parameters (check 'Sweep' + set Start/End/Step to include in the run)"
+                                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                           VerticalAlignment="Center"/>
+                                <Button DockPanel.Dock="Right" x:Name="RunSweepButton"
+                                        Click="RunSweepButton_Click" IsEnabled="False"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Height="32" Padding="14,0" Margin="6,0,0,0"
+                                        Background="{DynamicResource SecondaryHueMidBrush}"
+                                        BorderBrush="{DynamicResource SecondaryHueMidBrush}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="PlayCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                        <TextBlock Text="Run Sweep" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </DockPanel>
+                        </md:ColorZone>
+
+                        <DataGrid Grid.Row="1" x:Name="ParamGrid" AutoGenerateColumns="False"
+                                  CanUserAddRows="False" FontFamily="Consolas" FontSize="12"
+                                  HeadersVisibility="Column"
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  md:DataGridAssist.CellPadding="8,4,8,4">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="Sweep" Width="55"
+                                    Binding="{Binding Sweep, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Key" Binding="{Binding Key}" Width="110" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="260" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="55" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Type" Binding="{Binding ParameterType}" Width="85" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Current" Binding="{Binding CurrentValue}" Width="90" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Single Value" Width="120"
+                                    Binding="{Binding SingleValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Start" Width="80"
+                                    Binding="{Binding Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=G6}"/>
+                                <DataGridTextColumn Header="End" Width="80"
+                                    Binding="{Binding End, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=G6}"/>
+                                <DataGridTextColumn Header="Step" Width="80"
+                                    Binding="{Binding Step, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=G6}"/>
+                            </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Sweep}" Value="True">
+                                            <Setter Property="Background" Value="#E0F7FA"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+
+                <!-- ═══ TAB 2: Results (auto-populated after Run Sweep) ═══ -->
+                <TabItem x:Name="ResultsTab" Header="Results" IsEnabled="False">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Filter bar (plain background — avoid fighting Material theme on ComboBox content) -->
+                        <Border Grid.Row="0" Padding="12,8"
+                                Background="{DynamicResource MaterialDesign.Brush.Background}"
+                                BorderBrush="{DynamicResource MaterialDesign.Brush.DataGrid.RowDivider}"
+                                BorderThickness="0,0,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Connection picker -->
+                                <StackPanel Grid.Column="0" Margin="0,0,12,0" VerticalAlignment="Center">
+                                    <TextBlock Text="Connection"
+                                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                               Opacity="0.7" Margin="2,0,0,2"/>
+                                    <ComboBox x:Name="ConnectionChoice" Width="240" Height="30"
+                                              SelectionChanged="RefreshPostprocess"
+                                              VerticalContentAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- Section picker -->
+                                <StackPanel Grid.Column="1" Margin="0,0,12,0" VerticalAlignment="Center">
+                                    <TextBlock Text="Section"
+                                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                               Opacity="0.7" Margin="2,0,0,2"/>
+                                    <ComboBox x:Name="SectionChoice" Width="130" Height="30"
+                                              SelectionChanged="RefreshPostprocess"
+                                              VerticalContentAlignment="Center">
+                                        <ComboBoxItem Content="Plates" IsSelected="True"/>
+                                        <ComboBoxItem Content="Welds"/>
+                                        <ComboBoxItem Content="Bolts"/>
+                                        <ComboBoxItem Content="Summary"/>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <CheckBox Grid.Column="2" x:Name="PassedOnlyCheck" Content="Passed only"
+                                          Checked="RefreshPostprocess" Unchecked="RefreshPostprocess"
+                                          VerticalAlignment="Center" Margin="4,18,12,0"/>
+                                <TextBlock Grid.Column="3" x:Name="StatsLabel"
+                                           VerticalAlignment="Center" Opacity="0.75" Margin="0,18,0,0"
+                                           Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+                            </Grid>
+                        </Border>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*" MinHeight="220"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="220"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Critical info cards (Plate / Weld / Bolt) -->
+                            <Grid Grid.Row="0" Margin="8,8,8,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <md:Card Grid.Column="0" Padding="12,8" Margin="0,0,4,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Plate critical" FontWeight="Bold" FontSize="12" Foreground="#2E7D32"/>
+                                        <TextBlock x:Name="PlateCritLabel" FontFamily="Consolas" FontSize="11" Margin="0,4,0,0"
+                                                   Text="—"/>
+                                    </StackPanel>
+                                </md:Card>
+                                <md:Card Grid.Column="1" Padding="12,8" Margin="4,0,4,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Weld critical" FontWeight="Bold" FontSize="12" Foreground="#2E7D32"/>
+                                        <TextBlock x:Name="WeldCritLabel" FontFamily="Consolas" FontSize="11" Margin="0,4,0,0"
+                                                   Text="—"/>
+                                    </StackPanel>
+                                </md:Card>
+                                <md:Card Grid.Column="2" Padding="12,8" Margin="4,0,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Bolt critical" FontWeight="Bold" FontSize="12" Foreground="#2E7D32"/>
+                                        <TextBlock x:Name="BoltCritLabel" FontFamily="Consolas" FontSize="11" Margin="0,4,0,0"
+                                                   Text="—"/>
+                                    </StackPanel>
+                                </md:Card>
+                            </Grid>
+
+                            <!-- Chart area: inner TabControl (Hole shape / 3-panel / LiveCharts) -->
+                            <TabControl Grid.Row="1" x:Name="ChartTabs" Margin="4">
+                                <TabItem Header="Hole Shape">
+                                    <Canvas x:Name="HoleCanvas" Background="White"
+                                            SizeChanged="HoleCanvas_SizeChanged"/>
+                                </TabItem>
+                                <TabItem Header="3-panel charts">
+                                    <Canvas x:Name="ChartCanvas" Background="White"
+                                            SizeChanged="ChartCanvas_SizeChanged"/>
+                                </TabItem>
+                                <TabItem Header="LiveCharts2">
+                                    <DockPanel LastChildFill="True">
+                                        <TextBlock DockPanel.Dock="Top"
+                                                   Text="{Binding LiveChartTitle}"
+                                                   FontWeight="SemiBold" FontSize="12"
+                                                   Margin="12,8,0,0"/>
+                                        <lvc:CartesianChart x:Name="LiveChart"
+                                                            Margin="8"
+                                                            LegendPosition="Top"
+                                                            Series="{Binding LiveChartSeries}"
+                                                            XAxes="{Binding LiveChartXAxes}"
+                                                            YAxes="{Binding LiveChartYAxes}"/>
+                                    </DockPanel>
+                                </TabItem>
+                            </TabControl>
+
+                            <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="6"/>
+
+                            <!-- Raw rows grid -->
+                            <DataGrid Grid.Row="3" x:Name="RowsGrid" AutoGenerateColumns="True"
+                                      IsReadOnly="True" CanUserAddRows="False" CanUserSortColumns="True"
+                                      Style="{StaticResource MaterialDesignDataGrid}"
+                                      FontFamily="Consolas" FontSize="11"
+                                      md:DataGridAssist.CellPadding="6,2,6,2"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </md:Card>
+
+        <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="6"
+                      Background="{DynamicResource MaterialDesign.Brush.DataGrid.RowDivider}"/>
+
+        <!-- Log -->
+        <md:Card Grid.Row="4" Margin="8,4,8,8" Padding="0">
+            <DockPanel>
+                <md:ColorZone DockPanel.Dock="Top" Mode="PrimaryLight" Padding="12,4">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="TextBoxOutline" Width="14" Height="14"
+                                     VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBlock Text="LOG" Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </md:ColorZone>
+                <TextBox x:Name="LogBox" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                         FontFamily="Consolas" FontSize="11"
+                         BorderThickness="0" Padding="12,6"
+                         Background="Transparent"/>
+            </DockPanel>
+        </md:Card>
+    </Grid>
+</Window>
