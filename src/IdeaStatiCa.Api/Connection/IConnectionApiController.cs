@@ -29,6 +29,14 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Create a new IDEA Connection project with a default empty connection
+		/// </summary>
+		/// <param name="projectData">Optional project metadata. The DesignCode field determines the design code (e.g. "ECEN", "American"). Defaults to ECEN if not provided.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The created project</returns>
+		Task<ConProject> CreateProjectAsync(ConProjectData projectData, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Close the active project in the service
 		/// </summary>
 		/// <param name="cancellationToken"></param>

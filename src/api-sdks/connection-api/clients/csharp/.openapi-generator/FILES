@@ -82,6 +82,7 @@ docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
 docs/IdeaParameterValidation.md
 docs/IdeaParameterValidationResponse.md
+docs/InstallationProcessTypeEnum.md
 docs/Line.md
 docs/LoadEffectApi.md
 docs/MaterialApi.md
@@ -114,6 +115,7 @@ docs/Text.md
 docs/TextPosition.md
 docs/Vector3D.md
 docs/WeldData.md
+docs/WeldDefinition.md
 docs/WeldType.md
 git_push.sh
 src/IdeaStatiCa.ConnectionApi/Api/CalculationApi.cs
@@ -222,6 +224,7 @@ src/IdeaStatiCa.ConnectionApi/Model/IdeaParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterUpdate.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterValidation.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterValidationResponse.cs
+src/IdeaStatiCa.ConnectionApi/Model/InstallationProcessTypeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/Line.cs
 src/IdeaStatiCa.ConnectionApi/Model/MessageNumber.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenElementId.cs
@@ -244,4 +247,5 @@ src/IdeaStatiCa.ConnectionApi/Model/Text.cs
 src/IdeaStatiCa.ConnectionApi/Model/TextPosition.cs
 src/IdeaStatiCa.ConnectionApi/Model/Vector3D.cs
 src/IdeaStatiCa.ConnectionApi/Model/WeldData.cs
+src/IdeaStatiCa.ConnectionApi/Model/WeldDefinition.cs
 src/IdeaStatiCa.ConnectionApi/Model/WeldType.cs
