@@ -6,7 +6,7 @@ using IdeaRS.OpenModel.Material;
 
 namespace yjk.Importers
 {
-	internal class MaterialImporter : IntIdentifierImporter<IIdeaMaterial>
+	internal class MaterialImporter : StringIdentifierImporter<IIdeaMaterial>
 	{
 		private readonly IFeaMaterialApi materialApi;
 
@@ -15,7 +15,7 @@ namespace yjk.Importers
 			this.materialApi = materialApi;
 		}
 
-		public override IIdeaMaterial Create(int id)
+		public override IIdeaMaterial Create(string id)
 		{
 			
 			IFeaMaterial material = materialApi.GetMaterial(id);

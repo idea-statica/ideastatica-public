@@ -13,9 +13,9 @@ namespace yjk.BimApis
 {
 	internal class CrossSectionByParameters : IdeaCrossSectionByParameters
 	{
-		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
+		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialId);
 
-		public int MaterialNo { get; set; }
+		public string MaterialId { get; set; }
 
 		//override public double  Rotation { get; set; }
 

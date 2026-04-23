@@ -9,21 +9,21 @@ namespace yjk.FeaApis
 {
 	public interface IFeaMaterial
 	{
-		int Id { get; }
+		string Id { get; }
 		MaterialType MaterialType { get; }
 		string Name { get; }
 	}
 
 	internal abstract class FeaMaterial : IFeaMaterial
 	{
-		public int Id { get; set; }
+		public string Id { get; set; }
 		public MaterialType MaterialType { get; set; }
 		public string Name { get; set; }
 	}
 
 	internal class FeaMaterialSteel : FeaMaterial
 	{
-		public FeaMaterialSteel(int id, string name)
+		public FeaMaterialSteel(string id, string name)
 		{
 			Id = id;
 			MaterialType = MaterialType.Steel;
@@ -33,7 +33,7 @@ namespace yjk.FeaApis
 
 	internal class FeaMaterialConcrete: FeaMaterial
 	{
-		public FeaMaterialConcrete(int id, string name, double fck)
+		public FeaMaterialConcrete(string id, string name, double fck)
 		{
 			Id = id;
 			MaterialType = MaterialType.Concrete;

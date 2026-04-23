@@ -33,7 +33,7 @@ namespace yjk.FeaApis
 		public string GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
 			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi, APIData.Hi_DbModelData model)
 		{
-			int materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
+			string materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
 
 			/*			//Look for existing
 						foreach (FeaCrossSection crossSection in _crossSections)

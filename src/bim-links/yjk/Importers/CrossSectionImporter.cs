@@ -26,7 +26,7 @@ namespace yjk.Importers
 			{
 				return new CrossSectionByParameters(id)
 				{
-					MaterialNo = crossSection.MaterialId,
+					MaterialId = crossSection.MaterialId,
 					Name = crossSection.Name,
 					Parameters = crossSection.CrossSectionParameterYjk.Parameters.ToHashSet(),
 					Type = crossSection.CrossSectionParameterYjk.CrossSectionType,
@@ -37,7 +37,7 @@ namespace yjk.Importers
 			{
 				return new CrossSectionByName(id)
 				{
-					MaterialNo = crossSection.MaterialId,
+					MaterialId = crossSection.MaterialId,
 					Name = crossSection.Name,
 					Rotation = DegToRad(180)
 				};
@@ -45,7 +45,7 @@ namespace yjk.Importers
 
 			return new CrossSectionByName(id)
 			{
-				MaterialNo = crossSection.MaterialId,
+				MaterialId = crossSection.MaterialId,
 				Name = crossSection.Name,
 			};
 		}

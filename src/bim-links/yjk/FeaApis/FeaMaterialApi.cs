@@ -9,8 +9,8 @@ namespace yjk.FeaApis
 {
 	public interface IFeaMaterialApi
 	{
-		int GetMaterialId(int matType, float matGrade, float matGrade2, float matGrade3);
-		IFeaMaterial GetMaterial(int id);
+		string GetMaterialId(int matType, float matGrade, float matGrade2, float matGrade3);
+		IFeaMaterial GetMaterial(string id);
 		void ClearMaterials();
 	}
 
@@ -21,7 +21,7 @@ namespace yjk.FeaApis
 
 		public void ClearMaterials() {_materials.Clear(); }
 
-		public int GetMaterialId(int matType, float matGrade, float matGrade2, float matGrade3)
+		public string GetMaterialId(int matType, float matGrade, float matGrade2, float matGrade3)
 		{
 			//Convert matType
 			MaterialType materialType = new MaterialType();
@@ -75,10 +75,10 @@ namespace yjk.FeaApis
 					}
 
 					//Add new material
-					_materials.Add(new FeaMaterialSteel(_id, matGrade2Translated));
-					_id++;
+					_materials.Add(new FeaMaterialSteel(matGrade2Translated, matGrade2Translated));
+					//_id++;
 
-					return _id - 1;
+					return matGrade2Translated;
 
 				//Concrete
 				case 6:
@@ -97,15 +97,15 @@ namespace yjk.FeaApis
 					}
 
 					//Add new material
-					_materials.Add(new FeaMaterialConcrete(_id, matGrade.ToString(), matGrade));
-					_id++;
+					_materials.Add(new FeaMaterialConcrete(matGrade.ToString(), matGrade.ToString(), matGrade));
+					//_id++;
 
-					return _id - 1;
+					return matGrade.ToString();
 			}
 
-			return -1;
+			return "";
 		}
 
-		public IFeaMaterial GetMaterial(int id) => _materials.FirstOrDefault(n => n.Id == id);
+		public IFeaMaterial GetMaterial(string id) => _materials.FirstOrDefault(n => n.Id == id);
 	}
 }
