@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**close_project**](ProjectApi.md#close_project) | Closes the project and releases resources in the service.
+[**create_empty_project**](ProjectApi.md#create_empty_project) | Creates a new empty IdeaCon project with no connections.
 [**download_project**](ProjectApi.md#download_project) | Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 [**get_active_projects**](ProjectApi.md#get_active_projects) | Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 [**get_project_data**](ProjectApi.md#get_project_data) | Get data of the project.
@@ -79,6 +80,83 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="create_empty_project"></a>
+# **create_empty_project**
+> ConProject create_empty_project(con_project_data=con_project_data)
+
+Creates a new empty IdeaCon project with no connections.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **con_project_data** | [**ConProjectData**](ConProjectData.md)| Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. | [optional] 
+
+### Return type
+
+[**ConProject**](ConProject.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_project import ConProject
+from ideastatica_connection_api.models.con_project_data import ConProjectData
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def create_empty_projectExampleFunc(api_client):
+    
+    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided. (optional)
+
+    try:
+        # Creates a new empty IdeaCon project with no connections.
+        api_response = api_client.project.create_empty_project(con_project_data=con_project_data)
+        print("The response of ProjectApi->create_empty_project:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling ProjectApi->create_empty_project: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
