@@ -2089,6 +2089,29 @@ paths:
       - Project
       x-requiresProject: false
       x-requiresConnection: false
+    post:
+      operationId: CreateEmptyProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+        description: "Optional project metadata. The DesignCode field determines\r\
+          \n            the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults\
+          \ to ECEN if not provided."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: OK
+      summary: Creates a new empty IdeaCon project with no connections.
+      tags:
+      - Project
+      x-requiresProject: false
+      x-requiresConnection: false
+      x-extensionMethodName: CreateEmptyProject
   /api/3/projects/{projectId}/download:
     get:
       operationId: DownloadProject
