@@ -37,22 +37,22 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 		Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-		// <summary>
-		// Creates a new empty IDEA Connection project with the given design code.
-		// </summary>
-		// <param name="designCode">The design code for the project (e.g. "ECEN", "American", "AUS").</param>
-		// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-		// <returns>The created project.</returns>
-		//Task<ConProject> CreateProjectAsync(string designCode, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		/// <summary>
+		/// Creates a new empty IDEA Connection project with the given design code.
+		/// </summary>
+		/// <param name="designCode">The design code for the project (e.g. "ECEN", "American", "AUS").</param>
+		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+		/// <returns>The created project.</returns>
+		Task<ConProject> CreateProjectAsync(string designCode, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-		// <summary>
-		// Creates a new empty IDEA Connection project with the given design code and name.
-		// </summary>
-		// <param name="designCode">The design code for the project (e.g. "ECEN", "American", "AUS").</param>
-		// <param name="name">The name of the project.</param>
-		// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-		// <returns>The created project.</returns>
-		//Task<ConProject> CreateProjectAsync(string designCode, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		/// <summary>
+		/// Creates a new empty IDEA Connection project with the given design code and name.
+		/// </summary>
+		/// <param name="designCode">The design code for the project (e.g. "ECEN", "American", "AUS").</param>
+		/// <param name="name">The name of the project.</param>
+		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+		/// <returns>The created project.</returns>
+		Task<ConProject> CreateProjectAsync(string designCode, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
 	/// <summary>
@@ -156,22 +156,22 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			}
 		}
 
-		//public Task<ConProject> CreateProjectAsync(string designCode, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-		//{
-		//	return CreateProjectAsync(new ConProjectData { DesignCode = designCode }, cancellationToken);
-		//}
+		public Task<ConProject> CreateProjectAsync(string designCode, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			return CreateProjectAsync(new ConProjectData { DesignCode = designCode }, cancellationToken);
+		}
 
-		//public Task<ConProject> CreateProjectAsync(string designCode, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-		//{
-		//	return CreateProjectAsync(new ConProjectData { DesignCode = designCode, Name = name }, cancellationToken);
-		//}
+		public Task<ConProject> CreateProjectAsync(string designCode, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			return CreateProjectAsync(new ConProjectData { DesignCode = designCode, Name = name }, cancellationToken);
+		}
 
-		//private async Task<ConProject> CreateProjectAsync(ConProjectData projectData, System.Threading.CancellationToken cancellationToken)
-		//{
-		//	var conProject = await CreateEmptyProjectAsync(projectData, 0, cancellationToken);
-		//	this.ProjectId = conProject.ProjectId;
-		//	return conProject;
-		//}
+		private async Task<ConProject> CreateProjectAsync(ConProjectData projectData, System.Threading.CancellationToken cancellationToken)
+		{
+			var conProject = await CreateEmptyProjectAsync(projectData, 0, cancellationToken);
+			this.ProjectId = conProject.ProjectId;
+			return conProject;
+		}
 
 	}
 }
