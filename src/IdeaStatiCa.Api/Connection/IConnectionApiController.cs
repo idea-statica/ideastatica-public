@@ -64,6 +64,24 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="token"></param>
 		/// <returns></returns>
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
+
+		/// <summary>
+		/// Adds a new empty connection to the active project.
+		/// </summary>
+		/// <param name="name">Optional connection name. If null or empty, a default name <c>CON{id}</c> is assigned on the server.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The newly created connection.</returns>
+		Task<ConConnection> CreateEmptyConnectionAsync(string name, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Creates a copy of an existing connection in the active project.
+		/// </summary>
+		/// <param name="connectionId">Id of the source connection to copy.</param>
+		/// <param name="name">Optional name for the new connection. If null or empty, a unique name is derived from the source connection name on the server.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The newly created connection.</returns>
+		Task<ConConnection> CopyConnectionAsync(int connectionId, string name, CancellationToken cancellationToken = default);
+
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
 
 		/// <summary>
