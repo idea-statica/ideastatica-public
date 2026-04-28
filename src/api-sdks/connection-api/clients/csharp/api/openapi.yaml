@@ -207,6 +207,40 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: false
+    post:
+      operationId: CreateEmptyConnection
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "Optional connection name. If null or empty, a default name `CON{newId}`\
+          \ is assigned."
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConConnection'
+          description: OK
+      summary: Adds a new empty connection to the project.
+      tags:
+      - Connection
+      x-requiresProject: true
+      x-requiresConnection: false
   /api/3/projects/{projectId}/connections/{connectionId}:
     delete:
       operationId: DeleteConnection
@@ -314,6 +348,50 @@ paths:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
       summary: Updates data of a specific connection in the project.
+      tags:
+      - Connection
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/copy:
+    post:
+      operationId: CopyConnection
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the source connection to copy.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: "Optional name for the new connection. If null or empty, a unique\
+          \ name is derived from the source connection name."
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConConnection'
+          description: OK
+      summary: Creates a copy of an existing connection in the project.
       tags:
       - Connection
       x-requiresProject: true
