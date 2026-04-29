@@ -400,6 +400,23 @@ namespace IdeaStatiCa.BimApiLink.Utils
 		}
 
 		/// <summary>
+		/// T shape rev (T upside down) - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Bottom flange width</param>
+		/// <param name="bw">Wall width</param>
+		public static void FillShapeTrev(IdeaCrossSectionByParameters css, double b, double h, double hf, double bw)
+		{
+			css.Type = CrossSectionType.Tgrev;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TopFlangeWidth", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WallWidth", Value = bw });
+		}
+
+		/// <summary>
 		/// T shape  - massive concrete shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
