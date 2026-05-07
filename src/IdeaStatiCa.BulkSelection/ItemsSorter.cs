@@ -220,8 +220,8 @@ namespace IdeaStatiCa.BIM.Common
 				};
 				return new Node[]
 				{
-					new Node(i * 2 + 1, b.Begin, surrb, b),
-					new Node(i * 2 + 2, b.End, surre, b),
+					new Node((i * 2) + 1, b.Begin, surrb, b),
+					new Node((i * 2) + 2, b.End, surre, b),
 				};
 			}).ToArray();
 
@@ -798,7 +798,7 @@ namespace IdeaStatiCa.BIM.Common
 				var dx = x2 - x1;
 				var dy = y2 - y1;
 				var dz = z2 - z1;
-				var len = Math.Sqrt(dx * dx + dy * dy + dz * dz);
+				var len = Math.Sqrt((dx * dx) + (dy * dy) + (dz * dz));
 				sx += (x1 + x2) / 2 * len;
 				sy += (y1 + y2) / 2 * len;
 				sz += (z1 + z2) / 2 * len;
@@ -1003,15 +1003,23 @@ namespace IdeaStatiCa.BIM.Common
 				if (data.Plates != null)
 				{
 					var plates = data.Plates
-						.Select(p => $"\tvar p{p.Iid} = new Plate({p.Iid}, {CreateLCS(p.LCS)}, {CreateContour(p.Contour)}, {p.Thickness});");
+						.Select(p => $"\tvar p{p.Iid} = new Plate({p.Iid}, {CreateLCS(p.LCS)}, {CreateContour(p.Contour)}, {D(p.Thickness)});");
 					sb.AppendLine(string.Join(Environment.NewLine, plates));
 				}
 
-				var joints = result.Joints
-					.Select((j, i) => $"\tvar j{i + 1} = new Joint({CreatePoint3D(j.Location)}) {{ " +
-					$"Members = new Member[] {{ {string.Join(",", j.Members.Select(m => $"m{m.Iid}"))} }}, " +
-					$"Plates = new Plate[] {{ {string.Join(",", j.Plates.Select(p => $"p{p.Iid}"))} }}, }};");
-				sb.AppendLine(string.Join(Environment.NewLine, joints));
+				var jointLines = result.Joints.Select((j, i) =>
+				{
+					var membersStr = j.Members != null ? string.Join(",", j.Members.Select(m => $"m{m.Iid}")) : "";
+					var platesStr = j.Plates != null ? string.Join(",", j.Plates.Select(p => $"p{p.Iid}")) : "";
+					var stiffStr = j.StiffeningMembers != null && j.StiffeningMembers.Count > 0
+						? $" StiffeningMembers = new Member[] {{ {string.Join(",", j.StiffeningMembers.Select(m => $"m{m.Iid}"))} }},"
+						: "";
+					return $"\tvar j{i + 1} = new Joint({CreatePoint3D(j.Location)}) {{ " +
+						$"Members = new Member[] {{ {membersStr} }}, " +
+						$"Plates = new Plate[] {{ {platesStr} }},{stiffStr} }};";
+				}).ToList();
+
+				sb.AppendLine(string.Join(Environment.NewLine, jointLines));
 
 				sb.AppendLine("\treturn new object[]");
 				sb.AppendLine("\t{");
@@ -1031,13 +1039,14 @@ namespace IdeaStatiCa.BIM.Common
 				sb.AppendLine("\t\t},");
 				sb.AppendLine("\t\tnew SorterResult(new List<Joint>()");
 				sb.AppendLine("\t\t{");
-				sb.Append("\t\t\t").AppendLine(string.Join(",", joints.Select((_, i) => $"j{i + 1}")));
+				sb.Append("\t\t\t").AppendLine(string.Join(",", jointLines.Select((_, i) => $"j{i + 1}")));
 				sb.AppendLine("\t\t}),");
 				sb.AppendLine("\t};");
 
 				sb.AppendLine("}");
 				var testCaseString = sb.ToString();
-				//System.IO.File.WriteAllText("D:\\TestCaseData.txt", testCaseString);
+				var outputPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "ItemsSorterTestCaseData.txt");
+				System.IO.File.WriteAllText(outputPath, testCaseString);
 				return testCaseString;
 			}
 
@@ -1051,20 +1060,23 @@ namespace IdeaStatiCa.BIM.Common
 				return $"CreateLCS({CreatePoint3D(m.Origin)}, {CreateVector3D(m.AxisX)}, {CreateVector3D(m.AxisY)}, {CreateVector3D(m.AxisZ)})";
 			}
 
+			private static string D(double v) => v.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
 			private static string CreatePoint3D(IPoint3D p)
 			{
-				return $"Point3D({p.X}, {p.Y}, {p.Z})";
+				return $"Point3D({D(p.X)}, {D(p.Y)}, {D(p.Z)})";
 			}
 
 			private static string CreateRect(Rect r)
 			{
-				return $"Rect({r.Width}, {r.Height})";
+				return $"Rect({D(r.Width)}, {D(r.Height)})";
 			}
 
 			private static string CreateVector3D(Vector3D v)
 			{
-				return $"new Vector3D({v.DirectionX}, {v.DirectionY}, {v.DirectionZ})";
+				return $"new Vector3D({D(v.DirectionX)}, {D(v.DirectionY)}, {D(v.DirectionZ)})";
 			}
+
 		}
 #endif
 	}
