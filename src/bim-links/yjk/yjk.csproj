@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -133,10 +134,10 @@
     <Compile Include="BimApis\CrossSectionByName.cs" />
     <Compile Include="BimApis\CrossSectionByParameters.cs" />
     <Compile Include="BimApis\CrossSectionParameterYjk.cs" />
+    <Compile Include="BimApis\InternalForcesBuilderYjk.cs" />
     <Compile Include="BimApis\Member1D.cs" />
     <Compile Include="BimApis\ParameterDoubleYjk.cs" />
     <Compile Include="BimApis\Segment3D.cs" />
-    <Compile Include="BimApis\YjkApplication.cs" />
     <Compile Include="FeaApis\FeaApi.cs" />
     <Compile Include="FeaApis\FeaCrossSection.cs" />
     <Compile Include="FeaApis\FeaCrossSectionApi.cs" />
@@ -176,6 +177,8 @@
     <Compile Include="ViewModels\AppLogger.cs" />
     <Compile Include="ViewModels\MessageSeverity.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="YjkApplication.cs" />
+    <Compile Include="YjkBimLink.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

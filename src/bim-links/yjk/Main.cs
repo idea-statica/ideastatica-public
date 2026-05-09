@@ -122,7 +122,7 @@ namespace yjk
 					AutoCreateConnFromTwoMembers = false 
 				};
 
-				await FeaBimLink.Create("YJK", fullWorkingDirectory)
+				await YjkBimLink.Create("YJK", fullWorkingDirectory)
 					.WithIdeaStatiCa(checkbotLocation)
 					.WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
 					.WithResultsImporters(x => x.RegisterImporter(container.Resolve<ResultsImporter>()))

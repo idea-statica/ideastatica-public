@@ -280,10 +280,29 @@ namespace IdeaStatiCa.BimImporter
 
 			if (group.Type == RequestedItemsType.Connections || group.Type == RequestedItemsType.SingleConnection)
 			{
-				List<IIdeaObject> objects = group.Items
-					.Select(x => _project.GetBimObject(x.Id))
-					.Where(x => x != null)
-					.ToList();
+				/*List<IIdeaObject> objects = group.Items
+									.Select(x => _project.GetBimObject(x.Id))
+									.Where(x => x != null)
+									.ToList();*/
+
+				List<IIdeaObject> objects = new List<IIdeaObject>();
+				foreach (var item in group.Items)
+				{
+					try
+					{
+						var bimObj = _project.GetBimObject(item.Id);
+						if (bimObj != null)
+						{
+							objects.Add(bimObj);
+						}
+					}
+					catch (Exception ex)
+					{
+						// Log item.Id here to find the culprit
+						Console.WriteLine($"Error on Id: {item.Id} - {ex.Message}");
+					}
+				}
+
 
 				IIdeaNode node = objects
 					.OfType<IIdeaNode>()

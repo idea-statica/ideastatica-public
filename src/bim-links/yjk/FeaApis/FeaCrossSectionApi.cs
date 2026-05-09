@@ -35,15 +35,15 @@ namespace yjk.FeaApis
 		{
 			string materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
 
-			/*			//Look for existing
-						foreach (FeaCrossSection crossSection in _crossSections)
+		/*			//Look for existing
+					foreach (FeaCrossSection crossSection in _crossSections)
+					{
+						if (crossSection.YjkId == yjkCrossSectionId && crossSection.MaterialId == materialId *//*&& 
+							crossSection.MemberType == memberType*//*)
 						{
-							if (crossSection.YjkId == yjkCrossSectionId && crossSection.MaterialId == materialId *//*&& 
-								crossSection.MemberType == memberType*//*)
-							{
-								return crossSection.Id;
-							}
-						}*/
+							return crossSection.Id;
+						}
+					}*/
 
 			//Add new cross section
 			CrossSectionParameterYjk crossSectionParameterYjk = new CrossSectionParameterYjk();

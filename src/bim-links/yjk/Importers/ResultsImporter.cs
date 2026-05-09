@@ -1,15 +1,17 @@
-﻿using yjk.FeaApis;
+﻿using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Results;
+using IdeaStatiCa.BimImporter.BimItems;
 using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using yjk.BimApis;
-using IdeaRS.OpenModel.CrossSection;
+using yjk.FeaApis;
 
 namespace yjk.Importers
 {
@@ -37,25 +39,30 @@ namespace yjk.Importers
 		public IEnumerable<ResultsData<IIdeaMember1D>> GetResults(IReadOnlyList<IIdeaMember1D> members)
 		{
 			IntIdentifier<IIdeaLoadCase>[] loadCases = loadsApi.GetLoadCasesIds().Select(x => new IntIdentifier<IIdeaLoadCase>(x)).ToArray();
-			InternalForcesBuilder<IIdeaMember1D> builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Local);
+			InternalForcesBuilderYjk<IIdeaMember1D> builder = new InternalForcesBuilderYjk<IIdeaMember1D>(ResultLocalSystemType.Principle);
 
 			foreach (IdeaMember1D member in members) 
 			{
+				//Default 
+				builder.ResultLocalSystemType = ResultLocalSystemType.Local;
 
+				//If it's L angle need to take the principal instead
 				if (member.CrossSection.GetType().Name == "CrossSectionByParameters")
 				{
 					CrossSectionByParameters cs = (CrossSectionByParameters)member.CrossSection;
 
 					if (cs.Type == CrossSectionType.RolledAngle)
 					{
+						builder.ResultLocalSystemType = ResultLocalSystemType.Principle;
 						//builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Principle);
 					}
 				}
+				//TODO: Should also check for CrossSectionByName for L angle but currently no way to do it
 
 
 				foreach (var loadCase in loadCases)
 				{
-					InternalForcesBuilder<IIdeaMember1D>.Sections sections = builder.For(member, loadCase);
+					InternalForcesBuilderYjk<IIdeaMember1D>.Sections sections = builder.For(member, loadCase);
 					GetResultsForMember(sections, member, loadCase, resultsApi);
 				}
 			}
@@ -63,7 +70,7 @@ namespace yjk.Importers
 			return builder;
 		}
 
-		private static void GetResultsForMember(InternalForcesBuilder<IIdeaMember1D>.Sections sections,
+		private static void GetResultsForMember(InternalForcesBuilderYjk<IIdeaMember1D>.Sections sections,
 										IdeaMember1D member, IntIdentifier<IIdeaLoadCase> loadCase,
 										IFeaResultsApi resultsApi)
 		{			
@@ -100,12 +107,12 @@ namespace yjk.Importers
 					}
 				}
 
-				AddResult(sections, currentSection, result);
+				AddResult(member, sections, currentSection, result);
 				currentSection = nextSection;
 			}
 
 			// add the very last result
-			AddResult(sections, currentSection, results.Last());
+			AddResult(member, sections, currentSection, results.Last());
 		}
 
 		private static double GetLength(IIdeaNode startNode, IIdeaNode endNode)
@@ -118,7 +125,7 @@ namespace yjk.Importers
 			return Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z));
 		}
 
-		private static void AddResult(InternalForcesBuilder<IIdeaMember1D>.Sections sections, double location, IFeaMemberResult result)
+		private static void AddResult(IIdeaMember1D member, InternalForcesBuilderYjk<IIdeaMember1D>.Sections sections, double location, IFeaMemberResult result)
 		{
 			// Convert source results to correct units
 			// and correct coordinate system if necessary
@@ -128,7 +135,20 @@ namespace yjk.Importers
 			double Tx = result.Mx * unitConversionFactor;
 			double My = result.My * unitConversionFactor;
 			double Mz = result.Mz * unitConversionFactor;
-			sections.Add(location, N, Vy, Vz, Tx, My, Mz);			
+
+			//Reverse Mz and Vz for L angle
+			if (member.CrossSection.GetType().Name == "CrossSectionByParameters")
+			{
+				CrossSectionByParameters cs = (CrossSectionByParameters)member.CrossSection;
+
+				if (cs.Type == CrossSectionType.RolledAngle)
+				{
+					Mz *= -1;
+					Vz *= -1;
+				}
+			}
+
+			sections.Add(location, N, Vy, Vz, Tx, My, Mz);
 		}
 	}
 }
