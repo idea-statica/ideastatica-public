@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi.Api
@@ -20,6 +21,17 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// cref="System.Threading.CancellationToken.None"/>.</param>
 		/// <returns>A task that represents the asynchronous operation. The task result contains a byte array of the picture data.</returns>
 		Task<byte[]> GetDesignItemPictureDataAsync(Guid designSetId, Guid designItemId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+		/// <summary>
+		/// Asynchronously downloads the picture (PNG) for a specified design item and saves it to a file.
+		/// </summary>
+		/// <param name="designSetId">The unique identifier of the design set.</param>
+		/// <param name="designItemId">The unique identifier of the design item for which the picture is requested.</param>
+		/// <param name="filePath">The full path to the PNG file which will be created (or overwritten).</param>
+		/// <param name="cancellationToken">A token to monitor for cancellation requests. The default value is <see
+		/// cref="System.Threading.CancellationToken.None"/>.</param>
+		/// <returns>A task that represents the asynchronous file write operation.</returns>
+		Task SaveDesignItemPictureAsync(Guid designSetId, Guid designItemId, string filePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
 	/// <summary>
@@ -43,5 +55,22 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			return buffer;
 		}
 
+		/// <inheritdoc cref="IConnectionLibraryApiExt.SaveDesignItemPictureAsync(Guid, Guid, string, System.Threading.CancellationToken)"/>
+		public async Task SaveDesignItemPictureAsync(Guid designSetId, Guid designItemId, string filePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			byte[] buffer = await GetDesignItemPictureDataAsync(designSetId, designItemId, cancellationToken);
+
+			string directory = Path.GetDirectoryName(filePath);
+			if (!string.IsNullOrEmpty(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+#if NETSTANDARD2_1_OR_GREATER
+			await File.WriteAllBytesAsync(filePath, buffer, cancellationToken);
+#else
+			File.WriteAllBytes(filePath, buffer);
+#endif
+		}
 	}
 }
