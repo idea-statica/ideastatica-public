@@ -281,9 +281,9 @@ namespace IdeaStatiCa.BimImporter
 			if (group.Type == RequestedItemsType.Connections || group.Type == RequestedItemsType.SingleConnection)
 			{
 				List<IIdeaObject> objects = group.Items
-									.Select(x => _project.GetBimObject(x.Id))
-									.Where(x => x != null)
-									.ToList();
+					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null)
+					.ToList();
 
 				IIdeaNode node = objects
 					.OfType<IIdeaNode>()
@@ -458,6 +458,6 @@ namespace IdeaStatiCa.BimImporter
 
 				yield return segment.EndNode;
 			}
-		}		
+		}
 	}
 }
