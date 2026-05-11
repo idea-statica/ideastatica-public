@@ -82,6 +82,29 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> CreateConTemplateWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">The source of the requested template</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConTemplateCreateResult</returns>
+        ConTemplateCreateResult CreateTemplateFromConnection(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+/// <param name="connectionId">The source of the requested template</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConTemplateCreateResult</returns>
+        ApiResponse<ConTemplateCreateResult> CreateTemplateFromConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Delete specific template
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -400,6 +423,34 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> CreateConTemplateWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">The source of the requested template</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConTemplateCreateResult</returns>
+        System.Threading.Tasks.Task<ConTemplateCreateResult> CreateTemplateFromConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">The source of the requested template</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConTemplateCreateResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConTemplateCreateResult>> CreateTemplateFromConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Delete specific template
         /// </summary>
@@ -1115,6 +1166,156 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CreateConTemplate", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts). 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">The source of the requested template</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConTemplateCreateResult</returns>
+        public ConTemplateCreateResult CreateTemplateFromConnection(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConTemplateCreateResult> localVarResponse = CreateTemplateFromConnectionWithHttpInfo(projectId, connectionId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts). 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+/// <param name="connectionId">The source of the requested template</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConTemplateCreateResult</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConTemplateCreateResult> CreateTemplateFromConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.CreateTemplateFromConnection";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<ConTemplateCreateResult>("/api/3/projects/{projectId}/connections/{connectionId}/templates/create-from-connection", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CreateTemplateFromConnection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts). 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">The source of the requested template</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConTemplateCreateResult</returns>
+        public async System.Threading.Tasks.Task<ConTemplateCreateResult> CreateTemplateFromConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConTemplateCreateResult> localVarResponse = await CreateTemplateFromConnectionWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts). 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="connectionId">The source of the requested template</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConTemplateCreateResult)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConTemplateCreateResult>> CreateTemplateFromConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "TemplateApi.CreateTemplateFromConnection";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<ConTemplateCreateResult>("/api/3/projects/{projectId}/connections/{connectionId}/templates/create-from-connection", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CreateTemplateFromConnection", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

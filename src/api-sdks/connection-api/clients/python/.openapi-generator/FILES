@@ -56,6 +56,7 @@ docs/ConResultSummary.md
 docs/ConStiffnessAnalysis.md
 docs/ConTemplateApplyParam.md
 docs/ConTemplateApplyResult.md
+docs/ConTemplateCreateResult.md
 docs/ConTemplateMappingGetParam.md
 docs/ConTemplatePublishParam.md
 docs/ConWeldSizingMethodEnum.md
@@ -191,6 +192,7 @@ ideastatica_connection_api/models/con_result_summary.py
 ideastatica_connection_api/models/con_stiffness_analysis.py
 ideastatica_connection_api/models/con_template_apply_param.py
 ideastatica_connection_api/models/con_template_apply_result.py
+ideastatica_connection_api/models/con_template_create_result.py
 ideastatica_connection_api/models/con_template_mapping_get_param.py
 ideastatica_connection_api/models/con_template_publish_param.py
 ideastatica_connection_api/models/con_weld_sizing_method_enum.py
