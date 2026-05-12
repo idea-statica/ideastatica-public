@@ -354,6 +354,18 @@ namespace IdeaStatiCa.Api.Connection
 		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Create a reusable connection template from <paramref name="connectionId"/> with structured metadata.
+		/// Captures the connection's parametric design — operations, parameters, parametric links,
+		/// analysis info, loads and clipping/section data — and returns it as a contemp payload
+		/// alongside metadata inherited from the source connection (design code, version,
+		/// manufacturing type, member typology, and operation/parameter/link counts).
+		/// </summary>
+		/// <param name="connectionId">The source of the requested template</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Template payload and its structured metadata</returns>
+		Task<ConTemplateCreateResult> CreateTemplateFromConnectionAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get specific template in connection by id
 		/// </summary>
 		/// <param name="connectionId"></param>

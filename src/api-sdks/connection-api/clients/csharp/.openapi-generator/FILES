@@ -56,6 +56,7 @@ docs/ConResultSummary.md
 docs/ConStiffnessAnalysis.md
 docs/ConTemplateApplyParam.md
 docs/ConTemplateApplyResult.md
+docs/ConTemplateCreateResult.md
 docs/ConTemplateMappingGetParam.md
 docs/ConTemplatePublishParam.md
 docs/ConWeldSizingMethodEnum.md
@@ -202,6 +203,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConResultSummary.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConStiffnessAnalysis.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyResult.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConTemplateCreateResult.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateMappingGetParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplatePublishParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConWeldSizingMethodEnum.cs
