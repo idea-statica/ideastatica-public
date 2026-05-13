@@ -1,9 +1,9 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using yjk.ViewModels;
 
 namespace yjk.FeaApis
 {
@@ -18,6 +18,7 @@ namespace yjk.FeaApis
 	{
 		List<FeaMaterial> _materials = new List<FeaMaterial>();
 		int _id = 1;
+		private IPluginLogger _logger = AppLogger.Instance;
 
 		public void ClearMaterials() {_materials.Clear(); }
 
@@ -64,6 +65,9 @@ namespace yjk.FeaApis
 							break;
 					}
 
+					if (string.IsNullOrEmpty(matGrade2Translated))
+						_logger.LogWarning($"Unrecognised steel grade {matGrade2}, material name will be empty");
+
 					//Look at available materials
 					foreach (FeaMaterial material in _materials)
 					{
@@ -71,10 +75,10 @@ namespace yjk.FeaApis
 						{
 							return material.Id;
 						}
-
 					}
 
 					//Add new material
+					_logger.LogInformation($"Material added: Steel, name={matGrade2Translated}");
 					_materials.Add(new FeaMaterialSteel(matGrade2Translated, matGrade2Translated));
 					//_id++;
 
@@ -97,12 +101,14 @@ namespace yjk.FeaApis
 					}
 
 					//Add new material
+					_logger.LogInformation($"Material added: Concrete, Fck={matGrade}");
 					_materials.Add(new FeaMaterialConcrete(matGrade.ToString(), matGrade.ToString(), matGrade));
 					//_id++;
 
 					return matGrade.ToString();
 			}
 
+			_logger.LogWarning($"Unrecognised material type {matType}, returning empty material ID");
 			return "";
 		}
 

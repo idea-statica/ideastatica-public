@@ -6,12 +6,15 @@ using IdeaStatiCa.BimApi;
 using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;
 using static yjk.Helpers.UnitConverter;
+using IdeaStatiCa.Plugin;
+using yjk.ViewModels;
 
 namespace yjk.Importers
 {
 	internal class MemberImporter : IntIdentifierImporter<IIdeaMember1D>
 	{
 		private readonly IFeaGeometryApi geometry;
+		private readonly IPluginLogger _logger = AppLogger.Instance;
 
 		public MemberImporter(IFeaGeometryApi geometry)
 		{
@@ -20,6 +23,7 @@ namespace yjk.Importers
 
 		public override IIdeaMember1D Create(int id)
 		{
+			_logger.LogInformation($"MemberImporter.Create: id={id}");
 			IFeaMember member = geometry.GetMember(id);
 			return new Member1D(id)
 			{

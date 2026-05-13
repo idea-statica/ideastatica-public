@@ -39,7 +39,6 @@ namespace yjk
 			if (_windowHelper == null)
 			{
 				_windowHelper = new WindowHelper();
-				_windowHelper.Show();
 			}
 
 			try
@@ -96,16 +95,6 @@ namespace yjk
 			{
 				Directory.CreateDirectory(fullWorkingDirectory);
 			}
-
-			/*
-			//Read json file to prevent duplicate cross section and material id
-			var jsonPath = Path.Combine(fullWorkingDirectory, "bimapi-data.json");
-			if (File.Exists(jsonPath))
-			{
-				string jsonString = File.ReadAllText(jsonPath);
-				var bimApiData = JsonConvert.DeserializeObject<BimApiData>(jsonString);
-			}
-			*/
 
 			try
 			{

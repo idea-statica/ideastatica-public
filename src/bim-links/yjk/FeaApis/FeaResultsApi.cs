@@ -1,5 +1,7 @@
 ﻿using APIData;
 using CsToYjk;
+using IdeaStatiCa.Plugin;
+using yjk.ViewModels;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Loading;
 using IdeaRS.OpenModel.Result;
@@ -27,8 +29,9 @@ namespace yjk.FeaApis
 	internal class FeaResultsApi : IFeaResultsApi
 	{
 		private Dictionary<int, List<IFeaMemberResult>> _resultsForMembers = new Dictionary<int, List<IFeaMemberResult>>();
+		private IPluginLogger _logger = AppLogger.Instance;
 
-		public FeaResultsApi() 
+		public FeaResultsApi()
 		{
 			//LoadResultsFromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ResultsData.json"));
 		}
@@ -46,7 +49,9 @@ namespace yjk.FeaApis
 						.ToDictionary(group => group.Key, group => group.Cast<IFeaMemberResult>().ToList());
 		}
 
-		public void ClearResults() { 
+		public void ClearResults()
+		{
+			_logger.LogInformation("FeaResultsApi.ClearResults");
 			_resultsForMembers.Clear();
 		}
 
@@ -71,6 +76,9 @@ namespace yjk.FeaApis
 						_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
 						break;
 				}
+				if (nSect == 0)
+					_logger.LogWarning($"No results returned for member {member.Id}, load case {loadCaseId}, floor {iFlr}");
+
 				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId, memberType));
 			}
 

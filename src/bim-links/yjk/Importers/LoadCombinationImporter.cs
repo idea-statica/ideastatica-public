@@ -4,13 +4,16 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
 using System.Collections.Generic;
+using IdeaStatiCa.Plugin;
+using yjk.ViewModels;
 
 namespace yjk.Importers
 {
 	public class LoadCombinationImporter : IntIdentifierImporter<IIdeaCombiInput>
 	{
 		private readonly IFeaLoadsApi loadsApi;
-	
+		private readonly IPluginLogger _logger = AppLogger.Instance;
+
 		public LoadCombinationImporter(IFeaLoadsApi loadsApi)
 		{
 			this.loadsApi = loadsApi;
@@ -19,11 +22,12 @@ namespace yjk.Importers
 		public override IIdeaCombiInput Create(int id)
 		{
 			var loadCombi = loadsApi.GetLoadCombination(id);
+			_logger.LogInformation($"LoadCombination created: id={id}, name={loadCombi.Name}, category={loadCombi.Category}, type={loadCombi.Type}");
 			return new IdeaCombiInput(id)
 			{
 				Name = loadCombi.Name,
-				TypeCombiEC = GetCombiType(loadCombi.Category),
-				TypeCalculationCombi = GetCalculationType(loadCombi.Type),
+				TypeCombiEC = GetCombiType(loadCombi.Category, id),
+				TypeCalculationCombi = GetCalculationType(loadCombi.Type, id),
 				CombiItems = GetCombiInputs(loadCombi.CombiFactors, id),
 			};
 		}
@@ -43,22 +47,23 @@ namespace yjk.Importers
 			return combiInputs;
 		}
 
-		private static TypeCalculationCombiEC GetCalculationType(Type loadCombiType)
+		private TypeCalculationCombiEC GetCalculationType(Type loadCombiType, int id)
 		{
-			switch (loadCombiType) 
+			switch (loadCombiType)
 			{
 				case Type.Linear:
 					return TypeCalculationCombiEC.Linear;
-				case Type.Envelope: 
+				case Type.Envelope:
 					return TypeCalculationCombiEC.Envelope;
 				case Type.Nonlinear:
 					return TypeCalculationCombiEC.NonLinear;
-				default: 
+				default:
+					_logger.LogWarning($"LoadCombination id={id}: unrecognised calculation type {loadCombiType}, defaulting to Linear");
 					return TypeCalculationCombiEC.Linear;
 			}
 		}
 
-		private static TypeOfCombiEC GetCombiType(Category combiCategory) 
+		private TypeOfCombiEC GetCombiType(Category combiCategory, int id)
 		{
 			switch (combiCategory)
 			{
@@ -69,6 +74,7 @@ namespace yjk.Importers
 				case Category.ALS:
 					return TypeOfCombiEC.Accidental;
 				default:
+					_logger.LogWarning($"LoadCombination id={id}: unrecognised category {combiCategory}, defaulting to ULS");
 					return TypeOfCombiEC.ULS;
 			}
 		}

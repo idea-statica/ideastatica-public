@@ -5,6 +5,7 @@ using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Results;
 using IdeaStatiCa.BimImporter.BimItems;
+using IdeaStatiCa.Plugin;
 using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using yjk.BimApis;
 using yjk.FeaApis;
+using yjk.ViewModels;
 
 namespace yjk.Importers
 {
@@ -30,14 +32,17 @@ namespace yjk.Importers
 		// so in those cases it is necessary shift the location
 		private const double shift = 5e-6;
 
+		private readonly IPluginLogger _logger = AppLogger.Instance;
+
 		public ResultsImporter(IFeaLoadsApi loadsApi, IFeaResultsApi resultsApi)
-		{ 
+		{
 			this.loadsApi = loadsApi;
 			this.resultsApi = resultsApi;
 		}
 
 		public IEnumerable<ResultsData<IIdeaMember1D>> GetResults(IReadOnlyList<IIdeaMember1D> members)
 		{
+			_logger.LogInformation($"ResultsImporter.GetResults: {members.Count} members");
 			IntIdentifier<IIdeaLoadCase>[] loadCases = loadsApi.GetLoadCasesIds().Select(x => new IntIdentifier<IIdeaLoadCase>(x)).ToArray();
 			InternalForcesBuilderYjk<IIdeaMember1D> builder = new InternalForcesBuilderYjk<IIdeaMember1D>(ResultLocalSystemType.Principle);
 

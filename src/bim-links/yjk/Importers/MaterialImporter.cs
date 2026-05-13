@@ -3,12 +3,15 @@ using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using IdeaRS.OpenModel.Material;
+using IdeaStatiCa.Plugin;
+using yjk.ViewModels;
 
 namespace yjk.Importers
 {
 	internal class MaterialImporter : StringIdentifierImporter<IIdeaMaterial>
 	{
 		private readonly IFeaMaterialApi materialApi;
+		private readonly IPluginLogger _logger = AppLogger.Instance;
 
 		public MaterialImporter(IFeaMaterialApi materialApi)
 		{
@@ -17,7 +20,7 @@ namespace yjk.Importers
 
 		public override IIdeaMaterial Create(string id)
 		{
-			
+			_logger.LogInformation($"MaterialImporter.Create: id={id}");
 			IFeaMaterial material = materialApi.GetMaterial(id);
 
 			switch (material.MaterialType)
@@ -31,6 +34,7 @@ namespace yjk.Importers
 						Fck = materialConcrete.Fck,
 					};
 
+					_logger.LogInformation($"Material '{id}': Concrete, Fck={materialConcrete.Fck}");
 					return new IdeaMaterialConcrete(id)
 					{
 						Name = materialConcrete.Name,
@@ -39,6 +43,7 @@ namespace yjk.Importers
 
 				case MaterialType.Steel:
 
+					_logger.LogInformation($"Material '{id}': Steel, name={material.Name}");
 					return new IdeaMaterialByName(id)
 					{
 						MaterialType = material.MaterialType,
@@ -53,8 +58,8 @@ namespace yjk.Importers
 				Name = "S 355",
 			};*/
 
+			_logger.LogWarning($"Material '{id}': unrecognised type {material.MaterialType}, returning null");
 			return null;
-
 		}
 	}
 }

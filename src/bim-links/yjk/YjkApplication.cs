@@ -10,6 +10,7 @@ using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using System;
+using yjk.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace yjk
 	{
 		private readonly IBimImporter _bimImporter;
 		private readonly IProject _project;
+		private readonly Model _model;
+		private readonly IPluginLogger _logger = AppLogger.Instance;
 
 		public YjkApplication(
 			string applicationName,
@@ -33,11 +36,13 @@ namespace yjk
 			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler,
+			Model model,
 			bool highlightSelection = true)
 			: base(applicationName, logger, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler, highlightSelection)
 		{
 			_bimImporter = bimImporter;
 			_project = project;
+			_model = model;
 		}
 
 		protected override ModelBIM ImportSelection(CountryCode countryCode, RequestedItemsType requestedType)
@@ -60,34 +65,8 @@ namespace yjk
 
 		protected override List<ModelBIM> Synchronize(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			//throw new NotImplementedException("Sync is not yet supported, this feature is coming soon!");
-			List<IIdeaObject> objects = new List<IIdeaObject>();
-			foreach(var group in items)
-			{
-				foreach (var item in group.Items)
-				{
-					try
-					{
-						var bimObj = _project.GetBimApiId(item.Id);
-						var a = _project.GetIomId(bimObj);
-						var c = _project.GetPersistenceToken(a);
-						if (bimObj != null)
-						{
-							//objects.Add(bimObj);
-						}
-
-						
-					}
-					catch (Exception ex)
-					{
-						// Log item.Id here to find the culprit
-						Console.WriteLine($"Error on Id: {item.Id} - {ex.Message}");
-					}
-				}
-			}
-
-
-
+			_logger.LogInformation("YjkApplication.Synchronize");
+			_model.Refresh();
 			return _bimImporter.ImportSelected(items, countryCode);
 		}
 

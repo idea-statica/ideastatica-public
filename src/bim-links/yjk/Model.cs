@@ -15,7 +15,7 @@ using yjk.ViewModels;
 
 namespace yjk
 {
-	internal class Model : IFeaModel
+	public class Model : IFeaModel
 	{
 		private readonly IFeaGeometryApi geometry;
 		private readonly IFeaLoadsApi load;
@@ -69,47 +69,9 @@ namespace yjk
 			//Get selected IDs in YJK
 			Dictionary<int, List<int>> selectedIds = geometry.GetSelectedIds();
 
-			//Read model
-			_logger.LogInformation("Read model DB");
+			ReadModel();
 
-			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			ClrYJKSCommand yjkscmd = new ClrYJKSCommand();
-			yjkscmd.CsRunCommand("yjk_save");
-			APIData.Hi_DbModelData model = hi_AddToAndReadYjk.ReadFromYJK();
-
-			//Get cross sections
-			_logger.LogInformation("From model DB, get cross sections information");
-			geometry.ReadFromModel(model);
-
-			//Marshal back to YJK thread
-			YjkDispatcher.Invoke(() =>
-			{
-			if (Interlocked.Exchange(ref _entered, 1) == 1)
-				return;
-
-			try
-			{
-				_logger.LogInformation("Move YJK to design window");
-				var _YJKSUI = new ClrYJKSUI();
-				_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
-
-				//Get load cases and combinations
-				load.GetLoadCasesAndCombos();
-
-				//Reset result
-				_logger.LogInformation("Clear result");
-				result.ClearResults();
-
-				geometry.GetSelected(selectedIds, load, result, crossSection, materialApi);
-
-				}
-				finally
-				{
-					_entered = 0;
-				}
-
-
-			});
+			geometry.GetSelected(selectedIds, load, result, crossSection, materialApi);
 
 			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesSelectedIdentifiers()
 					.Select(x => new IntIdentifier<IIdeaNode>(x))
@@ -122,12 +84,59 @@ namespace yjk
 				.Cast<Identifier<IIdeaMember1D>>()
 				.ToList();
 
-
 			return new FeaUserSelection()
 			{
 				Members = members,
 				Nodes = nodes			
 			};
+		}
+
+		public void Refresh()
+		{
+			_logger.LogInformation("Model.Refresh");
+			ReadModel();
+			geometry.GetAll(load, result, crossSection, materialApi);
+		}
+
+		public void ReadModel()
+		{
+			//Read model DB
+			_logger.LogInformation("Read model DB");
+
+			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
+			ClrYJKSCommand yjkscmd = new ClrYJKSCommand();
+			yjkscmd.CsRunCommand("yjk_save");
+			APIData.Hi_DbModelData model = hi_AddToAndReadYjk.ReadFromYJK();
+
+			//Get cross sections
+			_logger.LogInformation("From model DB, get cross sections information");
+			geometry.ReadFromModelDB(model);
+
+			//Marshal back to YJK thread
+			YjkDispatcher.Invoke(() =>
+			{
+				if (Interlocked.Exchange(ref _entered, 1) == 1)
+					return;
+
+				try
+				{
+					_logger.LogInformation("Move YJK to design window");
+					var _YJKSUI = new ClrYJKSUI();
+					_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
+				}
+				finally
+				{
+					_entered = 0;
+				}
+
+			});
+
+			//Get load cases and combinations
+			load.GetLoadCasesAndCombos();
+
+			//Reset result
+			_logger.LogInformation("Clear result");
+			result.ClearResults();
 		}
 
 		public IEnumerable<Identifier<IIdeaCombiInput>> GetAllCombinations()

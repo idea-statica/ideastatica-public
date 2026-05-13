@@ -48,6 +48,7 @@ namespace yjk
 				scopeHook,
 				userDataSource,
 				taskScheduler,
+				(Model)model,
 				highlightSelection);
 		}
 	}

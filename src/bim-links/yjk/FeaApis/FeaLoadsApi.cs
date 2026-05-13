@@ -64,13 +64,12 @@ namespace yjk.FeaApis
 				string LDCaseName = "";
 				_Hi_DesignData.dsnGetLDCaseName_EN(LDCase[i], ref LDCaseName);
 
-				_logger.LogInformation($"Add load case {LDCase[i]}, {LDCaseName}, {ActionType.Permanent}, {TypeOfLoadCase.Selfweight}, {1}");
+				_logger.LogInformation($"Add load case {LDCase[i]}, {LDCaseName}");
 				_loadCases.Add(
 					new FeaLoadCase()
 					{
 						Id = LDCase[i],
 						Name = LDCaseName,
-						ActionType = ActionType.Permanent,
 						LoadCaseType = TypeOfLoadCase.Selfweight,
 						LoadGroupId = 1,
 					}
@@ -130,7 +129,7 @@ namespace yjk.FeaApis
 
 				}
 
-				_logger.LogInformation($"Add load combination {loadCombId}, {"COMB" + loadCombId.ToString()}, {Category.ULS}, {Type.Linear}, {combiFactors}");
+				_logger.LogInformation($"Add load combination {loadCombId}, {"COMB" + loadCombId.ToString()}");
 				_loadCombinations.Add(
 					new FeaLoadCombination()
 					{

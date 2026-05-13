@@ -1,6 +1,8 @@
 ﻿using APIData;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Message;
+using IdeaStatiCa.Plugin;
+using yjk.ViewModels;
 using IdeaStatiCa.BimApiLink.BimApi;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,7 @@ namespace yjk.FeaApis
 	{
 		List<FeaCrossSection> _crossSections = new List<FeaCrossSection>();
 		int _id = 1;
+		private IPluginLogger _logger = AppLogger.Instance;
 
 		public void ClearCrossSections() { _crossSections.Clear(); }
 
@@ -125,6 +128,7 @@ namespace yjk.FeaApis
 						double height = MmToM(double.Parse(splitShapeVal[2]));
 
 						CrossSectionFactory.FillRectangle(crossSectionParameterYjk, width, height);
+						_logger.LogInformation($"CrossSection '{name}': Rectangle, width={width}, height={height}");
 						break;
 					}
 
@@ -144,12 +148,14 @@ namespace yjk.FeaApis
 							//RolledI
 							CrossSectionFactory.FillRolledI(crossSectionParameterYjk, upperFlangeWidth, height, webThk,
 								upperFlangeThk, 0, 0, 0);
+							_logger.LogInformation($"CrossSection '{name}': RolledI, flangeWidth={upperFlangeWidth}, height={height}, webThk={webThk}, flangeThk={upperFlangeThk}");
 						}
 						else
 						{
 							//WeldedAsymI
 							CrossSectionFactory.FillWeldedAsymI(crossSectionParameterYjk, upperFlangeWidth, bottomFlageWidth,
 								height - upperFlangeThk - bottomFlangeThk, webThk, upperFlangeThk, bottomFlangeThk);
+							_logger.LogInformation($"CrossSection '{name}': WeldedAsymI, upperFlangeWidth={upperFlangeWidth}, bottomFlangeWidth={bottomFlageWidth}, height={height}, webThk={webThk}");
 						}
 						break;
 					}
@@ -159,6 +165,7 @@ namespace yjk.FeaApis
 					{
 						double diameter = MmToM(double.Parse(splitShapeVal[1]));
 						CrossSectionFactory.FillCircle(crossSectionParameterYjk, diameter);
+						_logger.LogInformation($"CrossSection '{name}': Circle, diameter={diameter}");
 						break;
 					}
 
@@ -170,6 +177,7 @@ namespace yjk.FeaApis
 						double numSides = MmToM(double.Parse(splitShapeVal[2]));
 
 						CrossSectionFactory.FillCircle(crossSectionParameterYjk, diameter);
+						_logger.LogInformation($"CrossSection '{name}': RegularPolygon (approximated as Circle), diameter={diameter}");
 						break;
 					}
 
@@ -185,8 +193,9 @@ namespace yjk.FeaApis
 
 						if (topFlangeWidth == bottomFlangeWidth && topFlangeThk == bottomFlangeThk)
 						{
-							CrossSectionFactory.FillRolledChannel(crossSectionParameterYjk, topFlangeWidth+webThk, height, webThk, 
+							CrossSectionFactory.FillRolledChannel(crossSectionParameterYjk, topFlangeWidth+webThk, height, webThk,
 								topFlangeThk, 0, 0, 0);
+							_logger.LogInformation($"CrossSection '{name}': RolledChannel, flangeWidth={topFlangeWidth}, height={height}, webThk={webThk}, flangeThk={topFlangeThk}");
 						}
 						else
 						{
@@ -210,6 +219,7 @@ namespace yjk.FeaApis
 						{
 							CrossSectionFactory.FillWeldedBoxFlange(crossSectionParameterYjk, width, width, height - topFlangeThk - bottomFlangeThk,
 								width - leftFlangeThk - rightFlangeThk, leftFlangeThk, topFlangeThk, bottomFlangeThk);
+							_logger.LogInformation($"CrossSection '{name}': WeldedBox, width={width}, height={height}, flangeThk={leftFlangeThk}");
 						}
 						else
 						{
@@ -226,7 +236,7 @@ namespace yjk.FeaApis
 						double innerDiameter = MmToM(double.Parse(splitShapeVal[2]));
 
 						CrossSectionFactory.FillRolledCHS(crossSectionParameterYjk, outerDiameter * 0.5, (outerDiameter - innerDiameter) * 0.5);
-
+						_logger.LogInformation($"CrossSection '{name}': CHS, outerDiameter={outerDiameter}, innerDiameter={innerDiameter}");
 						break;
 					}
 
@@ -244,6 +254,7 @@ namespace yjk.FeaApis
 						{
 							CrossSectionFactory.FillComposedDblUo(crossSectionParameterYjk, topFlangeWidth + flangeThk, height, flangeThk,
 								flangeThk, spacing);
+							_logger.LogInformation($"CrossSection '{name}': DoubleChannel, flangeWidth={topFlangeWidth}, height={height}, flangeThk={flangeThk}, spacing={spacing}");
 						}
 						else
 						{
@@ -275,6 +286,7 @@ namespace yjk.FeaApis
 						if (webThk == flangeThk)
 						{
 							CrossSectionFactory.FillRolledAngle(crossSectionParameterYjk, flangeWidth + webThk, height, webThk, 0, 0, 0);
+							_logger.LogInformation($"CrossSection '{name}': RolledAngle, flangeWidth={flangeWidth}, height={height}, thk={webThk}");
 						}
 						else
 						{
@@ -294,7 +306,7 @@ namespace yjk.FeaApis
 						double flangeThk = MmToM(double.Parse(splitShapeVal[4]));
 
 						CrossSectionFactory.FillRolledT(crossSectionParameterYjk, flangeWidth, height, webThk, flangeThk, 0, 0, 0, 0, 0, true);
-
+						_logger.LogInformation($"CrossSection '{name}': RolledT, flangeWidth={flangeWidth}, height={height}, webThk={webThk}, flangeThk={flangeThk}");
 						break;
 					}
 
@@ -309,6 +321,7 @@ namespace yjk.FeaApis
 
 				default:
 					{
+						_logger.LogWarning($"Unrecognised cross section kind {kind} for section '{shapeVal}', falling back to ByName");
 						crossSectionBy = CrossSectionBy.ByName;
 						break;
 					}
