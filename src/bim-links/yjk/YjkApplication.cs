@@ -47,6 +47,7 @@ namespace yjk
 
 		protected override ModelBIM ImportSelection(CountryCode countryCode, RequestedItemsType requestedType)
 		{
+			_logger.LogInformation($"YjkApplication.ImportSelection: countryCode={countryCode}, requestedType={requestedType}");
 			switch (requestedType)
 			{
 				case RequestedItemsType.Connections:

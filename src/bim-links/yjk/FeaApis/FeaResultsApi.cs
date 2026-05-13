@@ -38,7 +38,8 @@ namespace yjk.FeaApis
 
 		public IEnumerable<IFeaMemberResult> GetMemberInternalForces(int memberId, int loadCaseId)
 		{
-			return _resultsForMembers[memberId].Where(x => x.LoadCaseId == loadCaseId);			
+			_logger.LogInformation($"FeaResultsApi.GetMemberInternalForces: memberId={memberId}, loadCaseId={loadCaseId}");
+			return _resultsForMembers[memberId].Where(x => x.LoadCaseId == loadCaseId);
 		}
 
 		private void LoadResultsFromFile(string filePath)
@@ -57,6 +58,7 @@ namespace yjk.FeaApis
 
 		public void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType)
 		{
+			_logger.LogInformation($"FeaResultsApi.SetResult: memberId={member.Id}, floor={iFlr}, type={memberType}");
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
 			foreach (int loadCaseId in loads.GetLoadCasesIds())

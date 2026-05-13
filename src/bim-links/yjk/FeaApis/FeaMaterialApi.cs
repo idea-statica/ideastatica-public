@@ -24,6 +24,7 @@ namespace yjk.FeaApis
 
 		public string GetMaterialId(int matType, float matGrade, float matGrade2, float matGrade3)
 		{
+			_logger.LogInformation($"FeaMaterialApi.GetMaterialId: matType={matType}, matGrade={matGrade}, matGrade2={matGrade2}");
 			//Convert matType
 			MaterialType materialType = new MaterialType();
 			switch (matType)

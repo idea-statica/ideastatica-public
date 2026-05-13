@@ -56,6 +56,7 @@ namespace yjk.FeaApis
 
 		public (UnitVector3D X, UnitVector3D Y, UnitVector3D Z) GetMemberLcs(int id)
 		{
+			_logger.LogInformation($"FeaGeometryApi.GetMemberLcs: id={id}");
 			var member = GetMember(id);
 			IFeaNode beg = GetNode(member.BeginNodeId);
 			IFeaNode end = GetNode(member.EndNodeId);
@@ -64,13 +65,10 @@ namespace yjk.FeaApis
 
 		public Dictionary<int, List<int>> GetSelectedIds()
 		{
-			//YJK API
+			_logger.LogInformation("FeaGeometryApi.GetSelectedIds");
 			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-
-			//Get selected IDs
-			Dictionary<int, List<int>> selectedIds = new Dictionary<int, List<int>>();
-			selectedIds = hi_AddToAndReadYjk.GetSelectSetIDs();
-
+			Dictionary<int, List<int>> selectedIds = hi_AddToAndReadYjk.GetSelectSetIDs();
+			_logger.LogInformation($"FeaGeometryApi.GetSelectedIds: {selectedIds.Count} key(s) returned");
 			return selectedIds;
 		}
 

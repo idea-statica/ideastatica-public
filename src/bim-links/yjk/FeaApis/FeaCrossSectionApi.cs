@@ -33,9 +33,10 @@ namespace yjk.FeaApis
 
 		public void ClearCrossSections() { _crossSections.Clear(); }
 
-		public string GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType, 
+		public string GetCrossSectionId(int memberId, MemberType memberType, int yjkCrossSectionId, int matType,
 			float matGrade, float matGrade2, float matGrade3, IFeaMaterialApi _materialApi, APIData.Hi_DbModelData model)
 		{
+			_logger.LogInformation($"FeaCrossSectionApi.GetCrossSectionId: memberId={memberId}, type={memberType}, yjkCsId={yjkCrossSectionId}");
 			string materialId = _materialApi.GetMaterialId(matType, matGrade, matGrade2, matGrade3);
 
 		/*			//Look for existing

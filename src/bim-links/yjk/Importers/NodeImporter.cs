@@ -2,13 +2,16 @@
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System;
+using yjk.ViewModels;
 
 namespace yjk.Importers
 {
 	internal class NodeImporter : IntIdentifierImporter<IIdeaNode>
 	{
 		private readonly IFeaGeometryApi geometry;
+		private readonly IPluginLogger _logger = AppLogger.Instance;
 
 		public NodeImporter(IFeaGeometryApi geometry)
 		{
@@ -17,6 +20,7 @@ namespace yjk.Importers
 
 		public override IIdeaNode Create(int id)
 		{
+			_logger.LogInformation($"NodeImporter.Create: id={id}");
 			var v = GetLocation(id);
 			return new IdeaNode(id)
 			{
