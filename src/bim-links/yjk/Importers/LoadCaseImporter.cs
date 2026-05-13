@@ -37,11 +37,21 @@ namespace yjk.Importers
 		{
 			switch (typeOfLoadCase)
 			{
-				case TypeOfLoadCase.Selfweight:
-					return (LoadCaseType.Permanent, LoadCaseSubType.PermanentSelfweight);
-				case TypeOfLoadCase.DeadLoad:
+				case TypeOfLoadCase.Dead:
 					return (LoadCaseType.Permanent, LoadCaseSubType.PermanentStandard);
-				case TypeOfLoadCase.Snow:
+				case TypeOfLoadCase.Live:
+					return (LoadCaseType.Variable, LoadCaseSubType.VariableStatic);
+				case TypeOfLoadCase.Wind:
+					return (LoadCaseType.Variable, LoadCaseSubType.VariableDynamic);
+				case TypeOfLoadCase.HorizontalSeismic:
+					return (LoadCaseType.Accidental, LoadCaseSubType.VariableDynamic);
+				case TypeOfLoadCase.VerticalSeismic:
+					return (LoadCaseType.Accidental, LoadCaseSubType.VariableDynamic);
+				case TypeOfLoadCase.CivilDefence:
+					return (LoadCaseType.Accidental, LoadCaseSubType.VariableStatic);
+				case TypeOfLoadCase.Crane:
+					return (LoadCaseType.Variable, LoadCaseSubType.VariableStatic);
+				case TypeOfLoadCase.Temperature:
 					return (LoadCaseType.Variable, LoadCaseSubType.VariableStatic);
 				default:
 					_logger.LogWarning($"LoadCase id={id}: unrecognised type {typeOfLoadCase}, defaulting to (Permanent, PermanentStandard)");

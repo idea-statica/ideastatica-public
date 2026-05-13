@@ -2,16 +2,14 @@
 {
 	public enum TypeOfLoadCase
 	{ 
-		Selfweight,
-		DeadLoad,
-		Snow,
-		Wind
-	}
-
-	public enum ActionType
-	{ 
-		Permanent,
-		Variable
+		Dead,
+		Live,
+		Wind,
+		HorizontalSeismic,
+		VerticalSeismic,
+		CivilDefence,
+		Crane,
+		Temperature
 	}
 
 	public interface IFeaLoadCase
@@ -19,8 +17,7 @@
 		int Id { get; }
 		string Name { get; }
 		int LoadGroupId { get; }
-		TypeOfLoadCase LoadCaseType { get; }		
-		ActionType ActionType { get; }		
+		TypeOfLoadCase LoadCaseType { get; }	
 	}
 
 	internal class FeaLoadCase : IFeaLoadCase
@@ -29,6 +26,5 @@
 		public string Name { get; set; }
 		public int LoadGroupId { get; set; }
 		public TypeOfLoadCase LoadCaseType { get; set; }
-		public ActionType ActionType { get; set; }
 	}
 }

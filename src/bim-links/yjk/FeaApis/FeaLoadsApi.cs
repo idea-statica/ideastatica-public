@@ -45,7 +45,7 @@ namespace yjk.FeaApis
 
 			_loadCases = new List<IFeaLoadCase>();
 			_loadCombinations = new List<IFeaLoadCombination>();
-			_loadGroups = InitializeLoadGroups();
+			_loadGroups = new List<IFeaLoadGroup>();
 
 			//Get load cases
 			int nLDCaseNum = 0;
@@ -57,25 +57,60 @@ namespace yjk.FeaApis
 			_Hi_DesignData.dsnGetLDCaseBySortNew(ref nLDCaseNum, ref LDCase, ref LDCaseOld, ref LDKind, true, true, true, true, true, true, true, true);
 
 			//Load cases
-			Dictionary<int, string> LDCaseNameList = new Dictionary<int, string>();
 			for (int i = 0; i < nLDCaseNum; i++)
 			{
 				//Get load case name
 				string LDCaseName = "";
 				_Hi_DesignData.dsnGetLDCaseName_EN(LDCase[i], ref LDCaseName);
 
-				_logger.LogInformation($"Add load case {LDCase[i]}, {LDCaseName}");
+				TypeOfLoadCase loadCaseType;
+				switch (LDKind[i])
+				{
+					case 1:
+						loadCaseType = TypeOfLoadCase.Dead;
+						break;
+					case 2:
+						loadCaseType = TypeOfLoadCase.Live;
+						break;
+					case 3:
+						loadCaseType = TypeOfLoadCase.Wind;
+						break;
+					case 4:
+						loadCaseType = TypeOfLoadCase.HorizontalSeismic;
+						break;
+					case 5:
+						loadCaseType = TypeOfLoadCase.VerticalSeismic;
+						break;
+					case 6:
+						loadCaseType = TypeOfLoadCase.CivilDefence;
+						break;
+					case 7:
+						loadCaseType = TypeOfLoadCase.Crane;
+						break;
+					case 8:
+						loadCaseType = TypeOfLoadCase.Temperature;
+						break;
+					default:
+						_logger.LogWarning($"Load case {LDCase[i]} ({LDCaseName}): unrecognised LDKind={LDKind[i]}, defaulting to Dead");
+						loadCaseType = TypeOfLoadCase.Dead;
+						break;
+				}
+
+				LoadGroupCategory groupCategory = IsVariableLoadCase(loadCaseType)
+					? LoadGroupCategory.Variable
+					: LoadGroupCategory.Permanent;
+				int loadGroupId = EnsureLoadGroup(groupCategory);
+
+				_logger.LogInformation($"Add load case {LDCase[i]}, {LDCaseName}, kind={LDKind[i]}, type={loadCaseType}, groupId={loadGroupId}");
 				_loadCases.Add(
 					new FeaLoadCase()
 					{
 						Id = LDCase[i],
 						Name = LDCaseName,
-						LoadCaseType = TypeOfLoadCase.Selfweight,
-						LoadGroupId = 1,
+						LoadCaseType = loadCaseType,
+						LoadGroupId = loadGroupId,
 					}
 				);
-
-
 			}
 
 			//Load combinations
@@ -145,111 +180,35 @@ namespace yjk.FeaApis
 			}
 		}
 
-		private static List<IFeaLoadCombination> InitializeLoadCombinations()
+		private static bool IsVariableLoadCase(TypeOfLoadCase type)
 		{
-			return new List<IFeaLoadCombination>
+			switch (type)
 			{
-				new FeaLoadCombination()
-				{
-					Id = 1,
-					Name = "ULS-CO1",
-					Category = Category.ULS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.35),
-						new CombiFactor(2, 1.35)
-					}
-				},
-				new FeaLoadCombination()
-				{
-					Id = 2,
-					Name = "ULS-CO2",
-					Category = Category.ULS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.35),
-						new CombiFactor(2, 1.35),
-						new CombiFactor(3, 1.5)
-					}
-				},
-				new FeaLoadCombination()
-				{
-					Id = 3,
-					Name = "SLS-CO3",
-					Category = Category.SLS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.1),
-						new CombiFactor(2, 1.1)
-					}
-				},
-				new FeaLoadCombination()
-				{
-					Id = 4,
-					Name = "SLS-CO4",
-					Category = Category.SLS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.0),
-						new CombiFactor(2, 1.0),
-						new CombiFactor(3, 0.9)
-					}
-				},
-			};
+				case TypeOfLoadCase.Live:
+				case TypeOfLoadCase.Wind:
+				case TypeOfLoadCase.HorizontalSeismic:
+				case TypeOfLoadCase.VerticalSeismic:
+				case TypeOfLoadCase.Crane:
+				case TypeOfLoadCase.Temperature:
+					return true;
+				default:
+					return false;
+			}
 		}
 
-		private static List<IFeaLoadCase> InitialiazeLoadCases()
+		private int EnsureLoadGroup(LoadGroupCategory category)
 		{
-			return new List<IFeaLoadCase>()
+			foreach (IFeaLoadGroup group in _loadGroups)
 			{
-				new FeaLoadCase()
-				{
-					Id = 1,
-					Name = "Selfweight",
-					ActionType = ActionType.Permanent,
-					LoadCaseType = TypeOfLoadCase.Selfweight,
-					LoadGroupId = 1,
-				},
-				new FeaLoadCase()
-				{
-					Id = 2,
-					Name = "Dead load",
-					ActionType = ActionType.Permanent,
-					LoadCaseType = TypeOfLoadCase.DeadLoad,
-					LoadGroupId = 1,
-				},
-				new FeaLoadCase()
-				{
-					Id = 3,
-					Name = "Snow",
-					ActionType = ActionType.Variable,
-					LoadCaseType = TypeOfLoadCase.Snow,
-					LoadGroupId = 2,
-				}
-			};
-		}
+				if (group.LoadGroupCategory == category)
+					return group.Id;
+			}
 
-		private static List<IFeaLoadGroup> InitializeLoadGroups()
-		{
-			return new List<IFeaLoadGroup>()
-			{
-				new FeaLoadGroup()
-				{
-					Id = 1,
-					Name = "LG1",
-					LoadGroupCategory = LoadGroupCategory.Permanent
-				},
-/*				new FeaLoadGroup()
-				{
-					Id = 2,
-					Name = "LG2",
-					LoadGroupCategory = LoadGroupCategory.Variable
-				}*/
-			};
+			int newId = _loadGroups.Count + 1;
+			string name = category == LoadGroupCategory.Permanent ? "Permanent" : "Variable";
+			_logger.LogInformation($"Load group created: id={newId}, name={name}, category={category}");
+			_loadGroups.Add(new FeaLoadGroup() { Id = newId, Name = name, LoadGroupCategory = category });
+			return newId;
 		}
 	}
 }
