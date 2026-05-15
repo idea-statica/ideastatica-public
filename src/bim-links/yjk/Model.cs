@@ -7,7 +7,6 @@ using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows.Controls.Primitives;
 using yjk.FeaApis;
 using yjk.Helpers;
@@ -24,8 +23,6 @@ namespace yjk
 		private readonly IFeaMaterialApi materialApi;
 		private readonly IProgressMessaging messagingService;
 		private readonly IPluginLogger _logger = AppLogger.Instance;
-
-		private static int _entered = 0;
 
 		public Model(IFeaGeometryApi geometry, IFeaLoadsApi load, IFeaResultsApi result, IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi, IProgressMessaging messagingService)
 		{
@@ -115,20 +112,9 @@ namespace yjk
 			//Marshal back to YJK thread
 			YjkDispatcher.Invoke(() =>
 			{
-				if (Interlocked.Exchange(ref _entered, 1) == 1)
-					return;
-
-				try
-				{
-					_logger.LogInformation("Move YJK to design window");
-					var _YJKSUI = new ClrYJKSUI();
-					_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
-				}
-				finally
-				{
-					_entered = 0;
-				}
-
+				_logger.LogInformation("Move YJK to design window");
+				var _YJKSUI = new ClrYJKSUI();
+				_YJKSUI.CsQSetCurrentRibbonLabel("IDDSN_DSP");
 			});
 
 			//Get load cases and combinations

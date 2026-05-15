@@ -1,4 +1,4 @@
-﻿using APIData;
+using APIData;
 using CsToYjk;
 using IdeaStatiCa.Plugin;
 using yjk.ViewModels;
@@ -16,13 +16,14 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using yjk.BimApis;
+using yjk.Helpers;
 
 namespace yjk.FeaApis
 {
 	public interface IFeaResultsApi
 	{
 		IEnumerable<IFeaMemberResult> GetMemberInternalForces(int memberId, int loadCaseId);
-		void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType);
+		void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loadsApi, MemberType memberType, IFeaCrossSectionApi crossSectionApi);
 		void ClearResults();
 	}
 
@@ -56,12 +57,12 @@ namespace yjk.FeaApis
 			_resultsForMembers.Clear();
 		}
 
-		public void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loads, MemberType memberType)
+		public void SetResult(int iFlr, FeaMember member, IFeaLoadsApi loadsApi, MemberType memberType, IFeaCrossSectionApi crossSectionApi)
 		{
 			_logger.LogInformation($"FeaResultsApi.SetResult: memberId={member.Id}, floor={iFlr}, type={memberType}");
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
-			foreach (int loadCaseId in loads.GetLoadCasesIds())
+			foreach (int loadCaseId in loadsApi.GetLoadCasesIds())
 			{
 				int nSect = 0;
 				float[,] force = new float[0, 0];
@@ -81,47 +82,99 @@ namespace yjk.FeaApis
 				if (nSect == 0)
 					_logger.LogWarning($"No results returned for member {member.Id}, load case {loadCaseId}, floor {iFlr}");
 
-				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId, memberType));
+				feaMemberResults.AddRange(GetFeaMemberResult(member, nSect, force, loadCaseId, memberType, crossSectionApi));
 			}
 
 			_resultsForMembers.Add(member.Id, feaMemberResults);
 		}
 
 		private List<IFeaMemberResult> GetFeaMemberResult(FeaMember member, int nSect, float[,] force, int loadCaseId,
-			MemberType memberType)
+			MemberType memberType, IFeaCrossSectionApi crossSectionApi)
 		{
+			_logger.LogInformation($"FeaResultsApi.GetFeaMemberResult: memberId={member.Id}, nSect={nSect}, loadCaseId={loadCaseId}, type={memberType}");
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
-			for (int i = 0; i < nSect; i++)
+			//Transform if L angle
+			IFeaCrossSection crossSection = crossSectionApi.GetCrossSection(member.CrossSectionId);
+
+			if (crossSection.CrossSectionBy == CrossSectionBy.ByParameters &&
+				crossSection.CrossSectionParameterYjk.CrossSectionType == CrossSectionType.RolledAngle)
 			{
-				FeaMemberResult feaMemberResult = new FeaMemberResult()
-				{
-					MemberId = member.Id,
-					ResultType = "Load case",
-					LoadCaseId = loadCaseId,
-					Location = (double)i / ((double)nSect - 1) * member.GetLength(),
-					Index = i + 1,
-					N = force[i, 4],
-					Vy = force[i, 2],
-					Vz = force[i, 3],
-					Mx = force[i, 5],
-					My = force[i, 0],
-					Mz = force[i, 1],
-				};
+				var css = crossSection.CrossSectionParameterYjk;
+				double B = LAnglePrincipalAxesConverter.GetParameter(css, "B");
+				double D = LAnglePrincipalAxesConverter.GetParameter(css, "D");
+				double t = LAnglePrincipalAxesConverter.GetParameter(css, "t");
 
-				feaMemberResult.Mz *= -1;
-				feaMemberResult.Vy *= -1;
+				double alpha = LAnglePrincipalAxesConverter.ComputePrincipalAngle(B, D, t);
+				_logger.LogInformation($"L-angle principal axis angle: B={B}, D={D}, t={t}, alpha={alpha:F4} rad ({alpha * 180 / Math.PI:F2} deg)");
 
-				//Probably reverse in sign agreement in YJK
-				if (memberType == MemberType.Column)
+				for (int i = 0; i < nSect; i++)
 				{
-					feaMemberResult.My *= -1;
+					double Mu = force[i, 0];
+					double Mv = force[i, 1];
+					double Vu = force[i, 2];
+					double Vv = force[i, 3];
+
+					var (My, Mz, Vy, Vz) = LAnglePrincipalAxesConverter.ToLocalAxes(Mu, Mv, Vu, Vv, alpha);
+
+					FeaMemberResult feaMemberResult = new FeaMemberResult()
+					{
+						MemberId = member.Id,
+						ResultType = "Load case",
+						LoadCaseId = loadCaseId,
+						Location = (double)i / ((double)nSect - 1) * member.GetLength(),
+						Index = i + 1,
+						N = force[i, 4],
+						Vy = (float)Vy,
+						Vz = (float)Vz,
+						Mx = force[i, 5],
+						My = (float)My,
+						Mz = (float)Mz,
+					};
+
+					feaMemberResult.Mz *= -1;
+					feaMemberResult.Vy *= -1;
+
+					if (memberType == MemberType.Column)
+					{
+						feaMemberResult.My *= -1;
+					}
+
+					feaMemberResults.Add(feaMemberResult);
 				}
+			}
+			else
+			{
+				for (int i = 0; i < nSect; i++)
+				{
+					FeaMemberResult feaMemberResult = new FeaMemberResult()
+					{
+						MemberId = member.Id,
+						ResultType = "Load case",
+						LoadCaseId = loadCaseId,
+						Location = (double)i / ((double)nSect - 1) * member.GetLength(),
+						Index = i + 1,
+						N = force[i, 4],
+						Vy = force[i, 2],
+						Vz = force[i, 3],
+						Mx = force[i, 5],
+						My = force[i, 0],
+						Mz = force[i, 1],
+					};
 
-				feaMemberResults.Add(feaMemberResult);
+					feaMemberResult.Mz *= -1;
+					feaMemberResult.Vy *= -1;
+
+					if (memberType == MemberType.Column)
+					{
+						feaMemberResult.My *= -1;
+					}
+
+					feaMemberResults.Add(feaMemberResult);
+				}
 			}
 
 			return feaMemberResults;
 		}
-	}		
+	}
 }

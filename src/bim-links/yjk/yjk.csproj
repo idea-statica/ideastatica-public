@@ -153,6 +153,7 @@
     <Compile Include="FeaApis\FeaResult.cs" />
     <Compile Include="FeaApis\FeaResultsApi.cs" />
     <Compile Include="Helpers\BimApiData.cs" />
+    <Compile Include="Helpers\LAnglePrincipalAxesConverter.cs" />
     <Compile Include="Helpers\UnitConverter.cs" />
     <Compile Include="Helpers\WindowHelper.xaml.cs">
       <DependentUpon>WindowHelper.xaml</DependentUpon>

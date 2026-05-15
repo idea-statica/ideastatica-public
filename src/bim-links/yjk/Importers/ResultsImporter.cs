@@ -44,7 +44,7 @@ namespace yjk.Importers
 		{
 			_logger.LogInformation($"ResultsImporter.GetResults: {members.Count} members");
 			IntIdentifier<IIdeaLoadCase>[] loadCases = loadsApi.GetLoadCasesIds().Select(x => new IntIdentifier<IIdeaLoadCase>(x)).ToArray();
-			InternalForcesBuilderYjk<IIdeaMember1D> builder = new InternalForcesBuilderYjk<IIdeaMember1D>(ResultLocalSystemType.Principle);
+			InternalForcesBuilderYjk<IIdeaMember1D> builder = new InternalForcesBuilderYjk<IIdeaMember1D>(ResultLocalSystemType.Local);
 
 			foreach (IdeaMember1D member in members) 
 			{
@@ -58,7 +58,8 @@ namespace yjk.Importers
 
 					if (cs.Type == CrossSectionType.RolledAngle)
 					{
-						builder.ResultLocalSystemType = ResultLocalSystemType.Principle;
+						//Unable to support multiple localsystemtype
+						//builder.ResultLocalSystemType = ResultLocalSystemType.Principle;
 						//builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Principle);
 					}
 				}
@@ -78,8 +79,9 @@ namespace yjk.Importers
 		private static void GetResultsForMember(InternalForcesBuilderYjk<IIdeaMember1D>.Sections sections,
 										IdeaMember1D member, IntIdentifier<IIdeaLoadCase> loadCase,
 										IFeaResultsApi resultsApi)
-		{			
+		{
 			var results = resultsApi.GetMemberInternalForces((int)member.Identifier.GetId(), loadCase.Id);
+			AppLogger.Instance.LogInformation($"ResultsImporter.GetResultsForMember: memberId={member.Identifier.GetId()}, loadCaseId={loadCase.Id}, resultCount={results.Count()}");
 			var memberLength = GetLength(member.Elements.First().Segment.StartNode, member.Elements.Last().Segment.EndNode);
 
 			double currentSection = Math.Max(0, results.ElementAt(0).Location / memberLength);						
@@ -141,7 +143,7 @@ namespace yjk.Importers
 			double My = result.My * unitConversionFactor;
 			double Mz = result.Mz * unitConversionFactor;
 
-			//Reverse Mz and Vz for L angle
+/*			//Reverse Mz and Vz for L angle
 			if (member.CrossSection.GetType().Name == "CrossSectionByParameters")
 			{
 				CrossSectionByParameters cs = (CrossSectionByParameters)member.CrossSection;
@@ -151,7 +153,7 @@ namespace yjk.Importers
 					Mz *= -1;
 					Vz *= -1;
 				}
-			}
+			}*/
 
 			sections.Add(location, N, Vy, Vz, Tx, My, Mz);
 		}

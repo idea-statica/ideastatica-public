@@ -43,9 +43,9 @@ namespace yjk.FeaApis
 		private List<IFeaMember> _members;
 		private List<IFeaNode> _nodesSelected;
 		private List<IFeaNode> _nodes;
-		private IFeaResultsApi _result;
-		private IFeaLoadsApi _load;
-		private IFeaCrossSectionApi _crossSection;
+		private IFeaResultsApi _resultsApi;
+		private IFeaLoadsApi _loadsApi;
+		private IFeaCrossSectionApi _crossSectionApi;
 		private IFeaMaterialApi _materialApi;
 		private APIData.Hi_DbModelData _model;
 		private IPluginLogger _logger = AppLogger.Instance;
@@ -72,17 +72,17 @@ namespace yjk.FeaApis
 			return selectedIds;
 		}
 
-		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result,
-			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi)
+		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi loadsApi, IFeaResultsApi resultsApi,
+			IFeaCrossSectionApi crossSectionApi, IFeaMaterialApi materialApi)
 		{
 			_logger.LogInformation("FeaGeometryApi.GetSelected");
 
 			_members = new List<IFeaMember>();
 			_nodesSelected = new List<IFeaNode>();
 			_nodes = new List<IFeaNode>();
-			_result = result;
-			_load = load;
-			_crossSection = crossSection;
+			_resultsApi = resultsApi;
+			_loadsApi = loadsApi;
+			_crossSectionApi = crossSectionApi;
 			_materialApi = materialApi;
 
 			GetSelectedMembers(selectedIds, MemberType.Column);
@@ -96,28 +96,32 @@ namespace yjk.FeaApis
 			GetConnectedMembers(nodesCopy, MemberType.Column);
 			GetConnectedMembers(nodesCopy, MemberType.Beam);
 			GetConnectedMembers(nodesCopy, MemberType.Brace);
+			_logger.LogInformation($"FeaGeometryApi.GetSelected done: {_members.Count} members, {_nodes.Count} nodes");
 		}
 
-		public void GetAll(IFeaLoadsApi load, IFeaResultsApi result,
-			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi)
+		public void GetAll(IFeaLoadsApi loadsApi, IFeaResultsApi resultsApi,
+			IFeaCrossSectionApi crossSectionApi, IFeaMaterialApi materialApi)
 		{
 			_logger.LogInformation("FeaGeometryApi.GetAll");
 
 			_members = new List<IFeaMember>();
 			_nodesSelected = new List<IFeaNode>();
 			_nodes = new List<IFeaNode>();
-			_result = result;
-			_load = load;
-			_crossSection = crossSection;
+			_resultsApi = resultsApi;
+			_loadsApi = loadsApi;
+			_crossSectionApi = crossSectionApi;
 			_materialApi = materialApi;
 
 			GetMembers(MemberType.Column);
 			GetMembers(MemberType.Beam);
 			GetMembers(MemberType.Brace);
+			_logger.LogInformation($"FeaGeometryApi.GetAll done: {_members.Count} members, {_nodes.Count} nodes");
 		}
 
 		private void GetConnectedMembers(List<IFeaNode> nodesCopy, MemberType memberType)
 		{
+			int membersBefore = _members.Count;
+			_logger.LogInformation($"FeaGeometryApi.GetConnectedMembers: memberType={memberType}, nodeCount={nodesCopy.Count}");
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
@@ -187,16 +191,18 @@ namespace yjk.FeaApis
 								}
 
 								//Record result (force)
-								_result.SetResult(iFlr, member, _load, memberType);
+								_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
 							}
 						}
 					}
 				}
 			}
+			_logger.LogInformation($"FeaGeometryApi.GetConnectedMembers done: {_members.Count - membersBefore} members added");
 		}
 
 		private void GetSelectedMembers(Dictionary<int, List<int>> selectedIds, MemberType memberType)
 		{
+			_logger.LogInformation($"FeaGeometryApi.GetSelectedMembers: memberType={memberType}");
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
@@ -259,7 +265,7 @@ namespace yjk.FeaApis
 							}
 
 							//Record result (force)
-							_result.SetResult(iFlr, member, _load, memberType);
+							_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
 						}
 					}
 				}
@@ -268,6 +274,7 @@ namespace yjk.FeaApis
 
 		private void GetMembers(MemberType memberType)
 		{
+			_logger.LogInformation($"FeaGeometryApi.GetMembers: memberType={memberType}");
 			var _hi_CToSDesign = new Hi_CToSDesign();
 			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
@@ -321,7 +328,7 @@ namespace yjk.FeaApis
 					}
 
 					//Record result (force)
-					_result.SetResult(iFlr, member, _load, memberType);
+					_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
 
 				}
 
@@ -360,26 +367,36 @@ namespace yjk.FeaApis
 
 		private double GetRotationAngle(int modellingId, MemberType memberType)
 		{
+			double raw = 0;
+			double corrected = -1;
+
 			switch (memberType)
 			{
 				case MemberType.Column:
 					{
 						Mdl_ColSeg segment = _model.m_ColSeg.FirstOrDefault(m => m.ID == modellingId);
-						return segment.Rotation * -1;
+						raw = segment.Rotation;
+						corrected = raw * -1;
+						break;
 					}
 				case MemberType.Beam:
 					{
 						Mdl_BeamSeg segment = _model.m_BeamSeg.FirstOrDefault(m => m.ID == modellingId);
-						return segment.Rotation * -1;
+						raw = segment.Rotation;
+						corrected = raw * -1;
+						break;
 					}
 				case MemberType.Brace:
 					{
 						Mdl_BraceSeg segment = _model.m_BraceSeg.FirstOrDefault(m => m.ID == modellingId);
-						return segment.Rotation * -1;
+						raw = segment.Rotation;
+						corrected = raw * -1;
+						break;
 					}
 			}
 
-			return -1;
+			_logger.LogInformation($"FeaGeometryApi.GetRotationAngle: modellingId={modellingId}, type={memberType}, raw={raw:F4}, corrected={corrected:F4}");
+			return corrected;
 		}
 
 		private FeaMember AddMember(int memberId, int j1, int j2, bool addNodeSelected, MemberType memberType, double rotationAngle)
@@ -418,7 +435,7 @@ namespace yjk.FeaApis
 					break;
 			}
 
-			string crossSectionId = _crossSection.GetCrossSectionId(memberId, memberType, yjkCrossSectionId, matType, matGrade,
+			string crossSectionId = _crossSectionApi.GetCrossSectionId(memberId, memberType, yjkCrossSectionId, matType, matGrade,
 				matGrade2, matGrade3, _materialApi, _model);
 
 			FeaMember member = new FeaMember(memberId, new FeaNode(j1, x1, y1, z1), new FeaNode(j2, x2, y2, z2),
