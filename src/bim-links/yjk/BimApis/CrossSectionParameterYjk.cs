@@ -13,7 +13,7 @@ namespace yjk.BimApis
 		//Override Equals
 		public override bool Equals(object obj) => Equals(obj as CrossSectionParameterYjk);
 
-		public bool Equals(CrossSectionParameter other) 
+		public bool Equals(CrossSectionParameter other)
 		{
 
 			bool parametersAreEqual = true;
@@ -26,42 +26,11 @@ namespace yjk.BimApis
 						break;
 					}
 
-					//Cast to child class
-					switch (Parameters[i])
+					if (!ParametersEqual(Parameters[i], other.Parameters[i]))
 					{
-						case ParameterDouble p1 when other.Parameters[i] is ParameterDouble p2:
-							if (p1.Name != p2.Name || p1.Value != p2.Value)
-								parametersAreEqual = false;
-							break;
-
-						case ParameterInt p1 when other.Parameters[i] is ParameterInt p2:
-							if (p1.Name != p2.Name || p1.Value != p2.Value)
-								parametersAreEqual = false;
-							break;
-
-						case ParameterBool p1 when other.Parameters[i] is ParameterBool p2:
-							if (p1.Name != p2.Name || p1.Value != p2.Value)
-								parametersAreEqual = false;
-							break;
-
-						case ParameterString p1 when other.Parameters[i] is ParameterString p2:
-							if (p1.Name != p2.Name || p1.Value != p2.Value)
-								parametersAreEqual = false;
-							break;
-
-						case ParameterReferenceElement p1 when other.Parameters[i] is ParameterReferenceElement p2:
-							if (p1.Name != p2.Name || p1.Value != p2.Value)
-								parametersAreEqual = false;
-							break;
-
-						default:
-							parametersAreEqual = false;
-							break;
-					}
-
-					if (!parametersAreEqual)
+						parametersAreEqual = false;
 						break;
-
+					}
 				}
 			}
 			else
@@ -79,36 +48,25 @@ namespace yjk.BimApis
 
 			foreach (var param in Parameters)
 			{
-				switch (param)
-				{
-					case ParameterDouble p:
-						hash.Add(p.Name);
-						hash.Add(p.Value);
-						break;
-
-					case ParameterInt p:
-						hash.Add(p.Name);
-						hash.Add(p.Value);
-						break;
-
-					case ParameterBool p:
-						hash.Add(p.Name);
-						hash.Add(p.Value);
-						break;
-
-					case ParameterString p:
-						hash.Add(p.Name);
-						hash.Add(p.Value);
-						break;
-
-					case ParameterReferenceElement p:
-						hash.Add(p.Name);
-						hash.Add(p.Value);
-						break;
-				}
+				AddParameterToHash(ref hash, param);
 			}
 
 			return hash.ToHashCode();
+		}
+
+		private static bool ParametersEqual(Parameter a, Parameter b)
+		{
+			if (a.GetType() != b.GetType()) return false;
+			if (a.Name != b.Name) return false;
+			dynamic da = a, db = b;
+			return Equals(da.Value, db.Value);
+		}
+
+		private static void AddParameterToHash(ref HashCode hash, Parameter p)
+		{
+			hash.Add(p.Name);
+			dynamic d = p;
+			hash.Add(d.Value);
 		}
 
 		public static bool operator ==(CrossSectionParameterYjk left, CrossSectionParameterYjk right) => Equals(left, right);

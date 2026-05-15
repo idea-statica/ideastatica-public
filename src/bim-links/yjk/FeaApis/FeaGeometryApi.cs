@@ -123,49 +123,17 @@ namespace yjk.FeaApis
 			int membersBefore = _members.Count;
 			_logger.LogInformation($"FeaGeometryApi.GetConnectedMembers: memberType={memberType}, nodeCount={nodesCopy.Count}");
 			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
 			int numFloor = _hi_CToSDesign.NZRC();
 			for (int i = 1; i < numFloor + 1; i++)
 			{
 				int iFlr = i;
 
-				int nMember = 0;
-				List<int> idFlrMembers = new List<int>();
-				switch (memberType)
-				{
-					case MemberType.Column:
-						nMember = _hi_CToSDesign.NColumn(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrColumns(iFlr, nMember);
-						break;
-					case MemberType.Beam:
-						nMember = _hi_CToSDesign.NBeam(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrBeams(iFlr, nMember);
-						break;
-					case MemberType.Brace:
-						nMember = _hi_CToSDesign.NBrace(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrBraces(iFlr, nMember);
-						break;
-				}
+				(int nMember, List<int> idFlrMembers) = GetFloorMembers(_hi_CToSDesign, iFlr, memberType);
 
 				for (int j = 0; j < nMember; j++)
 				{
-					int j1 = 0;
-					int j2 = 0;
-					FeaMember member = null;
-
-					switch (memberType)
-					{
-						case MemberType.Column:
-							_hi_CToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
-							break;
-						case MemberType.Beam:
-							_hi_CToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
-							break;
-						case MemberType.Brace:
-							_hi_CToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
-							break;
-					}
+					(int j1, int j2) = GetMemberNodeIds(_hi_CToSDesign, idFlrMembers[j], memberType);
 
 					foreach (IFeaNode node in nodesCopy)
 					{
@@ -178,17 +146,7 @@ namespace yjk.FeaApis
 								int modellingId = GetModellingId(idFlrMembers[j], memberType);
 								double rotationAngle = GetRotationAngle(modellingId, memberType);
 
-								switch (memberType)
-								{
-									case MemberType.Column:
-										member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
-										break;
-									case MemberType.Beam:
-									case MemberType.Brace:
-										member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
-										break;
-
-								}
+								FeaMember member = AddMember(idFlrMembers[j], j1, j2, false, memberType, rotationAngle);
 
 								//Record result (force)
 								_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
@@ -204,34 +162,14 @@ namespace yjk.FeaApis
 		{
 			_logger.LogInformation($"FeaGeometryApi.GetSelectedMembers: memberType={memberType}");
 			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
+			int keyToCheck = GetSelectionKey(memberType);
 			int numFloor = _hi_CToSDesign.NZRC();
 			for (int i = 1; i < numFloor + 1; i++)
 			{
 				int iFlr = i;
 
-				int nMember = 0;
-				List<int> idFlrMembers = new List<int>();
-				int keyToCheck = 0;
-				switch (memberType)
-				{
-					case MemberType.Column:
-						nMember = _hi_CToSDesign.NColumn(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrColumns(iFlr, nMember);
-						keyToCheck = 11;
-						break;
-					case MemberType.Beam:
-						nMember = _hi_CToSDesign.NBeam(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrBeams(iFlr, nMember);
-						keyToCheck = 12;
-						break;
-					case MemberType.Brace:
-						nMember = _hi_CToSDesign.NBrace(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrBraces(iFlr, nMember);
-						keyToCheck = 12;
-						break;
-				}
+				(int nMember, List<int> idFlrMembers) = GetFloorMembers(_hi_CToSDesign, iFlr, memberType);
 
 				//Check if column is selected
 				if (selectedIds.ContainsKey(keyToCheck))
@@ -242,27 +180,10 @@ namespace yjk.FeaApis
 
 						if (selectedIds[keyToCheck].Contains(modellingId))
 						{
-							int j1 = 0;
-							int j2 = 0;
-							FeaMember member = null;
-
 							double rotationAngle = GetRotationAngle(modellingId, memberType);
 
-							switch (memberType)
-							{
-								case MemberType.Column:
-									_hi_CToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
-									member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
-									break;
-								case MemberType.Beam:
-									_hi_CToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
-									member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
-									break;
-								case MemberType.Brace:
-									_hi_CToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
-									member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
-									break;
-							}
+							(int j1, int j2) = GetMemberNodeIds(_hi_CToSDesign, idFlrMembers[j], memberType);
+							FeaMember member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
 
 							//Record result (force)
 							_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
@@ -276,64 +197,54 @@ namespace yjk.FeaApis
 		{
 			_logger.LogInformation($"FeaGeometryApi.GetMembers: memberType={memberType}");
 			var _hi_CToSDesign = new Hi_CToSDesign();
-			var _hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
 
 			int numFloor = _hi_CToSDesign.NZRC();
 			for (int i = 1; i < numFloor + 1; i++)
 			{
 				int iFlr = i;
 
-				int nMember = 0;
-				List<int> idFlrMembers = new List<int>();
-				switch (memberType)
-				{
-					case MemberType.Column:
-						nMember = _hi_CToSDesign.NColumn(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrColumns(iFlr, nMember);
-						break;
-					case MemberType.Beam:
-						nMember = _hi_CToSDesign.NBeam(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrBeams(iFlr, nMember);
-						break;
-					case MemberType.Brace:
-						nMember = _hi_CToSDesign.NBrace(iFlr);
-						idFlrMembers = _hi_CToSDesign.FlrBraces(iFlr, nMember);
-						break;
-				}
+				(int nMember, List<int> idFlrMembers) = GetFloorMembers(_hi_CToSDesign, iFlr, memberType);
 
 				for (int j = 0; j < nMember; j++)
 				{
 					int modellingId = GetModellingId(idFlrMembers[j], memberType);
-
-					int j1 = 0;
-					int j2 = 0;
-					FeaMember member = null;
-
 					double rotationAngle = GetRotationAngle(modellingId, memberType);
 
-					switch (memberType)
-					{
-						case MemberType.Column:
-							_hi_CToSDesign.ColumnJD(idFlrMembers[j], ref j1, ref j2);
-							member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
-							break;
-						case MemberType.Beam:
-							_hi_CToSDesign.BeamJD(idFlrMembers[j], ref j1, ref j2);
-							member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
-							break;
-						case MemberType.Brace:
-							_hi_CToSDesign.BraceJD(idFlrMembers[j], ref j1, ref j2);
-							member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
-							break;
-					}
+					(int j1, int j2) = GetMemberNodeIds(_hi_CToSDesign, idFlrMembers[j], memberType);
+					FeaMember member = AddMember(idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
 
 					//Record result (force)
 					_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
-
 				}
-
 			}
 		}
+
+		private static (int nMember, List<int> idFlrMembers) GetFloorMembers(Hi_CToSDesign hi, int iFlr, MemberType memberType)
+		{
+			int n;
+			switch (memberType)
+			{
+				case MemberType.Column: n = hi.NColumn(iFlr); return (n, hi.FlrColumns(iFlr, n));
+				case MemberType.Beam:   n = hi.NBeam(iFlr);   return (n, hi.FlrBeams(iFlr, n));
+				case MemberType.Brace:  n = hi.NBrace(iFlr);  return (n, hi.FlrBraces(iFlr, n));
+				default:                return (0, new List<int>());
+			}
+		}
+
+		private static (int j1, int j2) GetMemberNodeIds(Hi_CToSDesign hi, int memberId, MemberType memberType)
+		{
+			int j1 = 0, j2 = 0;
+			switch (memberType)
+			{
+				case MemberType.Column: hi.ColumnJD(memberId, ref j1, ref j2); break;
+				case MemberType.Beam:   hi.BeamJD(memberId, ref j1, ref j2);   break;
+				case MemberType.Brace:  hi.BraceJD(memberId, ref j1, ref j2);  break;
+			}
+			return (j1, j2);
+		}
+
+		private static int GetSelectionKey(MemberType memberType) =>
+			memberType == MemberType.Column ? 11 : 12;
 
 		private int GetModellingId(int memberId, MemberType memberType)
 		{

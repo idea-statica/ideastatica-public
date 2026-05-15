@@ -117,64 +117,46 @@ namespace yjk.FeaApis
 
 					var (My, Mz, Vy, Vz) = LAnglePrincipalAxesConverter.ToLocalAxes(Mu, Mv, Vu, Vv, alpha);
 
-					FeaMemberResult feaMemberResult = new FeaMemberResult()
-					{
-						MemberId = member.Id,
-						ResultType = "Load case",
-						LoadCaseId = loadCaseId,
-						Location = (double)i / ((double)nSect - 1) * member.GetLength(),
-						Index = i + 1,
-						N = force[i, 4],
-						Vy = (float)Vy,
-						Vz = (float)Vz,
-						Mx = force[i, 5],
-						My = (float)My,
-						Mz = (float)Mz,
-					};
-
-					feaMemberResult.Mz *= -1;
-					feaMemberResult.Vy *= -1;
-
-					if (memberType == MemberType.Column)
-					{
-						feaMemberResult.My *= -1;
-					}
-
-					feaMemberResults.Add(feaMemberResult);
+					feaMemberResults.Add(BuildResult(member, i, nSect, loadCaseId, memberType,
+						force[i, 4], (float)Vy, (float)Vz, force[i, 5], (float)My, (float)Mz));
 				}
 			}
 			else
 			{
 				for (int i = 0; i < nSect; i++)
 				{
-					FeaMemberResult feaMemberResult = new FeaMemberResult()
-					{
-						MemberId = member.Id,
-						ResultType = "Load case",
-						LoadCaseId = loadCaseId,
-						Location = (double)i / ((double)nSect - 1) * member.GetLength(),
-						Index = i + 1,
-						N = force[i, 4],
-						Vy = force[i, 2],
-						Vz = force[i, 3],
-						Mx = force[i, 5],
-						My = force[i, 0],
-						Mz = force[i, 1],
-					};
-
-					feaMemberResult.Mz *= -1;
-					feaMemberResult.Vy *= -1;
-
-					if (memberType == MemberType.Column)
-					{
-						feaMemberResult.My *= -1;
-					}
-
-					feaMemberResults.Add(feaMemberResult);
+					feaMemberResults.Add(BuildResult(member, i, nSect, loadCaseId, memberType,
+						force[i, 4], force[i, 2], force[i, 3], force[i, 5], force[i, 0], force[i, 1]));
 				}
 			}
 
 			return feaMemberResults;
+		}
+
+		private static FeaMemberResult BuildResult(FeaMember member, int i, int nSect,
+			int loadCaseId, MemberType memberType,
+			float n, float vy, float vz, float mx, float my, float mz)
+		{
+			var r = new FeaMemberResult
+			{
+				MemberId = member.Id,
+				ResultType = "Load case",
+				LoadCaseId = loadCaseId,
+				Location = (double)i / ((double)nSect - 1) * member.GetLength(),
+				Index = i + 1,
+				N = n,
+				Vy = vy,
+				Vz = vz,
+				Mx = mx,
+				My = my,
+				Mz = mz,
+			};
+
+			r.Mz *= -1;
+			r.Vy *= -1;
+			if (memberType == MemberType.Column) r.My *= -1;
+
+			return r;
 		}
 	}
 }
