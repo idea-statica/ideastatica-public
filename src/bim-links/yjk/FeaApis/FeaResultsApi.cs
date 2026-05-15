@@ -115,6 +115,8 @@ namespace yjk.FeaApis
 					double Vu = force[i, 2];
 					double Vv = force[i, 3];
 
+					if (memberType == MemberType.Column) Mu *= -1;
+
 					var (My, Mz, Vy, Vz) = LAnglePrincipalAxesConverter.ToLocalAxes(Mu, Mv, Vu, Vv, alpha);
 
 					feaMemberResults.Add(BuildResult(member, i, nSect, loadCaseId, memberType,
@@ -125,8 +127,12 @@ namespace yjk.FeaApis
 			{
 				for (int i = 0; i < nSect; i++)
 				{
-					feaMemberResults.Add(BuildResult(member, i, nSect, loadCaseId, memberType,
-						force[i, 4], force[i, 2], force[i, 3], force[i, 5], force[i, 0], force[i, 1]));
+					var feaMemberResult = BuildResult(member, i, nSect, loadCaseId, memberType,
+						force[i, 4], force[i, 2], force[i, 3], force[i, 5], force[i, 0], force[i, 1]);
+
+					if (memberType == MemberType.Column) feaMemberResult.My *= -1;
+
+					feaMemberResults.Add(feaMemberResult);
 				}
 			}
 
@@ -154,7 +160,6 @@ namespace yjk.FeaApis
 
 			r.Mz *= -1;
 			r.Vy *= -1;
-			if (memberType == MemberType.Column) r.My *= -1;
 
 			return r;
 		}
