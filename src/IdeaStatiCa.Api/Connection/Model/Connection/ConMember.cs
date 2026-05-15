@@ -20,6 +20,15 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		public int? CrossSectionId { get; set; }
 
+		/// <summary>
+		/// Normalised position of the joint along the member's reference line:
+		/// <c>0</c> = joint at the member's begin, <c>1</c> = joint at the member's end,
+		/// <c>0.5</c> = joint at the middle (continuous through-member).
+		/// Combined with <see cref="ConMemberPosition.AxisX"/>, this disambiguates the two halves
+		/// of a through-column that share the same axis but join the connection from opposite sides.
+		/// </summary>
+		public double PositionOnRefLine { get; set; }
+
 		public bool? MirrorY { get; set; }
 
 		public bool? MirrorZ { get; set; }
