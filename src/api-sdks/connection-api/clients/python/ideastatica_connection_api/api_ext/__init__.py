@@ -1,1 +1,2 @@
 from ideastatica_connection_api.api_ext.project_ext_api import ProjectExtApi
+from ideastatica_connection_api.api_ext.connection_library_ext_api import ConnectionLibraryExtApi
