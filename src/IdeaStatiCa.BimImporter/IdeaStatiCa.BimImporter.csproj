@@ -7,12 +7,11 @@
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="MathNet.Numerics" />
     <PackageReference Include="MathNet.Spatial" />
     <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="System.Net.Http" />
     <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>
 
@@ -21,5 +20,5 @@
     <ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
-  
+
 </Project>

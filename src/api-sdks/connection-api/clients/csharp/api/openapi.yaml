@@ -1373,6 +1373,60 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
+  /api/3/projects/{projectId}/materials/headed-stud-grade:
+    get:
+      operationId: GetHeadedStudGradeMaterials
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: OK
+      summary: Gets materials used in the specified project.
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+    post:
+      operationId: AddMaterialHeadedStudGrade
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of the new material to be added to the project.
+      responses:
+        "200":
+          description: OK
+      summary: Adds a material to the project.
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
   /api/3/projects/{projectId}/materials/cross-sections:
     get:
       operationId: GetCrossSections
@@ -2707,6 +2761,46 @@ paths:
                 type: string
           description: OK
       summary: Create a template for the connection connectionId in the project projectId
+      tags:
+      - Template
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/3/projects/{projectId}/connections/{connectionId}/templates/create-from-connection:
+    post:
+      operationId: CreateTemplateFromConnection
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The source of the requested template
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConTemplateCreateResult'
+          description: OK
+      summary: "Create a reusable connection template from connectionId with structured\
+        \ metadata.\r\nCaptures the connection's parametric design — operations, parameters,\
+        \ parametric links,\r\nanalysis info, loads and clipping/section data — and\
+        \ returns it as a contemp payload\r\nalongside metadata inherited from the\
+        \ source connection (design code, version,\r\nmanufacturing type, member typology,\
+        \ and operation/parameter/link counts)."
       tags:
       - Template
       x-requiresProject: true
@@ -4593,6 +4687,55 @@ components:
             $ref: '#/components/schemas/ConNonConformityIssue'
           nullable: true
           type: array
+      type: object
+    ConTemplateCreateResult:
+      additionalProperties: false
+      example:
+        template: template
+        operationCount: 6
+        typologyCode: typologyCode
+        manufacturingType: manufacturingType
+        typologyCode_V2: typologyCode_V2
+        paramModelLinkCount: 5
+        parameterCount: 1
+        name: name
+        templateId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        designCode: designCode
+        version: 0
+      properties:
+        templateId:
+          format: uuid
+          type: string
+        name:
+          nullable: true
+          type: string
+        designCode:
+          nullable: true
+          type: string
+        version:
+          format: int32
+          type: integer
+        manufacturingType:
+          nullable: true
+          type: string
+        typologyCode:
+          nullable: true
+          type: string
+        typologyCode_V2:
+          nullable: true
+          type: string
+        operationCount:
+          format: int32
+          type: integer
+        parameterCount:
+          format: int32
+          type: integer
+        paramModelLinkCount:
+          format: int32
+          type: integer
+        template:
+          nullable: true
+          type: string
       type: object
     ConTemplateMappingGetParam:
       additionalProperties: false

@@ -6,6 +6,7 @@ Method | Description
 ------------- | -------------
 [**apply_template**](TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
 [**create_con_template**](TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
+[**create_template_from_connection**](TemplateApi.md#create_template_from_connection) | Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
 [**delete**](TemplateApi.md#delete) | Delete specific template
 [**delete_all**](TemplateApi.md#delete_all) | Delete all templates in connection
 [**explode**](TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
@@ -167,6 +168,84 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="create_template_from_connection"></a>
+# **create_template_from_connection**
+> ConTemplateCreateResult create_template_from_connection(project_id, connection_id)
+
+Create a reusable connection template from connectionId with structured metadata.  Captures the connection's parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| The source of the requested template | 
+
+### Return type
+
+[**ConTemplateCreateResult**](ConTemplateCreateResult.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_template_create_result import ConTemplateCreateResult
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def create_template_from_connectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    connection_id = 56 # int | The source of the requested template
+
+    try:
+        # Create a reusable connection template from connectionId with structured metadata.  Captures the connection's parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+        api_response = api_client.template.create_template_from_connection(project_id, connection_id)
+        print("The response of TemplateApi->create_template_from_connection:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling TemplateApi->create_template_from_connection: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
