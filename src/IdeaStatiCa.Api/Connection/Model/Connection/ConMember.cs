@@ -73,11 +73,38 @@ namespace IdeaStatiCa.Api.Connection.Model
 	{
 		public ConMemberPlacementDefinitionTypeEnum DefinedBy { get; set; }
 
-		// for 3D vector
+		/// <summary>
+		/// Resolved global-frame origin of the member's local coordinate system.
+		/// Populated by the server for every member regardless of <see cref="DefinedBy"/>.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Vector3D AxisX { get; set; } = null;
+		public Vector3D Origin { get; set; }
 
-		// for Rotations
+		/// <summary>
+		/// Resolved global-frame X axis of the member's local coordinate system
+		/// (the reference-line direction, from BEGIN toward END).
+		/// Populated by the server for every member regardless of <see cref="DefinedBy"/>;
+		/// previously was null for members placed via
+		/// <see cref="ConMemberPlacementDefinitionTypeEnum.RotationsOfX"/>.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Vector3D AxisX { get; set; }
+
+		/// <summary>
+		/// Resolved global-frame Y axis of the member's local coordinate system
+		/// (cross-section rotation about <see cref="AxisX"/>). Determines which physical face
+		/// "Top flange 1" / "Bottom flange 1" map to on the host's box cross-section.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Vector3D AxisY { get; set; }
+
+		/// <summary>
+		/// Resolved global-frame Z axis of the member's local coordinate system.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Vector3D AxisZ { get; set; }
+
+		// Original placement parameters (preserved for round-trip POST/PUT):
 
 		// alpha
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
