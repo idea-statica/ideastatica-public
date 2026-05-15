@@ -48,24 +48,6 @@ namespace yjk.Importers
 
 			foreach (IdeaMember1D member in members) 
 			{
-				//Default 
-				builder.ResultLocalSystemType = ResultLocalSystemType.Local;
-
-				//If it's L angle need to take the principal instead
-				if (member.CrossSection.GetType().Name == "CrossSectionByParameters")
-				{
-					CrossSectionByParameters cs = (CrossSectionByParameters)member.CrossSection;
-
-					if (cs.Type == CrossSectionType.RolledAngle)
-					{
-						//Unable to support multiple localsystemtype
-						//builder.ResultLocalSystemType = ResultLocalSystemType.Principle;
-						//builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Principle);
-					}
-				}
-				//TODO: Should also check for CrossSectionByName for L angle but currently no way to do it
-
-
 				foreach (var loadCase in loadCases)
 				{
 					InternalForcesBuilderYjk<IIdeaMember1D>.Sections sections = builder.For(member, loadCase);
@@ -142,18 +124,6 @@ namespace yjk.Importers
 			double Tx = result.Mx * unitConversionFactor;
 			double My = result.My * unitConversionFactor;
 			double Mz = result.Mz * unitConversionFactor;
-
-/*			//Reverse Mz and Vz for L angle
-			if (member.CrossSection.GetType().Name == "CrossSectionByParameters")
-			{
-				CrossSectionByParameters cs = (CrossSectionByParameters)member.CrossSection;
-
-				if (cs.Type == CrossSectionType.RolledAngle)
-				{
-					Mz *= -1;
-					Vz *= -1;
-				}
-			}*/
 
 			sections.Add(location, N, Vy, Vz, Tx, My, Mz);
 		}
