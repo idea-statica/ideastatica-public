@@ -1,6 +1,3 @@
-using IdeaRS.OpenModel.Model;
-using System;
-
 namespace IdeaStatiCa.BimApi
 {
 	/// <summary>

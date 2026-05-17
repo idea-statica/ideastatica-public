@@ -6,7 +6,7 @@ namespace IdeaStatiCa.Plugin
 {
 	public abstract class ApplicationBIM : IApplicationBIM
 	{
-		protected IPluginLogger ideaLoggerBase; 
+		protected IPluginLogger ideaLoggerBase;
 
 		protected abstract string ApplicationName { get; }
 

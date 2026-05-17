@@ -1,0 +1,34 @@
+<Project>
+    <PropertyGroup>
+        <!-- Enable XML documentation file generation so that IDE0005 (unused using) analysis can run. -->
+        <!-- We don't care about the documentation itself, so all doc-comment warnings are suppressed below. -->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <!-- Run IDE* code-style analyzers (including IDE0005) at build time, not just in the IDE. -->
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- CS section - XML documentation warnings (suppressed because we generate docs only to enable IDE0005 analysis) -->
+        <NoWarn>$(NoWarn);CS0419</NoWarn> <!-- Ambiguous reference in cref attribute -->
+        <NoWarn>$(NoWarn);CS1570</NoWarn> <!-- XML comment has badly formed XML -->
+        <NoWarn>$(NoWarn);CS1571</NoWarn> <!-- XML comment has a duplicate param tag -->
+        <NoWarn>$(NoWarn);CS1572</NoWarn> <!-- XML comment has a param tag for a parameter that does not exist -->
+        <NoWarn>$(NoWarn);CS1573</NoWarn> <!-- Parameter has no matching param tag in XML comment -->
+        <NoWarn>$(NoWarn);CS1574</NoWarn> <!-- XML comment has cref attribute that could not be resolved -->
+        <NoWarn>$(NoWarn);CS1580</NoWarn> <!-- Invalid type for parameter in XML comment cref attribute -->
+        <NoWarn>$(NoWarn);CS1581</NoWarn> <!-- Invalid return type in XML comment cref attribute -->
+        <NoWarn>$(NoWarn);CS1584</NoWarn> <!-- XML comment has syntactically incorrect cref attribute -->
+        <NoWarn>$(NoWarn);CS1587</NoWarn> <!-- XML comment is not placed on a valid language element -->
+        <NoWarn>$(NoWarn);CS1589</NoWarn> <!-- Unable to include XML fragment -->
+        <NoWarn>$(NoWarn);CS1590</NoWarn> <!-- Invalid XML inclusion tag -->
+        <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- Missing XML comment for publicly visible type or member -->
+        <NoWarn>$(NoWarn);CS1592</NoWarn> <!-- Badly formed XML in included comments file -->
+        <NoWarn>$(NoWarn);CS1598</NoWarn> <!-- XML parser could not be loaded -->
+        <NoWarn>$(NoWarn);CS1658</NoWarn> <!-- Warning or error in included XML documentation file -->
+        <NoWarn>$(NoWarn);CS1711</NoWarn> <!-- XML comment has a typeparam tag that does not exist -->
+        <NoWarn>$(NoWarn);CS1712</NoWarn> <!-- Type parameter has no matching typeparam tag in XML comment -->
+        <NoWarn>$(NoWarn);CS1723</NoWarn> <!-- XML comment has cref attribute that is not a valid programming element -->
+        <NoWarn>$(NoWarn);CS1734</NoWarn> <!-- XML comment has a paramref tag, but there is no parameter by that name -->
+        <NoWarn>$(NoWarn);CS1735</NoWarn> <!-- XML comment has a typeparamref tag, but there is no type parameter by that name -->
+    </PropertyGroup>
+</Project>

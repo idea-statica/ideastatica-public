@@ -3,7 +3,6 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.ImportedObjects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Tests.Helpers
 {

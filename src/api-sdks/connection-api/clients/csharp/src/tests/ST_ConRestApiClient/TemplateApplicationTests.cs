@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
-using Newtonsoft.Json;
 
 namespace ST_ConnectionRestApi
 {

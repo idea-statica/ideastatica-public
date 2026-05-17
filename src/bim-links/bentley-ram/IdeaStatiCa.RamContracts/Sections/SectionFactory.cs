@@ -3,7 +3,6 @@ using IdeaStatiCa.BentleyCrossSections.CrossSectionConversions;
 using IdeaStatiCa.PluginsTools.CrossSectionConversions;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
-using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
 

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace IdeaStatiCa.Plugin.Grpc.Reflection
+﻿namespace IdeaStatiCa.Plugin.Grpc.Reflection
 {
 	public static class Extensions
 	{

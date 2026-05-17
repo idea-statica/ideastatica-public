@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Parameters;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Detail
 {

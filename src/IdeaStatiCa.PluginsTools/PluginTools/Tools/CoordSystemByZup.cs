@@ -1,6 +1,4 @@
-﻿using CI.DataModel;
-
-namespace CI.Geometry3D
+﻿namespace CI.Geometry3D
 {
 	public class CoordSystemByZup : CoordSystem
 	{

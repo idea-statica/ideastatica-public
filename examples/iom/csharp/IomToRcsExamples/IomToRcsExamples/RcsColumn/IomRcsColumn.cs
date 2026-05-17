@@ -2,18 +2,10 @@
 using IdeaRS.OpenModel.Concrete;
 using IdeaRS.OpenModel.Concrete.Load;
 using IdeaRS.OpenModel.CrossSection;
-using IdeaRS.OpenModel.Detail;
 using IdeaRS.OpenModel.Geometry2D;
 using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Model;
-using IdeaRS.OpenModel.Loading;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Security.Cryptography;
-using System.Text;
-using static System.Collections.Specialized.BitVector32;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace IomToRcsExamples
 {

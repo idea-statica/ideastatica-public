@@ -1,7 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;

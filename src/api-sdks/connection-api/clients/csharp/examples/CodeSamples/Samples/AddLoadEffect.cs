@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples
@@ -31,9 +30,9 @@ namespace CodeSamples
 				//BUG: DOES NOT WORK.
 				//BUG: DEFAULT SHOULD BE ACTIVE.
 				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(conClient.ActiveProjectId, connectionId);
-				
-				if(newLoadEffect != null) 
-					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}"); 
+
+				if(newLoadEffect != null)
+					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}");
 			}
 			{
 				ConLoadEffect loadEffect = new ConLoadEffect() { Name = input };
@@ -47,7 +46,7 @@ namespace CodeSamples
 			loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(conClient.ActiveProjectId, connectionId);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("AddLoadEffect");
-			
+
 			// Save updated file.
 			string fileName = "add-load-effects.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);

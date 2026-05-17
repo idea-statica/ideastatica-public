@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.Api.Connection;
 using IdeaStatiCa.ConnectionApi;
 using System.Reflection;
 

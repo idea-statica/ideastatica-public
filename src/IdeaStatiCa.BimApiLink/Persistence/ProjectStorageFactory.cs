@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.BimImporter.Persistence;
-using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimApiLink.Persistence
 {

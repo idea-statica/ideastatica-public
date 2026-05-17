@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SystemTestService
+﻿namespace SystemTestService
 {
 	public class Service : IService
 	{

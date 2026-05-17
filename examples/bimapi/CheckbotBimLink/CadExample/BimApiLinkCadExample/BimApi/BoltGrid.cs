@@ -1,7 +1,6 @@
 ﻿using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
-using System.Collections.Generic;
 
 namespace BimApiLinkCadExample.BimApi
 {
