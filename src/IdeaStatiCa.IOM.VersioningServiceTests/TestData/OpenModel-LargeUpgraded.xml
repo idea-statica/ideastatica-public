@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-16"?>
 <OpenModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Version>3.2.0</Version>
+	<Version>3.3.0</Version>
 	<OriginSettings>
 		<ProjectName>23070 -  HWP</ProjectName>
 		<ProjectDescription>23070_10000_0706_001</ProjectDescription>
