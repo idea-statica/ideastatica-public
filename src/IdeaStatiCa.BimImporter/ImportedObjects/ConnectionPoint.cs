@@ -11,7 +11,13 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 	{
 		public string Id => "$connection-" + Node.Id;
 
-		public string Name => Node.Name;
+		// Auto-created connection points (from Connection.FromNodeAndMembers) inherit their name from the
+		// underlying node. Plugin link implementations often set Node.Name to a coordinate-encoded id
+		// (e.g. AdvanceSteel sets Name = id.ToString() which is the "X;Y;Z" GetPointId string), and that
+		// would propagate into IOM ConnectionPoint.Name, bypassing BimImporter.ImportContext fallback
+		// `cp.Name = $"C {cp.Id}"`. Return null so the fallback applies and synthetic connection points
+		// get clean user-facing labels (`C 452`, etc.) in Checkbot. Bug from #34xxx.
+		public string Name => null;
 
 		public IIdeaNode Node { get; }
 
