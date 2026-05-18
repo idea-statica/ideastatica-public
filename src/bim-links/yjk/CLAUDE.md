@@ -77,6 +77,8 @@ The shear forces Vu, Vv use the standard rotation without negation.
 
 The cross-section type check currently uses `GetType().Name == "CrossSectionByParameters"` + `cs.Type == CrossSectionType.RolledAngle` — prefer `is CrossSectionByParameters cs` pattern matching if modifying this code.
 
+**Known limitation:** If an L-angle is defined by name (Kind==26 named steel profile, or Kind==28 with unequal flanges falling back to `ByName`), the `CrossSectionBy.ByParameters` check in `FeaResultsApi.GetFeaMemberResult()` will be `false` and the principal-axis force conversion will be skipped. YJK still outputs forces in u/v principal axes for these sections, so the imported results will be incorrect. There is currently no workaround.
+
 ### Cross-section parsing
 YJK sections are defined by a `Kind` integer and a comma-separated `ShapeVal` string. `FeaCrossSectionApi.CreateCrossSection()` maps `Kind` values to IDEA StatiCa factories:
 - 1 = Rectangle, 2 = I-section (symmetric→RolledI, asymmetric→WeldedAsymI), 3 = Circle, 5 = Channel, 7 = Box, 8 = CHS, 9 = Double channel, 26 = named steel profile, 28 = L-angle, 29 = T-section
