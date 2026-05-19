@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "YjkInstaller": {
+      "commandName": "Project",
+      "commandLineArgs": "/i"
+    }
+  }
+}

@@ -93,6 +93,7 @@ The command name `idea_statica` maps to the `[CommandMethod("idea_statica")]` en
 | `System.Collections.Immutable` | 5.0.0.0 |
 | `System.Buffers` | 4.0.3.0 |
 | `System.IO.Pipelines` | 6.0.0.1 |
+| `Serilog` | 4.2.0.0 |
 
 The original `yjks.exe.config` is backed up to `yjks.exe.config.bak` before modification.
 

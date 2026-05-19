@@ -26,6 +26,7 @@ namespace YjkInstaller
 			("System.Collections.Immutable",              "b03f5f7f11d50a3a", "0.0.0.0-5.0.0.0",  "5.0.0.0"),
 			("System.Buffers",                            "cc7b13ffcd2ddd51", "0.0.0.0-4.0.3.0",  "4.0.3.0"),
 			("System.IO.Pipelines",                       "cc7b13ffcd2ddd51", "0.0.0.0-6.0.0.1",  "6.0.0.1"),
+			("Serilog",                                   "24c2f752a8e58a10", "0.0.0.0-4.2.0.0",  "4.2.0.0"),
 		};
 
 		public YjkConfig(string installPath)

@@ -5,9 +5,9 @@ namespace YjkInstaller
 {
 	internal class Yjk
 	{
-		private const string YjkRegistryKey = @"SOFTWARE\YJKSOFT\YJKS8.0.0";
+		private const string YjkRegistryKey = @"SOFTWARE\YJKSOFT\YJKS8.1.0";
 		private const string YjkInstallValueName = "INSTALLFOLDER";
-		private const string YjkDefaultInstallPath = @"C:\YJKS\YJKS_8_0_0\";
+		private const string YjkDefaultInstallPath = @"C:\YJKS\YJKS_8_1_0\";
 
 		public string InstallPath { get; }
 
