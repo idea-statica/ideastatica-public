@@ -5,7 +5,6 @@ namespace SafFeaBimLink
 {
 	internal abstract class ApplicationBIMAsync : ApplicationBIM
 	{
-		private IPluginLogger _logger;
 		protected ApplicationBIMAsync(IPluginLogger logger) : base(logger)
 		{
 		}
@@ -18,7 +17,7 @@ namespace SafFeaBimLink
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ActivateInBIM failed", e);
+				ideaLoggerBase.LogError("ActivateInBIM failed", e);
 			}
 		}
 
@@ -30,7 +29,7 @@ namespace SafFeaBimLink
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ImportActive failed", e);
+				ideaLoggerBase.LogError("ImportActive failed", e);
 			}
 
 			return null;
@@ -48,12 +47,12 @@ namespace SafFeaBimLink
 				}
 				else
 				{
-					_logger.LogInformation("ImportSelectionAsync returned null");
+					ideaLoggerBase.LogInformation("ImportSelectionAsync returned null");
 				}
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ImportActive failed", e);
+				ideaLoggerBase.LogError("ImportActive failed", e);
 			}
 
 			return new List<ModelBIM>();

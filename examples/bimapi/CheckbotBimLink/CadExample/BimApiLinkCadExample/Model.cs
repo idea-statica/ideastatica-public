@@ -5,12 +5,10 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.BIM;
 using IdeaStatiCa.BIM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CI;
 
 namespace BimApiLinkCadExample
 {

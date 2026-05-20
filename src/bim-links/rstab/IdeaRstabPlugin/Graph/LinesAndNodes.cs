@@ -1,7 +1,6 @@
 ﻿using Dlubal.RSTAB8;
 using IdeaRstabPlugin.Providers;
 using IdeaRstabPlugin.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

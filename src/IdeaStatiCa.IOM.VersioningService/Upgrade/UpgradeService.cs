@@ -2,8 +2,6 @@
 using IdeaStatiCa.IOM.VersioningService.Exceptions;
 using IdeaStatiCa.Plugin;
 using System;
-using System.Diagnostics;
-using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.Upgrade
 {

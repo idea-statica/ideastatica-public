@@ -1,5 +1,4 @@
 using CI.DataModel;
-using System;
 using System.Xml.Serialization;
 
 namespace CI.Geometry3D

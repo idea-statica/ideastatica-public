@@ -1,7 +1,4 @@
-using ConnectionIomGenerator.UI.Models;
-using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.ViewModels;
-using IdeaStatiCa.Plugin;
 using System.Windows;
 
 namespace ConnectionIomGenerator.UI.Views

@@ -1,10 +1,4 @@
 ﻿#if !NET48
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace System.ServiceModel
 {
 	public class ServiceContractAttribute : Attribute

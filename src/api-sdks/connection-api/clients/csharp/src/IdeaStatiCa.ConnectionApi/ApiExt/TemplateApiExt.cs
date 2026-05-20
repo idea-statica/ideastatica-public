@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.ConnectionApi.Model;
 using System.IO;
 using System.Text;
 

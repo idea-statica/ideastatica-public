@@ -5,13 +5,8 @@ using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Loading;
 using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Model;
-using IdeaRS.OpenModel.Result;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace IOM.GeneratorExample
 {

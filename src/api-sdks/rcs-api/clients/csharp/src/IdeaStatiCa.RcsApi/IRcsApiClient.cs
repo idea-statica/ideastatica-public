@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.RcsApi.Api;
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 using System;
+#endif
 
 namespace IdeaStatiCa.RcsApi
 {

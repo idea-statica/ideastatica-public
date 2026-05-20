@@ -1,7 +1,4 @@
-﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.ConnectionApi.Model;
-using Newtonsoft.Json;
+﻿using IdeaStatiCa.Api.Connection.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

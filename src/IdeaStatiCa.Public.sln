@@ -107,6 +107,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2772F4FF-6165-4B68-9F60-F6B892492B29}"
 	ProjectSection(SolutionItems) = preProject
 		Common.props = Common.props
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Packages.props = ..\Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadBulkSelection", "..\examples\bimapi\CheckbotBimLink\CadExample\CadBulkSelection\CadBulkSelection.csproj", "{0436D7F5-6CD4-43D7-9634-1FAB481B23FB}"

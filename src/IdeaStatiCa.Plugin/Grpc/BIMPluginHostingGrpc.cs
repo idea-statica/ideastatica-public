@@ -1,6 +1,5 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
-using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
 using System.Threading;

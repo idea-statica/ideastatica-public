@@ -1,4 +1,3 @@
-# Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
 
 [*.{cs,xaml}]
@@ -12,3 +11,27 @@ tab_width = 4
 # New line preferences
 end_of_line = crlf
 insert_final_newline = false
+
+[*.cs]
+dotnet_diagnostic.IDE0005.severity = error
+
+# Shared projects (.shproj) are compiled as part of importing projects, so IDE0005 cannot be
+# automatically fixed there - suppress it to avoid noise in files that belong to multiple contexts.
+[src/Logger/SerilogFacade/**.cs]
+dotnet_diagnostic.IDE0005.severity = none
+
+[src/IdeaStatiCa.BulkSelection/**.cs]
+dotnet_diagnostic.IDE0005.severity = none
+
+[src/bim-links/tekla/IdeaStatiCa.TeklaStructuresPlugin/**.cs]
+dotnet_diagnostic.IDE0005.severity = none
+
+[src/bim-links/bentley-ram/IdeaStatiCa.BentleyCrossSections/**.cs]
+dotnet_diagnostic.IDE0005.severity = none
+
+# OpenAPI-generated files - suppress all analyzer diagnostics.
+[src/api-sdks/rcs-api/clients/csharp/src/IdeaStatiCa.RcsApi/{Api,Client,Model}/**.cs]
+generated_code = true
+
+[src/api-sdks/connection-api/clients/csharp/src/IdeaStatiCa.ConnectionApi/{Api,Client,Model}/**.cs]
+generated_code = true

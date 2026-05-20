@@ -1,13 +1,6 @@
-﻿using IdeaRS.OpenModel.Geometry2D;
-using IdeaRS.OpenModel.Geometry3D;
-using IdeaStatiCa.BimApiLink.Utils;
-using BimApiLinkCadExample.BimApi;
+﻿using BimApiLinkCadExample.BimApi;
 using IdeaStatiCa.BimApi;
-using System;
-using System.Linq;
-using System.Windows;
 using BimApiLinkCadExample.CadExampleApi;
-using IdeaStatiCa.BimApiLink.BimApi;
 
 namespace BimApiLinkCadExample.Importers
 {
