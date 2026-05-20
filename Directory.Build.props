@@ -1,5 +1,16 @@
 <Project>
-    <PropertyGroup>
+	<!-- When building as part of the private monorepo (submodule), import the parent
+	     Directory.Build.props so all shared settings (LangVersion, Windows SDK pins,
+	     suppress lists, etc.) are inherited.  IdeaStatiCaApplications.sln/.slnx is
+	     the main private monorepo solution and is an unambiguous indicator that we
+	     are a submodule inside that repo rather than being built standalone. -->
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
+	        Condition="Exists('$(MSBuildThisFileDirectory)../IdeaStatiCaApplications.sln') Or Exists('$(MSBuildThisFileDirectory)../IdeaStatiCaApplications.slnx')" />
+
+	<!-- Properties required for correct analyzer behaviour when building standalone.
+	     In the private build these are already set by the parent file imported above,
+	     but duplicating them here is harmless and keeps standalone builds consistent. -->
+	<PropertyGroup>
         <!-- Enable XML documentation file generation so that IDE0005 (unused using) analysis can run. -->
         <!-- We don't care about the documentation itself, so all doc-comment warnings are suppressed below. -->
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -30,5 +41,9 @@
         <NoWarn>$(NoWarn);CS1723</NoWarn> <!-- XML comment has cref attribute that is not a valid programming element -->
         <NoWarn>$(NoWarn);CS1734</NoWarn> <!-- XML comment has a paramref tag, but there is no parameter by that name -->
         <NoWarn>$(NoWarn);CS1735</NoWarn> <!-- XML comment has a typeparamref tag, but there is no type parameter by that name -->
+
+        <!-- IDE section - keep IDE0005 (unused using) as a warning, not an error -->
+        <WarningsNotAsErrors>$(WarningsNotAsErrors);IDE0005</WarningsNotAsErrors>
+        <MSBuildWarningsNotAsErrors>$(MSBuildWarningsNotAsErrors);IDE0005</MSBuildWarningsNotAsErrors>
     </PropertyGroup>
 </Project>
