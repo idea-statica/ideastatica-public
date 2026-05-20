@@ -212,7 +212,7 @@ namespace YjkInstaller
 			bool changed = false;
 			foreach (var (name, token, oldVer, newVer) in PluginBindingRedirects)
 			{
-				bool exists = assemblyBinding.Elements(ns + "dependentAssembly").Any(da =>
+				var existing = assemblyBinding.Elements(ns + "dependentAssembly").FirstOrDefault(da =>
 				{
 					var identity = da.Element(ns + "assemblyIdentity");
 					return identity != null &&
@@ -220,9 +220,23 @@ namespace YjkInstaller
 						(string)identity.Attribute("publicKeyToken") == token;
 				});
 
-				if (exists) continue;
+				if (existing != null)
+				{
+					var redirect = existing.Element(ns + "bindingRedirect");
+					if (redirect != null &&
+						(string)redirect.Attribute("oldVersion") == oldVer &&
+						(string)redirect.Attribute("newVersion") == newVer)
+						continue;
 
-				BackupFile(path);
+					if (!changed) BackupFile(path);
+					existing.Remove();
+					Console.WriteLine($"Updated binding redirect for '{name}' in {ExeConfigFileName}.");
+				}
+				else
+				{
+					if (!changed) BackupFile(path);
+					Console.WriteLine($"Added binding redirect for '{name}' to {ExeConfigFileName}.");
+				}
 
 				XElement newEntry = new XElement(ns + "dependentAssembly",
 					new XElement(ns + "assemblyIdentity",
@@ -234,7 +248,6 @@ namespace YjkInstaller
 						new XAttribute("newVersion", newVer)));
 
 				assemblyBinding.Add(newEntry);
-				Console.WriteLine($"Added binding redirect for '{name}' to {ExeConfigFileName}.");
 				changed = true;
 			}
 

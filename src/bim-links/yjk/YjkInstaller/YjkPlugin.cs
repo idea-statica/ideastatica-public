@@ -21,7 +21,7 @@ namespace YjkInstaller
 
 			yjk.Config.AddToApiPlugList();
 			yjk.Config.AddToCui();
-			yjk.Config.MergeBindingRedirects();
+			//yjk.Config.MergeBindingRedirects();
 		}
 
 		public void Uninstall(Yjk yjk)

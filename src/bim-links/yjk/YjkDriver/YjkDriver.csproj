@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>yjk</RootNamespace>
+    <AssemblyName>YjkDriver</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\IdeaStatiCa\</OutputPath>
+    <YjkInstallRoot>..\..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\</YjkInstallRoot>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommunityToolkit.Mvvm">
+      <HintPath>$(USERPROFILE)\.nuget\packages\communitytoolkit.mvvm\8.4.2\lib\netstandard2.0\CommunityToolkit.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=9.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\autofac\9.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extensions.DependencyInjection, Version=11.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\autofac.extensions.dependencyinjection\11.0.0\lib\netstandard2.0\Autofac.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="ClrYJKAPI">
+      <HintPath>..\..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\ClrYJKAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\mathnet.numerics\5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Spatial, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\mathnet.spatial\0.6.0\lib\net461\MathNet.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\microsoft.bcl.asyncinterfaces\10.0.4\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\microsoft.bcl.hashcode\1.0.0\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=10.0.0.4, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\10.0.4\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\newtonsoft.json\13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Serilog, Version=4.2.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\serilog\4.2.0\lib\net471\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Process, Version=3.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\serilog.enrichers.process\3.0.0\lib\net471\Serilog.Enrichers.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Thread, Version=4.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\serilog.enrichers.thread\4.0.0\lib\net471\Serilog.Enrichers.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Debug, Version=3.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\serilog.sinks.debug\3.0.0\lib\net471\Serilog.Sinks.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=6.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\serilog.sinks.file\6.0.0\lib\net471\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.buffers\4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.componentmodel.annotations\5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.diagnostics.diagnosticsource\10.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.memory\4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.numerics.vectors\4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.runtime.compilerservices.unsafe\6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Channels, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.threading.channels\8.0.0\lib\net462\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(USERPROFILE)\.nuget\packages\system.threading.tasks.extensions\4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="YAPIData">
+      <HintPath>..\..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\YAPIData.dll</HintPath>
+    </Reference>
+    <Reference Include="YJKAPI">
+      <HintPath>..\..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\YJKAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Driver entry point (lives in YjkDriver/) -->
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <!-- All plugin source files linked from the yjk project (shared, not copied) -->
+    <Compile Include="..\BimApis\CrossSectionByName.cs">
+      <Link>BimApis\CrossSectionByName.cs</Link>
+    </Compile>
+    <Compile Include="..\BimApis\CrossSectionByParameters.cs">
+      <Link>BimApis\CrossSectionByParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\BimApis\CrossSectionParameterYjk.cs">
+      <Link>BimApis\CrossSectionParameterYjk.cs</Link>
+    </Compile>
+    <Compile Include="..\BimApis\InternalForcesBuilderYjk.cs">
+      <Link>BimApis\InternalForcesBuilderYjk.cs</Link>
+    </Compile>
+    <Compile Include="..\BimApis\Member1D.cs">
+      <Link>BimApis\Member1D.cs</Link>
+    </Compile>
+    <Compile Include="..\BimApis\ParameterDoubleYjk.cs">
+      <Link>BimApis\ParameterDoubleYjk.cs</Link>
+    </Compile>
+    <Compile Include="..\BimApis\Segment3D.cs">
+      <Link>BimApis\Segment3D.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaApi.cs">
+      <Link>FeaApis\FeaApi.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaCrossSection.cs">
+      <Link>FeaApis\FeaCrossSection.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaCrossSectionApi.cs">
+      <Link>FeaApis\FeaCrossSectionApi.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaGeometryApi.cs">
+      <Link>FeaApis\FeaGeometryApi.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaLoadCase.cs">
+      <Link>FeaApis\FeaLoadCase.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaLoadCombination.cs">
+      <Link>FeaApis\FeaLoadCombination.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaLoadGroup.cs">
+      <Link>FeaApis\FeaLoadGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaLoadsApi.cs">
+      <Link>FeaApis\FeaLoadsApi.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaMaterial.cs">
+      <Link>FeaApis\FeaMaterial.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaMaterialApi.cs">
+      <Link>FeaApis\FeaMaterialApi.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaMember.cs">
+      <Link>FeaApis\FeaMember.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaNode.cs">
+      <Link>FeaApis\FeaNode.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaResult.cs">
+      <Link>FeaApis\FeaResult.cs</Link>
+    </Compile>
+    <Compile Include="..\FeaApis\FeaResultsApi.cs">
+      <Link>FeaApis\FeaResultsApi.cs</Link>
+    </Compile>
+    <Compile Include="..\Helpers\BimApiData.cs">
+      <Link>Helpers\BimApiData.cs</Link>
+    </Compile>
+    <Compile Include="..\Helpers\LAnglePrincipalAxesConverter.cs">
+      <Link>Helpers\LAnglePrincipalAxesConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Helpers\UnitConverter.cs">
+      <Link>Helpers\UnitConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Helpers\WindowHelper.xaml.cs">
+      <DependentUpon>WindowHelper.xaml</DependentUpon>
+      <Link>Helpers\WindowHelper.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\Helpers\YjkDispatcher.cs">
+      <Link>Helpers\YjkDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\CrossSectionImporter.cs">
+      <Link>Importers\CrossSectionImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\LoadCaseImporter.cs">
+      <Link>Importers\LoadCaseImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\LoadCombinationImporter.cs">
+      <Link>Importers\LoadCombinationImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\LoadGroupImporter.cs">
+      <Link>Importers\LoadGroupImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\MaterialImporter.cs">
+      <Link>Importers\MaterialImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\MemberImporter.cs">
+      <Link>Importers\MemberImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\NodeImporter.cs">
+      <Link>Importers\NodeImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Importers\ResultsImporter.cs">
+      <Link>Importers\ResultsImporter.cs</Link>
+    </Compile>
+    <Compile Include="..\Model.cs">
+      <Link>Model.cs</Link>
+    </Compile>
+    <Compile Include="..\ViewModels\AppLogger.cs">
+      <Link>ViewModels\AppLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\ViewModels\MessageSeverity.cs">
+      <Link>ViewModels\MessageSeverity.cs</Link>
+    </Compile>
+    <Compile Include="..\ViewModels\MessageViewModel.cs">
+      <Link>ViewModels\MessageViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\YjkApplication.cs">
+      <Link>YjkApplication.cs</Link>
+    </Compile>
+    <Compile Include="..\YjkBimLink.cs">
+      <Link>YjkBimLink.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj">
+      <Name>IdeaStatiCa.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj">
+      <Project>{9c319af9-abfe-4887-8b0a-e1039013fc0a}</Project>
+      <Name>IdeaRS.OpenModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj">
+      <Project>{bab37a9e-ffd9-48e6-bd74-b45441b6df00}</Project>
+      <Name>IdeaStatiCa.BimApiLink</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj">
+      <Project>{e983f5ef-c464-42ec-b67a-2d9061298aba}</Project>
+      <Name>IdeaStatiCa.BimApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj">
+      <Project>{00078bc6-30d1-4afe-bec0-a6d1af570a4e}</Project>
+      <Name>IdeaStatiCa.BimImporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj">
+      <Project>{7c5fc60f-cc3e-45b3-a38a-aa167a9d1333}</Project>
+      <Name>IdeaStatiCa.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj">
+      <Project>{3814f9b8-46de-4343-94a7-e7a81d371007}</Project>
+      <Name>IdeaStatiCa.PluginLogger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\Helpers\WindowHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Link>Helpers\WindowHelper.xaml</Link>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
+    <Copy SourceFiles="$(OutputPath)YjkDriver.exe" DestinationFolder="$(YjkInstallRoot)" />
+    <Copy SourceFiles="$(OutputPath)YjkDriver.exe.config" DestinationFolder="$(YjkInstallRoot)" />
+    <Copy SourceFiles="$(OutputPath)YjkDriver.pdb" DestinationFolder="$(YjkInstallRoot)" Condition="Exists('$(OutputPath)YjkDriver.pdb')" />
+  </Target>
+</Project>
