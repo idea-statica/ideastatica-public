@@ -4,20 +4,59 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project does
 
-This is a BIM integration plugin (`IDEAStatiCa.yjk.dll`) that connects **YJK** (a Chinese structural analysis platform) to **IDEA StatiCa** (structural connection design). It is loaded by YJK as a plugin via two AutoCAD-style `[CommandMethod]` entry points in `Main.cs`. The plugin reads the YJK structural model and analysis results, then launches IDEA StatiCa Checkbot for connection design.
+This is a BIM integration plugin that connects **YJK** (a Chinese structural analysis platform) to **IDEA StatiCa** (structural connection design). It uses a **thin launcher + driver EXE** architecture:
+
+- `IDEAStatiCa.yjk.dll` — thin launcher loaded by YJK as a plugin via `[CommandMethod]` entry point in `Main.cs`. Has zero NuGet dependencies. Spawns `YjkDriver.exe` as a separate process.
+- `YjkDriver.exe` — driver process that runs outside YJK's process space with its own `YjkDriver.exe.config`. Contains all plugin logic: reads the YJK structural model, runs the importers, and launches IDEA StatiCa Checkbot for connection design.
 
 ## Build
 
-Target: **.NET Framework 4.8**, output type: Class Library.
+Target: **.NET Framework 4.8**.
 
-Build with Visual Studio or MSBuild. Debug output is written directly to the YJK installation folder:
+- `yjk.csproj` — OutputType: Class Library. Debug output: `YJKS\YJKS_8_1_0\`
+- `YjkDriver.csproj` — OutputType: WinExe (no console window). Debug output: `YJKS\YJKS_8_1_0\IdeaStatiCa\`. AfterBuild copies `YjkDriver.exe` + `YjkDriver.exe.config` up to `YJKS\YJKS_8_1_0\`.
+
+Build with Visual Studio. Both projects must be built — building `yjk` triggers a build-order dependency on `YjkDriver` (via `ReferenceOutputAssembly=false` ProjectReference).
+
+The projects depend on unmanaged YJK DLLs (`ClrYJKAPI.dll`, `YAPIData.dll`, `YJKAPI.dll`) in `YJKS\YJKS_8_1_0\`. There are no test projects.
+
+NuGet packages resolve from the global cache (`%USERPROFILE%\.nuget\packages\`) — there is no local `packages\` folder. Hint paths in `YjkDriver.csproj` use `$(USERPROFILE)\.nuget\packages\packagename\version\` format.
+
+The path to IDEA StatiCa Checkbot is configured in `YjkDriver/app.config` under `CheckbotLocation` (defaults to `C:\Program Files\IDEA StatiCa\StatiCa 25.1\IdeaCheckbot.exe`).
+
+## Process architecture
+
 ```
-..\..\..\..\..\..\..\..\YJKS\YJKS_8_0_0\
+YJK process
+  └─ IDEAStatiCa.yjk.dll  (thin launcher)
+       └─ Process.Start("YjkDriver.exe", "<pid> <workingDir>")
+                │
+                ▼
+YjkDriver.exe process  (all plugin logic, isolated from YJK's CLR)
+  ├─ own YjkDriver.exe.config  (binding redirects + codeBase + probing)
+  ├─ GrpcBimHostingFactory
+  ├─ YjkBimLink / YjkApplication / Model
+  ├─ FeaApis / Importers / BimApis
+  └─ YjkBimLink.Run(model)
 ```
 
-The project depends on unmanaged YJK DLLs (`ClrYJKAPI.dll`, `YAPIData.dll`, `YJKAPI.dll`) that must be present in `YJKS\YJKS_8_0_0\` relative to the repo root. There are no test projects.
+**Working directory**: `Main.cs` derives the working directory from `Directory.GetCurrentDirectory()` (YJK sets the CWD to the open project folder), creates `IdeaStatiCa-<projectname>\` subfolder, and passes it as `args[1]` to the driver.
 
-The path to IDEA StatiCa Checkbot is configured in `app.config` under `CheckbotLocation` (defaults to `C:\Program Files\IDEA StatiCa\StatiCa 25.1\IdeaCheckbot.exe`).
+**Launcher dir**: `Main.cs` uses `new Uri(typeof(Main).Assembly.CodeBase).LocalPath` — not `Assembly.Location` — because YJK loads DLLs via URI paths that `Path.GetDirectoryName` alone can't handle.
+
+## Assembly isolation
+
+YJK ships older versions of several assemblies (`System.Memory`, `Microsoft.Bcl.AsyncInterfaces`, `CommunityToolkit.Mvvm`, etc.) in `YJKS_8_1_0\`. The driver uses newer versions. To prevent the CLR from picking up YJK's copies:
+
+- All plugin DLLs (NuGet outputs) land in `YJKS_8_1_0\IdeaStatiCa\` (the driver's `OutputPath`)
+- `YjkDriver.exe.config` has `<probing privatePath="IdeaStatiCa"/>` so the CLR looks there
+- For each assembly where YJK ships a conflicting version, `YjkDriver.exe.config` has both a `<bindingRedirect>` and a `<codeBase href="IdeaStatiCa/...">` pointing explicitly to our copy — this overrides the normal search order so the root-folder copy is never used
+
+**Do not** patch `yjks.exe.config` — the driver's isolation means it is never needed.
+
+## Source file layout
+
+`YjkDriver.csproj` does not copy source files — it links them from the `yjk/` folder using `<Compile Include="..\FeaApis\*.cs"><Link>...</Link></Compile>`. Source files live in `yjk/` and are shared by both projects. `YjkDriver/` contains only: `Program.cs`, `app.config`, `Properties/`.
 
 ## Architecture
 
@@ -35,7 +74,7 @@ BimApis/        — IDEA StatiCa model objects (Member1D, CrossSectionByParamete
 
 **Orchestration** — `Model.cs` implements `IFeaModel` and is the bridge. `Model.GetUserSelection()` is the main entry point called by the framework: it reads from YJK, populates the FeaApis layer, then returns selected node/member identifiers. The framework then calls the importers to convert each identifier on demand.
 
-**Entry & DI** — `Main.cs` wires Autofac, builds the container, and calls `YjkBimLink.Create(...).Run(model)`. `YjkBimLink` extends `FeaBimLink` and creates a `YjkApplication` instance. `YjkApplication` extends `BimApiApplication` and handles `ImportSelection` / `Synchronize` callbacks from IDEA StatiCa.
+**Entry & DI** — `YjkDriver/Program.cs` wires Autofac, builds the container, and calls `YjkBimLink.Create(...).Run(model)`. `YjkBimLink` extends `FeaBimLink` and creates a `YjkApplication` instance. `YjkApplication` extends `BimApiApplication` and handles `ImportSelection` / `Synchronize` callbacks from IDEA StatiCa.
 
 **Synchronize flow** — `YjkApplication.Synchronize()` calls `Model.Refresh()` then `_bimImporter.ImportSelected(items, countryCode)`. `Model.Refresh()` calls `ReadModel()` (DB read + YJK UI thread switch + load cases + clear results) followed by `geometry.GetAll()` which reads every member on every floor unconditionally. This fills `_members`/`_nodes` so the importers have fresh data without requiring a user selection. `Model.ReadModel()` is also called by `GetUserSelection()` before `geometry.GetSelected()`.
 
