@@ -981,16 +981,36 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_EC_SYMMETRICAL)
 			{
-				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
-				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
-				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var dHeight = par1Item.Value.MilimetersToMeters();
-				double pltThickness = par2Item.Value.MilimetersToMeters();
-				double lip = par3Item.Value.MilimetersToMeters();
-				var dWidth = par4Item.Value.MilimetersToMeters();
+				double dHeight = 0, pltThickness = 0, lip = 0, dWidth = 0;
+				bool hasAllParams = false;
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
+				foreach (ProfileItemParameter par in paramProfileItem.aProfileItemParameters)
+				{
+					if (par.Property == HeightKey) dHeight = par.Value.MilimetersToMeters();
+					else if (par.Property == PlateThicknessKey) pltThickness = par.Value.MilimetersToMeters();
+					else if (par.Property == EdgeFoldKey) lip = par.Value.MilimetersToMeters();
+					else if (par.Property == WidthKey) dWidth = par.Value.MilimetersToMeters();
+				}
+
+				hasAllParams = dHeight > 0 && pltThickness > 0 && dWidth > 0;
+
+				if (hasAllParams)
+				{
+					CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, true);
+				}
+				else
+				{
+					// fallback: read by position
+					var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
+					var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
+					var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
+					var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
+					dHeight = par1Item.Value.MilimetersToMeters();
+					pltThickness = par2Item.Value.MilimetersToMeters();
+					lip = par3Item.Value.MilimetersToMeters();
+					dWidth = par4Item.Value.MilimetersToMeters();
+					CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, true);
+				}
 			}
 			else
 			{
