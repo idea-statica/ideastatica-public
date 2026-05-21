@@ -128,7 +128,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <!-- Driver entry point (lives in YjkDriver/) -->
+    <!-- Driver entry point -->
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -136,128 +136,49 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <!-- All plugin source files linked from the yjk project (shared, not copied) -->
-    <Compile Include="..\BimApis\CrossSectionByName.cs">
-      <Link>BimApis\CrossSectionByName.cs</Link>
-    </Compile>
-    <Compile Include="..\BimApis\CrossSectionByParameters.cs">
-      <Link>BimApis\CrossSectionByParameters.cs</Link>
-    </Compile>
-    <Compile Include="..\BimApis\CrossSectionParameterYjk.cs">
-      <Link>BimApis\CrossSectionParameterYjk.cs</Link>
-    </Compile>
-    <Compile Include="..\BimApis\InternalForcesBuilderYjk.cs">
-      <Link>BimApis\InternalForcesBuilderYjk.cs</Link>
-    </Compile>
-    <Compile Include="..\BimApis\Member1D.cs">
-      <Link>BimApis\Member1D.cs</Link>
-    </Compile>
-    <Compile Include="..\BimApis\ParameterDoubleYjk.cs">
-      <Link>BimApis\ParameterDoubleYjk.cs</Link>
-    </Compile>
-    <Compile Include="..\BimApis\Segment3D.cs">
-      <Link>BimApis\Segment3D.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaApi.cs">
-      <Link>FeaApis\FeaApi.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaCrossSection.cs">
-      <Link>FeaApis\FeaCrossSection.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaCrossSectionApi.cs">
-      <Link>FeaApis\FeaCrossSectionApi.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaGeometryApi.cs">
-      <Link>FeaApis\FeaGeometryApi.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaLoadCase.cs">
-      <Link>FeaApis\FeaLoadCase.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaLoadCombination.cs">
-      <Link>FeaApis\FeaLoadCombination.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaLoadGroup.cs">
-      <Link>FeaApis\FeaLoadGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaLoadsApi.cs">
-      <Link>FeaApis\FeaLoadsApi.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaMaterial.cs">
-      <Link>FeaApis\FeaMaterial.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaMaterialApi.cs">
-      <Link>FeaApis\FeaMaterialApi.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaMember.cs">
-      <Link>FeaApis\FeaMember.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaNode.cs">
-      <Link>FeaApis\FeaNode.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaResult.cs">
-      <Link>FeaApis\FeaResult.cs</Link>
-    </Compile>
-    <Compile Include="..\FeaApis\FeaResultsApi.cs">
-      <Link>FeaApis\FeaResultsApi.cs</Link>
-    </Compile>
-    <Compile Include="..\Helpers\BimApiData.cs">
-      <Link>Helpers\BimApiData.cs</Link>
-    </Compile>
-    <Compile Include="..\Helpers\LAnglePrincipalAxesConverter.cs">
-      <Link>Helpers\LAnglePrincipalAxesConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Helpers\UnitConverter.cs">
-      <Link>Helpers\UnitConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Helpers\WindowHelper.xaml.cs">
+    <!-- Plugin source files (now live in YjkDriver/) -->
+    <Compile Include="BimApis\CrossSectionByName.cs" />
+    <Compile Include="BimApis\CrossSectionByParameters.cs" />
+    <Compile Include="BimApis\CrossSectionParameterYjk.cs" />
+    <Compile Include="BimApis\InternalForcesBuilderYjk.cs" />
+    <Compile Include="BimApis\Member1D.cs" />
+    <Compile Include="BimApis\ParameterDoubleYjk.cs" />
+    <Compile Include="BimApis\Segment3D.cs" />
+    <Compile Include="FeaApis\FeaApi.cs" />
+    <Compile Include="FeaApis\FeaCrossSection.cs" />
+    <Compile Include="FeaApis\FeaCrossSectionApi.cs" />
+    <Compile Include="FeaApis\FeaGeometryApi.cs" />
+    <Compile Include="FeaApis\FeaLoadCase.cs" />
+    <Compile Include="FeaApis\FeaLoadCombination.cs" />
+    <Compile Include="FeaApis\FeaLoadGroup.cs" />
+    <Compile Include="FeaApis\FeaLoadsApi.cs" />
+    <Compile Include="FeaApis\FeaMaterial.cs" />
+    <Compile Include="FeaApis\FeaMaterialApi.cs" />
+    <Compile Include="FeaApis\FeaMember.cs" />
+    <Compile Include="FeaApis\FeaNode.cs" />
+    <Compile Include="FeaApis\FeaResult.cs" />
+    <Compile Include="FeaApis\FeaResultsApi.cs" />
+    <Compile Include="Helpers\BimApiData.cs" />
+    <Compile Include="Helpers\LAnglePrincipalAxesConverter.cs" />
+    <Compile Include="Helpers\UnitConverter.cs" />
+    <Compile Include="Helpers\WindowHelper.xaml.cs">
       <DependentUpon>WindowHelper.xaml</DependentUpon>
-      <Link>Helpers\WindowHelper.xaml.cs</Link>
     </Compile>
-    <Compile Include="..\Helpers\YjkDispatcher.cs">
-      <Link>Helpers\YjkDispatcher.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\CrossSectionImporter.cs">
-      <Link>Importers\CrossSectionImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\LoadCaseImporter.cs">
-      <Link>Importers\LoadCaseImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\LoadCombinationImporter.cs">
-      <Link>Importers\LoadCombinationImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\LoadGroupImporter.cs">
-      <Link>Importers\LoadGroupImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\MaterialImporter.cs">
-      <Link>Importers\MaterialImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\MemberImporter.cs">
-      <Link>Importers\MemberImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\NodeImporter.cs">
-      <Link>Importers\NodeImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Importers\ResultsImporter.cs">
-      <Link>Importers\ResultsImporter.cs</Link>
-    </Compile>
-    <Compile Include="..\Model.cs">
-      <Link>Model.cs</Link>
-    </Compile>
-    <Compile Include="..\ViewModels\AppLogger.cs">
-      <Link>ViewModels\AppLogger.cs</Link>
-    </Compile>
-    <Compile Include="..\ViewModels\MessageSeverity.cs">
-      <Link>ViewModels\MessageSeverity.cs</Link>
-    </Compile>
-    <Compile Include="..\ViewModels\MessageViewModel.cs">
-      <Link>ViewModels\MessageViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\YjkApplication.cs">
-      <Link>YjkApplication.cs</Link>
-    </Compile>
-    <Compile Include="..\YjkBimLink.cs">
-      <Link>YjkBimLink.cs</Link>
-    </Compile>
+    <Compile Include="Helpers\YjkDispatcher.cs" />
+    <Compile Include="Importers\CrossSectionImporter.cs" />
+    <Compile Include="Importers\LoadCaseImporter.cs" />
+    <Compile Include="Importers\LoadCombinationImporter.cs" />
+    <Compile Include="Importers\LoadGroupImporter.cs" />
+    <Compile Include="Importers\MaterialImporter.cs" />
+    <Compile Include="Importers\MemberImporter.cs" />
+    <Compile Include="Importers\NodeImporter.cs" />
+    <Compile Include="Importers\ResultsImporter.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="ViewModels\AppLogger.cs" />
+    <Compile Include="ViewModels\MessageSeverity.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="YjkApplication.cs" />
+    <Compile Include="YjkBimLink.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -297,10 +218,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\Helpers\WindowHelper.xaml">
+    <Page Include="Helpers\WindowHelper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Link>Helpers\WindowHelper.xaml</Link>
     </Page>
   </ItemGroup>
   <ItemGroup>

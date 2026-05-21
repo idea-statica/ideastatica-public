@@ -56,7 +56,15 @@ YJK ships older versions of several assemblies (`System.Memory`, `Microsoft.Bcl.
 
 ## Source file layout
 
-`YjkDriver.csproj` does not copy source files — it links them from the `yjk/` folder using `<Compile Include="..\FeaApis\*.cs"><Link>...</Link></Compile>`. Source files live in `yjk/` and are shared by both projects. `YjkDriver/` contains only: `Program.cs`, `app.config`, `Properties/`.
+All plugin source files live in `YjkDriver/` and are compiled directly by `YjkDriver.csproj` (no `<Link>` indirection). `yjk.csproj` compiles only `Main.cs` and `Properties/AssemblyInfo.cs` — it does not reference any of the subfolders.
+
+`YjkDriver/` contains: `Program.cs`, `app.config`, `Properties/`, and the plugin source folders:
+- `BimApis/` — IDEA StatiCa model objects
+- `FeaApis/` — YJK data abstraction layer
+- `Helpers/` — utilities (UnitConverter, YjkDispatcher, LAnglePrincipalAxesConverter, WindowHelper)
+- `Importers/` — transformers from FeaApis to BimApis
+- `ViewModels/` — AppLogger, MessageViewModel, MessageSeverity
+- `Model.cs`, `YjkApplication.cs`, `YjkBimLink.cs` — orchestration layer
 
 ## Architecture
 
