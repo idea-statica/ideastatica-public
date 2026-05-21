@@ -72,6 +72,11 @@ namespace yjk
 				CreateNoWindow = false,
 			};
 
+			// ClrYJKAPI.dll and its native dependencies live in launcherDir (YJKS_8_1_0\).
+			// Prepend it so the OS loader finds them when YjkDriver.exe loads the managed wrapper.
+			string existingPath = startInfo.EnvironmentVariables["PATH"] ?? "";
+			startInfo.EnvironmentVariables["PATH"] = launcherDir + Path.PathSeparator + existingPath;
+
 			//_logger.LogInformation($"Starting YjkDriver.exe pid={pid} workDir={fullWorkingDirectory}");
 			var driver = Process.Start(startInfo);
 			driver.WaitForExit();

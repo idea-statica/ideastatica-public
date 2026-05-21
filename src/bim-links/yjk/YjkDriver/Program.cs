@@ -8,7 +8,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using yjk.FeaApis;
+using yjk.Helpers;
 using yjk.Importers;
 using yjk.ViewModels;
 
@@ -20,10 +22,11 @@ namespace yjk
 		static void Main(string[] args)
 		{
 
-	#if DEBUG
-      System.Diagnostics.Debugger.Launch();
-	#endif
+			#if DEBUG
+			  System.Diagnostics.Debugger.Launch();
+			#endif
 
+			YjkDispatcher.Dispatcher = Dispatcher.CurrentDispatcher;
 
 			SerilogFacade.Initialize("IdeaYJKPlugin.log");
 
