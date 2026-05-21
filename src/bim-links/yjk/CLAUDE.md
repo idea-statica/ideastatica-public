@@ -14,7 +14,7 @@ This is a BIM integration plugin that connects **YJK** (a Chinese structural ana
 Target: **.NET Framework 4.8**.
 
 - `yjk.csproj` — OutputType: Class Library. Debug output: `YJKS\YJKS_8_1_0\`
-- `YjkDriver.csproj` — OutputType: WinExe (no console window). Debug output: `YJKS\YJKS_8_1_0\IdeaStatiCa\`. AfterBuild copies `YjkDriver.exe` + `YjkDriver.exe.config` up to `YJKS\YJKS_8_1_0\`.
+- `YjkDriver.csproj` — OutputType: WinExe (no console window). Debug output: `YJKS\YJKS_8_1_0\IdeaStatiCa\`. `Main.cs` launches it directly from there — no AfterBuild copy step.
 
 Build with Visual Studio. Both projects must be built — building `yjk` triggers a build-order dependency on `YjkDriver` (via `ReferenceOutputAssembly=false` ProjectReference).
 
@@ -49,8 +49,8 @@ YjkDriver.exe process  (all plugin logic, isolated from YJK's CLR)
 YJK ships older versions of several assemblies (`System.Memory`, `Microsoft.Bcl.AsyncInterfaces`, `CommunityToolkit.Mvvm`, etc.) in `YJKS_8_1_0\`. The driver uses newer versions. To prevent the CLR from picking up YJK's copies:
 
 - All plugin DLLs (NuGet outputs) land in `YJKS_8_1_0\IdeaStatiCa\` (the driver's `OutputPath`)
-- `YjkDriver.exe.config` has `<probing privatePath="IdeaStatiCa"/>` so the CLR looks there
-- For each assembly where YJK ships a conflicting version, `YjkDriver.exe.config` has both a `<bindingRedirect>` and a `<codeBase href="IdeaStatiCa/...">` pointing explicitly to our copy — this overrides the normal search order so the root-folder copy is never used
+- `YjkDriver.exe` also lives in `IdeaStatiCa\`, so the CLR finds all DLLs by default probing in the EXE's own directory — no `<probing>` element needed
+- For each assembly where YJK ships a conflicting version in the root folder, `YjkDriver.exe.config` has a `<bindingRedirect>` to redirect to the version in `IdeaStatiCa\` — since the EXE is inside that folder the CLR picks up the correct copy automatically
 
 **Do not** patch `yjks.exe.config` — the driver's isolation means it is never needed.
 

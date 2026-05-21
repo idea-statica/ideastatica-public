@@ -307,9 +307,4 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
-    <Copy SourceFiles="$(OutputPath)YjkDriver.exe" DestinationFolder="$(YjkInstallRoot)" />
-    <Copy SourceFiles="$(OutputPath)YjkDriver.exe.config" DestinationFolder="$(YjkInstallRoot)" />
-    <Copy SourceFiles="$(OutputPath)YjkDriver.pdb" DestinationFolder="$(YjkInstallRoot)" Condition="Exists('$(OutputPath)YjkDriver.pdb')" />
-  </Target>
 </Project>

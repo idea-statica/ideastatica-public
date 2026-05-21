@@ -5,6 +5,7 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using yjk.FeaApis;
@@ -18,6 +19,12 @@ namespace yjk
 		[STAThread]
 		static void Main(string[] args)
 		{
+
+	#if DEBUG
+      System.Diagnostics.Debugger.Launch();
+	#endif
+
+
 			SerilogFacade.Initialize("IdeaYJKPlugin.log");
 
 			// args[0] = YJK host process PID

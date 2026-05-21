@@ -13,6 +13,7 @@ namespace yjk
 
 		static Main()
 		{
+			//Logging is removed in the wrapper, chance of nugget package conflict with YJK
 			//SerilogFacade.Initialize("IdeaYJKPlugin.log");
 			//_logger = LoggerProvider.GetLogger("yjk.launcher");
 		}
@@ -29,7 +30,7 @@ namespace yjk
 				}
 				catch (Exception ex)
 				{
-					_logger.LogError("Failed to launch YjkDriver", ex);
+					//_logger.LogError("Failed to launch YjkDriver", ex);
 				}
 			});
 		}
@@ -40,10 +41,13 @@ namespace yjk
 				new Uri(typeof(Main).Assembly.CodeBase).LocalPath);
 			//_logger.LogInformation($"Launcher dir: {launcherDir}");
 
-			string driverPath = Path.Combine(launcherDir, "YjkDriver.exe");
+			string driverPath = Path.Combine(launcherDir, "IdeaStatiCa", "YjkDriver.exe");
+
+			//string driverPath = Path.Combine(launcherDir, "YjkDriver.exe");
+
 			if (!File.Exists(driverPath))
 			{
-				_logger.LogError($"YjkDriver.exe not found at '{driverPath}'");
+				//_logger.LogError($"YjkDriver.exe not found at '{driverPath}'");
 				return;
 			}
 
