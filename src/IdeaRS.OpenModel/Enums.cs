@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IdeaRS.OpenModel
+﻿namespace IdeaRS.OpenModel
 {
 	/// <summary>
 	/// A system which uses one or more numbers, or coordinates, to uniquely determine the position of a point or other geometric element.

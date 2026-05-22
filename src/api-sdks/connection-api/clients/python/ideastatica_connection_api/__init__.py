@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.0.1.1682"
+__version__ = "26.0.2.0407"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -97,6 +97,7 @@ from ideastatica_connection_api.models.con_result_summary import ConResultSummar
 from ideastatica_connection_api.models.con_stiffness_analysis import ConStiffnessAnalysis
 from ideastatica_connection_api.models.con_template_apply_param import ConTemplateApplyParam
 from ideastatica_connection_api.models.con_template_apply_result import ConTemplateApplyResult
+from ideastatica_connection_api.models.con_template_create_result import ConTemplateCreateResult
 from ideastatica_connection_api.models.con_template_mapping_get_param import ConTemplateMappingGetParam
 from ideastatica_connection_api.models.con_template_publish_param import ConTemplatePublishParam
 from ideastatica_connection_api.models.con_weld_sizing_method_enum import ConWeldSizingMethodEnum

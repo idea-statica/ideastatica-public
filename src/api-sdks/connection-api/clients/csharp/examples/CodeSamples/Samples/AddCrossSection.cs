@@ -1,5 +1,4 @@
-﻿using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.Api.Connection.Model.Material;
+﻿using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples

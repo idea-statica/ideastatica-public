@@ -2,7 +2,6 @@
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
-using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {

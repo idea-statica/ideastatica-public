@@ -12,7 +12,7 @@ namespace SafFeaBimLink
 {
 	internal class SafFeaApplication : ApplicationBIMAsync
 	{
-		//Update Logger 
+		//Update Logger
 		private readonly IPluginLogger _logger;
 
 		//Update Application Name
@@ -63,7 +63,9 @@ namespace SafFeaBimLink
 			{
 				ModelBIM modelBIM;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 				_progressMessaging?.InitProgressDialog();
+#pragma warning restore CS0618 // Type or member is obsolete
 				_progressMessaging?.SendMessage(MessageSeverity.Info, "Waiting for BIM application");
 
 				if (requestedType == RequestedItemsType.Connections)
@@ -131,7 +133,9 @@ namespace SafFeaBimLink
 			{
 				_logger.LogDebug("Sync of imported objects");
 
+#pragma warning disable CS0618 // Type or member is obsolete
 				_progressMessaging?.InitProgressDialog();
+#pragma warning restore CS0618 // Type or member is obsolete
 				_progressMessaging?.SetStage(1, 0, "Sync of imported objects");
 
 				string path = await _FeaModelApi.GetObjects(GetGuidsToImport(items));

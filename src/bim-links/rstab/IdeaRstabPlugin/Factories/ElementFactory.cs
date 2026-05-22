@@ -7,7 +7,6 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using MathNet.Numerics;
-using System;
 using System.Collections.Generic;
 using NMVector3D = MathNet.Spatial.Euclidean.Vector3D;
 using UnitVector3D = MathNet.Spatial.Euclidean.UnitVector3D;

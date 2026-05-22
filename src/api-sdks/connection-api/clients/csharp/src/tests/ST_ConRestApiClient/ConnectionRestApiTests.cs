@@ -1,4 +1,3 @@
-using IdeaStatiCa.ConnectionApi.Model;
 using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
 

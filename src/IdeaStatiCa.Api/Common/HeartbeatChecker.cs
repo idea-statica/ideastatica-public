@@ -1,5 +1,4 @@
-﻿using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.Plugin;
 using System;
 using System.Net.Http;
 using System.Threading;

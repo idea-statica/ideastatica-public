@@ -4,7 +4,6 @@ using ConnectionIomGenerator.UI.Models;
 using ConnectionIomGenerator.UI.Services;
 using ConnectionIomGenerator.UI.ViewModels;
 using ConnectionIomGeneratorApp.View;
-using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;

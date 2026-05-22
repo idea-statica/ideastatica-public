@@ -15,10 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Net.Http;
 using System.Net.Security;
 
 namespace IdeaStatiCa.ConnectionApi.Client
@@ -34,7 +31,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "26.0.1.1682";
+        public const string Version = "26.0.2.0407";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -118,7 +115,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/26.0.1.1682/csharp");
+            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/26.0.2.0407/csharp");
             BasePath = "http://localhost";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -541,7 +538,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 3.0\n";
-            report += "    SDK Package Version: 26.0.1.1682\n";
+            report += "    SDK Package Version: 26.0.2.0407\n";
 
             return report;
         }

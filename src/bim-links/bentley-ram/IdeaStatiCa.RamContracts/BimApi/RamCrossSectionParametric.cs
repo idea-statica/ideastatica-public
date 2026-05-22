@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using IdeaStatiCa.BimApi;
 using IdeaRS.OpenModel.CrossSection;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
