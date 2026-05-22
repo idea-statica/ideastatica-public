@@ -12,10 +12,31 @@ namespace IdeaStatiCa.IntermediateModel
 	public class XmlParsingService : IXmlParsingIRService
 	{
 		protected readonly IPluginLogger _logger;
+		private const bool EnableVerboseLogging = false;
 
 		public XmlParsingService(IPluginLogger logger)
 		{
 			this._logger = logger;
+		}
+
+		private void LogTraceIfEnabled(string message)
+		{
+			if (EnableVerboseLogging)
+			{
+#pragma warning disable CS0162 // Unreachable code detected
+				_logger.LogTrace(message);
+#pragma warning restore CS0162 // Unreachable code detected
+			}
+		}
+
+		private void LogDebugIfEnabled(string message)
+		{
+			if (EnableVerboseLogging)
+			{
+#pragma warning disable CS0162 // Unreachable code detected
+				_logger.LogDebug(message);
+#pragma warning restore CS0162 // Unreachable code detected
+			}
 		}
 
 		/// <inheritdoc />
@@ -56,20 +77,20 @@ namespace IdeaStatiCa.IntermediateModel
 				switch (reader.NodeType)
 				{
 					case XmlNodeType.Element:
-						ProcessStartElement(reader, processItemStack, model);
-						break;
+					ProcessStartElement(reader, processItemStack, model);
+					break;
 
 					case XmlNodeType.Text:
-						ProcessPrimitiveValue(reader, processItemStack);
-						break;
+					ProcessPrimitiveValue(reader, processItemStack);
+					break;
 
 					case XmlNodeType.EndElement:
-						ProcessEndElement(processItemStack);
-						break;
+					ProcessEndElement(processItemStack);
+					break;
 
 					case XmlNodeType.XmlDeclaration:
-						ProcessDeclaration(reader, model);
-						break;
+					ProcessDeclaration(reader, model);
+					break;
 				}
 			}
 			return model;
@@ -84,7 +105,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 			do
 			{
-				_logger.LogTrace($"ProcessAttribute LocalName = {reader.LocalName}, Prefix = {reader.Prefix}, Value = {reader.Value}, NameSpace = {reader.NamespaceURI}");
+				LogTraceIfEnabled($"ProcessAttribute LocalName = {reader.LocalName}, Prefix = {reader.Prefix}, Value = {reader.Value}, NameSpace = {reader.NamespaceURI}");
 
 				var attribute = new SAttribute
 				{
@@ -100,12 +121,12 @@ namespace IdeaStatiCa.IntermediateModel
 				{
 					if (!model.RootNameSpaces.ContainsKey(reader.Prefix))
 					{
-						_logger.LogDebug($"Adding namespace {reader.LocalName} = {reader.Value}");
+						LogDebugIfEnabled($"Adding namespace {reader.LocalName} = {reader.Value}");
 						model.RootNameSpaces.Add(reader.LocalName, attribute);
 					}
 					else
 					{
-						_logger.LogTrace($"ProcessAttribute root attribute {reader.Name} exist");
+						LogTraceIfEnabled($"ProcessAttribute root attribute {reader.Name} exist");
 					}
 				}
 			}
@@ -123,7 +144,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessDeclaration(XmlReader reader, SModel model)
 		{
-			_logger.LogTrace($"ProcessDeclaration TypeName {reader.Name}");
+			LogTraceIfEnabled($"ProcessDeclaration TypeName {reader.Name}");
 			var element = new SObject { TypeName = reader.Name };
 			model.ModelDeclaration = element;
 
@@ -132,7 +153,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessStartElement(XmlReader reader, Stack<SObject> processItemStack, SModel model)
 		{
-			_logger.LogTrace($"ProcessStartElement TypeName {reader.Name}");
+			LogTraceIfEnabled($"ProcessStartElement TypeName {reader.Name}");
 			var element = new SObject { TypeName = reader.Name };
 
 			//if its not root element assign element to the parent
@@ -145,7 +166,7 @@ namespace IdeaStatiCa.IntermediateModel
 			//if its not empty element
 			if (!reader.IsEmptyElement)
 			{
-				_logger.LogTrace("ProcessStartElement add to process further");
+				LogTraceIfEnabled("ProcessStartElement add to process further");
 				//new parent
 				processItemStack.Push(element);
 			}
@@ -153,7 +174,7 @@ namespace IdeaStatiCa.IntermediateModel
 			//if its root item set as model root
 			if (model.RootItem == null)
 			{
-				_logger.LogTrace("ProcessStartElement set as root item");
+				LogTraceIfEnabled("ProcessStartElement set as root item");
 				model.RootItem = element;
 			}
 
@@ -162,7 +183,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void AddToParent(SObject element, SObject parent)
 		{
-			_logger.LogTrace($"AddToParent add element {element.GetElementName()} in to {parent.GetElementName()}");
+			LogTraceIfEnabled($"AddToParent add element {element.GetElementName()} in to {parent.GetElementName()}");
 
 			if (parent.Properties.ContainsKey(element.GetElementName()))
 			{
@@ -180,7 +201,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessPrimitiveValue(XmlReader reader, Stack<SObject> processItemStack)
 		{
-			_logger.LogTrace($"ProcessPrimitiveValue value {reader.Value}");
+			LogTraceIfEnabled($"ProcessPrimitiveValue value {reader.Value}");
 
 			if (processItemStack.Count > 0)
 			{
@@ -196,11 +217,11 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessEndElement(Stack<SObject> processItemStack)
 		{
-			_logger.LogTrace("ProcessEndElement");
+			LogTraceIfEnabled("ProcessEndElement");
 			if (processItemStack.Count > 0)
 			{
 				var filled = processItemStack.Pop();
-				_logger.LogTrace($"ProcessEndElement {filled.GetElementName()}");
+				LogTraceIfEnabled($"ProcessEndElement {filled.GetElementName()}");
 				FixReferences(filled);
 			}
 		}
@@ -211,14 +232,14 @@ namespace IdeaStatiCa.IntermediateModel
 		/// <param name="element"></param>
 		private void FixReferences(SObject element)
 		{
-			_logger.LogTrace($"FixReferences {element.GetElementName()}");
+			LogTraceIfEnabled($"FixReferences {element.GetElementName()}");
 			var properties = new Dictionary<string, ISIntermediate>();
 
 			foreach (var item in element.Properties)
 			{
 				if (item.Value is SList sList && sList.Count == 1)
 				{
-					_logger.LogTrace($"FixReferences remove list reference");
+					LogTraceIfEnabled($"FixReferences remove list reference");
 					properties[item.Key] = sList.First();
 				}
 				else
