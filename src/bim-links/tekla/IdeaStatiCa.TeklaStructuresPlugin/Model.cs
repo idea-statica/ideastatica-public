@@ -3,6 +3,7 @@ using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ using TS = Tekla.Structures.Model;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin
 {
-	internal class Model : ICadModel
+	internal class Model : ICadModel, IProgressMessagingAware
 	{
 		private readonly IModelClient _model;
+
+		public IProgressMessaging ProgressMessaging { get; set; }
 
 		public Model(IModelClient modelClient)
 		{
@@ -100,10 +103,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		{
 			_model.ClearCache();
 			var selections = new List<CadUserSelection>();
+			var joints = _model.GetBulkSelection(progressMessaging: ProgressMessaging);
+			int total = joints.Count;
 
-			foreach (var joint in _model.GetBulkSelection())
+			for (int i = 0; i < total; i++)
 			{
-				selections.Add(GetCadUserSelection(joint.Item1, joint.Item2, joint.Item3));
+				ProgressMessaging?.SetStageLocalised(i + 1, total, LocalisedMessage.ProcessingConnection, string.Empty);
+				selections.Add(GetCadUserSelection(joints[i].Item1, joints[i].Item2, joints[i].Item3));
 			}
 
 			return selections;

@@ -39,7 +39,13 @@ namespace IdeaStatiCa.BimApiLink
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
 
-			CadModelAdapter cadModelAdapter = new CadModelAdapter(model as ICadModel, remoteApp, ApplicationName, _itemsComparer);
+			ICadModel cadModel = model as ICadModel;
+			if (cadModel is IProgressMessagingAware progressMessagingAware)
+			{
+				progressMessagingAware.ProgressMessaging = remoteApp;
+			}
+
+			CadModelAdapter cadModelAdapter = new CadModelAdapter(cadModel, remoteApp, ApplicationName, _itemsComparer);
 
 			IBimImporter bimImporter = BimImporter.BimImporter.Create(
 				cadModelAdapter,
