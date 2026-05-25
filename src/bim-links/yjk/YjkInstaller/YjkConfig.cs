@@ -14,24 +14,21 @@ namespace YjkInstaller
 		private const string IdeaMenuMacroUid = "ID_idea_statica";
 
 		private readonly string _installPath;
+		private readonly string _ideaNet48Path;
 		private readonly string _pluginDllEntry;
 
-		// Assembly binding redirects that the plugin requires but may be missing from stock yjks.exe.config
-		private static readonly (string Name, string PublicKeyToken, string OldVersion, string NewVersion)[] PluginBindingRedirects =
+		// Assembly binding redirects that the plugin requires but may be missing from stock yjks.exe.config.
+		// CodeBaseFile, when non-null, names a DLL in IDEA's net48 folder — added as <codeBase> so the CLR
+		// can find the redirected version even though it isn't in YJK's probing path.
+		private static readonly (string Name, string PublicKeyToken, string OldVersion, string NewVersion, string CodeBaseFile)[] PluginBindingRedirects =
 		{
-			("Microsoft.Bcl.AsyncInterfaces",             "cc7b13ffcd2ddd51", "0.0.0.0-10.0.0.0", "8.0.0.0"),
-			("System.Runtime.CompilerServices.Unsafe",    "b03f5f7f11d50a3a", "0.0.0.0-6.0.3.0",  "6.0.3.0"),
-			("System.Memory",                             "cc7b13ffcd2ddd51", "0.0.0.0-4.0.5.0",  "4.0.5.0"),
-			("System.Threading.Tasks.Extensions",         "cc7b13ffcd2ddd51", "0.0.0.0-4.2.4.0",  "4.2.4.0"),
-			("System.Collections.Immutable",              "b03f5f7f11d50a3a", "0.0.0.0-5.0.0.0",  "5.0.0.0"),
-			("System.Buffers",                            "cc7b13ffcd2ddd51", "0.0.0.0-4.0.3.0",  "4.0.3.0"),
-			("System.IO.Pipelines",                       "cc7b13ffcd2ddd51", "0.0.0.0-6.0.0.1",  "6.0.0.1"),
-			("Serilog",                                   "24c2f752a8e58a10", "0.0.0.0-4.2.0.0",  "4.2.0.0"),
+			("System.Memory", "cc7b13ffcd2ddd51", "0.0.0.0-4.0.5.0", "4.0.5.0", "System.Memory.dll"),
 		};
 
 		public YjkConfig(string installPath, string ideaNet48Path)
 		{
 			_installPath = installPath;
+			_ideaNet48Path = ideaNet48Path;
 			_pluginDllEntry = ideaNet48Path != null
 				? MakeRelativePath(installPath, Path.Combine(ideaNet48Path, "IDEAStatiCa.yjk.dll"))
 				: "IDEAStatiCa.yjk.dll";
@@ -222,8 +219,12 @@ namespace YjkInstaller
 			}
 
 			bool changed = false;
-			foreach (var (name, token, oldVer, newVer) in PluginBindingRedirects)
+			foreach (var (name, token, oldVer, newVer, codeBaseFile) in PluginBindingRedirects)
 			{
+				string codeBaseHref = codeBaseFile != null && _ideaNet48Path != null
+					? new Uri(Path.Combine(_ideaNet48Path, codeBaseFile)).AbsoluteUri
+					: null;
+
 				var existing = assemblyBinding.Elements(ns + "dependentAssembly").FirstOrDefault(da =>
 				{
 					var identity = da.Element(ns + "assemblyIdentity");
@@ -235,9 +236,17 @@ namespace YjkInstaller
 				if (existing != null)
 				{
 					var redirect = existing.Element(ns + "bindingRedirect");
-					if (redirect != null &&
+					var codeBase = existing.Element(ns + "codeBase");
+					bool redirectMatches = redirect != null &&
 						(string)redirect.Attribute("oldVersion") == oldVer &&
-						(string)redirect.Attribute("newVersion") == newVer)
+						(string)redirect.Attribute("newVersion") == newVer;
+					bool codeBaseMatches = codeBaseHref == null
+						? codeBase == null
+						: codeBase != null &&
+						  (string)codeBase.Attribute("version") == newVer &&
+						  (string)codeBase.Attribute("href") == codeBaseHref;
+
+					if (redirectMatches && codeBaseMatches)
 						continue;
 
 					if (!changed) BackupFile(path);
@@ -259,6 +268,13 @@ namespace YjkInstaller
 						new XAttribute("oldVersion", oldVer),
 						new XAttribute("newVersion", newVer)));
 
+				if (codeBaseHref != null)
+				{
+					newEntry.Add(new XElement(ns + "codeBase",
+						new XAttribute("version", newVer),
+						new XAttribute("href", codeBaseHref)));
+				}
+
 				assemblyBinding.Add(newEntry);
 				changed = true;
 			}
@@ -279,7 +295,7 @@ namespace YjkInstaller
 			if (assemblyBinding == null) return;
 
 			bool changed = false;
-			foreach (var (name, token, _, _) in PluginBindingRedirects)
+			foreach (var (name, token, _, _, _) in PluginBindingRedirects)
 			{
 				var entry = assemblyBinding.Elements(ns + "dependentAssembly").FirstOrDefault(da =>
 				{
