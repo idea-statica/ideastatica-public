@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace YjkInstaller
 {
@@ -100,8 +99,6 @@ namespace YjkInstaller
 				return false;
 			}
 
-			string sourceDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
 			Yjk yjk = Yjk.GetInstallation(yjkPath);
 			if (yjk == null)
 			{
@@ -123,7 +120,7 @@ namespace YjkInstaller
 				status.Add(new KeyValuePair<string, string>("LS", plugin.IsInstalled(yjk) ? "1" : "0"));
 
 			if (install)
-				plugin.Install(yjk, sourceDirectory);
+				plugin.Install(yjk);
 
 			if (uninstall)
 				plugin.Uninstall(yjk);

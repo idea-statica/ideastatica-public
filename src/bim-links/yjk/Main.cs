@@ -1,86 +1,44 @@
-using IdeaStatiCa.Plugin;
-//using IdeaStatiCa.PluginLogger;
 using System;
-using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace yjk
 {
 	public class Main
 	{
-		private static readonly IPluginLogger _logger;
-
-		static Main()
-		{
-			//Logging is removed in the wrapper, chance of nugget package conflict with YJK
-			//SerilogFacade.Initialize("IdeaYJKPlugin.log");
-			//_logger = LoggerProvider.GetLogger("yjk.launcher");
-		}
-
 		[CommandMethod("idea_statica")]
 		public void Run()
 		{
-			//_logger.LogInformation("IDEA StatiCa plugin clicked");
+			Dispatcher yjkDispatcher = Dispatcher.CurrentDispatcher;
+			AssemblyResolver.Install();
+
 			Task.Run(() =>
 			{
 				try
 				{
-					LaunchDriver();
+					RunPlugin(yjkDispatcher);
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
-					//_logger.LogError("Failed to launch YjkDriver", ex);
 				}
 			});
 		}
 
-		private static void LaunchDriver()
+		private static void RunPlugin(Dispatcher yjkDispatcher)
 		{
-			string launcherDir = Path.GetDirectoryName(
-				new Uri(typeof(Main).Assembly.CodeBase).LocalPath);
-			//_logger.LogInformation($"Launcher dir: {launcherDir}");
-
-			string driverPath = Path.Combine(launcherDir, "IdeaStatiCa", "YjkDriver.exe");
-
-			//string driverPath = Path.Combine(launcherDir, "YjkDriver.exe");
-
-			if (!File.Exists(driverPath))
-			{
-				//_logger.LogError($"YjkDriver.exe not found at '{driverPath}'");
-				return;
-			}
-
 			string workingDirectory = Directory.GetCurrentDirectory();
-			//_logger.LogInformation($"Working directory: {workingDirectory}");
-
 			var yjkFiles = Directory.GetFiles(workingDirectory, "*.yjk");
 			string yjkFileName = yjkFiles.Length == 1
 				? Path.GetFileNameWithoutExtension(yjkFiles[0]) : "";
 			string fullWorkingDirectory = Path.Combine(workingDirectory, "IdeaStatiCa-" + yjkFileName);
 
-			if (!Directory.Exists(fullWorkingDirectory))
-				Directory.CreateDirectory(fullWorkingDirectory);
+			Assembly plugin = Assembly.LoadFrom(Path.Combine(AssemblyResolver.Net48Path, "YjkPlugin.dll"));
+			Type entryType = plugin.GetType("yjk.PluginEntry");
 
-			int pid = Process.GetCurrentProcess().Id;
-
-			var startInfo = new ProcessStartInfo
-			{
-				FileName = driverPath,
-				Arguments = pid + " \"" + fullWorkingDirectory + "\"",
-				UseShellExecute = false,
-				CreateNoWindow = false,
-			};
-
-			// ClrYJKAPI.dll and its native dependencies live in launcherDir (YJKS_8_1_0\).
-			// Prepend it so the OS loader finds them when YjkDriver.exe loads the managed wrapper.
-			string existingPath = startInfo.EnvironmentVariables["PATH"] ?? "";
-			startInfo.EnvironmentVariables["PATH"] = launcherDir + Path.PathSeparator + existingPath;
-
-			//_logger.LogInformation($"Starting YjkDriver.exe pid={pid} workDir={fullWorkingDirectory}");
-			var driver = Process.Start(startInfo);
-			driver.WaitForExit();
-			//_logger.LogInformation($"YjkDriver.exe exited with code {driver.ExitCode}");
+			entryType.GetProperty("YjkDispatcher").SetValue(null, yjkDispatcher);
+			entryType.GetMethod("Run", new[] { typeof(string) }).Invoke(null, new object[] { fullWorkingDirectory });
 		}
 	}
 }

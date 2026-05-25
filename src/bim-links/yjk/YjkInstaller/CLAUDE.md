@@ -4,17 +4,13 @@
 
 `YjkInstaller.exe` is a console application that installs or uninstalls the IDEA StatiCa YJK plugin on a user's machine. It requires administrator privileges (enforced by `app.manifest`).
 
-The plugin connects YJK (盈建科, a Chinese structural analysis platform) to IDEA StatiCa Checkbot. Installing the plugin involves four distinct steps across three config files and a set of DLL copies. This installer automates all of them.
+The plugin connects YJK (盈建科, a Chinese structural analysis platform) to IDEA StatiCa Checkbot.
 
 ---
 
 ## How to distribute
 
-The installer is **not** self-contained for the plugin DLLs. When releasing a new version:
-
-1. Build the `yjk` plugin project in Release (`IDEAStatiCa.yjk.dll` and all its dependencies land in `yjk\bin\Release\`).
-2. Build this project in Release (`YjkInstaller.exe` lands in `YjkInstaller\bin\Release\net48\`).
-3. Package them together — copy `YjkInstaller.exe` into the same folder as the plugin output, or copy all plugin DLLs into the installer's output folder. The user receives a single folder containing both.
+The installer is self-contained — it embeds the three YJK replacement DLLs as resources. `IDEAStatiCa.yjk.dll` and `YjkPlugin.dll` are **not** bundled with the installer; they are deployed directly to IDEA StatiCa's `net48\` folder by the build output path (`YjkPlugin.csproj` and `yjk.csproj` both output to `C:\Program Files\IDEA StatiCa\StatiCa 26.0\net48\`). The user must have IDEA StatiCa 26.0 installed before running the installer.
 
 The three YJK replacement DLLs (`ClrYJKAPI.dll`, `YAPIData.dll`, `YJKAPI.dll`) are **embedded inside `YjkInstaller.exe`** as resources (see `Resources/` folder and `YjkInstaller.csproj`). They never need to be distributed separately — the installer extracts them at install time. If you need to update these DLLs for a new YJK version, replace the files in `Resources/` and rebuild.
 
@@ -27,30 +23,31 @@ Running `YjkInstaller.exe /i` performs these steps in order:
 ### Step 1 — Find YJK installation directory
 `Yjk.GetInstallation()` tries three sources in order:
 1. The `/i:path` command-line override, if provided
-2. Registry: `HKEY_LOCAL_MACHINE\SOFTWARE\YJKSOFT\YJKS8.0.0` → value `INSTALLFOLDER`
-3. Hard-coded default: `C:\YJKS\YJKS_8_0_0\`
+2. Registry: `HKEY_LOCAL_MACHINE\SOFTWARE\YJKSOFT\YJKS8.1.0` → value `INSTALLFOLDER`
+3. Hard-coded default: `C:\YJKS\YJKS_8_1_0\`
 
 If none resolves to an existing directory, the installer exits with an error.
 
-### Step 2 — Extract YJK replacement DLLs
+### Step 2 — Find IDEA StatiCa net48 path
+`Yjk.GetIdeaNet48Path()` reads `HKLM\SOFTWARE\IDEAStatiCa\*`, picks the highest version subkey, reads `InstallDir64`, and appends `\net48`. This is where `IDEAStatiCa.yjk.dll` lives.
+
+### Step 3 — Extract YJK replacement DLLs
 `YjkPlugin.ExtractReplacementDlls()` extracts three DLLs from embedded resources into the YJK install directory, **overwriting** the stock versions:
 - `ClrYJKAPI.dll`
 - `YAPIData.dll`
 - `YJKAPI.dll`
 
-These are **not** the standard YJK DLLs. They are modified versions that add the ability to load .NET plugin assemblies at startup. Without them, YJK ignores `apiPlugList.txt` entirely. The source files are stored in `Resources/` and baked into the exe as `EmbeddedResource` items.
-
-### Step 3 — Copy plugin DLLs
-`YjkPlugin.CopyPluginFiles()` copies all files from the installer's own directory to the YJK install directory, skipping:
-- The three replacement DLLs (already handled in step 2)
-- `YjkInstaller.exe`, `YjkInstaller.exe.config`, `YjkInstaller.pdb`
-
-This copies `IDEAStatiCa.yjk.dll` and all its runtime dependencies (Serilog, MathNet, Autofac, IdeaStatiCa libs, etc.).
+These are **not** the standard YJK DLLs. They are modified versions that add the ability to load .NET plugin assemblies at startup. Without them, YJK ignores `apiPlugList.txt` entirely.
 
 ### Step 4 — Register plugin in `apiPlugList.txt`
-`YjkConfig.AddToApiPlugList()` adds the line `IDEAStatiCa.yjk.dll` to `[YJK install dir]\apiPlugList.txt`.
+`YjkConfig.AddToApiPlugList()` adds a **relative path** entry to `[YJK install dir]\apiPlugList.txt` pointing from the YJK folder to `IDEAStatiCa.yjk.dll` in IDEA's `net48\` folder.
 
-Format: one DLL name (no path) per line. YJK reads this file at startup and loads each listed assembly from its own install directory.
+Example entry (for default install paths):
+```
+..\..\Program Files\IDEA StatiCa\StatiCa 26.0\net48\IDEAStatiCa.yjk.dll
+```
+
+The relative path is computed at install time via `Uri.MakeRelativeUri` so it works for any install location. **YJK requires a relative path** — absolute paths cause a `NotSupportedException` because YJK prepends its own install dir.
 
 ### Step 5 — Add ribbon button to `YJK.CUI`
 `YjkConfig.AddToCui()` edits `[YJK install dir]\YJK.CUI` (a large XML file defining the entire YJK UI) in two places:
@@ -81,31 +78,14 @@ The original `YJK.CUI` is backed up to `YJK.CUI.bak` before modification.
 
 The command name `idea_statica` maps to the `[CommandMethod("idea_statica")]` entry point in `Main.cs` of the plugin project.
 
-### Step 6 — Merge assembly binding redirects into `yjks.exe.config`
-`YjkConfig.MergeBindingRedirects()` adds missing `<dependentAssembly>` entries to `[YJK install dir]\yjks.exe.config`. The stock YJK config is missing redirects for assemblies the plugin depends on. The installer adds them only if not already present:
-
-| Assembly | New version |
-|---|---|
-| `Microsoft.Bcl.AsyncInterfaces` | 8.0.0.0 |
-| `System.Runtime.CompilerServices.Unsafe` | 6.0.3.0 |
-| `System.Memory` | 4.0.5.0 |
-| `System.Threading.Tasks.Extensions` | 4.2.4.0 |
-| `System.Collections.Immutable` | 5.0.0.0 |
-| `System.Buffers` | 4.0.3.0 |
-| `System.IO.Pipelines` | 6.0.0.1 |
-| `Serilog` | 4.2.0.0 |
-
-The original `yjks.exe.config` is backed up to `yjks.exe.config.bak` before modification.
-
 ---
 
 ## What uninstall does (`/u`)
 
-Reverses steps 4–6 only. The replacement DLLs and plugin DLLs are **not** deleted — removing them risks breaking the YJK installation if it has come to depend on them. Only the configuration changes are reverted:
-1. Remove `IDEAStatiCa.yjk.dll` line from `apiPlugList.txt`
+Reverses steps 4–5 only. The replacement DLLs are **not** deleted — removing them risks breaking the YJK installation. Only the configuration changes are reverted:
+1. Remove the `IDEAStatiCa.yjk.dll` relative-path line from `apiPlugList.txt`
 2. Remove `<MenuMacro UID="ID_idea_statica">` from `YJK.CUI`
 3. Remove `<SubPanel Title="IDEA StatiCa">` from `YJK.CUI`
-4. Remove the plugin-specific `<dependentAssembly>` entries from `yjks.exe.config`
 
 ---
 
@@ -127,8 +107,8 @@ Reverses steps 4–6 only. The replacement DLLs and plugin DLLs are **not** dele
 ```
 YjkInstaller/
 ├── Program.cs           — entry point, argument parsing, JSON status output
-├── Yjk.cs               — YJK install directory discovery (registry + fallback)
-├── YjkConfig.cs         — edits apiPlugList.txt, YJK.CUI, yjks.exe.config
+├── Yjk.cs               — YJK + IDEA install directory discovery (registry + fallback)
+├── YjkConfig.cs         — edits apiPlugList.txt and YJK.CUI; computes relative path
 ├── YjkPlugin.cs         — orchestrates install/uninstall; extracts embedded DLLs
 ├── YjkInstaller.csproj  — SDK-style net48 console exe; embeds Resources/*.dll
 ├── app.manifest         — requireAdministrator UAC elevation
@@ -146,5 +126,8 @@ YjkInstaller/
 2. Replace `Resources/ClrYJKAPI.dll`, `Resources/YAPIData.dll`, `Resources/YJKAPI.dll`.
 3. If the registry key changes (e.g. `YJKS9.0.0`), update `YjkRegistryKey` in `Yjk.cs` and `YjkDefaultInstallPath`.
 4. If the CUI structure changes, update the insertion logic in `YjkConfig.AddToCui()` — check the new `YJK.CUI` to find the correct parent elements.
-5. If the plugin gains new assembly dependencies, add their binding redirects to `PluginBindingRedirects` in `YjkConfig.cs`.
-6. Rebuild both `yjk` and `YjkInstaller` projects and repackage.
+5. Rebuild both `yjk` and `YjkInstaller` projects.
+
+## If you need to support a new IDEA StatiCa version
+
+The IDEA install root is discovered from registry automatically (highest version wins). The only required change is rebuilding `YjkPlugin.csproj` and `yjk.csproj` against the new IDEA version's `net48\` DLLs. No installer changes needed unless the registry key structure changes.

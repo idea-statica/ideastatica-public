@@ -16,7 +16,8 @@ namespace YjkInstaller
 		private Yjk(string installPath)
 		{
 			InstallPath = installPath;
-			Config = new YjkConfig(installPath);
+			string ideaNet48 = GetIdeaNet48Path();
+			Config = new YjkConfig(installPath, ideaNet48);
 		}
 
 		public static Yjk GetInstallation(string overridePath = null)
@@ -44,6 +45,42 @@ namespace YjkInstaller
 			{
 				return key?.GetValue(YjkInstallValueName) as string;
 			}
+		}
+
+		private static string GetIdeaNet48Path()
+		{
+			using (RegistryKey ideaKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\IDEAStatiCa"))
+			{
+				if (ideaKey != null)
+				{
+					string bestVersionName = null;
+					System.Version bestVersion = null;
+
+					foreach (string subKeyName in ideaKey.GetSubKeyNames())
+					{
+						if (System.Version.TryParse(subKeyName, out System.Version v))
+						{
+							if (bestVersion == null || v > bestVersion)
+							{
+								bestVersion = v;
+								bestVersionName = subKeyName;
+							}
+						}
+					}
+
+					if (bestVersionName != null)
+					{
+						using (RegistryKey versionKey = ideaKey.OpenSubKey($@"{bestVersionName}\IDEAStatiCa\Designer"))
+						{
+							string installDir = versionKey?.GetValue("InstallDir64") as string;
+							if (!string.IsNullOrEmpty(installDir))
+								return Path.Combine(installDir, "net48");
+						}
+					}
+				}
+			}
+
+			return null;
 		}
 	}
 }

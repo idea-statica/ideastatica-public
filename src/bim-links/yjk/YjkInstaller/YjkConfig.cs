@@ -8,13 +8,13 @@ namespace YjkInstaller
 {
 	internal class YjkConfig
 	{
-		private const string PluginDllName = "IDEAStatiCa.yjk.dll";
 		private const string ApiPlugListFileName = "apiPlugList.txt";
 		private const string CuiFileName = "YJK.CUI";
 		private const string ExeConfigFileName = "yjks.exe.config";
 		private const string IdeaMenuMacroUid = "ID_idea_statica";
 
 		private readonly string _installPath;
+		private readonly string _pluginDllEntry;
 
 		// Assembly binding redirects that the plugin requires but may be missing from stock yjks.exe.config
 		private static readonly (string Name, string PublicKeyToken, string OldVersion, string NewVersion)[] PluginBindingRedirects =
@@ -29,9 +29,21 @@ namespace YjkInstaller
 			("Serilog",                                   "24c2f752a8e58a10", "0.0.0.0-4.2.0.0",  "4.2.0.0"),
 		};
 
-		public YjkConfig(string installPath)
+		public YjkConfig(string installPath, string ideaNet48Path)
 		{
 			_installPath = installPath;
+			_pluginDllEntry = ideaNet48Path != null
+				? MakeRelativePath(installPath, Path.Combine(ideaNet48Path, "IDEAStatiCa.yjk.dll"))
+				: "IDEAStatiCa.yjk.dll";
+		}
+
+		// Returns a relative path from baseDir to targetFile using backslash separators.
+		private static string MakeRelativePath(string baseDir, string targetFile)
+		{
+			Uri baseUri = new Uri(baseDir.TrimEnd('\\', '/') + "\\");
+			Uri targetUri = new Uri(targetFile);
+			return Uri.UnescapeDataString(baseUri.MakeRelativeUri(targetUri).ToString())
+				.Replace('/', '\\');
 		}
 
 		// ── apiPlugList.txt ──────────────────────────────────────────────────────
@@ -40,7 +52,7 @@ namespace YjkInstaller
 		{
 			string path = Path.Combine(_installPath, ApiPlugListFileName);
 			if (!File.Exists(path)) return false;
-			return File.ReadAllLines(path).Any(l => l.Trim().Equals(PluginDllName, StringComparison.OrdinalIgnoreCase));
+			return File.ReadAllLines(path).Any(l => l.Trim().Equals(_pluginDllEntry, StringComparison.OrdinalIgnoreCase));
 		}
 
 		public void AddToApiPlugList()
@@ -48,7 +60,7 @@ namespace YjkInstaller
 			string path = Path.Combine(_installPath, ApiPlugListFileName);
 			if (IsPluginInApiPlugList()) return;
 
-			string line = PluginDllName;
+			string line = _pluginDllEntry;
 			if (File.Exists(path))
 			{
 				string existing = File.ReadAllText(path);
@@ -60,7 +72,7 @@ namespace YjkInstaller
 				File.WriteAllText(path, line + Environment.NewLine, new UTF8Encoding(false));
 			}
 
-			Console.WriteLine($"Added '{PluginDllName}' to {ApiPlugListFileName}.");
+			Console.WriteLine($"Added '{_pluginDllEntry}' to {ApiPlugListFileName}.");
 		}
 
 		public void RemoveFromApiPlugList()
@@ -69,11 +81,11 @@ namespace YjkInstaller
 			if (!File.Exists(path)) return;
 
 			var lines = File.ReadAllLines(path)
-				.Where(l => !l.Trim().Equals(PluginDllName, StringComparison.OrdinalIgnoreCase))
+				.Where(l => !l.Trim().Equals(_pluginDllEntry, StringComparison.OrdinalIgnoreCase))
 				.ToArray();
 
 			File.WriteAllLines(path, lines, new UTF8Encoding(false));
-			Console.WriteLine($"Removed '{PluginDllName}' from {ApiPlugListFileName}.");
+			Console.WriteLine($"Removed '{_pluginDllEntry}' from {ApiPlugListFileName}.");
 		}
 
 		// ── YJK.CUI ──────────────────────────────────────────────────────────────

@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\</OutputPath>
+    <OutputPath>C:\Program Files\IDEA StatiCa\StatiCa 26.0\net48\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,39 +32,42 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClrYJKAPI, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\ClrYJKAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
     <Reference Include="YJKAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\YJKS\YJKS_8_1_0\YJKAPI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyResolver.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="IDEAStatiCa.yjk.dll.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="YjkDriver\YjkDriver.csproj">
+    <!-- Build YjkPlugin first so YjkPlugin.dll exists when YJK loads this wrapper.
+         ReferenceOutputAssembly=false: the wrapper does NOT compile against YjkPlugin's types. -->
+    <ProjectReference Include="YjkPlugin\YjkPlugin.csproj">
       <Project>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</Project>
-      <Name>YjkDriver</Name>
+      <Name>YjkPlugin</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj">
-      <Name>IdeaStatiCa.Public</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj">
-      <Project>{7c5fc60f-cc3e-45b3-a38a-aa167a9d1333}</Project>
-      <Name>IdeaStatiCa.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj">
-      <Project>{3814f9b8-46de-4343-94a7-e7a81d371007}</Project>
-      <Name>IdeaStatiCa.PluginLogger</Name>
-    </ProjectReference>
+    <!-- No IDEA SDK references here. The wrapper has zero IDEA dependencies — it installs
+         an AssemblyResolver and reflection-loads YjkPlugin.dll, which carries all IDEA SDK
+         usages. Keeping IDEA refs out keeps the wrapper from forcing CLR to bind IDEA
+         assemblies before the resolver is installed. -->
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
