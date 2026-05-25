@@ -56,9 +56,27 @@ IDEA StatiCa installs two builds of its SDK under `C:\Program Files\IDEA StatiCa
 
 YJK ships its own older versions of some assemblies (`Microsoft.Bcl.AsyncInterfaces`, `Microsoft.Extensions.DependencyInjection.Abstractions`, etc.) in `YJKS_8_1_0\`. When our plugin needs a different version, the CLR version mismatch triggers `AssemblyResolve` and we serve IDEA's copy. Both coexist in-process as separate `Assembly` instances.
 
-**Do not** patch `yjks.exe.config` — the resolver handles all binding entirely from managed code.
-
 **`GRPC_CSHARP_EXT_OVERRIDE_LOCATION`**: Set by `AssemblyResolver.Install()` to point at `net48\grpc_csharp_ext.x64.dll`. Required because YJK ships its own `Grpc.Core.dll` without the native extension DLL, and Grpc.Core computes the native DLL path from its own `CodeBase` (pointing at the YJK folder) before the OS loader searches PATH.
+
+### `System.Memory` — the one case `AssemblyResolve` cannot fix
+
+`AssemblyResolve` does not fire when the CLR finds an assembly via normal probing. YJK ships `System.Memory v4.0.1.2` in `YJKS_8_1_0\`, but IDEA's `Grpc.Core.Api.dll` defines `DeserializationContext.PayloadAsReadOnlySequence()` returning `ReadOnlySequence<byte>` — a type that only exists in `System.Memory v4.0.2+`. When `Grpc.Core.dll` is JIT-compiled the CLR satisfies its `System.Memory v4.0.1.1` reference by loading YJK's `v4.0.1.2` from the probing path, and the call fails at runtime with `MissingMethodException`.
+
+No managed-code resolver trick can intercept this:
+- `LoadFrom`/`LoadFile` of IDEA's copy lands in a separate load context — invisible to the normal binding policy
+- `Assembly.Load(byte[])` works but makes the assembly "dynamic" — anything that reads `.Location` (which Castle.DynamicProxy and gRPC internals do) crashes with `NotSupportedException`
+
+The only working fix is a `<bindingRedirect>` + `<codeBase>` in `yjks.exe.config`. The installer (`YjkInstaller`) writes this entry pointing at IDEA's `net48\System.Memory.dll`:
+
+```xml
+<dependentAssembly>
+  <assemblyIdentity name="System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+  <bindingRedirect oldVersion="0.0.0.0-4.0.5.0" newVersion="4.0.5.0" />
+  <codeBase version="4.0.5.0" href="file:///C:/Program Files/IDEA StatiCa/StatiCa 26.0/net48/System.Memory.dll" />
+</dependentAssembly>
+```
+
+Every other version conflict so far has been resolvable via `AssemblyResolve` alone. Only add new binding-redirect entries to `YjkConfig.PluginBindingRedirects` if you confirm `AssemblyResolve` cannot intercept the load (i.e. YJK already has a copy in its probing path that the CLR finds first).
 
 ## NuGet version alignment with IDEA 26.0
 
@@ -72,18 +90,6 @@ All plugin source files live in `YjkPlugin/` and are compiled by `YjkPlugin.cspr
 - `BimApis/` — IDEA StatiCa model objects
 - `FeaApis/` — YJK data abstraction layer
 - `Helpers/` — utilities (UnitConverter, LAnglePrincipalAxesConverter, WindowHelper)
-- `Importers/` — transformers from FeaApis to BimApis
-- `ViewModels/` — AppLogger, MessageViewModel, MessageSeverity
-- `Model.cs`, `YjkApplication.cs`, `YjkBimLink.cs` — orchestration layer
-
-## Source file layout
-
-All plugin source files live in `YjkDriver/` and are compiled directly by `YjkDriver.csproj` (no `<Link>` indirection). `yjk.csproj` compiles only `Main.cs` and `Properties/AssemblyInfo.cs` — it does not reference any of the subfolders.
-
-`YjkDriver/` contains: `Program.cs`, `app.config`, `Properties/`, and the plugin source folders:
-- `BimApis/` — IDEA StatiCa model objects
-- `FeaApis/` — YJK data abstraction layer
-- `Helpers/` — utilities (UnitConverter, YjkDispatcher, LAnglePrincipalAxesConverter, WindowHelper)
 - `Importers/` — transformers from FeaApis to BimApis
 - `ViewModels/` — AppLogger, MessageViewModel, MessageSeverity
 - `Model.cs`, `YjkApplication.cs`, `YjkBimLink.cs` — orchestration layer

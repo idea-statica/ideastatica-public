@@ -78,14 +78,34 @@ The original `YJK.CUI` is backed up to `YJK.CUI.bak` before modification.
 
 The command name `idea_statica` maps to the `[CommandMethod("idea_statica")]` entry point in `Main.cs` of the plugin project.
 
+### Step 6 — Merge binding redirects into `yjks.exe.config`
+`YjkConfig.MergeBindingRedirects()` adds `<dependentAssembly>` entries to the existing `<assemblyBinding>` block in `[YJK install dir]\yjks.exe.config`. The list of redirects lives in `YjkConfig.PluginBindingRedirects`.
+
+Currently only one entry is needed:
+
+```xml
+<dependentAssembly>
+  <assemblyIdentity name="System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+  <bindingRedirect oldVersion="0.0.0.0-4.0.5.0" newVersion="4.0.5.0" />
+  <codeBase version="4.0.5.0" href="file:///.../net48/System.Memory.dll" />
+</dependentAssembly>
+```
+
+The `<codeBase href>` points at IDEA's `net48\System.Memory.dll` (resolved from registry at install time). This is required because YJK's probing path contains an older `System.Memory v4.0.1.2` that lacks `ReadOnlySequence<T>` — without this redirect, `Grpc.Core.DeserializationContext.PayloadAsReadOnlySequence()` throws `MissingMethodException` at runtime. Pure `AssemblyResolve` cannot fix this because the CLR finds YJK's copy via normal probing before the event fires. See `CLAUDE.md` of the parent project for the full diagnosis.
+
+Adding a new entry requires both a binding redirect *and* a `<codeBase>` if the assembly is not already present in YJK's folder at the target version. The `CodeBaseFile` tuple field controls this — set it to the DLL filename in IDEA's `net48\` (e.g. `"System.Memory.dll"`) to emit a `<codeBase>` element, or leave `null` if YJK already ships a compatible copy.
+
+`yjks.exe.config` is backed up to `yjks.exe.config.bak` before modification (only on first change in a given run). Re-running the installer is idempotent — existing matching entries are skipped.
+
 ---
 
 ## What uninstall does (`/u`)
 
-Reverses steps 4–5 only. The replacement DLLs are **not** deleted — removing them risks breaking the YJK installation. Only the configuration changes are reverted:
+Reverses steps 4–6 only. The replacement DLLs are **not** deleted — removing them risks breaking the YJK installation. Only the configuration changes are reverted:
 1. Remove the `IDEAStatiCa.yjk.dll` relative-path line from `apiPlugList.txt`
 2. Remove `<MenuMacro UID="ID_idea_statica">` from `YJK.CUI`
 3. Remove `<SubPanel Title="IDEA StatiCa">` from `YJK.CUI`
+4. Remove each `<dependentAssembly>` matching an entry in `YjkConfig.PluginBindingRedirects` from `yjks.exe.config`
 
 ---
 
