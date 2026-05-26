@@ -126,7 +126,7 @@ namespace YjkInstaller
 					new XElement("HelpString", new XAttribute("UID", "XLS_Column"), "IDEA StatiCa"),
 					new XElement("HelpRef", "IDEA StatiCa"),
 					new XElement("Description", "IDEA StatiCa"),
-					new XElement("RcImage", new XAttribute("Name", "RCDATA_2525")));
+					new XElement("RcImage", new XAttribute("Name", "RCDATA_3053")));
 				macroGroup.Add(menuMacro);
 				Console.WriteLine($"Added MenuMacro to MacroGroup in {CuiFileName}.");
 			}
