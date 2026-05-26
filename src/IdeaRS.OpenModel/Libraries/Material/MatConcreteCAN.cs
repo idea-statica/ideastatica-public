@@ -16,12 +16,31 @@ namespace IdeaRS.OpenModel.Material
 		/// </summary>
 		public MatConcreteCAN()
 		{
-
 		}
 
 		/// <summary>
-		/// Compressive strength of concrete
+		/// F'c - compressive strength fo concrete
 		/// </summary>
 		public double Fcc { get; set; }
+
+		/// <summary>
+		/// Fr - flexural tensile strength of concrete
+		/// </summary>
+		public double Fr { get; set; }
+
+		/// <summary>
+		/// Fct - axial tensile strength of concrete
+		/// </summary>
+		public double Fct { get; set; }
+
+		/// <summary>
+		/// ε_cp - strain at peak stress
+		/// </summary>
+		public double Epscp { get; set; }
+
+		/// <summary>
+		/// ε_cu - limit strain
+		/// </summary>
+		public double Epscu { get; set; }
 	}
 }
