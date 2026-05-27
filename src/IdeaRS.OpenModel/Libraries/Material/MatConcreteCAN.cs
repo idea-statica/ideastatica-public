@@ -19,6 +19,11 @@ namespace IdeaRS.OpenModel.Material
 		}
 
 		/// <summary>
+		/// Setting calculation dependent values on f'c
+		/// </summary>
+		public bool CalculateDependentValues { get; set; }
+
+		/// <summary>
 		/// F'c - compressive strength fo concrete
 		/// </summary>
 		public double Fcc { get; set; }
