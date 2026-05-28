@@ -5,6 +5,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls.Primitives;
@@ -62,7 +63,7 @@ namespace yjk
 		{
 			_logger.LogInformation("Model.GetUserSelection");
 
-			Dictionary<int, List<int>> selectedIds = geometry.GetSelectedIds();
+			Dictionary<int, List<Tuple<int, int>>> selectedIds = geometry.GetSelectedIds();
 
 			ReadModel();
 

@@ -114,6 +114,8 @@ BimApis/        — IDEA StatiCa model objects (Member1D, CrossSectionByParamete
 
 **Synchronize flow** — `YjkApplication.Synchronize()` calls `Model.Refresh()` then `_bimImporter.ImportSelected(items, countryCode)`. `Model.Refresh()` calls `ReadModel()` (DB read + YJK UI thread switch + load cases + clear results) followed by `geometry.GetAll()` which reads every member on every floor unconditionally. This fills `_members`/`_nodes` so the importers have fresh data without requiring a user selection. `Model.ReadModel()` is also called by `GetUserSelection()` before `geometry.GetSelected()`.
 
+**Selection identity** — `FeaGeometryApi.GetSelectedIds()` calls `hi_AddToAndReadYjk.GetSelectSetIDsWithZrc()` which returns `Dictionary<int, List<Tuple<int, int>>>`. Each key is a member-type selector key (Column=11, Beam/Brace=12). Each value tuple is `(modellingId, floorId)` — both are required to uniquely identify a member, because modelling IDs are only unique within a floor. `GetSelectedMembers` matches against `selectedId.Item1 == modellingId && selectedId.Item2 == modellingFlrId` where `modellingFlrId` comes from `_model.m_Floor.FirstOrDefault(m => m.No == iFlr).ID`.
+
 ## YJK API internals
 
 ### DLL inventory and nature

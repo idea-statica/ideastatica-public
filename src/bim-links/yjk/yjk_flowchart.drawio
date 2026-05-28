@@ -1,0 +1,116 @@
+<mxfile host="Electron">
+  <diagram name="YJK BIM Link Architecture" id="yjk-arch">
+    <mxGraphModel dx="1664" dy="1131" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tab_left" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b8d4a0;strokeColor=#909090;strokeWidth=2;fontColor=#3a5a20;fontSize=13;fontStyle=0;" value="Thin wrapper" vertex="1">
+          <mxGeometry height="28" width="140" x="160" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="dll_left" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="IDEAStatiCa.yjk.dll" vertex="1">
+          <mxGeometry height="56" width="340" x="110" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="badge_left" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce0f5;strokeColor=#909090;strokeWidth=1;fontColor=#1a3a60;fontSize=13;" value=".dll" vertex="1">
+          <mxGeometry height="24" width="48" x="406" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="main_run" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="Main.Run()  [CommandMethod]" vertex="1">
+          <mxGeometry height="52" width="320" x="120" y="224" as="geometry" />
+        </mxCell>
+        <mxCell id="ares" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="AssemblyResolver.Install()" vertex="1">
+          <mxGeometry height="52" width="320" x="120" y="344" as="geometry" />
+        </mxCell>
+        <mxCell id="ares_notes" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;fontSize=13;fontColor=#666666;" value="• DiscoverIdeaInstallRoot()  (Registry → app.config → fallback)&#xa;• AppDomain.AssemblyResolve += Handle  (probes net48\ first)&#xa;• Set GRPC_CSHARP_EXT_OVERRIDE_LOCATION env var" vertex="1">
+          <mxGeometry height="66" width="400" x="120" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_right" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b8d4a0;strokeColor=#909090;strokeWidth=2;fontColor=#3a5a20;fontSize=13;fontStyle=0;" value="Plugin logic" vertex="1">
+          <mxGeometry height="28" width="120" x="970" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="dll_right" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="YjkPlugin.dll" vertex="1">
+          <mxGeometry height="56" width="340" x="870" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="badge_right" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce0f5;strokeColor=#909090;strokeWidth=1;fontColor=#1a3a60;fontSize=13;" value=".dll" vertex="1">
+          <mxGeometry height="24" width="48" x="1166" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="plugin_entry" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf5d8;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="PluginEntry.Run(workingDir)" vertex="1">
+          <mxGeometry height="52" width="340" x="870" y="224" as="geometry" />
+        </mxCell>
+        <mxCell id="di" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#edf4fb;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="BuildContainer()  [Autofac DI]" vertex="1">
+          <mxGeometry height="52" width="340" x="870" y="344" as="geometry" />
+        </mxCell>
+        <mxCell id="bimlink" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf5d8;strokeColor=#909090;strokeWidth=2;fontSize=17;" value="YjkBimLink.Create().Run(model)" vertex="1">
+          <mxGeometry height="52" width="340" x="870" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="app" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf5d8;strokeColor=#909090;strokeWidth=2;fontSize=17;verticalAlign=top;spacingTop=10;" value="&lt;b&gt;YjkApplication&lt;/b&gt;&lt;br/&gt;&lt;font color=&#39;#666666&#39; style=&#39;font-size:13px&#39;&gt;• ImportSelection()&amp;nbsp;&amp;nbsp;• Synchronize()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="72" width="340" x="870" y="576" as="geometry" />
+        </mxCell>
+        <mxCell id="model" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#909090;strokeWidth=2;fontSize=17;verticalAlign=top;spacingTop=10;" value="&lt;b&gt;Model  (IFeaModel)&lt;/b&gt;&lt;br/&gt;&lt;font color=&#39;#666666&#39; style=&#39;font-size:13px&#39;&gt;• ReadModel()&lt;br/&gt;• geometry.GetSelected() / GetAll()&lt;/font&gt;" vertex="1">
+          <mxGeometry height="82" width="340" x="870" y="714" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_fea" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b8d4a0;strokeColor=#909090;strokeWidth=2;fontColor=#3a5a20;fontSize=13;" value="YJK abstraction layer" vertex="1">
+          <mxGeometry height="28" width="180" x="640" y="862" as="geometry" />
+        </mxCell>
+        <mxCell id="fea" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef6e6;strokeColor=#909090;strokeWidth=2;fontSize=15;" value="FeaApis  —  FeaGeometryApi · FeaLoadsApi · FeaResultsApi · FeaCrossSectionApi · FeaMaterialApi" vertex="1">
+          <mxGeometry height="54" width="1270" x="60" y="886" as="geometry" />
+        </mxCell>
+        <mxCell id="badge_yjk" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe8c0;strokeColor=#d4a020;strokeWidth=1;fontColor=#7a3a00;fontSize=13;" value="YJK native DLLs (in-process)" vertex="1">
+          <mxGeometry height="34" width="240" x="1200" y="896" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_imp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b8d4a0;strokeColor=#909090;strokeWidth=2;fontColor=#3a5a20;fontSize=13;" value="Transform layer" vertex="1">
+          <mxGeometry height="28" width="140" x="590" y="972" as="geometry" />
+        </mxCell>
+        <mxCell id="importers" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef6e6;strokeColor=#909090;strokeWidth=2;fontSize=15;" value="Importers  —  CrossSectionImporter · MaterialImporter · NodeImporter · MemberImporter · LoadCaseImporter · LoadGroupImporter · ResultsImporter" vertex="1">
+          <mxGeometry height="54" width="1380" x="60" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_bim" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8b8d8;strokeColor=#909090;strokeWidth=2;fontColor=#4a2a6a;fontSize=13;" value="IDEA StatiCa object model" vertex="1">
+          <mxGeometry height="28" width="220" x="607" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="bimapis" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f4f0f8;strokeColor=#909090;strokeWidth=2;fontSize=15;" value="BimApis  —  Member1D · CrossSectionByParameters · Material · Node · LoadCase · LoadCombination · ResultSection" vertex="1">
+          <mxGeometry height="54" width="1380" x="60" y="1108" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_dll_main" edge="1" parent="1" source="dll_left" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="main_run" value="loads">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_main_ares" edge="1" parent="1" source="main_run" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="ares" value="calls">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_dll_plug" edge="1" parent="1" source="dll_right" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;" target="plugin_entry" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_plug_di" edge="1" parent="1" source="plugin_entry" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="di" value="wires importers + Model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_di_blink" edge="1" parent="1" source="di" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="bimlink" value="resolves Model →">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_blink_app" edge="1" parent="1" source="bimlink" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="app" value="CreateAppBim()">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_app_model" edge="1" parent="1" source="app" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="model" value="GetUserSelection() / Refresh()">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_model_fea" edge="1" parent="1" source="model" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="fea" value="reads">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_fea_imp" edge="1" parent="1" source="fea" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="importers" value="transforms →">
+          <mxGeometry relative="1" x="-0.6038" y="-75" as="geometry">
+            <mxPoint x="-75" y="-75" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr_imp_bim" edge="1" parent="1" source="importers" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="bimapis" value="produces →">
+          <mxGeometry relative="1" x="0.1111" y="-180" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr_reflect" edge="1" parent="1" source="dll_left" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontColor=#666666;fontSize=13;" target="dll_right" value="reflection load">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_disp" edge="1" parent="1" source="main_run" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#aaaaaa;fontColor=#aaaaaa;fontSize=13;dashed=1;" target="plugin_entry" value="YjkDispatcher →">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="grpc_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#666666;" value="gRPC  →  IDEA StatiCa Checkbot  (separate exe)" vertex="1">
+          <mxGeometry height="30" width="540" x="480" y="1180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

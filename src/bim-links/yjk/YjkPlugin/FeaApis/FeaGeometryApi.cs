@@ -25,8 +25,8 @@ namespace yjk.FeaApis
 
 		IEnumerable<int> GetNodesSelectedIdentifiers();
 
-		Dictionary<int, List<int>> GetSelectedIds();
-		void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result,
+		Dictionary<int, List<Tuple<int, int>>> GetSelectedIds();
+		void GetSelected(Dictionary<int, List<Tuple<int, int>>> selectedIds, IFeaLoadsApi load, IFeaResultsApi result,
 			IFeaCrossSectionApi crossSection, IFeaMaterialApi materialApi);
 
 		void GetAll(IFeaLoadsApi load, IFeaResultsApi result,
@@ -63,16 +63,19 @@ namespace yjk.FeaApis
 			return CalculateMemberLcs(beg, end);
 		}
 
-		public Dictionary<int, List<int>> GetSelectedIds()
+		public Dictionary<int, List<Tuple<int, int>>> GetSelectedIds()
 		{
 			_logger.LogInformation("FeaGeometryApi.GetSelectedIds");
 			Hi_AddToAndReadYjk hi_AddToAndReadYjk = new Hi_AddToAndReadYjk();
-			Dictionary<int, List<int>> selectedIds = hi_AddToAndReadYjk.GetSelectSetIDs();
+			//Dictionary<int, List<int>> selectedIds = hi_AddToAndReadYjk.GetSelectSetIDs();
+
+			Dictionary<int, List<Tuple<int, int>>> selectedIds = hi_AddToAndReadYjk.GetSelectSetIDsWithZrc();
+
 			_logger.LogInformation($"FeaGeometryApi.GetSelectedIds: {selectedIds.Count} key(s) returned");
 			return selectedIds;
 		}
 
-		public void GetSelected(Dictionary<int, List<int>> selectedIds, IFeaLoadsApi loadsApi, IFeaResultsApi resultsApi,
+		public void GetSelected(Dictionary<int, List<Tuple<int, int>>> selectedIds, IFeaLoadsApi loadsApi, IFeaResultsApi resultsApi,
 			IFeaCrossSectionApi crossSectionApi, IFeaMaterialApi materialApi)
 		{
 			_logger.LogInformation("FeaGeometryApi.GetSelected");
@@ -161,7 +164,7 @@ namespace yjk.FeaApis
 			_logger.LogInformation($"FeaGeometryApi.GetConnectedMembers done: {_members.Count - membersBefore} members added");
 		}
 
-		private void GetSelectedMembers(Hi_CToSDesign hiDesign, Hi_AddToAndReadYjk hiReader, Dictionary<int, List<int>> selectedIds, MemberType memberType)
+		private void GetSelectedMembers(Hi_CToSDesign hiDesign, Hi_AddToAndReadYjk hiReader, Dictionary<int, List<Tuple<int, int>>> selectedIds, MemberType memberType)
 		{
 			_logger.LogInformation($"FeaGeometryApi.GetSelectedMembers: memberType={memberType}");
 
@@ -171,24 +174,30 @@ namespace yjk.FeaApis
 			{
 				int iFlr = i;
 
+				int modellingFlrId = _model.m_Floor.FirstOrDefault(m => m.No == iFlr).ID;
+
 				(int nMember, List<int> idFlrMembers) = GetFloorMembers(hiDesign, iFlr, memberType);
 
-				//Check if column is selected
+				//Check if memberType is selected
 				if (selectedIds.ContainsKey(keyToCheck))
 				{
 					for (int j = 0; j < nMember; j++)
 					{
 						int modellingId = GetModellingId(hiDesign, hiReader, idFlrMembers[j], memberType);
 
-						if (selectedIds[keyToCheck].Contains(modellingId))
+						foreach (Tuple<int, int> selectedId in selectedIds[keyToCheck])
 						{
-							double rotationAngle = GetRotationAngle(modellingId, memberType);
+							//Check the flr ID
+							if (selectedId.Item1 == modellingId && selectedId.Item2 == modellingFlrId)
+							{
+								double rotationAngle = GetRotationAngle(modellingId, memberType);
 
-							(int j1, int j2) = GetMemberNodeIds(hiDesign, idFlrMembers[j], memberType);
-							FeaMember member = AddMember(hiDesign, idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
+								(int j1, int j2) = GetMemberNodeIds(hiDesign, idFlrMembers[j], memberType);
+								FeaMember member = AddMember(hiDesign, idFlrMembers[j], j1, j2, true, memberType, rotationAngle);
 
-							//Record result (force)
-							_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
+								//Record result (force)
+								_resultsApi.SetResult(iFlr, member, _loadsApi, memberType, _crossSectionApi);
+							}
 						}
 					}
 				}
