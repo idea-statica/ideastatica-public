@@ -83,7 +83,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/clients/connect-client 
+> **GET** /api/4/clients/connect-client 
 
 #### Using the ConnectClientWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -112,7 +112,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json
+ - **Accept**: text/plain
 
 
 #### HTTP response details
@@ -200,7 +200,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/clients/idea-service-version 
+> **GET** /api/4/clients/idea-service-version 
 
 #### Using the GetVersionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -236,6 +236,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

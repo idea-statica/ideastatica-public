@@ -1,11 +1,12 @@
 # WeldDefinition
 
+Weld definition for cut operations (web or flange weld).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**thickness** | **float** |  | [optional] 
+**thickness** | **float** | Thickness of the weld - value 0 &#x3D; recommended size | [optional] 
 **weld_type** | [**WeldType**](WeldType.md) |  | [optional] 
 **weld_material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 

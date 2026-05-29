@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **is_continuous** | **bool** |  | [optional] 
 **cross_section_id** | **int** |  | [optional] 
+**position_on_ref_line** | **float** |  | [optional] 
 **mirror_y** | **bool** |  | [optional] 
 **mirror_z** | **bool** |  | [optional] 
 **is_bearing** | **bool** |  | [optional] 

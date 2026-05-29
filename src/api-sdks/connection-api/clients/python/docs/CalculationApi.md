@@ -68,7 +68,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/calculate 
+> **POST** /api/4/projects/{projectId}/connections/calculate 
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/rawresults-text 
+> **POST** /api/4/projects/{projectId}/connections/rawresults-text 
 
 ### Authorization
 
@@ -225,7 +225,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/results 
+> **POST** /api/4/projects/{projectId}/connections/results 
 
 ### Authorization
 

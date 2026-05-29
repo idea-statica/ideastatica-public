@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.CutOrientation
+Represents the type of the cut
 
 ## Properties
 
