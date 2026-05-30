@@ -1,9 +1,9 @@
 # IdeaStatiCa.ConnectionApi
 
-The C# library for the Connection Rest API 3.0
+The C# library for the Connection Rest API 4.0
 
-- API version: 3.0
-- SDK version: 26.0.2.0407
+- API version: 4.0
+- SDK version: 26.0.2.1552
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -150,7 +150,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**GetDesignSets**](docs/ConnectionLibraryApi.md#getdesignsets) | Retrieves a list of design sets available for the user.
 [**GetTemplate**](docs/ConnectionLibraryApi.md#gettemplate) | Retrieves the template associated with the specified design set and design item.
 [**Propose**](docs/ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
-[**PublishConnection**](docs/ConnectionLibraryApi.md#publishconnection) | Publish template to Private or Company set
+[**PublishConnection**](docs/ConnectionLibraryApi.md#publishconnection) | Publish template to Private or Company set.
   ### ConversionApi
 
   
@@ -175,20 +175,20 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**AddLoadEffect**](docs/LoadEffectApi.md#addloadeffect) | Adds a new load effect to the connection.
-[**DeleteLoadEffect**](docs/LoadEffectApi.md#deleteloadeffect) | Delete load effect loadEffectId
+[**DeleteLoadEffect**](docs/LoadEffectApi.md#deleteloadeffect) | Delete load effect loadEffectId.
 [**GetLoadEffect**](docs/LoadEffectApi.md#getloadeffect) | Gets load impulses from the specified load effect.
 [**GetLoadEffects**](docs/LoadEffectApi.md#getloadeffects) | Gets all load effects defined in the specified connection.
-[**GetLoadSettings**](docs/LoadEffectApi.md#getloadsettings) | Get Load settings for connection in project
-[**SetLoadSettings**](docs/LoadEffectApi.md#setloadsettings) | Set Load settings for connection in project
-[**UpdateLoadEffect**](docs/LoadEffectApi.md#updateloadeffect) | Update load impulses in conLoading
+[**GetLoadSettings**](docs/LoadEffectApi.md#getloadsettings) | Get Load settings for connection in project.
+[**SetLoadSettings**](docs/LoadEffectApi.md#setloadsettings) | Set Load settings for connection in project.
+[**UpdateLoadEffect**](docs/LoadEffectApi.md#updateloadeffect) | Update load impulses in conLoading.
   ### MaterialApi
 
   
   
   Method | Description
   ------------- | -------------
-[**AddBoltAssembly**](docs/MaterialApi.md#addboltassembly) | Add bolt assembly to the project
-[**AddCrossSection**](docs/MaterialApi.md#addcrosssection) | Add cross section to the project
+[**AddBoltAssembly**](docs/MaterialApi.md#addboltassembly) | Add bolt assembly to the project.
+[**AddCrossSection**](docs/MaterialApi.md#addcrosssection) | Add cross section to the project.
 [**AddMaterialBoltGrade**](docs/MaterialApi.md#addmaterialboltgrade) | Adds a material to the project.
 [**AddMaterialConcrete**](docs/MaterialApi.md#addmaterialconcrete) | Adds a material to the project.
 [**AddMaterialHeadedStudGrade**](docs/MaterialApi.md#addmaterialheadedstudgrade) | Adds a material to the project.
@@ -211,7 +211,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**AddMember**](docs/MemberApi.md#addmember) | Adds a new member to the connection.
 [**GetMember**](docs/MemberApi.md#getmember) | Gets information about the specified member in the connection.
 [**GetMembers**](docs/MemberApi.md#getmembers) | Gets information about all members in the connection.
-[**SetBearingMember**](docs/MemberApi.md#setbearingmember) | Set bearing member for memberIt
+[**SetBearingMember**](docs/MemberApi.md#setbearingmember) | Set bearing member for memberId.
 [**UpdateMember**](docs/MemberApi.md#updatemember) | Updates the member in the connection with the provided data.
   ### OperationApi
 
@@ -219,7 +219,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**DeleteOperations**](docs/OperationApi.md#deleteoperations) | Delete all operations for the connection
+[**DeleteOperations**](docs/OperationApi.md#deleteoperations) | Delete all operations for the connection.
 [**GetCommonOperationProperties**](docs/OperationApi.md#getcommonoperationproperties) | Gets common operation properties.
 [**GetOperations**](docs/OperationApi.md#getoperations) | Gets the list of operations for the connection.
 [**PreDesignWelds**](docs/OperationApi.md#predesignwelds) | Pre-designs welds in the connection.
@@ -230,7 +230,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
+[**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
 [**GetParameters**](docs/ParameterApi.md#getparameters) | Gets all parameters defined for the specified project and connection.
 [**Update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
@@ -240,8 +240,8 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**GetDataScene3D**](docs/PresentationApi.md#getdatascene3d) | Returns data for Scene3D visualization.
-[**GetDataScene3DText**](docs/PresentationApi.md#getdatascene3dtext) | Returns serialized data for Scene3D in JSON format.
+[**GetDataScene3DTextV4**](docs/PresentationApi.md#getdatascene3dtextv4) | Returns serialized data for Scene3D in JSON format.
+[**GetDataScene3DV4**](docs/PresentationApi.md#getdatascene3dv4) | Returns data for Scene3D visualization.
   ### ProjectApi
 
   
@@ -256,7 +256,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**ImportIOM^**](docs/ProjectApi.md#importiom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
 [**OpenProject^**](docs/ProjectApi.md#openproject) | Opens an IdeaCon project from the provided file.
 [**UpdateFromIOM^**](docs/ProjectApi.md#updatefromiom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
-[**UpdateProjectData**](docs/ProjectApi.md#updateprojectdata) | Updates ConProjectData of project
+[**UpdateProjectData**](docs/ProjectApi.md#updateprojectdata) | Updates ConProjectData of project.
   ### ReportApi
 
   
@@ -282,19 +282,19 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**ApplyTemplate**](docs/TemplateApi.md#applytemplate) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**CreateConTemplate**](docs/TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId
+[**ApplyTemplate**](docs/TemplateApi.md#applytemplate) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
+[**CreateConTemplate**](docs/TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId.
 [**CreateTemplateFromConnection**](docs/TemplateApi.md#createtemplatefromconnection) | Create a reusable connection template from connectionId with structured metadata.  Captures the connection's parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
-[**Delete**](docs/TemplateApi.md#delete) | Delete specific template
-[**DeleteAll**](docs/TemplateApi.md#deleteall) | Delete all templates in connection
-[**Explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
-[**ExplodeAll**](docs/TemplateApi.md#explodeall) | Explode all templates (delete parameters, keep operations)
-[**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-[**GetTemplateCommonOperationProperties**](docs/TemplateApi.md#gettemplatecommonoperationproperties) | Get Common properties for specific template
+[**Delete**](docs/TemplateApi.md#delete) | Delete specific template.
+[**DeleteAll**](docs/TemplateApi.md#deleteall) | Delete all templates in connection.
+[**Explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations).
+[**ExplodeAll**](docs/TemplateApi.md#explodeall) | Explode all templates (delete parameters, keep operations).
+[**GetDefaultTemplateMapping**](docs/TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
+[**GetTemplateCommonOperationProperties**](docs/TemplateApi.md#gettemplatecommonoperationproperties) | Get common properties for specific template.
 [**GetTemplateInConnection**](docs/TemplateApi.md#gettemplateinconnection) | Retrieves a specific template by its ID for a given connection within a project.
 [**GetTemplatesInConnection**](docs/TemplateApi.md#gettemplatesinconnection) | Retrieves a list of templates associated with a specific connection within a project.
 [**LoadDefaults**](docs/TemplateApi.md#loaddefaults) | Load parameter defaults for specific template.
-[**UpdateTemplateCommonOperationProperties**](docs/TemplateApi.md#updatetemplatecommonoperationproperties) | Set common properties for specific template
+[**UpdateTemplateCommonOperationProperties**](docs/TemplateApi.md#updatetemplatecommonoperationproperties) | Set common properties for specific template.
 
 <a id="documentation-for-models"></a>
 ## Documentation for Models
@@ -384,6 +384,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.Point2D](docs/Point2D.md)
  - [Model.Point3D](docs/Point3D.md)
  - [Model.PolyLine2D](docs/PolyLine2D.md)
+ - [Model.ProblemDetails](docs/ProblemDetails.md)
  - [Model.ReferenceElement](docs/ReferenceElement.md)
  - [Model.Region2D](docs/Region2D.md)
  - [Model.SearchOption](docs/SearchOption.md)
@@ -409,8 +410,8 @@ Endpoints do not require authorization.
 
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 3.0
-- SDK version: 26.0.2.0407
+- API version: 4.0
+- SDK version: 26.0.2.1552
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

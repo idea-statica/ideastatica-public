@@ -1,12 +1,13 @@
 # Point2D
 
+Represents an x- and y-coordinate pair in two-dimensional space.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**x** | **float** |  | [optional] 
-**y** | **float** |  | [optional] 
+**x** | **float** | Gets or sets the X-coordinate value | [optional] 
+**y** | **float** | Gets or sets the Y-coordinate value | [optional] 
 
 ## Example
 

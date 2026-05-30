@@ -1,22 +1,23 @@
 # CutBeamByBeamData
 
+Provides data of the cut objec by object
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
+**name** | **str** | Name of the cut | [optional] 
 **modified_object** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **cutting_object** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**is_weld** | **bool** |  | [optional] 
+**is_weld** | **bool** | is cut welded | [optional] 
 **web_weld** | [**WeldDefinition**](WeldDefinition.md) |  | [optional] 
 **flange_weld** | [**WeldDefinition**](WeldDefinition.md) |  | [optional] 
-**offset** | **float** |  | [optional] 
+**offset** | **float** | Offset | [optional] 
 **method** | [**CutMethod**](CutMethod.md) |  | [optional] 
 **orientation** | [**CutOrientation**](CutOrientation.md) |  | [optional] 
 **plane_on_cutting_object** | [**DistanceComparison**](DistanceComparison.md) |  | [optional] 
 **cut_part** | [**CutPart**](CutPart.md) |  | [optional] 
-**extend_before_cut** | **bool** |  | [optional] 
+**extend_before_cut** | **bool** | Extend before cut - for cuts where user can decide if modified beam will be extended or not | [optional] 
 
 ## Example
 
