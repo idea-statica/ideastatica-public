@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using IdeaRS.OpenModel;
-using IomToRcsExamples;
+﻿using IdeaRS.OpenModel;
 
 namespace IomToRcsExamples
 {

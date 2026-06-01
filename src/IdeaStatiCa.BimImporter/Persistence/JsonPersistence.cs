@@ -1,5 +1,4 @@
-﻿using Castle.Core.Internal;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
 using System;

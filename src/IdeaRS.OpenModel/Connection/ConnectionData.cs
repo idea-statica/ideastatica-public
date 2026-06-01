@@ -1,5 +1,4 @@
 using IdeaRS.OpenModel.Geometry2D;
-using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 

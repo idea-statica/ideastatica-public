@@ -177,7 +177,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double dRadiusWeb = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();
 				double dRadiusFlange = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();
 
-				CrossSectionFactory.FillRolledChannel(cssParameter, dWidth, dHeight, dWeb, dFlange, dRadiusWeb, 0.1e-2, dRadiusFlange, true);
+				CrossSectionFactory.FillRolledChannel(cssParameter, dWidth, dHeight, dWeb, dFlange, dRadiusWeb, dRadiusFlange, 0.1e-2, true);
 			}
 
 			return cssParameter;
@@ -599,19 +599,22 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_UNSYMMETRICAL
 														|| paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_UNSYMMETRICAL2)
 			{
+				// params: [0]=h, [1]=wt, [2]=fl1t (top flange thickness), [3]=fl1w (top flange width), [4]=fl2t, [5]=fl2w
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
+				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
 				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 
 				var dHeight = par1Item.Value.MilimetersToMeters();
+				double wt = par2Item.Value.MilimetersToMeters();
 				double fl1t = par3Item.Value.MilimetersToMeters();
 				double fl1w = par4Item.Value.MilimetersToMeters();
 				double fl2t = par5Item.Value.MilimetersToMeters();
 				double fl2w = par6Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillWeldedAsymI(cssParameter, fl1w, fl2w, dHeight - fl1t - fl2t, 0.014, 0.014, 0.014);
+				CrossSectionFactory.FillWeldedAsymI(cssParameter, fl1w, fl2w, dHeight - fl1t - fl2t, wt, fl1t, fl2t);
 			}
 			else
 			{
@@ -635,7 +638,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				}
 				else
 				{
-					CrossSectionFactory.FillRolledI(cssParameter, dHeight, dWeb, dFlange, dRounding, 0.1e-2, dRounding, 0);
+					CrossSectionFactory.FillRolledI(cssParameter, dWidth, dHeight, dWeb, dFlange, dRounding, 0.1e-2, dRounding);
 				}
 			}
 
@@ -723,18 +726,28 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			}
 			else
 			{
+				// params: [0]=h, [1]=t, [2]=eT (lip top), [3]=bT (width top), [4]=eB (lip bottom), [5]=bB (width bottom)
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
+				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
+				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
+				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
+				double lipB = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
-				var dWidth = Math.Max(widthB, widthT);
-				const bool mirror = false;
 
-				CrossSectionFactory.FillColdFormedZ(cssParameter, dWidth, dHeight, pltThickness, 0.001, mirror);
+				Region2D region2D = CreateCenterline_ZZ(dHeight, widthT, widthB, pltThickness, lipT, lipB);
+				CrossSectionGeneralColdFormed crossSectionGeneralColdFormed = new CrossSectionGeneralColdFormed()
+				{
+					Name = paramProfileItem.ProfilePrefix,
+					CrossSectionType = CrossSectionType.CFGeneral,
+				};
+				CrossSectionFactory.FillColdFormedGeneral(crossSectionGeneralColdFormed, region2D, pltThickness, 0.001);
+				return crossSectionGeneralColdFormed;
 			}
 
 			return cssParameter;
@@ -828,13 +841,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEBProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
-			CrossSectionParameter cssParameter = new CrossSectionParameter
-			{
-				Name = paramProfileItem.ProfilePrefix,
-			};
-
 			if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_EB_SYMMETRICAL)
 			{
+				// params: [0]=h, [1]=t, [2]=e (lip), [3]=b (width), [4]=a (angle, ignored)
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
@@ -844,26 +853,35 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double lip = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
+				CrossSectionParameter cssParameter = new CrossSectionParameter { Name = paramProfileItem.ProfilePrefix };
+				CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, true);
+				return cssParameter;
 			}
 			else
 			{
+				// params: [0]=h, [1]=t, [2]=eT (lip top), [3]=bT (width top), [4]=eB (lip bottom), [5]=bB (width bottom), [6]=a (angle, ignored)
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
+				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
+				double lipB = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
-				var dWidth = Math.Max(widthB, widthT);
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT);
+				Region2D region2D = CreateCenterline_CC(dHeight, widthT, widthB, pltThickness, lipT, lipB);
+				CrossSectionGeneralColdFormed crossSectionGeneralColdFormed = new CrossSectionGeneralColdFormed()
+				{
+					Name = paramProfileItem.ProfilePrefix,
+					CrossSectionType = CrossSectionType.CFGeneral,
+				};
+				CrossSectionFactory.FillColdFormedGeneral(crossSectionGeneralColdFormed, region2D, pltThickness, 0.001);
+				return crossSectionGeneralColdFormed;
 			}
-
-			return cssParameter;
 		}
 
 		// profile PROFILE_EC
@@ -981,19 +999,40 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_EC_SYMMETRICAL)
 			{
-				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
-				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
-				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var dHeight = par1Item.Value.MilimetersToMeters();
-				double pltThickness = par2Item.Value.MilimetersToMeters();
-				double lip = par3Item.Value.MilimetersToMeters();
-				var dWidth = par4Item.Value.MilimetersToMeters();
+				double dHeight = 0, pltThickness = 0, lip = 0, dWidth = 0;
+				bool hasAllParams = false;
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
+				foreach (ProfileItemParameter par in paramProfileItem.aProfileItemParameters)
+				{
+					if (par.Property == HeightKey) dHeight = par.Value.MilimetersToMeters();
+					else if (par.Property == PlateThicknessKey) pltThickness = par.Value.MilimetersToMeters();
+					else if (par.Property == EdgeFoldKey) lip = par.Value.MilimetersToMeters();
+					else if (par.Property == WidthKey) dWidth = par.Value.MilimetersToMeters();
+				}
+
+				hasAllParams = dHeight > 0 && pltThickness > 0 && dWidth > 0;
+
+				if (hasAllParams)
+				{
+					CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, true);
+				}
+				else
+				{
+					// fallback: read by position
+					var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
+					var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
+					var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
+					var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
+					dHeight = par1Item.Value.MilimetersToMeters();
+					pltThickness = par2Item.Value.MilimetersToMeters();
+					lip = par3Item.Value.MilimetersToMeters();
+					dWidth = par4Item.Value.MilimetersToMeters();
+					CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, true);
+				}
 			}
 			else
 			{
+				// params: [0]=h, [1]=t, [2]=eT (lip top), [3]=bT (width top), [4]=eB (lip bottom), [5]=bB (width bottom), [6]=a (angle, ignored)
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
@@ -1004,11 +1043,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
-				double widthB = par6Item.Value.MilimetersToMeters();
 				double lipB = par5Item.Value.MilimetersToMeters();
-				var dWidth = Math.Max(widthB, widthT);
+				double widthB = par6Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, 0.1e-2);
+				Region2D region2D = CreateCenterline_CC(dHeight, widthT, widthB, pltThickness, lipT, lipB);
+				CrossSectionGeneralColdFormed crossSectionGeneralColdFormed = new CrossSectionGeneralColdFormed()
+				{
+					Name = paramProfileItem.ProfilePrefix,
+					CrossSectionType = CrossSectionType.CFGeneral,
+				};
+				CrossSectionFactory.FillColdFormedGeneral(crossSectionGeneralColdFormed, region2D, pltThickness, 0.001);
+				return crossSectionGeneralColdFormed;
 			}
 
 			return cssParameter;

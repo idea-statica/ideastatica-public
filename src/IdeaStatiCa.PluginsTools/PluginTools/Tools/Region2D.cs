@@ -1,5 +1,4 @@
-﻿using CI.DataModel;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.CI.Common;
 using System.Collections.Generic;

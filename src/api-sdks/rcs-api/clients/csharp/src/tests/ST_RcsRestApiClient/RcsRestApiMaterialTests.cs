@@ -1,7 +1,5 @@
 ﻿using FluentAssertions;
-using IdeaStatiCa.RcsApi;
 using IdeaStatiCa.Api.RCS.Model;
-using Newtonsoft.Json.Linq;
 using IdeaStatiCa.RcsApi.Client;
 
 namespace ST_RcsRestApiClient

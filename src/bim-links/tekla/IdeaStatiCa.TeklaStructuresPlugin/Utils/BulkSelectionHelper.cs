@@ -1,5 +1,4 @@
-﻿using CI;
-using CI.Geometry3D;
+﻿using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
 using IdeaStatiCa.Plugin.Exeptions;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;

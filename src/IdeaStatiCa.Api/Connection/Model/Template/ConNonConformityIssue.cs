@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IdeaStatiCa.Api.Connection.Model
+﻿namespace IdeaStatiCa.Api.Connection.Model
 {
 	public class ConNonConformityIssue
 	{

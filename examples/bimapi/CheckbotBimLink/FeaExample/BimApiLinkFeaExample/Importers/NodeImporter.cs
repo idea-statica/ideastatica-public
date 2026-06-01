@@ -2,7 +2,6 @@
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
-using System;
 
 namespace BimApiLinkFeaExample.Importers
 {

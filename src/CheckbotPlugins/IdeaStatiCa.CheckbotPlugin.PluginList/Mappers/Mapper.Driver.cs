@@ -1,6 +1,5 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors;
 using IdeaStatiCa.CheckbotPlugin.PluginList.Json;
-using System;
 
 namespace IdeaStatiCa.CheckbotPlugin.PluginList.Mappers
 {

@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using ST_ConnectionRestApi;
 
 namespace ST_ConnectionRestApi
 {

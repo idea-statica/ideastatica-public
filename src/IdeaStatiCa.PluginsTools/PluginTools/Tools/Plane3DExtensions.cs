@@ -1,5 +1,7 @@
 ﻿using System;
+#if DEBUG
 using System.Diagnostics;
+#endif
 using WM = System.Windows.Media.Media3D;
 
 namespace CI.Geometry3D

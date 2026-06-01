@@ -11,16 +11,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Net.Mime;
-using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.Api.Connection.Model.Connection;
-using IdeaStatiCa.Api.Connection.Model.Material;
-using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Model;
 

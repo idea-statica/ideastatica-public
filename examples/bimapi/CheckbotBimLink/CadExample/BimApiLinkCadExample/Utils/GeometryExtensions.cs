@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IdeaRS.OpenModel.Geometry3D;
+﻿using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Geometry2D;
 using BimApiLinkCadExample.CadExampleApi;
 

@@ -2,8 +2,6 @@
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
-using System;
-using System.Xml.Linq;
 
 namespace BimApiLinkCadExample.Importers
 {

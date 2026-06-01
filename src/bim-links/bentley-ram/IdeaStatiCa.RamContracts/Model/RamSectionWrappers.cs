@@ -1,14 +1,4 @@
-﻿using RamDataAcc1 = RAMDATAACCESSLib.RamDataAccess1;
-using IModel = RAMDATAACCESSLib.IModel;
-using RamDataAccIDBIO = RAMDATAACCESSLib.IDBIO1;
-using IMemberData = RAMDATAACCESSLib.IMemberData1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IdeaStatiCa.RamToIdea
+﻿namespace IdeaStatiCa.RamToIdea
 {
 	public class RamSectionWrapper
 	{
