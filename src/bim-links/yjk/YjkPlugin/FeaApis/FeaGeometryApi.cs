@@ -254,14 +254,29 @@ namespace yjk.FeaApis
 			switch (memberType)
 			{
 				case MemberType.Column: hi.ColumnJD(memberId, ref j1, ref j2); break;
-				case MemberType.Beam:   hi.BeamJD(memberId, ref j1, ref j2);   break;
-				case MemberType.Brace:  hi.BraceJD(memberId, ref j1, ref j2);  break;
+				case MemberType.Beam: hi.BeamJD(memberId, ref j1, ref j2); break;
+				case MemberType.Brace: hi.BraceJD(memberId, ref j1, ref j2); break;
 			}
 			return (j1, j2);
 		}
 
-		private static int GetSelectionKey(MemberType memberType) =>
-			memberType == MemberType.Column ? 11 : 12;
+		private static int GetSelectionKey(MemberType memberType)
+		{
+			switch (memberType)
+			{
+				case MemberType.Column:
+					return 11;
+				case MemberType.Beam:
+					return 12;
+				case MemberType.Brace:
+					return 13;
+			}
+
+			return -1;
+		}
+
+
+
 
 		private static int GetModellingId(Hi_CToSDesign hiDesign, Hi_AddToAndReadYjk hiReader, int memberId, MemberType memberType)
 		{

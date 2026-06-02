@@ -35,39 +35,58 @@ namespace yjk.FeaApis
 
 					//matGrade2 translator
 					string matGrade2Translated = "";
+
+					// Sourced from 前处理计算参数宏定义.docx - 基本信息 section
+					const int YP_GANGH = 802;
+					const int YP_RES_SIZE = 100;  // #define YP_RES_SIZE 100
+
 					switch (matGrade2)
 					{
-						case 80201:
-							matGrade2Translated = "Q235";
-							break;
-						case 80202:
-							matGrade2Translated = "Q345";
-							break;
-						case 80203:
-							matGrade2Translated = "Q390";
-							break;
-						case 80204:
-							matGrade2Translated = "Q420";
-							break;
-						case 80205:
-							matGrade2Translated = "Q460";
-							break;
-						case 80206:
-							matGrade2Translated = "Q500";
-							break;
-						case 80207:
-							matGrade2Translated = "Q550";
-							break;
-						case 80208:
-							matGrade2Translated = "Q620";
-							break;
-						case 80209:
-							matGrade2Translated = "Q690";
+						// Chinese Standard (GB)
+						case YP_GANGH * YP_RES_SIZE + 1: matGrade2Translated = "Q235"; break;
+						case YP_GANGH * YP_RES_SIZE + 2: matGrade2Translated = "Q345"; break;
+						case YP_GANGH * YP_RES_SIZE + 3: matGrade2Translated = "Q390"; break;
+						case YP_GANGH * YP_RES_SIZE + 4: matGrade2Translated = "Q420"; break;
+						case YP_GANGH * YP_RES_SIZE + 5: matGrade2Translated = "Q460"; break;
+						case YP_GANGH * YP_RES_SIZE + 6: matGrade2Translated = "Q500"; break;
+						case YP_GANGH * YP_RES_SIZE + 7: matGrade2Translated = "Q550"; break; // Q560 and Q550 share the same value
+						case YP_GANGH * YP_RES_SIZE + 8: matGrade2Translated = "Q620"; break;
+						case YP_GANGH * YP_RES_SIZE + 9: matGrade2Translated = "Q690"; break;
+						case YP_GANGH * YP_RES_SIZE + 10: matGrade2Translated = "Q235GJ"; break;
+						case YP_GANGH * YP_RES_SIZE + 11: matGrade2Translated = "Q345GJ"; break;
+						case YP_GANGH * YP_RES_SIZE + 12: matGrade2Translated = "Q390GJ"; break;
+						case YP_GANGH * YP_RES_SIZE + 13: matGrade2Translated = "Q420GJ"; break;
+						case YP_GANGH * YP_RES_SIZE + 14: matGrade2Translated = "Q460GJ"; break;
+						case YP_GANGH * YP_RES_SIZE + 15: matGrade2Translated = "Q355"; break;
+						case YP_GANGH * YP_RES_SIZE + 16: matGrade2Translated = "Q355N"; break;
+						case YP_GANGH * YP_RES_SIZE + 17: matGrade2Translated = "Q390N"; break;
+						case YP_GANGH * YP_RES_SIZE + 18: matGrade2Translated = "Q420N"; break;
+						case YP_GANGH * YP_RES_SIZE + 19: matGrade2Translated = "Q460N"; break;
+						case YP_GANGH * YP_RES_SIZE + 20: matGrade2Translated = "Q355M"; break;
+						case YP_GANGH * YP_RES_SIZE + 21: matGrade2Translated = "Q390M"; break;
+						case YP_GANGH * YP_RES_SIZE + 22: matGrade2Translated = "Q420M"; break;
+						case YP_GANGH * YP_RES_SIZE + 23: matGrade2Translated = "Q460M"; break;
+
+						// European Standard (EN)
+						case YP_GANGH * YP_RES_SIZE + 51: matGrade2Translated = "S235"; break;
+						case YP_GANGH * YP_RES_SIZE + 52: matGrade2Translated = "S275"; break;
+						case YP_GANGH * YP_RES_SIZE + 53: matGrade2Translated = "S355"; break;
+						case YP_GANGH * YP_RES_SIZE + 54: matGrade2Translated = "S450"; break;
+
+						// US Standard (ASTM)
+						case YP_GANGH * YP_RES_SIZE + 71: matGrade2Translated = "A36"; break;
+						case YP_GANGH * YP_RES_SIZE + 72: matGrade2Translated = "A53 (Gr.B)"; break;
+						case YP_GANGH * YP_RES_SIZE + 73: matGrade2Translated = "A500 (Gr.B42)"; break;
+						case YP_GANGH * YP_RES_SIZE + 74: matGrade2Translated = "A500 (Gr.B46)"; break;
+						case YP_GANGH * YP_RES_SIZE + 75: matGrade2Translated = "A500 (Gr.C46)"; break;
+						case YP_GANGH * YP_RES_SIZE + 76: matGrade2Translated = "A500 (Gr.C50)"; break;
+						case YP_GANGH * YP_RES_SIZE + 77: matGrade2Translated = "A572 (Gr.50)"; break;
+						case YP_GANGH * YP_RES_SIZE + 78: matGrade2Translated = "A992"; break;
+						default:
+							_logger.LogWarning($"Unrecognised steel grade {matGrade2}, material will be named unknown");
+							matGrade2Translated = "unknown";
 							break;
 					}
-
-					if (string.IsNullOrEmpty(matGrade2Translated))
-						_logger.LogWarning($"Unrecognised steel grade {matGrade2}, material name will be empty");
 
 					//Look at available materials
 					foreach (FeaMaterial material in _materials)

@@ -1,10 +1,10 @@
 using APIData;
 using CsToYjk;
-using IdeaStatiCa.Plugin;
-using yjk.ViewModels;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Loading;
 using IdeaRS.OpenModel.Result;
+using IdeaStatiCa.BimImporter.BimItems;
+using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,8 +15,10 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using yjk.BimApis;
 using yjk.Helpers;
+using yjk.ViewModels;
 
 namespace yjk.FeaApis
 {
@@ -62,6 +64,27 @@ namespace yjk.FeaApis
 			_logger.LogInformation($"FeaResultsApi.SetResult: memberId={member.Id}, floor={iFlr}, type={memberType}");
 			List<IFeaMemberResult> feaMemberResults = new List<IFeaMemberResult>();
 
+
+			//First loop to see how many nSect for each member, only for brace
+			int maxNSect = 0;
+
+			switch (memberType)
+			{
+				case MemberType.Brace:
+
+					foreach (int loadCaseId in loadsApi.GetLoadCasesIds())
+					{
+						int nSect = 0;
+						float[,] force = new float[0, 0];
+
+						_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+
+						if (nSect > maxNSect) { maxNSect = nSect; }
+					}
+					break;
+			}
+
+
 			foreach (int loadCaseId in loadsApi.GetLoadCasesIds())
 			{
 				int nSect = 0;
@@ -76,7 +99,14 @@ namespace yjk.FeaApis
 						_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
 						break;
 					case MemberType.Brace:
-						_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+						//_Hi_DesignData.dsnGetBraceStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+						_Hi_DesignData.dsnGetBeamStdForce(iFlr, member.Id, loadCaseId, 1, ref nSect, ref force);
+
+						if (nSect > 1 && maxNSect > nSect)
+						{
+							force = ConvertToNSectMax(nSect, maxNSect, force);
+							nSect = maxNSect;   // effective section count after resample — keeps Location aligned
+						}
 						break;
 				}
 				if (nSect == 0)
@@ -148,7 +178,7 @@ namespace yjk.FeaApis
 				MemberId = member.Id,
 				ResultType = "Load case",
 				LoadCaseId = loadCaseId,
-				Location = (double)i / ((double)nSect - 1) * member.GetLength(),
+				Location = nSect <= 1 ? 0.0 : (double)i / ((double)nSect - 1) * member.GetLength(),
 				Index = i + 1,
 				N = n,
 				Vy = vy,
@@ -162,6 +192,40 @@ namespace yjk.FeaApis
 			r.Vy *= -1;
 
 			return r;
+		}
+
+		// Resample a uniform-grid force array (nSect points on [0, L]) onto a uniform grid of
+		// maxNSect points using per-column linear interpolation. Both grids share the physical
+		// interval, so target section j maps to source coordinate s = j/(maxNSect-1) * (nSect-1).
+		// Endpoints map exactly; integer s copies the source value. Handles >2 sections (center point).
+		private static float[,] ConvertToNSectMax(int nSect, int maxNSect, float[,] force)
+		{
+			if (nSect >= maxNSect || nSect < 2)
+			{
+				return force;
+			}
+
+			float[,] adjustedForce = new float[maxNSect, 6];
+
+			for (int j = 0; j < maxNSect; j++)
+			{
+				double s = (double)j / (maxNSect - 1) * (nSect - 1);
+				int lower = (int)Math.Floor(s);
+				int upper = (int)Math.Ceiling(s);
+
+				if (lower < 0) lower = 0;
+				if (upper > nSect - 1) upper = nSect - 1;
+
+				double t = s - lower;
+
+				for (int col = 0; col < 6; col++)
+				{
+					adjustedForce[j, col] =
+						(float)(force[lower, col] * (1.0 - t) + force[upper, col] * t);
+				}
+			}
+
+			return adjustedForce;
 		}
 	}
 }
