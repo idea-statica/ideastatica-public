@@ -1,10 +1,11 @@
 # IdeaStatiCa.ConnectionApi.Model.WeldDefinition
+Weld definition for cut operations (web or flange weld).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Thickness** | **double** |  | [optional] 
+**Thickness** | **double** | Thickness of the weld - value 0 &#x3D; recommended size | [optional] 
 **WeldType** | **WeldType** |  | [optional] 
 **WeldMaterial** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 

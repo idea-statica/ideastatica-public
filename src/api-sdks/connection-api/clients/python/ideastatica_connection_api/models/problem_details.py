@@ -18,19 +18,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ConOperationCommonProperties(BaseModel):
+class ProblemDetails(BaseModel):
     """
-    ConOperationCommonProperties
+    ProblemDetails
     """ # noqa: E501
-    weld_material_id: Optional[StrictInt] = Field(default=None, alias="weldMaterialId")
-    plate_material_id: Optional[StrictInt] = Field(default=None, alias="plateMaterialId")
-    bolt_assembly_id: Optional[StrictInt] = Field(default=None, alias="boltAssemblyId")
-    __properties: ClassVar[List[str]] = ["weldMaterialId", "plateMaterialId", "boltAssemblyId"]
+    type: Optional[StrictStr] = None
+    title: Optional[StrictStr] = None
+    status: Optional[StrictInt] = None
+    detail: Optional[StrictStr] = None
+    instance: Optional[StrictStr] = None
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["type", "title", "status", "detail", "instance"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +53,7 @@ class ConOperationCommonProperties(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ConOperationCommonProperties from a JSON string"""
+        """Create an instance of ProblemDetails from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -62,8 +65,10 @@ class ConOperationCommonProperties(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,26 +76,41 @@ class ConOperationCommonProperties(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if weld_material_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.weld_material_id is None and "weld_material_id" in self.model_fields_set:
-            _dict['weldMaterialId'] = None
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
 
-        # set to None if plate_material_id (nullable) is None
+        # set to None if type (nullable) is None
         # and model_fields_set contains the field
-        if self.plate_material_id is None and "plate_material_id" in self.model_fields_set:
-            _dict['plateMaterialId'] = None
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
 
-        # set to None if bolt_assembly_id (nullable) is None
+        # set to None if title (nullable) is None
         # and model_fields_set contains the field
-        if self.bolt_assembly_id is None and "bolt_assembly_id" in self.model_fields_set:
-            _dict['boltAssemblyId'] = None
+        if self.title is None and "title" in self.model_fields_set:
+            _dict['title'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
+
+        # set to None if detail (nullable) is None
+        # and model_fields_set contains the field
+        if self.detail is None and "detail" in self.model_fields_set:
+            _dict['detail'] = None
+
+        # set to None if instance (nullable) is None
+        # and model_fields_set contains the field
+        if self.instance is None and "instance" in self.model_fields_set:
+            _dict['instance'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ConOperationCommonProperties from a dict"""
+        """Create an instance of ProblemDetails from a dict"""
         if obj is None:
             return None
 
@@ -98,10 +118,17 @@ class ConOperationCommonProperties(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "weldMaterialId": obj.get("weldMaterialId"),
-            "plateMaterialId": obj.get("plateMaterialId"),
-            "boltAssemblyId": obj.get("boltAssemblyId")
+            "type": obj.get("type"),
+            "title": obj.get("title"),
+            "status": obj.get("status"),
+            "detail": obj.get("detail"),
+            "instance": obj.get("instance")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -101,6 +101,7 @@ docs/Point2D.md
 docs/Point3D.md
 docs/PolyLine2D.md
 docs/PresentationApi.md
+docs/ProblemDetails.md
 docs/ProjectApi.md
 docs/ReferenceElement.md
 docs/Region2D.md
@@ -227,6 +228,7 @@ ideastatica_connection_api/models/plate_data.py
 ideastatica_connection_api/models/point2_d.py
 ideastatica_connection_api/models/point3_d.py
 ideastatica_connection_api/models/poly_line2_d.py
+ideastatica_connection_api/models/problem_details.py
 ideastatica_connection_api/models/reference_element.py
 ideastatica_connection_api/models/region2_d.py
 ideastatica_connection_api/models/search_option.py

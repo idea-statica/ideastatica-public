@@ -3,12 +3,12 @@
 | Method  | Description |
 |--------|-------------|
 | [**AddLoadEffectAsync**](LoadEffectApi.md#addloadeffectasync) | Adds a new load effect to the connection. |
-| [**DeleteLoadEffectAsync**](LoadEffectApi.md#deleteloadeffectasync) | Delete load effect loadEffectId |
+| [**DeleteLoadEffectAsync**](LoadEffectApi.md#deleteloadeffectasync) | Delete load effect loadEffectId. |
 | [**GetLoadEffectAsync**](LoadEffectApi.md#getloadeffectasync) | Gets load impulses from the specified load effect. |
 | [**GetLoadEffectsAsync**](LoadEffectApi.md#getloadeffectsasync) | Gets all load effects defined in the specified connection. |
-| [**GetLoadSettingsAsync**](LoadEffectApi.md#getloadsettingsasync) | Get Load settings for connection in project |
-| [**SetLoadSettingsAsync**](LoadEffectApi.md#setloadsettingsasync) | Set Load settings for connection in project |
-| [**UpdateLoadEffectAsync**](LoadEffectApi.md#updateloadeffectasync) | Update load impulses in conLoading |
+| [**GetLoadSettingsAsync**](LoadEffectApi.md#getloadsettingsasync) | Get Load settings for connection in project. |
+| [**SetLoadSettingsAsync**](LoadEffectApi.md#setloadsettingsasync) | Set Load settings for connection in project. |
+| [**UpdateLoadEffectAsync**](LoadEffectApi.md#updateloadeffectasync) | Update load impulses in conLoading. |
 
 <a id="addloadeffect"></a>
 ## **AddLoadEffectAsync**
@@ -100,7 +100,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/load-effects 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 #### Using the AddLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -136,6 +136,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **422** | Unprocessable Content |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -143,7 +144,7 @@ No authorization required
 ## **DeleteLoadEffectAsync**
 > **int DeleteLoadEffectAsync (Guid projectId, int connectionId, int loadEffectId)**
 
-Delete load effect loadEffectId
+Delete load effect loadEffectId.
 
 
 
@@ -151,9 +152,9 @@ Delete load effect loadEffectId
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **loadEffectId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **loadEffectId** | **int** | The ID of the load effect to delete. |  |
 
 ### Return type
 
@@ -191,12 +192,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    loadEffectId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection.
+                    loadEffectId = 56;  // int | The ID of the load effect to delete.
 
                     try
                     {
-                        // Delete load effect loadEffectId
+                        // Delete load effect loadEffectId.
                         int result = await conClient.LoadEffect.DeleteLoadEffectAsync(projectId, connectionId, loadEffectId);
                         Debug.WriteLine(result);
                     }
@@ -229,7 +230,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 #### Using the DeleteLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -237,7 +238,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Delete load effect loadEffectId
+    // Delete load effect loadEffectId.
     ApiResponse<int> response = conClient.LoadEffect.DeleteLoadEffectWithHttpInfo(projectId, connectionId, loadEffectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -360,7 +361,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 #### Using the GetLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -396,6 +397,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -489,7 +491,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/load-effects 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 #### Using the GetLoadEffectsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -532,7 +534,7 @@ No authorization required
 ## **GetLoadSettingsAsync**
 > **ConLoadSettings GetLoadSettingsAsync (Guid projectId, int connectionId)**
 
-Get Load settings for connection in project
+Get Load settings for connection in project.
 
 
 
@@ -540,8 +542,8 @@ Get Load settings for connection in project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
 
 ### Return type
 
@@ -579,11 +581,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection.
 
                     try
                     {
-                        // Get Load settings for connection in project
+                        // Get Load settings for connection in project.
                         ConLoadSettings result = await conClient.LoadEffect.GetLoadSettingsAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -616,7 +618,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
 
 #### Using the GetLoadSettingsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -624,7 +626,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get Load settings for connection in project
+    // Get Load settings for connection in project.
     ApiResponse<ConLoadSettings> response = conClient.LoadEffect.GetLoadSettingsWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -659,7 +661,7 @@ No authorization required
 ## **SetLoadSettingsAsync**
 > **ConLoadSettings SetLoadSettingsAsync (Guid projectId, int connectionId, ConLoadSettings conLoadSettings = null)**
 
-Set Load settings for connection in project
+Set Load settings for connection in project.
 
 
 
@@ -667,9 +669,9 @@ Set Load settings for connection in project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **conLoadSettings** | [**ConLoadSettings**](ConLoadSettings.md) |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **conLoadSettings** | [**ConLoadSettings**](ConLoadSettings.md) | The new load settings to apply. | [optional]  |
 
 ### Return type
 
@@ -707,12 +709,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    var conLoadSettings = new ConLoadSettings(); // ConLoadSettings |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    var conLoadSettings = new ConLoadSettings(); // ConLoadSettings | The new load settings to apply. (optional) 
 
                     try
                     {
-                        // Set Load settings for connection in project
+                        // Set Load settings for connection in project.
                         ConLoadSettings result = await conClient.LoadEffect.SetLoadSettingsAsync(projectId, connectionId, conLoadSettings);
                         Debug.WriteLine(result);
                     }
@@ -745,7 +747,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
 
 #### Using the SetLoadSettingsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -753,7 +755,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Set Load settings for connection in project
+    // Set Load settings for connection in project.
     ApiResponse<ConLoadSettings> response = conClient.LoadEffect.SetLoadSettingsWithHttpInfo(projectId, connectionId, conLoadSettings);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -788,7 +790,7 @@ No authorization required
 ## **UpdateLoadEffectAsync**
 > **ConLoadEffect UpdateLoadEffectAsync (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)**
 
-Update load impulses in conLoading
+Update load impulses in conLoading.
 
 
 
@@ -796,9 +798,9 @@ Update load impulses in conLoading
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **conLoadEffect** | [**ConLoadEffect**](ConLoadEffect.md) |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
+| **conLoadEffect** | [**ConLoadEffect**](ConLoadEffect.md) | The load effect data to update. | [optional]  |
 
 ### Return type
 
@@ -836,12 +838,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection.
+                    var conLoadEffect = new ConLoadEffect(); // ConLoadEffect | The load effect data to update. (optional) 
 
                     try
                     {
-                        // Update load impulses in conLoading
+                        // Update load impulses in conLoading.
                         ConLoadEffect result = await conClient.LoadEffect.UpdateLoadEffectAsync(projectId, connectionId, conLoadEffect);
                         Debug.WriteLine(result);
                     }
@@ -874,7 +876,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/load-effects 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 #### Using the UpdateLoadEffectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -882,7 +884,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update load impulses in conLoading
+    // Update load impulses in conLoading.
     ApiResponse<ConLoadEffect> response = conClient.LoadEffect.UpdateLoadEffectWithHttpInfo(projectId, connectionId, conLoadEffect);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -910,6 +912,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

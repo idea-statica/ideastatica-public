@@ -5,12 +5,12 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**add_load_effect**](LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
-[**delete_load_effect**](LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId
+[**delete_load_effect**](LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId.
 [**get_load_effect**](LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
 [**get_load_effects**](LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
-[**get_load_settings**](LoadEffectApi.md#get_load_settings) | Get Load settings for connection in project
-[**set_load_settings**](LoadEffectApi.md#set_load_settings) | Set Load settings for connection in project
-[**update_load_effect**](LoadEffectApi.md#update_load_effect) | Update load impulses in conLoading
+[**get_load_settings**](LoadEffectApi.md#get_load_settings) | Get Load settings for connection in project.
+[**set_load_settings**](LoadEffectApi.md#set_load_settings) | Set Load settings for connection in project.
+[**update_load_effect**](LoadEffectApi.md#update_load_effect) | Update load impulses in conLoading.
 
 
 <a id="add_load_effect"></a>
@@ -74,7 +74,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/load-effects 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -90,6 +90,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**422** | Unprocessable Content |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -97,16 +98,16 @@ No authorization required
 # **delete_load_effect**
 > int delete_load_effect(project_id, connection_id, load_effect_id)
 
-Delete load effect loadEffectId
+Delete load effect loadEffectId.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **load_effect_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **load_effect_id** | **int**| The ID of the load effect to delete. | 
 
 ### Return type
 
@@ -127,12 +128,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def delete_load_effectExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    load_effect_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    load_effect_id = 56 # int | The ID of the load effect to delete.
 
     try:
-        # Delete load effect loadEffectId
+        # Delete load effect loadEffectId.
         api_response = api_client.loadeffect.delete_load_effect(project_id, connection_id, load_effect_id)
         print("The response of LoadEffectApi->delete_load_effect:\n")
         pprint(api_response)
@@ -153,7 +154,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 ### Authorization
 
@@ -235,7 +236,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 ### Authorization
 
@@ -251,6 +252,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -315,7 +317,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/load-effects 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -338,15 +340,15 @@ No authorization required
 # **get_load_settings**
 > ConLoadSettings get_load_settings(project_id, connection_id)
 
-Get Load settings for connection in project
+Get Load settings for connection in project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
 
 ### Return type
 
@@ -368,11 +370,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_load_settingsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
 
     try:
-        # Get Load settings for connection in project
+        # Get Load settings for connection in project.
         api_response = api_client.loadeffect.get_load_settings(project_id, connection_id)
         print("The response of LoadEffectApi->get_load_settings:\n")
         pprint(api_response)
@@ -393,7 +395,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
 
 ### Authorization
 
@@ -416,16 +418,16 @@ No authorization required
 # **set_load_settings**
 > ConLoadSettings set_load_settings(project_id, connection_id, con_load_settings=con_load_settings)
 
-Set Load settings for connection in project
+Set Load settings for connection in project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **con_load_settings** | [**ConLoadSettings**](ConLoadSettings.md)|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **con_load_settings** | [**ConLoadSettings**](ConLoadSettings.md)| The new load settings to apply. | [optional] 
 
 ### Return type
 
@@ -447,12 +449,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def set_load_settingsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    con_load_settings = ideastatica_connection_api.ConLoadSettings() # ConLoadSettings |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    con_load_settings = ideastatica_connection_api.ConLoadSettings() # ConLoadSettings | The new load settings to apply. (optional)
 
     try:
-        # Set Load settings for connection in project
+        # Set Load settings for connection in project.
         api_response = api_client.loadeffect.set_load_settings(project_id, connection_id, con_load_settings=con_load_settings)
         print("The response of LoadEffectApi->set_load_settings:\n")
         pprint(api_response)
@@ -473,7 +475,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
 
 ### Authorization
 
@@ -496,16 +498,16 @@ No authorization required
 # **update_load_effect**
 > ConLoadEffect update_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
 
-Update load impulses in conLoading
+Update load impulses in conLoading.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **con_load_effect** | [**ConLoadEffect**](ConLoadEffect.md)|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+ **con_load_effect** | [**ConLoadEffect**](ConLoadEffect.md)| The load effect data to update. | [optional] 
 
 ### Return type
 
@@ -527,12 +529,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_load_effectExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    con_load_effect = ideastatica_connection_api.ConLoadEffect() # ConLoadEffect |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+    con_load_effect = ideastatica_connection_api.ConLoadEffect() # ConLoadEffect | The load effect data to update. (optional)
 
     try:
-        # Update load impulses in conLoading
+        # Update load impulses in conLoading.
         api_response = api_client.loadeffect.update_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
         print("The response of LoadEffectApi->update_load_effect:\n")
         pprint(api_response)
@@ -553,7 +555,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/load-effects 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -569,6 +571,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

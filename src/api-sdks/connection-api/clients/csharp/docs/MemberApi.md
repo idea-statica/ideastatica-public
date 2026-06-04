@@ -5,7 +5,7 @@
 | [**AddMemberAsync**](MemberApi.md#addmemberasync) | Adds a new member to the connection. |
 | [**GetMemberAsync**](MemberApi.md#getmemberasync) | Gets information about the specified member in the connection. |
 | [**GetMembersAsync**](MemberApi.md#getmembersasync) | Gets information about all members in the connection. |
-| [**SetBearingMemberAsync**](MemberApi.md#setbearingmemberasync) | Set bearing member for memberIt |
+| [**SetBearingMemberAsync**](MemberApi.md#setbearingmemberasync) | Set bearing member for memberId. |
 | [**UpdateMemberAsync**](MemberApi.md#updatememberasync) | Updates the member in the connection with the provided data. |
 
 <a id="addmember"></a>
@@ -98,7 +98,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/members 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 #### Using the AddMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -134,6 +134,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **422** | Unprocessable Content |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -227,7 +228,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 #### Using the GetMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -263,6 +264,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -354,7 +356,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/members 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 #### Using the GetMembersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -397,7 +399,7 @@ No authorization required
 ## **SetBearingMemberAsync**
 > **ConMember SetBearingMemberAsync (Guid projectId, int connectionId, int memberId)**
 
-Set bearing member for memberIt
+Set bearing member for memberId.
 
 
 
@@ -405,9 +407,9 @@ Set bearing member for memberIt
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **memberId** | **int** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection containing the member. |  |
+| **memberId** | **int** | The ID of the member to set as bearing. |  |
 
 ### Return type
 
@@ -445,12 +447,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    memberId = 56;  // int | 
+                    connectionId = 56;  // int | The ID of the connection containing the member.
+                    memberId = 56;  // int | The ID of the member to set as bearing.
 
                     try
                     {
-                        // Set bearing member for memberIt
+                        // Set bearing member for memberId.
                         ConMember result = await conClient.Member.SetBearingMemberAsync(projectId, connectionId, memberId);
                         Debug.WriteLine(result);
                     }
@@ -483,7 +485,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
 
 #### Using the SetBearingMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -491,7 +493,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Set bearing member for memberIt
+    // Set bearing member for memberId.
     ApiResponse<ConMember> response = conClient.Member.SetBearingMemberWithHttpInfo(projectId, connectionId, memberId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -519,6 +521,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -612,7 +615,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/members 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 #### Using the UpdateMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
