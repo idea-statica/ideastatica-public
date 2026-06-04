@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
+using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
@@ -20,6 +21,14 @@ namespace IdeaStatiCa.Api.Connection
 		/// </summary>
 		/// <returns></returns>
 		Tuple<string, string> GetConnectionInfo();
+
+		/// <summary>
+		/// Create a new empty Connection project in the service
+		/// </summary>
+		/// <param name="projectData">Data of the project to create (design code, name, etc.)</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The created project</returns>
+		Task<ConProject> CreateProjectAsync(ConProjectData projectData, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Open idea project in the service
@@ -94,6 +103,23 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Create a new empty connection in the active project
+		/// </summary>
+		/// <param name="name">Optional name of the new connection</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The created connection</returns>
+		//Task<ConConnection> CreateEmptyConnectionAsync(string name, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Create a copy of the connection with <paramref name="connectionId"/> in the active project
+		/// </summary>
+		/// <param name="connectionId">Id of the connection to copy</param>
+		/// <param name="name">Optional name of the copied connection</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The copied connection</returns>
+		//Task<ConConnection> CopyConnectionAsync(int connectionId, string name, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get list of all operations for the connection with <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">Id of the requested connection</param>
@@ -108,6 +134,8 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
+
+		Task<ResultOnMesh> GetResultMeshAsync(int id, ResultOnMeshType meshType, int loadId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
