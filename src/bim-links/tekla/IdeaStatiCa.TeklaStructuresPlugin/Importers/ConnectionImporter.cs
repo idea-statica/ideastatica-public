@@ -19,6 +19,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		public override IIdeaConnectionPoint Create(ConnectionIdentifier<IIdeaConnectionPoint> id)
 		{
+			// Lookup the pre-computed connection GUID set for this CP node location.
+			// The set was stored by GetCadUserSelection (in Model.cs) before import started.
+			var nodeKey = id.Node?.GetId()?.ToString() ?? id.GetStringId();
+			Model.SetCurrentConnectionGuidsByKey(nodeKey);
+
 			var connectionPoint = new ConnectionPoint(id.GetStringId().ToString())
 			{
 				Node = Get(id.Node as Identifier<IIdeaNode>),
@@ -38,7 +43,24 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		public override IIdeaConnectionPoint Check(ConnectionIdentifier<IIdeaConnectionPoint> id)
 		{
 			var cachedOject = Model.GetCachedObject(id);
-			return cachedOject is IIdeaConnectionPoint ? cachedOject as IIdeaConnectionPoint : null;
+			if (cachedOject is IIdeaConnectionPoint cp)
+			{
+				// Activate the GUID set for this CP so importers filter correctly.
+				var nodeKey = id.Node?.GetId()?.ToString() ?? id.GetStringId();
+				Model.SetCurrentConnectionGuidsByKey(nodeKey);
+
+				// Reset mutable lists so ProcessConnectionObjects doesn't accumulate
+				// items across multiple import sessions for the same cached object.
+				(cp.BoltGrids as System.Collections.Generic.List<IIdeaBoltGrid>)?.Clear();
+				(cp.AnchorGrids as System.Collections.Generic.List<IIdeaAnchorGrid>)?.Clear();
+				(cp.Welds as System.Collections.Generic.List<IIdeaWeld>)?.Clear();
+				(cp.Plates as System.Collections.Generic.List<IIdeaPlate>)?.Clear();
+				(cp.FoldedPlates as System.Collections.Generic.List<IIdeaFoldedPlate>)?.Clear();
+				(cp.Cuts as System.Collections.Generic.List<IIdeaCut>)?.Clear();
+				(cp.ConnectedMembers as System.Collections.Generic.List<IIdeaConnectedMember>)?.Clear();
+				return cp;
+			}
+			return null;
 		}
 	}
 }

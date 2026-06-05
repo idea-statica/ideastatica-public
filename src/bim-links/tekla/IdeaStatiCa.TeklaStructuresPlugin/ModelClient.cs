@@ -27,11 +27,81 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 		private readonly Dictionary<IIdentifier, IIdeaObject> cachedObjects;
 
+		// Maps node key "X;Y;Z" to the GUID set for that connection point.
+		// Populated by GetCadUserSelection; read by ConnectionImporter.Create.
+		private readonly Dictionary<string, HashSet<string>> _connectionGuidsByKey = new Dictionary<string, HashSet<string>>();
+
+		// The GUID set for the connection currently being imported.
+		private HashSet<string> _currentConnectionGuids;
+
 		public ModelClient(TS.Model teklaModel, IPluginLogger plugInLogger)
 		{
 			this.teklaModel = teklaModel;
 			this.plugInLogger = plugInLogger;
 			cachedObjects = new Dictionary<IIdentifier, IIdeaObject>();
+		}
+
+		public void RegisterConnectionGuids(string nodeKey, HashSet<string> guids)
+		{
+			if (_connectionGuidsByKey.TryGetValue(nodeKey, out var existing))
+			{
+				existing.UnionWith(guids);
+				plugInLogger?.LogDebug($"RegisterConnectionGuids: key={nodeKey} merged to {existing.Count} guids");
+			}
+			else
+			{
+				_connectionGuidsByKey[nodeKey] = new HashSet<string>(guids);
+				plugInLogger?.LogDebug($"RegisterConnectionGuids: key={nodeKey} guids={guids.Count}");
+			}
+		}
+
+		public void SetCurrentConnectionGuidsByKey(string nodeKey)
+		{
+			if (_connectionGuidsByKey.TryGetValue(nodeKey, out var guids))
+			{
+				_currentConnectionGuids = guids;
+				plugInLogger?.LogDebug($"SetCurrentConnectionGuidsByKey: key={nodeKey} guids={guids.Count}");
+			}
+			else
+			{
+				_currentConnectionGuids = null;
+				plugInLogger?.LogDebug($"SetCurrentConnectionGuidsByKey: key={nodeKey} not found, no filter");
+			}
+		}
+
+		public void SetCurrentConnectionGuids(HashSet<string> guids)
+		{
+			_currentConnectionGuids = guids;
+			plugInLogger?.LogDebug($"SetCurrentConnectionGuids: {guids.Count} guids set for current connection");
+		}
+
+		public bool IsInCurrentConnection(string guid)
+		{
+			return _currentConnectionGuids == null || _currentConnectionGuids.Contains(guid);
+		}
+
+		public bool IsRegisteredInAnyConnection(string guid)
+		{
+			return _connectionGuidsByKey.Values.Any(set => set.Contains(guid));
+		}
+
+		public bool IsInSameConnectionAs(string boltGridGuid, string partGuid)
+		{
+			if (_currentConnectionGuids == null)
+			{
+				return true;
+			}
+
+			if (_currentConnectionGuids.Contains(partGuid))
+			{
+				return true;
+			}
+
+			// Accept parts that are not registered in ANY connection — they were not picked up
+			// by the sorter (e.g. gusset plates on diagonals whose centroid fell outside all
+			// node BBs). They belong here because they belong nowhere else.
+			bool registeredElsewhere = _connectionGuidsByKey.Values.Any(set => set.Contains(partGuid));
+			return !registeredElsewhere;
 		}
 
 		private TS.Model GetTeklaModel()
@@ -303,7 +373,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 							notFoundAnchor = false;
 						}
 					}
-					else if (part is TS.Beam b && (!IdentifierHelper.WasherMemberFilter(part) && !IdentifierHelper.NutMemberFilter(part)))
+					else if (part is TS.Beam b && !IdentifierHelper.WasherMemberFilter(part) && !IdentifierHelper.NutMemberFilter(part))
 					{
 						anchorItems.Add(part);
 					}
@@ -333,7 +403,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// User select bulk selection
 		/// </summary>
 		/// <returns></returns>
-		public List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)> GetBulkSelection(bool selectWholeModel = false, IProgressMessaging progressMessaging = null)
+		public List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)> GetBulkSelection(bool selectWholeModel = false, IProgressMessaging progressMessaging = null, BIM.Common.SorterSettings sorterSettings = null)
 		{
 			plugInLogger.LogInformation("GetBulkSelection");
 			List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)> selections = new List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)>();
@@ -358,7 +428,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				plugInLogger.LogInformation($"GetSelectObjects - process user selection");
 				var selectedItems = ProcessUserSelection(partsEnumerator);
 
-				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems);
+				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems, plugInLogger, sorterSettings);
 
 
 				plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");
@@ -405,10 +475,78 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					}
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of fasteners {joint.Fasteners.Count}");
+
+					// Build GUIDs of members and plates belonging to this joint for membership check.
+					var jointParentGuids = joint.Members
+						.Concat(joint.Plates.OfType<BIM.Common.Item>())
+						.Concat(joint.StiffeningMembers.OfType<BIM.Common.Item>())
+						.Select(item => (item.Parent as TS.ModelObject)?.Identifier.GUID.ToString())
+						.Where(g => g != null)
+						.ToHashSet();
+
 					foreach (var jointFastener in joint.Fasteners)
 					{
 						if (jointFastener.Parent is TS.ModelObject tsObject)
 						{
+							if (sortedJoints.Joints.Count > 1 && tsObject is TS.BoltGroup boltGroup)
+							{
+								// Collect connected part GUIDs of this bolt.
+								var connectedGuids = new[]
+								{
+									boltGroup.PartToBoltTo?.Identifier.GUID.ToString(),
+									boltGroup.PartToBeBolted?.Identifier.GUID.ToString(),
+								}
+								.Concat(boltGroup.OtherPartsToBolt?.OfType<TS.Part>().Select(p => p.Identifier.GUID.ToString()) ?? Enumerable.Empty<string>())
+								.Where(g => g != null)
+								.ToHashSet();
+
+										var fastenerOrigin = jointFastener.LCS.Origin;
+								var distToThis = Math.Sqrt(
+									Math.Pow(fastenerOrigin.X - joint.Location.X, 2) +
+									Math.Pow(fastenerOrigin.Y - joint.Location.Y, 2) +
+									Math.Pow(fastenerOrigin.Z - joint.Location.Z, 2));
+
+								// Priority 1: bolt has a PLATE connected part that is exclusive to this joint
+								// (not present in any other joint). ENDPLATE bolts are assigned this way.
+								bool hasExclusivePlatePart = connectedGuids.Any(g =>
+								{
+									if (!jointParentGuids.Contains(g)) return false;
+									// Must be a plate (not just a member) to qualify as exclusive anchor.
+									var isPlate = joint.Plates.Any(p => (p.Parent as TS.ModelObject)?.Identifier.GUID.ToString() == g);
+									if (!isPlate) return false;
+									return sortedJoints.Joints.Where(j => j != joint).All(j =>
+									{
+										var otherPlateGuids = j.Plates
+											.Select(p => (p.Parent as TS.ModelObject)?.Identifier.GUID.ToString())
+											.Where(og => og != null);
+										return !otherPlateGuids.Contains(g);
+									});
+								});
+
+								if (hasExclusivePlatePart)
+								{
+									// Bolt is anchored to an exclusive plate of this joint — accept regardless of distance.
+								}
+								else
+								{
+									// Priority 2: closest joint by distance.
+									var isClosest = sortedJoints.Joints.All(j =>
+									{
+										var d = Math.Sqrt(
+											Math.Pow(fastenerOrigin.X - j.Location.X, 2) +
+											Math.Pow(fastenerOrigin.Y - j.Location.Y, 2) +
+											Math.Pow(fastenerOrigin.Z - j.Location.Z, 2));
+										return distToThis <= d;
+									});
+									if (!isClosest)
+									{
+										plugInLogger.LogDebug($"GetBulkSelection joint [{joint.Location.X:F0},{joint.Location.Y:F0},{joint.Location.Z:F0}] SKIPPED fastener {tsObject.Identifier.GUID} (no exclusive plate part, closer to another joint)");
+										continue;
+									}
+								}
+
+								plugInLogger.LogDebug($"GetBulkSelection joint [{joint.Location.X:F0},{joint.Location.Y:F0},{joint.Location.Z:F0}] KEPT fastener {tsObject.Identifier.GUID}");
+							}
 							parts.Add(tsObject);
 						}
 					}
@@ -422,6 +560,31 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 						}
 					}
 
+					// Skip orphan joints: no operations of their own (no plates, no welds)
+					// and all their members are already covered by another joint that does have operations.
+					if (joint.Plates.Count == 0 && joint.Welds.Count == 0 && sortedJoints.Joints.Count > 1)
+					{
+						var memberGuids = new HashSet<string>(
+							joint.Members.Select(m => (m.Parent as TS.ModelObject)?.Identifier.GUID.ToString())
+							.Where(g => g != null));
+
+						var isSubsetOfRicherJoint = sortedJoints.Joints
+							.Where(other => other != joint && (other.Plates.Count > 0 || other.Welds.Count > 0))
+							.Any(other =>
+							{
+								var otherGuids = other.Members
+									.Select(m => (m.Parent as TS.ModelObject)?.Identifier.GUID.ToString())
+									.Where(g => g != null);
+								return memberGuids.IsSubsetOf(otherGuids);
+							});
+
+						if (isSubsetOfRicherJoint)
+						{
+							plugInLogger.LogInformation($"GetBulkSelection SKIPPED orphan joint [{joint.Location.X:F0},{joint.Location.Y:F0},{joint.Location.Z:F0}] (no operations, members covered by richer joint)");
+							continue;
+						}
+					}
+
 					selections?.Add(
 						(
 							new Point(joint.Location.X, joint.Location.Y, joint.Location.Z),
@@ -429,6 +592,60 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 							parts
 						)
 					);
+				}
+
+				// Fallback: BoltGroups not assigned to any joint by the sorter (their origin fell
+				// outside all node BBs) are reassigned to the joint whose member is their PartToBoltTo
+				// or PartToBeBolted.
+				if (sortedJoints.Joints.Count > 0)
+				{
+					var assignedFastenerGuids = new HashSet<string>(
+						sortedJoints.Joints.SelectMany(j => j.Fasteners)
+							.Select(f => (f.Parent as TS.ModelObject)?.Identifier.GUID.ToString())
+							.Where(g => g != null));
+
+					var unassignedBolts = selectedItems
+						.OfType<TS.BoltGroup>()
+						.Where(bg => !assignedFastenerGuids.Contains(bg.Identifier.GUID.ToString()))
+						.ToList();
+					plugInLogger.LogDebug($"GetBulkSelection fallback: {unassignedBolts.Count} unassigned BoltGroups from {selectedItems.Count(o => o is TS.BoltGroup)} total");
+
+					foreach (var bolt in unassignedBolts)
+					{
+						var boltGuid = bolt.Identifier.GUID.ToString();
+						var connectedGuids = new[]
+						{
+							bolt.PartToBoltTo?.Identifier.GUID.ToString(),
+							bolt.PartToBeBolted?.Identifier.GUID.ToString(),
+						}
+						.Concat(bolt.OtherPartsToBolt?.OfType<TS.Part>().Select(p => p.Identifier.GUID.ToString()) ?? Enumerable.Empty<string>())
+						.Where(g => g != null)
+						.ToHashSet();
+
+						// Find the selection whose PLATES (parts) overlap with the bolt's connected parts.
+						// Prefer plate match over member match to avoid assigning shared-column bolts
+						// to the wrong joint.
+						var targetIdx = selections?.FindIndex(sel =>
+							sel.Item3.Any(p => connectedGuids.Contains(p.Identifier.GUID.ToString())));
+
+						// Fallback to member match only if no plate match found.
+						if (!targetIdx.HasValue || targetIdx.Value < 0)
+						{
+							targetIdx = selections?.FindIndex(sel =>
+								sel.Item2.Any(b => connectedGuids.Contains(b.Identifier.GUID.ToString())));
+						}
+
+						if (targetIdx.HasValue && targetIdx.Value >= 0)
+						{
+							var pt = selections[targetIdx.Value].Item1;
+							selections[targetIdx.Value].Item3.Add(bolt);
+							plugInLogger.LogDebug($"GetBulkSelection fallback: unassigned BoltGroup {boltGuid} added to joint [{pt.X:F0},{pt.Y:F0},{pt.Z:F0}]");
+						}
+						else
+						{
+							plugInLogger.LogDebug($"GetBulkSelection fallback: unassigned BoltGroup {boltGuid} NOT matched to any joint (connectedGuids={string.Join(",", connectedGuids.Select(g => g.Length > 8 ? g.Substring(0, 8) : g))})");
+						}
+					}
 				}
 			}
 			return selections;
@@ -689,6 +906,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		public void ClearCache()
 		{
 			cachedObjects.Clear();
+			_currentConnectionGuids = null;
+			_connectionGuidsByKey.Clear();
 		}
 	}
 }

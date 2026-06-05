@@ -15,8 +15,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 	internal static class IdentifierHelper
 	{
 		// rename parameter addToCollection
-		internal static List<IIdentifier> GetIdentifier(ModelObject teklaObject, ref List<IIdentifier> identifiers, bool addToCollection = true, Point connectionPoint = null)
+		internal static List<IIdentifier> GetIdentifier(ModelObject teklaObject, ref List<IIdentifier> identifiers, bool addToCollection = true, Point connectionPoint = null, IReadOnlyList<Point> allConnectionPoints = null, IdeaStatiCa.Plugin.IPluginLogger logger = null)
 		{
+			var cpStr = connectionPoint != null ? $"[{connectionPoint.X:F1},{connectionPoint.Y:F1},{connectionPoint.Z:F1}]" : "?";
+
 			if (teklaObject is TS.Beam beamPart
 				&& StiffeningMemberFilter(beamPart)
 				&& !AnchorMemberFilter(beamPart) //in not anchor
@@ -28,6 +30,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					if (addToCollection)
 					{
 						identifiers.Add(new ConnectedMemberIdentifier<IIdeaConnectedMember>(beamPart.Identifier.GUID.ToString()));
+						logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED beam '{beamPart.Name}' ({beamPart.Profile.ProfileString}) guid={beamPart.Identifier.GUID} as ConnectedMember");
 					}
 				}
 			}
@@ -39,58 +42,63 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					if (addToCollection)
 					{
 						identifiers.Add(new ConnectedMemberIdentifier<IIdeaConnectedMember>(polybeamPart.Identifier.GUID.ToString()));
+						logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED polybeam '{polybeamPart.Name}' guid={polybeamPart.Identifier.GUID} as ConnectedMember");
 					}
 				}
 			}
 			else if (teklaObject is TS.ContourPlate plate)
 			{
 				AddIdentifier<IIdeaPlate>(identifiers, teklaObject, plate.Identifier.GUID.ToString());
+				logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED ContourPlate '{plate.Name}' guid={plate.Identifier.GUID}");
 			}
 			else if ((teklaObject is TS.Beam beamAsPlate))
 			{
-
 				if (AnchorMemberFilter(beamAsPlate))
 				{
 					AddIdentifier<IIdeaAnchorGrid>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
 					AddConcreteBlockToAnchor(identifiers);
+					logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED beam '{beamAsPlate.Name}' guid={beamAsPlate.Identifier.GUID} as AnchorGrid");
 				}
 				else if (ConcreteBlocksFilter(beamAsPlate))
 				{
 					AddIdentifier<IIdeaConcreteBlock>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
 					AddConcreteBlockToAnchor(identifiers);
+					logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED beam '{beamAsPlate.Name}' guid={beamAsPlate.Identifier.GUID} as ConcreteBlock");
 				}
 				else if (StiffeningMemberFilter(beamAsPlate) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate))
 				{
 					AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
+					logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED beam '{beamAsPlate.Name}' ({beamAsPlate.Profile.ProfileString}) guid={beamAsPlate.Identifier.GUID} as Plate (rectangular stiffening)");
 				}
-
-
 			}
-			if (teklaObject is BoltGroup)
+
+			if (teklaObject is BoltGroup bg0)
 			{
 				AddIdentifier<IIdeaBoltGrid>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
+				logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED BoltGroup guid={bg0.Identifier.GUID}");
 			}
-			else if (teklaObject is BaseWeld)
+			else if (teklaObject is BaseWeld bw0)
 			{
 				AddIdentifier<IIdeaWeld>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
+				logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED Weld guid={bw0.Identifier.GUID}");
 			}
 			else if (teklaObject is TS.BentPlate bentPlate)
 			{
 				AddIdentifier<IIdeaFoldedPlate>(identifiers, teklaObject, bentPlate.Identifier.GUID.ToString());
+				logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED BentPlate guid={bentPlate.Identifier.GUID}");
 			}
-			else if (teklaObject is TS.CutPlane cutPlane)
+			else if (teklaObject is TS.CutPlane cutPlane0)
 			{
-				AddIdentifier<IIdeaCut>(identifiers, teklaObject, cutPlane.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaCut>(identifiers, teklaObject, cutPlane0.Identifier.GUID.ToString());
 			}
-			else if (teklaObject is TS.Fitting fitting)
+			else if (teklaObject is TS.Fitting fitting0)
 			{
-				AddIdentifier<IIdeaCut>(identifiers, teklaObject, fitting.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaCut>(identifiers, teklaObject, fitting0.Identifier.GUID.ToString());
 			}
-			else if (teklaObject is TS.BooleanPart booleanPart && booleanPart.Type == TS.BooleanPart.BooleanTypeEnum.BOOLEAN_CUT)
+			else if (teklaObject is TS.BooleanPart booleanPart0 && booleanPart0.Type == TS.BooleanPart.BooleanTypeEnum.BOOLEAN_CUT)
 			{
-				AddIdentifier<IIdeaCut>(identifiers, teklaObject, booleanPart.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaCut>(identifiers, teklaObject, booleanPart0.Identifier.GUID.ToString());
 			}
-
 
 			if (teklaObject is Part teklaPart)
 			{
@@ -98,8 +106,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 				while (beamChildrenEnumerator.MoveNext())
 				{
 					var teklaChildObject = beamChildrenEnumerator.Current;
-
-					//check workplane
 
 					if (teklaChildObject is CutPlane cutPlane)
 					{
@@ -109,7 +115,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 							continue;
 						}
 
-						identifiers = GetIdentifier(teklaChildObject, ref identifiers, addToCollection, connectionPoint);
+						identifiers = GetIdentifier(teklaChildObject, ref identifiers, addToCollection, connectionPoint, allConnectionPoints, logger);
 					}
 					else if (teklaChildObject is Fitting fitting)
 					{
@@ -119,7 +125,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 							continue;
 						}
 
-						identifiers = GetIdentifier(teklaChildObject, ref identifiers, addToCollection, connectionPoint);
+						identifiers = GetIdentifier(teklaChildObject, ref identifiers, addToCollection, connectionPoint, allConnectionPoints, logger);
 					}
 					else if (teklaChildObject is BooleanPart booleanPart)
 					{
@@ -135,8 +141,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 								continue;
 							}
 
-							identifiers = GetIdentifier(teklaChildObject, ref identifiers, addToCollection, connectionPoint);
-
+							identifiers = GetIdentifier(teklaChildObject, ref identifiers, addToCollection, connectionPoint, allConnectionPoints, logger);
 						}
 					}
 				}
@@ -153,13 +158,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					}
 
 					var boltCs = boltGroup.GetCoordinateSystem();
+					var boltOrigin = boltCs.Origin as Point;
+					var boltNear = IsPointNearOfConnection(connectionPoint, teklaPart, boltOrigin, allConnectionPoints);
 
-					if (!IsPointNearOfConnection(connectionPoint, teklaPart, boltCs.Origin as Point))
+					if (!boltNear)
 					{
-						//not skip for Stiffening Member as plate 
-						if (!(StiffeningMemberFilter(teklaPart) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(teklaPart)))
+						// In MC mode (allConnectionPoints set) always filter by nearest CP — even for stiffening plates.
+						// In single-joint mode keep the original exception for stiffening plates.
+						bool skipStiffeningException = allConnectionPoints != null && allConnectionPoints.Count > 1;
+						if (skipStiffeningException || !(StiffeningMemberFilter(teklaPart) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(teklaPart)))
 						{
-							//skip item too far from connection point
+							logger?.LogTrace($"IdentifierHelper: cp={cpStr} REJECTED BoltGroup guid={boltGroup.Identifier.GUID} origin=[{boltOrigin?.X:F1},{boltOrigin?.Y:F1},{boltOrigin?.Z:F1}] on part '{teklaPart.Name}' (not nearest cp)");
 							continue;
 						}
 					}
@@ -167,7 +176,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					//test if is baseplate with dummy bolt group
 					if (!teklaPart.Identifier.Equals(boltGroup.PartToBeBolted.Identifier) || !teklaPart.Identifier.Equals(boltGroup.PartToBoltTo.Identifier) || boltGroup.OtherPartsToBolt.Count != 0)
 					{
-						identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
+						var distDbg = allConnectionPoints != null && allConnectionPoints.Count > 1
+						? $" distToThis={Distance.PointToPoint(connectionPoint, boltOrigin):F0} minDist={allConnectionPoints.Min(cp => Distance.PointToPoint(cp, boltOrigin)):F0}"
+						: "";
+					logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED BoltGroup guid={boltGroup.Identifier.GUID} origin=[{boltOrigin?.X:F1},{boltOrigin?.Y:F1},{boltOrigin?.Z:F1}] on part '{teklaPart.Name}'{distDbg}");
+						identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint, allConnectionPoints, logger);
 					}
 				}
 
@@ -182,17 +195,21 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 						continue;
 					}
 					var weldCs = weld.GetCoordinateSystem();
-					if (!IsPointNearOfConnection(connectionPoint, teklaPart, weldCs.Origin as Point))
+					var weldOrigin = weldCs.Origin as Point;
+					var weldNear = IsPointNearOfConnection(connectionPoint, teklaPart, weldOrigin, allConnectionPoints);
+
+					if (!weldNear)
 					{
-						//not skip for Stiffening Member as plate 
-						if (!(StiffeningMemberFilter(teklaPart) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(teklaPart)))
+						bool skipStiffeningException = allConnectionPoints != null && allConnectionPoints.Count > 1;
+						if (skipStiffeningException || !(StiffeningMemberFilter(teklaPart) && addToCollection && BulkSelectionHelper.IsRectangularCssBeam(teklaPart)))
 						{
-							//skip item too far from connection point
+							logger?.LogTrace($"IdentifierHelper: cp={cpStr} REJECTED Weld guid={weld.Identifier.GUID} origin=[{weldOrigin?.X:F1},{weldOrigin?.Y:F1},{weldOrigin?.Z:F1}] on part '{teklaPart.Name}' (not nearest cp)");
 							continue;
 						}
 					}
 
-					identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
+					logger?.LogTrace($"IdentifierHelper: cp={cpStr} ACCEPTED Weld guid={weld.Identifier.GUID} origin=[{weldOrigin?.X:F1},{weldOrigin?.Y:F1},{weldOrigin?.Z:F1}] on part '{teklaPart.Name}'");
+					identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint, allConnectionPoints, logger);
 				}
 			}
 
@@ -267,23 +284,25 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			return IsIntersectPointInSphereOfConnection(connectionPoint, beam, tsWorkplanePoint);
 		}
 
-		private static bool IsPointNearOfConnection(Point connectionPoint, Part beam, Point nearPoint)
+		private static bool IsPointNearOfConnection(Point connectionPoint, Part beam, Point nearPoint, IReadOnlyList<Point> allConnectionPoints = null)
 		{
+			if (nearPoint == null) return false;
 			var distanceToNearPoint = Distance.PointToPoint(connectionPoint, nearPoint);
+
+			// When multiple connection points are known (MC bulk run), accept the item only if
+			// this connection point is the closest one to nearPoint — prevents objects belonging
+			// to a neighbouring joint from leaking into this one.
+			if (allConnectionPoints != null && allConnectionPoints.Count > 1)
+			{
+				var minDistance = allConnectionPoints.Min(cp => Distance.PointToPoint(cp, nearPoint));
+				return distanceToNearPoint <= minDistance + 1e-6;
+			}
+
 			var cuttedCenterline = beam.GetCenterLine(true);
 			// 1/4 of len member
 			var beamLen = Distance.PointToPoint(cuttedCenterline[0] as Point, cuttedCenterline[cuttedCenterline.Count - 1] as Point);
 
-
-			if (distanceToNearPoint.IsLesserOrEqual(beamLen / 4))
-			{
-				//skip cut its on otherside of member
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return distanceToNearPoint.IsLesserOrEqual(beamLen / 4);
 		}
 
 		private static bool IsIntersectPointInSphereOfConnection(Point connectionPoint, Part beam, Point workPlanePoint)

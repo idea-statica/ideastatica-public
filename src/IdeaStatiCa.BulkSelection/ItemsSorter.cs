@@ -1,5 +1,6 @@
 ﻿using CI;
 using CI.Geometry3D;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -90,6 +91,10 @@ namespace IdeaStatiCa.BIM.Common
 		public IPoint3D End { get; protected set; }
 
 		public Rect CrossSectionBounds { get; protected set; }
+
+		public string Name { get; set; }
+
+		public string Profile { get; set; }
 	}
 
 	public class Plate : Item
@@ -106,6 +111,8 @@ namespace IdeaStatiCa.BIM.Common
 		public List<IPoint3D> Contour { get; protected set; }
 
 		public double Thickness { get; protected set; }
+
+		public string Name { get; set; }
 	}
 
 	public class Weld : Item
@@ -176,6 +183,14 @@ namespace IdeaStatiCa.BIM.Common
 		public double EnlargeNodeZ { get; set; } = 1.1;
 
 		public double LengthTolerance { get; set; } = 0.005;
+
+		// plate thickness multiplicator for tolerance of Contains method...see below
+		public double PlateThicknessMult4Tolerance { get; set; } = 2;
+
+		// Maximum extent of the bounding box in any direction after each Inflate.
+		// Prevents a large neighbour cross-section from pulling the node BB too far and
+		// accidentally capturing unrelated members. Use -1 (default) for no limit.
+		public double MaxInflateExtent { get; set; } = -1;
 	}
 
 	public class ItemsSorter
@@ -183,7 +198,7 @@ namespace IdeaStatiCa.BIM.Common
 		private const double InclinationToleranceCos0 = 0.087156; // cos(85°)
 		private const double degrees5 = 5 * Math.PI / 180; // 5°
 
-		public SorterResult Sort(SorterData data, SorterSettings settings)
+		public SorterResult Sort(SorterData data, SorterSettings settings, IPluginLogger plugInLogger = null)
 		{
 #if DEBUG
 			AssignIds(data);
@@ -193,6 +208,27 @@ namespace IdeaStatiCa.BIM.Common
 			data.Plates = data.Plates?.Distinct(ItemComparer<Plate>.Instance);
 			data.Fasteners = data.Fasteners?.Distinct(ItemComparer<FastenerGrid>.Instance);
 			data.Welds = data.Welds?.Distinct(ItemComparer<Weld>.Instance);
+
+			var memberCount = data.Members?.Count() ?? 0;
+			var plateCount = data.Plates?.Count() ?? 0;
+			var weldCount = data.Welds?.Count() ?? 0;
+			var fastenerCount = data.Fasteners?.Count() ?? 0;
+			plugInLogger?.LogInformation($"ItemsSorter.Sort started: members={memberCount}, plates={plateCount}, welds={weldCount}, fasteners={fastenerCount}");
+			if (plugInLogger != null)
+			{
+				foreach (var m in data.Members)
+				{
+					plugInLogger.LogTrace($"  member: name='{m.Name}' profile='{m.Profile}' begin=[{m.Begin?.X:F4},{m.Begin?.Y:F4},{m.Begin?.Z:F4}] end=[{m.End?.X:F4},{m.End?.Y:F4},{m.End?.Z:F4}]");
+				}
+
+				foreach (var p in data.Plates)
+				{
+					var cog = p.Contour != null && p.Contour.Count > 0
+						? $"[{p.Contour.Average(v => v.X):F2},{p.Contour.Average(v => v.Y):F2},{p.Contour.Average(v => v.Z):F2}]"
+						: "?";
+					plugInLogger.LogTrace($"  plate: name='{p.Name}' thickness={p.Thickness:F4} vertices={p.Contour?.Count} cog={cog}");
+				}
+			}
 
 			var orderMembers = data.Members.OrderByDescending(GetBiggestMemberSelector);
 
@@ -220,17 +256,21 @@ namespace IdeaStatiCa.BIM.Common
 				};
 				return new Node[]
 				{
-					new Node(i * 2 + 1, b.Begin, surrb, b),
-					new Node(i * 2 + 2, b.End, surre, b),
+					new Node((i * 2) + 1, b.Begin, surrb, b),
+					new Node((i * 2) + 2, b.End, surre, b),
 				};
 			}).ToArray();
+
+			plugInLogger?.LogDebug($"ItemsSorter.Sort: created {nodes.Length} nodes from {memberCount} members");
 
 			foreach (var node in nodes)
 			{
 				//try to find and get together similar (exists in surrounding) nodes and continuous members
 				var nodecopy = nodes.ToList();
-				while (AddMembers(nodecopy, node, settings)) ;
+				while (AddMembers(nodecopy, node, settings, plugInLogger)) ;
 			}
+
+			plugInLogger?.LogDebug($"ItemsSorter.Sort: node chaining done, nodes with connections={nodes.Count(n => n.ConnectedMembers.Count > 0)}");
 
 			var joints = new List<Joint>();
 			var excluded = new List<Node>();
@@ -248,7 +288,7 @@ namespace IdeaStatiCa.BIM.Common
 				AddConnectedMembers(node, node.ConnectedMembers, settings, excluded, members);
 
 				var plates = new List<Plate>();
-				while (AddPlates(sourcePlates, plates, node)) { }
+				while (AddPlates(sourcePlates, plates, node, settings, plugInLogger)) { }
 
 				var fasteners = data.Fasteners?.Where(f => node.Contains(f.LCS.Origin)).ToArray() ?? new FastenerGrid[0];
 
@@ -256,12 +296,36 @@ namespace IdeaStatiCa.BIM.Common
 				var welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
 
 				var stiffeningMembers = members.Where(m => node.Contains(m.m.Begin) && node.Contains(m.m.End)).ToList();
+				if (plugInLogger != null)
+				{
+					foreach (var sm in stiffeningMembers)
+					{
+						plugInLogger.LogTrace($"ItemsSorter.Sort: node [{node.Id}] '{node.Master.Name}' stiffening (from members): '{sm.m.Name}' ('{sm.m.Profile}')");
+					}
+				}
+
 				members = members.Except(stiffeningMembers).GroupBy(m => m.m).Select(g => (g.Key, g.Any(m => m.isended))).ToList();
 
-				// try to find another stiffening members
-				stiffeningMembers.AddRange(data.Members
-					.Where(m => node.Contains(m.Begin, settings.LengthTolerance) && node.Contains(m.End, settings.LengthTolerance))
-					.Select(m => (m, true)));
+				// try to find another stiffening members — only from members not already claimed by another joint
+				var excludedMembers = excluded.Select(n => n.Master)
+					.Concat(joints.SelectMany(j => j.Members))
+					.Concat(joints.SelectMany(j => j.StiffeningMembers))
+					.ToHashSet();
+				var additionalStiffening = data.Members
+					.Where(m => !excludedMembers.Contains(m)
+						&& node.Contains(m.Begin, settings.LengthTolerance)
+						&& node.Contains(m.End, settings.LengthTolerance))
+					.Select(m => (m, true))
+					.ToList();
+				if (plugInLogger != null)
+				{
+					foreach (var sm in additionalStiffening)
+					{
+						plugInLogger.LogTrace($"ItemsSorter.Sort: node [{node.Id}] '{node.Master.Name}' stiffening (from data.Members): '{sm.m.Name}' ('{sm.m.Profile}')");
+					}
+				}
+
+				stiffeningMembers.AddRange(additionalStiffening);
 				excluded.AddRange(stiffeningMembers.SelectMany(m => nodes.Where(n => n.Location == m.m.Begin || n.Location == m.m.End)));
 
 				if (members.Count > 0)
@@ -277,6 +341,7 @@ namespace IdeaStatiCa.BIM.Common
 					//check if node location is on reference line of bearing member
 					if (!bearing.m.IsPointOn(node.Location))
 					{
+						plugInLogger?.LogDebug($"ItemsSorter.Sort: node [{node.Id}] location not on bearing member axis, searching for closest candidate");
 						var distanceFromOrigin = double.PositiveInfinity;
 						var canditades = nodes.Except(new Node[] { node }).Where(n => node.Contains(n.Location)).OrderByDescending(n => GetBiggestMemberSelector(n.Master));
 
@@ -293,6 +358,8 @@ namespace IdeaStatiCa.BIM.Common
 								}
 							}
 						}
+
+						plugInLogger?.LogDebug($"ItemsSorter.Sort: node [{node.Id}] joint location adjusted to [{nodeLocation.X:F4}, {nodeLocation.Y:F4}, {nodeLocation.Z:F4}]");
 					}
 
 
@@ -305,9 +372,18 @@ namespace IdeaStatiCa.BIM.Common
 						Welds = welds,
 					};
 
+					if (plugInLogger != null)
+					{
+						var memberNames = string.Join(", ", joint.Members.Select(m => $"'{m.Name ?? m.Profile ?? "?"}'"));
+						var plateNames = string.Join(", ", joint.Plates.Select(p => $"'{p.Name ?? "?"}'"));
+						plugInLogger.LogTrace($"ItemsSorter.Sort: joint created at [{nodeLocation.X:F4}, {nodeLocation.Y:F4}, {nodeLocation.Z:F4}] members={joint.Members.Count} [{memberNames}], stiffening={joint.StiffeningMembers.Count}, plates={joint.Plates.Count} [{plateNames}], welds={joint.Welds.Count}, fasteners={joint.Fasteners.Count}");
+					}
+
 					joints.Add(joint);
 				}
 			}
+
+			plugInLogger?.LogInformation($"ItemsSorter.Sort finished: {joints.Count} joints created");
 
 #if DEBUG
 			TestCaseHelper.CreateTestCaseData(data, new SorterResult(joints));
@@ -668,7 +744,7 @@ namespace IdeaStatiCa.BIM.Common
 
 				if (cm.Node != null)
 				{
-					node.Inflate(cm.Node);
+					node.Inflate(cm.Node, settings.MaxInflateExtent);
 				}
 				else
 				{
@@ -686,7 +762,7 @@ namespace IdeaStatiCa.BIM.Common
 					};
 					var point = GeomOperation.Add(cm.Member.Begin, GeomOperation.Subtract(cm.Member.End, cm.Member.Begin) * cm.RelativePosition);
 					var tempNode = new Node(-1, point, surrb, cm.Member);//, GeomOperation.Subtract(cm.Member.End, cm.Member.Begin));
-					node.Inflate(tempNode);
+					node.Inflate(tempNode, settings.MaxInflateExtent);
 				}
 
 				if (cm.Node != null)
@@ -701,7 +777,10 @@ namespace IdeaStatiCa.BIM.Common
 			}
 		}
 
-		private static bool AddMembers(List<Node> source, Node node, SorterSettings settings)
+		private static string FormatBB(CI.Common.BoundingBox3D bb)
+			=> $"X[{bb.MinX:F4},{bb.MaxX:F4}] Y[{bb.MinY:F4},{bb.MaxY:F4}] Z[{bb.MinZ:F4},{bb.MaxZ:F4}]";
+
+		private static bool AddMembers(List<Node> source, Node node, SorterSettings settings, IPluginLogger logger)
 		{
 			var found = false;
 			for (var i = source.Count - 1; i >= 0; --i)
@@ -715,9 +794,11 @@ namespace IdeaStatiCa.BIM.Common
 				if (node.Contains(b.Location))
 				{
 					node.ConnectedMembers.Add(new ConnectedMember(b, b.RelativePosition));
-					node.Inflate(b);
+					var beforeLoc = FormatBB(node.Surroundings);
+					var clampedLoc = node.Inflate(b, settings.MaxInflateExtent);
 					found = true;
 					source.Remove(b);
+					logger?.LogTrace($"AddMembers: node [{node.Id}] '{node.Master.Name}' absorbed node [{b.Id}] '{b.Master.Name}' ('{b.Master.Profile}') by location hit, relpos={b.RelativePosition}; BB {beforeLoc} -> {FormatBB(node.Surroundings)}{(clampedLoc ? $" [CLAMPED to ±{settings.MaxInflateExtent}]" : "")}");
 					continue;
 				}
 
@@ -729,8 +810,10 @@ namespace IdeaStatiCa.BIM.Common
 						node.ConnectedMembers.Add(new ConnectedMember(b.Master, relpos));
 						// hledat mimobezne pruty
 						found = true;
-						node.Inflate(new Node(0, b.Master.GetPointOnRelativePosition(relpos), b.Surroundings, b.Master));
+						var beforeCont = FormatBB(node.Surroundings);
+						var clampedCont = node.Inflate(new Node(0, b.Master.GetPointOnRelativePosition(relpos), b.Surroundings, b.Master), settings.MaxInflateExtent);
 						source.Remove(b);
+						logger?.LogTrace($"AddMembers: node [{node.Id}] '{node.Master.Name}' connected continuous member '{b.Master.Name}' ('{b.Master.Profile}') at relpos={relpos:F4}; BB {beforeCont} -> {FormatBB(node.Surroundings)}{(clampedCont ? $" [CLAMPED to ±{settings.MaxInflateExtent}]" : "")}");
 					}
 				}
 			}
@@ -738,10 +821,8 @@ namespace IdeaStatiCa.BIM.Common
 			return found;
 		}
 
-		private static bool AddPlates(List<Plate> source, List<Plate> target, Node node)
+		private static bool AddPlates(List<Plate> source, List<Plate> target, Node node, SorterSettings settings, IPluginLogger logger)
 		{
-			// plate thickness multiplicator for tolerance of Contains method...see below
-			const double PlateThicknessMult4Tolerance = 2;
 			var found = false;
 			for (var i = source.Count - 1; i >= 0; --i)
 			{
@@ -750,13 +831,21 @@ namespace IdeaStatiCa.BIM.Common
 				var cov = CentreOfVertices(vertices);
 				var coe = CentreOfEdges(vertices);
 				var cog = GetCentreOfGravity(vertices);
-				var tolerance = plate.Thickness * PlateThicknessMult4Tolerance;
-				if (node.Contains(cov, tolerance) || node.Contains(coe, tolerance) || node.Contains(cog, tolerance) || vertices.Any(p => node.Contains(p, tolerance)))
+				var tolerance = plate.Thickness * settings.PlateThicknessMult4Tolerance;
+				var covHit = node.Contains(cov, tolerance);
+				var coeHit = node.Contains(coe, tolerance);
+				var cogHit = node.Contains(cog, tolerance);
+				var vertexHit = !covHit && !coeHit && !cogHit && vertices.Any(p => node.Contains(p, tolerance));
+				if (covHit || coeHit || cogHit || vertexHit)
 				{
 					found = true;
-					node.Inflate(vertices);
+					var beforePlate = FormatBB(node.Surroundings);
+					var clampedPlate = node.Inflate(vertices, settings.MaxInflateExtent);
 					source.RemoveAt(i);
 					target.Add(plate);
+					var reason = covHit ? "cov" : coeHit ? "coe" : cogHit ? "cog" : "vertex";
+					var plateCog = $"[{cov.X:F2},{cov.Y:F2},{cov.Z:F2}]";
+					logger?.LogTrace($"AddPlates: node [{node.Id}] '{node.Master.Name}' accepted plate '{plate.Name}' (thickness={plate.Thickness:F4}) cog={plateCog} via {reason}; BB {beforePlate} -> {FormatBB(node.Surroundings)}{(clampedPlate ? $" [CLAMPED to ±{settings.MaxInflateExtent}]" : "")}");
 				}
 			}
 
@@ -798,7 +887,7 @@ namespace IdeaStatiCa.BIM.Common
 				var dx = x2 - x1;
 				var dy = y2 - y1;
 				var dz = z2 - z1;
-				var len = Math.Sqrt(dx * dx + dy * dy + dz * dz);
+				var len = Math.Sqrt((dx * dx) + (dy * dy) + (dz * dz));
 				sx += (x1 + x2) / 2 * len;
 				sy += (y1 + y2) / 2 * len;
 				sz += (z1 + z2) / 2 * len;
@@ -893,7 +982,7 @@ namespace IdeaStatiCa.BIM.Common
 				return Surroundings.IsPointInside(pointInSurroundings, tolerance);
 			}
 
-			public void Inflate(Node n)
+			public bool Inflate(Node n, double maxExtent = -1)
 			{
 				var nloc = (WM.Vector3D)n.LocationInLCS.ToMediaPoint();
 				var loc = LocationInLCS.ToMediaPoint();
@@ -907,9 +996,11 @@ namespace IdeaStatiCa.BIM.Common
 					var p = loc - (WM.Vector3D)Master.LCS.TransformToLCS(np);
 					Surroundings.Inflate(ref p);
 				}
+
+				return ClampBB(maxExtent);
 			}
 
-			public void Inflate(IList<WM.Point3D> points)
+			public bool Inflate(IList<WM.Point3D> points, double maxExtent = -1)
 			{
 				var loc = LocationInLCS.ToMediaPoint();
 				for (var i = points.Count - 1; i >= 0; --i)
@@ -917,6 +1008,25 @@ namespace IdeaStatiCa.BIM.Common
 					var p = (WM.Vector3D)Master.LCS.TransformToLCS(points[i]) - loc;
 					Surroundings.Inflate(ref p);
 				}
+
+				return ClampBB(maxExtent);
+			}
+
+			internal bool ClampBB(double maxExtent)
+			{
+				if (maxExtent < 0)
+				{
+					return false;
+				}
+
+				var clamped = false;
+				if (Surroundings.MaxX > maxExtent) { Surroundings.MaxX = maxExtent; clamped = true; }
+				if (Surroundings.MinX < -maxExtent) { Surroundings.MinX = -maxExtent; clamped = true; }
+				if (Surroundings.MaxY > maxExtent) { Surroundings.MaxY = maxExtent; clamped = true; }
+				if (Surroundings.MinY < -maxExtent) { Surroundings.MinY = -maxExtent; clamped = true; }
+				if (Surroundings.MaxZ > maxExtent) { Surroundings.MaxZ = maxExtent; clamped = true; }
+				if (Surroundings.MinZ < -maxExtent) { Surroundings.MinZ = -maxExtent; clamped = true; }
+				return clamped;
 			}
 		}
 
