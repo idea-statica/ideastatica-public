@@ -223,31 +223,31 @@
     <IdeaStatiCaInstallDir>C:\Program Files\IDEA StatiCa\StatiCa 26.0\net48</IdeaStatiCaInstallDir>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IdeaStatiCa.Public, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaStatiCa.Public">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaStatiCa.Public.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdeaRS.OpenModel, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaRS.OpenModel">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaRS.OpenModel.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdeaStatiCa.BimApiLink, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaStatiCa.BimApiLink">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaStatiCa.BimApiLink.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdeaStatiCa.BimApi, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaStatiCa.BimApi">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaStatiCa.BimApi.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdeaStatiCa.BimImporter, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaStatiCa.BimImporter">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaStatiCa.BimImporter.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdeaStatiCa.Plugin, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaStatiCa.Plugin">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaStatiCa.Plugin.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdeaStatiCa.PluginLogger, Version=26.0.2.562, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IdeaStatiCa.PluginLogger">
       <HintPath>$(IdeaStatiCaInstallDir)\IdeaStatiCa.PluginLogger.dll</HintPath>
       <Private>False</Private>
     </Reference>
