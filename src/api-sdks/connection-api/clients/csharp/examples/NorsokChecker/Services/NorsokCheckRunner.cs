@@ -189,23 +189,44 @@ namespace NorsokChecker.Services
 		{
 			foreach (var weld in parsed.Welds)
 			{
+				// Prefer the engine-computed resistance — raw results do not serialize
+				// f_u/β_w, and the engine value already reflects the Norsok γM2 pushed
+				// into the project settings before calculation.
 				double fu = weld.MaterialFu;
 				double betaW = weld.BetaW > 0 ? weld.BetaW : 0.85;
-				double resistance = fu > 0 ? fu / (betaW * gammaM2) : 0;
-				double utilization = resistance > 0 ? weld.MaxEquivalentStress / resistance : 0;
+				double resistance = weld.EquivalentStressResistance;
+				string resistanceFormula;
+				if (resistance > 0)
+				{
+					resistanceFormula = $"f_w,Rd = {resistance:F1} MPa (engine value, Norsok γM2 = {gammaM2:F2} applied via project settings)";
+				}
+				else if (fu > 0)
+				{
+					resistance = fu / (betaW * gammaM2);
+					resistanceFormula = $"f_w,Rd = {fu:F1} / ({betaW:F2} × {gammaM2:F2}) = {resistance:F1} MPa";
+				}
+				else
+				{
+					resistanceFormula = "f_w,Rd unavailable — raw results contain neither equivalentStressResistance nor f_u";
+				}
+
+				bool noData = resistance <= 0;
+				double utilization = noData ? 0 : weld.MaxEquivalentStress / resistance;
 
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "Weld",
 					Equation = "EN 1993-1-8 §4.5",
-					Title = $"Weld: {(string.IsNullOrEmpty(weld.Name) ? $"#{weld.Id}" : weld.Name)}",
-					CheckExpression = "σ_w ≤ f_w,Rd = f_u / (β_w · γ_M2)",
+					Title = $"Weld: {(string.IsNullOrEmpty(weld.Name) ? $"#{weld.Id}" : weld.Name)}{(noData ? " — NO RESISTANCE DATA" : "")}",
+					CheckExpression = noData
+						? "Weld resistance not available — check cannot be verified, marked FAIL"
+						: "σ_w ≤ f_w,Rd",
 					Formula = "f_w,Rd = f_u / (β_w · γ_M2)",
-					FormulaSubstituted = $"f_w,Rd = {fu:F1} / ({betaW:F2} × {gammaM2:F2}) = {resistance:F1} MPa",
+					FormulaSubstituted = resistanceFormula,
 					Demand = weld.MaxEquivalentStress,
 					Capacity = resistance,
 					Utilization = utilization,
-					Passed = utilization <= 1.0,
+					Passed = !noData && utilization <= 1.0,
 					LoadCaseId = weld.LoadCaseId,
 					Variables = new List<FormulaVariable>
 					{

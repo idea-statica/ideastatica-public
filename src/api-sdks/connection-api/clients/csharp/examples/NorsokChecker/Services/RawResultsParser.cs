@@ -60,6 +60,7 @@ namespace NorsokChecker.Services
 						Id = GetInt(w, "id"),
 						Name = GetString(w, "name"),
 						MaxEquivalentStress = GetDouble(w, "maxEquivalentStress") / 1e6, // Pa → MPa
+						EquivalentStressResistance = GetDouble(w, "equivalentStressResistance") / 1e6, // Pa → MPa
 						UnityCheckWeld = GetDouble(w, "unityCheckWeld"),
 						UnityCheckBaseMetal = GetDouble(w, "unityCheckBaseMetal"),
 						MaxUnityCheck = GetDouble(w, "maxUnityCheck"),
@@ -175,6 +176,7 @@ namespace NorsokChecker.Services
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
 		public double MaxEquivalentStress { get; set; }    // MPa
+		public double EquivalentStressResistance { get; set; } // MPa — engine-computed weld resistance
 		public double UnityCheckWeld { get; set; }
 		public double UnityCheckBaseMetal { get; set; }
 		public double MaxUnityCheck { get; set; }
