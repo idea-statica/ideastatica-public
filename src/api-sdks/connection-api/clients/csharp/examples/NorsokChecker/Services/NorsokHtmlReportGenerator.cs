@@ -61,9 +61,12 @@ namespace NorsokChecker.Services
 			),
 		};
 
+		/// <param name="expandAll">Render every check card expanded — used for the
+		/// PDF export so the customer sees all formulas, not only the failed ones.</param>
 		public static string GenerateReport(
 			string projectName,
-			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults,
+			bool expandAll = false)
 		{
 			var sb = new StringBuilder();
 
@@ -153,7 +156,7 @@ namespace NorsokChecker.Services
 					sb.AppendLine($"<div class='chapter-group'>");
 					sb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
 					foreach (var fr in groupFormulas)
-						RenderFormulaCard(sb, fr);
+						RenderFormulaCard(sb, fr, expandAll);
 					sb.AppendLine($"</div>");
 				}
 
@@ -164,7 +167,7 @@ namespace NorsokChecker.Services
 					sb.AppendLine($"<div class='chapter-group'>");
 					sb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{uncategorized.Count}</span></h3>");
 					foreach (var fr in uncategorized)
-						RenderFormulaCard(sb, fr);
+						RenderFormulaCard(sb, fr, expandAll);
 					sb.AppendLine($"</div>");
 				}
 			}
@@ -241,13 +244,13 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"</div>");
 		}
 
-		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr)
+		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr, bool expandAll = false)
 		{
 			string statusClass = fr.Passed ? "pass" : "fail";
 			string statusIcon = fr.Passed ? "&#x2714;" : "&#x2718;";
 			string statusText = fr.Passed ? "PASS" : "FAIL";
 
-			sb.AppendLine($"<details class='check-card {statusClass}'>");
+			sb.AppendLine($"<details class='check-card {statusClass}'{(expandAll ? " open" : "")}>");
 
 			// Collapsible header — click to expand/collapse
 			sb.AppendLine($"  <summary class='card-header {statusClass}'>");
@@ -669,7 +672,6 @@ body {
   body { background: #fff; padding: 12px; }
   .check-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
   .summary-card { break-after: avoid; }
-  details { open: true; }
   details > summary::before { display: none; }
 }
 ";

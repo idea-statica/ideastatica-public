@@ -535,7 +535,7 @@ namespace NorsokChecker
 			PopulateReportTab();
 		}
 
-		private string BuildReportHtml()
+		private string BuildReportHtml(bool expandAll = false)
 		{
 			var allResults = new List<(string connectionName, List<NorsokFormulaResult> formulas)>();
 			foreach (var (conId, formulas) in _formulaResults)
@@ -545,7 +545,7 @@ namespace NorsokChecker
 			}
 
 			return NorsokHtmlReportGenerator.GenerateReport(
-				Path.GetFileName(TxtProjectFile.Text), allResults);
+				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll);
 		}
 
 		private async void PopulateReportTab()
@@ -608,15 +608,19 @@ namespace NorsokChecker
 					ReportWebView.NavigationCompleted -= OnNavCompleted;
 					navigated.TrySetResult(a.IsSuccess);
 				}
+				// All cards expanded — the customer must see every formula in the PDF
 				ReportWebView.NavigationCompleted += OnNavCompleted;
-				ReportWebView.NavigateToString(BuildReportHtml());
+				ReportWebView.NavigateToString(BuildReportHtml(expandAll: true));
 				await navigated.Task;
-				await Task.Delay(800); // allow KaTeX formulas and web fonts to settle
+				await Task.Delay(1200); // allow KaTeX formulas and web fonts to settle (all cards render)
 
 				bool ok = await ReportWebView.CoreWebView2.PrintToPdfAsync(norsokPdf, null);
 				if (!ok)
 					throw new InvalidOperationException("WebView2 PrintToPdf reported failure.");
 				Log($"  NORSOK report: {norsokPdf}");
+
+				// Restore the interactive (collapsible) report view in the app
+				PopulateReportTab();
 
 				Log("PDF export completed.");
 				MessageBox.Show($"Exported:\n• {norsokPdf}\n• {ideaPdf}", "PDF Export",
