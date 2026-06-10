@@ -63,8 +63,8 @@ If you are on an older version of IDEA StatiCa, we recommend updating to the lat
 
 * [Getting started](connection_api_getting_started.md) — install, run the service, and write your first script in C# or Python.
 * [Concepts](connection_api_concepts.md) — service lifecycle, projects, templates, parameters, results, and how the domain model maps to REST resources.
-* [C# client reference](../../../../src/api-sdks/connection-api/clients/csharp/README.md) and [C# examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples)
-* [Python client reference](../../../../src/api-sdks/connection-api/clients/python/README.md) and [Python examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python/examples)
+* [Examples](connection_api_examples.md) — annotated catalog of all C# and Python examples.
+* [C# client reference](../../../../src/api-sdks/connection-api/clients/csharp/README.md) and [Python client reference](../../../../src/api-sdks/connection-api/clients/python/README.md)
 * [OpenAPI specification](https://developer.ideastatica.com/specs/connection-api/openapi.yaml) — the machine-readable contract for the whole API ([source on GitHub](https://github.com/idea-statica/ideastatica-public/blob/main/src/api-sdks/connection-api/clients/csharp/api/openapi.yaml)). The running service also serves the spec itself, through the Swagger UI at its root URL.
 * [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions) — questions, bug reports, and feature requests.
 

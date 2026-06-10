@@ -9,9 +9,8 @@
   href: connection-api/connection_api_getting_started.md
 - name: Concepts
   href: connection-api/connection_api_concepts.md
-# Pending next docs batch — uncomment once connection_api_examples.md lands:
-#- name: Examples
-#  href: connection-api/connection_api_examples.md
+- name: Examples
+  href: connection-api/connection_api_examples.md
 - name: AI / LLM Reference
   href: connection-api/connection_api_llm_reference.md
 - name: C# client

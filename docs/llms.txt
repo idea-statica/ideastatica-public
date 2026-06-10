@@ -13,8 +13,7 @@ The Connection and RCS APIs are exposed by services that ship with the IDEA Stat
 - [OpenAPI 3.0 specification](https://developer.ideastatica.com/specs/connection-api/openapi.yaml): machine-readable definition of all REST endpoints (base path /api/3/)
 - [C# client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/csharp/README.html): documentation of the IdeaStatiCa.ConnectionApi NuGet package
 - [Python client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/python/README.html): documentation of the ideastatica-connection-api PyPI package (import name: ideastatica_connection_api)
-- [C# examples (GitHub)](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples): runnable example applications and bulk tools
-- [Python examples (GitHub)](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python/examples): runnable example scripts
+- [Examples](https://developer.ideastatica.com/docs/api/connection-api/connection_api_examples.html): annotated catalog of all C# and Python examples with GitHub links
 - [Getting started with Parameters](https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html): parametrize connection designs with expression parameters
 - [Expression Parameter Reference Guide](https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html): expression syntax for connection parameters
 
