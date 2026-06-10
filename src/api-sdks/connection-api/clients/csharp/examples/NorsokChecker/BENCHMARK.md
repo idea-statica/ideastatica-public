@@ -313,3 +313,90 @@ Capacity: 2687.58 kN
 3. The CHS 500×20 is compact (f_y·D/(E·t) = 0.042 ≤ 0.0517), so Eq. 6.10 applies for bending — full plastic capacity Z/W ratio used. Verified.
 4. Column slenderness λ = 0.27 is well below 1.34, so Eq. 6.3 applies. Verified.
 5. γ_M = 1.15 consistently applied per Table 6-1. Verified.
+
+---
+
+# Verification 2 — `VERIFICATION EXAMPLE NORSOK.ideaCon` (2026-06-10)
+
+T/Y joint: chord **JACKET** CHS 168.3/8.0 + braces **DIAGONAL 1/2** CHS 139.7/8.0, S355,
+one load case. The model mirrors the MathCAD worksheet
+`NORSOK_CHAPTER_6.3_JACKET_BEGIN_CODE_CHECKS.mcdx` inputs for the chord
+(N = 250 kN, V = 60 kN, My = 25 kNm), except the axial force is tension
+(worksheet: −250 compression) and Mx = Mz = 0 (worksheet: 20 kNm each) —
+so the torsion path (Eq. 6.14 / 6.33) is not exercised here.
+
+Verifies the per-member §6.3 loop (19aebe16), the weld resistance fix (833cadea),
+and the C_m variants + §6.3.1 gate + M_Red,Rd substitution (063c8c2b).
+
+## Inputs
+
+Members grid: JACKET L = 6000, k = 1.0; DIAGONAL 1/2 L = 5000, k = 0.7; M1y = M1z = 0.
+
+Load effects (LC1):
+
+| Member | N [kN] | Vz [kN] | My [kNm] |
+|--------|--------|---------|----------|
+| JACKET end A | +250 | −60 | 25 |
+| JACKET end B | +59.7 | −60 | 25 |
+| DIAGONAL 1 | **−150** | 50 | −25 |
+| DIAGONAL 2 | +250 | −50 | 25 |
+
+## Per-member geometry (computed from grid D/t)
+
+| Section | A [mm²] | W [mm³] | Z [mm³] | i [mm] | Match |
+|---------|---------|---------|---------|--------|-------|
+| CHS 168.3/8.0 — hand | 4,028.7 | 154,166 | 205,739 | 56.75 | |
+| CHS 168.3/8.0 — app | 4,029 | 154,162 | 205,739 | 56.7 | ✓ |
+| CHS 139.7/8.0 — hand | 3,310.0 | 103,118 | 138,930 | 46.65 | |
+| CHS 139.7/8.0 — app | 3,310 | 103,119 | 138,930 | 46.6 | ✓ |
+
+## Results vs hand calculation
+
+All members class 1–3 (f_y/f_cle = 0.059 / 0.049 ≤ 0.170) → γ_M = 1.15 throughout.
+§6.3.1 applicability gates all PASS (t = 8 ≥ 6 mm; D/t = 21.0 / 17.5 < 120).
+
+| Member | Check | Eq. | Hand calc | App | Status |
+|--------|-------|-----|-----------|-----|--------|
+| JACKET | Axial Tension | 6.1 | N_t,Rd 1243.6 kN → 20.1 % | 1243.67 → 20.1 % | ✓ |
+| JACKET | Bending | 6.9 | M_Rd 63.51 kNm → 39.4 % | 63.51 → 39.4 % | ✓ |
+| JACKET | Beam Shear | 6.13 | V_Rd 359.0 kN → 16.7 % | 359.02 → 16.7 % | ✓ |
+| JACKET | Tension + Bending | 6.26 | 0.454 → 45.4 % | 0.45 → 45.4 % | ✓ |
+| JACKET | Shear + Bending | 6.32 | 39.4 % | 39.4 % | ✓ |
+| DIAGONAL 1 | Axial Compression | 6.2 | f_c 259.2 MPa, N_c,Rd 745.9 kN → 20.1 % | 745.92 → 20.1 % | ✓ |
+| DIAGONAL 1 | Bending | 6.9 | M_Rd 42.89 kNm → 58.3 % | 42.89 → 58.3 % | ✓ |
+| DIAGONAL 1 | Beam Shear | 6.13 | V_Rd 295.0 kN → 17.0 % | 294.96 → 17.0 % | ✓ |
+| DIAGONAL 1 | Compr. + Bending (stab.) | 6.27 | 0.766 (case (a), C_m 0.85) → 76.6 % | 0.77 → 76.6 % | ✓ |
+| DIAGONAL 1 | Compr. + Bending (c-s) | 6.28 | 0.730 → 73.0 % | 0.73 → 73.0 % | ✓ |
+| DIAGONAL 1 | Shear + Bending | 6.32 | 58.3 % | 58.3 % | ✓ |
+| DIAGONAL 2 | Axial Tension | 6.1 | N_t,Rd 1021.8 kN → 24.5 % | 1021.78 → 24.5 % | ✓ |
+| DIAGONAL 2 | Tension + Bending | 6.26 | 0.668 → 66.8 % | 0.67 → 66.8 % | ✓ |
+| DIAGONAL 2 | Bending / Shear / SB | — | 58.3 / 17.0 / 58.3 % | same | ✓ |
+
+Welds: capacity 418.8 MPa taken from engine `equivalentStressResistance`
+(reflects Norsok γ_M2 = 1.30) → utilizations 98.2 / 98.7 / 99.2 %.
+Before 833cadea these false-PASSed at 0 % (raw results carry no `materialFu`).
+
+## C_m case (b) demonstration
+
+Second run with DIAGONAL 1 **M1y = +25 kNm** (opposite sign to its joint-end
+My = −25 → M1/M2 = −1, single curvature → C_m,b = 1.0):
+
+| | Run 1 (M1y = 0) | Run 2 (M1y = +25) |
+|---|---|---|
+| DIAGONAL 1 Eq. 6.27 | 76.6 % — case (a), C_m = 0.85 | **86.6 % — case (b), C_m = 1.00** |
+| All other rows | — | unchanged |
+
+Hand check: 0.2011 + 1.0×25 / (0.87691×42.887) = 0.866 ✓. The pre-063c8c2b fixed
+C_m = 0.85 understated this member by 10 points on identical loads.
+
+## Bug this model exposed (fixed in 19aebe16)
+
+Before the per-member loop, all demands were enveloped across members and checked
+against the **first CHS member's (chord's)** capacities: DIAGONAL 1's −150 kN was
+compared to the chord's N_c,Rd = 1016.8 kN → 14.8 % instead of 20.1 %, and Eq. 6.27
+reported 50.7 % instead of 76.6 %.
+
+## Source-worksheet deviations from N-004 (the app follows the standard)
+
+1. Worksheet V_Rd = A·f_y/(√3·γ_M) — missing the factor 2 of Eq. 6.13 (2× unconservative).
+2. Worksheet shear–bending allowable is √(1.4 − V/V_Rd); Eqs. 6.31/6.33 use 1.4 − V/V_Rd.
