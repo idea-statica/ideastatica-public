@@ -10,6 +10,17 @@ namespace NorsokChecker.Services.Formulas
 	{
 		public const double E = 2.1e5; // MPa
 
+		/// <summary>Characteristic bending strength f_m [MPa] per Eq. 6.10–6.12.</summary>
+		public static double CharacteristicBendingStrength(double W, double Z, double f_y, double D, double t)
+		{
+			double ZW = Z / W;
+			double fyD_Et = f_y * D / (E * t);
+
+			if (fyD_Et <= 0.0517) return ZW * f_y;
+			if (fyD_Et <= 0.1034) return (1.13 - 2.58 * fyD_Et) * ZW * f_y;
+			return (0.94 - 0.76 * fyD_Et) * ZW * f_y;
+		}
+
 		public static NorsokFormulaResult Evaluate(
 			double M_Sd, double W, double Z,
 			double f_y, double D, double t,

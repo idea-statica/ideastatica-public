@@ -262,40 +262,85 @@ namespace NorsokChecker.Services
 		}
 
 		/// <summary>
-		/// Evaluate Norsok §6.3 tubular member formulas using load effects and geometry.
-		/// Runs for each active load case — picks the worst envelope.
+		/// Evaluate Norsok §6.3 tubular member formulas — one set of checks per member.
+		/// Each member is checked with its own geometry, f_y, L and k from the Members
+		/// grid; its forces are never mixed with other members' capacities.
 		/// </summary>
 		private void EvaluateTubularMemberFormulas(
 			List<ConLoadEffect> loadEffects,
-			TubularGeometry geo,
-			double memberLength,
-			double kFactor,
-			double gammaM,
+			TubularGeometry fallbackGeometry,
+			double fallbackLength,
+			double fallbackK,
+			double gammaM_base,
 			List<NorsokFormulaResult> results,
 			List<MemberDisplayInfo>? members = null)
 		{
-			_log($"    Running §6.3 tubular checks: D={geo.D}mm, t={geo.t}mm, L={memberLength}mm, k={kFactor}");
-			_log($"    Geometry: A={geo.A:F0}mm², W={geo.W:F0}mm³, Z={geo.Z:F0}mm³, i={geo.i:F1}mm");
+			var memberIds = loadEffects
+				.Where(le => le.MemberLoadings != null)
+				.SelectMany(le => le.MemberLoadings!)
+				.Where(ml => ml.SectionLoad != null)
+				.Select(ml => ml.MemberId)
+				.Distinct()
+				.ToList();
 
-			double f_y = 355; // Default S355
-
-			// §6.3.7 Variable material factor for class 4 sections
-			double f_cle = 2.0 * 0.3 * 2.1e5 * geo.t / geo.D;
-			double f_cl = GetLocalBucklingStrength(f_y, geo.D, geo.t);
-			bool isClass4 = f_y / f_cle > 0.170;
-			if (isClass4)
+			foreach (int memberId in memberIds)
 			{
-				// Evaluate variable γM per Eq. 6.22
-				// Use a conservative σ_c,Sd estimate from first load case
-				double sigma_c_est = 0;
-				if (loadEffects.Count > 0)
+				var mdi = members?.FirstOrDefault(m => m.Id == memberId);
+				if (mdi != null && !mdi.IsCHS)
 				{
-					foreach (var ml in loadEffects[0].MemberLoadings ?? new())
+					_log($"    §6.3 skipped for member '{mdi.Name}' — not CHS (outside §6.3 scope)");
+					continue;
+				}
+
+				TubularGeometry geo = mdi != null && mdi.Diameter > 0 && mdi.WallThickness > 0
+					? TubularGeometryCalc.Calculate(mdi.Diameter, mdi.WallThickness)
+					: fallbackGeometry;
+				double f_y = mdi != null && mdi.Fy > 0 ? mdi.Fy : 355;
+				double mL = mdi?.L ?? fallbackLength;
+				double mK = mdi?.K ?? fallbackK;
+				string label = mdi?.Name ?? $"Member {memberId}";
+
+				_log($"    Running §6.3 tubular checks for '{label}': D={geo.D}mm, t={geo.t}mm, fy={f_y}MPa, L={mL}mm, k={mK}");
+				_log($"      Geometry: A={geo.A:F0}mm², W={geo.W:F0}mm³, Z={geo.Z:F0}mm³, i={geo.i:F1}mm");
+
+				EvaluateSingleMemberFormulas(loadEffects, memberId, label, geo, mL, mK, f_y, gammaM_base, results);
+			}
+
+			int memberCheckCount = results.Count(r => r.Section.StartsWith("6.3") && !r.Title.StartsWith("Plate"));
+			_log($"    {memberCheckCount} tubular member formula result(s) across {memberIds.Count} member(s)");
+		}
+
+		/// <summary>
+		/// Run all §6.3 checks for one member, enveloping across load cases and member
+		/// ends belonging to this member only.
+		/// </summary>
+		private void EvaluateSingleMemberFormulas(
+			List<ConLoadEffect> loadEffects,
+			int memberId,
+			string memberLabel,
+			TubularGeometry geo,
+			double mL,
+			double mK,
+			double f_y,
+			double gammaM,
+			List<NorsokFormulaResult> results)
+		{
+			// §6.3.7 material factor — class 4 sections (f_y/f_cle > 0.170) get variable γM (Eq. 6.22)
+			double f_cle = 2.0 * 0.3 * 2.1e5 * geo.t / geo.D;
+			if (f_y / f_cle > 0.170)
+			{
+				double f_cl = GetLocalBucklingStrength(f_y, geo.D, geo.t);
+
+				// Conservative σ_c,Sd estimate from this member's own loadings (Eq. 6.25)
+				double sigma_c_est = 0;
+				foreach (var le in loadEffects)
+				{
+					foreach (var ml in le.MemberLoadings ?? new())
 					{
-						if (ml.SectionLoad == null) continue;
-						double N = Math.Abs(ml.SectionLoad.N / 1000.0); // kN
-						double M = Math.Sqrt(Math.Pow(ml.SectionLoad.My / 1000.0, 2) + Math.Pow(ml.SectionLoad.Mz / 1000.0, 2)); // kNm
-						sigma_c_est = Math.Max(sigma_c_est, N * 1000.0 / geo.A + M * 1e6 / geo.W); // MPa
+						if (ml.MemberId != memberId || ml.SectionLoad == null) continue;
+						double N_kN = Math.Abs(ml.SectionLoad.N / 1000.0);
+						double M_kNm = Math.Sqrt(Math.Pow(ml.SectionLoad.My / 1000.0, 2) + Math.Pow(ml.SectionLoad.Mz / 1000.0, 2));
+						sigma_c_est = Math.Max(sigma_c_est, N_kN * 1000.0 / geo.A + M_kNm * 1e6 / geo.W); // MPa
 					}
 				}
 
@@ -303,23 +348,26 @@ namespace NorsokChecker.Services
 					sigma_c_est, f_cl, f_y, f_cle);
 
 				gammaM = varGammaM;
+				gammaResult.Title = $"{gammaResult.Title} — {memberLabel}";
 				results.Add(gammaResult);
-				_log($"    §6.3.7 Class 4 section: f_y/f_cle={f_y / f_cle:F3}, γM={gammaM:F3}");
+				_log($"      §6.3.7 Class 4 section: f_y/f_cle={f_y / f_cle:F3}, γM={gammaM:F3}");
 			}
 			else
 			{
-				_log($"    §6.3.7 Class 1-3 section: f_y/f_cle={f_y / f_cle:F3}, γM={gammaM} (constant)");
+				_log($"      §6.3.7 Class 1-3 section: f_y/f_cle={f_y / f_cle:F3}, γM={gammaM} (constant)");
 			}
 
-			// Track worst-case results across all load cases
+			// Track worst-case results across load cases and member ends
 			NorsokFormulaResult? worstTension = null;
 			NorsokFormulaResult? worstCompression = null;
 			NorsokFormulaResult? worstBending = null;
 			NorsokFormulaResult? worstShear = null;
+			NorsokFormulaResult? worstTorsion = null;
 			NorsokFormulaResult? worstTensionBending = null;
 			NorsokFormulaResult? worstCompBending627 = null;
 			NorsokFormulaResult? worstCompBending628 = null;
 			NorsokFormulaResult? worstShearBending = null;
+			NorsokFormulaResult? worstShearBendingTorsion = null;
 
 			foreach (var le in loadEffects)
 			{
@@ -327,17 +375,8 @@ namespace NorsokChecker.Services
 
 				foreach (var ml in le.MemberLoadings)
 				{
-					if (ml.SectionLoad == null) continue;
+					if (ml.MemberId != memberId || ml.SectionLoad == null) continue;
 					var sl = ml.SectionLoad;
-
-					// Per-member L and k from members grid
-					double mL = memberLength;
-					double mK = kFactor;
-					if (members != null)
-					{
-						var mdi = members.FirstOrDefault(m => m.Id == ml.MemberId);
-						if (mdi != null) { mL = mdi.L; mK = mdi.K; }
-					}
 
 					// API returns forces in N and moments in N·m — convert to kN and kNm
 					double N = sl.N / 1000.0;      // N → kN
@@ -348,50 +387,45 @@ namespace NorsokChecker.Services
 					double Mz = sl.Mz / 1000.0;    // N·m → kN·m
 
 					double V_total = Math.Sqrt(Vy * Vy + Vz * Vz); // Resultant shear [kN]
+					double M_resultant = Math.Sqrt(My * My + Mz * Mz);
+					double Mt = Math.Abs(Mx); // Torsional moment magnitude [kNm]
+
+					// Label with member, stamp governing load case, keep the worst per check
+					void Track(ref NorsokFormulaResult? worst, NorsokFormulaResult r)
+					{
+						r.Title = $"{r.Title} — {memberLabel}";
+						r.LoadCaseId = le.Id;
+						if (worst == null || r.Utilization > worst.Utilization)
+							worst = r;
+					}
 
 					// §6.3.2 Axial Tension (N > 0 means tension)
 					if (N > 0)
-					{
-						var r = AxialTensionCheck.Evaluate(N, geo.A, f_y, gammaM);
-						if (worstTension == null || r.Utilization > worstTension.Utilization)
-							worstTension = r;
-					}
+						Track(ref worstTension, AxialTensionCheck.Evaluate(N, geo.A, f_y, gammaM));
 
 					// §6.3.3 Axial Compression (N < 0 means compression, pass as positive)
 					if (N < 0)
-					{
-						var r = AxialCompressionCheck.Evaluate(
-							Math.Abs(N), geo.A, f_y, geo.D, geo.t,
-							mK, mL, geo.i, gammaM);
-						if (worstCompression == null || r.Utilization > worstCompression.Utilization)
-							worstCompression = r;
-					}
+						Track(ref worstCompression, AxialCompressionCheck.Evaluate(
+							Math.Abs(N), geo.A, f_y, geo.D, geo.t, mK, mL, geo.i, gammaM));
 
 					// §6.3.4 Bending (resultant moment)
-					double M_resultant = Math.Sqrt(My * My + Mz * Mz);
 					if (M_resultant > 0)
-					{
-						var r = BendingCheck.Evaluate(M_resultant, geo.W, geo.Z, f_y, geo.D, geo.t, gammaM);
-						if (worstBending == null || r.Utilization > worstBending.Utilization)
-							worstBending = r;
-					}
+						Track(ref worstBending, BendingCheck.Evaluate(M_resultant, geo.W, geo.Z, f_y, geo.D, geo.t, gammaM));
 
 					// §6.3.5 Beam Shear
 					if (V_total > 0)
-					{
-						var r = ShearCheck.EvaluateBeamShear(V_total, geo.A, f_y, gammaM);
-						if (worstShear == null || r.Utilization > worstShear.Utilization)
-							worstShear = r;
-					}
+						Track(ref worstShear, ShearCheck.EvaluateBeamShear(V_total, geo.A, f_y, gammaM));
+
+					// §6.3.5 Torsional Shear (Eq. 6.14)
+					if (Mt > 0)
+						Track(ref worstTorsion, ShearCheck.EvaluateTorsionalShear(Mt, geo.Ip, geo.D, f_y, gammaM));
 
 					// §6.3.8.1 Tension + Bending
 					if (N > 0 && M_resultant > 0)
 					{
 						double N_t_Rd = geo.A * f_y / gammaM / 1000.0;
 						double M_Rd = GetBendingResistance(geo, f_y, gammaM);
-						var r = TensionBendingCheck.Evaluate(N, N_t_Rd, My, Mz, M_Rd);
-						if (worstTensionBending == null || r.Utilization > worstTensionBending.Utilization)
-							worstTensionBending = r;
+						Track(ref worstTensionBending, TensionBendingCheck.Evaluate(N, N_t_Rd, My, Mz, M_Rd));
 					}
 
 					// §6.3.8.2 Compression + Bending (both equations)
@@ -402,8 +436,7 @@ namespace NorsokChecker.Services
 
 						// N_c,Rd from axial compression formula
 						var compResult = AxialCompressionCheck.Evaluate(
-							N_abs, geo.A, f_y, geo.D, geo.t,
-							mK, mL, geo.i, gammaM);
+							N_abs, geo.A, f_y, geo.D, geo.t, mK, mL, geo.i, gammaM);
 						double N_c_Rd = compResult.Capacity;
 
 						// Euler buckling loads
@@ -415,17 +448,14 @@ namespace NorsokChecker.Services
 						double Cmz = 0.85;
 
 						// Eq. 6.27 stability check
-						var r627 = CompressionBendingCheck.EvaluateStability(
-							N_abs, N_c_Rd, My, Mz, M_Rd, Cmy, Cmz, N_Ey, N_Ez);
-						if (worstCompBending627 == null || r627.Utilization > worstCompBending627.Utilization)
-							worstCompBending627 = r627;
+						Track(ref worstCompBending627, CompressionBendingCheck.EvaluateStability(
+							N_abs, N_c_Rd, My, Mz, M_Rd, Cmy, Cmz, N_Ey, N_Ez));
 
 						// Eq. 6.28 cross-section check
 						double f_cl_local = GetLocalBucklingStrength(f_y, geo.D, geo.t);
 						double N_cl_Rd = geo.A * f_cl_local / gammaM / 1000.0;
-						var r628 = CompressionBendingCheck.EvaluateCrossSection(N_abs, N_cl_Rd, My, Mz, M_Rd);
-						if (worstCompBending628 == null || r628.Utilization > worstCompBending628.Utilization)
-							worstCompBending628 = r628;
+						Track(ref worstCompBending628, CompressionBendingCheck.EvaluateCrossSection(
+							N_abs, N_cl_Rd, My, Mz, M_Rd));
 					}
 
 					// §6.3.8.3 Shear + Bending
@@ -433,25 +463,31 @@ namespace NorsokChecker.Services
 					{
 						double M_Rd = GetBendingResistance(geo, f_y, gammaM);
 						double V_Rd = geo.A * f_y / (2.0 * Math.Sqrt(3.0) * gammaM) / 1000.0;
-						var r = ShearBendingCheck.Evaluate(M_resultant, M_Rd, V_total, V_Rd);
-						if (worstShearBending == null || r.Utilization > worstShearBending.Utilization)
-							worstShearBending = r;
+						Track(ref worstShearBending, ShearBendingCheck.Evaluate(M_resultant, M_Rd, V_total, V_Rd));
+					}
+
+					// §6.3.8.4 Shear + Bending + Torsion (Eq. 6.33) — only when torsion is present
+					if (Mt > 0 && M_resultant > 0)
+					{
+						double V_Rd = geo.A * f_y / (2.0 * Math.Sqrt(3.0) * gammaM) / 1000.0;
+						double f_m = BendingCheck.CharacteristicBendingStrength(geo.W, geo.Z, f_y, geo.D, geo.t);
+						Track(ref worstShearBendingTorsion, ShearBendingTorsionCheck.Evaluate(
+							M_resultant, V_total, V_Rd, Mt, geo.W, f_m, f_y, geo.D, geo.t, gammaM));
 					}
 				}
 			}
 
-			// Add worst-case results
+			// Add worst-case results for this member
 			if (worstTension != null) results.Add(worstTension);
 			if (worstCompression != null) results.Add(worstCompression);
 			if (worstBending != null) results.Add(worstBending);
 			if (worstShear != null) results.Add(worstShear);
+			if (worstTorsion != null) results.Add(worstTorsion);
 			if (worstTensionBending != null) results.Add(worstTensionBending);
 			if (worstCompBending627 != null) results.Add(worstCompBending627);
 			if (worstCompBending628 != null) results.Add(worstCompBending628);
 			if (worstShearBending != null) results.Add(worstShearBending);
-
-			int memberCheckCount = results.Count(r => r.Section.StartsWith("6.3"));
-			_log($"    {memberCheckCount} tubular member formula(s) evaluated");
+			if (worstShearBendingTorsion != null) results.Add(worstShearBendingTorsion);
 		}
 
 		/// <summary>Get bending resistance M_Rd [kNm] per §6.3.4</summary>

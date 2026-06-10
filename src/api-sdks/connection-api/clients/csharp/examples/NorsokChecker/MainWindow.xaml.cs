@@ -301,13 +301,13 @@ namespace NorsokChecker
 					}
 				}
 
-				// ── Parse geometry from members grid ──
+				// ── Fallback geometry — §6.3 checks use per-member D/t/fy/L/k from the grid ──
 				TubularGeometry? geometry = ParseCHSGeometry();
 				var chsMember = _members.FirstOrDefault(m => m.IsCHS);
 				double memberLength = chsMember?.L ?? 5000;
 				double kFactor = chsMember?.K ?? 0.7;
 				if (geometry != null)
-					Log($"CHS geometry: D={geometry.D}mm, t={geometry.t}mm, L={memberLength}mm, k={kFactor}");
+					Log("§6.3 member checks: per-member D/t/fy/L/k taken from the Members grid");
 
 				TubularJointGeometry? jointGeometry = ParseJointGeometry();
 				if (jointGeometry != null)
