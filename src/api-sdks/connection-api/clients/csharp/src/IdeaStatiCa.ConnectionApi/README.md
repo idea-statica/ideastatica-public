@@ -267,7 +267,7 @@ The `ConnectionApiServiceRunner` performs validation and provides detailed error
 
 - **Missing executable**: Throws `FileNotFoundException` if `IdeaStatiCa.ConnectionRestApi.exe` is not found
 - **Failed to start**: Throws `InvalidOperationException` if the process cannot start
-- **Missing .NET runtime**: Provides guidance about required .NET 8.0 ASP.NET Core runtime
+- **Missing .NET runtime**: Provides guidance about required .NET 10.0 ASP.NET Core runtime
 - **No available ports**: Throws `InvalidOperationException` if no ports are available
 - **Service startup timeout**: Returns false if service doesn't respond within 50 seconds
 
