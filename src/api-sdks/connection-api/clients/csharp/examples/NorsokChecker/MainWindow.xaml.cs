@@ -301,21 +301,28 @@ namespace NorsokChecker
 					}
 				}
 
+				// ── Chapter toggles — disabled chapters are skipped entirely ──
+				bool includeCh5 = ChkChapter5.IsChecked == true;
+				bool includeCbfem = ChkChapterCbfem.IsChecked == true;
+				bool includeCh63 = ChkChapter63.IsChecked == true;
+				bool includeCh64 = ChkChapter64.IsChecked == true;
+				Log($"Chapters: §5={(includeCh5 ? "on" : "off")}, CBFEM={(includeCbfem ? "on" : "off")}, §6.3={(includeCh63 ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}");
+
 				// ── Fallback geometry — §6.3 checks use per-member D/t/fy/L/k from the grid ──
-				TubularGeometry? geometry = ParseCHSGeometry();
+				TubularGeometry? geometry = includeCh63 ? ParseCHSGeometry() : null;
 				var chsMember = _members.FirstOrDefault(m => m.IsCHS);
 				double memberLength = chsMember?.L ?? 5000;
 				double kFactor = chsMember?.K ?? 0.7;
 				if (geometry != null)
 					Log("§6.3 member checks: per-member D/t/fy/L/k taken from the Members grid");
 
-				TubularJointGeometry? jointGeometry = ParseJointGeometry();
+				TubularJointGeometry? jointGeometry = includeCh64 ? ParseJointGeometry() : null;
 				if (jointGeometry != null)
 					Log($"Joint geometry: Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
 
 				// Design Classification — from dropdown (Table 5-1 decision tree)
 				int dcIdx = CmbDesignClass.SelectedIndex;
-				var dcInput = new DesignClassificationInput
+				DesignClassificationInput? dcInput = !includeCh5 ? null : new DesignClassificationInput
 				{
 					SubstantialConsequences = dcIdx <= 1,          // DC1,DC2
 					ResidualStrength = dcIdx == 2 || dcIdx == 3,   // DC3,DC4
@@ -370,7 +377,7 @@ namespace NorsokChecker
 					var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
 					var formulaResults = checker.EvaluateNorsokFormulas(
 						con.Id, rawJson, loadEffects, geometry, memberLength, kFactor,
-						jointGeometry, dcInput, chordStresses, _members.ToList());
+						jointGeometry, dcInput, chordStresses, _members.ToList(), includeCbfem);
 					_formulaResults[con.Id] = formulaResults;
 
 					// Determine worst-case Norsok utilization
@@ -528,7 +535,7 @@ namespace NorsokChecker
 			PopulateReportTab();
 		}
 
-		private async void PopulateReportTab()
+		private string BuildReportHtml()
 		{
 			var allResults = new List<(string connectionName, List<NorsokFormulaResult> formulas)>();
 			foreach (var (conId, formulas) in _formulaResults)
@@ -537,8 +544,13 @@ namespace NorsokChecker
 				allResults.Add((conName, formulas));
 			}
 
-			var html = NorsokHtmlReportGenerator.GenerateReport(
+			return NorsokHtmlReportGenerator.GenerateReport(
 				Path.GetFileName(TxtProjectFile.Text), allResults);
+		}
+
+		private async void PopulateReportTab()
+		{
+			var html = BuildReportHtml();
 
 			try
 			{
@@ -548,6 +560,77 @@ namespace NorsokChecker
 			catch (Exception ex)
 			{
 				Log($"WARNING: WebView2 not available ({ex.Message}).");
+			}
+		}
+
+		/// <summary>
+		/// Export both PDF reports: the official IDEA StatiCa CBFEM report via the
+		/// Connection API, and the NORSOK compliance report printed from the HTML
+		/// report via WebView2.
+		/// </summary>
+		private async void ExportPdf_Click(object sender, RoutedEventArgs e)
+		{
+			if (_apiClient == null || _projectId == Guid.Empty || _connections.Count == 0 || _formulaResults.Count == 0)
+			{
+				MessageBox.Show("Run the Norsok check first.", "PDF Export", MessageBoxButton.OK, MessageBoxImage.Information);
+				return;
+			}
+
+			var dlg = new Microsoft.Win32.SaveFileDialog
+			{
+				Filter = "PDF files (*.pdf)|*.pdf",
+				FileName = $"{Path.GetFileNameWithoutExtension(TxtProjectFile.Text)}-NORSOK-report.pdf",
+				Title = "Save NORSOK report (the IDEA StatiCa CBFEM report is saved alongside)"
+			};
+			if (dlg.ShowDialog() != true) return;
+
+			string dir = Path.GetDirectoryName(dlg.FileName) ?? ".";
+			string norsokPdf = dlg.FileName;
+			string ideaPdf = Path.Combine(dir, Path.GetFileNameWithoutExtension(dlg.FileName) + "-IDEA-CBFEM.pdf");
+
+			BtnExportPdf.IsEnabled = false;
+			try
+			{
+				// 1. Official IDEA StatiCa report via Connection API — one section per connection
+				ShowStatus("Generating IDEA StatiCa PDF report via API...");
+				Log("Generating IDEA StatiCa CBFEM PDF report via Connection API...");
+				var conIds = _connections.Select(c => c.Id).ToList();
+				await _apiClient.Report.SaveMultipleReportsPdfAsync(_projectId, conIds, ideaPdf);
+				Log($"  IDEA StatiCa report: {ideaPdf}");
+
+				// 2. NORSOK compliance report — render the HTML report and print to PDF
+				ShowStatus("Exporting NORSOK compliance report to PDF...");
+				await ReportWebView.EnsureCoreWebView2Async();
+
+				var navigated = new TaskCompletionSource<bool>();
+				void OnNavCompleted(object? s, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs a)
+				{
+					ReportWebView.NavigationCompleted -= OnNavCompleted;
+					navigated.TrySetResult(a.IsSuccess);
+				}
+				ReportWebView.NavigationCompleted += OnNavCompleted;
+				ReportWebView.NavigateToString(BuildReportHtml());
+				await navigated.Task;
+				await Task.Delay(800); // allow KaTeX formulas and web fonts to settle
+
+				bool ok = await ReportWebView.CoreWebView2.PrintToPdfAsync(norsokPdf, null);
+				if (!ok)
+					throw new InvalidOperationException("WebView2 PrintToPdf reported failure.");
+				Log($"  NORSOK report: {norsokPdf}");
+
+				Log("PDF export completed.");
+				MessageBox.Show($"Exported:\n• {norsokPdf}\n• {ideaPdf}", "PDF Export",
+					MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+			catch (Exception ex)
+			{
+				Log($"ERROR exporting PDF: {ex.Message}");
+				MessageBox.Show(ex.Message, "PDF Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			finally
+			{
+				BtnExportPdf.IsEnabled = true;
+				HideStatus();
 			}
 		}
 

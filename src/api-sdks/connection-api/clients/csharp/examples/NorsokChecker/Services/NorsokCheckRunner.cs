@@ -47,7 +47,8 @@ namespace NorsokChecker.Services
 			TubularJointGeometry? jointGeometry = null,
 			DesignClassificationInput? dcInput = null,
 			double[]? chordStresses = null,
-			List<MemberDisplayInfo>? members = null)
+			List<MemberDisplayInfo>? members = null,
+			bool includeCbfemChecks = true)
 		{
 			var results = new List<NorsokFormulaResult>();
 
@@ -100,15 +101,18 @@ namespace NorsokChecker.Services
 				_log($"    §5 Classification: {dc}, SQL={sql}, Inspection={ic}");
 			}
 
-			// ─── PLATE STRESS CHECKS ───
-			EvaluatePlateChecks(parsed, gammaM0, results);
-
-			// ─── WELD CHECKS ───
-			// Norsok Table 6-1: γM2 = 1.30 for welds (not EC3 default 1.25)
-			EvaluateWeldChecks(parsed, gammaM2, results);
-
-			// ─── BOLT CHECKS ───
-			EvaluateBoltChecks(parsed, results);
+			// ─── CBFEM PLATE / WELD / BOLT CHECKS ───
+			if (includeCbfemChecks)
+			{
+				EvaluatePlateChecks(parsed, gammaM0, results);
+				// Norsok Table 6-1: γM2 = 1.30 for welds (not EC3 default 1.25)
+				EvaluateWeldChecks(parsed, gammaM2, results);
+				EvaluateBoltChecks(parsed, results);
+			}
+			else
+			{
+				_log("    CBFEM plate/weld/bolt checks disabled (chapter toggle)");
+			}
 
 			// ─── TUBULAR MEMBER FORMULAS (§6.3.2–6.3.8) ───
 			// These require: load effects (N, V, M) + tubular geometry (D, t) + member length

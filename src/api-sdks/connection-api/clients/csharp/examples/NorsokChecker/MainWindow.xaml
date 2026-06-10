@@ -157,24 +157,37 @@
                 </TabItem.Header>
                 <DockPanel Margin="12" LastChildFill="True">
 
-                    <!-- Action buttons — docked to bottom -->
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
-                                HorizontalAlignment="Right" Margin="0,12,0,0">
-                        <Button x:Name="BtnLoadProject" Click="LoadProject_Click"
-                                Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0">
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock Text="Load Project" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="BtnRunCheck" IsEnabled="False" Click="RunCheck_Click"
-                                Style="{StaticResource IdeaPrimaryButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="PlayCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock Text="Run Norsok Check" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+                    <!-- Action bar — chapter toggles left, buttons right -->
+                    <Grid DockPanel.Dock="Bottom" Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Chapters:" FontWeight="Medium" VerticalAlignment="Center"
+                                       Foreground="#546E7A" Margin="0,0,10,0"/>
+                            <CheckBox x:Name="ChkChapter5" Content="§5 Classification" IsChecked="True" Margin="0,0,12,0"/>
+                            <CheckBox x:Name="ChkChapterCbfem" Content="CBFEM plates/welds" IsChecked="True" Margin="0,0,12,0"/>
+                            <CheckBox x:Name="ChkChapter63" Content="§6.3 Members" IsChecked="True" Margin="0,0,12,0"/>
+                            <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="True"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button x:Name="BtnLoadProject" Click="LoadProject_Click"
+                                    Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Load Project" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="BtnRunCheck" IsEnabled="False" Click="RunCheck_Click"
+                                    Style="{StaticResource IdeaPrimaryButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="PlayCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Run Norsok Check" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
 
                     <!-- Expanders — docked to top, stacking vertically -->
                     <StackPanel DockPanel.Dock="Top">
@@ -352,9 +365,22 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="NORSOK N-004 §6.3 formula results — per connection, per equation."
-                               Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0,0,0,12"
-                               Foreground="#546E7A"/>
+                    <Grid Grid.Row="0" Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="NORSOK N-004 §6.3 formula results — per connection, per equation."
+                                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Foreground="#546E7A" VerticalAlignment="Center"/>
+                        <Button Grid.Column="1" x:Name="BtnExportPdf" Click="ExportPdf_Click"
+                                Style="{StaticResource IdeaPrimaryButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="FilePdfBox" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Export PDF Reports" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
 
                     <DataGrid Grid.Row="1" x:Name="ResultsGrid" AutoGenerateColumns="True"
                               IsReadOnly="True" CanUserAddRows="False"
