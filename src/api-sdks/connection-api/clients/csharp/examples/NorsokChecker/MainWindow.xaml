@@ -207,6 +207,10 @@
                                                         Foreground="{StaticResource IdeaOrangeBrush}"/>
                                     <DataGridTextColumn Header="k" Binding="{Binding K, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="SizeToHeader" MinWidth="35"
                                                         Foreground="{StaticResource IdeaOrangeBrush}"/>
+                                    <DataGridTextColumn Header="M1y [kNm]" Binding="{Binding M1y, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="60"
+                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
+                                    <DataGridTextColumn Header="M1z [kNm]" Binding="{Binding M1z, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="60"
+                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
                                     <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>

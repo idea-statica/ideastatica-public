@@ -324,7 +324,43 @@ namespace NorsokChecker.Services
 				_log($"    Running §6.3 tubular checks for '{label}': D={geo.D}mm, t={geo.t}mm, fy={f_y}MPa, L={mL}mm, k={mK}");
 				_log($"      Geometry: A={geo.A:F0}mm², W={geo.W:F0}mm³, Z={geo.Z:F0}mm³, i={geo.i:F1}mm");
 
-				EvaluateSingleMemberFormulas(loadEffects, memberId, label, geo, mL, mK, f_y, gammaM_base, results);
+				// §6.3.1 applicability — t ≥ 6 mm and D/t < 120, otherwise §6.3 does not apply
+				var violations = new List<string>();
+				if (geo.t < 6.0)
+					violations.Add($"t = {geo.t:F1} mm — required: t ≥ 6 mm");
+				if (geo.DtRatio >= 120.0)
+					violations.Add($"D/t = {geo.DtRatio:F1} — required: D/t < 120");
+				bool applicable = violations.Count == 0;
+
+				results.Add(new NorsokFormulaResult
+				{
+					Section = "6.3.1",
+					Equation = "-",
+					Title = $"Member Applicability — {label}{(applicable ? "" : " — OUTSIDE §6.3 SCOPE")}",
+					CheckExpression = applicable
+						? "t ≥ 6 mm and D/t < 120 — §6.3 applicable"
+						: string.Join(";  ", violations),
+					Formula = "t ≥ 6 mm,  D/t < 120",
+					FormulaSubstituted = $"t = {geo.t:F1} mm,  D/t = {geo.DtRatio:F1}",
+					Demand = 0,
+					Capacity = 1,
+					Utilization = 0,
+					Passed = applicable,
+					Variables = new List<FormulaVariable>
+					{
+						new() { Symbol = "t", Description = "wall thickness", Value = geo.t, Unit = "mm" },
+						new() { Symbol = "D/t", Description = "diameter-to-thickness ratio", Value = geo.DtRatio, Unit = "-" },
+					}
+				});
+
+				if (!applicable)
+				{
+					_log($"    §6.3 SKIPPED for '{label}' — outside applicability range (§6.3.1)");
+					continue;
+				}
+
+				EvaluateSingleMemberFormulas(loadEffects, memberId, label, geo, mL, mK,
+					mdi?.M1y ?? 0, mdi?.M1z ?? 0, f_y, gammaM_base, results);
 			}
 
 			int memberCheckCount = results.Count(r => r.Section.StartsWith("6.3") && !r.Title.StartsWith("Plate"));
@@ -342,6 +378,8 @@ namespace NorsokChecker.Services
 			TubularGeometry geo,
 			double mL,
 			double mK,
+			double m1y,
+			double m1z,
 			double f_y,
 			double gammaM,
 			List<NorsokFormulaResult> results)
@@ -446,6 +484,16 @@ namespace NorsokChecker.Services
 					{
 						double N_t_Rd = geo.A * f_y / gammaM / 1000.0;
 						double M_Rd = GetBendingResistance(geo, f_y, gammaM);
+
+						// §6.3.8.1 note: when torsion is of importance, substitute the
+						// torsion-reduced M_Red,Rd per 6.3.8.4 for M_Rd
+						if (Mt > 0)
+						{
+							double f_m = BendingCheck.CharacteristicBendingStrength(geo.W, geo.Z, f_y, geo.D, geo.t);
+							M_Rd = Math.Min(M_Rd, ShearBendingTorsionCheck.ReducedBendingResistance(
+								Mt, geo.W, f_m, f_y, geo.D, geo.t, gammaM));
+						}
+
 						Track(ref worstTensionBending, TensionBendingCheck.Evaluate(N, N_t_Rd, My, Mz, M_Rd));
 					}
 
@@ -464,13 +512,44 @@ namespace NorsokChecker.Services
 						double N_Ey = CompressionBendingCheck.EulerBucklingLoad(geo.A, mK, mL, geo.i);
 						double N_Ez = N_Ey; // Same for tubular (symmetric)
 
-						// Cm factors — use 0.85 as default (conservative, Table 6-2)
-						double Cmy = 0.85;
-						double Cmz = 0.85;
+						// C_m per Table 6-2 — evaluate cases (a), (b), (c); worst interaction governs.
+						// (b) uses the end-moment ratio M1/M2 (smaller/larger, + = reverse curvature);
+						// far-end moments come from the editable grid columns (0 if unknown → Cm = 0.6).
+						double CmEndMoments(double m1, double m2)
+						{
+							if (Math.Abs(m2) < 1e-9) return 0.6; // no joint-end moment about this axis
+							double ratio = Math.Clamp(m1 / m2, -1.0, 1.0);
+							return 0.6 - 0.4 * ratio;
+						}
+						double cmc = Math.Min(1.0 - 0.4 * N_abs / N_Ey, 0.85);
+						var cmCases = new (string Label, double Cmy, double Cmz)[]
+						{
+							("(a)", 0.85, 0.85),
+							("(b)", CmEndMoments(m1y, My), CmEndMoments(m1z, Mz)),
+							("(c)", cmc, cmc),
+						};
 
-						// Eq. 6.27 stability check
-						Track(ref worstCompBending627, CompressionBendingCheck.EvaluateStability(
-							N_abs, N_c_Rd, My, Mz, M_Rd, Cmy, Cmz, N_Ey, N_Ez));
+						// Eq. 6.27 stability check — governing C_m case
+						NorsokFormulaResult? governing627 = null;
+						string governingCase = "";
+						foreach (var cm in cmCases)
+						{
+							var r = CompressionBendingCheck.EvaluateStability(
+								N_abs, N_c_Rd, My, Mz, M_Rd, cm.Cmy, cm.Cmz, N_Ey, N_Ez);
+							if (governing627 == null || r.Utilization > governing627.Utilization)
+							{
+								governing627 = r;
+								governingCase = cm.Label;
+							}
+						}
+						governing627!.Variables.Add(new FormulaVariable
+						{
+							Symbol = "C_m case",
+							Description = $"Table 6-2 governing case {governingCase} of (a) {cmCases[0].Cmy:F2}/{cmCases[0].Cmz:F2}, (b) {cmCases[1].Cmy:F2}/{cmCases[1].Cmz:F2}, (c) {cmCases[2].Cmy:F2}/{cmCases[2].Cmz:F2}",
+							Value = cmCases.First(c => c.Label == governingCase).Cmy,
+							Unit = governingCase
+						});
+						Track(ref worstCompBending627, governing627);
 
 						// Eq. 6.28 cross-section check
 						double f_cl_local = GetLocalBucklingStrength(f_y, geo.D, geo.t);

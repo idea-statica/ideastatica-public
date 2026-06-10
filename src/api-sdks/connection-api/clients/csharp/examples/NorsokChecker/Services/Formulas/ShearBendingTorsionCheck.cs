@@ -15,6 +15,21 @@ namespace NorsokChecker.Services.Formulas
 	/// </summary>
 	public static class ShearBendingTorsionCheck
 	{
+		/// <summary>
+		/// Torsion-reduced bending resistance M_Red,Rd [kNm] per Eq. 6.33 definitions:
+		/// M_Red,Rd = W·f_m,Red/γ_M with f_m,Red = f_m·√(1 − 3·(τ_T,Sd/f_d)²).
+		/// </summary>
+		public static double ReducedBendingResistance(
+			double M_T_Sd, double W, double f_m,
+			double f_y, double D, double t, double gammaM)
+		{
+			double R = D / 2.0;
+			double f_d = f_y / gammaM;
+			double tau_T_Sd = M_T_Sd * 1e6 / (2.0 * Math.PI * R * R * t);
+			double reductionFactor = Math.Sqrt(Math.Max(0, 1.0 - 3.0 * Math.Pow(tau_T_Sd / f_d, 2)));
+			return W * f_m * reductionFactor / gammaM / 1e6;
+		}
+
 		/// <param name="M_Sd">Design bending moment [kNm]</param>
 		/// <param name="V_Sd">Design shear force [kN]</param>
 		/// <param name="V_Rd">Design shear resistance [kN]</param>

@@ -24,6 +24,10 @@ namespace NorsokChecker.Models
 		public double L { get; set; } = 5000;
 		/// <summary>Effective length factor — editable (Table 6-2)</summary>
 		public double K { get; set; } = 0.7;
+		/// <summary>Far-end moment about y [kNm] for C_m case (b) — editable, 0 if unknown</summary>
+		public double M1y { get; set; }
+		/// <summary>Far-end moment about z [kNm] for C_m case (b) — editable, 0 if unknown</summary>
+		public double M1z { get; set; }
 		public bool IsCHS => Shape == "CHS";
 
 		/// <summary>Display string for the geometry column</summary>
