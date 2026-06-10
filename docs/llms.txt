@@ -1,0 +1,55 @@
+# IDEA StatiCa Developer Documentation
+
+> APIs and SDKs for IDEA StatiCa, structural engineering software for steel connection and concrete design. Covers the Connection REST API (a locally hosted OpenAPI 3 service with C# and Python SDK clients), the RCS API, the IDEA Open Model (IOM) data format, and BIM links to IDEA StatiCa Checkbot. Current product version: 26.0.
+
+The Connection and RCS APIs are exposed by services that ship with the IDEA StatiCa desktop installation (version 24.1 or later) and run on the local machine. SDK packages are released per product version: always install the SDK package version that matches the installed IDEA StatiCa version (C#: NuGet package IdeaStatiCa.ConnectionApi; Python: PyPI package ideastatica-connection-api).
+
+## Connection API
+
+- [Overview](https://developer.ideastatica.com/docs/api/connection-api/connection_api_overview.html): what the Connection API is, architecture, clients, capabilities, API history
+- [Getting started](https://developer.ideastatica.com/docs/api/connection-api/connection_api_getting_started.html): run the local service, connect a client, open a project, calculate, and read results in Python and C#
+- [Concepts](https://developer.ideastatica.com/docs/api/connection-api/connection_api_concepts.html): service lifecycle, projects, connections, members, operations, templates, Connection Library, design-code conversion, parameters, load effects, materials, calculation results, reports, and exports
+- [AI / LLM reference](https://developer.ideastatica.com/docs/api/connection-api/connection_api_llm_reference.html): single-file Python SDK reference designed to be loaded into an AI assistant's context
+- [OpenAPI 3.0 specification](https://developer.ideastatica.com/specs/connection-api/openapi.yaml): machine-readable definition of all REST endpoints (base path /api/3/)
+- [C# client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/csharp/README.html): documentation of the IdeaStatiCa.ConnectionApi NuGet package
+- [Python client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/python/README.html): documentation of the ideastatica-connection-api PyPI package (import name: ideastatica_connection_api)
+- [C# examples (GitHub)](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples): runnable example applications and bulk tools
+- [Python examples (GitHub)](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python/examples): runnable example scripts
+- [Getting started with Parameters](https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html): parametrize connection designs with expression parameters
+- [Expression Parameter Reference Guide](https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html): expression syntax for connection parameters
+
+## RCS API
+
+- [Getting started](https://developer.ideastatica.com/docs/api/rcs-api/rcs_api_getting_started.html): reinforced cross-section checks through the RCS API
+- [C# client reference](https://developer.ideastatica.com/docs/api/rcs-api/clients/csharp/README.html)
+- [Python client reference](https://developer.ideastatica.com/docs/api/rcs-api/clients/python/README.html)
+
+## IDEA Open Model (IOM)
+
+- [Getting started](https://developer.ideastatica.com/docs/iom/iom_getting_started.html): the open data format for exchanging structural models with IDEA StatiCa
+- [Coordinate systems](https://developer.ideastatica.com/docs/iom/iom_coordinate_systems.html)
+- [Connection point](https://developer.ideastatica.com/docs/iom/iom_connection_point.html): describing a steel connection within an IOM model
+- [Loading](https://developer.ideastatica.com/docs/iom/iom_loading.html)
+- [IdeaRS.OpenModel API reference](https://developer.ideastatica.com/api-iom/IdeaRS.OpenModel.html): generated class reference for the IOM object model
+- [Steel frame example (C#)](https://developer.ideastatica.com/examples/iom/csharp/SteelFrameExample/readme.html): build an IOM model of a steel frame from code
+
+## BIM API (Checkbot links)
+
+- [Checkbot BIM link overview](https://developer.ideastatica.com/docs/bimapi/bimapi_checkbot_link.html): integrate third-party FEA and CAD applications with IDEA StatiCa Checkbot
+- [Linking an application with Checkbot](https://developer.ideastatica.com/docs/bimapi/bimapi_linking_an_application_with_checkbot.html)
+- [Checkbot framework capabilities](https://developer.ideastatica.com/docs/bimapi/bimapi_checkbot_project_framework.html)
+- [BIM API breaking changes](https://developer.ideastatica.com/docs/bimapi/bim_api_breaking_changes.html)
+
+## Extensions
+
+- [Grasshopper plugin overview](https://developer.ideastatica.com/docs/extensions/grasshopper/grasshopper_overview.html): visual programming with IDEA StatiCa in Rhino/Grasshopper
+
+## Optional
+
+- [GitHub repository](https://github.com/idea-statica/ideastatica-public): source of the SDKs, examples, and this documentation
+- [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions): questions, support, and SDK bug reports
+- [Issue tracker](https://github.com/idea-statica/ideastatica-public/issues)
+- [NuGet packages overview](https://developer.ideastatica.com/articles/nugetpackages.html)
+- [IdeaStatiCa.ConnectionApi on NuGet](https://www.nuget.org/packages/IdeaStatiCa.ConnectionApi)
+- [ideastatica-connection-api on PyPI](https://pypi.org/project/ideastatica-connection-api/)
+- [IDEA StatiCa product site](https://www.ideastatica.com)

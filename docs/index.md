@@ -22,7 +22,7 @@ Get Started here:
 
 ## IDEA Open Model (IOM)
 
-IDEA StatiCa's object model for exchanging data to and from FEA or CAD applications. IOM is open source and transfered using an XML file format. It is designed to interact natively with IDEA StatiCa applications. 
+IDEA StatiCa's object model for exchanging data to and from FEA or CAD applications. IOM is open source and transferred using an XML file format. It is designed to interact natively with IDEA StatiCa applications. 
 
 IOM is at the heart of all of our interoperability tools, therefore almost all advanced users will likely need to know the basics of Open Model. 
 
@@ -34,6 +34,10 @@ Get started here:
 
 Extensions are plugins and programs which are built on-top of the IDEA Open Model and API's and target low-code users. If you are a structural engineer or computational designer looking to automate workflows through visual programming then this will interest you.
 
-Our current extension are:
+Our current extensions are:
 
 * [Plugin for Rhino/Grasshopper](docs/extensions/grasshopper/grasshopper_overview.md)
+
+---
+
+Machine-readable index of this site for AI tools: [llms.txt](https://developer.ideastatica.com/llms.txt)
