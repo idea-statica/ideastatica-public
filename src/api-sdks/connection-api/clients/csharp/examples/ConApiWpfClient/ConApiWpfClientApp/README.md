@@ -77,7 +77,7 @@ Edit `appsettings.json` to match your environment:
 {
   "CONNECTION_API_ENDPOINT": "http://localhost:5000",
   "CONNECTION_API_RUNSERVER": "true",
-  "IdeaStatiCaSetupPath": "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"
+  "IdeaStatiCaSetupPath": "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"
 }
 ```
 
@@ -142,7 +142,7 @@ The main window toolbar exposes all operations, each backed by an async relay co
 
 ## Technology stack
 
-- **.NET 8.0** (WPF, `net8.0-windows`)
+- **.NET 10.0** (WPF, `net10.0-windows`)
 - **CommunityToolkit.Mvvm** -- source-generated `ObservableProperty`, `RelayCommand`
 - **Microsoft.Extensions.DependencyInjection** -- constructor injection
 - **Microsoft.Extensions.Configuration** -- JSON + environment variable config
