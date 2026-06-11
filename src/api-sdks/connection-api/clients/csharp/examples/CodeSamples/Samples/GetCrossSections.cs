@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task GetCrossSections(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/simple cleat connection.ideaCon";
+			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			//Get all cross-sections in the project. Items are polymorphic IOM cross-sections (e.g. CrossSectionParameter).

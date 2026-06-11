@@ -12,7 +12,7 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task AddMaterialBoltGrade(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/simple cleat connection.ideaCon";
+			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			//Define the new bolt grade by its name in the MPRL.

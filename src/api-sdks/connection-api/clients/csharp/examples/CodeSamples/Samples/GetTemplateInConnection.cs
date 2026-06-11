@@ -11,14 +11,14 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task GetTemplateInConnection(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/corner-empty.ideaCon";
+			string filePath = "Inputs/corner-empty.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
 			//Apply a template first so the connection contains an applied template.
-			ConTemplateMappingGetParam templateImport = conClient.Template.ImportTemplateFromFile("inputs/template-I-corner.contemp");
+			ConTemplateMappingGetParam templateImport = conClient.Template.ImportTemplateFromFile("Inputs/template-I-corner.contemp");
 			TemplateConversions mapping = await conClient.Template.GetDefaultTemplateMappingAsync(conClient.ActiveProjectId, connectionId, templateImport);
 			await conClient.Template.ApplyTemplateAsync(conClient.ActiveProjectId, connectionId, new ConTemplateApplyParam { ConnectionTemplate = templateImport.Template, Mapping = mapping });
 

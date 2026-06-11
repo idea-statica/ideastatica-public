@@ -13,7 +13,7 @@ namespace CodeSamples
 		public static async Task GetConversionMapping(IConnectionApiClient conClient)
 		{
 			//Only projects with the ECEN (Eurocode) design code can be converted.
-			string filePath = "inputs/simple cleat connection.ideaCon";
+			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			//Get the default mapping of materials, cross-sections and fasteners for the conversion to AISC (American design code).

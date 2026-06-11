@@ -11,7 +11,7 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task PublishConnection(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/simple cleat connection.ideaCon";
+			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);

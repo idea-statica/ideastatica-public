@@ -11,13 +11,13 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task GetDefaultTemplateMapping(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/corner-empty.ideaCon";
+			string filePath = "Inputs/corner-empty.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
 			int connectionId = connections[0].Id;
 
-			string templateFilePath = "inputs/template-I-corner.contemp";
+			string templateFilePath = "Inputs/template-I-corner.contemp";
 			ConTemplateMappingGetParam templateImport = conClient.Template.ImportTemplateFromFile(templateFilePath);
 
 			//Get the default mapping of the template items (members, cross-sections, materials, bolts) onto the connection.

@@ -348,7 +348,8 @@ CheckResSummary                        # one check group (e.g. plates, bolts, we
   .name            str                 # check description - USE THIS for the check name
   .check_value     float               (checkValue)  utilization as a PERCENTAGE (85.0 = 85 %);
                                        # do not multiply by 100; use .check_status for pass/fail
-                                       # (-1.0 / 0.0 = no valid value)
+                                       # value is meaningless when .skipped is True - always gate on .skipped
+                                       # (declared optional in the generated model, so guard for None too)
   .check_status    bool                (checkStatus) True = check satisfied
   .unity_check_message str             (unityCheckMessage)
   .skipped         bool                # True = check not performed; skip these when reporting
