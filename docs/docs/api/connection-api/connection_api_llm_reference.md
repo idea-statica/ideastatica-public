@@ -346,8 +346,9 @@ ConResultSummary                       # returned by calculation.calculate
 
 CheckResSummary                        # one check group (e.g. plates, bolts, welds)
   .name            str                 # check description - USE THIS for the check name
-  .check_value     float               (checkValue)  utilization as a PERCENTAGE (85.0 = 85 %);
-                                       # do not multiply by 100; use .check_status for pass/fail
+  .check_value     float               (checkValue)  utilization expressed as a percentage (85.0 = 85 %);
+                                       # already scaled by 100 by the service - do not multiply again
+                                       # use .check_status for pass/fail
                                        # value is meaningless when .skipped is True - always gate on .skipped
                                        # (declared optional in the generated model, so guard for None too)
   .check_status    bool                (checkStatus) True = check satisfied

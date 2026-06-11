@@ -9,7 +9,7 @@ The Connection API is a REST API (OpenAPI 3) exposed by a locally hosted service
 - **IDEA StatiCa desktop installation.** The API service executable `IdeaStatiCa.ConnectionRestApi.exe` is part of the standard installation, in the setup directory — for example `C:\Program Files\IDEA StatiCa\StatiCa 26.0`.
 - **A valid IDEA StatiCa license.** Starting the API service reserves a seat on your license while the service runs, in the same way as launching the desktop application. The **Basic license type is not supported** — the service reports "This API is disabled for Basic license type" and exits. Trial and Educational licenses are supported.
   <!-- TODO (product team): confirm and complete the exact edition/seat behavior before publication. The statements above are sourced from the service startup code (seat reservation + Basic-license rejection); per-edition availability wording still needs product sign-off. -->
-- **For the C# client:** a .NET project targeting .NET Standard 2.0 or later (e.g. any current .NET SDK).
+- **For the C# client:** a .NET project compatible with .NET Standard 2.0 or 2.1 (any current .NET SDK qualifies).
 - **For the Python client:** Python 3.8 or later.
   <!-- TODO (SDK team): confirm the supported Python floor. setup.py declares PYTHON_REQUIRES = ">= 3.8" but does not pass it to setup(), so the published package carries no requires-python constraint, and the generated client README says 3.7+. -->
 
@@ -182,7 +182,7 @@ namespace ConnectionApiQuickstart
                     {
                         if (check.Skipped)
                         {
-                            continue; // this check was not calculated
+                            continue; // check not calculated - CheckValue is meaningless for skipped checks
                         }
                         string status = check.CheckStatus ? "OK" : "FAILED";
                         Console.WriteLine($"  {check.Name}: {check.CheckValue:F1} % [{status}]");
@@ -259,7 +259,7 @@ The calculation returns one result summary per calculated connection (`ConResult
 - `passed` (`Passed` in C#) — overall pass/fail for the connection.
 - `result_summary` (`ResultSummary`) — a list of individual check summaries (`CheckResSummary`), one per check type (analysis, plates, bolts, welds, ...). Each item has:
   - `name` (`Name`) — the name of the check; use this to describe the check.
-  - `check_value` (`CheckValue`) — the utilization as a percentage; a value at or below 100 passes. Do not multiply by 100.
+  - `check_value` (`CheckValue`) — the utilization expressed as a percentage: `85.0` means 85 %. The service already scales the ratio by 100, so do not multiply it again; use `check_status` for pass/fail decisions.
   - `check_status` (`CheckStatus`) — pass/fail of this check.
   - `unity_check_message` (`UnityCheckMessage`) — a detail message about the check.
   - `skipped` (`Skipped`) — `true` when the check was not calculated; ignore `check_value` in that case.
