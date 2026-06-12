@@ -66,8 +66,13 @@
     "resource": [
       { "files": ["**/images/**", "api-iom/Images/**"] },
       { "files": ["**/images/**", "**/*.cs"], "src" : "../examples", "dest":"examples"},
-      { "files": "**/*.{cs|ideaCon|ideaRcs}", "src" : "../examples"}
+      { "files": "**/*.{cs|ideaCon|ideaRcs}", "src" : "../examples"},
+      { "files": ["llms.txt", "robots.txt"] },
+      { "files": ["openapi.yaml"], "src": "../src/api-sdks/connection-api/clients/csharp/api", "dest": "specs/connection-api" }
     ],
+    "sitemap": {
+      "baseUrl": "https://developer.ideastatica.com"
+    },
     "overwrite": [
       {
         "files": [
