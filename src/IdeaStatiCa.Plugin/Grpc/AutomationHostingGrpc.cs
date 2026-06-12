@@ -104,7 +104,9 @@ namespace IdeaStatiCa.Plugin
 					// notify plugin that service is running
 					EventWaitHandle syncEvent;
 					ideaLogger.LogDebug($"AutomationHostingGrpc.RunServer - tryprocessId == '{myAutomatingProcessId}'");
-					if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
+					bool eventFound = EventWaitHandle.TryOpenExisting(eventName, out syncEvent);
+					ideaLogger.LogInformation($"AutomationHostingGrpc.RunServer : TryOpenExisting('{eventName}') = {eventFound}");
+					if (eventFound)
 					{
 						syncEvent.Set();
 						syncEvent.Dispose();
