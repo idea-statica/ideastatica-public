@@ -110,22 +110,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		private void CheckAndAddConnectedObject<T>(TSM.ModelObject part, BimApi.Weld weld)
 			where T : IIdeaObjectConnectable
 		{
-			var guid = part.Identifier.GUID.ToString();
-
-			if (!Model.IsInSameConnectionAs(weld.Id, guid))
-			{
-				PlugInLogger?.LogTrace($"WeldImporter: Weld={weld.Id} SKIPPED ConnectedPart type={typeof(T).Name} guid={guid} name='{(part as TSM.Part)?.Name}' (not in same connection)");
-				return;
-			}
-
-			IIdeaObject ideaObject = CheckMaybe<T>(guid);
+			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
 			if (ideaObject != null)
 			{
-				IIdeaObjectConnectable mainObject = GetMaybe<T>(guid);
+
+				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
 				if (mainObject != null)
 				{
 					(weld.ConnectedParts as List<IIdeaObjectConnectable>)?.Add(mainObject);
-					PlugInLogger?.LogTrace($"WeldImporter: Weld={weld.Id} added ConnectedPart type={typeof(T).Name} guid={guid} name='{(part as TSM.Part)?.Name}'");
 				}
 			}
 		}

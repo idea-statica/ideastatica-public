@@ -305,13 +305,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			where T : IIdeaObjectConnectable
 		{
 			string partGUID = part.Identifier.GUID.ToString();
-
-			if (!Model.IsInSameConnectionAs(boltGrid.Id, partGUID))
-			{
-				PlugInLogger.LogTrace($"AnchorGridImporter: AnchorGrid={boltGrid.Id} SKIPPED ConnectedPart type={typeof(T).Name} guid={partGUID} name='{part.Name}' (not in same connection)");
-				return;
-			}
-
 			PlugInLogger.LogDebug($"CheckAndAddConnectedObject - Checking part: {partGUID}");
 
 			IIdeaObject ideaObject = CheckMaybe<T>(partGUID);

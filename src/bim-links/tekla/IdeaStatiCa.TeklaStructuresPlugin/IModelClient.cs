@@ -58,7 +58,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// Get User selection by bulk selection
 		/// </summary>
 		/// <returns></returns>
-		List<(Point, List<ModelObject>, List<ModelObject>)> GetBulkSelection(bool selectWholeModel = false, IProgressMessaging progressMessaging = null, IdeaStatiCa.BIM.Common.SorterSettings sorterSettings = null);
+		List<(Point, List<ModelObject>, List<ModelObject>)> GetBulkSelection(bool selectWholeModel = false, IProgressMessaging progressMessaging = null);
 
 		/// <summary>
 		/// Get user selection of connection point
@@ -108,44 +108,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// Clear cached items
 		/// </summary>
 		void ClearCache();
-
-		/// <summary>
-		/// Register a GUID set for a connection point identified by its node key (X;Y;Z).
-		/// Called from GetCadUserSelection before import starts.
-		/// </summary>
-		void RegisterConnectionGuids(string nodeKey, HashSet<string> guids);
-
-		/// <summary>
-		/// Set the current connection GUID set by looking up the node key registered earlier.
-		/// Called from ConnectionImporter.Create at the start of each CP import.
-		/// </summary>
-		void SetCurrentConnectionGuidsByKey(string nodeKey);
-
-		/// <summary>
-		/// Set GUIDs of all objects (beams, plates, fasteners) that belong to the currently processed connection point.
-		/// BoltGridImporter uses this to skip ConnectedParts that were cached for a different connection.
-		/// </summary>
-		void SetCurrentConnectionGuids(HashSet<string> guids);
-
-		/// <summary>
-		/// Returns true if the given GUID belongs to the currently processed connection point.
-		/// Returns true when no connection context has been set (backwards-compatible default).
-		/// </summary>
-		bool IsInCurrentConnection(string guid);
-
-		/// <summary>
-		/// Returns true if guid appears in ANY registered connection GUID set.
-		/// Parts that return false were not picked up by the sorter and can be adopted
-		/// by the current connection if a bolt there references them.
-		/// </summary>
-		bool IsRegisteredInAnyConnection(string guid);
-
-		/// <summary>
-		/// Returns true if partGuid belongs to the same connection as boltGridGuid.
-		/// Prevents ConnectedParts from leaking across connections when importers run in parallel.
-		/// Returns true when no mapping exists (backwards-compatible default).
-		/// </summary>
-		bool IsInSameConnectionAs(string boltGridGuid, string partGuid);
 	}
 
 }

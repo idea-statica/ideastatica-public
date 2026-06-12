@@ -34,14 +34,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					Length = ((double)boltGroup.Length).MilimetersToMeters(),
 				};
 
-				var boltGuid = boltGroup.Identifier.GUID.ToString();
-
 				//This test due to plate as member and we are not sure if its imported as plate or member
-				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBoltTo, boltgrid, boltGuid);
-				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBoltTo, boltgrid, boltGuid);
+				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBoltTo, boltgrid);
+				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBoltTo, boltgrid);
 
-				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBeBolted, boltgrid, boltGuid);
-				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBeBolted, boltgrid, boltGuid);
+				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBeBolted, boltgrid);
+				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBeBolted, boltgrid);
 
 				if (boltGroup.OtherPartsToBolt != null)
 				{
@@ -51,8 +49,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 						{
 							continue;
 						}
-						CheckAndAddConnectedObject<IIdeaPlate>(otherPart, boltgrid, boltGuid);
-						CheckAndAddConnectedObject<IIdeaMember1D>(otherPart, boltgrid, boltGuid);
+						CheckAndAddConnectedObject<IIdeaPlate>(otherPart, boltgrid);
+						CheckAndAddConnectedObject<IIdeaMember1D>(otherPart, boltgrid);
 					}
 				}
 				var boltCs = boltGroup.GetCoordinateSystem();
@@ -98,30 +96,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			}
 		}
 
-		private void CheckAndAddConnectedObject<T>(TS.Part part, BoltGrid boltgrid, string boltGuid)
+		private void CheckAndAddConnectedObject<T>(TS.Part part, BoltGrid boltgrid)
 			where T : IIdeaObjectConnectable
 		{
-			var guid = part.Identifier.GUID.ToString();
-
-			if (!Model.IsInSameConnectionAs(boltGuid, guid))
-			{
-				PlugInLogger?.LogTrace($"BoltGridImporter: BoltGrid={boltGuid} SKIPPED ConnectedPart type={typeof(T).Name} guid={guid} name='{part.Name}' (not in same connection)");
-				return;
-			}
-
-			IIdeaObject ideaObject = CheckMaybe<T>(guid);
+			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
 			if (ideaObject != null)
 			{
-				IIdeaObjectConnectable mainObject = GetMaybe<T>(guid);
+				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
 				if (mainObject != null)
 				{
 					(boltgrid.ConnectedParts as List<IIdeaObjectConnectable>).Add(mainObject);
-					PlugInLogger?.LogTrace($"BoltGridImporter: BoltGrid={boltGuid} added ConnectedPart type={typeof(T).Name} guid={guid} name='{part.Name}' profile='{part.Profile.ProfileString}'");
 				}
-			}
-			else
-			{
-				PlugInLogger?.LogTrace($"BoltGridImporter: BoltGrid={boltGuid} SKIPPED ConnectedPart type={typeof(T).Name} guid={guid} name='{part.Name}' (not in cache)");
 			}
 		}
 

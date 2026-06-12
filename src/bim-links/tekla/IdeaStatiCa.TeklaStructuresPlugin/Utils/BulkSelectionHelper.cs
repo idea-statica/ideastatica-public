@@ -1,6 +1,5 @@
 ﻿using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
-using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Exeptions;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
@@ -28,7 +27,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <param name="partsEnumerator"></param>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
-		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, IPluginLogger plugInLogger, BIM.Common.SorterSettings settings = null)
+		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings = null)
 		{
 			List<BIM.Common.Member> bMembers = new List<BIM.Common.Member>();
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
@@ -74,11 +73,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 							continue;
 						}
 					}
-					bMembers.Add(new BIM.Common.Member(beam, partLcs, begin, end, cssBounds)
-					{
-						Name = beam.Name,
-						Profile = beam.Profile.ProfileString,
-					});
+					bMembers.Add(new BIM.Common.Member(beam, partLcs, begin, end, cssBounds));
 				}
 
 				if (currentPart is PolyBeam polyBeam)
@@ -91,11 +86,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					bMembers.Add(new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds)
-					{
-						Name = polyBeam.Name,
-						Profile = polyBeam.Profile.ProfileString,
-					});
+					bMembers.Add(new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds));
 				}
 
 				if (currentPart is ContourPlate contourPlate)
@@ -104,10 +95,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 					var points = BulkSelectionHelper.GetContourPlatePoints(contourPlate);
 
-					plates.Add(new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate))
-					{
-						Name = contourPlate.Name,
-					});
+					plates.Add(new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate)));
 				}
 
 				if (currentPart is BoltGroup boltGroup)
@@ -184,7 +172,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				};
 			}
 
-			var sortedJoints = sorter.Sort(sorterData, settings, plugInLogger);
+			var sortedJoints = sorter.Sort(sorterData, settings);
 
 			//Test of uncontrolled greedy alg
 			// by discussion threshold is 20 members in connection
