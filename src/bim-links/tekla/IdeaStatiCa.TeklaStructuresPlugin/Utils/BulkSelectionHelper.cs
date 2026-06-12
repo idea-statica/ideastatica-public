@@ -27,7 +27,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <param name="partsEnumerator"></param>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
-		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator)
+		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings = null)
 		{
 			List<BIM.Common.Member> bMembers = new List<BIM.Common.Member>();
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
@@ -55,9 +55,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					var profileItem = new LibraryProfileItem();
-					profileItem.Select(beam.Profile.ProfileString);
-
 					if (IsRectangularCssBeam(beam))
 					{
 						var father = beam.GetFatherComponent();
@@ -66,24 +63,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 							var vect1 = partLcs.AxisY * cssBounds.Y;
 							var vect2 = partLcs.AxisY * -cssBounds.Y;
 
-							var b1 = (begin.ToMediaPoint() + vect1.ToMediaVector());
-							var b2 = (begin.ToMediaPoint() + vect2.ToMediaVector());
+							var b1 = begin.ToMediaPoint() + vect1.ToMediaVector();
+							var b2 = begin.ToMediaPoint() + vect2.ToMediaVector();
 
-							var b3 = (end.ToMediaPoint() + vect1.ToMediaVector());
-							var b4 = (end.ToMediaPoint() + vect2.ToMediaVector());
+							var b3 = end.ToMediaPoint() + vect1.ToMediaVector();
+							var b4 = end.ToMediaPoint() + vect2.ToMediaVector();
 
 							plates.Add(new IdeaStatiCa.BIM.Common.Plate(beam, partLcs, new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() }, cssBounds.Width));
 							continue;
 						}
 					}
-					bMembers.Add(
-						new BIM.Common.Member(
-							beam,
-							partLcs,
-							begin,
-							end,
-							cssBounds
-							));
+					bMembers.Add(new BIM.Common.Member(beam, partLcs, begin, end, cssBounds));
 				}
 
 				if (currentPart is PolyBeam polyBeam)
@@ -96,16 +86,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					var profileItem = new LibraryProfileItem();
-					profileItem.Select(polyBeam.Profile.ProfileString);
-					bMembers.Add(
-						new BIM.Common.Member(
-							polyBeam,
-							partLcs,
-							begin,
-							end,
-							cssBounds
-							));
+					bMembers.Add(new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds));
 				}
 
 				if (currentPart is ContourPlate contourPlate)
@@ -180,11 +161,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			};
 
 			var sorter = new BIM.Common.ItemsSorter();
-			var settings = new BIM.Common.SorterSettings();
-			settings.EnlargeNodeXin = 1.6;
-			settings.EnlargeNodeXout = 1.6;
-			settings.EnlargeNodeY = 1.7;
-			settings.EnlargeNodeZ = 1.7;
+			if (settings == null)
+			{
+				settings = new BIM.Common.SorterSettings
+				{
+					EnlargeNodeXin = 1.6,
+					EnlargeNodeXout = 1.6,
+					EnlargeNodeY = 1.7,
+					EnlargeNodeZ = 1.7,
+				};
+			}
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
 
