@@ -1,3 +1,4 @@
+using IdeaRS.OpenModel;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
 
@@ -12,12 +13,12 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task CreateEmptyProject(IConnectionApiClient conClient)
 		{
-			//Create an empty project for the given design code (e.g. "ECEN", "American", "AUS") and name.
-			ConProject project = await conClient.Project.CreateProjectAsync("ECEN", "My empty project");
+			//Create an empty project for the given design code and name.
+			ConProject project = await conClient.Project.CreateProjectAsync(new ConProjectData { CountryCode = CountryCode.ECEN, Name = "My empty project" });
 
 			Console.WriteLine("Empty project created with Id: " + project.ProjectId);
 			Console.WriteLine("Project name: " + project.ProjectInfo.Name);
-			Console.WriteLine("Design code: " + project.ProjectInfo.DesignCode);
+			Console.WriteLine("Design code: " + project.ProjectInfo.CountryCode);
 			Console.WriteLine("Number of connections: " + project.Connections.Count);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("CreateEmptyProject");
