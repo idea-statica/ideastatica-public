@@ -18,7 +18,7 @@ namespace CodeSamples
 
 			Console.WriteLine("Project opened with Id: " + project.ProjectId);
 			Console.WriteLine("Project name: " + project.ProjectInfo.Name);
-			Console.WriteLine("Design code: " + project.ProjectInfo.DesignCode);
+			Console.WriteLine("Design code: " + project.ProjectInfo.CountryCode);
 
 			foreach (var connection in project.Connections)
 			{

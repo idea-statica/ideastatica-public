@@ -19,7 +19,7 @@ namespace CodeSamples
 
 			Console.WriteLine("Project Id: " + projectData.ProjectId);
 			Console.WriteLine("Name: " + projectData.ProjectInfo.Name);
-			Console.WriteLine("Design code: " + projectData.ProjectInfo.DesignCode);
+			Console.WriteLine("Design code: " + projectData.ProjectInfo.CountryCode);
 			Console.WriteLine("Date: " + projectData.ProjectInfo.Date);
 
 			foreach (var connection in projectData.Connections)
