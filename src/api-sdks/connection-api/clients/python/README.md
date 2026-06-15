@@ -9,7 +9,7 @@ IDEA StatiCa Connection API, used for the automated design and calculation of st
 
 ## Requirements.
 
-Python 3.7+
+Python 3.9+
 
 ## Installation
 
@@ -26,12 +26,8 @@ Then import the package in your project:
 import ideastatica_connection_api
 ```
 
-If the python package is hosted on a repository, you can install directly using:
-
-```sh
-pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
-```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
+> [!IMPORTANT]
+> The package version must match the version of IDEA StatiCa installed on the machine running the service — for example, with IDEA StatiCa 26.0 installed, use a 26.0.x package.
 
 ### Setuptools
 
@@ -48,7 +44,7 @@ python setup.py install --user
 `ClientApiClientFactory` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 26.0" folder. Using CLI:
 
 ```console
 IdeaStatiCa.ConnectionRestApi.exe -port:5193
@@ -133,13 +129,12 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
         pprint(detailed_results)
 
-        # get connection setup
-        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
-        pprint(connection_setup)
+        # get project settings (a dictionary of key-value pairs; the optional 'search' parameter filters by keyword)
+        settings = api_client.settings.get_settings(api_client.project.active_project_id)
+        pprint(settings)
 
-        # modify setup
-        connection_setup.hss_limit_plastic_strain = 0.02
-        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
+        # modify a setting value
+        modified_settings = api_client.settings.update_settings(api_client.project.active_project_id, {"LanguageInReport": "de"})
 
         # recalculate connection
         recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
