@@ -1,4 +1,6 @@
-﻿using System;
+using IdeaRS.OpenModel;
+using Newtonsoft.Json;
+using System;
 
 namespace IdeaStatiCa.Api.Connection.Model
 {
@@ -7,27 +9,39 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// <summary>
 		/// The name of the project
 		/// </summary>
-		public string Name { get; set; }
+		public string Name { get; set; } = string.Empty;
 
 		/// <summary>
 		/// The description of the project
 		/// </summary>
-		public string Description { get; set; }
+		public string Description { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Project number
 		/// </summary>
-		public string ProjectNumber { get; set; }
+		public string ProjectNumber { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Name of the author
 		/// </summary>
-		public string Author { get; set; }
+		public string Author { get; set; } = string.Empty;
 
 		/// <summary>
-		/// Design code
+		/// Design code of the project. Defaults to <see cref="CountryCode.ECEN"/>.
+		/// Serialized as the <c>countryCode</c> field (by name).
 		/// </summary>
-		public string DesignCode { get; set; }
+		public CountryCode CountryCode { get; set; } = CountryCode.ECEN;
+
+		/// <summary>
+		/// Design code (legacy string accessor). Reads/writes <see cref="CountryCode"/>.
+		/// </summary>
+		[Obsolete("Use CountryCode (IdeaRS.OpenModel.CountryCode) instead. This string accessor will be removed in a future release.")]
+		[JsonIgnore]
+		public string DesignCode
+		{
+			get => CountryCode.ToString();
+			set => CountryCode = Enum.TryParse<CountryCode>(value, ignoreCase: true, out var code) ? code : CountryCode.ECEN;
+		}
 
 		/// <summary>
 		/// Date
