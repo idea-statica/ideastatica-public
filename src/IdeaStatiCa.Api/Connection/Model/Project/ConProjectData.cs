@@ -9,22 +9,22 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// <summary>
 		/// The name of the project
 		/// </summary>
-		public string Name { get; set; } = string.Empty;
+		public string Name { get; set; }
 
 		/// <summary>
 		/// The description of the project
 		/// </summary>
-		public string Description { get; set; } = string.Empty;
+		public string Description { get; set; }
 
 		/// <summary>
 		/// Project number
 		/// </summary>
-		public string ProjectNumber { get; set; } = string.Empty;
+		public string ProjectNumber { get; set; }
 
 		/// <summary>
 		/// Name of the author
 		/// </summary>
-		public string Author { get; set; } = string.Empty;
+		public string Author { get; set; }
 
 		/// <summary>
 		/// Design code of the project. Defaults to <see cref="CountryCode.ECEN"/>.
