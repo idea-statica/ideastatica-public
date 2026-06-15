@@ -22,8 +22,9 @@ namespace CodeSamples
 			//TO DO: Here we can modify the proposed TargetValue of the individual mappings if we would like to.
 
 			//Change the design code of the project using the conversion settings.
-			string result = await conClient.Conversion.ChangeCodeAsync(conClient.ActiveProjectId, conversionSettings);
-			Console.WriteLine($"Change of design code to {conversionSettings.TargetDesignCode} finished: {result}");
+			// v4: ChangeCode returns 204 NoContent — success has no body.
+			await conClient.Conversion.ChangeCodeAsync(conClient.ActiveProjectId, conversionSettings);
+			Console.WriteLine($"Change of design code to {conversionSettings.TargetDesignCode} finished.");
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("ChangeCode");
 			string saveFilePath = Path.Combine(exampleFolder, "cleat-connection-AISC.ideaCon");
