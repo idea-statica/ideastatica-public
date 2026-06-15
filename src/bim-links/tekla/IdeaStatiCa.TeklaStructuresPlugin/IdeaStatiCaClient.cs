@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using IdeaStatiCa.BIM.Common;
 using IdeaStatiCa.BimApiLink;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Hooks;
@@ -17,10 +18,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
     {
         private const string LinkName = "Tekla Structures";
         private readonly IPluginLogger pluginLogger;
+        private readonly SorterSettings sorterSettings;
 
-        public IdeaStatiCaClient(IPluginLogger pluginLogger)
+        public IdeaStatiCaClient(IPluginLogger pluginLogger, SorterSettings sorterSettings = null)
         {
             this.pluginLogger = pluginLogger;
+            this.sorterSettings = sorterSettings;
             pluginLogger?.LogInformation("IdeaStatiCaClient constructor called");
             pluginLogger?.LogInformation($"Plugin logger type: {pluginLogger?.GetType().FullName}");
         }
@@ -49,6 +52,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
                 builder.RegisterType<WorkPlaneImporter>().SingleInstance().AsImplementedInterfaces();
                 builder.RegisterType<CutImporter>().SingleInstance().AsImplementedInterfaces();
+
+                var resolvedSorterSettings = sorterSettings ?? new SorterSettings
+                {
+                    EnlargeNodeXin = 1.6,
+                    EnlargeNodeXout = 1.6,
+                    EnlargeNodeY = 1.7,
+                    EnlargeNodeZ = 1.7,
+                };
+                builder.RegisterInstance(resolvedSorterSettings).AsSelf().SingleInstance();
 
                 builder.RegisterType<Model>();
                 builder.RegisterType<ModelClient>().WithParameter(new TypedParameter(typeof(Tekla.Structures.Model.Model), new Tekla.Structures.Model.Model())).AsImplementedInterfaces().SingleInstance();
