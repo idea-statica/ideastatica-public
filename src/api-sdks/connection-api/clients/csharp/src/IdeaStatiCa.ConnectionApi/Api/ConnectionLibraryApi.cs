@@ -460,6 +460,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "image/png"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -540,6 +541,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "image/png"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);

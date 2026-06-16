@@ -103,8 +103,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -179,8 +181,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -255,8 +259,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -394,7 +400,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -465,7 +474,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -536,7 +548,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -671,6 +686,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConConnection]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -741,6 +759,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConConnection]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -811,6 +832,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConConnection]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -943,7 +967,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1014,7 +1040,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1085,7 +1113,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1218,6 +1248,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1288,6 +1321,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1358,6 +1394,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1486,6 +1525,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConConnection]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1552,6 +1594,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConConnection]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1618,6 +1663,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConConnection]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1747,6 +1795,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProductionCost",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1817,6 +1868,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProductionCost",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1887,6 +1941,9 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProductionCost",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2023,6 +2080,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2097,6 +2158,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2171,6 +2236,10 @@ class ConnectionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConnection",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

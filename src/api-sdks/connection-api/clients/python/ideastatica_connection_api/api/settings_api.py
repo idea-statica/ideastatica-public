@@ -97,7 +97,9 @@ class SettingsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -168,7 +170,9 @@ class SettingsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -239,7 +243,9 @@ class SettingsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -374,8 +380,10 @@ class SettingsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -446,8 +454,10 @@ class SettingsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -518,8 +528,10 @@ class SettingsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

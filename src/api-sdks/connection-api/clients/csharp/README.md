@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 4.0
 
 - API version: 4.0
-- SDK version: 26.0.2.1552
+- SDK version: 26.0.3.0949
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -31,7 +31,7 @@ Projects can be created by the template or the the wizard in Visual Studio. See 
 `ClientApiClientFactory` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 26.0" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
 IdeaStatiCa.ConnectionRestApi.exe -port:5193
@@ -71,7 +71,7 @@ namespace Example
         {
             string ideaConFile = "test1.ideaCon";
 
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
 
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -117,6 +117,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**Calculate**](docs/CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
 [**GetRawJsonResults**](docs/CalculationApi.md#getrawjsonresults) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+[**GetResultMesh**](docs/CalculationApi.md#getresultmesh) | Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
 [**GetResults**](docs/CalculationApi.md#getresults) | Gets detailed results of the CBFEM analysis.
   ### ClientApi
 
@@ -165,6 +166,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**ExportDWG^**](docs/ExportApi.md#exportdwg) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
 [**ExportIFC^**](docs/ExportApi.md#exportifc) | Exports the connection to IFC format.
 [**ExportIom**](docs/ExportApi.md#exportiom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 [**ExportIomConnectionData**](docs/ExportApi.md#exportiomconnectiondata) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
@@ -240,8 +242,8 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**GetDataScene3DTextV4**](docs/PresentationApi.md#getdatascene3dtextv4) | Returns serialized data for Scene3D in JSON format.
-[**GetDataScene3DV4**](docs/PresentationApi.md#getdatascene3dv4) | Returns data for Scene3D visualization.
+[**GetDataScene3D**](docs/PresentationApi.md#getdatascene3d) | Returns data for Scene3D visualization.
+[**GetDataScene3DText**](docs/PresentationApi.md#getdatascene3dtext) | Returns serialized data for Scene3D in JSON format.
   ### ProjectApi
 
   
@@ -366,6 +368,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CutPart](docs/CutPart.md)
  - [Model.DistanceComparison](docs/DistanceComparison.md)
  - [Model.DrawData](docs/DrawData.md)
+ - [Model.FemElement](docs/FemElement.md)
  - [Model.FoldedPlateData](docs/FoldedPlateData.md)
  - [Model.IGroup](docs/IGroup.md)
  - [Model.IdeaParameter](docs/IdeaParameter.md)
@@ -378,19 +381,24 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.OpenElementId](docs/OpenElementId.md)
  - [Model.OpenMessage](docs/OpenMessage.md)
  - [Model.OpenMessages](docs/OpenMessages.md)
+ - [Model.ParameterExpressionType](docs/ParameterExpressionType.md)
  - [Model.ParameterUpdateResponse](docs/ParameterUpdateResponse.md)
  - [Model.PinGrid](docs/PinGrid.md)
  - [Model.PlateData](docs/PlateData.md)
+ - [Model.PlateElements](docs/PlateElements.md)
  - [Model.Point2D](docs/Point2D.md)
  - [Model.Point3D](docs/Point3D.md)
  - [Model.PolyLine2D](docs/PolyLine2D.md)
  - [Model.ProblemDetails](docs/ProblemDetails.md)
  - [Model.ReferenceElement](docs/ReferenceElement.md)
  - [Model.Region2D](docs/Region2D.md)
+ - [Model.ResultOnMesh](docs/ResultOnMesh.md)
+ - [Model.ResultOnMeshType](docs/ResultOnMeshType.md)
  - [Model.SearchOption](docs/SearchOption.md)
  - [Model.Segment2D](docs/Segment2D.md)
  - [Model.Selected](docs/Selected.md)
  - [Model.SelectedType](docs/SelectedType.md)
+ - [Model.StructuralPlateType](docs/StructuralPlateType.md)
  - [Model.TemplateConversions](docs/TemplateConversions.md)
  - [Model.Text](docs/Text.md)
  - [Model.TextPosition](docs/TextPosition.md)
@@ -411,7 +419,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- SDK version: 26.0.2.1552
+- SDK version: 26.0.3.0949
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

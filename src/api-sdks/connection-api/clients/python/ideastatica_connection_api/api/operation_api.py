@@ -100,6 +100,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -170,6 +173,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -240,6 +246,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -283,6 +292,13 @@ class OperationApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -365,6 +381,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConOperationCommonProperties",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -435,6 +454,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConOperationCommonProperties",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -505,6 +527,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConOperationCommonProperties",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -637,6 +662,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConOperation]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -707,6 +735,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConOperation]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -777,6 +808,9 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConOperation]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -913,7 +947,10 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
             '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -989,7 +1026,10 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
             '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -1065,7 +1105,10 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
             '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -1208,6 +1251,10 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1282,6 +1329,10 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1356,6 +1407,10 @@ class OperationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1402,6 +1457,13 @@ class OperationApi:
             _body_params = con_operation_common_properties
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

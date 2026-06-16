@@ -99,7 +99,10 @@ class ConversionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
             '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -171,7 +174,10 @@ class ConversionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
             '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -243,7 +249,10 @@ class ConversionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
             '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -390,7 +399,10 @@ class ConversionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConversionSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -461,7 +473,10 @@ class ConversionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConversionSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -532,7 +547,10 @@ class ConversionApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConConversionSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

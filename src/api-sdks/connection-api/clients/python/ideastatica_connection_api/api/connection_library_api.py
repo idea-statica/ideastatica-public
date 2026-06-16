@@ -102,6 +102,8 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -173,6 +175,8 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -244,6 +248,8 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -291,6 +297,13 @@ class ConnectionLibraryApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'image/png'
+                ]
+            )
 
 
         # authentication setting
@@ -366,6 +379,8 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConDesignSet]",
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -429,6 +444,8 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConDesignSet]",
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -492,6 +509,8 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConDesignSet]",
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -619,7 +638,9 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -691,7 +712,9 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -763,7 +786,9 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -905,6 +930,10 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConDesignItem]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -980,6 +1009,10 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConDesignItem]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1055,6 +1088,10 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConDesignItem]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1207,6 +1244,10 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1281,6 +1322,10 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1355,6 +1400,10 @@ class ConnectionLibraryApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

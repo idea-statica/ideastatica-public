@@ -48,6 +48,30 @@ paths:
                   $ref: '#/components/schemas/ConResultSummary'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Runs CBFEM calculation and returns the summary of the results.
       tags:
       - Calculation
@@ -86,6 +110,30 @@ paths:
                   $ref: '#/components/schemas/ConnectionCheckRes'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets detailed results of the CBFEM analysis.
       tags:
       - Calculation
@@ -139,12 +187,101 @@ paths:
                   type: string
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets JSON string which represents raw CBFEM results (an instance of
         CheckResultsData).
       tags:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
+  /api/4/projects/{projectId}/connections/{connectionId}/result-mesh:
+    get:
+      description: "The connection must already be calculated; otherwise the request\
+        \ fails. `Value` holds one scalar\r\nper node for the selected resultType\
+        \ and is index-aligned with `Nodes`:\r\nfor `Stress` it is the equivalent\
+        \ (von Mises) stress σ_Ed in Pa; for `Strain` it is the\r\nplastic strain\
+        \ ε_Pl (dimensionless). `FemElement.Vertices` are zero-based indices into\
+        \ `Nodes`\r\n(Type 1 = triangle / 3 nodes, Type 2 = quad / 4 nodes). Node\
+        \ coordinates and displacements are X, Y, Z\r\nin metres. Values are per node;\
+        \ request once per quantity (e.g. Stress, then Strain) on the same mesh."
+      operationId: GetResultMesh
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection whose result mesh is requested.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: "Quantity returned per node: `Stress` = equivalent (von Mises)\
+          \ stress σ_Ed [Pa];\r\n`Strain` = plastic strain ε_Pl [-]; `StrainCheck`;\
+          \ `FondationStress` = foundation\r\ncontact stress [Pa]; `OverallCheck`."
+        explode: true
+        in: query
+        name: resultType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ResultOnMeshType'
+        style: form
+      - description: The id of the load case to read results for.
+        explode: true
+        in: query
+        name: loadId
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOnMesh'
+          description: OK
+      summary: "Returns the result mesh of a calculated connection: the mesh nodes,\
+        \ one result value per node for the\r\nrequested quantity, the nodal displacements,\
+        \ and the element connectivity grouped per plate."
+      tags:
+      - Calculation
+      x-requiresProject: true
+      x-requiresConnection: true
   /api/4/clients/connect-client:
     get:
       operationId: ConnectClient
@@ -155,6 +292,12 @@ paths:
               schema:
                 type: string
           description: OK
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Connects a client to the ConnectionRestApi service and returns a unique
         identifier for the client.
       tags:
@@ -205,6 +348,24 @@ paths:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets data about all connections in the project.
       tags:
       - Connection
@@ -239,12 +400,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a new empty connection to the project.
       tags:
       - Connection
@@ -282,6 +461,24 @@ paths:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Deletes a specific connection from the project.
       tags:
       - Connection
@@ -316,12 +513,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets data about a specific connection in the project.
       tags:
       - Connection
@@ -362,6 +571,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates data of a specific connection in the project.
       tags:
       - Connection
@@ -406,6 +639,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
@@ -418,6 +657,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Creates a copy of an existing connection in the project.
       tags:
       - Connection
@@ -453,6 +698,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProductionCost'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the production cost of the connection.
       tags:
       - Connection
@@ -488,6 +751,24 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the topology of the connection in JSON format.
       tags:
       - Connection
@@ -508,6 +789,18 @@ paths:
                   $ref: '#/components/schemas/ConDesignSet'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves a list of design sets available for the user.
       tags:
       - ConnectionLibrary
@@ -555,6 +848,30 @@ paths:
                   $ref: '#/components/schemas/ConDesignItem'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Proposes a list of design items for a specified connection within a
         project.
       tags:
@@ -595,12 +912,24 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             text/plain:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves the template associated with the specified design set and
         design item.
       tags:
@@ -636,6 +965,18 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "500":
+          content:
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves the picture associated with the specified design item as
         a PNG image.
       tags:
@@ -679,6 +1020,30 @@ paths:
               schema:
                 type: boolean
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Publish template to Private or Company set.
       tags:
       - ConnectionLibrary
@@ -713,12 +1078,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConversionSettings'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets default conversion mappings for converting the project to a different
         design code.
       tags:
@@ -749,12 +1132,30 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
         "501":
           content:
             application/json:
@@ -806,6 +1207,33 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Exports the connection to XML which includes the OpenModelContainer
         (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
       tags:
@@ -844,6 +1272,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConnectionData'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
       tags:
       - Export
@@ -878,12 +1333,67 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Exports the connection to IFC format.
       tags:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: ExportIfcFile
+  /api/4/projects/{projectId}/connections/{connectionId}/export-dwg:
+    get:
+      operationId: ExportDWG
+      parameters:
+      - description: The unique identifier of the opened local project.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The local id of the connection to export.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: "Exports the connection to DWG format. Internally opens the project\
+        \ on the cloud Viewer, starts a Forge work\r\nitem via the async DWG flow,\
+        \ blocks until completion (up to 10 minutes), then streams the generated DWG.\r\
+        \nThe client does not need to pass any authentication — the ConnectionRestApi\
+        \ reuses the IDEA license access\r\ntoken from the Credential Manager (via\
+        \ AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's\r\n\
+        authenticated DWG endpoints. User identity (email) is part of that JWT."
+      tags:
+      - Export
+      x-requiresProject: true
+      x-requiresConnection: true
+      x-extensionMethodName: ExportDwgFile
   /api/4/projects/{projectId}/connections/{connectionId}/load-effects:
     get:
       operationId: GetLoadEffects
@@ -924,6 +1434,24 @@ paths:
                   $ref: '#/components/schemas/ConLoadEffect'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets all load effects defined in the specified connection.
       tags:
       - LoadEffect
@@ -963,12 +1491,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a new load effect to the connection.
       tags:
       - LoadEffect
@@ -1008,6 +1554,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
@@ -1020,6 +1572,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Update load impulses in conLoading.
       tags:
       - LoadEffect
@@ -1064,6 +1622,24 @@ paths:
                 format: int32
                 type: integer
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Delete load effect loadEffectId.
       tags:
       - LoadEffect
@@ -1115,12 +1691,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets load impulses from the specified load effect.
       tags:
       - LoadEffect
@@ -1155,6 +1743,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadSettings'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Get Load settings for connection in project.
       tags:
       - LoadEffect
@@ -1195,6 +1801,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadSettings'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Set Load settings for connection in project.
       tags:
       - LoadEffect
@@ -1222,6 +1852,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1249,6 +1897,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1279,12 +1945,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
@@ -1312,6 +1996,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1342,12 +2044,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
@@ -1375,6 +2095,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1405,12 +2143,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
@@ -1438,6 +2194,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1468,12 +2242,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
@@ -1501,6 +2293,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1531,12 +2341,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
@@ -1564,6 +2392,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets cross sections used in the specified project.
       tags:
       - Material
@@ -1594,6 +2440,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Add cross section to the project.
       tags:
       - Material
@@ -1621,6 +2491,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets bolt assemblies used in the specified project.
       tags:
       - Material
@@ -1651,6 +2539,30 @@ paths:
             application/json:
               schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Add bolt assembly to the project.
       tags:
       - Material
@@ -1688,6 +2600,24 @@ paths:
                   $ref: '#/components/schemas/ConMember'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets information about all members in the connection.
       tags:
       - Member
@@ -1728,12 +2658,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a new member to the connection.
       tags:
       - Member
@@ -1774,6 +2722,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates the member in the connection with the provided data.
       tags:
       - Member
@@ -1818,12 +2790,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets information about the specified member in the connection.
       tags:
       - Member
@@ -1868,12 +2852,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Set bearing member for memberId.
       tags:
       - Member
@@ -1904,6 +2906,24 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Delete all operations for the connection.
       tags:
       - Operation
@@ -1940,6 +2960,24 @@ paths:
                   $ref: '#/components/schemas/ConOperation'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the list of operations for the connection.
       tags:
       - Operation
@@ -1974,6 +3012,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConOperationCommonProperties'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets common operation properties.
       tags:
       - Operation
@@ -2010,6 +3066,30 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates common properties for all operations.
       tags:
       - Operation
@@ -2052,12 +3132,30 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
         "501":
           content:
             application/json:
@@ -2095,6 +3193,24 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Delete all parameters and parameter model links for the connection
         connectionId in the project projectId.
       tags:
@@ -2141,6 +3257,24 @@ paths:
                   $ref: '#/components/schemas/IdeaParameter'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets all parameters defined for the specified project and connection.
       tags:
       - Parameter
@@ -2183,12 +3317,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ParameterUpdateResponse'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates parameters for the specified connection in the project with
         the values provided.
       tags:
@@ -2232,6 +3384,30 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Evaluate the expression and return the result.\r\nFor more details\
         \ see documentation about parameters:\r\nhttps://developer.ideastatica.com/docs/api/api_parameters_getting_started.html\r\
         \nor\r\nhttps://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html"
@@ -2241,7 +3417,7 @@ paths:
       x-requiresConnection: true
   /api/4/projects/{projectId}/connections/{connectionId}/presentations:
     get:
-      operationId: GetDataScene3DV4
+      operationId: GetDataScene3D
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service.
@@ -2269,6 +3445,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/DrawData'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Returns data for Scene3D visualization.
       tags:
       - Presentation
@@ -2276,7 +3470,7 @@ paths:
       x-requiresConnection: true
   /api/4/projects/{projectId}/connections/{connectionId}/presentations/text:
     get:
-      operationId: GetDataScene3DTextV4
+      operationId: GetDataScene3DText
       parameters:
       - description: The unique identifier of the opened project.
         explode: false
@@ -2303,6 +3497,24 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Returns serialized data for Scene3D in JSON format.
       tags:
       - Presentation
@@ -2326,12 +3538,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Opens an IdeaCon project from the provided file.
       tags:
       - Project
@@ -2354,6 +3578,24 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Closes the project and releases resources in the service.
       tags:
       - Project
@@ -2371,6 +3613,18 @@ paths:
                   $ref: '#/components/schemas/ConProject'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the list of projects in the service that were opened by the client
         connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
       tags:
@@ -2403,12 +3657,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Creates a new empty IdeaCon project with no connections.
       tags:
       - Project
@@ -2432,6 +3698,24 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Downloads the current IdeaCon project from the service, including\
         \ all changes made by previous API calls."
       tags:
@@ -2459,6 +3743,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Get data of the project.
       tags:
       - Project
@@ -2499,6 +3801,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates ConProjectData of project.
       tags:
       - Project
@@ -2524,12 +3850,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Create the IDEA Connection project from IOM provided in xml format.\r\
         \nThe parameter 'containerXmlFile' passed in HTTP body represents :\r\n[IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)\r\
         \nwhich is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)"
@@ -2567,12 +3905,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
         "422":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)\
         \  (model and results).\r\nIOM is passed in the body of the request as the\
         \ xml string.\r\n[IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)\
@@ -2608,6 +3964,54 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Generates a report for multiple connections in PDF or Word format.
       tags:
       - Report
@@ -2640,6 +4044,54 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Generates a report for multiple connections in PDF or Word format.
       tags:
       - Report
@@ -2671,6 +4123,42 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Generates a report for the specified connection in PDF, Word, or HTML\
         \ zip format."
       tags:
@@ -2703,6 +4191,42 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Generates a report for the specified connection in PDF, Word, or HTML\
         \ zip format."
       tags:
@@ -2735,6 +4259,42 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Generates a report for the specified connection in PDF, Word, or HTML\
         \ zip format."
       tags:
@@ -2771,12 +4331,24 @@ paths:
                 additionalProperties: {}
                 type: object
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets setting values for the project.
       tags:
       - Settings
@@ -2809,6 +4381,12 @@ paths:
                 additionalProperties: {}
                 type: object
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
@@ -2821,6 +4399,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates one or multiple setting values in the project.
       tags:
       - Settings
@@ -2864,12 +4448,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnectionTemplate'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves a specific template by its ID for a given connection within
         a project.
       tags:
@@ -2902,6 +4498,42 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Delete all templates in connection.
       tags:
       - Template
@@ -2942,6 +4574,24 @@ paths:
                   $ref: '#/components/schemas/ConConnectionTemplate'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves a list of templates associated with a specific connection
         within a project.
       tags:
@@ -2978,6 +4628,24 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Create a template for the connection connectionId in the project projectId.
       tags:
       - Template
@@ -3013,6 +4681,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConTemplateCreateResult'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Create a reusable connection template from connectionId with structured\
         \ metadata.\r\nCaptures the connection's parametric design — operations, parameters,\
         \ parametric links,\r\nanalysis info, loads and clipping/section data — and\
@@ -3063,6 +4755,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/TemplateConversions'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Get the default mappings for the application of the connection template\
         \ passed in templateToApply\r\non connectionId in the project projectId."
       tags:
@@ -3105,6 +4821,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConTemplateApplyResult'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Apply the connection template applyTemplateParam on the connection
         connectionId in the project projectId.
       tags:
@@ -3137,6 +4877,54 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Explode all templates (delete parameters, keep operations)."
       tags:
       - Template
@@ -3177,6 +4965,18 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             text/plain:
@@ -3189,6 +4989,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Explode specific template (delete parameters, keep operations)."
       tags:
       - Template
@@ -3229,6 +5053,18 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
         "404":
           content:
             text/plain:
@@ -3241,6 +5077,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Delete specific template.
       tags:
       - Template
@@ -3285,6 +5133,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConOperationCommonProperties'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Get common properties for specific template.
       tags:
       - Template
@@ -3331,6 +5197,54 @@ paths:
       responses:
         "204":
           description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Set common properties for specific template.
       tags:
       - Template
@@ -3375,6 +5289,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ParameterUpdateResponse'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Load parameter defaults for specific template.
       tags:
       - Template
@@ -4888,10 +6826,10 @@ components:
         projectInfo:
           date: 2000-01-23T04:56:07.000+00:00
           author: author
+          countryCode: none
           projectNumber: projectNumber
           name: name
           description: description
-          designCode: designCode
         projectId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         connections:
         - identifier: identifier
@@ -4925,10 +6863,10 @@ components:
       example:
         date: 2000-01-23T04:56:07.000+00:00
         author: author
+        countryCode: none
         projectNumber: projectNumber
         name: name
         description: description
-        designCode: designCode
       properties:
         name:
           nullable: true
@@ -4942,9 +6880,8 @@ components:
         author:
           nullable: true
           type: string
-        designCode:
-          nullable: true
-          type: string
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
         date:
           format: date-time
           type: string
@@ -7056,6 +8993,28 @@ components:
           nullable: true
           type: array
       type: object
+    FemElement:
+      additionalProperties: false
+      description: Provides information about FEM element
+      example:
+        vertices:
+        - 5
+        - 5
+        type: 1
+      properties:
+        type:
+          description: "Type of the finite element\r\n1 - triangular element 2D\r\n\
+            2 - quadrilateral element 2D"
+          format: int32
+          type: integer
+        vertices:
+          description: Get list of vertices of the fem element
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
     FoldedPlateData:
       additionalProperties: false
       description: Provides data of the folded plate
@@ -7393,6 +9352,7 @@ components:
       additionalProperties: false
       example:
         expression: expression
+        expressionType: value
         key: key
       properties:
         key:
@@ -7401,6 +9361,8 @@ components:
         expression:
           nullable: true
           type: string
+        expressionType:
+          $ref: '#/components/schemas/ParameterExpressionType'
       type: object
     IdeaParameterValidation:
       additionalProperties: false
@@ -7567,6 +9529,14 @@ components:
           nullable: true
           type: array
       type: object
+    ParameterExpressionType:
+      enum:
+      - value
+      - lowerBound
+      - upperBound
+      - defaultExpression
+      - validationExpression
+      type: string
     ParameterUpdateResponse:
       additionalProperties: false
       example:
@@ -7833,6 +9803,35 @@ components:
           format: int32
           type: integer
       type: object
+    PlateElements:
+      additionalProperties: false
+      description: Data of plate elements
+      example:
+        plateType: steelPlate
+        plateUID: 6
+        elements:
+        - vertices:
+          - 5
+          - 5
+          type: 1
+        - vertices:
+          - 5
+          - 5
+          type: 1
+      properties:
+        plateType:
+          $ref: '#/components/schemas/StructuralPlateType'
+        plateUID:
+          description: Plate UID
+          format: int32
+          type: integer
+        elements:
+          description: List of fem elements for plate UID
+          items:
+            $ref: '#/components/schemas/FemElement'
+          nullable: true
+          type: array
+      type: object
     Point2D:
       additionalProperties: false
       description: Represents an x- and y-coordinate pair in two-dimensional space.
@@ -7906,7 +9905,7 @@ components:
         detail: detail
         type: type
         title: title
-        status: 0
+        status: 5
       properties:
         type:
           nullable: true
@@ -7992,6 +9991,84 @@ components:
           nullable: true
           type: array
       type: object
+    ResultOnMesh:
+      additionalProperties: false
+      example:
+        nodes:
+        - - 0.8008281904610115
+          - 0.8008281904610115
+        - - 0.8008281904610115
+          - 0.8008281904610115
+        platesElement:
+        - plateType: steelPlate
+          plateUID: 6
+          elements:
+          - vertices:
+            - 5
+            - 5
+            type: 1
+          - vertices:
+            - 5
+            - 5
+            type: 1
+        - plateType: steelPlate
+          plateUID: 6
+          elements:
+          - vertices:
+            - 5
+            - 5
+            type: 1
+          - vertices:
+            - 5
+            - 5
+            type: 1
+        displacement:
+        - - 5.637376656633329
+          - 5.637376656633329
+        - - 5.637376656633329
+          - 5.637376656633329
+        value:
+        - 2.3021358869347655
+        - 2.3021358869347655
+      properties:
+        nodes:
+          items:
+            items:
+              format: double
+              type: number
+            type: array
+          nullable: true
+          type: array
+        platesElement:
+          description: List of elements for each plate UID
+          items:
+            $ref: '#/components/schemas/PlateElements'
+          nullable: true
+          type: array
+        displacement:
+          items:
+            items:
+              format: double
+              type: number
+            type: array
+          nullable: true
+          type: array
+        value:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+      type: object
+    ResultOnMeshType:
+      description: Type of result on mesh
+      enum:
+      - strain
+      - strainCheck
+      - stress
+      - fondationStress
+      - overallCheck
+      type: string
     SearchOption:
       enum:
       - ignore
@@ -8032,6 +10109,12 @@ components:
           readOnly: true
           type: string
       type: object
+    StructuralPlateType:
+      description: Tyoe of structural plate
+      enum:
+      - steelPlate
+      - weld
+      type: string
     TemplateConversions:
       additionalProperties: false
       example:

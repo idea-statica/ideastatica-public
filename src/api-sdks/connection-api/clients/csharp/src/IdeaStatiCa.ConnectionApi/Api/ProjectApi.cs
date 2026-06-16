@@ -622,6 +622,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -693,6 +694,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -914,6 +916,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/octet-stream"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -985,6 +988,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
+                "application/octet-stream"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);

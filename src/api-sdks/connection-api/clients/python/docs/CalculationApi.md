@@ -6,6 +6,7 @@ Method | Description
 ------------- | -------------
 [**calculate**](CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
 [**get_raw_json_results**](CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+[**get_result_mesh**](CalculationApi.md#get_result_mesh) | Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
 [**get_results**](CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
 
 
@@ -84,6 +85,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -156,6 +161,95 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_result_mesh"></a>
+# **get_result_mesh**
+> ResultOnMesh get_result_mesh(project_id, connection_id, result_type=result_type, load_id=load_id)
+
+Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
+
+The connection must already be calculated; otherwise the request fails. `Value` holds one scalar  per node for the selected resultType and is index-aligned with `Nodes`:  for `Stress` it is the equivalent (von Mises) stress σ_Ed in Pa; for `Strain` it is the  plastic strain ε_Pl (dimensionless). `FemElement.Vertices` are zero-based indices into `Nodes`  (Type 1 = triangle / 3 nodes, Type 2 = quad / 4 nodes). Node coordinates and displacements are X, Y, Z  in metres. Values are per node; request once per quantity (e.g. Stress, then Strain) on the same mesh.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection whose result mesh is requested. | 
+ **result_type** | [**ResultOnMeshType**](.md)| Quantity returned per node: &#x60;Stress&#x60; &#x3D; equivalent (von Mises) stress σ_Ed [Pa];  &#x60;Strain&#x60; &#x3D; plastic strain ε_Pl [-]; &#x60;StrainCheck&#x60;; &#x60;FondationStress&#x60; &#x3D; foundation  contact stress [Pa]; &#x60;OverallCheck&#x60;. | [optional] 
+ **load_id** | **int**| The id of the load case to read results for. | [optional] [default to 1]
+
+### Return type
+
+[**ResultOnMesh**](ResultOnMesh.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.result_on_mesh import ResultOnMesh
+from ideastatica_connection_api.models.result_on_mesh_type import ResultOnMeshType
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_result_meshExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection whose result mesh is requested.
+    result_type = ideastatica_connection_api.ResultOnMeshType() # ResultOnMeshType | Quantity returned per node: `Stress` = equivalent (von Mises) stress σ_Ed [Pa];  `Strain` = plastic strain ε_Pl [-]; `StrainCheck`; `FondationStress` = foundation  contact stress [Pa]; `OverallCheck`. (optional)
+    load_id = 1 # int | The id of the load case to read results for. (optional) (default to 1)
+
+    try:
+        # Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
+        api_response = api_client.calculation.get_result_mesh(project_id, connection_id, result_type=result_type, load_id=load_id)
+        print("The response of CalculationApi->get_result_mesh:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling CalculationApi->get_result_mesh: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/result-mesh 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -241,6 +335,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

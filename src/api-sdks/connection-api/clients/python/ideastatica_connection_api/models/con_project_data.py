@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.country_code import CountryCode
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,9 +33,9 @@ class ConProjectData(BaseModel):
     description: Optional[StrictStr] = None
     project_number: Optional[StrictStr] = Field(default=None, alias="projectNumber")
     author: Optional[StrictStr] = None
-    design_code: Optional[StrictStr] = Field(default=None, alias="designCode")
+    country_code: Optional[CountryCode] = Field(default=None, alias="countryCode")
     var_date: Optional[datetime] = Field(default=None, alias="date")
-    __properties: ClassVar[List[str]] = ["name", "description", "projectNumber", "author", "designCode", "date"]
+    __properties: ClassVar[List[str]] = ["name", "description", "projectNumber", "author", "countryCode", "date"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,11 +96,6 @@ class ConProjectData(BaseModel):
         if self.author is None and "author" in self.model_fields_set:
             _dict['author'] = None
 
-        # set to None if design_code (nullable) is None
-        # and model_fields_set contains the field
-        if self.design_code is None and "design_code" in self.model_fields_set:
-            _dict['designCode'] = None
-
         return _dict
 
     @classmethod
@@ -116,7 +112,7 @@ class ConProjectData(BaseModel):
             "description": obj.get("description"),
             "projectNumber": obj.get("projectNumber"),
             "author": obj.get("author"),
-            "designCode": obj.get("designCode"),
+            "countryCode": obj.get("countryCode"),
             "date": obj.get("date")
         })
         return _obj

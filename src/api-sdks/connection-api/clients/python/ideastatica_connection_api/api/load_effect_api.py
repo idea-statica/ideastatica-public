@@ -103,7 +103,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -178,7 +181,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -253,7 +259,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -406,6 +415,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "int",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -480,6 +492,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "int",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -554,6 +569,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "int",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -697,7 +715,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -776,7 +796,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -855,7 +877,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1000,6 +1024,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConLoadEffect]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1074,6 +1101,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConLoadEffect]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1148,6 +1178,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConLoadEffect]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1285,6 +1318,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1355,6 +1391,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1425,6 +1464,9 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1561,6 +1603,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1635,6 +1681,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1709,6 +1759,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadSettings",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1861,8 +1915,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1937,8 +1993,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2013,8 +2071,10 @@ class LoadEffectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConLoadEffect",
+            '401': "ProblemDetails",
             '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

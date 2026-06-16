@@ -34,6 +34,29 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+        /// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void ExportDWG(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+/// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ExportDWGWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Exports the connection to IFC format.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -113,6 +136,34 @@ namespace IdeaStatiCa.ConnectionApi.Api
     public interface IExportApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+        /// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ExportDWGAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+        /// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ExportDWGWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Exports the connection to IFC format.
         /// </summary>
@@ -317,6 +368,152 @@ namespace IdeaStatiCa.ConnectionApi.Api
                 return _exceptionFactory;
             }
             set { _exceptionFactory = value; }
+        }
+
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+        /// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void ExportDWG(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            ExportDWGWithHttpInfo(projectId, connectionId);
+        }
+
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+/// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> ExportDWGWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "ExportApi.ExportDWG";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<Object>("/api/4/projects/{projectId}/connections/{connectionId}/export-dwg", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ExportDWG", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+        /// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ExportDWGAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await ExportDWGWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened local project.</param>
+        /// <param name="connectionId">The local id of the connection to export.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> ExportDWGWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "ExportApi.ExportDWG";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/4/projects/{projectId}/connections/{connectionId}/export-dwg", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("ExportDWG", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
         }
 
         /// <summary>

@@ -3,13 +3,13 @@
 The Python package for the Connection Rest API 4.0
 
 - API version: 4.0
-- Package version: 26.0.2.1552
+- Package version: 26.0.3.0949
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
 ## Requirements.
 
-Python 3.9+
+Python 3.7+
 
 ## Installation
 
@@ -26,8 +26,12 @@ Then import the package in your project:
 import ideastatica_connection_api
 ```
 
-> [!IMPORTANT]
-> The package version must match the version of IDEA StatiCa installed on the machine running the service — for example, with IDEA StatiCa 26.0 installed, use a 26.0.x package.
+If the python package is hosted on a repository, you can install directly using:
+
+```sh
+pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
+```
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
 
 ### Setuptools
 
@@ -44,7 +48,7 @@ python setup.py install --user
 `ClientApiClientFactory` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 26.0" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
 IdeaStatiCa.ConnectionRestApi.exe -port:5193
@@ -129,12 +133,13 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
         pprint(detailed_results)
 
-        # get project settings (a dictionary of key-value pairs; the optional 'search' parameter filters by keyword)
-        settings = api_client.settings.get_settings(api_client.project.active_project_id)
-        pprint(settings)
+        # get connection setup
+        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
+        pprint(connection_setup)
 
-        # modify a setting value
-        modified_settings = api_client.settings.update_settings(api_client.project.active_project_id, {"LanguageInReport": "de"})
+        # modify setup
+        connection_setup.hss_limit_plastic_strain = 0.02
+        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
         # recalculate connection
         recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
@@ -164,6 +169,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**calculate**](docs/CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
 [**get_raw_json_results**](docs/CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+[**get_result_mesh**](docs/CalculationApi.md#get_result_mesh) | Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
 [**get_results**](docs/CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
   ### ClientApi
 
@@ -212,6 +218,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**export_dwg^**](docs/ExportApi.md#export_dwg) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
 [**export_ifc^**](docs/ExportApi.md#export_ifc) | Exports the connection to IFC format.
 [**export_iom**](docs/ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 [**export_iom_connection_data**](docs/ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
@@ -287,8 +294,8 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**get_data_scene3_d_text_v4**](docs/PresentationApi.md#get_data_scene3_d_text_v4) | Returns serialized data for Scene3D in JSON format.
-[**get_data_scene3_dv4**](docs/PresentationApi.md#get_data_scene3_dv4) | Returns data for Scene3D visualization.
+[**get_data_scene3_d**](docs/PresentationApi.md#get_data_scene3_d) | Returns data for Scene3D visualization.
+[**get_data_scene3_d_text**](docs/PresentationApi.md#get_data_scene3_d_text) | Returns serialized data for Scene3D in JSON format.
   ### ProjectApi
 
   
@@ -413,6 +420,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CutPart](docs/CutPart.md)
  - [ideastatica_connection_api.models.DistanceComparison](docs/DistanceComparison.md)
  - [ideastatica_connection_api.models.DrawData](docs/DrawData.md)
+ - [ideastatica_connection_api.models.FemElement](docs/FemElement.md)
  - [ideastatica_connection_api.models.FoldedPlateData](docs/FoldedPlateData.md)
  - [ideastatica_connection_api.models.IGroup](docs/IGroup.md)
  - [ideastatica_connection_api.models.IdeaParameter](docs/IdeaParameter.md)
@@ -425,19 +433,24 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.OpenElementId](docs/OpenElementId.md)
  - [ideastatica_connection_api.models.OpenMessage](docs/OpenMessage.md)
  - [ideastatica_connection_api.models.OpenMessages](docs/OpenMessages.md)
+ - [ideastatica_connection_api.models.ParameterExpressionType](docs/ParameterExpressionType.md)
  - [ideastatica_connection_api.models.ParameterUpdateResponse](docs/ParameterUpdateResponse.md)
  - [ideastatica_connection_api.models.PinGrid](docs/PinGrid.md)
  - [ideastatica_connection_api.models.PlateData](docs/PlateData.md)
+ - [ideastatica_connection_api.models.PlateElements](docs/PlateElements.md)
  - [ideastatica_connection_api.models.Point2D](docs/Point2D.md)
  - [ideastatica_connection_api.models.Point3D](docs/Point3D.md)
  - [ideastatica_connection_api.models.PolyLine2D](docs/PolyLine2D.md)
  - [ideastatica_connection_api.models.ProblemDetails](docs/ProblemDetails.md)
  - [ideastatica_connection_api.models.ReferenceElement](docs/ReferenceElement.md)
  - [ideastatica_connection_api.models.Region2D](docs/Region2D.md)
+ - [ideastatica_connection_api.models.ResultOnMesh](docs/ResultOnMesh.md)
+ - [ideastatica_connection_api.models.ResultOnMeshType](docs/ResultOnMeshType.md)
  - [ideastatica_connection_api.models.SearchOption](docs/SearchOption.md)
  - [ideastatica_connection_api.models.Segment2D](docs/Segment2D.md)
  - [ideastatica_connection_api.models.Selected](docs/Selected.md)
  - [ideastatica_connection_api.models.SelectedType](docs/SelectedType.md)
+ - [ideastatica_connection_api.models.StructuralPlateType](docs/StructuralPlateType.md)
  - [ideastatica_connection_api.models.TemplateConversions](docs/TemplateConversions.md)
  - [ideastatica_connection_api.models.Text](docs/Text.md)
  - [ideastatica_connection_api.models.TextPosition](docs/TextPosition.md)
@@ -453,7 +466,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- Package version: 26.0.2.1552
+- Package version: 26.0.3.0949
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

@@ -100,6 +100,9 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -170,6 +173,9 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -240,6 +246,9 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -283,6 +292,13 @@ class ParameterApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -369,6 +385,10 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -443,6 +463,10 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -517,6 +541,10 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -669,6 +697,9 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[IdeaParameter]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -743,6 +774,9 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[IdeaParameter]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -817,6 +851,9 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[IdeaParameter]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -958,7 +995,10 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ParameterUpdateResponse",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1033,7 +1073,10 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ParameterUpdateResponse",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1108,7 +1151,10 @@ class ParameterApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ParameterUpdateResponse",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

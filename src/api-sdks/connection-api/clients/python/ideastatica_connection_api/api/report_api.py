@@ -97,6 +97,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -167,6 +170,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -237,6 +243,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -280,6 +289,15 @@ class ReportApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain', 
+                    'application/json', 
+                    'text/json'
+                ]
+            )
 
 
         # authentication setting
@@ -362,6 +380,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -432,6 +453,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -502,6 +526,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -545,6 +572,15 @@ class ReportApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain', 
+                    'application/json', 
+                    'text/json'
+                ]
+            )
 
 
         # authentication setting
@@ -627,6 +663,10 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -697,6 +737,10 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -767,6 +811,10 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -811,6 +859,15 @@ class ReportApi:
             _body_params = request_body
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain', 
+                    'application/json', 
+                    'text/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -906,6 +963,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -976,6 +1036,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1046,6 +1109,9 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1089,6 +1155,15 @@ class ReportApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain', 
+                    'application/json', 
+                    'text/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1171,6 +1246,10 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1241,6 +1320,10 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1311,6 +1394,10 @@ class ReportApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1355,6 +1442,15 @@ class ReportApi:
             _body_params = request_body
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/plain', 
+                    'application/json', 
+                    'text/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

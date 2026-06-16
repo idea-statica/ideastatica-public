@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.0.2.1552"
+__version__ = "26.0.3.0949"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -114,6 +114,7 @@ from ideastatica_connection_api.models.cut_orientation import CutOrientation
 from ideastatica_connection_api.models.cut_part import CutPart
 from ideastatica_connection_api.models.distance_comparison import DistanceComparison
 from ideastatica_connection_api.models.draw_data import DrawData
+from ideastatica_connection_api.models.fem_element import FemElement
 from ideastatica_connection_api.models.folded_plate_data import FoldedPlateData
 from ideastatica_connection_api.models.i_group import IGroup
 from ideastatica_connection_api.models.idea_parameter import IdeaParameter
@@ -126,19 +127,24 @@ from ideastatica_connection_api.models.message_number import MessageNumber
 from ideastatica_connection_api.models.open_element_id import OpenElementId
 from ideastatica_connection_api.models.open_message import OpenMessage
 from ideastatica_connection_api.models.open_messages import OpenMessages
+from ideastatica_connection_api.models.parameter_expression_type import ParameterExpressionType
 from ideastatica_connection_api.models.parameter_update_response import ParameterUpdateResponse
 from ideastatica_connection_api.models.pin_grid import PinGrid
 from ideastatica_connection_api.models.plate_data import PlateData
+from ideastatica_connection_api.models.plate_elements import PlateElements
 from ideastatica_connection_api.models.point2_d import Point2D
 from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.poly_line2_d import PolyLine2D
 from ideastatica_connection_api.models.problem_details import ProblemDetails
 from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.region2_d import Region2D
+from ideastatica_connection_api.models.result_on_mesh import ResultOnMesh
+from ideastatica_connection_api.models.result_on_mesh_type import ResultOnMeshType
 from ideastatica_connection_api.models.search_option import SearchOption
 from ideastatica_connection_api.models.segment2_d import Segment2D
 from ideastatica_connection_api.models.selected import Selected
 from ideastatica_connection_api.models.selected_type import SelectedType
+from ideastatica_connection_api.models.structural_plate_type import StructuralPlateType
 from ideastatica_connection_api.models.template_conversions import TemplateConversions
 from ideastatica_connection_api.models.text import Text
 from ideastatica_connection_api.models.text_position import TextPosition

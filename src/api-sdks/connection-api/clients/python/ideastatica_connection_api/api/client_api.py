@@ -87,6 +87,7 @@ class ClientApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -149,6 +150,7 @@ class ClientApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -211,6 +213,7 @@ class ClientApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -95,6 +95,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -161,6 +164,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -227,6 +233,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -267,6 +276,13 @@ class ProjectApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -345,7 +361,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -412,7 +430,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -479,7 +499,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -621,6 +643,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -687,6 +712,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -753,6 +781,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -793,6 +824,13 @@ class ProjectApi:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/octet-stream'
+                ]
+            )
 
 
         # authentication setting
@@ -867,6 +905,8 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConProject]",
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -929,6 +969,8 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConProject]",
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -991,6 +1033,8 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConProject]",
+            '401': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1113,6 +1157,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1179,6 +1226,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1245,6 +1295,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1374,7 +1427,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1445,7 +1500,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1516,7 +1573,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1659,7 +1718,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1726,7 +1787,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1793,7 +1856,9 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1936,7 +2001,10 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2007,7 +2075,10 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2078,7 +2149,10 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
             '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2224,6 +2298,10 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2294,6 +2372,10 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2364,6 +2446,10 @@ class ProjectApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConProject",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
