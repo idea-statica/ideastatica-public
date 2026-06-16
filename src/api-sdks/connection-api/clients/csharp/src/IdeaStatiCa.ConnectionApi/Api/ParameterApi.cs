@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Mime;
 using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
+using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;

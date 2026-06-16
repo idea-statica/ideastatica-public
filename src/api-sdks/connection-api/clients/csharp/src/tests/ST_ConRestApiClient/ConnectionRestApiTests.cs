@@ -348,7 +348,7 @@ namespace ST_ConnectionRestApi
 		public async Task ShouldGetSceneData()
 		{
 			var con1 = Project!.Connections.First();
-			var sceneData = await ConnectionApiClient!.Presentation.GetDataScene3DV4Async(ActiveProjectId, con1.Id);
+			var sceneData = await ConnectionApiClient!.Presentation.GetDataScene3DAsync(ActiveProjectId, con1.Id);
 			sceneData.Should().NotBeNull();
 			sceneData.Vertices.Should().NotBeEmpty();
 		}
