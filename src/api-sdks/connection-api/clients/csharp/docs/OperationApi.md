@@ -2,7 +2,7 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**DeleteOperationsAsync**](OperationApi.md#deleteoperationsasync) | Delete all operations for the connection |
+| [**DeleteOperationsAsync**](OperationApi.md#deleteoperationsasync) | Delete all operations for the connection. |
 | [**GetCommonOperationPropertiesAsync**](OperationApi.md#getcommonoperationpropertiesasync) | Gets common operation properties. |
 | [**GetOperationsAsync**](OperationApi.md#getoperationsasync) | Gets the list of operations for the connection. |
 | [**PreDesignWeldsAsync**](OperationApi.md#predesignweldsasync) | Pre-designs welds in the connection. |
@@ -12,7 +12,7 @@
 ## **DeleteOperationsAsync**
 > **void DeleteOperationsAsync (Guid projectId, int connectionId)**
 
-Delete all operations for the connection
+Delete all operations for the connection.
 
 
 
@@ -20,8 +20,8 @@ Delete all operations for the connection
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **connectionId** | **int** | Id of the connection to be modified |  |
+| **projectId** | **Guid** | The unique identifier of the opened project. |  |
+| **connectionId** | **int** | The ID of the connection. |  |
 
 ### Return type
 
@@ -59,11 +59,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to be modified
+                    connectionId = 56;  // int | The ID of the connection.
 
                     try
                     {
-                        // Delete all operations for the connection
+                        // Delete all operations for the connection.
                         conClient.Operation.DeleteOperationsAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
@@ -95,7 +95,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/operations 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/operations 
 
 #### Using the DeleteOperationsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -103,7 +103,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Delete all operations for the connection
+    // Delete all operations for the connection.
     conClient.Operation.DeleteOperationsWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
@@ -121,13 +121,16 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | OK |  -  |
+| **204** | No Content |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -219,7 +222,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 #### Using the GetCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -255,6 +258,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -346,7 +352,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/operations 
 
 #### Using the GetOperationsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -382,6 +388,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -475,7 +484,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
 
 #### Using the PreDesignWeldsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -511,6 +520,11 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
+| **501** | Not Implemented |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -603,7 +617,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 #### Using the UpdateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -629,13 +643,17 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | OK |  -  |
+| **204** | No Content |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

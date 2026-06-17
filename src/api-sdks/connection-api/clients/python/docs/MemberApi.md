@@ -7,7 +7,7 @@ Method | Description
 [**add_member**](MemberApi.md#add_member) | Adds a new member to the connection.
 [**get_member**](MemberApi.md#get_member) | Gets information about the specified member in the connection.
 [**get_members**](MemberApi.md#get_members) | Gets information about all members in the connection.
-[**set_bearing_member**](MemberApi.md#set_bearing_member) | Set bearing member for memberIt
+[**set_bearing_member**](MemberApi.md#set_bearing_member) | Set bearing member for memberId.
 [**update_member**](MemberApi.md#update_member) | Updates the member in the connection with the provided data.
 
 
@@ -72,7 +72,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/members 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 
@@ -88,6 +88,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -152,7 +156,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 ### Authorization
 
@@ -168,6 +172,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -230,7 +237,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/members 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 
@@ -246,6 +253,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -253,16 +263,16 @@ No authorization required
 # **set_bearing_member**
 > ConMember set_bearing_member(project_id, connection_id, member_id)
 
-Set bearing member for memberIt
+Set bearing member for memberId.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **member_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the member. | 
+ **member_id** | **int**| The ID of the member to set as bearing. | 
 
 ### Return type
 
@@ -284,12 +294,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def set_bearing_memberExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    member_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the member.
+    member_id = 56 # int | The ID of the member to set as bearing.
 
     try:
-        # Set bearing member for memberIt
+        # Set bearing member for memberId.
         api_response = api_client.member.set_bearing_member(project_id, connection_id, member_id)
         print("The response of MemberApi->set_bearing_member:\n")
         pprint(api_response)
@@ -310,7 +320,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
 
 ### Authorization
 
@@ -326,6 +336,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -390,7 +404,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/members 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 
@@ -406,6 +420,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

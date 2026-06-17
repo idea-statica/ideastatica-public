@@ -2,8 +2,8 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project |
-| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project |
+| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project. |
+| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project. |
 | [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Adds a material to the project. |
 | [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Adds a material to the project. |
 | [**AddMaterialHeadedStudGradeAsync**](MaterialApi.md#addmaterialheadedstudgradeasync) | Adds a material to the project. |
@@ -20,9 +20,9 @@
 
 <a id="addboltassembly"></a>
 ## **AddBoltAssemblyAsync**
-> **void AddBoltAssemblyAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddBoltAssemblyAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add bolt assembly to the project
+Add bolt assembly to the project.
 
 
 
@@ -30,12 +30,12 @@ Add bolt assembly to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new bolt assemby to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new bolt assemby to be added to the project. | [optional]  |
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -69,12 +69,13 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new bolt assemby to be added to the project (optional) 
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new bolt assemby to be added to the project. (optional) 
 
                     try
                     {
-                        // Add bolt assembly to the project
-                        conClient.Material.AddBoltAssemblyAsync(projectId, conMprlElement);
+                        // Add bolt assembly to the project.
+                        Object result = await conClient.Material.AddBoltAssemblyAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -105,7 +106,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the AddBoltAssemblyWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -113,8 +114,11 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add bolt assembly to the project
-    conClient.Material.AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
+    // Add bolt assembly to the project.
+    ApiResponse<Object> response = conClient.Material.AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -131,21 +135,25 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addcrosssection"></a>
 ## **AddCrossSectionAsync**
-> **void AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
+> **Object AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
 
-Add cross section to the project
+Add cross section to the project.
 
 
 
@@ -153,12 +161,12 @@ Add cross section to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlCrossSection** | [**ConMprlCrossSection**](ConMprlCrossSection.md) | Definition of a new cross-section to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlCrossSection** | [**ConMprlCrossSection**](ConMprlCrossSection.md) | Definition of a new cross-section to be added to the project. | [optional]  |
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -192,12 +200,13 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project (optional) 
+                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project. (optional) 
 
                     try
                     {
-                        // Add cross section to the project
-                        conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
+                        // Add cross section to the project.
+                        Object result = await conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -228,7 +237,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/cross-sections 
+> **POST** /api/4/projects/{projectId}/materials/cross-sections 
 
 #### Using the AddCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -236,8 +245,11 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add cross section to the project
-    conClient.Material.AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
+    // Add cross section to the project.
+    ApiResponse<Object> response = conClient.Material.AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -254,19 +266,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialboltgrade"></a>
 ## **AddMaterialBoltGradeAsync**
-> **void AddMaterialBoltGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialBoltGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -281,7 +297,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -320,7 +336,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialBoltGradeAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialBoltGradeAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -351,7 +368,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/4/projects/{projectId}/materials/bolt-grade 
 
 #### Using the AddMaterialBoltGradeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -360,7 +377,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -377,19 +397,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialconcrete"></a>
 ## **AddMaterialConcreteAsync**
-> **void AddMaterialConcreteAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialConcreteAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -404,7 +428,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -443,7 +467,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialConcreteAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialConcreteAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -474,7 +499,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/concrete 
+> **POST** /api/4/projects/{projectId}/materials/concrete 
 
 #### Using the AddMaterialConcreteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -483,7 +508,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -500,19 +528,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialheadedstudgrade"></a>
 ## **AddMaterialHeadedStudGradeAsync**
-> **void AddMaterialHeadedStudGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialHeadedStudGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -527,7 +559,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -566,7 +598,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialHeadedStudGradeAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialHeadedStudGradeAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -597,7 +630,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/headed-stud-grade 
+> **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
 
 #### Using the AddMaterialHeadedStudGradeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -606,7 +639,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialHeadedStudGradeWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialHeadedStudGradeWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -623,19 +659,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialsteel"></a>
 ## **AddMaterialSteelAsync**
-> **void AddMaterialSteelAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialSteelAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -650,7 +690,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -689,7 +729,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialSteelAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialSteelAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -720,7 +761,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/steel 
+> **POST** /api/4/projects/{projectId}/materials/steel 
 
 #### Using the AddMaterialSteelWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -729,7 +770,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -746,19 +790,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialweld"></a>
 ## **AddMaterialWeldAsync**
-> **void AddMaterialWeldAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialWeldAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -773,7 +821,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -812,7 +860,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialWeldAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialWeldAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -843,7 +892,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/welding 
+> **POST** /api/4/projects/{projectId}/materials/welding 
 
 #### Using the AddMaterialWeldWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -852,7 +901,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -869,13 +921,17 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -965,7 +1021,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials 
+> **GET** /api/4/projects/{projectId}/materials 
 
 #### Using the GetAllMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1001,6 +1057,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1090,7 +1149,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the GetBoltAssembliesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1126,6 +1185,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1215,7 +1277,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/4/projects/{projectId}/materials/bolt-grade 
 
 #### Using the GetBoltGradeMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1251,6 +1313,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1340,7 +1405,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/concrete 
+> **GET** /api/4/projects/{projectId}/materials/concrete 
 
 #### Using the GetConcreteMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1376,6 +1441,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1465,7 +1533,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/cross-sections 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections 
 
 #### Using the GetCrossSectionsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1501,6 +1569,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1590,7 +1661,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/headed-stud-grade 
+> **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
 
 #### Using the GetHeadedStudGradeMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1626,6 +1697,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1715,7 +1789,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/steel 
+> **GET** /api/4/projects/{projectId}/materials/steel 
 
 #### Using the GetSteelMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1751,6 +1825,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1840,7 +1917,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/welding 
+> **GET** /api/4/projects/{projectId}/materials/welding 
 
 #### Using the GetWeldingMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1876,6 +1953,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

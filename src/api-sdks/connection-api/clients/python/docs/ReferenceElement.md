@@ -1,12 +1,13 @@
 # ReferenceElement
 
+Reference element class
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type_name** | **str** |  | [optional] 
-**id** | **int** |  | [optional] 
+**type_name** | **str** | Element type name | [optional] 
+**id** | **int** | Element Id | [optional] 
 **element** | [**OpenElementId**](OpenElementId.md) |  | [optional] 
 
 ## Example

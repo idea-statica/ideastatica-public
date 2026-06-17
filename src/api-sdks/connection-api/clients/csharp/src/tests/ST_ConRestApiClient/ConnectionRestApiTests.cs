@@ -1,5 +1,7 @@
 using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.ConnectionApi.Client;
+using System.Text.Json;
 
 namespace ST_ConnectionRestApi
 {
@@ -8,20 +10,6 @@ namespace ST_ConnectionRestApi
 		[SetUp]
 		public async Task SetUp()
 		{
-			//if (this.RunServer)
-			//{
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
-			//}
-			//else
-			//{
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
-			//}
-
 			ConnectionApiClient = await ApiFactory.CreateApiClient();
 
 			string connProjectFilePath = Path.Combine(ProjectPath, "Simple-1-ECEN.ideaCon");
@@ -113,6 +101,7 @@ namespace ST_ConnectionRestApi
 			}
 		}
 
+		[Test]
 		public async Task ShouldUpdateConnection()
 		{
 			const string NewConnectionName = "Updated name";
@@ -355,24 +344,6 @@ namespace ST_ConnectionRestApi
 			cost.TotalEstimatedCost.Should().BeGreaterThan(0);
 		}
 
-		// TODO - use new API
-
-		//[Test]
-		//public async Task ShouldGetAndUpdateConnectionSetup()
-		//{
-		//	var connectionSetup = await ConnectionApiClient!.Project.GetSetupAsync(ActiveProjectId);
-
-		//	connectionSetup.HssLimitPlasticStrain.Should().Be(0.01);
-
-		//	connectionSetup.HssLimitPlasticStrain = 0.02;
-
-		//	var updateResponse = await ConnectionApiClient!.Project.UpdateSetupAsync(ActiveProjectId, connectionSetup);
-
-		//	var updatedConnectionSetup = await ConnectionApiClient!.Project!.GetSetupAsync(ActiveProjectId);
-
-		//	updatedConnectionSetup.HssLimitPlasticStrain.Should().Be(0.02);
-		//}
-
 		[Test]
 		public async Task ShouldGetSceneData()
 		{
@@ -380,6 +351,108 @@ namespace ST_ConnectionRestApi
 			var sceneData = await ConnectionApiClient!.Presentation.GetDataScene3DAsync(ActiveProjectId, con1.Id);
 			sceneData.Should().NotBeNull();
 			sceneData.Vertices.Should().NotBeEmpty();
+		}
+
+		// === v4 error-contract smoke tests ===
+		// v4 endpoints return RFC 7807 ProblemDetails on failure with proper HTTP status codes.
+
+		[Test]
+		public async Task GetProjectData_WithUnknownProjectId_Returns404ProblemDetails()
+		{
+			var nonExistentProjectId = Guid.NewGuid();
+
+			Func<Task> act = async () =>
+				await ConnectionApiClient!.Project.GetProjectDataAsync(nonExistentProjectId);
+
+			var ex = await act.Should().ThrowAsync<ApiException>();
+			ex.Which.ErrorCode.Should().Be(404);
+
+			var problem = ParseProblemDetails(ex.Which.ErrorContent);
+			problem.Should().NotBeNull();
+			problem!.Title.Should().NotBeNullOrEmpty();
+		}
+
+		[Test]
+		public async Task GetConnection_WithUnknownConnectionId_Returns404ProblemDetails()
+		{
+			Func<Task> act = async () =>
+				await ConnectionApiClient!.Connection.GetConnectionAsync(ActiveProjectId, connectionId: 9999);
+
+			var ex = await act.Should().ThrowAsync<ApiException>();
+			ex.Which.ErrorCode.Should().Be(404);
+
+			var problem = ParseProblemDetails(ex.Which.ErrorContent);
+			problem.Should().NotBeNull();
+		}
+
+		[Test]
+		public async Task CalculateConnection_WithUnknownConnectionId_ReturnsErrorProblemDetails()
+		{
+			// Invalid input - connection id that does not exist in this project.
+			var conToCalc = new List<int> { 9999 };
+
+			Func<Task> act = async () =>
+				await ConnectionApiClient!.Calculation.CalculateAsync(ActiveProjectId, conToCalc);
+
+			var ex = await act.Should().ThrowAsync<ApiException>();
+			// v4 returns 404 / 422 (no longer 400). Both are valid client-error codes here.
+			ex.Which.ErrorCode.Should().BeOneOf(404, 422);
+
+			var problem = ParseProblemDetails(ex.Which.ErrorContent);
+			problem.Should().NotBeNull();
+		}
+
+		[Test]
+		public async Task Request_WithoutClientIdHeader_Returns401()
+		{
+			// Build a raw client (bypassing the ConnectionApiServiceAttacher which sets ClientId)
+			// to verify the server rejects requests without the ClientId header.
+			var configuration = new Configuration { BasePath = ApiUri!.AbsoluteUri };
+			var projectApi = new IdeaStatiCa.ConnectionApi.Api.ProjectApi(configuration);
+
+			Func<Task> act = async () =>
+				await projectApi.GetProjectDataAsync(Guid.NewGuid());
+
+			var ex = await act.Should().ThrowAsync<ApiException>();
+			ex.Which.ErrorCode.Should().Be(401);
+		}
+
+		private static ProblemDetails? ParseProblemDetails(object? errorContent)
+		{
+			if (errorContent is null)
+			{
+				return null;
+			}
+
+			var json = errorContent as string ?? errorContent.ToString();
+			if (string.IsNullOrWhiteSpace(json))
+			{
+				return null;
+			}
+
+			try
+			{
+				return JsonSerializer.Deserialize<ProblemDetails>(json!, new JsonSerializerOptions
+				{
+					PropertyNameCaseInsensitive = true
+				});
+			}
+			catch (JsonException)
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Local shape mirroring the RFC 7807 ProblemDetails payload returned by the v4 API.
+		/// </summary>
+		private sealed class ProblemDetails
+		{
+			public string? Type { get; set; }
+			public string? Title { get; set; }
+			public int? Status { get; set; }
+			public string? Detail { get; set; }
+			public string? Instance { get; set; }
 		}
 	}
 }

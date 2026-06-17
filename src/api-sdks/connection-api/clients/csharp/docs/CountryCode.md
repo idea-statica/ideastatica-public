@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.CountryCode
+CountryCode
 
 ## Properties
 

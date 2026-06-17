@@ -1,13 +1,14 @@
 # Vector3D
 
+Represents a vector in three-dimensional space.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**x** | **float** |  | [optional] 
-**y** | **float** |  | [optional] 
-**z** | **float** |  | [optional] 
+**x** | **float** | Gets or sets the X-dirrection value | [optional] 
+**y** | **float** | Gets or sets the Y-dirrection value | [optional] 
+**z** | **float** | Gets or sets the Z-dirrection value | [optional] 
 
 ## Example
 

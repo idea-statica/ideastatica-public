@@ -10,11 +10,11 @@
 | [**ImportIOMAsync**](ProjectApi.md#importiomasync) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) |
 | [**OpenProjectAsync**](ProjectApi.md#openprojectasync) | Opens an IdeaCon project from the provided file. |
 | [**UpdateFromIOMAsync**](ProjectApi.md#updatefromiomasync) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string |
-| [**UpdateProjectDataAsync**](ProjectApi.md#updateprojectdataasync) | Updates ConProjectData of project |
+| [**UpdateProjectDataAsync**](ProjectApi.md#updateprojectdataasync) | Updates ConProjectData of project. |
 
 <a id="closeproject"></a>
 ## **CloseProjectAsync**
-> **string CloseProjectAsync (Guid projectId)**
+> **void CloseProjectAsync (Guid projectId)**
 
 Closes the project and releases resources in the service.
 
@@ -28,7 +28,7 @@ Closes the project and releases resources in the service.
 
 ### Return type
 
-**string**
+void (empty response body)
 
 ### Example
 
@@ -66,8 +66,7 @@ namespace Example
                     try
                     {
                         // Closes the project and releases resources in the service.
-                        string result = await conClient.Project.CloseProjectAsync(projectId);
-                        Debug.WriteLine(result);
+                        conClient.Project.CloseProjectAsync(projectId);
                     }
                     catch (ApiException  e)
                     {
@@ -98,7 +97,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/close 
+> **GET** /api/4/projects/{projectId}/close 
 
 #### Using the CloseProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -107,10 +106,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Closes the project and releases resources in the service.
-    ApiResponse<string> response = conClient.Project.CloseProjectWithHttpInfo(projectId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
+    conClient.Project.CloseProjectWithHttpInfo(projectId);
 }
 catch (ApiException e)
 {
@@ -133,7 +129,10 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | OK |  -  |
+| **204** | No Content |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -223,7 +222,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects 
+> **POST** /api/4/projects 
 
 #### Using the CreateEmptyProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -251,7 +250,7 @@ No authorization required
 
 #### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
 
 
@@ -259,6 +258,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -350,7 +352,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/download 
+> **GET** /api/4/projects/{projectId}/download 
 
 #### Using the DownloadProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -376,13 +378,16 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/octet-stream
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -464,7 +469,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects 
+> **GET** /api/4/projects 
 
 #### Using the GetActiveProjectsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -500,6 +505,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -515,7 +522,7 @@ Get data of the project.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the requested project |  |
+| **projectId** | **Guid** | The unique identifier of the requested project. |  |
 
 ### Return type
 
@@ -589,7 +596,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId} 
+> **GET** /api/4/projects/{projectId} 
 
 #### Using the GetProjectDataWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -625,6 +632,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -643,7 +653,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** | IdeaRS.OpenModel.OpenModelContainer serialized to xml | [optional]  |
+| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** | IdeaRS.OpenModel.OpenModelContainer serialized to xml. | [optional]  |
 | **connectionsToCreate** | [**List&lt;int&gt;**](int.md) |  | [optional]  |
 
 ### Return type
@@ -679,7 +689,7 @@ namespace Example
 
                     
                     // (Required) Select parameters
-                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | IdeaRS.OpenModel.OpenModelContainer serialized to xml (optional) 
+                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | IdeaRS.OpenModel.OpenModelContainer serialized to xml. (optional) 
                     var connectionsToCreate = new List<int>(); // List<int> |  (optional) 
 
                     try
@@ -716,7 +726,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/import-iom-file 
+> **POST** /api/4/projects/import-iom-file 
 
 #### Using the ImportIOMWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -752,6 +762,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -841,7 +854,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/open 
+> **POST** /api/4/projects/open 
 
 #### Using the OpenProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -877,6 +890,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -895,8 +911,8 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service to be updated |  |
-| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** | IdeaRS.OpenModel.OpenModelContainer serialized to xml | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service to be updated. |  |
+| **containerXmlFile** | **System.IO.Stream****System.IO.Stream** | IdeaRS.OpenModel.OpenModelContainer serialized to xml. | [optional]  |
 
 ### Return type
 
@@ -934,7 +950,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | IdeaRS.OpenModel.OpenModelContainer serialized to xml (optional) 
+                    containerXmlFile = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // System.IO.Stream | IdeaRS.OpenModel.OpenModelContainer serialized to xml. (optional) 
 
                     try
                     {
@@ -971,7 +987,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/update-iom-file 
+> **POST** /api/4/projects/{projectId}/update-iom-file 
 
 #### Using the UpdateFromIOMWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1007,6 +1023,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1014,7 +1034,7 @@ No authorization required
 ## **UpdateProjectDataAsync**
 > **ConProject UpdateProjectDataAsync (Guid projectId, ConProjectData conProjectData = null)**
 
-Updates ConProjectData of project
+Updates ConProjectData of project.
 
 
 
@@ -1022,8 +1042,8 @@ Updates ConProjectData of project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **conProjectData** | [**ConProjectData**](ConProjectData.md) |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conProjectData** | [**ConProjectData**](ConProjectData.md) | New project data to apply. | [optional]  |
 
 ### Return type
 
@@ -1061,11 +1081,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conProjectData = new ConProjectData(); // ConProjectData |  (optional) 
+                    var conProjectData = new ConProjectData(); // ConProjectData | New project data to apply. (optional) 
 
                     try
                     {
-                        // Updates ConProjectData of project
+                        // Updates ConProjectData of project.
                         ConProject result = await conClient.Project.UpdateProjectDataAsync(projectId, conProjectData);
                         Debug.WriteLine(result);
                     }
@@ -1098,7 +1118,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId} 
+> **PUT** /api/4/projects/{projectId} 
 
 #### Using the UpdateProjectDataWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1106,7 +1126,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Updates ConProjectData of project
+    // Updates ConProjectData of project.
     ApiResponse<ConProject> response = conClient.Project.UpdateProjectDataWithHttpInfo(projectId, conProjectData);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1126,7 +1146,7 @@ No authorization required
 
 #### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
 
 
@@ -1134,6 +1154,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**delete_parameters**](ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
+[**delete_parameters**](ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**evaluate_expression**](ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
 [**get_parameters**](ParameterApi.md#get_parameters) | Gets all parameters defined for the specified project and connection.
 [**update**](ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
@@ -14,15 +14,15 @@ Method | Description
 # **delete_parameters**
 > delete_parameters(project_id, connection_id)
 
-Delete all parameters and parameter model links for the connection connectionId in the project projectId
+Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection where to delete parameters | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| Id of the connection where to delete parameters. | 
 
 ### Return type
 
@@ -43,11 +43,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def delete_parametersExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection where to delete parameters
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | Id of the connection where to delete parameters.
 
     try:
-        # Delete all parameters and parameter model links for the connection connectionId in the project projectId
+        # Delete all parameters and parameter model links for the connection connectionId in the project projectId.
         api_client.parameter.delete_parameters(project_id, connection_id)
     except Exception as e:
         print("Exception when calling ParameterApi->delete_parameters: %s\n" % e)
@@ -65,7 +65,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -74,13 +74,16 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -144,7 +147,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 ### Authorization
 
@@ -160,6 +163,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -224,7 +231,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -240,6 +247,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -305,7 +315,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -321,6 +331,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.WeldType
+enum of weld types
 
 ## Properties
 

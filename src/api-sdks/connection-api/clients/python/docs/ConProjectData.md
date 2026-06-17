@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **project_number** | **str** |  | [optional] 
 **author** | **str** |  | [optional] 
-**design_code** | **str** |  | [optional] 
+**country_code** | [**CountryCode**](CountryCode.md) |  | [optional] 
 **var_date** | **datetime** |  | [optional] 
 
 ## Example

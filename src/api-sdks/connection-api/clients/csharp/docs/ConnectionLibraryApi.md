@@ -6,7 +6,7 @@
 | [**GetDesignSetsAsync**](ConnectionLibraryApi.md#getdesignsetsasync) | Retrieves a list of design sets available for the user. |
 | [**GetTemplateAsync**](ConnectionLibraryApi.md#gettemplateasync) | Retrieves the template associated with the specified design set and design item. |
 | [**ProposeAsync**](ConnectionLibraryApi.md#proposeasync) | Proposes a list of design items for a specified connection within a project. |
-| [**PublishConnectionAsync**](ConnectionLibraryApi.md#publishconnectionasync) | Publish template to Private or Company set |
+| [**PublishConnectionAsync**](ConnectionLibraryApi.md#publishconnectionasync) | Publish template to Private or Company set. |
 
 <a id="getdesignitempicture"></a>
 ## **GetDesignItemPictureAsync**
@@ -92,7 +92,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/connection-library/get-picture 
+> **GET** /api/4/connection-library/get-picture 
 
 #### Using the GetDesignItemPictureWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -118,13 +118,15 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: image/png
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -208,7 +210,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/connection-library/get-design-sets 
+> **GET** /api/4/connection-library/get-design-sets 
 
 #### Using the GetDesignSetsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -244,6 +246,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -332,7 +336,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/connection-library/get-template 
+> **GET** /api/4/connection-library/get-template 
 
 #### Using the GetTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -368,6 +372,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -463,7 +470,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/propose 
 
 #### Using the ProposeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -499,6 +506,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -506,7 +517,7 @@ No authorization required
 ## **PublishConnectionAsync**
 > **bool PublishConnectionAsync (Guid projectId, int connectionId, ConTemplatePublishParam conTemplatePublishParam = null)**
 
-Publish template to Private or Company set
+Publish template to Private or Company set.
 
 
 
@@ -514,9 +525,9 @@ Publish template to Private or Company set
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
-| **connectionId** | **int** |  |  |
-| **conTemplatePublishParam** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md) |  | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection whose template will be published. |  |
+| **conTemplatePublishParam** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md) | Parameters describing the publish operation (name, author, design set type). | [optional]  |
 
 ### Return type
 
@@ -554,12 +565,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | 
-                    var conTemplatePublishParam = new ConTemplatePublishParam(); // ConTemplatePublishParam |  (optional) 
+                    connectionId = 56;  // int | The ID of the connection whose template will be published.
+                    var conTemplatePublishParam = new ConTemplatePublishParam(); // ConTemplatePublishParam | Parameters describing the publish operation (name, author, design set type). (optional) 
 
                     try
                     {
-                        // Publish template to Private or Company set
+                        // Publish template to Private or Company set.
                         bool result = await conClient.ConnectionLibrary.PublishConnectionAsync(projectId, connectionId, conTemplatePublishParam);
                         Debug.WriteLine(result);
                     }
@@ -592,7 +603,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/publish 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/publish 
 
 #### Using the PublishConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -600,7 +611,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Publish template to Private or Company set
+    // Publish template to Private or Company set.
     ApiResponse<bool> response = conClient.ConnectionLibrary.PublishConnectionWithHttpInfo(projectId, connectionId, conTemplatePublishParam);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -628,6 +639,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
