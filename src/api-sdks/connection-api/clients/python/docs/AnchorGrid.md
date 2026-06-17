@@ -1,29 +1,30 @@
 # AnchorGrid
 
+Data of the anchor grid
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shear_in_thread** | **bool** |  | [optional] 
+**shear_in_thread** | **bool** | Indicates, whether a shear plane is in the thread of a bolt. | [optional] 
 **concrete_block** | [**ConcreteBlock**](ConcreteBlock.md) |  | [optional] 
 **anchor_type** | [**AnchorType**](AnchorType.md) |  | [optional] 
 **anchor_installation_process** | [**InstallationProcessTypeEnum**](InstallationProcessTypeEnum.md) |  | [optional] 
-**washer_size** | **float** |  | [optional] 
-**anchoring_length** | **float** |  | [optional] 
-**hook_length** | **float** |  | [optional] 
-**headed_stud_head_diameter** | **float** |  | [optional] 
-**reinforcement_mandrel_diameter** | **float** |  | [optional] 
+**washer_size** | **float** | Washer Size used if AnchorType is washer | [optional] 
+**anchoring_length** | **float** | Anchoring Length | [optional] 
+**hook_length** | **float** | Length of anchor hook. Distance from the inner surface of the anchor shaft  to the outer tip of the hook specified as an anchor diameter multiplier. | [optional] 
+**headed_stud_head_diameter** | **float** | Head diameter of headed stud anchor.  Used when IdeaRS.OpenModel.Connection.AnchorGrid.AnchorType is IdeaRS.OpenModel.Parameters.AnchorType.HeadedStud. | [optional] 
+**reinforcement_mandrel_diameter** | **float** | Mandrel diameter of reinforcement anchor.  Used when IdeaRS.OpenModel.Connection.AnchorGrid.AnchorType is IdeaRS.OpenModel.Parameters.AnchorType.Reinforcement. | [optional] 
 **bolt_assembly** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_y** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_z** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**positions** | [**List[Point3D]**](Point3D.md) |  | [optional] 
-**connected_parts** | [**List[ReferenceElement]**](ReferenceElement.md) |  | [optional] 
-**name** | **str** |  | [optional] 
-**length** | **float** |  | [optional] 
-**id** | **int** |  | [optional] 
+**positions** | [**List[Point3D]**](Point3D.md) | Positions of holes in the local coordinate system of the grid | [optional] 
+**connected_parts** | [**List[ReferenceElement]**](ReferenceElement.md) | List of the connected parts | [optional] 
+**name** | **str** | Name | [optional] 
+**length** | **float** | Length | [optional] 
+**id** | **int** | Element Id | [optional] 
 
 ## Example
 

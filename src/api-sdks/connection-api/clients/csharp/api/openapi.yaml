@@ -10,12 +10,12 @@ info:
     name: IDEA StatiCa License
     url: https://github.com/idea-statica/ideastatica-public/blob/main/LICENSE
   termsOfService: https://www.ideastatica.com/end-user-license-agreement
-  title: Connection Rest API 3.0
-  version: "3.0"
+  title: Connection Rest API 4.0
+  version: "4.0"
 servers:
 - url: /
 paths:
-  /api/3/projects/{projectId}/connections/calculate:
+  /api/4/projects/{projectId}/connections/calculate:
     post:
       operationId: Calculate
       parameters:
@@ -48,12 +48,36 @@ paths:
                   $ref: '#/components/schemas/ConResultSummary'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Runs CBFEM calculation and returns the summary of the results.
       tags:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/results:
+  /api/4/projects/{projectId}/connections/results:
     post:
       operationId: GetResults
       parameters:
@@ -86,12 +110,36 @@ paths:
                   $ref: '#/components/schemas/ConnectionCheckRes'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets detailed results of the CBFEM analysis.
       tags:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/rawresults-text:
+  /api/4/projects/{projectId}/connections/rawresults-text:
     post:
       description: "\r\n<strong>Bolt identifiers:</strong> Bolt keys in the raw results\
         \ (e.g., in `boltCheckResDataTimbers`)\r\n            are opaque internal\
@@ -139,13 +187,102 @@ paths:
                   type: string
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets JSON string which represents raw CBFEM results (an instance of
         CheckResultsData).
       tags:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/clients/connect-client:
+  /api/4/projects/{projectId}/connections/{connectionId}/result-mesh:
+    get:
+      description: "The connection must already be calculated; otherwise the request\
+        \ fails. `Value` holds one scalar\r\nper node for the selected resultType\
+        \ and is index-aligned with `Nodes`:\r\nfor `Stress` it is the equivalent\
+        \ (von Mises) stress σ_Ed in Pa; for `Strain` it is the\r\nplastic strain\
+        \ ε_Pl (dimensionless). `FemElement.Vertices` are zero-based indices into\
+        \ `Nodes`\r\n(Type 1 = triangle / 3 nodes, Type 2 = quad / 4 nodes). Node\
+        \ coordinates and displacements are X, Y, Z\r\nin metres. Values are per node;\
+        \ request once per quantity (e.g. Stress, then Strain) on the same mesh."
+      operationId: GetResultMesh
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection whose result mesh is requested.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: "Quantity returned per node: `Stress` = equivalent (von Mises)\
+          \ stress σ_Ed [Pa];\r\n`Strain` = plastic strain ε_Pl [-]; `StrainCheck`;\
+          \ `FondationStress` = foundation\r\ncontact stress [Pa]; `OverallCheck`."
+        explode: true
+        in: query
+        name: resultType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ResultOnMeshType'
+        style: form
+      - description: The id of the load case to read results for.
+        explode: true
+        in: query
+        name: loadId
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultOnMesh'
+          description: OK
+      summary: "Returns the result mesh of a calculated connection: the mesh nodes,\
+        \ one result value per node for the\r\nrequested quantity, the nodal displacements,\
+        \ and the element connectivity grouped per plate."
+      tags:
+      - Calculation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/clients/connect-client:
     get:
       operationId: ConnectClient
       responses:
@@ -154,17 +291,20 @@ paths:
             text/plain:
               schema:
                 type: string
-            application/json:
-              schema:
-                type: string
           description: OK
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Connects a client to the ConnectionRestApi service and returns a unique
         identifier for the client.
       tags:
       - Client
       x-requiresProject: false
       x-requiresConnection: false
-  /api/3/clients/idea-service-version:
+  /api/4/clients/idea-service-version:
     get:
       operationId: GetVersion
       responses:
@@ -174,12 +314,18 @@ paths:
               schema:
                 type: string
           description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the IdeaStatica API assembly version.
       tags:
       - Client
       x-requiresProject: false
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections:
+  /api/4/projects/{projectId}/connections:
     get:
       operationId: GetConnections
       parameters:
@@ -202,6 +348,24 @@ paths:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets data about all connections in the project.
       tags:
       - Connection
@@ -236,12 +400,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a new empty connection to the project.
       tags:
       - Connection
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/{connectionId}:
+  /api/4/projects/{projectId}/connections/{connectionId}:
     delete:
       operationId: DeleteConnection
       parameters:
@@ -273,6 +461,24 @@ paths:
                   $ref: '#/components/schemas/ConConnection'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Deletes a specific connection from the project.
       tags:
       - Connection
@@ -307,6 +513,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets data about a specific connection in the project.
       tags:
       - Connection
@@ -347,12 +571,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates data of a specific connection in the project.
       tags:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/copy:
+  /api/4/projects/{projectId}/connections/{connectionId}/copy:
     post:
       operationId: CopyConnection
       parameters:
@@ -391,12 +639,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnection'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Creates a copy of an existing connection in the project.
       tags:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/production-cost:
+  /api/4/projects/{projectId}/connections/{connectionId}/production-cost:
     get:
       operationId: GetProductionCost
       parameters:
@@ -426,12 +698,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProductionCost'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the production cost of the connection.
       tags:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/get-topology:
+  /api/4/projects/{projectId}/connections/{connectionId}/get-topology:
     get:
       operationId: GetConnectionTopology
       parameters:
@@ -460,16 +750,31 @@ paths:
             text/plain:
               schema:
                 type: string
-            application/json:
-              schema:
-                type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the topology of the connection in JSON format.
       tags:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/connection-library/get-design-sets:
+  /api/4/connection-library/get-design-sets:
     get:
       description: "This method returns a collection of design sets that are mapped\
         \ and ready for use. It throws an\r\n            exception if no design sets\
@@ -484,12 +789,24 @@ paths:
                   $ref: '#/components/schemas/ConDesignSet'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves a list of design sets available for the user.
       tags:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/{connectionId}/propose:
+  /api/4/projects/{projectId}/connections/{connectionId}/propose:
     post:
       description: "This method retrieves the connection model from the specified\
         \ project and classifies its\r\n            typology. It then filters and\
@@ -531,13 +848,37 @@ paths:
                   $ref: '#/components/schemas/ConDesignItem'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Proposes a list of design items for a specified connection within a
         project.
       tags:
       - ConnectionLibrary
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/connection-library/get-template:
+  /api/4/connection-library/get-template:
     get:
       description: "This method is mapped to API version 2 and produces a plain text\
         \ response. It is intended to be\r\n            used in scenarios where the\
@@ -571,13 +912,31 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves the template associated with the specified design set and
         design item.
       tags:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/3/connection-library/get-picture:
+  /api/4/connection-library/get-picture:
     get:
       description: "This method is mapped to API version 2 and produces a PNG image.\
         \ The image is returned as a file\r\n            stream result with the file\
@@ -606,17 +965,30 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "500":
+          content:
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves the picture associated with the specified design item as
         a PNG image.
       tags:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/{connectionId}/publish:
+  /api/4/projects/{projectId}/connections/{connectionId}/publish:
     post:
       operationId: PublishConnection
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -625,7 +997,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection whose template will be published.
         explode: false
         in: path
         name: connectionId
@@ -639,7 +1011,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConTemplatePublishParam'
-        description: ""
+        description: "Parameters describing the publish operation (name, author, design\
+          \ set type)."
       responses:
         "200":
           content:
@@ -647,12 +1020,36 @@ paths:
               schema:
                 type: boolean
           description: OK
-      summary: Publish template to Private or Company set
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Publish template to Private or Company set.
       tags:
       - ConnectionLibrary
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/get-default-mapping:
+  /api/4/projects/{projectId}/get-default-mapping:
     get:
       operationId: GetConversionMapping
       parameters:
@@ -681,13 +1078,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConversionSettings'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets default conversion mappings for converting the project to a different
         design code.
       tags:
       - Conversion
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/change-code:
+  /api/4/projects/{projectId}/change-code:
     post:
       operationId: ChangeCode
       parameters:
@@ -709,18 +1130,44 @@ paths:
         description: Conversion table for materials in the project (pairs 'ECEN MATERIAL'
           to 'TARGET DESIGN CODE MATERIAL').
       responses:
-        "200":
+        "204":
+          description: No Content
+        "401":
           content:
             application/json:
               schema:
-                type: string
-          description: OK
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Implemented
       summary: Changes the design code of the project.
       tags:
       - Conversion
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/{connectionId}/export-iom:
+  /api/4/projects/{projectId}/connections/{connectionId}/export-iom:
     get:
       operationId: ExportIom
       parameters:
@@ -760,13 +1207,40 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Exports the connection to XML which includes the OpenModelContainer
         (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
       tags:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
+  /api/4/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
     get:
       operationId: ExportIomConnectionData
       parameters:
@@ -798,12 +1272,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConnectionData'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
       tags:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/export-ifc:
+  /api/4/projects/{projectId}/connections/{connectionId}/export-ifc:
     get:
       operationId: ExportIFC
       parameters:
@@ -832,13 +1333,68 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Exports the connection to IFC format.
       tags:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: ExportIfcFile
-  /api/3/projects/{projectId}/connections/{connectionId}/load-effects:
+  /api/4/projects/{projectId}/connections/{connectionId}/export-dwg:
+    get:
+      operationId: ExportDWG
+      parameters:
+      - description: The unique identifier of the opened local project.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The local id of the connection to export.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: "Exports the connection to DWG format. Internally opens the project\
+        \ on the cloud Viewer, starts a Forge work\r\nitem via the async DWG flow,\
+        \ blocks until completion (up to 10 minutes), then streams the generated DWG.\r\
+        \nThe client does not need to pass any authentication — the ConnectionRestApi\
+        \ reuses the IDEA license access\r\ntoken from the Credential Manager (via\
+        \ AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's\r\n\
+        authenticated DWG endpoints. User identity (email) is part of that JWT."
+      tags:
+      - Export
+      x-requiresProject: true
+      x-requiresConnection: true
+      x-extensionMethodName: ExportDwgFile
+  /api/4/projects/{projectId}/connections/{connectionId}/load-effects:
     get:
       operationId: GetLoadEffects
       parameters:
@@ -878,6 +1434,24 @@ paths:
                   $ref: '#/components/schemas/ConLoadEffect'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets all load effects defined in the specified connection.
       tags:
       - LoadEffect
@@ -917,6 +1491,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a new load effect to the connection.
       tags:
       - LoadEffect
@@ -925,7 +1523,7 @@ paths:
     put:
       operationId: UpdateLoadEffect
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -934,7 +1532,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -948,7 +1546,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConLoadEffect'
-        description: ""
+        description: The load effect data to update.
       responses:
         "200":
           content:
@@ -956,16 +1554,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
-      summary: Update load impulses in conLoading
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Update load impulses in conLoading.
       tags:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
+  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
     delete:
       operationId: DeleteLoadEffect
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -974,7 +1596,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -983,7 +1605,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the load effect to delete.
         explode: false
         in: path
         name: loadEffectId
@@ -1000,7 +1622,25 @@ paths:
                 format: int32
                 type: integer
           description: OK
-      summary: Delete load effect loadEffectId
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Delete load effect loadEffectId.
       tags:
       - LoadEffect
       x-requiresProject: true
@@ -1051,16 +1691,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets load impulses from the specified load effect.
       tags:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
+  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
     get:
       operationId: GetLoadSettings
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1069,7 +1727,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -1085,16 +1743,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadSettings'
           description: OK
-      summary: Get Load settings for connection in project
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Get Load settings for connection in project.
       tags:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
+  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
     post:
       operationId: SetLoadSettings
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1103,7 +1779,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -1117,7 +1793,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConLoadSettings'
-        description: ""
+        description: The new load settings to apply.
       responses:
         "200":
           content:
@@ -1125,12 +1801,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConLoadSettings'
           description: OK
-      summary: Set Load settings for connection in project
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Set Load settings for connection in project.
       tags:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/materials:
+  /api/4/projects/{projectId}/materials:
     get:
       operationId: GetAllMaterials
       parameters:
@@ -1152,12 +1852,30 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/steel:
+  /api/4/projects/{projectId}/materials/steel:
     get:
       operationId: GetSteelMaterials
       parameters:
@@ -1179,6 +1897,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1205,13 +1941,40 @@ paths:
         description: Definition of the new material to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/concrete:
+  /api/4/projects/{projectId}/materials/concrete:
     get:
       operationId: GetConcreteMaterials
       parameters:
@@ -1233,6 +1996,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1259,13 +2040,40 @@ paths:
         description: Definition of the new material to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/bolt-grade:
+  /api/4/projects/{projectId}/materials/bolt-grade:
     get:
       operationId: GetBoltGradeMaterials
       parameters:
@@ -1287,6 +2095,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1313,13 +2139,40 @@ paths:
         description: Definition of the new material to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/welding:
+  /api/4/projects/{projectId}/materials/welding:
     get:
       operationId: GetWeldingMaterials
       parameters:
@@ -1341,6 +2194,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1367,13 +2238,40 @@ paths:
         description: Definition of the new material to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/headed-stud-grade:
+  /api/4/projects/{projectId}/materials/headed-stud-grade:
     get:
       operationId: GetHeadedStudGradeMaterials
       parameters:
@@ -1395,6 +2293,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets materials used in the specified project.
       tags:
       - Material
@@ -1421,13 +2337,40 @@ paths:
         description: Definition of the new material to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a material to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/cross-sections:
+  /api/4/projects/{projectId}/materials/cross-sections:
     get:
       operationId: GetCrossSections
       parameters:
@@ -1449,6 +2392,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets cross sections used in the specified project.
       tags:
       - Material
@@ -1458,7 +2419,7 @@ paths:
       operationId: AddCrossSection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1472,16 +2433,43 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlCrossSection'
-        description: Definition of a new cross-section to be added to the project
+        description: Definition of a new cross-section to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
-      summary: Add cross section to the project
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Add cross section to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/materials/bolt-assemblies:
+  /api/4/projects/{projectId}/materials/bolt-assemblies:
     get:
       operationId: GetBoltAssemblies
       parameters:
@@ -1503,6 +2491,24 @@ paths:
                 items: {}
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets bolt assemblies used in the specified project.
       tags:
       - Material
@@ -1512,7 +2518,7 @@ paths:
       operationId: AddBoltAssembly
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1526,16 +2532,43 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlElement'
-        description: Definition of a new bolt assemby to be added to the project
+        description: Definition of a new bolt assemby to be added to the project.
       responses:
         "200":
+          content:
+            application/json:
+              schema: {}
           description: OK
-      summary: Add bolt assembly to the project
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Add bolt assembly to the project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/{connectionId}/members:
+  /api/4/projects/{projectId}/connections/{connectionId}/members:
     get:
       operationId: GetMembers
       parameters:
@@ -1567,6 +2600,24 @@ paths:
                   $ref: '#/components/schemas/ConMember'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets information about all members in the connection.
       tags:
       - Member
@@ -1607,6 +2658,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Adds a new member to the connection.
       tags:
       - Member
@@ -1647,12 +2722,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates the member in the connection with the provided data.
       tags:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId}:
+  /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}:
     get:
       operationId: GetMember
       parameters:
@@ -1691,16 +2790,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets information about the specified member in the connection.
       tags:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
+  /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
     put:
       operationId: SetBearingMember
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -1709,7 +2827,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection containing the member.
         explode: false
         in: path
         name: connectionId
@@ -1718,7 +2836,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the member to set as bearing.
         explode: false
         in: path
         name: memberId
@@ -1734,17 +2852,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConMember'
           description: OK
-      summary: Set bearing member for memberIt
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Set bearing member for memberId.
       tags:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/operations:
+  /api/4/projects/{projectId}/connections/{connectionId}/operations:
     delete:
       operationId: DeleteOperations
       parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+      - description: The unique identifier of the opened project.
         explode: false
         in: path
         name: projectId
@@ -1753,7 +2894,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to be modified
+      - description: The ID of the connection.
         explode: false
         in: path
         name: connectionId
@@ -1763,9 +2904,27 @@ paths:
           type: integer
         style: simple
       responses:
-        "200":
-          description: OK
-      summary: Delete all operations for the connection
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Delete all operations for the connection.
       tags:
       - Operation
       x-requiresProject: true
@@ -1801,12 +2960,30 @@ paths:
                   $ref: '#/components/schemas/ConOperation'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the list of operations for the connection.
       tags:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties:
+  /api/4/projects/{projectId}/connections/{connectionId}/operations/common-properties:
     get:
       operationId: GetCommonOperationProperties
       parameters:
@@ -1835,6 +3012,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConOperationCommonProperties'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets common operation properties.
       tags:
       - Operation
@@ -1869,14 +3064,38 @@ paths:
         description: "Common properties to apply (specify material IDs, or keep as\
           \ null)."
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates common properties for all operations.
       tags:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
+  /api/4/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
     post:
       operationId: PreDesignWelds
       parameters:
@@ -1913,17 +3132,47 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Implemented
       summary: Pre-designs welds in the connection.
       tags:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/parameters:
+  /api/4/projects/{projectId}/connections/{connectionId}/parameters:
     delete:
       operationId: DeleteParameters
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -1932,7 +3181,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection where to delete parameters
+      - description: Id of the connection where to delete parameters.
         explode: false
         in: path
         name: connectionId
@@ -1942,10 +3191,28 @@ paths:
           type: integer
         style: simple
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Delete all parameters and parameter model links for the connection
-        connectionId in the project projectId
+        connectionId in the project projectId.
       tags:
       - Parameter
       x-requiresProject: true
@@ -1990,6 +3257,24 @@ paths:
                   $ref: '#/components/schemas/IdeaParameter'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets all parameters defined for the specified project and connection.
       tags:
       - Parameter
@@ -2032,13 +3317,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/ParameterUpdateResponse'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates parameters for the specified connection in the project with
         the values provided.
       tags:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression:
+  /api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression:
     post:
       operationId: EvaluateExpression
       parameters:
@@ -2075,6 +3384,30 @@ paths:
               schema:
                 type: string
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Evaluate the expression and return the result.\r\nFor more details\
         \ see documentation about parameters:\r\nhttps://developer.ideastatica.com/docs/api/api_parameters_getting_started.html\r\
         \nor\r\nhttps://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html"
@@ -2082,7 +3415,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/presentations:
+  /api/4/projects/{projectId}/connections/{connectionId}/presentations:
     get:
       operationId: GetDataScene3D
       parameters:
@@ -2112,12 +3445,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/DrawData'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Returns data for Scene3D visualization.
       tags:
       - Presentation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/presentations/text:
+  /api/4/projects/{projectId}/connections/{connectionId}/presentations/text:
     get:
       operationId: GetDataScene3DText
       parameters:
@@ -2145,16 +3496,31 @@ paths:
             text/plain:
               schema:
                 type: string
-            application/json:
-              schema:
-                type: string
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Returns serialized data for Scene3D in JSON format.
       tags:
       - Presentation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/open:
+  /api/4/projects/open:
     post:
       operationId: OpenProject
       requestBody:
@@ -2172,13 +3538,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Opens an IdeaCon project from the provided file.
       tags:
       - Project
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: OpenProject
-  /api/3/projects/{projectId}/close:
+  /api/4/projects/{projectId}/close:
     get:
       operationId: CloseProject
       parameters:
@@ -2192,18 +3576,32 @@ paths:
           type: string
         style: simple
       responses:
-        "200":
+        "204":
+          description: No Content
+        "401":
           content:
             application/json:
               schema:
-                type: string
-          description: OK
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Closes the project and releases resources in the service.
       tags:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects:
+  /api/4/projects:
     get:
       operationId: GetActiveProjects
       responses:
@@ -2215,6 +3613,18 @@ paths:
                   $ref: '#/components/schemas/ConProject'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets the list of projects in the service that were opened by the client
         connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
       tags:
@@ -2225,7 +3635,16 @@ paths:
       operationId: CreateEmptyProject
       requestBody:
         content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
           application/json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+          application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
         description: "Optional project metadata. The DesignCode field determines\r\
@@ -2238,13 +3657,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Creates a new empty IdeaCon project with no connections.
       tags:
       - Project
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: CreateEmptyProject
-  /api/3/projects/{projectId}/download:
+  /api/4/projects/{projectId}/download:
     get:
       operationId: DownloadProject
       parameters:
@@ -2261,6 +3698,24 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Downloads the current IdeaCon project from the service, including\
         \ all changes made by previous API calls."
       tags:
@@ -2268,11 +3723,11 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveProject
-  /api/3/projects/{projectId}:
+  /api/4/projects/{projectId}:
     get:
       operationId: GetProjectData
       parameters:
-      - description: The unique identifier of the requested project
+      - description: The unique identifier of the requested project.
         explode: false
         in: path
         name: projectId
@@ -2288,6 +3743,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Get data of the project.
       tags:
       - Project
@@ -2296,7 +3769,8 @@ paths:
     put:
       operationId: UpdateProjectData
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -2307,10 +3781,19 @@ paths:
         style: simple
       requestBody:
         content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
           application/json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: ""
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+        description: New project data to apply.
       responses:
         "200":
           content:
@@ -2318,12 +3801,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
-      summary: Updates ConProjectData of project
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Updates ConProjectData of project.
       tags:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/import-iom-file:
+  /api/4/projects/import-iom-file:
     post:
       operationId: ImportIOM
       requestBody:
@@ -2343,6 +3850,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Create the IDEA Connection project from IOM provided in xml format.\r\
         \nThe parameter 'containerXmlFile' passed in HTTP body represents :\r\n[IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)\r\
         \nwhich is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)"
@@ -2351,12 +3876,12 @@ paths:
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: CreateProjectFromIomFile
-  /api/3/projects/{projectId}/update-iom-file:
+  /api/4/projects/{projectId}/update-iom-file:
     post:
       operationId: UpdateFromIOM
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service to be updated
+          service to be updated.
         explode: false
         in: path
         name: projectId
@@ -2380,6 +3905,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConProject'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)\
         \  (model and results).\r\nIOM is passed in the body of the request as the\
         \ xml string.\r\n[IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)\
@@ -2389,7 +3938,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: UpdateProjectFromIomFile
-  /api/3/projects/{projectId}/reports/pdf:
+  /api/4/projects/{projectId}/reports/pdf:
     post:
       operationId: GeneratePdfForMutliple
       parameters:
@@ -2415,13 +3964,61 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Generates a report for multiple connections in PDF or Word format.
       tags:
       - Report
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveReportPdf
-  /api/3/projects/{projectId}/reports/word:
+  /api/4/projects/{projectId}/reports/word:
     post:
       operationId: GenerateWordForMultiple
       parameters:
@@ -2447,13 +4044,61 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Generates a report for multiple connections in PDF or Word format.
       tags:
       - Report
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveReportWord
-  /api/3/projects/{projectId}/connections/{connectionId}/reports/pdf:
+  /api/4/projects/{projectId}/connections/{connectionId}/reports/pdf:
     get:
       operationId: GeneratePdf
       parameters:
@@ -2478,6 +4123,42 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Generates a report for the specified connection in PDF, Word, or HTML\
         \ zip format."
       tags:
@@ -2485,7 +4166,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportPdf
-  /api/3/projects/{projectId}/connections/{connectionId}/reports/word:
+  /api/4/projects/{projectId}/connections/{connectionId}/reports/word:
     get:
       operationId: GenerateWord
       parameters:
@@ -2510,6 +4191,42 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Generates a report for the specified connection in PDF, Word, or HTML\
         \ zip format."
       tags:
@@ -2517,7 +4234,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportWord
-  /api/3/projects/{projectId}/connections/{connectionId}/reports/htmlZip:
+  /api/4/projects/{projectId}/connections/{connectionId}/reports/htmlZip:
     get:
       operationId: GenerateHtmlZip
       parameters:
@@ -2542,6 +4259,42 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Generates a report for the specified connection in PDF, Word, or HTML\
         \ zip format."
       tags:
@@ -2549,7 +4302,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReport
-  /api/3/projects/{projectId}/settings:
+  /api/4/projects/{projectId}/settings:
     get:
       operationId: GetSettings
       parameters:
@@ -2578,6 +4331,24 @@ paths:
                 additionalProperties: {}
                 type: object
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Gets setting values for the project.
       tags:
       - Settings
@@ -2610,12 +4381,36 @@ paths:
                 additionalProperties: {}
                 type: object
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Updates one or multiple setting values in the project.
       tags:
       - Settings
       x-requiresProject: true
       x-requiresConnection: false
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId}:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId}:
     get:
       operationId: GetTemplateInConnection
       parameters:
@@ -2653,17 +4448,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConConnectionTemplate'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves a specific template by its ID for a given connection within
         a project.
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates:
     delete:
       operationId: DeleteAll
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -2672,7 +4486,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection from which to delete templates.
         explode: false
         in: path
         name: connectionId
@@ -2682,9 +4496,45 @@ paths:
           type: integer
         style: simple
       responses:
-        "200":
-          description: OK
-      summary: Delete all templates in connection
+        "204":
+          description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Delete all templates in connection.
       tags:
       - Template
       x-requiresProject: true
@@ -2724,18 +4574,36 @@ paths:
                   $ref: '#/components/schemas/ConConnectionTemplate'
                 type: array
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Retrieves a list of templates associated with a specific connection
         within a project.
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/get-template:
+  /api/4/projects/{projectId}/connections/{connectionId}/get-template:
     get:
       operationId: CreateConTemplate
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -2744,7 +4612,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to be converted to a template
+      - description: Id of the connection to be converted to a template.
         explode: false
         in: path
         name: connectionId
@@ -2760,17 +4628,35 @@ paths:
               schema:
                 type: string
           description: OK
-      summary: Create a template for the connection connectionId in the project projectId
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Create a template for the connection connectionId in the project projectId.
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/create-from-connection:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/create-from-connection:
     post:
       operationId: CreateTemplateFromConnection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -2779,7 +4665,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The source of the requested template
+      - description: The source of the requested template.
         explode: false
         in: path
         name: connectionId
@@ -2795,6 +4681,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConTemplateCreateResult'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Create a reusable connection template from connectionId with structured\
         \ metadata.\r\nCaptures the connection's parametric design — operations, parameters,\
         \ parametric links,\r\nanalysis info, loads and clipping/section data — and\
@@ -2805,7 +4715,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/get-default-mapping:
+  /api/4/projects/{projectId}/connections/{connectionId}/get-default-mapping:
     post:
       description: "The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault\
         \ mapping to apply the passed template.\r\nIt can be modified by a user and\
@@ -2814,7 +4724,7 @@ paths:
       operationId: GetDefaultTemplateMapping
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -2823,7 +4733,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection to get default mapping
+      - description: Id of the connection to get default mapping.
         explode: false
         in: path
         name: connectionId
@@ -2837,7 +4747,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConTemplateMappingGetParam'
-        description: Data of the template to get default mapping
+        description: Data of the template to get default mapping.
       responses:
         "200":
           content:
@@ -2845,18 +4755,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/TemplateConversions'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: "Get the default mappings for the application of the connection template\
-        \ passed in templateToApply\r\non connectionId in the project projectId"
+        \ passed in templateToApply\r\non connectionId in the project projectId."
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/apply-template:
+  /api/4/projects/{projectId}/connections/{connectionId}/apply-template:
     post:
       operationId: ApplyTemplate
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
+          service.
         explode: false
         in: path
         name: projectId
@@ -2865,7 +4799,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: Id of the connection where to apply the template
+      - description: Id of the connection where to apply the template.
         explode: false
         in: path
         name: connectionId
@@ -2879,7 +4813,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConTemplateApplyParam'
-        description: Template to apply
+        description: Template to apply.
       responses:
         "200":
           content:
@@ -2887,17 +4821,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConTemplateApplyResult'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Apply the connection template applyTemplateParam on the connection
-        connectionId in the project projectId
+        connectionId in the project projectId.
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/explode:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/explode:
     post:
       operationId: ExplodeAll
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -2906,7 +4865,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection whose templates are to be exploded.
         explode: false
         in: path
         name: connectionId
@@ -2916,18 +4875,67 @@ paths:
           type: integer
         style: simple
       responses:
-        "200":
-          description: OK
-      summary: "Explode all templates (delete parameters, keep operations)"
+        "204":
+          description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Explode all templates (delete parameters, keep operations)."
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode:
     post:
       operationId: Explode
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -2936,7 +4944,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection containing the template.
         explode: false
         in: path
         name: connectionId
@@ -2945,7 +4953,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the template to explode.
         explode: false
         in: path
         name: templateId
@@ -2955,18 +4963,67 @@ paths:
           type: string
         style: simple
       responses:
-        "200":
-          description: OK
-      summary: "Explode specific template (delete parameters, keep operations)"
+        "204":
+          description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Explode specific template (delete parameters, keep operations)."
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}:
     delete:
       operationId: Delete
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -2975,7 +5032,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection containing the template.
         explode: false
         in: path
         name: connectionId
@@ -2984,7 +5041,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the template to delete.
         explode: false
         in: path
         name: templateId
@@ -2994,18 +5051,55 @@ paths:
           type: string
         style: simple
       responses:
-        "200":
-          description: OK
-      summary: Delete specific template
+        "204":
+          description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Delete specific template.
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties:
     get:
       operationId: GetTemplateCommonOperationProperties
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -3014,7 +5108,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection containing the template.
         explode: false
         in: path
         name: connectionId
@@ -3023,7 +5117,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the template.
         explode: false
         in: path
         name: templateId
@@ -3039,7 +5133,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConOperationCommonProperties'
           description: OK
-      summary: Get Common properties for specific template
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Get common properties for specific template.
       tags:
       - Template
       x-requiresProject: true
@@ -3047,7 +5159,8 @@ paths:
     put:
       operationId: UpdateTemplateCommonOperationProperties
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -3056,7 +5169,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection containing the template.
         explode: false
         in: path
         name: connectionId
@@ -3065,7 +5178,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the template.
         explode: false
         in: path
         name: templateId
@@ -3079,20 +5192,70 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConOperationCommonProperties'
-        description: ""
+        description: "Common properties to apply (specify material IDs, or keep as\
+          \ null)."
       responses:
-        "200":
-          description: OK
-      summary: Set common properties for specific template
+        "204":
+          description: No Content
+        "401":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Set common properties for specific template.
       tags:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults:
+  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults:
     post:
       operationId: LoadDefaults
       parameters:
-      - description: ""
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
         explode: false
         in: path
         name: projectId
@@ -3101,7 +5264,7 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: ""
+      - description: The ID of the connection containing the template.
         explode: false
         in: path
         name: connectionId
@@ -3110,7 +5273,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: ""
+      - description: The ID of the template whose parameter defaults are loaded.
         explode: false
         in: path
         name: templateId
@@ -3126,6 +5289,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/ParameterUpdateResponse'
           description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
       summary: Load parameter defaults for specific template.
       tags:
       - Template
@@ -3135,6 +5322,7 @@ components:
   schemas:
     AnchorGrid:
       additionalProperties: false
+      description: Data of the anchor grid
       example:
         connectedParts:
         - typeName: typeName
@@ -3194,6 +5382,7 @@ components:
         anchoringLength: 6.438423552598547
       properties:
         shearInThread:
+          description: "Indicates, whether a shear plane is in the thread of a bolt."
           type: boolean
         concreteBlock:
           $ref: '#/components/schemas/ConcreteBlock'
@@ -3202,18 +5391,27 @@ components:
         anchorInstallationProcess:
           $ref: '#/components/schemas/InstallationProcessTypeEnum'
         washerSize:
+          description: Washer Size used if AnchorType is washer
           format: double
           type: number
         anchoringLength:
+          description: Anchoring Length
           format: double
           type: number
         hookLength:
+          description: "Length of anchor hook. Distance from the inner surface of\
+            \ the anchor shaft\r\nto the outer tip of the hook specified as an anchor\
+            \ diameter multiplier."
           format: double
           type: number
         headedStudHeadDiameter:
+          description: "Head diameter of headed stud anchor.\r\nUsed when IdeaRS.OpenModel.Connection.AnchorGrid.AnchorType\
+            \ is IdeaRS.OpenModel.Parameters.AnchorType.HeadedStud."
           format: double
           type: number
         reinforcementMandrelDiameter:
+          description: "Mandrel diameter of reinforcement anchor.\r\nUsed when IdeaRS.OpenModel.Connection.AnchorGrid.AnchorType\
+            \ is IdeaRS.OpenModel.Parameters.AnchorType.Reinforcement."
           format: double
           type: number
         boltAssembly:
@@ -3227,26 +5425,32 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         positions:
+          description: Positions of holes in the local coordinate system of the grid
           items:
             $ref: '#/components/schemas/Point3D'
           nullable: true
           type: array
         connectedParts:
+          description: List of the connected parts
           items:
             $ref: '#/components/schemas/ReferenceElement'
           nullable: true
           type: array
         name:
+          description: Name
           nullable: true
           type: string
         length:
+          description: Length
           format: double
           type: number
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
     AnchorType:
+      description: Defines a type of anchor end.
       enum:
       - straight
       - washerPlateCircular
@@ -3283,6 +5487,7 @@ components:
       type: object
     BeamData:
       additionalProperties: false
+      description: Provides data of the connected beam
       example:
         crossSectionType: crossSectionType
         plates:
@@ -3451,50 +5656,67 @@ components:
           direction: default
       properties:
         name:
+          description: Name of the beam
           nullable: true
           type: string
         plates:
+          description: Plates of the beam
           items:
             $ref: '#/components/schemas/PlateData'
           nullable: true
           type: array
         crossSectionType:
+          description: Type of cross section
           nullable: true
           type: string
         mprlName:
+          description: MPRL name of beam
           nullable: true
           type: string
         originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
           nullable: true
           type: string
         cuts:
+          description: Cuts on the beam
           items:
             $ref: '#/components/schemas/CutData'
           nullable: true
           type: array
         isAdded:
+          description: Is added beam
           type: boolean
         addedMemberLength:
+          description: Added beam lenght
           format: double
           type: number
         isNegativeObject:
+          description: Is negative object
           type: boolean
         addedMember:
           $ref: '#/components/schemas/ReferenceElement'
         mirrorY:
+          description: Mirror by Y
           type: boolean
         refLineInCenterOfGravity:
+          description: The reference line of the member is in the center of gravity
+            of the cross-section
           type: boolean
         isBearingMember:
+          description: Is beam bearing member
           type: boolean
         autoAddCutByWorkplane:
+          description: Automaticali add cut by workplane if it not defined
           type: boolean
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
     BendData:
       additionalProperties: false
+      description: Provides data of bend
       example:
         point1OfSideBoundary1:
           x: 2.3021358869347655
@@ -3525,12 +5747,15 @@ components:
         radius: 4.965218492984954
       properties:
         plate1Id:
+          description: First plate
           format: int32
           type: integer
         plate2Id:
+          description: Second plate
           format: int32
           type: integer
         radius:
+          description: Radius of bend
           format: double
           type: number
         point1OfSideBoundary1:
@@ -3594,6 +5819,7 @@ components:
         boltInteraction: bearing
       properties:
         shearInThread:
+          description: "Indicates, whether a shear plane is in the thread of a bolt."
           type: boolean
         boltInteraction:
           $ref: '#/components/schemas/BoltShearType'
@@ -3608,26 +5834,32 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         positions:
+          description: Positions of holes in the local coordinate system of the grid
           items:
             $ref: '#/components/schemas/Point3D'
           nullable: true
           type: array
         connectedParts:
+          description: List of the connected parts
           items:
             $ref: '#/components/schemas/ReferenceElement'
           nullable: true
           type: array
         name:
+          description: Name
           nullable: true
           type: string
         length:
+          description: Length
           format: double
           type: number
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
     BoltShearType:
+      description: Defines a transfer of shear force in bolts.
       enum:
       - bearing
       - interaction
@@ -3635,6 +5867,7 @@ components:
       type: string
     BucklingRes:
       additionalProperties: false
+      description: Results of the buckling analysis
       example:
         shape: 1
         loadCaseId: 1
@@ -3644,46 +5877,68 @@ components:
           format: int32
           type: integer
         shape:
+          description: Shape lc calculated by solver
           format: int32
           type: integer
         factor:
+          description: Buckling factor
           format: double
           type: number
       type: object
     CheckResAnchor:
       additionalProperties: false
+      description: Check value for Anchor
       example:
         unityCheck: 2.027123023002322
         checkStatus: true
         name: name
       properties:
         name:
+          description: Name
           nullable: true
           type: string
         unityCheck:
+          description: Unity Check
           format: double
           type: number
         checkStatus:
+          description: Status of the Check
           type: boolean
       type: object
     CheckResBolt:
       additionalProperties: false
+      description: "Check value for Bolts.\r\n\r\n<strong>Bolt identification:</strong>\
+        \ Bolt identifiers (used as dictionary keys in raw CBFEM results\r\nand reflected\
+        \ in IdeaRS.OpenModel.Connection.CheckResBolt.Name) are opaque internal solver\
+        \ identifiers. They may start at any number,\r\nare not necessarily sequential,\
+        \ and may contain gaps. When a bolt group is exploded or bolt positions\r\n\
+        are modified, the identifiers may shift. Do not perform arithmetic on bolt\
+        \ identifiers or assume\r\nthey correspond to a zero-based or one-based index.\
+        \ To map bolts to sequential positions,\r\nsort the bolt keys numerically\
+        \ and use the resulting order."
       example:
         unityCheck: 3.616076749251911
         checkStatus: true
         name: name
       properties:
         name:
+          description: "Name of the bolt (e.g., \"B15\"). The numeric suffix is an\
+            \ opaque CBFEM solver identifier —\r\nit may not start at 1 and may not\
+            \ be sequential. See IdeaRS.OpenModel.Connection.CheckResBolt remarks\
+            \ for details."
           nullable: true
           type: string
         unityCheck:
+          description: Unity Check
           format: double
           type: number
         checkStatus:
+          description: Status of the Check
           type: boolean
       type: object
     CheckResConcreteBlock:
       additionalProperties: false
+      description: Check value for Concrete Block
       example:
         unityCheck: 4.145608029883936
         checkStatus: true
@@ -3691,19 +5946,24 @@ components:
         loadCaseId: 7
       properties:
         name:
+          description: Name of Concrete Block
           nullable: true
           type: string
         unityCheck:
+          description: Unity Check
           format: double
           type: number
         checkStatus:
+          description: Status of the Check
           type: boolean
         loadCaseId:
+          description: Id of Load Case
           format: int32
           type: integer
       type: object
     CheckResPlate:
       additionalProperties: false
+      description: Check value for Plate
       example:
         checkStatus: true
         maxStrain: 6.027456183070403
@@ -3715,20 +5975,26 @@ components:
         - 5
       properties:
         name:
+          description: Name of Plate
           nullable: true
           type: string
         checkStatus:
+          description: Status of the Check
           type: boolean
         loadCaseId:
+          description: Id of Load Case
           format: int32
           type: integer
         maxStrain:
+          description: Max Strain
           format: double
           type: number
         maxStress:
+          description: Max Stress
           format: double
           type: number
         items:
+          description: In case of presentation of groups plates (uncoiled beams)
           items:
             format: int32
             type: integer
@@ -3737,6 +6003,7 @@ components:
       type: object
     CheckResSummary:
       additionalProperties: false
+      description: Check summary
       example:
         unityCheckMessage: unityCheckMessage
         checkStatus: true
@@ -3746,24 +6013,33 @@ components:
         skipped: true
       properties:
         checkValue:
+          description: Check value
           format: double
           type: number
         checkStatus:
+          description: Status of check
           type: boolean
         loadCaseId:
+          description: Id of Load Case
           format: int32
           type: integer
         name:
+          description: Name
           nullable: true
           type: string
         unityCheckMessage:
+          description: Detail message about overall check
           nullable: true
           type: string
         skipped:
+          description: "Whether the check was calculated or not.\r\nIf true, the check\
+            \ was not calculated and IdeaRS.OpenModel.Connection.CheckResSummary.CheckValue\
+            \ should be ignored, otherwise false."
           type: boolean
       type: object
     CheckResWeld:
       additionalProperties: false
+      description: Check value for Weld
       example:
         unityCheck: 2.3021358869347655
         checkStatus: true
@@ -3775,20 +6051,26 @@ components:
         - 9
       properties:
         name:
+          description: Name of Weld
           nullable: true
           type: string
         id:
+          description: Unique id of weld
           format: int32
           type: integer
         unityCheck:
+          description: Unity Check Stress
           format: double
           type: number
         checkStatus:
+          description: Status of the Check
           type: boolean
         loadCaseId:
+          description: Id of Load Case
           format: int32
           type: integer
         items:
+          description: In case of presentation of groups plates (uncoiled beams)
           items:
             format: int32
             type: integer
@@ -3800,7 +6082,7 @@ components:
       example:
         plateSide: default
         partType: notSpecified
-        memberId: 9
+        memberId: 3
       properties:
         plateSide:
           $ref: '#/components/schemas/ConAlignedPlateSideCodeEnum'
@@ -4212,39 +6494,52 @@ components:
       additionalProperties: false
       example:
         stiffnessAnalysis:
-          theoreticalLengthY: 7.386281948385884
-          theoreticalLengthZ: 4.145608029883936
+          theoreticalLengthY: 1.2315135367772556
+          theoreticalLengthZ: 7.386281948385884
         name: name
+        positionOnRefLine: 6.027456183070403
         active: true
         isContinuous: true
         mirrorY: true
         model:
-          x: 3.616076749251911
+          x: 2.027123023002322
           modelType: modelType
           forcesIn: position
-          connectedMemberId: 2
+          connectedMemberId: 4
         mirrorZ: true
         position:
-          alphaRotation: 5.962133916683182
-          gamaPitch: 1.4658129805029452
-          offsetEx: 5.637376656633329
-          offsetEy: 2.3021358869347655
+          alphaRotation: 5.637376656633329
+          origin:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          betaDirection: 1.4658129805029452
+          align: none
+          gamaPitch: 5.962133916683182
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          offsetEx: 2.3021358869347655
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          offsetEy: 7.061401241503109
           relatedPlate:
             plateSide: default
             partType: notSpecified
-            memberId: 9
+            memberId: 3
           definedBy: none
           axisX:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          offsetEz: 7.061401241503109
-          betaDirection: 6.027456183070403
+          offsetEz: 9.301444243932576
           alignedPlate:
             plateSide: default
             partType: notSpecified
-            memberId: 9
-          align: none
+            memberId: 3
         id: 1
         crossSectionId: 0
         isBearing: true
@@ -4255,6 +6550,9 @@ components:
           format: int32
           nullable: true
           type: integer
+        positionOnRefLine:
+          format: double
+          type: number
         mirrorY:
           nullable: true
           type: boolean
@@ -4294,10 +6592,10 @@ components:
     ConMemberModel:
       additionalProperties: false
       example:
-        x: 3.616076749251911
+        x: 2.027123023002322
         modelType: modelType
         forcesIn: position
-        connectedMemberId: 2
+        connectedMemberId: 4
       properties:
         modelType:
           nullable: true
@@ -4351,30 +6649,48 @@ components:
     ConMemberPosition:
       additionalProperties: false
       example:
-        alphaRotation: 5.962133916683182
-        gamaPitch: 1.4658129805029452
-        offsetEx: 5.637376656633329
-        offsetEy: 2.3021358869347655
+        alphaRotation: 5.637376656633329
+        origin:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        betaDirection: 1.4658129805029452
+        align: none
+        gamaPitch: 5.962133916683182
+        axisZ:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        offsetEx: 2.3021358869347655
+        axisY:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        offsetEy: 7.061401241503109
         relatedPlate:
           plateSide: default
           partType: notSpecified
-          memberId: 9
+          memberId: 3
         definedBy: none
         axisX:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        offsetEz: 7.061401241503109
-        betaDirection: 6.027456183070403
+        offsetEz: 9.301444243932576
         alignedPlate:
           plateSide: default
           partType: notSpecified
-          memberId: 9
-        align: none
+          memberId: 3
       properties:
         definedBy:
           $ref: '#/components/schemas/ConMemberPlacementDefinitionTypeEnum'
+        origin:
+          $ref: '#/components/schemas/Vector3D'
         axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
           $ref: '#/components/schemas/Vector3D'
         betaDirection:
           format: double
@@ -4510,10 +6826,10 @@ components:
         projectInfo:
           date: 2000-01-23T04:56:07.000+00:00
           author: author
+          countryCode: none
           projectNumber: projectNumber
           name: name
           description: description
-          designCode: designCode
         projectId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         connections:
         - identifier: identifier
@@ -4547,10 +6863,10 @@ components:
       example:
         date: 2000-01-23T04:56:07.000+00:00
         author: author
+        countryCode: none
         projectNumber: projectNumber
         name: name
         description: description
-        designCode: designCode
       properties:
         name:
           nullable: true
@@ -4564,9 +6880,8 @@ components:
         author:
           nullable: true
           type: string
-        designCode:
-          nullable: true
-          type: string
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
         date:
           format: date-time
           type: string
@@ -4604,8 +6919,8 @@ components:
     ConStiffnessAnalysis:
       additionalProperties: false
       example:
-        theoreticalLengthY: 7.386281948385884
-        theoreticalLengthZ: 4.145608029883936
+        theoreticalLengthY: 1.2315135367772556
+        theoreticalLengthZ: 7.386281948385884
       properties:
         theoreticalLengthZ:
           format: double
@@ -4784,6 +7099,7 @@ components:
       type: string
     ConcreteBlock:
       additionalProperties: false
+      description: Data of concrete block
       example:
         lenght: 9.369310271410669
         material: material
@@ -4791,20 +7107,25 @@ components:
         height: 8.762042012749001
       properties:
         lenght:
+          description: Lenght of ConcreteBlock
           format: double
           type: number
         width:
+          description: Width of ConcreteBlock
           format: double
           type: number
         height:
+          description: Height of ConcreteBlock
           format: double
           type: number
         material:
+          description: Material of ConcreteBlock
           nullable: true
           type: string
       type: object
     ConcreteBlockData:
       additionalProperties: false
+      description: Provides data of the single concrete block
       example:
         originalModelId: originalModelId
         depth: 7.143538047012306
@@ -4841,20 +7162,25 @@ components:
         region: region
       properties:
         id:
+          description: Plate unique ID
           format: int32
           type: integer
         name:
+          description: Name of the concrete block
           nullable: true
           type: string
         depth:
+          description: Depth of the concrete block
           format: double
           type: number
         material:
+          description: Name of the material
           nullable: true
           type: string
         center:
           $ref: '#/components/schemas/Point3D'
         outlinePoints:
+          description: Outline points
           items:
             $ref: '#/components/schemas/Point2D'
           nullable: true
@@ -4868,14 +7194,18 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         region:
+          description: Geometry of the concrete block in svg format
           nullable: true
           type: string
         originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
           nullable: true
           type: string
       type: object
     ConnectionCheckRes:
       additionalProperties: false
+      description: Results for connection in project
       example:
         checkResPlate:
         - checkStatus: true
@@ -4965,47 +7295,57 @@ components:
         id: 6
       properties:
         checkResSummary:
+          description: List of CheckResSummary
           items:
             $ref: '#/components/schemas/CheckResSummary'
           nullable: true
           type: array
         checkResPlate:
+          description: List of check results for plates
           items:
             $ref: '#/components/schemas/CheckResPlate'
           nullable: true
           type: array
         checkResWeld:
+          description: List of check results for welds
           items:
             $ref: '#/components/schemas/CheckResWeld'
           nullable: true
           type: array
         checkResBolt:
+          description: List of check results for bolts
           items:
             $ref: '#/components/schemas/CheckResBolt'
           nullable: true
           type: array
         checkResAnchor:
+          description: List of check results for anchors
           items:
             $ref: '#/components/schemas/CheckResAnchor'
           nullable: true
           type: array
         checkResConcreteBlock:
+          description: List of check results for concrete blocks
           items:
             $ref: '#/components/schemas/CheckResConcreteBlock'
           nullable: true
           type: array
         bucklingResults:
+          description: List of results of buckling analysis
           items:
             $ref: '#/components/schemas/BucklingRes'
           nullable: true
           type: array
         name:
+          description: Name of connection
           nullable: true
           type: string
         connectionID:
+          description: Guid of connection
           format: uuid
           type: string
         id:
+          description: Integer Id of connection
           format: int32
           type: integer
         messages:
@@ -5013,6 +7353,7 @@ components:
       type: object
     ConnectionData:
       additionalProperties: false
+      description: Provides data of the connection
       example:
         beams:
         - crossSectionType: crossSectionType
@@ -6316,46 +8657,55 @@ components:
         connectionPoint:
           $ref: '#/components/schemas/ReferenceElement'
         beams:
+          description: Connected beams
           items:
             $ref: '#/components/schemas/BeamData'
           nullable: true
           type: array
         plates:
+          description: Plates of the connection
           items:
             $ref: '#/components/schemas/PlateData'
           nullable: true
           type: array
         foldedPlates:
+          description: Folded plate of the connection
           items:
             $ref: '#/components/schemas/FoldedPlateData'
           nullable: true
           type: array
         boltGrids:
+          description: Bolt grids which belongs to the connection
           items:
             $ref: '#/components/schemas/BoltGrid'
           nullable: true
           type: array
         anchorGrids:
+          description: Anchor grids which belongs to the connection
           items:
             $ref: '#/components/schemas/AnchorGrid'
           nullable: true
           type: array
         pinGrids:
+          description: Pin grids which belongs to the connection
           items:
             $ref: '#/components/schemas/PinGrid'
           nullable: true
           type: array
         welds:
+          description: Welds of the connection
           items:
             $ref: '#/components/schemas/WeldData'
           nullable: true
           type: array
         concreteBlocks:
+          description: ConcreteBlocksof the connection
           items:
             $ref: '#/components/schemas/ConcreteBlockData'
           nullable: true
           type: array
         cutBeamByBeams:
+          description: cut beam by beams
           items:
             $ref: '#/components/schemas/CutBeamByBeamData'
           nullable: true
@@ -6375,6 +8725,7 @@ components:
           type: string
       type: object
     CountryCode:
+      description: CountryCode
       enum:
       - none
       - ecen
@@ -6389,6 +8740,7 @@ components:
       type: string
     CutBeamByBeamData:
       additionalProperties: false
+      description: Provides data of the cut objec by object
       example:
         cuttingObject:
           typeName: typeName
@@ -6426,6 +8778,7 @@ components:
         extendBeforeCut: true
       properties:
         name:
+          description: Name of the cut
           nullable: true
           type: string
         modifiedObject:
@@ -6433,12 +8786,14 @@ components:
         cuttingObject:
           $ref: '#/components/schemas/ReferenceElement'
         isWeld:
+          description: is cut welded
           type: boolean
         webWeld:
           $ref: '#/components/schemas/WeldDefinition'
         flangeWeld:
           $ref: '#/components/schemas/WeldDefinition'
         offset:
+          description: Offset
           format: double
           type: number
         method:
@@ -6450,10 +8805,13 @@ components:
         cutPart:
           $ref: '#/components/schemas/CutPart'
         extendBeforeCut:
+          description: Extend before cut - for cuts where user can decide if modified
+            beam will be extended or not
           type: boolean
       type: object
     CutData:
       additionalProperties: false
+      description: Provides data of the cut beam
       example:
         planePoint:
           x: 2.3021358869347655
@@ -6474,10 +8832,12 @@ components:
         direction:
           $ref: '#/components/schemas/CutOrientation'
         offset:
+          description: Offset - shift of cut
           format: double
           type: number
       type: object
     CutMethod:
+      description: Cut method
       enum:
       - boundingBox
       - surface
@@ -6485,6 +8845,7 @@ components:
       - surfaceAll
       type: string
     CutOrientation:
+      description: Represents the type of the cut
       enum:
       - default
       - parallel
@@ -6496,6 +8857,8 @@ components:
       - end
       type: string
     DistanceComparison:
+      description: Represents the result of comparison of distances of two object
+        from the same point
       enum:
       - closer
       - farther
@@ -6630,8 +8993,31 @@ components:
           nullable: true
           type: array
       type: object
+    FemElement:
+      additionalProperties: false
+      description: Provides information about FEM element
+      example:
+        vertices:
+        - 5
+        - 5
+        type: 1
+      properties:
+        type:
+          description: "Type of the finite element\r\n1 - triangular element 2D\r\n\
+            2 - quadrilateral element 2D"
+          format: int32
+          type: integer
+        vertices:
+          description: Get list of vertices of the fem element
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
     FoldedPlateData:
       additionalProperties: false
+      description: Provides data of the folded plate
       example:
         plates:
         - thickness: 1.4658129805029452
@@ -6815,11 +9201,13 @@ components:
           radius: 4.965218492984954
       properties:
         plates:
+          description: List of plates belong to folded plate
           items:
             $ref: '#/components/schemas/PlateData'
           nullable: true
           type: array
         bends:
+          description: List of bends connected plates of foldedplate
           items:
             $ref: '#/components/schemas/BendData'
           nullable: true
@@ -6964,6 +9352,7 @@ components:
       additionalProperties: false
       example:
         expression: expression
+        expressionType: value
         key: key
       properties:
         key:
@@ -6972,6 +9361,8 @@ components:
         expression:
           nullable: true
           type: string
+        expressionType:
+          $ref: '#/components/schemas/ParameterExpressionType'
       type: object
     IdeaParameterValidation:
       additionalProperties: false
@@ -7059,6 +9450,7 @@ components:
           type: number
       type: object
     MessageNumber:
+      description: Message numbers
       enum:
       - unspecified
       - information
@@ -7096,15 +9488,19 @@ components:
       type: string
     OpenElementId:
       additionalProperties: false
+      description: "Open element base class\r\nPOS - class can not be abstract -it\
+        \ causes problems with serialization"
       example:
         id: 6
       properties:
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
     OpenMessage:
       additionalProperties: false
+      description: Open message base class
       example:
         number: unspecified
         description: description
@@ -7112,11 +9508,13 @@ components:
         number:
           $ref: '#/components/schemas/MessageNumber'
         description:
+          description: Description of message
           nullable: true
           type: string
       type: object
     OpenMessages:
       additionalProperties: false
+      description: Open messages collection
       example:
         messages:
         - number: unspecified
@@ -7125,11 +9523,20 @@ components:
           description: description
       properties:
         messages:
+          description: List of messages
           items:
             $ref: '#/components/schemas/OpenMessage'
           nullable: true
           type: array
       type: object
+    ParameterExpressionType:
+      enum:
+      - value
+      - lowerBound
+      - upperBound
+      - defaultExpression
+      - validationExpression
+      type: string
     ParameterUpdateResponse:
       additionalProperties: false
       example:
@@ -7198,6 +9605,7 @@ components:
       type: object
     PinGrid:
       additionalProperties: false
+      description: Data of the pin grid
       example:
         connectedParts:
         - typeName: typeName
@@ -7245,6 +9653,7 @@ components:
         id: 5
       properties:
         isReplaceable:
+          description: Replaceable pin
           type: boolean
         pin:
           $ref: '#/components/schemas/ReferenceElement'
@@ -7257,27 +9666,33 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         positions:
+          description: Positions of holes in the local coordinate system of the grid
           items:
             $ref: '#/components/schemas/Point3D'
           nullable: true
           type: array
         connectedParts:
+          description: List of the connected parts
           items:
             $ref: '#/components/schemas/ReferenceElement'
           nullable: true
           type: array
         name:
+          description: Name
           nullable: true
           type: string
         length:
+          description: Length
           format: double
           type: number
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
     PlateData:
       additionalProperties: false
+      description: Provides data of the single plate
       example:
         thickness: 1.4658129805029452
         origin:
@@ -7343,15 +9758,19 @@ components:
         region: region
       properties:
         name:
+          description: Name of the plate
           nullable: true
           type: string
         thickness:
+          description: Thickness of the plate
           format: double
           type: number
         material:
+          description: Name of the material
           nullable: true
           type: string
         outlinePoints:
+          description: Outline points
           items:
             $ref: '#/components/schemas/Point2D'
           nullable: true
@@ -7365,34 +9784,73 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         region:
+          description: Geometry of the plate in svg format. In next version will be
+            mark as OBSOLETE! New use property Geometry
           nullable: true
           type: string
         geometry:
           $ref: '#/components/schemas/Region2D'
         originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
           nullable: true
           type: string
         isNegativeObject:
+          description: Is negative object
           type: boolean
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
+    PlateElements:
+      additionalProperties: false
+      description: Data of plate elements
+      example:
+        plateType: steelPlate
+        plateUID: 6
+        elements:
+        - vertices:
+          - 5
+          - 5
+          type: 1
+        - vertices:
+          - 5
+          - 5
+          type: 1
+      properties:
+        plateType:
+          $ref: '#/components/schemas/StructuralPlateType'
+        plateUID:
+          description: Plate UID
+          format: int32
+          type: integer
+        elements:
+          description: List of fem elements for plate UID
+          items:
+            $ref: '#/components/schemas/FemElement'
+          nullable: true
+          type: array
+      type: object
     Point2D:
       additionalProperties: false
+      description: Represents an x- and y-coordinate pair in two-dimensional space.
       example:
         x: 5.962133916683182
         "y": 5.637376656633329
       properties:
         x:
+          description: Gets or sets the X-coordinate value
           format: double
           type: number
         "y":
+          description: Gets or sets the Y-coordinate value
           format: double
           type: number
       type: object
     Point3D:
       additionalProperties: false
+      description: "Represents an x- , y- an z-coordinates in three-dimensional space."
       example:
         x: 2.3021358869347655
         "y": 7.061401241503109
@@ -7400,20 +9858,25 @@ components:
         id: 3
       properties:
         x:
+          description: Gets or sets the X-coordinate value
           format: double
           type: number
         "y":
+          description: Gets or sets the Y-coordinate value
           format: double
           type: number
         z:
+          description: Gets or sets the Z-coordinate value
           format: double
           type: number
         id:
+          description: Element Id
           format: int32
           type: integer
       type: object
     PolyLine2D:
       additionalProperties: false
+      description: Represents a polyline in two-dimensional space.
       example:
         startPoint:
           x: 5.962133916683182
@@ -7429,13 +9892,41 @@ components:
         startPoint:
           $ref: '#/components/schemas/Point2D'
         segments:
+          description: Gets segments of `PolyLine2D`.
           items:
             $ref: '#/components/schemas/Segment2D'
           nullable: true
           type: array
       type: object
+    ProblemDetails:
+      additionalProperties: {}
+      example:
+        instance: instance
+        detail: detail
+        type: type
+        title: title
+        status: 5
+      properties:
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      type: object
     ReferenceElement:
       additionalProperties: false
+      description: Reference element class
       example:
         typeName: typeName
         id: 0
@@ -7443,9 +9934,11 @@ components:
           id: 6
       properties:
         typeName:
+          description: Element type name
           nullable: true
           type: string
         id:
+          description: Element Id
           format: int32
           type: integer
         element:
@@ -7453,6 +9946,8 @@ components:
       type: object
     Region2D:
       additionalProperties: false
+      description: Represents a region in two-dimensional space included outline (border)
+        and openings.
       example:
         outline:
           startPoint:
@@ -7490,11 +9985,90 @@ components:
         outline:
           $ref: '#/components/schemas/PolyLine2D'
         openings:
+          description: Gets or sets the list of openings in the Region2D.
           items:
             $ref: '#/components/schemas/PolyLine2D'
           nullable: true
           type: array
       type: object
+    ResultOnMesh:
+      additionalProperties: false
+      example:
+        nodes:
+        - - 0.8008281904610115
+          - 0.8008281904610115
+        - - 0.8008281904610115
+          - 0.8008281904610115
+        platesElement:
+        - plateType: steelPlate
+          plateUID: 6
+          elements:
+          - vertices:
+            - 5
+            - 5
+            type: 1
+          - vertices:
+            - 5
+            - 5
+            type: 1
+        - plateType: steelPlate
+          plateUID: 6
+          elements:
+          - vertices:
+            - 5
+            - 5
+            type: 1
+          - vertices:
+            - 5
+            - 5
+            type: 1
+        displacement:
+        - - 5.637376656633329
+          - 5.637376656633329
+        - - 5.637376656633329
+          - 5.637376656633329
+        value:
+        - 2.3021358869347655
+        - 2.3021358869347655
+      properties:
+        nodes:
+          items:
+            items:
+              format: double
+              type: number
+            type: array
+          nullable: true
+          type: array
+        platesElement:
+          description: List of elements for each plate UID
+          items:
+            $ref: '#/components/schemas/PlateElements'
+          nullable: true
+          type: array
+        displacement:
+          items:
+            items:
+              format: double
+              type: number
+            type: array
+          nullable: true
+          type: array
+        value:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+      type: object
+    ResultOnMeshType:
+      description: Type of result on mesh
+      enum:
+      - strain
+      - strainCheck
+      - stress
+      - fondationStress
+      - overallCheck
+      type: string
     SearchOption:
       enum:
       - ignore
@@ -7503,6 +10077,7 @@ components:
       type: string
     Segment2D:
       additionalProperties: false
+      description: Represents a segment in two-dimensional space.
       example:
         endPoint:
           x: 5.962133916683182
@@ -7534,6 +10109,12 @@ components:
           readOnly: true
           type: string
       type: object
+    StructuralPlateType:
+      description: Tyoe of structural plate
+      enum:
+      - steelPlate
+      - weld
+      type: string
     TemplateConversions:
       additionalProperties: false
       example:
@@ -7619,23 +10200,28 @@ components:
       type: object
     Vector3D:
       additionalProperties: false
+      description: Represents a vector in three-dimensional space.
       example:
         x: 2.027123023002322
         "y": 4.145608029883936
         z: 7.386281948385884
       properties:
         x:
+          description: Gets or sets the X-dirrection value
           format: double
           type: number
         "y":
+          description: Gets or sets the Y-dirrection value
           format: double
           type: number
         z:
+          description: Gets or sets the Z-dirrection value
           format: double
           type: number
       type: object
     WeldData:
       additionalProperties: false
+      description: Provides data of the single weld
       example:
         connectedPartIds:
         - connectedPartIds
@@ -7662,15 +10248,19 @@ components:
             id: 6
       properties:
         id:
+          description: Id of the weld
           format: int32
           type: integer
         name:
+          description: Name of the weld
           nullable: true
           type: string
         thickness:
+          description: Thickness of the weld
           format: double
           type: number
         material:
+          description: Name of the material
           nullable: true
           type: string
         weldMaterial:
@@ -7678,6 +10268,7 @@ components:
         weldType:
           $ref: '#/components/schemas/WeldType'
         connectedPartIds:
+          description: Id of the weld
           items:
             type: string
           nullable: true
@@ -7689,6 +10280,7 @@ components:
       type: object
     WeldDefinition:
       additionalProperties: false
+      description: Weld definition for cut operations (web or flange weld).
       example:
         thickness: 0.8851374739011653
         weldType: null
@@ -7699,6 +10291,7 @@ components:
             id: 6
       properties:
         thickness:
+          description: Thickness of the weld - value 0 = recommended size
           format: double
           type: number
         weldType:
@@ -7707,6 +10300,7 @@ components:
           $ref: '#/components/schemas/ReferenceElement'
       type: object
     WeldType:
+      description: enum of weld types
       enum:
       - notSpecified
       - fillet
@@ -7729,7 +10323,7 @@ components:
     ImportIOM_request:
       properties:
         containerXmlFile:
-          description: IdeaRS.OpenModel.OpenModelContainer serialized to xml
+          description: IdeaRS.OpenModel.OpenModelContainer serialized to xml.
           format: binary
           type: string
         ConnectionsToCreate:
@@ -7741,7 +10335,7 @@ components:
     UpdateFromIOM_request:
       properties:
         containerXmlFile:
-          description: IdeaRS.OpenModel.OpenModelContainer serialized to xml
+          description: IdeaRS.OpenModel.OpenModelContainer serialized to xml.
           format: binary
           type: string
       type: object

@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**delete_operations**](OperationApi.md#delete_operations) | Delete all operations for the connection
+[**delete_operations**](OperationApi.md#delete_operations) | Delete all operations for the connection.
 [**get_common_operation_properties**](OperationApi.md#get_common_operation_properties) | Gets common operation properties.
 [**get_operations**](OperationApi.md#get_operations) | Gets the list of operations for the connection.
 [**pre_design_welds**](OperationApi.md#pre_design_welds) | Pre-designs welds in the connection.
@@ -15,15 +15,15 @@ Method | Description
 # **delete_operations**
 > delete_operations(project_id, connection_id)
 
-Delete all operations for the connection
+Delete all operations for the connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be modified | 
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
 
 ### Return type
 
@@ -44,11 +44,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def delete_operationsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to be modified
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
 
     try:
-        # Delete all operations for the connection
+        # Delete all operations for the connection.
         api_client.operation.delete_operations(project_id, connection_id)
     except Exception as e:
         print("Exception when calling OperationApi->delete_operations: %s\n" % e)
@@ -66,7 +66,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/operations 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -75,13 +75,16 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -144,7 +147,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 ### Authorization
 
@@ -160,6 +163,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -222,7 +228,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/operations 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -238,6 +244,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -302,7 +311,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/operations/weld-sizing 
 
 ### Authorization
 
@@ -318,6 +327,11 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+**501** | Not Implemented |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -379,7 +393,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/operations/common-properties 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/operations/common-properties 
 
 ### Authorization
 
@@ -388,13 +402,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

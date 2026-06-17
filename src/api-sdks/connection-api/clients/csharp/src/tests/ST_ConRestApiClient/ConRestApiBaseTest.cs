@@ -51,43 +51,6 @@ namespace ST_ConnectionRestApi
 			this.ApiFactory = new ConnectionApiServiceAttacher(ApiUri.AbsoluteUri);
 
 			await Task.CompletedTask;
-
-			//IConnectionApiClientFactory? connectionApiClientFactory = null;
-			//if (this.RunServer == false)
-			//{
-			//	// wait till the service is running otherwise docker-compose is not stable
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-
-			//	int attempt = 3;
-
-			//	while (attempt > 0)
-			//	{
-			//		try
-			//		{
-			//			// wait till the server is ready
-			//			connectionApiClientFactory = await ApiFactory.CreateConnectionApiClient();
-			//			break;
-			//		}
-			//		catch (Exception)
-			//		{
-			//			attempt--;
-			//			await Task.Delay(1000);
-			//		}
-			//	}
-
-			//	if (attempt == 0 || connectionApiClientFactory == null)
-			//	{
-			//		throw new Exception("Service is not ready");
-			//	}
-			//	else
-			//	{
-			//		//connectionApiClientFactory.Dispose();
-			//	}
-			//}
-
 		}
 
 	}

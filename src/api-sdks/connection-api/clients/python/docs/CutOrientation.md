@@ -1,5 +1,6 @@
 # CutOrientation
 
+Represents the type of the cut
 
 ## Enum
 

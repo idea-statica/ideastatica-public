@@ -1,16 +1,17 @@
 # IdeaStatiCa.ConnectionApi.Model.WeldData
+Provides data of the single weld
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int** |  | [optional] 
-**Name** | **string** |  | [optional] 
-**Thickness** | **double** |  | [optional] 
-**Material** | **string** |  | [optional] 
+**Id** | **int** | Id of the weld | [optional] 
+**Name** | **string** | Name of the weld | [optional] 
+**Thickness** | **double** | Thickness of the weld | [optional] 
+**Material** | **string** | Name of the material | [optional] 
 **WeldMaterial** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **WeldType** | **WeldType** |  | [optional] 
-**ConnectedPartIds** | **List&lt;string&gt;** |  | [optional] 
+**ConnectedPartIds** | **List&lt;string&gt;** | Id of the weld | [optional] 
 **Start** | [**Point3D**](Point3D.md) |  | [optional] 
 **End** | [**Point3D**](Point3D.md) |  | [optional] 
 

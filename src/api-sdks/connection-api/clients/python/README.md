@@ -1,15 +1,15 @@
 # ideastatica-connection-api
 
-The Python package for the Connection Rest API 3.0
+The Python package for the Connection Rest API 4.0
 
-- API version: 3.0
-- Package version: 26.0.2.0407
+- API version: 4.0
+- Package version: 26.0.3.0963
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
 ## Requirements.
 
-Python 3.9+
+Python 3.7+
 
 ## Installation
 
@@ -26,8 +26,12 @@ Then import the package in your project:
 import ideastatica_connection_api
 ```
 
-> [!IMPORTANT]
-> The package version must match the version of IDEA StatiCa installed on the machine running the service — for example, with IDEA StatiCa 26.0 installed, use a 26.0.x package.
+If the python package is hosted on a repository, you can install directly using:
+
+```sh
+pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
+```
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
 
 ### Setuptools
 
@@ -44,7 +48,7 @@ python setup.py install --user
 `ClientApiClientFactory` manages creation of clients on the running service. 
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
-To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 26.0" folder. Using CLI:
+To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
 IdeaStatiCa.ConnectionRestApi.exe -port:5193
@@ -129,12 +133,13 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
         pprint(detailed_results)
 
-        # get project settings (a dictionary of key-value pairs; the optional 'search' parameter filters by keyword)
-        settings = api_client.settings.get_settings(api_client.project.active_project_id)
-        pprint(settings)
+        # get connection setup
+        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
+        pprint(connection_setup)
 
-        # modify a setting value
-        modified_settings = api_client.settings.update_settings(api_client.project.active_project_id, {"LanguageInReport": "de"})
+        # modify setup
+        connection_setup.hss_limit_plastic_strain = 0.02
+        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
         # recalculate connection
         recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
@@ -164,6 +169,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**calculate**](docs/CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
 [**get_raw_json_results**](docs/CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+[**get_result_mesh**](docs/CalculationApi.md#get_result_mesh) | Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
 [**get_results**](docs/CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
   ### ClientApi
 
@@ -197,7 +203,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_design_sets**](docs/ConnectionLibraryApi.md#get_design_sets) | Retrieves a list of design sets available for the user.
 [**get_template**](docs/ConnectionLibraryApi.md#get_template) | Retrieves the template associated with the specified design set and design item.
 [**propose**](docs/ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
-[**publish_connection**](docs/ConnectionLibraryApi.md#publish_connection) | Publish template to Private or Company set
+[**publish_connection**](docs/ConnectionLibraryApi.md#publish_connection) | Publish template to Private or Company set.
   ### ConversionApi
 
   
@@ -212,6 +218,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**export_dwg^**](docs/ExportApi.md#export_dwg) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
 [**export_ifc^**](docs/ExportApi.md#export_ifc) | Exports the connection to IFC format.
 [**export_iom**](docs/ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 [**export_iom_connection_data**](docs/ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
@@ -222,20 +229,20 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**add_load_effect**](docs/LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
-[**delete_load_effect**](docs/LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId
+[**delete_load_effect**](docs/LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId.
 [**get_load_effect**](docs/LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
 [**get_load_effects**](docs/LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
-[**get_load_settings**](docs/LoadEffectApi.md#get_load_settings) | Get Load settings for connection in project
-[**set_load_settings**](docs/LoadEffectApi.md#set_load_settings) | Set Load settings for connection in project
-[**update_load_effect**](docs/LoadEffectApi.md#update_load_effect) | Update load impulses in conLoading
+[**get_load_settings**](docs/LoadEffectApi.md#get_load_settings) | Get Load settings for connection in project.
+[**set_load_settings**](docs/LoadEffectApi.md#set_load_settings) | Set Load settings for connection in project.
+[**update_load_effect**](docs/LoadEffectApi.md#update_load_effect) | Update load impulses in conLoading.
   ### MaterialApi
 
   
   
   Method | Description
   ------------- | -------------
-[**add_bolt_assembly**](docs/MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project
-[**add_cross_section**](docs/MaterialApi.md#add_cross_section) | Add cross section to the project
+[**add_bolt_assembly**](docs/MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project.
+[**add_cross_section**](docs/MaterialApi.md#add_cross_section) | Add cross section to the project.
 [**add_material_bolt_grade**](docs/MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](docs/MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](docs/MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
@@ -258,7 +265,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**add_member**](docs/MemberApi.md#add_member) | Adds a new member to the connection.
 [**get_member**](docs/MemberApi.md#get_member) | Gets information about the specified member in the connection.
 [**get_members**](docs/MemberApi.md#get_members) | Gets information about all members in the connection.
-[**set_bearing_member**](docs/MemberApi.md#set_bearing_member) | Set bearing member for memberIt
+[**set_bearing_member**](docs/MemberApi.md#set_bearing_member) | Set bearing member for memberId.
 [**update_member**](docs/MemberApi.md#update_member) | Updates the member in the connection with the provided data.
   ### OperationApi
 
@@ -266,7 +273,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**delete_operations**](docs/OperationApi.md#delete_operations) | Delete all operations for the connection
+[**delete_operations**](docs/OperationApi.md#delete_operations) | Delete all operations for the connection.
 [**get_common_operation_properties**](docs/OperationApi.md#get_common_operation_properties) | Gets common operation properties.
 [**get_operations**](docs/OperationApi.md#get_operations) | Gets the list of operations for the connection.
 [**pre_design_welds**](docs/OperationApi.md#pre_design_welds) | Pre-designs welds in the connection.
@@ -277,7 +284,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**delete_parameters**](docs/ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId
+[**delete_parameters**](docs/ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**evaluate_expression**](docs/ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
 [**get_parameters**](docs/ParameterApi.md#get_parameters) | Gets all parameters defined for the specified project and connection.
 [**update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
@@ -303,7 +310,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**import_iom^**](docs/ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
 [**open_project^**](docs/ProjectApi.md#open_project) | Opens an IdeaCon project from the provided file.
 [**update_from_iom^**](docs/ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
-[**update_project_data**](docs/ProjectApi.md#update_project_data) | Updates ConProjectData of project
+[**update_project_data**](docs/ProjectApi.md#update_project_data) | Updates ConProjectData of project.
   ### ReportApi
 
   
@@ -329,19 +336,19 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**apply_template**](docs/TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**create_con_template**](docs/TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
+[**apply_template**](docs/TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
+[**create_con_template**](docs/TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId.
 [**create_template_from_connection**](docs/TemplateApi.md#create_template_from_connection) | Create a reusable connection template from connectionId with structured metadata.  Captures the connection's parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
-[**delete**](docs/TemplateApi.md#delete) | Delete specific template
-[**delete_all**](docs/TemplateApi.md#delete_all) | Delete all templates in connection
-[**explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
-[**explode_all**](docs/TemplateApi.md#explode_all) | Explode all templates (delete parameters, keep operations)
-[**get_default_template_mapping**](docs/TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-[**get_template_common_operation_properties**](docs/TemplateApi.md#get_template_common_operation_properties) | Get Common properties for specific template
+[**delete**](docs/TemplateApi.md#delete) | Delete specific template.
+[**delete_all**](docs/TemplateApi.md#delete_all) | Delete all templates in connection.
+[**explode**](docs/TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations).
+[**explode_all**](docs/TemplateApi.md#explode_all) | Explode all templates (delete parameters, keep operations).
+[**get_default_template_mapping**](docs/TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
+[**get_template_common_operation_properties**](docs/TemplateApi.md#get_template_common_operation_properties) | Get common properties for specific template.
 [**get_template_in_connection**](docs/TemplateApi.md#get_template_in_connection) | Retrieves a specific template by its ID for a given connection within a project.
 [**get_templates_in_connection**](docs/TemplateApi.md#get_templates_in_connection) | Retrieves a list of templates associated with a specific connection within a project.
 [**load_defaults**](docs/TemplateApi.md#load_defaults) | Load parameter defaults for specific template.
-[**update_template_common_operation_properties**](docs/TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template
+[**update_template_common_operation_properties**](docs/TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template.
 
 <a id="documentation-for-models"></a>
 ## Documentation for Models
@@ -413,6 +420,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CutPart](docs/CutPart.md)
  - [ideastatica_connection_api.models.DistanceComparison](docs/DistanceComparison.md)
  - [ideastatica_connection_api.models.DrawData](docs/DrawData.md)
+ - [ideastatica_connection_api.models.FemElement](docs/FemElement.md)
  - [ideastatica_connection_api.models.FoldedPlateData](docs/FoldedPlateData.md)
  - [ideastatica_connection_api.models.IGroup](docs/IGroup.md)
  - [ideastatica_connection_api.models.IdeaParameter](docs/IdeaParameter.md)
@@ -425,18 +433,24 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.OpenElementId](docs/OpenElementId.md)
  - [ideastatica_connection_api.models.OpenMessage](docs/OpenMessage.md)
  - [ideastatica_connection_api.models.OpenMessages](docs/OpenMessages.md)
+ - [ideastatica_connection_api.models.ParameterExpressionType](docs/ParameterExpressionType.md)
  - [ideastatica_connection_api.models.ParameterUpdateResponse](docs/ParameterUpdateResponse.md)
  - [ideastatica_connection_api.models.PinGrid](docs/PinGrid.md)
  - [ideastatica_connection_api.models.PlateData](docs/PlateData.md)
+ - [ideastatica_connection_api.models.PlateElements](docs/PlateElements.md)
  - [ideastatica_connection_api.models.Point2D](docs/Point2D.md)
  - [ideastatica_connection_api.models.Point3D](docs/Point3D.md)
  - [ideastatica_connection_api.models.PolyLine2D](docs/PolyLine2D.md)
+ - [ideastatica_connection_api.models.ProblemDetails](docs/ProblemDetails.md)
  - [ideastatica_connection_api.models.ReferenceElement](docs/ReferenceElement.md)
  - [ideastatica_connection_api.models.Region2D](docs/Region2D.md)
+ - [ideastatica_connection_api.models.ResultOnMesh](docs/ResultOnMesh.md)
+ - [ideastatica_connection_api.models.ResultOnMeshType](docs/ResultOnMeshType.md)
  - [ideastatica_connection_api.models.SearchOption](docs/SearchOption.md)
  - [ideastatica_connection_api.models.Segment2D](docs/Segment2D.md)
  - [ideastatica_connection_api.models.Selected](docs/Selected.md)
  - [ideastatica_connection_api.models.SelectedType](docs/SelectedType.md)
+ - [ideastatica_connection_api.models.StructuralPlateType](docs/StructuralPlateType.md)
  - [ideastatica_connection_api.models.TemplateConversions](docs/TemplateConversions.md)
  - [ideastatica_connection_api.models.Text](docs/Text.md)
  - [ideastatica_connection_api.models.TextPosition](docs/TextPosition.md)
@@ -451,8 +465,8 @@ Methods marked with an **^** denote that they have an additional extension in th
 
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 3.0
-- Package version: 26.0.2.0407
+- API version: 4.0
+- Package version: 26.0.3.0963
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)
