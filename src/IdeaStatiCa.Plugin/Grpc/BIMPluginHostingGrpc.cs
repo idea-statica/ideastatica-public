@@ -183,6 +183,21 @@ namespace IdeaStatiCa.Plugin
 				return null;
 			}
 
+			// If the project is already open in another Checkbot instance, focus it and refuse to spawn a second one.
+			// The Checkbot side holds the authoritative lock; this pre-check only avoids a doomed process and the wait
+			// on its startup sync event. Best-effort: a probe failure falls through to the normal launch.
+			if (ProjectInstanceLockFile.IsHeldByAnotherProcess(workingDirectory))
+			{
+				int? ownerProcessId = ProjectInstanceLockFile.TryGetOwnerProcessId(workingDirectory);
+				if (ownerProcessId.HasValue)
+				{
+					WindowActivation.TryBringProcessToFront(ownerProcessId.Value);
+				}
+
+				ideaLogger.LogInformation($"BIMPluginHostingGrpc.RunIdeaIdeaStatiCa: project '{workingDirectory}' is already open in another Checkbot instance; focusing it instead of starting a new one.");
+				throw new ProjectAlreadyOpenException(workingDirectory);
+			}
+
 			Process connectionProc = new Process();
 			ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunIdeaIdeaStatiCa  strarting exePath = '{exePath}', id = '{id}', grpcPort = {GrpcCommunicator.Port} ");
 			string eventName = string.Format("{0}{1}", EventName, id);
