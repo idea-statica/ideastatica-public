@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**add_load_effect**](LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
+[**calculate_load_extremes**](LoadEffectApi.md#calculate_load_extremes) | Calculates load extremes for the connection and keeps only the critical load effects active.
 [**delete_load_effect**](LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId.
 [**get_load_effect**](LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
 [**get_load_effects**](LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
@@ -93,6 +94,89 @@ No authorization required
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="calculate_load_extremes"></a>
+# **calculate_load_extremes**
+> List[ConLoadEffect] calculate_load_extremes(project_id, connection_id)
+
+Calculates load extremes for the connection and keeps only the critical load effects active.
+
+Runs the load extremes (LEX) algorithm using the project's load extremes settings, then  deactivates every load effect that does not produce any extreme. Use this to reduce the number  of load effects calculated by `Calculate` on connections that contain many load effects.  The returned list contains all load effects with their updated !:ConLoadEffect.Active flag.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+
+### Return type
+
+[**List[ConLoadEffect]**](ConLoadEffect.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def calculate_load_extremesExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+
+    try:
+        # Calculates load extremes for the connection and keeps only the critical load effects active.
+        api_response = api_client.loadeffect.calculate_load_extremes(project_id, connection_id)
+        print("The response of LoadEffectApi->calculate_load_extremes:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling LoadEffectApi->calculate_load_extremes: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
