@@ -1830,6 +1830,67 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes:
+    post:
+      description: "Runs the load extremes (LEX) algorithm using the project's load\
+        \ extremes settings, then\r\ndeactivates every load effect that does not produce\
+        \ any extreme. Use this to reduce the number\r\nof load effects calculated\
+        \ by `Calculate` on connections that contain many load effects.\r\nThe returned\
+        \ list contains all load effects with their updated !:ConLoadEffect.Active\
+        \ flag."
+      operationId: CalculateLoadExtremes
+      parameters:
+      - description: The unique identifier of the opened project.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConLoadEffect'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Calculates load extremes for the connection and keeps only the critical
+        load effects active.
+      tags:
+      - LoadEffect
+      x-requiresProject: true
+      x-requiresConnection: true
   /api/4/projects/{projectId}/materials:
     get:
       operationId: GetAllMaterials
