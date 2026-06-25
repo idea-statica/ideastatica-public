@@ -21,13 +21,11 @@ namespace IdeaStatiCa.Api.Connection.Model
 		public int? CrossSectionId { get; set; }
 
 		/// <summary>
-		/// Normalised position of the joint along the member's reference line:
-		/// <c>0</c> = joint at the member's begin, <c>1</c> = joint at the member's end,
-		/// <c>0.5</c> = joint at the middle (continuous through-member).
+		/// Which end of the member is connected in the joint.
 		/// Combined with <see cref="ConMemberPosition.AxisX"/>, this disambiguates the two halves
 		/// of a through-column that share the same axis but join the connection from opposite sides.
 		/// </summary>
-		public double PositionOnRefLine { get; set; }
+		public ConMemberConnectedByEnum ConnectedBy { get; set; }
 
 		public bool? MirrorY { get; set; }
 
@@ -156,6 +154,15 @@ namespace IdeaStatiCa.Api.Connection.Model
 		Node = 1,
 		Bolts = 2,
 		SelectedMemberFace = 3,
+	}
+
+	/// <summary>
+	/// Which end of the member is connected in the joint.
+	/// </summary>
+	public enum ConMemberConnectedByEnum
+	{
+		Begin = 0,
+		End = 1,
 	}
 
 	/// <summary>
