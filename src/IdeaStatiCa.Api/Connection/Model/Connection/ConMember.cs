@@ -44,7 +44,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 	public class ConMemberModel
 	{
-		public string ModelType { get; set; }
+		public ConMemberModelTypeEnum ModelType { get; set; }
 
 		public ConMemberForcesInEnum ForcesIn { get; set; }
 
@@ -156,6 +156,19 @@ namespace IdeaStatiCa.Api.Connection.Model
 		Node = 1,
 		Bolts = 2,
 		SelectedMemberFace = 3,
+	}
+
+	/// <summary>
+	/// Analysis model type of a member - which force/moment components are transferred.
+	/// Names mirror the internal BeamSegmentModelType.
+	/// </summary>
+	public enum ConMemberModelTypeEnum
+	{
+		LoadedInXYZ = 0,
+		LoadedInX = 1,
+		LoadedInXZ = 2,
+		LoadedInXY = 3,
+		LoadedInXYZ_NoBending = 4,
 	}
 
 	public enum ConMemberPlacementDefinitionTypeEnum
