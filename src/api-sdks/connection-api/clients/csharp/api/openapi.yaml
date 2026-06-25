@@ -217,71 +217,6 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/result-mesh:
-    get:
-      description: "The connection must already be calculated; otherwise the request\
-        \ fails. `Value` holds one scalar\r\nper node for the selected resultType\
-        \ and is index-aligned with `Nodes`:\r\nfor `Stress` it is the equivalent\
-        \ (von Mises) stress σ_Ed in Pa; for `Strain` it is the\r\nplastic strain\
-        \ ε_Pl (dimensionless). `FemElement.Vertices` are zero-based indices into\
-        \ `Nodes`\r\n(Type 1 = triangle / 3 nodes, Type 2 = quad / 4 nodes). Node\
-        \ coordinates and displacements are X, Y, Z\r\nin metres. Values are per node;\
-        \ request once per quantity (e.g. Stress, then Strain) on the same mesh."
-      operationId: GetResultMesh
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service.
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: The ID of the connection whose result mesh is requested.
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      - description: "Quantity returned per node: `Stress` = equivalent (von Mises)\
-          \ stress σ_Ed [Pa];\r\n`Strain` = plastic strain ε_Pl [-]; `StrainCheck`;\
-          \ `FondationStress` = foundation\r\ncontact stress [Pa]; `OverallCheck`."
-        explode: true
-        in: query
-        name: resultType
-        required: false
-        schema:
-          $ref: '#/components/schemas/ResultOnMeshType'
-        style: form
-      - description: The id of the load case to read results for.
-        explode: true
-        in: query
-        name: loadId
-        required: false
-        schema:
-          default: 1
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResultOnMesh'
-          description: OK
-      summary: "Returns the result mesh of a calculated connection: the mesh nodes,\
-        \ one result value per node for the\r\nrequested quantity, the nodal displacements,\
-        \ and the element connectivity grouped per plate."
-      tags:
-      - Calculation
-      x-requiresProject: true
-      x-requiresConnection: true
   /api/4/clients/connect-client:
     get:
       operationId: ConnectClient
@@ -6143,7 +6078,7 @@ components:
       example:
         plateSide: default
         partType: notSpecified
-        memberId: 3
+        memberId: 9
       properties:
         plateSide:
           $ref: '#/components/schemas/ConAlignedPlateSideCodeEnum'
@@ -6555,52 +6490,52 @@ components:
       additionalProperties: false
       example:
         stiffnessAnalysis:
-          theoreticalLengthY: 1.2315135367772556
-          theoreticalLengthZ: 7.386281948385884
+          theoreticalLengthY: 7.386281948385884
+          theoreticalLengthZ: 4.145608029883936
         name: name
-        positionOnRefLine: 6.027456183070403
+        connectedBy: begin
         active: true
         isContinuous: true
         mirrorY: true
         model:
-          x: 2.027123023002322
-          modelType: modelType
+          x: 3.616076749251911
+          modelType: loadedInXYZ
           forcesIn: position
-          connectedMemberId: 4
+          connectedMemberId: 2
         mirrorZ: true
         position:
-          alphaRotation: 5.637376656633329
+          alphaRotation: 5.962133916683182
           origin:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          betaDirection: 1.4658129805029452
+          betaDirection: 6.027456183070403
           align: none
-          gamaPitch: 5.962133916683182
+          gamaPitch: 1.4658129805029452
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          offsetEx: 2.3021358869347655
+          offsetEx: 5.637376656633329
           axisY:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          offsetEy: 7.061401241503109
+          offsetEy: 2.3021358869347655
           relatedPlate:
             plateSide: default
             partType: notSpecified
-            memberId: 3
+            memberId: 9
           definedBy: none
           axisX:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          offsetEz: 9.301444243932576
+          offsetEz: 7.061401241503109
           alignedPlate:
             plateSide: default
             partType: notSpecified
-            memberId: 3
+            memberId: 9
         id: 1
         crossSectionId: 0
         isBearing: true
@@ -6611,9 +6546,8 @@ components:
           format: int32
           nullable: true
           type: integer
-        positionOnRefLine:
-          format: double
-          type: number
+        connectedBy:
+          $ref: '#/components/schemas/ConMemberConnectedByEnum'
         mirrorY:
           nullable: true
           type: boolean
@@ -6643,6 +6577,11 @@ components:
       - toMemberPlate
       - toMemberPlateRotateThenTranslate
       type: string
+    ConMemberConnectedByEnum:
+      enum:
+      - begin
+      - end
+      type: string
     ConMemberForcesInEnum:
       enum:
       - position
@@ -6653,14 +6592,13 @@ components:
     ConMemberModel:
       additionalProperties: false
       example:
-        x: 2.027123023002322
-        modelType: modelType
+        x: 3.616076749251911
+        modelType: loadedInXYZ
         forcesIn: position
-        connectedMemberId: 4
+        connectedMemberId: 2
       properties:
         modelType:
-          nullable: true
-          type: string
+          $ref: '#/components/schemas/ConMemberModelTypeEnum'
         forcesIn:
           $ref: '#/components/schemas/ConMemberForcesInEnum'
         x:
@@ -6672,6 +6610,13 @@ components:
           nullable: true
           type: integer
       type: object
+    ConMemberModelTypeEnum:
+      enum:
+      - loadedInXYZ
+      - loadedInXZ
+      - loadedInXY
+      - loadedInXYZ_NoBending
+      type: string
     ConMemberPlacementDefinitionTypeEnum:
       enum:
       - none
@@ -6710,38 +6655,38 @@ components:
     ConMemberPosition:
       additionalProperties: false
       example:
-        alphaRotation: 5.637376656633329
+        alphaRotation: 5.962133916683182
         origin:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        betaDirection: 1.4658129805029452
+        betaDirection: 6.027456183070403
         align: none
-        gamaPitch: 5.962133916683182
+        gamaPitch: 1.4658129805029452
         axisZ:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        offsetEx: 2.3021358869347655
+        offsetEx: 5.637376656633329
         axisY:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        offsetEy: 7.061401241503109
+        offsetEy: 2.3021358869347655
         relatedPlate:
           plateSide: default
           partType: notSpecified
-          memberId: 3
+          memberId: 9
         definedBy: none
         axisX:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        offsetEz: 9.301444243932576
+        offsetEz: 7.061401241503109
         alignedPlate:
           plateSide: default
           partType: notSpecified
-          memberId: 3
+          memberId: 9
       properties:
         definedBy:
           $ref: '#/components/schemas/ConMemberPlacementDefinitionTypeEnum'
@@ -6980,8 +6925,8 @@ components:
     ConStiffnessAnalysis:
       additionalProperties: false
       example:
-        theoreticalLengthY: 1.2315135367772556
-        theoreticalLengthZ: 7.386281948385884
+        theoreticalLengthY: 7.386281948385884
+        theoreticalLengthZ: 4.145608029883936
       properties:
         theoreticalLengthZ:
           format: double
@@ -9054,28 +8999,6 @@ components:
           nullable: true
           type: array
       type: object
-    FemElement:
-      additionalProperties: false
-      description: Provides information about FEM element
-      example:
-        vertices:
-        - 5
-        - 5
-        type: 1
-      properties:
-        type:
-          description: "Type of the finite element\r\n1 - triangular element 2D\r\n\
-            2 - quadrilateral element 2D"
-          format: int32
-          type: integer
-        vertices:
-          description: Get list of vertices of the fem element
-          items:
-            format: int32
-            type: integer
-          nullable: true
-          type: array
-      type: object
     FoldedPlateData:
       additionalProperties: false
       description: Provides data of the folded plate
@@ -9864,35 +9787,6 @@ components:
           format: int32
           type: integer
       type: object
-    PlateElements:
-      additionalProperties: false
-      description: Data of plate elements
-      example:
-        plateType: steelPlate
-        plateUID: 6
-        elements:
-        - vertices:
-          - 5
-          - 5
-          type: 1
-        - vertices:
-          - 5
-          - 5
-          type: 1
-      properties:
-        plateType:
-          $ref: '#/components/schemas/StructuralPlateType'
-        plateUID:
-          description: Plate UID
-          format: int32
-          type: integer
-        elements:
-          description: List of fem elements for plate UID
-          items:
-            $ref: '#/components/schemas/FemElement'
-          nullable: true
-          type: array
-      type: object
     Point2D:
       additionalProperties: false
       description: Represents an x- and y-coordinate pair in two-dimensional space.
@@ -10052,84 +9946,6 @@ components:
           nullable: true
           type: array
       type: object
-    ResultOnMesh:
-      additionalProperties: false
-      example:
-        nodes:
-        - - 0.8008281904610115
-          - 0.8008281904610115
-        - - 0.8008281904610115
-          - 0.8008281904610115
-        platesElement:
-        - plateType: steelPlate
-          plateUID: 6
-          elements:
-          - vertices:
-            - 5
-            - 5
-            type: 1
-          - vertices:
-            - 5
-            - 5
-            type: 1
-        - plateType: steelPlate
-          plateUID: 6
-          elements:
-          - vertices:
-            - 5
-            - 5
-            type: 1
-          - vertices:
-            - 5
-            - 5
-            type: 1
-        displacement:
-        - - 5.637376656633329
-          - 5.637376656633329
-        - - 5.637376656633329
-          - 5.637376656633329
-        value:
-        - 2.3021358869347655
-        - 2.3021358869347655
-      properties:
-        nodes:
-          items:
-            items:
-              format: double
-              type: number
-            type: array
-          nullable: true
-          type: array
-        platesElement:
-          description: List of elements for each plate UID
-          items:
-            $ref: '#/components/schemas/PlateElements'
-          nullable: true
-          type: array
-        displacement:
-          items:
-            items:
-              format: double
-              type: number
-            type: array
-          nullable: true
-          type: array
-        value:
-          items:
-            format: double
-            type: number
-          nullable: true
-          type: array
-      type: object
-    ResultOnMeshType:
-      description: Type of result on mesh
-      enum:
-      - strain
-      - strainCheck
-      - stress
-      - fondationStress
-      - overallCheck
-      type: string
     SearchOption:
       enum:
       - ignore
@@ -10170,12 +9986,6 @@ components:
           readOnly: true
           type: string
       type: object
-    StructuralPlateType:
-      description: Tyoe of structural plate
-      enum:
-      - steelPlate
-      - weld
-      type: string
     TemplateConversions:
       additionalProperties: false
       example:
