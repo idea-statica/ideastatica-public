@@ -18,9 +18,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.con_member_forces_in_enum import ConMemberForcesInEnum
+from ideastatica_connection_api.models.con_member_model_type_enum import ConMemberModelTypeEnum
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +29,7 @@ class ConMemberModel(BaseModel):
     """
     ConMemberModel
     """ # noqa: E501
-    model_type: Optional[StrictStr] = Field(default=None, alias="modelType")
+    model_type: Optional[ConMemberModelTypeEnum] = Field(default=None, alias="modelType")
     forces_in: Optional[ConMemberForcesInEnum] = Field(default=None, alias="forcesIn")
     x: Optional[Union[StrictFloat, StrictInt]] = None
     connected_member_id: Optional[StrictInt] = Field(default=None, alias="connectedMemberId")
@@ -73,11 +74,6 @@ class ConMemberModel(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if model_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.model_type is None and "model_type" in self.model_fields_set:
-            _dict['modelType'] = None
-
         # set to None if x (nullable) is None
         # and model_fields_set contains the field
         if self.x is None and "x" in self.model_fields_set:

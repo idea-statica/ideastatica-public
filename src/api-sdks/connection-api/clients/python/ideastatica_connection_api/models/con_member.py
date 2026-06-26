@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_member_connected_by_enum import ConMemberConnectedByEnum
 from ideastatica_connection_api.models.con_member_model import ConMemberModel
 from ideastatica_connection_api.models.con_member_position import ConMemberPosition
 from ideastatica_connection_api.models.con_stiffness_analysis import ConStiffnessAnalysis
@@ -32,7 +33,7 @@ class ConMember(BaseModel):
     """ # noqa: E501
     is_continuous: Optional[StrictBool] = Field(default=None, alias="isContinuous")
     cross_section_id: Optional[StrictInt] = Field(default=None, alias="crossSectionId")
-    position_on_ref_line: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="positionOnRefLine")
+    connected_by: Optional[ConMemberConnectedByEnum] = Field(default=None, alias="connectedBy")
     mirror_y: Optional[StrictBool] = Field(default=None, alias="mirrorY")
     mirror_z: Optional[StrictBool] = Field(default=None, alias="mirrorZ")
     is_bearing: Optional[StrictBool] = Field(default=None, alias="isBearing")
@@ -42,7 +43,7 @@ class ConMember(BaseModel):
     id: Optional[StrictInt] = None
     name: Optional[StrictStr] = None
     active: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["isContinuous", "crossSectionId", "positionOnRefLine", "mirrorY", "mirrorZ", "isBearing", "position", "model", "stiffnessAnalysis", "id", "name", "active"]
+    __properties: ClassVar[List[str]] = ["isContinuous", "crossSectionId", "connectedBy", "mirrorY", "mirrorZ", "isBearing", "position", "model", "stiffnessAnalysis", "id", "name", "active"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -126,7 +127,7 @@ class ConMember(BaseModel):
         _obj = cls.model_validate({
             "isContinuous": obj.get("isContinuous"),
             "crossSectionId": obj.get("crossSectionId"),
-            "positionOnRefLine": obj.get("positionOnRefLine"),
+            "connectedBy": obj.get("connectedBy"),
             "mirrorY": obj.get("mirrorY"),
             "mirrorZ": obj.get("mirrorZ"),
             "isBearing": obj.get("isBearing"),
