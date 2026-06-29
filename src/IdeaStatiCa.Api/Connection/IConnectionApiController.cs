@@ -253,6 +253,15 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConLoadEffect> UpdateLoadEffectAsync(int connectionId, ConLoadEffect le1);
 
 		/// <summary>
+		/// Calculate load extremes for the connection and keep only the critical load effects active.
+		/// Returns all load effects with their updated active state.
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConLoadEffect>> CalculateLoadExtremesAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get the connection setup from the active project
 		/// </summary>
 		/// <param name="cancellationToken"></param>

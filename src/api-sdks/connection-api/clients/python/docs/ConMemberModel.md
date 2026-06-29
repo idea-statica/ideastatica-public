@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model_type** | **str** |  | [optional] 
+**model_type** | [**ConMemberModelTypeEnum**](ConMemberModelTypeEnum.md) |  | [optional] 
 **forces_in** | [**ConMemberForcesInEnum**](ConMemberForcesInEnum.md) |  | [optional] 
 **x** | **float** |  | [optional] 
 **connected_member_id** | **int** |  | [optional] 

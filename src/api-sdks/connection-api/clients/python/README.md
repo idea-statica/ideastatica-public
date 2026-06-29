@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 4.0
 
 - API version: 4.0
-- Package version: 26.0.3.0963
+- Package version: 26.0.3.1592
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -169,7 +169,6 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**calculate**](docs/CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
 [**get_raw_json_results**](docs/CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
-[**get_result_mesh**](docs/CalculationApi.md#get_result_mesh) | Returns the result mesh of a calculated connection: the mesh nodes, one result value per node for the  requested quantity, the nodal displacements, and the element connectivity grouped per plate.
 [**get_results**](docs/CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
   ### ClientApi
 
@@ -229,6 +228,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**add_load_effect**](docs/LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
+[**calculate_load_extremes**](docs/LoadEffectApi.md#calculate_load_extremes) | Calculates load extremes for the connection and keeps only the critical load effects active.
 [**delete_load_effect**](docs/LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId.
 [**get_load_effect**](docs/LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
 [**get_load_effects**](docs/LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
@@ -385,8 +385,10 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConLoadSettings](docs/ConLoadSettings.md)
  - [ideastatica_connection_api.models.ConMember](docs/ConMember.md)
  - [ideastatica_connection_api.models.ConMemberAlignmentTypeEnum](docs/ConMemberAlignmentTypeEnum.md)
+ - [ideastatica_connection_api.models.ConMemberConnectedByEnum](docs/ConMemberConnectedByEnum.md)
  - [ideastatica_connection_api.models.ConMemberForcesInEnum](docs/ConMemberForcesInEnum.md)
  - [ideastatica_connection_api.models.ConMemberModel](docs/ConMemberModel.md)
+ - [ideastatica_connection_api.models.ConMemberModelTypeEnum](docs/ConMemberModelTypeEnum.md)
  - [ideastatica_connection_api.models.ConMemberPlacementDefinitionTypeEnum](docs/ConMemberPlacementDefinitionTypeEnum.md)
  - [ideastatica_connection_api.models.ConMemberPlatePartTypeEnum](docs/ConMemberPlatePartTypeEnum.md)
  - [ideastatica_connection_api.models.ConMemberPosition](docs/ConMemberPosition.md)
@@ -420,7 +422,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CutPart](docs/CutPart.md)
  - [ideastatica_connection_api.models.DistanceComparison](docs/DistanceComparison.md)
  - [ideastatica_connection_api.models.DrawData](docs/DrawData.md)
- - [ideastatica_connection_api.models.FemElement](docs/FemElement.md)
  - [ideastatica_connection_api.models.FoldedPlateData](docs/FoldedPlateData.md)
  - [ideastatica_connection_api.models.IGroup](docs/IGroup.md)
  - [ideastatica_connection_api.models.IdeaParameter](docs/IdeaParameter.md)
@@ -437,20 +438,16 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ParameterUpdateResponse](docs/ParameterUpdateResponse.md)
  - [ideastatica_connection_api.models.PinGrid](docs/PinGrid.md)
  - [ideastatica_connection_api.models.PlateData](docs/PlateData.md)
- - [ideastatica_connection_api.models.PlateElements](docs/PlateElements.md)
  - [ideastatica_connection_api.models.Point2D](docs/Point2D.md)
  - [ideastatica_connection_api.models.Point3D](docs/Point3D.md)
  - [ideastatica_connection_api.models.PolyLine2D](docs/PolyLine2D.md)
  - [ideastatica_connection_api.models.ProblemDetails](docs/ProblemDetails.md)
  - [ideastatica_connection_api.models.ReferenceElement](docs/ReferenceElement.md)
  - [ideastatica_connection_api.models.Region2D](docs/Region2D.md)
- - [ideastatica_connection_api.models.ResultOnMesh](docs/ResultOnMesh.md)
- - [ideastatica_connection_api.models.ResultOnMeshType](docs/ResultOnMeshType.md)
  - [ideastatica_connection_api.models.SearchOption](docs/SearchOption.md)
  - [ideastatica_connection_api.models.Segment2D](docs/Segment2D.md)
  - [ideastatica_connection_api.models.Selected](docs/Selected.md)
  - [ideastatica_connection_api.models.SelectedType](docs/SelectedType.md)
- - [ideastatica_connection_api.models.StructuralPlateType](docs/StructuralPlateType.md)
  - [ideastatica_connection_api.models.TemplateConversions](docs/TemplateConversions.md)
  - [ideastatica_connection_api.models.Text](docs/Text.md)
  - [ideastatica_connection_api.models.TextPosition](docs/TextPosition.md)
@@ -466,7 +463,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- Package version: 26.0.3.0963
+- Package version: 26.0.3.1592
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)
