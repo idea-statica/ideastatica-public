@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" />
-		<PackageReference Include="PropertyChanged.Fody" />
+		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" />
 	</ItemGroup>
 	
 	<ItemGroup>
