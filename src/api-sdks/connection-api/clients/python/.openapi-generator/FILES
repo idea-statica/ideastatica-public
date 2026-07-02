@@ -38,10 +38,8 @@ docs/ConLoadEffectSectionLoad.md
 docs/ConLoadSettings.md
 docs/ConMember.md
 docs/ConMemberAlignmentTypeEnum.md
-docs/ConMemberConnectedByEnum.md
 docs/ConMemberForcesInEnum.md
 docs/ConMemberModel.md
-docs/ConMemberModelTypeEnum.md
 docs/ConMemberPlacementDefinitionTypeEnum.md
 docs/ConMemberPlatePartTypeEnum.md
 docs/ConMemberPosition.md
@@ -96,7 +94,6 @@ docs/OpenMessage.md
 docs/OpenMessages.md
 docs/OperationApi.md
 docs/ParameterApi.md
-docs/ParameterExpressionType.md
 docs/ParameterUpdateResponse.md
 docs/PinGrid.md
 docs/PlateData.md
@@ -104,7 +101,6 @@ docs/Point2D.md
 docs/Point3D.md
 docs/PolyLine2D.md
 docs/PresentationApi.md
-docs/ProblemDetails.md
 docs/ProjectApi.md
 docs/ReferenceElement.md
 docs/Region2D.md
@@ -178,10 +174,8 @@ ideastatica_connection_api/models/con_load_effect_section_load.py
 ideastatica_connection_api/models/con_load_settings.py
 ideastatica_connection_api/models/con_member.py
 ideastatica_connection_api/models/con_member_alignment_type_enum.py
-ideastatica_connection_api/models/con_member_connected_by_enum.py
 ideastatica_connection_api/models/con_member_forces_in_enum.py
 ideastatica_connection_api/models/con_member_model.py
-ideastatica_connection_api/models/con_member_model_type_enum.py
 ideastatica_connection_api/models/con_member_placement_definition_type_enum.py
 ideastatica_connection_api/models/con_member_plate_part_type_enum.py
 ideastatica_connection_api/models/con_member_position.py
@@ -227,14 +221,12 @@ ideastatica_connection_api/models/message_number.py
 ideastatica_connection_api/models/open_element_id.py
 ideastatica_connection_api/models/open_message.py
 ideastatica_connection_api/models/open_messages.py
-ideastatica_connection_api/models/parameter_expression_type.py
 ideastatica_connection_api/models/parameter_update_response.py
 ideastatica_connection_api/models/pin_grid.py
 ideastatica_connection_api/models/plate_data.py
 ideastatica_connection_api/models/point2_d.py
 ideastatica_connection_api/models/point3_d.py
 ideastatica_connection_api/models/poly_line2_d.py
-ideastatica_connection_api/models/problem_details.py
 ideastatica_connection_api/models/reference_element.py
 ideastatica_connection_api/models/region2_d.py
 ideastatica_connection_api/models/search_option.py

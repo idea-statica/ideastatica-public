@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project.
-[**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project.
+[**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project
+[**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project
 [**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
@@ -23,21 +23,21 @@ Method | Description
 
 <a id="add_bolt_assembly"></a>
 # **add_bolt_assembly**
-> object add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
+> add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
 
-Add bolt assembly to the project.
+Add bolt assembly to the project
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new bolt assemby to be added to the project. | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new bolt assemby to be added to the project | [optional] 
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -55,15 +55,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_bolt_assemblyExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new bolt assemby to be added to the project. (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new bolt assemby to be added to the project (optional)
 
     try:
-        # Add bolt assembly to the project.
-        api_response = api_client.material.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_bolt_assembly:\n")
-        pprint(api_response)
-        return api_response
+        # Add bolt assembly to the project
+        api_client.material.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_bolt_assembly: %s\n" % e)
 ```
@@ -80,7 +77,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/3/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -89,37 +86,33 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_cross_section"></a>
 # **add_cross_section**
-> object add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
+> add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
 
-Add cross section to the project.
+Add cross section to the project
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **con_mprl_cross_section** | [**ConMprlCrossSection**](ConMprlCrossSection.md)| Definition of a new cross-section to be added to the project. | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **con_mprl_cross_section** | [**ConMprlCrossSection**](ConMprlCrossSection.md)| Definition of a new cross-section to be added to the project | [optional] 
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -137,15 +130,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_cross_sectionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    con_mprl_cross_section = ideastatica_connection_api.ConMprlCrossSection() # ConMprlCrossSection | Definition of a new cross-section to be added to the project. (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+    con_mprl_cross_section = ideastatica_connection_api.ConMprlCrossSection() # ConMprlCrossSection | Definition of a new cross-section to be added to the project (optional)
 
     try:
-        # Add cross section to the project.
-        api_response = api_client.material.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
-        print("The response of MaterialApi->add_cross_section:\n")
-        pprint(api_response)
-        return api_response
+        # Add cross section to the project
+        api_client.material.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
     except Exception as e:
         print("Exception when calling MaterialApi->add_cross_section: %s\n" % e)
 ```
@@ -162,7 +152,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/cross-sections 
+> **POST** /api/3/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -171,23 +161,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_bolt_grade"></a>
 # **add_material_bolt_grade**
-> object add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
+> add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -201,7 +187,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -224,10 +210,7 @@ def add_material_bolt_gradeExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_response = api_client.material.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_bolt_grade:\n")
-        pprint(api_response)
-        return api_response
+        api_client.material.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_bolt_grade: %s\n" % e)
 ```
@@ -244,7 +227,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/3/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -253,23 +236,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_concrete"></a>
 # **add_material_concrete**
-> object add_material_concrete(project_id, con_mprl_element=con_mprl_element)
+> add_material_concrete(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -283,7 +262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -306,10 +285,7 @@ def add_material_concreteExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_response = api_client.material.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_concrete:\n")
-        pprint(api_response)
-        return api_response
+        api_client.material.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_concrete: %s\n" % e)
 ```
@@ -326,7 +302,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/concrete 
+> **POST** /api/3/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -335,23 +311,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_headed_stud_grade"></a>
 # **add_material_headed_stud_grade**
-> object add_material_headed_stud_grade(project_id, con_mprl_element=con_mprl_element)
+> add_material_headed_stud_grade(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -365,7 +337,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -388,10 +360,7 @@ def add_material_headed_stud_gradeExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_response = api_client.material.add_material_headed_stud_grade(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_headed_stud_grade:\n")
-        pprint(api_response)
-        return api_response
+        api_client.material.add_material_headed_stud_grade(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_headed_stud_grade: %s\n" % e)
 ```
@@ -408,7 +377,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
+> **POST** /api/3/projects/{projectId}/materials/headed-stud-grade 
 
 ### Authorization
 
@@ -417,23 +386,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_steel"></a>
 # **add_material_steel**
-> object add_material_steel(project_id, con_mprl_element=con_mprl_element)
+> add_material_steel(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -447,7 +412,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -470,10 +435,7 @@ def add_material_steelExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_response = api_client.material.add_material_steel(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_steel:\n")
-        pprint(api_response)
-        return api_response
+        api_client.material.add_material_steel(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_steel: %s\n" % e)
 ```
@@ -490,7 +452,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/steel 
+> **POST** /api/3/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -499,23 +461,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_weld"></a>
 # **add_material_weld**
-> object add_material_weld(project_id, con_mprl_element=con_mprl_element)
+> add_material_weld(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -529,7 +487,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Example
 
@@ -552,10 +510,7 @@ def add_material_weldExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_response = api_client.material.add_material_weld(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_weld:\n")
-        pprint(api_response)
-        return api_response
+        api_client.material.add_material_weld(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_weld: %s\n" % e)
 ```
@@ -572,7 +527,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/welding 
+> **POST** /api/3/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -581,17 +536,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -651,7 +602,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials 
+> **GET** /api/3/projects/{projectId}/materials 
 
 ### Authorization
 
@@ -667,9 +618,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -729,7 +677,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/3/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -745,9 +693,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -807,7 +752,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/3/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -823,9 +768,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -885,7 +827,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/concrete 
+> **GET** /api/3/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -901,9 +843,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -963,7 +902,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/cross-sections 
+> **GET** /api/3/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -979,9 +918,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1041,7 +977,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
+> **GET** /api/3/projects/{projectId}/materials/headed-stud-grade 
 
 ### Authorization
 
@@ -1057,9 +993,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1119,7 +1052,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/steel 
+> **GET** /api/3/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -1135,9 +1068,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1197,7 +1127,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/welding 
+> **GET** /api/3/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -1213,9 +1143,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

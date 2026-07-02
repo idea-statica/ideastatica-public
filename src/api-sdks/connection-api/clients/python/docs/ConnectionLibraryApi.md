@@ -8,7 +8,7 @@ Method | Description
 [**get_design_sets**](ConnectionLibraryApi.md#get_design_sets) | Retrieves a list of design sets available for the user.
 [**get_template**](ConnectionLibraryApi.md#get_template) | Retrieves the template associated with the specified design set and design item.
 [**propose**](ConnectionLibraryApi.md#propose) | Proposes a list of design items for a specified connection within a project.
-[**publish_connection**](ConnectionLibraryApi.md#publish_connection) | Publish template to Private or Company set.
+[**publish_connection**](ConnectionLibraryApi.md#publish_connection) | Publish template to Private or Company set
 
 
 <a id="get_design_item_picture"></a>
@@ -68,7 +68,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/connection-library/get-picture 
+> **GET** /api/3/connection-library/get-picture 
 
 ### Authorization
 
@@ -77,15 +77,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: image/png
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -144,7 +142,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/connection-library/get-design-sets 
+> **GET** /api/3/connection-library/get-design-sets 
 
 ### Authorization
 
@@ -160,8 +158,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -225,7 +221,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/connection-library/get-template 
+> **GET** /api/3/connection-library/get-template 
 
 ### Authorization
 
@@ -241,9 +237,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -311,7 +304,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/propose 
 
 ### Authorization
 
@@ -327,10 +320,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -338,16 +327,16 @@ No authorization required
 # **publish_connection**
 > bool publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
 
-Publish template to Private or Company set.
+Publish template to Private or Company set
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **connection_id** | **int**| The ID of the connection whose template will be published. | 
- **con_template_publish_param** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md)| Parameters describing the publish operation (name, author, design set type). | [optional] 
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **con_template_publish_param** | [**ConTemplatePublishParam**](ConTemplatePublishParam.md)|  | [optional] 
 
 ### Return type
 
@@ -369,12 +358,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def publish_connectionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    connection_id = 56 # int | The ID of the connection whose template will be published.
-    con_template_publish_param = ideastatica_connection_api.ConTemplatePublishParam() # ConTemplatePublishParam | Parameters describing the publish operation (name, author, design set type). (optional)
+    project_id = 'project_id_example' # str | 
+    connection_id = 56 # int | 
+    con_template_publish_param = ideastatica_connection_api.ConTemplatePublishParam() # ConTemplatePublishParam |  (optional)
 
     try:
-        # Publish template to Private or Company set.
+        # Publish template to Private or Company set
         api_response = api_client.connectionlibrary.publish_connection(project_id, connection_id, con_template_publish_param=con_template_publish_param)
         print("The response of ConnectionLibraryApi->publish_connection:\n")
         pprint(api_response)
@@ -395,7 +384,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/publish 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/publish 
 
 ### Authorization
 
@@ -411,10 +400,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -2,25 +2,25 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**ApplyTemplateAsync**](TemplateApi.md#applytemplateasync) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId. |
-| [**CreateConTemplateAsync**](TemplateApi.md#createcontemplateasync) | Create a template for the connection connectionId in the project projectId. |
+| [**ApplyTemplateAsync**](TemplateApi.md#applytemplateasync) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId |
+| [**CreateConTemplateAsync**](TemplateApi.md#createcontemplateasync) | Create a template for the connection connectionId in the project projectId |
 | [**CreateTemplateFromConnectionAsync**](TemplateApi.md#createtemplatefromconnectionasync) | Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts). |
-| [**DeleteAsync**](TemplateApi.md#deleteasync) | Delete specific template. |
-| [**DeleteAllAsync**](TemplateApi.md#deleteallasync) | Delete all templates in connection. |
-| [**ExplodeAsync**](TemplateApi.md#explodeasync) | Explode specific template (delete parameters, keep operations). |
-| [**ExplodeAllAsync**](TemplateApi.md#explodeallasync) | Explode all templates (delete parameters, keep operations). |
-| [**GetDefaultTemplateMappingAsync**](TemplateApi.md#getdefaulttemplatemappingasync) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId. |
-| [**GetTemplateCommonOperationPropertiesAsync**](TemplateApi.md#gettemplatecommonoperationpropertiesasync) | Get common properties for specific template. |
+| [**DeleteAsync**](TemplateApi.md#deleteasync) | Delete specific template |
+| [**DeleteAllAsync**](TemplateApi.md#deleteallasync) | Delete all templates in connection |
+| [**ExplodeAsync**](TemplateApi.md#explodeasync) | Explode specific template (delete parameters, keep operations) |
+| [**ExplodeAllAsync**](TemplateApi.md#explodeallasync) | Explode all templates (delete parameters, keep operations) |
+| [**GetDefaultTemplateMappingAsync**](TemplateApi.md#getdefaulttemplatemappingasync) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId |
+| [**GetTemplateCommonOperationPropertiesAsync**](TemplateApi.md#gettemplatecommonoperationpropertiesasync) | Get Common properties for specific template |
 | [**GetTemplateInConnectionAsync**](TemplateApi.md#gettemplateinconnectionasync) | Retrieves a specific template by its ID for a given connection within a project. |
 | [**GetTemplatesInConnectionAsync**](TemplateApi.md#gettemplatesinconnectionasync) | Retrieves a list of templates associated with a specific connection within a project. |
 | [**LoadDefaultsAsync**](TemplateApi.md#loaddefaultsasync) | Load parameter defaults for specific template. |
-| [**UpdateTemplateCommonOperationPropertiesAsync**](TemplateApi.md#updatetemplatecommonoperationpropertiesasync) | Set common properties for specific template. |
+| [**UpdateTemplateCommonOperationPropertiesAsync**](TemplateApi.md#updatetemplatecommonoperationpropertiesasync) | Set common properties for specific template |
 
 <a id="applytemplate"></a>
 ## **ApplyTemplateAsync**
 > **ConTemplateApplyResult ApplyTemplateAsync (Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = null)**
 
-Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
+Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
 
 
 
@@ -28,9 +28,9 @@ Apply the connection template applyTemplateParam on the connection connectionId 
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | Id of the connection where to apply the template. |  |
-| **conTemplateApplyParam** | [**ConTemplateApplyParam**](ConTemplateApplyParam.md) | Template to apply. | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **connectionId** | **int** | Id of the connection where to apply the template |  |
+| **conTemplateApplyParam** | [**ConTemplateApplyParam**](ConTemplateApplyParam.md) | Template to apply | [optional]  |
 
 ### Return type
 
@@ -68,12 +68,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection where to apply the template.
-                    var conTemplateApplyParam = new ConTemplateApplyParam(); // ConTemplateApplyParam | Template to apply. (optional) 
+                    connectionId = 56;  // int | Id of the connection where to apply the template
+                    var conTemplateApplyParam = new ConTemplateApplyParam(); // ConTemplateApplyParam | Template to apply (optional) 
 
                     try
                     {
-                        // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
+                        // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
                         ConTemplateApplyResult result = await conClient.Template.ApplyTemplateAsync(projectId, connectionId, conTemplateApplyParam);
                         Debug.WriteLine(result);
                     }
@@ -106,7 +106,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/apply-template 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/apply-template 
 
 #### Using the ApplyTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -114,7 +114,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
+    // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
     ApiResponse<ConTemplateApplyResult> response = conClient.Template.ApplyTemplateWithHttpInfo(projectId, connectionId, conTemplateApplyParam);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -142,10 +142,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -153,7 +149,7 @@ No authorization required
 ## **CreateConTemplateAsync**
 > **string CreateConTemplateAsync (Guid projectId, int connectionId)**
 
-Create a template for the connection connectionId in the project projectId.
+Create a template for the connection connectionId in the project projectId
 
 
 
@@ -161,8 +157,8 @@ Create a template for the connection connectionId in the project projectId.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | Id of the connection to be converted to a template. |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **connectionId** | **int** | Id of the connection to be converted to a template |  |
 
 ### Return type
 
@@ -200,11 +196,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to be converted to a template.
+                    connectionId = 56;  // int | Id of the connection to be converted to a template
 
                     try
                     {
-                        // Create a template for the connection connectionId in the project projectId.
+                        // Create a template for the connection connectionId in the project projectId
                         string result = await conClient.Template.CreateConTemplateAsync(projectId, connectionId);
                         Debug.WriteLine(result);
                     }
@@ -237,7 +233,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/get-template 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/get-template 
 
 #### Using the CreateConTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -245,7 +241,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Create a template for the connection connectionId in the project projectId.
+    // Create a template for the connection connectionId in the project projectId
     ApiResponse<string> response = conClient.Template.CreateConTemplateWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -273,9 +269,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -291,8 +284,8 @@ Create a reusable connection template from connectionId with structured metadata
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The source of the requested template. |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **connectionId** | **int** | The source of the requested template |  |
 
 ### Return type
 
@@ -330,7 +323,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The source of the requested template.
+                    connectionId = 56;  // int | The source of the requested template
 
                     try
                     {
@@ -367,7 +360,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
 
 #### Using the CreateTemplateFromConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -403,10 +396,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -414,7 +403,7 @@ No authorization required
 ## **DeleteAsync**
 > **void DeleteAsync (Guid projectId, int connectionId, Guid templateId)**
 
-Delete specific template.
+Delete specific template
 
 
 
@@ -422,9 +411,9 @@ Delete specific template.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection containing the template. |  |
-| **templateId** | **Guid** | The ID of the template to delete. |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
 
 ### Return type
 
@@ -462,11 +451,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection containing the template.
+                    connectionId = 56;  // int | 
 
                     try
                     {
-                        // Delete specific template.
+                        // Delete specific template
                         conClient.Template.DeleteAsync(projectId, connectionId, templateId);
                     }
                     catch (ApiException  e)
@@ -498,7 +487,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
 
 #### Using the DeleteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -506,7 +495,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Delete specific template.
+    // Delete specific template
     conClient.Template.DeleteWithHttpInfo(projectId, connectionId, templateId);
 }
 catch (ApiException e)
@@ -524,16 +513,13 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -541,7 +527,7 @@ No authorization required
 ## **DeleteAllAsync**
 > **void DeleteAllAsync (Guid projectId, int connectionId)**
 
-Delete all templates in connection.
+Delete all templates in connection
 
 
 
@@ -549,8 +535,8 @@ Delete all templates in connection.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection from which to delete templates. |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
 
 ### Return type
 
@@ -588,11 +574,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection from which to delete templates.
+                    connectionId = 56;  // int | 
 
                     try
                     {
-                        // Delete all templates in connection.
+                        // Delete all templates in connection
                         conClient.Template.DeleteAllAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
@@ -624,7 +610,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/templates 
 
 #### Using the DeleteAllWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -632,7 +618,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Delete all templates in connection.
+    // Delete all templates in connection
     conClient.Template.DeleteAllWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
@@ -650,16 +636,13 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -667,7 +650,7 @@ No authorization required
 ## **ExplodeAsync**
 > **void ExplodeAsync (Guid projectId, int connectionId, Guid templateId)**
 
-Explode specific template (delete parameters, keep operations).
+Explode specific template (delete parameters, keep operations)
 
 
 
@@ -675,9 +658,9 @@ Explode specific template (delete parameters, keep operations).
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection containing the template. |  |
-| **templateId** | **Guid** | The ID of the template to explode. |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
 
 ### Return type
 
@@ -715,11 +698,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection containing the template.
+                    connectionId = 56;  // int | 
 
                     try
                     {
-                        // Explode specific template (delete parameters, keep operations).
+                        // Explode specific template (delete parameters, keep operations)
                         conClient.Template.ExplodeAsync(projectId, connectionId, templateId);
                     }
                     catch (ApiException  e)
@@ -751,7 +734,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
 
 #### Using the ExplodeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -759,7 +742,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Explode specific template (delete parameters, keep operations).
+    // Explode specific template (delete parameters, keep operations)
     conClient.Template.ExplodeWithHttpInfo(projectId, connectionId, templateId);
 }
 catch (ApiException e)
@@ -777,17 +760,13 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -795,7 +774,7 @@ No authorization required
 ## **ExplodeAllAsync**
 > **void ExplodeAllAsync (Guid projectId, int connectionId)**
 
-Explode all templates (delete parameters, keep operations).
+Explode all templates (delete parameters, keep operations)
 
 
 
@@ -803,8 +782,8 @@ Explode all templates (delete parameters, keep operations).
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection whose templates are to be exploded. |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
 
 ### Return type
 
@@ -842,11 +821,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection whose templates are to be exploded.
+                    connectionId = 56;  // int | 
 
                     try
                     {
-                        // Explode all templates (delete parameters, keep operations).
+                        // Explode all templates (delete parameters, keep operations)
                         conClient.Template.ExplodeAllAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
@@ -878,7 +857,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/explode 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/explode 
 
 #### Using the ExplodeAllWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -886,7 +865,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Explode all templates (delete parameters, keep operations).
+    // Explode all templates (delete parameters, keep operations)
     conClient.Template.ExplodeAllWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
@@ -904,17 +883,13 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -922,7 +897,7 @@ No authorization required
 ## **GetDefaultTemplateMappingAsync**
 > **TemplateConversions GetDefaultTemplateMappingAsync (Guid projectId, int connectionId, ConTemplateMappingGetParam conTemplateMappingGetParam = null)**
 
-Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
+Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 
 The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping to apply the passed template.  It can be modified by a user and used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam,System.Threading.CancellationToken) method.
 
@@ -932,9 +907,9 @@ The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping t
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | Id of the connection to get default mapping. |  |
-| **conTemplateMappingGetParam** | [**ConTemplateMappingGetParam**](ConTemplateMappingGetParam.md) | Data of the template to get default mapping. | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **connectionId** | **int** | Id of the connection to get default mapping |  |
+| **conTemplateMappingGetParam** | [**ConTemplateMappingGetParam**](ConTemplateMappingGetParam.md) | Data of the template to get default mapping | [optional]  |
 
 ### Return type
 
@@ -972,12 +947,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection to get default mapping.
-                    var conTemplateMappingGetParam = new ConTemplateMappingGetParam(); // ConTemplateMappingGetParam | Data of the template to get default mapping. (optional) 
+                    connectionId = 56;  // int | Id of the connection to get default mapping
+                    var conTemplateMappingGetParam = new ConTemplateMappingGetParam(); // ConTemplateMappingGetParam | Data of the template to get default mapping (optional) 
 
                     try
                     {
-                        // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
+                        // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
                         TemplateConversions result = await conClient.Template.GetDefaultTemplateMappingAsync(projectId, connectionId, conTemplateMappingGetParam);
                         Debug.WriteLine(result);
                     }
@@ -1010,7 +985,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 #### Using the GetDefaultTemplateMappingWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1018,7 +993,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
+    // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
     ApiResponse<TemplateConversions> response = conClient.Template.GetDefaultTemplateMappingWithHttpInfo(projectId, connectionId, conTemplateMappingGetParam);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1046,10 +1021,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1057,7 +1028,7 @@ No authorization required
 ## **GetTemplateCommonOperationPropertiesAsync**
 > **ConOperationCommonProperties GetTemplateCommonOperationPropertiesAsync (Guid projectId, int connectionId, Guid templateId)**
 
-Get common properties for specific template.
+Get Common properties for specific template
 
 
 
@@ -1065,9 +1036,9 @@ Get common properties for specific template.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection containing the template. |  |
-| **templateId** | **Guid** | The ID of the template. |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
 
 ### Return type
 
@@ -1105,11 +1076,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection containing the template.
+                    connectionId = 56;  // int | 
 
                     try
                     {
-                        // Get common properties for specific template.
+                        // Get Common properties for specific template
                         ConOperationCommonProperties result = await conClient.Template.GetTemplateCommonOperationPropertiesAsync(projectId, connectionId, templateId);
                         Debug.WriteLine(result);
                     }
@@ -1142,7 +1113,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 #### Using the GetTemplateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1150,7 +1121,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Get common properties for specific template.
+    // Get Common properties for specific template
     ApiResponse<ConOperationCommonProperties> response = conClient.Template.GetTemplateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, templateId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1178,9 +1149,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1274,7 +1242,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
 
 #### Using the GetTemplateInConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1310,9 +1278,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1406,7 +1371,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates 
 
 #### Using the GetTemplatesInConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1442,9 +1407,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1460,9 +1422,9 @@ Load parameter defaults for specific template.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection containing the template. |  |
-| **templateId** | **Guid** | The ID of the template whose parameter defaults are loaded. |  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
 
 ### Return type
 
@@ -1500,7 +1462,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection containing the template.
+                    connectionId = 56;  // int | 
 
                     try
                     {
@@ -1537,7 +1499,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
 
 #### Using the LoadDefaultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1573,10 +1535,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1584,7 +1542,7 @@ No authorization required
 ## **UpdateTemplateCommonOperationPropertiesAsync**
 > **void UpdateTemplateCommonOperationPropertiesAsync (Guid projectId, int connectionId, Guid templateId, ConOperationCommonProperties conOperationCommonProperties = null)**
 
-Set common properties for specific template.
+Set common properties for specific template
 
 
 
@@ -1592,10 +1550,10 @@ Set common properties for specific template.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | The ID of the connection containing the template. |  |
-| **templateId** | **Guid** | The ID of the template. |  |
-| **conOperationCommonProperties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md) | Common properties to apply (specify material IDs, or keep as null). | [optional]  |
+| **projectId** | **Guid** |  |  |
+| **connectionId** | **int** |  |  |
+| **templateId** | **Guid** |  |  |
+| **conOperationCommonProperties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md) |  | [optional]  |
 
 ### Return type
 
@@ -1633,12 +1591,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection containing the template.
-                    var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties | Common properties to apply (specify material IDs, or keep as null). (optional) 
+                    connectionId = 56;  // int | 
+                    var conOperationCommonProperties = new ConOperationCommonProperties(); // ConOperationCommonProperties |  (optional) 
 
                     try
                     {
-                        // Set common properties for specific template.
+                        // Set common properties for specific template
                         conClient.Template.UpdateTemplateCommonOperationPropertiesAsync(projectId, connectionId, templateId, conOperationCommonProperties);
                     }
                     catch (ApiException  e)
@@ -1670,7 +1628,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 #### Using the UpdateTemplateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1678,7 +1636,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Set common properties for specific template.
+    // Set common properties for specific template
     conClient.Template.UpdateTemplateCommonOperationPropertiesWithHttpInfo(projectId, connectionId, templateId, conOperationCommonProperties);
 }
 catch (ApiException e)
@@ -1696,17 +1654,13 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/json, text/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

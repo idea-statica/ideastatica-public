@@ -2,7 +2,7 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**DeleteParametersAsync**](ParameterApi.md#deleteparametersasync) | Delete all parameters and parameter model links for the connection connectionId in the project projectId. |
+| [**DeleteParametersAsync**](ParameterApi.md#deleteparametersasync) | Delete all parameters and parameter model links for the connection connectionId in the project projectId |
 | [**EvaluateExpressionAsync**](ParameterApi.md#evaluateexpressionasync) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html |
 | [**GetParametersAsync**](ParameterApi.md#getparametersasync) | Gets all parameters defined for the specified project and connection. |
 | [**UpdateAsync**](ParameterApi.md#updateasync) | Updates parameters for the specified connection in the project with the values provided. |
@@ -11,7 +11,7 @@
 ## **DeleteParametersAsync**
 > **void DeleteParametersAsync (Guid projectId, int connectionId)**
 
-Delete all parameters and parameter model links for the connection connectionId in the project projectId.
+Delete all parameters and parameter model links for the connection connectionId in the project projectId
 
 
 
@@ -19,8 +19,8 @@ Delete all parameters and parameter model links for the connection connectionId 
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **connectionId** | **int** | Id of the connection where to delete parameters. |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+| **connectionId** | **int** | Id of the connection where to delete parameters |  |
 
 ### Return type
 
@@ -58,11 +58,11 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | Id of the connection where to delete parameters.
+                    connectionId = 56;  // int | Id of the connection where to delete parameters
 
                     try
                     {
-                        // Delete all parameters and parameter model links for the connection connectionId in the project projectId.
+                        // Delete all parameters and parameter model links for the connection connectionId in the project projectId
                         conClient.Parameter.DeleteParametersAsync(projectId, connectionId);
                     }
                     catch (ApiException  e)
@@ -94,7 +94,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
+> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the DeleteParametersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -102,7 +102,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Delete all parameters and parameter model links for the connection connectionId in the project projectId.
+    // Delete all parameters and parameter model links for the connection connectionId in the project projectId
     conClient.Parameter.DeleteParametersWithHttpInfo(projectId, connectionId);
 }
 catch (ApiException e)
@@ -120,16 +120,13 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -223,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/3/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 #### Using the EvaluateExpressionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -259,10 +256,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -356,7 +349,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the GetParametersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -392,9 +385,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -488,7 +478,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the UpdateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -524,10 +514,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

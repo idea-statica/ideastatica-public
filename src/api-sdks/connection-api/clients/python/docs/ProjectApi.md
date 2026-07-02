@@ -12,12 +12,12 @@ Method | Description
 [**import_iom**](ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
 [**open_project**](ProjectApi.md#open_project) | Opens an IdeaCon project from the provided file.
 [**update_from_iom**](ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
-[**update_project_data**](ProjectApi.md#update_project_data) | Updates ConProjectData of project.
+[**update_project_data**](ProjectApi.md#update_project_data) | Updates ConProjectData of project
 
 
 <a id="close_project"></a>
 # **close_project**
-> close_project(project_id)
+> str close_project(project_id)
 
 Closes the project and releases resources in the service.
 
@@ -30,7 +30,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Example
 
@@ -51,7 +51,10 @@ def close_projectExampleFunc(api_client):
 
     try:
         # Closes the project and releases resources in the service.
-        api_client.project.close_project(project_id)
+        api_response = api_client.project.close_project(project_id)
+        print("The response of ProjectApi->close_project:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling ProjectApi->close_project: %s\n" % e)
 ```
@@ -68,7 +71,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/close 
+> **GET** /api/3/projects/{projectId}/close 
 
 ### Authorization
 
@@ -83,10 +86,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | No Content |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -148,7 +148,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects 
+> **POST** /api/3/projects 
 
 ### Authorization
 
@@ -156,7 +156,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -164,9 +164,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -223,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/download 
+> **GET** /api/3/projects/{projectId}/download 
 
 ### Authorization
 
@@ -232,16 +229,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/octet-stream
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -298,7 +292,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects 
+> **GET** /api/3/projects 
 
 ### Authorization
 
@@ -314,8 +308,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -330,7 +322,7 @@ Get data of the project.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the requested project. | 
+ **project_id** | **str**| The unique identifier of the requested project | 
 
 ### Return type
 
@@ -352,7 +344,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_project_dataExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the requested project.
+    project_id = 'project_id_example' # str | The unique identifier of the requested project
 
     try:
         # Get data of the project.
@@ -376,7 +368,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId} 
+> **GET** /api/3/projects/{projectId} 
 
 ### Authorization
 
@@ -392,9 +384,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -409,7 +398,7 @@ Create the IDEA Connection project from IOM provided in xml format.  The paramet
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **container_xml_file** | **bytearray**| IdeaRS.OpenModel.OpenModelContainer serialized to xml. | [optional] 
+ **container_xml_file** | **bytearray**| IdeaRS.OpenModel.OpenModelContainer serialized to xml | [optional] 
  **connections_to_create** | [**List[int]**](int.md)|  | [optional] 
 
 ### Return type
@@ -432,7 +421,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def import_iomExampleFunc(api_client):
     
-    container_xml_file = None # bytearray | IdeaRS.OpenModel.OpenModelContainer serialized to xml. (optional)
+    container_xml_file = None # bytearray | IdeaRS.OpenModel.OpenModelContainer serialized to xml (optional)
     connections_to_create = [56] # List[int] |  (optional)
 
     try:
@@ -457,7 +446,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/import-iom-file 
+> **POST** /api/3/projects/import-iom-file 
 
 ### Authorization
 
@@ -473,9 +462,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -536,7 +522,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/open 
+> **POST** /api/3/projects/open 
 
 ### Authorization
 
@@ -552,9 +538,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -569,8 +552,8 @@ Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](http
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service to be updated. | 
- **container_xml_file** | **bytearray**| IdeaRS.OpenModel.OpenModelContainer serialized to xml. | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service to be updated | 
+ **container_xml_file** | **bytearray**| IdeaRS.OpenModel.OpenModelContainer serialized to xml | [optional] 
 
 ### Return type
 
@@ -592,8 +575,8 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_from_iomExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service to be updated.
-    container_xml_file = None # bytearray | IdeaRS.OpenModel.OpenModelContainer serialized to xml. (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service to be updated
+    container_xml_file = None # bytearray | IdeaRS.OpenModel.OpenModelContainer serialized to xml (optional)
 
     try:
         # Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
@@ -617,7 +600,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/update-iom-file 
+> **POST** /api/3/projects/{projectId}/update-iom-file 
 
 ### Authorization
 
@@ -633,10 +616,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -644,15 +623,15 @@ No authorization required
 # **update_project_data**
 > ConProject update_project_data(project_id, con_project_data=con_project_data)
 
-Updates ConProjectData of project.
+Updates ConProjectData of project
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **con_project_data** | [**ConProjectData**](ConProjectData.md)| New project data to apply. | [optional] 
+ **project_id** | **str**|  | 
+ **con_project_data** | [**ConProjectData**](ConProjectData.md)|  | [optional] 
 
 ### Return type
 
@@ -675,11 +654,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_project_dataExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | New project data to apply. (optional)
+    project_id = 'project_id_example' # str | 
+    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData |  (optional)
 
     try:
-        # Updates ConProjectData of project.
+        # Updates ConProjectData of project
         api_response = api_client.project.update_project_data(project_id, con_project_data=con_project_data)
         print("The response of ProjectApi->update_project_data:\n")
         pprint(api_response)
@@ -700,7 +679,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/4/projects/{projectId} 
+> **PUT** /api/3/projects/{projectId} 
 
 ### Authorization
 
@@ -708,7 +687,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -716,10 +695,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

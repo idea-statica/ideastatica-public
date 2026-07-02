@@ -7,7 +7,7 @@
 
 <a id="changecode"></a>
 ## **ChangeCodeAsync**
-> **void ChangeCodeAsync (Guid projectId, ConConversionSettings conConversionSettings = null)**
+> **string ChangeCodeAsync (Guid projectId, ConConversionSettings conConversionSettings = null)**
 
 Changes the design code of the project.
 
@@ -22,7 +22,7 @@ Changes the design code of the project.
 
 ### Return type
 
-void (empty response body)
+**string**
 
 ### Example
 
@@ -61,7 +61,8 @@ namespace Example
                     try
                     {
                         // Changes the design code of the project.
-                        conClient.Conversion.ChangeCodeAsync(projectId, conConversionSettings);
+                        string result = await conClient.Conversion.ChangeCodeAsync(projectId, conConversionSettings);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -92,7 +93,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/change-code 
+> **POST** /api/3/projects/{projectId}/change-code 
 
 #### Using the ChangeCodeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -101,7 +102,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Changes the design code of the project.
-    conClient.Conversion.ChangeCodeWithHttpInfo(projectId, conConversionSettings);
+    ApiResponse<string> response = conClient.Conversion.ChangeCodeWithHttpInfo(projectId, conConversionSettings);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -124,12 +128,7 @@ No authorization required
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
-| **501** | Not Implemented |  -  |
+| **200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -221,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/get-default-mapping 
+> **GET** /api/3/projects/{projectId}/get-default-mapping 
 
 #### Using the GetConversionMappingWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -257,10 +256,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Content |  -  |
-| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

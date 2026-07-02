@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ModelType** | **ConMemberModelTypeEnum** |  | [optional] 
+**ModelType** | **string** |  | [optional] 
 **ForcesIn** | **ConMemberForcesInEnum** |  | [optional] 
 **X** | **double?** |  | [optional] 
 **ConnectedMemberId** | **int?** |  | [optional] 

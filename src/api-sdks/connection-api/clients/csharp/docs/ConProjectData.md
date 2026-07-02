@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | **string** |  | [optional] 
 **ProjectNumber** | **string** |  | [optional] 
 **Author** | **string** |  | [optional] 
-**CountryCode** | **CountryCode** |  | [optional] 
+**DesignCode** | **string** |  | [optional] 
 **Date** | **DateTime** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

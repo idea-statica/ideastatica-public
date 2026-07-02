@@ -10,7 +10,7 @@ Method | Description
 
 <a id="change_code"></a>
 # **change_code**
-> change_code(project_id, con_conversion_settings=con_conversion_settings)
+> str change_code(project_id, con_conversion_settings=con_conversion_settings)
 
 Changes the design code of the project.
 
@@ -24,7 +24,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Example
 
@@ -47,7 +47,10 @@ def change_codeExampleFunc(api_client):
 
     try:
         # Changes the design code of the project.
-        api_client.conversion.change_code(project_id, con_conversion_settings=con_conversion_settings)
+        api_response = api_client.conversion.change_code(project_id, con_conversion_settings=con_conversion_settings)
+        print("The response of ConversionApi->change_code:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling ConversionApi->change_code: %s\n" % e)
 ```
@@ -64,7 +67,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/change-code 
+> **POST** /api/3/projects/{projectId}/change-code 
 
 ### Authorization
 
@@ -79,12 +82,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | No Content |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
-**501** | Not Implemented |  -  |
+**200** | OK |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -148,7 +146,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/get-default-mapping 
+> **GET** /api/3/projects/{projectId}/get-default-mapping 
 
 ### Authorization
 
@@ -164,10 +162,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Content |  -  |
-**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
