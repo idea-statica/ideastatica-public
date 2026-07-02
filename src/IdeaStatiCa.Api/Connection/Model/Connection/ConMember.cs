@@ -64,26 +64,56 @@ namespace IdeaStatiCa.Api.Connection.Model
 	{
 		public ConMemberModelTypeEnum ModelTypeEnum { get; set; }
 
+		// Two-way map between the legacy string values and the typed enum. These four
+		// strings are the only values ModelType ever accepted (the model-type labels shown
+		// in the desktop UI); kept as the single source of truth so get/set stay in sync.
+		private static readonly System.Collections.Generic.Dictionary<ConMemberModelTypeEnum, string> _modelTypeToString =
+			new System.Collections.Generic.Dictionary<ConMemberModelTypeEnum, string>
+			{
+				{ ConMemberModelTypeEnum.LoadedInXYZ, "N-Vy-Vz-Mx-My-Mz" },
+				{ ConMemberModelTypeEnum.LoadedInXZ, "N-Vz-My" },
+				{ ConMemberModelTypeEnum.LoadedInXY, "N-Vy-Mz" },
+				{ ConMemberModelTypeEnum.LoadedInXYZ_NoBending, "N-Vy-Vz" },
+			};
+
+		private static readonly System.Collections.Generic.Dictionary<string, ConMemberModelTypeEnum> _stringToModelType =
+			BuildStringToModelType();
+
+		private static System.Collections.Generic.Dictionary<string, ConMemberModelTypeEnum> BuildStringToModelType()
+		{
+			var map = new System.Collections.Generic.Dictionary<string, ConMemberModelTypeEnum>(StringComparer.OrdinalIgnoreCase);
+			foreach (var kvp in _modelTypeToString)
+			{
+				map[kvp.Value] = kvp.Key;
+			}
+			return map;
+		}
+
 		/// <summary>
-		/// Analysis model type as a string.
+		/// Analysis model type as one of the four legacy string labels:
+		/// <c>N-Vy-Vz-Mx-My-Mz</c>, <c>N-Vz-My</c>, <c>N-Vy-Mz</c>, <c>N-Vy-Vz</c>.
 		/// </summary>
 		/// <remarks>
-		/// Back-compatibility shim over <see cref="ModelTypeEnum"/>. The getter returns the enum
-		/// member name; the setter parses by name (case-insensitive) and ignores unrecognised
-		/// values, leaving <see cref="ModelTypeEnum"/> unchanged. Not serialized;
+		/// Back-compatibility shim over <see cref="ModelTypeEnum"/>. The getter returns the label
+		/// for the current enum value; the setter accepts only those four labels (case-insensitive)
+		/// and throws <see cref="ArgumentException"/> for anything else. Not serialized;
 		/// <see cref="ModelTypeEnum"/> is the wire contract.
 		/// </remarks>
 		[Obsolete("Use " + nameof(ModelTypeEnum) + " instead. ModelType (string) will be removed in a future version.")]
 		[JsonIgnore]
 		public string ModelType
 		{
-			get => ModelTypeEnum.ToString();
+			get => _modelTypeToString.TryGetValue(ModelTypeEnum, out var s) ? s : ModelTypeEnum.ToString();
 			set
 			{
-				if (Enum.TryParse<ConMemberModelTypeEnum>(value, ignoreCase: true, out var parsed))
+				if (value == null || !_stringToModelType.TryGetValue(value, out var parsed))
 				{
-					ModelTypeEnum = parsed;
+					throw new ArgumentException(
+						$"'{value}' is not a valid ModelType. Expected one of: {string.Join(", ", _modelTypeToString.Values)}.",
+						nameof(value));
 				}
+
+				ModelTypeEnum = parsed;
 			}
 		}
 
