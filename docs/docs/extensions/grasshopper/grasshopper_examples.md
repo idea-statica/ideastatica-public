@@ -29,3 +29,15 @@ Download links for each example can be found in the brief descriptions below.
 - **Propose Template from the Template Database**\
   For a project with multiple connections, a template is selected from the database based on configured parameters. The selection is visualized graphically in Rhino. An assessment can then be performed, with results displayed graphically on the selected templates.\
   [Download Example 07](../../../../examples/extensions/grasshopper/Example_07-Propose-template.zip)
+
+## Version Overview
+
+| Example | IDEA StatiCa | Grasshopper plugin |
+| --- | --- | --- |
+| 01 – Creating a Project from IOM | 26.0.2 | 26.0.2 |
+| 02 – Parameter Sweep Using Colibri | 26.0.2 | 26.0.2 |
+| 03 – Applying a Template and Iterating Using Anemone | 26.0.2 | 26.0.2 |
+| 04 – Importing Geometry from Rhino | 26.0.2 | 26.0.2 |
+| 05 – Cost Estimation | 26.0.2 | 26.0.2 |
+| 06 – Bulk Assessment | 26.0.2 | 26.0.2 |
+| 07 – Propose Template | 26.0.2 | 26.0.2 |
