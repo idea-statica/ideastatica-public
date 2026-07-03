@@ -275,6 +275,7 @@ const UNITS = Object.assign(
 );
 function saveUnits(){ try{ localStorage.setItem('njc_units',JSON.stringify(UNITS)); }catch(e){} }
 function _conv(si, kind, dp){
+  if(si==null || !isFinite(si)) return dp==null ? NaN : '—';
   const def=UNIT_DEFS[kind][UNITS[kind]]; const v=si/def.div;
   return dp==null ? v : v.toFixed(dp);
 }
@@ -1415,7 +1416,7 @@ function showCheckDetail(leId, braceName){
     `${pcTex(b.util)}\\ \\ \\text{${ok?'PASS':'FAIL'}}`);
   const util=`<div class="sec"><h4>Utilisation — eq (6.57)</h4>${utilCard}
     <div style="margin-top:4px;font-size:15px;font-weight:700;color:${col}">
-      util = ${pct(b.util)} &nbsp; ${ok?'✓ PASS':'✗ FAIL'}${rng}</div>${overstressedNote}</div>`;
+      util = ${pc(b.util)} &nbsp; ${ok?'✓ PASS':'✗ FAIL'}${rng}</div>${overstressedNote}</div>`;
   const html=`<div class="chk-modal-bg" onclick="if(event.target===this)closeModal()">
     <div class="chk-modal">
       <button class="close" onclick="closeModal()">✕</button>

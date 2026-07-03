@@ -580,7 +580,8 @@ def classify_kyx(braces_geom, gaps, gate=K_BALANCE_GATE):
     6.4 check); they are derived from the transverse balance but reported as fractions of N_Sd, since K, X
     and Y of the same axial force partition it (frK+frX+frY = 1 for a loaded brace).
 
-    Returns [{name, N_Sd, q_trans, frK, frX, frY, K_components:[{partner, gap_m, frac}], note}].
+    Returns [{name, N_Sd, M_ip_Sd, M_op_Sd, q_trans, frK, frX, frY,
+              K_components:[{partner, gap_m, frac}], note}].
     """
     EPS = 1e-9
     # transverse (perpendicular-to-chord) force WITH sign, per brace
@@ -589,7 +590,8 @@ def classify_kyx(braces_geom, gaps, gate=K_BALANCE_GATE):
         th = math.radians(b.get("theta_deg") or 0.0)
         q = (b.get("N_Sd") or 0.0) * math.sin(th) * (1.0 if b.get("side", 1) >= 0 else -1.0)
         info[b["name"]] = {"q": q, "side": b.get("side", 1), "N_Sd": b.get("N_Sd") or 0.0,
-                           "theta_deg": b.get("theta_deg") or 0.0}
+                           "theta_deg": b.get("theta_deg") or 0.0,
+                           "M_ip_Sd": b.get("M_ip", 0.0), "M_op_Sd": b.get("M_op", 0.0)}
 
     # gap lookup: toe-to-toe gap between two same-face braces (by unordered name pair)
     gap_of = {}
@@ -605,7 +607,8 @@ def classify_kyx(braces_geom, gaps, gate=K_BALANCE_GATE):
         absq = abs(q_b)
         if absq < EPS:
             # unloaded (or purely axial-along-chord) brace -> no transverse force to classify
-            out.append({"name": nm, "N_Sd": me["N_Sd"], "q_trans": q_b,
+            out.append({"name": nm, "N_Sd": me["N_Sd"], "M_ip_Sd": me["M_ip_Sd"], "M_op_Sd": me["M_op_Sd"],
+                        "q_trans": q_b,
                         "frK": 0.0, "frX": 0.0, "frY": 0.0, "K_components": [], "note": "no transverse force"})
             continue
 
@@ -643,7 +646,8 @@ def classify_kyx(braces_geom, gaps, gate=K_BALANCE_GATE):
             frac_scale = absq / balanced_K if balanced_K > EPS else 0.0
             for kc in K_components:
                 kc["frac"] *= frac_scale    # rescale so frK sums to 1 (remainder folded into K)
-            out.append({"name": nm, "N_Sd": me["N_Sd"], "q_trans": q_b,
+            out.append({"name": nm, "N_Sd": me["N_Sd"], "M_ip_Sd": me["M_ip_Sd"], "M_op_Sd": me["M_op_Sd"],
+                        "q_trans": q_b,
                         "frK": 1.0, "frX": 0.0, "frY": 0.0, "K_components": K_components,
                         "note": ("balanced to %.1f%% <= gate %.0f%% -> 100%% K"
                                  % (100.0*leftover/absq, 100.0*gate))})
@@ -661,7 +665,8 @@ def classify_kyx(braces_geom, gaps, gate=K_BALANCE_GATE):
         note = []
         if frK > EPS and not K_components:
             note.append("K with no gap data")
-        out.append({"name": nm, "N_Sd": me["N_Sd"], "q_trans": q_b,
+        out.append({"name": nm, "N_Sd": me["N_Sd"], "M_ip_Sd": me["M_ip_Sd"], "M_op_Sd": me["M_op_Sd"],
+                    "q_trans": q_b,
                     "frK": frK, "frX": frX, "frY": frY,
                     "K_components": K_components, "note": "; ".join(note)})
     return out
