@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+norsok_app.log
+norsok_app.log.*

@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NORSOK Joint Calculator</title>
+<script src="lib/three.min.js"></script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' },
+  startup: { typeset: false }
+};
+</script>
+<script src="lib/mathjax-tex-svg.js" id="MathJax-script"></script>
+<style>
+  html,body{margin:0;min-height:100%;font-family:Segoe UI,Arial,sans-serif;background:#f5f6f8;color:#222}
+  header{background:#1f3a5f;color:#fff;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header h1{margin:0;font-size:15px}
+  /* sheet switch in the header (model vs results) */
+  .ptabs{display:inline-flex;gap:2px;background:rgba(255,255,255,.12);padding:3px;border-radius:9px}
+  .ptabs button{border:0;background:transparent;color:#cfe0f2;padding:6px 16px;border-radius:7px;
+    cursor:pointer;font-size:13px;font-weight:600;transition:all .12s}
+  .ptabs button:hover{color:#fff;background:rgba(255,255,255,.1)}
+  .ptabs button.active{background:#fff;color:#1f3a5f;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  button.act{background:#2e6fb0;border:0;color:#fff;padding:7px 13px;border-radius:6px;cursor:pointer;font-size:13px}
+  button.act:hover{background:#3a82c9}
+  select,input{padding:6px 10px;border-radius:6px;border:1px solid #88a;font-size:13px}
+  /* SHEET 1 (connection): canvas + info-panel fill most of the window */
+  .wrap{display:flex;gap:0;padding:14px;align-items:stretch;height:calc(100vh - 150px);min-height:460px;box-sizing:border-box}
+  /* SHEET 2 (results): TOP row = 2D schematic (left) + equilibrium & plane-forces (right);
+     BELOW = one full-width combined classification + checks table. */
+  .res{padding:14px}
+  /* TWO independent, draggable splitters (same look/feel as the model's #splitter):
+       #resSplitterH  — HORIZONTAL splitter between .res-left (2D+legend) and .res-right (tables), sets
+                        --res-left-w. Shared width for the whole left column (2D box + legend together).
+       #resSplitterV  — VERTICAL splitter under #viewbox, sets --res-view-h (the 2D box's own height).
+     Both hard-stop at the point where the OTHER side would stop rendering usefully (see attach fns). */
+  .res .res-cols{display:flex;gap:0;align-items:stretch}
+  .res .res-left{flex:0 0 var(--res-left-w,440px);min-width:280px;display:flex;flex-direction:column}
+  .res .res-left .le-card{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
+  .res #viewbox{flex:0 0 var(--res-view-h,360px);min-height:220px}
+  .res-splitter-v{flex:0 0 10px;cursor:row-resize;display:flex;align-items:center;justify-content:center}
+  .res-splitter-v::before{content:"";height:2px;width:36px;background:#c4ccd6;border-radius:2px}
+  .res-splitter-v:hover::before{background:#2e6fb0}
+  .res-splitter-h{flex:0 0 10px;cursor:col-resize;align-self:stretch;display:flex;align-items:center;justify-content:center}
+  .res-splitter-h::before{content:"";width:2px;height:36px;background:#c4ccd6;border-radius:2px}
+  .res-splitter-h:hover::before{background:#2e6fb0}
+  .res .res-right{flex:1 1 460px;min-width:280px;display:flex;flex-direction:column;gap:16px}
+  .res .res-full{margin-top:16px}
+  .le-card{margin:0;position:relative}
+  .le-card h3{margin-top:0}
+  .res-legend{font-size:11.5px;color:#555;margin-top:8px;line-height:1.7}
+  .panel{background:#fff;border:1px solid #dde1e6;border-radius:8px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .canvas-panel{flex:1 1 auto;display:flex;flex-direction:column;min-width:0}
+  /* width is user-draggable via the splitter; overflow-x hidden so the bottom scrollbar never appears */
+  .info-panel{flex:0 0 var(--info-w,330px);overflow-y:auto;overflow-x:hidden}
+  .splitter{flex:0 0 10px;cursor:col-resize;align-self:stretch;display:flex;align-items:center;justify-content:center}
+  .splitter::before{content:"";width:2px;height:36px;background:#c4ccd6;border-radius:2px}
+  .splitter:hover::before{background:#2e6fb0}
+  #viewbox{flex:1 1 auto;min-height:0}
+  svg,#three{width:100%;height:100%;background:#fafbfc;border:1px solid #eee;border-radius:6px;display:block}
+  /* 2D/3D switch = two separate pill buttons */
+  .tabs{display:inline-flex;gap:8px;margin-bottom:10px}
+  .tabs button{border:1px solid #c3ccd6;background:#fff;color:#1f3a5f;padding:8px 18px;cursor:pointer;
+    font-size:13px;font-weight:600;border-radius:8px;transition:all .12s;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  .tabs button:hover{border-color:#2e6fb0;color:#2e6fb0}
+  .tabs button.active{background:#1f3a5f;border-color:#1f3a5f;color:#fff;box-shadow:0 2px 6px rgba(31,58,95,.25)}
+  .toggle{margin-left:14px;font-size:13px}
+  /* 2D orientation controls overlaid in the drawing's top-right corner:
+     two rotation buttons side-by-side on top, the flip button centred below them */
+  .o2d{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:5}
+  .o2drow{display:flex;gap:6px}
+  .o2dbtn{width:34px;height:34px;border:1px solid #c3ccd6;background:rgba(255,255,255,.92);color:#1f3a5f;
+    border-radius:8px;cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;
+    justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.12);transition:all .12s}
+  .o2dbtn:hover{border-color:#2e6fb0;color:#2e6fb0;background:#fff}
+  /* 3D projection toggle overlaid top-left (isometric-cube icons) */
+  .o3d{position:absolute;top:10px;left:10px;display:flex;gap:6px;z-index:5}
+  .o3dbtn{width:36px;height:36px;border:1px solid #c3ccd6;background:rgba(255,255,255,.92);color:#5a6b7b;
+    border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 1px 3px rgba(0,0,0,.12);transition:all .12s}
+  .o3dbtn:hover{border-color:#2e6fb0;color:#2e6fb0;background:#fff}
+  .o3dbtn.on{border-color:#1f3a5f;color:#1f3a5f;background:#e7eef7;box-shadow:0 2px 5px rgba(31,58,95,.2)}
+  label.chk{margin-left:14px;font-size:12.5px;cursor:pointer;user-select:none}
+  table{border-collapse:collapse;width:100%;font-size:12.5px}
+  td,th{border:1px solid #e3e6ea;padding:4px 7px;text-align:left}
+  th{background:#f0f2f5}
+  .val{font-variant-numeric:tabular-nums;font-weight:600}
+  .chk-row{cursor:pointer}
+  .chk-row:hover td{background:#eef4fb}
+  .ok{color:#1a7f37;font-weight:600}.err{color:#c0392b;font-weight:600}.warn{color:#b35900}
+  .warn-box{background:#fdecea;border:1px solid #f3b7ae;border-radius:6px;padding:9px 12px;font-size:12.5px;color:#7a2e22;line-height:1.5}
+  /* detailed-check modal (own class names — the Settings/Tolerances .modal-bg/.modal below are
+     display:none-until-.open and would otherwise HIDE this one) */
+  .chk-modal-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(20,30,45,.45);
+    display:flex;align-items:center;justify-content:center;z-index:2000}
+  .chk-modal{background:#fff;border-radius:10px;max-width:920px;width:calc(100% - 48px);max-height:calc(100vh - 60px);
+    overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.3);padding:22px 26px}
+  .chk-modal h2{margin:0 0 4px;font-size:16px;color:#1f3a5f}
+  .chk-modal .close{float:right;border:0;background:#eef0f3;border-radius:6px;padding:5px 11px;cursor:pointer;font-size:14px}
+  .chk-modal .close:hover{background:#e0e4ea}
+  .chk-modal .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13.5px;margin:8px 0}
+  .chk-modal .kv .k{color:#666}
+  .chk-modal .kv .v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+  .chk-modal .sec{margin-top:16px;border-top:1px solid #e3e6ea;padding-top:12px}
+  .chk-modal .sec h4{margin:0 0 8px;font-size:14px;color:#1f3a5f}
+  /* transparent step-by-step formula cards (label -> symbolic -> substituted -> result), MathJax-rendered.
+     Sized generously (bigger card, bigger SVG cap, more line spacing) — these carry the actual
+     verification value of the tool, so cramped/tiny formulas defeat the point. */
+  .step{margin:10px 0;padding:12px 16px;background:#f7f9fb;border-radius:8px;border-left:4px solid #c7d2e0}
+  .step.kK{border-left-color:#2a9d8f} .step.kY{border-left-color:#9b6fd4} .step.kX{border-left-color:#d98336}
+  .step .lbl{font-size:12.5px;color:#556;margin-bottom:8px;font-weight:600}
+  .step .lbl .tag{font-weight:700;font-size:11px;padding:2px 7px;border-radius:4px;margin-right:7px}
+  .step .tagK{background:rgba(42,157,143,.15);color:#1f7b70} .step .tagY{background:rgba(155,111,212,.15);color:#7448b8}
+  .step .tagX{background:rgba(217,131,54,.15);color:#a8631f}
+  .step .ln{margin:8px 0;overflow-x:auto;overflow-y:hidden;line-height:1.6}
+  .step .res{color:#1a7f37;font-weight:600}
+  .step .ln mjx-container{margin:3px 0}
+  .step .ln mjx-container svg{max-height:38px;width:auto}
+  .step .res mjx-container svg{max-height:30px}
+  h3{margin:12px 0 5px;font-size:13px;color:#1f3a5f}
+  .legend{font-size:11.5px;color:#555;margin-top:7px}
+  .bf-le{font-size:11.5px;font-weight:600;color:#1f3a5f;margin:8px 0 2px}
+  .le-bar{margin:0 0 12px;font-size:12.5px;color:#1f3a5f;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .le-bar label{font-weight:600}
+  .le-bar select{font:12.5px Segoe UI;padding:3px 8px;border:1px solid #bbc;border-radius:5px}
+  .le-pills{display:inline-flex;gap:5px;flex-wrap:wrap}
+  .le-pills button{border:1px solid #c3ccd6;background:#fff;color:#1f3a5f;padding:4px 11px;border-radius:14px;
+    cursor:pointer;font-size:12px;font-weight:600;transition:all .12s}
+  .le-pills button:hover{border-color:#2e6fb0;color:#2e6fb0}
+  .le-pills button.on{background:#1f3a5f;border-color:#1f3a5f;color:#fff}
+  /* per-LC ↔ Envelope mode switch (segmented) */
+  .le-mode{display:inline-flex;border:1px solid #c3ccd6;border-radius:6px;overflow:hidden}
+  .le-mode button{border:0;background:#fff;color:#1f3a5f;padding:4px 12px;cursor:pointer;font-size:12px;font-weight:600;transition:all .12s}
+  .le-mode button+button{border-left:1px solid #c3ccd6}
+  .le-mode button:hover{color:#2e6fb0}
+  .le-mode button.on{background:#2e6fb0;color:#fff}
+  .le-bar select:disabled{background:#f0f0f2;color:#999;cursor:not-allowed}
+  /* CUSTOM LE dropdown — each row shows a utilisation bar drawn BEHIND the LE name */
+  .le-drop-wrap{position:relative;display:inline-block}
+  .le-drop-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;min-width:230px;
+    border:1px solid #bbc;border-radius:5px;background:#fff;padding:3px 6px 3px 8px;cursor:pointer;user-select:none}
+  .le-drop-btn:hover{border-color:#2e6fb0}
+  .le-drop-btn.disabled{background:#f0f0f2;color:#999;cursor:not-allowed;border-color:#d5d9df}
+  .le-caret{margin-left:auto;color:#8a93a0;font-size:11px}
+  .le-drop{position:absolute;top:calc(100% + 3px);left:0;z-index:1200;min-width:260px;max-height:340px;overflow-y:auto;
+    background:#fff;border:1px solid #b9c2cd;border-radius:6px;box-shadow:0 8px 24px rgba(20,40,70,.18);padding:3px}
+  .le-item{position:relative;display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:4px;cursor:pointer;overflow:hidden}
+  .le-item:hover{background:#eef4fb}
+  .le-item.sel{outline:1.5px solid #2e6fb0;outline-offset:-1.5px}
+  /* the util bar sits behind the text of BOTH the button and the list items */
+  .le-row-bar{position:absolute;left:0;top:0;bottom:0;width:100%;display:flex;align-items:stretch;pointer-events:none;z-index:0}
+  .le-bar-fill{align-self:stretch;border-radius:3px}
+  .le-row-name{position:relative;z-index:1;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .le-row-name.sel{color:#12356b}
+  .le-row-u{position:relative;z-index:1;margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;font-size:12px}
+  .le-fail{color:#c0392b;font-weight:800}
+  /* canvas hint: fixed one-line height so the 2D and 3D viewports are EXACTLY the same size */
+  .canvas-hint{font-size:11.5px;color:#555;margin-top:7px;height:16px;line-height:16px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin-right:3px}
+  #status{font-size:12px;color:#777;padding:3px 18px}
+  /* settings/actions toolbar below the header — tolerances + toggles, room for more buttons */
+  #toolbar2{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 18px;
+    background:#eef1f5;border-bottom:1px solid #dde1e6;font-size:12px;color:#33455c}
+  #toolbar2 .t2grp{display:inline-flex;align-items:center;gap:6px}
+  #toolbar2 input{padding:4px 7px;width:56px;font-size:12px;border:1px solid #b9c2cf;border-radius:5px}
+  #toolbar2 .t2sep{width:1px;align-self:stretch;background:#cfd6df;margin:0 2px}
+  #toolbar2 .chk{margin:0;font-size:12px;cursor:pointer;user-select:none;display:inline-flex;align-items:center;gap:5px}
+  .muted{color:#999}
+  #toolbar2 .t2btn{font:12px Segoe UI;padding:3px 9px;border:1px solid #bcc4cf;border-radius:5px;background:#fff;cursor:pointer}
+  #toolbar2 .t2btn:hover{background:#eef3f9;border-color:#9fb0c4}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(20,30,45,.38);z-index:1000;align-items:center;justify-content:center}
+  .modal-bg.open{display:flex}
+  .modal{background:#fff;border-radius:9px;box-shadow:0 12px 40px rgba(0,0,0,.3);width:430px;max-width:92vw;font:13px Segoe UI;overflow:hidden}
+  .modal-h{font-size:15px;font-weight:600;color:#1f3a5f;padding:13px 16px;border-bottom:1px solid #e6eaf0;display:flex;align-items:center}
+  .modal-x{margin-left:auto;border:none;background:none;font-size:22px;line-height:1;color:#888;cursor:pointer;padding:0 2px}
+  .modal-x:hover{color:#c0392b}
+  .modal-body{padding:12px 16px}
+  .modal-f{padding:11px 16px;border-top:1px solid #e6eaf0;display:flex;align-items:center;gap:12px;justify-content:space-between}
+  .uset{display:grid;grid-template-columns:90px 1fr 70px;gap:9px 10px;align-items:center}
+  .uset label{color:#33425a;font-weight:600}
+  .uset select{font:13px Segoe UI;padding:3px 6px;border:1px solid #bcc4cf;border-radius:4px;width:100%}
+  .uset .dp{display:flex;align-items:center;gap:5px;font-size:11px;color:#777}
+  .uset .dp input{width:42px;font:13px Segoe UI;padding:2px 4px;border:1px solid #bcc4cf;border-radius:4px}
+  .uset-hdr{grid-column:1/-1;font-size:11px;color:#999;margin:2px 0 -3px;text-transform:uppercase;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<header>
+  <h1>NORSOK Joint Calculator <span style="font-size:10px;opacity:.5;font-weight:400">build 2026-07-01c</span></h1>
+  <button class="act" onclick="pick()">Open .ideaCon…</button>
+  <select id="connsel" onchange="selectConn()" style="display:none"></select>
+  <!-- sheet switch: model vs results. Hidden until a connection is loaded. Shared conn+LE state. -->
+  <span id="pagetabs" class="ptabs" style="display:none">
+    <button id="pt-connection" class="active" onclick="setPage('connection')">Connection</button>
+    <button id="pt-results" onclick="setPage('results')">Results</button>
+  </span>
+  <span id="srcname" class="muted" style="font-size:12px">— no file —</span>
+</header>
+<!-- actions toolbar (toggles + setting buttons; room to grow more buttons here) -->
+<div id="toolbar2">
+  <label class="chk"><input type="checkbox" id="lblchk" onchange="toggleLabels()" checked> member labels</label>
+  <span class="t2sep"></span>
+  <button class="t2btn" title="Geometry tolerances (out-of-plane, plane fit, evaluation)" onclick="openTol()">⚙ Tolerances</button>
+  <button class="t2btn" title="Units & display settings" onclick="openSettings()">⚙ Units</button>
+</div>
+<!-- Tolerances modal: geometry tolerances. Each input keeps onchange=selectConn() -> change applies
+     immediately (re-extracts the connection through the API with the new tolerances). -->
+<div id="tol-bg" class="modal-bg" onclick="if(event.target===this)closeTol()">
+  <div class="modal">
+    <div class="modal-h">Geometry tolerances
+      <button class="modal-x" onclick="closeTol()" title="Close">×</button></div>
+    <div class="modal-body">
+      <div class="uset" style="grid-template-columns:1fr 90px">
+        <label title="Out-of-plane origin offset tolerance: a brace whose work point sits farther than this off the joint plane is an error.">Out-of-plane offset [mm]</label>
+        <input id="ooptol" type="number" value="5" min="0" step="0.5" onchange="selectConn()">
+        <label title="RANSAC FIT tolerance: only braces within this angle are used to BUILD the joint plane (strict).">Plane fit [°]</label>
+        <input id="planetol" type="number" value="2" min="0" step="0.5" onchange="selectConn()">
+        <label title="EVALUATION tolerance: after the plane is built, any member beyond this angle makes the joint multiplanar (2D hidden, out of simple-joint scope). NORSOK ±15°.">Evaluation (multiplanar) [°]</label>
+        <input id="copltol" type="number" value="15" min="0" step="1" onchange="selectConn()">
+        <label title="K/Y/X classification: a brace whose axial force is balanced to within this % by same-side opposite-sign braces is treated as 100% K (the small remainder is ignored). NORSOK says 'should be balanced to within 10%' — 'should', so this is optional. 0 = honest continuous K/X/Y breakdown (conservative default).">K-balance gate [%]</label>
+        <input id="kyxgate" type="number" value="0" min="0" max="100" step="1" onchange="selectConn()">
+      </div>
+    </div>
+    <div class="modal-f">
+      <span class="muted" style="font-size:11px">Changes apply immediately (the connection is re-analysed).</span>
+      <button class="act" onclick="closeTol()">Done</button>
+    </div>
+  </div>
+</div>
+<!-- Settings modal: display units + decimals. Engine stays SI; this only changes presentation. -->
+<div id="settings-bg" class="modal-bg" onclick="if(event.target===this)closeSettings()">
+  <div class="modal">
+    <div class="modal-h">Units &amp; display
+      <button class="modal-x" onclick="closeSettings()" title="Close">×</button></div>
+    <div class="modal-body" id="settings-body"></div>
+    <div class="modal-f">
+      <span class="muted" style="font-size:11px">Internal calculation is always in SI (N, N·m, m). This changes display only.</span>
+      <button class="act" onclick="applyUnits()">Apply</button>
+    </div>
+  </div>
+</div>
+<div id="status">Open an .ideaCon file. The service starts automatically.</div>
+<div id="app"></div>
+
+<script>
+// ---- forward UI errors to the Python log (norsok_app.log) ----
+// So a thrown render or a bad front-end state lands next to the Python flow, not only in the
+// hidden webview console. Safe no-op before pywebview is ready.
+function uiLog(level, msg){
+  try{ if(window.pywebview && window.pywebview.api && window.pywebview.api.ui_log)
+         window.pywebview.api.ui_log(level, String(msg)); }catch(e){}
+}
+window.addEventListener('error', e=>uiLog('error',
+  (e.message||'error')+' @ '+(e.filename||'')+':'+(e.lineno||'')));
+window.addEventListener('unhandledrejection', e=>uiLog('error',
+  'unhandledrejection: '+((e.reason&&e.reason.message)||e.reason||'')));
+
+// ---- UNITS / DISPLAY CONVERSION (the ONLY place SI -> display happens) ----
+// Internal calc + all `extract.py` payloads are PURE SI: forces N, moments N·m, lengths m, stress Pa.
+// The UI converts to the user-chosen display units HERE and ONLY here, so a stray factor can't hide
+// in the engine. The Settings card writes UNITS; U.* reads it. divisor = SI value / display value.
+const UNIT_DEFS={
+  force:  {N:{lbl:'N',div:1}, kN:{lbl:'kN',div:1e3}, MN:{lbl:'MN',div:1e6}},
+  moment: {'N·m':{lbl:'N·m',div:1}, 'kN·m':{lbl:'kN·m',div:1e3}, 'MN·m':{lbl:'MN·m',div:1e6}},
+  length: {mm:{lbl:'mm',div:1e-3}, cm:{lbl:'cm',div:1e-2}, m:{lbl:'m',div:1}},
+  stress: {MPa:{lbl:'MPa',div:1e6}, ksi:{lbl:'ksi',div:6894757.293}},
+};
+// current selection + decimal places (persisted in localStorage so it survives reloads)
+const UNITS = Object.assign(
+  {force:'kN', moment:'kN·m', length:'mm', stress:'MPa', dpForce:1, dpMoment:2, dpLength:0, dpStress:0,
+   dpNumber:3, dpPercent:2, dpAngle:1},
+  (()=>{ try{ return JSON.parse(localStorage.getItem('njc_units')||'{}'); }catch(e){ return {}; } })()
+);
+function saveUnits(){ try{ localStorage.setItem('njc_units',JSON.stringify(UNITS)); }catch(e){} }
+function _conv(si, kind, dp){
+  const def=UNIT_DEFS[kind][UNITS[kind]]; const v=si/def.div;
+  return dp==null ? v : v.toFixed(dp);
+}
+const U={
+  // formatted strings (use the chosen unit + chosen decimals; pass d to override decimals)
+  force:  (si_N,  d)=> _conv(si_N,  'force',  d==null?UNITS.dpForce :d),
+  moment: (si_Nm, d)=> _conv(si_Nm, 'moment', d==null?UNITS.dpMoment:d),
+  len:    (si_m,  d)=> _conv(si_m,  'length', d==null?UNITS.dpLength:d),
+  stress: (si_Pa, d)=> _conv(si_Pa, 'stress', d==null?UNITS.dpStress:d),
+  // dimensionless ratios (β,γ,τ,Qu,Qf,A²,util,...) and fractions shown as % (frK/frX/frY,...) —
+  // no unit choice, just a configurable decimal count (Settings > Units & display).
+  num: (x, d)=> (x==null||!isFinite(x)) ? '—' : x.toFixed(d==null?UNITS.dpNumber:d),
+  pct: (x, d)=> (x==null||!isFinite(x)) ? '—' : (x*100).toFixed(d==null?UNITS.dpPercent:d)+'%',
+  deg: (x, d)=> (x==null||!isFinite(x)) ? '—' : x.toFixed(d==null?UNITS.dpAngle:d)+'°',
+  // current unit labels for table headers
+  fU: ()=>UNIT_DEFS.force [UNITS.force ].lbl,
+  mU: ()=>UNIT_DEFS.moment[UNITS.moment].lbl,
+  lU: ()=>UNIT_DEFS.length[UNITS.length].lbl,
+  sU: ()=>UNIT_DEFS.stress[UNITS.stress].lbl,
+  // raw-number variants (no formatting) for comparisons/CSS thresholds:
+  force_v:  si_N  => _conv(si_N,  'force',  null),
+  moment_v: si_Nm => _conv(si_Nm, 'moment', null),
+  len_v:    si_m  => _conv(si_m,  'length', null),
+};
+const C={chord:'#8a8f96',chordEdge:'#6b7077',brace:'#2e6fb0',braceEdge:'#1f5a93',node:'#c0392b',axis:'#bbb',
+  // K/Y/X classification colours (match the table's dominant-class colouring)
+  K:'#1a7f37', X:'#8e44ad', Y:'#b35900', force:'#c0392b'};
+let DATA=null, TAB='2d', PROJ3D='ortho', SHOWLBL=true;
+// which sheet is showing: 'connection' = 3D/2D model + verdict ; 'results' = small 2D + LE result tables.
+// The selected connection + LE are shared across both sheets.
+let PAGE='connection';
+let redraw3d=null;   // set by draw3d so toggles can re-render without rebuilding
+
+async function pick(){
+  setStatus('Opening dialog…');
+  const path=await window.pywebview.api.pick_file();
+  if(!path){ setStatus('Cancelled.'); return; }
+  setStatus('Opening project (starting service)…');
+  const res=await window.pywebview.api.open_file(path);
+  if(res.error){ setStatus('Error: '+res.error); uiLog('error','open_file: '+res.error); return; }
+  document.getElementById('srcname').textContent=res.source+'  ·  '+res.connections.length+' connections';
+  setStatus(res.service||'Opened.');
+  const sel=document.getElementById('connsel');
+  sel.style.display='';
+  sel.innerHTML=res.connections.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('pagetabs').style.display='';   // reveal the sheet switch
+  selectConn();
+}
+async function selectConn(){
+  const id=document.getElementById('connsel').value;
+  if(!id) return;
+  const tol=parseFloat(document.getElementById('ooptol').value)||5;
+  const ptol=parseFloat(document.getElementById('planetol').value);
+  const ctol=parseFloat(document.getElementById('copltol').value);
+  const gate=parseFloat(document.getElementById('kyxgate').value);
+  setStatus('Loading connection '+id+'…');
+  const d=await window.pywebview.api.build_connection(id, tol, isNaN(ptol)?2:ptol, isNaN(ctol)?15:ctol, isNaN(gate)?0:gate);
+  if(d.error){ setStatus('Error: '+d.error); uiLog('error','build_connection: '+d.error); return; }
+  DATA=d; setStatus('Loaded: '+d.connection);
+  selLE=0;   // reset the LE selector (the new connection may have a different LE count)
+  viewMode='le';   // back to per-LE view for a freshly loaded connection
+  view2d={z:1,px:0,py:0,rot:view2d.rot,normFlip:view2d.normFlip};   // reset zoom/pan; keep orientation
+  viewR={z:1,px:0,py:0};   // reset the results schematic zoom/pan too
+  render();
+}
+function setStatus(s){ document.getElementById('status').textContent=s; }
+function setTab(t){ TAB=t; render(); }
+// switch the active sheet (model vs results). Re-renders; the small results view rebuilds its own canvas.
+function setPage(p){
+  PAGE=p;
+  document.getElementById('pt-connection').classList.toggle('active', p==='connection');
+  document.getElementById('pt-results').classList.toggle('active', p==='results');
+  render();
+}
+// rotate 90° (dir +1 = CW, -1 = CCW) / flip — both keep the red node fixed on screen via reorient2d.
+function rot2d(dir){ reorient2d(((view2d.rot||0)+dir+4)%4, view2d.normFlip); }
+function flipNormal2d(){ reorient2d(view2d.rot, !view2d.normFlip); }
+function setProj(p){ PROJ3D=p; if(TAB==='3d') draw3d(); }   // rebuild 3D only (updates camera + button state)
+function toggleLabels(){ SHOWLBL=document.getElementById('lblchk').checked; if(TAB==='2d') draw2d(); else if(redraw3d) redraw3d(); }
+
+/* ---------- 2D NORSOK projection ---------- */
+function rot(p,a){const c=Math.cos(a),s=Math.sin(a);return [p[0]*c-p[1]*s,p[0]*s+p[1]*c];}
+// rectangle (4 corners) of a band from p1 to p2 with half-width hw, in plane coords
+function bandPoly(p1,p2,hw){const dx=p2[0]-p1[0],dy=p2[1]-p1[1],L=Math.hypot(dx,dy)||1;const nx=-dy/L*hw,ny=dx/L*hw;return [[p1[0]+nx,p1[1]+ny],[p2[0]+nx,p2[1]+ny],[p2[0]-nx,p2[1]-ny],[p1[0]-nx,p1[1]-ny]];}
+// status -> outline colour (OK keeps the role colour; WARNING amber; ERROR red)
+function statusEdge(m,roleEdge){return m.status==='ERROR'?'#c0392b':(m.status==='WARNING'?'#d98613':roleEdge);}
+// zoom + pan (viewBox units) + orientation: rot = 0..3 (×90°, 0 = chord horizontal),
+// normFlip = view the joint plane from the opposite side (mirror the in-plane normal).
+let view2d={z:1, px:0, py:0, rot:0, normFlip:false};
+
+// scene centroid (world) for a given orientation — the axis-aligned bounding-box centre of the geometry
+// + label anchors. Recomputed because the AABB centre is NOT rotation-invariant. Used by draw2d and to
+// keep the red node fixed on screen when rotating/flipping (the viewBox centres on this point).
+function centroid2d(rotStep, mir){
+  if(!DATA||!DATA.members2d) return [0,0];
+  const rotA=(rotStep||0)*Math.PI/2;
+  const pt=p=>{const q=rot(p,rotA); return [q[0]*mir, q[1]];};
+  let xmin=0,xmax=0,ymin=0,ymax=0;
+  DATA.members2d.forEach(m=>{const r=((m.D_mm||60)/1000)/2;[m.p1,m.p2].forEach(p=>{const q=pt(p);
+    xmin=Math.min(xmin,q[0]-r);xmax=Math.max(xmax,q[0]+r);ymin=Math.min(ymin,q[1]-r);ymax=Math.max(ymax,q[1]+r);});
+    if(SHOWLBL){const p1=pt(m.p1),p2=pt(m.p2);const far=(Math.hypot(p2[0],p2[1])>Math.hypot(p1[0],p1[1]))?p2:p1;
+      const near=(far===p2)?p1:p2;const dx=far[0]-near[0],dy=far[1]-near[1],L=Math.hypot(dx,dy)||1;
+      const ux=dx/L,uy=dy/L,nx=-uy,ny=ux,r=((m.D_mm||60)/1000)/2;
+      const nch=(m.name.length)+(m.D_mm?(4+String(m.D_mm).length+(m.T_mm?(1+String(m.T_mm).length):0)):0);
+      const textLen=nch*0.115; let ax,ay;
+      if(m.role==='chord'){ ax=far[0]+ux*r+nx*r; ay=far[1]+uy*r+ny*r; }
+      else { ax=far[0]+ux*r; ay=far[1]+uy*r; }
+      [[ax,ay],[ax+ux*textLen,ay+uy*textLen]].forEach(([lx,ly])=>{
+        xmin=Math.min(xmin,lx);xmax=Math.max(xmax,lx);ymin=Math.min(ymin,ly);ymax=Math.max(ymax,ly);});}});
+  return [(xmin+xmax)/2, (ymin+ymax)/2];
+}
+// change orientation while keeping the red node (world 0,0) at the same screen spot. The viewBox centres
+// on the centroid, so when the centroid moves c->c' we shift the pan to cancel it (X(u)=u, Y(w)=-w).
+function reorient2d(newRot, newFlip){
+  const c0=centroid2d(view2d.rot, view2d.normFlip?-1:1);
+  const c1=centroid2d(newRot,   newFlip?-1:1);
+  view2d.px += (c0[0]-c1[0]);    // vx = cx - vw/2 + px ; keep cx+px constant
+  view2d.py += (c1[1]-c0[1]);    // vy = -cy - vh/2 + py ; keep -cy+py constant
+  view2d.rot=newRot; view2d.normFlip=newFlip;
+  // orientation is SHARED between the model view and the results schematic (so they read alike) —
+  // redraw whichever is currently on screen.
+  if(PAGE==='results'){ const L=resultsData(); if(L && DATA.coplanar!==false) draw2dResults(L); }
+  else draw2d();
+}
+
+function draw2d(){
+  if(!DATA) return;
+  const host=document.getElementById('viewbox');
+  // multiplanar joint -> a single 2D NORSOK plane is meaningless: don't draw it
+  if(DATA.coplanar===false){
+    host.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#b35900;font:14px Segoe UI;text-align:center;padding:20px">
+      ⚠ This joint is not coplanar (multiplanar) — no single NORSOK joint plane exists, so the 2D projection is hidden.<br>Use the 3D view.</div>`;
+    return;
+  }
+  // size from the actual container so it grows with the window
+  const W=host.clientWidth||760, H=host.clientHeight||560, aspect=W/H;
+  // orientation: rot×90° rotation, THEN an optional left-right flip of the CURRENT view (mirror the
+  // on-screen horizontal axis = view the joint plane from the other side, intuitive in any rotation).
+  // chord starts horizontal at rot=0, normFlip=false.
+  const rotA=((view2d.rot||0)*Math.PI/2);
+  const mir=view2d.normFlip?-1:1;
+  const pt=p=>{const q=rot(p,rotA); return [q[0]*mir, q[1]];};   // rotate first, then flip screen-x
+  // world extents (metres), incl. tube radius AND the label anchor past each far end (so labels fit)
+  let xmin=0,xmax=0,ymin=0,ymax=0;
+  DATA.members2d.forEach(m=>{const r=((m.D_mm||60)/1000)/2;[m.p1,m.p2].forEach(p=>{const q=pt(p);
+    xmin=Math.min(xmin,q[0]-r);xmax=Math.max(xmax,q[0]+r);ymin=Math.min(ymin,q[1]-r);ymax=Math.max(ymax,q[1]+r);});
+    // include each member's label anchor in the fit so labels never fall off
+    if(SHOWLBL){const p1=pt(m.p1),p2=pt(m.p2);const far=(Math.hypot(p2[0],p2[1])>Math.hypot(p1[0],p1[1]))?p2:p1;
+      const near=(far===p2)?p1:p2;const dx=far[0]-near[0],dy=far[1]-near[1],L=Math.hypot(dx,dy)||1;
+      const ux=dx/L,uy=dy/L,nx=-uy,ny=ux,r=((m.D_mm||60)/1000)/2;
+      // label anchor at the far end + the text running outward along the axis -> include BOTH the
+      // anchor and the text's far end so even long "M7 - Ø139.7/8" labels stay inside the viewBox.
+      const nch=(m.name.length)+(m.D_mm?(4+String(m.D_mm).length+(m.T_mm?(1+String(m.T_mm).length):0)):0);
+      const textLen=nch*0.115;   // rough world length of the label (scales with typical font size)
+      let ax,ay;
+      if(m.role==='chord'){ ax=far[0]+ux*r+nx*r; ay=far[1]+uy*r+ny*r; }
+      else { ax=far[0]+ux*r; ay=far[1]+uy*r; }
+      [[ax,ay],[ax+ux*textLen,ay+uy*textLen]].forEach(([lx,ly])=>{
+        xmin=Math.min(xmin,lx);xmax=Math.max(xmax,lx);ymin=Math.min(ymin,ly);ymax=Math.max(ymax,ly);});}});
+  const exX=(xmax-xmin)||1, exY=(ymax-ymin)||1;
+  const half=Math.max(exX,exY)/2*1.08||1;        // square world half-extent + small margin
+  const cx=(xmin+xmax)/2, cy=(ymin+ymax)/2;       // scene centre (fit on geometry+labels, not just node)
+  // viewBox in WORLD metres; SVG preserveAspectRatio letterboxes to the container aspect.
+  const vw=2*half/view2d.z, vh=(2*half)/aspect/view2d.z;
+  // centre the viewBox on the scene centre (cx,cy) so braces don't fall off; + pan offset
+  const vx=cx-vw/2+view2d.px, vy=-cy-vh/2+view2d.py;
+  const X=u=>u, Y=w=>-w;   // world->screen: y up becomes down (orientation handled by pt() above)
+  const k=Math.max(vw,vh);                        // for size-invariant strokes/fonts
+  const sw=k*0.0024, fsz=k*0.021, dash=k*0.012;   // line thickness -40%, label font -30%
+  let s=`<svg id="svg2d" viewBox="${vx} ${vy} ${vw} ${vh}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="cursor:grab">`;
+  // axes through node (0,0 in world -> X(0),Y(0))
+  s+=`<line x1="${vx}" y1="${Y(0)}" x2="${vx+vw}" y2="${Y(0)}" stroke="${C.axis}" stroke-width="${sw*0.7}" stroke-dasharray="${dash} ${dash}"/>`;
+  s+=`<line x1="${X(0)}" y1="${vy}" x2="${X(0)}" y2="${vy+vh}" stroke="${C.axis}" stroke-width="${sw*0.7}" stroke-dasharray="${dash} ${dash}"/>`;
+  const order=DATA.members2d.slice().sort((a,b)=>(a.role==='chord'?-1:1));
+  order.forEach(m=>{
+    const p1=pt(m.p1),p2=pt(m.p2);
+    const D=((m.D_mm||60)/1000), ro=D/2, T=(m.T_mm||0)/1000, ri=Math.max(0,ro-T);
+    const fill=m.role==='chord'?C.chord:C.brace, roleEdge=m.role==='chord'?C.chordEdge:C.braceEdge;
+    const edge=statusEdge(m,roleEdge);
+    // OUTLINE = real outer diameter (hairline stroke so the polygon edge sits ON the Ø, not thickened)
+    const outer=bandPoly(p1,p2,ro).map(q=>`${X(q[0])},${Y(q[1])}`).join(' ');
+    s+=`<polygon points="${outer}" fill="${fill}" fill-opacity="0.5" stroke="${edge}" stroke-width="${sw}"/>`;
+    // WALL LINES: the two side walls drawn at the inner radius -> the visible band between outer & inner
+    // edge = the tube WALL THICKNESS. Two thin lines at ±ri.
+    if(T>0 && ri>0){
+      [ri,-ri].forEach(off=>{
+        const wp=bandPoly(p1,p2,Math.abs(off));   // band of half-width ri; take the one side
+        // line along the +off side:
+        const a=off>0?[wp[0],wp[1]]:[wp[3],wp[2]];
+        s+=`<line x1="${X(a[0][0])}" y1="${Y(a[0][1])}" x2="${X(a[1][0])}" y2="${Y(a[1][1])}" stroke="${edge}" stroke-width="${sw}" stroke-opacity="0.8"/>`;
+      });
+    }
+    // centre axis (dashed)
+    s+=`<line x1="${X(p1[0])}" y1="${Y(p1[1])}" x2="${X(p2[0])}" y2="${Y(p2[1])}" stroke="${edge}" stroke-width="${sw*0.6}" stroke-dasharray="${dash*0.6} ${dash*0.6}"/>`;
+    if(SHOWLBL){
+      const far=(Math.hypot(p2[0],p2[1])>Math.hypot(p1[0],p1[1]))?p2:p1;
+      const near=(far===p2)?p1:p2;
+      const dx=far[0]-near[0],dy=far[1]-near[1],L=Math.hypot(dx,dy)||1;
+      const ux=dx/L,uy=dy/L, nx=-uy,ny=ux;   // unit along + unit normal (in plane coords)
+      let ox,oy,ang;
+      if(m.role==='chord'){
+        // chord label: anchored at its far end, offset slightly PERPENDICULAR so it clears the tube,
+        // then text runs outward along the chord from that fixed point (left/right aligned, not centred).
+        ox=far[0]+ux*(ro+fsz*0.4) + nx*(ro+fsz*0.6);
+        oy=far[1]+uy*(ro+fsz*0.4) + ny*(ro+fsz*0.6);
+      } else {
+        // brace label: anchored just PAST the far end; text runs outward from there so it never
+        // overlaps the tube or other labels near the node.
+        ox=far[0]+ux*(ro+fsz*0.5);
+        oy=far[1]+uy*(ro+fsz*0.5);
+      }
+      ang=Math.atan2(Y(far[1])-Y(near[1]), X(far[0])-X(near[0]))*180/Math.PI;
+      if(ang>90) ang-=180; else if(ang<-90) ang+=180;
+      const sx=X(ox), sy=Y(oy);
+      // anchor so the text grows OUTWARD (away from the node). After the upright-normalised rotate,
+      // local +x points along (cos ang, sin ang); align start/end with the near->far screen direction.
+      const outx=X(far[0])-X(near[0]), outy=Y(far[1])-Y(near[1]);
+      const ar=ang*Math.PI/180, dotOut=Math.cos(ar)*outx+Math.sin(ar)*outy;
+      const anchor=(dotOut>=0)?'start':'end';
+      const tcol=m.status==='ERROR'?'#c0392b':(m.status==='WARNING'?'#b35900':edge);
+      s+=`<text x="${sx}" y="${sy}" fill="${tcol}" font-size="${fsz}" font-weight="bold" text-anchor="${anchor}" dominant-baseline="middle" transform="rotate(${ang} ${sx} ${sy})">${m.name}${m.D_mm?(' - Ø'+m.D_mm+(m.T_mm?('/'+m.T_mm):'')):''}</text>`;
+    }
+  });
+  s+=`<circle cx="${X(0)}" cy="${Y(0)}" r="${k*0.012}" fill="${C.node}"/>`;
+  // scale bar (1.0 m) bottom-left of the viewBox
+  const bx=vx+k*0.04, by=vy+vh-k*0.04;
+  s+=`<line x1="${bx}" y1="${by}" x2="${bx+1.0}" y2="${by}" stroke="#444" stroke-width="${sw}"/><text x="${bx+0.5}" y="${by-k*0.02}" fill="#444" font-size="${fsz*0.7}" text-anchor="middle">1.0 m</text>`;
+  s+=`</svg>`;
+  // orientation controls overlaid in the top-right corner of the drawing:
+  // ↺ rotate 90° CCW · ⇅ flip the view normal (look from the other side) · ↻ rotate 90° CW
+  const ctrls=`<div class="o2d">
+      <div class="o2drow">
+        <button class="o2dbtn" title="Rotate 90° clockwise" onclick="rot2d(1)">↻</button>
+        <button class="o2dbtn" title="Rotate 90° counter-clockwise" onclick="rot2d(-1)">↺</button>
+      </div>
+      <button class="o2dbtn" title="Flip the view left↔right (look at the joint plane from the other side)" onclick="flipNormal2d()">⇄</button>
+    </div>`;
+  host.innerHTML=`<div style="position:relative;width:100%;height:100%">${s}${ctrls}</div>`;
+  attach2dPanZoom();
+}
+
+let _pan2dBound=false;
+function attach2dPanZoom(){
+  const svg=document.getElementById('svg2d'); if(!svg) return;
+  svg.onwheel=(e)=>{ e.preventDefault();
+    view2d.z=Math.max(0.2,Math.min(60,view2d.z*(e.deltaY>0?1/1.15:1.15)));
+    draw2d();
+  };
+  svg.ondblclick=()=>{ view2d={z:1,px:0,py:0,rot:view2d.rot,normFlip:view2d.normFlip}; draw2d(); };
+  // drag-pan: track state on the module; window listeners bound ONCE (not per redraw -> no leak/jump)
+  svg.onmousedown=(e)=>{ pan2d.on=true; pan2d.lx=e.clientX; pan2d.ly=e.clientY; svg.style.cursor='grabbing'; };
+  if(_pan2dBound) return; _pan2dBound=true;
+  window.addEventListener('mousemove',(e)=>{
+    if(!pan2d.on) return;
+    const svg=document.getElementById('svg2d'); if(!svg){pan2d.on=false;return;}
+    const r=svg.getBoundingClientRect();
+    // viewBox units per screen px (account for preserveAspectRatio 'meet' letterboxing)
+    const vb=svg.viewBox.baseVal;
+    const sc=Math.min(r.width/vb.width, r.height/vb.height) || 1;  // px per viewBox unit actually used
+    const upp=1/sc;                                                // viewBox units per screen px
+    view2d.px-=(e.clientX-pan2d.lx)*upp; view2d.py-=(e.clientY-pan2d.ly)*upp;
+    pan2d.lx=e.clientX; pan2d.ly=e.clientY; draw2d();
+  });
+  window.addEventListener('mouseup',()=>{ if(pan2d.on){pan2d.on=false; const s=document.getElementById('svg2d'); if(s)s.style.cursor='grab';} });
+}
+let pan2d={on:false,lx:0,ly:0};
+
+/* ---------- 2D view for the RESULTS sheet ----------
+   Draws the joint as TUBES (real outer Ø + wall thickness + centre axis), exactly like the model's
+   draw2d, BUT: braces are filled by their dominant K/Y/X class colour, and the label is JUST the
+   member name (no "Ø D/T"). Same orientation (view2d.rot/normFlip + pt()) so it reads like the model.
+   Auto-fits, then wheel-zoom / drag-pan / dbl-click-reset (its own viewR state).   */
+// pan/zoom state for the results schematic (independent of the model's view2d). z=zoom, px/py=pan.
+let viewR={z:1, px:0, py:0};
+function draw2dResults(L){
+  const host=document.getElementById('viewbox'); if(!host) return;
+  const W=host.clientWidth||520, H=host.clientHeight||460, aspect=W/H;
+  const rotA=((view2d.rot||0)*Math.PI/2), mir=view2d.normFlip?-1:1;   // share the model's orientation
+  const pt=p=>{const q=rot(p,rotA); return [q[0]*mir, q[1]];};
+  const mem=DATA.members2d||[];
+  // name -> 6.4 check row: the brace is coloured by its UTILISATION (green→red), not by K/Y/X class
+  // (util is what the engineer reads at a glance; a brace is often a K/Y/X mix so a class colour misleads).
+  // NOTE: the check is formally on the CHORD WALL at the brace footprint — we colour the brace as a proxy.
+  const jcBy={}; (L.jcRow&&L.jcRow.braces||[]).forEach(b=>jcBy[b.name]=b);
+  const braceColor=nm=>{ const b=jcBy[nm]; return (b && !b.skipped && b.util!=null)?utilColor(b.util):'#bbb'; };
+  // chord-face side (+ey/−ey), for the small +/− marker next to each brace label (user request:
+  // make the chord face a brace sits on visible in the 2D schematic, matching the gap/bfCard convention).
+  const sideBy={}; (L.bfRow&&L.bfRow.braces||[]).forEach(b=>{ if(b.side!=null) sideBy[b.name]=b.side; });
+  // world fit incl. tube radius AND a label-length reserve past each far end (labels = name only)
+  let xmin=0,xmax=0,ymin=0,ymax=0;
+  const inc=(x,y)=>{xmin=Math.min(xmin,x);xmax=Math.max(xmax,x);ymin=Math.min(ymin,y);ymax=Math.max(ymax,y);};
+  mem.forEach(m=>{const r=((m.D_mm||60)/1000)/2;[m.p1,m.p2].forEach(p=>{const q=pt(p);
+      inc(q[0]-r,q[1]-r); inc(q[0]+r,q[1]+r);});
+    const a=pt(m.p1), b=pt(m.p2);
+    const far=(Math.hypot(b[0],b[1])>Math.hypot(a[0],a[1]))?b:a, near=(far===b)?a:b;
+    const dx=far[0]-near[0],dy=far[1]-near[1],Ln=Math.hypot(dx,dy)||1, ux=dx/Ln,uy=dy/Ln, rad=((m.D_mm||60)/1000)/2;
+    const textLen=(m.name.length)*0.10;
+    inc(far[0]+ux*(rad+textLen), far[1]+uy*(rad+textLen));
+  });
+  const ex=Math.max(xmax-xmin,ymax-ymin)||1;
+  const half=ex/2*1.10||1;
+  const cx=(xmin+xmax)/2, cy=(ymin+ymax)/2;
+  // viewBox + zoom/pan (same convention as the model's draw2d)
+  const vw=2*half/viewR.z, vh=(2*half)/aspect/viewR.z;
+  const vx=cx-vw/2+viewR.px, vy=-cy-vh/2+viewR.py;
+  const X=u=>u, Y=w=>-w;
+  const k=Math.max(vw,vh);
+  const sw=k*0.0024, fsz=k*0.021, dash=k*0.012;   // same size profile as the model draw2d
+  let s=`<svg id="svg2dr" viewBox="${vx} ${vy} ${vw} ${vh}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="cursor:grab">`;
+  // axes through the node
+  s+=`<line x1="${vx}" y1="${Y(0)}" x2="${vx+vw}" y2="${Y(0)}" stroke="${C.axis}" stroke-width="${sw*0.7}" stroke-dasharray="${dash} ${dash}"/>`;
+  s+=`<line x1="${X(0)}" y1="${vy}" x2="${X(0)}" y2="${vy+vh}" stroke="${C.axis}" stroke-width="${sw*0.7}" stroke-dasharray="${dash} ${dash}"/>`;
+  // draw chord first so braces overlay it; TUBES = outer Ø polygon + wall lines + dashed centre axis
+  const order=mem.slice().sort((a,b)=>(a.role==='chord'?-1:1));
+  order.forEach(m=>{
+    const p1=pt(m.p1),p2=pt(m.p2);
+    const D=((m.D_mm||60)/1000), ro=D/2, T=(m.T_mm||0)/1000, ri=Math.max(0,ro-T);
+    // fill by UTILISATION (braces) / chord grey; edge follows the fill
+    const uc=(m.role!=='chord')?braceColor(m.name):null;
+    const fill=(m.role==='chord')?C.chord:uc;
+    const edge=(m.role==='chord')?C.chordEdge:uc;
+    const outer=bandPoly(p1,p2,ro).map(q=>`${X(q[0])},${Y(q[1])}`).join(' ');
+    s+=`<polygon points="${outer}" fill="${fill}" fill-opacity="0.5" stroke="${edge}" stroke-width="${sw}"/>`;
+    if(T>0 && ri>0){
+      [ri,-ri].forEach(off=>{
+        const wp=bandPoly(p1,p2,Math.abs(off));
+        const a=off>0?[wp[0],wp[1]]:[wp[3],wp[2]];
+        s+=`<line x1="${X(a[0][0])}" y1="${Y(a[0][1])}" x2="${X(a[1][0])}" y2="${Y(a[1][1])}" stroke="${edge}" stroke-width="${sw}" stroke-opacity="0.8"/>`;
+      });
+    }
+    s+=`<line x1="${X(p1[0])}" y1="${Y(p1[1])}" x2="${X(p2[0])}" y2="${Y(p2[1])}" stroke="${edge}" stroke-width="${sw*0.6}" stroke-dasharray="${dash*0.6} ${dash*0.6}"/>`;
+  });
+  // node dot radius = Dmax/10 (Dmax = largest member outer Ø) — scales with the joint, not the viewBox
+  const Dmax=Math.max(...mem.map(m=>(m.D_mm||60)/1000), 0.06);
+  s+=`<circle cx="${X(0)}" cy="${Y(0)}" r="${Dmax/10}" fill="${C.node}"/>`;
+  // labels: JUST the member name, anchored just past the far end, growing outward (like draw2d)
+  mem.forEach(m=>{
+    const p1=pt(m.p1),p2=pt(m.p2);
+    const D=((m.D_mm||60)/1000), ro=D/2;
+    const far=(Math.hypot(p2[0],p2[1])>Math.hypot(p1[0],p1[1]))?p2:p1;
+    const near=(far===p2)?p1:p2;
+    const dx=far[0]-near[0],dy=far[1]-near[1],Ln=Math.hypot(dx,dy)||1, ux=dx/Ln,uy=dy/Ln, nx=-uy,ny=ux;
+    let ox,oy;
+    if(m.role==='chord'){ ox=far[0]+ux*(ro+fsz*0.4)+nx*(ro+fsz*0.6); oy=far[1]+uy*(ro+fsz*0.4)+ny*(ro+fsz*0.6); }
+    else { ox=far[0]+ux*(ro+fsz*0.5); oy=far[1]+uy*(ro+fsz*0.5); }
+    let ang=Math.atan2(Y(far[1])-Y(near[1]),X(far[0])-X(near[0]))*180/Math.PI;
+    if(ang>90)ang-=180; else if(ang<-90)ang+=180;
+    const sx=X(ox),sy=Y(oy);
+    const outx=X(far[0])-X(near[0]),outy=Y(far[1])-Y(near[1]);
+    const ar=ang*Math.PI/180, anchor=(Math.cos(ar)*outx+Math.sin(ar)*outy>=0)?'start':'end';
+    const col=(m.role==='chord')?C.chordEdge:braceColor(m.name);
+    // which chord face this brace sits on — SAME wording (sideLbl/sideLblShort) as the gap table,
+    // brace-forces table, and detail modal; chord itself has no face, so no marker.
+    const sideMark=(m.role!=='chord' && sideBy[m.name]!=null) ? (' '+sideLblShort(sideBy[m.name])) : '';
+    s+=`<text x="${sx}" y="${sy}" fill="${col}" font-size="${fsz}" font-weight="bold" text-anchor="${anchor}" dominant-baseline="middle" transform="rotate(${ang} ${sx} ${sy})">${m.name}${sideMark}</text>`;
+  });
+  // scale bar (1.0 m) bottom-left of the viewBox — same convention as the model's draw2d
+  const bx=vx+k*0.04, by=vy+vh-k*0.04;
+  s+=`<line x1="${bx}" y1="${by}" x2="${bx+1.0}" y2="${by}" stroke="#444" stroke-width="${sw}"/><text x="${bx+0.5}" y="${by-k*0.02}" fill="#444" font-size="${fsz*0.7}" text-anchor="middle">1.0 m</text>`;
+  s+=`</svg>`;
+  // orientation controls overlaid top-right — same ↻/↺/⇄ as the model's draw2d, SAME view2d state
+  const ctrls=`<div class="o2d">
+      <div class="o2drow">
+        <button class="o2dbtn" title="Rotate 90° clockwise" onclick="rot2d(1)">↻</button>
+        <button class="o2dbtn" title="Rotate 90° counter-clockwise" onclick="rot2d(-1)">↺</button>
+      </div>
+      <button class="o2dbtn" title="Flip the view left↔right (look at the joint plane from the other side)" onclick="flipNormal2d()">⇄</button>
+    </div>`;
+  host.innerHTML=`<div style="position:relative;width:100%;height:100%">${s}${ctrls}</div>`;
+  attachResultsPanZoom(L);
+}
+// wheel-zoom + drag-pan + dbl-click-reset for the results schematic (mirrors attach2dPanZoom)
+let _panRBound=false, panR={on:false,lx:0,ly:0};
+function attachResultsPanZoom(L){
+  const svg=document.getElementById('svg2dr'); if(!svg) return;
+  svg.onwheel=(e)=>{ e.preventDefault();
+    viewR.z=Math.max(0.2,Math.min(60,viewR.z*(e.deltaY>0?1/1.15:1.15))); draw2dResults(L); };
+  svg.ondblclick=()=>{ viewR={z:1,px:0,py:0}; draw2dResults(L); };
+  svg.onmousedown=(e)=>{ panR.on=true; panR.lx=e.clientX; panR.ly=e.clientY; svg.style.cursor='grabbing'; };
+  if(_panRBound) return; _panRBound=true;
+  window.addEventListener('mousemove',(e)=>{
+    if(!panR.on) return;
+    const svg=document.getElementById('svg2dr'); if(!svg){panR.on=false;return;}
+    const r=svg.getBoundingClientRect(), vb=svg.viewBox.baseVal;
+    const sc=Math.min(r.width/vb.width, r.height/vb.height)||1, upp=1/sc;
+    viewR.px-=(e.clientX-panR.lx)*upp; viewR.py-=(e.clientY-panR.ly)*upp;
+    panR.lx=e.clientX; panR.ly=e.clientY;
+    const Lc=resultsData(); if(Lc) draw2dResults(Lc);
+  });
+  window.addEventListener('mouseup',()=>{ if(panR.on){panR.on=false; const s=document.getElementById('svg2dr'); if(s)s.style.cursor='grab';} });
+}
+
+/* ---------- 3D tube view (Three.js) ---------- */
+function draw3d(){
+  if(!DATA) return;
+  const host=document.getElementById('viewbox');
+  // projection toggle overlaid top-left as isometric-cube icons: parallel (constant edges) vs perspective
+  // (edges converge). Active one highlighted. ViewCube stays top-right; these sit top-left.
+  const ISO_PARA=`<svg viewBox="0 0 24 24" width="22" height="22"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+    <path d="M12 3 L20 7.5 L12 12 L4 7.5 Z"/><path d="M4 7.5 L4 16.5 L12 21 L12 12"/><path d="M20 7.5 L20 16.5 L12 21"/></g></svg>`;
+  // perspective: top face wider than bottom (edges converge downward)
+  const ISO_PERSP=`<svg viewBox="0 0 24 24" width="22" height="22"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+    <path d="M12 3 L21 7.5 L12 11.5 L3 7.5 Z"/><path d="M3 7.5 L6 16 L12 19.5 L12 11.5"/><path d="M21 7.5 L18 16 L12 19.5"/></g></svg>`;
+  const projctrls=`<div class="o3d">
+      <button class="o3dbtn ${PROJ3D==='ortho'?'on':''}" title="Parallel (orthographic) projection — 1:1 size, compare with IDEA" onclick="setProj('ortho')">${ISO_PARA}</button>
+      <button class="o3dbtn ${PROJ3D==='persp'?'on':''}" title="Perspective projection" onclick="setProj('persp')">${ISO_PERSP}</button>
+    </div>`;
+  host.innerHTML='<div id="three" style="position:relative">'+projctrls+'<canvas id="cube" width="60" height="60" style="position:absolute;right:8px;top:8px;cursor:grab"></canvas></div>';
+  const el=document.getElementById('three');
+  el.style.width='100%'; el.style.height='100%';
+  const W=el.clientWidth||760, H=el.clientHeight||560, aspect=W/H;
+  const scene=new THREE.Scene(); scene.background=new THREE.Color(0xfafbfc);
+  let camera;
+  function makeCamera(){
+    if(PROJ3D==='ortho'){ const h=dist*0.6,w=h*aspect; camera=new THREE.OrthographicCamera(-w,w,h,-h,0.001,1000); }
+    else { camera=new THREE.PerspectiveCamera(45,aspect,0.001,1000); }
+    camera.up.set(0,0,1);
+  }
+  const renderer=new THREE.WebGLRenderer({antialias:true});
+  renderer.setSize(W,H); el.insertBefore(renderer.domElement, el.firstChild);
+  scene.add(new THREE.AmbientLight(0xffffff,0.75));
+  const dl=new THREE.DirectionalLight(0xffffff,0.55); dl.position.set(1,1,1.5); scene.add(dl);
+  scene.add(new THREE.AxesHelper(0.5));
+
+  // CSS2D-free labels: project 3D points to screen and draw as <div>s overlaid
+  const labels=[];   // {pos:Vector3, text, color}
+
+  let maxr=0.5; const pts=[];
+  DATA.members3d.forEach(m=>{
+    const a=new THREE.Vector3(...m.p1), b=new THREE.Vector3(...m.p2);
+    const dir=new THREE.Vector3().subVectors(b,a), len=dir.length();
+    const Do=((m.D_mm||60)/1000), ro=Do/2;
+    const T=(m.T_mm||0)/1000, ri=Math.max(0, ro-T);   // inner radius for hollow wall
+    // colour by status: ERROR red, WARNING amber, else by role
+    let col=m.role==='chord'?0x8a8f96:0x2e6fb0;
+    let edge=m.role==='chord'?0x6b7077:0x1f5a93;
+    if(m.status==='ERROR'){ col=0xd9544a; edge=0xc0392b; }
+    else if(m.status==='WARNING'){ col=0xe0a040; edge=0xb35900; }
+    const mat=new THREE.MeshStandardMaterial({color:col,transparent:true,opacity:0.9,
+        side:THREE.DoubleSide,metalness:0.1,roughness:0.7});
+    const grp=new THREE.Group();
+    // outer wall
+    grp.add(new THREE.Mesh(new THREE.CylinderGeometry(ro,ro,len,32,1,true),mat));
+    if(T>0 && ri>0){
+      // inner wall + two annular end caps -> shows real wall thickness at the cuts
+      grp.add(new THREE.Mesh(new THREE.CylinderGeometry(ri,ri,len,32,1,true),mat));
+      const capMat=new THREE.MeshStandardMaterial({color:edge,side:THREE.DoubleSide,metalness:0.1,roughness:0.6});
+      const ring=new THREE.RingGeometry(ri,ro,32);
+      [+len/2,-len/2].forEach(yy=>{
+        const cap=new THREE.Mesh(ring,capMat); cap.rotation.x=Math.PI/2; cap.position.y=yy; grp.add(cap);
+      });
+    }
+    const mid=new THREE.Vector3().addVectors(a,b).multiplyScalar(0.5);
+    grp.position.copy(mid);
+    grp.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().normalize());
+    scene.add(grp);
+    pts.push(a,b);
+    const far=(b.length()>a.length())?b:a;
+    const lblcol=m.status==='ERROR'?'#c0392b':(m.status==='WARNING'?'#b35900':(m.role==='chord'?'#6b7077':'#1f5a93'));
+    labels.push({pos:far.clone(),text:`${m.name}${m.D_mm?(' - Ø'+m.D_mm+(m.T_mm?('/'+m.T_mm):'')):''}`,color:lblcol});
+  });
+  // Rotation pivot / camera target = the joint node (best-fit intersection of all member axes,
+  // computed in extract.py). view_center == node now, so the real joint is always centred.
+  const ctr=new THREE.Vector3(...(DATA.view_center||DATA.node||[0,0,0]));
+  maxr=0.3; pts.forEach(p=>{maxr=Math.max(maxr,p.distanceTo(ctr));});
+  const nd=new THREE.Mesh(new THREE.SphereGeometry(maxr*0.03,16,16),new THREE.MeshBasicMaterial({color:0xc0392b}));
+  nd.position.set(...DATA.node); scene.add(nd);
+
+  let dist=maxr*2.6;
+  let viewDir=new THREE.Vector3(1,-1,0.6).normalize();
+  let camUp=new THREE.Vector3(0,0,1);   // stateful up -> true trackball, no gimbal lock at poles
+  makeCamera();
+
+  // overlay div for labels
+  const lblLayer=document.createElement('div');
+  lblLayer.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:hidden';
+  el.appendChild(lblLayer);
+
+  function applyCam(){
+    if(PROJ3D==='ortho'){ const h=dist*0.6,w=h*aspect;
+      camera.left=-w;camera.right=w;camera.top=h;camera.bottom=-h;camera.updateProjectionMatrix(); }
+    camera.position.copy(ctr.clone().add(viewDir.clone().multiplyScalar(dist)));
+    camera.up.copy(camUp);   // stateful up: lets the scene roll past the poles
+    camera.lookAt(ctr);
+  }
+  function drawLabels(){
+    lblLayer.innerHTML='';
+    if(!SHOWLBL) return;
+    labels.forEach(L=>{
+      const v=L.pos.clone().project(camera);
+      if(v.z>1) return;
+      const x=(v.x*0.5+0.5)*W, y=(-v.y*0.5+0.5)*H;
+      const d=document.createElement('div');
+      d.textContent=L.text;
+      d.style.cssText=`position:absolute;left:${x}px;top:${y}px;transform:translate(-50%,-130%);`
+        +`color:${L.color};font:bold 12px Segoe UI;white-space:nowrap;text-shadow:0 0 3px #fff,0 0 3px #fff`;
+      lblLayer.appendChild(d);
+    });
+  }
+  function renderAll(){ applyCam(); renderer.render(scene,camera); drawCube(); drawLabels(); }
+  redraw3d=renderAll;
+
+  /* ----- main canvas trackball ----- */
+  function rotateView(dx,dy){
+    // true trackball: yaw about global Z, pitch about the camera's own right axis
+    // (right = viewDir x camUp). camUp is rotated too, so passing over the pole just
+    // flips the scene instead of locking up — no gimbal lock.
+    const qy=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),-dx);
+    viewDir.applyQuaternion(qy); camUp.applyQuaternion(qy);
+    let right=new THREE.Vector3().crossVectors(viewDir,camUp);
+    if(right.lengthSq()<1e-6) right.set(1,0,0); right.normalize();
+    const qp=new THREE.Quaternion().setFromAxisAngle(right,dy);
+    viewDir.applyQuaternion(qp).normalize();
+    camUp.applyQuaternion(qp).normalize();
+  }
+  // pan = move the camera target (ctr) in the screen plane (right / up vectors of the view)
+  function panView(dx,dy){
+    let right=new THREE.Vector3().crossVectors(viewDir,camera.up);
+    if(right.lengthSq()<1e-6) right.set(1,0,0); right.normalize();
+    const up=new THREE.Vector3().crossVectors(right,viewDir).normalize();
+    const scale=dist*0.0016;   // px -> world, scaled with zoom distance
+    ctr.add(right.multiplyScalar(dx*scale)).add(up.multiplyScalar(dy*scale));
+  }
+  let drag=0,px=0,py=0;   // 0=none, 1=pan(left), 2=rotate(right)
+  el.oncontextmenu=e=>e.preventDefault();   // right-drag must not open the menu
+  el.onmousedown=e=>{ if(e.target.id==='cube')return;
+    drag=(e.button===2)?2:1; px=e.clientX;py=e.clientY; e.preventDefault(); };
+  window.addEventListener('mouseup',()=>{drag=0;cubeDrag=false;cubeMoved=false;});
+  el.onmousemove=e=>{ if(!drag)return;
+    if(drag===2) rotateView((e.clientX-px)*0.01,(e.clientY-py)*0.01);
+    else panView(e.clientX-px,e.clientY-py);
+    px=e.clientX;py=e.clientY; renderAll(); };
+  el.onwheel=e=>{ e.preventDefault(); dist*=(e.deltaY>0?1.1:0.9); renderAll(); };
+
+  /* ----- ViewCube: clickable faces/edges/corners + draggable to orbit ----- */
+  const cubeCanvas=document.getElementById('cube');
+  const cscene=new THREE.Scene();
+  const ccam=new THREE.PerspectiveCamera(32,1,0.1,10); ccam.up.set(0,0,1);
+  const crenderer=new THREE.WebGLRenderer({canvas:cubeCanvas,antialias:true,alpha:true});
+  crenderer.setSize(60,60);   // ViewCube at 50% size (pivot/orbit math is resolution-independent)
+  function faceTex(txt, rotDeg){
+    const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+    x.fillStyle='#dbe3ec';x.fillRect(0,0,128,128);x.strokeStyle='#5a6b7b';x.lineWidth=7;x.strokeRect(4,4,120,120);
+    x.save();x.translate(64,64);x.rotate((rotDeg||0)*Math.PI/180);   // rotate text in texture space
+    x.fillStyle='#1f3a5f';x.font='bold 42px Segoe UI';x.textAlign='center';x.textBaseline='middle';x.fillText(txt,0,4);
+    x.restore();
+    return new THREE.CanvasTexture(c);
+  }
+  // BoxGeometry material order: [X+, X-, Y+, Y-, Z+, Z-]. With Z up, the side-face texture "up" (+V) is
+  // world +Y (X faces) or −Z (Y+ face), not world +Z. Rotate each label so its up points to world +Z, so
+  // the X/Y labels read left-to-right when Z points up. Derived from Three.js BoxGeometry UVs.
+  const faceRot={'X+':90,'X-':-90,'Y+':180,'Y-':0,'Z+':0,'Z-':0};
+  const cmats=['X+','X-','Y+','Y-','Z+','Z-'].map(t=>new THREE.MeshBasicMaterial({map:faceTex(t,faceRot[t])}));
+  const cube=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),cmats);
+  cscene.add(cube);
+  const edgeLines=new THREE.LineSegments(new THREE.EdgesGeometry(cube.geometry),
+      new THREE.LineBasicMaterial({color:0x5a6b7b})); cscene.add(edgeLines);
+  function drawCube(){
+    ccam.position.copy(viewDir.clone().multiplyScalar(3.2));
+    ccam.up.copy(camUp);   // track the real camera roll
+    ccam.lookAt(0,0,0);
+    crenderer.render(cscene,ccam);
+  }
+  // click a point on the cube -> look from that point's direction (faces/edges/corners all work,
+  // because we use the HIT POINT direction, snapped to the nearest face/edge/corner of the unit cube)
+  const ray=new THREE.Raycaster(), mouse=new THREE.Vector2();
+  function snapDir(p){
+    // snap each axis component: near ±0.5 -> ±1, else 0  => gives face (1 axis), edge (2), corner (3)
+    const s=v=>Math.abs(v)>0.30?Math.sign(v):0;
+    let d=new THREE.Vector3(s(p.x),s(p.y),s(p.z));
+    if(d.lengthSq()===0) d=new THREE.Vector3(Math.sign(p.x||1),0,0);
+    return d.normalize();
+  }
+  let cubeDrag=false,cubeMoved=false,cpx=0,cpy=0;
+  cubeCanvas.onmousedown=e=>{ cubeDrag=true;cubeMoved=false;cpx=e.clientX;cpy=e.clientY;cubeCanvas.style.cursor='grabbing';e.stopPropagation(); };
+  cubeCanvas.onmousemove=e=>{
+    if(!cubeDrag)return;
+    if(Math.abs(e.clientX-cpx)+Math.abs(e.clientY-cpy)>3) cubeMoved=true;
+    rotateView((e.clientX-cpx)*0.01,(e.clientY-cpy)*0.01); cpx=e.clientX;cpy=e.clientY; renderAll();
+  };
+  cubeCanvas.onmouseup=e=>{
+    cubeCanvas.style.cursor='grab';
+    if(!cubeMoved){ // treat as click -> snap to face/edge/corner
+      const r=cubeCanvas.getBoundingClientRect();
+      mouse.x=((e.clientX-r.left)/r.width)*2-1; mouse.y=-((e.clientY-r.top)/r.height)*2+1;
+      ray.setFromCamera(mouse,ccam);
+      const hit=ray.intersectObject(cube)[0];
+      if(hit){ viewDir.copy(snapDir(hit.point));
+        // reset roll to an upright orthogonal up (global Z, or global Y when looking down a pole)
+        camUp.copy(Math.abs(viewDir.z)>0.98?new THREE.Vector3(0,1,0):new THREE.Vector3(0,0,1));
+        let rgt=new THREE.Vector3().crossVectors(viewDir,camUp);
+        camUp.crossVectors(rgt,viewDir).normalize();
+        renderAll(); }
+    }
+    cubeDrag=false;cubeMoved=false;
+  };
+
+  renderAll();
+}
+
+/* ---------- info + layout ---------- */
+// shared load-effect selector: ONE dropdown drives BOTH the node-equilibrium table and the
+// in-plane brace-forces table (so they always show the same LE). selLE = index into the LE list.
+let selLE=0;
+// results-sheet view mode: 'le' = show one selected load effect ; 'env' = ENVELOPE = per brace the
+// GOVERNING (max-util) load effect across ALL LEs (different braces may govern in different LEs).
+let viewMode='le';
+function setViewMode(m){ viewMode=m; render(); }
+function setLE(i){ selLE=+i; render(); }
+
+/* ---------- units settings modal ---------- */
+function openSettings(){
+  const b=document.getElementById('settings-body');
+  const row=(key,label)=>{
+    const defs=UNIT_DEFS[key];
+    const opts=Object.keys(defs).map(k=>`<option value="${k}" ${UNITS[key]===k?'selected':''}>${defs[k].lbl}</option>`).join('');
+    const dpKey='dp'+key.charAt(0).toUpperCase()+key.slice(1);
+    return `<label>${label}</label>
+      <select id="us_${key}">${opts}</select>
+      <span class="dp">dec.<input id="us_${dpKey}" type="number" min="0" max="6" step="1" value="${UNITS[dpKey]}"></span>`;
+  };
+  // dp-only row (no unit choice) — used for dimensionless ratios and percentages
+  const rowDp=(dpKey,label)=>`<label>${label}</label>
+      <span></span>
+      <span class="dp">dec.<input id="us_${dpKey}" type="number" min="0" max="6" step="1" value="${UNITS[dpKey]}"></span>`;
+  b.innerHTML=`<div class="uset">
+    <div class="uset-hdr">quantity / unit / decimals</div>
+    ${row('force','Force')}
+    ${row('moment','Moment')}
+    ${row('length','Length')}
+    ${row('stress','Stress')}
+    ${rowDp('dpNumber','Dimensionless (β,γ,Qu,Qf,util,...)')}
+    ${rowDp('dpPercent','Percentage (K/X/Y classification share,...)')}
+    ${rowDp('dpAngle','Angle (θ, deviations, °)')}
+  </div>`;
+  document.getElementById('settings-bg').classList.add('open');
+}
+function closeSettings(){ document.getElementById('settings-bg').classList.remove('open'); }
+function openTol(){ document.getElementById('tol-bg').classList.add('open'); }
+function closeTol(){ document.getElementById('tol-bg').classList.remove('open'); }
+function applyUnits(){
+  ['force','moment','length','stress'].forEach(k=>{
+    const sel=document.getElementById('us_'+k); if(sel) UNITS[k]=sel.value;
+    const dpKey='dp'+k.charAt(0).toUpperCase()+k.slice(1);
+    const dp=document.getElementById('us_'+dpKey);
+    if(dp){ const v=parseInt(dp.value,10); UNITS[dpKey]=isNaN(v)?UNITS[dpKey]:Math.max(0,Math.min(6,v)); }
+  });
+  ['dpNumber','dpPercent','dpAngle'].forEach(dpKey=>{
+    const dp=document.getElementById('us_'+dpKey);
+    if(dp){ const v=parseInt(dp.value,10); UNITS[dpKey]=isNaN(v)?UNITS[dpKey]:Math.max(0,Math.min(6,v)); }
+  });
+  saveUnits();
+  closeSettings();
+  if(DATA) render();   // re-render every table with the new units
+}
+// ---- shared LE helpers (used by the results sheet) ----
+// the canonical load-effect list (union of equilibrium + brace_forces, equilibrium drives the order)
+function leList(){
+  const eq=DATA.equilibrium||[], bf=DATA.brace_forces||[];
+  if(!eq.length && !bf.length) return [];
+  const src = eq.length?eq:bf;
+  return src.map((e,i)=>({i, id:e.id, name:e.name||('LE'+(e.id!=null?e.id:i+1))}));
+}
+// the LE rows (equilibrium / brace-forces / classification) for the currently selected LE
+function curLEData(){
+  const LEs=leList(); if(!LEs.length) return null;
+  if(selLE>=LEs.length) selLE=0;
+  const cur=LEs[selLE]||LEs[0];
+  const eq=DATA.equilibrium||[], bf=DATA.brace_forces||[], cls=DATA.classification||[], jc=DATA.joint_checks||[];
+  const cs=DATA.chord_stresses||[];
+  return {
+    LEs, cur,
+    eqRow: eq.find(e=>e.id===cur.id) || eq[selLE],
+    bfRow: bf.find(e=>e.id===cur.id) || bf[selLE],
+    clRow: cls.find(e=>e.id===cur.id) || cls[selLE],
+    jcRow: jc.find(e=>e.id===cur.id) || jc[selLE],
+    csRow: cs.find(e=>e.id===cur.id) || cs[selLE],
+  };
+}
+// ENVELOPE across all LEs: for EACH brace pick the load effect where its 6.4 utilisation is highest
+// (the governing LC for that brace). Different braces may govern in DIFFERENT LEs — this is the true
+// worst case per brace, the standard design-check envelope. Returns the SAME shape curLEData() gives
+// (so eqCard/bfCard/classChecksCard/draw2dResults consume it unchanged), but each brace's jc row +
+// classification row come from ITS OWN governing LE and carry `gov_le` = that LE's name.
+//   - jcRow.braces[i]  = the winning LE's check row for brace i, tagged with .gov_le
+//   - clRow.classes[i] = the winning LE's K/Y/X row for brace i (so K/X/Y match the governing LC)
+//   - eqRow/bfRow are left null (equilibrium / brace-forces are per-LE, meaningless in an envelope)
+function envelopeData(){
+  const LEs=leList(); if(!LEs.length) return null;
+  const jc=DATA.joint_checks||[], cls=DATA.classification||[];
+  if(!jc.length) return null;
+  // canonical brace order = the classification of the first LE (all LEs share the same braces)
+  const order=(cls[0]&&cls[0].classes||jc[0]&&jc[0].braces||[]).map(b=>b.name);
+  const jcByLe={}, clByLe={};
+  jc.forEach(le=>{ const m={}; (le.braces||[]).forEach(b=>m[b.name]=b); jcByLe[le.id]=m; });
+  cls.forEach(le=>{ const m={}; (le.classes||[]).forEach(c=>m[c.name]=c); clByLe[le.id]=m; });
+  const jcBraces=[], clClasses=[];
+  order.forEach(nm=>{
+    // pick the LE with the highest non-skipped util for this brace; skipped rows never win over a real one
+    let best=null;   // {le, row}
+    LEs.forEach(le=>{
+      const row=(jcByLe[le.id]||{})[nm];
+      if(!row) return;
+      const real=row && !row.skipped && row.util!=null;
+      if(best===null){ best={le,row,real}; return; }
+      if(real && !best.real){ best={le,row,real}; return; }        // a real check beats a skipped one
+      if(real && best.real && row.util>best.row.util){ best={le,row,real}; }  // higher util wins
+    });
+    if(!best){ return; }
+    const govName=best.le.name, govId=best.le.id;
+    // gov_le = display name (shown in the "gov. LC" column); gov_le_id = the STABLE key the detail
+    // modal actually opens by — LE names are user-editable and not guaranteed unique, so the id is
+    // the only reliable way to resolve which load effect this brace's governing check came from.
+    const jcRow=Object.assign({}, best.row, {gov_le: govName, gov_le_id: govId});
+    jcBraces.push(jcRow);
+    // matching K/Y/X row from the SAME governing LE (fall back to first LE if absent)
+    const cl=(clByLe[best.le.id]||{})[nm] || (cls[0]&&(clByLe[cls[0].id]||{})[nm]) || {name:nm,frK:0,frX:0,frY:0,K_components:[],N_Sd:0};
+    clClasses.push(Object.assign({}, cl, {gov_le: govName, gov_le_id: govId}));
+  });
+  return {
+    LEs, cur:{name:'Envelope (max util)'},
+    eqRow:null, bfRow:null,
+    jcRow:{id:'__env__', name:'Envelope', braces:jcBraces},
+    clRow:{id:'__env__', name:'Envelope', classes:clClasses},
+  };
+}
+// resolve the data the results sheet should render: per-LE selection, or the cross-LE envelope
+function resultsData(){ return (viewMode==='env') ? envelopeData() : curLEData(); }
+// max 6.4 utilisation across all braces of ONE load effect (its governing brace) + a FAIL flag.
+// Drives the util bar drawn behind each LE row in the picker. Skipped braces don't count; a LE with
+// no real check → {util:null}. anyFail = at least one brace of the LE fails (util>1 / passed===false).
+function leMaxUtil(leId){
+  const le=(DATA.joint_checks||[]).find(x=>x.id===leId);
+  if(!le) return {util:null, anyFail:false};
+  let mx=null, fail=false;
+  (le.braces||[]).forEach(b=>{ if(b.skipped||b.util==null) return;
+    if(mx===null||b.util>mx) mx=b.util;
+    if(b.passed===false || b.util>1) fail=true; });
+  return {util:mx, anyFail:fail};
+}
+// custom LE dropdown open/closed state (native <option> can't render the util bar we want)
+let leDropOpen=false;
+function toggleLeDrop(){ if(viewMode==='env') return; leDropOpen=!leDropOpen; render(); }
+function chooseLE(i){ leDropOpen=false; setLE(i); }   // setLE already re-renders
+// close the dropdown when clicking anywhere outside it (bound once)
+let _leDocBound=false;
+function bindLeDropDismiss(){
+  if(_leDocBound) return; _leDocBound=true;
+  document.addEventListener('mousedown',e=>{
+    if(!leDropOpen) return;
+    const dd=document.getElementById('le-drop'); const btn=document.getElementById('le-drop-btn');
+    if(dd && !dd.contains(e.target) && btn && !btn.contains(e.target)){ leDropOpen=false; render(); }
+  });
+}
+// dominant class {t,col} for a classification row (K green / X purple / Y amber)
+function domClass(c){
+  const m=Math.max(c.frK,c.frX,c.frY);
+  if(m<1e-6) return {t:'—',col:'#999'};
+  if(c.frK>=c.frX&&c.frK>=c.frY) return {t:'K',col:C.K};
+  if(c.frX>=c.frY) return {t:'X',col:C.X};
+  return {t:'Y',col:C.Y};
+}
+// utilisation -> traffic-light colour (green 0 → amber ~0.7 → red ≥1.0). u = ratio (1.0 = limit).
+function utilColor(u){
+  if(u==null) return '#999';
+  const t=Math.max(0,Math.min(1,u));           // clamp; >1 stays full red
+  // piecewise green(120°)→amber(45°)→red(0°) in HSL for an intuitive ramp
+  const h = (t<=0.7) ? (120 - (t/0.7)*75)      // 120°..45° over 0..0.7
+                     : (45 - ((t-0.7)/0.3)*45); // 45°..0° over 0.7..1.0
+  return `hsl(${h.toFixed(0)},72%,42%)`;
+}
+// one LE row: name + util bar drawn BEHIND the text (fill width ∝ util, colour = utilColor), and the
+// util value at the right. `sel` highlights the current pick. Used for both the closed button (current
+// LE) and each open-list item. util null (no real check) → a muted grey stub bar + "—".
+function leRowInner(le, sel){
+  const mu=leMaxUtil(le.id);
+  const u=mu.util;
+  const w=(u==null)?0:Math.max(3,Math.min(100,u*100));       // bar width %
+  const col=(u==null)?'#d7dbe0':utilColor(u);
+  const barBg = (u==null)
+    ? `<span class="le-bar-fill" style="width:6px;background:#d7dbe0"></span>`
+    : `<span class="le-bar-fill" style="width:${w}%;background:${col};opacity:.30"></span>`;
+  const val=(u==null)?'—':U.num(u);
+  const failMark=mu.anyFail?` <span class="le-fail" title="at least one brace fails in this load effect">✗</span>`:'';
+  return `<span class="le-row-bar">${barBg}</span>
+    <span class="le-row-name${sel?' sel':''}">${le.name}${failMark}</span>
+    <span class="le-row-u" style="color:${(u==null)?'#999':col}">${val}</span>`;
+}
+// LE picker bar: a CUSTOM dropdown (each row shows a utilisation bar behind the LE name — a native
+// <option> can't be styled that way), plus inline pills when there are few LEs (≤6) for quick switching.
+function leBar(LEs){
+  const env=(viewMode==='env');
+  const cur=LEs[selLE]||LEs[0];
+  let pills='';
+  if(!env && LEs.length>1 && LEs.length<=6){
+    pills = `<span class="le-pills">${LEs.map(le=>`<button class="${le.i===selLE?'on':''}" onclick="chooseLE(${le.i})">${le.name}</button>`).join('')}</span>`;
+  }
+  // custom dropdown: a button showing the current LE (with its util bar) + a pop-down list of all LEs.
+  const items = LEs.map(le=>`<div class="le-item${le.i===selLE?' sel':''}" onclick="chooseLE(${le.i})">${leRowInner(le, le.i===selLE)}</div>`).join('');
+  const drop = env
+    ? `<span class="le-drop-btn disabled" title="envelope spans every load effect">${cur?leRowInner(cur,true):'—'}<span class="le-caret">▾</span></span>`
+    : `<span id="le-drop-btn" class="le-drop-btn" onclick="toggleLeDrop()">${cur?leRowInner(cur,true):'—'}<span class="le-caret">▾</span></span>
+       ${leDropOpen?`<div id="le-drop" class="le-drop">${items}</div>`:''}`;
+  // per-LC ↔ envelope mode switch (envelope = per-brace max util across all LEs). In envelope mode the
+  // single-LE picker is disabled (greyed) — the envelope spans every LE.
+  const modeSw = `<span class="le-mode">
+    <button class="${!env?'on':''}" onclick="setViewMode('le')" title="show one selected load effect">per LC</button>
+    <button class="${env?'on':''}" onclick="setViewMode('env')" title="per brace, the load effect with the highest utilisation (governing LC)">Envelope</button>
+  </span>`;
+  return `<div class="le-bar">${modeSw}<label style="margin-left:12px">Load effect:&nbsp;</label>
+    <span class="le-drop-wrap">${drop}</span>${pills}
+    <span class="muted" style="margin-left:auto;font-size:11.5px">${env?('envelope over '+LEs.length+' LE'+(LEs.length===1?'':'s')):(LEs.length+' load effect'+(LEs.length===1?'':'s'))}</span></div>`;
+}
+// node-equilibrium self-check card
+function eqCard(eqRow){
+  if(!eqRow) return '';
+  return `<div class="le-card panel"><h3>Node equilibrium (self-check)</h3>
+    <table><tr><th>quantity</th><th>X</th><th>Y</th><th>Z</th><th>state</th></tr>
+    <tr><td>ΣF [${U.fU()}]</td>
+      <td class="val">${U.force(eqRow.sumF_N[0])}</td>
+      <td class="val">${U.force(eqRow.sumF_N[1])}</td>
+      <td class="val">${U.force(eqRow.sumF_N[2])}</td>
+      <td rowspan="2" class="${eqRow.ok?'ok':'warn'}" style="vertical-align:middle">${eqRow.ok?'✓':'⚠'}</td></tr>
+    <tr><td>ΣM [${U.mU()}]</td>
+      <td class="val">${U.moment(eqRow.sumM_Nm[0])}</td>
+      <td class="val">${U.moment(eqRow.sumM_Nm[1])}</td>
+      <td class="val">${U.moment(eqRow.sumM_Nm[2])}</td></tr></table>
+    <div class="legend">Residual force/moment at the node, summed over all members. Small values are normal (rounded input); a large residual means the loads aren't balanced.</div></div>`;
+}
+// in-plane brace-forces card
+function bfCard(bfRow, csRow){
+  if(!bfRow) return '';
+  const csByName={}; (csRow&&csRow.braces||[]).forEach(c=>csByName[c.name]=c);
+  return `<div class="le-card panel"><h3>Brace forces in joint plane</h3>
+    <table><tr><th>brace</th>
+      <th title="axial force along the brace axis, positive in tension">N_Sd [${U.fU()}]</th>
+      <th title="bending moment in the joint plane">M_ip [${U.mU()}]</th>
+      <th title="bending moment out of the joint plane">M_op [${U.mU()}]</th>
+      <th title="shear force in the joint plane">V_ip [${U.fU()}]</th>
+      <th title="shear force out of the joint plane">V_op [${U.fU()}]</th>
+      <th title="torsion — not used in the member check">M_tor [${U.mU()}]</th>
+      <th title="which chord face this brace sits on — see gap table &amp; 2D marker">face</th>
+      <th title="chord's own axial force at this brace's footprint, averaged over both sides of the intersection">N_chord [${U.fU()}]</th>
+      <th title="chord's own in-plane bending moment at this brace's footprint, averaged over both sides">M_ip,chord [${U.mU()}]</th>
+      <th title="chord's own out-of-plane bending moment at this brace's footprint, averaged over both sides">M_op,chord [${U.mU()}]</th></tr>
+    ${bfRow.braces.map(b=>{
+      const cs=csByName[b.name]||{};
+      return `<tr><td>${b.name}${(b.sub_normal_dot<0.985)?' <span class="warn" title="brace axis not fully in the joint plane — M_ip/M_op are projections">⚠</span>':''}</td>
+      <td class="val">${U.force(b.N_Sd)}</td>
+      <td class="val">${U.moment(b.M_ip)}</td>
+      <td class="val">${U.moment(b.M_op)}</td>
+      <td class="val">${U.force(b.V_ip)}</td>
+      <td class="val">${U.force(b.V_op)}</td>
+      <td class="val muted">${U.moment(b.M_tor)}</td>
+      <td class="val">${sideLbl(b.side)}</td>
+      <td class="val muted">${U.force(cs.N_chord)}</td>
+      <td class="val muted">${U.moment(cs.M_ip)}</td>
+      <td class="val muted">${U.moment(cs.M_op)}</td></tr>`;
+    }).join('')}</table>
+    <div class="legend">Brace forces resolved into the joint plane. The last three columns are the chord's own internal forces at that brace's footprint — the raw input to the chord stress used in the member check (see the detailed check for the derivation).</div></div>`;
+}
+// COMBINED classification (K/Y/X, STEP 3) + member check (NORSOK 6.4, STEP 4) — one full-width table,
+// one MAIN row per brace (identity + K/Y/X + the 6.4 verdict), followed by per-K sub-rows. Clicking a
+// brace row opens the detailed-check modal (showCheckDetail).
+function classChecksCard(clRow, jcRow){
+  if(!(clRow && clRow.classes && clRow.classes.length)) return '';
+  const env=(viewMode==='env');   // envelope mode adds a "gov. LC" column
+  const gatePct = (DATA.kyx_gate!=null?DATA.kyx_gate*100:0);   // 0..100, already scaled (this one deliberately uses a fixed 0dp — it's a coarse gate setting, not a computed result)
+  const pct=U.pct, pct1=U.pct, u3=U.num;
+  // brace name -> its 6.4 check row (may be skipped / absent)
+  const jcBy={}; (jcRow&&jcRow.braces||[]).forEach(b=>jcBy[b.name]=b);
+  const leName=(clRow.name||''), leId=clRow.id;
+  const rows = clRow.classes.map(c=>{
+    const N=c.N_Sd, jc=jcBy[c.name];
+    // gov. LC cell (envelope only): the LE that governs THIS brace (highest util)
+    const govCell = env ? `<td class="muted" style="font-size:11px;white-space:nowrap">${(jc&&jc.gov_le)||'—'}</td>` : '';
+    // ---- the 6.4 check cells (verdict / utilisation / N_Rd / M_Rd,ip / M_Rd,op / ax/ipb/opb terms) ----
+    let chk;
+    if(!jc || jc.skipped){
+      const reason = jc? (jc.reason||'insufficient data') : 'no check';
+      chk = `<td colspan="8" class="muted" style="font-size:11px">⏭ ${reason}</td>`;
+    } else {
+      const ok=jc.passed, col=ok?'#1a7f37':'#c0392b', ucol=utilColor(jc.util);
+      const rngWarn=(jc.within_range===false)?' <span class="warn" title="geometry outside the standard\'s validity range — resistance extrapolated">⚠</span>':'';
+      const overstressed=(jc.chord_overstressed===true);
+      const overstressedFlag=overstressed?' <span class="warn" title="the chord wall has no remaining resistance at this brace footprint — N_Rd/M_Rd collapsed to zero or below under the chord stress; forced FAIL regardless of the numeric utilisation">⛔</span>':'';
+      const w=Math.max(2,Math.min(100,(jc.util||0)*100));
+      const bar=`<div style="background:#eef0f3;border-radius:3px;height:9px;overflow:hidden;margin-top:3px"><div style="width:${w}%;height:100%;background:${ucol}"></div></div>`;
+      chk = `<td class="val" style="color:${col};font-weight:700">${pct(jc.util)}${rngWarn}<div style="min-width:70px">${bar}</div></td>
+        <td><b style="color:${col}">${ok?'✓ PASS':'✗ FAIL'}</b>${overstressedFlag}</td>
+        <td class="val" title="axial resistance of the chord wall">${U.force(jc.N_Rd_weighted)} ${U.fU()}</td>
+        <td class="val" title="in-plane bending resistance of the chord wall">${U.moment(jc.M_Rd_ip)} ${U.mU()}</td>
+        <td class="val" title="out-of-plane bending resistance of the chord wall">${U.moment(jc.M_Rd_op)} ${U.mU()}</td>
+        <td class="val" title="axial share of the utilisation">${pct(jc.util_axial)}</td>
+        <td class="val" title="in-plane bending share of the utilisation">${pct(jc.util_ipb)}</td>
+        <td class="val" title="out-of-plane bending share of the utilisation">${pct(jc.util_opb)}</td>`;
+    }
+    const clickable=(jc && !jc.skipped);
+    // in envelope mode the detail modal must open the brace's GOVERNING LE (jc.gov_le_id), not "Envelope".
+    // Keyed by id (not display name) so two LEs sharing a name can never resolve to the wrong one.
+    // The onclick attribute is double-quoted, so a STRING id is wrapped in single quotes (like c.name)
+    // rather than JSON.stringify'd — JSON.stringify would emit double quotes and truncate the attribute.
+    const detailLEId=(env && jc && jc.gov_le_id!=null)?jc.gov_le_id:leId;
+    const detailLEIdLit=(typeof detailLEId==='number')?detailLEId:`'${String(detailLEId).replace(/'/g,"\\'")}'`;
+    const rowAttr=clickable?` class="chk-row" title="click for the detailed check" onclick="showCheckDetail(${detailLEIdLit},'${c.name.replace(/'/g,"\\'")}')"`:'';
+    const main=`<tr${rowAttr} style="border-top:2px solid #cdd4dd">
+      <td><b>${c.name}</b><br><span class="muted" style="font-size:10.5px">N_Sd=${U.force(N)} ${U.fU()} · M_ip=${U.moment(c.M_ip_Sd)} ${U.mU()} · M_op=${U.moment(c.M_op_Sd)} ${U.mU()}</span></td>
+      ${govCell}
+      <td class="val">${pct(c.frK)}</td>
+      <td class="val">${pct(c.frX)}</td>
+      <td class="val">${pct(c.frY)}</td>
+      ${chk}</tr>`;
+    // one indented sub-row per K_i: its % of the brace axial force + the force/gap behind it, in a
+    // single note cell (X/Y/Check/Resistance/Utilisation columns don't apply to an individual K
+    // component, so they're skipped rather than padded with dashes).
+    const subGov = env ? `<td class="muted">—</td>` : '';
+    const subs=(c.K_components||[]).map(k=>`<tr style="background:#f7f9fb">
+      <td style="padding-left:18px" class="muted">↳ K via ${k.partner}</td>
+      ${subGov}
+      <td class="val" title="this K component's share of the brace's axial force" style="color:${C.K}">${pct1(k.frac)}</td>
+      <td colspan="10" class="muted" style="font-size:11px">
+        <span class="val">${U.force(k.frac*N)} ${U.fU()}</span> balanced across a
+        <span class="val">${k.gap_m!=null?U.len(k.gap_m)+' '+U.lU():'gap n/a'}</span> gap</td></tr>`).join('');
+    return main+subs;
+  }).join('');
+  return `<div class="le-card panel"><h3 style="margin-top:0">Classification &amp; member checks — NORSOK Standard N-004</h3>
+    <table><tr>
+      <th rowspan="2" style="text-transform:uppercase">brace</th>
+      ${env?'<th rowspan="2" style="text-transform:uppercase" title="the load effect that governs this brace (highest utilisation)">governing load effect</th>':''}
+      <th colspan="3" style="text-align:center">Classification</th>
+      <th colspan="2" style="text-align:center">Check</th>
+      <th colspan="3" style="text-align:center">Resistance</th>
+      <th colspan="3" style="text-align:center">Utilisation breakdown</th>
+      </tr><tr>
+      <th title="fraction of the brace's axial force balanced against a neighbouring brace across a gap">K</th>
+      <th title="fraction carried straight through the chord to a brace on the opposite side">X</th>
+      <th title="fraction reacted as beam shear by the chord">Y</th>
+      <th title="how much of the joint's capacity is used, combining axial force and both bending directions">utilisation</th>
+      <th>verdict</th>
+      <th title="axial resistance of the chord wall at this brace">N_Rd</th>
+      <th title="in-plane bending resistance of the chord wall">M_Rd,ip</th>
+      <th title="out-of-plane bending resistance of the chord wall">M_Rd,op</th>
+      <th title="axial share of the utilisation">axial %</th>
+      <th title="in-plane bending share of the utilisation">in-plane %</th>
+      <th title="out-of-plane bending share of the utilisation">out-of-plane %</th>
+      </tr>${rows}</table>
+    <div class="legend">The axial force in each brace splits into <b>K</b> (balanced against a neighbour across a gap), <b>X</b> (through the chord to the opposite side) and <b>Y</b> (beam shear); sub-rows break K down per gap. The check is the chord-wall check at each brace footprint. K-balance gate = ${gatePct.toFixed(0)}% ${gatePct>0?'(near-balanced braces are treated as 100% K)':'(honest breakdown, no rounding)'}. ${env?'Envelope: each brace shows its governing load effect. ':''}<span class="muted">Click a brace row for the detailed check.</span></div></div>`;
+}
+
+function render(){
+  if(!DATA) return;
+  if(PAGE==='results') return renderResults();
+  return renderConnection();
+}
+
+// ---- detailed-check modal: full NORSOK 6.4 breakdown for one brace in one LE ----
+// number formatters for the transparent step-by-step formula cards
+const fN = (x,d=3) => (x==null||!isFinite(x)) ? '—' : x.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d,useGrouping:false});
+// "plus-context": wraps negatives in parentheses so "a + (−b)" reads cleanly in a substituted formula
+const fp = (x,d=3) => { const s=fN(x,d).replace('-','−'); return (isFinite(x)&&x<0) ? `(${s})` : s; };
+function step(label, symbolic, numeric, result, cls){
+  const c = cls ? ' k'+cls : '';
+  const tag = cls ? `<span class="tag tag${cls}">${cls}</span>` : '';
+  return `<div class="step${c}">
+    <div class="lbl">${tag}${label}</div>
+    <div class="ln">\\(${symbolic}\\)</div>
+    ${numeric?`<div class="ln">\\(=\\;${numeric}\\)</div>`:''}
+    <div class="ln res">\\(=\\;${result}\\)</div>
+  </div>`;
+}
+// side label: +1/'+' -> "+ey face", -1/'-' -> "−ey face" — THE single wording for chord-face side,
+// used everywhere (gap table, brace-forces table, detail modal, 2D schematic). Accepts either the
+// numeric side (+1/-1, used by extract's chord/brace-force output) or the string side ('+'/'-', used
+// by extract's gaps output) — audit flagged three DIFFERENT wordings across the UI for the same concept
+// ("face +" / "+ey face" / "(+)"), which made engineers second-guess whether they meant the same thing.
+const sideLbl = s => (s==null ? '—' : ((s==='+'||s>=0) ? '+ey face' : '−ey face'));
+const sideLblShort = s => (s==null ? '—' : ((s==='+'||s>=0) ? '(+ey)' : '(−ey)'));
+function showCheckDetail(leId, braceName){
+  // keyed by the load effect's STABLE id, not its display name — LE names are user-editable and not
+  // guaranteed unique (e.g. two copy-pasted LCs both named "LC1"); an id lookup can never open the
+  // wrong load effect the way a name lookup could.
+  const jc=(DATA.joint_checks||[]).find(le=>le.id===leId);
+  const leName=(jc&&jc.name)!=null?jc.name:String(leId);
+  uiLog('info','showCheckDetail '+leName+' / '+braceName);
+  const b=jc && (jc.braces||[]).find(x=>x.name===braceName);
+  if(!b || b.skipped){ uiLog('warn','showCheckDetail: no check row for '+leName+'/'+braceName); return; }
+  const i=b.inputs||{}, cd=b.chord_deriv||{};
+  const u3=U.num, pc=U.pct, deg=U.deg;
+  const mpa=v=>(v==null?'—':U.stress(v)+' '+U.sU());
+  // formula substitution is written in MPa/mm/kN (matches the norm's own numeric convention) regardless
+  // of the display-unit setting — a raw unit-agnostic conversion, NOT U.stress/U.len/U.force.
+  const MPa=v=>(v==null?NaN:v/1e6), mm=v=>(v==null?NaN:v*1e3), kN=v=>(v==null?NaN:v/1e3);
+  const ok=b.passed, col=ok?'#1a7f37':'#c0392b';
+  const dom=b.dom_class||'K';
+  const pcTex=v=>(v==null?'{-}':`${(v*100).toFixed(UNITS.dpPercent)}\\%`);
+  // geometry + material
+  const geo=`<div class="sec"><h4>Geometry &amp; material</h4><div class="kv">
+    <span class="k">Chord Ø D × T</span><span class="v">${U.len(i.D)}×${U.len(i.T)} ${U.lU()} (f_y=${mpa(i.fy_chord)})</span>
+    <span class="k">Brace Ø d × t</span><span class="v">${U.len(i.d)}×${U.len(i.t)} ${U.lU()} (f_y=${mpa(i.fy_brace)})</span>
+    <span class="k">θ (brace–chord)</span><span class="v">${deg(i.theta_deg)}</span>
+    <span class="k">chord face</span><span class="v">${sideLbl(cd.side)}</span>
+    <span class="k">β = d/D</span><span class="v">${u3(i.beta)}</span>
+    <span class="k">γ = D/(2T)</span><span class="v">${u3(i.gamma)}</span>
+    <span class="k">τ = t/T</span><span class="v">${u3(i.tau)}</span>
+    <span class="k">classification</span><span class="v">K ${pc(i.frK)} · Y ${pc(i.frY)} · X ${pc(i.frX)}</span>
+    <span class="k">γ_M</span><span class="v">${u3(i.gamma_M)}</span></div></div>`;
+  // applied forces
+  const forces=`<div class="sec"><h4>Applied forces (in the joint plane)</h4><div class="kv">
+    <span class="k">N_Sd (+ tension)</span><span class="v">${U.force(i.N_Sd)} ${U.fU()}</span>
+    <span class="k">M_ip,Sd</span><span class="v">${U.moment(i.M_ip_Sd)} ${U.mU()}</span>
+    <span class="k">M_op,Sd</span><span class="v">${U.moment(i.M_op_Sd)} ${U.mU()}</span></div></div>`;
+  // ---- STRESS DERIVATION — chord sides (Begin/End) -> average -> section props -> sigma (NORSOK p.31) ----
+  let stressCard = `<div class="legend">The chord carries two loadings at a joint (one per side of the brace intersection); NORSOK p.31 requires their AVERAGE in eq (6.54)/(6.55). Chord face = ${sideLbl(cd.side)} (from the gap/side convention — also marked on the 2D schematic).</div>`;
+  const sides = cd.chord_side || [];
+  if(sides.length){
+    stressCard += `<table><tr><th>side</th><th>N_chord</th><th>M_ip,chord</th><th>M_op,chord</th></tr>
+      ${sides.map((s,k)=>`<tr><td>${k===0?'Begin':(k===1?'End':'#'+(k+1))}</td>
+        <td class="val">${U.force(s.N_chord)} ${U.fU()}</td>
+        <td class="val">${U.moment(s.M_ip)} ${U.mU()}</td>
+        <td class="val">${U.moment(s.M_op)} ${U.mU()}</td></tr>`).join('')}
+      <tr style="border-top:2px solid #cdd4dd"><td><b>average</b></td>
+        <td class="val"><b>${U.force(cd.N_chord)} ${U.fU()}</b></td>
+        <td class="val"><b>${U.moment(cd.M_ip_chord)} ${U.mU()}</b></td>
+        <td class="val"><b>${U.moment(cd.M_op_chord)} ${U.mU()}</b></td></tr></table>`;
+  }
+  const A_mm2=cd.A!=null?cd.A*1e6:null, I_mm4=cd.I!=null?cd.I*1e12:null, R_mm=mm(cd.R);
+  stressCard += step('Chord section properties — CHS, thickness at the joint (p.31)',
+    'A=\\dfrac{\\pi}{4}(D^2-d_i^2),\\quad I=\\dfrac{\\pi}{64}(D^4-d_i^4),\\quad R=D/2',
+    '', `A=${fN(A_mm2,0)}\\,mm^2,\\ I=${fN(I_mm4/1e6,1)}\\times 10^6\\,mm^4,\\ R=${fN(R_mm,1)}\\,mm`);
+  const side=cd.side;
+  stressCard += step('σ_a — axial (+ tension)',
+    '\\sigma_{a,Sd} = N_{chord}/A',
+    `${fN(kN(cd.N_chord),1)}\\,kN\\ /\\ ${fN(A_mm2/1e3,2)}\\times10^3\\,mm^2`,
+    fN(MPa(i.sigma_a),1)+'\\,MPa');
+  stressCard += step(`σ_my — in-plane bending, chord face ${sideLbl(side)} (z=side·R), sign FLIPPED so + = compression in the footprint (eq 6.54 note)`,
+    '\\sigma_{my,Sd} = -\\dfrac{M_{ip,chord}\\cdot(\\text{side}\\cdot R)}{I}',
+    `-\\dfrac{${fN(kN(cd.M_ip_chord),2)}\\,kNm\\cdot(${side>=0?'+':'-'}1\\cdot ${fN(R_mm,1)}\\,mm)}{${fN(I_mm4/1e6,1)}\\times10^6\\,mm^4}`,
+    fN(MPa(i.sigma_my),1)+'\\,MPa');
+  stressCard += step('σ_mz — out-of-plane bending (sign irrelevant — enters Q_f only squared, via A²)',
+    '\\sigma_{mz,Sd} = \\dfrac{M_{op,chord}\\cdot R}{I}',
+    `\\dfrac{${fN(kN(cd.M_op_chord),2)}\\,kNm\\cdot ${fN(R_mm,1)}\\,mm}{${fN(I_mm4/1e6,1)}\\times10^6\\,mm^4}`,
+    fN(MPa(i.sigma_mz),1)+'\\,MPa');
+  const stressBlock=`<div class="sec"><h4>Chord stress derivation — averaged sides → σ (NORSOK p.31)</h4>${stressCard}</div>`;
+  // ---- A² + Q_f,moment (SHARED across K/Y/X — Table 6-4 "All joints, brace moment" row only) ----
+  const fy = MPa(i.fy_chord), sa = MPa(i.sigma_a), smy = MPa(i.sigma_my), smz = MPa(i.sigma_mz);
+  const Cmo = b.C_moment || {};
+  let a2Card = step('Chord utilisation A² — eq (6.55) (shared by all classes)',
+    'A^2 = \\left(\\dfrac{\\sigma_{a,Sd}}{f_y}\\right)^2 + \\dfrac{\\sigma_{my,Sd}^2+\\sigma_{mz,Sd}^2}{1.62\\,f_y^2}',
+    `\\left(\\dfrac{${fp(sa,1)}}{${fN(fy,0)}}\\right)^2 + \\dfrac{${fp(smy,1)}^2+${fp(smz,1)}^2}{1.62\\cdot ${fN(fy,0)}^2}`,
+    fN(b.Qf_axial_A2,4));
+  a2Card += step(`Q_f, moment — C₁=${fN(Cmo.C1,2)}, C₂=${fN(Cmo.C2,2)}, C₃=${fN(Cmo.C3,2)} (${Cmo.note||''} — Table 6-4 has ONE row for moment, no K/Y/X split)`,
+    'Q_f = 1 + C_1\\dfrac{\\sigma_{a,Sd}}{f_y} - C_2\\dfrac{\\sigma_{my,Sd}}{1.62\\,f_y} - C_3\\,A^2',
+    `1 + ${fN(Cmo.C1,2)}\\cdot\\dfrac{${fp(sa,1)}}{${fN(fy,0)}} - ${fN(Cmo.C2,2)}\\cdot\\dfrac{${fp(smy,1)}}{1.62\\cdot ${fN(fy,0)}} - ${fN(Cmo.C3,2)}\\cdot ${fN(b.Qf_moment_A2,4)}`,
+    fN(b.Qf_moment,3));
+  const braceT=i.T, braceD=i.d, sinT=i.sin_theta, gM=i.gamma_M;
+  a2Card += step('In-plane bending resistance M_Rd,ip — eq (6.53) (Q_u,ipb shared by all classes, Table 6-3)',
+    'M_{Rd,ip} = \\dfrac{f_y\\,T^2\\,d}{\\gamma_M \\sin\\theta}\\,Q_{u,ipb}\\,Q_{f,mom}',
+    `\\dfrac{${fN(fy,0)}\\cdot ${fN(braceT*1e3,0)}^2\\cdot ${fN(braceD*1e3,0)}}{${fN(gM,2)}\\cdot ${fN(sinT,3)}}\\cdot ${fN(b.Qu_ipb,3)}\\cdot ${fN(b.Qf_moment,3)}`,
+    U.moment(b.M_Rd_ip)+' '+U.mU());
+  a2Card += step('Out-of-plane bending resistance M_Rd,op — eq (6.53)',
+    'M_{Rd,op} = \\dfrac{f_y\\,T^2\\,d}{\\gamma_M \\sin\\theta}\\,Q_{u,opb}\\,Q_{f,mom}',
+    `\\dfrac{${fN(fy,0)}\\cdot ${fN(braceT*1e3,0)}^2\\cdot ${fN(braceD*1e3,0)}}{${fN(gM,2)}\\cdot ${fN(sinT,3)}}\\cdot ${fN(b.Qu_opb,3)}\\cdot ${fN(b.Qf_moment,3)}`,
+    U.moment(b.M_Rd_op)+' '+U.mU());
+  const a2Block=`<div class="sec"><h4>Chord utilisation A² &amp; moment resistance — 6.4.3.2–4, eq (6.53)/(6.55), Table 6-3/6-4</h4>${a2Card}</div>`;
+  // ---- PER-MODE AXIAL BLOCKS — K (per gap), Y, X — each shown ONLY if it enters the check (fr>0) ----
+  const pcls = b.per_class || {};
+  const modeBlock = (title, clsKey, extra) => {
+    const cc = pcls[clsKey]; if(!cc || cc.fr<=1e-9) return '';
+    const Cax=cc.C_axial||{};
+    let card = step(`Q_f, axial — class ${clsKey}, C₁=${fN(Cax.C1,2)}, C₂=${fN(Cax.C2,2)}, C₃=${fN(Cax.C3,2)} (${Cax.note||''})`,
+      'Q_f = 1 + C_1\\dfrac{\\sigma_{a,Sd}}{f_y} - C_2\\dfrac{\\sigma_{my,Sd}}{1.62\\,f_y} - C_3\\,A^2',
+      `1 + ${fN(Cax.C1,2)}\\cdot\\dfrac{${fp(sa,1)}}{${fN(fy,0)}} - ${fN(Cax.C2,2)}\\cdot\\dfrac{${fp(smy,1)}}{1.62\\cdot ${fN(fy,0)}} - ${fN(Cax.C3,2)}\\cdot ${fN(cc.Qf_axial_A2,4)}`,
+      fN(cc.Qf_axial,3), clsKey);
+    card += extra;
+    return `<div class="sec"><h4>Mode ${title} — fraction of N_Sd = ${pc(cc.fr)}</h4>${card}</div>`;
+  };
+  // K: one sub-block PER GAP (user requirement) — each has its own Q_g -> Qu -> N_Rd, shares the K Qf,axial
+  const kGaps = b.K_per_gap || [];
+  let kBlock = '';
+  if(kGaps.length){
+    const cc = pcls.K||{};
+    const gapCards = kGaps.map((t,idx)=>{
+      const label = kGaps.length>1 ? `K${idx+1}` : 'K';
+      let c = step(`Q_g — ${label}, gap g=${U.len(t.g_m)} ${U.lU()}, g/D=${fN((t.g_m||0)/i.D,3)}`,
+        'Q_g\\ (\\text{note (b) under Table 6-3})', '', fN(t.Q_g,3), 'K');
+      c += step(`Q_u,axial — ${label}, Table 6-3 class K, β=${fN(i.beta,3)}, γ=${fN(i.gamma,2)}`,
+        'Q_u = \\min\\{(16+1.2\\gamma)\\beta^{1.2}Q_g,\\ 40\\beta^{1.2}Q_g\\}',
+        `\\min\\{(16+1.2\\cdot ${fN(i.gamma,2)})\\cdot ${fN(i.beta,3)}^{1.2}\\cdot ${fN(t.Q_g,3)},\\ 40\\cdot ${fN(i.beta,3)}^{1.2}\\cdot ${fN(t.Q_g,3)}\\}`,
+        fN(t.Qu_axial,3), 'K');
+      c += step(`N_Rd — ${label}, eq (6.52)`,
+        'N_{Rd,i} = \\dfrac{f_y\\,T^2}{\\gamma_M \\sin\\theta}\\,Q_{u,i}\\,Q_{f,K}',
+        `${fN(b.base_ax/1e3,1)}\\,kN\\cdot ${fN(t.Qu_axial,3)}\\cdot ${fN(t.Qf_axial,3)}`,
+        U.force(t.N_Rd)+' '+U.fU(), 'K');
+      return `<div class="legend"><b>${label}</b> — ${fN(t.frK*100,1)}% of N_Sd balanced across this gap.</div>`+c;
+    }).join('');
+    let wCard = gapCards;
+    if(kGaps.length>1){
+      wCard += step('K weighted axial resistance across gaps — Comm. 6.4.2',
+        '\\dfrac{1}{N_{Rd,K}} = \\sum_i \\dfrac{frK_i}{N_{Rd,i}}',
+        kGaps.map(t=>`\\dfrac{${fN(t.frK,3)}}{${fN(t.N_Rd/1e3,1)}}`).join('+'),
+        fN(1/kGaps.reduce((s,t)=>s+t.frK/t.N_Rd,0)/1e3,1)+'\\,kN', 'K');
+    }
+    kBlock = `<div class="sec"><h4>Mode K — fraction of N_Sd = ${pc(cc.fr)}${kGaps.length>1?` (split over ${kGaps.length} gaps)`:''}</h4>${wCard}</div>`;
+  }
+  const yBlock = modeBlock('Y (T/Y)', 'Y', step('Q_u,axial — Table 6-3 class Y',
+    b.load_axial==='tension' ? 'Q_u = 30\\beta' : 'Q_u = \\min\\{2.8+(20+0.8\\gamma)\\beta^{1.6},\\ 2.8+36\\beta^{1.6}\\}',
+    '', fN(pcls.Y?pcls.Y.Qu_axial:null,3), 'Y')
+    + step('N_Rd — eq (6.52)', 'N_{Rd} = \\dfrac{f_y\\,T^2}{\\gamma_M \\sin\\theta}\\,Q_u\\,Q_f',
+      `${fN(b.base_ax/1e3,1)}\\,kN\\cdot ${fN(pcls.Y?pcls.Y.Qu_axial:null,3)}\\cdot ${fN(pcls.Y?pcls.Y.Qf_axial:null,3)}`,
+      U.force(pcls.Y?pcls.Y.N_Rd:null)+' '+U.fU(), 'Y'));
+  const xBlock = modeBlock('X', 'X', step('Q_u,axial — Table 6-3 class X',
+    b.load_axial==='tension' ? 'Q_u = 6.4\\,\\gamma^{0.6\\beta^2}' : 'Q_u = (2.8+(12+0.1\\gamma)\\beta)\\,Q_\\beta',
+    '', fN(pcls.X?pcls.X.Qu_axial:null,3), 'X')
+    + step('N_Rd — eq (6.52)', 'N_{Rd} = \\dfrac{f_y\\,T^2}{\\gamma_M \\sin\\theta}\\,Q_u\\,Q_f',
+      `${fN(b.base_ax/1e3,1)}\\,kN\\cdot ${fN(pcls.X?pcls.X.Qu_axial:null,3)}\\cdot ${fN(pcls.X?pcls.X.Qf_axial:null,3)}`,
+      U.force(pcls.X?pcls.X.N_Rd:null)+' '+U.fU(), 'X'));
+  // ---- weighted-average summary across whichever modes are active ----
+  const activeModes=['K','Y','X'].filter(c=>pcls[c]&&pcls[c].fr>1e-9);
+  const NRdKweighted = kGaps.length ? 1/kGaps.reduce((s,t)=>s+t.frK/t.N_Rd,0) : null;
+  const modeNRd = c => c==='K' ? NRdKweighted : pcls[c].N_Rd;
+  let sumCard = `<table><tr><th>mode</th><th>fraction</th><th>N_Rd,mode</th></tr>
+    ${activeModes.map(c=>`<tr><td><span class="tag tag${c}">${c}</span></td><td class="val">${pc(pcls[c].fr)}</td><td class="val">${U.force(modeNRd(c))} ${U.fU()}</td></tr>`).join('')}
+  </table>`;
+  sumCard += step('Weighted axial resistance — Comm. 6.4.2 (mixture of K/Y/X)',
+    '\\dfrac{1}{N_{Rd}} = \\sum_{\\text{mode}} \\dfrac{fr_{\\text{mode}}}{N_{Rd,\\text{mode}}}',
+    activeModes.map(c=>`\\dfrac{${fN(pcls[c].fr,3)}}{${fN(kN(modeNRd(c)),1)}}`).join('+'),
+    U.force(b.N_Rd_weighted)+' '+U.fU());
+  const sumBlock = `<div class="sec"><h4>Weighted axial resistance (all active modes) — Comm. 6.4.2</h4>${sumCard}</div>`;
+  // utilisation eq 6.57 — substituted
+  const rng=(b.within_range===false)?' <span class="warn">⚠ geometry outside 6.4.3.1 validity — resistance extrapolated</span>':'';
+  const overstressed=(b.chord_overstressed===true);
+  const overstressedNote=overstressed
+    ? `<div class="warn-box" style="margin-top:8px">⛔ <b>Chord wall overstressed:</b> the chord action factor Q_f (eq 6.54) has no floor in NORSOK, and here it collapsed the resistance (N_Rd and/or M_Rd) to zero or below for a class this brace actually uses. The numeric utilisation above can look deceptively low or even negative — this is forced to FAIL regardless of that number, because the chord wall has no meaningful capacity left at this footprint.</div>`
+    : '';
+  let utilCard = step('Utilisation — eq (6.57)',
+    'u = \\dfrac{N_{Sd}}{N_{Rd}} + \\left(\\dfrac{M_{ip,Sd}}{M_{Rd,ip}}\\right)^2 + \\left|\\dfrac{M_{op,Sd}}{M_{Rd,op}}\\right|',
+    `${pcTex(b.util_axial)} + ${pcTex(b.util_ipb)} + ${pcTex(b.util_opb)}`,
+    `${pcTex(b.util)}\\ \\ \\text{${ok?'PASS':'FAIL'}}`);
+  const util=`<div class="sec"><h4>Utilisation — eq (6.57)</h4>${utilCard}
+    <div style="margin-top:4px;font-size:15px;font-weight:700;color:${col}">
+      util = ${pct(b.util)} &nbsp; ${ok?'✓ PASS':'✗ FAIL'}${rng}</div>${overstressedNote}</div>`;
+  const html=`<div class="chk-modal-bg" onclick="if(event.target===this)closeModal()">
+    <div class="chk-modal">
+      <button class="close" onclick="closeModal()">✕</button>
+      <h2>${braceName} — NORSOK 6.4 check</h2>
+      <div class="muted" style="font-size:12px">Load effect ${leName} · dominant class ${b.dom_class} · chord-wall check (resistance governed by the chord's own f_y)</div>
+      ${geo}${forces}${stressBlock}${a2Block}${kBlock}${yBlock}${xBlock}${sumBlock}${util}
+    </div></div>`;
+  const d=document.createElement('div'); d.id='chkModal'; d.innerHTML=html;
+  document.body.appendChild(d);
+  if(window.MathJax && window.MathJax.typesetPromise) MathJax.typesetPromise([d]).catch(e=>uiLog('warn','MathJax typeset failed: '+e));
+}
+function closeModal(){ const m=document.getElementById('chkModal'); if(m) m.remove(); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+// ---- SHEET 2: the results — small informative 2D view + LE result tables ----
+function renderResults(){
+  if(!DATA) return;
+  const env=(viewMode==='env');
+  const L=resultsData();
+  if(!L){
+    document.getElementById('app').innerHTML=`<div class="res">${DATA?leBar(leList()):''}<div class="panel" style="padding:24px;color:#777">
+      No load effects on this connection — nothing to classify or check.</div></div>`;
+    return;
+  }
+  const multiplanar = (DATA.coplanar===false);
+  // in envelope mode the equilibrium / brace-forces cards are hidden (they are per-LE quantities);
+  // the right column then only holds a short note so the 2D + combined table carry the sheet.
+  const rightCol = env
+    ? `<div class="le-card panel" style="color:#555;font-size:12px"><h3 style="margin-top:0">Envelope</h3>
+        Each brace shows its <b>governing load effect</b> — the load effect with the highest utilisation
+        (see the column below). Node-equilibrium and in-plane brace-force tables are per-LE;
+        switch to <b>per LC</b> to inspect a single load effect.</div>`
+    : `${eqCard(L.eqRow)}${bfCard(L.bfRow, L.csRow)}`;
+  document.getElementById('app').innerHTML=`
+  <div class="res">
+    ${leBar(L.LEs)}
+    <div class="res-cols">
+      <div class="res-left" id="resLeftWrap">
+        <div class="le-card panel">
+          <h3 style="margin-top:0">Joint — ${L.cur.name}</h3>
+          <div id="viewbox"></div>
+          <div class="res-splitter-v" id="resSplitterV" title="Drag to resize the schematic height"></div>
+          <div class="res-legend">
+            utilisation:&nbsp;
+            <span class="sw" style="background:${utilColor(0)}"></span>0
+            <span class="sw" style="background:${utilColor(0.5)}"></span>
+            <span class="sw" style="background:${utilColor(0.85)}"></span>
+            <span class="sw" style="background:${utilColor(1.0)}"></span>1.0&nbsp;·&nbsp;
+            <span class="sw" style="background:${C.chord}"></span>chord&nbsp;·&nbsp;
+            <span class="sw" style="background:#bbb"></span>no check
+            &nbsp;·&nbsp;<span class="muted">wheel = zoom, drag = pan, dbl-click = reset</span>
+          </div>
+        </div>
+      </div>
+      <div class="res-splitter-h" id="resSplitterH" title="Drag to resize the schematic width"></div>
+      <div class="res-right" id="res-right">
+        ${rightCol}
+      </div>
+    </div>
+    <div class="res-full">
+      ${classChecksCard(L.clRow, L.jcRow)}
+    </div>
+  </div>`;
+  if(!multiplanar) draw2dResults(L); else {
+    document.getElementById('viewbox').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#b35900;font:13px Segoe UI;text-align:center;padding:20px">
+      ⚠ Multiplanar joint — no single 2D joint plane. See the 3D model on the Connection sheet.</div>`;
+  }
+  document.querySelector('.res').style.setProperty('--res-left-w', resLeftW+'px');
+  document.querySelector('.res').style.setProperty('--res-view-h', resViewH+'px');
+  attachResSplitters();
+  bindLeDropDismiss();   // outside-click closes the custom LE dropdown
+}
+// Two independent splitters for the results-sheet schematic, mirroring the model's #splitter
+// (attachSplitter) exactly in look, feel, and hard-stop logic. Both persist across re-renders.
+//   resSplitterH (horizontal drag) -> resLeftW  = width of .res-left (2D box + legend together)
+//   resSplitterV (vertical drag)   -> resViewH  = height of #viewbox alone (legend stays its natural size)
+// Hard stops: dragging H right stops once .res-right would drop below its usable minimum (280px, same
+// floor as .res-right's min-width); dragging V down stops once the right column's card CONTENT (tables)
+// would run out of room to keep growing usefully — in practice that's simply "the window's available
+// height", so the stop is the .res container's own clientHeight minus a small margin for the legend/leBar.
+let resLeftW=440, resViewH=360;
+function attachResSplitters(){
+  const sh=document.getElementById('resSplitterH');
+  if(sh){
+    sh.onmousedown=e=>{
+      e.preventDefault();
+      const resEl=document.querySelector('.res');
+      const startX=e.clientX, startW=resLeftW;
+      const maxW=Math.max(280, resEl.clientWidth-280-20);   // keep .res-right at least ~280px (its min-width)
+      const move=ev=>{
+        resLeftW=Math.min(maxW, Math.max(280, startW+(ev.clientX-startX)));
+        resEl.style.setProperty('--res-left-w', resLeftW+'px');
+        const L=resultsData(); if(L && DATA.coplanar!==false) draw2dResults(L);   // SVG -> cheap live refit
+      };
+      const up=()=>{ window.removeEventListener('mousemove',move); window.removeEventListener('mouseup',up); };
+      window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+    };
+  }
+  const sv=document.getElementById('resSplitterV');
+  if(sv){
+    sv.onmousedown=e=>{
+      e.preventDefault();
+      const resEl=document.querySelector('.res'), leCard=document.querySelector('#resLeftWrap .le-card');
+      const startY=e.clientY, startH=resViewH;
+      // hard stop: viewbox can't grow past the room actually available in the window (its own card's
+      // top + the legend's height are already spoken for) — beyond that the card would push the
+      // full-width table below it off-screen with nothing gained, so stop right there.
+      const cardTop=leCard.getBoundingClientRect().top;
+      const legendH=leCard.querySelector('.res-legend').offsetHeight;
+      const maxH=Math.max(220, window.innerHeight - cardTop - legendH - 60);
+      const move=ev=>{
+        resViewH=Math.min(maxH, Math.max(220, startH+(ev.clientY-startY)));
+        resEl.style.setProperty('--res-view-h', resViewH+'px');
+        const L=resultsData(); if(L && DATA.coplanar!==false) draw2dResults(L);
+      };
+      const up=()=>{ window.removeEventListener('mousemove',move); window.removeEventListener('mouseup',up); };
+      window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+    };
+  }
+}
+
+// ---- SHEET 1: the connection model (3D/2D) + verdict + member/parameter/gap tables ----
+function renderConnection(){
+  if(!DATA) return;
+  const p=DATA.params;
+  const rng=(x,lo,hi)=>(x!=null&&x>=lo&&x<=hi)?'<span class="ok">✓</span>':'<span class="err">✗</span>';
+  const fitOut=new Set(DATA.plane_outliers||[]);      // braces NOT used to build the plane (FIT outliers)
+  const evalOut=new Set(DATA.eval_outliers||[]);      // braces beyond the EVAL tolerance (multiplanar)
+  const ctolDeg=(DATA.coplanar_tol_deg!=null?DATA.coplanar_tol_deg:15);
+  // "fit" column: ✓ used to build the plane / ✗ excluded from the fit (with marker if also eval-outlier)
+  function fitCell(name){
+    if(evalOut.has(name)) return '<span class="err" title="beyond eval tol — multiplanar">✗</span>';
+    if(fitOut.has(name))  return '<span class="warn" title="not used to build the plane (beyond fit tol)">–</span>';
+    return '<span class="ok" title="used to build the plane">✓</span>';
+  }
+  const braceRows=DATA.braces.map(b=>`<tr><td>${b.name}</td><td class="val">${b.section.name||'?'}</td><td class="val">${U.deg(b.theta_deg)}</td><td class="val">${b.beta!=null?U.num(b.beta):'?'}</td><td class="val ${b.coplanar_dev_deg>ctolDeg?'err':''}">${U.deg(b.coplanar_dev_deg)}</td><td>${fitCell(b.name)}</td></tr>`).join('');
+  const v=DATA.verdict||{status:'?',errors:[],warnings:[]};
+  const vcol={OK:'#1a7f37',WARNING:'#b35900',ERROR:'#c0392b'}[v.status]||'#666';
+  const vbg ={OK:'#eaf7ee',WARNING:'#fff7e6',ERROR:'#fdecea'}[v.status]||'#f0f0f0';
+  const vlabel={OK:'✓ OK',WARNING:'⚠ WARNING',ERROR:'✗ ERROR — outside simple-joint scope'}[v.status]||v.status;
+  const diag=`<div style="background:${vbg};border:1px solid ${vcol};border-radius:6px;padding:8px 10px;margin-top:10px">
+      <div style="font-weight:700;color:${vcol};font-size:13px">${vlabel}</div>
+      ${v.errors.length?`<div style="margin-top:5px"><b style="color:#c0392b">Errors:</b><ul style="margin:3px 0 0 16px;padding:0">${v.errors.map(d=>`<li>${d}</li>`).join('')}</ul></div>`:''}
+      ${v.warnings.length?`<div style="margin-top:5px"><b style="color:#b35900">Warnings:</b><ul style="margin:3px 0 0 16px;padding:0">${v.warnings.map(d=>`<li>${d}</li>`).join('')}</ul></div>`:''}
+      ${(!v.errors.length&&!v.warnings.length)?'<div style="margin-top:4px;color:#1a7f37">No remarks.</div>':''}
+      ${DATA.plane_fit_basis?`<div style="margin-top:6px;font-size:11px;color:#777">joint plane built from: ${DATA.plane_fit_basis}</div>`:''}
+    </div>`;
+  document.getElementById('app').innerHTML=`
+  <div class="wrap">
+    <div class="panel canvas-panel">
+      <div class="tabs">
+        <button class="${TAB==='2d'?'active':''}" onclick="setTab('2d')">2D plane (NORSOK)</button>
+        <button class="${TAB==='3d'?'active':''}" onclick="setTab('3d')">3D tubes (vs IDEA)</button>
+      </div>
+      <div id="viewbox"></div>
+      <div class="canvas-hint"><span class="sw" style="background:${C.chord}"></span>chord &nbsp;<span class="sw" style="background:${C.brace}"></span>brace &nbsp;<span class="sw" style="background:${C.node}"></span>node ${TAB==='3d'?'— left-drag = pan, right-drag = rotate, wheel = zoom · top-left: projection · top-right: ViewCube.':'— wheel = zoom, drag = pan, dbl-click = reset · top-right: ↻/↺ rotate 90°, ⇄ flip.'}</div>
+    </div>
+    <div class="splitter" id="splitter" title="Drag to resize the info panel"></div>
+    <div class="info-panel panel">
+      <h3>Members (${DATA.connection})</h3>
+      <table><tr><th>member</th><th>section</th><th title="angle between the brace and the chord axis">θ</th><th title="diameter ratio, brace/chord">β</th><th title="deviation of this brace's axis from the reference joint plane">dev⊥</th><th title="✓ used to build the plane · – excluded from fit · ✗ beyond tolerance (multiplanar)">fit</th></tr>
+        <tr><td>${DATA.chord.name} <span class="muted">(chord)</span></td><td class="val">${DATA.chord.section.name||'?'}</td><td>—</td><td>—</td><td>—</td><td class="muted" title="chord defines the plane axis">ax</td></tr>
+        ${braceRows}
+      </table>
+      ${(DATA.params_all&&DATA.params_all.length)?`<h3>Parameters (per brace)</h3>
+        <table><tr><th>brace</th><th title="diameter ratio, brace/chord — valid range shown below">β<br><span class="muted">0.2–1.0</span></th><th title="chord radius/thickness ratio — valid range shown below">γ<br><span class="muted">10–50</span></th><th title="wall thickness ratio, brace/chord">τ</th><th title="angle between the brace and the chord axis — valid range shown below">θ<br><span class="muted">30–90°</span></th></tr>
+        ${DATA.params_all.map(q=>`<tr>
+          <td>${q.name}</td>
+          <td class="val">${q.beta!=null?U.num(q.beta):'?'} ${rng(q.beta,0.2,1.0)}</td>
+          <td class="val">${q.gamma!=null?U.num(q.gamma):'?'} ${rng(q.gamma,10,50)}</td>
+          <td class="val">${q.tau!=null?U.num(q.tau):'?'}</td>
+          <td class="val">${U.deg(q.theta_deg)} ${rng(q.theta_deg,30,90)}</td>
+        </tr>`).join('')}</table>`:''}
+      ${(DATA.gaps&&DATA.gaps.length)?`<h3>Gaps</h3>
+        <table><tr><th>between</th><th title="which chord face the pair sits on">side</th><th title="clear toe-to-toe spacing; negative means overlap">gap [${U.lU()}]</th></tr>
+        ${DATA.gaps.map(g=>`<tr><td>${g.between[0]}–${g.between[1]}</td><td class="val">${sideLbl(g.side)}</td><td class="val ${g.gap_m<0?'err':''}">${U.len(g.gap_m)}</td></tr>`).join('')}</table>`:''}
+      ${diag}
+    </div>
+  </div>`;
+  document.querySelector('.wrap').style.setProperty('--info-w', infoW+'px');  // re-apply chosen width
+  attachSplitter();
+  if(TAB==='2d') draw2d(); else draw3d();
+}
+
+// draggable splitter: changes the info-panel width; the canvas (flex:1) takes the rest, so the bottom
+// scrollbar disappears once the panel is wide enough for its tables. Width persists across re-renders.
+let infoW=330;
+function attachSplitter(){
+  const sp=document.getElementById('splitter'); if(!sp) return;
+  const wrap=document.querySelector('.wrap');
+  sp.onmousedown=e=>{
+    e.preventDefault();
+    const startX=e.clientX, startW=infoW;
+    const maxW=Math.max(330, wrap.clientWidth-360);   // keep the canvas at least ~360px
+    const move=ev=>{ infoW=Math.min(maxW, Math.max(220, startW+(startX-ev.clientX)));
+      wrap.style.setProperty('--info-w', infoW+'px');
+      if(TAB==='2d') draw2d(); };   // 2D is SVG -> cheap live refit; 3D rebuilt on release
+    const up=()=>{ window.removeEventListener('mousemove',move); window.removeEventListener('mouseup',up);
+      if(TAB==='3d') draw3d(); };   // rebuild WebGL canvas at the new width
+    window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+  };
+}
+
+// redraw on window resize so the view fills the (resized) window
+let _rsz=null;
+window.addEventListener('resize',()=>{ if(!DATA) return; clearTimeout(_rsz); _rsz=setTimeout(()=>{
+  if(PAGE==='results'){ const L=resultsData(); if(L && DATA.coplanar!==false) draw2dResults(L); }
+  else if(TAB==='2d') draw2d(); else draw3d();
+},120); });
+</script>
+</body>
+</html>
