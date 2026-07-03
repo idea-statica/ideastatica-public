@@ -33,20 +33,21 @@ window.MathJax = {
   /* TWO independent, draggable splitters (same look/feel as the model's #splitter):
        #resSplitterH  — HORIZONTAL splitter between .res-left (2D+legend) and .res-right (tables), sets
                         --res-left-w. Shared width for the whole left column (2D box + legend together).
-       #resSplitterV  — VERTICAL splitter under #viewbox, sets --res-view-h (the 2D box's own height).
+       #resSplitterV  — VERTICAL splitter under .res-cols, sets --res-cols-h (the whole top row's height,
+                        i.e. 2D box + right column together) vs. the classification table below it.
      Both hard-stop at the point where the OTHER side would stop rendering usefully (see attach fns). */
-  .res .res-cols{display:flex;gap:0;align-items:stretch}
-  .res .res-left{flex:0 0 var(--res-left-w,440px);min-width:280px;display:flex;flex-direction:column}
+  .res .res-cols{display:flex;gap:0;align-items:stretch;height:var(--res-cols-h,420px);min-height:0}
+  .res .res-left{flex:0 0 var(--res-left-w,440px);min-width:280px;display:flex;flex-direction:column;min-height:0}
   .res .res-left .le-card{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
-  .res #viewbox{flex:0 0 var(--res-view-h,360px);min-height:220px}
-  .res-splitter-v{flex:0 0 10px;cursor:row-resize;display:flex;align-items:center;justify-content:center}
+  .res #viewbox{flex:1 1 auto;min-height:220px}
+  .res-splitter-v{height:16px;cursor:row-resize;display:flex;align-items:center;justify-content:center}
   .res-splitter-v::before{content:"";height:2px;width:36px;background:#c4ccd6;border-radius:2px}
   .res-splitter-v:hover::before{background:#2e6fb0}
   .res-splitter-h{flex:0 0 10px;cursor:col-resize;align-self:stretch;display:flex;align-items:center;justify-content:center}
   .res-splitter-h::before{content:"";width:2px;height:36px;background:#c4ccd6;border-radius:2px}
   .res-splitter-h:hover::before{background:#2e6fb0}
-  .res .res-right{flex:1 1 460px;min-width:280px;display:flex;flex-direction:column;gap:16px}
-  .res .res-full{margin-top:16px}
+  .res .res-right{flex:1 1 460px;min-width:280px;display:flex;flex-direction:column;gap:16px;min-height:0;overflow-y:auto}
+  .res .res-full{margin-top:0}
   .le-card{margin:0;position:relative}
   .le-card h3{margin-top:0}
   .res-legend{font-size:11.5px;color:#555;margin-top:8px;line-height:1.7}
@@ -1164,14 +1165,14 @@ function classChecksCard(clRow, jcRow){
       const overstressedFlag=overstressed?' <span class="warn" title="the chord wall has no remaining resistance at this brace footprint — N_Rd/M_Rd collapsed to zero or below under the chord stress; forced FAIL regardless of the numeric utilisation">⛔</span>':'';
       const w=Math.max(2,Math.min(100,(jc.util||0)*100));
       const bar=`<div style="background:#eef0f3;border-radius:3px;height:9px;overflow:hidden;margin-top:3px"><div style="width:${w}%;height:100%;background:${ucol}"></div></div>`;
-      chk = `<td class="val" style="color:${col};font-weight:700">${pct(jc.util)}${rngWarn}<div style="min-width:70px">${bar}</div></td>
-        <td><b style="color:${col}">${ok?'✓ PASS':'✗ FAIL'}</b>${overstressedFlag}</td>
-        <td class="val" title="axial resistance of the chord wall">${U.force(jc.N_Rd_weighted)} ${U.fU()}</td>
+      chk = `<td class="val" title="axial resistance of the chord wall">${U.force(jc.N_Rd_weighted)} ${U.fU()}</td>
         <td class="val" title="in-plane bending resistance of the chord wall">${U.moment(jc.M_Rd_ip)} ${U.mU()}</td>
         <td class="val" title="out-of-plane bending resistance of the chord wall">${U.moment(jc.M_Rd_op)} ${U.mU()}</td>
         <td class="val" title="axial share of the utilisation">${pct(jc.util_axial)}</td>
         <td class="val" title="in-plane bending share of the utilisation">${pct(jc.util_ipb)}</td>
-        <td class="val" title="out-of-plane bending share of the utilisation">${pct(jc.util_opb)}</td>`;
+        <td class="val" title="out-of-plane bending share of the utilisation">${pct(jc.util_opb)}</td>
+        <td class="val" style="color:${col};font-weight:700">${pct(jc.util)}${rngWarn}<div style="min-width:70px">${bar}</div></td>
+        <td><b style="color:${col}">${ok?'✓ PASS':'✗ FAIL'}</b>${overstressedFlag}</td>`;
     }
     const clickable=(jc && !jc.skipped);
     // in envelope mode the detail modal must open the brace's GOVERNING LE (jc.gov_le_id), not "Envelope".
@@ -1206,21 +1207,21 @@ function classChecksCard(clRow, jcRow){
       <th rowspan="2" style="text-transform:uppercase">brace</th>
       ${env?'<th rowspan="2" style="text-transform:uppercase" title="the load effect that governs this brace (highest utilisation)">governing load effect</th>':''}
       <th colspan="3" style="text-align:center">Classification</th>
-      <th colspan="2" style="text-align:center">Check</th>
       <th colspan="3" style="text-align:center">Resistance</th>
       <th colspan="3" style="text-align:center">Utilisation breakdown</th>
+      <th colspan="2" style="text-align:center">Check</th>
       </tr><tr>
       <th title="fraction of the brace's axial force balanced against a neighbouring brace across a gap">K</th>
       <th title="fraction carried straight through the chord to a brace on the opposite side">X</th>
       <th title="fraction reacted as beam shear by the chord">Y</th>
-      <th title="how much of the joint's capacity is used, combining axial force and both bending directions">utilisation</th>
-      <th>verdict</th>
       <th title="axial resistance of the chord wall at this brace">N_Rd</th>
       <th title="in-plane bending resistance of the chord wall">M_Rd,ip</th>
       <th title="out-of-plane bending resistance of the chord wall">M_Rd,op</th>
       <th title="axial share of the utilisation">axial %</th>
       <th title="in-plane bending share of the utilisation">in-plane %</th>
       <th title="out-of-plane bending share of the utilisation">out-of-plane %</th>
+      <th title="how much of the joint's capacity is used, combining axial force and both bending directions">utilisation</th>
+      <th>verdict</th>
       </tr>${rows}</table>
     <div class="legend">The axial force in each brace splits into <b>K</b> (balanced against a neighbour across a gap), <b>X</b> (through the chord to the opposite side) and <b>Y</b> (beam shear); sub-rows break K down per gap. The check is the chord-wall check at each brace footprint. K-balance gate = ${gatePct.toFixed(0)}% ${gatePct>0?'(near-balanced braces are treated as 100% K)':'(honest breakdown, no rounding)'}. ${env?'Envelope: each brace shows its governing load effect. ':''}<span class="muted">Click a brace row for the detailed check.</span></div></div>`;
 }
@@ -1458,7 +1459,6 @@ function renderResults(){
         <div class="le-card panel">
           <h3 style="margin-top:0">Joint — ${L.cur.name}</h3>
           <div id="viewbox"></div>
-          <div class="res-splitter-v" id="resSplitterV" title="Drag to resize the schematic height"></div>
           <div class="res-legend">
             utilisation:&nbsp;
             <span class="sw" style="background:${utilColor(0)}"></span>0
@@ -1476,6 +1476,7 @@ function renderResults(){
         ${rightCol}
       </div>
     </div>
+    <div class="res-splitter-v" id="resSplitterV" title="Drag to resize the schematic height"></div>
     <div class="res-full">
       ${classChecksCard(L.clRow, L.jcRow)}
     </div>
@@ -1485,19 +1486,19 @@ function renderResults(){
       ⚠ Multiplanar joint — no single 2D joint plane. See the 3D model on the Connection sheet.</div>`;
   }
   document.querySelector('.res').style.setProperty('--res-left-w', resLeftW+'px');
-  document.querySelector('.res').style.setProperty('--res-view-h', resViewH+'px');
+  document.querySelector('.res').style.setProperty('--res-cols-h', resColsH+'px');
   attachResSplitters();
   bindLeDropDismiss();   // outside-click closes the custom LE dropdown
 }
 // Two independent splitters for the results-sheet schematic, mirroring the model's #splitter
 // (attachSplitter) exactly in look, feel, and hard-stop logic. Both persist across re-renders.
 //   resSplitterH (horizontal drag) -> resLeftW  = width of .res-left (2D box + legend together)
-//   resSplitterV (vertical drag)   -> resViewH  = height of #viewbox alone (legend stays its natural size)
+//   resSplitterV (vertical drag)   -> resColsH  = height of .res-cols (2D box + right column together),
+//                                      i.e. the whole top row vs. the classification table below it.
 // Hard stops: dragging H right stops once .res-right would drop below its usable minimum (280px, same
-// floor as .res-right's min-width); dragging V down stops once the right column's card CONTENT (tables)
-// would run out of room to keep growing usefully — in practice that's simply "the window's available
-// height", so the stop is the .res container's own clientHeight minus a small margin for the legend/leBar.
-let resLeftW=440, resViewH=360;
+// floor as .res-right's min-width); dragging V down stops once .res-cols would leave less than its own
+// usable minimum (220px, same floor as #viewbox's min-height) for the window's available height.
+let resLeftW=440, resColsH=420;
 function attachResSplitters(){
   const sh=document.getElementById('resSplitterH');
   if(sh){
@@ -1519,17 +1520,26 @@ function attachResSplitters(){
   if(sv){
     sv.onmousedown=e=>{
       e.preventDefault();
-      const resEl=document.querySelector('.res'), leCard=document.querySelector('#resLeftWrap .le-card');
-      const startY=e.clientY, startH=resViewH;
-      // hard stop: viewbox can't grow past the room actually available in the window (its own card's
-      // top + the legend's height are already spoken for) — beyond that the card would push the
-      // full-width table below it off-screen with nothing gained, so stop right there.
-      const cardTop=leCard.getBoundingClientRect().top;
-      const legendH=leCard.querySelector('.res-legend').offsetHeight;
-      const maxH=Math.max(220, window.innerHeight - cardTop - legendH - 60);
+      const resEl=document.querySelector('.res'), colsEl=document.querySelector('.res-cols');
+      const leCard=document.querySelector('#resLeftWrap .le-card'), rightEl=document.getElementById('res-right');
+      const startY=e.clientY, startH=resColsH;
+      // hard stop, upper bound: .res-cols can't grow past the room actually available in the window
+      // (its own top + a small margin for the leBar are already spoken for) — beyond that the table
+      // below it would be pushed off-screen with nothing gained, so stop right there.
+      const colsTop=colsEl.getBoundingClientRect().top;
+      const maxH=Math.max(220, window.innerHeight - colsTop - 60);
+      // hard stop, lower bound: .res-cols must stay tall enough for the taller of the two columns —
+      // the WHOLE left card (h3 title + #viewbox's own 220px floor + the legend line, not just #viewbox
+      // alone, or the title/legend get clipped) AND the right column's actual content (equilibrium +
+      // brace-forces cards' natural scrollHeight, not its clamped/scrolled offsetHeight, so the stop
+      // reflects what the tables need to show without their own inner scrollbar).
+      const chromeH=leCard.offsetHeight-document.getElementById('viewbox').offsetHeight;   // title+legend
+      const leftMinH=220+Math.max(0,chromeH);
+      const rightMinH=rightEl?rightEl.scrollHeight:0;
+      const minH=Math.max(leftMinH, rightMinH);
       const move=ev=>{
-        resViewH=Math.min(maxH, Math.max(220, startH+(ev.clientY-startY)));
-        resEl.style.setProperty('--res-view-h', resViewH+'px');
+        resColsH=Math.min(maxH, Math.max(minH, startH+(ev.clientY-startY)));
+        resEl.style.setProperty('--res-cols-h', resColsH+'px');
         const L=resultsData(); if(L && DATA.coplanar!==false) draw2dResults(L);
       };
       const up=()=>{ window.removeEventListener('mousemove',move); window.removeEventListener('mouseup',up); };
