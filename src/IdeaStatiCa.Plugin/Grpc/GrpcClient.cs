@@ -97,7 +97,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			Port = port;
 
 			string address = $"localhost:{Port}";
-			Logger.LogDebug($"GrpcClient.Connect address = '{address}', clientId = '{clientId}', port = '{port}'");
+			Logger.LogInformation($"GrpcClient.Connect : attempting connection to '{address}', clientId = '{clientId}'");
 
 			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(MaxDataLength));
 
@@ -108,7 +108,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			ClientConnected?.Invoke(this, EventArgs.Empty);
 
-			Logger.LogDebug("GrpcClient.Connect : client is connected");
+			Logger.LogInformation("GrpcClient.Connect : client is connected");
 		}
 
 		/// <summary>
@@ -135,7 +135,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				}
 				catch (Exception e)
 				{
-					Logger.LogTrace("GrpcClient.StartAsync reading response stream failed", e);
+					Logger.LogWarning("GrpcClient.StartAsync reading response stream failed", e);
 					errorMessage = e.Message;
 					await StopAsync();
 				}
@@ -218,12 +218,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 				}
 				catch (Exception e)
 				{
-					Logger.LogDebug("GrpcClient.SendMessageAsync failed in 'await client.RequestStream.WriteAsync(message)'", e);
+					Logger.LogWarning($"GrpcClient.SendMessageAsync failed : MessageName = '{message?.MessageName}', OperationId = '{message?.OperationId}'", e);
 				}
 			}
 			else
 			{
-				Logger.LogDebug($"GrpcClient.SendMessageAsync failed : client is not connected. MessageName = '{message?.MessageName}' OperationId = '{message?.OperationId}'");
+				Logger.LogWarning($"GrpcClient.SendMessageAsync failed : client is not connected. MessageName = '{message?.MessageName}' OperationId = '{message?.OperationId}'");
 				throw new Exception("GrpcClient.SendMessageAsync client is not connected.");
 			}
 		}
