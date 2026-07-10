@@ -144,6 +144,11 @@ class Api:
             }
         except Exception as e:
             log.exception("open_file failed for %s", path)
+            # drop the session so the next attempt gets a fresh ClientId — otherwise a single
+            # failed request (e.g. a transient 500 from the service) leaves every subsequent
+            # call 401ing on the now-unrecognized ClientId until the app itself is restarted.
+            self._session = None
+            self._pid = None
             return {"error": f"Chyba otevření: {e}"}
 
     def build_connection(self, conn_id, oop_tol_mm=5.0, plane_tol_deg=2.0, coplanar_tol_deg=15.0,
