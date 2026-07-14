@@ -361,6 +361,11 @@ namespace IdeaRS.OpenModel.Connection
 		public WeldType WeldType { get; set; }
 
 		/// <summary>
+		/// True for an intermittent (stitch) weld; WeldType holds the base weld type
+		/// </summary>
+		public bool IsIntermittent { get; set; }
+
+		/// <summary>
 		/// Id of the weld
 		/// </summary>
 		public List<string> ConnectedPartIds { get; set; }
