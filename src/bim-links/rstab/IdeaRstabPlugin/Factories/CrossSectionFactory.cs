@@ -157,8 +157,9 @@ namespace IdeaRstabPlugin.Factories
 				case "CHS":
 					CssHelperFactory.FillCssCHS(crossSectionParameter, css);
 					break;
-
-				case "2I":
+                case "TO":
+					return CreateCssByName(cssData, objectFactory);					
+                case "2I":
 				case "2UR":
 				case "2UV":
 				case "2UK":
@@ -167,8 +168,7 @@ namespace IdeaRstabPlugin.Factories
 				case "2LB":
 				case "2L(B)":
 				case "2L(BA)":
-				case "2L(BB)":
-				case "TO":
+				case "2L(BB)":				
 				case "DICKQ":
 				default:
 					//if (!ResolveThinwalledCssShapeV3(crossSectionParameter, css))
@@ -181,7 +181,7 @@ namespace IdeaRstabPlugin.Factories
 						}
 					}
 					break;
-			}
+			}			
 
 			var cssParametric = new RstabCrossSectionParametric()
 			{
@@ -196,7 +196,18 @@ namespace IdeaRstabPlugin.Factories
 			return cssParametric;
 		}
 
-		private bool TryImportCssThinWalled(CrossSectionParameter crossSectionParameter, Dlubal.RSTAB8.ICrossSection css)
+		private RstabCrossSectionByName CreateCssByName(Dlubal.RSTAB8.CrossSection cssData, IObjectFactory objectFactory)
+		{
+			return new RstabCrossSectionByName()
+			{
+				Id = $"css-{cssData.No}",
+				Name = cssData.Description,
+				Material = objectFactory.GetMaterial(cssData.MaterialNo),
+				Rotation = 0,
+			};
+		}
+
+        private bool TryImportCssThinWalled(CrossSectionParameter crossSectionParameter, Dlubal.RSTAB8.ICrossSection css)
 		{
 			IrsCrossSectionDB2 cssDB = (IrsCrossSectionDB2)css.GetDatabaseCrossSection();
 			double type = cssDB.rsGetProperty((DB_CRSC_PROPERTY_ID)CssDbPropertyType);
