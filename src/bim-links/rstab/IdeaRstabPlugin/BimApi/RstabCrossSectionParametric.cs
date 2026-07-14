@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.BimApi
 {
-	/// <inheritdoc cref="IIdeaCrossSectionByName"/>
-	internal class RstabCrossSectionParametric : IIdeaCrossSectionByName
+	/// <inheritdoc cref="IIdeaCrossSectionByParameters"/>
+	internal class RstabCrossSectionParametric : IIdeaCrossSectionByParameters
 	{
 		public double Rotation { get; set; }
 
