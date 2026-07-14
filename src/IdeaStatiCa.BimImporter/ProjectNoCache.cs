@@ -2,6 +2,7 @@
 using IdeaStatiCa.BimImporter.Common;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace IdeaStatiCa.BimImporter
 {
 	/// <inheritdoc cref="IProject"/>
 	/// <remarks>This class is not thread-safe.</remarks>
-	public class ProjectNoCache : IProject
+	public class ProjectNoCache : IProject, IBimIdMapAccess
 	{
 		private int _nextId = 1;
 
@@ -127,6 +128,61 @@ namespace IdeaStatiCa.BimImporter
 			return _persistenceTokens[iomId];
 		}
 
+		private static readonly PersistenceTokenConverter _sourceIdTokenConverter = new PersistenceTokenConverter();
+
+		private static JsonSerializerSettings SourceIdTokenSettings()
+			=> new JsonSerializerSettings
+			{
+				Formatting = Formatting.None,
+				Converters = new List<JsonConverter> { _sourceIdTokenConverter },
+				TypeNameHandling = TypeNameHandling.None,
+			};
+
+		// The durable, opaque form of one entity's identity: its BimApi id plus its persistence token. The
+		// token is serialized with the same version-tolerant converter the on-disk store uses, so a token
+		// stored by Model Coordinator survives a plugin-assembly version change.
+		private sealed class PackedIdentity
+		{
+			public string BimApiId { get; set; }
+			public IIdeaPersistenceToken Token { get; set; }
+		}
+
+		/// <inheritdoc cref="IBimIdMapAccess.ExportIdMap"/>
+		public IReadOnlyCollection<(int IomId, string SourceIdToken)> ExportIdMap()
+		{
+			List<(int, string)> entries = new List<(int, string)>();
+			foreach ((int iomId, string bimApiId) in _persistence.GetMappings())
+			{
+				_persistenceTokens.TryGetValue(iomId, out IIdeaPersistenceToken token);
+				string packed = JsonConvert.SerializeObject(
+					new PackedIdentity { BimApiId = bimApiId, Token = token },
+					SourceIdTokenSettings());
+				entries.Add((iomId, packed));
+			}
+
+			return entries;
+		}
+
+		/// <inheritdoc cref="IBimIdMapAccess.ImportIdMap"/>
+		public void ImportIdMap(IEnumerable<(int IomId, string SourceIdToken)> entries)
+		{
+			foreach ((int iomId, string sourceIdToken) in entries)
+			{
+				PackedIdentity identity = JsonConvert.DeserializeObject<PackedIdentity>(sourceIdToken, SourceIdTokenSettings());
+				if (identity is null)
+				{
+					continue;
+				}
+
+				_persistence.StoreMapping(iomId, identity.BimApiId);
+				if (identity.Token != null)
+				{
+					_persistence.StoreToken(identity.BimApiId, identity.Token);
+				}
+			}
+
+			ReloadMapping();
+		}
 
 		private void ReloadMapping()
 		{
