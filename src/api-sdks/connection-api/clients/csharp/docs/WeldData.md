@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Material** | **string** | Name of the material | [optional] 
 **WeldMaterial** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **WeldType** | **WeldType** |  | [optional] 
+**IsIntermittent** | **bool** | True for an intermittent (stitch) weld; WeldType holds the base weld type | [optional] 
 **ConnectedPartIds** | **List&lt;string&gt;** | Id of the weld | [optional] 
 **Start** | [**Point3D**](Point3D.md) |  | [optional] 
 **End** | [**Point3D**](Point3D.md) |  | [optional] 

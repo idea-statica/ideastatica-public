@@ -96,7 +96,6 @@ from ideastatica_connection_api.models.message_number import MessageNumber
 from ideastatica_connection_api.models.open_element_id import OpenElementId
 from ideastatica_connection_api.models.open_message import OpenMessage
 from ideastatica_connection_api.models.open_messages import OpenMessages
-from ideastatica_connection_api.models.parameter_expression_type import ParameterExpressionType
 from ideastatica_connection_api.models.parameter_update_response import ParameterUpdateResponse
 from ideastatica_connection_api.models.pin_grid import PinGrid
 from ideastatica_connection_api.models.plate_data import PlateData
