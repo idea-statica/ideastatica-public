@@ -1165,10 +1165,20 @@ function classChecksCard(clRow, jcRow){
       const overstressedFlag=overstressed?' <span class="warn" title="the chord wall has no remaining resistance at this brace footprint — N_Rd/M_Rd collapsed to zero or below under the chord stress; forced FAIL regardless of the numeric utilisation">⛔</span>':'';
       const w=Math.max(2,Math.min(100,(jc.util||0)*100));
       const bar=`<div style="background:#eef0f3;border-radius:3px;height:9px;overflow:hidden;margin-top:3px"><div style="width:${w}%;height:100%;background:${ucol}"></div></div>`;
-      chk = `<td class="val" title="axial resistance of the chord wall">${U.force(jc.N_Rd_weighted)} ${U.fU()}</td>
+      // no_axial_classification: this brace has no K/Y/X split (frK=frY=frX=0, e.g. N_Sd≈0) — the
+      // axial resistance/term are structurally not applicable (not just numerically 0), while the
+      // bending check still ran normally (Table 6-3/6-4's moment rows are shared across classes).
+      const noAx=(jc.no_axial_classification===true);
+      const axRdCell = noAx
+        ? `<td class="muted" title="no K/Y/X classification for this brace (no axial force) — axial check not applicable">n/a</td>`
+        : `<td class="val" title="axial resistance of the chord wall">${U.force(jc.N_Rd_weighted)} ${U.fU()}</td>`;
+      const axUtilCell = noAx
+        ? `<td class="muted" title="no K/Y/X classification — axial term not applicable">n/a</td>`
+        : `<td class="val" title="axial share of the utilisation">${pct(jc.util_axial)}</td>`;
+      chk = `${axRdCell}
         <td class="val" title="in-plane bending resistance of the chord wall">${U.moment(jc.M_Rd_ip)} ${U.mU()}</td>
         <td class="val" title="out-of-plane bending resistance of the chord wall">${U.moment(jc.M_Rd_op)} ${U.mU()}</td>
-        <td class="val" title="axial share of the utilisation">${pct(jc.util_axial)}</td>
+        ${axUtilCell}
         <td class="val" title="in-plane bending share of the utilisation">${pct(jc.util_ipb)}</td>
         <td class="val" title="out-of-plane bending share of the utilisation">${pct(jc.util_opb)}</td>
         <td class="val" style="color:${col};font-weight:700">${pct(jc.util)}${rngWarn}<div style="min-width:70px">${bar}</div></td>
@@ -1394,17 +1404,25 @@ function showCheckDetail(leId, braceName){
       `${fN(b.base_ax/1e3,1)}\\,kN\\cdot ${fN(pcls.X?pcls.X.Qu_axial:null,3)}\\cdot ${fN(pcls.X?pcls.X.Qf_axial:null,3)}`,
       U.force(pcls.X?pcls.X.N_Rd:null)+' '+U.fU(), 'X'));
   // ---- weighted-average summary across whichever modes are active ----
+  // No active mode (b.no_axial_classification, e.g. a pure-moment brace with N_Sd≈0) means there is
+  // no axial resistance to weight-average at all — the block is omitted entirely rather than shown
+  // with an empty table and a dangling "1/N_Rd = " formula.
   const activeModes=['K','Y','X'].filter(c=>pcls[c]&&pcls[c].fr>1e-9);
   const NRdKweighted = kGaps.length ? 1/kGaps.reduce((s,t)=>s+t.frK/t.N_Rd,0) : null;
   const modeNRd = c => c==='K' ? NRdKweighted : pcls[c].N_Rd;
-  let sumCard = `<table><tr><th>mode</th><th>fraction</th><th>N_Rd,mode</th></tr>
-    ${activeModes.map(c=>`<tr><td><span class="tag tag${c}">${c}</span></td><td class="val">${pc(pcls[c].fr)}</td><td class="val">${U.force(modeNRd(c))} ${U.fU()}</td></tr>`).join('')}
-  </table>`;
-  sumCard += step('Weighted axial resistance — Comm. 6.4.2 (mixture of K/Y/X)',
-    '\\dfrac{1}{N_{Rd}} = \\sum_{\\text{mode}} \\dfrac{fr_{\\text{mode}}}{N_{Rd,\\text{mode}}}',
-    activeModes.map(c=>`\\dfrac{${fN(pcls[c].fr,3)}}{${fN(kN(modeNRd(c)),1)}}`).join('+'),
-    U.force(b.N_Rd_weighted)+' '+U.fU());
-  const sumBlock = `<div class="sec"><h4>Weighted axial resistance (all active modes) — Comm. 6.4.2</h4>${sumCard}</div>`;
+  let sumBlock = '';
+  if(activeModes.length){
+    let sumCard = `<table><tr><th>mode</th><th>fraction</th><th>N_Rd,mode</th></tr>
+      ${activeModes.map(c=>`<tr><td><span class="tag tag${c}">${c}</span></td><td class="val">${pc(pcls[c].fr)}</td><td class="val">${U.force(modeNRd(c))} ${U.fU()}</td></tr>`).join('')}
+    </table>`;
+    sumCard += step('Weighted axial resistance — Comm. 6.4.2 (mixture of K/Y/X)',
+      '\\dfrac{1}{N_{Rd}} = \\sum_{\\text{mode}} \\dfrac{fr_{\\text{mode}}}{N_{Rd,\\text{mode}}}',
+      activeModes.map(c=>`\\dfrac{${fN(pcls[c].fr,3)}}{${fN(kN(modeNRd(c)),1)}}`).join('+'),
+      U.force(b.N_Rd_weighted)+' '+U.fU());
+    sumBlock = `<div class="sec"><h4>Weighted axial resistance (all active modes) — Comm. 6.4.2</h4>${sumCard}</div>`;
+  } else {
+    sumBlock = `<div class="sec"><h4>Axial resistance</h4><div class="legend">No K/Y/X classification for this brace (no axial force) — the axial term of eq. (6.57) is not applicable; only the bending check below applies.</div></div>`;
+  }
   // utilisation eq 6.57 — substituted
   const rng=(b.within_range===false)?' <span class="warn">⚠ geometry outside 6.4.3.1 validity — resistance extrapolated</span>':'';
   const overstressed=(b.chord_overstressed===true);

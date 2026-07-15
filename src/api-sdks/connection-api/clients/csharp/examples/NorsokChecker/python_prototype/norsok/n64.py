@@ -326,9 +326,12 @@ def _check_joint_once(inp: JointInput, clamp_beta=None, clamp_gamma=None, clamp_
         K_terms.append((frK_i, g_i, Qg_i, QuA_i, NRd_i))
 
     wN = wN_K + inp.frY * per_class["Y"].N_Rd + inp.frX * per_class["X"].N_Rd
-    # wN == 0 means no axial classification (frK=frY=frX=0) — there is no chord-wall axial
-    # resistance, so the axial term is undefined. Callers should skip such braces upstream; guard
-    # here so a stray zero-classification input degrades to "no axial term" instead of crashing.
+    # wN == 0 means no axial classification (frK=frY=frX=0, e.g. a pure-moment brace with N_Sd≈0)
+    # — there is no chord-wall axial resistance to divide by, so the axial share of util is simply
+    # ABSENT (0), not undefined. This is a legitimate, common input (moment-only brace), not an
+    # error: the shared M_Rd check above is unaffected (Table 6-3's bending columns and Table 6-4's
+    # moment row are the same for every class), so callers must NOT skip the whole brace on this —
+    # only the axial term drops out of eq. (6.57)'s sum.
     axial_term = abs(inp.N_Sd) / wN if wN > 0.0 else 0.0
     wU = axial_term + (abs(inp.M_ip_Sd) / MRd_ip) ** 2 + abs(inp.M_op_Sd) / MRd_op
 

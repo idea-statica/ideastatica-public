@@ -444,13 +444,19 @@ def joint_checks_all_les(chord_sec, brace_secs, params_by_name, brace_forces, cl
                 rows.append({"name": nm, "skipped": True,
                              "reason": "missing section/material/classification data"})
                 continue
-            # a brace with no axial classification (frK=frY=frX=0, e.g. N_Sd≈0 -> "no transverse
-            # force") has no chord-wall axial resistance to divide by: the 6.4 axial punching check
-            # is not applicable. Skip it (its bending would be a separate 6.3-style check, not 6.4).
+            # A brace with no axial classification (frK=frY=frX=0, e.g. N_Sd≈0 -> "no transverse
+            # force") has no chord-wall axial resistance to divide by -> the axial term of eq. (6.57)
+            # is simply absent (n64.check_joint already gives it 0, see wN==0 guard there). That does
+            # NOT make the whole 6.4 check inapplicable: Table 6-3's bending Qu and Table 6-4's moment
+            # row are the SAME for every joint class (see M_Rd_ip/M_Rd_op in n64.JointResult, "shared
+            # across classes") — a pure-moment brace still has a real bending check to run. Only skip
+            # here when there is truly nothing to check at all (no axial classification AND no bending
+            # load either).
             fr_sum = (cl.get("frK", 0.0) or 0.0) + (cl.get("frY", 0.0) or 0.0) + (cl.get("frX", 0.0) or 0.0)
-            if fr_sum <= 1e-9:
+            has_moment = abs(bf.get("M_ip", 0.0) or 0.0) > 1e-9 or abs(bf.get("M_op", 0.0) or 0.0) > 1e-9
+            if fr_sum <= 1e-9 and not has_moment:
                 rows.append({"name": nm, "skipped": True,
-                             "reason": cl.get("note") or "no axial force to classify (K/Y/X = 0)"})
+                             "reason": cl.get("note") or "no axial force to classify (K/Y/X = 0) and no bending load"})
                 continue
             # K balancing components -> [(frac_of_axial, gap_m)]; gaps that came back None -> 0 (touching)
             K_components = [(kc.get("frac", 0.0), (kc.get("gap_m") or 0.0))
@@ -500,6 +506,10 @@ def joint_checks_all_les(chord_sec, brace_secs, params_by_name, brace_forces, cl
                 "name": nm, "skipped": False,
                 "util": r.util_weighted, "passed": r.passed,
                 "chord_overstressed": r.chord_overstressed,   # forced FAIL: Qf (eq 6.54) collapsed to <=0
+                # True when this brace has no K/Y/X classification (frK=frY=frX=0, e.g. N_Sd≈0) — the
+                # axial term of eq. (6.57) is then structurally absent (not just numerically 0), while
+                # the bending check (M_Rd_ip/M_Rd_op, shared across classes) still ran normally above.
+                "no_axial_classification": fr_sum <= 1e-9,
                 "N_Rd_weighted": r.N_Rd_weighted,     # N
                 "util_axial": domR.util_axial_term if domR else None,
                 "util_ipb": domR.util_ip_term if domR else None,
