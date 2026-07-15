@@ -96,7 +96,6 @@ docs/OpenMessage.md
 docs/OpenMessages.md
 docs/OperationApi.md
 docs/ParameterApi.md
-docs/ParameterExpressionType.md
 docs/ParameterUpdateResponse.md
 docs/PinGrid.md
 docs/PlateData.md
@@ -238,7 +237,6 @@ src/IdeaStatiCa.ConnectionApi/Model/MessageNumber.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenElementId.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenMessage.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenMessages.cs
-src/IdeaStatiCa.ConnectionApi/Model/ParameterExpressionType.cs
 src/IdeaStatiCa.ConnectionApi/Model/ParameterUpdateResponse.cs
 src/IdeaStatiCa.ConnectionApi/Model/PinGrid.cs
 src/IdeaStatiCa.ConnectionApi/Model/PlateData.cs

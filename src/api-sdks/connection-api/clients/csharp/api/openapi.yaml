@@ -2748,6 +2748,68 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
   /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}:
+    delete:
+      operationId: DeleteMember
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the member to delete.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the member to delete.
+        explode: false
+        in: path
+        name: memberId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Deletes the specified member from the connection.
+      tags:
+      - Member
+      x-requiresProject: true
+      x-requiresConnection: true
     get:
       operationId: GetMember
       parameters:
@@ -7699,6 +7761,7 @@ components:
           material: material
           thickness: 3.353193347011243
           weldType: notSpecified
+          isIntermittent: true
           name: name
           start:
             x: 2.3021358869347655
@@ -7722,6 +7785,7 @@ components:
           material: material
           thickness: 3.353193347011243
           weldType: notSpecified
+          isIntermittent: true
           name: name
           start:
             x: 2.3021358869347655
@@ -9336,7 +9400,6 @@ components:
       additionalProperties: false
       example:
         expression: expression
-        expressionType: value
         key: key
       properties:
         key:
@@ -9345,8 +9408,6 @@ components:
         expression:
           nullable: true
           type: string
-        expressionType:
-          $ref: '#/components/schemas/ParameterExpressionType'
       type: object
     IdeaParameterValidation:
       additionalProperties: false
@@ -9513,14 +9574,6 @@ components:
           nullable: true
           type: array
       type: object
-    ParameterExpressionType:
-      enum:
-      - value
-      - lowerBound
-      - upperBound
-      - defaultExpression
-      - validationExpression
-      type: string
     ParameterUpdateResponse:
       additionalProperties: false
       example:
@@ -10100,6 +10153,7 @@ components:
         material: material
         thickness: 3.353193347011243
         weldType: notSpecified
+        isIntermittent: true
         name: name
         start:
           x: 2.3021358869347655
@@ -10138,6 +10192,10 @@ components:
           $ref: '#/components/schemas/ReferenceElement'
         weldType:
           $ref: '#/components/schemas/WeldType'
+        isIntermittent:
+          description: True for an intermittent (stitch) weld; WeldType holds the
+            base weld type
+          type: boolean
         connectedPartIds:
           description: Id of the weld
           items:
