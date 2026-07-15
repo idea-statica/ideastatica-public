@@ -266,12 +266,17 @@ const UNIT_DEFS={
   force:  {N:{lbl:'N',div:1}, kN:{lbl:'kN',div:1e3}, MN:{lbl:'MN',div:1e6}},
   moment: {'N·m':{lbl:'N·m',div:1}, 'kN·m':{lbl:'kN·m',div:1e3}, 'MN·m':{lbl:'MN·m',div:1e6}},
   length: {mm:{lbl:'mm',div:1e-3}, cm:{lbl:'cm',div:1e-2}, m:{lbl:'m',div:1}},
+  // cross-section dimensions (chord/brace D,T,d,t) get their OWN unit + decimal count, separate from
+  // other lengths (gap, eccentricity,...) which stay on 'length' — sections are conventionally read in
+  // mm to 1 decimal (e.g. 323.9 mm), while a gap/eccentricity table is more useful at 0 decimals.
+  sectionLength: {mm:{lbl:'mm',div:1e-3}, cm:{lbl:'cm',div:1e-2}, m:{lbl:'m',div:1}},
   stress: {MPa:{lbl:'MPa',div:1e6}, ksi:{lbl:'ksi',div:6894757.293}},
 };
 // current selection + decimal places (persisted in localStorage so it survives reloads)
 const UNITS = Object.assign(
   {force:'kN', moment:'kN·m', length:'mm', stress:'MPa', dpForce:1, dpMoment:2, dpLength:0, dpStress:0,
-   dpNumber:3, dpPercent:2, dpAngle:1},
+   dpNumber:3, dpPercent:2, dpAngle:1,
+   sectionLength:'mm', dpSectionLength:1},
   (()=>{ try{ return JSON.parse(localStorage.getItem('njc_units')||'{}'); }catch(e){ return {}; } })()
 );
 function saveUnits(){ try{ localStorage.setItem('njc_units',JSON.stringify(UNITS)); }catch(e){} }
@@ -285,6 +290,9 @@ const U={
   force:  (si_N,  d)=> _conv(si_N,  'force',  d==null?UNITS.dpForce :d),
   moment: (si_Nm, d)=> _conv(si_Nm, 'moment', d==null?UNITS.dpMoment:d),
   len:    (si_m,  d)=> _conv(si_m,  'length', d==null?UNITS.dpLength:d),
+  // cross-section dimensions (D,T,d,t) — own unit (mm/cm/m) + own decimal count, independent of
+  // 'length' (gap, eccentricity,...): sections default to mm@1dp, other lengths to mm@0dp.
+  secLen: (si_m,  d)=> _conv(si_m,  'sectionLength', d==null?UNITS.dpSectionLength:d),
   stress: (si_Pa, d)=> _conv(si_Pa, 'stress', d==null?UNITS.dpStress:d),
   // dimensionless ratios (β,γ,τ,Qu,Qf,A²,util,...) and fractions shown as % (frK/frX/frY,...) —
   // no unit choice, just a configurable decimal count (Settings > Units & display).
@@ -295,6 +303,7 @@ const U={
   fU: ()=>UNIT_DEFS.force [UNITS.force ].lbl,
   mU: ()=>UNIT_DEFS.moment[UNITS.moment].lbl,
   lU: ()=>UNIT_DEFS.length[UNITS.length].lbl,
+  slU: ()=>UNIT_DEFS.sectionLength[UNITS.sectionLength].lbl,
   sU: ()=>UNIT_DEFS.stress[UNITS.stress].lbl,
   // raw-number variants (no formatting) for comparisons/CSS thresholds:
   force_v:  si_N  => _conv(si_N,  'force',  null),
@@ -907,6 +916,7 @@ function openSettings(){
     ${row('force','Force')}
     ${row('moment','Moment')}
     ${row('length','Length')}
+    ${row('sectionLength','Cross-sections')}
     ${row('stress','Stress')}
     ${rowDp('dpNumber','Dimensionless (β,γ,Qu,Qf,util,...)')}
     ${rowDp('dpPercent','Percentage (K/X/Y classification share,...)')}
@@ -918,7 +928,7 @@ function closeSettings(){ document.getElementById('settings-bg').classList.remov
 function openTol(){ document.getElementById('tol-bg').classList.add('open'); }
 function closeTol(){ document.getElementById('tol-bg').classList.remove('open'); }
 function applyUnits(){
-  ['force','moment','length','stress'].forEach(k=>{
+  ['force','moment','length','sectionLength','stress'].forEach(k=>{
     const sel=document.getElementById('us_'+k); if(sel) UNITS[k]=sel.value;
     const dpKey='dp'+k.charAt(0).toUpperCase()+k.slice(1);
     const dp=document.getElementById('us_'+dpKey);
@@ -1284,8 +1294,8 @@ function showCheckDetail(leId, braceName){
   const pcTex=v=>(v==null?'{-}':`${(v*100).toFixed(UNITS.dpPercent)}\\%`);
   // geometry + material
   const geo=`<div class="sec"><h4>Geometry &amp; material</h4><div class="kv">
-    <span class="k">Chord Ø D × T</span><span class="v">${U.len(i.D)}×${U.len(i.T)} ${U.lU()} (f_y=${mpa(i.fy_chord)})</span>
-    <span class="k">Brace Ø d × t</span><span class="v">${U.len(i.d)}×${U.len(i.t)} ${U.lU()} (f_y=${mpa(i.fy_brace)})</span>
+    <span class="k">Chord Ø D × T</span><span class="v">${U.secLen(i.D)}×${U.secLen(i.T)} ${U.slU()} (f_y=${mpa(i.fy_chord)})</span>
+    <span class="k">Brace Ø d × t</span><span class="v">${U.secLen(i.d)}×${U.secLen(i.t)} ${U.slU()} (f_y=${mpa(i.fy_brace)})</span>
     <span class="k">θ (brace–chord)</span><span class="v">${deg(i.theta_deg)}</span>
     <span class="k">chord face</span><span class="v">${sideLbl(cd.side)}</span>
     <span class="k">β = d/D</span><span class="v">${u3(i.beta)}</span>
