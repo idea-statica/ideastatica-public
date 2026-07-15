@@ -202,6 +202,15 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConMember> AddMemberAsync(int connectionId, ConMember member, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Delete a member from the connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="memberId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task DeleteMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get production cost
 		/// </summary>
 		/// <param name="connectionId"></param>
