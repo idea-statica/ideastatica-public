@@ -1,13 +1,17 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApiLink.Plugin;
+using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.BimApiLink
 {
-	internal class ApplicationBimRunnable : IApplicationBimRunnable
+	// Also forwards IBimIdMapAccess so a hub link that receives this runnable (via BimLink.Create) can still
+	// export/re-seed the native-to-IOM id map (BIM Link Hub sync). The wrapped app (a BimApiApplication) owns the map.
+	internal class ApplicationBimRunnable : IApplicationBimRunnable, IBimIdMapAccess
 	{
 		private readonly IApplicationBIM _app;
 		private readonly IBimHostingFactory _bimHostingFactory;
@@ -82,5 +86,11 @@ namespace IdeaStatiCa.BimApiLink
 
 		public Task SelectAsync(List<BIMItemId> items)
 			=> _app.SelectAsync(items);
+
+		public IReadOnlyCollection<(int IomId, string SourceIdToken)> ExportIdMap()
+			=> (_app as IBimIdMapAccess)?.ExportIdMap() ?? Array.Empty<(int, string)>();
+
+		public void ImportIdMap(IEnumerable<(int IomId, string SourceIdToken)> entries)
+			=> (_app as IBimIdMapAccess)?.ImportIdMap(entries);
 	}
 }
