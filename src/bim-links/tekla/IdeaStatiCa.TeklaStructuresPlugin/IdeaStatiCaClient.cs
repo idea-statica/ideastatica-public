@@ -169,6 +169,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
                     .WithPluginHook(appVisibility)
                     .WithProgressMessaging(progressMessaging)
                     .WithProjectStorage(projectStorage)
+                    .WithItemsComparer(new IdentifierComparer())
                     .WithUserDataSource(container.Resolve<UserDataSource>());
 
                 pluginLogger?.LogInformation("GetBimLink - Creating IApplicationBIM");
