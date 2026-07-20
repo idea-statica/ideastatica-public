@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.Parameters;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Connection
@@ -23,5 +24,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public ReferenceElement BoltAssembly { get; set; }
+
+		/// <summary>
+		/// Slotted holes of grid positions per connected plate. Null or missing entry means a round hole.
+		/// </summary>
+		[DataMember]
+		public List<SlottedHole> SlottedHoles { get; set; }
 	}
 }
