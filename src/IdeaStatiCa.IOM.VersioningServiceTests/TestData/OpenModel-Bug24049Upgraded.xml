@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-16"?>
 <OpenModelContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<OpenModel>
-		<Version>3.3.0</Version>
+		<Version>3.3.4</Version>
 		<OriginSettings>
 			<ProjectName>idea</ProjectName>
 			<DateOfCreate>0001-01-01T00:00:00</DateOfCreate>
@@ -2703,6 +2703,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>1</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -2719,6 +2720,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>2</Id>
 							</CutData>
 						</Cuts>
 						<IsAdded>false</IsAdded>
@@ -2806,6 +2808,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>3</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -2822,6 +2825,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>4</Id>
 							</CutData>
 						</Cuts>
 						<IsAdded>false</IsAdded>
@@ -2853,6 +2857,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>5</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -2869,6 +2874,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>6</Id>
 							</CutData>
 						</Cuts>
 						<IsAdded>false</IsAdded>
@@ -2956,6 +2962,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>7</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -2972,6 +2979,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>8</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -2988,6 +2996,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>9</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -3004,6 +3013,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>10</Id>
 							</CutData>
 						</Cuts>
 						<IsAdded>false</IsAdded>
@@ -3035,6 +3045,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>11</Id>
 							</CutData>
 							<CutData>
 								<PlanePoint>
@@ -3051,6 +3062,7 @@
 								</NormalVector>
 								<Direction>Default</Direction>
 								<Offset>0</Offset>
+								<Id>12</Id>
 							</CutData>
 						</Cuts>
 						<IsAdded>false</IsAdded>
@@ -3109,7 +3121,10 @@
 						<Id>1</Id>
 						<Name />
 						<Thickness>0.012000000000003638</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23835</Id>
@@ -3174,7 +3189,10 @@
 						<Id>2</Id>
 						<Name />
 						<Thickness>0.010000000000116416</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23836</Id>
@@ -3245,7 +3263,10 @@
 						<Id>3</Id>
 						<Name />
 						<Thickness>0.010000000000101863</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23837</Id>
@@ -3316,7 +3337,10 @@
 						<Id>4</Id>
 						<Name />
 						<Thickness>0.012</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23838</Id>
@@ -3381,7 +3405,10 @@
 						<Id>5</Id>
 						<Name />
 						<Thickness>0.012</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23839</Id>
@@ -3452,7 +3479,10 @@
 						<Id>6</Id>
 						<Name />
 						<Thickness>0.02000000000387081</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23840</Id>
@@ -3541,7 +3571,10 @@
 						<Id>7</Id>
 						<Name />
 						<Thickness>0.016000000001891751</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23841</Id>
@@ -3630,7 +3663,10 @@
 						<Id>8</Id>
 						<Name />
 						<Thickness>0.012</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23842</Id>
@@ -3695,7 +3731,10 @@
 						<Id>9</Id>
 						<Name />
 						<Thickness>0.012000000000094588</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23843</Id>
@@ -3760,7 +3799,10 @@
 						<Id>10</Id>
 						<Name />
 						<Thickness>0.010000000001546142</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23844</Id>
@@ -3831,7 +3873,10 @@
 						<Id>11</Id>
 						<Name />
 						<Thickness>0.010000000001626177</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23845</Id>
@@ -3902,7 +3947,10 @@
 						<Id>12</Id>
 						<Name />
 						<Thickness>0.015000000000014552</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23846</Id>
@@ -3967,7 +4015,10 @@
 						<Id>13</Id>
 						<Name />
 						<Thickness>0.012</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23847</Id>
@@ -4038,7 +4089,10 @@
 						<Id>14</Id>
 						<Name />
 						<Thickness>0.0060000000008149073</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23848</Id>
@@ -4145,7 +4199,10 @@
 						<Id>15</Id>
 						<Name />
 						<Thickness>0.016000000001004083</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23849</Id>
@@ -4234,7 +4291,10 @@
 						<Id>16</Id>
 						<Name />
 						<Thickness>0.020000000003426978</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23850</Id>
@@ -4299,7 +4359,10 @@
 						<Id>17</Id>
 						<Name />
 						<Thickness>0.006000000000829459</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23848</Id>
@@ -4406,7 +4469,10 @@
 						<Id>18</Id>
 						<Name />
 						<Thickness>0.02</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23851</Id>
@@ -4477,7 +4543,10 @@
 						<Id>19</Id>
 						<Name />
 						<Thickness>0.012000000002619344</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23852</Id>
@@ -4542,7 +4611,10 @@
 						<Id>20</Id>
 						<Name />
 						<Thickness>0.020000000000043656</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23853</Id>
@@ -4607,7 +4679,10 @@
 						<Id>21</Id>
 						<Name />
 						<Thickness>0.012000000002619344</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23854</Id>
@@ -4672,7 +4747,10 @@
 						<Id>22</Id>
 						<Name />
 						<Thickness>0.020000000002663002</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23920</Id>
@@ -4737,7 +4815,10 @@
 						<Id>23</Id>
 						<Name />
 						<Thickness>0.062800000000293954</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23923</Id>
@@ -4802,7 +4883,10 @@
 						<Id>24</Id>
 						<Name />
 						<Thickness>0.25390000000160945</Thickness>
-						<Material>A572 Gr.50</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>166</Id>
+						</Material>
 						<OutlinePoints />
 						<Origin>
 							<Id>23927</Id>
@@ -5632,10 +5716,6 @@
 						<Name />
 						<Thickness>0</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-0435410e-ff68-42fd-920c-b45df50b0422</string>
-							<string>Plate-313d49ac-ad50-43b4-bd8b-bde5c63e258b</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -5650,17 +5730,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23787</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>1</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>2</Id>
 						<Name />
 						<Thickness>0.0070710678118654745</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-313d49ac-ad50-43b4-bd8b-bde5c63e258b</string>
-							<string>Plate-d4dab841-0c68-4b15-a1e0-7a279a068014</string>
-							<string>Member1D-d4dab841-0c68-4b15-a1e0-7a279a068014</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23897</Id>
 							<Name />
@@ -5675,17 +5760,22 @@
 							<Y>26.340768955051377</Y>
 							<Z>81.216000006126492</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>1</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>4</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>3</Id>
 						<Name />
 						<Thickness>0.010606601717798212</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-6414a8c7-0e49-4e9b-aed4-73c361097abc</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23899</Id>
 							<Name />
@@ -5700,17 +5790,22 @@
 							<Y>26.112403946260294</Y>
 							<Z>81.209001000404356</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>5</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>4</Id>
 						<Name />
 						<Thickness>0.0070710678118654745</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-c8f9077d-62f5-4b25-a9d7-1becc9d9bd41</string>
-							<string>Plate-975903e6-9833-4fce-9874-f4bdb75901e1</string>
-							<string>Member1D-975903e6-9833-4fce-9874-f4bdb75901e1</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23901</Id>
 							<Name />
@@ -5725,16 +5820,22 @@
 							<Y>26.257650047053215</Y>
 							<Z>81.216000004404265</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>9</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>8</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>5</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-25d681ca-b475-425b-aa10-570973e0ef92</string>
-							<string>Plate-c8f9077d-62f5-4b25-a9d7-1becc9d9bd41</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23903</Id>
 							<Name />
@@ -5749,17 +5850,22 @@
 							<Y>26.223929812387144</Y>
 							<Z>81.263224792284575</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23757</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>9</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>6</Id>
 						<Name />
 						<Thickness>0.00565685424949238</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-6b9ab9ba-5998-4331-a861-cf1e69204a59</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23905</Id>
 							<Name />
@@ -5774,17 +5880,22 @@
 							<Y>25.591303287645985</Y>
 							<Z>81.4521</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>12</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>7</Id>
 						<Name />
 						<Thickness>0.010606601717798212</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-1adf821e-4adb-4d92-9967-29020234f935</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23907</Id>
 							<Name />
@@ -5799,16 +5910,22 @@
 							<Y>26.080621673924245</Y>
 							<Z>81.209001000404356</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>13</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>8</Id>
 						<Name />
 						<Thickness>0.0035355339059327372</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-bdec208f-224c-45ef-a293-4c927a91db66</string>
-							<string>Plate-19eba3b9-62f9-4093-a89d-1e40cb814f9b</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23909</Id>
 							<Name />
@@ -5823,16 +5940,22 @@
 							<Y>26.485315074470794</Y>
 							<Z>81.555000000184378</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23827</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>18</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>9</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-57b2d6ad-83dd-4a9e-983a-6acf568176a8</string>
-							<string>Plate-ec996f34-9bdb-49c2-af86-c25b56c4bbd7</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23911</Id>
 							<Name />
@@ -5847,17 +5970,22 @@
 							<Y>26.584114719509561</Y>
 							<Z>82.044112952246053</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23782</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>14</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>10</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-57b2d6ad-83dd-4a9e-983a-6acf568176a8</string>
-							<string>Plate-418d406e-c431-47d5-81e4-dfbe57c68296</string>
-							<string>Member1D-418d406e-c431-47d5-81e4-dfbe57c68296</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23913</Id>
 							<Name />
@@ -5872,16 +6000,22 @@
 							<Y>26.661080466065677</Y>
 							<Z>82.3396511761771</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23782</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>16</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>11</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-57b2d6ad-83dd-4a9e-983a-6acf568176a8</string>
-							<string>Plate-75ccfb05-f144-4a6e-8cd5-66e5a930330e</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23915</Id>
 							<Name />
@@ -5896,17 +6030,22 @@
 							<Y>26.585838835356228</Y>
 							<Z>82.043573137953615</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23782</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>17</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>12</Id>
 						<Name />
 						<Thickness>0.0035355339059327372</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-d3799464-bbfb-4b39-8e91-bf0a2c007a22</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23917</Id>
 							<Name />
@@ -5921,18 +6060,22 @@
 							<Y>25.56891121646623</Y>
 							<Z>81.449</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>20</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>13</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -5947,18 +6090,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>14</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -5973,18 +6120,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>15</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -5999,18 +6150,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>16</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6025,18 +6180,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>17</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6051,18 +6210,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>18</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6077,17 +6240,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>19</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-0368328f-4a3c-4597-9434-0c890a860f05</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6102,18 +6270,18 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>20</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6128,18 +6296,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>21</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6154,17 +6326,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>22</Id>
 						<Name />
 						<Thickness>0.010606601717798212</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-bd45af49-1934-41b4-a83e-97391cb1b70e</string>
-							<string>Member1D-bd45af49-1934-41b4-a83e-97391cb1b70e</string>
-							<string>Plate-8bea54c8-bae5-4352-8375-3d7d0074856a</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23062</Id>
 							<Name />
@@ -6179,16 +6356,18 @@
 							<Y>26.033189195272492</Y>
 							<Z>85.60900100040439</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23791</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>23</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-25d681ca-b475-425b-aa10-570973e0ef92</string>
-							<string>Plate-c8f9077d-62f5-4b25-a9d7-1becc9d9bd41</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23903</Id>
 							<Name />
@@ -6203,18 +6382,22 @@
 							<Y>26.223929812387144</Y>
 							<Z>81.263224792284575</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23757</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>9</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>24</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6229,18 +6412,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>25</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6255,18 +6442,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>26</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6281,18 +6472,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>27</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-505798b3-01ab-424e-897b-41a40888f743</string>
-							<string>Member1D-505798b3-01ab-424e-897b-41a40888f743</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6307,18 +6502,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23762</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>28</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6333,18 +6532,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>29</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6359,17 +6562,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>30</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-0368328f-4a3c-4597-9434-0c890a860f05</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6384,17 +6592,18 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>31</Id>
 						<Name />
 						<Thickness>0.00565685424949238</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-6b9ab9ba-5998-4331-a861-cf1e69204a59</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23905</Id>
 							<Name />
@@ -6409,17 +6618,22 @@
 							<Y>25.591303287645985</Y>
 							<Z>81.4521</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>12</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>32</Id>
 						<Name />
 						<Thickness>0.0035355339059327372</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Member1D-d9b6167a-dbe2-4f5b-ad13-3841ada658a9</string>
-							<string>Plate-d3799464-bbfb-4b39-8e91-bf0a2c007a22</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23917</Id>
 							<Name />
@@ -6434,18 +6648,22 @@
 							<Y>25.56891121646623</Y>
 							<Z>81.449</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23767</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>20</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>33</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6460,18 +6678,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>34</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-729235bf-3344-4716-936b-4e669e202c47</string>
-							<string>Member1D-729235bf-3344-4716-936b-4e669e202c47</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6486,17 +6708,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23771</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>35</Id>
 						<Name />
 						<Thickness>0.010606601717798212</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-6414a8c7-0e49-4e9b-aed4-73c361097abc</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23899</Id>
 							<Name />
@@ -6511,17 +6738,22 @@
 							<Y>26.112403946260294</Y>
 							<Z>81.209001000404356</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>5</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>36</Id>
 						<Name />
 						<Thickness>0.010606601717798212</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Member1D-789dd04b-67f0-4c0a-8565-97135b8ff224</string>
-							<string>Plate-1adf821e-4adb-4d92-9967-29020234f935</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23907</Id>
 							<Name />
@@ -6536,16 +6768,22 @@
 							<Y>26.080621673924245</Y>
 							<Z>81.209001000404356</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23776</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>13</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>37</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-57b2d6ad-83dd-4a9e-983a-6acf568176a8</string>
-							<string>Plate-ec996f34-9bdb-49c2-af86-c25b56c4bbd7</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23911</Id>
 							<Name />
@@ -6560,16 +6798,22 @@
 							<Y>26.584114719509561</Y>
 							<Z>82.044112952246053</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23782</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>14</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>38</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-57b2d6ad-83dd-4a9e-983a-6acf568176a8</string>
-							<string>Plate-75ccfb05-f144-4a6e-8cd5-66e5a930330e</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23915</Id>
 							<Name />
@@ -6584,17 +6828,22 @@
 							<Y>26.585838835356228</Y>
 							<Z>82.043573137953615</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23782</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>17</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>39</Id>
 						<Name />
 						<Thickness>0.0042426406871192849</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-57b2d6ad-83dd-4a9e-983a-6acf568176a8</string>
-							<string>Plate-418d406e-c431-47d5-81e4-dfbe57c68296</string>
-							<string>Member1D-418d406e-c431-47d5-81e4-dfbe57c68296</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23913</Id>
 							<Name />
@@ -6609,16 +6858,22 @@
 							<Y>26.661080466065677</Y>
 							<Z>82.3396511761771</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23782</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>16</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>40</Id>
 						<Name />
 						<Thickness>0</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-0435410e-ff68-42fd-920c-b45df50b0422</string>
-							<string>Plate-313d49ac-ad50-43b4-bd8b-bde5c63e258b</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>342</Id>
 							<Name />
@@ -6633,17 +6888,22 @@
 							<Y>0</Y>
 							<Z>0</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23787</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>1</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>41</Id>
 						<Name />
 						<Thickness>0.010606601717798212</Thickness>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate-bd45af49-1934-41b4-a83e-97391cb1b70e</string>
-							<string>Member1D-bd45af49-1934-41b4-a83e-97391cb1b70e</string>
-							<string>Plate-8bea54c8-bae5-4352-8375-3d7d0074856a</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23062</Id>
 							<Name />
@@ -6658,16 +6918,18 @@
 							<Y>26.033189195272492</Y>
 							<Z>85.60900100040439</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23791</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 					<WeldData>
 						<Id>42</Id>
 						<Name />
 						<Thickness>0.0035355339059327372</Thickness>
 						<WeldType>Fillet</WeldType>
-						<ConnectedPartIds>
-							<string>Member1D-bdec208f-224c-45ef-a293-4c927a91db66</string>
-							<string>Plate-19eba3b9-62f9-4093-a89d-1e40cb814f9b</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>23909</Id>
 							<Name />
@@ -6682,6 +6944,16 @@
 							<Y>26.485315074470794</Y>
 							<Z>81.555000000184378</Z>
 						</End>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>23827</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>18</Id>
+							</ReferenceElement>
+						</ConnectedParts>
 					</WeldData>
 				</Welds>
 				<ConcreteBlocks />
@@ -6696,27 +6968,20 @@
 							<Id>22</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-
-						<WebWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</WebWeld>
-
-						<FlangeWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</FlangeWeld>
+						<Id>1</Id>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
 						<PlaneOnCuttingObject>Closer</PlaneOnCuttingObject>
 						<CutPart>Begin</CutPart>
+						<WebWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</WebWeld>
+						<FlangeWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</FlangeWeld>
 					</CutBeamByBeamData>
 					<CutBeamByBeamData>
 						<ModifiedObject>
@@ -6728,27 +6993,20 @@
 							<Id>23</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-
-						<WebWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</WebWeld>
-
-						<FlangeWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</FlangeWeld>
+						<Id>2</Id>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
 						<PlaneOnCuttingObject>Closer</PlaneOnCuttingObject>
 						<CutPart>Begin</CutPart>
+						<WebWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</WebWeld>
+						<FlangeWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</FlangeWeld>
 					</CutBeamByBeamData>
 					<CutBeamByBeamData>
 						<ModifiedObject>
@@ -6760,27 +7018,20 @@
 							<Id>24</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-
-						<WebWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</WebWeld>
-
-						<FlangeWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</FlangeWeld>
+						<Id>3</Id>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
 						<PlaneOnCuttingObject>Closer</PlaneOnCuttingObject>
 						<CutPart>Begin</CutPart>
+						<WebWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</WebWeld>
+						<FlangeWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</FlangeWeld>
 					</CutBeamByBeamData>
 					<CutBeamByBeamData>
 						<ModifiedObject>
@@ -6792,27 +7043,20 @@
 							<Id>22</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-
-						<WebWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</WebWeld>
-
-						<FlangeWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</FlangeWeld>
+						<Id>4</Id>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
 						<PlaneOnCuttingObject>Closer</PlaneOnCuttingObject>
 						<CutPart>Begin</CutPart>
+						<WebWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</WebWeld>
+						<FlangeWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</FlangeWeld>
 					</CutBeamByBeamData>
 					<CutBeamByBeamData>
 						<ModifiedObject>
@@ -6824,27 +7068,20 @@
 							<Id>23</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-
-						<WebWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</WebWeld>
-
-						<FlangeWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</FlangeWeld>
+						<Id>5</Id>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
 						<PlaneOnCuttingObject>Closer</PlaneOnCuttingObject>
 						<CutPart>Begin</CutPart>
+						<WebWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</WebWeld>
+						<FlangeWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</FlangeWeld>
 					</CutBeamByBeamData>
 					<CutBeamByBeamData>
 						<ModifiedObject>
@@ -6856,27 +7093,20 @@
 							<Id>24</Id>
 						</CuttingObject>
 						<IsWeld>false</IsWeld>
-
-						<WebWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</WebWeld>
-
-						<FlangeWeld>
-
-							<Thickness>0</Thickness>
-
-							<WeldType>Fillet</WeldType>
-
-						</FlangeWeld>
+						<Id>6</Id>
 						<Offset>0</Offset>
 						<Method>Surface</Method>
 						<Orientation>Default</Orientation>
 						<PlaneOnCuttingObject>Closer</PlaneOnCuttingObject>
 						<CutPart>Begin</CutPart>
+						<WebWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</WebWeld>
+						<FlangeWeld>
+							<Thickness>0</Thickness>
+							<WeldType>Fillet</WeldType>
+						</FlangeWeld>
 					</CutBeamByBeamData>
 				</CutBeamByBeams>
 			</ConnectionData>
