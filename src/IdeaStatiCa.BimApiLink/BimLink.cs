@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.BimApiLink.Hooks;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
+using IdeaStatiCa.BimApiLink.Persistence;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Results;
@@ -25,6 +26,7 @@ namespace IdeaStatiCa.BimApiLink
 		private IBimHostingFactory _bimHostingFactory = new GrpcBimHostingFactory();
 		private IProgressMessaging _progressMessaging;
 		private bool _highlightSelection = true;
+		private IProjectStorage _projectStorage;
 		protected IComparer<IIdentifier> _itemsComparer = null;
 
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
@@ -127,6 +129,20 @@ namespace IdeaStatiCa.BimApiLink
 			_itemsComparer = itemsComparer;
 			return this;
 		}
+
+		/// <summary>
+		/// Overrides the project storage (id-map persistence). Default is <c>null</c>, which keeps the standard
+		/// file-backed JSON persistence. Supply an <see cref="InMemoryProjectStorage"/> to keep no on-disk map —
+		/// used by the BIM Link Hub, where Model Coordinator owns the map and re-seeds the link via
+		/// <see cref="IdeaStatiCa.BimImporter.IBimIdMapAccess"/>.
+		/// </summary>
+		public BimLink WithProjectStorage(IProjectStorage projectStorage)
+		{
+			_projectStorage = projectStorage;
+			return this;
+		}
+
+		protected IProjectStorage ProjectStorageOverride => _projectStorage;
 
 		public IApplicationBimRunnable Create(IModel model)
 		{

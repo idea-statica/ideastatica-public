@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using IdeaStatiCa.BIM.Common;
 using IdeaStatiCa.BimApiLink;
+using IdeaStatiCa.BimApiLink.Persistence;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Hooks;
 using IdeaStatiCa.TeklaStructuresPlugin.Importers;
@@ -131,7 +132,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
             }
         }
 
-        public IApplicationBIM GetBimLink(IProgressMessaging progressMessaging = null)
+        public IApplicationBIM GetBimLink(IProgressMessaging progressMessaging = null, IProjectStorage projectStorage = null)
         {
             pluginLogger?.LogInformation("GetBimLink - Method started");
             pluginLogger?.LogInformation($"GetBimLink - ProgressMessaging: {(progressMessaging != null ? "provided" : "null")}");
@@ -167,6 +168,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
                     .WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
                     .WithPluginHook(appVisibility)
                     .WithProgressMessaging(progressMessaging)
+                    .WithProjectStorage(projectStorage)
+                    .WithItemsComparer(new IdentifierComparer())
                     .WithUserDataSource(container.Resolve<UserDataSource>());
 
                 pluginLogger?.LogInformation("GetBimLink - Creating IApplicationBIM");
