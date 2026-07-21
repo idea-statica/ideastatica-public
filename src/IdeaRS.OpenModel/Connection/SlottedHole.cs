@@ -15,10 +15,10 @@ namespace IdeaRS.OpenModel.Connection
 		public int PositionId { get; set; }
 
 		/// <summary>
-		/// Id of the connected plate which has the slotted hole
+		/// Reference to the connected plate which has the slotted hole
 		/// </summary>
 		[DataMember]
-		public int PlateId { get; set; }
+		public ReferenceElement Plate { get; set; }
 
 		/// <summary>
 		/// Ratio of the slot length to the borehole diameter - slot length = borehole * SizeFactor
