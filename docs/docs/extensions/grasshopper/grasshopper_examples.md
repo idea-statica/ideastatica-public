@@ -30,6 +30,10 @@ Download links for each example can be found in the brief descriptions below.
   For a project with multiple connections, a template is selected from the database based on configured parameters. The selection is visualized graphically in Rhino. An assessment can then be performed, with results displayed graphically on the selected templates.\
   [Download Example 07](../../../../examples/extensions/grasshopper/Example_07-Propose-template.zip)
 
+- **Converting IFC Geometry to Rhino Breps**\
+  Loads an IFC model and converts its geometry into Rhino breps for use inside Grasshopper.\
+  [Download Example 08](../../../../examples/extensions/grasshopper/Example_08-IFC_to_brep.zip)
+
 ## Version Overview
 
 | Example | IDEA StatiCa | Grasshopper plugin |
@@ -41,3 +45,4 @@ Download links for each example can be found in the brief descriptions below.
 | 05 – Cost Estimation | 26.0.2 | 26.0.2 |
 | 06 – Bulk Assessment | 26.0.2 | 26.0.2 |
 | 07 – Propose Template | 26.0.2 | 26.0.2 |
+| 08 – Converting IFC Geometry to Rhino Breps | 26.0.3 | 26.0.2 |
