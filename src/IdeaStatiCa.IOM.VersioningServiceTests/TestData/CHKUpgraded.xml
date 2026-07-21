@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-16"?>
 <OpenModelContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<OpenModel>
-		<Version>3.3.0</Version>
+		<Version>3.3.4</Version>
 		<OriginSettings>
 			<ProjectName>CON1</ProjectName>
 			<DateOfCreate>2024-07-26T14:17:22.6769215+02:00</DateOfCreate>
@@ -404,7 +404,10 @@
 						<Id>4</Id>
 						<Name>BP1</Name>
 						<Thickness>0.02</Thickness>
-						<Material>Q345</Material>
+						<Material>
+							<TypeName>MatSteel</TypeName>
+							<Id>1</Id>
+						</Material>
 						<Origin>
 							<Id>0</Id>
 							<X>-6.1230317691118863E-19</X>
@@ -467,6 +470,7 @@
 				<AnchorGrids>
 					<AnchorGrid>
 						<Id>1</Id>
+						<ReinforcementMandrelDiameter>0</ReinforcementMandrelDiameter>
 						<ConnectedParts>
 							<ReferenceElement>
 								<TypeName>PlateData</TypeName>
@@ -520,13 +524,13 @@
 								<Z>-0.010000000000000012</Z>
 							</Point3D>
 						</Positions>
+						<AnchorInstallationProcess>PostInstalled</AnchorInstallationProcess>
+						<HeadedStudHeadDiameter>0</HeadedStudHeadDiameter>
 						<ShearInThread>true</ShearInThread>
 						<BoltInteraction>Bearing</BoltInteraction>
 						<ConcreteBlock>
-							<Lenght>0.60000000000000009</Lenght>
-							<Width>0.59999999999999987</Width>
-							<Height>0.6</Height>
-							<Material>C25</Material>
+							<TypeName>ConcreteBlockData</TypeName>
+							<Id>1</Id>
 						</ConcreteBlock>
 						<AnchorType>Straight</AnchorType>
 						<WasherSize>0.1</WasherSize>
@@ -535,9 +539,6 @@
 							<Id>1</Id>
 						</BoltAssembly>
 						<AnchoringLength>0.3</AnchoringLength>
-							<AnchorInstallationProcess>PostInstalled</AnchorInstallationProcess>
-						<HeadedStudHeadDiameter>0</HeadedStudHeadDiameter>
-						<ReinforcementMandrelDiameter>0</ReinforcementMandrelDiameter>
 					</AnchorGrid>
 				</AnchorGrids>
 				<Welds>
@@ -545,16 +546,21 @@
 						<Id>3</Id>
 						<Name />
 						<Thickness>0.008</Thickness>
-						<Material>E43</Material>
-						<WeldMaterial>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>4</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>1</Id>
+							</ReferenceElement>
+						</ConnectedParts>
+						<Material>
 							<TypeName>MatWelding</TypeName>
 							<Id>2</Id>
-						</WeldMaterial>
+						</Material>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate4</string>
-							<string>Beam1</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>0</Id>
 							<X>0.14249981024611105</X>
@@ -572,16 +578,21 @@
 						<Id>4</Id>
 						<Name />
 						<Thickness>0.008</Thickness>
-						<Material>E43</Material>
-						<WeldMaterial>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>4</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>1</Id>
+							</ReferenceElement>
+						</ConnectedParts>
+						<Material>
 							<TypeName>MatWelding</TypeName>
 							<Id>2</Id>
-						</WeldMaterial>
+						</Material>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate4</string>
-							<string>Beam1</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>0</Id>
 							<X>-0.14250018975388892</X>
@@ -599,16 +610,21 @@
 						<Id>5</Id>
 						<Name />
 						<Thickness>0.005</Thickness>
-						<Material>E43</Material>
-						<WeldMaterial>
+						<ConnectedParts>
+							<ReferenceElement>
+								<TypeName>PlateData</TypeName>
+								<Id>4</Id>
+							</ReferenceElement>
+							<ReferenceElement>
+								<TypeName>BeamData</TypeName>
+								<Id>1</Id>
+							</ReferenceElement>
+						</ConnectedParts>
+						<Material>
 							<TypeName>MatWelding</TypeName>
 							<Id>2</Id>
-						</WeldMaterial>
+						</Material>
 						<WeldType>DoubleFillet</WeldType>
-						<ConnectedPartIds>
-							<string>Plate4</string>
-							<string>Beam1</string>
-						</ConnectedPartIds>
 						<Start>
 							<Id>0</Id>
 							<X>0.14249981024611105</X>
@@ -628,7 +644,10 @@
 						<Id>1</Id>
 						<Name>CB 1</Name>
 						<Depth>0.6</Depth>
-						<Material>C25</Material>
+						<Material>
+							<TypeName>MatConcrete</TypeName>
+							<Id>4</Id>
+						</Material>
 						<Center>
 							<Id>0</Id>
 							<X>-6.1230317691118863E-19</X>
@@ -679,6 +698,9 @@
 							<Z>1</Z>
 						</AxisZ>
 						<Region>M 0.530000014169673 0.530000189753889 L -0.529999985830327 0.530000189753889 L -0.529999985830327 -0.529999810246111 L 0.530000014169673 -0.529999810246111 L 0.530000014169673 0.530000189753889</Region>
+						<Length>0.60000000000000009</Length>
+						<Width>0.59999999999999987</Width>
+						<Height>0.6</Height>
 					</ConcreteBlockData>
 				</ConcreteBlocks>
 				<CutBeamByBeams />

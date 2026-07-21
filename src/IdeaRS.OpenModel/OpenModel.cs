@@ -19,6 +19,10 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel
 {
 	///Version history
+	/// V3.3.4 21.07.2026 Unified ConcreteBlock into ConcreteBlockData (ConcreteBlockBase: Id + Material reference); AnchorGrid.ConcreteBlock by reference
+	/// V3.3.3 21.07.2026 Added Id to CutData and CutBeamByBeamData (CutDataBase)
+	/// V3.3.2 21.07.2026 WeldData material and connected parts by reference (delete connectedPartIds), Id from OpenElementId
+	/// V3.3.1 21.07.2026 PlateData material by reference
 	/// V3.3 21.07.2026 Added SlottedHoles to BoltGrid (slotted hole per fastener position and connected plate)
 	/// V3.2 10.03.2026 Added WebWeld and FlangeWeld to CutBeamByBeamData for separate web/flange weld definitions
 	/// V3.1 05.12.2025 Added GeneralCrossSection
@@ -42,7 +46,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = "3.3.0";
+			Version = "3.3.4";
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();
