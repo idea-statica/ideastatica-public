@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-16"?>
 <OpenModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Version>3.3.0</Version>
+	<Version>3.3.4</Version>
 	<OriginSettings>
 		<ProjectName>23070 -  HWP</ProjectName>
 		<ProjectDescription>23070_10000_0706_001</ProjectDescription>
@@ -559,6 +559,7 @@
 							</NormalVector>
 							<Direction>Default</Direction>
 							<Offset>0</Offset>
+							<Id>1</Id>
 						</CutData>
 					</Cuts>
 					<IsAdded>false</IsAdded>
@@ -575,7 +576,10 @@
 					<Id>20001</Id>
 					<Name>Plate_01</Name>
 					<Thickness>0.008</Thickness>
-					<Material>S355_T0_16</Material>
+					<Material>
+						<TypeName>MatSteel</TypeName>
+						<Id>2</Id>
+					</Material>
 					<Origin>
 						<Id>5</Id>
 						<Name>N5</Name>

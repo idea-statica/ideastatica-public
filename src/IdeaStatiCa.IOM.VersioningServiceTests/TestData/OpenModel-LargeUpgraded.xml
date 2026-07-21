@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-16"?>
 <OpenModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Version>3.3.0</Version>
+	<Version>3.3.4</Version>
 	<OriginSettings>
 		<ProjectName>23070 -  HWP</ProjectName>
 		<ProjectDescription>23070_10000_0706_001</ProjectDescription>
@@ -560,6 +560,7 @@
 							</NormalVector>
 							<Direction>Default</Direction>
 							<Offset>0</Offset>
+							<Id>1</Id>
 						</CutData>
 					</Cuts>
 					<IsAdded>false</IsAdded>
@@ -576,7 +577,10 @@
 					<Id>20001</Id>
 					<Name>Plate_01</Name>
 					<Thickness>0.008</Thickness>
-					<Material>S355_T0_16</Material>
+					<Material>
+						<TypeName>MatSteel</TypeName>
+						<Id>2</Id>
+					</Material>
 					<Origin>
 						<Id>5</Id>
 						<Name>N5</Name>
@@ -665,12 +669,11 @@
 					<Id>30000</Id>
 					<Name>Weld_1_HEA220_S355_01_Plate_01</Name>
 					<Thickness>0.004</Thickness>
-					<Material>S355_T0_16</Material>
+					<Material>
+						<TypeName>MatSteel</TypeName>
+						<Id>2</Id>
+					</Material>
 					<WeldType>DoubleFillet</WeldType>
-					<ConnectedPartIds>
-						<string>10002</string>
-						<string>20001</string>
-					</ConnectedPartIds>
 					<Start>
 						<Id>0</Id>
 						<X>0.01525</X>
@@ -683,17 +686,26 @@
 						<Y>-0.088</Y>
 						<Z>-0.105</Z>
 					</End>
+					<ConnectedParts>
+						<ReferenceElement>
+							<TypeName>BeamData</TypeName>
+							<Id>10002</Id>
+						</ReferenceElement>
+						<ReferenceElement>
+							<TypeName>PlateData</TypeName>
+							<Id>20001</Id>
+						</ReferenceElement>
+					</ConnectedParts>
 				</WeldData>
 				<WeldData>
 					<Id>30001</Id>
 					<Name>Weld_2_HEA220_S355_01_Plate_01</Name>
 					<Thickness>0.004</Thickness>
-					<Material>S355_T0_16</Material>
+					<Material>
+						<TypeName>MatSteel</TypeName>
+						<Id>2</Id>
+					</Material>
 					<WeldType>DoubleFillet</WeldType>
-					<ConnectedPartIds>
-						<string>10002</string>
-						<string>20001</string>
-					</ConnectedPartIds>
 					<Start>
 						<Id>0</Id>
 						<X>0.01525</X>
@@ -706,17 +718,26 @@
 						<Y>0.088</Y>
 						<Z>0.105</Z>
 					</End>
+					<ConnectedParts>
+						<ReferenceElement>
+							<TypeName>BeamData</TypeName>
+							<Id>10002</Id>
+						</ReferenceElement>
+						<ReferenceElement>
+							<TypeName>PlateData</TypeName>
+							<Id>20001</Id>
+						</ReferenceElement>
+					</ConnectedParts>
 				</WeldData>
 				<WeldData>
 					<Id>30002</Id>
 					<Name>Weld_3_HEA220_S355_01_Plate_01</Name>
 					<Thickness>0.004</Thickness>
-					<Material>S355_T0_16</Material>
+					<Material>
+						<TypeName>MatSteel</TypeName>
+						<Id>2</Id>
+					</Material>
 					<WeldType>DoubleFillet</WeldType>
-					<ConnectedPartIds>
-						<string>10002</string>
-						<string>20001</string>
-					</ConnectedPartIds>
 					<Start>
 						<Id>0</Id>
 						<X>0.01525</X>
@@ -729,6 +750,16 @@
 						<Y>-0.0035</Y>
 						<Z>-0.060800000000000014</Z>
 					</End>
+					<ConnectedParts>
+						<ReferenceElement>
+							<TypeName>BeamData</TypeName>
+							<Id>10002</Id>
+						</ReferenceElement>
+						<ReferenceElement>
+							<TypeName>PlateData</TypeName>
+							<Id>20001</Id>
+						</ReferenceElement>
+					</ConnectedParts>
 				</WeldData>
 			</Welds>
 			<CutBeamByBeams />
