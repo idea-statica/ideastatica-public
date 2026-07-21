@@ -67,7 +67,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 						{
 							target.CreateElementProperty("Material").ChangeElementValue(materialName);
 						}
-						GetOrCreateConcreteBlocksList(connection).AddElementProperty(target);
+						AddConcreteBlockData(connection, target);
 						concreteBlocks.Add(target);
 					}
 					else
@@ -163,20 +163,44 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			owner.CreateElementProperty(property).ChangeElementValue(value);
 		}
 
-		private static SList GetOrCreateConcreteBlocksList(SObject connection)
+		/// <summary>
+		/// Add a ConcreteBlockData element into the connection's ConcreteBlocks collection.
+		/// The parser represents the collection as an SObject named "ConcreteBlocks" whose items are
+		/// keyed by the item type "ConcreteBlockData" (an SList for many, a single SObject for one,
+		/// absent when empty), so handle each shape.
+		/// </summary>
+		private static void AddConcreteBlockData(SObject connection, SObject newBlock)
 		{
+			SObject wrapper;
 			if (connection.Properties.TryGetValue("ConcreteBlocks", out var value))
 			{
-				if (value is SList list)
+				wrapper = value as SObject ?? ((value as SList)?.First() as SObject);
+			}
+			else
+			{
+				wrapper = connection.CreateElementProperty("ConcreteBlocks");
+			}
+
+			if (wrapper == null)
+			{
+				return;
+			}
+
+			if (wrapper.Properties.TryGetValue("ConcreteBlockData", out var inner))
+			{
+				if (inner is SList list)
 				{
-					return list;
+					list.Add(newBlock);
 				}
-				if (value is SObject wrapper && wrapper.Properties.TryGetValue("ConcreteBlocks", out var inner) && inner is SList innerList)
+				else
 				{
-					return innerList;
+					wrapper.Properties["ConcreteBlockData"] = new SList(inner, newBlock);
 				}
 			}
-			return connection.CreateElementProperty("ConcreteBlocks").CreateListProperty("ConcreteBlocks");
+			else
+			{
+				wrapper.Properties["ConcreteBlockData"] = new SList(newBlock);
+			}
 		}
 	}
 }
