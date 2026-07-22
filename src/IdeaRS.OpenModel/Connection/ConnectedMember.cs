@@ -26,5 +26,13 @@
 		/// Length of the member
 		/// </summary>
 		public double Length { get; set; }
+
+		/// <summary>
+		/// True when this connected member was manually added or kept by the user in Checkbot
+		/// (not from the original CAD/BIM import). The flag is preserved across CAD/FEA Sync so
+		/// the user's choice survives re-import from the source model. Default false (CAD-imported).
+		/// Introduced in IOM 3.3.0 (US 33733).
+		/// </summary>
+		public bool IsUserEdited { get; set; }
 	}
 }
