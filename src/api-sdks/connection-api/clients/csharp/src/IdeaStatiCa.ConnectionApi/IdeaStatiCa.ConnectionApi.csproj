@@ -19,6 +19,10 @@
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <PackageTags>IdeaStatiCa, Connection</PackageTags>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- Generated OpenAPI client code uses RestSharp members that newer RestSharp marks [Obsolete]
+         (MaxTimeout, sync Deserialize). Suppress CS0618 so nested monorepo builds (parent
+         Directory.Build.targets forces TreatWarningsAsErrors) don't fail on generated code. -->
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
