@@ -140,5 +140,74 @@ namespace IdeaStatiCa.IOM.VersioningService.Tools
 			}
 			return null;
 		}
+
+		private const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+
+		/// <summary>
+		/// Add a library-loaded material element (e.g. MatConcrete) into a top-level material list,
+		/// so a name-only material referenced by a connection entity resolves to a real material
+		/// instead of being dropped. The caller supplies a list-unique <paramref name="id"/> and the
+		/// concrete .NET type via <paramref name="xsiType"/> (e.g. "MatConcreteEc2").
+		/// </summary>
+		public static void MaterializeMaterial(ISIntermediate openModel, string matListName, string xsiType, string name, string id)
+		{
+			var mat = new SObject() { TypeName = matListName };
+			mat.Properties["xsi:type"] = new SAttribute
+			{
+				Prefix = "xsi",
+				LocalName = "type",
+				Value = xsiType,
+				NameSpace = XsiNamespace,
+			};
+			mat.CreateElementProperty("Id").ChangeElementValue(id);
+			mat.CreateElementProperty("Name").ChangeElementValue(name);
+			// Resolved from the material library by Name at consume time (as exporters emit materials).
+			mat.CreateElementProperty("LoadFromLibrary").ChangeElementValue("true");
+			AddToList(openModel, matListName, matListName, mat);
+		}
+
+		/// <summary>
+		/// Add <paramref name="item"/> into a parser-shaped list: a wrapper SObject named
+		/// <paramref name="listName"/> whose items are keyed by <paramref name="itemType"/>
+		/// (an SList for many, a single SObject for one, absent when empty).
+		/// </summary>
+		public static void AddToList(ISIntermediate parent, string listName, string itemType, SObject item)
+		{
+			if (!(parent is SObject owner))
+			{
+				return;
+			}
+
+			SObject wrapper;
+			if (owner.Properties.TryGetValue(listName, out var value))
+			{
+				wrapper = value as SObject ?? ((value as SList)?.First() as SObject);
+			}
+			else
+			{
+				wrapper = owner.CreateElementProperty(listName);
+			}
+
+			if (wrapper == null)
+			{
+				return;
+			}
+
+			if (wrapper.Properties.TryGetValue(itemType, out var inner))
+			{
+				if (inner is SList list)
+				{
+					list.Add(item);
+				}
+				else
+				{
+					wrapper.Properties[itemType] = new SList(inner, item);
+				}
+			}
+			else
+			{
+				wrapper.Properties[itemType] = new SList(item);
+			}
+		}
 	}
 }
