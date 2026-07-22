@@ -15,7 +15,7 @@ namespace IdeaRstabPlugin.Factories
 {
 	internal class ElementFactory : IElementFactory
 	{
-		private const double Tolerance = 1e-6;
+		private const double Tolerance = 1e-5;
 
 		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
@@ -120,6 +120,8 @@ namespace IdeaRstabPlugin.Factories
 
 		private CoordSystem GetMemberLCS(int startNodeNo, int endNodeNo)
 		{
+			bool flipZAxis = !_importSession.IsGCSOrientedUpwards;
+
 			UnitVector3D axisX = GetAxisX(startNodeNo, endNodeNo);
 
 			UnitVector3D axisZ, axisY;
@@ -136,14 +138,19 @@ namespace IdeaRstabPlugin.Factories
 				axisZ = UnitVector3D.ZAxis;
 			}
 
+			if (flipZAxis)
+			{
+				axisZ = axisZ.Negate();
+			}
+
 			axisY = axisZ.CrossProduct(axisX);
 			axisZ = axisX.CrossProduct(axisY);			
 			
 			return new CoordSystemByVector()
 			{
 				VecX = MNVector2Vector(axisX),
-				VecY = MNVector2Vector(axisY.Negate()),
-				VecZ = MNVector2Vector(axisZ.Negate()),
+				VecY = MNVector2Vector(axisY),
+				VecZ = MNVector2Vector(axisZ),
 			};
 		}
 
