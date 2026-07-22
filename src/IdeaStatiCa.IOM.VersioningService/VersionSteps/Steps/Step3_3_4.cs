@@ -67,7 +67,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 						{
 							target.CreateElementProperty("Material").ChangeElementValue(materialName);
 						}
-						AddConcreteBlockData(connection, target);
+						ConnectionRefTool.AddToList(connection, "ConcreteBlocks", "ConcreteBlockData", target);
 						concreteBlocks.Add(target);
 					}
 					else
@@ -86,10 +86,48 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			}
 
 			// 2) Convert ConcreteBlockData.Material name string -> MatConcrete reference.
+			// A name absent from the (possibly empty) MatConcrete list is materialized as a
+			// library-loaded MatConcrete so the reference resolves to the real grade instead of
+			// being dropped - old base-plate models carry the block material only on the inline
+			// block, not in MatConcrete.
 			var nameToId = ConnectionRefTool.BuildNameToId(openModel, "MatConcrete");
+			var concreteXsiType = DeriveConcreteXsiType(openModel);
+			int maxMatId = nameToId.Values.Select(v => int.TryParse(v, out var n) ? n : 0).DefaultIfEmpty(0).Max();
 			foreach (var block in ConnectionRefTool.FindAll(openModel, "ConcreteBlockData").ToList())
 			{
+				var materialName = block.TryGetElementValue("Material");
+				if (!string.IsNullOrEmpty(materialName) && !nameToId.ContainsKey(materialName))
+				{
+					var newId = (++maxMatId).ToString();
+					ConnectionRefTool.MaterializeMaterial(openModel, "MatConcrete", concreteXsiType, materialName, newId);
+					nameToId[materialName] = newId;
+					_logger.LogInformation($"UpStep {Version}: materialized MatConcrete '{materialName}' (Id {newId}, {concreteXsiType})");
+				}
 				ConnectionRefTool.StringToReference(block, "Material", "MatConcrete", nameToId, _logger);
+			}
+		}
+
+		/// <summary>
+		/// Pick the MatConcrete .NET type matching the model's design code, derived from the steel
+		/// material family already in the model (families are not 1:1 - AISC steel pairs with ACI
+		/// concrete, CISC steel with CAN concrete). Falls back to Eurocode.
+		/// </summary>
+		private static string DeriveConcreteXsiType(ISIntermediate openModel)
+		{
+			var steel = openModel.GetElements("MatSteel;MatSteel").OfType<SObject>().FirstOrDefault();
+			var steelType = (steel != null && steel.Properties.TryGetValue("xsi:type", out var attr) && attr is SAttribute sa)
+				? sa.Value
+				: null;
+			switch (steelType)
+			{
+				case "MatSteelAISC": return "MatConcreteACI";
+				case "MatSteelCISC": return "MatConcreteCAN";
+				case "MatSteelAUS": return "MatConcreteAUS";
+				case "MatSteelCHN": return "MatConcreteCHN";
+				case "MatSteelHKG": return "MatConcreteHKG";
+				case "MatSteelIND": return "MatConcreteIND";
+				case "MatSteelRUS": return "MatConcreteRUS";
+				default: return "MatConcreteEc2"; // MatSteelEc2 and unknown/absent -> Eurocode
 			}
 		}
 
@@ -161,46 +199,6 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			}
 			owner.RemoveElementProperty(property);
 			owner.CreateElementProperty(property).ChangeElementValue(value);
-		}
-
-		/// <summary>
-		/// Add a ConcreteBlockData element into the connection's ConcreteBlocks collection.
-		/// The parser represents the collection as an SObject named "ConcreteBlocks" whose items are
-		/// keyed by the item type "ConcreteBlockData" (an SList for many, a single SObject for one,
-		/// absent when empty), so handle each shape.
-		/// </summary>
-		private static void AddConcreteBlockData(SObject connection, SObject newBlock)
-		{
-			SObject wrapper;
-			if (connection.Properties.TryGetValue("ConcreteBlocks", out var value))
-			{
-				wrapper = value as SObject ?? ((value as SList)?.First() as SObject);
-			}
-			else
-			{
-				wrapper = connection.CreateElementProperty("ConcreteBlocks");
-			}
-
-			if (wrapper == null)
-			{
-				return;
-			}
-
-			if (wrapper.Properties.TryGetValue("ConcreteBlockData", out var inner))
-			{
-				if (inner is SList list)
-				{
-					list.Add(newBlock);
-				}
-				else
-				{
-					wrapper.Properties["ConcreteBlockData"] = new SList(inner, newBlock);
-				}
-			}
-			else
-			{
-				wrapper.Properties["ConcreteBlockData"] = new SList(newBlock);
-			}
 		}
 	}
 }
