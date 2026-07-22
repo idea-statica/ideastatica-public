@@ -16,22 +16,31 @@ namespace NorsokChecker.Services.Norsok64
 		public double? Fu { get; set; }         // Pa
 		public string? MaterialName { get; set; }
 
-		/// <summary>'CHS168.3/8.0' → (168.3, 8.0) mm; (null, null) if not a CHS name. Port of parse_chs.</summary>
+		/// <summary>
+		/// CHS name → (D, T) mm; (null, null) if not parseable. Port of parse_chs, tolerant to the
+		/// catalog conventions seen in real projects: 'CHS168.3/8.0' (slash sep, dot decimals),
+		/// 'CHS457,16 - CHORD(CHS457,16)' (comma SEPARATOR + decorations), 'CHS168,3/8,0'
+		/// (slash sep, comma decimals).
+		/// </summary>
 		public static (double? D, double? T) ParseChs(string? name)
 		{
-			try
-			{
-				if (string.IsNullOrEmpty(name) || !name.ToUpperInvariant().Contains("CHS"))
-					return (null, null);
-				string core = name.ToUpperInvariant().Replace("CHS", "").Trim();
-				var parts = core.Split('/');
-				return (double.Parse(parts[0], System.Globalization.CultureInfo.InvariantCulture),
-						double.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture));
-			}
-			catch
-			{
+			if (string.IsNullOrEmpty(name) || !name.ToUpperInvariant().Contains("CHS"))
 				return (null, null);
-			}
+			var inv = System.Globalization.CultureInfo.InvariantCulture;
+			// slash/x separator; decimals may be dot or comma
+			var m = System.Text.RegularExpressions.Regex.Match(name,
+				@"CHS\s*([0-9]+(?:[.,][0-9]+)?)\s*[/x×]\s*([0-9]+(?:[.,][0-9]+)?)",
+				System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+			if (m.Success)
+				return (double.Parse(m.Groups[1].Value.Replace(',', '.'), inv),
+						double.Parse(m.Groups[2].Value.Replace(',', '.'), inv));
+			// comma as the D/T separator (numbers use dot decimals)
+			m = System.Text.RegularExpressions.Regex.Match(name,
+				@"CHS\s*([0-9]+(?:\.[0-9]+)?)\s*,\s*([0-9]+(?:\.[0-9]+)?)",
+				System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+			if (m.Success)
+				return (double.Parse(m.Groups[1].Value, inv), double.Parse(m.Groups[2].Value, inv));
+			return (null, null);
 		}
 	}
 

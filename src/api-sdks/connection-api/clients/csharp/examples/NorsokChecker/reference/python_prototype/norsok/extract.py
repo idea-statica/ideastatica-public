@@ -61,14 +61,25 @@ def proj2d(p3, o3, ex, ey):
 
 
 def parse_chs(name):
-    """'CHS168.3/8.0' -> (168.3, 8.0) in mm; (None,None) if not a CHS name."""
-    try:
-        if "CHS" not in (name or "").upper():
-            return None, None
-        core = name.upper().replace("CHS", "").strip()
-        d, t = core.split("/"); return float(d), float(t)
-    except Exception:
+    """CHS name -> (D, T) in mm; (None,None) if not parseable as CHS.
+    Accepts the catalog conventions seen in real projects:
+      'CHS168.3/8.0'                                  slash separator, dot decimals
+      'CHS457,16' / 'CHS457,16 - CHORD(CHS457,16)'    comma SEPARATOR (+ decorations)
+      'CHS168,3/8,0'                                  slash separator, comma DECIMALS
+    A single comma with no slash is treated as the D/T separator (a D-only name with a
+    decimal comma and no thickness would be misread, but such names don't occur)."""
+    import re
+    if "CHS" not in (name or "").upper():
         return None, None
+    # slash/x separator; decimals may be dot or comma
+    m = re.search(r"CHS\s*([0-9]+(?:[.,][0-9]+)?)\s*[/x×]\s*([0-9]+(?:[.,][0-9]+)?)", name, re.I)
+    if m:
+        return float(m.group(1).replace(",", ".")), float(m.group(2).replace(",", "."))
+    # comma as the D/T separator (numbers use dot decimals)
+    m = re.search(r"CHS\s*([0-9]+(?:\.[0-9]+)?)\s*,\s*([0-9]+(?:\.[0-9]+)?)", name, re.I)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    return None, None
 
 # ---------- REST session / project ----------
 def connect(session):

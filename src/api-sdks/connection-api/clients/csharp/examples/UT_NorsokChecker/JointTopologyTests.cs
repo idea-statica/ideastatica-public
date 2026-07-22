@@ -191,6 +191,32 @@ namespace UT_NorsokChecker
 			});
 		}
 
+		// Catalog-name conventions seen in real projects (the comma-separator form is what made the
+		// K/X/TY benchmark files fail the CHS gate before the tolerant parser — "ISSUE FOR ONDREJ").
+		[TestCase("CHS168.3/8.0", 168.3, 8.0)]
+		[TestCase("CHS457,16", 457, 16)]
+		[TestCase("CHS457,16 - CHORD(CHS457,16)", 457, 16)]
+		[TestCase("CHS168,3/8,0", 168.3, 8.0)]
+		[TestCase("CHS 508 x 12.7", 508, 12.7)]
+		public void ParseChs_AcceptsRealWorldNames(string name, double d, double t)
+		{
+			var (pd, pt) = JointSectionInfo.ParseChs(name);
+			Assert.Multiple(() =>
+			{
+				Assert.That(pd, Is.EqualTo(d).Within(1e-9), $"{name} D");
+				Assert.That(pt, Is.EqualTo(t).Within(1e-9), $"{name} T");
+			});
+		}
+
+		[TestCase("IPE300")]
+		[TestCase("HEB 200")]
+		[TestCase(null)]
+		public void ParseChs_RejectsNonChs(string? name)
+		{
+			var (pd, _) = JointSectionInfo.ParseChs(name);
+			Assert.That(pd, Is.Null, $"{name}");
+		}
+
 		[Test]
 		public void NodeEquilibrium_MatchesPythonReference()
 		{

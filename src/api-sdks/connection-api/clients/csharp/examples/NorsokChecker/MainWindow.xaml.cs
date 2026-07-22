@@ -371,7 +371,10 @@ namespace NorsokChecker
 					List<ConLoadEffect>? loadEffects = null;
 					try
 					{
-						loadEffects = await _apiClient.LoadEffect.GetLoadEffectsAsync(_projectId, con.Id);
+						// isPercentage: false is MANDATORY — a user may have stored load effects as
+						// percentages (σ/fy ratios ~0.003); without the flag the service returns them
+						// as saved and every downstream check would silently collapse to util≈0.
+						loadEffects = await _apiClient.LoadEffect.GetLoadEffectsAsync(_projectId, con.Id, isPercentage: false);
 						Log($"    Load effects: {loadEffects.Count} load case(s)");
 
 						// Log per member per LC

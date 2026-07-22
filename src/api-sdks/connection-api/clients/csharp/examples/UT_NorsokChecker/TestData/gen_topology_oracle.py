@@ -10,7 +10,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PROTO = os.path.abspath(os.path.join(HERE, "..", "..", "NorsokChecker", "python_prototype"))
+PROTO = os.path.abspath(os.path.join(HERE, "..", "..", "NorsokChecker", "reference", "python_prototype"))
 sys.path.insert(0, PROTO)
 
 from norsok import extract  # noqa: E402

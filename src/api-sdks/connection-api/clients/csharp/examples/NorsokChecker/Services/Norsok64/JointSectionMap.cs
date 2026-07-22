@@ -27,19 +27,45 @@ namespace NorsokChecker.Services.Norsok64
 			{
 				if (obj is not CrossSectionParameter cs) continue;
 				string? name = cs.Name;
-				var (d, t) = JointSectionInfo.ParseChs(name);
-				bool isChs = d != null;
-				if (d == null && name != null && ChsTypes.Contains(cs.CrossSectionType))
+
+				// PRIMARY: real numbers from the cross-section parameters (naming-independent).
+				// D/T come as ParameterDouble ("D"/"Diameter"/"R", "T"/"Thickness"/"T1"), in metres
+				// for parametric sections — convert to mm like CrossSectionDetector does.
+				double? d = null, t = null;
+				bool isChs = ChsTypes.Contains(cs.CrossSectionType);
+				if (isChs && cs.Parameters != null)
 				{
-					// name isn't the strict "CHSd/t" convention but the type says CHS → tolerant parse
-					var m = DimRegex.Match(name);
-					if (m.Success)
+					foreach (var p in cs.Parameters)
 					{
-						d = double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
-						t = double.Parse(m.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture);
-						isChs = true;
+						if (p is not ParameterDouble pd) continue;
+						switch (p.Name?.ToUpperInvariant())
+						{
+							case "D" or "DIAMETER": d = pd.Value; break;
+							case "R" or "RADIUS": d = pd.Value * 2; break;
+							case "T" or "THICKNESS" or "T1": t = pd.Value; break;
+						}
+					}
+					if (d is > 0 and < 10) d *= 1000;   // m → mm
+					if (t is > 0 and < 1) t *= 1000;
+				}
+
+				// FALLBACK: parse the section name (also covers CHS-named sections whose type
+				// enum isn't in ChsTypes)
+				if (d is not > 0 || t is not > 0)
+				{
+					var (nd, nt) = JointSectionInfo.ParseChs(name);
+					if (nd != null) { d = nd; t = nt; isChs = true; }
+					else if (isChs && name != null)
+					{
+						var m = DimRegex.Match(name);
+						if (m.Success)
+						{
+							d = double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
+							t = double.Parse(m.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture);
+						}
 					}
 				}
+				isChs = isChs && d is > 0 && t is > 0;
 
 				// material inline on the cross-section: fy/fu already in Pa; >40 mm → fy40/fu40 band
 				double? fy = null, fu = null;

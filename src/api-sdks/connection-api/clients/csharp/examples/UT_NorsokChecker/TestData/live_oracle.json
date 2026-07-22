@@ -1,0 +1,686 @@
+{
+ "service_setup_dir": "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.1",
+ "benchmarks": {
+  "K_CONNECTION": {
+   "connections": {
+    "CON1": {
+     "id": 1,
+     "chord": "M1",
+     "verdict": "WARNING",
+     "gaps": [
+      {
+       "a": "BRACE_A",
+       "b": "BRACE_B",
+       "gap_m": 0.2525132393293462,
+       "adjacent": true
+      }
+     ],
+     "joint_checks": {
+      "1": {
+       "BRACE_A": {
+        "skipped": false,
+        "util": 0.4529375237133402,
+        "passed": true,
+        "N_Rd_weighted": 1308971.0710138222,
+        "M_Rd_ip": 174401.51689507597,
+        "M_Rd_op": 95536.6549145273,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": -250000.0,
+        "M_ip_Sd": -40000.0,
+        "M_op_Sd": 20000.0,
+        "sigma_a": 5582603.233452967,
+        "sigma_my": -37582670.212261595,
+        "sigma_mz": -741066.7365798061,
+        "theta_deg": 90.0,
+        "beta": 0.5973741794310722
+       },
+       "BRACE_B": {
+        "skipped": false,
+        "util": 0.2671741970915211,
+        "passed": true,
+        "N_Rd_weighted": 1851164.6413817832,
+        "M_Rd_ip": 246640.9904914569,
+        "M_Rd_op": 135109.23308388272,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": -350000.00000000006,
+        "M_ip_Sd": -50000.0,
+        "M_op_Sd": 5000.000000000001,
+        "sigma_a": 5582603.233452967,
+        "sigma_my": -37582670.212261595,
+        "sigma_mz": -741066.7365798061,
+        "theta_deg": 45.0,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "BRACE_A": {
+        "skipped": false,
+        "util": 0.44233041611181,
+        "passed": true,
+        "N_Rd_weighted": 1401432.3650001956,
+        "M_Rd_ip": 173304.24735103286,
+        "M_Rd_op": 94935.5737792036,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 250000.0,
+        "M_ip_Sd": 40000.0,
+        "M_op_Sd": -20000.0,
+        "sigma_a": -5582603.233452967,
+        "sigma_my": 37603843.547592446,
+        "sigma_mz": -741066.7365798061,
+        "theta_deg": 90.0,
+        "beta": 0.5973741794310722
+       },
+       "BRACE_B": {
+        "skipped": false,
+        "util": 0.25545641522684154,
+        "passed": true,
+        "N_Rd_weighted": 1981924.657331878,
+        "M_Rd_ip": 245089.2170206922,
+        "M_Rd_op": 134259.17599022132,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 350000.00000000006,
+        "M_ip_Sd": 50000.0,
+        "M_op_Sd": 5000.000000000001,
+        "sigma_a": -5582603.233452967,
+        "sigma_my": 37603843.547592446,
+        "sigma_mz": -741066.7365798061,
+        "theta_deg": 45.0,
+        "beta": 0.5973741794310722
+       }
+      }
+     }
+    },
+    "CON2": {
+     "id": 2,
+     "chord": "M1",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "1": {
+       "M2": {
+        "skipped": false,
+        "util": 0.7175886856196624,
+        "passed": true,
+        "N_Rd_weighted": 1635336.2780644246,
+        "M_Rd_ip": 201325.4891378526,
+        "M_Rd_op": 110285.53033075416,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 1000000.0,
+        "M_ip_Sd": -25000.0,
+        "M_op_Sd": 10000.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": -529333.3832712901,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "M2": {
+        "skipped": true,
+        "reason": "no transverse force"
+       }
+      }
+     }
+    }
+   }
+  },
+  "X_CONNECTION": {
+   "connections": {
+    "CON1": {
+     "id": 1,
+     "chord": "M1",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "1": {
+       "M2": {
+        "skipped": false,
+        "util": 0.6195739558042059,
+        "passed": true,
+        "N_Rd_weighted": 1252677.2395350588,
+        "M_Rd_ip": 201630.47888344343,
+        "M_Rd_op": 110452.60284592335,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.5000000000000001,
+        "frX": 0.49999999999999994,
+        "N_Sd": -500000.0,
+        "M_ip_Sd": -40000.0,
+        "M_op_Sd": 20000.0,
+        "sigma_a": 2819496.5825520037,
+        "sigma_my": -4234667.066170321,
+        "sigma_mz": -2646666.9163564504,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       },
+       "M3": {
+        "skipped": false,
+        "util": 0.307896651090596,
+        "passed": true,
+        "N_Rd_weighted": 988965.3590138257,
+        "M_Rd_ip": 201630.47888344346,
+        "M_Rd_op": 110452.60284592336,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 1.0,
+        "N_Sd": -250000.0,
+        "M_ip_Sd": 20000.0,
+        "M_op_Sd": -5000.000000000004,
+        "sigma_a": 2819496.5825520037,
+        "sigma_my": 4234667.066170321,
+        "sigma_mz": -2646666.91635645,
+        "theta_deg": 59.999999999999986,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "M2": {
+        "skipped": false,
+        "util": 0.5967578845037288,
+        "passed": true,
+        "N_Rd_weighted": 1331550.968048935,
+        "M_Rd_ip": 200990.8880775627,
+        "M_Rd_op": 110102.23682161466,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.5000000000000001,
+        "frX": 0.49999999999999994,
+        "N_Sd": 500000.0,
+        "M_ip_Sd": -40000.0,
+        "M_op_Sd": 20000.0,
+        "sigma_a": -2819496.5825520037,
+        "sigma_my": -4234667.066170321,
+        "sigma_mz": -2646666.9163564504,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       },
+       "M3": {
+        "skipped": false,
+        "util": 0.29758489364596363,
+        "passed": true,
+        "N_Rd_weighted": 1031902.662512819,
+        "M_Rd_ip": 200990.88807756273,
+        "M_Rd_op": 110102.23682161467,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 1.0,
+        "N_Sd": 250000.0,
+        "M_ip_Sd": 20000.0,
+        "M_op_Sd": -5000.000000000004,
+        "sigma_a": -2819496.5825520037,
+        "sigma_my": 4234667.066170321,
+        "sigma_mz": -2646666.91635645,
+        "theta_deg": 59.999999999999986,
+        "beta": 0.5973741794310722
+       }
+      }
+     }
+    },
+    "CON3": {
+     "id": 3,
+     "chord": "M1",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "1": {
+       "M2": {
+        "skipped": false,
+        "util": 1.103810615641651,
+        "passed": false,
+        "N_Rd_weighted": 987488.2380673402,
+        "M_Rd_ip": 201325.59965911595,
+        "M_Rd_op": 110285.59087398788,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.2332553650381236e-16,
+        "frX": 0.9999999999999999,
+        "N_Sd": -1090000.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       },
+       "M3": {
+        "skipped": false,
+        "util": 1.1038106156416507,
+        "passed": false,
+        "N_Rd_weighted": 987488.2380673405,
+        "M_Rd_ip": 201325.59965911598,
+        "M_Rd_op": 110285.5908739879,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 1.0,
+        "N_Sd": -1090000.0,
+        "M_ip_Sd": -0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": 0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.999999999999986,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "M2": {
+        "skipped": false,
+        "util": 1.3130110595767317,
+        "passed": false,
+        "N_Rd_weighted": 1031979.1216661984,
+        "M_Rd_ip": 201325.59965911595,
+        "M_Rd_op": 110285.59087398788,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.9841304027919626e-16,
+        "frX": 0.9999999999999998,
+        "N_Sd": 1355000.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       },
+       "M3": {
+        "skipped": false,
+        "util": 1.3130110595767315,
+        "passed": false,
+        "N_Rd_weighted": 1031979.1216661986,
+        "M_Rd_ip": 201325.59965911598,
+        "M_Rd_op": 110285.5908739879,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 1.0,
+        "N_Sd": 1355000.0,
+        "M_ip_Sd": -0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": 0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.999999999999986,
+        "beta": 0.5973741794310722
+       }
+      }
+     }
+    },
+    "CON2": {
+     "id": 4,
+     "chord": "M1",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "3": {
+       "M2": {
+        "skipped": false,
+        "util": 1.111911977958287,
+        "passed": false,
+        "N_Rd_weighted": 987488.2380673402,
+        "M_Rd_ip": 201325.59965911595,
+        "M_Rd_op": 110285.59087398788,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.2242698978975908e-16,
+        "frX": 0.9999999999999999,
+        "N_Sd": -1098000.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       },
+       "M3": {
+        "skipped": false,
+        "util": 1.1119119779582867,
+        "passed": false,
+        "N_Rd_weighted": 987488.2380673405,
+        "M_Rd_ip": 201325.59965911598,
+        "M_Rd_op": 110285.5908739879,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 1.0,
+        "N_Sd": -1098000.0,
+        "M_ip_Sd": -0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": 0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.999999999999986,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "M2": {
+        "skipped": false,
+        "util": 1.9380237041722976,
+        "passed": false,
+        "N_Rd_weighted": 1031979.1216661984,
+        "M_Rd_ip": 201325.59965911595,
+        "M_Rd_op": 110285.59087398788,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.3442483478915547e-16,
+        "frX": 0.9999999999999999,
+        "N_Sd": 2000000.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       },
+       "M3": {
+        "skipped": false,
+        "util": 1.9380237041722972,
+        "passed": false,
+        "N_Rd_weighted": 1031979.1216661986,
+        "M_Rd_ip": 201325.59965911598,
+        "M_Rd_op": 110285.5908739879,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 1.0,
+        "N_Sd": 2000000.0,
+        "M_ip_Sd": -0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": 0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.999999999999986,
+        "beta": 0.5973741794310722
+       }
+      }
+     }
+    }
+   }
+  },
+  "TY_CONNECTION": {
+   "connections": {
+    "CON1": {
+     "id": 1,
+     "chord": "M1",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "1": {
+       "M2": {
+        "skipped": false,
+        "util": 0.8747357158632425,
+        "passed": true,
+        "N_Rd_weighted": 1525754.8630897116,
+        "M_Rd_ip": 202493.44290847288,
+        "M_Rd_op": 110925.33208435359,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": -1000000.0,
+        "M_ip_Sd": -40000.0,
+        "M_op_Sd": 20000.0,
+        "sigma_a": 11277986.330208015,
+        "sigma_my": -8469334.132340642,
+        "sigma_mz": -2117333.5330851604,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "M2": {
+        "skipped": false,
+        "util": 0.84070317189885,
+        "passed": true,
+        "N_Rd_weighted": 1617943.3988582436,
+        "M_Rd_ip": 199935.07968495012,
+        "M_Rd_op": 109523.86798711895,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 1000000.0,
+        "M_ip_Sd": -40000.0,
+        "M_op_Sd": 20000.0,
+        "sigma_a": -11277986.330208015,
+        "sigma_my": -8469334.132340642,
+        "sigma_mz": -2117333.5330851604,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       }
+      }
+     }
+    },
+    "CON2": {
+     "id": 2,
+     "chord": "M1",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "1": {
+       "M2": {
+        "skipped": false,
+        "util": 0.7175886856196624,
+        "passed": true,
+        "N_Rd_weighted": 1635336.2780644246,
+        "M_Rd_ip": 201325.4891378526,
+        "M_Rd_op": 110285.53033075416,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 1000000.0,
+        "M_ip_Sd": -25000.0,
+        "M_op_Sd": 10000.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": -529333.3832712901,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.5973741794310722
+       }
+      },
+      "2": {
+       "M2": {
+        "skipped": true,
+        "reason": "no transverse force"
+       }
+      }
+     }
+    }
+   }
+  },
+  "TY_CONNECTION_UNIT_TEST": {
+   "connections": {
+    "CON1": {
+     "id": 1,
+     "chord": "CHORD",
+     "verdict": "OK",
+     "gaps": [],
+     "joint_checks": {
+      "1": {
+       "BRACE": {
+        "skipped": false,
+        "util": 0.36063744935939246,
+        "passed": true,
+        "N_Rd_weighted": 415930.1821440009,
+        "M_Rd_ip": 20363.927193694104,
+        "M_Rd_op": 12879.232098378154,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": -150000.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 9308032.386066858,
+        "sigma_my": -0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.6791443850267379
+       }
+      },
+      "2": {
+       "BRACE": {
+        "skipped": false,
+        "util": 0.5458594252349737,
+        "passed": true,
+        "N_Rd_weighted": 457993.37419589964,
+        "M_Rd_ip": 20070.661945630094,
+        "M_Rd_op": 12693.75553679555,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 250000.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": -15513387.31011143,
+        "sigma_my": -0.0,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.6791443850267379
+       }
+      },
+      "3": {
+       "BRACE": {
+        "skipped": false,
+        "util": 0.9904498763167019,
+        "passed": true,
+        "N_Rd_weighted": 0.0,
+        "M_Rd_ip": 20096.190763046758,
+        "M_Rd_op": 12709.901320542418,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 0.0,
+        "N_Sd": 0.0,
+        "M_ip_Sd": -20000.0,
+        "M_op_Sd": 0.0,
+        "sigma_a": 0.0,
+        "sigma_my": -64866930.74235078,
+        "sigma_mz": 0.0,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.6791443850267379
+       }
+      },
+      "4": {
+       "BRACE": {
+        "skipped": false,
+        "util": 0.9370575743396731,
+        "passed": true,
+        "N_Rd_weighted": 0.0,
+        "M_Rd_ip": 20248.20534323474,
+        "M_Rd_op": 12806.043437038728,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 0.0,
+        "frX": 0.0,
+        "N_Sd": 0.0,
+        "M_ip_Sd": 0.0,
+        "M_op_Sd": 12000.0,
+        "sigma_a": 0.0,
+        "sigma_my": -0.0,
+        "sigma_mz": -19460079.222705234,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.6791443850267379
+       }
+      },
+      "5": {
+       "BRACE": {
+        "skipped": false,
+        "util": 0.8746944671169044,
+        "passed": true,
+        "N_Rd_weighted": 413165.32888944016,
+        "M_Rd_ip": 20287.230595669156,
+        "M_Rd_op": 12830.725085083332,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": -100000.0,
+        "M_ip_Sd": -10000.0,
+        "M_op_Sd": -5000.0,
+        "sigma_a": 6205354.924044572,
+        "sigma_my": -32433465.37117539,
+        "sigma_mz": 8108366.342793847,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.6791443850267379
+       }
+      },
+      "6": {
+       "BRACE": {
+        "skipped": false,
+        "util": 0.8561227306877383,
+        "passed": true,
+        "N_Rd_weighted": 460210.288688917,
+        "M_Rd_ip": 20145.5510524874,
+        "M_Rd_op": 12741.119396412676,
+        "within_range": true,
+        "chord_overstressed": false,
+        "frK": 0.0,
+        "frY": 1.0,
+        "frX": 0.0,
+        "N_Sd": 100000.0,
+        "M_ip_Sd": -10000.0,
+        "M_op_Sd": -5000.0,
+        "sigma_a": -6205354.924044572,
+        "sigma_my": -32433465.37117539,
+        "sigma_mz": 8108366.342793847,
+        "theta_deg": 59.99999999999999,
+        "beta": 0.6791443850267379
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
