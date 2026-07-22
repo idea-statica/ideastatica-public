@@ -52,4 +52,15 @@
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
     <ProjectReference Include="..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>
+
+  <!-- Dual-API example: the source build (IdeaStatiCa.Public.sln, Debug/Release) uses the new
+       3.3.x connection API, while the NuGet build (IdeaStatiCa-SDK-Examples.sln, *_NuGet configs)
+       still builds against the published package's pre-3.3 API. Compile the matching copy per
+       config. Collapse back to a single SteelFrameExample.cs once the 3.3.x package is published. -->
+  <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+    <Compile Remove="SteelFrameExample.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="!$(Configuration.Contains('NuGet'))">
+    <Compile Remove="SteelFrameExample.NuGet.cs" />
+  </ItemGroup>
 </Project>
