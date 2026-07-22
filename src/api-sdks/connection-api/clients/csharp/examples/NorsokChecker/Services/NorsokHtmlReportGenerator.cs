@@ -307,6 +307,10 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    </div>");
 			}
 
+			// §6.4 auto-topology derivation blocks (per-class Qu/Qf, K per gap, chord-stress trail, validity)
+			if (fr.JointDetail != null)
+				RenderJointDerivation(sb, fr.JointDetail);
+
 			// Result bar
 			sb.AppendLine($"    <div class='result-bar {statusClass}'>");
 			sb.AppendLine($"      <span>Utilization: <strong>{fr.Utilization * 100:F1}%</strong> (= {fr.Utilization:F4} &le; 1.0)</span>");
@@ -315,6 +319,109 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("  </div>"); // card-body
 			sb.AppendLine("</details>"); // check-card
+		}
+
+		/// <summary>
+		/// §6.4 auto-topology derivation — mirrors the python reference UI's detailed-check modal:
+		/// classification breakdown, per-class Qu/Qf/N_Rd table (Table 6-3/6-4 give K, T/Y and X each
+		/// their own axial row), K per-gap resistances, shared bending resistances, chord-stress trail
+		/// (Begin/End average → section props → σ), and the §6.4.3.1 validity table.
+		/// </summary>
+		private static void RenderJointDerivation(StringBuilder sb, Norsok64.JointCheckRow row)
+		{
+			var r = row.Engine;
+			var inp = row.Inputs;
+			var cl = row.Classification;
+			if (r == null || inp == null || cl == null)
+				return;
+
+			sb.AppendLine("    <div class='deriv-block'>");
+			sb.AppendLine("      <p class='deriv-title'>Derivation (auto-topology)</p>");
+
+			// ── classification breakdown ──
+			sb.AppendLine("      <p class='deriv-h'>K/Y/X classification — transverse-force balance (Comm. 6.4.2)</p>");
+			sb.AppendLine("      <table class='deriv-table'>");
+			sb.AppendLine("        <tr><th>q<sub>trans</sub> = N&middot;sin&theta;&middot;side</th><th>frK</th><th>frY</th><th>frX</th><th>note</th></tr>");
+			sb.AppendLine($"        <tr><td>{cl.QTrans / 1e3:F1} kN</td><td>{cl.FrK:F3}</td><td>{cl.FrY:F3}</td><td>{cl.FrX:F3}</td><td>{Esc(cl.Note)}</td></tr>");
+			sb.AppendLine("      </table>");
+			if (cl.KComponents.Count > 0)
+			{
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>K balanced against</th><th>gap</th><th>fraction of |q|</th></tr>");
+				foreach (var kc in cl.KComponents)
+					sb.AppendLine($"        <tr><td>{Esc(kc.Partner)}</td><td>{(kc.GapM is double g ? $"{g * 1000:F0} mm" : "n/a")}</td><td>{kc.Frac:F3}</td></tr>");
+				sb.AppendLine("      </table>");
+			}
+
+			// ── per-class axial table (all three classes always computed; active = fr > 0) ──
+			sb.AppendLine("      <p class='deriv-h'>Per-class axial resistance (Table 6-3 / 6-4; weighted by the fractions above)</p>");
+			sb.AppendLine("      <table class='deriv-table'>");
+			sb.AppendLine("        <tr><th>class</th><th>fr</th><th>C1</th><th>C2</th><th>C3</th><th>Q<sub>f,ax</sub></th><th>A&sup2;</th><th>Q<sub>u,ax</sub></th><th>N<sub>Rd</sub></th></tr>");
+			foreach (var (cls, frac) in new[]
+			{
+				(Norsok64.Joint64Class.K, cl.FrK),
+				(Norsok64.Joint64Class.Y, cl.FrY),
+				(Norsok64.Joint64Class.X, cl.FrX),
+			})
+			{
+				var c = r.PerClass[cls];
+				string rowClass = frac > 1e-9 ? " class='active-class'" : "";
+				sb.AppendLine($"        <tr{rowClass}><td>{cls}</td><td>{frac:F3}</td>" +
+					$"<td>{c.CAxial.C1:F2}</td><td>{c.CAxial.C2:F2}</td><td>{c.CAxial.C3:F2}</td>" +
+					$"<td>{c.QfAxial:F4}</td><td>{c.QfAxialA2:F4}</td><td>{c.QuAxial:F3}</td>" +
+					$"<td>{c.NRd / 1e3:F1} kN</td></tr>");
+			}
+			sb.AppendLine("      </table>");
+			sb.AppendLine($"      <p class='deriv-note'>base = f<sub>y</sub>&middot;T&sup2;/(&gamma;<sub>M</sub>&middot;sin&theta;) with f<sub>y,chord</sub> = {inp.FyChord / 1e6:F0} MPa; weighted N<sub>Rd</sub> = &Sigma; fr<sub>i</sub>&middot;N<sub>Rd,i</sub> = <strong>{r.NRdWeighted / 1e3:F1} kN</strong></p>");
+
+			// ── K per-gap (each balancing gap gets its own Q_g → own K resistance) ──
+			if (r.KTerms.Count > 1 || (r.KTerms.Count == 1 && cl.KComponents.Count > 0))
+			{
+				sb.AppendLine("      <p class='deriv-h'>K resistance per balancing gap (own Q<sub>g</sub> per gap, Table 6-3 note b)</p>");
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>frK<sub>i</sub></th><th>g<sub>i</sub></th><th>g<sub>i</sub>/D</th><th>Q<sub>g,i</sub></th><th>Q<sub>u,i</sub></th><th>N<sub>Rd,i</sub></th></tr>");
+				foreach (var k in r.KTerms)
+					sb.AppendLine($"        <tr><td>{k.FrK:F3}</td><td>{k.GapM * 1000:F0} mm</td><td>{k.GapM / inp.D:F3}</td>" +
+						$"<td>{k.Qg:F4}</td><td>{k.QuAxial:F3}</td><td>{k.NRd / 1e3:F1} kN</td></tr>");
+				sb.AppendLine("      </table>");
+			}
+
+			// ── shared bending resistances ──
+			sb.AppendLine("      <p class='deriv-h'>Bending resistances (shared across classes — Table 6-3 bending rows are class-independent)</p>");
+			sb.AppendLine("      <table class='deriv-table'>");
+			sb.AppendLine("        <tr><th>Q<sub>u,ipb</sub></th><th>Q<sub>u,opb</sub></th><th>Q<sub>f,mom</sub> (C1=0.2, C2=0, C3=0.4)</th><th>A&sup2;</th><th>M<sub>ip,Rd</sub></th><th>M<sub>op,Rd</sub></th></tr>");
+			sb.AppendLine($"        <tr><td>{r.QuIpb:F3}</td><td>{r.QuOpb:F3}</td><td>{r.QfMoment:F4}</td><td>{r.QfMomentA2:F4}</td>" +
+				$"<td>{r.MRdIp / 1e3:F2} kNm</td><td>{r.MRdOp / 1e3:F2} kNm</td></tr>");
+			sb.AppendLine("      </table>");
+
+			// ── chord-stress trail (Begin/End average → section props → σ, NORSOK p.31 + Qf sign convention) ──
+			if (row.ChordStress is { } st && st.A > 0)
+			{
+				sb.AppendLine("      <p class='deriv-h'>Chord stresses at this brace footprint (avg of both intersection sides, NORSOK p.31)</p>");
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>A</th><th>I</th><th>R</th><th>side</th><th>N<sub>chord</sub></th><th>M<sub>ip,chord</sub></th><th>M<sub>op,chord</sub></th></tr>");
+				sb.AppendLine($"        <tr><td>{st.A * 1e6:F0} mm&sup2;</td><td>{st.I * 1e12:G5} mm&#8308;</td><td>{st.R * 1000:F1} mm</td>" +
+					$"<td>{(st.Side > 0 ? "+" : "-")}</td><td>{st.NChord / 1e3:F1} kN</td><td>{st.MipChord / 1e3:F2} kNm</td><td>{st.MopChord / 1e3:F2} kNm</td></tr>");
+				sb.AppendLine("      </table>");
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>&sigma;<sub>a,Sd</sub> = N/A (+tension)</th><th>&sigma;<sub>my,Sd</sub> = &minus;M<sub>ip</sub>&middot;side&middot;R/I (+compression at footprint)</th><th>&sigma;<sub>mz,Sd</sub> = M<sub>op</sub>&middot;R/I</th></tr>");
+				sb.AppendLine($"        <tr><td>{st.SigmaA / 1e6:F2} MPa</td><td>{st.SigmaMy / 1e6:F2} MPa</td><td>{st.SigmaMz / 1e6:F2} MPa</td></tr>");
+				sb.AppendLine("      </table>");
+			}
+
+			// ── validity ranges (6.4.3.1) ──
+			sb.AppendLine("      <p class='deriv-h'>Validity ranges (&sect;6.4.3.1)</p>");
+			sb.AppendLine("      <table class='deriv-table'>");
+			sb.AppendLine("        <tr><th>condition</th><th>status</th></tr>");
+			foreach (var (cond, ok) in r.Validity)
+				sb.AppendLine($"        <tr><td>{Esc(cond)}</td><td class='{(ok ? "v-ok" : "v-bad")}'>{(ok ? "&#x2714; within" : "&#x2718; infringed")}</td></tr>");
+			sb.AppendLine("      </table>");
+			if (!r.WithinRange)
+				sb.AppendLine("      <p class='deriv-warn'>Outside the validity range &rarr; the usable strength is the LESSER of the capacities from actual vs. clamped limiting parameters (&sect;6.4.3.1) &mdash; the resistances above already include this comparison.</p>");
+			if (r.ChordOverstressed)
+				sb.AppendLine("      <p class='deriv-warn'>CHORD OVERSTRESSED: Q<sub>f</sub> (Eq. 6.54, no floor in the norm) drove an active resistance to &le; 0 &mdash; the check is forced to FAIL regardless of the utilisation sum (app-level safety rule).</p>");
+
+			sb.AppendLine("    </div>");
 		}
 
 		/// <summary>Convert variable symbol names to KaTeX notation.</summary>
@@ -615,6 +722,39 @@ body {
 .result-verdict { font-weight: 700; font-size: 15px; }
 .pass .result-verdict { color: #2e7d32; }
 .fail .result-verdict { color: #c62828; }
+
+/* §6.4 auto-topology derivation blocks */
+.deriv-block {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #f7f9fb;
+  border: 1px solid #e0e5ea;
+  border-left: 3px solid #F36E21;
+  border-radius: 4px;
+}
+.deriv-title { font-weight: 700; font-size: 13px; color: #37474F; margin: 0 0 8px 0; }
+.deriv-h { font-weight: 600; font-size: 12px; color: #546E7A; margin: 10px 0 4px 0; }
+.deriv-note { font-size: 12px; color: #546E7A; margin: 4px 0; }
+.deriv-warn {
+  font-size: 12px; font-weight: 600; color: #c62828;
+  background: #ffebee; border-radius: 4px; padding: 6px 10px; margin: 6px 0;
+}
+.deriv-table {
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 2px 0 6px 0;
+}
+.deriv-table th {
+  background: #eceff1; color: #455A64; font-weight: 600;
+  padding: 3px 10px; text-align: left; border: 1px solid #dde3e8;
+}
+.deriv-table td {
+  padding: 3px 10px; border: 1px solid #dde3e8;
+  font-family: 'Consolas', monospace; font-size: 12px;
+}
+.deriv-table tr.active-class td { background: #fff3e0; font-weight: 600; }
+.deriv-table td.v-ok { color: #2e7d32; }
+.deriv-table td.v-bad { color: #c62828; font-weight: 700; }
 
 /* Summary card */
 .summary-card {

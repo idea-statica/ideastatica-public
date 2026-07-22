@@ -118,6 +118,7 @@ namespace NorsokChecker.Services.Formulas
 				Utilization = utilDisplay,
 				Passed = row.Passed,
 				Variables = variables,
+				JointDetail = row,
 			};
 		}
 

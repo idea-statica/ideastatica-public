@@ -45,6 +45,12 @@ namespace NorsokChecker.Models
 		/// <summary>Load case ID (0 = envelope/all). For per-LC breakdown.</summary>
 		public int LoadCaseId { get; set; }
 
+		/// <summary>
+		/// Full §6.4 auto-topology check detail (engine result, classification, chord-stress trail).
+		/// Set only by the auto-topology path; the HTML report renders the derivation blocks from it.
+		/// </summary>
+		public Services.Norsok64.JointCheckRow? JointDetail { get; set; }
+
 		/// <summary>Generates a report string mimicking IDEA StatiCa CHECK tab format.</summary>
 		public string ToReportString()
 		{

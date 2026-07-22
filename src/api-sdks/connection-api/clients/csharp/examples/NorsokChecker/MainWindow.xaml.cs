@@ -321,8 +321,11 @@ namespace NorsokChecker
 					Log($"Joint geometry (manual fallback): Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
 
 				// §6.4 auto-topology: section map (id → D/T/fy) for chord/brace identification
-				Dictionary<int, Services.Norsok64.JointSectionInfo> sectionMap = new();
+				bool autoTopology = ChkAutoTopology.IsChecked == true;
 				if (includeCh64)
+					Log($"§6.4 mode: {(autoTopology ? "AUTO topology (manual parameters = fallback only)" : "MANUAL joint parameters")}");
+				Dictionary<int, Services.Norsok64.JointSectionInfo> sectionMap = new();
+				if (includeCh64 && autoTopology)
 				{
 					try
 					{
@@ -765,6 +768,14 @@ namespace NorsokChecker
 
 			// Gap only applies to K-joints
 			GapPanel.Visibility = CmbJointType.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void AutoTopology_Changed(object sender, RoutedEventArgs e)
+		{
+			// Manual joint parameters are editable only when auto-topology is off; with auto ON they
+			// remain visible (greyed) as the fallback used when the topology gate rejects the joint.
+			if (ManualJointPanel != null)
+				ManualJointPanel.IsEnabled = ChkAutoTopology.IsChecked != true;
 		}
 
 		private void DrawJointSchematic(int jointTypeIndex)

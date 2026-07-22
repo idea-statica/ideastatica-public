@@ -284,7 +284,11 @@
                                            FontSize="11" Foreground="#9E9E9E" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
-                        <StackPanel Orientation="Horizontal" Margin="8,4,8,4" VerticalAlignment="Center">
+                        <StackPanel Orientation="Vertical" Margin="8,4,8,4">
+                            <CheckBox x:Name="ChkAutoTopology" IsChecked="True" FontSize="12" Margin="0,0,0,6"
+                                      Checked="AutoTopology_Changed" Unchecked="AutoTopology_Changed"
+                                      Content="Auto topology — chord/braces, θ, gaps and K/Y/X classification derived from member geometry and the force balance (manual parameters below are used only as fallback)"/>
+                        <StackPanel x:Name="ManualJointPanel" Orientation="Horizontal" IsEnabled="False" VerticalAlignment="Center">
                             <TextBlock Text="Joint type:" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12"/>
                             <ComboBox x:Name="CmbJointType" SelectedIndex="1" Width="80"
                                       md:HintAssist.Hint="Type" SelectionChanged="JointType_Changed" FontSize="12"
@@ -315,6 +319,7 @@
                                                Margin="0,0,4,0"/>
                                 </Grid>
                             </Border>
+                        </StackPanel>
                         </StackPanel>
                     </Expander>
 
