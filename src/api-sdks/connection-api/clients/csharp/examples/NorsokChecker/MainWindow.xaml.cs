@@ -318,7 +318,23 @@ namespace NorsokChecker
 
 				TubularJointGeometry? jointGeometry = includeCh64 ? ParseJointGeometry() : null;
 				if (jointGeometry != null)
-					Log($"Joint geometry: Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
+					Log($"Joint geometry (manual fallback): Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
+
+				// §6.4 auto-topology: section map (id → D/T/fy) for chord/brace identification
+				Dictionary<int, Services.Norsok64.JointSectionInfo> sectionMap = new();
+				if (includeCh64)
+				{
+					try
+					{
+						var crossSections = await _apiClient.Material.GetCrossSectionsAsync(_projectId);
+						sectionMap = Services.Norsok64.JointSectionMap.FromCrossSections(crossSections.Cast<object>());
+						Log($"§6.4 auto-topology: section map with {sectionMap.Count} cross-section(s)");
+					}
+					catch (Exception ex)
+					{
+						Log($"WARNING: §6.4 section map failed ({ex.Message}) — manual joint parameters will be used");
+					}
+				}
 
 				// Design Classification — from dropdown (Table 5-1 decision tree)
 				int dcIdx = CmbDesignClass.SelectedIndex;
@@ -371,13 +387,43 @@ namespace NorsokChecker
 						Log($"    WARNING: Could not fetch load effects: {ex.Message}");
 					}
 
-					// Find chord member load effects for Qf calculation
-					double[] chordStresses = ExtractChordStresses(loadEffects, jointGeometry);
+					// §6.4 AUTO-TOPOLOGY (preferred): typed members carry origin/axes/offsets → build the
+					// joint topology, auto-classify K/Y/X from the force balance, check every brace.
+					// Falls back to the manual dropdown parameters when the topology gate rejects.
+					List<Services.Norsok64.JointMemberData>? topoMembers = null;
+					if (includeCh64 && sectionMap.Count > 0 && loadEffects != null)
+					{
+						try
+						{
+							var conMembers = await _apiClient.Member.GetMembersAsync(_projectId, con.Id);
+							topoMembers = conMembers
+								.Select(m => Services.Norsok64.JointMemberData.FromConMember(m,
+									sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1)
+										?? new Services.Norsok64.JointSectionInfo()))
+								.ToList();
+						}
+						catch (Exception ex)
+						{
+							Log($"    WARNING: §6.4 member fetch failed ({ex.Message}) — manual joint parameters used");
+						}
+					}
 
 					var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
+
+					bool autoJointDone = false;
+					var autoJointResults = new List<NorsokFormulaResult>();
+					if (topoMembers != null)
+						autoJointDone = checker.EvaluateJointChecksFromTopology(topoMembers, loadEffects, autoJointResults);
+					if (topoMembers != null && !autoJointDone)
+						Log("    §6.4 auto-topology rejected the joint (verdict ERROR) — manual joint parameters used");
+
+					// Find chord member load effects for Qf calculation (manual §6.4 path only)
+					double[] chordStresses = ExtractChordStresses(loadEffects, autoJointDone ? null : jointGeometry);
+
 					var formulaResults = checker.EvaluateNorsokFormulas(
 						con.Id, rawJson, loadEffects, geometry, memberLength, kFactor,
-						jointGeometry, dcInput, chordStresses, _members.ToList(), includeCbfem);
+						autoJointDone ? null : jointGeometry, dcInput, chordStresses, _members.ToList(), includeCbfem);
+					formulaResults.AddRange(autoJointResults);
 					_formulaResults[con.Id] = formulaResults;
 
 					// Determine worst-case Norsok utilization

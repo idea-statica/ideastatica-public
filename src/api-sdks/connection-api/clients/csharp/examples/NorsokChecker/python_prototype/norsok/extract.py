@@ -874,6 +874,11 @@ def build_connection(session, pid, conn, members, xm, len_factor=6.0, min_len=0.
         M = np.array([d if np.dot(d, ref) >= 0 else -d for d in M])
         U, S, Vt = np.linalg.svd(M)
         ey = unit(list(Vt[0]))
+        # canonical sign: numpy's SVD sign is arbitrary — align ey with the mean of the sign-aligned
+        # perp components so the joint frame is deterministic (and matches the C# port, which uses a
+        # mean-seeded power iteration). A flip here is cosmetic: sides/M_ip/sigma_mz flip together.
+        if float(np.dot(np.array(ey), M.sum(axis=0))) < 0:
+            ey = scal(ey, -1.0)
         ey = unit(sub(ey, scal(ex, dot(ey, ex))))
         n_tmp = unit(cross(ex, ey))
         plane_spread = abs(float(S[1])) if len(S) > 1 else 0.0

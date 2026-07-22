@@ -1,0 +1,102 @@
+{
+  "comment": "Synthetic joint fixtures in the Connection REST API JSON schema. Consumed by BOTH gen_topology_oracle.py (runs the reference python extract.py -> topology_oracle.json) and the C# topology tests (deserialized into ConMember/ConLoadEffect and run through the ported pipeline). Node is at the global origin; braces pass through the node (no eccentricity); chord along +X; joint plane = XY.",
+  "crossSections": [
+    { "id": 1, "name": "CHS457/16.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
+    { "id": 2, "name": "CHS273/12.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
+    { "id": 3, "name": "CHS168.3/8.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
+    { "id": 4, "name": "CHS114.3/6.3", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
+    { "id": 5, "name": "CHS139.7/8.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 490000000.0, "fu": 550000000.0 } } }
+  ],
+  "fixtures": [
+    {
+      "name": "K_TEST",
+      "connectionId": 1,
+      "members": [
+        { "id": 10, "name": "CH", "crossSectionId": 1, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 11, "name": "BA", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": -0.7071067811865476, "y": 0.7071067811865476, "z": 0 }, "axisY": { "x": -0.7071067811865476, "y": -0.7071067811865476, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 12, "name": "BB", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.7071067811865476, "y": 0.7071067811865476, "z": 0 }, "axisY": { "x": -0.7071067811865476, "y": 0.7071067811865476, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
+      ],
+      "loadEffects": [
+        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
+          { "memberId": 10, "position": "Begin", "sectionLoad": { "n": 200000, "vy": 0, "vz": 0, "mx": 0, "my": 50000, "mz": -10000 } },
+          { "memberId": 10, "position": "End", "sectionLoad": { "n": 46000, "vy": 0, "vz": 0, "mx": 0, "my": 127600, "mz": 6400 } },
+          { "memberId": 11, "position": "Begin", "sectionLoad": { "n": 800000, "vy": 0, "vz": 0, "mx": 0, "my": 10000, "mz": 40000 } },
+          { "memberId": 12, "position": "Begin", "sectionLoad": { "n": -800000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
+        ] }
+      ]
+    },
+    {
+      "name": "X_TEST",
+      "connectionId": 2,
+      "members": [
+        { "id": 20, "name": "CH", "crossSectionId": 1, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 21, "name": "XA", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.5, "y": 0.8660254037844386, "z": 0 }, "axisY": { "x": -0.8660254037844386, "y": 0.5, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 22, "name": "XB", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": -0.5, "y": -0.8660254037844386, "z": 0 }, "axisY": { "x": 0.8660254037844386, "y": -0.5, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
+      ],
+      "loadEffects": [
+        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
+          { "memberId": 21, "position": "Begin", "sectionLoad": { "n": 1355000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
+          { "memberId": 22, "position": "Begin", "sectionLoad": { "n": 1355000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
+        ] }
+      ]
+    },
+    {
+      "name": "TY_TEST",
+      "connectionId": 3,
+      "members": [
+        { "id": 30, "name": "CH", "crossSectionId": 3, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 31, "name": "TB", "crossSectionId": 4, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.5, "y": 0.8660254037844386, "z": 0 }, "axisY": { "x": -0.8660254037844386, "y": 0.5, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
+      ],
+      "loadEffects": [
+        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
+          { "memberId": 30, "position": "Begin", "sectionLoad": { "n": -62500, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
+          { "memberId": 30, "position": "End", "sectionLoad": { "n": -62500, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
+          { "memberId": 31, "position": "Begin", "sectionLoad": { "n": 250000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
+        ] }
+      ]
+    },
+    {
+      "name": "KT_TEST",
+      "connectionId": 4,
+      "members": [
+        { "id": 40, "name": "CH", "crossSectionId": 1, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 41, "name": "KA", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": -0.8191520442889918, "y": 0.573576436351046, "z": 0 }, "axisY": { "x": -0.573576436351046, "y": -0.8191520442889918, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 42, "name": "KV", "crossSectionId": 5, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0, "y": 1, "z": 0 }, "axisY": { "x": -1, "y": 0, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
+        { "id": 43, "name": "KB", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
+          "model": { "forcesIn": "node", "x": 0 },
+          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.8191520442889918, "y": 0.573576436351046, "z": 0 }, "axisY": { "x": -0.573576436351046, "y": 0.8191520442889918, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
+      ],
+      "loadEffects": [
+        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
+          { "memberId": 40, "position": "Begin", "sectionLoad": { "n": 100000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
+          { "memberId": 40, "position": "End", "sectionLoad": { "n": 150000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
+          { "memberId": 41, "position": "Begin", "sectionLoad": { "n": -900000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
+          { "memberId": 42, "position": "Begin", "sectionLoad": { "n": 300000, "vy": 0, "vz": 0, "mx": 0, "my": 20000, "mz": 5000 } },
+          { "memberId": 43, "position": "Begin", "sectionLoad": { "n": 300000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
+        ] }
+      ]
+    }
+  ]
+}

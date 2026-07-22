@@ -2,6 +2,7 @@ using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
 using NorsokChecker.Models;
 using NorsokChecker.Services.Formulas;
+using NorsokChecker.Services.Norsok64;
 
 namespace NorsokChecker.Services
 {
@@ -32,6 +33,67 @@ namespace NorsokChecker.Services
 		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int connectionId, CancellationToken ct = default)
 		{
 			return await _client.LoadEffect.GetLoadEffectsAsync(_projectId, connectionId, cancellationToken: ct);
+		}
+
+		/// <summary>
+		/// §6.4 via AUTO-TOPOLOGY (port of the python reference pipeline): chord/brace identification,
+		/// joint-plane fit, per-brace force resolution, chord-stress averaging (Begin/End), K/Y/X
+		/// force-balance classification, weighted §6.4 check per brace. One report card per brace,
+		/// enveloped over all load effects. Returns false when the topology gate rejects the joint
+		/// (verdict ERROR) — the caller may then fall back to the manual joint parameters.
+		/// </summary>
+		public bool EvaluateJointChecksFromTopology(
+			IReadOnlyList<JointMemberData> members,
+			List<ConLoadEffect>? loadEffects,
+			List<NorsokFormulaResult> results,
+			double kyxGate = 0.0)
+		{
+			var topo = new JointTopologyBuilder(kyxGate: kyxGate, log: _log).Build(members, loadEffects);
+
+			_log($"    §6.4 topology: chord={topo.Chord?.Name}, braces={topo.GapBraces.Count}, " +
+				 $"plane fit: {topo.PlaneFitBasis}, verdict={topo.Verdict.Status}");
+			foreach (var e in topo.Verdict.Errors) _log($"      [E] {e}");
+			foreach (var w in topo.Verdict.Warnings) _log($"      [W] {w}");
+
+			if (topo.Verdict.Status == "ERROR" || topo.JointChecks.Count == 0)
+				return false;
+
+			// per-LE classification summary
+			foreach (var le in topo.Classification)
+				foreach (var c in le.Rows)
+					_log($"      LE{le.Id} {c.Name}: K={c.FrK:P0} X={c.FrX:P0} Y={c.FrY:P0} " +
+						 $"(q={c.QTrans / 1e3:F1} kN){(string.IsNullOrEmpty(c.Note) ? "" : " — " + c.Note)}");
+
+			// envelope: worst (highest-util non-skipped) LE per brace
+			foreach (var brace in topo.GapBraces)
+			{
+				JointCheckRow? worst = null;
+				string worstLe = "";
+				foreach (var le in topo.JointChecks)
+				{
+					var row = le.Rows.FirstOrDefault(x => x.Name == brace.Name);
+					if (row == null || row.Skipped) continue;
+					// chord-overstressed / out-of-range rows carry +inf util — they envelope correctly
+					if (worst == null || row.Util > worst.Util || (!row.Passed && worst.Passed))
+					{
+						worst = row;
+						worstLe = string.IsNullOrEmpty(le.Name) ? $"LE{le.Id}" : le.Name;
+					}
+				}
+				if (worst == null)
+				{
+					var reason = topo.JointChecks
+						.SelectMany(le => le.Rows)
+						.FirstOrDefault(x => x.Name == brace.Name && x.Skipped)?.Reason;
+					_log($"    §6.4 {brace.Name}: skipped ({reason ?? "no data"})");
+					continue;
+				}
+				var card = TubularJointCheck.BuildResultFromRow(worst, worstLe);
+				results.Add(card);
+				_log($"    §6.4.3.6 {brace.Name}: util={(double.IsInfinity(worst.Util) ? 999 : worst.Util) * 100:F1}% " +
+					 $"[{worstLe}] {(worst.Passed ? "PASS" : "FAIL")}");
+			}
+			return true;
 		}
 
 		/// <summary>
