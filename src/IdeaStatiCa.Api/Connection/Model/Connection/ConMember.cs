@@ -20,6 +20,13 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		public int? CrossSectionId { get; set; }
 
+		/// <summary>
+		/// Which end of the member is connected in the joint.
+		/// Combined with <see cref="ConMemberPosition.AxisX"/>, this disambiguates the two halves
+		/// of a through-column that share the same axis but join the connection from opposite sides.
+		/// </summary>
+		public ConMemberConnectedByEnum ConnectedBy { get; set; }
+
 		public bool? MirrorY { get; set; }
 
 		public bool? MirrorZ { get; set; }
@@ -35,7 +42,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 	public class ConMemberModel
 	{
-		public string ModelType { get; set; }
+		public ConMemberModelTypeEnum ModelType { get; set; }
 
 		public ConMemberForcesInEnum ForcesIn { get; set; }
 
@@ -64,11 +71,38 @@ namespace IdeaStatiCa.Api.Connection.Model
 	{
 		public ConMemberPlacementDefinitionTypeEnum DefinedBy { get; set; }
 
-		// for 3D vector
+		/// <summary>
+		/// Resolved global-frame origin of the member's local coordinate system.
+		/// Populated by the server for every member regardless of <see cref="DefinedBy"/>.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Vector3D AxisX { get; set; } = null;
+		public Vector3D Origin { get; set; }
 
-		// for Rotations
+		/// <summary>
+		/// Resolved global-frame X axis of the member's local coordinate system
+		/// (the reference-line direction, from BEGIN toward END).
+		/// Populated by the server for every member regardless of <see cref="DefinedBy"/>;
+		/// previously was null for members placed via
+		/// <see cref="ConMemberPlacementDefinitionTypeEnum.RotationsOfX"/>.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Vector3D AxisX { get; set; }
+
+		/// <summary>
+		/// Resolved global-frame Y axis of the member's local coordinate system
+		/// (cross-section rotation about <see cref="AxisX"/>). Determines which physical face
+		/// "Top flange 1" / "Bottom flange 1" map to on the host's box cross-section.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Vector3D AxisY { get; set; }
+
+		/// <summary>
+		/// Resolved global-frame Z axis of the member's local coordinate system.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Vector3D AxisZ { get; set; }
+
+		// Original placement parameters (preserved for round-trip POST/PUT):
 
 		// alpha
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -103,66 +137,5 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public double? TheoreticalLengthY { get; set; }
-	}
-
-	public enum ConAlignedPlateSideCodeEnum : int
-	{
-		Default = 0,
-		LowerSide = 1,
-		UpperSide = 2,
-		BothSides = 3,
-		Center = 4
-	}
-
-	public enum ConMemberForcesInEnum
-	{
-		Position = 0,
-		Node = 1,
-		Bolts = 2,
-		SelectedMemberFace = 3,
-	}
-
-	public enum ConMemberPlacementDefinitionTypeEnum
-	{
-		None = 0,
-		DirectionVector = 1,
-		RotationsOfX = 2,
-		Lcs,
-	}
-
-	public enum ConMemberAlignmentTypeEnum
-	{
-		None,
-		ToMemberPlate,
-		ToMemberPlateRotateThenTranslate,
-	}
-
-	public enum ConMemberPlatePartTypeEnum : int
-	{
-		NotSpecified = 0,
-		TopFlange = 1,
-		BottomFlange = 2,
-		Web = 4,
-		BasePlate = 8,
-		EndPlate = 16,
-		PlateWidener = 32,
-		Stiffener = 64,
-		Rib = 128,
-		GussetPlate = 256,
-		FinPlate = 512,
-		Flange = 1024,
-		CssArcSegment = 2048,
-		IsStub = 4096,
-		Splice = 8192,
-		TonguePlate = 16384,
-		LidPlate = 32768,
-		GeneralPlate = 65536,
-		Doubler = GeneralPlate * 2,
-		EndPlateOnFlanges = Doubler * 2,
-		BackingPlate = EndPlateOnFlanges * 2,
-		InsertedPlate = BackingPlate * 2,
-		IsNegative = InsertedPlate * 2,
-		BothFlanges = 3,
-		AllCssParts = 7
 	}
 }
