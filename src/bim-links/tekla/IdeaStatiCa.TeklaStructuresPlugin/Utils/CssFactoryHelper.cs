@@ -918,7 +918,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				lip = Math.Min(((double)cssProperties[EdgeFold1Key]).MilimetersToMeters(), ((double)cssProperties[EdgeFold2Key]).MilimetersToMeters());
 			}
 
-			CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, plateThickness, 0.1e-2, lip);
+			CrossSectionFactory.FillColdFormedC(cssParameter, dWidth, dHeight, plateThickness, 0.1e-2, lip, true);
 
 			return cssParameter;
 		}
