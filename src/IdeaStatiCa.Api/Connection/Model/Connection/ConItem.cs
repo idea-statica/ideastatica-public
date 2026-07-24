@@ -24,8 +24,10 @@
 		public string Name { get; set; }
 
 		/// <summary>
-		/// True if operation is active
+		/// True if the item is active. Defaults to true (GUI parity): the desktop always creates active
+		/// items, so a POST that omits <c>active</c> deserializes without touching this property and stays
+		/// active, instead of the bool default (false) that silently stored an inactive no-op (#35385).
 		/// </summary>
-		public bool Active { get; set; }
+		public bool Active { get; set; } = true;
 	}
 }
