@@ -114,15 +114,17 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// List of results of buckling analysis - the full per-load-case matrix: <see cref="BucklingRes.Shape"/>
 		/// repeats for every load case. To get the governing value of a shape, group by <see cref="BucklingRes.Shape"/>
-		/// and take the minimal <see cref="BucklingRes.Factor"/>, or use the pre-reduced <see cref="GoverningBucklingResults"/>
+		/// and take the minimal positive <see cref="BucklingRes.Factor"/>, or use the pre-reduced
+		/// <see cref="GoverningBucklingResults"/>
 		/// </summary>
 		[DataMember]
 		public List<BucklingRes> BucklingResults { get; set; }
 
 		/// <summary>
 		/// Governing buckling factor for each buckling shape - the row of <see cref="BucklingResults"/> with the
-		/// minimal <see cref="BucklingRes.Factor"/> over all load cases (the value the application presents),
-		/// together with the load case in which it occurs
+		/// minimal positive <see cref="BucklingRes.Factor"/> over all load cases (the value the application
+		/// presents; when a shape has no positive factor, its first row is used), together with the load case
+		/// in which it occurs
 		/// </summary>
 		[DataMember]
 		public List<BucklingRes> GoverningBucklingResults { get; set; }
@@ -360,9 +362,10 @@ namespace IdeaRS.OpenModel.Connection
 		public bool CheckStatus { get; set; }
 
 		/// <summary>
-		/// True for a full-strength weld (butt/bevel welds, e.g. CJP) - such a weld is designed to the full
-		/// capacity of the connected plates and is not rated by a stress utilisation, so <see cref="UnityCheck"/>
-		/// is NaN and <see cref="CheckStatus"/> is true by definition
+		/// True when the weld is not rated by a stress utilisation and its check is satisfied by definition -
+		/// the check treats it as a full-strength weld. This applies to butt/bevel welds (e.g. CJP) and to
+		/// welds placed edge-to-edge. <see cref="UnityCheck"/> is NaN and <see cref="CheckStatus"/> is true
+		/// in that case
 		/// </summary>
 		[DataMember]
 		public bool IsFullStrength { get; set; }
