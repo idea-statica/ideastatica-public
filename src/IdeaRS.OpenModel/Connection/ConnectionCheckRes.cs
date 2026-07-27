@@ -72,6 +72,7 @@ namespace IdeaRS.OpenModel.Connection
 			CheckResAnchor = new List<CheckResAnchor>();
 			CheckResConcreteBlock = new List<CheckResConcreteBlock>();
 			BucklingResults = new List<BucklingRes>();
+			GoverningBucklingResults = new List<BucklingRes>();
 		}
 
 		/// <summary>
@@ -111,10 +112,20 @@ namespace IdeaRS.OpenModel.Connection
 		public List<CheckResConcreteBlock> CheckResConcreteBlock { get; set; }
 
 		/// <summary>
-		/// List of results of buckling analysis
+		/// List of results of buckling analysis - the full per-load-case matrix: <see cref="BucklingRes.Shape"/>
+		/// repeats for every load case. To get the governing value of a shape, group by <see cref="BucklingRes.Shape"/>
+		/// and take the minimal <see cref="BucklingRes.Factor"/>, or use the pre-reduced <see cref="GoverningBucklingResults"/>
 		/// </summary>
 		[DataMember]
 		public List<BucklingRes> BucklingResults { get; set; }
+
+		/// <summary>
+		/// Governing buckling factor for each buckling shape - the row of <see cref="BucklingResults"/> with the
+		/// minimal <see cref="BucklingRes.Factor"/> over all load cases (the value the application presents),
+		/// together with the load case in which it occurs
+		/// </summary>
+		[DataMember]
+		public List<BucklingRes> GoverningBucklingResults { get; set; }
 
 		/// <summary>
 		/// Name of connection
@@ -336,7 +347,8 @@ namespace IdeaRS.OpenModel.Connection
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Unity Check Stress
+		/// Unity Check Stress. NaN when the weld has no computed stress utilisation -
+		/// full-strength welds are not stress-checked, see <see cref="IsFullStrength"/>
 		/// </summary>
 		[DataMember]
 		public double UnityCheck { get; set; }
@@ -346,6 +358,14 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public bool CheckStatus { get; set; }
+
+		/// <summary>
+		/// True for a full-strength weld (butt/bevel welds, e.g. CJP) - such a weld is designed to the full
+		/// capacity of the connected plates and is not rated by a stress utilisation, so <see cref="UnityCheck"/>
+		/// is NaN and <see cref="CheckStatus"/> is true by definition
+		/// </summary>
+		[DataMember]
+		public bool IsFullStrength { get; set; }
 
 		/// <summary>
 		/// Id of Load Case
