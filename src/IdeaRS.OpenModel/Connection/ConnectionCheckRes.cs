@@ -72,7 +72,6 @@ namespace IdeaRS.OpenModel.Connection
 			CheckResAnchor = new List<CheckResAnchor>();
 			CheckResConcreteBlock = new List<CheckResConcreteBlock>();
 			BucklingResults = new List<BucklingRes>();
-			GoverningBucklingResults = new List<BucklingRes>();
 		}
 
 		/// <summary>
@@ -112,22 +111,13 @@ namespace IdeaRS.OpenModel.Connection
 		public List<CheckResConcreteBlock> CheckResConcreteBlock { get; set; }
 
 		/// <summary>
-		/// List of results of buckling analysis - the full per-load-case matrix: <see cref="BucklingRes.Shape"/>
-		/// repeats for every load case. To get the governing value of a shape, group by <see cref="BucklingRes.Shape"/>
-		/// and take the minimal positive <see cref="BucklingRes.Factor"/>, or use the pre-reduced
-		/// <see cref="GoverningBucklingResults"/>
+		/// Results of the linear buckling analysis - one row per buckling mode and load case,
+		/// so <see cref="BucklingRes.Shape"/> repeats for every load case. The critical buckling factor
+		/// of the connection is the minimal positive <see cref="BucklingRes.Factor"/> in the list
+		/// (also reported as the Buckling row of <see cref="CheckResSummary"/>)
 		/// </summary>
 		[DataMember]
 		public List<BucklingRes> BucklingResults { get; set; }
-
-		/// <summary>
-		/// Governing buckling factor for each buckling shape - the row of <see cref="BucklingResults"/> with the
-		/// minimal positive <see cref="BucklingRes.Factor"/> over all load cases (the value the application
-		/// presents; when a shape has no positive factor, its first row is used), together with the load case
-		/// in which it occurs
-		/// </summary>
-		[DataMember]
-		public List<BucklingRes> GoverningBucklingResults { get; set; }
 
 		/// <summary>
 		/// Name of connection
@@ -396,7 +386,9 @@ namespace IdeaRS.OpenModel.Connection
 		public int LoadCaseId { get; set; }
 
 		/// <summary>
-		/// Shape lc calculated by solver
+		/// Index of the buckling mode within its load case. Mode indices restart for every load case
+		/// and the same index in two load cases is not guaranteed to be the same physical buckling
+		/// shape - matching shapes across load cases requires a visual inspection in the application
 		/// </summary>
 		[DataMember]
 		public int Shape { get; set; }
