@@ -111,7 +111,10 @@ namespace IdeaRS.OpenModel.Connection
 		public List<CheckResConcreteBlock> CheckResConcreteBlock { get; set; }
 
 		/// <summary>
-		/// List of results of buckling analysis
+		/// Results of the linear buckling analysis - one row per buckling mode and load case,
+		/// so <see cref="BucklingRes.Shape"/> repeats for every load case. The critical buckling factor
+		/// of the connection is the minimal positive <see cref="BucklingRes.Factor"/> in the list
+		/// (also reported as the Buckling row of <see cref="CheckResSummary"/>)
 		/// </summary>
 		[DataMember]
 		public List<BucklingRes> BucklingResults { get; set; }
@@ -336,7 +339,8 @@ namespace IdeaRS.OpenModel.Connection
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Unity Check Stress
+		/// Unity Check Stress. NaN when the weld has no computed stress utilisation -
+		/// full-strength welds are not stress-checked, see <see cref="IsFullStrength"/>
 		/// </summary>
 		[DataMember]
 		public double UnityCheck { get; set; }
@@ -346,6 +350,15 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public bool CheckStatus { get; set; }
+
+		/// <summary>
+		/// True when the weld is not rated by a stress utilisation and its check is satisfied by definition -
+		/// the check treats it as a full-strength weld. This applies to butt/bevel welds (e.g. CJP) and to
+		/// welds placed edge-to-edge. <see cref="UnityCheck"/> is NaN and <see cref="CheckStatus"/> is true
+		/// in that case
+		/// </summary>
+		[DataMember]
+		public bool IsFullStrength { get; set; }
 
 		/// <summary>
 		/// Id of Load Case
@@ -373,7 +386,9 @@ namespace IdeaRS.OpenModel.Connection
 		public int LoadCaseId { get; set; }
 
 		/// <summary>
-		/// Shape lc calculated by solver
+		/// Index of the buckling mode within its load case. Mode indices restart for every load case
+		/// and the same index in two load cases is not guaranteed to be the same physical buckling
+		/// shape - matching shapes across load cases requires a visual inspection in the application
 		/// </summary>
 		[DataMember]
 		public int Shape { get; set; }
