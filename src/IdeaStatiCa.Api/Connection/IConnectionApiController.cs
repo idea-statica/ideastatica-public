@@ -110,16 +110,27 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// As <see cref="CalculateAsync(List{int}, CancellationToken)"/>, but when <paramref name="loadEffectIds"/>
-		/// is set the analysis solves exactly these load effects in every calculated connection - their Active flags
-		/// are ignored and nothing is persisted; results reflect only this subset until the next calculation.
-		/// Null = all active load effects. Unknown or empty ids are rejected with 422.
+		/// Run CBFEM analysis of a single connection. When <paramref name="loadEffectIds"/> is set the analysis
+		/// solves exactly these load effects of the connection - their Active flags are ignored and nothing is
+		/// persisted; results reflect only this subset until the next calculation.
+		/// Null = all active load effects. Unknown ids are rejected with 422.
 		/// </summary>
-		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
 		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
 		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, IEnumerable<int> loadEffectIds, CancellationToken cancellationToken = default);
+		/// <returns>Result summary of the connection</returns>
+		Task<ConResultSummary> CalculateConnectionAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Run CBFEM analysis of a single connection and get a JSON string which represents its raw CBFEM
+		/// results (an instance of CheckResultsData). Subset semantics of <paramref name="loadEffectIds"/>
+		/// are the same as in <see cref="CalculateConnectionAsync(int, IEnumerable{int}, CancellationToken)"/>.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>JSON string representing an instance of CheckResultsData</returns>
+		Task<string> GetConnectionRawResultsAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
