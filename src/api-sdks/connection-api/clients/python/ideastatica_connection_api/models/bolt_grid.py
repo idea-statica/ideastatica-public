@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.bolt_shear_type import BoltShearType
 from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.reference_element import ReferenceElement
+from ideastatica_connection_api.models.slotted_hole import SlottedHole
 from ideastatica_connection_api.models.vector3_d import Vector3D
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,6 +35,7 @@ class BoltGrid(BaseModel):
     shear_in_thread: Optional[StrictBool] = Field(default=None, description="Indicates, whether a shear plane is in the thread of a bolt.", alias="shearInThread")
     bolt_interaction: Optional[BoltShearType] = Field(default=None, alias="boltInteraction")
     bolt_assembly: Optional[ReferenceElement] = Field(default=None, alias="boltAssembly")
+    slotted_holes: Optional[List[SlottedHole]] = Field(default=None, description="Slotted holes of grid positions per connected plate. Null or missing entry means a round hole.", alias="slottedHoles")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
     axis_y: Optional[Vector3D] = Field(default=None, alias="axisY")
@@ -43,7 +45,7 @@ class BoltGrid(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Name")
     length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
     id: Optional[StrictInt] = Field(default=None, description="Element Id")
-    __properties: ClassVar[List[str]] = ["shearInThread", "boltInteraction", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
+    __properties: ClassVar[List[str]] = ["shearInThread", "boltInteraction", "boltAssembly", "slottedHoles", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,6 +89,13 @@ class BoltGrid(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of bolt_assembly
         if self.bolt_assembly:
             _dict['boltAssembly'] = self.bolt_assembly.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in slotted_holes (list)
+        _items = []
+        if self.slotted_holes:
+            for _item_slotted_holes in self.slotted_holes:
+                if _item_slotted_holes:
+                    _items.append(_item_slotted_holes.to_dict())
+            _dict['slottedHoles'] = _items
         # override the default output from pydantic by calling `to_dict()` of origin
         if self.origin:
             _dict['origin'] = self.origin.to_dict()
@@ -113,6 +122,11 @@ class BoltGrid(BaseModel):
                 if _item_connected_parts:
                     _items.append(_item_connected_parts.to_dict())
             _dict['connectedParts'] = _items
+        # set to None if slotted_holes (nullable) is None
+        # and model_fields_set contains the field
+        if self.slotted_holes is None and "slotted_holes" in self.model_fields_set:
+            _dict['slottedHoles'] = None
+
         # set to None if positions (nullable) is None
         # and model_fields_set contains the field
         if self.positions is None and "positions" in self.model_fields_set:
@@ -143,6 +157,7 @@ class BoltGrid(BaseModel):
             "shearInThread": obj.get("shearInThread"),
             "boltInteraction": obj.get("boltInteraction"),
             "boltAssembly": ReferenceElement.from_dict(obj["boltAssembly"]) if obj.get("boltAssembly") is not None else None,
+            "slottedHoles": [SlottedHole.from_dict(_item) for _item in obj["slottedHoles"]] if obj.get("slottedHoles") is not None else None,
             "origin": Point3D.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "axisX": Vector3D.from_dict(obj["axisX"]) if obj.get("axisX") is not None else None,
             "axisY": Vector3D.from_dict(obj["axisY"]) if obj.get("axisY") is not None else None,

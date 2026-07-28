@@ -9,6 +9,8 @@ docs/AnchorType.md
 docs/BaseTemplateConversion.md
 docs/BeamData.md
 docs/BendData.md
+docs/BoltAssemblyTemplateConversion.md
+docs/BoltGradeTemplateConversion.md
 docs/BoltGrid.md
 docs/BoltShearType.md
 docs/BucklingRes.md
@@ -19,6 +21,7 @@ docs/CheckResConcreteBlock.md
 docs/CheckResPlate.md
 docs/CheckResSummary.md
 docs/CheckResWeld.md
+docs/CleatTemplateConversion.md
 docs/ClientApi.md
 docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
@@ -64,6 +67,7 @@ docs/ConTemplatePublishParam.md
 docs/ConWeldSizingMethodEnum.md
 docs/ConcreteBlock.md
 docs/ConcreteBlockData.md
+docs/ConcreteTemplateConversion.md
 docs/ConnectionApi.md
 docs/ConnectionCheckRes.md
 docs/ConnectionData.md
@@ -71,6 +75,7 @@ docs/ConnectionLibraryApi.md
 docs/ConversionApi.md
 docs/ConversionMapping.md
 docs/CountryCode.md
+docs/CssTemplateConversion.md
 docs/CutBeamByBeamData.md
 docs/CutData.md
 docs/CutMethod.md
@@ -78,6 +83,7 @@ docs/CutOrientation.md
 docs/CutPart.md
 docs/DistanceComparison.md
 docs/DrawData.md
+docs/ElectrodeTemplateConversion.md
 docs/ExportApi.md
 docs/FoldedPlateData.md
 docs/IGroup.md
@@ -90,6 +96,7 @@ docs/Line.md
 docs/LoadEffectApi.md
 docs/MaterialApi.md
 docs/MemberApi.md
+docs/MemberTemplateConversion.md
 docs/MessageNumber.md
 docs/OpenElementId.md
 docs/OpenMessage.md
@@ -98,7 +105,9 @@ docs/OperationApi.md
 docs/ParameterApi.md
 docs/ParameterUpdateResponse.md
 docs/PinGrid.md
+docs/PinTemplateConversion.md
 docs/PlateData.md
+docs/PlateMaterialTemplateConversion.md
 docs/Point2D.md
 docs/Point3D.md
 docs/PolyLine2D.md
@@ -113,10 +122,13 @@ docs/Segment2D.md
 docs/Selected.md
 docs/SelectedType.md
 docs/SettingsApi.md
+docs/SlottedHole.md
 docs/TemplateApi.md
 docs/TemplateConversions.md
+docs/TemplateConversionsConversionsInner.md
 docs/Text.md
 docs/TextPosition.md
+docs/TimberTemplateConversion.md
 docs/Vector3D.md
 docs/WeldData.md
 docs/WeldDefinition.md
@@ -150,6 +162,8 @@ ideastatica_connection_api/models/anchor_type.py
 ideastatica_connection_api/models/base_template_conversion.py
 ideastatica_connection_api/models/beam_data.py
 ideastatica_connection_api/models/bend_data.py
+ideastatica_connection_api/models/bolt_assembly_template_conversion.py
+ideastatica_connection_api/models/bolt_grade_template_conversion.py
 ideastatica_connection_api/models/bolt_grid.py
 ideastatica_connection_api/models/bolt_shear_type.py
 ideastatica_connection_api/models/buckling_res.py
@@ -159,6 +173,7 @@ ideastatica_connection_api/models/check_res_concrete_block.py
 ideastatica_connection_api/models/check_res_plate.py
 ideastatica_connection_api/models/check_res_summary.py
 ideastatica_connection_api/models/check_res_weld.py
+ideastatica_connection_api/models/cleat_template_conversion.py
 ideastatica_connection_api/models/con_aligned_plate.py
 ideastatica_connection_api/models/con_aligned_plate_side_code_enum.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
@@ -203,10 +218,12 @@ ideastatica_connection_api/models/con_template_publish_param.py
 ideastatica_connection_api/models/con_weld_sizing_method_enum.py
 ideastatica_connection_api/models/concrete_block.py
 ideastatica_connection_api/models/concrete_block_data.py
+ideastatica_connection_api/models/concrete_template_conversion.py
 ideastatica_connection_api/models/connection_check_res.py
 ideastatica_connection_api/models/connection_data.py
 ideastatica_connection_api/models/conversion_mapping.py
 ideastatica_connection_api/models/country_code.py
+ideastatica_connection_api/models/css_template_conversion.py
 ideastatica_connection_api/models/cut_beam_by_beam_data.py
 ideastatica_connection_api/models/cut_data.py
 ideastatica_connection_api/models/cut_method.py
@@ -214,6 +231,7 @@ ideastatica_connection_api/models/cut_orientation.py
 ideastatica_connection_api/models/cut_part.py
 ideastatica_connection_api/models/distance_comparison.py
 ideastatica_connection_api/models/draw_data.py
+ideastatica_connection_api/models/electrode_template_conversion.py
 ideastatica_connection_api/models/folded_plate_data.py
 ideastatica_connection_api/models/i_group.py
 ideastatica_connection_api/models/idea_parameter.py
@@ -222,13 +240,16 @@ ideastatica_connection_api/models/idea_parameter_validation.py
 ideastatica_connection_api/models/idea_parameter_validation_response.py
 ideastatica_connection_api/models/installation_process_type_enum.py
 ideastatica_connection_api/models/line.py
+ideastatica_connection_api/models/member_template_conversion.py
 ideastatica_connection_api/models/message_number.py
 ideastatica_connection_api/models/open_element_id.py
 ideastatica_connection_api/models/open_message.py
 ideastatica_connection_api/models/open_messages.py
 ideastatica_connection_api/models/parameter_update_response.py
 ideastatica_connection_api/models/pin_grid.py
+ideastatica_connection_api/models/pin_template_conversion.py
 ideastatica_connection_api/models/plate_data.py
+ideastatica_connection_api/models/plate_material_template_conversion.py
 ideastatica_connection_api/models/point2_d.py
 ideastatica_connection_api/models/point3_d.py
 ideastatica_connection_api/models/poly_line2_d.py
@@ -239,9 +260,12 @@ ideastatica_connection_api/models/search_option.py
 ideastatica_connection_api/models/segment2_d.py
 ideastatica_connection_api/models/selected.py
 ideastatica_connection_api/models/selected_type.py
+ideastatica_connection_api/models/slotted_hole.py
 ideastatica_connection_api/models/template_conversions.py
+ideastatica_connection_api/models/template_conversions_conversions_inner.py
 ideastatica_connection_api/models/text.py
 ideastatica_connection_api/models/text_position.py
+ideastatica_connection_api/models/timber_template_conversion.py
 ideastatica_connection_api/models/vector3_d.py
 ideastatica_connection_api/models/weld_data.py
 ideastatica_connection_api/models/weld_definition.py
