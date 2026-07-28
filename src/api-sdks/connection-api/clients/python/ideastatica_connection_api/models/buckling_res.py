@@ -28,7 +28,7 @@ class BucklingRes(BaseModel):
     Results of the buckling analysis
     """ # noqa: E501
     load_case_id: Optional[StrictInt] = Field(default=None, alias="loadCaseId")
-    shape: Optional[StrictInt] = Field(default=None, description="Shape lc calculated by solver")
+    shape: Optional[StrictInt] = Field(default=None, description="Index of the buckling mode within its load case. Mode indices restart for every load case  and the same index in two load cases is not guaranteed to be the same physical buckling  shape - matching shapes across load cases requires a visual inspection in the application")
     factor: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Buckling factor")
     __properties: ClassVar[List[str]] = ["loadCaseId", "shape", "factor"]
 
