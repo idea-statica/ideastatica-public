@@ -52,6 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserData\ImportContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserData\UserDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\BulkSelectionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ConnectionTokenReconciler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CssFactoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierHelper.cs" />
