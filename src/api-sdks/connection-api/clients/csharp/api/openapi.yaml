@@ -6158,7 +6158,7 @@ components:
         name: name
         id: 5
         loadCaseId: 7
-        isNotStressRated: true
+        isFullStrength: true
         items:
         - 9
         - 9
@@ -6172,14 +6172,14 @@ components:
           format: int32
           type: integer
         unityCheck:
-          description: "Unity Check Stress. NaN when the weld has no computed stress utilisation,\r\nsee IdeaRS.OpenModel.Connection.CheckResWeld.IsNotStressRated"
+          description: "Unity Check Stress. NaN when the weld has no computed stress utilisation,\r\nsee IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength"
           format: double
           type: number
         checkStatus:
           description: Status of the Check
           type: boolean
-        isNotStressRated:
-          description: "True when the check does not rate this weld by a stress utilisation, so its check is\r\nsatisfied by definition. Set for butt/bevel welds (e.g. CJP) and for any weld placed\r\nedge-to-edge - note the latter includes fillet welds, which are not full strength, so\r\nthis flag is not a statement about the weld developing the capacity of the connected\r\nplates. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true in that case"
+        isFullStrength:
+          description: "True when the check does not rate this weld by a stress utilisation, so its check is\r\nsatisfied by definition. Set for butt/bevel welds (e.g. CJP) and for any weld placed\r\nedge-to-edge - despite the name, the latter includes fillet welds, so this flag is not a\r\nstatement that the weld develops the capacity of the connected plates. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true in that case"
           type: boolean
         loadCaseId:
           description: Id of Load Case
@@ -7368,7 +7368,7 @@ components:
           name: name
           id: 5
           loadCaseId: 7
-          isNotStressRated: true
+          isFullStrength: true
           items:
           - 9
           - 9
@@ -7377,7 +7377,7 @@ components:
           name: name
           id: 5
           loadCaseId: 7
-          isNotStressRated: true
+          isFullStrength: true
           items:
           - 9
           - 9
