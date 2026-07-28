@@ -110,6 +110,18 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// As <see cref="CalculateAsync(List{int}, CancellationToken)"/>, but when <paramref name="loadEffectIds"/>
+		/// is set the analysis solves exactly these load effects in every calculated connection - their Active flags
+		/// are ignored and nothing is persisted; results reflect only this subset until the next calculation.
+		/// Null = all active load effects. Unknown or empty ids are rejected with 422.
+		/// </summary>
+		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, IEnumerable<int> loadEffectIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">List of connections in the active project</param>
