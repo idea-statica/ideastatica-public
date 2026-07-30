@@ -29,11 +29,11 @@ class ConMemberModel(BaseModel):
     """
     ConMemberModel
     """ # noqa: E501
-    model_type: Optional[ConMemberModelTypeEnum] = Field(default=None, alias="modelType")
+    model_type_enum: Optional[ConMemberModelTypeEnum] = Field(default=None, alias="modelTypeEnum")
     forces_in: Optional[ConMemberForcesInEnum] = Field(default=None, alias="forcesIn")
     x: Optional[Union[StrictFloat, StrictInt]] = None
     connected_member_id: Optional[StrictInt] = Field(default=None, alias="connectedMemberId")
-    __properties: ClassVar[List[str]] = ["modelType", "forcesIn", "x", "connectedMemberId"]
+    __properties: ClassVar[List[str]] = ["modelTypeEnum", "forcesIn", "x", "connectedMemberId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,7 +96,7 @@ class ConMemberModel(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "modelType": obj.get("modelType"),
+            "modelTypeEnum": obj.get("modelTypeEnum"),
             "forcesIn": obj.get("forcesIn"),
             "x": obj.get("x"),
             "connectedMemberId": obj.get("connectedMemberId")

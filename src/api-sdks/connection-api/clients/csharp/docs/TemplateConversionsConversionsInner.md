@@ -1,0 +1,18 @@
+# IdeaStatiCa.ConnectionApi.Model.TemplateConversionsConversionsInner
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Type** | **string** |  | 
+**OriginalValue** | **string** |  | [optional] 
+**OriginalTemplateId** | **string** |  | [optional] 
+**NewValue** | **string** |  | [optional] 
+**Description** | **string** |  | [optional] 
+**NewTemplateId** | **string** |  | [optional] 
+**IsBearing** | **bool** |  | [optional] 
+**OriginalMemberName** | **string** |  | [optional] 
+**NewMemberName** | **string** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

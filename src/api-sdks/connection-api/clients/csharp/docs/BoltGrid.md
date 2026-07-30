@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ShearInThread** | **bool** | Indicates, whether a shear plane is in the thread of a bolt. | [optional] 
 **BoltInteraction** | **BoltShearType** |  | [optional] 
 **BoltAssembly** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
+**SlottedHoles** | [**List&lt;SlottedHole&gt;**](SlottedHole.md) | Slotted holes of grid positions per connected plate. Null or missing entry means a round hole. | [optional] 
 **Origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **AxisX** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **AxisY** | [**Vector3D**](Vector3D.md) |  | [optional] 

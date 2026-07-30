@@ -18,21 +18,36 @@ import pprint
 import re  # noqa: F401
 import json
 
+from importlib import import_module
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from ideastatica_connection_api.models.bolt_assembly_template_conversion import BoltAssemblyTemplateConversion
+    from ideastatica_connection_api.models.bolt_grade_template_conversion import BoltGradeTemplateConversion
+    from ideastatica_connection_api.models.cleat_template_conversion import CleatTemplateConversion
+    from ideastatica_connection_api.models.concrete_template_conversion import ConcreteTemplateConversion
+    from ideastatica_connection_api.models.css_template_conversion import CssTemplateConversion
+    from ideastatica_connection_api.models.electrode_template_conversion import ElectrodeTemplateConversion
+    from ideastatica_connection_api.models.member_template_conversion import MemberTemplateConversion
+    from ideastatica_connection_api.models.pin_template_conversion import PinTemplateConversion
+    from ideastatica_connection_api.models.plate_material_template_conversion import PlateMaterialTemplateConversion
+    from ideastatica_connection_api.models.timber_template_conversion import TimberTemplateConversion
 
 class BaseTemplateConversion(BaseModel):
     """
     BaseTemplateConversion
     """ # noqa: E501
+    type: StrictStr = Field(alias="$type")
     original_value: Optional[StrictStr] = Field(default=None, alias="originalValue")
     original_template_id: Optional[StrictStr] = Field(default=None, alias="originalTemplateId")
     new_value: Optional[StrictStr] = Field(default=None, alias="newValue")
     description: Optional[StrictStr] = None
     new_template_id: Optional[StrictStr] = Field(default=None, alias="newTemplateId")
-    __properties: ClassVar[List[str]] = ["originalValue", "originalTemplateId", "newValue", "description", "newTemplateId"]
+    __properties: ClassVar[List[str]] = ["$type", "originalValue", "originalTemplateId", "newValue", "description", "newTemplateId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -40,6 +55,23 @@ class BaseTemplateConversion(BaseModel):
         protected_namespaces=(),
     )
 
+
+    # JSON field name that stores the object type
+    __discriminator_property_name: ClassVar[str] = '$type'
+
+    # discriminator mappings
+    __discriminator_value_class_map: ClassVar[Dict[str, str]] = {
+        'IdeaStatiCa.Api.Connection.Model.BoltAssemblyTemplateConversion, IdeaStatiCa.Api': 'BoltAssemblyTemplateConversion','IdeaStatiCa.Api.Connection.Model.BoltGradeTemplateConversion, IdeaStatiCa.Api': 'BoltGradeTemplateConversion','IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api': 'CleatTemplateConversion','IdeaStatiCa.Api.Connection.Model.ConcreteTemplateConversion, IdeaStatiCa.Api': 'ConcreteTemplateConversion','IdeaStatiCa.Api.Connection.Model.CssTemplateConversion, IdeaStatiCa.Api': 'CssTemplateConversion','IdeaStatiCa.Api.Connection.Model.ElectrodeTemplateConversion, IdeaStatiCa.Api': 'ElectrodeTemplateConversion','IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api': 'MemberTemplateConversion','IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api': 'PinTemplateConversion','IdeaStatiCa.Api.Connection.Model.PlateMaterialTemplateConversion, IdeaStatiCa.Api': 'PlateMaterialTemplateConversion','IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api': 'TimberTemplateConversion'
+    }
+
+    @classmethod
+    def get_discriminator_value(cls, obj: Dict[str, Any]) -> Optional[str]:
+        """Returns the discriminator value (object type) of the data"""
+        discriminator_value = obj[cls.__discriminator_property_name]
+        if discriminator_value:
+            return cls.__discriminator_value_class_map.get(discriminator_value)
+        else:
+            return None
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -51,7 +83,7 @@ class BaseTemplateConversion(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
+    def from_json(cls, json_str: str) -> Optional[Union[BoltAssemblyTemplateConversion, BoltGradeTemplateConversion, CleatTemplateConversion, ConcreteTemplateConversion, CssTemplateConversion, ElectrodeTemplateConversion, MemberTemplateConversion, PinTemplateConversion, PlateMaterialTemplateConversion, TimberTemplateConversion]]:
         """Create an instance of BaseTemplateConversion from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -101,21 +133,33 @@ class BaseTemplateConversion(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+    def from_dict(cls, obj: Dict[str, Any]) -> Optional[Union[BoltAssemblyTemplateConversion, BoltGradeTemplateConversion, CleatTemplateConversion, ConcreteTemplateConversion, CssTemplateConversion, ElectrodeTemplateConversion, MemberTemplateConversion, PinTemplateConversion, PlateMaterialTemplateConversion, TimberTemplateConversion]]:
         """Create an instance of BaseTemplateConversion from a dict"""
-        if obj is None:
-            return None
+        # look up the object type based on discriminator mapping
+        object_type = cls.get_discriminator_value(obj)
+        if object_type ==  'BoltAssemblyTemplateConversion':
+            return import_module("ideastatica_connection_api.models.bolt_assembly_template_conversion").BoltAssemblyTemplateConversion.from_dict(obj)
+        if object_type ==  'BoltGradeTemplateConversion':
+            return import_module("ideastatica_connection_api.models.bolt_grade_template_conversion").BoltGradeTemplateConversion.from_dict(obj)
+        if object_type ==  'CleatTemplateConversion':
+            return import_module("ideastatica_connection_api.models.cleat_template_conversion").CleatTemplateConversion.from_dict(obj)
+        if object_type ==  'ConcreteTemplateConversion':
+            return import_module("ideastatica_connection_api.models.concrete_template_conversion").ConcreteTemplateConversion.from_dict(obj)
+        if object_type ==  'CssTemplateConversion':
+            return import_module("ideastatica_connection_api.models.css_template_conversion").CssTemplateConversion.from_dict(obj)
+        if object_type ==  'ElectrodeTemplateConversion':
+            return import_module("ideastatica_connection_api.models.electrode_template_conversion").ElectrodeTemplateConversion.from_dict(obj)
+        if object_type ==  'MemberTemplateConversion':
+            return import_module("ideastatica_connection_api.models.member_template_conversion").MemberTemplateConversion.from_dict(obj)
+        if object_type ==  'PinTemplateConversion':
+            return import_module("ideastatica_connection_api.models.pin_template_conversion").PinTemplateConversion.from_dict(obj)
+        if object_type ==  'PlateMaterialTemplateConversion':
+            return import_module("ideastatica_connection_api.models.plate_material_template_conversion").PlateMaterialTemplateConversion.from_dict(obj)
+        if object_type ==  'TimberTemplateConversion':
+            return import_module("ideastatica_connection_api.models.timber_template_conversion").TimberTemplateConversion.from_dict(obj)
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
-
-        _obj = cls.model_validate({
-            "originalValue": obj.get("originalValue"),
-            "originalTemplateId": obj.get("originalTemplateId"),
-            "newValue": obj.get("newValue"),
-            "description": obj.get("description"),
-            "newTemplateId": obj.get("newTemplateId")
-        })
-        return _obj
+        raise ValueError("BaseTemplateConversion failed to lookup discriminator value from " +
+                            json.dumps(obj) + ". Discriminator property name: " + cls.__discriminator_property_name +
+                            ", mapping: " + json.dumps(cls.__discriminator_value_class_map))
 
 
