@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
@@ -48,16 +49,25 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 				Logger.LogTrace($"MethodTask.SendMessageDataSync : message was sent  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
 
-				// wait for the callback handler
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : starting to wait for a response  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
+				using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+				var timeoutTask = Task.Delay(Timeout.Infinite, timeoutCts.Token);
+
 				var messageReceived = false;
 				GrpcMessage incomingMessage = null;
 
-				Logger.LogTrace($"MethodTask.SendMessageDataSync : starting to wait for a response  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
-
-
 				while (!messageReceived)
 				{
-					incomingMessage = await grpcMessageCompletionSource.Task;
+					var responseTask = grpcMessageCompletionSource.Task;
+					var completed = await Task.WhenAny(responseTask, timeoutTask);
+					if (completed != responseTask)
+					{
+						Logger.LogWarning($"MethodTask.SendMessageDataSync : timeout waiting for response operationId = '{originalOperationId}', MessageName = '{grpcMessage?.MessageName}'");
+						throw new TimeoutException($"Timed out waiting for gRPC response to '{grpcMessage?.MessageName}' (operationId = '{originalOperationId}')");
+					}
+
+					incomingMessage = await responseTask;
 
 					Logger.LogDebug($"MethodTask.SendMessageDataSync message  OperationId = '{incomingMessage?.OperationId}', MessageName = '{incomingMessage?.MessageName}'");
 
