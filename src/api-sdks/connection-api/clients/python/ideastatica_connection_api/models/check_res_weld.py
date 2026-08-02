@@ -29,9 +29,9 @@ class CheckResWeld(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Name of Weld")
     id: Optional[StrictInt] = Field(default=None, description="Unique id of weld")
-    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check Stress. NaN when the weld has no computed stress utilisation -  full-strength welds are not stress-checked, see IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength", alias="unityCheck")
+    unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check Stress. NaN when the weld has no computed stress utilisation,  see IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength", alias="unityCheck")
     check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
-    is_full_strength: Optional[StrictBool] = Field(default=None, description="True when the weld is not rated by a stress utilisation and its check is satisfied by definition -  the check treats it as a full-strength weld. This applies to butt/bevel welds (e.g. CJP) and to  welds placed edge-to-edge. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true  in that case", alias="isFullStrength")
+    is_full_strength: Optional[StrictBool] = Field(default=None, description="True when the check does not rate this weld by a stress utilisation, so its check is  satisfied by definition. Set for butt/bevel welds (e.g. CJP) and for any weld placed  edge-to-edge - despite the name, the latter includes fillet welds, so this flag is not a  statement that the weld develops the capacity of the connected plates. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true in that case", alias="isFullStrength")
     load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
     items: Optional[List[StrictInt]] = Field(default=None, description="In case of presentation of groups plates (uncoiled beams)")
     __properties: ClassVar[List[str]] = ["name", "id", "unityCheck", "checkStatus", "isFullStrength", "loadCaseId", "items"]
