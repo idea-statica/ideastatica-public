@@ -4,6 +4,7 @@ using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.Api.Connection.Model.Parameters;
 using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
 using System.Collections.Generic;
@@ -347,6 +348,59 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="connectionId"></param>
 		/// <returns></returns>
 		Task DeleteParameters(int connectionId);
+
+		// The parameter-link contracts are annotated for nullability, which the rest of this file is not.
+#nullable enable
+
+		/// <summary>
+		/// Lists the model properties of the connection a parameter can be linked to, across operations,
+		/// members and the library items it edits (cross-sections, materials, bolt assemblies). Each row
+		/// names its owner and carries the property id to pass back when creating a link.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="valueType">Optional filter on the parameter type a property accepts, e.g. <c>Float</c>.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Every linkable property, flat, each naming its owner.</returns>
+		Task<List<ConLinkableProperty>> GetLinkablePropertiesAsync(int connectionId, string? valueType = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Creates a parameter in the connection. Int, Float, Bool, String and Expression are supported;
+		/// library-typed parameters are not.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection the parameter is added to.</param>
+		/// <param name="parameter">Identifier, type and value or expression of the new parameter.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The created parameter, evaluated.</returns>
+		Task<IdeaParameter> CreateParameterAsync(int connectionId, ConParameterCreate parameter, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Deletes a parameter and every link through which it drove a model property. Properties keep the
+		/// value last applied — deleting a parameter does not revert geometry.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="key">Identifier of the parameter to delete.</param>
+		/// <param name="cancellationToken"></param>
+		Task DeleteParameterAsync(int connectionId, string key, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Links a parameter to a model property so the parameter drives it. A property can be driven by
+		/// only one parameter.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="link">The parameter, and the owner and property id taken from the catalog.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The established link.</returns>
+		Task<ConParameterLink> CreateParameterLinkAsync(int connectionId, ConParameterLinkCreate link, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Lists the parameter-to-property links of the connection.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Every link, each naming the parameter and the property it drives.</returns>
+		Task<List<ConParameterLink>> GetParameterLinksAsync(int connectionId, CancellationToken cancellationToken = default);
+
+#nullable restore
 
 
 		/// <summary>
