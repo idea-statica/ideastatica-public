@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Type** | **string** |  | 
 **OriginalValue** | **string** |  | [optional] 
 **OriginalTemplateId** | **string** |  | [optional] 
 **NewValue** | **string** |  | [optional] 

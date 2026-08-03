@@ -7,7 +7,7 @@ Results of the buckling analysis
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **load_case_id** | **int** |  | [optional] 
-**shape** | **int** | Shape lc calculated by solver | [optional] 
+**shape** | **int** | Index of the buckling mode within its load case. Mode indices restart for every load case  and the same index in two load cases is not guaranteed to be the same physical buckling  shape - matching shapes across load cases requires a visual inspection in the application | [optional] 
 **factor** | **float** | Buckling factor | [optional] 
 
 ## Example

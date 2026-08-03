@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **CheckResBolt** | [**List&lt;CheckResBolt&gt;**](CheckResBolt.md) | List of check results for bolts | [optional] 
 **CheckResAnchor** | [**List&lt;CheckResAnchor&gt;**](CheckResAnchor.md) | List of check results for anchors | [optional] 
 **CheckResConcreteBlock** | [**List&lt;CheckResConcreteBlock&gt;**](CheckResConcreteBlock.md) | List of check results for concrete blocks | [optional] 
-**BucklingResults** | [**List&lt;BucklingRes&gt;**](BucklingRes.md) | List of results of buckling analysis | [optional] 
+**BucklingResults** | [**List&lt;BucklingRes&gt;**](BucklingRes.md) | Results of the linear buckling analysis - one row per buckling mode and load case,  so IdeaRS.OpenModel.Connection.BucklingRes.Shape repeats for every load case. The critical buckling factor  of the connection is the minimal positive IdeaRS.OpenModel.Connection.BucklingRes.Factor in the list  (also reported as the Buckling row of IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary) | [optional] 
 **Name** | **string** | Name of connection | [optional] 
 **ConnectionID** | **Guid** | Guid of connection | [optional] 
 **Id** | **int** | Integer Id of connection | [optional] 
