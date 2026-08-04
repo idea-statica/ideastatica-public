@@ -460,7 +460,8 @@ namespace IdeaStatiCa.ConnectionApi.Client
             var clientOptions = new RestClientOptions(baseUrl)
             {
                 ClientCertificates = configuration.ClientCertificates,
-                Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : (TimeSpan?)null,
+                // RestSharp resolves a null Timeout to its 100 s default; only InfiniteTimeSpan means "no timeout".
+                Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : System.Threading.Timeout.InfiniteTimeSpan,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
                 UseDefaultCredentials = configuration.UseDefaultCredentials,
@@ -569,7 +570,8 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var clientOptions = new RestClientOptions(baseUrl)
 			{
 				ClientCertificates = configuration.ClientCertificates,
-				Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : (TimeSpan?)null,
+				// RestSharp resolves a null Timeout to its 100 s default; only InfiniteTimeSpan means "no timeout".
+				Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : System.Threading.Timeout.InfiniteTimeSpan,
 				Proxy = configuration.Proxy,
 				UserAgent = configuration.UserAgent,
 				UseDefaultCredentials = configuration.UseDefaultCredentials,

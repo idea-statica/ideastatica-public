@@ -21,3 +21,8 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+# ApiClient.cs carries a manual fix (#34800): a non-positive configured timeout maps to
+# Timeout.InfiniteTimeSpan, because RestSharp resolves a null Timeout to its 100 s default.
+# Regeneration would silently revert it, so the generator must skip this file.
+src/IdeaStatiCa.ConnectionApi/Client/ApiClient.cs
