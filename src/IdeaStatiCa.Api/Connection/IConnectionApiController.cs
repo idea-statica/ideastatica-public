@@ -134,6 +134,49 @@ namespace IdeaStatiCa.Api.Connection
 		Task<string> GetConnectionRawResultsAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Start an asynchronous CBFEM calculation job for <paramref name="conToCalculateIds"/>.
+		/// Returns immediately with the accepted job; poll it with
+		/// <see cref="GetCalculationJobAsync(Guid, CancellationToken)"/> and cancel it with
+		/// <see cref="CancelCalculationJobAsync(Guid, CancellationToken)"/>. At most one job can be
+		/// active per project - starting a second one is rejected (409).
+		/// </summary>
+		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The accepted job</returns>
+		Task<ConCalculationJob> StartCalculationAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Start an asynchronous CBFEM calculation job for a single connection. Subset semantics of
+		/// <paramref name="loadEffectIds"/> are the same as in
+		/// <see cref="CalculateConnectionAsync(int, IEnumerable{int}, CancellationToken)"/>.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The accepted job</returns>
+		Task<ConCalculationJob> StartConnectionCalculationAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the current state of an asynchronous calculation job, including progress of the
+		/// running solve and result summaries once finished.
+		/// </summary>
+		/// <param name="jobId">Id of the job returned by the start methods</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The job state</returns>
+		Task<ConCalculationJob> GetCalculationJobAsync(Guid jobId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Request cancellation of an asynchronous calculation job: the running solver process is
+		/// stopped and remaining connections are skipped. Interrupted connections stay not-calculated.
+		/// Idempotent - cancelling an already finished job leaves it unchanged. Cancellation is
+		/// asynchronous; poll <see cref="GetCalculationJobAsync(Guid, CancellationToken)"/> for the
+		/// terminal state.
+		/// </summary>
+		/// <param name="jobId">Id of the job returned by the start methods</param>
+		/// <param name="cancellationToken"></param>
+		Task CancelCalculationJobAsync(Guid jobId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">List of connections in the active project</param>
