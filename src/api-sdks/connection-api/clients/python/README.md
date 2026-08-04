@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 4.0
 
 - API version: 4.0
-- Package version: 26.0.4.0885
+- Package version: 26.0.4.1705
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -359,6 +359,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.BaseTemplateConversion](docs/BaseTemplateConversion.md)
  - [ideastatica_connection_api.models.BeamData](docs/BeamData.md)
  - [ideastatica_connection_api.models.BendData](docs/BendData.md)
+ - [ideastatica_connection_api.models.BoltAssemblyTemplateConversion](docs/BoltAssemblyTemplateConversion.md)
+ - [ideastatica_connection_api.models.BoltGradeTemplateConversion](docs/BoltGradeTemplateConversion.md)
  - [ideastatica_connection_api.models.BoltGrid](docs/BoltGrid.md)
  - [ideastatica_connection_api.models.BoltShearType](docs/BoltShearType.md)
  - [ideastatica_connection_api.models.BucklingRes](docs/BucklingRes.md)
@@ -368,6 +370,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CheckResPlate](docs/CheckResPlate.md)
  - [ideastatica_connection_api.models.CheckResSummary](docs/CheckResSummary.md)
  - [ideastatica_connection_api.models.CheckResWeld](docs/CheckResWeld.md)
+ - [ideastatica_connection_api.models.CleatTemplateConversion](docs/CleatTemplateConversion.md)
  - [ideastatica_connection_api.models.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [ideastatica_connection_api.models.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [ideastatica_connection_api.models.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
@@ -412,10 +415,12 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
  - [ideastatica_connection_api.models.ConcreteBlock](docs/ConcreteBlock.md)
  - [ideastatica_connection_api.models.ConcreteBlockData](docs/ConcreteBlockData.md)
+ - [ideastatica_connection_api.models.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [ideastatica_connection_api.models.ConnectionCheckRes](docs/ConnectionCheckRes.md)
  - [ideastatica_connection_api.models.ConnectionData](docs/ConnectionData.md)
  - [ideastatica_connection_api.models.ConversionMapping](docs/ConversionMapping.md)
  - [ideastatica_connection_api.models.CountryCode](docs/CountryCode.md)
+ - [ideastatica_connection_api.models.CssTemplateConversion](docs/CssTemplateConversion.md)
  - [ideastatica_connection_api.models.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [ideastatica_connection_api.models.CutData](docs/CutData.md)
  - [ideastatica_connection_api.models.CutMethod](docs/CutMethod.md)
@@ -423,6 +428,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CutPart](docs/CutPart.md)
  - [ideastatica_connection_api.models.DistanceComparison](docs/DistanceComparison.md)
  - [ideastatica_connection_api.models.DrawData](docs/DrawData.md)
+ - [ideastatica_connection_api.models.ElectrodeTemplateConversion](docs/ElectrodeTemplateConversion.md)
  - [ideastatica_connection_api.models.FoldedPlateData](docs/FoldedPlateData.md)
  - [ideastatica_connection_api.models.IGroup](docs/IGroup.md)
  - [ideastatica_connection_api.models.IdeaParameter](docs/IdeaParameter.md)
@@ -431,13 +437,16 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.IdeaParameterValidationResponse](docs/IdeaParameterValidationResponse.md)
  - [ideastatica_connection_api.models.InstallationProcessTypeEnum](docs/InstallationProcessTypeEnum.md)
  - [ideastatica_connection_api.models.Line](docs/Line.md)
+ - [ideastatica_connection_api.models.MemberTemplateConversion](docs/MemberTemplateConversion.md)
  - [ideastatica_connection_api.models.MessageNumber](docs/MessageNumber.md)
  - [ideastatica_connection_api.models.OpenElementId](docs/OpenElementId.md)
  - [ideastatica_connection_api.models.OpenMessage](docs/OpenMessage.md)
  - [ideastatica_connection_api.models.OpenMessages](docs/OpenMessages.md)
  - [ideastatica_connection_api.models.ParameterUpdateResponse](docs/ParameterUpdateResponse.md)
  - [ideastatica_connection_api.models.PinGrid](docs/PinGrid.md)
+ - [ideastatica_connection_api.models.PinTemplateConversion](docs/PinTemplateConversion.md)
  - [ideastatica_connection_api.models.PlateData](docs/PlateData.md)
+ - [ideastatica_connection_api.models.PlateMaterialTemplateConversion](docs/PlateMaterialTemplateConversion.md)
  - [ideastatica_connection_api.models.Point2D](docs/Point2D.md)
  - [ideastatica_connection_api.models.Point3D](docs/Point3D.md)
  - [ideastatica_connection_api.models.PolyLine2D](docs/PolyLine2D.md)
@@ -448,9 +457,12 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.Segment2D](docs/Segment2D.md)
  - [ideastatica_connection_api.models.Selected](docs/Selected.md)
  - [ideastatica_connection_api.models.SelectedType](docs/SelectedType.md)
+ - [ideastatica_connection_api.models.SlottedHole](docs/SlottedHole.md)
  - [ideastatica_connection_api.models.TemplateConversions](docs/TemplateConversions.md)
+ - [ideastatica_connection_api.models.TemplateConversionsConversionsInner](docs/TemplateConversionsConversionsInner.md)
  - [ideastatica_connection_api.models.Text](docs/Text.md)
  - [ideastatica_connection_api.models.TextPosition](docs/TextPosition.md)
+ - [ideastatica_connection_api.models.TimberTemplateConversion](docs/TimberTemplateConversion.md)
  - [ideastatica_connection_api.models.Vector3D](docs/Vector3D.md)
  - [ideastatica_connection_api.models.WeldData](docs/WeldData.md)
  - [ideastatica_connection_api.models.WeldDefinition](docs/WeldDefinition.md)
@@ -463,7 +475,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- Package version: 26.0.4.0885
+- Package version: 26.0.4.1705
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

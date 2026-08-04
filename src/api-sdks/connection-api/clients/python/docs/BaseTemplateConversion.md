@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**type** | **str** |  | 
 **original_value** | **str** |  | [optional] 
 **original_template_id** | **str** |  | [optional] 
 **new_value** | **str** |  | [optional] 

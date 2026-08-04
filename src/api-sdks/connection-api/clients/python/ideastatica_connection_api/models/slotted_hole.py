@@ -18,19 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.template_conversions_conversions_inner import TemplateConversionsConversionsInner
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from ideastatica_connection_api.models.reference_element import ReferenceElement
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TemplateConversions(BaseModel):
+class SlottedHole(BaseModel):
     """
-    TemplateConversions
+    Slotted hole of one fastener position in one connected plate
     """ # noqa: E501
-    conversions: Optional[List[TemplateConversionsConversionsInner]] = None
-    country_code: Optional[StrictStr] = Field(default=None, alias="countryCode")
-    __properties: ClassVar[List[str]] = ["conversions", "countryCode"]
+    position_id: Optional[StrictInt] = Field(default=None, description="Id of the fastener position - matches the Id of the corresponding item in IdeaRS.OpenModel.Connection.FastenerGridBase.Positions", alias="positionId")
+    plate: Optional[ReferenceElement] = None
+    size_factor: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Ratio of the slot length to the borehole diameter - slot length = borehole * SizeFactor", alias="sizeFactor")
+    angle: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Direction of the slot in the plate LCS [rad]")
+    __properties: ClassVar[List[str]] = ["positionId", "plate", "sizeFactor", "angle"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +52,7 @@ class TemplateConversions(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TemplateConversions from a JSON string"""
+        """Create an instance of SlottedHole from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,28 +73,14 @@ class TemplateConversions(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in conversions (list)
-        _items = []
-        if self.conversions:
-            for _item_conversions in self.conversions:
-                if _item_conversions:
-                    _items.append(_item_conversions.to_dict())
-            _dict['conversions'] = _items
-        # set to None if conversions (nullable) is None
-        # and model_fields_set contains the field
-        if self.conversions is None and "conversions" in self.model_fields_set:
-            _dict['conversions'] = None
-
-        # set to None if country_code (nullable) is None
-        # and model_fields_set contains the field
-        if self.country_code is None and "country_code" in self.model_fields_set:
-            _dict['countryCode'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of plate
+        if self.plate:
+            _dict['plate'] = self.plate.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TemplateConversions from a dict"""
+        """Create an instance of SlottedHole from a dict"""
         if obj is None:
             return None
 
@@ -100,8 +88,10 @@ class TemplateConversions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conversions": [TemplateConversionsConversionsInner.from_dict(_item) for _item in obj["conversions"]] if obj.get("conversions") is not None else None,
-            "countryCode": obj.get("countryCode")
+            "positionId": obj.get("positionId"),
+            "plate": ReferenceElement.from_dict(obj["plate"]) if obj.get("plate") is not None else None,
+            "sizeFactor": obj.get("sizeFactor"),
+            "angle": obj.get("angle")
         })
         return _obj
 

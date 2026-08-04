@@ -18,19 +18,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.template_conversions_conversions_inner import TemplateConversionsConversionsInner
+from pydantic import ConfigDict
+from typing import Any, ClassVar, Dict, List
+from ideastatica_connection_api.models.base_template_conversion import BaseTemplateConversion
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TemplateConversions(BaseModel):
+class ElectrodeTemplateConversion(BaseTemplateConversion):
     """
-    TemplateConversions
+    ElectrodeTemplateConversion
     """ # noqa: E501
-    conversions: Optional[List[TemplateConversionsConversionsInner]] = None
-    country_code: Optional[StrictStr] = Field(default=None, alias="countryCode")
-    __properties: ClassVar[List[str]] = ["conversions", "countryCode"]
+    __properties: ClassVar[List[str]] = ["$type", "originalValue", "originalTemplateId", "newValue", "description", "newTemplateId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +48,7 @@ class TemplateConversions(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TemplateConversions from a JSON string"""
+        """Create an instance of ElectrodeTemplateConversion from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,28 +69,36 @@ class TemplateConversions(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in conversions (list)
-        _items = []
-        if self.conversions:
-            for _item_conversions in self.conversions:
-                if _item_conversions:
-                    _items.append(_item_conversions.to_dict())
-            _dict['conversions'] = _items
-        # set to None if conversions (nullable) is None
+        # set to None if original_value (nullable) is None
         # and model_fields_set contains the field
-        if self.conversions is None and "conversions" in self.model_fields_set:
-            _dict['conversions'] = None
+        if self.original_value is None and "original_value" in self.model_fields_set:
+            _dict['originalValue'] = None
 
-        # set to None if country_code (nullable) is None
+        # set to None if original_template_id (nullable) is None
         # and model_fields_set contains the field
-        if self.country_code is None and "country_code" in self.model_fields_set:
-            _dict['countryCode'] = None
+        if self.original_template_id is None and "original_template_id" in self.model_fields_set:
+            _dict['originalTemplateId'] = None
+
+        # set to None if new_value (nullable) is None
+        # and model_fields_set contains the field
+        if self.new_value is None and "new_value" in self.model_fields_set:
+            _dict['newValue'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if new_template_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.new_template_id is None and "new_template_id" in self.model_fields_set:
+            _dict['newTemplateId'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TemplateConversions from a dict"""
+        """Create an instance of ElectrodeTemplateConversion from a dict"""
         if obj is None:
             return None
 
@@ -100,8 +106,12 @@ class TemplateConversions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conversions": [TemplateConversionsConversionsInner.from_dict(_item) for _item in obj["conversions"]] if obj.get("conversions") is not None else None,
-            "countryCode": obj.get("countryCode")
+            "$type": obj.get("$type"),
+            "originalValue": obj.get("originalValue"),
+            "originalTemplateId": obj.get("originalTemplateId"),
+            "newValue": obj.get("newValue"),
+            "description": obj.get("description"),
+            "newTemplateId": obj.get("newTemplateId")
         })
         return _obj
 

@@ -1,4 +1,4 @@
-# IdeaStatiCa.ConnectionApi.Model.BaseTemplateConversion
+# IdeaStatiCa.ConnectionApi.Model.MemberTemplateConversion
 
 ## Properties
 
@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **NewValue** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **NewTemplateId** | **string** |  | [optional] 
+**IsBearing** | **bool** |  | [optional] 
+**OriginalMemberName** | **string** |  | [optional] 
+**NewMemberName** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,4 +1,4 @@
-# IdeaStatiCa.ConnectionApi.Model.BaseTemplateConversion
+# IdeaStatiCa.ConnectionApi.Model.ConcreteTemplateConversion
 
 ## Properties
 
