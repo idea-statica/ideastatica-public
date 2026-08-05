@@ -7,11 +7,6 @@ using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 {
-	/// <summary>
-	/// US 33733 — IOM 3.3.0 added IdeaRS.OpenModel.Connection.ConnectedMember.IsUserEdited.
-	/// Upgrade is a no-op (DataContractSerializer treats missing element as default false).
-	/// Downgrade strips the property so consumers on &lt; 3.3.0 don't see an unknown element.
-	/// </summary>
 	internal class Step330 : BaseStep
 	{
 		public Step330(IPluginLogger logger) : base(logger)
@@ -31,29 +26,22 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				return;
 			}
 
-			DowngradeConnectedMembers(openModel);
-		}
-
-		public override void DoUpStep(SModel _model)
-		{
-			// No-op: DataContractSerializer assigns default(false) when IsUserEdited is missing
-			// from a pre-3.3.0 XML, which matches "CAD-imported, never user-edited" semantics.
-		}
-
-		private void DowngradeConnectedMembers(ISIntermediate openModel)
-		{
-			var connectedMembers = openModel
-				.GetElements("Connections;ConnectionData;ConnectedBeams;ConnectedMember")
-				?.ToList();
-			if (connectedMembers == null)
+			var boltGrids = openModel.GetElements("Connections;ConnectionData;BoltGrids;BoltGrid")?.ToList();
+			if (boltGrids == null)
 			{
 				return;
 			}
 
-			foreach (SObject cm in connectedMembers.OfType<SObject>())
+			foreach (SObject boltGrid in boltGrids.OfType<SObject>())
 			{
-				cm.RemoveElementProperty("IsUserEdited");
+				boltGrid.RemoveElementProperty("SlottedHoles");
 			}
+		}
+
+		public override void DoUpStep(SModel _model)
+		{
+			// SlottedHoles is optional - a missing property means round holes, so there is nothing to materialize on upgrade
+			_logger.LogInformation($"UpStep {Version}: nothing to upgrade");
 		}
 	}
 }

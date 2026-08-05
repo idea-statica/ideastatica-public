@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** |  | [optional] 
 **expression** | **str** |  | [optional] 
-**expression_type** | [**ParameterExpressionType**](ParameterExpressionType.md) |  | [optional] 
 
 ## Example
 

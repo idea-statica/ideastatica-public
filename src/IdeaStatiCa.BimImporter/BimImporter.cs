@@ -287,7 +287,7 @@ namespace IdeaStatiCa.BimImporter
 
 				IIdeaNode node = objects
 					.OfType<IIdeaNode>()
-					.First();
+					.FirstOrDefault();
 
 				IEnumerable<IIdeaConnectionPoint> connectionPoints = objects.OfType<IIdeaConnectionPoint>();
 				List<Connection> connections = new List<Connection>();
@@ -305,7 +305,7 @@ namespace IdeaStatiCa.BimImporter
 						}
 					}
 				}
-				else
+				else if (node != null)
 				{
 					IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
 

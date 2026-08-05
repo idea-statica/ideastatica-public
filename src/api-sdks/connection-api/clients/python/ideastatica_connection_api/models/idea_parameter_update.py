@@ -18,9 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.parameter_expression_type import ParameterExpressionType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,8 +29,7 @@ class IdeaParameterUpdate(BaseModel):
     """ # noqa: E501
     key: Optional[StrictStr] = None
     expression: Optional[StrictStr] = None
-    expression_type: Optional[ParameterExpressionType] = Field(default=None, alias="expressionType")
-    __properties: ClassVar[List[str]] = ["key", "expression", "expressionType"]
+    __properties: ClassVar[List[str]] = ["key", "expression"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,8 +93,7 @@ class IdeaParameterUpdate(BaseModel):
 
         _obj = cls.model_validate({
             "key": obj.get("key"),
-            "expression": obj.get("expression"),
-            "expressionType": obj.get("expressionType")
+            "expression": obj.get("expression")
         })
         return _obj
 

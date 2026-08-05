@@ -63,15 +63,37 @@ namespace IdeaRS.OpenModel.Connection
 	}
 
 	/// <summary>
-	/// Provides data of the single concrete block
+	/// Common base for concrete block data - carries the unique Id, the block material
+	/// reference and the box dimensions shared by every concrete block representation.
 	/// </summary>
-	public class ConcreteBlockData
+	public class ConcreteBlockBase : OpenElementId
 	{
 		/// <summary>
-		/// Plate unique ID
+		/// Material of the concrete block (reference into MatConcrete)
 		/// </summary>
-		public int Id { get; set; }
+		public ReferenceElement Material { get; set; }
 
+		/// <summary>
+		/// Length of the concrete block
+		/// </summary>
+		public double Length { get; set; }
+
+		/// <summary>
+		/// Width of the concrete block
+		/// </summary>
+		public double Width { get; set; }
+
+		/// <summary>
+		/// Height of the concrete block
+		/// </summary>
+		public double Height { get; set; }
+	}
+
+	/// <summary>
+	/// Provides data of the single concrete block
+	/// </summary>
+	public class ConcreteBlockData : ConcreteBlockBase
+	{
 		/// <summary>
 		/// Name of the concrete block
 		/// </summary>
@@ -81,11 +103,6 @@ namespace IdeaRS.OpenModel.Connection
 		/// Depth of the concrete block
 		/// </summary>
 		public double Depth { get; set; }
-
-		/// <summary>
-		/// Name of the material
-		/// </summary>
-		public string Material { get; set; }
 
 		/// <summary>
 		/// Center of the concrete block LCS
@@ -127,34 +144,6 @@ namespace IdeaRS.OpenModel.Connection
 		/// In the case of the imported connection from another application
 		/// </summary>
 		public string OriginalModelId { get; set; }
-	}
-
-
-
-	/// <summary>
-	/// Data of concrete block
-	/// </summary>
-	public class ConcreteBlock
-	{
-		/// <summary>
-		/// Lenght of ConcreteBlock
-		/// </summary>
-		public double Lenght { get; set; }
-
-		/// <summary>
-		/// Width of ConcreteBlock
-		/// </summary>
-		public double Width { get; set; }
-
-		/// <summary>
-		/// Height of ConcreteBlock
-		/// </summary>
-		public double Height { get; set; }
-
-		/// <summary>
-		/// Material of ConcreteBlock
-		/// </summary>
-		public string Material { get; set; }
 	}
 
 	/// <summary>
@@ -328,13 +317,8 @@ namespace IdeaRS.OpenModel.Connection
 	/// <summary>
 	/// Provides data of the single weld
 	/// </summary>
-	public class WeldData
+	public class WeldData : OpenElementId
 	{
-		/// <summary>
-		/// Id of the weld
-		/// </summary>
-		public int Id { get; set; }
-
 		/// <summary>
 		/// Name of the weld
 		/// </summary>
@@ -346,14 +330,9 @@ namespace IdeaRS.OpenModel.Connection
 		public double Thickness { get; set; }
 
 		/// <summary>
-		/// Name of the material
+		/// Material of the weld (reference into MatWelding). Null = taken from connected member.
 		/// </summary>
-		public string Material { get; set; }
-
-		/// <summary>
-		/// Material of the weld
-		/// </summary>
-		public ReferenceElement WeldMaterial { get; set; }
+		public ReferenceElement Material { get; set; }
 
 		/// <summary>
 		/// Type of the weld
@@ -361,9 +340,14 @@ namespace IdeaRS.OpenModel.Connection
 		public WeldType WeldType { get; set; }
 
 		/// <summary>
-		/// Id of the weld
+		/// True for an intermittent (stitch) weld; WeldType holds the base weld type
 		/// </summary>
-		public List<string> ConnectedPartIds { get; set; }
+		public bool IsIntermittent { get; set; }
+
+		/// <summary>
+		/// Parts connected by the weld (references to the welded plates and members)
+		/// </summary>
+		public List<ReferenceElement> ConnectedParts { get; set; }
 
 		/// <summary>
 		/// Start of the weld
@@ -395,10 +379,10 @@ namespace IdeaRS.OpenModel.Connection
 		public double Thickness { get; set; }
 
 		/// <summary>
-		/// Name of the material
+		/// Material of the plate (reference into MatSteel)
 		/// </summary>
 		[DataMember]
-		public string Material { get; set; }
+		public ReferenceElement Material { get; set; }
 
 		/// <summary>
 		/// Outline points
@@ -521,9 +505,20 @@ namespace IdeaRS.OpenModel.Connection
 	}
 
 	/// <summary>
+	/// Common base for cut data - carries the unique Id and the offset shared by every cut.
+	/// </summary>
+	public class CutDataBase : OpenElementId
+	{
+		/// <summary>
+		/// Offset - shift of cut
+		/// </summary>
+		public double Offset { get; set; }
+	}
+
+	/// <summary>
 	/// Provides data of the cut beam
 	/// </summary>
-	public class CutData
+	public class CutData : CutDataBase
 	{
 		/// <summary>
 		/// 3DPlane Point
@@ -539,16 +534,12 @@ namespace IdeaRS.OpenModel.Connection
 		/// Direction of cut [Parallel|Perpendicular]
 		/// </summary>
 		public CutOrientation Direction { get; set; }
-		/// <summary>
-		/// Offset - shift of cut
-		/// </summary>
-		public double Offset { get; set; }
 	}
 
 	/// <summary>
 	/// Provides data of the cut objec by object
 	/// </summary>
-	public class CutBeamByBeamData
+	public class CutBeamByBeamData : CutDataBase
 	{
 		/// <summary>
 		/// Name of the cut
@@ -580,11 +571,6 @@ namespace IdeaRS.OpenModel.Connection
 		/// Flange weld definition. When null, the web weld is used for both web and flanges.
 		/// </summary>
 		public WeldDefinition FlangeWeld { get; set; }
-
-		/// <summary>
-		/// Offset
-		/// </summary>
-		public double Offset { get; set; }
 
 		/// <summary>
 		/// Cut Method

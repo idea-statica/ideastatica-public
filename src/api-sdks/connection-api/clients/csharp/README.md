@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 4.0
 
 - API version: 4.0
-- SDK version: 26.0.3.1592
+- SDK version: 26.0.5.0094
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -211,6 +211,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**AddMember**](docs/MemberApi.md#addmember) | Adds a new member to the connection.
+[**DeleteMember**](docs/MemberApi.md#deletemember) | Deletes the specified member from the connection.
 [**GetMember**](docs/MemberApi.md#getmember) | Gets information about the specified member in the connection.
 [**GetMembers**](docs/MemberApi.md#getmembers) | Gets information about all members in the connection.
 [**SetBearingMember**](docs/MemberApi.md#setbearingmember) | Set bearing member for memberId.
@@ -306,6 +307,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.BaseTemplateConversion](docs/BaseTemplateConversion.md)
  - [Model.BeamData](docs/BeamData.md)
  - [Model.BendData](docs/BendData.md)
+ - [Model.BoltAssemblyTemplateConversion](docs/BoltAssemblyTemplateConversion.md)
+ - [Model.BoltGradeTemplateConversion](docs/BoltGradeTemplateConversion.md)
  - [Model.BoltGrid](docs/BoltGrid.md)
  - [Model.BoltShearType](docs/BoltShearType.md)
  - [Model.BucklingRes](docs/BucklingRes.md)
@@ -315,6 +318,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CheckResPlate](docs/CheckResPlate.md)
  - [Model.CheckResSummary](docs/CheckResSummary.md)
  - [Model.CheckResWeld](docs/CheckResWeld.md)
+ - [Model.CleatTemplateConversion](docs/CleatTemplateConversion.md)
  - [Model.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [Model.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [Model.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
@@ -359,10 +363,12 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
  - [Model.ConcreteBlock](docs/ConcreteBlock.md)
  - [Model.ConcreteBlockData](docs/ConcreteBlockData.md)
+ - [Model.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [Model.ConnectionCheckRes](docs/ConnectionCheckRes.md)
  - [Model.ConnectionData](docs/ConnectionData.md)
  - [Model.ConversionMapping](docs/ConversionMapping.md)
  - [Model.CountryCode](docs/CountryCode.md)
+ - [Model.CssTemplateConversion](docs/CssTemplateConversion.md)
  - [Model.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [Model.CutData](docs/CutData.md)
  - [Model.CutMethod](docs/CutMethod.md)
@@ -370,6 +376,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CutPart](docs/CutPart.md)
  - [Model.DistanceComparison](docs/DistanceComparison.md)
  - [Model.DrawData](docs/DrawData.md)
+ - [Model.ElectrodeTemplateConversion](docs/ElectrodeTemplateConversion.md)
  - [Model.FoldedPlateData](docs/FoldedPlateData.md)
  - [Model.IGroup](docs/IGroup.md)
  - [Model.IdeaParameter](docs/IdeaParameter.md)
@@ -378,14 +385,16 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.IdeaParameterValidationResponse](docs/IdeaParameterValidationResponse.md)
  - [Model.InstallationProcessTypeEnum](docs/InstallationProcessTypeEnum.md)
  - [Model.Line](docs/Line.md)
+ - [Model.MemberTemplateConversion](docs/MemberTemplateConversion.md)
  - [Model.MessageNumber](docs/MessageNumber.md)
  - [Model.OpenElementId](docs/OpenElementId.md)
  - [Model.OpenMessage](docs/OpenMessage.md)
  - [Model.OpenMessages](docs/OpenMessages.md)
- - [Model.ParameterExpressionType](docs/ParameterExpressionType.md)
  - [Model.ParameterUpdateResponse](docs/ParameterUpdateResponse.md)
  - [Model.PinGrid](docs/PinGrid.md)
+ - [Model.PinTemplateConversion](docs/PinTemplateConversion.md)
  - [Model.PlateData](docs/PlateData.md)
+ - [Model.PlateMaterialTemplateConversion](docs/PlateMaterialTemplateConversion.md)
  - [Model.Point2D](docs/Point2D.md)
  - [Model.Point3D](docs/Point3D.md)
  - [Model.PolyLine2D](docs/PolyLine2D.md)
@@ -396,9 +405,12 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.Segment2D](docs/Segment2D.md)
  - [Model.Selected](docs/Selected.md)
  - [Model.SelectedType](docs/SelectedType.md)
+ - [Model.SlottedHole](docs/SlottedHole.md)
  - [Model.TemplateConversions](docs/TemplateConversions.md)
+ - [Model.TemplateConversionsConversionsInner](docs/TemplateConversionsConversionsInner.md)
  - [Model.Text](docs/Text.md)
  - [Model.TextPosition](docs/TextPosition.md)
+ - [Model.TimberTemplateConversion](docs/TimberTemplateConversion.md)
  - [Model.Vector3D](docs/Vector3D.md)
  - [Model.WeldData](docs/WeldData.md)
  - [Model.WeldDefinition](docs/WeldDefinition.md)
@@ -416,7 +428,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- SDK version: 26.0.3.1592
+- SDK version: 26.0.5.0094
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

@@ -60,6 +60,14 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
+			// A persistence token can legitimately be null (an entity that carries no native token — e.g. a
+			// PackedIdentity whose Token is null). Newtonsoft still invokes this converter for the null value, so
+			// return null instead of trying to load a JObject from a Null reader token (which throws).
+			if (reader.TokenType == JsonToken.Null)
+			{
+				return null;
+			}
+
 			// load the json object
 			JObject obj = JObject.Load(reader);
 

@@ -16,6 +16,7 @@
 		public const string Client = "clients";
 		public const string Templates = "templates";
 		public const string ConnectionLibrary = "connection-library";
+		public const string CalculationJobs = "calculation-jobs";
 
 		public const string ConnectClient = "connect-client";
 		public const string Version = "version";

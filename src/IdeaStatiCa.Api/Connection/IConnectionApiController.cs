@@ -4,6 +4,7 @@ using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.Api.Connection.Model.Parameters;
 using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,72 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Run CBFEM analysis of a single connection. When <paramref name="loadEffectIds"/> is set the analysis
+		/// solves exactly these load effects of the connection - their Active flags are ignored and nothing is
+		/// persisted; results reflect only this subset until the next calculation.
+		/// Null = all active load effects. Unknown ids are rejected with 422.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Result summary of the connection</returns>
+		Task<ConResultSummary> CalculateConnectionAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Run CBFEM analysis of a single connection and get a JSON string which represents its raw CBFEM
+		/// results (an instance of CheckResultsData). Subset semantics of <paramref name="loadEffectIds"/>
+		/// are the same as in <see cref="CalculateConnectionAsync(int, IEnumerable{int}, CancellationToken)"/>.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>JSON string representing an instance of CheckResultsData</returns>
+		Task<string> GetConnectionRawResultsAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Start an asynchronous CBFEM calculation job for <paramref name="conToCalculateIds"/>.
+		/// Returns immediately with the accepted job; poll it with
+		/// <see cref="GetCalculationJobAsync(Guid, CancellationToken)"/> and cancel it with
+		/// <see cref="CancelCalculationJobAsync(Guid, CancellationToken)"/>. At most one job can be
+		/// active per project - starting a second one is rejected (409).
+		/// </summary>
+		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The accepted job</returns>
+		Task<ConCalculationJob> StartCalculationAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Start an asynchronous CBFEM calculation job for a single connection. Subset semantics of
+		/// <paramref name="loadEffectIds"/> are the same as in
+		/// <see cref="CalculateConnectionAsync(int, IEnumerable{int}, CancellationToken)"/>.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The accepted job</returns>
+		Task<ConCalculationJob> StartConnectionCalculationAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the current state of an asynchronous calculation job, including progress of the
+		/// running solve and result summaries once finished.
+		/// </summary>
+		/// <param name="jobId">Id of the job returned by the start methods</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The job state</returns>
+		Task<ConCalculationJob> GetCalculationJobAsync(Guid jobId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Request cancellation of an asynchronous calculation job: the running solver process is
+		/// stopped and remaining connections are skipped. Interrupted connections stay not-calculated.
+		/// Idempotent - cancelling an already finished job leaves it unchanged. Cancellation is
+		/// asynchronous; poll <see cref="GetCalculationJobAsync(Guid, CancellationToken)"/> for the
+		/// terminal state.
+		/// </summary>
+		/// <param name="jobId">Id of the job returned by the start methods</param>
+		/// <param name="cancellationToken"></param>
+		Task CancelCalculationJobAsync(Guid jobId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">List of connections in the active project</param>
@@ -200,6 +267,15 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConMember> AddMemberAsync(int connectionId, ConMember member, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Delete a member from the connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="memberId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task DeleteMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get production cost
@@ -338,6 +414,59 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="connectionId"></param>
 		/// <returns></returns>
 		Task DeleteParameters(int connectionId);
+
+		// The parameter-link contracts are annotated for nullability, which the rest of this file is not.
+#nullable enable
+
+		/// <summary>
+		/// Lists the model properties of the connection a parameter can be linked to, across operations,
+		/// members and the library items it edits (cross-sections, materials, bolt assemblies). Each row
+		/// names its owner and carries the property id to pass back when creating a link.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="valueType">Optional filter on the parameter type a property accepts, e.g. <c>Float</c>.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Every linkable property, flat, each naming its owner.</returns>
+		Task<List<ConLinkableProperty>> GetLinkablePropertiesAsync(int connectionId, string? valueType = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Creates a parameter in the connection. Int, Float, Bool, String and Expression are supported;
+		/// library-typed parameters are not.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection the parameter is added to.</param>
+		/// <param name="parameter">Identifier, type and value or expression of the new parameter.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The created parameter, evaluated.</returns>
+		Task<IdeaParameter> CreateParameterAsync(int connectionId, ConParameterCreate parameter, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Deletes a parameter and every link through which it drove a model property. Properties keep the
+		/// value last applied — deleting a parameter does not revert geometry.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="key">Identifier of the parameter to delete.</param>
+		/// <param name="cancellationToken"></param>
+		Task DeleteParameterAsync(int connectionId, string key, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Links a parameter to a model property so the parameter drives it. A property can be driven by
+		/// only one parameter.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="link">The parameter, and the owner and property id taken from the catalog.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The established link.</returns>
+		Task<ConParameterLink> CreateParameterLinkAsync(int connectionId, ConParameterLinkCreate link, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Lists the parameter-to-property links of the connection.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Every link, each naming the parameter and the property it drives.</returns>
+		Task<List<ConParameterLink>> GetParameterLinksAsync(int connectionId, CancellationToken cancellationToken = default);
+
+#nullable restore
 
 
 		/// <summary>

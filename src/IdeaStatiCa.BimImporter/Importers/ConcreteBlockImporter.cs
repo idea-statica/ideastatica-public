@@ -2,6 +2,8 @@
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -13,14 +15,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override object ImportInternal(IImportContext ctx, IIdeaConcreteBlock concreteBlock, ConnectionData connectionData)
 		{
-
-			var concreteBlockIOM = new ConcreteBlock()
+			var concreteBlockIOM = new ConcreteBlockData()
 			{
+				Id = 0,
 				Height = concreteBlock.Height,
-				Lenght = concreteBlock.Lenght,
-				Material = concreteBlock.Material.Name,
+				Length = concreteBlock.Lenght,
+				Material = concreteBlock.Material == null ? null : ctx.Import(concreteBlock.Material),
 				Width = concreteBlock.Width,
 			};
+
+			(connectionData.ConcreteBlocks ?? (connectionData.ConcreteBlocks = new List<ConcreteBlockData>())).Add(concreteBlockIOM);
+
+			//set correct Id
+			concreteBlockIOM.Id = connectionData.ConcreteBlocks.Max(c => c.Id) + 1;
 
 			return concreteBlockIOM;
 		}

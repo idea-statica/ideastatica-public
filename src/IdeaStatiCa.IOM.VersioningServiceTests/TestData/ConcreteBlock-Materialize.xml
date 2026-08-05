@@ -1,0 +1,1969 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModelBIM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Project />
+  <RequestedItems>Connections</RequestedItems>
+  <Items>
+    <BIMItemId>
+      <Type>Node</Type>
+      <Id>325</Id>
+    </BIMItemId>
+    <BIMItemId>
+      <Type>Node</Type>
+      <Id>55</Id>
+    </BIMItemId>
+  </Items>
+  <Model>
+    <Version>3.2.0</Version>
+    <OriginSettings>
+      <ProjectName>Tekla Structures.db1</ProjectName>
+      <DateOfCreate>2026-06-10T12:46:04.0304975+02:00</DateOfCreate>
+      <CrossSectionConversionTable>NoUsed</CrossSectionConversionTable>
+      <CountryCode>ECEN</CountryCode>
+      <ImportRecommendedWelds>false</ImportRecommendedWelds>
+      <CheckEquilibrium>true</CheckEquilibrium>
+    </OriginSettings>
+    <Point3D>
+      <Point3D>
+        <Id>265</Id>
+        <Name />
+        <X>0</X>
+        <Y>5</Y>
+        <Z>0</Z>
+      </Point3D>
+      <Point3D>
+        <Id>266</Id>
+        <Name />
+        <X>0</X>
+        <Y>5</Y>
+        <Z>5.05</Z>
+      </Point3D>
+      <Point3D>
+        <Id>271</Id>
+        <Name />
+        <X>0</X>
+        <Y>2.5003414540078803</Y>
+        <Z>2.48444899248188</Z>
+      </Point3D>
+      <Point3D>
+        <Id>272</Id>
+        <Name />
+        <X>0</X>
+        <Y>4.99034145455591</Y>
+        <Z>0.177377925257114</Z>
+      </Point3D>
+      <Point3D>
+        <Id>277</Id>
+        <Name />
+        <X>0</X>
+        <Y>4.86617750373167</Y>
+        <Z>0.29242011741626905</Z>
+      </Point3D>
+      <Point3D>
+        <Id>278</Id>
+        <Name />
+        <X>0</X>
+        <Y>4.80456030634145</Y>
+        <Z>0.349510580593375</Z>
+      </Point3D>
+      <Point3D>
+        <Id>279</Id>
+        <Name />
+        <X>0.008</X>
+        <Y>4.89525</Y>
+        <Z>0.285623633704411</Z>
+      </Point3D>
+      <Point3D>
+        <Id>280</Id>
+        <Name />
+        <X>0</X>
+        <Y>5</Y>
+        <Z>-0.012071067811865399</Z>
+      </Point3D>
+      <Point3D>
+        <Id>282</Id>
+        <Name />
+        <X>-0.15</X>
+        <Y>5.15</Y>
+        <Z>-0.007071067811865421</Z>
+      </Point3D>
+      <Point3D>
+        <Id>283</Id>
+        <Name />
+        <X>-0.15</X>
+        <Y>4.8500000000000005</Y>
+        <Z>-0.007071067811865421</Z>
+      </Point3D>
+      <Point3D>
+        <Id>284</Id>
+        <Name />
+        <X>0.15</X>
+        <Y>5.15</Y>
+        <Z>-0.007071067811865421</Z>
+      </Point3D>
+      <Point3D>
+        <Id>285</Id>
+        <Name />
+        <X>0.15</X>
+        <Y>4.8500000000000005</Y>
+        <Z>-0.007071067811865421</Z>
+      </Point3D>
+      <Point3D>
+        <Id>286</Id>
+        <Name />
+        <X>-0.11</X>
+        <Y>5</Y>
+        <Z>-0.007071067811865421</Z>
+      </Point3D>
+      <Point3D>
+        <Id>288</Id>
+        <Name />
+        <X>0</X>
+        <Y>4.89551902629856</Y>
+        <Z>0.265234182569744</Z>
+      </Point3D>
+      <Point3D>
+        <Id>289</Id>
+        <Name />
+        <X>0</X>
+        <Y>4.85150674244842</Y>
+        <Z>0.30601308483912604</Z>
+      </Point3D>
+      <Point3D>
+        <Id>291</Id>
+        <Name />
+        <X>0.12</X>
+        <Y>5.04</Y>
+        <Z>2.5500000000000003</Z>
+      </Point3D>
+      <Point3D>
+        <Id>292</Id>
+        <Name />
+        <X>0.12</X>
+        <Y>4.96</Y>
+        <Z>2.5500000000000003</Z>
+      </Point3D>
+      <Point3D>
+        <Id>293</Id>
+        <Name />
+        <X>0.12</X>
+        <Y>5.04</Y>
+        <Z>2.45</Z>
+      </Point3D>
+      <Point3D>
+        <Id>294</Id>
+        <Name />
+        <X>0.12</X>
+        <Y>4.96</Y>
+        <Z>2.45</Z>
+      </Point3D>
+      <Point3D>
+        <Id>295</Id>
+        <Name />
+        <X>0.12</X>
+        <Y>5</Y>
+        <Z>2.61</Z>
+      </Point3D>
+      <Point3D>
+        <Id>297</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5.05</Y>
+        <Z>4.9350000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>298</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>4.95</Y>
+        <Z>4.9350000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>299</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5.05</Y>
+        <Z>4.825</Z>
+      </Point3D>
+      <Point3D>
+        <Id>300</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>4.95</Y>
+        <Z>4.825</Z>
+      </Point3D>
+      <Point3D>
+        <Id>301</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5</Y>
+        <Z>4.9350000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>303</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>4.95</Y>
+        <Z>4.50467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>304</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5.05</Y>
+        <Z>4.50467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>305</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>4.95</Y>
+        <Z>4.58467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>306</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5.05</Y>
+        <Z>4.58467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>307</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>4.95</Y>
+        <Z>4.66467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>308</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5.05</Y>
+        <Z>4.66467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>309</Id>
+        <Name />
+        <X>0.105999999999997</X>
+        <Y>5</Y>
+        <Z>4.50467176287874</Z>
+      </Point3D>
+      <Point3D>
+        <Id>311</Id>
+        <Name />
+        <X>0.047200000047499996</X>
+        <Y>4.99525</Y>
+        <Z>4.955</Z>
+      </Point3D>
+      <Point3D>
+        <Id>312</Id>
+        <Name />
+        <X>0.047200000047499996</X>
+        <Y>4.99525</Y>
+        <Z>4.8950000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>313</Id>
+        <Name />
+        <X>0.0022000000475</X>
+        <Y>4.99525</Y>
+        <Z>4.985</Z>
+      </Point3D>
+      <Point3D>
+        <Id>315</Id>
+        <Name />
+        <X>-0.047200000047499996</X>
+        <Y>4.99525</Y>
+        <Z>4.955</Z>
+      </Point3D>
+      <Point3D>
+        <Id>316</Id>
+        <Name />
+        <X>-0.047200000047499996</X>
+        <Y>4.99525</Y>
+        <Z>4.8950000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>317</Id>
+        <Name />
+        <X>-0.0022000000475</X>
+        <Y>4.99525</Y>
+        <Z>4.985</Z>
+      </Point3D>
+      <Point3D>
+        <Id>318</Id>
+        <Name />
+        <X>-0.11</X>
+        <Y>5</Y>
+        <Z>-0.007071</Z>
+      </Point3D>
+      <Point3D>
+        <Id>319</Id>
+        <Name />
+        <X>0.11</X>
+        <Y>5</Y>
+        <Z>-0.007071</Z>
+      </Point3D>
+      <Point3D>
+        <Id>320</Id>
+        <Name />
+        <X>0.004</X>
+        <Y>4.99525</Y>
+        <Z>0.28562400000000004</Z>
+      </Point3D>
+      <Point3D>
+        <Id>321</Id>
+        <Name />
+        <X>-0.0172884555490493</X>
+        <Y>4.80947730028974</Y>
+        <Z>0.360702841982022</Z>
+      </Point3D>
+      <Point3D>
+        <Id>322</Id>
+        <Name />
+        <X>-0.004</X>
+        <Y>4.80749433063339</Y>
+        <Z>0.346792105672358</Z>
+      </Point3D>
+      <Point3D>
+        <Id>323</Id>
+        <Name />
+        <X>0.11</X>
+        <Y>5</Y>
+        <Z>-0.007071067811865421</Z>
+      </Point3D>
+      <Point3D>
+        <Id>324</Id>
+        <Name />
+        <X>-1</X>
+        <Y>4.80162615408473</Y>
+        <Z>0.352229174077898</Z>
+      </Point3D>
+      <Point3D>
+        <Id>49</Id>
+        <Name />
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Point3D>
+      <Point3D>
+        <Id>326</Id>
+        <Name />
+        <X>-0.094</X>
+        <Y>5.06375</Y>
+        <Z>4.457651</Z>
+      </Point3D>
+      <Point3D>
+        <Id>327</Id>
+        <Name />
+        <X>-0.094</X>
+        <Y>4.93625</Y>
+        <Z>4.447651</Z>
+      </Point3D>
+      <Point3D>
+        <Id>328</Id>
+        <Name />
+        <X>0.094</X>
+        <Y>5.06375</Y>
+        <Z>4.457651</Z>
+      </Point3D>
+      <Point3D>
+        <Id>329</Id>
+        <Name />
+        <X>0.094</X>
+        <Y>4.93625</Y>
+        <Z>4.447651</Z>
+      </Point3D>
+      <Point3D>
+        <Id>330</Id>
+        <Name />
+        <X>0</X>
+        <Y>5.0047500000000005</Y>
+        <Z>4.457651</Z>
+      </Point3D>
+      <Point3D>
+        <Id>331</Id>
+        <Name />
+        <X>0</X>
+        <Y>4.99525</Y>
+        <Z>4.447651</Z>
+      </Point3D>
+      <Point3D>
+        <Id>332</Id>
+        <Name />
+        <X>0.012</X>
+        <Y>4.99525</Y>
+        <Z>2.365395</Z>
+      </Point3D>
+      <Point3D>
+        <Id>333</Id>
+        <Name />
+        <X>0.012</X>
+        <Y>4.99525</Y>
+        <Z>4.742322000000001</Z>
+      </Point3D>
+      <Point3D>
+        <Id>334</Id>
+        <Name />
+        <X>0.004</X>
+        <Y>4.99525</Y>
+        <Z>2.887655</Z>
+      </Point3D>
+      <Point3D>
+        <Id>335</Id>
+        <Name />
+        <X>-1.4210854715202E-17</X>
+        <Y>4.99525</Y>
+        <Z>5.0440000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>336</Id>
+        <Name />
+        <X>0.094</X>
+        <Y>4.936274999999999</Y>
+        <Z>5.0440000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>337</Id>
+        <Name />
+        <X>-0.094</X>
+        <Y>4.936274999999999</Y>
+        <Z>5.0440000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>338</Id>
+        <Name />
+        <X>6.96331881044898E-16</X>
+        <Y>5.0047500000000005</Y>
+        <Z>5.0440000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>339</Id>
+        <Name />
+        <X>0.0940000000000007</X>
+        <Y>5.063725000000001</Y>
+        <Z>5.0440000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>340</Id>
+        <Name />
+        <X>-0.0939999999999993</X>
+        <Y>5.063725000000001</Y>
+        <Z>5.0440000000000005</Z>
+      </Point3D>
+      <Point3D>
+        <Id>341</Id>
+        <Name />
+        <X>-0.0022</X>
+        <Y>4.99525</Y>
+        <Z>2.56</Z>
+      </Point3D>
+      <Point3D>
+        <Id>342</Id>
+        <Name />
+        <X>-0.020393123780503602</X>
+        <Y>2.69561688999813</Y>
+        <Z>2.29798957993313</Z>
+      </Point3D>
+    </Point3D>
+    <LineSegment3D>
+      <LineSegment3D>
+        <Id>267</Id>
+        <StartPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>265</Id>
+        </StartPoint>
+        <EndPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>266</Id>
+        </EndPoint>
+        <LocalCoordinateSystem xsi:type="CoordSystemByVector">
+          <VecX>
+            <X>0</X>
+            <Y>0</Y>
+            <Z>1</Z>
+          </VecX>
+          <VecY>
+            <X>-1</X>
+            <Y>0</Y>
+            <Z>0</Z>
+          </VecY>
+          <VecZ>
+            <X>0</X>
+            <Y>-1</Y>
+            <Z>0</Z>
+          </VecZ>
+        </LocalCoordinateSystem>
+      </LineSegment3D>
+      <LineSegment3D>
+        <Id>273</Id>
+        <StartPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>271</Id>
+        </StartPoint>
+        <EndPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>272</Id>
+        </EndPoint>
+        <LocalCoordinateSystem xsi:type="CoordSystemByVector">
+          <VecX>
+            <X>0</X>
+            <Y>0.733538219567094</Y>
+            <Z>-0.6796482034364085</Z>
+          </VecX>
+          <VecY>
+            <X>0</X>
+            <Y>0.6796482034364085</Y>
+            <Z>0.733538219567094</Z>
+          </VecY>
+          <VecZ>
+            <X>1</X>
+            <Y>-0</Y>
+            <Z>0</Z>
+          </VecZ>
+        </LocalCoordinateSystem>
+      </LineSegment3D>
+    </LineSegment3D>
+    <ArcSegment3D />
+    <PolyLine3D />
+    <Region3D />
+    <MatConcrete />
+    <MatReinforcement />
+    <MatSteel>
+      <MatSteel xsi:type="MatSteelEc2">
+        <Id>5</Id>
+        <Name>S 355</Name>
+        <LoadFromLibrary>true</LoadFromLibrary>
+        <E>0</E>
+        <G>0</G>
+        <Poisson>0</Poisson>
+        <UnitMass>0</UnitMass>
+        <SpecificHeat>0</SpecificHeat>
+        <ThermalExpansion>0</ThermalExpansion>
+        <ThermalConductivity>0</ThermalConductivity>
+        <IsDefaultMaterial>false</IsDefaultMaterial>
+        <OrderInCode>0</OrderInCode>
+        <StateOfThermalExpansion>None</StateOfThermalExpansion>
+        <StateOfThermalConductivity>None</StateOfThermalConductivity>
+        <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+        <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+        <StateOfThermalStrain>None</StateOfThermalStrain>
+        <UserThermalStressStrainCurvature />
+        <fy>0</fy>
+        <fu>0</fu>
+        <fy40>0</fy40>
+        <fu40>0</fu40>
+        <DiagramType>Bilinear</DiagramType>
+      </MatSteel>
+    </MatSteel>
+    <MatPrestressSteel />
+    <MatWelding />
+    <MatBoltGrade>
+      <MaterialBoltGrade xsi:type="MaterialBoltGradeEc2">
+        <Id>26</Id>
+        <Name>8.8</Name>
+        <LoadFromLibrary>true</LoadFromLibrary>
+        <E>0</E>
+        <G>0</G>
+        <Poisson>0</Poisson>
+        <UnitMass>0</UnitMass>
+        <SpecificHeat>0</SpecificHeat>
+        <ThermalExpansion>0</ThermalExpansion>
+        <ThermalConductivity>0</ThermalConductivity>
+        <IsDefaultMaterial>false</IsDefaultMaterial>
+        <OrderInCode>0</OrderInCode>
+        <StateOfThermalExpansion>None</StateOfThermalExpansion>
+        <StateOfThermalConductivity>None</StateOfThermalConductivity>
+        <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+        <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+        <StateOfThermalStrain>None</StateOfThermalStrain>
+        <UserThermalStressStrainCurvature />
+        <fub>0</fub>
+        <fyb>0</fyb>
+        <Elongation>0</Elongation>
+        <Code>None</Code>
+      </MaterialBoltGrade>
+      <MaterialBoltGrade xsi:type="MaterialBoltGradeEc2">
+        <Id>31</Id>
+        <Name>10.9</Name>
+        <LoadFromLibrary>true</LoadFromLibrary>
+        <E>0</E>
+        <G>0</G>
+        <Poisson>0</Poisson>
+        <UnitMass>0</UnitMass>
+        <SpecificHeat>0</SpecificHeat>
+        <ThermalExpansion>0</ThermalExpansion>
+        <ThermalConductivity>0</ThermalConductivity>
+        <IsDefaultMaterial>false</IsDefaultMaterial>
+        <OrderInCode>0</OrderInCode>
+        <StateOfThermalExpansion>None</StateOfThermalExpansion>
+        <StateOfThermalConductivity>None</StateOfThermalConductivity>
+        <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+        <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+        <StateOfThermalStrain>None</StateOfThermalStrain>
+        <UserThermalStressStrainCurvature />
+        <fub>0</fub>
+        <fyb>0</fyb>
+        <Elongation>0</Elongation>
+        <Code>None</Code>
+      </MaterialBoltGrade>
+    </MatBoltGrade>
+    <MatHeadedStudGrade />
+    <CrossSection>
+      <CrossSection xsi:type="CrossSectionParameter">
+        <Id>59</Id>
+        <Name>HEB220</Name>
+        <CrossSectionRotation>0</CrossSectionRotation>
+        <IsInPrincipal>false</IsInPrincipal>
+        <CrossSectionType>RolledI</CrossSectionType>
+        <Parameters>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>B</Name>
+            <Value>0.22</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>H</Name>
+            <Value>0.22</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>s</Name>
+            <Value>0.0095</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>t</Name>
+            <Value>0.016</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r2</Name>
+            <Value>0.018000000000000002</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>tapperF</Name>
+            <Value>0.001</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r1</Name>
+            <Value>0</Value>
+          </Parameter>
+        </Parameters>
+        <Material>
+          <TypeName>MatSteel</TypeName>
+          <Id>5</Id>
+        </Material>
+      </CrossSection>
+      <CrossSection xsi:type="CrossSectionParameter">
+        <Id>13</Id>
+        <Name>CHS42.4*4.0</Name>
+        <CrossSectionRotation>0</CrossSectionRotation>
+        <IsInPrincipal>false</IsInPrincipal>
+        <CrossSectionType>RolledCHS</CrossSectionType>
+        <Parameters>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>R</Name>
+            <Value>0.021200000764999997</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>t</Name>
+            <Value>0.004</Value>
+          </Parameter>
+        </Parameters>
+        <Material>
+          <TypeName>MatSteel</TypeName>
+          <Id>5</Id>
+        </Material>
+      </CrossSection>
+    </CrossSection>
+    <BoltAssembly>
+      <BoltAssembly>
+        <Id>281</Id>
+        <Name>20 931-8.8</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>26</Id>
+        </BoltGrade>
+        <Diameter>0.016</Diameter>
+        <Borehole>0.017</Borehole>
+        <HeadDiameter>0.024</HeadDiameter>
+        <DiagonalHeadDiameter>0.024</DiagonalHeadDiameter>
+        <HeadHeight>0.01</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.016</NutThickness>
+        <WasherThickness>0.008</WasherThickness>
+        <WasherAtHead>true</WasherAtHead>
+        <WasherAtNut>true</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+      <BoltAssembly>
+        <Id>287</Id>
+        <Name>16 6914</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>31</Id>
+        </BoltGrade>
+        <Diameter>0.016</Diameter>
+        <Borehole>0.017</Borehole>
+        <HeadDiameter>0.0272</HeadDiameter>
+        <DiagonalHeadDiameter>0.0272</DiagonalHeadDiameter>
+        <HeadHeight>0.0096</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.0096</NutThickness>
+        <WasherThickness>0</WasherThickness>
+        <WasherAtHead>false</WasherAtHead>
+        <WasherAtNut>false</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+      <BoltAssembly>
+        <Id>290</Id>
+        <Name>16 931-8.8</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>26</Id>
+        </BoltGrade>
+        <Diameter>0.016</Diameter>
+        <Borehole>0.017</Borehole>
+        <HeadDiameter>0.0272</HeadDiameter>
+        <DiagonalHeadDiameter>0.0272</DiagonalHeadDiameter>
+        <HeadHeight>0.0096</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.0096</NutThickness>
+        <WasherThickness>0</WasherThickness>
+        <WasherAtHead>false</WasherAtHead>
+        <WasherAtNut>false</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+      <BoltAssembly>
+        <Id>296</Id>
+        <Name>16 931-8.8</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>26</Id>
+        </BoltGrade>
+        <Diameter>0.016</Diameter>
+        <Borehole>0.017</Borehole>
+        <HeadDiameter>0.0272</HeadDiameter>
+        <DiagonalHeadDiameter>0.0272</DiagonalHeadDiameter>
+        <HeadHeight>0.0096</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.0096</NutThickness>
+        <WasherThickness>0</WasherThickness>
+        <WasherAtHead>false</WasherAtHead>
+        <WasherAtNut>false</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+      <BoltAssembly>
+        <Id>302</Id>
+        <Name>16 931-8.8</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>26</Id>
+        </BoltGrade>
+        <Diameter>0.016</Diameter>
+        <Borehole>0.017</Borehole>
+        <HeadDiameter>0.0272</HeadDiameter>
+        <DiagonalHeadDiameter>0.0272</DiagonalHeadDiameter>
+        <HeadHeight>0.0096</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.0096</NutThickness>
+        <WasherThickness>0</WasherThickness>
+        <WasherAtHead>false</WasherAtHead>
+        <WasherAtNut>false</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+      <BoltAssembly>
+        <Id>310</Id>
+        <Name>12 931-8.8</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>26</Id>
+        </BoltGrade>
+        <Diameter>0.012</Diameter>
+        <Borehole>0.013000000000000001</Borehole>
+        <HeadDiameter>0.0204</HeadDiameter>
+        <DiagonalHeadDiameter>0.0204</DiagonalHeadDiameter>
+        <HeadHeight>0.0072</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.0072</NutThickness>
+        <WasherThickness>0</WasherThickness>
+        <WasherAtHead>false</WasherAtHead>
+        <WasherAtNut>false</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+      <BoltAssembly>
+        <Id>314</Id>
+        <Name>12 931-8.8</Name>
+        <BoltGrade>
+          <TypeName>MaterialBoltGrade</TypeName>
+          <Id>26</Id>
+        </BoltGrade>
+        <Diameter>0.012</Diameter>
+        <Borehole>0.013000000000000001</Borehole>
+        <HeadDiameter>0.0204</HeadDiameter>
+        <DiagonalHeadDiameter>0.0204</DiagonalHeadDiameter>
+        <HeadHeight>0.0072</HeadHeight>
+        <GrossArea>0</GrossArea>
+        <TensileStressArea>0</TensileStressArea>
+        <NutThickness>0.0072</NutThickness>
+        <WasherThickness>0</WasherThickness>
+        <WasherAtHead>false</WasherAtHead>
+        <WasherAtNut>false</WasherAtNut>
+        <LoadFromLibrary>false</LoadFromLibrary>
+      </BoltAssembly>
+    </BoltAssembly>
+    <Pin />
+    <ReinforcedCrossSection />
+    <HingeElement1D />
+    <Opening />
+    <DappedEnd />
+    <PatchDevice />
+    <Element1D>
+      <Element1D>
+        <Id>268</Id>
+        <Name />
+        <Segment>
+          <TypeName>LineSegment3D</TypeName>
+          <Id>267</Id>
+        </Segment>
+        <RotationRx>-1.5707963267948966</RotationRx>
+        <EccentricityBegin>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityBegin>
+        <EccentricityEnd>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityEnd>
+      </Element1D>
+      <Element1D>
+        <Id>274</Id>
+        <Name />
+        <Segment>
+          <TypeName>LineSegment3D</TypeName>
+          <Id>273</Id>
+        </Segment>
+        <RotationRx>-1.5707963267948966</RotationRx>
+        <EccentricityBegin>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityBegin>
+        <EccentricityEnd>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityEnd>
+      </Element1D>
+    </Element1D>
+    <Beam />
+    <Member1D>
+      <Member1D>
+        <Id>269</Id>
+        <Name />
+        <Elements1D>
+          <ReferenceElement>
+            <TypeName>Element1D</TypeName>
+            <Id>268</Id>
+          </ReferenceElement>
+        </Elements1D>
+        <Member1DType>Beam</Member1DType>
+        <CrossSection>
+          <TypeName>CrossSection</TypeName>
+          <Id>59</Id>
+        </CrossSection>
+        <Alignment>Center</Alignment>
+        <MirrorY>false</MirrorY>
+        <MirrorZ>false</MirrorZ>
+        <EccentricityBegin>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityBegin>
+        <EccentricityEnd>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityEnd>
+        <InsertionPoint>Center</InsertionPoint>
+        <EccentricityReference>LocalCoordinateSystem</EccentricityReference>
+      </Member1D>
+      <Member1D>
+        <Id>275</Id>
+        <Name />
+        <Elements1D>
+          <ReferenceElement>
+            <TypeName>Element1D</TypeName>
+            <Id>274</Id>
+          </ReferenceElement>
+        </Elements1D>
+        <Member1DType>Beam</Member1DType>
+        <CrossSection>
+          <TypeName>CrossSection</TypeName>
+          <Id>13</Id>
+        </CrossSection>
+        <Alignment>Center</Alignment>
+        <MirrorY>false</MirrorY>
+        <MirrorZ>false</MirrorZ>
+        <EccentricityBegin>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityBegin>
+        <EccentricityEnd>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </EccentricityEnd>
+        <InsertionPoint>Center</InsertionPoint>
+        <EccentricityReference>LocalCoordinateSystem</EccentricityReference>
+      </Member1D>
+    </Member1D>
+    <Element2D />
+    <Wall />
+    <Member2D />
+    <RigidLink />
+    <PointOnLine3D />
+    <PointSupportNode />
+    <LineSupportSegment />
+    <LoadsInPoint />
+    <LoadsOnLine />
+    <StrainLoadsOnLine />
+    <PointLoadsOnLine />
+    <LoadsOnSurface />
+    <Settlements />
+    <TemperatureLoadsOnLine />
+    <LoadGroup />
+    <LoadCase />
+    <CombiInput />
+    <Attribute />
+    <ConnectionPoint>
+      <ConnectionPoint>
+        <Id>325</Id>
+        <Name>C 325</Name>
+        <Node>
+          <TypeName>Point3D</TypeName>
+          <Id>265</Id>
+        </Node>
+        <ConnectedMembers>
+          <ConnectedMember>
+            <Id>270</Id>
+            <MemberId>
+              <TypeName>Member1D</TypeName>
+              <Id>269</Id>
+            </MemberId>
+            <IsContinuous>false</IsContinuous>
+            <Length>0</Length>
+          </ConnectedMember>
+          <ConnectedMember>
+            <Id>276</Id>
+            <MemberId>
+              <TypeName>Member1D</TypeName>
+              <Id>275</Id>
+            </MemberId>
+            <IsContinuous>false</IsContinuous>
+            <Length>0</Length>
+          </ConnectedMember>
+        </ConnectedMembers>
+        <NodeId>0</NodeId>
+        <ProjectFileName>Connections/conn-265.ideaCon</ProjectFileName>
+      </ConnectionPoint>
+     
+    </ConnectionPoint>
+    <Connections>
+      <ConnectionData>
+        <ConnectionPoint>
+          <TypeName>ConnectionPoint</TypeName>
+          <Id>325</Id>
+        </ConnectionPoint>
+        <Beams>
+          <BeamData>
+            <Id>269</Id>
+            <Name />
+            <Plates />
+            <OriginalModelId>IdeaStatiCa.BimApi.IIdeaMember1D-b64f3ed0-43bb-4518-afb2-fad9ac573822</OriginalModelId>
+            <Cuts>
+              <CutData>
+                <PlanePoint>
+                  <Id>323</Id>
+                  <Name />
+                  <X>0.11</X>
+                  <Y>5</Y>
+                  <Z>-0.007071067811865421</Z>
+                </PlanePoint>
+                <NormalVector>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Z>1</Z>
+                </NormalVector>
+                <Direction>Default</Direction>
+                <Offset>0</Offset>
+              </CutData>
+            </Cuts>
+            <IsAdded>false</IsAdded>
+            <AddedMemberLength>0</AddedMemberLength>
+            <IsNegativeObject>false</IsNegativeObject>
+            <MirrorY>false</MirrorY>
+            <RefLineInCenterOfGravity>false</RefLineInCenterOfGravity>
+            <IsBearingMember>false</IsBearingMember>
+            <AutoAddCutByWorkplane>true</AutoAddCutByWorkplane>
+          </BeamData>
+          <BeamData>
+            <Id>275</Id>
+            <Name />
+            <Plates />
+            <OriginalModelId>IdeaStatiCa.BimApi.IIdeaMember1D-0c00fc2c-bd79-4aea-8488-f198ae5a27a6</OriginalModelId>
+            <Cuts>
+              <CutData>
+                <PlanePoint>
+                  <Id>324</Id>
+                  <Name />
+                  <X>-1</X>
+                  <Y>4.80162615408473</Y>
+                  <Z>0.352229174077898</Z>
+                </PlanePoint>
+                <NormalVector>
+                  <X>0</X>
+                  <Y>-0.7335380641687791</Y>
+                  <Z>0.6796483711563798</Z>
+                </NormalVector>
+                <Direction>Default</Direction>
+                <Offset>0</Offset>
+              </CutData>
+            </Cuts>
+            <IsAdded>false</IsAdded>
+            <AddedMemberLength>0</AddedMemberLength>
+            <IsNegativeObject>false</IsNegativeObject>
+            <MirrorY>false</MirrorY>
+            <RefLineInCenterOfGravity>false</RefLineInCenterOfGravity>
+            <IsBearingMember>false</IsBearingMember>
+            <AutoAddCutByWorkplane>true</AutoAddCutByWorkplane>
+          </BeamData>
+        </Beams>
+        <Plates>
+          <PlateData>
+            <Id>1</Id>
+            <Thickness>0.008</Thickness>
+            <Material>S 355</Material>
+            <OutlinePoints />
+            <Origin>
+              <Id>277</Id>
+              <Name />
+              <X>0</X>
+              <Y>4.86617750373167</Y>
+              <Z>0.29242011741626905</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0.6796483711563802</Y>
+              <Z>0.7335380641687788</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>0.7335380641687789</Y>
+              <Z>-0.6796483711563801</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-1</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisZ>
+            <Geometry>
+              <Outline>
+                <StartPoint>
+                  <X>0.030000000000013904</X>
+                  <Y>0.07999999999999437</Y>
+                </StartPoint>
+                <Segments>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.02999999999999869</X>
+                      <Y>-0.08000000000001761</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.02999999999995499</X>
+                      <Y>-0.07999999999999931</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.02999999999993976</X>
+                      <Y>0.08000000000001266</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.030000000000013904</X>
+                      <Y>0.07999999999999437</Y>
+                    </EndPoint>
+                  </Segment2D>
+                </Segments>
+              </Outline>
+            </Geometry>
+            <OriginalModelId>IdeaStatiCa.BimApi.IIdeaPlate-08b016e7-abdb-4c61-a253-b792fa924b4d</OriginalModelId>
+            <IsNegativeObject>false</IsNegativeObject>
+          </PlateData>
+          <PlateData>
+            <Id>2</Id>
+            <Thickness>0.008</Thickness>
+            <Material>S 355</Material>
+            <OutlinePoints />
+            <Origin>
+              <Id>278</Id>
+              <Name />
+              <X>0</X>
+              <Y>4.80456030634145</Y>
+              <Z>0.349510580593375</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0.6796483711563768</Y>
+              <Z>0.733538064168782</Z>
+            </AxisX>
+            <AxisY>
+              <X>1</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>0</X>
+              <Y>0.733538064168782</Y>
+              <Z>-0.6796483711563768</Z>
+            </AxisZ>
+            <Geometry>
+              <Outline>
+                <StartPoint>
+                  <X>0.03500000000000768</X>
+                  <Y>0.035</Y>
+                </StartPoint>
+                <Segments>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.03500000000000768</X>
+                      <Y>-0.035</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.034999999999938455</X>
+                      <Y>-0.035</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.034999999999938455</X>
+                      <Y>0.035</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.03500000000000768</X>
+                      <Y>0.035</Y>
+                    </EndPoint>
+                  </Segment2D>
+                </Segments>
+              </Outline>
+            </Geometry>
+            <OriginalModelId>IdeaStatiCa.BimApi.IIdeaPlate-071b23f6-f612-4644-82b4-b442c5a7ea47</OriginalModelId>
+            <IsNegativeObject>false</IsNegativeObject>
+          </PlateData>
+          <PlateData>
+            <Id>3</Id>
+            <Thickness>0.008</Thickness>
+            <Material>S 355</Material>
+            <OutlinePoints />
+            <Origin>
+              <Id>279</Id>
+              <Name />
+              <X>0.008</X>
+              <Y>4.89525</Y>
+              <Z>0.285623633704411</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>1</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>1</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-1</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisZ>
+            <Geometry>
+              <Outline>
+                <StartPoint>
+                  <X>0.07500000000000001</X>
+                  <Y>-0.061307485020186014</Y>
+                </StartPoint>
+                <Segments>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.03323953423470599</X>
+                      <Y>-0.09999999999999964</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.07499999999999996</X>
+                      <Y>-0.09999999999999964</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.07499999999999996</X>
+                      <Y>0.10000000000000053</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.07500000000000001</X>
+                      <Y>0.10000000000000053</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.07500000000000001</X>
+                      <Y>-0.061307485020186014</Y>
+                    </EndPoint>
+                  </Segment2D>
+                </Segments>
+              </Outline>
+            </Geometry>
+            <OriginalModelId>IdeaStatiCa.BimApi.IIdeaPlate-a6e18f7d-498c-4d2e-9125-3a50c35ab84c</OriginalModelId>
+            <IsNegativeObject>false</IsNegativeObject>
+          </PlateData>
+          <PlateData>
+            <Id>4</Id>
+            <Thickness>0.01</Thickness>
+            <Material>S 355</Material>
+            <OutlinePoints />
+            <Origin>
+              <Id>280</Id>
+              <Name />
+              <X>0</X>
+              <Y>5</Y>
+              <Z>-0.012071067811865399</Z>
+            </Origin>
+            <AxisX>
+              <X>-1</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>-1</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>1</Z>
+            </AxisZ>
+            <Geometry>
+              <Outline>
+                <StartPoint>
+                  <X>0.19</X>
+                  <Y>0.20000000000000018</Y>
+                </StartPoint>
+                <Segments>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.19</X>
+                      <Y>-0.20000000000000018</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.19</X>
+                      <Y>-0.20000000000000018</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>-0.19</X>
+                      <Y>0.20000000000000018</Y>
+                    </EndPoint>
+                  </Segment2D>
+                  <Segment2D xsi:type="LineSegment2D">
+                    <EndPoint>
+                      <X>0.19</X>
+                      <Y>0.20000000000000018</Y>
+                    </EndPoint>
+                  </Segment2D>
+                </Segments>
+              </Outline>
+            </Geometry>
+            <OriginalModelId>IdeaStatiCa.BimApi.IIdeaPlate-7805c143-7f18-4c6c-b332-43167c13f99a</OriginalModelId>
+            <IsNegativeObject>false</IsNegativeObject>
+          </PlateData>
+        </Plates>
+        <FoldedPlates />
+        <BoltGrids>
+          <BoltGrid>
+            <Id>1</Id>
+            <Origin>
+              <Id>288</Id>
+              <Name />
+              <X>0</X>
+              <Y>4.89551902629856</Y>
+              <Z>0.265234182569744</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>-88.02456770045865</Y>
+              <Z>81.55780453895602</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>679.6483711563815</Y>
+              <Z>733.5380641687776</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-120000.00000027994</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>288</Id>
+                <Name />
+                <X>0</X>
+                <Y>4.89551902629856</Y>
+                <Z>0.265234182569744</Z>
+              </Point3D>
+              <Point3D>
+                <Id>289</Id>
+                <Name />
+                <X>0</X>
+                <Y>4.85150674244842</Y>
+                <Z>0.30601308483912604</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>PlateData</TypeName>
+                <Id>3</Id>
+              </ReferenceElement>
+              <ReferenceElement>
+                <TypeName>PlateData</TypeName>
+                <Id>1</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0</Length>
+            <ShearInThread>false</ShearInThread>
+            <BoltInteraction>Interaction</BoltInteraction>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>287</Id>
+            </BoltAssembly>
+          </BoltGrid>
+          <BoltGrid>
+            <Id>2</Id>
+            <Origin>
+              <Id>295</Id>
+              <Name />
+              <X>0.12</X>
+              <Y>5</Y>
+              <Z>2.61</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>-220</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>-1000</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-220000</X>
+              <Y>-0</Y>
+              <Z>-0</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>291</Id>
+                <Name />
+                <X>0.12</X>
+                <Y>5.04</Y>
+                <Z>2.5500000000000003</Z>
+              </Point3D>
+              <Point3D>
+                <Id>292</Id>
+                <Name />
+                <X>0.12</X>
+                <Y>4.96</Y>
+                <Z>2.5500000000000003</Z>
+              </Point3D>
+              <Point3D>
+                <Id>293</Id>
+                <Name />
+                <X>0.12</X>
+                <Y>5.04</Y>
+                <Z>2.45</Z>
+              </Point3D>
+              <Point3D>
+                <Id>294</Id>
+                <Name />
+                <X>0.12</X>
+                <Y>4.96</Y>
+                <Z>2.45</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>BeamData</TypeName>
+                <Id>269</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0</Length>
+            <ShearInThread>false</ShearInThread>
+            <BoltInteraction>Interaction</BoltInteraction>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>290</Id>
+            </BoltAssembly>
+          </BoltGrid>
+          <BoltGrid>
+            <Id>3</Id>
+            <Origin>
+              <Id>301</Id>
+              <Name />
+              <X>0.105999999999997</X>
+              <Y>5</Y>
+              <Z>4.9350000000000005</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>-170</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>-1000</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-170000</X>
+              <Y>-0</Y>
+              <Z>-0</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>297</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>5.05</Y>
+                <Z>4.9350000000000005</Z>
+              </Point3D>
+              <Point3D>
+                <Id>298</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>4.95</Y>
+                <Z>4.9350000000000005</Z>
+              </Point3D>
+              <Point3D>
+                <Id>299</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>5.05</Y>
+                <Z>4.825</Z>
+              </Point3D>
+              <Point3D>
+                <Id>300</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>4.95</Y>
+                <Z>4.825</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>BeamData</TypeName>
+                <Id>269</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0</Length>
+            <ShearInThread>false</ShearInThread>
+            <BoltInteraction>Interaction</BoltInteraction>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>296</Id>
+            </BoltAssembly>
+          </BoltGrid>
+          <BoltGrid>
+            <Id>4</Id>
+            <Origin>
+              <Id>309</Id>
+              <Name />
+              <X>0.105999999999997</X>
+              <Y>5</Y>
+              <Z>4.50467176287874</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>920</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>1000</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-920000</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>303</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>4.95</Y>
+                <Z>4.50467176287874</Z>
+              </Point3D>
+              <Point3D>
+                <Id>304</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>5.05</Y>
+                <Z>4.50467176287874</Z>
+              </Point3D>
+              <Point3D>
+                <Id>305</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>4.95</Y>
+                <Z>4.58467176287874</Z>
+              </Point3D>
+              <Point3D>
+                <Id>306</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>5.05</Y>
+                <Z>4.58467176287874</Z>
+              </Point3D>
+              <Point3D>
+                <Id>307</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>4.95</Y>
+                <Z>4.66467176287874</Z>
+              </Point3D>
+              <Point3D>
+                <Id>308</Id>
+                <Name />
+                <X>0.105999999999997</X>
+                <Y>5.05</Y>
+                <Z>4.66467176287874</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>BeamData</TypeName>
+                <Id>269</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0</Length>
+            <ShearInThread>false</ShearInThread>
+            <BoltInteraction>Interaction</BoltInteraction>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>302</Id>
+            </BoltAssembly>
+          </BoltGrid>
+          <BoltGrid>
+            <Id>5</Id>
+            <Origin>
+              <Id>313</Id>
+              <Name />
+              <X>0.0022000000475</X>
+              <Y>4.99525</Y>
+              <Z>4.985</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>-120</Z>
+            </AxisX>
+            <AxisY>
+              <X>1000</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>0</X>
+              <Y>-120000</Y>
+              <Z>0</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>311</Id>
+                <Name />
+                <X>0.047200000047499996</X>
+                <Y>4.99525</Y>
+                <Z>4.955</Z>
+              </Point3D>
+              <Point3D>
+                <Id>312</Id>
+                <Name />
+                <X>0.047200000047499996</X>
+                <Y>4.99525</Y>
+                <Z>4.8950000000000005</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>BeamData</TypeName>
+                <Id>269</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0</Length>
+            <ShearInThread>false</ShearInThread>
+            <BoltInteraction>Interaction</BoltInteraction>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>310</Id>
+            </BoltAssembly>
+          </BoltGrid>
+          <BoltGrid>
+            <Id>6</Id>
+            <Origin>
+              <Id>317</Id>
+              <Name />
+              <X>-0.0022000000475</X>
+              <Y>4.99525</Y>
+              <Z>4.985</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>-120</Z>
+            </AxisX>
+            <AxisY>
+              <X>-1000</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>0</X>
+              <Y>120000</Y>
+              <Z>0</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>315</Id>
+                <Name />
+                <X>-0.047200000047499996</X>
+                <Y>4.99525</Y>
+                <Z>4.955</Z>
+              </Point3D>
+              <Point3D>
+                <Id>316</Id>
+                <Name />
+                <X>-0.047200000047499996</X>
+                <Y>4.99525</Y>
+                <Z>4.8950000000000005</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>BeamData</TypeName>
+                <Id>269</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0</Length>
+            <ShearInThread>false</ShearInThread>
+            <BoltInteraction>Interaction</BoltInteraction>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>314</Id>
+            </BoltAssembly>
+          </BoltGrid>
+        </BoltGrids>
+        <AnchorGrids>
+          <AnchorGrid>
+            <Id>1</Id>
+            <Origin>
+              <Id>286</Id>
+              <Name />
+              <X>-0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071067811865421</Z>
+            </Origin>
+            <AxisX>
+              <X>220</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisX>
+            <AxisY>
+              <X>0</X>
+              <Y>-1000</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>-220000</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>282</Id>
+                <Name />
+                <X>-0.15</X>
+                <Y>5.15</Y>
+                <Z>-0.007071067811865421</Z>
+              </Point3D>
+              <Point3D>
+                <Id>283</Id>
+                <Name />
+                <X>-0.15</X>
+                <Y>4.8500000000000005</Y>
+                <Z>-0.007071067811865421</Z>
+              </Point3D>
+              <Point3D>
+                <Id>284</Id>
+                <Name />
+                <X>0.15</X>
+                <Y>5.15</Y>
+                <Z>-0.007071067811865421</Z>
+              </Point3D>
+              <Point3D>
+                <Id>285</Id>
+                <Name />
+                <X>0.15</X>
+                <Y>4.8500000000000005</Y>
+                <Z>-0.007071067811865421</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedParts>
+              <ReferenceElement>
+                <TypeName>PlateData</TypeName>
+                <Id>4</Id>
+              </ReferenceElement>
+              <ReferenceElement>
+                <TypeName>PlateData</TypeName>
+                <Id>4</Id>
+              </ReferenceElement>
+            </ConnectedParts>
+            <Name />
+            <Length>0.3</Length>
+            <ShearInThread>false</ShearInThread>
+            <ConcreteBlock>
+              <Lenght>0.6</Lenght>
+              <Width>0.6</Width>
+              <Height>0.4</Height>
+              <Material>C20/25</Material>
+            </ConcreteBlock>
+            <AnchorType>Straight</AnchorType>
+            <AnchorInstallationProcess>PostInstalled</AnchorInstallationProcess>
+            <WasherSize>0</WasherSize>
+            <AnchoringLength>0</AnchoringLength>
+            <HookLength>0</HookLength>
+            <HeadedStudHeadDiameter>0</HeadedStudHeadDiameter>
+            <ReinforcementMandrelDiameter>0</ReinforcementMandrelDiameter>
+            <BoltAssembly>
+              <TypeName>BoltAssembly</TypeName>
+              <Id>281</Id>
+            </BoltAssembly>
+          </AnchorGrid>
+        </AnchorGrids>
+        <PinGrids />
+        <Welds>
+          <WeldData>
+            <Id>1</Id>
+            <Thickness>0.005</Thickness>
+            <WeldType>DoubleFillet</WeldType>
+            <ConnectedPartIds>
+              <string>IdeaStatiCa.BimApi.IIdeaMember1D-b64f3ed0-43bb-4518-afb2-fad9ac573822</string>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-7805c143-7f18-4c6c-b332-43167c13f99a</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>286</Id>
+              <Name />
+              <X>-0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071067811865421</Z>
+            </Start>
+            <End>
+              <Id>286</Id>
+              <Name />
+              <X>-0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071067811865421</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>2</Id>
+            <Thickness>0.005</Thickness>
+            <WeldType>DoubleFillet</WeldType>
+            <ConnectedPartIds>
+              <string>IdeaStatiCa.BimApi.IIdeaMember1D-b64f3ed0-43bb-4518-afb2-fad9ac573822</string>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-7805c143-7f18-4c6c-b332-43167c13f99a</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>318</Id>
+              <Name />
+              <X>-0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071</Z>
+            </Start>
+            <End>
+              <Id>318</Id>
+              <Name />
+              <X>-0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>3</Id>
+            <Thickness>0.005</Thickness>
+            <WeldType>DoubleFillet</WeldType>
+            <ConnectedPartIds>
+              <string>IdeaStatiCa.BimApi.IIdeaMember1D-b64f3ed0-43bb-4518-afb2-fad9ac573822</string>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-7805c143-7f18-4c6c-b332-43167c13f99a</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>319</Id>
+              <Name />
+              <X>0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071</Z>
+            </Start>
+            <End>
+              <Id>319</Id>
+              <Name />
+              <X>0.11</X>
+              <Y>5</Y>
+              <Z>-0.007071</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>4</Id>
+            <Thickness>0.006</Thickness>
+            <WeldType>DoubleFillet</WeldType>
+            <ConnectedPartIds>
+              <string>IdeaStatiCa.BimApi.IIdeaMember1D-b64f3ed0-43bb-4518-afb2-fad9ac573822</string>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-a6e18f7d-498c-4d2e-9125-3a50c35ab84c</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>320</Id>
+              <Name />
+              <X>0.004</X>
+              <Y>4.99525</Y>
+              <Z>0.28562400000000004</Z>
+            </Start>
+            <End>
+              <Id>320</Id>
+              <Name />
+              <X>0.004</X>
+              <Y>4.99525</Y>
+              <Z>0.28562400000000004</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>5</Id>
+            <Thickness>0.006</Thickness>
+            <WeldType>DoubleFillet</WeldType>
+            <ConnectedPartIds>
+              <string>IdeaStatiCa.BimApi.IIdeaMember1D-0c00fc2c-bd79-4aea-8488-f198ae5a27a6</string>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-071b23f6-f612-4644-82b4-b442c5a7ea47</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>321</Id>
+              <Name />
+              <X>-0.0172884555490493</X>
+              <Y>4.80947730028974</Y>
+              <Z>0.360702841982022</Z>
+            </Start>
+            <End>
+              <Id>321</Id>
+              <Name />
+              <X>-0.0172884555490493</X>
+              <Y>4.80947730028974</Y>
+              <Z>0.360702841982022</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>6</Id>
+            <Thickness>0.006</Thickness>
+            <WeldType>DoubleFillet</WeldType>
+            <ConnectedPartIds>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-071b23f6-f612-4644-82b4-b442c5a7ea47</string>
+              <string>IdeaStatiCa.BimApi.IIdeaPlate-08b016e7-abdb-4c61-a253-b792fa924b4d</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>322</Id>
+              <Name />
+              <X>-0.004</X>
+              <Y>4.80749433063339</Y>
+              <Z>0.346792105672358</Z>
+            </Start>
+            <End>
+              <Id>322</Id>
+              <Name />
+              <X>-0.004</X>
+              <Y>4.80749433063339</Y>
+              <Z>0.346792105672358</Z>
+            </End>
+          </WeldData>
+        </Welds>
+        <ConcreteBlocks />
+        <CutBeamByBeams />
+      </ConnectionData>
+     
+    </Connections>
+    <Reinforcement />
+    <ISDModel />
+    <InitialImperfectionOfPoint />
+    <Tendon />
+    <ResultClass />
+    <DesignMember />
+    <SubStructure />
+    <CheckMember />
+    <ConcreteCheckSection />
+    <RebarShape />
+    <RebarGeneral />
+    <RebarSingle />
+    <RebarStirrups />
+    <Taper />
+    <Span />
+    <SolidBlocks3D />
+    <SurfaceSupports3D />
+    <BasePlates3D />
+    <Anchors3D />
+    <DetailLoadCase />
+    <DetailCombination />
+  </Model>
+  <Results>
+    <ResultOnMembers>
+      <ResultOnMembers>
+        <Members />
+      </ResultOnMembers>
+    </ResultOnMembers>
+  </Results>
+  <Messages>
+    <Messages />
+  </Messages>
+</ModelBIM>

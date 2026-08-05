@@ -1,4 +1,5 @@
-﻿using IdeaRS.OpenModel.Geometry3D;
+﻿using System;
+using IdeaRS.OpenModel.Geometry3D;
 using Newtonsoft.Json;
 
 namespace IdeaStatiCa.Api.Connection.Model
@@ -27,6 +28,25 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// </summary>
 		public ConMemberConnectedByEnum ConnectedBy { get; set; }
 
+		/// <summary>
+		/// Normalised position of the joint along the member's reference line:
+		/// <c>0</c> = begin, <c>1</c> = end.
+		/// </summary>
+		/// <remarks>
+		/// Back-compatibility shim over <see cref="ConnectedBy"/>. Only the two endpoints are
+		/// representable now (<c>Begin</c>/<c>End</c>): a set value of <c>0.5</c> or any value
+		/// below <c>0.5</c> maps to <see cref="ConMemberConnectedByEnum.Begin"/>, so the former
+		/// through-member (<c>0.5</c>) case no longer round-trips. Not serialized;
+		/// <see cref="ConnectedBy"/> is the wire contract.
+		/// </remarks>
+		[Obsolete("Use " + nameof(ConnectedBy) + " instead. PositionOnRefLine will be removed in a future version.")]
+		[JsonIgnore]
+		public double PositionOnRefLine
+		{
+			get => ConnectedBy == ConMemberConnectedByEnum.End ? 1.0 : 0.0;
+			set => ConnectedBy = value >= 0.5 ? ConMemberConnectedByEnum.End : ConMemberConnectedByEnum.Begin;
+		}
+
 		public bool? MirrorY { get; set; }
 
 		public bool? MirrorZ { get; set; }
@@ -42,7 +62,37 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 	public class ConMemberModel
 	{
-		public ConMemberModelTypeEnum ModelType { get; set; }
+		public ConMemberModelTypeEnum ModelTypeEnum { get; set; }
+
+		/// <summary>
+		/// Analysis model type as a string. Getter returns the <see cref="ModelTypeEnum"/> name;
+		/// setter accepts the legacy labels <c>N-Vy-Vz-Mx-My-Mz</c>, <c>N-Vz-My</c>,
+		/// <c>N-Vy-Mz</c>, <c>N-Vy-Vz</c> and throws <see cref="ArgumentException"/> for anything else.
+		/// </summary>
+		/// <remarks>
+		/// Back-compatibility shim over <see cref="ModelTypeEnum"/>. Not serialized;
+		/// <see cref="ModelTypeEnum"/> is the wire contract.
+		/// </remarks>
+		[Obsolete("Use " + nameof(ModelTypeEnum) + " instead. ModelType (string) will be removed in a future version.")]
+		[JsonIgnore]
+		public string ModelType
+		{
+			get => ModelTypeEnum.ToString();
+			set
+			{
+				switch (value)
+				{
+					case "N-Vy-Vz-Mx-My-Mz": ModelTypeEnum = ConMemberModelTypeEnum.LoadedInXYZ; break;
+					case "N-Vz-My": ModelTypeEnum = ConMemberModelTypeEnum.LoadedInXZ; break;
+					case "N-Vy-Mz": ModelTypeEnum = ConMemberModelTypeEnum.LoadedInXY; break;
+					case "N-Vy-Vz": ModelTypeEnum = ConMemberModelTypeEnum.LoadedInXYZ_NoBending; break;
+					default:
+						throw new ArgumentException(
+							$"'{value}' is not a valid ModelType. Expected one of: N-Vy-Vz-Mx-My-Mz, N-Vz-My, N-Vy-Mz, N-Vy-Vz.",
+							nameof(value));
+				}
+			}
+		}
 
 		public ConMemberForcesInEnum ForcesIn { get; set; }
 

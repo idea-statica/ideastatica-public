@@ -6,8 +6,6 @@
 		public string Key { get; set; }
 
 		public string Expression { get; set; }
-
-		public ParameterExpressionType ExpressionType { get; set; } = ParameterExpressionType.Value;
 	}
 
 	public class IdeaParameterValidation

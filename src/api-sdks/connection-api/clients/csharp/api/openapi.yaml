@@ -2748,6 +2748,68 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
   /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}:
+    delete:
+      operationId: DeleteMember
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the member to delete.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the member to delete.
+        explode: false
+        in: path
+        name: memberId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Deletes the specified member from the connection.
+      tags:
+      - Member
+      x-requiresProject: true
+      x-requiresConnection: true
     get:
       operationId: GetMember
       parameters:
@@ -5329,19 +5391,19 @@ components:
           id: 0
           element:
             id: 6
-        washerSize: 9.018348186070783
+        washerSize: 6.965117697638846
         concreteBlock:
-          lenght: 9.369310271410669
+          lenght: 9.018348186070783
           material: material
-          width: 6.683562403749608
-          height: 8.762042012749001
+          width: 6.438423552598547
+          height: 3.5571952270680973
         origin:
           x: 2.3021358869347655
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
         shearInThread: true
-        length: 2.8841621266687802
+        length: 5.944895607614016
         anchorInstallationProcess: postInstalled
         positions:
         - x: 2.3021358869347655
@@ -5352,7 +5414,7 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        headedStudHeadDiameter: 6.965117697638846
+        headedStudHeadDiameter: 6.778324963048013
         axisZ:
           x: 2.027123023002322
           "y": 4.145608029883936
@@ -5371,11 +5433,11 @@ components:
           id: 0
           element:
             id: 6
-        hookLength: 3.5571952270680973
-        reinforcementMandrelDiameter: 1.284659006116532
+        hookLength: 2.8841621266687802
+        reinforcementMandrelDiameter: 6.878052220127876
         id: 6
         anchorType: straight
-        anchoringLength: 6.438423552598547
+        anchoringLength: 1.284659006116532
       properties:
         shearInThread:
           description: "Indicates, whether a shear plane is in the thread of a bolt."
@@ -5457,14 +5519,22 @@ components:
       - generalAnchor
       type: string
     BaseTemplateConversion:
-      additionalProperties: false
-      example:
-        newValue: newValue
-        newTemplateId: newTemplateId
-        originalValue: originalValue
-        description: description
-        originalTemplateId: originalTemplateId
+      discriminator:
+        mapping:
+          IdeaStatiCa.Api.Connection.Model.BoltAssemblyTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/BoltAssemblyTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.BoltGradeTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/BoltGradeTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/CleatTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.ConcreteTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/ConcreteTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.CssTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/CssTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.ElectrodeTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/ElectrodeTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/MemberTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.PlateMaterialTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/PlateMaterialTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/TimberTemplateConversion'
+          IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/PinTemplateConversion'
+        propertyName: $type
       properties:
+        $type:
+          type: string
         originalValue:
           nullable: true
           type: string
@@ -5480,6 +5550,8 @@ components:
         newTemplateId:
           nullable: true
           type: string
+      required:
+      - $type
       type: object
     BeamData:
       additionalProperties: false
@@ -5765,6 +5837,23 @@ components:
         point2OfSideBoundary2:
           $ref: '#/components/schemas/Point3D'
       type: object
+    BoltAssemblyTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
+      example:
+        newValue: newValue
+        newTemplateId: newTemplateId
+        originalValue: originalValue
+        description: description
+        originalTemplateId: originalTemplateId
+        $type: $type
+    BoltGradeTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     BoltGrid:
       additionalProperties: false
       example:
@@ -5777,31 +5866,13 @@ components:
           id: 0
           element:
             id: 6
-        axisZ:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
         origin:
           x: 2.3021358869347655
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        axisY:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
         shearInThread: true
-        axisX:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
-        name: name
-        length: 5.025004791520295
-        boltAssembly:
-          typeName: typeName
-          id: 0
-          element:
-            id: 6
+        length: 6.683562403749608
         positions:
         - x: 2.3021358869347655
           "y": 7.061401241503109
@@ -5811,7 +5882,42 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        id: 9
+        slottedHoles:
+        - positionId: 5
+          angle: 9.369310271410669
+          plate:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          sizeFactor: 9.965781217890562
+        - positionId: 5
+          angle: 9.369310271410669
+          plate:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          sizeFactor: 9.965781217890562
+        axisZ:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        axisY:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        axisX:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        name: name
+        boltAssembly:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        id: 8
         boltInteraction: bearing
       properties:
         shearInThread:
@@ -5821,6 +5927,13 @@ components:
           $ref: '#/components/schemas/BoltShearType'
         boltAssembly:
           $ref: '#/components/schemas/ReferenceElement'
+        slottedHoles:
+          description: Slotted holes of grid positions per connected plate. Null or
+            missing entry means a round hole.
+          items:
+            $ref: '#/components/schemas/SlottedHole'
+          nullable: true
+          type: array
         origin:
           $ref: '#/components/schemas/Point3D'
         axisX:
@@ -5873,7 +5986,10 @@ components:
           format: int32
           type: integer
         shape:
-          description: Shape lc calculated by solver
+          description: "Index of the buckling mode within its load case. Mode indices\
+            \ restart for every load case\r\nand the same index in two load cases\
+            \ is not guaranteed to be the same physical buckling\r\nshape - matching\
+            \ shapes across load cases requires a visual inspection in the application"
           format: int32
           type: integer
         factor:
@@ -6042,6 +6158,7 @@ components:
         name: name
         id: 5
         loadCaseId: 7
+        isFullStrength: true
         items:
         - 9
         - 9
@@ -6055,11 +6172,20 @@ components:
           format: int32
           type: integer
         unityCheck:
-          description: Unity Check Stress
+          description: "Unity Check Stress. NaN when the weld has no computed stress\
+            \ utilisation -\r\nfull-strength welds are not stress-checked, see IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength"
           format: double
           type: number
         checkStatus:
           description: Status of the Check
+          type: boolean
+        isFullStrength:
+          description: "True when the weld is not rated by a stress utilisation and\
+            \ its check is satisfied by definition -\r\nthe check treats it as a full-strength\
+            \ weld. This applies to butt/bevel welds (e.g. CJP) and to\r\nwelds placed\
+            \ edge-to-edge. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is\
+            \ NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true\r\
+            \nin that case"
           type: boolean
         loadCaseId:
           description: Id of Load Case
@@ -6073,6 +6199,11 @@ components:
           nullable: true
           type: array
       type: object
+    CleatTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     ConAlignedPlate:
       additionalProperties: false
       example:
@@ -6498,8 +6629,8 @@ components:
         isContinuous: true
         mirrorY: true
         model:
+          modelTypeEnum: loadedInXYZ
           x: 3.616076749251911
-          modelType: loadedInXYZ
           forcesIn: position
           connectedMemberId: 2
         mirrorZ: true
@@ -6592,12 +6723,12 @@ components:
     ConMemberModel:
       additionalProperties: false
       example:
+        modelTypeEnum: loadedInXYZ
         x: 3.616076749251911
-        modelType: loadedInXYZ
         forcesIn: position
         connectedMemberId: 2
       properties:
-        modelType:
+        modelTypeEnum:
           $ref: '#/components/schemas/ConMemberModelTypeEnum'
         forcesIn:
           $ref: '#/components/schemas/ConMemberForcesInEnum'
@@ -6947,11 +7078,13 @@ components:
             originalValue: originalValue
             description: description
             originalTemplateId: originalTemplateId
+            $type: $type
           - newValue: newValue
             newTemplateId: newTemplateId
             originalValue: originalValue
             description: description
             originalTemplateId: originalTemplateId
+            $type: $type
           countryCode: countryCode
         connectionTemplate: connectionTemplate
       properties:
@@ -7107,10 +7240,10 @@ components:
       additionalProperties: false
       description: Data of concrete block
       example:
-        lenght: 9.369310271410669
+        lenght: 9.018348186070783
         material: material
-        width: 6.683562403749608
-        height: 8.762042012749001
+        width: 6.438423552598547
+        height: 3.5571952270680973
       properties:
         lenght:
           description: Lenght of ConcreteBlock
@@ -7134,7 +7267,7 @@ components:
       description: Provides data of the single concrete block
       example:
         originalModelId: originalModelId
-        depth: 7.143538047012306
+        depth: 6.519180951018382
         outlinePoints:
         - x: 5.962133916683182
           "y": 5.637376656633329
@@ -7164,7 +7297,7 @@ components:
           x: 2.027123023002322
           "y": 4.145608029883936
           z: 7.386281948385884
-        id: 3
+        id: 7
         region: region
       properties:
         id:
@@ -7209,6 +7342,11 @@ components:
           nullable: true
           type: string
       type: object
+    ConcreteTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     ConnectionCheckRes:
       additionalProperties: false
       description: Results for connection in project
@@ -7236,6 +7374,7 @@ components:
           name: name
           id: 5
           loadCaseId: 7
+          isFullStrength: true
           items:
           - 9
           - 9
@@ -7244,6 +7383,7 @@ components:
           name: name
           id: 5
           loadCaseId: 7
+          isFullStrength: true
           items:
           - 9
           - 9
@@ -7337,7 +7477,11 @@ components:
           nullable: true
           type: array
         bucklingResults:
-          description: List of results of buckling analysis
+          description: "Results of the linear buckling analysis - one row per buckling\
+            \ mode and load case,\r\nso IdeaRS.OpenModel.Connection.BucklingRes.Shape\
+            \ repeats for every load case. The critical buckling factor\r\nof the\
+            \ connection is the minimal positive IdeaRS.OpenModel.Connection.BucklingRes.Factor\
+            \ in the list\r\n(also reported as the Buckling row of IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary)"
           items:
             $ref: '#/components/schemas/BucklingRes'
           nullable: true
@@ -7697,8 +7841,9 @@ components:
           - connectedPartIds
           - connectedPartIds
           material: material
-          thickness: 3.353193347011243
+          thickness: 0.8851374739011653
           weldType: notSpecified
+          isIntermittent: true
           name: name
           start:
             x: 2.3021358869347655
@@ -7710,7 +7855,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 6
+          id: 7
           weldMaterial:
             typeName: typeName
             id: 0
@@ -7720,8 +7865,9 @@ components:
           - connectedPartIds
           - connectedPartIds
           material: material
-          thickness: 3.353193347011243
+          thickness: 0.8851374739011653
           weldType: notSpecified
+          isIntermittent: true
           name: name
           start:
             x: 2.3021358869347655
@@ -7733,7 +7879,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 6
+          id: 7
           weldMaterial:
             typeName: typeName
             id: 0
@@ -7871,10 +8017,10 @@ components:
             element:
               id: 6
           orientation: null
-          offset: 7.058770351582356
+          offset: 4.652396432933246
           method: boundingBox
           webWeld:
-            thickness: 0.8851374739011653
+            thickness: 0.10263654006109402
             weldType: null
             weldMaterial:
               typeName: typeName
@@ -7889,7 +8035,7 @@ components:
               id: 6
           isWeld: true
           flangeWeld:
-            thickness: 0.8851374739011653
+            thickness: 0.10263654006109402
             weldType: null
             weldMaterial:
               typeName: typeName
@@ -7905,10 +8051,10 @@ components:
             element:
               id: 6
           orientation: null
-          offset: 7.058770351582356
+          offset: 4.652396432933246
           method: boundingBox
           webWeld:
-            thickness: 0.8851374739011653
+            thickness: 0.10263654006109402
             weldType: null
             weldMaterial:
               typeName: typeName
@@ -7923,7 +8069,7 @@ components:
               id: 6
           isWeld: true
           flangeWeld:
-            thickness: 0.8851374739011653
+            thickness: 0.10263654006109402
             weldType: null
             weldMaterial:
               typeName: typeName
@@ -7943,19 +8089,19 @@ components:
             id: 0
             element:
               id: 6
-          washerSize: 9.018348186070783
+          washerSize: 6.965117697638846
           concreteBlock:
-            lenght: 9.369310271410669
+            lenght: 9.018348186070783
             material: material
-            width: 6.683562403749608
-            height: 8.762042012749001
+            width: 6.438423552598547
+            height: 3.5571952270680973
           origin:
             x: 2.3021358869347655
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
           shearInThread: true
-          length: 2.8841621266687802
+          length: 5.944895607614016
           anchorInstallationProcess: postInstalled
           positions:
           - x: 2.3021358869347655
@@ -7966,7 +8112,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          headedStudHeadDiameter: 6.965117697638846
+          headedStudHeadDiameter: 6.778324963048013
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -7985,11 +8131,11 @@ components:
             id: 0
             element:
               id: 6
-          hookLength: 3.5571952270680973
-          reinforcementMandrelDiameter: 1.284659006116532
+          hookLength: 2.8841621266687802
+          reinforcementMandrelDiameter: 6.878052220127876
           id: 6
           anchorType: straight
-          anchoringLength: 6.438423552598547
+          anchoringLength: 1.284659006116532
         - connectedParts:
           - typeName: typeName
             id: 0
@@ -7999,19 +8145,19 @@ components:
             id: 0
             element:
               id: 6
-          washerSize: 9.018348186070783
+          washerSize: 6.965117697638846
           concreteBlock:
-            lenght: 9.369310271410669
+            lenght: 9.018348186070783
             material: material
-            width: 6.683562403749608
-            height: 8.762042012749001
+            width: 6.438423552598547
+            height: 3.5571952270680973
           origin:
             x: 2.3021358869347655
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
           shearInThread: true
-          length: 2.8841621266687802
+          length: 5.944895607614016
           anchorInstallationProcess: postInstalled
           positions:
           - x: 2.3021358869347655
@@ -8022,7 +8168,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          headedStudHeadDiameter: 6.965117697638846
+          headedStudHeadDiameter: 6.778324963048013
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -8041,14 +8187,14 @@ components:
             id: 0
             element:
               id: 6
-          hookLength: 3.5571952270680973
-          reinforcementMandrelDiameter: 1.284659006116532
+          hookLength: 2.8841621266687802
+          reinforcementMandrelDiameter: 6.878052220127876
           id: 6
           anchorType: straight
-          anchoringLength: 6.438423552598547
+          anchoringLength: 1.284659006116532
         concreteBlocks:
         - originalModelId: originalModelId
-          depth: 7.143538047012306
+          depth: 6.519180951018382
           outlinePoints:
           - x: 5.962133916683182
             "y": 5.637376656633329
@@ -8078,10 +8224,10 @@ components:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          id: 3
+          id: 7
           region: region
         - originalModelId: originalModelId
-          depth: 7.143538047012306
+          depth: 6.519180951018382
           outlinePoints:
           - x: 5.962133916683182
             "y": 5.637376656633329
@@ -8111,7 +8257,7 @@ components:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-          id: 3
+          id: 7
           region: region
         connectionPoint:
           typeName: typeName
@@ -8512,7 +8658,7 @@ components:
             "y": 4.145608029883936
             z: 7.386281948385884
           name: name
-          length: 6.878052220127876
+          length: 3.353193347011243
           isReplaceable: true
           positions:
           - x: 2.3021358869347655
@@ -8523,7 +8669,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 5
+          id: 3
         - connectedParts:
           - typeName: typeName
             id: 0
@@ -8556,7 +8702,7 @@ components:
             "y": 4.145608029883936
             z: 7.386281948385884
           name: name
-          length: 6.878052220127876
+          length: 3.353193347011243
           isReplaceable: true
           positions:
           - x: 2.3021358869347655
@@ -8567,7 +8713,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 5
+          id: 3
         boltGrids:
         - connectedParts:
           - typeName: typeName
@@ -8578,31 +8724,13 @@ components:
             id: 0
             element:
               id: 6
-          axisZ:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
           origin:
             x: 2.3021358869347655
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          axisY:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
           shearInThread: true
-          axisX:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          name: name
-          length: 5.025004791520295
-          boltAssembly:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
+          length: 6.683562403749608
           positions:
           - x: 2.3021358869347655
             "y": 7.061401241503109
@@ -8612,7 +8740,42 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 9
+          slottedHoles:
+          - positionId: 5
+            angle: 9.369310271410669
+            plate:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
+            sizeFactor: 9.965781217890562
+          - positionId: 5
+            angle: 9.369310271410669
+            plate:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
+            sizeFactor: 9.965781217890562
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          boltAssembly:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          id: 8
           boltInteraction: bearing
         - connectedParts:
           - typeName: typeName
@@ -8623,31 +8786,13 @@ components:
             id: 0
             element:
               id: 6
-          axisZ:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
           origin:
             x: 2.3021358869347655
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          axisY:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
           shearInThread: true
-          axisX:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          name: name
-          length: 5.025004791520295
-          boltAssembly:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
+          length: 6.683562403749608
           positions:
           - x: 2.3021358869347655
             "y": 7.061401241503109
@@ -8657,7 +8802,42 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 9
+          slottedHoles:
+          - positionId: 5
+            angle: 9.369310271410669
+            plate:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
+            sizeFactor: 9.965781217890562
+          - positionId: 5
+            angle: 9.369310271410669
+            plate:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
+            sizeFactor: 9.965781217890562
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          boltAssembly:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          id: 8
           boltInteraction: bearing
       properties:
         connectionPoint:
@@ -8744,6 +8924,11 @@ components:
       - chn
       - hkg
       type: string
+    CssTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     CutBeamByBeamData:
       additionalProperties: false
       description: Provides data of the cut objec by object
@@ -8754,10 +8939,10 @@ components:
           element:
             id: 6
         orientation: null
-        offset: 7.058770351582356
+        offset: 4.652396432933246
         method: boundingBox
         webWeld:
-          thickness: 0.8851374739011653
+          thickness: 0.10263654006109402
           weldType: null
           weldMaterial:
             typeName: typeName
@@ -8772,7 +8957,7 @@ components:
             id: 6
         isWeld: true
         flangeWeld:
-          thickness: 0.8851374739011653
+          thickness: 0.10263654006109402
           weldType: null
           weldMaterial:
             typeName: typeName
@@ -8999,6 +9184,11 @@ components:
           nullable: true
           type: array
       type: object
+    ElectrodeTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     FoldedPlateData:
       additionalProperties: false
       description: Provides data of the folded plate
@@ -9336,7 +9526,6 @@ components:
       additionalProperties: false
       example:
         expression: expression
-        expressionType: value
         key: key
       properties:
         key:
@@ -9345,8 +9534,6 @@ components:
         expression:
           nullable: true
           type: string
-        expressionType:
-          $ref: '#/components/schemas/ParameterExpressionType'
       type: object
     IdeaParameterValidation:
       additionalProperties: false
@@ -9433,6 +9620,20 @@ components:
           format: double
           type: number
       type: object
+    MemberTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        properties:
+          isBearing:
+            type: boolean
+          originalMemberName:
+            nullable: true
+            type: string
+          newMemberName:
+            nullable: true
+            type: string
+        type: object
     MessageNumber:
       description: Message numbers
       enum:
@@ -9513,14 +9714,6 @@ components:
           nullable: true
           type: array
       type: object
-    ParameterExpressionType:
-      enum:
-      - value
-      - lowerBound
-      - upperBound
-      - defaultExpression
-      - validationExpression
-      type: string
     ParameterUpdateResponse:
       additionalProperties: false
       example:
@@ -9623,7 +9816,7 @@ components:
           "y": 4.145608029883936
           z: 7.386281948385884
         name: name
-        length: 6.878052220127876
+        length: 3.353193347011243
         isReplaceable: true
         positions:
         - x: 2.3021358869347655
@@ -9634,7 +9827,7 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        id: 5
+        id: 3
       properties:
         isReplaceable:
           description: Replaceable pin
@@ -9674,6 +9867,11 @@ components:
           format: int32
           type: integer
       type: object
+    PinTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     PlateData:
       additionalProperties: false
       description: Provides data of the single plate
@@ -9787,6 +9985,11 @@ components:
           format: int32
           type: integer
       type: object
+    PlateMaterialTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     Point2D:
       additionalProperties: false
       description: Represents an x- and y-coordinate pair in two-dimensional space.
@@ -9986,6 +10189,36 @@ components:
           readOnly: true
           type: string
       type: object
+    SlottedHole:
+      additionalProperties: false
+      description: Slotted hole of one fastener position in one connected plate
+      example:
+        positionId: 5
+        angle: 9.369310271410669
+        plate:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        sizeFactor: 9.965781217890562
+      properties:
+        positionId:
+          description: Id of the fastener position - matches the Id of the corresponding
+            item in IdeaRS.OpenModel.Connection.FastenerGridBase.Positions
+          format: int32
+          type: integer
+        plate:
+          $ref: '#/components/schemas/ReferenceElement'
+        sizeFactor:
+          description: Ratio of the slot length to the borehole diameter - slot length
+            = borehole * SizeFactor
+          format: double
+          type: number
+        angle:
+          description: "Direction of the slot in the plate LCS [rad]"
+          format: double
+          type: number
+      type: object
     TemplateConversions:
       additionalProperties: false
       example:
@@ -9995,16 +10228,18 @@ components:
           originalValue: originalValue
           description: description
           originalTemplateId: originalTemplateId
+          $type: $type
         - newValue: newValue
           newTemplateId: newTemplateId
           originalValue: originalValue
           description: description
           originalTemplateId: originalTemplateId
+          $type: $type
         countryCode: countryCode
       properties:
         conversions:
           items:
-            $ref: '#/components/schemas/BaseTemplateConversion'
+            $ref: '#/components/schemas/TemplateConversions_conversions_inner'
           nullable: true
           type: array
         countryCode:
@@ -10069,6 +10304,11 @@ components:
           nullable: true
           type: array
       type: object
+    TimberTemplateConversion:
+      allOf:
+      - $ref: '#/components/schemas/BaseTemplateConversion'
+      - additionalProperties: false
+        type: object
     Vector3D:
       additionalProperties: false
       description: Represents a vector in three-dimensional space.
@@ -10098,8 +10338,9 @@ components:
         - connectedPartIds
         - connectedPartIds
         material: material
-        thickness: 3.353193347011243
+        thickness: 0.8851374739011653
         weldType: notSpecified
+        isIntermittent: true
         name: name
         start:
           x: 2.3021358869347655
@@ -10111,7 +10352,7 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        id: 6
+        id: 7
         weldMaterial:
           typeName: typeName
           id: 0
@@ -10138,6 +10379,10 @@ components:
           $ref: '#/components/schemas/ReferenceElement'
         weldType:
           $ref: '#/components/schemas/WeldType'
+        isIntermittent:
+          description: True for an intermittent (stitch) weld; WeldType holds the
+            base weld type
+          type: boolean
         connectedPartIds:
           description: Id of the weld
           items:
@@ -10153,7 +10398,7 @@ components:
       additionalProperties: false
       description: Weld definition for cut operations (web or flange weld).
       example:
-        thickness: 0.8851374739011653
+        thickness: 0.10263654006109402
         weldType: null
         weldMaterial:
           typeName: typeName
@@ -10210,4 +10455,16 @@ components:
           format: binary
           type: string
       type: object
+    TemplateConversions_conversions_inner:
+      oneOf:
+      - $ref: '#/components/schemas/BoltAssemblyTemplateConversion'
+      - $ref: '#/components/schemas/BoltGradeTemplateConversion'
+      - $ref: '#/components/schemas/CleatTemplateConversion'
+      - $ref: '#/components/schemas/ConcreteTemplateConversion'
+      - $ref: '#/components/schemas/CssTemplateConversion'
+      - $ref: '#/components/schemas/ElectrodeTemplateConversion'
+      - $ref: '#/components/schemas/MemberTemplateConversion'
+      - $ref: '#/components/schemas/PlateMaterialTemplateConversion'
+      - $ref: '#/components/schemas/TimberTemplateConversion'
+      - $ref: '#/components/schemas/PinTemplateConversion'
 

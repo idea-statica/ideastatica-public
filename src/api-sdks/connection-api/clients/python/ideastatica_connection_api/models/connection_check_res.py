@@ -41,7 +41,7 @@ class ConnectionCheckRes(BaseModel):
     check_res_bolt: Optional[List[CheckResBolt]] = Field(default=None, description="List of check results for bolts", alias="checkResBolt")
     check_res_anchor: Optional[List[CheckResAnchor]] = Field(default=None, description="List of check results for anchors", alias="checkResAnchor")
     check_res_concrete_block: Optional[List[CheckResConcreteBlock]] = Field(default=None, description="List of check results for concrete blocks", alias="checkResConcreteBlock")
-    buckling_results: Optional[List[BucklingRes]] = Field(default=None, description="List of results of buckling analysis", alias="bucklingResults")
+    buckling_results: Optional[List[BucklingRes]] = Field(default=None, description="Results of the linear buckling analysis - one row per buckling mode and load case,  so IdeaRS.OpenModel.Connection.BucklingRes.Shape repeats for every load case. The critical buckling factor  of the connection is the minimal positive IdeaRS.OpenModel.Connection.BucklingRes.Factor in the list  (also reported as the Buckling row of IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary)", alias="bucklingResults")
     name: Optional[StrictStr] = Field(default=None, description="Name of connection")
     connection_id: Optional[StrictStr] = Field(default=None, description="Guid of connection", alias="connectionID")
     id: Optional[StrictInt] = Field(default=None, description="Integer Id of connection")

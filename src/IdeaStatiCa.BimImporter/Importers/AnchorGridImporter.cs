@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 
 			var lcs = anchotGrid.LocalCoordinateSystem as IdeaRS.OpenModel.Geometry3D.CoordSystemByVector;
-			var cb = anchotGrid.ConcreteBlock == null ? null : ctx.ImportConnectionItem(anchotGrid.ConcreteBlock, connectionData) as ConcreteBlock;
+			var cb = anchotGrid.ConcreteBlock == null ? null : ctx.ImportConnectionItem(anchotGrid.ConcreteBlock, connectionData) as ConcreteBlockData;
 
 			AnchorGrid anchorGridIOM = new AnchorGrid()
 			{
@@ -34,7 +34,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Origin = ctx.Import(anchotGrid.Origin).Element as Point3D,
 				AnchorType = anchotGrid.AnchorType,
 				WasherSize = anchotGrid.WasherSize,
-				ConcreteBlock = cb,
+				ConcreteBlock = cb == null ? null : new ReferenceElement(cb),
 				AnchoringLength = anchotGrid.AnchoringLength,
 				HookLength = anchotGrid.HookLength,
 				Length = anchotGrid.Length,

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.BimApiLink
 {
-	public abstract class BimApiApplication : ApplicationBIM
+	public abstract class BimApiApplication : ApplicationBIM, IBimIdMapAccess
 	{
 		private readonly IProject _project;
 		private readonly IProjectStorage _projectStorage;
@@ -94,6 +94,12 @@ namespace IdeaStatiCa.BimApiLink
 
 		public override bool IsDataUpToDate()
 			=> _projectStorage.IsValid();
+
+		public IReadOnlyCollection<(int IomId, string SourceIdToken)> ExportIdMap()
+			=> (_project as IBimIdMapAccess)?.ExportIdMap() ?? Array.Empty<(int, string)>();
+
+		public void ImportIdMap(IEnumerable<(int IomId, string SourceIdToken)> entries)
+			=> (_project as IBimIdMapAccess)?.ImportIdMap(entries);
 
 		protected override ModelBIM ImportActive(CountryCode countryCode, RequestedItemsType requestedType)
 		{

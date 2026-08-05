@@ -19,10 +19,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 			WeldData weldIOM = new WeldData()
 			{
 				Id = 0,
-				ConnectedPartIds = weld.ConnectedParts.Select(cp => cp.Id).ToList(),
+				ConnectedParts = weld.ConnectedParts.Select(cp => new ReferenceElement(ctx.ImportConnectionItem(cp, connectionData) as OpenElementId)).ToList(),
 				Start = ctx.Import(weld.Start).Element as Point3D,
 				End = ctx.Import(weld.End).Element as Point3D,
-				Material = weld.Material?.Name,
+				Material = weld.Material == null ? null : ctx.Import(weld.Material),
 				Thickness = weld.Thickness,
 				Name = weld.Name,
 				WeldType = weld.WeldType

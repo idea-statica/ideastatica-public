@@ -64,7 +64,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			if (connectionData.CutBeamByBeams == null) { connectionData.CutBeamByBeams = new List<CutBeamByBeamData>(); }
 
-			connectionData.ConcreteBlocks = new List<ConcreteBlockData>();
+			// Keep any ConcreteBlockData already added while importing the anchor grids (an anchor grid
+			// references its block by Id); only initialize when empty, like the other collections.
+			if (connectionData.ConcreteBlocks == null) { connectionData.ConcreteBlocks = new List<ConcreteBlockData>(); }
 
 			connection.PinGrids?.Where(e => e != null).ToList().ForEach(p => ctx.ImportConnectionItem(p, connectionData));
 

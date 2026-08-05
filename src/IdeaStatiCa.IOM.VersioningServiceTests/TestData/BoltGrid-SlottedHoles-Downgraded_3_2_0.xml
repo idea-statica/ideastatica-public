@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-16"?>
+<OpenModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>3.2.0</Version>
+  <Connections>
+    <ConnectionData>
+      <ConenctionPointId>1</ConenctionPointId>
+      <BoltGrids>
+        <BoltGrid>
+          <Id>33</Id>
+          <ShearInThread>false</ShearInThread>
+          <BoltInteraction>Bearing</BoltInteraction>
+          <BoltAssembly>
+            <TypeName>BoltAssembly</TypeName>
+            <Id>1</Id>
+          </BoltAssembly>
+        </BoltGrid>
+        <BoltGrid>
+          <Id>34</Id>
+          <ShearInThread>false</ShearInThread>
+          <BoltInteraction>Bearing</BoltInteraction>
+          <BoltAssembly>
+            <TypeName>BoltAssembly</TypeName>
+            <Id>1</Id>
+          </BoltAssembly>
+        </BoltGrid>
+      </BoltGrids>
+    </ConnectionData>
+  </Connections>
+</OpenModel>

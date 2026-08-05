@@ -37,7 +37,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			PlugInLogger.LogInformation("Create - Found anchor with GUID: " + anchor2.Identifier.GUID);
 
-			var anchorGrid = new AnchorGrid(anchor2.Identifier.GUID.ToString())
+			// Identity must be the FULL received id (anchor GUID + ';'-appended concrete-block id, see IdentifierHelper),
+			// not just the anchor GUID — otherwise the persistence Token drops the concrete-block suffix and a CAD sync's
+			// CP-path re-resolution (ConnectionPoint token → AnchorGrids) rebuilds the anchor grid without its concrete
+			// block, losing the base-plate concrete + crashing the physical swap (#35688). The anchor lookup and the
+			// concrete-block loop below both re-split the id, so this does not affect the whole-model import.
+			var anchorGrid = new AnchorGrid(id)
 			{
 				BoltShearType = IdeaRS.OpenModel.Parameters.BoltShearType.Interaction,
 				ConnectedParts = new List<IIdeaObjectConnectable>(),

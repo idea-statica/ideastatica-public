@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.reference_element import ReferenceElement
@@ -36,10 +36,11 @@ class WeldData(BaseModel):
     material: Optional[StrictStr] = Field(default=None, description="Name of the material")
     weld_material: Optional[ReferenceElement] = Field(default=None, alias="weldMaterial")
     weld_type: Optional[WeldType] = Field(default=None, alias="weldType")
+    is_intermittent: Optional[StrictBool] = Field(default=None, description="True for an intermittent (stitch) weld; WeldType holds the base weld type", alias="isIntermittent")
     connected_part_ids: Optional[List[StrictStr]] = Field(default=None, description="Id of the weld", alias="connectedPartIds")
     start: Optional[Point3D] = None
     end: Optional[Point3D] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "thickness", "material", "weldMaterial", "weldType", "connectedPartIds", "start", "end"]
+    __properties: ClassVar[List[str]] = ["id", "name", "thickness", "material", "weldMaterial", "weldType", "isIntermittent", "connectedPartIds", "start", "end"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -122,6 +123,7 @@ class WeldData(BaseModel):
             "material": obj.get("material"),
             "weldMaterial": ReferenceElement.from_dict(obj["weldMaterial"]) if obj.get("weldMaterial") is not None else None,
             "weldType": obj.get("weldType"),
+            "isIntermittent": obj.get("isIntermittent"),
             "connectedPartIds": obj.get("connectedPartIds"),
             "start": Point3D.from_dict(obj["start"]) if obj.get("start") is not None else None,
             "end": Point3D.from_dict(obj["end"]) if obj.get("end") is not None else None

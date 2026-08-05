@@ -87,5 +87,30 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 			UtHelper.AssertEqualXml(xmlExpectedContent, exportedXML, expectedFile);
 		}
 
+		// Step 3.3.0: SlottedHoles on BoltGrid must be stripped for consumers older than 3.3.0
+		[TestCase("BoltGrid-SlottedHoles_3_3_0.xml", "BoltGrid-SlottedHoles-Downgraded_3_2_0.xml")]
+		public void FromParsedXml_Downgrade_RemovesSlottedHolesFromBoltGrid(string fileName, string expectedFile)
+		{
+			string xmlContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, fileName));
+
+			string xmlExpectedContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, expectedFile));
+
+			var model = _xmlParsingIRService.ParseXml(xmlContent);
+
+			Assert.IsNotNull(model);
+			Assert.IsNotNull(model.RootItem);
+			Assert.IsInstanceOf(typeof(SObject), model.RootItem);
+
+			_downgradeService.LoadModel(model);
+
+			_downgradeService.Downgrade(new Version(3, 2, 0));
+
+			var exportedXML = _iRExportToXMLService.ExportToXml(model);
+
+			Assert.IsNotNull(anObject: exportedXML);
+
+			UtHelper.AssertEqualXml(xmlExpectedContent, exportedXML, expectedFile);
+		}
+
 	}
 }

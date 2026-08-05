@@ -116,7 +116,7 @@ namespace IOM.GeneratorExample
 				Name = "P1",
 				Thickness = 0.02,
 				Id = 11,
-				Material = "S355",
+				Material = new ReferenceElement(openModel.MatSteel.First()),
 				OriginalModelId = "11",
 				Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
 				{
@@ -234,7 +234,7 @@ namespace IOM.GeneratorExample
 				Name = "P2",
 				Thickness = 0.02,
 				Id = 12,
-				Material = "S355",
+				Material = new ReferenceElement(openModel.MatSteel.First()),
 				OriginalModelId = "12",
 				Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
 				{
@@ -270,7 +270,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 31,
-				ConnectedPartIds = new List<string>() { plateData2.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData2), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2,
@@ -292,7 +292,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData3 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 33,
-				ConnectedPartIds = new List<string>() { plateData2.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData2), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2.103,
@@ -314,7 +314,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData4 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 34,
-				ConnectedPartIds = new List<string>() { plateData2.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData2), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -1.897,
@@ -338,7 +338,7 @@ namespace IOM.GeneratorExample
 				Name = "P3",
 				Thickness = 0.02,
 				Id = 13,
-				Material = "S355",
+				Material = new ReferenceElement(openModel.MatSteel.First()),
 				OriginalModelId = "13",
 				Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
 				{
@@ -374,7 +374,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData2 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 32,
-				ConnectedPartIds = new List<string>() { plateData3.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData3), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2,
@@ -396,7 +396,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData5 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 35,
-				ConnectedPartIds = new List<string>() { plateData3.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData3), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2.103,
@@ -418,7 +418,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData6 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 36,
-				ConnectedPartIds = new List<string>() { plateData3.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData3), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -1.897,
@@ -442,7 +442,7 @@ namespace IOM.GeneratorExample
 				Name = "P4",
 				Thickness = 0.02,
 				Id = 14,
-				Material = "S355",
+				Material = new ReferenceElement(openModel.MatSteel.First()),
 				OriginalModelId = "14",
 				Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
 				{
@@ -478,7 +478,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData7 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 37,
-				ConnectedPartIds = new List<string>() { plateData4.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData4), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2,
@@ -500,7 +500,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData8 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 38,
-				ConnectedPartIds = new List<string>() { plateData4.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData4), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2.103,
@@ -522,7 +522,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData9 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 39,
-				ConnectedPartIds = new List<string>() { plateData4.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData4), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -1.897,
@@ -546,7 +546,7 @@ namespace IOM.GeneratorExample
 				Name = "P5",
 				Thickness = 0.02,
 				Id = 15,
-				Material = "S355",
+				Material = new ReferenceElement(openModel.MatSteel.First()),
 				OriginalModelId = "15",
 				Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
 				{
@@ -582,7 +582,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData10 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 40,
-				ConnectedPartIds = new List<string>() { plateData5.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData5), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2,
@@ -604,7 +604,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData11 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 41,
-				ConnectedPartIds = new List<string>() { plateData5.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData5), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -2.103,
@@ -626,7 +626,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.WeldData weldData12 = new IdeaRS.OpenModel.Connection.WeldData()
 			{
 				Id = 46,
-				ConnectedPartIds = new List<string>() { plateData5.OriginalModelId, beam2Data.OriginalModelId },
+				ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(plateData5), new ReferenceElement(beam2Data) },
 				Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
 				{
 					X = -1.897,
