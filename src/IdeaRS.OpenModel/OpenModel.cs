@@ -19,7 +19,6 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel
 {
 	///Version history
-	/// V3.3.5 05.08.2026 Added IsUserEdited to ConnectedMember (member added/kept by the user in Checkbot, not from the CAD/BIM import)
 	/// V3.3.4 21.07.2026 Unified ConcreteBlock into ConcreteBlockData (ConcreteBlockBase: Id + Material reference); AnchorGrid.ConcreteBlock by reference
 	/// V3.3.3 21.07.2026 Added Id to CutData and CutBeamByBeamData (CutDataBase)
 	/// V3.3.2 21.07.2026 WeldData material and connected parts by reference (delete connectedPartIds), Id from OpenElementId
@@ -47,7 +46,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = "3.3.5";
+			Version = "3.3.4";
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();
