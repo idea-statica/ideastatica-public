@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import ConfigDict
-from typing import Any, ClassVar, Dict, List
+from pydantic import ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.base_template_conversion import BaseTemplateConversion
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,8 @@ class TimberTemplateConversion(BaseTemplateConversion):
     """
     TimberTemplateConversion
     """ # noqa: E501
-    __properties: ClassVar[List[str]] = ["$type", "originalValue", "originalTemplateId", "newValue", "description", "newTemplateId"]
+    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api', alias="$type")
+    __properties: ClassVar[List[str]] = ["originalValue", "originalTemplateId", "newValue", "description", "newTemplateId", "$type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,12 +107,12 @@ class TimberTemplateConversion(BaseTemplateConversion):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "$type": obj.get("$type"),
             "originalValue": obj.get("originalValue"),
             "originalTemplateId": obj.get("originalTemplateId"),
             "newValue": obj.get("newValue"),
             "description": obj.get("description"),
-            "newTemplateId": obj.get("newTemplateId")
+            "newTemplateId": obj.get("newTemplateId"),
+            "$type": obj.get("$type") if obj.get("$type") is not None else 'IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api'
         })
         return _obj
 

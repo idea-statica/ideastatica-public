@@ -33,6 +33,11 @@ namespace IdeaStatiCa.ConnectionApi
 		ICalculationApiAsync Calculation { get; }
 
 		/// <summary>
+		/// Get CalculationJobs API (asynchronous calculation jobs - start, poll, cancel)
+		/// </summary>
+		ICalculationJobsApiAsync CalculationJobs { get; }
+
+		/// <summary>
 		/// Get Connection API
 		/// </summary>
 		IConnectionApiAsync Connection { get; }

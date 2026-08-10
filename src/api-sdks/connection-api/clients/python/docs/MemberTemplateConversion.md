@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **is_bearing** | **bool** |  | [optional] 
 **original_member_name** | **str** |  | [optional] 
 **new_member_name** | **str** |  | [optional] 
+**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api']
 
 ## Example
 

@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 4.0
 
 - API version: 4.0
-- Package version: 26.0.5.0094
+- Package version: 26.0.5.0732
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -168,8 +168,20 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**calculate**](docs/CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
+[**calculate_connection**](docs/CalculationApi.md#calculate_connection) | Runs CBFEM calculation of a single connection and returns the summary of the results.
+[**get_connection_raw_json_results**](docs/CalculationApi.md#get_connection_raw_json_results) | Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
 [**get_raw_json_results**](docs/CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 [**get_results**](docs/CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
+  ### CalculationJobsApi
+
+  
+  
+  Method | Description
+  ------------- | -------------
+[**cancel_calculation_job**](docs/CalculationJobsApi.md#cancel_calculation_job) | Requests cancellation of an asynchronous calculation job: the in-flight solver process is  killed and remaining connections are skipped. Connections whose solve was interrupted stay  not-calculated; already completed connections keep their results. Idempotent — cancelling  a finished job leaves it unchanged.
+[**get_calculation_job**](docs/CalculationJobsApi.md#get_calculation_job) | Gets the current state of an asynchronous calculation job: its status, the connection  currently being calculated with its per-load-case solver progress, and — once finished —  the result summaries.
+[**start_calculation**](docs/CalculationJobsApi.md#start_calculation) | Starts an asynchronous CBFEM calculation job for the given connections.
+[**start_connection_calculation**](docs/CalculationJobsApi.md#start_connection_calculation) | Starts an asynchronous CBFEM calculation job for a single connection.
   ### ClientApi
 
   
@@ -246,6 +258,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**add_material_bolt_grade**](docs/MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](docs/MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](docs/MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
+[**add_material_reinforcement**](docs/MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](docs/MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](docs/MaterialApi.md#add_material_weld) | Adds a material to the project.
 [**get_all_materials**](docs/MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
@@ -254,6 +267,8 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_concrete_materials**](docs/MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
 [**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
 [**get_headed_stud_grade_materials**](docs/MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
+[**get_material_library**](docs/MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project's design code.
+[**get_reinforcement_materials**](docs/MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](docs/MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](docs/MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
   ### MemberApi
@@ -374,6 +389,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [ideastatica_connection_api.models.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [ideastatica_connection_api.models.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
+ - [ideastatica_connection_api.models.ConCalculationJob](docs/ConCalculationJob.md)
+ - [ideastatica_connection_api.models.ConCalculationJobStatusEnum](docs/ConCalculationJobStatusEnum.md)
  - [ideastatica_connection_api.models.ConConnection](docs/ConConnection.md)
  - [ideastatica_connection_api.models.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
  - [ideastatica_connection_api.models.ConConnectionTemplate](docs/ConConnectionTemplate.md)
@@ -475,7 +492,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- Package version: 26.0.5.0094
+- Package version: 26.0.5.0732
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

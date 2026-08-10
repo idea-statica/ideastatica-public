@@ -15,6 +15,7 @@ docs/BoltGrid.md
 docs/BoltShearType.md
 docs/BucklingRes.md
 docs/CalculationApi.md
+docs/CalculationJobsApi.md
 docs/CheckResAnchor.md
 docs/CheckResBolt.md
 docs/CheckResConcreteBlock.md
@@ -26,6 +27,8 @@ docs/ClientApi.md
 docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
+docs/ConCalculationJob.md
+docs/ConCalculationJobStatusEnum.md
 docs/ConConnection.md
 docs/ConConnectionLibrarySearchParameters.md
 docs/ConConnectionTemplate.md
@@ -135,6 +138,7 @@ docs/WeldDefinition.md
 docs/WeldType.md
 git_push.sh
 src/IdeaStatiCa.ConnectionApi/Api/CalculationApi.cs
+src/IdeaStatiCa.ConnectionApi/Api/CalculationJobsApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ClientApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ConnectionApi.cs
 src/IdeaStatiCa.ConnectionApi/Api/ConnectionLibraryApi.cs
@@ -188,6 +192,8 @@ src/IdeaStatiCa.ConnectionApi/Model/CleatTemplateConversion.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAlignedPlateSideCodeEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConAnalysisTypeEnum.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConCalculationJob.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConCalculationJobStatusEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnection.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnectionLibrarySearchParameters.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConConnectionTemplate.cs
