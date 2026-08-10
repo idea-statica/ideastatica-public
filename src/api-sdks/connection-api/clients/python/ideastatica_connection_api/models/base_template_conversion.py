@@ -39,15 +39,14 @@ if TYPE_CHECKING:
 
 class BaseTemplateConversion(BaseModel):
     """
-    BaseTemplateConversion
+    Polymorphic conversion root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
     """ # noqa: E501
-    type: StrictStr = Field(alias="$type")
     original_value: Optional[StrictStr] = Field(default=None, alias="originalValue")
     original_template_id: Optional[StrictStr] = Field(default=None, alias="originalTemplateId")
     new_value: Optional[StrictStr] = Field(default=None, alias="newValue")
     description: Optional[StrictStr] = None
     new_template_id: Optional[StrictStr] = Field(default=None, alias="newTemplateId")
-    __properties: ClassVar[List[str]] = ["$type", "originalValue", "originalTemplateId", "newValue", "description", "newTemplateId"]
+    __properties: ClassVar[List[str]] = ["originalValue", "originalTemplateId", "newValue", "description", "newTemplateId"]
 
     model_config = ConfigDict(
         populate_by_name=True,

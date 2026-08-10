@@ -2,6 +2,7 @@
 
 # import apis into api package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
+from ideastatica_connection_api.api.calculation_jobs_api import CalculationJobsApi
 from ideastatica_connection_api.api.client_api import ClientApi
 from ideastatica_connection_api.api.connection_api import ConnectionApi
 from ideastatica_connection_api.api.connection_library_api import ConnectionLibraryApi

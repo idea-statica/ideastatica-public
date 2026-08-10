@@ -15,6 +15,7 @@ docs/BoltGrid.md
 docs/BoltShearType.md
 docs/BucklingRes.md
 docs/CalculationApi.md
+docs/CalculationJobsApi.md
 docs/CheckResAnchor.md
 docs/CheckResBolt.md
 docs/CheckResConcreteBlock.md
@@ -26,6 +27,8 @@ docs/ClientApi.md
 docs/ConAlignedPlate.md
 docs/ConAlignedPlateSideCodeEnum.md
 docs/ConAnalysisTypeEnum.md
+docs/ConCalculationJob.md
+docs/ConCalculationJobStatusEnum.md
 docs/ConConnection.md
 docs/ConConnectionLibrarySearchParameters.md
 docs/ConConnectionTemplate.md
@@ -137,6 +140,7 @@ git_push.sh
 ideastatica_connection_api/__init__.py
 ideastatica_connection_api/api/__init__.py
 ideastatica_connection_api/api/calculation_api.py
+ideastatica_connection_api/api/calculation_jobs_api.py
 ideastatica_connection_api/api/client_api.py
 ideastatica_connection_api/api/connection_api.py
 ideastatica_connection_api/api/connection_library_api.py
@@ -177,6 +181,8 @@ ideastatica_connection_api/models/cleat_template_conversion.py
 ideastatica_connection_api/models/con_aligned_plate.py
 ideastatica_connection_api/models/con_aligned_plate_side_code_enum.py
 ideastatica_connection_api/models/con_analysis_type_enum.py
+ideastatica_connection_api/models/con_calculation_job.py
+ideastatica_connection_api/models/con_calculation_job_status_enum.py
 ideastatica_connection_api/models/con_connection.py
 ideastatica_connection_api/models/con_connection_library_search_parameters.py
 ideastatica_connection_api/models/con_connection_template.py

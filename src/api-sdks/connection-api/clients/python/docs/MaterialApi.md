@@ -9,6 +9,7 @@ Method | Description
 [**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
+[**add_material_reinforcement**](MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](MaterialApi.md#add_material_weld) | Adds a material to the project.
 [**get_all_materials**](MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
@@ -17,6 +18,8 @@ Method | Description
 [**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
 [**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
 [**get_headed_stud_grade_materials**](MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
+[**get_material_library**](MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project&#39;s design code.
+[**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
 
@@ -409,6 +412,88 @@ Looking for a code sample? request some help on our [discussion](https://github.
 All URIs are relative to *http://localhost*
 
 > **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="add_material_reinforcement"></a>
+# **add_material_reinforcement**
+> object add_material_reinforcement(project_id, con_mprl_element=con_mprl_element)
+
+Adds a material to the project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
+
+### Return type
+
+**object**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_material_reinforcementExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
+
+    try:
+        # Adds a material to the project.
+        api_response = api_client.material.add_material_reinforcement(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_reinforcement:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->add_material_reinforcement: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/reinforcement 
 
 ### Authorization
 
@@ -1042,6 +1127,165 @@ Looking for a code sample? request some help on our [discussion](https://github.
 All URIs are relative to *http://localhost*
 
 > **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_material_library"></a>
+# **get_material_library**
+> List[str] get_material_library(project_id, material_type)
+
+Lists the MPRL names available in the material library for the project's design code.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **material_type** | **str**| Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement). | 
+
+### Return type
+
+**List[str]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_material_libraryExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    material_type = 'material_type_example' # str | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).
+
+    try:
+        # Lists the MPRL names available in the material library for the project's design code.
+        api_response = api_client.material.get_material_library(project_id, material_type)
+        print("The response of MaterialApi->get_material_library:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_material_library: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/{materialType}/library 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_reinforcement_materials"></a>
+# **get_reinforcement_materials**
+> List[object] get_reinforcement_materials(project_id)
+
+Gets materials used in the specified project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+
+### Return type
+
+**List[object]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_reinforcement_materialsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+
+    try:
+        # Gets materials used in the specified project.
+        api_response = api_client.material.get_reinforcement_materials(project_id)
+        print("The response of MaterialApi->get_reinforcement_materials:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_reinforcement_materials: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/reinforcement 
 
 ### Authorization
 

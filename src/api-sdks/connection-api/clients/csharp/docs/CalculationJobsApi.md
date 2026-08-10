@@ -1,33 +1,30 @@
-# ExportApi
+# CalculationJobsApi
 
 | Method  | Description |
 |--------|-------------|
-| [**ExportDWGAsync**](ExportApi.md#exportdwgasync) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT. |
-| [**ExportIFCAsync**](ExportApi.md#exportifcasync) | Exports the connection to IFC format. |
-| [**ExportIomAsync**](ExportApi.md#exportiomasync) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs). |
-| [**ExportIomConnectionDataAsync**](ExportApi.md#exportiomconnectiondataasync) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs). |
+| [**CancelCalculationJobAsync**](CalculationJobsApi.md#cancelcalculationjobasync) | Requests cancellation of an asynchronous calculation job: the in-flight solver process is  killed and remaining connections are skipped. Connections whose solve was interrupted stay  not-calculated; already completed connections keep their results. Idempotent — cancelling  a finished job leaves it unchanged. |
+| [**GetCalculationJobAsync**](CalculationJobsApi.md#getcalculationjobasync) | Gets the current state of an asynchronous calculation job: its status, the connection  currently being calculated with its per-load-case solver progress, and — once finished —  the result summaries. |
+| [**StartCalculationAsync**](CalculationJobsApi.md#startcalculationasync) | Starts an asynchronous CBFEM calculation job for the given connections. |
+| [**StartConnectionCalculationAsync**](CalculationJobsApi.md#startconnectioncalculationasync) | Starts an asynchronous CBFEM calculation job for a single connection. |
 
-<a id="exportdwg"></a>
-## **ExportDWGAsync**
-> **void ExportDWGAsync (Guid projectId, int connectionId)**
+<a id="cancelcalculationjob"></a>
+## **CancelCalculationJobAsync**
+> **ConCalculationJob CancelCalculationJobAsync (Guid projectId, Guid jobId)**
 
-Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
+Requests cancellation of an asynchronous calculation job: the in-flight solver process is  killed and remaining connections are skipped. Connections whose solve was interrupted stay  not-calculated; already completed connections keep their results. Idempotent — cancelling  a finished job leaves it unchanged.
 
-#### Extension Methods
-This operation has an avaliable client extension method. Refer to code samples for extension method usage.
-> **ExportDwgFile(...)**
 
 
 ### Parameters
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened local project. |  |
-| **connectionId** | **int** | The local id of the connection to export. |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **jobId** | **Guid** | The id of the job returned by the calculate-async endpoints. |  |
 
 ### Return type
 
-void (empty response body)
+[**ConCalculationJob**](ConCalculationJob.md)
 
 ### Example
 
@@ -43,7 +40,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ExportDWGAsyncExample
+    public class CancelCalculationJobAsyncExample
     {
         public static async Task Main()
         {
@@ -61,143 +58,16 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The local id of the connection to export.
 
                     try
                     {
-                        // Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
-                        conClient.Export.ExportDWGAsync(projectId, connectionId);
-                    }
-                    catch (ApiException  e)
-                    {
-                        Console.WriteLine("Exception when calling Export.ExportDWGAsync: " + e.Message);
-                        Console.WriteLine("Status Code: " + e.ErrorCode);
-                        Console.WriteLine(e.StackTrace);
-                    }
-                    finally
-                    {
-                        await conClient.Project.CloseProjectAsync(projectId);
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-### Code Samples
-
-[!code-csharp[](../examples/CodeSamples/Samples/ExportDWG.cs)]
-
-Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
-
-### REST Usage
-
-#### Http Request
-
-All URIs are relative to *http://localhost*
-
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-dwg 
-
-#### Using the ExportDWGWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
-    conClient.Export.ExportDWGWithHttpInfo(projectId, connectionId);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling ExportApi.ExportDWGWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-#### Authorization
-
-No authorization required
-
-#### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-
-#### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="exportifc"></a>
-## **ExportIFCAsync**
-> **string ExportIFCAsync (Guid projectId, int connectionId)**
-
-Exports the connection to IFC format.
-
-#### Extension Methods
-This operation has an avaliable client extension method. Refer to code samples for extension method usage.
-> **ExportIfcFile(...)**
-
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project. |  |
-| **connectionId** | **int** | The ID of the connection to export. |  |
-
-### Return type
-
-**string**
-
-### Example
-
-Note: this example is autogenerated.
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
-
-namespace Example
-{
-    public class ExportIFCAsyncExample
-    {
-        public static async Task Main()
-        {
-            string ideaConFile = "testCon.ideaCon";
-            
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
-            
-            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
-            {
-                using (var conClient = await clientFactory.CreateApiClient())
-                {
-
-                    // Open the project and get its id
-                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
-                    Guid projectId = projData.ProjectId;
-                    
-                    // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection to export.
-
-                    try
-                    {
-                        // Exports the connection to IFC format.
-                        string result = await conClient.Export.ExportIFCAsync(projectId, connectionId);
+                        // Requests cancellation of an asynchronous calculation job: the in-flight solver process is  killed and remaining connections are skipped. Connections whose solve was interrupted stay  not-calculated; already completed connections keep their results. Idempotent — cancelling  a finished job leaves it unchanged.
+                        ConCalculationJob result = await conClient.CalculationJobs.CancelCalculationJobAsync(projectId, jobId);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Export.ExportIFCAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling CalculationJobs.CancelCalculationJobAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -214,7 +84,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/ExportIFC.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/CancelCalculationJob.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -224,23 +94,23 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-ifc 
+> **DELETE** /api/4/projects/{projectId}/calculation-jobs/{jobId} 
 
-#### Using the ExportIFCWithHttpInfo variant
+#### Using the CancelCalculationJobWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Exports the connection to IFC format.
-    ApiResponse<string> response = conClient.Export.ExportIFCWithHttpInfo(projectId, connectionId);
+    // Requests cancellation of an asynchronous calculation job: the in-flight solver process is  killed and remaining connections are skipped. Connections whose solve was interrupted stay  not-calculated; already completed connections keep their results. Idempotent — cancelling  a finished job leaves it unchanged.
+    ApiResponse<ConCalculationJob> response = conClient.CalculationJobs.CancelCalculationJobWithHttpInfo(projectId, jobId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling ExportApi.ExportIFCWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling CalculationJobsApi.CancelCalculationJobWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -253,7 +123,136 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Accepted |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcalculationjob"></a>
+## **GetCalculationJobAsync**
+> **ConCalculationJob GetCalculationJobAsync (Guid projectId, Guid jobId)**
+
+Gets the current state of an asynchronous calculation job: its status, the connection  currently being calculated with its per-load-case solver progress, and — once finished —  the result summaries.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **jobId** | **Guid** | The id of the job returned by the calculate-async endpoints. |  |
+
+### Return type
+
+[**ConCalculationJob**](ConCalculationJob.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetCalculationJobAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Gets the current state of an asynchronous calculation job: its status, the connection  currently being calculated with its per-load-case solver progress, and — once finished —  the result summaries.
+                        ConCalculationJob result = await conClient.CalculationJobs.GetCalculationJobAsync(projectId, jobId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling CalculationJobs.GetCalculationJobAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetCalculationJob.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/calculation-jobs/{jobId} 
+
+#### Using the GetCalculationJobWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets the current state of an asynchronous calculation job: its status, the connection  currently being calculated with its per-load-case solver progress, and — once finished —  the result summaries.
+    ApiResponse<ConCalculationJob> response = conClient.CalculationJobs.GetCalculationJobWithHttpInfo(projectId, jobId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling CalculationJobsApi.GetCalculationJobWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
@@ -266,11 +265,13 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="exportiom"></a>
-## **ExportIomAsync**
-> **string ExportIomAsync (Guid projectId, int connectionId, string version = null)**
+<a id="startcalculation"></a>
+## **StartCalculationAsync**
+> **ConCalculationJob StartCalculationAsync (Guid projectId, List<int> requestBody)**
 
-Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+Starts an asynchronous CBFEM calculation job for the given connections.
+
+Returns 202 with the accepted job immediately; poll it with the calculation-jobs GET  endpoint and cancel it with DELETE. At most one job can be active per project (409  otherwise). Connection ids are validated upfront — an unknown id rejects the start with  404 before any job is registered. Like the synchronous bulk calculate, a connection that  fails to calculate produces a failed summary row in the job's results rather than  failing the job.
 
 
 
@@ -278,13 +279,12 @@ Exports the connection to XML which includes the OpenModelContainer (https://git
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project. |  |
-| **connectionId** | **int** | The ID of the connection to export. |  |
-| **version** | **string** | Optional version string for downgrading the IOM model. | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **requestBody** | [**List&lt;int&gt;**](int.md) | List of connection IDs to calculate. |  |
 
 ### Return type
 
-**string**
+[**ConCalculationJob**](ConCalculationJob.md)
 
 ### Example
 
@@ -300,7 +300,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ExportIomAsyncExample
+    public class StartCalculationAsyncExample
     {
         public static async Task Main()
         {
@@ -318,18 +318,17 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection to export.
-                    version = "version_example";  // string | Optional version string for downgrading the IOM model. (optional) 
+                    var requestBody = new List<int>(); // List<int> | List of connection IDs to calculate.
 
                     try
                     {
-                        // Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
-                        string result = await conClient.Export.ExportIomAsync(projectId, connectionId, version);
+                        // Starts an asynchronous CBFEM calculation job for the given connections.
+                        ConCalculationJob result = await conClient.CalculationJobs.StartCalculationAsync(projectId, requestBody);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Export.ExportIomAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling CalculationJobs.StartCalculationAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -346,7 +345,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/ExportIom.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/StartCalculation.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -356,23 +355,23 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-iom 
+> **POST** /api/4/projects/{projectId}/connections/calculate-async 
 
-#### Using the ExportIomWithHttpInfo variant
+#### Using the StartCalculationWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
-    ApiResponse<string> response = conClient.Export.ExportIomWithHttpInfo(projectId, connectionId, version);
+    // Starts an asynchronous CBFEM calculation job for the given connections.
+    ApiResponse<ConCalculationJob> response = conClient.CalculationJobs.StartCalculationWithHttpInfo(projectId, requestBody);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling ExportApi.ExportIomWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling CalculationJobsApi.StartCalculationWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -384,25 +383,29 @@ No authorization required
 
 #### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/xml, text/plain
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | OK |  -  |
+| **202** | Accepted |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Not Found |  -  |
+| **409** | Conflict |  -  |
+| **422** | Unprocessable Content |  -  |
 | **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="exportiomconnectiondata"></a>
-## **ExportIomConnectionDataAsync**
-> **ConnectionData ExportIomConnectionDataAsync (Guid projectId, int connectionId)**
+<a id="startconnectioncalculation"></a>
+## **StartConnectionCalculationAsync**
+> **ConCalculationJob StartConnectionCalculationAsync (Guid projectId, int connectionId, List<int> loadEffectIds = null)**
 
-Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+Starts an asynchronous CBFEM calculation job for a single connection.
+
+Returns 202 with the accepted job immediately; poll it with the calculation-jobs GET  endpoint and cancel it with DELETE. At most one job can be active per project (409  otherwise).
 
 
 
@@ -410,12 +413,13 @@ Gets the ConnectionData for the specified connection (https://github.com/idea-st
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project. |  |
-| **connectionId** | **int** | The ID of the connection to export. |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **connectionId** | **int** | The ID of the connection to calculate. |  |
+| **loadEffectIds** | [**List&lt;int&gt;**](int.md) | Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. | [optional]  |
 
 ### Return type
 
-[**ConnectionData**](ConnectionData.md)
+[**ConCalculationJob**](ConCalculationJob.md)
 
 ### Example
 
@@ -431,7 +435,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class ExportIomConnectionDataAsyncExample
+    public class StartConnectionCalculationAsyncExample
     {
         public static async Task Main()
         {
@@ -449,17 +453,18 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    connectionId = 56;  // int | The ID of the connection to export.
+                    connectionId = 56;  // int | The ID of the connection to calculate.
+                    var loadEffectIds = new List<int>(); // List<int> | Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional) 
 
                     try
                     {
-                        // Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
-                        ConnectionData result = await conClient.Export.ExportIomConnectionDataAsync(projectId, connectionId);
+                        // Starts an asynchronous CBFEM calculation job for a single connection.
+                        ConCalculationJob result = await conClient.CalculationJobs.StartConnectionCalculationAsync(projectId, connectionId, loadEffectIds);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Export.ExportIomConnectionDataAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling CalculationJobs.StartConnectionCalculationAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -476,7 +481,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/ExportIomConnectionData.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/StartConnectionCalculation.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -486,23 +491,23 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/calculate-async 
 
-#### Using the ExportIomConnectionDataWithHttpInfo variant
+#### Using the StartConnectionCalculationWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
-    ApiResponse<ConnectionData> response = conClient.Export.ExportIomConnectionDataWithHttpInfo(projectId, connectionId);
+    // Starts an asynchronous CBFEM calculation job for a single connection.
+    ApiResponse<ConCalculationJob> response = conClient.CalculationJobs.StartConnectionCalculationWithHttpInfo(projectId, connectionId, loadEffectIds);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling ExportApi.ExportIomConnectionDataWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling CalculationJobsApi.StartConnectionCalculationWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -515,15 +520,17 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/xml
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | OK |  -  |
+| **202** | Accepted |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Not Found |  -  |
+| **409** | Conflict |  -  |
+| **422** | Unprocessable Content |  -  |
 | **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

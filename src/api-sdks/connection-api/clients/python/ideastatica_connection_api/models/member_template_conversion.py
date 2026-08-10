@@ -31,7 +31,8 @@ class MemberTemplateConversion(BaseTemplateConversion):
     is_bearing: Optional[StrictBool] = Field(default=None, alias="isBearing")
     original_member_name: Optional[StrictStr] = Field(default=None, alias="originalMemberName")
     new_member_name: Optional[StrictStr] = Field(default=None, alias="newMemberName")
-    __properties: ClassVar[List[str]] = ["$type", "originalValue", "originalTemplateId", "newValue", "description", "newTemplateId", "isBearing", "originalMemberName", "newMemberName"]
+    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api', alias="$type")
+    __properties: ClassVar[List[str]] = ["originalValue", "originalTemplateId", "newValue", "description", "newTemplateId", "isBearing", "originalMemberName", "newMemberName", "$type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -119,7 +120,6 @@ class MemberTemplateConversion(BaseTemplateConversion):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "$type": obj.get("$type"),
             "originalValue": obj.get("originalValue"),
             "originalTemplateId": obj.get("originalTemplateId"),
             "newValue": obj.get("newValue"),
@@ -127,7 +127,8 @@ class MemberTemplateConversion(BaseTemplateConversion):
             "newTemplateId": obj.get("newTemplateId"),
             "isBearing": obj.get("isBearing"),
             "originalMemberName": obj.get("originalMemberName"),
-            "newMemberName": obj.get("newMemberName")
+            "newMemberName": obj.get("newMemberName"),
+            "$type": obj.get("$type") if obj.get("$type") is not None else 'IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api'
         })
         return _obj
 
