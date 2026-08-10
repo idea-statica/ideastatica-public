@@ -3103,7 +3103,7 @@ paths:
           type: string
         style: simple
       - description: "Material type to list (steel, concrete, bolt-grade, welding,\
-          \ headed-stud-grade, reinforcement)."
+          \ headed-stud-grade, reinforcement, pin)."
         explode: false
         in: path
         name: materialType
@@ -3146,6 +3146,106 @@ paths:
           description: Internal Server Error
       summary: Lists the MPRL names available in the material library for the project's
         design code.
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/pin:
+    get:
+      operationId: GetPins
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Gets pins used in the specified project.
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+    post:
+      operationId: AddPin
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of a new pin to be added to the project.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Add pin to the project. Pins are available only for the ECEN design\
+        \ code; list the accepted\r\nnames via `GET .../materials/pin/library`."
       tags:
       - Material
       x-requiresProject: true

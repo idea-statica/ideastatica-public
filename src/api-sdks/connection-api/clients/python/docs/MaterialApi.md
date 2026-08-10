@@ -12,6 +12,7 @@ Method | Description
 [**add_material_reinforcement**](MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](MaterialApi.md#add_material_weld) | Adds a material to the project.
+[**add_pin**](MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
 [**get_all_materials**](MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
@@ -19,6 +20,7 @@ Method | Description
 [**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
 [**get_headed_stud_grade_materials**](MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project&#39;s design code.
+[**get_pins**](MaterialApi.md#get_pins) | Gets pins used in the specified project.
 [**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
@@ -680,6 +682,88 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="add_pin"></a>
+# **add_pin**
+> object add_pin(project_id, con_mprl_element=con_mprl_element)
+
+Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new pin to be added to the project. | [optional] 
+
+### Return type
+
+**object**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_pinExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new pin to be added to the project. (optional)
+
+    try:
+        # Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+        api_response = api_client.material.add_pin(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_pin:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->add_pin: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/pin 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="get_all_materials"></a>
 # **get_all_materials**
 > List[object] get_all_materials(project_id)
@@ -1160,7 +1244,7 @@ Lists the MPRL names available in the material library for the project's design 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **material_type** | **str**| Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement). | 
+ **material_type** | **str**| Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin). | 
 
 ### Return type
 
@@ -1182,7 +1266,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 def get_material_libraryExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    material_type = 'material_type_example' # str | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).
+    material_type = 'material_type_example' # str | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).
 
     try:
         # Lists the MPRL names available in the material library for the project's design code.
@@ -1225,6 +1309,84 @@ No authorization required
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_pins"></a>
+# **get_pins**
+> List[object] get_pins(project_id)
+
+Gets pins used in the specified project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+
+### Return type
+
+**List[object]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_pinsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+
+    try:
+        # Gets pins used in the specified project.
+        api_response = api_client.material.get_pins(project_id)
+        print("The response of MaterialApi->get_pins:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_pins: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/pin 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

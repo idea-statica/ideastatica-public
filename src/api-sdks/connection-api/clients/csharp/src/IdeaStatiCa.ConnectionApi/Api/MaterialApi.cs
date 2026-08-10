@@ -219,6 +219,29 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>Object</returns>
+        Object AddPin(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
+
+        /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> AddPinWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Gets materials used in the specified project.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -349,7 +372,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
         List<string> GetMaterialLibrary(Guid projectId, string materialType, int operationIndex = 0);
@@ -362,11 +385,32 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         ApiResponse<List<string>> GetMaterialLibraryWithHttpInfo(Guid projectId, string materialType, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Gets pins used in the specified project.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;Object&gt;</returns>
+        List<Object> GetPins(Guid projectId, int operationIndex = 0);
+
+        /// <summary>
+        /// Gets pins used in the specified project.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        ApiResponse<List<Object>> GetPinsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Gets materials used in the specified project.
         /// </summary>
@@ -664,6 +708,34 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> AddPinAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddPinWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Gets materials used in the specified project.
         /// </summary>
         /// <remarks>
@@ -827,7 +899,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
@@ -841,12 +913,38 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<string>>> GetMaterialLibraryWithHttpInfoAsync(Guid projectId, string materialType, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Gets pins used in the specified project.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        System.Threading.Tasks.Task<List<Object>> GetPinsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Gets pins used in the specified project.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetPinsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Gets materials used in the specified project.
         /// </summary>
@@ -2262,6 +2360,158 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>Object</returns>
+        public Object AddPin(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> localVarResponse = AddPinWithHttpInfo(projectId, conMprlElement);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddPinWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.Data = conMprlElement;
+
+            localVarRequestOptions.Operation = "MaterialApi.AddPin";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<Object>("/api/4/projects/{projectId}/materials/pin", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("AddPin", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> AddPinAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> localVarResponse = await AddPinWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conMprlElement">Definition of a new pin to be added to the project. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddPinWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.Data = conMprlElement;
+
+            localVarRequestOptions.Operation = "MaterialApi.AddPin";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/4/projects/{projectId}/materials/pin", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("AddPin", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Gets materials used in the specified project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -3130,7 +3380,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
         public List<string> GetMaterialLibrary(Guid projectId, string materialType, int operationIndex = 0)
@@ -3144,7 +3394,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
@@ -3209,7 +3459,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
@@ -3224,7 +3474,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -3278,6 +3528,150 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetMaterialLibrary", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Gets pins used in the specified project. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;Object&gt;</returns>
+        public List<Object> GetPins(Guid projectId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<Object>> localVarResponse = GetPinsWithHttpInfo(projectId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Gets pins used in the specified project. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<Object>> GetPinsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+
+            localVarRequestOptions.Operation = "MaterialApi.GetPins";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<List<Object>>("/api/4/projects/{projectId}/materials/pin", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetPins", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Gets pins used in the specified project. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;Object&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Object>> GetPinsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<Object>> localVarResponse = await GetPinsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Gets pins used in the specified project. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<Object>>> GetPinsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+
+            localVarRequestOptions.Operation = "MaterialApi.GetPins";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Object>>("/api/4/projects/{projectId}/materials/pin", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetPins", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
