@@ -52,10 +52,13 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		public List<ConCrossSectionCustomComponent> Components { get; set; }
 	}
 
-	/// <summary>One named dimension of a parametric cross-section.</summary>
+	/// <summary>
+	/// One dimension of a parametric cross-section. Identified by the shape's stable numeric
+	/// parameter id — display captions are localized and deliberately not part of the contract.
+	/// </summary>
 	public class ConCrossSectionParameter
 	{
-		public string Name { get; set; }
+		public int Id { get; set; }
 
 		public double Value { get; set; }
 	}
