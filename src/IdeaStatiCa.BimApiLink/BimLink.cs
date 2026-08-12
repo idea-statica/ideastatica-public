@@ -17,6 +17,7 @@ namespace IdeaStatiCa.BimApiLink
 		protected string ApplicationName { get; }
 
 		private string _ideaStatiCaPath;
+		private string _ideaStatiCaArguments;
 		private IPluginLogger _pluginLogger;
 		private ResultsImportersConfiguration _resultsImportersConfiguration;
 		private BimImporterConfiguration _bimImporterConfiguration;
@@ -41,6 +42,19 @@ namespace IdeaStatiCa.BimApiLink
 		public BimLink WithIdeaStatiCa(string path)
 		{
 			_ideaStatiCaPath = path;
+			return this;
+		}
+
+		/// <summary>
+		/// Extra arguments for the IDEA StatiCa application, appended to the ones the host always passes
+		/// (<c>-automation</c>, <c>-project</c>, <c>-grpcPort</c>). Use it when the link has already collected what the
+		/// application would otherwise ask for — a project's design codes, say, so Checkbot creates it rather than
+		/// opening its New Project page (<c>-new -designCode:…</c>).
+		/// </summary>
+		/// <remarks>Not calling this leaves the command line exactly as it has always been.</remarks>
+		public BimLink WithIdeaStatiCaArguments(string arguments)
+		{
+			_ideaStatiCaArguments = arguments;
 			return this;
 		}
 
@@ -168,7 +182,8 @@ namespace IdeaStatiCa.BimApiLink
 				pluginLogger,
 				ApplicationName,
 				_ideaStatiCaPath,
-				_projectPath);
+				_projectPath,
+				_ideaStatiCaArguments);
 		}
 
 		private IApplicationBIM CreateApplicationBIM(IModel model, IPluginLogger pluginLogger, IProgressMessaging progressMessaging = null)

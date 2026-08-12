@@ -201,10 +201,22 @@ namespace IdeaStatiCa.Plugin
 			Process connectionProc = new Process();
 			ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunIdeaIdeaStatiCa  strarting exePath = '{exePath}', id = '{id}', grpcPort = {GrpcCommunicator.Port} ");
 			string eventName = string.Format("{0}{1}", EventName, id);
+
+			// A factory may have more to say than the project directory - a link that already collected the project's
+			// design codes needs the application to create it. Opt-in through a separate interface, so a factory that
+			// does not implement it gets exactly the command line it always got.
+			string extraArguments = (bimPluginFactory as IBIMPluginFactoryWithArguments)?.IdeaStaticaAppArguments;
+			if (!string.IsNullOrWhiteSpace(extraArguments))
+			{
+				ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunIdeaIdeaStatiCa  extra arguments = '{extraArguments}'");
+			}
+
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
-				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\" {Constants.GrpcControlPortParam}:{GrpcCommunicator.Port}");
+				connectionProc.StartInfo = new ProcessStartInfo(
+					exePath,
+					BuildIdeaStatiCaArguments(id, workingDirectory, GrpcCommunicator.Port, extraArguments));
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 
@@ -221,6 +233,18 @@ namespace IdeaStatiCa.Plugin
 			}
 
 			return connectionProc;
+		}
+
+		/// <summary>
+		/// The command line the IDEA StatiCa application is started with: the three arguments the host has always
+		/// passed, plus whatever a <see cref="IBIMPluginFactoryWithArguments"/> factory added. Split out from the
+		/// launch itself so the appending can be tested without starting a process.
+		/// </summary>
+		internal static string BuildIdeaStatiCaArguments(string id, string workingDirectory, int grpcPort, string extraArguments)
+		{
+			string arguments = $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\" {Constants.GrpcControlPortParam}:{grpcPort}";
+
+			return string.IsNullOrWhiteSpace(extraArguments) ? arguments : $"{arguments} {extraArguments}";
 		}
 
 		/// <summary>
