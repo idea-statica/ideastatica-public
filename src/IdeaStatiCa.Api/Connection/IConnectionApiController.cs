@@ -386,6 +386,15 @@ namespace IdeaStatiCa.Api.Connection
 		Task<object> AddCrossSectionAsync(ConMprlCrossSection newCrossSection);
 
 		/// <summary>
+		/// Get the full definition (library / parametric / custom) and the evaluated outline
+		/// geometry of one cross-section in the project. BETA.
+		/// </summary>
+		/// <param name="cssId">Id of the cross-section in the project</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The cross-section detail: definition + tessellated outline geometry</returns>
+		Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(int cssId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Add bolt assembly to project data
 		/// </summary>
 		/// <param name="newBa"></param>
