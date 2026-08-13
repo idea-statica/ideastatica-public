@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project.
+[**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
 [**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project.
 [**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](MaterialApi.md#add_material_concrete) | Adds a material to the project.
@@ -30,7 +30,7 @@ Method | Description
 # **add_bolt_assembly**
 > object add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
 
-Add bolt assembly to the project.
+Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 ### Parameters
 
@@ -64,7 +64,7 @@ def add_bolt_assemblyExampleFunc(api_client):
     con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new bolt assemby to be added to the project. (optional)
 
     try:
-        # Add bolt assembly to the project.
+        # Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
         api_response = api_client.material.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
         print("The response of MaterialApi->add_bolt_assembly:\n")
         pprint(api_response)
@@ -1244,7 +1244,7 @@ Lists the MPRL names available in the material library for the project's design 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **material_type** | **str**| Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin). | 
+ **material_type** | **str**| Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). | 
 
 ### Return type
 
@@ -1266,7 +1266,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 def get_material_libraryExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    material_type = 'material_type_example' # str | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).
+    material_type = 'material_type_example' # str | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).
 
     try:
         # Lists the MPRL names available in the material library for the project's design code.

@@ -2,7 +2,7 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project. |
+| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. |
 | [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project. |
 | [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Adds a material to the project. |
 | [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Adds a material to the project. |
@@ -27,7 +27,7 @@
 ## **AddBoltAssemblyAsync**
 > **Object AddBoltAssemblyAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add bolt assembly to the project.
+Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 
 
@@ -78,7 +78,7 @@ namespace Example
 
                     try
                     {
-                        // Add bolt assembly to the project.
+                        // Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
                         Object result = await conClient.Material.AddBoltAssemblyAsync(projectId, conMprlElement);
                         Debug.WriteLine(result);
                     }
@@ -119,7 +119,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add bolt assembly to the project.
+    // Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
     ApiResponse<Object> response = conClient.Material.AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1983,7 +1983,7 @@ Lists the MPRL names available in the material library for the project's design 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **materialType** | **string** | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin). |  |
+| **materialType** | **string** | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). |  |
 
 ### Return type
 
@@ -2021,7 +2021,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    materialType = "materialType_example";  // string | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).
+                    materialType = "materialType_example";  // string | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).
 
                     try
                     {

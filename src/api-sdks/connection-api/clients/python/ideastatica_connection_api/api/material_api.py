@@ -59,7 +59,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> object:
-        """Add bolt assembly to the project.
+        """Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -133,7 +133,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[object]:
-        """Add bolt assembly to the project.
+        """Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -207,7 +207,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add bolt assembly to the project.
+        """Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -4314,7 +4314,7 @@ class MaterialApi:
     def get_material_library(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        material_type: Annotated[StrictStr, Field(description="Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).")],
+        material_type: Annotated[StrictStr, Field(description="Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4333,7 +4333,7 @@ class MaterialApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param material_type: Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin). (required)
+        :param material_type: Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). (required)
         :type material_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4388,7 +4388,7 @@ class MaterialApi:
     def get_material_library_with_http_info(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        material_type: Annotated[StrictStr, Field(description="Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).")],
+        material_type: Annotated[StrictStr, Field(description="Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4407,7 +4407,7 @@ class MaterialApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param material_type: Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin). (required)
+        :param material_type: Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). (required)
         :type material_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4462,7 +4462,7 @@ class MaterialApi:
     def get_material_library_without_preload_content(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        material_type: Annotated[StrictStr, Field(description="Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).")],
+        material_type: Annotated[StrictStr, Field(description="Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4481,7 +4481,7 @@ class MaterialApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param material_type: Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin). (required)
+        :param material_type: Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). (required)
         :type material_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

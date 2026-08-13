@@ -34,7 +34,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "26.0.5.0747";
+        public const string Version = "26.0.5.0922";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -118,7 +118,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/26.0.5.0747/csharp");
+            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/26.0.5.0922/csharp");
             BasePath = "http://localhost";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -541,7 +541,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 4.0\n";
-            report += "    SDK Package Version: 26.0.5.0747\n";
+            report += "    SDK Package Version: 26.0.5.0922\n";
 
             return report;
         }

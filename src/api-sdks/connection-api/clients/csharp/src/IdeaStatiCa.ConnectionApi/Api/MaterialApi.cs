@@ -35,7 +35,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Add bolt assembly to the project.
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -45,7 +45,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         Object AddBoltAssembly(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
 
         /// <summary>
-        /// Add bolt assembly to the project.
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -372,7 +372,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
         List<string> GetMaterialLibrary(Guid projectId, string materialType, int operationIndex = 0);
@@ -385,7 +385,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
@@ -484,7 +484,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
-        /// Add bolt assembly to the project.
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -498,7 +498,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<Object> AddBoltAssemblyAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Add bolt assembly to the project.
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -899,7 +899,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
@@ -913,7 +913,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1144,7 +1144,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add bolt assembly to the project. 
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1158,7 +1158,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add bolt assembly to the project. 
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1218,7 +1218,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add bolt assembly to the project. 
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1233,7 +1233,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Add bolt assembly to the project. 
+        /// Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3380,7 +3380,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>List&lt;string&gt;</returns>
         public List<string> GetMaterialLibrary(Guid projectId, string materialType, int operationIndex = 0)
@@ -3394,7 +3394,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+/// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
@@ -3459,7 +3459,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of List&lt;string&gt;</returns>
@@ -3474,7 +3474,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin).</param>
+        /// <param name="materialType">Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
