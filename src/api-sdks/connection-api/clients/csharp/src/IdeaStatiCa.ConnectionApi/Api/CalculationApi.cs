@@ -58,6 +58,59 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of List&lt;ConResultSummary&gt;</returns>
         ApiResponse<List<ConResultSummary>> CalculateWithHttpInfo(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConResultSummary</returns>
+        ConResultSummary CalculateConnection(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0);
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to calculate.</param>
+/// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConResultSummary</returns>
+        ApiResponse<ConResultSummary> CalculateConnectionWithHttpInfo(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
+        /// </summary>
+        /// <remarks>
+        /// See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>string</returns>
+        string GetConnectionRawJsonResults(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0);
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
+        /// </summary>
+        /// <remarks>
+        /// See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to calculate.</param>
+/// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of string</returns>
+        ApiResponse<string> GetConnectionRawJsonResultsWithHttpInfo(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
         /// <remarks>
@@ -143,6 +196,66 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConResultSummary&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ConResultSummary>>> CalculateWithHttpInfoAsync(Guid projectId, List<int> requestBody, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConResultSummary</returns>
+        System.Threading.Tasks.Task<ConResultSummary> CalculateConnectionAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConResultSummary)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConResultSummary>> CalculateConnectionWithHttpInfoAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
+        /// </summary>
+        /// <remarks>
+        /// See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of string</returns>
+        System.Threading.Tasks.Task<string> GetConnectionRawJsonResultsAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
+        /// </summary>
+        /// <remarks>
+        /// See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (string)</returns>
+        System.Threading.Tasks.Task<ApiResponse<string>> GetConnectionRawJsonResultsWithHttpInfoAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
         /// </summary>
@@ -474,6 +587,330 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("Calculate", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConResultSummary</returns>
+        public ConResultSummary CalculateConnection(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConResultSummary> localVarResponse = CalculateConnectionWithHttpInfo(projectId, connectionId, loadEffectIds);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to calculate.</param>
+/// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConResultSummary</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConResultSummary> CalculateConnectionWithHttpInfo(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (loadEffectIds != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("multi", "loadEffectIds", loadEffectIds));
+            }
+
+            localVarRequestOptions.Operation = "CalculationApi.CalculateConnection";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<ConResultSummary>("/api/4/projects/{projectId}/connections/{connectionId}/calculate", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CalculateConnection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConResultSummary</returns>
+        public async System.Threading.Tasks.Task<ConResultSummary> CalculateConnectionAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConResultSummary> localVarResponse = await CalculateConnectionWithHttpInfoAsync(projectId, connectionId, loadEffectIds, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and returns the summary of the results. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConResultSummary)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConResultSummary>> CalculateConnectionWithHttpInfoAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (loadEffectIds != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("multi", "loadEffectIds", loadEffectIds));
+            }
+
+            localVarRequestOptions.Operation = "CalculationApi.CalculateConnection";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<ConResultSummary>("/api/4/projects/{projectId}/connections/{connectionId}/calculate", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CalculateConnection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData). See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>string</returns>
+        public string GetConnectionRawJsonResults(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = GetConnectionRawJsonResultsWithHttpInfo(projectId, connectionId, loadEffectIds);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData). See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">The ID of the connection to calculate.</param>
+/// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of string</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> GetConnectionRawJsonResultsWithHttpInfo(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (loadEffectIds != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("multi", "loadEffectIds", loadEffectIds));
+            }
+
+            localVarRequestOptions.Operation = "CalculationApi.GetConnectionRawJsonResults";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<string>("/api/4/projects/{projectId}/connections/{connectionId}/rawresults-text", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetConnectionRawJsonResults", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData). See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of string</returns>
+        public async System.Threading.Tasks.Task<string> GetConnectionRawJsonResultsAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = await GetConnectionRawJsonResultsWithHttpInfoAsync(projectId, connectionId, loadEffectIds, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData). See the bulk &#x60;rawresults-text&#x60; endpoint remarks for the bolt-identifier and  &#x60;forcesAllLoadCases&#x60;-key semantics; they apply here unchanged.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">The ID of the connection to calculate.</param>
+        /// <param name="loadEffectIds">Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (string)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<string>> GetConnectionRawJsonResultsWithHttpInfoAsync(Guid projectId, int connectionId, List<int> loadEffectIds = default(List<int>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (loadEffectIds != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("multi", "loadEffectIds", loadEffectIds));
+            }
+
+            localVarRequestOptions.Operation = "CalculationApi.GetConnectionRawJsonResults";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<string>("/api/4/projects/{projectId}/connections/{connectionId}/rawresults-text", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetConnectionRawJsonResults", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

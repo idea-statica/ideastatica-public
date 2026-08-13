@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.ElectrodeTemplateConversion, IdeaStatiCa.Api']
 
 ## Example
 

@@ -15,10 +15,11 @@
 """  # noqa: E501
 
 
-__version__ = "26.0.5.0094"
+__version__ = "26.0.5.0922"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
+from ideastatica_connection_api.api.calculation_jobs_api import CalculationJobsApi
 from ideastatica_connection_api.api.client_api import ClientApi
 from ideastatica_connection_api.api.connection_api import ConnectionApi
 from ideastatica_connection_api.api.connection_library_api import ConnectionLibraryApi
@@ -67,6 +68,8 @@ from ideastatica_connection_api.models.cleat_template_conversion import CleatTem
 from ideastatica_connection_api.models.con_aligned_plate import ConAlignedPlate
 from ideastatica_connection_api.models.con_aligned_plate_side_code_enum import ConAlignedPlateSideCodeEnum
 from ideastatica_connection_api.models.con_analysis_type_enum import ConAnalysisTypeEnum
+from ideastatica_connection_api.models.con_calculation_job import ConCalculationJob
+from ideastatica_connection_api.models.con_calculation_job_status_enum import ConCalculationJobStatusEnum
 from ideastatica_connection_api.models.con_connection import ConConnection
 from ideastatica_connection_api.models.con_connection_library_search_parameters import ConConnectionLibrarySearchParameters
 from ideastatica_connection_api.models.con_connection_template import ConConnectionTemplate

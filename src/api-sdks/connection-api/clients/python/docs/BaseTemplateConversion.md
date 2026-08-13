@@ -1,11 +1,11 @@
 # BaseTemplateConversion
 
+Polymorphic conversion root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | 
 **original_value** | **str** |  | [optional] 
 **original_template_id** | **str** |  | [optional] 
 **new_value** | **str** |  | [optional] 

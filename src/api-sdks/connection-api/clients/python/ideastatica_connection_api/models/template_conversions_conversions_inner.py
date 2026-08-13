@@ -36,7 +36,7 @@ TEMPLATECONVERSIONSCONVERSIONSINNER_ONE_OF_SCHEMAS = ["BoltAssemblyTemplateConve
 
 class TemplateConversionsConversionsInner(BaseModel):
     """
-    TemplateConversionsConversionsInner
+    Polymorphic conversion root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
     """
     # data type: BoltAssemblyTemplateConversion
     oneof_schema_1_validator: Optional[BoltAssemblyTemplateConversion] = None
@@ -154,6 +154,111 @@ class TemplateConversionsConversionsInner(BaseModel):
         instance = cls.model_construct()
         error_messages = []
         match = 0
+
+        # use oneOf discriminator to lookup the data type
+        _data_type = json.loads(json_str).get("$type")
+        if not _data_type:
+            raise ValueError("Failed to lookup data type from the field `$type` in the input.")
+
+        # check if data type is `BoltAssemblyTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.BoltAssemblyTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = BoltAssemblyTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `BoltGradeTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.BoltGradeTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = BoltGradeTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `CleatTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = CleatTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `ConcreteTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.ConcreteTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = ConcreteTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `CssTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.CssTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = CssTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `ElectrodeTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.ElectrodeTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = ElectrodeTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `MemberTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = MemberTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `PinTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = PinTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `PlateMaterialTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.PlateMaterialTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = PlateMaterialTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `TimberTemplateConversion`
+        if _data_type == "IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api":
+            instance.actual_instance = TimberTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `BoltAssemblyTemplateConversion`
+        if _data_type == "BoltAssemblyTemplateConversion":
+            instance.actual_instance = BoltAssemblyTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `BoltGradeTemplateConversion`
+        if _data_type == "BoltGradeTemplateConversion":
+            instance.actual_instance = BoltGradeTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `CleatTemplateConversion`
+        if _data_type == "CleatTemplateConversion":
+            instance.actual_instance = CleatTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `ConcreteTemplateConversion`
+        if _data_type == "ConcreteTemplateConversion":
+            instance.actual_instance = ConcreteTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `CssTemplateConversion`
+        if _data_type == "CssTemplateConversion":
+            instance.actual_instance = CssTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `ElectrodeTemplateConversion`
+        if _data_type == "ElectrodeTemplateConversion":
+            instance.actual_instance = ElectrodeTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `MemberTemplateConversion`
+        if _data_type == "MemberTemplateConversion":
+            instance.actual_instance = MemberTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `PinTemplateConversion`
+        if _data_type == "PinTemplateConversion":
+            instance.actual_instance = PinTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `PlateMaterialTemplateConversion`
+        if _data_type == "PlateMaterialTemplateConversion":
+            instance.actual_instance = PlateMaterialTemplateConversion.from_json(json_str)
+            return instance
+
+        # check if data type is `TimberTemplateConversion`
+        if _data_type == "TimberTemplateConversion":
+            instance.actual_instance = TimberTemplateConversion.from_json(json_str)
+            return instance
 
         # deserialize data into BoltAssemblyTemplateConversion
         try:

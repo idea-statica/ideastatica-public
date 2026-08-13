@@ -41,7 +41,7 @@ The `ConnectionApiClient` is typically not instantiated directly. Instead, use o
 
 ```csharp
 // Using ConnectionApiServiceRunner (automatically starts the service)
-using (var serviceRunner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 25.1"))
+using (var serviceRunner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0"))
 {
     using (var client = await serviceRunner.CreateApiClient())
     {
@@ -116,7 +116,7 @@ To manually start the REST API service:
 
 **Using Command Line:**
 ```console
-cd "C:\Program Files\IDEA StatiCa\StatiCa 25.1"
+cd "C:\Program Files\IDEA StatiCa\StatiCa 26.0"
 IdeaStatiCa.ConnectionRestApi.exe -port:5000
 ```
 
@@ -145,7 +145,7 @@ public ConnectionApiServiceRunner(string setupDir)
 
 **Parameters:**
 - `setupDir`: The directory path where `IdeaStatiCa.ConnectionRestApi.exe` is located  
-  (e.g., `@"C:\Program Files\IDEA StatiCa\StatiCa 25.1"`)
+  (e.g., `@"C:\Program Files\IDEA StatiCa\StatiCa 26.0"`)
 
 #### Methods
 
@@ -176,7 +176,7 @@ The `ConnectionApiServiceRunner` implements `IDisposable` and automatically mana
 **Basic Usage:**
 
 ```csharp
-string ideaStatiCaDir = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1";
+string ideaStatiCaDir = @"C:\Program Files\IDEA StatiCa\StatiCa 26.0";
 
 using (var serviceRunner = new ConnectionApiServiceRunner(ideaStatiCaDir))
 {
@@ -213,7 +213,7 @@ namespace ConnectionApiExample
         static async Task Main(string[] args)
         {
             string ideaConFile = "connection.ideaCon";
-            string ideaStatiCaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1";
+            string ideaStatiCaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 26.0";
             
             // ServiceRunner automatically starts and manages the REST API service
             using (var serviceRunner = new ConnectionApiServiceRunner(ideaStatiCaPath))

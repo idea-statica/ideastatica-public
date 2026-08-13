@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
 **OriginalValue** | **string** |  | [optional] 
 **OriginalTemplateId** | **string** |  | [optional] 
 **NewValue** | **string** |  | [optional] 
@@ -13,6 +12,7 @@ Name | Type | Description | Notes
 **IsBearing** | **bool** |  | [optional] 
 **OriginalMemberName** | **string** |  | [optional] 
 **NewMemberName** | **string** |  | [optional] 
+**Type** | **string** |  | [optional] [default to "IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api"]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
