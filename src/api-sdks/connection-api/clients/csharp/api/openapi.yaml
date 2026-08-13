@@ -3083,7 +3083,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
-      summary: Add bolt assembly to the project.
+      summary: "Add bolt assembly to the project. Accepted names come from\r\n`GET\
+        \ .../materials/bolt-assemblies/library`."
       tags:
       - Material
       x-requiresProject: true
@@ -3103,7 +3104,7 @@ paths:
           type: string
         style: simple
       - description: "Material type to list (steel, concrete, bolt-grade, welding,\
-          \ headed-stud-grade, reinforcement, pin)."
+          \ headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies)."
         explode: false
         in: path
         name: materialType
