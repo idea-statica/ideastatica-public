@@ -32,7 +32,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// load case - the value the desktop progress bar consumes. Coarse by design: it reports which
 		/// load case is being solved, not progress within it.
 		/// </summary>
-		public double Percent { get; set; }
+		public double Progress { get; set; }
 
 		/// <summary>Last progress message from the solver (current load case and iteration), if any.</summary>
 		public string Message { get; set; }
