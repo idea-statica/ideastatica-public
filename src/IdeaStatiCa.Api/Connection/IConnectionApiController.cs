@@ -395,6 +395,27 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(int cssId, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Create a parametric cross-section (welded, boxed, cold-formed, parametric rolled) from
+		/// its shape type and dimensions. Dimension ids are the stable parameter ids the detail
+		/// GET exposes; dimensions not named keep the shape's defaults. BETA.
+		/// </summary>
+		/// <param name="definition">Shape type, dimensions and material of the new cross-section</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The created cross-section detail: definition + tessellated outline geometry</returns>
+		Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Replace the definition of a parametric cross-section — a full replacement: dimensions
+		/// not named revert to the shape's defaults, so send the complete definition obtained from
+		/// the detail GET. BETA.
+		/// </summary>
+		/// <param name="cssId">Id of the parametric cross-section to replace</param>
+		/// <param name="definition">Shape type, dimensions and material replacing the stored definition</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The updated cross-section detail: definition + tessellated outline geometry</returns>
+		Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Add bolt assembly to project data
 		/// </summary>
 		/// <param name="newBa"></param>
