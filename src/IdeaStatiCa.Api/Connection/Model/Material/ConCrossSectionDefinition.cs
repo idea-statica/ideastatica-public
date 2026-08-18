@@ -53,12 +53,18 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	}
 
 	/// <summary>
-	/// One dimension of a parametric cross-section. Identified by the shape's stable numeric
-	/// parameter id — display captions are localized and deliberately not part of the contract.
+	/// One dimension of a parametric cross-section, identified by the shape's stable numeric
+	/// parameter id and its stable non-localized code name (e.g. "wH" — the engine's parameter
+	/// identifier; display captions are localized and deliberately not part of the contract).
+	/// On input either <see cref="Name"/> or <see cref="Id"/> is enough; when both are given
+	/// they must identify the same dimension.
 	/// </summary>
 	public class ConCrossSectionParameter
 	{
 		public int Id { get; set; }
+
+		/// <summary>Stable non-localized dimension code of the shape (e.g. "wH", "fT").</summary>
+		public string Name { get; set; }
 
 		public double Value { get; set; }
 	}
