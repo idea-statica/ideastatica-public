@@ -475,7 +475,9 @@
 
 		public static void FillWeldedTriangle(CrossSectionParameter css, double h, double w, double fTh, double webTh, double webD, bool mirrorY = false)
 		{
-			css.CrossSectionType = CrossSectionType.BoxFl;
+			// BoxTriangle, not BoxFl: the importer routes on this stamp, and ConvertBoxFl throws
+			// on the missing 'UpperFlangeWidth' — with BoxFl every FillWeldedTriangle caller broke
+			css.CrossSectionType = CrossSectionType.BoxTriangle;
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = fTh });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebDistance", Value = webD });
