@@ -36,13 +36,13 @@ class ConCalculationJob(BaseModel):
     connection_ids: Optional[List[StrictInt]] = Field(default=None, alias="connectionIds")
     connections_completed: Optional[StrictInt] = Field(default=None, alias="connectionsCompleted")
     current_connection_id: Optional[StrictInt] = Field(default=None, alias="currentConnectionId")
-    percent: Optional[Union[StrictFloat, StrictInt]] = None
+    progress: Optional[Union[StrictFloat, StrictInt]] = None
     message: Optional[StrictStr] = None
     created_at: Optional[datetime] = Field(default=None, alias="createdAt")
     finished_at: Optional[datetime] = Field(default=None, alias="finishedAt")
     results: Optional[List[ConResultSummary]] = None
     error: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["jobId", "projectId", "status", "connectionIds", "connectionsCompleted", "currentConnectionId", "percent", "message", "createdAt", "finishedAt", "results", "error"]
+    __properties: ClassVar[List[str]] = ["jobId", "projectId", "status", "connectionIds", "connectionsCompleted", "currentConnectionId", "progress", "message", "createdAt", "finishedAt", "results", "error"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -138,7 +138,7 @@ class ConCalculationJob(BaseModel):
             "connectionIds": obj.get("connectionIds"),
             "connectionsCompleted": obj.get("connectionsCompleted"),
             "currentConnectionId": obj.get("currentConnectionId"),
-            "percent": obj.get("percent"),
+            "progress": obj.get("progress"),
             "message": obj.get("message"),
             "createdAt": obj.get("createdAt"),
             "finishedAt": obj.get("finishedAt"),

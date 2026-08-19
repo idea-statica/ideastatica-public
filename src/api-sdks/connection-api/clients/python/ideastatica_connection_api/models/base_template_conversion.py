@@ -39,7 +39,7 @@ if TYPE_CHECKING:
 
 class BaseTemplateConversion(BaseModel):
     """
-    Polymorphic conversion root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
+    Polymorphic root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
     """ # noqa: E501
     original_value: Optional[StrictStr] = Field(default=None, alias="originalValue")
     original_template_id: Optional[StrictStr] = Field(default=None, alias="originalTemplateId")

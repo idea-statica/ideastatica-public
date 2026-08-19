@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ConnectionIds** | **List&lt;int&gt;** |  | [optional] 
 **ConnectionsCompleted** | **int** |  | [optional] 
 **CurrentConnectionId** | **int?** |  | [optional] 
-**Percent** | **double** |  | [optional] 
+**Progress** | **double** |  | [optional] 
 **Message** | **string** |  | [optional] 
 **CreatedAt** | **DateTime** |  | [optional] 
 **FinishedAt** | **DateTime?** |  | [optional] 

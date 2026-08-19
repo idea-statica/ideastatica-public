@@ -2989,6 +2989,60 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/{cssId}:
+    get:
+      operationId: GetCrossSectionDetail
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the cross-section in the project.
+        explode: false
+        in: path
+        name: cssId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCrossSectionDetail'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Gets the full definition (library / parametric / custom) and the evaluated\
+        \ outline\r\ngeometry of one cross-section in the project. BETA."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
   /api/4/projects/{projectId}/materials/bolt-assemblies:
     get:
       operationId: GetBoltAssemblies
@@ -3147,6 +3201,140 @@ paths:
           description: Internal Server Error
       summary: Lists the MPRL names available in the material library for the project's
         design code.
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/parametric:
+    post:
+      operationId: AddParametricCrossSection
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+        description: "Shape type, dimensions and material of the new cross-section."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCrossSectionDetail'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Creates a parametric cross-section (welded, boxed, cold-formed, parametric\
+        \ rolled)\r\nfrom its shape type and dimensions, and returns the stored detail\
+        \ with the evaluated\r\noutline geometry. Dimension ids are the stable parameter\
+        \ ids the detail GET exposes;\r\ndimensions not named keep the shape's defaults.\
+        \ BETA."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId}:
+    put:
+      operationId: UpdateParametricCrossSection
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the parametric cross-section to replace.
+        explode: false
+        in: path
+        name: cssId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+        description: "Shape type, dimensions and material replacing the stored definition."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCrossSectionDetail'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Conflict
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces the definition of parametric cross-section cssId with the\r\
+        \ngiven one — a full replacement: dimensions not named revert to the shape's\
+        \ defaults,\r\nso send the complete definition obtained from the detail GET.\
+        \ Answers 409 when the id\r\nstores a library or general section. BETA."
       tags:
       - Material
       x-requiresProject: true
@@ -6206,10 +6394,10 @@ components:
       - generalAnchor
       type: string
     BaseTemplateConversion:
-      description: Polymorphic conversion root. Every element on the wire is one of
-        the concrete subtypes listed in the discriminator mapping and carries the
-        $type discriminator; $type is deliberately declared on each subtype schema
-        (with its exact wire value as default) rather than here.
+      description: Polymorphic root. Every element on the wire is one of the concrete
+        subtypes listed in the discriminator mapping and carries the $type discriminator;
+        $type is deliberately declared on each subtype schema (with its exact wire
+        value as default) rather than here.
       discriminator:
         mapping:
           IdeaStatiCa.Api.Connection.Model.BoltAssemblyTemplateConversion, IdeaStatiCa.Api: '#/components/schemas/BoltAssemblyTemplateConversion'
@@ -6947,10 +7135,10 @@ components:
         - 0
         currentConnectionId: 1
         connectionsCompleted: 6
+        progress: 5.962133916683182
         message: message
         error: error
         projectId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        percent: 5.962133916683182
         results:
         - id: 0
           passed: true
@@ -7006,7 +7194,7 @@ components:
           format: int32
           nullable: true
           type: integer
-        percent:
+        progress:
           format: double
           type: number
         message:
@@ -7233,6 +7421,282 @@ components:
             $ref: '#/components/schemas/ConversionMapping'
           nullable: true
           type: array
+      type: object
+    ConCrossSectionCustomComponent:
+      additionalProperties: false
+      properties:
+        outline:
+          items:
+            $ref: '#/components/schemas/ConCssPoint2D'
+          nullable: true
+          type: array
+        openings:
+          items:
+            items:
+              $ref: '#/components/schemas/ConCssPoint2D'
+            type: array
+          nullable: true
+          type: array
+        materialName:
+          nullable: true
+          type: string
+      type: object
+    ConCrossSectionCustomDefinition:
+      allOf:
+      - $ref: '#/components/schemas/ConCrossSectionDefinition'
+      - properties:
+          definitionType:
+            nullable: true
+            readOnly: true
+            type: string
+          components:
+            items:
+              $ref: '#/components/schemas/ConCrossSectionCustomComponent'
+            nullable: true
+            type: array
+          $type:
+            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition,\
+              \ IdeaStatiCa.Api"
+            type: string
+        type: object
+    ConCrossSectionDefinition:
+      description: Polymorphic root. Every element on the wire is one of the concrete
+        subtypes listed in the discriminator mapping and carries the $type discriminator;
+        $type is deliberately declared on each subtype schema (with its exact wire
+        value as default) rather than here.
+      discriminator:
+        mapping:
+          IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionLibraryDefinition'
+          IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionParametricDefinition'
+          IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionCustomDefinition'
+        propertyName: $type
+      properties:
+        definitionType:
+          nullable: true
+          readOnly: true
+          type: string
+        materialName:
+          nullable: true
+          type: string
+      type: object
+    ConCrossSectionDetail:
+      additionalProperties: false
+      example:
+        name: name
+        definition:
+          materialName: materialName
+          mprlName: mprlName
+          mirrorY: true
+          mirrorZ: true
+          definitionType: definitionType
+          $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
+            \ IdeaStatiCa.Api"
+        geometry:
+          components:
+          - materialName: materialName
+            outline:
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+            openings:
+            - - "y": 6.027456183070403
+                z: 1.4658129805029452
+              - "y": 6.027456183070403
+                z: 1.4658129805029452
+            - - "y": 6.027456183070403
+                z: 1.4658129805029452
+              - "y": 6.027456183070403
+                z: 1.4658129805029452
+          - materialName: materialName
+            outline:
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+            openings:
+            - - "y": 6.027456183070403
+                z: 1.4658129805029452
+              - "y": 6.027456183070403
+                z: 1.4658129805029452
+            - - "y": 6.027456183070403
+                z: 1.4658129805029452
+              - "y": 6.027456183070403
+                z: 1.4658129805029452
+        id: 0
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        definition:
+          $ref: '#/components/schemas/ConCrossSectionDetail_definition'
+        geometry:
+          $ref: '#/components/schemas/ConCrossSectionGeometry'
+      type: object
+    ConCrossSectionGeometry:
+      additionalProperties: false
+      example:
+        components:
+        - materialName: materialName
+          outline:
+          - "y": 6.027456183070403
+            z: 1.4658129805029452
+          - "y": 6.027456183070403
+            z: 1.4658129805029452
+          openings:
+          - - "y": 6.027456183070403
+              z: 1.4658129805029452
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+          - - "y": 6.027456183070403
+              z: 1.4658129805029452
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+        - materialName: materialName
+          outline:
+          - "y": 6.027456183070403
+            z: 1.4658129805029452
+          - "y": 6.027456183070403
+            z: 1.4658129805029452
+          openings:
+          - - "y": 6.027456183070403
+              z: 1.4658129805029452
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+          - - "y": 6.027456183070403
+              z: 1.4658129805029452
+            - "y": 6.027456183070403
+              z: 1.4658129805029452
+      properties:
+        components:
+          items:
+            $ref: '#/components/schemas/ConCrossSectionGeometryComponent'
+          nullable: true
+          type: array
+      type: object
+    ConCrossSectionGeometryComponent:
+      additionalProperties: false
+      example:
+        materialName: materialName
+        outline:
+        - "y": 6.027456183070403
+          z: 1.4658129805029452
+        - "y": 6.027456183070403
+          z: 1.4658129805029452
+        openings:
+        - - "y": 6.027456183070403
+            z: 1.4658129805029452
+          - "y": 6.027456183070403
+            z: 1.4658129805029452
+        - - "y": 6.027456183070403
+            z: 1.4658129805029452
+          - "y": 6.027456183070403
+            z: 1.4658129805029452
+      properties:
+        outline:
+          items:
+            $ref: '#/components/schemas/ConCssPoint2D'
+          nullable: true
+          type: array
+        openings:
+          items:
+            items:
+              $ref: '#/components/schemas/ConCssPoint2D'
+            type: array
+          nullable: true
+          type: array
+        materialName:
+          nullable: true
+          type: string
+      type: object
+    ConCrossSectionLibraryDefinition:
+      allOf:
+      - $ref: '#/components/schemas/ConCrossSectionDefinition'
+      - properties:
+          definitionType:
+            nullable: true
+            readOnly: true
+            type: string
+          mprlName:
+            nullable: true
+            type: string
+          mirrorY:
+            type: boolean
+          mirrorZ:
+            type: boolean
+          $type:
+            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
+              \ IdeaStatiCa.Api"
+            type: string
+        type: object
+      example:
+        materialName: materialName
+        mprlName: mprlName
+        mirrorY: true
+        mirrorZ: true
+        definitionType: definitionType
+        $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
+          \ IdeaStatiCa.Api"
+    ConCrossSectionParameter:
+      additionalProperties: false
+      example:
+        id: 0
+        value: 6.027456183070403
+      properties:
+        id:
+          format: int32
+          type: integer
+        value:
+          format: double
+          type: number
+      type: object
+    ConCrossSectionParametricDefinition:
+      allOf:
+      - $ref: '#/components/schemas/ConCrossSectionDefinition'
+      - properties:
+          definitionType:
+            nullable: true
+            readOnly: true
+            type: string
+          shapeType:
+            nullable: true
+            type: string
+          parameters:
+            items:
+              $ref: '#/components/schemas/ConCrossSectionParameter'
+            nullable: true
+            type: array
+          $type:
+            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
+              \ IdeaStatiCa.Api"
+            type: string
+        type: object
+      example:
+        materialName: materialName
+        shapeType: shapeType
+        definitionType: definitionType
+        parameters:
+        - id: 0
+          value: 6.027456183070403
+        - id: 0
+          value: 6.027456183070403
+        $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
+          \ IdeaStatiCa.Api"
+    ConCssPoint2D:
+      additionalProperties: false
+      example:
+        "y": 6.027456183070403
+        z: 1.4658129805029452
+      properties:
+        "y":
+          format: double
+          type: number
+        z:
+          format: double
+          type: number
       type: object
     ConDesignItem:
       additionalProperties: false
@@ -11279,11 +11743,21 @@ components:
           format: binary
           type: string
       type: object
+    ConCrossSectionDetail_definition:
+      description: Polymorphic root. Every element on the wire is one of the concrete
+        subtypes listed in the discriminator mapping and carries the $type discriminator;
+        $type is deliberately declared on each subtype schema (with its exact wire
+        value as default) rather than here.
+      nullable: true
+      oneOf:
+      - $ref: '#/components/schemas/ConCrossSectionLibraryDefinition'
+      - $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+      - $ref: '#/components/schemas/ConCrossSectionCustomDefinition'
     TemplateConversions_conversions_inner:
-      description: Polymorphic conversion root. Every element on the wire is one of
-        the concrete subtypes listed in the discriminator mapping and carries the
-        $type discriminator; $type is deliberately declared on each subtype schema
-        (with its exact wire value as default) rather than here.
+      description: Polymorphic root. Every element on the wire is one of the concrete
+        subtypes listed in the discriminator mapping and carries the $type discriminator;
+        $type is deliberately declared on each subtype schema (with its exact wire
+        value as default) rather than here.
       oneOf:
       - $ref: '#/components/schemas/BoltAssemblyTemplateConversion'
       - $ref: '#/components/schemas/BoltGradeTemplateConversion'

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **connection_ids** | **List[int]** |  | [optional] 
 **connections_completed** | **int** |  | [optional] 
 **current_connection_id** | **int** |  | [optional] 
-**percent** | **float** |  | [optional] 
+**progress** | **float** |  | [optional] 
 **message** | **str** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
 **finished_at** | **datetime** |  | [optional] 
