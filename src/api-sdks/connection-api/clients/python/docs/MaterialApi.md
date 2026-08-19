@@ -19,9 +19,11 @@ Method | Description
 [**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
 [**get_cross_section_detail**](MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
-[**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
+[**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly.
 [**get_headed_stud_grade_materials**](MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project&#39;s design code.
+[**get_parametric_cross_section_shape_template**](MaterialApi.md#get_parametric_cross_section_shape_template) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
+[**get_parametric_cross_section_shapes**](MaterialApi.md#get_parametric_cross_section_shapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
 [**get_pins**](MaterialApi.md#get_pins) | Gets pins used in the specified project.
 [**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
@@ -1247,7 +1249,7 @@ No authorization required
 # **get_cross_sections**
 > List[object] get_cross_sections(project_id)
 
-Gets cross sections used in the specified project.
+Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
 
 ### Parameters
 
@@ -1278,7 +1280,7 @@ def get_cross_sectionsExampleFunc(api_client):
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Gets cross sections used in the specified project.
+        # Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
         api_response = api_client.material.get_cross_sections(project_id)
         print("The response of MaterialApi->get_cross_sections:\n")
         pprint(api_response)
@@ -1476,6 +1478,166 @@ No authorization required
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_parametric_cross_section_shape_template"></a>
+# **get_parametric_cross_section_shape_template**
+> ConCrossSectionParametricDefinition get_parametric_cross_section_shape_template(project_id, shape_type)
+
+The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **shape_type** | **str**| Shape type name from &#x60;cross-sections/parametric/shapes&#x60;. | 
+
+### Return type
+
+[**ConCrossSectionParametricDefinition**](ConCrossSectionParametricDefinition.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_parametric_cross_section_shape_templateExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    shape_type = 'shape_type_example' # str | Shape type name from `cross-sections/parametric/shapes`.
+
+    try:
+        # The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
+        api_response = api_client.material.get_parametric_cross_section_shape_template(project_id, shape_type)
+        print("The response of MaterialApi->get_parametric_cross_section_shape_template:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_parametric_cross_section_shape_template: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType} 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_parametric_cross_section_shapes"></a>
+# **get_parametric_cross_section_shapes**
+> List[str] get_parametric_cross_section_shapes(project_id)
+
+Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+
+### Return type
+
+**List[str]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_parametric_cross_section_shapesExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+
+    try:
+        # Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
+        api_response = api_client.material.get_parametric_cross_section_shapes(project_id)
+        print("The response of MaterialApi->get_parametric_cross_section_shapes:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_parametric_cross_section_shapes: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
