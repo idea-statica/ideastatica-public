@@ -416,6 +416,24 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// List the shape types the parametric cross-section endpoints accept. BETA.
+		/// </summary>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The parametric shape type names (e.g. "Iw", "Tw", "CHSPar")</returns>
+		Task<List<string>> GetParametricCrossSectionShapesAsync(CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the fill-in template of a parametric shape: every dimension with its stable id,
+		/// stable code name (e.g. "wH") and the shape's default value, in SI units. Change the
+		/// values, set the material, and create the section with
+		/// <see cref="AddParametricCrossSectionAsync"/>. BETA.
+		/// </summary>
+		/// <param name="shapeType">Shape type name from <see cref="GetParametricCrossSectionShapesAsync"/></param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The shape's default definition — ids, code names and default dimension values</returns>
+		Task<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateAsync(string shapeType, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Add bolt assembly to project data
 		/// </summary>
 		/// <param name="newBa"></param>
