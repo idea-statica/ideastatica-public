@@ -497,7 +497,7 @@ def joint_checks_all_les(chord_sec, brace_secs, params_by_name, brace_forces, cl
             # OWN Qu,axial -> OWN N_Rd — Table 6-4 gives K/T-Y/X each a different (C1,C2,C3) row, so their
             # Qf,axial genuinely differ (only the MOMENT coeffs/Qf are shared across classes, see C_mo
             # above). A class with fr==0 is still computed here (cheap) — the UI decides whether to show
-            # its block (user: "pokud některý z modů do posudku nevstupuje, blok se vynechá").
+            # its block (user: if a mode does not enter the check, its block is omitted).
             per_class_out = {}
             for cls in ("K", "Y", "X"):
                 cR = r.per_class[cls]

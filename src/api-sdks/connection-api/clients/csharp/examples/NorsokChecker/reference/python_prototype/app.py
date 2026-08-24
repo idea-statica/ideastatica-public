@@ -67,25 +67,25 @@ class Api:
         if service_alive():
             ver = requests.get(VERSION_EP, timeout=4).text.strip().strip('"')
             return {"ok": True, "started_by_us": False, "version": ver,
-                    "msg": f"Service už běží (v{ver}) — nepřebíráme ji."}
+                    "msg": f"Service already running (v{ver}) — not taking it over."}
         if not os.path.exists(EXE):
-            return {"ok": False, "msg": f"REST service exe nenalezeno:\n{EXE}"}
+            return {"ok": False, "msg": f"REST service exe not found:\n{EXE}"}
         try:
             # no shell, fixed path, no user input -> no injection surface
             self._proc = subprocess.Popen([EXE],
                                           stdout=subprocess.DEVNULL,
                                           stderr=subprocess.DEVNULL)
         except Exception as e:
-            return {"ok": False, "msg": f"Nepodařilo se spustit service: {e}"}
+            return {"ok": False, "msg": f"Failed to start the service: {e}"}
         # wait up to ~30 s for it to come up
         for _ in range(60):
             if service_alive(timeout=1):
                 self._owns_service = True
                 ver = requests.get(VERSION_EP, timeout=4).text.strip().strip('"')
                 return {"ok": True, "started_by_us": True, "version": ver,
-                        "msg": f"Service spuštěna námi (v{ver}) — po zavření ji vypneme."}
+                        "msg": f"Service started by us (v{ver}) — it will be shut down on exit."}
             time.sleep(0.5)
-        return {"ok": False, "msg": "Service nenaběhla do 30 s."}
+        return {"ok": False, "msg": "Service did not come up within 30 s."}
 
     def shutdown_service(self):
         """Close project; kill the exe only if we started it."""
@@ -120,7 +120,7 @@ class Api:
         log.info("open_file: %s", path)
         if not path or not os.path.exists(path):
             log.warning("open_file: file does not exist: %s", path)
-            return {"error": "Soubor neexistuje."}
+            return {"error": "File does not exist."}
         st = self.ensure_service()
         if not st["ok"]:
             log.error("open_file: service not available: %s", st["msg"])
@@ -149,7 +149,7 @@ class Api:
             # call 401ing on the now-unrecognized ClientId until the app itself is restarted.
             self._session = None
             self._pid = None
-            return {"error": f"Chyba otevření: {e}"}
+            return {"error": f"Failed to open: {e}"}
 
     def build_connection(self, conn_id, oop_tol_mm=5.0, plane_tol_deg=2.0, coplanar_tol_deg=15.0,
                          kyx_gate_pct=0.0):
@@ -159,7 +159,7 @@ class Api:
         kyx_gate_pct = K/Y/X "balanced within X %" gate in PERCENT (0 = honest breakdown)."""
         if not self._pid:
             log.warning("build_connection called with no project open")
-            return {"error": "Projekt není otevřen."}
+            return {"error": "No project is open."}
         log.info("build_connection: conn_id=%s (oop=%.1fmm plane=%.1f° coplanar=%.1f° gate=%.1f%%)",
                  conn_id, oop_tol_mm, plane_tol_deg, coplanar_tol_deg, kyx_gate_pct)
         try:
@@ -182,7 +182,7 @@ class Api:
             log.exception("build_connection failed for conn_id=%s", conn_id)
             # surface the exception TYPE too — a bare "division by zero" is otherwise opaque;
             # the full traceback (which brace/LE, which line) is in norsok_app.log.
-            return {"error": f"Chyba extrakce: {type(e).__name__}: {e}\n(detail v {LOG_PATH})"}
+            return {"error": f"Extraction failed: {type(e).__name__}: {e}\n(details in {LOG_PATH})"}
 
     def ui_log(self, level, message):
         """Log a message coming from the JS/UI layer into the same file, so front-end errors
