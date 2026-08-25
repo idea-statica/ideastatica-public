@@ -361,7 +361,55 @@ class Api:
         return True
 
 
+def acquire_single_instance():
+    """Return a handle while we are the only instance, or None if one is already running.
+
+    Three reasons a second instance is harmful, not merely redundant:
+      - IDEA StatiCa is licensed per seat, and an instance that finds no running service starts
+        its OWN, so the second one competes for the seat;
+      - both write norsok_app.log in the same directory, and RotatingFileHandler is not
+        synchronised across processes: lines interleave and a rotation can truncate the other's
+        file — exactly when a user is trying to report a problem;
+      - the service one instance owns is shut down when THAT instance closes, pulling the ground
+        out from under the other.
+
+    A named kernel mutex, not a lock file: Windows releases it when the process dies, however it
+    dies, so a crash cannot leave the app permanently 'already running'.
+    """
+    try:
+        import ctypes
+        from ctypes import wintypes
+    except Exception:
+        return True     # not Windows / no ctypes: don't block startup over this
+    ERROR_ALREADY_EXISTS = 183
+    k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    k32.CreateMutexW.restype = wintypes.HANDLE
+    k32.CreateMutexW.argtypes = [wintypes.LPCVOID, wintypes.BOOL, wintypes.LPCWSTR]
+    handle = k32.CreateMutexW(None, False, r"Local\NorsokJointCalculator.singleinstance")
+    if not handle:
+        return True     # cannot create the mutex — let the app run rather than refuse to start
+    if ctypes.get_last_error() == ERROR_ALREADY_EXISTS:
+        k32.CloseHandle(handle)
+        return None
+    return handle
+
+
 def main():
+    lock = acquire_single_instance()
+    if lock is None:
+        log.warning("another instance is already running — exiting")
+        try:
+            import ctypes
+            ctypes.windll.user32.MessageBoxW(
+                None,
+                "NORSOK Joint Calculator is already running.\n\n"
+                "Only one instance can run at a time: they would compete for the same "
+                "IDEA StatiCa licence seat and write to the same log file.",
+                "NORSOK Joint Calculator", 0x40)   # MB_ICONINFORMATION
+        except Exception:
+            pass
+        return
+
     api = Api()
     html_path = os.path.join(BUNDLE_DIR, "ui.html")
     window = webview.create_window("NORSOK Joint Calculator", html_path,
