@@ -1274,9 +1274,25 @@ def build_connection(session, pid, conn, members, xm, len_factor=6.0, min_len=0.
         for row in le["braces"]:
             row["side"] = side_by_name.get(row.get("name"), 1)
 
+    # An ERROR verdict withholds everything from here on: the chord stresses, the K/Y/X
+    # classification and the 6.4 check itself. Every error gate says the joint is outside the
+    # simple-tubular-joint scope, and all three of these are quantities of the WHOLE joint, not
+    # of one brace:
+    #   - the chord stresses are the RESULTANT chord force divided over the chord section, i.e. a
+    #     sum over every brace. With a member that does not belong in a 6.4 joint (a rolled I,
+    #     for one, whose D/T we do not even have) the sum is simply wrong — and Qf rests directly
+    #     on those stresses.
+    #   - the K/Y/X classification balances the transverse force across all braces.
+    #   - so no brace can be assessed, not even one whose own geometry is fine. No exceptions.
+    # STEP 2 (brace_forces) is kept: it only resolves each brace's own section forces into the
+    # plane, so it stays a valid description of what enters the joint.
+    #
     # STEP 4 prep: chord nominal stresses at each brace footprint (per LE) for the Qf chord-action factor.
     # Average of both sides of the intersection (NORSOK p.31); sigma in the NORSOK sign convention.
-    chord_stresses = chord_stresses_all_les(chord, gap_braces, load_effects, ex, n_plane, sec_c, side_by_name)
+    out_of_scope = (verdict["status"] == "ERROR")
+    chord_stresses = ([] if out_of_scope else
+                      chord_stresses_all_les(chord, gap_braces, load_effects, ex, n_plane, sec_c,
+                                             side_by_name))
 
     # STEP 3: K/Y/X classification per LE. Assemble per-brace geometry (side, theta) + N_Sd (from STEP 2),
     # then decompose the transverse force into K (same-side opposite-sign cancellation, nearest gap first),
@@ -1287,28 +1303,19 @@ def build_connection(session, pid, conn, members, xm, len_factor=6.0, min_len=0.
                          "theta_deg": theta_by_name.get(r["name"], 90.0), "N_Sd": r["N_Sd"]}
                         for r in le["braces"]],
     } for le in brace_forces]
-    classification = classify_kyx_all_les(braces_geom_by_le, gaps, kyx_gate)
+    classification = ([] if out_of_scope
+                      else classify_kyx_all_les(braces_geom_by_le, gaps, kyx_gate))
 
     # STEP 4: NORSOK 6.4 resistance check per brace per LE (chord-wall check; materially fy_chord).
-    #
-    # An ERROR verdict blocks the WHOLE joint, not just the offending member. Every error gate
-    # says the joint is outside the simple-tubular-joint scope of 6.4 — a non-tubular section, a
-    # brace off the joint plane, overlapping feet, no through chord, a brace parallel to the
-    # chord — and in that state the shared quantities the check rests on (the joint plane, the
-    # chord stresses averaged across it, the K/Y/X balance over all braces) are not meaningful
-    # for ANY brace. Publishing per-brace utilisations next to a red verdict would read as
-    # "failed, but here are the numbers", which is exactly the reading to avoid.
     #
     # WARNING still computes: the 6.4.3.1 validity ranges (beta/gamma/theta) are warnings on
     # purpose, because the norm's own rule there is to compute with clamped parameters and keep
     # the lesser capacity, not to refuse the joint.
     brace_secs = {bm["name"]: bm["section"] for bm in braces_meta}
     params_by_name = {p["name"]: p for p in params_all}
-    if verdict["status"] == "ERROR":
-        joint_checks = []
-    else:
-        joint_checks = joint_checks_all_les(sec_c, brace_secs, params_by_name,
-                                            brace_forces, classification, chord_stresses)
+    joint_checks = ([] if out_of_scope else
+                    joint_checks_all_les(sec_c, brace_secs, params_by_name,
+                                         brace_forces, classification, chord_stresses))
 
     return {
         "connection_id": conn["id"],
