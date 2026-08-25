@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -95,6 +95,8 @@ namespace NorsokChecker
 
 			try
 			{
+				Telemetry.ProjectLoadClicked();
+
 				BtnLoadProject.IsEnabled = false;
 				ShowStatus("Connecting to API...");
 				Log("Connecting to Connection API...");
@@ -193,9 +195,13 @@ namespace NorsokChecker
 				}
 
 				BtnRunCheck.IsEnabled = true;
+
+				Telemetry.ProjectLoaded(_connections.Count, _members.Count > 0 && _members.All(m => m.IsCHS));
 			}
 			catch (Exception ex)
 			{
+				Telemetry.ProjectLoadFailed(ex);
+				AppLog.ReportFailure("Opening the project failed", ex);
 				Log($"ERROR: {ex.Message}");
 				MessageBox.Show(ex.Message, "Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
@@ -213,6 +219,8 @@ namespace NorsokChecker
 
 			try
 			{
+				Telemetry.CheckClicked();
+
 				BtnRunCheck.IsEnabled = false;
 				ValidateGeometryInputs();
 				ShowStatus("Running NORSOK N-004 compliance check...");
@@ -459,9 +467,15 @@ namespace NorsokChecker
 				TabResults.IsEnabled = true;
 				TabReport.IsEnabled = true;
 				Log("Norsok check completed.");
+
+				Telemetry.CheckCompleted(
+					allPassed: _connections.All(c => c.NorsokPass == "PASS"),
+					governingUtilization: _connections.Count == 0 ? 0 : _connections.Max(c => c.MaxUtilization));
 			}
 			catch (Exception ex)
 			{
+				Telemetry.CheckFailed(ex);
+				AppLog.ReportFailure("The NORSOK check failed", ex);
 				Log($"ERROR: {ex.Message}");
 				MessageBox.Show(ex.Message, "Check Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
@@ -643,6 +657,8 @@ namespace NorsokChecker
 			BtnExportPdf.IsEnabled = false;
 			try
 			{
+				Telemetry.ReportExportClicked();
+
 				// 1. Official IDEA StatiCa report via Connection API — one section per connection
 				ShowStatus("Generating IDEA StatiCa PDF report via API...");
 				Log("Generating IDEA StatiCa CBFEM PDF report via Connection API...");
@@ -675,11 +691,15 @@ namespace NorsokChecker
 				PopulateReportTab();
 
 				Log("PDF export completed.");
+				Telemetry.ReportExported();
+
 				MessageBox.Show($"Exported:\n• {norsokPdf}\n• {ideaPdf}", "PDF Export",
 					MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			catch (Exception ex)
 			{
+				Telemetry.ReportExportFailed(ex);
+				AppLog.ReportFailure("Exporting the PDF report failed", ex);
 				Log($"ERROR exporting PDF: {ex.Message}");
 				MessageBox.Show(ex.Message, "PDF Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
@@ -779,6 +799,13 @@ namespace NorsokChecker
 			// remain visible (greyed) as the fallback used when the topology gate rejects the joint.
 			if (ManualJointPanel != null)
 				ManualJointPanel.IsEnabled = ChkAutoTopology.IsChecked != true;
+
+			// The checkbox is declared IsChecked="True", so this handler also runs while the XAML is
+			// being initialized. That is the default state, not a user action — do not report it.
+			if (!IsLoaded)
+				return;
+
+			Telemetry.AutoTopologyToggled(ChkAutoTopology.IsChecked == true);
 		}
 
 		private void DrawJointSchematic(int jointTypeIndex)

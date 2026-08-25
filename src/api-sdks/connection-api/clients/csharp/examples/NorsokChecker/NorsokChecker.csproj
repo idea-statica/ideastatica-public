@@ -24,4 +24,12 @@
     <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="26.0.4.1707" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Product telemetry (Sentry / Seq / Google Analytics user events). IdeaStatiCa.Diagnostics is
+         not published to any feed, so this reaches out of ideastatica-public into the surrounding
+         monorepo: the app builds only from a full C:\Dev\IdeaStatiCa checkout, not from a
+         standalone clone of the public repo. -->
+    <ProjectReference Include="..\..\..\..\..\..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
+  </ItemGroup>
+
 </Project>
