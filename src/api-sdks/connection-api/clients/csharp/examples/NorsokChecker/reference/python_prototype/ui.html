@@ -1474,8 +1474,23 @@ function renderResults(){
   const env=(viewMode==='env');
   const L=resultsData();
   if(!L){
+    // Distinguish "nothing to check" from "must not be checked": an ERROR verdict withholds the
+    // whole 6.4 check on purpose (the joint plane, chord stresses and K/Y/X balance are shared
+    // quantities, so no single brace can be assessed once the joint is out of scope). Showing
+    // "no load effects" there would be plainly wrong — the loads exist.
+    const v=DATA.verdict||{};
+    const blocked=(v.status==='ERROR');
+    const body=blocked
+      ? `<div style="font-weight:700;color:#c0392b;margin-bottom:6px">✗ No check performed — the joint is outside the scope of NORSOK 6.4</div>
+         <div style="color:#555">Section 6.4 covers <b>simple tubular joints</b>. The joint plane, the chord
+         stresses averaged across it and the K/Y/X force balance are shared by every brace, so while any of
+         the conditions below is unmet no brace can be assessed — not even the ones that look fine.</div>
+         <ul style="margin:8px 0 0 18px;padding:0;color:#c0392b">${(v.errors||[]).map(e=>`<li>${e}</li>`).join('')}</ul>
+         <div style="margin-top:8px;color:#777;font-size:12px">Fix the geometry or the sections in IDEA StatiCa
+         and reload the file. Warnings alone do not block the check.</div>`
+      : 'No load effects on this connection — nothing to classify or check.';
     document.getElementById('app').innerHTML=`<div class="res">${DATA?leBar(leList()):''}<div class="panel" style="padding:24px;color:#777">
-      No load effects on this connection — nothing to classify or check.</div></div>`;
+      ${body}</div></div>`;
     return;
   }
   const multiplanar = (DATA.coplanar===false);

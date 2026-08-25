@@ -1290,10 +1290,25 @@ def build_connection(session, pid, conn, members, xm, len_factor=6.0, min_len=0.
     classification = classify_kyx_all_les(braces_geom_by_le, gaps, kyx_gate)
 
     # STEP 4: NORSOK 6.4 resistance check per brace per LE (chord-wall check; materially fy_chord).
+    #
+    # An ERROR verdict blocks the WHOLE joint, not just the offending member. Every error gate
+    # says the joint is outside the simple-tubular-joint scope of 6.4 — a non-tubular section, a
+    # brace off the joint plane, overlapping feet, no through chord, a brace parallel to the
+    # chord — and in that state the shared quantities the check rests on (the joint plane, the
+    # chord stresses averaged across it, the K/Y/X balance over all braces) are not meaningful
+    # for ANY brace. Publishing per-brace utilisations next to a red verdict would read as
+    # "failed, but here are the numbers", which is exactly the reading to avoid.
+    #
+    # WARNING still computes: the 6.4.3.1 validity ranges (beta/gamma/theta) are warnings on
+    # purpose, because the norm's own rule there is to compute with clamped parameters and keep
+    # the lesser capacity, not to refuse the joint.
     brace_secs = {bm["name"]: bm["section"] for bm in braces_meta}
     params_by_name = {p["name"]: p for p in params_all}
-    joint_checks = joint_checks_all_les(sec_c, brace_secs, params_by_name,
-                                        brace_forces, classification, chord_stresses)
+    if verdict["status"] == "ERROR":
+        joint_checks = []
+    else:
+        joint_checks = joint_checks_all_les(sec_c, brace_secs, params_by_name,
+                                            brace_forces, classification, chord_stresses)
 
     return {
         "connection_id": conn["id"],
