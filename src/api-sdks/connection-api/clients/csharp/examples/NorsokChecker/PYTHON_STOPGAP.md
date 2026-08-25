@@ -103,7 +103,9 @@ All four benchmark files have `isBearing == isContinuous`, and their sections ar
 to 1e-6 while both being wrong the same way.
 
 `test_cs.ideaCon` is the file that exposes them, and it grew into a gate-coverage set worth
-keeping (and worth adding to the C# test data). One connection per condition:
+keeping (and worth adding to the C# test data). It lives in
+[`reference/verification_scripts/GATE COVERAGE/`](reference/verification_scripts/GATE%20COVERAGE/README.md).
+One connection per condition:
 
 | | covers | expected |
 |---|---|---|
