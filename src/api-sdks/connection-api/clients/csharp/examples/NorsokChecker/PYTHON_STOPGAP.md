@@ -42,6 +42,11 @@ reference-only status once that is done.
 | `c3b3e815` | D/T columns in the Members table; `theta=0` no longer reported as "missing data" |
 | `25dbb877` | **Chord picked by continuity + largest diameter, not by the bearing flag** (see below) |
 | `27840512` | Dropped the noise warning about a bearing member that is not the chord |
+| `d936fd5b` | **An out-of-scope joint gets no check at all** (see below) |
+| `3fc57f76` | …and no chord stresses or classification either — those were the numbers that were actually wrong |
+| `918410e7` | The results sheet says why no check was performed (the earlier notice was unreachable) |
+| `4a7b94af` | The service is located (env override → registry `CurrentInstallDir` → conventional root) instead of one hardcoded path; below 26.0 refused |
+| `9063bd76` | One-dir PyInstaller build + `reference/python_packaging/README.md` |
 
 ### The two that matter
 
@@ -73,12 +78,44 @@ valid and the joint reports OK.
 The chord is now **the continuous member with the largest diameter**, which is what 6.4 means by
 a chord.
 
+**An out-of-scope joint is not checked at all (`d936fd5b`, `3fc57f76`, `918410e7`).** An ERROR
+verdict used to sit next to a full set of per-brace utilisations — the joint was declared outside
+the scope of 6.4 and the numbers were published anyway, which reads as "failed, but here are the
+results".
+
+Every error gate means the quantities the check rests on are not meaningful, because they belong
+to the **whole joint**, not to one brace: the joint plane itself, the chord stresses averaged
+across it, the K/Y/X balance over all braces. The chord stresses are the decisive case — they are
+the *resultant* chord force spread over the chord section, i.e. a sum over every brace. On
+`test_cs` CON2, whose M3 is a rolled I with no D/T at all, `sigma_a` came out 9.27 MPa from a
+resultant that includes a member which does not belong in a 6.4 joint, and Qf rests directly on
+those stresses. So all three are withheld: the check, the chord stresses and the classification.
+`brace_forces` stays, being only each brace's own section forces resolved into the plane.
+
+WARNING still computes. The 6.4.3.1 validity ranges (β/γ/θ) are warnings deliberately: the norm's
+rule there is to compute with parameters clamped to the range and keep the lesser capacity, not to
+refuse the joint.
+
 ### Why the oracle did not catch either
 
 All four benchmark files have `isBearing == isContinuous`, and their sections are named
 `CHS<D>/<T>`. Both defects are invisible under those conditions — the python and the C# agree
-to 1e-6 while both being wrong the same way. `test_cs.ideaCon` (five naming conventions, bearing
-flag on a brace) is the file that exposes them; keep it.
+to 1e-6 while both being wrong the same way.
+
+`test_cs.ideaCon` is the file that exposes them, and it grew into a gate-coverage set worth
+keeping (and worth adding to the C# test data). One connection per condition:
+
+| | covers | expected |
+|---|---|---|
+| CON1 | five section-naming conventions: `76.0x3.5`, `PIPE127STD`, `PIPE(Imp)3-1/2XS`, `GB-SSP42X2.5`, `CHS30,3` — only the last one parses | **OK**, 5 checks, every D/T from the model |
+| CON2 | a non-tubular member (`IPE100` → `RolledI`) | ERROR, names the type |
+| CON3 | out-of-plane eccentricity, 10 mm | ERROR |
+| CON4 | eccentricity **and** overlapping feet | ERROR, two gates |
+| CON5 | six gates at once, incl. a brace at θ = 0° | ERROR, all six listed |
+| CON6 | **no continuous member** | ERROR, "6.4 needs a through chord" |
+| CON7 | **two continuous members** | ERROR, chord taken as the larger |
+
+The bearing flag sits on a brace throughout, which is what surfaced the chord defect.
 
 ## Carry-over to C#
 
@@ -90,6 +127,7 @@ smallest-blast-radius first.
 | Section recognition | `JointSectionMap.FromCrossSections` gates on `ChsTypes` **and** then requires `ParseChs` for the dimensions. Its `Parameters`-first path reads `ParameterDouble` "D"/"T", which **catalogue sections do not carry** — measured: a `rolledCHS` has exactly one parameter, `UniqueName`. So in practice the C# also falls back to name parsing and inherits the same 96 %. It needs the IOM facet path |
 | Chord identification | **Confirmed present in C#**: `JointTopologyBuilder.IdentifyChord` is a literal port — `bearings[0]` first, continuity only as a fallback, and its own summary says so ("Chord = the bearing member; fallback continuous / largest Ø"). Same defect, same consequences |
 | `theta = 0` guard | C# is **logically correct** (`JointCheckOrchestrator` tests `thetaDeg <= 0` explicitly — it never had python's falsy-zero problem) but reports the same misleading text, `"missing section/material/classification data"`, for a parallel brace. Message only |
+| Out-of-scope joint gets no check | **already correct in C#**: `NorsokCheckRunner.EvaluateJointChecksFromTopology` returns false on `Verdict.Status == "ERROR"`, so nothing is published. Nothing to carry — though note it then falls back to the manual joint-type inputs, which is worth a look of its own |
 | Free port | `ConnectionApiServiceRunner` already does this correctly; nothing to carry |
 | English messages, label rounding, table columns | UI-level, re-decide in the C# UI rather than port literally |
 
@@ -101,17 +139,26 @@ at all.
 
 ## Sequence
 
-1. Close out the python app (packaging as a one-dir build with an exe is the remaining item).
+1. ~~Close out the python app.~~ **Done** — the fixes above, plus a one-dir build and a
+   hand-over README in [`reference/python_packaging/`](reference/python_packaging/README.md).
 2. Hand it to the customer as the stopgap.
-3. Then return to the C# app and carry the two substantive fixes over, with `test_cs.ideaCon`
-   added to its test data.
+3. Then return to the C# app and carry the fixes over, with `test_cs.ideaCon` added to its test
+   data.
 4. The python goes back to reference-only, as `UNIFICATION.md` intends.
 
 ## Verification used throughout
 
 - `live_oracle.json` re-checked after every change: 390 values, 0 mismatches. The comparison
   also asserts the chord identity, which it previously did not.
-- `test_cs.ideaCon`: went from `ERROR — outside simple-joint scope` to a clean `OK`.
+- `test_cs.ideaCon` CON1: went from `ERROR — outside simple-joint scope` to a clean `OK`; CON2–CON7
+  are ERROR by design and each withholds the check (0 rows, 0 chord stresses, 0 classification).
+- The blocked-results page was verified per connection, because the notice it replaced was
+  unreachable: it waited on "no load effects", which never happens for a rejected joint.
+- Service location: this machine (25.1 + 26.0 + 26.1) picks 26.0; an install simulated outside
+  `Program Files` is found through the registry; a 25.1-only machine is refused with the reason.
+  25.1.5.1504 was measured live — `400 UnsupportedApiVersion` on every `/api/4` route.
+- The packaged build was launched from both folder layouts: the log lands beside the `.exe`,
+  `ui.html` and `lib/` resolve from inside the bundle.
 - Measured on **26.0** (`26.0.5.1259`) and **26.1** (`26.1.0.2007`), via `/api/3` and `/api/4` —
   identical values in all four combinations, including facet counts.
 - Windows note: this branch needs `core.longpaths=true` to check out. The benchmark
