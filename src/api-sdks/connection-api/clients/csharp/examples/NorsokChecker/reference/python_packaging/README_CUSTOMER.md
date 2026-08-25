@@ -26,6 +26,10 @@ The IDEA StatiCa service is handled for you:
 If IDEA StatiCa is installed somewhere unusual and the tool cannot find it, set the environment
 variable `IDEA_CONNECTION_REST_EXE` to the full path of `IdeaStatiCa.ConnectionRestApi.exe`.
 
+**One instance at a time.** Starting it again while it is running reports that it is already
+running and exits — two copies would compete for the same IDEA StatiCa licence seat and write to
+the same log file.
+
 ## Reading the result
 
 Each brace is checked against chapter 6.4 per load effect, with the full derivation available for
