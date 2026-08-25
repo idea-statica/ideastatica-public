@@ -17,17 +17,129 @@ Lifecycle:
   - extract geometry (extract.py) and hand JSON to the UI
   - on window close, shut the service down ONLY if we started it
 """
-import os, sys, time, socket, subprocess, json, logging, traceback
+import os, re, sys, time, socket, subprocess, json, logging, traceback
 from logging.handlers import RotatingFileHandler
 import requests
 import webview
 from norsok import extract   # data/API + NORSOK calc layer (extract.py + n64.py/n63.py live in norsok/)
 
-EXE = r"C:\Program Files\IDEA StatiCa\StatiCa 26.0\IdeaStatiCa.ConnectionRestApi.exe"
 # Port of a service we did NOT start: the service's own default. Only used to detect an
 # already-running instance; a service we launch ourselves gets a free port (see start_service).
 DEFAULT_PORT = 5000
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# --- locating the REST service -------------------------------------------------------------
+# This app talks /api/4, which does NOT exist before 26.0: a 25.1 service answers
+# {"code":"UnsupportedApiVersion"} on every /api/4 route (measured on 25.1.5.1504, which serves
+# /api/3 and /api/1 only). So an installation is usable here only from 26.0 up.
+#
+# 26.0 is preferred over anything newer because that is the version this app was developed and
+# verified against. Newer minors are accepted as a fallback so a machine without 26.0 still works.
+EXE_NAME = "IdeaStatiCa.ConnectionRestApi.exe"
+SETUP_ROOT = r"C:\Program Files\IDEA StatiCa"
+PREFERRED_VERSION = (26, 0)
+MIN_VERSION = (26, 0)          # /api/4 appears in 26.0
+
+
+def _installed_services(root=None):
+    """[(version_tuple, exe_path)] for every 'StatiCa <major>.<minor>' install that has the exe,
+    sorted best-first: the preferred version, then newest to oldest.
+    root defaults to SETUP_ROOT at CALL time, not at definition time, so overriding the module
+    constant (tests, an unusual install location) actually takes effect."""
+    root = SETUP_ROOT if root is None else root
+    found = []
+    try:
+        entries = os.listdir(root)
+    except OSError:
+        return found
+    for name in entries:
+        m = re.fullmatch(r"StatiCa\s+(\d+)\.(\d+)", name.strip())
+        if not m:
+            continue
+        ver = (int(m.group(1)), int(m.group(2)))
+        exe = os.path.join(root, name, EXE_NAME)
+        if ver >= MIN_VERSION and os.path.exists(exe):
+            found.append((ver, exe))
+    found.sort(key=lambda t: (t[0] != PREFERRED_VERSION, [-x for x in t[0]]))
+    return found
+
+
+def _registry_install_dir():
+    """The install directory IDEA StatiCa records for itself, or None.
+
+    This is what makes a non-default install location work: SETUP_ROOT below is only the
+    conventional path. HKLM\\SOFTWARE\\IDEA StatiCa\\CurrentInstallDir holds the real one
+    (measured: 'C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0'). The per-version keys under
+    SOFTWARE\\IDEAStatiCa\\<ver> carry user details, not paths, so this single value is the
+    only path the registry offers — it points at ONE version, so the directory scan still runs
+    as well, to see the other installed versions.
+    """
+    try:
+        import winreg
+    except ImportError:
+        return None
+    for hive, path in ((winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\IDEA StatiCa"),
+                       (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\WOW6432Node\IDEA StatiCa")):
+        try:
+            with winreg.OpenKey(hive, path) as k:
+                val, _ = winreg.QueryValueEx(k, "CurrentInstallDir")
+                if val and os.path.isdir(val):
+                    return val
+        except OSError:
+            continue
+    return None
+
+
+def service_exe():
+    """(exe_path, note) — the service executable to launch, or (None, why not).
+
+    Order: IDEA_CONNECTION_REST_EXE (explicit override) -> every version found next to the
+    registry's install dir AND under the conventional root, best-first (26.0 preferred, then
+    newest). The registry entry is what covers an install outside C:\\Program Files.
+    """
+    override = os.environ.get("IDEA_CONNECTION_REST_EXE")
+    if override:
+        if os.path.exists(override):
+            return override, f"using IDEA_CONNECTION_REST_EXE: {override}"
+        return None, f"IDEA_CONNECTION_REST_EXE is set but does not exist:\n{override}"
+    roots = [SETUP_ROOT]
+    reg = _registry_install_dir()
+    if reg:
+        # CurrentInstallDir is the versioned folder itself ('...\StatiCa 26.0'); its PARENT is
+        # the root that holds the sibling versions. Scan both, in case only one of them matches
+        # the 'StatiCa <maj>.<min>' shape.
+        roots += [os.path.dirname(reg.rstrip("\\/")), reg]
+    found = []
+    seen = set()
+    for r in roots:
+        for ver, exe in _installed_services(r):
+            if exe.lower() not in seen:
+                seen.add(exe.lower())
+                found.append((ver, exe))
+    # a registry dir that IS a versioned install but sits outside any scanned root
+    if reg and not found:
+        exe = os.path.join(reg, EXE_NAME)
+        m = re.search(r"(\d+)\.(\d+)\s*$", os.path.basename(reg.rstrip("\\/")))
+        if os.path.exists(exe) and m and (int(m.group(1)), int(m.group(2))) >= MIN_VERSION:
+            found.append(((int(m.group(1)), int(m.group(2))), exe))
+    found.sort(key=lambda t: (t[0] != PREFERRED_VERSION, [-x for x in t[0]]))
+    if found:
+        ver, exe = found[0]
+        note = f"IDEA StatiCa {ver[0]}.{ver[1]}"
+        if ver != PREFERRED_VERSION:
+            note += (f" (this app was verified on "
+                     f"{PREFERRED_VERSION[0]}.{PREFERRED_VERSION[1]}, which is not installed)")
+        return exe, note
+    have = []
+    for r in roots:
+        if os.path.isdir(r):
+            have += [n for n in os.listdir(r) if n.lower().startswith("statica")]
+    searched = "\n".join(f"  {r}" for r in dict.fromkeys(roots))
+    return None, (f"No usable IDEA StatiCa installation found.\n\nSearched:\n{searched}\n\n"
+                  f"This app needs version {MIN_VERSION[0]}.{MIN_VERSION[1]} or newer — earlier "
+                  f"versions do not serve the /api/4 endpoints it uses.\n"
+                  f"Found: {', '.join(dict.fromkeys(have)) or 'nothing'}\n\n"
+                  f"Set IDEA_CONNECTION_REST_EXE to the full path of {EXE_NAME} to override.")
 
 
 def api_base(port):
@@ -99,13 +211,17 @@ class Api:
             ver = service_version(DEFAULT_PORT)
             return {"ok": True, "started_by_us": False, "version": ver,
                     "msg": f"Service already running on port {DEFAULT_PORT} (v{ver}) — not taking it over."}
-        if not os.path.exists(EXE):
-            return {"ok": False, "msg": f"REST service exe not found:\n{EXE}"}
+        exe, note = service_exe()
+        if exe is None:
+            log.error("no service executable: %s", note)
+            return {"ok": False, "msg": note}
+        log.info("service executable: %s (%s)", exe, note)
         port = free_port()
         try:
-            # no shell, fixed path, no user input -> no injection surface
+            # no shell, path from a fixed install root or an env override, no user input in the
+            # command line -> no injection surface
             # -port= is the service's own switch (the standard ASP.NET --urls is ignored by it)
-            self._proc = subprocess.Popen([EXE, f"-port={port}"],
+            self._proc = subprocess.Popen([exe, f"-port={port}"],
                                           stdout=subprocess.DEVNULL,
                                           stderr=subprocess.DEVNULL)
         except Exception as e:
