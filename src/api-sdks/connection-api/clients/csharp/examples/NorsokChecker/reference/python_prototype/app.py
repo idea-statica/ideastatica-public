@@ -28,6 +28,16 @@ from norsok import extract   # data/API + NORSOK calc layer (extract.py + n64.py
 DEFAULT_PORT = 5000
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+# Frozen (PyInstaller) vs running from source. Two DIFFERENT directories once frozen, and
+# conflating them is the classic packaging bug:
+#   BUNDLE_DIR — where the bundled read-only files live (ui.html, lib/). PyInstaller sets
+#                sys._MEIPASS; in a one-dir build that is the internal folder, not the exe's.
+#   DATA_DIR   — where files WE write belong (norsok_app.log), i.e. next to the executable, so
+#                the user can find the log. sys.executable's folder when frozen.
+FROZEN = getattr(sys, "frozen", False)
+BUNDLE_DIR = getattr(sys, "_MEIPASS", HERE)
+DATA_DIR = os.path.dirname(os.path.abspath(sys.executable)) if FROZEN else HERE
+
 # --- locating the REST service -------------------------------------------------------------
 # This app talks /api/4, which does NOT exist before 26.0: a 25.1 service answers
 # {"code":"UnsupportedApiVersion"} on every /api/4 route (measured on 25.1.5.1504, which serves
@@ -166,7 +176,7 @@ def free_port():
 # flow — which file was opened, how many load effects, how many 6.4 checks passed/skipped — so a UI
 # error like "division by zero" is never a dead end: the log says which brace/LE and which line.
 # Rotation caps it at ~1 MB x 3 files so it never grows unbounded during long sessions.
-LOG_PATH = os.path.join(HERE, "norsok_app.log")
+LOG_PATH = os.path.join(DATA_DIR, "norsok_app.log")
 _fh = RotatingFileHandler(LOG_PATH, maxBytes=1_000_000, backupCount=3, encoding="utf-8")
 logging.basicConfig(
     level=logging.INFO,
@@ -353,7 +363,7 @@ class Api:
 
 def main():
     api = Api()
-    html_path = os.path.join(HERE, "ui.html")
+    html_path = os.path.join(BUNDLE_DIR, "ui.html")
     window = webview.create_window("NORSOK Joint Calculator", html_path,
                                    js_api=api, width=1280, height=820,
                                    min_size=(900, 600))
