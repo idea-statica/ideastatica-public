@@ -845,32 +845,43 @@ def classify_kyx_all_les(braces_geom_by_le, gaps, gate=K_BALANCE_GATE):
 
 # ---------- chord identification (robust, non-blocking) ----------
 def identify_chord(members, xm):
-    """Return (chord_member, warnings[]). Strategy mirrors the planned layer-1 rule
-    but never raises — it flags problems so the viewer can show them."""
+    """Return (chord_member, warnings[]).
+
+    The chord is the CONTINUOUS member with the largest diameter — that is what NORSOK 6.4
+    means by a chord: the through member the braces land on. `isBearing` is deliberately NOT
+    used: it is a modelling choice the user can put on any member (it decides which member
+    carries the others in the FE model), so a joint can legitimately have its bearing flag on
+    a brace. Selecting by it silently referenced every theta, beta, gamma and gap to the wrong
+    member — a brace can then come out as the chord and beta exceed 1.0.
+
+    Never raises: it flags problems so the viewer can show them.
+    """
     warns = []
     if not members:
         return None, ["No members in this connection — nothing to identify as a chord."]
-    bearings = [m for m in members if m.get("isBearing")]
     continuous = [m for m in members if m.get("isContinuous")]
 
-    chord = None
-    if len(bearings) == 1:
-        chord = bearings[0]
-    elif len(bearings) > 1:
-        warns.append(f"{len(bearings)} bearing members — chord ambiguous.")
-        chord = bearings[0]
-    else:
-        # no bearing flag — our rule says chord must be continuous; fall back by diameter
-        warns.append("No bearing member — chord picked by heuristic (continuous / largest Ø).")
-        cand = continuous if continuous else members
-        # pick largest diameter
-        def diam(m): return (xm.get(m["crossSectionId"], {}).get("D") or 0)
-        chord = max(cand, key=diam)
+    def diam(m):
+        return (xm.get(m["crossSectionId"], {}).get("D") or 0)
 
-    if len(continuous) == 0:
-        warns.append("No continuous member (chord must be continuous).")
-    elif len(continuous) > 1:
-        warns.append(f"{len(continuous)} continuous members — chord ambiguous.")
+    if continuous:
+        chord = max(continuous, key=diam)
+        if len(continuous) > 1:
+            others = ", ".join(m.get("name") or "?" for m in continuous if m is not chord)
+            warns.append(f"{len(continuous)} continuous members — chord taken as the largest "
+                         f"diameter ({chord.get('name')}); also continuous: {others}.")
+    else:
+        # No through member at all: 6.4 needs one, so this joint is out of scope. Pick the
+        # largest section only so the viewer has something to draw; the gate reports the error.
+        chord = max(members, key=diam)
+        warns.append("No continuous member — NORSOK 6.4 needs a through chord; "
+                     f"showing {chord.get('name')} (largest diameter) for reference only.")
+
+    bearings = [m for m in members if m.get("isBearing")]
+    if bearings and chord not in bearings:
+        warns.append(f"Bearing member is {bearings[0].get('name')}, chord is "
+                     f"{chord.get('name')} — the bearing flag is a modelling choice and does "
+                     f"not define the chord.")
     return chord, warns
 
 # ---------- build payload for one connection ----------
