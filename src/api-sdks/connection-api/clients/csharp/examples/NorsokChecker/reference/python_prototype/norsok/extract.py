@@ -112,6 +112,62 @@ def get_members(session, pid, conn_id):
 def get_cross_sections(session, pid):
     return session.get(f"{BASE}/projects/{pid}/materials/cross-sections", timeout=30).json()
 
+def get_iom_connection_data(session, pid, conn_id):
+    """IOM view of ONE connection. Carries the modelled section of every member that the
+    connection actually uses (unused project cross-sections never appear), so it is the
+    naming-independent source for "is this tubular" and for D/T."""
+    r = session.get(f"{BASE}/projects/{pid}/connections/{conn_id}/export-iom-connection-data",
+                    headers={"Accept": "application/json"}, timeout=90)
+    r.raise_for_status()
+    return r.json()
+
+# crossSectionType values that are a circular hollow section. Compared lower-case: the
+# project endpoint spells them camelCase ("rolledCHS"), IOM PascalCase ("RolledCHS").
+TUBULAR_TYPES = {"rolledchs", "chspar", "chsg", "o", "oval"}
+MIN_TUBE_FACETS = 8   # measured: IDEA facets a tube 16..96 times (project setting
+                      # DivisionOfSurfaceOfBiggestCircularHollowMember); non-round shapes
+                      # give 2 (angle) or 3 (I, U). 8 separates them with room to spare.
+
+def is_tubular_type(cs_type):
+    return (cs_type or "").strip().lower() in TUBULAR_TYPES
+
+def tube_from_iom_beam(beam):
+    """(D_mm, T_mm, note) from one IOM beam, WITHOUT parsing the section name; (None, None, why)
+    when it cannot be read.
+
+    Only call for a beam whose crossSectionType is tubular — an I-section yields 3 facets and
+    two distinct thicknesses, and the formula below would happily return a plausible-looking
+    number from them.
+
+    IDEA models a tube as n flat facets on the wall mid-surface. Facet origins therefore sit on
+    the mid-surface circle (diameter D-T) and the largest distance between two of them is that
+    circle's INSCRIBED polygon chord, short of the circle by cos(pi/n):
+        D = maxdist / cos(pi/n) + T
+    Verified against catalogue values on 26.0 and 26.1, via /api/3 and /api/4, at facet counts
+    16..96 (D stayed identical when the project's division setting changed 24 -> 64 -> 96):
+    76.0/141.3/101.6/42.0/30.0 mm, worst error 0.4 % — including 'PIPE127STD' and
+    'PIPE(Imp)3-1/2XS', whose names carry a NOMINAL size, not the real diameter."""
+    facets = [p for p in (beam.get("plates") or []) if not p.get("isNegativeObject")]
+    n = len(facets)
+    if n < MIN_TUBE_FACETS:
+        return None, None, f"only {n} facet(s) in the model — not a modelled tube wall"
+    ths = {round(p.get("thickness") or 0.0, 6) for p in facets}
+    if len(ths) != 1:
+        return None, None, f"wall thickness is not uniform ({sorted(round(t*1000, 2) for t in ths)} mm)"
+    T = ths.pop()
+    if T <= 0:
+        return None, None, "wall thickness is zero"
+    pts = [(p["origin"]["x"], p["origin"]["y"], p["origin"]["z"])
+           for p in facets if p.get("origin")]
+    if len(pts) < MIN_TUBE_FACETS:
+        return None, None, "facets carry no origin"
+    md = math.sqrt(max(dot(sub(a, b), sub(a, b))
+                       for i, a in enumerate(pts) for b in pts[i + 1:]))
+    D = md / math.cos(math.pi / n) + T
+    if not (0.010 <= D <= 5.0) or T >= D / 2.0:
+        return None, None, f"implausible geometry (D={D*1000:.1f} mm, T={T*1000:.1f} mm)"
+    return D * 1000.0, T * 1000.0, None
+
 def get_load_effects(session, pid, conn_id):
     """ConLoadEffect[] = [{id,name,active,isPercentage, memberLoadings:[{memberId,position,sectionLoad:{n,vy,vz,mx,my,mz}}]}].
     Forces in N, moments in N·m, in each member's LOCAL CSYS at its inserted end (Begin/End).
@@ -150,9 +206,72 @@ def xs_map(xs):
             fy = (fy_thick if use_thick else fy_thin)
             fu = (fu_thick if use_thick else fu_thin)
         out[c["id"]] = {"name": c.get("name"), "D": d, "T": t,
-                        "type": c.get("crossSectionType"), "isCHS": (d is not None),
+                        "type": c.get("crossSectionType"),
+                        "isCHS": is_tubular_type(c.get("crossSectionType")),
+                        "D_src": "name" if d is not None else None,
+                        "geom_note": None,
                         "fy": fy, "fu": fu, "material": mat_name}   # fy/fu in Pa (SI), or None
     return out
+
+
+def _refine_fy(sec, el):
+    """fy/fu band depends on the WALL THICKNESS (>40 mm -> fy40/fu40). xs_map picks it from the
+    name-parsed t, which is None for most catalogue tubes — so re-pick once T is known from the
+    model. Without this a 50 mm wall silently keeps the thin-plate fy (355 instead of 335 MPa)."""
+    if not el:
+        return
+    t = sec.get("T")
+    fy_thick, fu_thick = el.get("fy40"), el.get("fu40")
+    if t is not None and t > 40.0 and fy_thick is not None:
+        sec["fy"], sec["fu"] = fy_thick, fu_thick
+    else:
+        sec["fy"], sec["fu"] = el.get("fy"), el.get("fu")
+
+
+def enrich_sections_from_iom(xm, members, iom, cross_sections=None):
+    """Fill D/T (and the fy band) from the connection's MODEL instead of its section NAME.
+
+    Why this exists: `parse_chs` needs the name to spell out D and T, and most catalogue names
+    do not — measured against the Eurocode library, 2641 of 2760 circular profiles (96 %) fail to
+    parse, among them 'RO323.9X12.5', 'MSRR101.6x10.0', '76.0x3.5' and every ASME 'PIPE...SCH40'.
+    Worse, some names carry a NOMINAL size: 'PIPE127STD' is really D=141.3 mm, so a parsed name
+    can be confidently wrong. The model always knows the real geometry.
+
+    Precedence: model geometry wins; a parsed name is kept only as a cross-check, and a
+    disagreement over 2 % is reported (the model is trusted, the name is not).
+    Only tubular members are touched — `is_tubular_type` gates it, because the facet formula
+    would return a plausible number for an I-section too.
+    """
+    by_name = {b.get("name"): b for b in (iom.get("beams") or [])}
+    el_by_id = {}
+    for c in (cross_sections or []):
+        el_by_id[c["id"]] = ((c.get("material") or {}).get("element")) or {}
+    for m in members:
+        sec = xm.get(m.get("crossSectionId"))
+        beam = by_name.get(m.get("name"))
+        if sec is None or beam is None:
+            continue
+        # IOM spells the type PascalCase, the project endpoint camelCase — trust either
+        if beam.get("crossSectionType"):
+            sec["type"] = beam.get("crossSectionType")
+            sec["isCHS"] = is_tubular_type(beam.get("crossSectionType"))
+        if not sec["isCHS"]:
+            sec["D"] = sec["T"] = None
+            sec["D_src"] = None
+            sec["geom_note"] = None
+            continue
+        D, T, why = tube_from_iom_beam(beam)
+        if D is None:
+            # tubular by type, but the model geometry is unreadable — keep whatever the name gave
+            sec["geom_note"] = why
+            continue
+        named_D = sec.get("D")
+        sec["D"], sec["T"], sec["D_src"] = D, T, "model"
+        if named_D and abs(named_D - D) / D > 0.02:
+            sec["geom_note"] = (f"section name suggests D={named_D:.1f} mm but the model has "
+                                f"D={D:.1f} mm — using the model")
+        _refine_fy(sec, el_by_id.get(m.get("crossSectionId")))
+    return xm
 
 # ---------- node-equilibrium self-check (verified force-reading recipe) ----------
 def member_loading_global(m, section_load, node):
@@ -1227,12 +1346,31 @@ def classify_assumptions(chord, sec_c, braces, braces_meta, D_chord_m, chord_war
         if fi not in SUPPORTED_FORCES_IN:
             errors.append(f"{bm['name']}: unsupported forces input '{fi}' (only node/position).")
 
-    # 1. all members CHS
-    if not sec_c.get("isCHS"):
-        errors.append(f"Chord not CHS ({sec_c.get('name')}).")
+    # 1. every member must be a tubular (circular hollow) section — NORSOK 6.4 covers
+    #    simple TUBULAR joints; "CHS" is only the European catalogue prefix for one of them.
+    #    Name the actual section type so the message is a fact, not a guess: a member can be
+    #    tubular while its name is unparseable ('PIPE127STD'), and vice versa.
+    def _section_reject(label, sec):
+        nm, ty = sec.get("name") or "?", sec.get("type") or "unknown type"
+        if not sec.get("isCHS"):
+            return (f"{label}: {nm} is {ty} — NORSOK 6.4 applies to tubular "
+                    f"(circular hollow) sections only.")
+        if not (sec.get("D") and sec.get("T")):
+            note = sec.get("geom_note") or "dimensions could not be read from the model"
+            return f"{label}: {nm} is tubular but its D/T are unknown — {note}."
+        return None
+
+    msg = _section_reject("Chord", sec_c)
+    if msg:
+        errors.append(msg)
     for bm in braces_meta:
-        if not bm.get("isCHS"):
-            errors.append(f"{bm['name']}: not CHS ({bm['section'].get('name')}).")
+        msg = _section_reject(bm["name"], bm["section"])
+        if msg:
+            errors.append(msg)
+        elif bm["section"].get("geom_note"):
+            warnings.append(f"{bm['name']}: {bm['section']['geom_note']}.")
+    if sec_c.get("isCHS") and sec_c.get("geom_note") and sec_c.get("D"):
+        warnings.append(f"{chord.get('name')}: {sec_c['geom_note']}.")
 
     # 4. at least one brace
     if not braces:
@@ -1288,7 +1426,17 @@ def build_for(session, pid, conn_id, oop_tol_mm=OUT_OF_PLANE_OFFSET_MM,
     conns = list_connections(session, pid)
     conn = next(c for c in conns if c["id"] == conn_id)
     members = get_members(session, pid, conn_id)
-    xm = xs_map(get_cross_sections(session, pid))
+    cross_sections = get_cross_sections(session, pid)
+    xm = xs_map(cross_sections)
+    # D/T from the connection's own model, not from the section name (see enrich_sections_from_iom).
+    # Per-connection by construction, so two connections in one project cannot borrow each
+    # other's geometry. Best-effort: on failure the name-parsed values stand, as before.
+    try:
+        enrich_sections_from_iom(xm, members, get_iom_connection_data(session, pid, conn_id),
+                                 cross_sections)
+    except Exception as e:
+        log_note = f"{type(e).__name__}: {e}"
+        print(f"[extract] IOM section refinement unavailable ({log_note}) — falling back to names")
     try:
         load_effects = get_load_effects(session, pid, conn_id)
     except Exception:

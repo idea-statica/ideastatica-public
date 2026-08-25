@@ -1590,7 +1590,18 @@ function renderConnection(){
     if(fitOut.has(name))  return '<span class="warn" title="not used to build the plane (beyond fit tol)">–</span>';
     return '<span class="ok" title="used to build the plane">✓</span>';
   }
-  const braceRows=DATA.braces.map(b=>`<tr><td>${b.name}</td><td class="val">${b.section.name||'?'}</td><td class="val">${U.deg(b.theta_deg)}</td><td class="val">${b.beta!=null?U.num(b.beta):'?'}</td><td class="val ${b.coplanar_dev_deg>ctolDeg?'err':''}">${U.deg(b.coplanar_dev_deg)}</td><td>${fitCell(b.name)}</td></tr>`).join('');
+  // section cell: name + how its D/T were obtained. "from model" means the facetted wall geometry
+  // (naming-independent); a name is only trusted as a cross-check, since e.g. 'PIPE127STD' is
+  // really D=141.3 mm. A non-tubular section is flagged here, not silently dropped.
+  const secCell=(sec)=>{
+    const nm=sec.name||'?', ty=sec.type||'';
+    if(!sec.isCHS) return `<span class="err" title="${ty} — NORSOK 6.4 covers tubular (circular hollow) sections only">${nm} <span class="muted">(${ty||'not tubular'})</span></span>`;
+    const src=sec.D_src==='model'?'<span class="muted" title="D/T read from the modelled wall geometry, not from the section name">· from model</span>'
+             :sec.D_src==='name'?'<span class="warn" title="D/T parsed from the section name — the model geometry could not be read">· from name</span>':'';
+    const note=sec.geom_note?` <span class="warn" title="${sec.geom_note}">&#9888;</span>`:'';
+    return `${nm} ${src}${note}`;
+  };
+  const braceRows=DATA.braces.map(b=>`<tr><td>${b.name}</td><td class="val">${secCell(b.section)}</td><td class="val">${U.deg(b.theta_deg)}</td><td class="val">${b.beta!=null?U.num(b.beta):'?'}</td><td class="val ${b.coplanar_dev_deg>ctolDeg?'err':''}">${U.deg(b.coplanar_dev_deg)}</td><td>${fitCell(b.name)}</td></tr>`).join('');
   const v=DATA.verdict||{status:'?',errors:[],warnings:[]};
   const vcol={OK:'#1a7f37',WARNING:'#b35900',ERROR:'#c0392b'}[v.status]||'#666';
   const vbg ={OK:'#eaf7ee',WARNING:'#fff7e6',ERROR:'#fdecea'}[v.status]||'#f0f0f0';
