@@ -293,6 +293,13 @@ const U={
   // cross-section dimensions (D,T,d,t) — own unit (mm/cm/m) + own decimal count, independent of
   // 'length' (gap, eccentricity,...): sections default to mm@1dp, other lengths to mm@0dp.
   secLen: (si_m,  d)=> _conv(si_m,  'sectionLength', d==null?UNITS.dpSectionLength:d),
+  // same, for a value already in mm (members2d/3d carry D_mm/T_mm). D/T now come from the
+  // modelled facet ring, so they are floats like 141.0000000000006 — never print them raw.
+  secLenMm: (mm, d)=> mm==null ? '' : _conv(mm/1000, 'sectionLength', d==null?UNITS.dpSectionLength:d),
+  // " - Ø141.0/6.5" for a member label, in the chosen section unit and decimals; '' when unknown
+  secLabelOf: (m)=> m.D_mm==null ? ''
+    : ' - Ø'+_conv(m.D_mm/1000,'sectionLength',UNITS.dpSectionLength)
+      +(m.T_mm==null?'':'/'+_conv(m.T_mm/1000,'sectionLength',UNITS.dpSectionLength)),
   stress: (si_Pa, d)=> _conv(si_Pa, 'stress', d==null?UNITS.dpStress:d),
   // dimensionless ratios (β,γ,τ,Qu,Qf,A²,util,...) and fractions shown as % (frK/frX/frY,...) —
   // no unit choice, just a configurable decimal count (Settings > Units & display).
@@ -310,6 +317,7 @@ const U={
   moment_v: si_Nm => _conv(si_Nm, 'moment', null),
   len_v:    si_m  => _conv(si_m,  'length', null),
 };
+const secLabel = (m)=> U.secLabelOf(m);
 const C={chord:'#8a8f96',chordEdge:'#6b7077',brace:'#2e6fb0',braceEdge:'#1f5a93',node:'#c0392b',axis:'#bbb',
   // K/Y/X classification colours (match the table's dominant-class colouring)
   K:'#1a7f37', X:'#8e44ad', Y:'#b35900', force:'#c0392b'};
@@ -389,7 +397,7 @@ function centroid2d(rotStep, mir){
     if(SHOWLBL){const p1=pt(m.p1),p2=pt(m.p2);const far=(Math.hypot(p2[0],p2[1])>Math.hypot(p1[0],p1[1]))?p2:p1;
       const near=(far===p2)?p1:p2;const dx=far[0]-near[0],dy=far[1]-near[1],L=Math.hypot(dx,dy)||1;
       const ux=dx/L,uy=dy/L,nx=-uy,ny=ux,r=((m.D_mm||60)/1000)/2;
-      const nch=(m.name.length)+(m.D_mm?(4+String(m.D_mm).length+(m.T_mm?(1+String(m.T_mm).length):0)):0);
+      const nch=(m.name.length)+secLabel(m).length;
       const textLen=nch*0.115; let ax,ay;
       if(m.role==='chord'){ ax=far[0]+ux*r+nx*r; ay=far[1]+uy*r+ny*r; }
       else { ax=far[0]+ux*r; ay=far[1]+uy*r; }
@@ -438,7 +446,7 @@ function draw2d(){
       const ux=dx/L,uy=dy/L,nx=-uy,ny=ux,r=((m.D_mm||60)/1000)/2;
       // label anchor at the far end + the text running outward along the axis -> include BOTH the
       // anchor and the text's far end so even long "M7 - Ø139.7/8" labels stay inside the viewBox.
-      const nch=(m.name.length)+(m.D_mm?(4+String(m.D_mm).length+(m.T_mm?(1+String(m.T_mm).length):0)):0);
+      const nch=(m.name.length)+secLabel(m).length;
       const textLen=nch*0.115;   // rough world length of the label (scales with typical font size)
       let ax,ay;
       if(m.role==='chord'){ ax=far[0]+ux*r+nx*r; ay=far[1]+uy*r+ny*r; }
@@ -506,7 +514,7 @@ function draw2d(){
       const ar=ang*Math.PI/180, dotOut=Math.cos(ar)*outx+Math.sin(ar)*outy;
       const anchor=(dotOut>=0)?'start':'end';
       const tcol=m.status==='ERROR'?'#c0392b':(m.status==='WARNING'?'#b35900':edge);
-      s+=`<text x="${sx}" y="${sy}" fill="${tcol}" font-size="${fsz}" font-weight="bold" text-anchor="${anchor}" dominant-baseline="middle" transform="rotate(${ang} ${sx} ${sy})">${m.name}${m.D_mm?(' - Ø'+m.D_mm+(m.T_mm?('/'+m.T_mm):'')):''}</text>`;
+      s+=`<text x="${sx}" y="${sy}" fill="${tcol}" font-size="${fsz}" font-weight="bold" text-anchor="${anchor}" dominant-baseline="middle" transform="rotate(${ang} ${sx} ${sy})">${m.name}${secLabel(m)}</text>`;
     }
   });
   s+=`<circle cx="${X(0)}" cy="${Y(0)}" r="${k*0.012}" fill="${C.node}"/>`;
@@ -745,7 +753,7 @@ function draw3d(){
     pts.push(a,b);
     const far=(b.length()>a.length())?b:a;
     const lblcol=m.status==='ERROR'?'#c0392b':(m.status==='WARNING'?'#b35900':(m.role==='chord'?'#6b7077':'#1f5a93'));
-    labels.push({pos:far.clone(),text:`${m.name}${m.D_mm?(' - Ø'+m.D_mm+(m.T_mm?('/'+m.T_mm):'')):''}`,color:lblcol});
+    labels.push({pos:far.clone(),text:`${m.name}${secLabel(m)}`,color:lblcol});
   });
   // Rotation pivot / camera target = the joint node (best-fit intersection of all member axes,
   // computed in extract.py). view_center == node now, so the real joint is always centred.
