@@ -1,6 +1,4 @@
-﻿using IdeaRS.OpenModel;
-
-namespace IdeaStatiCa.BimApiLink.Hooks
+﻿namespace IdeaStatiCa.BimApiLink.Hooks
 {
 	internal class ScopeHookManager : AbstractHookManager<IScopeHook>, IScopeHook
 	{

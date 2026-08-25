@@ -1,4 +1,5 @@
-﻿using IdeaRS.OpenModel.Geometry3D;
+﻿using System;
+using IdeaRS.OpenModel.Geometry3D;
 using Newtonsoft.Json;
 
 namespace IdeaStatiCa.Api.Connection.Model
@@ -20,13 +21,6 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		public int? CrossSectionId { get; set; }
 
-		/// <summary>
-		/// Which end of the member is connected in the joint.
-		/// Combined with <see cref="ConMemberPosition.AxisX"/>, this disambiguates the two halves
-		/// of a through-column that share the same axis but join the connection from opposite sides.
-		/// </summary>
-		public ConMemberConnectedByEnum ConnectedBy { get; set; }
-
 		public bool? MirrorY { get; set; }
 
 		public bool? MirrorZ { get; set; }
@@ -42,7 +36,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 	public class ConMemberModel
 	{
-		public ConMemberModelTypeEnum ModelType { get; set; }
+		public string ModelType { get; set; }
 
 		public ConMemberForcesInEnum ForcesIn { get; set; }
 

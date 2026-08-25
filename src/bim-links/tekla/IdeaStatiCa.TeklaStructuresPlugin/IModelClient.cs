@@ -1,5 +1,6 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
@@ -57,7 +58,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// Get User selection by bulk selection
 		/// </summary>
 		/// <returns></returns>
-		List<(Point, List<ModelObject>, List<ModelObject>)> GetBulkSelection(bool selectWholeModel = false);
+		List<(Point, List<ModelObject>, List<ModelObject>)> GetBulkSelection(bool selectWholeModel = false, IProgressMessaging progressMessaging = null);
 
 		/// <summary>
 		/// Get user selection of connection point

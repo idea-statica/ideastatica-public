@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.Connection.Model;
-using Newtonsoft.Json;
 
 namespace ST_ConnectionRestApi
 {
@@ -36,20 +35,6 @@ namespace ST_ConnectionRestApi
 		[SetUp]
 		public async Task SetUp()
 		{
-			//if (this.RunServer)
-			//{
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
-			//}
-			//else
-			//{
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
-			//}
-
 			ConnectionApiClient = await ApiFactory.CreateApiClient();
 		}
 

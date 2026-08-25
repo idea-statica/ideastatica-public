@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 # Define the path to the executable
 PROGRAM_FILES = os.environ.get("ProgramFiles", "C:\\Program Files")
-SETUP_DIR = Path(PROGRAM_FILES) / "IDEA StatiCa" / "StatiCa 25.1"
+SETUP_DIR = Path(PROGRAM_FILES) / "IDEA StatiCa" / "StatiCa 26.0"
 
 # Path to the project file
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))

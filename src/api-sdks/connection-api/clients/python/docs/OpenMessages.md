@@ -1,11 +1,12 @@
 # OpenMessages
 
+Open messages collection
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**messages** | [**List[OpenMessage]**](OpenMessage.md) |  | [optional] 
+**messages** | [**List[OpenMessage]**](OpenMessage.md) | List of messages | [optional] 
 
 ## Example
 

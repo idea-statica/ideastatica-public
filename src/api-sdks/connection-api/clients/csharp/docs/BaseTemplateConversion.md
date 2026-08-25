@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.BaseTemplateConversion
+Polymorphic root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
 
 ## Properties
 

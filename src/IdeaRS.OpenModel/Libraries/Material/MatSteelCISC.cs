@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Geometry2D;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {

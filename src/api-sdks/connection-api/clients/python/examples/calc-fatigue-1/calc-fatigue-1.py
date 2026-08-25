@@ -43,10 +43,9 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         pprint(connection1)
 
         # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
+        # the analysis type is taken from the connection itself (see update_connection below)
+        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate
         calcParams.connection_ids = [connection1.id]    # calculate only connection1
-        calcParams.analysis_type = "stress_Strain"      # obsolete solution (the analysis_type is taked from the connection now)
-  
 
         # run stress-strain analysis for connection1
         con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)

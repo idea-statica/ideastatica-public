@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Message;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Geometry2D

@@ -2,25 +2,35 @@
 
 | Method  | Description |
 |--------|-------------|
-| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project |
-| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project |
+| [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. |
+| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project. |
 | [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Adds a material to the project. |
 | [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Adds a material to the project. |
+| [**AddMaterialHeadedStudGradeAsync**](MaterialApi.md#addmaterialheadedstudgradeasync) | Adds a material to the project. |
+| [**AddMaterialReinforcementAsync**](MaterialApi.md#addmaterialreinforcementasync) | Adds a material to the project. |
 | [**AddMaterialSteelAsync**](MaterialApi.md#addmaterialsteelasync) | Adds a material to the project. |
 | [**AddMaterialWeldAsync**](MaterialApi.md#addmaterialweldasync) | Adds a material to the project. |
+| [**AddParametricCrossSectionAsync**](MaterialApi.md#addparametriccrosssectionasync) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. |
+| [**AddPinAsync**](MaterialApi.md#addpinasync) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. |
 | [**GetAllMaterialsAsync**](MaterialApi.md#getallmaterialsasync) | Gets materials used in the specified project. |
 | [**GetBoltAssembliesAsync**](MaterialApi.md#getboltassembliesasync) | Gets bolt assemblies used in the specified project. |
 | [**GetBoltGradeMaterialsAsync**](MaterialApi.md#getboltgradematerialsasync) | Gets materials used in the specified project. |
 | [**GetConcreteMaterialsAsync**](MaterialApi.md#getconcretematerialsasync) | Gets materials used in the specified project. |
+| [**GetCrossSectionDetailAsync**](MaterialApi.md#getcrosssectiondetailasync) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. |
 | [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Gets cross sections used in the specified project. |
+| [**GetHeadedStudGradeMaterialsAsync**](MaterialApi.md#getheadedstudgradematerialsasync) | Gets materials used in the specified project. |
+| [**GetMaterialLibraryAsync**](MaterialApi.md#getmateriallibraryasync) | Lists the MPRL names available in the material library for the project&#39;s design code. |
+| [**GetPinsAsync**](MaterialApi.md#getpinsasync) | Gets pins used in the specified project. |
+| [**GetReinforcementMaterialsAsync**](MaterialApi.md#getreinforcementmaterialsasync) | Gets materials used in the specified project. |
 | [**GetSteelMaterialsAsync**](MaterialApi.md#getsteelmaterialsasync) | Gets materials used in the specified project. |
 | [**GetWeldingMaterialsAsync**](MaterialApi.md#getweldingmaterialsasync) | Gets materials used in the specified project. |
+| [**UpdateParametricCrossSectionAsync**](MaterialApi.md#updateparametriccrosssectionasync) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. |
 
 <a id="addboltassembly"></a>
 ## **AddBoltAssemblyAsync**
-> **void AddBoltAssemblyAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddBoltAssemblyAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
-Add bolt assembly to the project
+Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 
 
@@ -28,12 +38,12 @@ Add bolt assembly to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new bolt assemby to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new bolt assemby to be added to the project. | [optional]  |
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -55,7 +65,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -67,12 +77,13 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new bolt assemby to be added to the project (optional) 
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new bolt assemby to be added to the project. (optional) 
 
                     try
                     {
-                        // Add bolt assembly to the project
-                        conClient.Material.AddBoltAssemblyAsync(projectId, conMprlElement);
+                        // Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
+                        Object result = await conClient.Material.AddBoltAssemblyAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -103,7 +114,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the AddBoltAssemblyWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -111,8 +122,11 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add bolt assembly to the project
-    conClient.Material.AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
+    // Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
+    ApiResponse<Object> response = conClient.Material.AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -129,21 +143,25 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addcrosssection"></a>
 ## **AddCrossSectionAsync**
-> **void AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
+> **Object AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
 
-Add cross section to the project
+Add cross section to the project.
 
 
 
@@ -151,12 +169,12 @@ Add cross section to the project
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-| **conMprlCrossSection** | [**ConMprlCrossSection**](ConMprlCrossSection.md) | Definition of a new cross-section to be added to the project | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlCrossSection** | [**ConMprlCrossSection**](ConMprlCrossSection.md) | Definition of a new cross-section to be added to the project. | [optional]  |
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -178,7 +196,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -190,12 +208,13 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project (optional) 
+                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project. (optional) 
 
                     try
                     {
-                        // Add cross section to the project
-                        conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
+                        // Add cross section to the project.
+                        Object result = await conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -226,7 +245,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/cross-sections 
+> **POST** /api/4/projects/{projectId}/materials/cross-sections 
 
 #### Using the AddCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -234,8 +253,11 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add cross section to the project
-    conClient.Material.AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
+    // Add cross section to the project.
+    ApiResponse<Object> response = conClient.Material.AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -252,19 +274,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialboltgrade"></a>
 ## **AddMaterialBoltGradeAsync**
-> **void AddMaterialBoltGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialBoltGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -279,7 +305,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -301,7 +327,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -318,7 +344,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialBoltGradeAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialBoltGradeAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -349,7 +376,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/4/projects/{projectId}/materials/bolt-grade 
 
 #### Using the AddMaterialBoltGradeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -358,7 +385,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -375,19 +405,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialconcrete"></a>
 ## **AddMaterialConcreteAsync**
-> **void AddMaterialConcreteAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialConcreteAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -402,7 +436,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -424,7 +458,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -441,7 +475,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialConcreteAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialConcreteAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -472,7 +507,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/concrete 
+> **POST** /api/4/projects/{projectId}/materials/concrete 
 
 #### Using the AddMaterialConcreteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -481,7 +516,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -498,19 +536,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="addmaterialsteel"></a>
-## **AddMaterialSteelAsync**
-> **void AddMaterialSteelAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+<a id="addmaterialheadedstudgrade"></a>
+## **AddMaterialHeadedStudGradeAsync**
+> **Object AddMaterialHeadedStudGradeAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -525,7 +567,269 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class AddMaterialHeadedStudGradeAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of the new material to be added to the project. (optional) 
+
+                    try
+                    {
+                        // Adds a material to the project.
+                        Object result = await conClient.Material.AddMaterialHeadedStudGradeAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddMaterialHeadedStudGradeAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/AddMaterialHeadedStudGrade.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
+
+#### Using the AddMaterialHeadedStudGradeWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Adds a material to the project.
+    ApiResponse<Object> response = conClient.Material.AddMaterialHeadedStudGradeWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.AddMaterialHeadedStudGradeWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="addmaterialreinforcement"></a>
+## **AddMaterialReinforcementAsync**
+> **Object AddMaterialReinforcementAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+
+Adds a material to the project.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of the new material to be added to the project. | [optional]  |
+
+### Return type
+
+**Object**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class AddMaterialReinforcementAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of the new material to be added to the project. (optional) 
+
+                    try
+                    {
+                        // Adds a material to the project.
+                        Object result = await conClient.Material.AddMaterialReinforcementAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddMaterialReinforcementAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/AddMaterialReinforcement.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/reinforcement 
+
+#### Using the AddMaterialReinforcementWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Adds a material to the project.
+    ApiResponse<Object> response = conClient.Material.AddMaterialReinforcementWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.AddMaterialReinforcementWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="addmaterialsteel"></a>
+## **AddMaterialSteelAsync**
+> **Object AddMaterialSteelAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+
+Adds a material to the project.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of the new material to be added to the project. | [optional]  |
+
+### Return type
+
+**Object**
 
 ### Example
 
@@ -547,7 +851,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -564,7 +868,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialSteelAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialSteelAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -595,7 +900,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/steel 
+> **POST** /api/4/projects/{projectId}/materials/steel 
 
 #### Using the AddMaterialSteelWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -604,7 +909,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -621,19 +929,23 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="addmaterialweld"></a>
 ## **AddMaterialWeldAsync**
-> **void AddMaterialWeldAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+> **Object AddMaterialWeldAsync (Guid projectId, ConMprlElement conMprlElement = null)**
 
 Adds a material to the project.
 
@@ -648,7 +960,7 @@ Adds a material to the project.
 
 ### Return type
 
-void (empty response body)
+**Object**
 
 ### Example
 
@@ -670,7 +982,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -687,7 +999,8 @@ namespace Example
                     try
                     {
                         // Adds a material to the project.
-                        conClient.Material.AddMaterialWeldAsync(projectId, conMprlElement);
+                        Object result = await conClient.Material.AddMaterialWeldAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
@@ -718,7 +1031,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/welding 
+> **POST** /api/4/projects/{projectId}/materials/welding 
 
 #### Using the AddMaterialWeldWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -727,7 +1040,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Adds a material to the project.
-    conClient.Material.AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
+    ApiResponse<Object> response = conClient.Material.AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -744,13 +1060,279 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 #### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="addparametriccrosssection"></a>
+## **AddParametricCrossSectionAsync**
+> **ConCrossSectionDetail AddParametricCrossSectionAsync (Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
+
+Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conCrossSectionParametricDefinition** | [**ConCrossSectionParametricDefinition**](ConCrossSectionParametricDefinition.md) | Shape type, dimensions and material of the new cross-section. | [optional]  |
+
+### Return type
+
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class AddParametricCrossSectionAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conCrossSectionParametricDefinition = new ConCrossSectionParametricDefinition(); // ConCrossSectionParametricDefinition | Shape type, dimensions and material of the new cross-section. (optional) 
+
+                    try
+                    {
+                        // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+                        ConCrossSectionDetail result = await conClient.Material.AddParametricCrossSectionAsync(projectId, conCrossSectionParametricDefinition);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddParametricCrossSectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/AddParametricCrossSection.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/cross-sections/parametric 
+
+#### Using the AddParametricCrossSectionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+    ApiResponse<ConCrossSectionDetail> response = conClient.Material.AddParametricCrossSectionWithHttpInfo(projectId, conCrossSectionParametricDefinition);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.AddParametricCrossSectionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="addpin"></a>
+## **AddPinAsync**
+> **Object AddPinAsync (Guid projectId, ConMprlElement conMprlElement = null)**
+
+Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conMprlElement** | [**ConMprlElement**](ConMprlElement.md) | Definition of a new pin to be added to the project. | [optional]  |
+
+### Return type
+
+**Object**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class AddPinAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    var conMprlElement = new ConMprlElement(); // ConMprlElement | Definition of a new pin to be added to the project. (optional) 
+
+                    try
+                    {
+                        // Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+                        Object result = await conClient.Material.AddPinAsync(projectId, conMprlElement);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.AddPinAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/AddPin.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/pin 
+
+#### Using the AddPinWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+    ApiResponse<Object> response = conClient.Material.AddPinWithHttpInfo(projectId, conMprlElement);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.AddPinWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -792,7 +1374,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -840,7 +1422,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials 
+> **GET** /api/4/projects/{projectId}/materials 
 
 #### Using the GetAllMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -876,6 +1458,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -917,7 +1502,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -965,7 +1550,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the GetBoltAssembliesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1001,6 +1586,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1042,7 +1630,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1090,7 +1678,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/4/projects/{projectId}/materials/bolt-grade 
 
 #### Using the GetBoltGradeMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1126,6 +1714,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1167,7 +1758,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1215,7 +1806,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/concrete 
+> **GET** /api/4/projects/{projectId}/materials/concrete 
 
 #### Using the GetConcreteMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1251,6 +1842,139 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcrosssectiondetail"></a>
+## **GetCrossSectionDetailAsync**
+> **ConCrossSectionDetail GetCrossSectionDetailAsync (Guid projectId, int cssId)**
+
+Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **cssId** | **int** | Id of the cross-section in the project. |  |
+
+### Return type
+
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetCrossSectionDetailAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    cssId = 56;  // int | Id of the cross-section in the project.
+
+                    try
+                    {
+                        // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+                        ConCrossSectionDetail result = await conClient.Material.GetCrossSectionDetailAsync(projectId, cssId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetCrossSectionDetailAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetCrossSectionDetail.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/{cssId} 
+
+#### Using the GetCrossSectionDetailWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+    ApiResponse<ConCrossSectionDetail> response = conClient.Material.GetCrossSectionDetailWithHttpInfo(projectId, cssId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetCrossSectionDetailWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1292,7 +2016,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1340,7 +2064,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/cross-sections 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections 
 
 #### Using the GetCrossSectionsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1376,6 +2100,524 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getheadedstudgradematerials"></a>
+## **GetHeadedStudGradeMaterialsAsync**
+> **List&lt;Object&gt; GetHeadedStudGradeMaterialsAsync (Guid projectId)**
+
+Gets materials used in the specified project.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+
+### Return type
+
+**List<Object>**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetHeadedStudGradeMaterialsAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Gets materials used in the specified project.
+                        List<Object> result = await conClient.Material.GetHeadedStudGradeMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetHeadedStudGradeMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetHeadedStudGradeMaterials.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
+
+#### Using the GetHeadedStudGradeMaterialsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets materials used in the specified project.
+    ApiResponse<List<Object>> response = conClient.Material.GetHeadedStudGradeMaterialsWithHttpInfo(projectId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetHeadedStudGradeMaterialsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getmateriallibrary"></a>
+## **GetMaterialLibraryAsync**
+> **List&lt;string&gt; GetMaterialLibraryAsync (Guid projectId, string materialType)**
+
+Lists the MPRL names available in the material library for the project's design code.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **materialType** | **string** | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). |  |
+
+### Return type
+
+**List<string>**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetMaterialLibraryAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    materialType = "materialType_example";  // string | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).
+
+                    try
+                    {
+                        // Lists the MPRL names available in the material library for the project's design code.
+                        List<string> result = await conClient.Material.GetMaterialLibraryAsync(projectId, materialType);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetMaterialLibraryAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetMaterialLibrary.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/{materialType}/library 
+
+#### Using the GetMaterialLibraryWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Lists the MPRL names available in the material library for the project's design code.
+    ApiResponse<List<string>> response = conClient.Material.GetMaterialLibraryWithHttpInfo(projectId, materialType);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetMaterialLibraryWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getpins"></a>
+## **GetPinsAsync**
+> **List&lt;Object&gt; GetPinsAsync (Guid projectId)**
+
+Gets pins used in the specified project.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+
+### Return type
+
+**List<Object>**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetPinsAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Gets pins used in the specified project.
+                        List<Object> result = await conClient.Material.GetPinsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetPinsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetPins.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/pin 
+
+#### Using the GetPinsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets pins used in the specified project.
+    ApiResponse<List<Object>> response = conClient.Material.GetPinsWithHttpInfo(projectId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetPinsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getreinforcementmaterials"></a>
+## **GetReinforcementMaterialsAsync**
+> **List&lt;Object&gt; GetReinforcementMaterialsAsync (Guid projectId)**
+
+Gets materials used in the specified project.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+
+### Return type
+
+**List<Object>**
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetReinforcementMaterialsAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+
+                    try
+                    {
+                        // Gets materials used in the specified project.
+                        List<Object> result = await conClient.Material.GetReinforcementMaterialsAsync(projectId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetReinforcementMaterialsAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetReinforcementMaterials.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/reinforcement 
+
+#### Using the GetReinforcementMaterialsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets materials used in the specified project.
+    ApiResponse<List<Object>> response = conClient.Material.GetReinforcementMaterialsWithHttpInfo(projectId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetReinforcementMaterialsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1417,7 +2659,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1465,7 +2707,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/steel 
+> **GET** /api/4/projects/{projectId}/materials/steel 
 
 #### Using the GetSteelMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1501,6 +2743,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1542,7 +2787,7 @@ namespace Example
         {
             string ideaConFile = "testCon.ideaCon";
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
             
             using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
             {
@@ -1590,7 +2835,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/welding 
+> **GET** /api/4/projects/{projectId}/materials/welding 
 
 #### Using the GetWeldingMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1626,6 +2871,143 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="updateparametriccrosssection"></a>
+## **UpdateParametricCrossSectionAsync**
+> **ConCrossSectionDetail UpdateParametricCrossSectionAsync (Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
+
+Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **cssId** | **int** | Id of the parametric cross-section to replace. |  |
+| **conCrossSectionParametricDefinition** | [**ConCrossSectionParametricDefinition**](ConCrossSectionParametricDefinition.md) | Shape type, dimensions and material replacing the stored definition. | [optional]  |
+
+### Return type
+
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class UpdateParametricCrossSectionAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    cssId = 56;  // int | Id of the parametric cross-section to replace.
+                    var conCrossSectionParametricDefinition = new ConCrossSectionParametricDefinition(); // ConCrossSectionParametricDefinition | Shape type, dimensions and material replacing the stored definition. (optional) 
+
+                    try
+                    {
+                        // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+                        ConCrossSectionDetail result = await conClient.Material.UpdateParametricCrossSectionAsync(projectId, cssId, conCrossSectionParametricDefinition);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.UpdateParametricCrossSectionAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/UpdateParametricCrossSection.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId} 
+
+#### Using the UpdateParametricCrossSectionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+    ApiResponse<ConCrossSectionDetail> response = conClient.Material.UpdateParametricCrossSectionWithHttpInfo(projectId, cssId, conCrossSectionParametricDefinition);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.UpdateParametricCrossSectionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **409** | Conflict |  -  |
+| **422** | Unprocessable Content |  -  |
+| **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

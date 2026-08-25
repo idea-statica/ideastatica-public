@@ -1,10 +1,12 @@
 ﻿using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
+using System;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
-	internal class ProjectAdapter : IProject
+	internal class ProjectAdapter : IProject, IBimIdMapAccess
 	{
 		private readonly IProject _project;
 		private readonly IBimApiImporter _bimApiImporter;
@@ -33,5 +35,11 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public IIdeaPersistenceToken GetPersistenceToken(int iomId)
 			=> _project.GetPersistenceToken(iomId);
+
+		public IReadOnlyCollection<(int IomId, string SourceIdToken)> ExportIdMap()
+			=> (_project as IBimIdMapAccess)?.ExportIdMap() ?? Array.Empty<(int, string)>();
+
+		public void ImportIdMap(IEnumerable<(int IomId, string SourceIdToken)> entries)
+			=> (_project as IBimIdMapAccess)?.ImportIdMap(entries);
 	}
 }

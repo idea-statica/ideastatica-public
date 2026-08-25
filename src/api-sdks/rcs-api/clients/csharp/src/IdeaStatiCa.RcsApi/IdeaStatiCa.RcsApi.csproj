@@ -19,6 +19,7 @@
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <PackageTags>IdeaStatiCa, Rcs, Concrete, Reinforced </PackageTags>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,10 @@
     <PackageReference Include="Newtonsoft.Json"/>
     <PackageReference Include="RestSharp"/>
     <PackageReference Include="Polly"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces"/>
   </ItemGroup>
 
   <ItemGroup>

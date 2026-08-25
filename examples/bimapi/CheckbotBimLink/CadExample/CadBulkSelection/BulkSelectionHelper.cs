@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WM = System.Windows.Media.Media3D;
 using BimApiLinkCadExample.CadExampleApi;
-using System.Windows.Documents;
-using System.Windows;
-using System.Net;
 
 namespace BimApiLinkCadExample.CadBulkSelection
 {
@@ -101,7 +98,7 @@ namespace BimApiLinkCadExample.CadBulkSelection
 
 			var sorter = new ItemsSorter();
 			var settings = new SorterSettings();
-			
+
 			//Settings to drive the sorter process.
 			settings.EnlargeNodeXin = 1.6;
 			settings.EnlargeNodeXout = 1.6;
@@ -110,7 +107,7 @@ namespace BimApiLinkCadExample.CadBulkSelection
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
 			return sortedJoints;
-				
+
 		}
 
 		private static List<CI.Geometry3D.Point3D> GetBoltPositions(CadBoltGrid boltGrid)
@@ -119,7 +116,7 @@ namespace BimApiLinkCadExample.CadBulkSelection
 			CadPlane3D plane = boltGrid.BoltPlane;
 
 			List<CI.Geometry3D.Point3D> points = new List<CI.Geometry3D.Point3D>();
-			
+
 			foreach (var point in pts)
 			{
 				CadPoint3D globalPt = CadPoint2D.Get2DPointInWorldCoords(point, plane);
@@ -197,7 +194,7 @@ namespace BimApiLinkCadExample.CadBulkSelection
 
 			CadPoint3D startPt = member.StartPoint;
 			CadPoint3D endPt = member.EndPoint;
-			
+
 			//Beam Start and End Points
 			var begin = new Point3D(startPt.X, startPt.Y, startPt.Z);
 			var end = new Point3D(endPt.X, endPt.Y, endPt.Z);

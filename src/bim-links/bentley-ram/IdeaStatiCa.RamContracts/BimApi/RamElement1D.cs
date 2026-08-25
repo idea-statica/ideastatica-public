@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Model;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using System.Collections.Generic;
 using System.Linq;

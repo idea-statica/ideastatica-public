@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using IdeaStatiCa.RcsApi;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi.Client;
 using IdeaRS.OpenModel.Geometry2D;

@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples
@@ -12,7 +11,7 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task AddLoadEffect(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/simple cleat connection.ideaCon";
+			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);
@@ -31,9 +30,9 @@ namespace CodeSamples
 				//BUG: DOES NOT WORK.
 				//BUG: DEFAULT SHOULD BE ACTIVE.
 				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(conClient.ActiveProjectId, connectionId);
-				
-				if(newLoadEffect != null) 
-					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}"); 
+
+				if(newLoadEffect != null)
+					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}");
 			}
 			{
 				ConLoadEffect loadEffect = new ConLoadEffect() { Name = input };
@@ -47,7 +46,7 @@ namespace CodeSamples
 			loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(conClient.ActiveProjectId, connectionId);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("AddLoadEffect");
-			
+
 			// Save updated file.
 			string fileName = "add-load-effects.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);

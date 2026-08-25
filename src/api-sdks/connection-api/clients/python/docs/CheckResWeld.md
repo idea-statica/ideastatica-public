@@ -1,16 +1,18 @@
 # CheckResWeld
 
+Check value for Weld
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**id** | **int** |  | [optional] 
-**unity_check** | **float** |  | [optional] 
-**check_status** | **bool** |  | [optional] 
-**load_case_id** | **int** |  | [optional] 
-**items** | **List[int]** |  | [optional] 
+**name** | **str** | Name of Weld | [optional] 
+**id** | **int** | Unique id of weld | [optional] 
+**unity_check** | **float** | Unity Check Stress. NaN when the weld has no computed stress utilisation -  full-strength welds are not stress-checked, see IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength | [optional] 
+**check_status** | **bool** | Status of the Check | [optional] 
+**is_full_strength** | **bool** | True when the weld is not rated by a stress utilisation and its check is satisfied by definition -  the check treats it as a full-strength weld. This applies to butt/bevel welds (e.g. CJP) and to  welds placed edge-to-edge. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true  in that case | [optional] 
+**load_case_id** | **int** | Id of Load Case | [optional] 
+**items** | **List[int]** | In case of presentation of groups plates (uncoiled beams) | [optional] 
 
 ## Example
 

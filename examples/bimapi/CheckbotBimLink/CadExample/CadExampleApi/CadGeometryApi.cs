@@ -1,8 +1,5 @@
-﻿using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics.LinearAlgebra.Double;
-using MathNet.Spatial.Euclidean;
+﻿using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace BimApiLinkCadExample.CadExampleApi

@@ -1,8 +1,6 @@
-﻿using BimApiLinkCadExample.BimApi;
-using BimApiLinkCadExample.CadExampleApi;
+﻿using BimApiLinkCadExample.CadExampleApi;
 using BimApiLinkCadExample.Importers;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.BimApiLink.BimApi;
 
 namespace BimApiLinkCadExample.BimApi
 {

@@ -1,6 +1,4 @@
-﻿using IdeaRS.OpenModel.CrossSection;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.Serialization;

@@ -34,7 +34,7 @@ namespace IdeaStatiCa.BimApiLink
 			bool highlightSelection = true)
 		{
 			JsonPersistence jsonPersistence = new JsonPersistence(logger);
-			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
+			IProjectStorage projectStorage = ProjectStorageOverride ?? new JsonProjectStorage(jsonPersistence, projectPath);
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
 			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(model as IFeaModel);

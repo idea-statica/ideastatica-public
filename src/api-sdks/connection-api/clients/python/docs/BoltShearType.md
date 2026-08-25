@@ -1,5 +1,6 @@
 # BoltShearType
 
+Defines a transfer of shear force in bolts.
 
 ## Enum
 

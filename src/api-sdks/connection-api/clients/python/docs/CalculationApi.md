@@ -5,6 +5,8 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**calculate**](CalculationApi.md#calculate) | Runs CBFEM calculation and returns the summary of the results.
+[**calculate_connection**](CalculationApi.md#calculate_connection) | Runs CBFEM calculation of a single connection and returns the summary of the results.
+[**get_connection_raw_json_results**](CalculationApi.md#get_connection_raw_json_results) | Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
 [**get_raw_json_results**](CalculationApi.md#get_raw_json_results) | Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
 [**get_results**](CalculationApi.md#get_results) | Gets detailed results of the CBFEM analysis.
 
@@ -68,7 +70,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/calculate 
+> **POST** /api/4/projects/{projectId}/connections/calculate 
 
 ### Authorization
 
@@ -84,6 +86,179 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="calculate_connection"></a>
+# **calculate_connection**
+> ConResultSummary calculate_connection(project_id, connection_id, load_effect_ids=load_effect_ids)
+
+Runs CBFEM calculation of a single connection and returns the summary of the results.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to calculate. | 
+ **load_effect_ids** | [**List[int]**](int.md)| Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. | [optional] 
+
+### Return type
+
+[**ConResultSummary**](ConResultSummary.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_result_summary import ConResultSummary
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def calculate_connectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to calculate.
+    load_effect_ids = [56] # List[int] | Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)
+
+    try:
+        # Runs CBFEM calculation of a single connection and returns the summary of the results.
+        api_response = api_client.calculation.calculate_connection(project_id, connection_id, load_effect_ids=load_effect_ids)
+        print("The response of CalculationApi->calculate_connection:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling CalculationApi->calculate_connection: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/calculate 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_connection_raw_json_results"></a>
+# **get_connection_raw_json_results**
+> str get_connection_raw_json_results(project_id, connection_id, load_effect_ids=load_effect_ids)
+
+Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
+
+See the bulk `rawresults-text` endpoint remarks for the bolt-identifier and  `forcesAllLoadCases`-key semantics; they apply here unchanged.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection to calculate. | 
+ **load_effect_ids** | [**List[int]**](int.md)| Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. | [optional] 
+
+### Return type
+
+**str**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_connection_raw_json_resultsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection to calculate.
+    load_effect_ids = [56] # List[int] | Optional subset of load-effect ids of this connection to solve. When set,              exactly these load effects are analysed - their Active flags are ignored and nothing is persisted;              results - including subsequent results, raw-results, result-mesh and report reads - reflect only              this subset until the next calculation. When omitted, all active load effects are solved; an empty              list is treated as omitted. Unknown ids are rejected with 422. (optional)
+
+    try:
+        # Runs CBFEM calculation of a single connection and gets a JSON string which represents its raw  CBFEM results (an instance of CheckResultsData).
+        api_response = api_client.calculation.get_connection_raw_json_results(project_id, connection_id, load_effect_ids=load_effect_ids)
+        print("The response of CalculationApi->get_connection_raw_json_results:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling CalculationApi->get_connection_raw_json_results: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/rawresults-text 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -92,6 +267,8 @@ No authorization required
 > List[str] get_raw_json_results(project_id, request_body)
 
 Gets JSON string which represents raw CBFEM results (an instance of CheckResultsData).
+
+  <strong>Bolt identifiers:</strong> Bolt keys in the raw results (e.g., in `boltCheckResDataTimbers`)              are opaque internal CBFEM solver identifiers. They may start at any number, are not necessarily sequential,              and may contain gaps. When a user explodes a bolt group or modifies bolt positions, the identifiers may shift.              Do not assume bolt keys start at 1 or can be used as array indices. To map bolts to sequential positions,              sort the keys numerically and use the resulting order.    <strong>      `forcesAllLoadCases` dictionary keys:</strong> In the per-bolt results within              `boltCheckResDataTimbers`, the `forcesAllLoadCases` dictionary is keyed by the              load case's internal numeric identifier (as a string). The key is <em>not</em> always `\"1\"`              — it corresponds to the load case ID. For example, if only load case LE2 is active,              the sole key will be `\"2\"`. API consumers should iterate over available keys              rather than assuming a specific key value.
 
 ### Parameters
 
@@ -145,7 +322,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/rawresults-text 
+> **POST** /api/4/projects/{projectId}/connections/rawresults-text 
 
 ### Authorization
 
@@ -161,6 +338,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -223,7 +404,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/results 
+> **POST** /api/4/projects/{projectId}/connections/results 
 
 ### Authorization
 
@@ -239,6 +420,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,6 +1,6 @@
 Below provides an introduction to the use of parameters in IDEA StatiCa Connection. 
 
-Parameters can be accessed by [enabling the Developer Mode] in the connection application.
+Parameters can be accessed by enabling the Developer Mode in the connection application.
 
 ## Introduction
 

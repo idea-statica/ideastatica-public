@@ -5,7 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DefinedBy** | **ConMemberPlacementDefinitionTypeEnum** |  | [optional] 
+**Origin** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **AxisX** | [**Vector3D**](Vector3D.md) |  | [optional] 
+**AxisY** | [**Vector3D**](Vector3D.md) |  | [optional] 
+**AxisZ** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **BetaDirection** | **double?** |  | [optional] 
 **GamaPitch** | **double?** |  | [optional] 
 **AlphaRotation** | **double** |  | [optional] 

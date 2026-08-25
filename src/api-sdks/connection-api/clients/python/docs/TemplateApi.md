@@ -4,34 +4,35 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**apply_template**](TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**create_con_template**](TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
-[**delete**](TemplateApi.md#delete) | Delete specific template
-[**delete_all**](TemplateApi.md#delete_all) | Delete all templates in connection
-[**explode**](TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations)
-[**explode_all**](TemplateApi.md#explode_all) | Explode all templates (delete parameters, keep operations)
-[**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-[**get_template_common_operation_properties**](TemplateApi.md#get_template_common_operation_properties) | Get Common properties for specific template
+[**apply_template**](TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
+[**create_con_template**](TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId.
+[**create_template_from_connection**](TemplateApi.md#create_template_from_connection) | Create a reusable connection template from connectionId with structured metadata.  Captures the connection&#39;s parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+[**delete**](TemplateApi.md#delete) | Delete specific template.
+[**delete_all**](TemplateApi.md#delete_all) | Delete all templates in connection.
+[**explode**](TemplateApi.md#explode) | Explode specific template (delete parameters, keep operations).
+[**explode_all**](TemplateApi.md#explode_all) | Explode all templates (delete parameters, keep operations).
+[**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
+[**get_template_common_operation_properties**](TemplateApi.md#get_template_common_operation_properties) | Get common properties for specific template.
 [**get_template_in_connection**](TemplateApi.md#get_template_in_connection) | Retrieves a specific template by its ID for a given connection within a project.
 [**get_templates_in_connection**](TemplateApi.md#get_templates_in_connection) | Retrieves a list of templates associated with a specific connection within a project.
 [**load_defaults**](TemplateApi.md#load_defaults) | Load parameter defaults for specific template.
-[**update_template_common_operation_properties**](TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template
+[**update_template_common_operation_properties**](TemplateApi.md#update_template_common_operation_properties) | Set common properties for specific template.
 
 
 <a id="apply_template"></a>
 # **apply_template**
 > ConTemplateApplyResult apply_template(project_id, connection_id, con_template_apply_param=con_template_apply_param)
 
-Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection where to apply the template | 
- **con_template_apply_param** | [**ConTemplateApplyParam**](ConTemplateApplyParam.md)| Template to apply | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| Id of the connection where to apply the template. | 
+ **con_template_apply_param** | [**ConTemplateApplyParam**](ConTemplateApplyParam.md)| Template to apply. | [optional] 
 
 ### Return type
 
@@ -54,12 +55,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def apply_templateExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection where to apply the template
-    con_template_apply_param = ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | Id of the connection where to apply the template.
+    con_template_apply_param = ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply. (optional)
 
     try:
-        # Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+        # Apply the connection template applyTemplateParam on the connection connectionId in the project projectId.
         api_response = api_client.template.apply_template(project_id, connection_id, con_template_apply_param=con_template_apply_param)
         print("The response of TemplateApi->apply_template:\n")
         pprint(api_response)
@@ -80,7 +81,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/apply-template 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/apply-template 
 
 ### Authorization
 
@@ -96,6 +97,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -103,15 +108,15 @@ No authorization required
 # **create_con_template**
 > str create_con_template(project_id, connection_id)
 
-Create a template for the connection connectionId in the project projectId
+Create a template for the connection connectionId in the project projectId.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be converted to a template | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| Id of the connection to be converted to a template. | 
 
 ### Return type
 
@@ -132,11 +137,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def create_con_templateExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to be converted to a template
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | Id of the connection to be converted to a template.
 
     try:
-        # Create a template for the connection connectionId in the project projectId
+        # Create a template for the connection connectionId in the project projectId.
         api_response = api_client.template.create_con_template(project_id, connection_id)
         print("The response of TemplateApi->create_con_template:\n")
         pprint(api_response)
@@ -157,7 +162,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/get-template 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/get-template 
 
 ### Authorization
 
@@ -173,6 +178,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="create_template_from_connection"></a>
+# **create_template_from_connection**
+> ConTemplateCreateResult create_template_from_connection(project_id, connection_id)
+
+Create a reusable connection template from connectionId with structured metadata.  Captures the connection's parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The source of the requested template. | 
+
+### Return type
+
+[**ConTemplateCreateResult**](ConTemplateCreateResult.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_template_create_result import ConTemplateCreateResult
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def create_template_from_connectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The source of the requested template.
+
+    try:
+        # Create a reusable connection template from connectionId with structured metadata.  Captures the connection's parametric design — operations, parameters, parametric links,  analysis info, loads and clipping/section data — and returns it as a contemp payload  alongside metadata inherited from the source connection (design code, version,  manufacturing type, member typology, and operation/parameter/link counts).
+        api_response = api_client.template.create_template_from_connection(project_id, connection_id)
+        print("The response of TemplateApi->create_template_from_connection:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling TemplateApi->create_template_from_connection: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -180,16 +270,16 @@ No authorization required
 # **delete**
 > delete(project_id, connection_id, template_id)
 
-Delete specific template
+Delete specific template.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **template_id** | **str**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the template. | 
+ **template_id** | **str**| The ID of the template to delete. | 
 
 ### Return type
 
@@ -210,12 +300,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def deleteExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    template_id = 'template_id_example' # str | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the template.
+    template_id = 'template_id_example' # str | The ID of the template to delete.
 
     try:
-        # Delete specific template
+        # Delete specific template.
         api_client.template.delete(project_id, connection_id, template_id)
     except Exception as e:
         print("Exception when calling TemplateApi->delete: %s\n" % e)
@@ -233,7 +323,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
 
 ### Authorization
 
@@ -242,13 +332,16 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -256,15 +349,15 @@ No authorization required
 # **delete_all**
 > delete_all(project_id, connection_id)
 
-Delete all templates in connection
+Delete all templates in connection.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection from which to delete templates. | 
 
 ### Return type
 
@@ -285,11 +378,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def delete_allExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection from which to delete templates.
 
     try:
-        # Delete all templates in connection
+        # Delete all templates in connection.
         api_client.template.delete_all(project_id, connection_id)
     except Exception as e:
         print("Exception when calling TemplateApi->delete_all: %s\n" % e)
@@ -307,7 +400,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/3/projects/{projectId}/connections/{connectionId}/templates 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates 
 
 ### Authorization
 
@@ -316,13 +409,16 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -330,16 +426,16 @@ No authorization required
 # **explode**
 > explode(project_id, connection_id, template_id)
 
-Explode specific template (delete parameters, keep operations)
+Explode specific template (delete parameters, keep operations).
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **template_id** | **str**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the template. | 
+ **template_id** | **str**| The ID of the template to explode. | 
 
 ### Return type
 
@@ -360,12 +456,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def explodeExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    template_id = 'template_id_example' # str | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the template.
+    template_id = 'template_id_example' # str | The ID of the template to explode.
 
     try:
-        # Explode specific template (delete parameters, keep operations)
+        # Explode specific template (delete parameters, keep operations).
         api_client.template.explode(project_id, connection_id, template_id)
     except Exception as e:
         print("Exception when calling TemplateApi->explode: %s\n" % e)
@@ -383,7 +479,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
 
 ### Authorization
 
@@ -392,13 +488,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -406,15 +506,15 @@ No authorization required
 # **explode_all**
 > explode_all(project_id, connection_id)
 
-Explode all templates (delete parameters, keep operations)
+Explode all templates (delete parameters, keep operations).
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection whose templates are to be exploded. | 
 
 ### Return type
 
@@ -435,11 +535,11 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def explode_allExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection whose templates are to be exploded.
 
     try:
-        # Explode all templates (delete parameters, keep operations)
+        # Explode all templates (delete parameters, keep operations).
         api_client.template.explode_all(project_id, connection_id)
     except Exception as e:
         print("Exception when calling TemplateApi->explode_all: %s\n" % e)
@@ -457,7 +557,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/explode 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/explode 
 
 ### Authorization
 
@@ -466,13 +566,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -480,18 +584,18 @@ No authorization required
 # **get_default_template_mapping**
 > TemplateConversions get_default_template_mapping(project_id, connection_id, con_template_mapping_get_param=con_template_mapping_get_param)
 
-Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
 
-The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping to apply the passed template.  It can be modified by a user and used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam) method.
+The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping to apply the passed template.  It can be modified by a user and used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam,System.Threading.CancellationToken) method.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get default mapping | 
- **con_template_mapping_get_param** | [**ConTemplateMappingGetParam**](ConTemplateMappingGetParam.md)| Data of the template to get default mapping | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| Id of the connection to get default mapping. | 
+ **con_template_mapping_get_param** | [**ConTemplateMappingGetParam**](ConTemplateMappingGetParam.md)| Data of the template to get default mapping. | [optional] 
 
 ### Return type
 
@@ -514,12 +618,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_default_template_mappingExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    connection_id = 56 # int | Id of the connection to get default mapping
-    con_template_mapping_get_param = ideastatica_connection_api.ConTemplateMappingGetParam() # ConTemplateMappingGetParam | Data of the template to get default mapping (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | Id of the connection to get default mapping.
+    con_template_mapping_get_param = ideastatica_connection_api.ConTemplateMappingGetParam() # ConTemplateMappingGetParam | Data of the template to get default mapping. (optional)
 
     try:
-        # Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+        # Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId.
         api_response = api_client.template.get_default_template_mapping(project_id, connection_id, con_template_mapping_get_param=con_template_mapping_get_param)
         print("The response of TemplateApi->get_default_template_mapping:\n")
         pprint(api_response)
@@ -540,7 +644,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 ### Authorization
 
@@ -556,6 +660,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -563,16 +671,16 @@ No authorization required
 # **get_template_common_operation_properties**
 > ConOperationCommonProperties get_template_common_operation_properties(project_id, connection_id, template_id)
 
-Get Common properties for specific template
+Get common properties for specific template.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **template_id** | **str**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the template. | 
+ **template_id** | **str**| The ID of the template. | 
 
 ### Return type
 
@@ -594,12 +702,12 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def get_template_common_operation_propertiesExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    template_id = 'template_id_example' # str | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the template.
+    template_id = 'template_id_example' # str | The ID of the template.
 
     try:
-        # Get Common properties for specific template
+        # Get common properties for specific template.
         api_response = api_client.template.get_template_common_operation_properties(project_id, connection_id, template_id)
         print("The response of TemplateApi->get_template_common_operation_properties:\n")
         pprint(api_response)
@@ -620,7 +728,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 ### Authorization
 
@@ -636,6 +744,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -700,7 +811,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
 
 ### Authorization
 
@@ -716,6 +827,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -780,7 +894,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/templates 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates 
 
 ### Authorization
 
@@ -796,6 +910,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -810,9 +927,9 @@ Load parameter defaults for specific template.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **template_id** | **str**|  | 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the template. | 
+ **template_id** | **str**| The ID of the template whose parameter defaults are loaded. | 
 
 ### Return type
 
@@ -834,9 +951,9 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def load_defaultsExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    template_id = 'template_id_example' # str | 
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the template.
+    template_id = 'template_id_example' # str | The ID of the template whose parameter defaults are loaded.
 
     try:
         # Load parameter defaults for specific template.
@@ -860,7 +977,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
 
 ### Authorization
 
@@ -876,6 +993,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -883,17 +1004,17 @@ No authorization required
 # **update_template_common_operation_properties**
 > update_template_common_operation_properties(project_id, connection_id, template_id, con_operation_common_properties=con_operation_common_properties)
 
-Set common properties for specific template
+Set common properties for specific template.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **template_id** | **str**|  | 
- **con_operation_common_properties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md)|  | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **connection_id** | **int**| The ID of the connection containing the template. | 
+ **template_id** | **str**| The ID of the template. | 
+ **con_operation_common_properties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md)| Common properties to apply (specify material IDs, or keep as null). | [optional] 
 
 ### Return type
 
@@ -915,13 +1036,13 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def update_template_common_operation_propertiesExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | 
-    connection_id = 56 # int | 
-    template_id = 'template_id_example' # str | 
-    con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties |  (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    connection_id = 56 # int | The ID of the connection containing the template.
+    template_id = 'template_id_example' # str | The ID of the template.
+    con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties | Common properties to apply (specify material IDs, or keep as null). (optional)
 
     try:
-        # Set common properties for specific template
+        # Set common properties for specific template.
         api_client.template.update_template_common_operation_properties(project_id, connection_id, template_id, con_operation_common_properties=con_operation_common_properties)
     except Exception as e:
         print("Exception when calling TemplateApi->update_template_common_operation_properties: %s\n" % e)
@@ -939,7 +1060,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/3/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 ### Authorization
 
@@ -948,13 +1069,17 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**204** | No Content |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

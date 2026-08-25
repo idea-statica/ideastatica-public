@@ -29,6 +29,14 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Create a new IDEA Connection project with a default empty connection
+		/// </summary>
+		/// <param name="projectData">Optional project metadata. The DesignCode field determines the design code (e.g. "ECEN", "American"). Defaults to ECEN if not provided.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The created project</returns>
+		Task<ConProject> CreateProjectAsync(ConProjectData projectData, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Close the active project in the service
 		/// </summary>
 		/// <param name="cancellationToken"></param>
@@ -56,6 +64,24 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="token"></param>
 		/// <returns></returns>
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
+
+		/// <summary>
+		/// Adds a new empty connection to the active project.
+		/// </summary>
+		/// <param name="name">Optional connection name. If null or empty, a default name <c>CON{id}</c> is assigned on the server.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The newly created connection.</returns>
+		Task<ConConnection> CreateEmptyConnectionAsync(string name, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Creates a copy of an existing connection in the active project.
+		/// </summary>
+		/// <param name="connectionId">Id of the source connection to copy.</param>
+		/// <param name="name">Optional name for the new connection. If null or empty, a unique name is derived from the source connection name on the server.</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The newly created connection.</returns>
+		Task<ConConnection> CopyConnectionAsync(int connectionId, string name, CancellationToken cancellationToken = default);
+
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
 
 		/// <summary>
@@ -82,6 +108,72 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Run CBFEM analysis of a single connection. When <paramref name="loadEffectIds"/> is set the analysis
+		/// solves exactly these load effects of the connection - their Active flags are ignored and nothing is
+		/// persisted; results reflect only this subset until the next calculation.
+		/// Null = all active load effects. Unknown ids are rejected with 422.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Result summary of the connection</returns>
+		Task<ConResultSummary> CalculateConnectionAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Run CBFEM analysis of a single connection and get a JSON string which represents its raw CBFEM
+		/// results (an instance of CheckResultsData). Subset semantics of <paramref name="loadEffectIds"/>
+		/// are the same as in <see cref="CalculateConnectionAsync(int, IEnumerable{int}, CancellationToken)"/>.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>JSON string representing an instance of CheckResultsData</returns>
+		Task<string> GetConnectionRawResultsAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Start an asynchronous CBFEM calculation job for <paramref name="conToCalculateIds"/>.
+		/// Returns immediately with the accepted job; poll it with
+		/// <see cref="GetCalculationJobAsync(Guid, CancellationToken)"/> and cancel it with
+		/// <see cref="CancelCalculationJobAsync(Guid, CancellationToken)"/>. At most one job can be
+		/// active per project - starting a second one is rejected (409).
+		/// </summary>
+		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The accepted job</returns>
+		Task<ConCalculationJob> StartCalculationAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Start an asynchronous CBFEM calculation job for a single connection. Subset semantics of
+		/// <paramref name="loadEffectIds"/> are the same as in
+		/// <see cref="CalculateConnectionAsync(int, IEnumerable{int}, CancellationToken)"/>.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the active project to calculate</param>
+		/// <param name="loadEffectIds">Subset of load-effect ids to solve, or null for all active load effects</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The accepted job</returns>
+		Task<ConCalculationJob> StartConnectionCalculationAsync(int connectionId, IEnumerable<int> loadEffectIds = null, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the current state of an asynchronous calculation job, including progress of the
+		/// running solve and result summaries once finished.
+		/// </summary>
+		/// <param name="jobId">Id of the job returned by the start methods</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>The job state</returns>
+		Task<ConCalculationJob> GetCalculationJobAsync(Guid jobId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Request cancellation of an asynchronous calculation job: the running solver process is
+		/// stopped and remaining connections are skipped. Interrupted connections stay not-calculated.
+		/// Idempotent - cancelling an already finished job leaves it unchanged. Cancellation is
+		/// asynchronous; poll <see cref="GetCalculationJobAsync(Guid, CancellationToken)"/> for the
+		/// terminal state.
+		/// </summary>
+		/// <param name="jobId">Id of the job returned by the start methods</param>
+		/// <param name="cancellationToken"></param>
+		Task CancelCalculationJobAsync(Guid jobId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
@@ -176,6 +268,15 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConMember> AddMemberAsync(int connectionId, ConMember member, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Delete a member from the connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="memberId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task DeleteMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get production cost
 		/// </summary>
 		/// <param name="connectionId"></param>
@@ -227,6 +328,15 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConLoadEffect> UpdateLoadEffectAsync(int connectionId, ConLoadEffect le1);
 
 		/// <summary>
+		/// Calculate load extremes for the connection and keep only the critical load effects active.
+		/// Returns all load effects with their updated active state.
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConLoadEffect>> CalculateLoadExtremesAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Get the connection setup from the active project
 		/// </summary>
 		/// <param name="cancellationToken"></param>
@@ -274,6 +384,54 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="newCrossSection"></param>
 		/// <returns></returns>
 		Task<object> AddCrossSectionAsync(ConMprlCrossSection newCrossSection);
+
+		/// <summary>
+		/// Get the full definition (library / parametric / custom) and the evaluated outline
+		/// geometry of one cross-section in the project. BETA.
+		/// </summary>
+		/// <param name="cssId">Id of the cross-section in the project</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The cross-section detail: definition + tessellated outline geometry</returns>
+		Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(int cssId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Create a parametric cross-section (welded, boxed, cold-formed, parametric rolled) from
+		/// its shape type and dimensions. Dimension ids are the stable parameter ids the detail
+		/// GET exposes; dimensions not named keep the shape's defaults. BETA.
+		/// </summary>
+		/// <param name="definition">Shape type, dimensions and material of the new cross-section</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The created cross-section detail: definition + tessellated outline geometry</returns>
+		Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Replace the definition of a parametric cross-section — a full replacement: dimensions
+		/// not named revert to the shape's defaults, so send the complete definition obtained from
+		/// the detail GET. BETA.
+		/// </summary>
+		/// <param name="cssId">Id of the parametric cross-section to replace</param>
+		/// <param name="definition">Shape type, dimensions and material replacing the stored definition</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The updated cross-section detail: definition + tessellated outline geometry</returns>
+		Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// List the shape types the parametric cross-section endpoints accept. BETA.
+		/// </summary>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The parametric shape type names (e.g. "Iw", "Tw", "CHSPar")</returns>
+		Task<List<string>> GetParametricCrossSectionShapesAsync(CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the fill-in template of a parametric shape: every dimension with its stable id,
+		/// stable code name (e.g. "wH") and the shape's default value, in SI units. Change the
+		/// values, set the material, and create the section with
+		/// <see cref="AddParametricCrossSectionAsync"/>. BETA.
+		/// </summary>
+		/// <param name="shapeType">Shape type name from <see cref="GetParametricCrossSectionShapesAsync"/></param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The shape's default definition — ids, code names and default dimension values</returns>
+		Task<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateAsync(string shapeType, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Add bolt assembly to project data
@@ -326,6 +484,18 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns>contemp string</returns>
 		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Create a reusable connection template from <paramref name="connectionId"/> with structured metadata.
+		/// Captures the connection's parametric design — operations, parameters, parametric links,
+		/// analysis info, loads and clipping/section data — and returns it as a contemp payload
+		/// alongside metadata inherited from the source connection (design code, version,
+		/// manufacturing type, member typology, and operation/parameter/link counts).
+		/// </summary>
+		/// <param name="connectionId">The source of the requested template</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Template payload and its structured metadata</returns>
+		Task<ConTemplateCreateResult> CreateTemplateFromConnectionAsync(int connectionId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get specific template in connection by id

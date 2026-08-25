@@ -333,7 +333,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// User select bulk selection
 		/// </summary>
 		/// <returns></returns>
-		public List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)> GetBulkSelection(bool selectWholeModel = false)
+		public List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)> GetBulkSelection(bool selectWholeModel = false, IProgressMessaging progressMessaging = null)
 		{
 			plugInLogger.LogInformation("GetBulkSelection");
 			List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)> selections = new List<(Point, List<TS.ModelObject>, List<TS.ModelObject>)>();
@@ -354,6 +354,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					partsEnumerator = UserObjectsSelection(TeklaStructuresResources.Properties.Resources.CreateBulkSelection);
 				}
 
+				progressMessaging?.SetStageLocalised(1, 0, LocalisedMessage.ModelPostProcess, string.Empty);
 				plugInLogger.LogInformation($"GetSelectObjects - process user selection");
 				var selectedItems = ProcessUserSelection(partsEnumerator);
 

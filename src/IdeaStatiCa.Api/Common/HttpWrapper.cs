@@ -22,7 +22,9 @@ namespace IdeaStatiCa.Api.Common
 	public class HttpClientWrapper : IHttpClientWrapper
 	{
 		private readonly IPluginLogger logger;
-		private Uri baseUrl;
+		private readonly Uri baseUrl;
+		private readonly HttpClient httpClient;
+		private bool disposed;
 		public Action<string, int> ProgressLogAction { get; set; } = null;
 		public Action<string> HeartBeatLogAction { get; set; } = null;
 		public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
@@ -35,9 +37,15 @@ namespace IdeaStatiCa.Api.Common
 		}
 
 		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
+			: this(logger, baseAddress, null)
+		{
+		}
+
+		public HttpClientWrapper(IPluginLogger logger, string baseAddress, HttpClient client)
 		{
 			baseUrl = new Uri(baseAddress);
 			this.logger = logger;
+			httpClient = client ?? new HttpClient() { Timeout = Timeout.InfiniteTimeSpan };
 		}
 
 		/// <summary>
@@ -102,33 +110,38 @@ namespace IdeaStatiCa.Api.Common
 				await hubConnection.StartAsync();
 			}
 
-
-			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
+			try
 			{
-				using (var content = GetStringContent(requestData))
+				var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 				{
-					var url = new Uri(baseUrl, requestUri);
-					try
+					using (var content = GetStringContent(requestData))
 					{
-						logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
-						return await client.PostAsync(url, content, token);
-					}
-					catch (OperationCanceledException ex)
-					{
-						logger.LogDebug("Operation was cancelled", ex);
-						throw;
-					}
+						var url = new Uri(baseUrl, requestUri);
+						try
+						{
+							logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
+							return await client.PostAsync(url, content, token);
+						}
+						catch (OperationCanceledException ex)
+						{
+							logger.LogDebug("Operation was cancelled", ex);
+							throw;
+						}
 
-				}
-			}, acceptHeader, useHeartbeatCheck);
+					}
+				}, acceptHeader, useHeartbeatCheck);
 
-			if (hubConnection != null)
-			{
-				logger.LogInformation("Stopping hub connection");
-				await hubConnection.StopAsync();
+				return result;
 			}
-
-			return result;
+			finally
+			{
+				if (hubConnection != null)
+				{
+					logger.LogInformation("Stopping hub connection");
+					await hubConnection.StopAsync();
+					await hubConnection.DisposeAsync();
+				}
+			}
 		}
 
 		/// <summary>
@@ -189,64 +202,56 @@ namespace IdeaStatiCa.Api.Common
 			HeartbeatChecker heartbeatChecker = null;
 			try
 			{
-				using (var client = new HttpClient() { Timeout = Timeout.InfiniteTimeSpan })
+				try
 				{
-					try
+					if (useHeartbeatCheck)
 					{
-						if (useHeartbeatCheck)
-						{
-							// do not start heartbeat checker for this call
-							var hearBeatUrl = new Uri(baseUrl, RestApiConstants.RestApiHeartbeat);
-							heartbeatChecker = new HeartbeatChecker(logger, client, hearBeatUrl.AbsoluteUri);
-							heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
-							// Periodically check the heartbeat while the long operation is in progress
-							var heartbeatTask = heartbeatChecker.StartAsync();
-							logger.LogTrace($"Starting HeartbeatChecker on url {hearBeatUrl.AbsoluteUri}");
-						}
+						// do not start heartbeat checker for this call
+						var hearBeatUrl = new Uri(baseUrl, RestApiConstants.RestApiHeartbeat);
+						heartbeatChecker = new HeartbeatChecker(logger, httpClient, hearBeatUrl.AbsoluteUri);
+						heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
+						// Periodically check the heartbeat while the long operation is in progress
+						var heartbeatTask = heartbeatChecker.StartAsync();
+						logger.LogTrace($"Starting HeartbeatChecker on url {hearBeatUrl.AbsoluteUri}");
+					}
 
-						foreach (KeyValuePair<string, string> header in Headers)
-						{
-							client.DefaultRequestHeaders.Add(header.Key, header.Value);
-						}
+					using (HttpResponseMessage response = await clientCall(httpClient))
+					{
+						// Stop the heartbeat checker
+						logger.LogTrace($"Stopping HeartbeatChecker");
 
-						using (HttpResponseMessage response = await clientCall(client))
+						if (response is { IsSuccessStatusCode: true })
 						{
-							// Stop the heartbeat checker
-							logger.LogTrace($"Stopping HeartbeatChecker");
+							logger.LogTrace($"Response is successfull");
 
-							if (response is { IsSuccessStatusCode: true })
+							if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase) ||
+								acceptHeader.Equals("image/png", StringComparison.InvariantCultureIgnoreCase))
 							{
-								logger.LogTrace($"Response is successfull");
-
-								if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase) ||
-									acceptHeader.Equals("image/png", StringComparison.InvariantCultureIgnoreCase))
-								{
-									logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
-									var ms = new MemoryStream();
-									await response.Content.CopyToAsync(ms);
-									return (TResult)Convert.ChangeType(ms, typeof(MemoryStream));
-								}
-								else
-								{
-									var stringContent = await response.Content.ReadAsStringAsync();
-									logger.LogDebug($"HttpClientWrapper.ExecuteClientCallAsync - response is '{typeof(TResult).Name}'");
-									return Deserialize<TResult>(acceptHeader, stringContent);
-								}
+								logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
+								var ms = new MemoryStream();
+								await response.Content.CopyToAsync(ms);
+								return (TResult)Convert.ChangeType(ms, typeof(MemoryStream));
 							}
 							else
 							{
-								logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
-								throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+								var stringContent = await response.Content.ReadAsStringAsync();
+								logger.LogDebug($"HttpClientWrapper.ExecuteClientCallAsync - response is '{typeof(TResult).Name}'");
+								return Deserialize<TResult>(acceptHeader, stringContent);
 							}
 						}
-					}
-					finally
-					{
-						if (heartbeatChecker != null)
+						else
 						{
-							heartbeatChecker.Stop();
-							heartbeatChecker = null;
+							logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+							throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
 						}
+					}
+				}
+				finally
+				{
+					if (heartbeatChecker != null)
+					{
+						heartbeatChecker.Stop();
+						heartbeatChecker = null;
 					}
 				}
 			}
@@ -309,6 +314,16 @@ namespace IdeaStatiCa.Api.Common
 		public void AddRequestHeader(string header, string value)
 		{
 			Headers.Add(header, value);
+			httpClient.DefaultRequestHeaders.TryAddWithoutValidation(header, value);
+		}
+
+		public void Dispose()
+		{
+			if (!disposed)
+			{
+				disposed = true;
+				httpClient.Dispose();
+			}
 		}
 	}
 }

@@ -1,11 +1,12 @@
 import logging
-from ideastatica_connection_api import Configuration, ClientApi, CalculationApi, ConnectionApi, ConnectionLibraryApi, ExportApi, \
+from ideastatica_connection_api import Configuration, ClientApi, CalculationApi, CalculationJobsApi, ConnectionApi, ConnectionLibraryApi, ExportApi, \
     LoadEffectApi, MaterialApi, MemberApi, OperationApi, ParameterApi, PresentationApi, ReportApi, TemplateApi, \
     ConversionApi, SettingsApi
 import ideastatica_connection_api.api_client as api_client
 import ideastatica_connection_api.api_ext.project_ext_api as project_ext_api
 import ideastatica_connection_api.api_ext.export_ext_api as export_ext_api
 import ideastatica_connection_api.api_ext.report_ext_api as report_ext_api
+import ideastatica_connection_api.api_ext.connection_library_ext_api as connection_library_ext_api
 from typing import Optional
 
 logger = logging.getLogger(__name__)
@@ -19,8 +20,9 @@ class ConnectionApiClient:
         self.client_id: Optional[str] = None
 
         self.calculation: Optional[CalculationApi] = None
+        self.calculation_jobs: Optional[CalculationJobsApi] = None
         self.connection: Optional[ConnectionApi] = None
-        self.connection_library: Optional[ConnectionLibraryApi] = None
+        self.connection_library: Optional[connection_library_ext_api.ConnectionLibraryExtApi] = None
         self.export: Optional[export_ext_api.ExportExtApi] = None
         self.load_effect: Optional[LoadEffectApi] = None
         self.material: Optional[MaterialApi] = None
@@ -47,8 +49,9 @@ class ConnectionApiClient:
         self.client.default_headers['ClientId'] = self.client_id        
 
         self.calculation = CalculationApi(self.client)
+        self.calculation_jobs = CalculationJobsApi(self.client)
         self.connection = ConnectionApi(self.client)
-        self.connection_library = ConnectionLibraryApi(self.client)
+        self.connection_library = connection_library_ext_api.ConnectionLibraryExtApi(self.client)
         self.export = export_ext_api.ExportExtApi(self.client)
         self.load_effect = LoadEffectApi(self.client)
         self.material = MaterialApi(self.client)

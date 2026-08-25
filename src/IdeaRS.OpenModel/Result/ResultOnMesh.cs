@@ -122,10 +122,12 @@ namespace IdeaRS.OpenModel.Result
 		/// <summary>
 		/// Type plate elements
 		/// </summary>
+		[DataMember]
 		public StructuralPlateType PlateType { get; set;}
 		/// <summary>
 		/// Plate UID
 		/// </summary>
+		[DataMember]
 		public int PlateUID { get; set; }
 
 		/// <summary>

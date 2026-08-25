@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 namespace CI.Geometry2D
 {

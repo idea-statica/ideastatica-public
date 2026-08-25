@@ -2,7 +2,6 @@
 using Autofac.Extensions.DependencyInjection;
 using BimApiLinkCadExample.BimApi;
 using BimApiLinkCadExample.CadExampleApi;
-using BimApiLinkCadExample.Hooks;
 using BimApiLinkCadExample.Importers;
 using IdeaStatiCa.BimApiLink;
 using IdeaStatiCa.Plugin;

@@ -1,6 +1,4 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimApiLink.Hooks

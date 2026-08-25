@@ -1,14 +1,7 @@
-﻿using ISteelMaterial = RAMDATAACCESSLib.ISteelMaterial;
-
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
 using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Material;
-using IdeaStatiCa.RamToIdea;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {

@@ -1,7 +1,4 @@
-﻿using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Loading;
-using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.BimApi;
 
 namespace IdeaStatiCa.BimImporter.ImportedObjects
 {

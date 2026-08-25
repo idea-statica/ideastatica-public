@@ -1,7 +1,6 @@
 ﻿using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 namespace BimApiLinkFeaExample.FeaExampleApi
 {

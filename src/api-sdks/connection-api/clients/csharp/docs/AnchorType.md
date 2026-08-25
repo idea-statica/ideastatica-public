@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.AnchorType
+Defines a type of anchor end.
 
 ## Properties
 

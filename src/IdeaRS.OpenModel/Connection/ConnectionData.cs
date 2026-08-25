@@ -1,5 +1,4 @@
 using IdeaRS.OpenModel.Geometry2D;
-using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -360,6 +359,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// Type of the weld
 		/// </summary>
 		public WeldType WeldType { get; set; }
+
+		/// <summary>
+		/// True for an intermittent (stitch) weld; WeldType holds the base weld type
+		/// </summary>
+		public bool IsIntermittent { get; set; }
 
 		/// <summary>
 		/// Id of the weld

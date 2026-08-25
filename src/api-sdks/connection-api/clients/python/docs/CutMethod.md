@@ -1,5 +1,6 @@
 # CutMethod
 
+Cut method
 
 ## Enum
 

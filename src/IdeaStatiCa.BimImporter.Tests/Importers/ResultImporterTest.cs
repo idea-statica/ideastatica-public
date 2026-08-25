@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;

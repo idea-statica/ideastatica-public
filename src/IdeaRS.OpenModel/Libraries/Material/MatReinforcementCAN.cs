@@ -4,6 +4,23 @@ using System.Runtime.Serialization;
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
+	/// Grade type
+	/// </summary>
+	public enum GradeType
+	{
+		/// <summary>
+		/// R
+		/// </summary>
+		Regular,
+
+		/// <summary>
+		/// W
+		/// </summary>
+		Weldable
+	}
+
+
+	/// <summary>
 	/// Material reinforcement CAN
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.American.MatReinforcementCAN,CI.Material", "CI.StructModel.Libraries.Material.IMatReinforcement,CI.BasicTypes", typeof(MatReinforcement))]
@@ -19,13 +36,23 @@ namespace IdeaRS.OpenModel.Material
 		}
 
 		/// <summary>
-		/// Characteristic strain of reinforcement
+		/// Characteristic yield strength of reinforcement
+		/// </summary>
+		public double Fsy { get; set; }
+
+		/// <summary>
+		/// Characteristic tensile strength of reinforcement
+		/// </summary>
+		public double Fsu { get; set; }
+
+		/// <summary>
+		/// Strain at tensile strength ε su
 		/// </summary>
 		public double Epssu { get; set; }
 
 		/// <summary>
-		/// Characteristic yield strength of reinforcement
+		/// Grade type
 		/// </summary>
-		public double Fy { get; set; }
+		public GradeType GradeType { get; set; }
 	}
 }

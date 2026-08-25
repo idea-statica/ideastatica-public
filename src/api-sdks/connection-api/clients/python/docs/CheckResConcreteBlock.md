@@ -1,14 +1,15 @@
 # CheckResConcreteBlock
 
+Check value for Concrete Block
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**unity_check** | **float** |  | [optional] 
-**check_status** | **bool** |  | [optional] 
-**load_case_id** | **int** |  | [optional] 
+**name** | **str** | Name of Concrete Block | [optional] 
+**unity_check** | **float** | Unity Check | [optional] 
+**check_status** | **bool** | Status of the Check | [optional] 
+**load_case_id** | **int** | Id of Load Case | [optional] 
 
 ## Example
 

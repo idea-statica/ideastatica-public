@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Common.props" />
-  
+
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
 	<LangVersion>8.0</LangVersion>
@@ -11,14 +11,14 @@
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM</PackageTags>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-    
+
   <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
     <ProjectReference Include="..\IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj" >
       <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-  
-  
+
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Castle.Windsor" />
@@ -31,18 +31,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="System.Collections.Immutable" />
-    
-    <PackageReference Include="System.Net.Http" />
+	  <PackageReference Include="System.Collections.Immutable" />
+
     <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>
-  
-  
+
+
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Protobuf Include="Grpc\GrpcReflectionServiceContract.proto" />
   </ItemGroup>

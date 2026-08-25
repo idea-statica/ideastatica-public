@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using WM = System.Windows.Media.Media3D;
 
 namespace CI.Geometry3D

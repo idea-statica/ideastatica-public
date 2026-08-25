@@ -13,7 +13,7 @@ namespace CodeSamples
 		/// <param name="conClient">The connected API Client</param>
 		public static async Task UpdateLoadEffect(IConnectionApiClient conClient)
 		{
-			string filePath = "inputs/simple knee connection.ideaCon";
+			string filePath = "Inputs/simple knee connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
 			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ActiveProjectId);

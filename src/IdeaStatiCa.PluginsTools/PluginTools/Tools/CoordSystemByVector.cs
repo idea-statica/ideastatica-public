@@ -1,4 +1,3 @@
-using CI.DataModel;
 using System;
 
 namespace CI.Geometry3D

@@ -40,7 +40,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			string ifc = (string)response.Data;
 
 			// Write the string to the file
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 			await File.AppendAllTextAsync(filePath, ifc);
 #else
 			File.WriteAllText(filePath, ifc);

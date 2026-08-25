@@ -1,14 +1,4 @@
-﻿using ISteelMaterial = RAMDATAACCESSLib.ISteelMaterial;
-using IConcreteMaterial = RAMDATAACCESSLib.IConcreteMaterial;
-using IOtherMaterial = RAMDATAACCESSLib.IOtherMaterial;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IdeaStatiCa.BimApi;
-using IdeaRS.OpenModel.Material;
+﻿using IdeaRS.OpenModel.Material;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {

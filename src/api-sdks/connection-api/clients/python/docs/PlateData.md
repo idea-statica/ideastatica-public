@@ -1,23 +1,24 @@
 # PlateData
 
+Provides data of the single plate
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**thickness** | **float** |  | [optional] 
-**material** | **str** |  | [optional] 
-**outline_points** | [**List[Point2D]**](Point2D.md) |  | [optional] 
+**name** | **str** | Name of the plate | [optional] 
+**thickness** | **float** | Thickness of the plate | [optional] 
+**material** | **str** | Name of the material | [optional] 
+**outline_points** | [**List[Point2D]**](Point2D.md) | Outline points | [optional] 
 **origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_y** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_z** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**region** | **str** |  | [optional] 
+**region** | **str** | Geometry of the plate in svg format. In next version will be mark as OBSOLETE! New use property Geometry | [optional] 
 **geometry** | [**Region2D**](Region2D.md) |  | [optional] 
-**original_model_id** | **str** |  | [optional] 
-**is_negative_object** | **bool** |  | [optional] 
-**id** | **int** |  | [optional] 
+**original_model_id** | **str** | Get or set the identification in the original model  In the case of the imported connection from another application | [optional] 
+**is_negative_object** | **bool** | Is negative object | [optional] 
+**id** | **int** | Element Id | [optional] 
 
 ## Example
 

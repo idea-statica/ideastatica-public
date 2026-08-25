@@ -6,7 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **defined_by** | [**ConMemberPlacementDefinitionTypeEnum**](ConMemberPlacementDefinitionTypeEnum.md) |  | [optional] 
+**origin** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 
+**axis_y** | [**Vector3D**](Vector3D.md) |  | [optional] 
+**axis_z** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **beta_direction** | **float** |  | [optional] 
 **gama_pitch** | **float** |  | [optional] 
 **alpha_rotation** | **float** |  | [optional] 

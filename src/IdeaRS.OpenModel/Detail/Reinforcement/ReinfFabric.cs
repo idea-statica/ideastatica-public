@@ -1,5 +1,4 @@
 ﻿using IdeaRS.OpenModel.Geometry3D;
-using System.Collections.Generic;
 
 namespace IdeaRS.OpenModel.Detail
 {

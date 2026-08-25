@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsContinuous** | **bool** |  | [optional] 
 **CrossSectionId** | **int?** |  | [optional] 
+**ConnectedBy** | **ConMemberConnectedByEnum** |  | [optional] 
 **MirrorY** | **bool?** |  | [optional] 
 **MirrorZ** | **bool?** |  | [optional] 
 **IsBearing** | **bool** |  | [optional] 

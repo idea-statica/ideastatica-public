@@ -2,16 +2,10 @@
 using IdeaRS.OpenModel.Concrete.Load;
 using IdeaRS.OpenModel.Concrete;
 using IdeaRS.OpenModel.CrossSection;
-using IdeaRS.OpenModel.Detail;
 using IdeaRS.OpenModel.Geometry2D;
 using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace IomToRcsExamples
 {

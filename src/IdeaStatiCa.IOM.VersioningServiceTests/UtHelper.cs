@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningServiceTests

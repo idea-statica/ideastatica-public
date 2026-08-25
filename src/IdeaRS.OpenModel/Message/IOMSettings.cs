@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IdeaRS.OpenModel;
-
-namespace IdeaRS.OpenModel.Message
+﻿namespace IdeaRS.OpenModel.Message
 {
  
 	/// <summary>

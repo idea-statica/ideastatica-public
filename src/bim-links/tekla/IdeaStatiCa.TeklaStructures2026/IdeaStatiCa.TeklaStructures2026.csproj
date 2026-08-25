@@ -11,7 +11,7 @@
 	<ItemGroup>
 		<PackageReference Include="Autofac" />
 		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
-		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" VersionOverride="10.0.0" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" />
 		<PackageReference Include="morelinq" />
 		<PackageReference Include="System.Management" />

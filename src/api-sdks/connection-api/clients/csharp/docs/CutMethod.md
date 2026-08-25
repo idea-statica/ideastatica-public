@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.CutMethod
+Cut method
 
 ## Properties
 

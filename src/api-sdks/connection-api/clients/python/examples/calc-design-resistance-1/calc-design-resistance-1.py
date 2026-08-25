@@ -61,7 +61,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         maxPlateEps = stiffResLc1['maxPlateEps']
         maxWeldEps = stiffResLc1['maxWeldEps']
 
-        print(f"Joint design resitance: appliedLoadPercentage: {appliedLoadPercentage:.3f} maxPlateEps: {maxPlateEps:.3f} maxWeldEps: {maxWeldEps:.3f}")
+        print(f"Joint design resistance: appliedLoadPercentage: {appliedLoadPercentage:.3f} maxPlateEps: {maxPlateEps:.3f} maxWeldEps: {maxWeldEps:.3f}")
 
     except Exception as e:
         print("Operation failed : %s\n" % e)

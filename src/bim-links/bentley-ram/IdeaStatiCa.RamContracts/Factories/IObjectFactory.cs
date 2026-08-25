@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.BimApi;
-using IdeaStatiCa.RamToIdea.Geometry;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.Factories

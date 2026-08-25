@@ -1,10 +1,10 @@
-- name: Home
-  href: articles/
+- name: APIs
+  href: docs/api/
 - name: IOM
   href: docs/iom/
 - name: BIM API
   href: docs/bimapi/
-- name: API
-  href: docs/api/
 - name: Extensions
   href: docs/extensions/
+- name: Resources
+  href: articles/

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 #if !NET48
+using System.Collections.Generic;
 using System.Text.Json;
 #endif
 

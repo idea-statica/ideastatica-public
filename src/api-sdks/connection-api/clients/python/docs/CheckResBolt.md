@@ -1,13 +1,14 @@
 # CheckResBolt
 
+Check value for Bolts.    <strong>Bolt identification:</strong> Bolt identifiers (used as dictionary keys in raw CBFEM results  and reflected in IdeaRS.OpenModel.Connection.CheckResBolt.Name) are opaque internal solver identifiers. They may start at any number,  are not necessarily sequential, and may contain gaps. When a bolt group is exploded or bolt positions  are modified, the identifiers may shift. Do not perform arithmetic on bolt identifiers or assume  they correspond to a zero-based or one-based index. To map bolts to sequential positions,  sort the bolt keys numerically and use the resulting order.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**unity_check** | **float** |  | [optional] 
-**check_status** | **bool** |  | [optional] 
+**name** | **str** | Name of the bolt (e.g., \&quot;B15\&quot;). The numeric suffix is an opaque CBFEM solver identifier —  it may not start at 1 and may not be sequential. See IdeaRS.OpenModel.Connection.CheckResBolt remarks for details. | [optional] 
+**unity_check** | **float** | Unity Check | [optional] 
+**check_status** | **bool** | Status of the Check | [optional] 
 
 ## Example
 

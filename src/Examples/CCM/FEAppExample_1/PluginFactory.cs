@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Plugin;
-using System.IO;
 
 namespace FEAppExample_1
 {

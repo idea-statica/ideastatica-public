@@ -1,7 +1,4 @@
-﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.ConnectionApi.Model;
-using Newtonsoft.Json;
+﻿using IdeaStatiCa.Api.Connection.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,6 +33,14 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		Task<ConProject> CreateProjectFromIomFileAsync(string iomFilePath, List<int> connectionsToCreate = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 		Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+		/// <summary>
+		/// Creates a new empty IDEA Connection project from the given project metadata.
+		/// </summary>
+		/// <param name="projectData">Project metadata. Only <see cref="ConProjectData.CountryCode"/> needs to be set; it defaults to <see cref="IdeaRS.OpenModel.CountryCode.ECEN"/>.</param>
+		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+		/// <returns>The created project.</returns>
+		Task<ConProject> CreateProjectAsync(ConProjectData projectData, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
 	/// <summary>
@@ -59,12 +64,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		}
 
 		/// <inheritdoc cref="IProjectApiAsync.CloseProjectAsync(Guid, int, System.Threading.CancellationToken)"/>/>
-		public new async System.Threading.Tasks.Task<string> CloseProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		public new async System.Threading.Tasks.Task CloseProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			try
 			{
-				var res = await base.CloseProjectAsync(projectId, operationIndex, cancellationToken);
-				return res;
+				await base.CloseProjectAsync(projectId, operationIndex, cancellationToken);
 			}
 			finally
 			{
@@ -89,7 +93,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 		public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
-			var response = await base.DownloadProjectWithHttpInfoAsync(projectId, "application/octet-stream", 0, cancellationToken);
+			var response = await DownloadProjectWithHttpInfoAsync(projectId, "application/octet-stream", 0, cancellationToken);
 			byte[] buffer = (byte[])response.Data;
 			using (var fileStream = System.IO.File.Create(fileName))
 			{
@@ -100,7 +104,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		public async Task<ConProject> CreateProjectFromIomFileAsync(string fileName, List<int> connectionsToCreate = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			string xmlString = string.Empty;
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 			xmlString = await System.IO.File.ReadAllTextAsync(fileName);
 #else
 			xmlString = System.IO.File.ReadAllText(fileName);
@@ -121,7 +125,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		public async Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			string xmlString = string.Empty;
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 			xmlString = await System.IO.File.ReadAllTextAsync(iomFilePath);
 #else
 			xmlString = System.IO.File.ReadAllText(iomFilePath);
@@ -137,6 +141,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 				return response;
 			}
+		}
+
+		public async Task<ConProject> CreateProjectAsync(ConProjectData projectData, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			var conProject = await CreateEmptyProjectAsync(projectData, 0, cancellationToken);
+			this.ProjectId = conProject.ProjectId;
+			return conProject;
 		}
 
 	}

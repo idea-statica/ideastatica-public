@@ -1,11 +1,12 @@
 # OpenElementId
 
+Open element base class  POS - class can not be abstract -it causes problems with serialization
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
+**id** | **int** | Element Id | [optional] 
 
 ## Example
 

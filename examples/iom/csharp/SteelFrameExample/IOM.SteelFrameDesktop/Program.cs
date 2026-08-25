@@ -1,11 +1,9 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.Plugin;
 using IOM.GeneratorExample;
 using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace IOM.SteelFrameDesktop

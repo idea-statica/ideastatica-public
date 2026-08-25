@@ -1,7 +1,4 @@
-﻿using IdeaStatiCa.Plugin.Grpc;
-using IdeaStatiCa.Plugin.Grpc.Reflection;
-using NSubstitute;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace IdeaStatiCa.Plugin.Tests.gRPC
 {

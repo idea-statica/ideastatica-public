@@ -2,7 +2,7 @@
   <Import Project="..\..\..\Common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <Platforms>x64</Platforms>
   </PropertyGroup>

@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using IdeaRS.OpenModel.Material;
 using IdeaStatiCa.Api.Connection.Model.Material;
-using ST_ConnectionRestApi;
 
 namespace ST_ConnectionRestApi
 {

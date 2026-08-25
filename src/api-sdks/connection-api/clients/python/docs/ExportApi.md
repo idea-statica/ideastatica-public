@@ -4,10 +4,85 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
+[**export_dwg**](ExportApi.md#export_dwg) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT.
 [**export_ifc**](ExportApi.md#export_ifc) | Exports the connection to IFC format.
 [**export_iom**](ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
 [**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
 
+
+<a id="export_dwg"></a>
+# **export_dwg**
+> export_dwg(project_id, connection_id)
+
+Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened local project. | 
+ **connection_id** | **int**| The local id of the connection to export. | 
+
+### Return type
+
+void (empty response body)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def export_dwgExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened local project.
+    connection_id = 56 # int | The local id of the connection to export.
+
+    try:
+        # Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
+        api_client.export.export_dwg(project_id, connection_id)
+    except Exception as e:
+        print("Exception when calling ExportApi->export_dwg: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-dwg 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="export_ifc"></a>
 # **export_ifc**
@@ -67,7 +142,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/export-ifc 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-ifc 
 
 ### Authorization
 
@@ -83,6 +158,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -146,7 +224,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/export-iom 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-iom 
 
 ### Authorization
 
@@ -162,6 +240,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -224,7 +305,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
 
 ### Authorization
 
@@ -240,6 +321,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

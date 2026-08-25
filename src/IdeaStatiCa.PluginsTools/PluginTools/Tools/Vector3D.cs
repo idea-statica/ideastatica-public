@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using CI.Mathematics;
 
 namespace CI.Geometry3D
 {

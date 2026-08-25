@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Api.RCS.Model;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Xml.Linq;

@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -18,8 +19,20 @@ namespace IdeaStatiCa.BimImporter.Importers
 			var beam = connectionData.Beams.Find(b => b.OriginalModelId == member.Id);
 			if (beam != null)
 			{
+				Logger?.LogTrace($"BeamInConnectedPartsImporter: member={member.Id} found existing beam IsAdded={beam.IsAdded} — returning");
 				return beam;
 			}
+
+			// If this member is already a structural member of this connection (IsAdded=false),
+			// return it directly — do not add a duplicate IsAdded=true entry.
+			var structuralBeam = connectionData.Beams.Find(b => b.OriginalModelId == member.Id && !b.IsAdded);
+			if (structuralBeam != null)
+			{
+				Logger?.LogTrace($"BeamInConnectedPartsImporter: member={member.Id} found structural beam — returning without IsAdded=true");
+				return structuralBeam;
+			}
+
+			Logger?.LogTrace($"BeamInConnectedPartsImporter: member={member.Id} not found in Beams (count={connectionData.Beams?.Count}) — will create IsAdded=true. Existing IDs: {string.Join(", ", connectionData.Beams?.Select(b => b.OriginalModelId) ?? System.Linq.Enumerable.Empty<string>())}");
 
 
 			ReferenceElement referenceMember = ctx.Import(member);

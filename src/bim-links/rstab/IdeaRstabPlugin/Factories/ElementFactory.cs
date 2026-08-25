@@ -7,7 +7,6 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using MathNet.Numerics;
-using System;
 using System.Collections.Generic;
 using NMVector3D = MathNet.Spatial.Euclidean.Vector3D;
 using UnitVector3D = MathNet.Spatial.Euclidean.UnitVector3D;
@@ -123,23 +122,32 @@ namespace IdeaRstabPlugin.Factories
 		{
 			UnitVector3D axisX = GetAxisX(startNodeNo, endNodeNo);
 
+			// #35544 RSTAB classifies member orientation against the coordinate planes with an angular
+			// tolerance; a horizontal direction component below sin(tolAngle) must not steer the
+			// LCS azimuth, otherwise a mm-scale nodal offset rotates the whole LCS of an
+			// almost-vertical member.
+			double snapTol = System.Math.Sqrt(2 * Tolerance);
+			double refX = System.Math.Abs(axisX.X) < snapTol ? 0.0 : axisX.X;
+			double refY = System.Math.Abs(axisX.Y) < snapTol ? 0.0 : axisX.Y;
+
 			UnitVector3D axisZ, axisY;
-			if (axisX.Z.AlmostEqual(1.0, Tolerance))
+			UnitVector3D axisXRef = axisX;
+			
+			// column behavior
+			if (refX == 0.0 && refY == 0.0)
 			{
-				axisZ = UnitVector3D.XAxis.Negate();
-			}
-			else if (axisX.Z.AlmostEqual(-1.0, Tolerance))
-			{
-				axisZ = UnitVector3D.XAxis;
+				axisZ = axisX.Z > 0 ? UnitVector3D.XAxis.Negate() : UnitVector3D.XAxis;
 			}
 			else
 			{
 				axisZ = UnitVector3D.ZAxis;
-			}
+				axisXRef = UnitVector3D.Create(refX, refY, axisX.Z);
+			}		
 
+			axisY = axisZ.CrossProduct(axisXRef);
+			axisZ = axisX.CrossProduct(axisY);
 			axisY = axisZ.CrossProduct(axisX);
-			axisZ = axisX.CrossProduct(axisY);			
-			
+
 			return new CoordSystemByVector()
 			{
 				VecX = MNVector2Vector(axisX),

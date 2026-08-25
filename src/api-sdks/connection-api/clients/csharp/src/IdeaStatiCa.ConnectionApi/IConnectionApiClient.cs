@@ -8,7 +8,7 @@ namespace IdeaStatiCa.ConnectionApi
 	/// Client for accessing IdeaStatiCa.ConnectionRestApi
 	/// </summary>
 	public interface IConnectionApiClient : IApiClient
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 		, IAsyncDisposable
 #endif
 	{
@@ -31,6 +31,11 @@ namespace IdeaStatiCa.ConnectionApi
 		/// Get Calculation API
 		/// </summary>
 		ICalculationApiAsync Calculation { get; }
+
+		/// <summary>
+		/// Get CalculationJobs API (asynchronous calculation jobs - start, poll, cancel)
+		/// </summary>
+		ICalculationJobsApiAsync CalculationJobs { get; }
 
 		/// <summary>
 		/// Get Connection API

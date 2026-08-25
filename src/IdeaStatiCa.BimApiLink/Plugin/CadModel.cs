@@ -41,11 +41,12 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			=> _cadModel.GetOriginSettings();
 
 		public BulkSelection GetBulkSelection()
-		{
-			_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.AwaitingUserSelection, _applicationName);
-			IEnumerable<CadUserSelection> selections = _cadModel.GetUserSelections();
-			return ProcessSelection(selections);
-		}
+			{
+				_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.AwaitingUserSelection, _applicationName);
+				IEnumerable<CadUserSelection> selections = _cadModel.GetUserSelections();
+				_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.ImportingStructuralModel, _applicationName);
+				return ProcessSelection(selections);
+			}
 
 		public BulkSelection GetWholeModel()
 		{
@@ -94,11 +95,12 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		}
 
 		public SingleSelection GetSingleSelection()
-		{
-			_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.AwaitingUserSelection, _applicationName);
-			CadUserSelection selection = _cadModel.GetUserSelection();
-			_lastSelection = selection;
-			var nodes = new HashSet<IIdeaNode>();
+			{
+				_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.AwaitingUserSelection, _applicationName);
+				CadUserSelection selection = _cadModel.GetUserSelection();
+				_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.ImportingStructuralModel, _applicationName);
+				_lastSelection = selection;
+				var nodes = new HashSet<IIdeaNode>();
 
 			if (selection == null)
 			{

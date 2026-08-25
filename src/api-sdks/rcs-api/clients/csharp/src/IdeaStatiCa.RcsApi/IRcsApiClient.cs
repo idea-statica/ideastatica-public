@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.RcsApi.Api;
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 using System;
+#endif
 
 namespace IdeaStatiCa.RcsApi
 {
@@ -8,7 +10,7 @@ namespace IdeaStatiCa.RcsApi
 	/// Client for accessing IdeaStatiCa.ConnectionRestApi
 	/// </summary>
 	public interface IRcsApiClient : IApiClient
-#if NETSTANDARD2_1_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 		, IAsyncDisposable
 #endif
 	{

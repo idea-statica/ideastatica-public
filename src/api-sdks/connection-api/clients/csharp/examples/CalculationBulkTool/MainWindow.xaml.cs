@@ -33,7 +33,7 @@ namespace CalculationBulkTool
 			_logger.Information("Initializing MainWindow");
 			InitializeComponent();
 			ProjectsList.ItemsSource = projectFiles;
-			IdeaPathText.Text = ideaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\";
+			IdeaPathText.Text = ideaPath = @"C:\Program Files\IDEA StatiCa\StatiCa 26.0\";
 			this.Closed += MainWindow_Closed;
 			_logger.Information("MainWindow initialized with default IDEA path: {IdeaPath}", ideaPath);
 		}
@@ -87,8 +87,8 @@ namespace CalculationBulkTool
 			_logger.Information("Loading IDEA path via folder selection dialog.");
 			using (var dialog = new System.Windows.Forms.FolderBrowserDialog()
 			{
-				Description = "Select folder where is API v25",
-				SelectedPath = @"C:\Program Files\IDEA StatiCa\StatiCa 25.1\"
+				Description = "Select the IDEA StatiCa installation folder",
+				SelectedPath = @"C:\Program Files\IDEA StatiCa\StatiCa 26.0\"
 			})
 			{
 				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

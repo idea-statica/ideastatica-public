@@ -4,38 +4,48 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project
-[**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project
+[**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
+[**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project.
 [**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](MaterialApi.md#add_material_concrete) | Adds a material to the project.
+[**add_material_headed_stud_grade**](MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
+[**add_material_reinforcement**](MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](MaterialApi.md#add_material_weld) | Adds a material to the project.
+[**add_parametric_cross_section**](MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
+[**add_pin**](MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
 [**get_all_materials**](MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
+[**get_cross_section_detail**](MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
 [**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
+[**get_headed_stud_grade_materials**](MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
+[**get_material_library**](MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project&#39;s design code.
+[**get_pins**](MaterialApi.md#get_pins) | Gets pins used in the specified project.
+[**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
+[**update_parametric_cross_section**](MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
 
 
 <a id="add_bolt_assembly"></a>
 # **add_bolt_assembly**
-> add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
+> object add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
 
-Add bolt assembly to the project
+Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new bolt assemby to be added to the project | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new bolt assemby to be added to the project. | [optional] 
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Example
 
@@ -53,12 +63,15 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_bolt_assemblyExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new bolt assemby to be added to the project (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new bolt assemby to be added to the project. (optional)
 
     try:
-        # Add bolt assembly to the project
-        api_client.material.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
+        # Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
+        api_response = api_client.material.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_bolt_assembly:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling MaterialApi->add_bolt_assembly: %s\n" % e)
 ```
@@ -75,7 +88,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -84,33 +97,37 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_cross_section"></a>
 # **add_cross_section**
-> add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
+> object add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
 
-Add cross section to the project
+Add cross section to the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **con_mprl_cross_section** | [**ConMprlCrossSection**](ConMprlCrossSection.md)| Definition of a new cross-section to be added to the project | [optional] 
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_cross_section** | [**ConMprlCrossSection**](ConMprlCrossSection.md)| Definition of a new cross-section to be added to the project. | [optional] 
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Example
 
@@ -128,12 +145,15 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def add_cross_sectionExampleFunc(api_client):
     
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-    con_mprl_cross_section = ideastatica_connection_api.ConMprlCrossSection() # ConMprlCrossSection | Definition of a new cross-section to be added to the project (optional)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_cross_section = ideastatica_connection_api.ConMprlCrossSection() # ConMprlCrossSection | Definition of a new cross-section to be added to the project. (optional)
 
     try:
-        # Add cross section to the project
-        api_client.material.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
+        # Add cross section to the project.
+        api_response = api_client.material.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
+        print("The response of MaterialApi->add_cross_section:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling MaterialApi->add_cross_section: %s\n" % e)
 ```
@@ -150,7 +170,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/cross-sections 
+> **POST** /api/4/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -159,19 +179,23 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_bolt_grade"></a>
 # **add_material_bolt_grade**
-> add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
+> object add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -185,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Example
 
@@ -208,7 +232,10 @@ def add_material_bolt_gradeExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_client.material.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
+        api_response = api_client.material.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_bolt_grade:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_bolt_grade: %s\n" % e)
 ```
@@ -225,7 +252,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/4/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -234,19 +261,23 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_concrete"></a>
 # **add_material_concrete**
-> add_material_concrete(project_id, con_mprl_element=con_mprl_element)
+> object add_material_concrete(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -260,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Example
 
@@ -283,7 +314,10 @@ def add_material_concreteExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_client.material.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
+        api_response = api_client.material.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_concrete:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_concrete: %s\n" % e)
 ```
@@ -300,7 +334,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/concrete 
+> **POST** /api/4/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -309,19 +343,23 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="add_material_steel"></a>
-# **add_material_steel**
-> add_material_steel(project_id, con_mprl_element=con_mprl_element)
+<a id="add_material_headed_stud_grade"></a>
+# **add_material_headed_stud_grade**
+> object add_material_headed_stud_grade(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -335,7 +373,171 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**object**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_material_headed_stud_gradeExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
+
+    try:
+        # Adds a material to the project.
+        api_response = api_client.material.add_material_headed_stud_grade(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_headed_stud_grade:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->add_material_headed_stud_grade: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="add_material_reinforcement"></a>
+# **add_material_reinforcement**
+> object add_material_reinforcement(project_id, con_mprl_element=con_mprl_element)
+
+Adds a material to the project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
+
+### Return type
+
+**object**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_material_reinforcementExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of the new material to be added to the project. (optional)
+
+    try:
+        # Adds a material to the project.
+        api_response = api_client.material.add_material_reinforcement(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_reinforcement:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->add_material_reinforcement: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/reinforcement 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="add_material_steel"></a>
+# **add_material_steel**
+> object add_material_steel(project_id, con_mprl_element=con_mprl_element)
+
+Adds a material to the project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of the new material to be added to the project. | [optional] 
+
+### Return type
+
+**object**
 
 ### Example
 
@@ -358,7 +560,10 @@ def add_material_steelExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_client.material.add_material_steel(project_id, con_mprl_element=con_mprl_element)
+        api_response = api_client.material.add_material_steel(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_steel:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_steel: %s\n" % e)
 ```
@@ -375,7 +580,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/steel 
+> **POST** /api/4/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -384,19 +589,23 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="add_material_weld"></a>
 # **add_material_weld**
-> add_material_weld(project_id, con_mprl_element=con_mprl_element)
+> object add_material_weld(project_id, con_mprl_element=con_mprl_element)
 
 Adds a material to the project.
 
@@ -410,7 +619,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Example
 
@@ -433,7 +642,10 @@ def add_material_weldExampleFunc(api_client):
 
     try:
         # Adds a material to the project.
-        api_client.material.add_material_weld(project_id, con_mprl_element=con_mprl_element)
+        api_response = api_client.material.add_material_weld(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_material_weld:\n")
+        pprint(api_response)
+        return api_response
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_weld: %s\n" % e)
 ```
@@ -450,7 +662,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/3/projects/{projectId}/materials/welding 
+> **POST** /api/4/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -459,13 +671,182 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="add_parametric_cross_section"></a>
+# **add_parametric_cross_section**
+> ConCrossSectionDetail add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
+
+Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_cross_section_parametric_definition** | [**ConCrossSectionParametricDefinition**](ConCrossSectionParametricDefinition.md)| Shape type, dimensions and material of the new cross-section. | [optional] 
+
+### Return type
+
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_cross_section_detail import ConCrossSectionDetail
+from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_parametric_cross_sectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_cross_section_parametric_definition = ideastatica_connection_api.ConCrossSectionParametricDefinition() # ConCrossSectionParametricDefinition | Shape type, dimensions and material of the new cross-section. (optional)
+
+    try:
+        # Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+        api_response = api_client.material.add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
+        print("The response of MaterialApi->add_parametric_cross_section:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->add_parametric_cross_section: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/cross-sections/parametric 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="add_pin"></a>
+# **add_pin**
+> object add_pin(project_id, con_mprl_element=con_mprl_element)
+
+Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **con_mprl_element** | [**ConMprlElement**](ConMprlElement.md)| Definition of a new pin to be added to the project. | [optional] 
+
+### Return type
+
+**object**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_mprl_element import ConMprlElement
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def add_pinExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    con_mprl_element = ideastatica_connection_api.ConMprlElement() # ConMprlElement | Definition of a new pin to be added to the project. (optional)
+
+    try:
+        # Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
+        api_response = api_client.material.add_pin(project_id, con_mprl_element=con_mprl_element)
+        print("The response of MaterialApi->add_pin:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->add_pin: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/4/projects/{projectId}/materials/pin 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -525,7 +906,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials 
+> **GET** /api/4/projects/{projectId}/materials 
 
 ### Authorization
 
@@ -541,6 +922,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -600,7 +984,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -616,6 +1000,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -675,7 +1062,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/4/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -691,6 +1078,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -750,7 +1140,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/concrete 
+> **GET** /api/4/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -766,6 +1156,90 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_cross_section_detail"></a>
+# **get_cross_section_detail**
+> ConCrossSectionDetail get_cross_section_detail(project_id, css_id)
+
+Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **css_id** | **int**| Id of the cross-section in the project. | 
+
+### Return type
+
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_cross_section_detail import ConCrossSectionDetail
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_cross_section_detailExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    css_id = 56 # int | Id of the cross-section in the project.
+
+    try:
+        # Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        api_response = api_client.material.get_cross_section_detail(project_id, css_id)
+        print("The response of MaterialApi->get_cross_section_detail:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_cross_section_detail: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/{cssId} 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -825,7 +1299,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/cross-sections 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -841,6 +1315,324 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_headed_stud_grade_materials"></a>
+# **get_headed_stud_grade_materials**
+> List[object] get_headed_stud_grade_materials(project_id)
+
+Gets materials used in the specified project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+
+### Return type
+
+**List[object]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_headed_stud_grade_materialsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+
+    try:
+        # Gets materials used in the specified project.
+        api_response = api_client.material.get_headed_stud_grade_materials(project_id)
+        print("The response of MaterialApi->get_headed_stud_grade_materials:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_headed_stud_grade_materials: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_material_library"></a>
+# **get_material_library**
+> List[str] get_material_library(project_id, material_type)
+
+Lists the MPRL names available in the material library for the project's design code.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **material_type** | **str**| Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies). | 
+
+### Return type
+
+**List[str]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_material_libraryExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    material_type = 'material_type_example' # str | Material type to list (steel, concrete, bolt-grade, welding, headed-stud-grade, reinforcement, pin, cross-sections, bolt-assemblies).
+
+    try:
+        # Lists the MPRL names available in the material library for the project's design code.
+        api_response = api_client.material.get_material_library(project_id, material_type)
+        print("The response of MaterialApi->get_material_library:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_material_library: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/{materialType}/library 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_pins"></a>
+# **get_pins**
+> List[object] get_pins(project_id)
+
+Gets pins used in the specified project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+
+### Return type
+
+**List[object]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_pinsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+
+    try:
+        # Gets pins used in the specified project.
+        api_response = api_client.material.get_pins(project_id)
+        print("The response of MaterialApi->get_pins:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_pins: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/pin 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="get_reinforcement_materials"></a>
+# **get_reinforcement_materials**
+> List[object] get_reinforcement_materials(project_id)
+
+Gets materials used in the specified project.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+
+### Return type
+
+**List[object]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def get_reinforcement_materialsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+
+    try:
+        # Gets materials used in the specified project.
+        api_response = api_client.material.get_reinforcement_materials(project_id)
+        print("The response of MaterialApi->get_reinforcement_materials:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->get_reinforcement_materials: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/4/projects/{projectId}/materials/reinforcement 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -900,7 +1692,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/steel 
+> **GET** /api/4/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -916,6 +1708,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -975,7 +1770,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/3/projects/{projectId}/materials/welding 
+> **GET** /api/4/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -991,6 +1786,95 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="update_parametric_cross_section"></a>
+# **update_parametric_cross_section**
+> ConCrossSectionDetail update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
+
+Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **css_id** | **int**| Id of the parametric cross-section to replace. | 
+ **con_cross_section_parametric_definition** | [**ConCrossSectionParametricDefinition**](ConCrossSectionParametricDefinition.md)| Shape type, dimensions and material replacing the stored definition. | [optional] 
+
+### Return type
+
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_cross_section_detail import ConCrossSectionDetail
+from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def update_parametric_cross_sectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    css_id = 56 # int | Id of the parametric cross-section to replace.
+    con_cross_section_parametric_definition = ideastatica_connection_api.ConCrossSectionParametricDefinition() # ConCrossSectionParametricDefinition | Shape type, dimensions and material replacing the stored definition. (optional)
+
+    try:
+        # Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        api_response = api_client.material.update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
+        print("The response of MaterialApi->update_parametric_cross_section:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->update_parametric_cross_section: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId} 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**409** | Conflict |  -  |
+**422** | Unprocessable Content |  -  |
+**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

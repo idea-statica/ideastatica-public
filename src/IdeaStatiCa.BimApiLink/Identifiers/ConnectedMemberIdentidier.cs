@@ -1,5 +1,4 @@
-﻿using Castle.MicroKernel.SubSystems.Conversion;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
 
 namespace IdeaStatiCa.BimApiLink.Identifiers
 {

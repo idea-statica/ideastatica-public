@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Loading;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Detail.Loading

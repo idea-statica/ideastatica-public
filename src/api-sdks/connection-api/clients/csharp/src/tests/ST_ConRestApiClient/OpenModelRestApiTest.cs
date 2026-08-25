@@ -7,18 +7,6 @@ namespace ST_ConnectionRestApi
 		[SetUp]
 		public async Task SetUp()
 		{
-			//if (this.RunServer)
-			//{
-			//	ConnApiController = await ApiFactory.CreateConnectionApiClient();
-			//}
-			//else
-			//{
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-			//}
-
 			ConnectionApiClient = await ApiFactory.CreateApiClient();
 		}
 

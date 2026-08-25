@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace IdeaRS.OpenModel.Loading
+﻿namespace IdeaRS.OpenModel.Loading
 {
 	/// <summary>
 	/// Settlement of point support

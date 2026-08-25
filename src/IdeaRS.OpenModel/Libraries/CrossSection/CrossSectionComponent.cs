@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Geometry2D;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 

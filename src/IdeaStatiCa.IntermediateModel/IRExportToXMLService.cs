@@ -16,9 +16,21 @@ namespace IdeaStatiCa.IntermediateModel
 		readonly string EncodingKey = "encoding";
 
 		protected readonly IPluginLogger _logger;
+		private const bool EnableVerboseLogging = false;
+
 		public IRExportToXMLService(IPluginLogger logger)
 		{
 			this._logger = logger;
+		}
+
+		private void LogTraceIfEnabled(string message)
+		{
+			if (EnableVerboseLogging)
+			{
+#pragma warning disable CS0162 // Unreachable code detected
+				_logger.LogTrace(message);
+#pragma warning restore CS0162 // Unreachable code detected
+			}
 		}
 
 		/// <inheritdoc />
@@ -76,38 +88,38 @@ namespace IdeaStatiCa.IntermediateModel
 				switch (item)
 				{
 					case SPrimitive primitive:
-						{
-							ProcessPrimitiveItem(xmlItems, primitive);
-							break;
-						}
+					{
+						ProcessPrimitiveItem(xmlItems, primitive);
+						break;
+					}
 
 					case SAttribute attribute:
-						{
-							ProcessAttributeItem(xmlItems, usedNamespaces, attribute);
-							break;
-						}
+					{
+						ProcessAttributeItem(xmlItems, usedNamespaces, attribute);
+						break;
+					}
 
 					case SList list:
-						{
-							ProcessListItem(itemsTOProcess, list);
-							break;
-						}
+					{
+						ProcessListItem(itemsTOProcess, list);
+						break;
+					}
 
 					case SObject sObject:
-						{
-							ProcessObjectItem(irModel, itemsTOProcess, xmlItems, usedNamespaces, sObject);
-							break;
-						}
+					{
+						ProcessObjectItem(irModel, itemsTOProcess, xmlItems, usedNamespaces, sObject);
+						break;
+					}
 
 					case EndOfObject _:
-						{
-							ProcessEndItem(xmlItems);
+					{
+						ProcessEndItem(xmlItems);
 
-							break;
-						}
+						break;
+					}
 
 					default:
-						throw new InvalidOperationException($"Unknown object {item.GetType().FullName}");
+					throw new InvalidOperationException($"Unknown object {item.GetType().FullName}");
 				}
 			}
 
@@ -116,7 +128,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessEndItem(Stack<IXmlLineInfo> xmlItems)
 		{
-			_logger.LogTrace("Process End Of Object");
+			LogTraceIfEnabled("Process End Of Object");
 			var closedItem = xmlItems.Pop();
 			//assign closed element to parent
 
@@ -141,7 +153,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessObjectItem(SModel irModel, Stack<ISIntermediate> itemsTOProcess, Stack<IXmlLineInfo> xmlItems, Dictionary<string, XNamespace> usedNamespaces, SObject sObject)
 		{
-			_logger.LogTrace($"Process object {sObject.GetElementName()}");
+			LogTraceIfEnabled($"Process object {sObject.GetElementName()}");
 			//add information about closing tag
 			itemsTOProcess.Push(new EndOfObject());
 
@@ -158,7 +170,7 @@ namespace IdeaStatiCa.IntermediateModel
 			{
 				foreach (var namespaceItem in irModel.RootNameSpaces)
 				{
-					_logger.LogTrace($"Process object set root Namespace {namespaceItem.Value.NameSpace} Namespace value {namespaceItem.Value.Value}");
+					LogTraceIfEnabled($"Process object set root Namespace {namespaceItem.Value.NameSpace} Namespace value {namespaceItem.Value.Value}");
 					XNamespace xNamespace = namespaceItem.Value.NameSpace;
 					XNamespace @namespaceValue = namespaceItem.Value.Value;
 					newXmlItem.Add(new XAttribute(xNamespace + namespaceItem.Value.LocalName, @namespaceValue.NamespaceName));
@@ -172,7 +184,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessListItem(Stack<ISIntermediate> itemsTOProcess, SList list)
 		{
-			_logger.LogTrace($"Process list {list.GetElementName()}");
+			LogTraceIfEnabled($"Process list {list.GetElementName()}");
 			foreach (var listItem in list.AsEnumerable().Reverse())
 			{
 				itemsTOProcess.Push(listItem);
@@ -181,7 +193,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessAttributeItem(Stack<IXmlLineInfo> xmlItems, Dictionary<string, XNamespace> usedNamespaces, SAttribute attribute)
 		{
-			_logger.LogTrace($"Process attribute {attribute.GetElementValue()}");
+			LogTraceIfEnabled($"Process attribute {attribute.GetElementValue()}");
 			var parentXml = xmlItems.Peek();
 			if (parentXml is XElement parentElementXml)
 			{
@@ -199,12 +211,12 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessPrimitiveItem(Stack<IXmlLineInfo> xmlItems, SPrimitive primitive)
 		{
-			_logger.LogTrace($"Process primitive {primitive.GetElementValue()}");
+			LogTraceIfEnabled($"Process primitive {primitive.GetElementValue()}");
 			var parentXml = xmlItems.Peek();
 
 			if (parentXml is XElement parentElementXml)
 			{
-				parentElementXml.Value = (!string.IsNullOrEmpty(primitive.Value) ? primitive.Value.ToString() : "");
+				parentElementXml.Value = !string.IsNullOrEmpty(primitive.Value) ? primitive.Value.ToString() : "";
 			}
 			else
 			{

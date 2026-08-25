@@ -1,7 +1,6 @@
 ﻿using BimApiLinkCadExample.BimApi;
 using BimApiLinkCadExample.CadExampleApi;
 using IdeaStatiCa.BimApiLink.BimApi;
-using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;

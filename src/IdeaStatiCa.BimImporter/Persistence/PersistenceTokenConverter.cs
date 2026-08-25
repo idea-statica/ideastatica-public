@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace IdeaStatiCa.BimImporter.Persistence
@@ -22,10 +23,34 @@ namespace IdeaStatiCa.BimImporter.Persistence
 						jsonSerializer = JsonSerializer.Create(new JsonSerializerSettings
 						{
 							TypeNameHandling = TypeNameHandling.All,
-							TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
+							TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+							Converters = new List<JsonConverter> { new TypeJsonConverter() }
 						}
 					)
 				);
+		}
+
+		/// <summary>
+		/// Handles serialization of <see cref="System.Type"/> properties using version-tolerant type resolution.
+		/// Newtonsoft's default Type converter uses Type.GetType which requires an exact version match.
+		/// </summary>
+		private sealed class TypeJsonConverter : JsonConverter<Type>
+		{
+			public override Type ReadJson(JsonReader reader, Type objectType, Type existingValue, bool hasExistingValue, JsonSerializer serializer)
+			{
+				if (reader.TokenType == JsonToken.Null)
+				{
+					return null;
+				}
+
+				string typeStr = (string)reader.Value;
+				return Type.GetType(typeStr, AssemblyResolver, TypeResolver, false, false);
+			}
+
+			public override void WriteJson(JsonWriter writer, Type value, JsonSerializer serializer)
+			{
+				writer.WriteValue(value?.AssemblyQualifiedName);
+			}
 		}
 
 		public override bool CanConvert(Type objectType)
@@ -44,7 +69,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			// get the type
 			Type type = Type.GetType(
 				typeStr,
-				null,
+				AssemblyResolver,
 				TypeResolver,
 				false,
 				false);
@@ -71,6 +96,21 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				writer, new JsonConverter[] { this });
 
 			writer.WriteEndObject();
+		}
+
+		private static Assembly AssemblyResolver(AssemblyName assemblyName)
+		{
+			// Try to find already-loaded assembly by simple name, ignoring version differences
+			// (handles cases where persisted JSON references an older version of the assembly)
+			foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				if (string.Equals(loaded.GetName().Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase))
+				{
+					return loaded;
+				}
+			}
+
+			return Assembly.Load(assemblyName);
 		}
 
 		private static Type TypeResolver(Assembly assembly, string name, bool ignoreCase)

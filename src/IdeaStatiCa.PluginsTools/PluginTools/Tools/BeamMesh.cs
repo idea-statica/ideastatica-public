@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CI.Geometry3D
+﻿namespace CI.Geometry3D
 {
 
 	public class BeamMesh: IBeamMesh

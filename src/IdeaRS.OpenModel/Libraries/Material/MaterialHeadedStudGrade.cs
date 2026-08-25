@@ -14,6 +14,7 @@ namespace IdeaRS.OpenModel.Material
 	[XmlInclude(typeof(MaterialHeadedStudGradeEc2))]
 	[XmlInclude(typeof(MaterialHeadedStudGradeAISC))]
 	[XmlInclude(typeof(MaterialHeadedStudGradeAUS))]
+	[XmlInclude(typeof(MaterialHeadedStudGradeCAN))]
 	public class MaterialHeadedStudGrade : Material
 	{
 		#region Properties

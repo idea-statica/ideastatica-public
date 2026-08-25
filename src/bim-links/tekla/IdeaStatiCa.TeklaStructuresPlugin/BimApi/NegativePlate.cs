@@ -7,7 +7,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 		public NegativePlate(string no)
 			: base(no)
 		{
-			Name = $"NP{No}";
 		}
 	}
 }
