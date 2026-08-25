@@ -19,10 +19,9 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
+    <!-- Published SDK from nuget.org instead of the in-repo client project, so this example
+         builds standalone against a released API version. -->
+    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="26.0.4.1707" />
   </ItemGroup>
 
 </Project>

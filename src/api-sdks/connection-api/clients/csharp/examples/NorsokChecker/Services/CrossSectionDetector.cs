@@ -1,4 +1,3 @@
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.ConnectionApi;

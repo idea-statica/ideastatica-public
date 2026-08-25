@@ -1,4 +1,3 @@
-using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
 
 namespace NorsokChecker.Services
