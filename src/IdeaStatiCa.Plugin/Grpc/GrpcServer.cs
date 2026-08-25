@@ -59,7 +59,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		private void Start()
 		{
-			Logger.LogDebug($"GrpcServer.Start listening on port {Host}:{Port}");
+			Logger.LogInformation($"GrpcServer.Start : binding on {Host}:{Port}");
 
 			Grpc.GrpcService.GrpcServiceBase grpcServiceBase = (Grpc.GrpcService.GrpcServiceBase)GrpcService;
 			server = new Server(CommunicationTools.GetChannelOptions(MaxDataLength))
@@ -74,6 +74,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			};
 
 			server.Start();
+			Logger.LogInformation($"GrpcServer.Start : server started, listening on {Host}:{Port}");
 		}
 
 		/// <summary>
