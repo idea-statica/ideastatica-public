@@ -1609,7 +1609,9 @@ function renderConnection(){
     const note=sec.geom_note?` <span class="warn" title="${sec.geom_note}">&#9888;</span>`:'';
     return `${nm} ${src}${note}`;
   };
-  const braceRows=DATA.braces.map(b=>`<tr><td>${b.name}</td><td class="val">${secCell(b.section)}</td><td class="val">${U.deg(b.theta_deg)}</td><td class="val">${b.beta!=null?U.num(b.beta):'?'}</td><td class="val ${b.coplanar_dev_deg>ctolDeg?'err':''}">${U.deg(b.coplanar_dev_deg)}</td><td>${fitCell(b.name)}</td></tr>`).join('');
+  // D/T are mm in the payload; show them in the chosen section unit/decimals
+  const dimCell=(mm)=> (mm==null||!isFinite(mm)) ? '<span class="muted">&mdash;</span>' : U.secLenMm(mm);
+  const braceRows=DATA.braces.map(b=>`<tr><td>${b.name}</td><td class="val">${secCell(b.section)}</td><td class="val">${dimCell(b.section.D)}</td><td class="val">${dimCell(b.section.T)}</td><td class="val">${U.deg(b.theta_deg)}</td><td class="val">${b.beta!=null?U.num(b.beta):'?'}</td><td class="val ${b.coplanar_dev_deg>ctolDeg?'err':''}">${U.deg(b.coplanar_dev_deg)}</td><td>${fitCell(b.name)}</td></tr>`).join('');
   const v=DATA.verdict||{status:'?',errors:[],warnings:[]};
   const vcol={OK:'#1a7f37',WARNING:'#b35900',ERROR:'#c0392b'}[v.status]||'#666';
   const vbg ={OK:'#eaf7ee',WARNING:'#fff7e6',ERROR:'#fdecea'}[v.status]||'#f0f0f0';
@@ -1634,8 +1636,8 @@ function renderConnection(){
     <div class="splitter" id="splitter" title="Drag to resize the info panel"></div>
     <div class="info-panel panel">
       <h3>Members (${DATA.connection})</h3>
-      <table><tr><th>member</th><th>section</th><th title="angle between the brace and the chord axis">θ</th><th title="diameter ratio, brace/chord">β</th><th title="deviation of this brace's axis from the reference joint plane">dev⊥</th><th title="✓ used to build the plane · – excluded from fit · ✗ beyond tolerance (multiplanar)">fit</th></tr>
-        <tr><td>${DATA.chord.name} <span class="muted">(chord)</span></td><td class="val">${DATA.chord.section.name||'?'}</td><td>—</td><td>—</td><td>—</td><td class="muted" title="chord defines the plane axis">ax</td></tr>
+      <table><tr><th>member</th><th>section</th><th title="outer diameter — read from the modelled section, not from its name">D [${U.slU()}]</th><th title="wall thickness — read from the modelled section, not from its name">T [${U.slU()}]</th><th title="angle between the brace and the chord axis">θ</th><th title="diameter ratio, brace/chord">β</th><th title="deviation of this brace's axis from the reference joint plane">dev⊥</th><th title="✓ used to build the plane · – excluded from fit · ✗ beyond tolerance (multiplanar)">fit</th></tr>
+        <tr><td>${DATA.chord.name} <span class="muted">(chord)</span></td><td class="val">${secCell(DATA.chord.section)}</td><td class="val">${dimCell(DATA.chord.section.D)}</td><td class="val">${dimCell(DATA.chord.section.T)}</td><td>—</td><td>—</td><td>—</td><td class="muted" title="chord defines the plane axis">ax</td></tr>
         ${braceRows}
       </table>
       ${(DATA.params_all&&DATA.params_all.length)?`<h3>Parameters (per brace)</h3>

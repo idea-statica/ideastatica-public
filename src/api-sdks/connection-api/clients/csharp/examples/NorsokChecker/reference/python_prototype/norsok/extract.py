@@ -577,10 +577,25 @@ def joint_checks_all_les(chord_sec, brace_secs, params_by_name, brace_forces, cl
             d_mm, t_mm = bsec.get("D"), bsec.get("T")
             fy_brace = bsec.get("fy")
             theta_deg = par.get("theta_deg")
-            # guard: need full chord+brace geometry, chord material, and a classification
-            if not (D_mm and T_mm and fy_chord and d_mm and t_mm and theta_deg and cl):
+            # guard: need full chord+brace geometry, chord material, and a classification.
+            # theta is tested for None, NOT for truthiness: theta==0.0 is a real measurement
+            # (brace parallel to the chord) and reporting it as "missing data" hides the actual
+            # reason, which the verdict already states as a degenerate-geometry error.
+            missing = [what for what, val in (("chord D", D_mm), ("chord T", T_mm),
+                                              ("chord f_y", fy_chord), ("brace d", d_mm),
+                                              ("brace t", t_mm)) if not val]
+            if theta_deg is None:
+                missing.append("theta")
+            if cl is None:
+                missing.append("K/Y/X classification")
+            if missing:
                 rows.append({"name": nm, "skipped": True,
-                             "reason": "missing section/material/classification data"})
+                             "reason": "missing " + ", ".join(missing)})
+                continue
+            if theta_deg <= 0.0:
+                rows.append({"name": nm, "skipped": True,
+                             "reason": f"theta={theta_deg:.1f}deg - brace parallel to the chord, "
+                                       f"no joint plane to check in"})
                 continue
             # A brace with no axial classification (frK=frY=frX=0, e.g. N_Sd≈0 -> "no transverse
             # force") has no chord-wall axial resistance to divide by -> the axial term of eq. (6.57)
