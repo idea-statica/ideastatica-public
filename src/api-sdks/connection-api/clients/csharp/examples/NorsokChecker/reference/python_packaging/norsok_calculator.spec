@@ -1,19 +1,23 @@
 import os
 
-# PyInstaller spec — one-dir build of the NORSOK Joint Calculator.
+# PyInstaller spec — single-file build of the NORSOK Joint Calculator.
 #
 # Build (from THIS folder):
 #   py -m PyInstaller norsok_calculator.spec --noconfirm
-# Result: dist/NorsokJointCalculator/NorsokJointCalculator.exe  (ship the whole folder, zipped)
+# Result: dist/NorsokJointCalculator.exe — one file, hand that over as is.
 # See README.md next to this file.
 #
-# One-dir, not one-file, on purpose: it starts immediately (no unpacking on every launch), the
-# log lands next to the exe where the user can find it, and a failure is diagnosable because the
-# parts are visible. The trade-off is that the customer gets a folder, not a single file.
+# One-file: 25 MB and nothing to explain to the recipient. Measured against the one-dir
+# alternative (a 57 MB folder whose exe alone does not run): one-file costs about 5 s at launch,
+# because it unpacks itself into a temp folder every time. That is nothing next to starting the
+# REST service, and it removes the "do not take the exe out of the folder" trap.
+#
+# The usual one-file objection — "the log disappears into temp" — does not apply here: app.py
+# keeps BUNDLE_DIR (sys._MEIPASS, the temp unpack, read-only bundled files) apart from DATA_DIR
+# (sys.executable's folder, where we write), so norsok_app.log lands beside the exe. Verified.
 #
 # ui.html and lib/ are bundled at the TOP level of the bundle, because ui.html loads its
-# libraries with relative paths ("lib/three.min.js"); app.py resolves it through BUNDLE_DIR
-# (sys._MEIPASS when frozen), while the log goes to DATA_DIR (next to the exe).
+# libraries with relative paths ("lib/three.min.js"); app.py resolves them through BUNDLE_DIR.
 #
 # Not bundled: the IDEA StatiCa REST service. The app locates an installed one at run time
 # (26.0 or newer — see service_exe in app.py).
@@ -46,22 +50,17 @@ a = Analysis(
 )
 pyz = PYZ(a.pure)
 
+# Single file: EXE takes the binaries and datas directly and there is no COLLECT — that absence
+# is what makes it one-file in PyInstaller 6 (there is no 'onefile' argument).
 exe = EXE(
     pyz,
     a.scripts,
+    a.binaries,
+    a.datas,
     [],
-    exclude_binaries=True,
     name='NorsokJointCalculator',
     debug=False,
     strip=False,
     upx=False,
     console=False,          # windowed: the UI is the window, diagnostics go to norsok_app.log
-)
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.datas,
-    strip=False,
-    upx=False,
-    name='NorsokJointCalculator',
 )
