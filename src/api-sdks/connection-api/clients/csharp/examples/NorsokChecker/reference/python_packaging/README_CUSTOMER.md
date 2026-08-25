@@ -15,8 +15,8 @@ Ships as a single `NorsokJointCalculator.exe`. Nothing to install.
 
 ## Running it
 
-Double-click `NorsokJointCalculator.exe` and open an `.ideaCon` project. The first launch takes a
-few seconds longer while the program unpacks itself.
+Double-click `NorsokJointCalculator.exe` and open an `.ideaCon` project. Allow a few seconds for
+the window to appear.
 
 The IDEA StatiCa service is handled for you:
 
@@ -44,11 +44,6 @@ even one whose own geometry is sound.
 Warnings do not stop the check. The validity ranges of 6.4.3.1 (β, γ, θ) are reported as warnings
 because the standard's own rule there is to compute with the parameters clamped to the range and
 keep the lower capacity.
-
-## Scope
-
-Chapter **6.4** — tubular joints. Chapter 6.3 (tubular members) is not included, so no member
-checks are performed.
 
 ## If something goes wrong
 
