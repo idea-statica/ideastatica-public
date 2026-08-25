@@ -13,7 +13,15 @@ import requests, math, os
 import numpy as np
 from .n64 import JointInput, check_joint, C_coeffs   # NORSOK 6.4 resistance engine (same package)
 
-BASE = "http://localhost:5000/api/4"
+BASE = "http://127.0.0.1:5000/api/4"
+
+
+def set_base(base):
+    """Point this module at the service app.py actually reached. app.py owns the service
+    lifecycle and picks the port (a free one when it launches the service itself), so BASE
+    above is only the default for a service already running on the standard port."""
+    global BASE
+    BASE = base
 
 # ---- assumption-check tolerances (NORSOK + our layer-1 policy) ----
 COPLANAR_WARN_DEG = 5.0     # 0-5 OK silently; 5-15 warning

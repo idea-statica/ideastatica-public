@@ -17,16 +17,37 @@ Lifecycle:
   - extract geometry (extract.py) and hand JSON to the UI
   - on window close, shut the service down ONLY if we started it
 """
-import os, sys, time, subprocess, json, logging, traceback
+import os, sys, time, socket, subprocess, json, logging, traceback
 from logging.handlers import RotatingFileHandler
 import requests
 import webview
 from norsok import extract   # data/API + NORSOK calc layer (extract.py + n64.py/n63.py live in norsok/)
 
 EXE = r"C:\Program Files\IDEA StatiCa\StatiCa 26.0\IdeaStatiCa.ConnectionRestApi.exe"
-BASE = "http://localhost:5000/api/4"
-VERSION_EP = f"{BASE}/clients/idea-service-version"
+# Port of a service we did NOT start: the service's own default. Only used to detect an
+# already-running instance; a service we launch ourselves gets a free port (see start_service).
+DEFAULT_PORT = 5000
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def api_base(port):
+    return f"http://127.0.0.1:{port}/api/4"
+
+
+def version_ep(port):
+    return f"{api_base(port)}/clients/idea-service-version"
+
+
+def free_port():
+    """Let the OS pick a free port (bind to 0, read it back, release). Same approach as the
+    C# ConnectionApiServiceRunner — passing it to the service with -port= makes a port
+    collision impossible, so the app never fails because something else holds 5000."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+    finally:
+        s.close()
 
 # --- logging ---------------------------------------------------------------
 # One rotating log (norsok_app.log) next to the app. It records not just crashes but the normal
@@ -45,17 +66,22 @@ log.info("=" * 60)
 log.info("NORSOK Joint Calculator starting — log at %s", LOG_PATH)
 
 
-def service_alive(timeout=2):
+def service_alive(port, timeout=2):
     try:
-        r = requests.get(VERSION_EP, timeout=timeout)
+        r = requests.get(version_ep(port), timeout=timeout)
         return r.status_code == 200
     except Exception:
         return False
 
 
+def service_version(port, timeout=4):
+    return requests.get(version_ep(port), timeout=timeout).text.strip().strip('"')
+
+
 class Api:
     def __init__(self):
         self._owns_service = False   # True only if WE launched the exe
+        self._port = DEFAULT_PORT
         self._proc = None
         self._session = None
         self._pid = None
@@ -63,29 +89,37 @@ class Api:
 
     # ---- service lifecycle ----
     def ensure_service(self):
-        """Return dict {ok, started_by_us, version, msg}."""
-        if service_alive():
-            ver = requests.get(VERSION_EP, timeout=4).text.strip().strip('"')
+        """Return dict {ok, started_by_us, version, msg}.
+
+        An instance already listening on the service's default port is reused as-is (we never
+        own it). Otherwise we launch our own on an OS-assigned free port, so a busy 5000 —
+        another IDEA app, an unrelated dev server — can no longer stop this app from starting."""
+        if service_alive(DEFAULT_PORT):
+            self._port = DEFAULT_PORT
+            ver = service_version(DEFAULT_PORT)
             return {"ok": True, "started_by_us": False, "version": ver,
-                    "msg": f"Service already running (v{ver}) — not taking it over."}
+                    "msg": f"Service already running on port {DEFAULT_PORT} (v{ver}) — not taking it over."}
         if not os.path.exists(EXE):
             return {"ok": False, "msg": f"REST service exe not found:\n{EXE}"}
+        port = free_port()
         try:
             # no shell, fixed path, no user input -> no injection surface
-            self._proc = subprocess.Popen([EXE],
+            # -port= is the service's own switch (the standard ASP.NET --urls is ignored by it)
+            self._proc = subprocess.Popen([EXE, f"-port={port}"],
                                           stdout=subprocess.DEVNULL,
                                           stderr=subprocess.DEVNULL)
         except Exception as e:
             return {"ok": False, "msg": f"Failed to start the service: {e}"}
         # wait up to ~30 s for it to come up
         for _ in range(60):
-            if service_alive(timeout=1):
+            if service_alive(port, timeout=1):
                 self._owns_service = True
-                ver = requests.get(VERSION_EP, timeout=4).text.strip().strip('"')
+                self._port = port
+                ver = service_version(port)
                 return {"ok": True, "started_by_us": True, "version": ver,
-                        "msg": f"Service started by us (v{ver}) — it will be shut down on exit."}
+                        "msg": f"Service started by us on port {port} (v{ver}) — it will be shut down on exit."}
             time.sleep(0.5)
-        return {"ok": False, "msg": "Service did not come up within 30 s."}
+        return {"ok": False, "msg": f"Service did not come up on port {port} within 30 s."}
 
     def shutdown_service(self):
         """Close project; kill the exe only if we started it."""
@@ -125,6 +159,9 @@ class Api:
         if not st["ok"]:
             log.error("open_file: service not available: %s", st["msg"])
             return {"error": st["msg"]}
+        # the port is only known once the service is up — point extract.py at the same one
+        extract.set_base(api_base(self._port))
+        log.info("service at %s (owned by us: %s)", api_base(self._port), self._owns_service)
         try:
             if self._session is None:
                 self._session = requests.Session()
