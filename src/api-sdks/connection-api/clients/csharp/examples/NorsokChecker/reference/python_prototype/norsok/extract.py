@@ -849,10 +849,10 @@ def identify_chord(members, xm):
 
     The chord is the CONTINUOUS member with the largest diameter — that is what NORSOK 6.4
     means by a chord: the through member the braces land on. `isBearing` is deliberately NOT
-    used: it is a modelling choice the user can put on any member (it decides which member
-    carries the others in the FE model), so a joint can legitimately have its bearing flag on
-    a brace. Selecting by it silently referenced every theta, beta, gamma and gap to the wrong
-    member — a brace can then come out as the chord and beta exceed 1.0.
+    used and not remarked on: it is a modelling choice the user may put on any member (it
+    decides which member carries the others in the FE model), so a bearing brace is a normal
+    model, not something to flag. Selecting by it silently referenced every theta, beta, gamma
+    and gap to the wrong member — a brace could come out as the chord and beta exceed 1.0.
 
     Never raises: it flags problems so the viewer can show them.
     """
@@ -877,11 +877,6 @@ def identify_chord(members, xm):
         warns.append("No continuous member — NORSOK 6.4 needs a through chord; "
                      f"showing {chord.get('name')} (largest diameter) for reference only.")
 
-    bearings = [m for m in members if m.get("isBearing")]
-    if bearings and chord not in bearings:
-        warns.append(f"Bearing member is {bearings[0].get('name')}, chord is "
-                     f"{chord.get('name')} — the bearing flag is a modelling choice and does "
-                     f"not define the chord.")
     return chord, warns
 
 # ---------- build payload for one connection ----------
