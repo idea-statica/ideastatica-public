@@ -1,5 +1,12 @@
 # Norsok Checker — Analysis & Implementation Plan
 
+> **Status, August 2026 — this document describes §6.3 as a live feature; it no longer is.**
+> §6.3 (tubular members) has been disconnected from the UI and the check pipeline, and chapter 5
+> (design classification) has been removed. The §6.3 formula analysis below stays valid and is the
+> starting point for whoever re-enables it — see `CHAPTER_63_FINDINGS.md` for why it was
+> mothballed and what re-enabling requires. What the app checks today: the CBFEM plate/weld/bolt
+> group (optional) and §6.4 tubular joints.
+
 ## Overview
 
 A WPF desktop application that evaluates steel connection designs against **NORSOK N-004 Rev. 3** (Design of Steel Structures) requirements using the IDEA StatiCa Connection API. The tool:

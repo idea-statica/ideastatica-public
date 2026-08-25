@@ -1,5 +1,11 @@
 # Norsok Checker — Benchmark Verification
 
+> **Status, August 2026.** The §6.3 hand calculations below remain valid — they are the only
+> verification the §6.3 formulas have, and they are why the code was mothballed rather than
+> deleted. §6.3 is no longer called by the app, so nothing re-runs these numbers when the code
+> changes; pinning them as unit tests is the first step of any re-enabling. See
+> `CHAPTER_63_FINDINGS.md`.
+
 ## Test Case: CHS 500×20, S355, norsok.ideaCon
 
 ### Input Data

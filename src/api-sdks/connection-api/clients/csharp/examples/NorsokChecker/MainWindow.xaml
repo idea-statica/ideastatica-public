@@ -166,9 +166,7 @@
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="Chapters:" FontWeight="Medium" VerticalAlignment="Center"
                                        Foreground="#546E7A" Margin="0,0,10,0"/>
-                            <CheckBox x:Name="ChkChapter5" Content="§5 Classification" IsChecked="True" Margin="0,0,12,0"/>
                             <CheckBox x:Name="ChkChapterCbfem" Content="CBFEM plates/welds" IsChecked="True" Margin="0,0,12,0"/>
-                            <CheckBox x:Name="ChkChapter63" Content="§6.3 Members" IsChecked="True" Margin="0,0,12,0"/>
                             <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="True"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -216,60 +214,10 @@
                                     <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="55"/>
                                     <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="50"/>
                                     <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" Width="SizeToHeader" MinWidth="60"/>
-                                    <DataGridTextColumn Header="L [mm]" Binding="{Binding L, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="SizeToHeader" MinWidth="55"
-                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
-                                    <DataGridTextColumn Header="k" Binding="{Binding K, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="SizeToHeader" MinWidth="35"
-                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
-                                    <DataGridTextColumn Header="M1y [kNm]" Binding="{Binding M1y, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="60"
-                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
-                                    <DataGridTextColumn Header="M1z [kNm]" Binding="{Binding M1z, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="60"
-                                                        Foreground="{StaticResource IdeaOrangeBrush}"/>
                                     <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>
-                    </Expander>
-
-                    <!-- Design Classification (§5) -->
-                    <Expander IsExpanded="False" Margin="0,0,0,4" Background="Transparent">
-                        <Expander.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="Certificate" Width="18" Height="18" VerticalAlignment="Center"
-                                             Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
-                                <TextBlock Text="Design Classification (§5)" FontWeight="Medium"/>
-                            </StackPanel>
-                        </Expander.Header>
-                        <Grid Margin="8,4,8,4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="24"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="24"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <!-- Row 0: DC selection -->
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Design Class:" VerticalAlignment="Center" Margin="0,0,8,6"/>
-                            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="CmbDesignClass" SelectedIndex="0" Margin="0,0,0,6">
-                                <ComboBoxItem Content="DC1 — High consequence, no residual, complex"/>
-                                <ComboBoxItem Content="DC2 — High consequence, no residual, simple"/>
-                                <ComboBoxItem Content="DC3 — Residual strength, complex"/>
-                                <ComboBoxItem Content="DC4 — Residual strength, simple"/>
-                                <ComboBoxItem Content="DC5 — No substantial consequences"/>
-                            </ComboBox>
-                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Fatigue:" VerticalAlignment="Center" Margin="0,0,8,6"/>
-                            <ComboBox Grid.Row="0" Grid.Column="4" x:Name="CmbFatigueUtil" SelectedIndex="0" Margin="0,0,0,6">
-                                <ComboBoxItem Content="Low (DFF ≥ 3)"/>
-                                <ComboBoxItem Content="High (DFF &lt; 3)"/>
-                            </ComboBox>
-                            <CheckBox Grid.Row="0" Grid.Column="6" x:Name="ChkThroughThickness"
-                                      Content="Through-thickness stresses" VerticalAlignment="Center" Margin="0,0,0,6"/>
-                        </Grid>
                     </Expander>
 
                     <!-- Joint Configuration (§6.4) — only enabled for all-CHS connections -->

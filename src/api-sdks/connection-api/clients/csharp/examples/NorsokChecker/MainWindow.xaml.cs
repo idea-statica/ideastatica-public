@@ -226,103 +226,96 @@ namespace NorsokChecker
 				ShowStatus("Running NORSOK N-004 compliance check...");
 				Log("Starting Norsok N-004 compliance check...");
 
-				// ── Calculate all connections ──
+				// ── Chapter toggles — read first: they decide whether a calculation is needed ──
+				bool includeCbfem = ChkChapterCbfem.IsChecked == true;
+				bool includeCh64 = ChkChapter64.IsChecked == true;
+				Log($"Chapters: CBFEM={(includeCbfem ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}");
+
 				var connectionIds = _connections.Select(c => c.Id).ToList();
-
-				foreach (var con in _connections)
-					con.Status = "Calculating...";
-
-				ShowStatus("Running CBFEM calculation...");
-				Log("Running CBFEM calculation...");
-				var calcResults = await _apiClient.Calculation.CalculateAsync(_projectId, connectionIds);
-
-				ShowStatus("Retrieving raw results...");
-				Log("Retrieving raw JSON results...");
-				var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, connectionIds);
-
-				// Store per-connection raw results
 				_rawResultsPerConnection.Clear();
-				for (int idx = 0; idx < connectionIds.Count && idx < rawResults.Count; idx++)
-					_rawResultsPerConnection[connectionIds[idx]] = rawResults[idx];
 
-				// Update connection status from structured results
-				for (int idx = 0; idx < _connections.Count && idx < calcResults.Count; idx++)
+				// ── Calculate only for the CBFEM plate/weld/bolt group ──
+				// §6.4 needs load effects and geometry only, so with CBFEM off the calculation is
+				// skipped entirely — the engine run is by far the most expensive step here.
+				if (includeCbfem)
 				{
-					var con = _connections[idx];
-					var summary = calcResults[idx];
-					double maxUtil = 0;
-					foreach (var s in summary.ResultSummary ?? new())
-					{
-						if (!s.Skipped && s.CheckValue > maxUtil)
-							maxUtil = s.CheckValue;
-					}
-					con.MaxUtilization = maxUtil;
-					con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
-				}
+					foreach (var con in _connections)
+						con.Status = "Calculating...";
 
-				// ── Refine member shapes from raw results plate names ──
-				if (rawResults.Count > 0)
-				{
-					try
-					{
-						var parsed = RawResultsParser.Parse(rawResults[0]);
-						Log($"  Raw results: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
+					ShowStatus("Running CBFEM calculation...");
+					Log("Running CBFEM calculation...");
+					var calcResults = await _apiClient.Calculation.CalculateAsync(_projectId, connectionIds);
 
-						// Detect shape per member from plate names
-						foreach (var member in _members)
+					ShowStatus("Retrieving raw results...");
+					Log("Retrieving raw JSON results...");
+					var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, connectionIds);
+
+					// Store per-connection raw results
+					for (int idx = 0; idx < connectionIds.Count && idx < rawResults.Count; idx++)
+						_rawResultsPerConnection[connectionIds[idx]] = rawResults[idx];
+
+					// Update connection status from structured results
+					for (int idx = 0; idx < _connections.Count && idx < calcResults.Count; idx++)
+					{
+						var con = _connections[idx];
+						var summary = calcResults[idx];
+						double maxUtil = 0;
+						foreach (var s in summary.ResultSummary ?? new())
 						{
-							string prefix = $"{member.Name}-";
-							var memberPlates = parsed.Plates
-								.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-								.ToList();
+							if (!s.Skipped && s.CheckValue > maxUtil)
+								maxUtil = s.CheckValue;
+						}
+						con.MaxUtilization = maxUtil;
+						con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
+					}
 
-							if (memberPlates.Count > 0)
+					// ── Refine member wall thickness and f_y from raw results plate names ──
+					// The shape itself comes from CrossSectionType when the members are read, which
+					// needs no calculation; only t and f_y are refined from the modelled plates.
+					if (rawResults.Count > 0)
+					{
+						try
+						{
+							var parsed = RawResultsParser.Parse(rawResults[0]);
+							Log($"  Raw results: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
+
+							foreach (var member in _members)
 							{
-								bool hasArc = memberPlates.Any(p => p.Name.Contains("arc", StringComparison.OrdinalIgnoreCase));
-								if (hasArc && member.Shape != "CHS")
-								{
-									member.Shape = "CHS";
-									Log($"  Member '{member.Name}' detected as CHS from plate names");
-								}
+								string prefix = $"{member.Name}-";
+								var memberPlates = parsed.Plates
+									.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+									.ToList();
 
-								// Update wall thickness and fy from plates
-								var thicknesses = memberPlates.Where(p => p.Thickness > 0).Select(p => p.Thickness).ToList();
-								if (thicknesses.Count > 0)
-									member.WallThickness = thicknesses.GroupBy(t => Math.Round(t, 1)).OrderByDescending(g => g.Count()).First().Key;
-
-								var refPlate = memberPlates.FirstOrDefault(p => p.MaterialFy > 0);
-								if (refPlate != null)
+								if (memberPlates.Count > 0)
 								{
-									member.Fy = refPlate.MaterialFy;
-									member.MaterialName = refPlate.MaterialName;
+									var thicknesses = memberPlates.Where(p => p.Thickness > 0).Select(p => p.Thickness).ToList();
+									if (thicknesses.Count > 0)
+										member.WallThickness = thicknesses.GroupBy(t => Math.Round(t, 1)).OrderByDescending(g => g.Count()).First().Key;
+
+									var refPlate = memberPlates.FirstOrDefault(p => p.MaterialFy > 0);
+									if (refPlate != null)
+									{
+										member.Fy = refPlate.MaterialFy;
+										member.MaterialName = refPlate.MaterialName;
+									}
 								}
 							}
-						}
 
-						// Refresh grid
-						MembersGrid.Items.Refresh();
-						UpdateTubularState();
-					}
-					catch (Exception ex)
-					{
-						Log($"  WARNING: Shape refinement failed: {ex.Message}");
+							MembersGrid.Items.Refresh();
+							UpdateTubularState();
+						}
+						catch (Exception ex)
+						{
+							Log($"  WARNING: Member refinement from raw results failed: {ex.Message}");
+						}
 					}
 				}
-
-				// ── Chapter toggles — disabled chapters are skipped entirely ──
-				bool includeCh5 = ChkChapter5.IsChecked == true;
-				bool includeCbfem = ChkChapterCbfem.IsChecked == true;
-				bool includeCh63 = ChkChapter63.IsChecked == true;
-				bool includeCh64 = ChkChapter64.IsChecked == true;
-				Log($"Chapters: §5={(includeCh5 ? "on" : "off")}, CBFEM={(includeCbfem ? "on" : "off")}, §6.3={(includeCh63 ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}");
-
-				// ── Fallback geometry — §6.3 checks use per-member D/t/fy/L/k from the grid ──
-				TubularGeometry? geometry = includeCh63 ? ParseCHSGeometry() : null;
-				var chsMember = _members.FirstOrDefault(m => m.IsCHS);
-				double memberLength = chsMember?.L ?? 5000;
-				double kFactor = chsMember?.K ?? 0.7;
-				if (geometry != null)
-					Log("§6.3 member checks: per-member D/t/fy/L/k taken from the Members grid");
+				else
+				{
+					Log("CBFEM checks off — skipping the calculation entirely (§6.4 needs load effects only)");
+					foreach (var con in _connections)
+						con.Status = "Not calculated";
+				}
 
 				TubularJointGeometry? jointGeometry = includeCh64 ? ParseJointGeometry() : null;
 				if (jointGeometry != null)
@@ -347,17 +340,6 @@ namespace NorsokChecker
 					}
 				}
 
-				// Design Classification — from dropdown (Table 5-1 decision tree)
-				int dcIdx = CmbDesignClass.SelectedIndex;
-				DesignClassificationInput? dcInput = !includeCh5 ? null : new DesignClassificationInput
-				{
-					SubstantialConsequences = dcIdx <= 1,          // DC1,DC2
-					ResidualStrength = dcIdx == 2 || dcIdx == 3,   // DC3,DC4
-					HighComplexity = dcIdx == 0 || dcIdx == 2,     // DC1,DC3
-					HighFatigue = CmbFatigueUtil.SelectedIndex == 1,
-					ThroughThickness = ChkThroughThickness.IsChecked == true,
-				};
-
 				// ── Evaluate Norsok per connection ──
 				ShowStatus("Evaluating Norsok N-004 formulas...");
 				Log("Evaluating Norsok N-004 formulas...");
@@ -365,7 +347,9 @@ namespace NorsokChecker
 
 				foreach (var con in _connections)
 				{
-					if (!_rawResultsPerConnection.TryGetValue(con.Id, out var rawJson))
+					// Null when no calculation was run — §6.4 does not need it.
+					_rawResultsPerConnection.TryGetValue(con.Id, out var rawJson);
+					if (includeCbfem && rawJson == null)
 					{
 						con.Status = "No results";
 						con.NorsokPass = "N/A";
@@ -435,25 +419,20 @@ namespace NorsokChecker
 					double[] chordStresses = ExtractChordStresses(loadEffects, autoJointDone ? null : jointGeometry);
 
 					var formulaResults = checker.EvaluateNorsokFormulas(
-						con.Id, rawJson, loadEffects, geometry, memberLength, kFactor,
-						autoJointDone ? null : jointGeometry, dcInput, chordStresses, _members.ToList(), includeCbfem);
+						con.Id, rawJson, loadEffects,
+						autoJointDone ? null : jointGeometry, chordStresses, _members.ToList(), includeCbfem);
 					formulaResults.AddRange(autoJointResults);
 					_formulaResults[con.Id] = formulaResults;
 
 					// Determine worst-case Norsok utilization
-					// Skip informational results (DC classification has Utilization=0)
 					double maxNorsokUtil = 0;
 					bool allPassed = true;
 					foreach (var fr in formulaResults)
 					{
-						// Only count actual checks (not informational like DC)
-						if (fr.Section != "5")
-						{
-							if (fr.Utilization > maxNorsokUtil)
-								maxNorsokUtil = fr.Utilization;
-							if (!fr.Passed)
-								allPassed = false;
-						}
+						if (fr.Utilization > maxNorsokUtil)
+							maxNorsokUtil = fr.Utilization;
+						if (!fr.Passed)
+							allPassed = false;
 						Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {(fr.Passed ? "PASS" : "FAIL")}");
 					}
 
@@ -530,18 +509,6 @@ namespace NorsokChecker
 
 			Log($"    Chord stresses for Qf: σ_a={sigmaA:F1} MPa, σ_my={sigmaMy:F1} MPa, σ_mz={sigmaMz:F1} MPa");
 			return new double[] { sigmaA, sigmaMy, sigmaMz };
-		}
-
-		/// <summary>Parse CHS geometry from the largest CHS member. Only for tubular connections.</summary>
-		private TubularGeometry? ParseCHSGeometry()
-		{
-			// §6.3 tubular member formulas require CHS members
-			var chsMember = _members.Where(m => m.IsCHS && m.Diameter > 0 && m.WallThickness > 0)
-				.OrderByDescending(m => m.Diameter)
-				.FirstOrDefault();
-			if (chsMember != null)
-				return TubularGeometryCalc.Calculate(chsMember.Diameter, chsMember.WallThickness);
-			return null;
 		}
 
 		/// <summary>Parse joint geometry from chord + brace members. Returns null if not all CHS.</summary>

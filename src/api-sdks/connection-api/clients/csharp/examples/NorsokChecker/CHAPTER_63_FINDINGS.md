@@ -210,6 +210,45 @@ symmetric too, which is exactly the case that cannot be assumed.
 Until then the formulas stay in `Services/Formulas/` and are not called — the same status `n63.py`
 has on the python side.
 
+## What the change actually did
+
+Three things landed together, because they touch the same two methods and only make sense as one
+step:
+
+**§5 removed outright.** `Services/DesignClassification.cs` and
+`Models/DesignClassificationInput.cs` deleted, along with the §5 panel (design class, fatigue,
+through-thickness) and the chapter toggle. Design class, steel quality level and NDT inspection
+category enter no resistance equation — those results carried `Utilization = 0` and could not fail
+a check. Removing the chapter also retired three known defects without writing a fix: the wrong
+stress quantity for Table 5-3, a missing shear branch, and a hardcoded stress direction for
+Table 5-4.
+
+**§6.3 disconnected, not deleted.** `EvaluateTubularMemberFormulas` and everything under
+`Services/Formulas/` still compiles; nothing calls it. The L / k / M1y / M1z grid columns are gone
+— they were what made the single-`k` defect and the mis-built case (b) ratio reachable.
+`MemberDisplayInfo.L/K/M1y/M1z` stay as unused properties, cheaper than a model change that would
+have to be undone.
+
+**The CBFEM calculation became optional.** With §5 gone and §6.3 mothballed, the engine run serves
+one optional group, so `CalculateAsync` + `GetRawJsonResultsAsync` now sit inside
+`if (includeCbfem)`. §6.4 needs load effects and geometry only — verified: nothing in the §6.4
+branch reads `parsed`. Two consequences worth knowing:
+
+- `EvaluateNorsokFormulas` takes `rawJsonResults` as nullable and skips `RawResultsParser.Parse`
+  when it is null.
+- Shape detection no longer reads plate names (`hasArc` → CHS). It was never needed:
+  `CrossSectionDetector` already derives the shape from `CrossSectionType` when the project is
+  loaded, with no calculation. Only wall thickness and `f_y` are still refined from the plates,
+  and only when a calculation ran.
+
+**Careful — `Services/Formulas/TubularJointCheck.cs` is §6.4, not §6.3**, and it is live at
+`NorsokCheckRunner.cs:91` and `:757`. It is also the file the python → C# port found ~8 formula
+transcription defects in. Do not fold it into the mothballed set.
+
+Verified with the 26 offline tests in `UT_NorsokChecker`, which pin §6.4 against
+`TestData/live_oracle.json` at 1e-6: 26/26 before the change, 26/26 after. **Not one §6.4 number
+moved**, which was the whole condition on this change.
+
 ---
 
 *All figures measured against the code as of `dc11192d` and against NORSOK N-004 Rev. 3, read from

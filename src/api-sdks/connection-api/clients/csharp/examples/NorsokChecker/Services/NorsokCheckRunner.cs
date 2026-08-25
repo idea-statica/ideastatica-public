@@ -97,41 +97,42 @@ namespace NorsokChecker.Services
 		}
 
 		/// <summary>
-		/// Evaluate all Norsok formulas using raw results, load effects, and tubular geometry.
+		/// Evaluate the Norsok formulas: the CBFEM plate/weld/bolt group and §6.4 tubular joints.
+		/// §6.3 (tubular members) is mothballed — see CHAPTER_63_FINDINGS.md.
 		/// </summary>
 		public List<NorsokFormulaResult> EvaluateNorsokFormulas(
 			int connectionId,
-			string rawJsonResults,
+			string? rawJsonResults,
 			List<ConLoadEffect>? loadEffects = null,
-			TubularGeometry? geometry = null,
-			double memberLength = 0,
-			double kFactor = 0.7,
 			TubularJointGeometry? jointGeometry = null,
-			DesignClassificationInput? dcInput = null,
 			double[]? chordStresses = null,
 			List<MemberDisplayInfo>? members = null,
 			bool includeCbfemChecks = true)
 		{
 			var results = new List<NorsokFormulaResult>();
 
-			// Parse raw CBFEM results
-			ParsedRawResults parsed;
-			try
+			// Raw CBFEM results are only needed by the plate/weld/bolt group. §6.4 works from
+			// load effects and geometry alone, so without a calculation there is nothing to parse.
+			ParsedRawResults? parsed = null;
+			if (rawJsonResults != null)
 			{
-				parsed = RawResultsParser.Parse(rawJsonResults);
-			}
-			catch (Exception ex)
-			{
-				_log($"    ERROR parsing raw results: {ex.Message}");
-				results.Add(new NorsokFormulaResult
+				try
 				{
-					Section = "6.3", Equation = "-", Title = "Parse Error",
-					CheckExpression = ex.Message, Passed = false
-				});
-				return results;
-			}
+					parsed = RawResultsParser.Parse(rawJsonResults);
+				}
+				catch (Exception ex)
+				{
+					_log($"    ERROR parsing raw results: {ex.Message}");
+					results.Add(new NorsokFormulaResult
+					{
+						Section = "CBFEM", Equation = "-", Title = "Parse Error",
+						CheckExpression = ex.Message, Passed = false
+					});
+					return results;
+				}
 
-			_log($"    Parsed: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
+				_log($"    Parsed: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
+			}
 
 			double gammaM0 = ProjectSettingsService.GammaM0_Norsok;  // 1.15
 			double gammaM2 = ProjectSettingsService.GammaM2_Norsok;  // 1.30
@@ -140,31 +141,8 @@ namespace NorsokChecker.Services
 			// engine uses the updated γM values. For standalone formula checks on
 			// tubular members (§6.3), the Norsok γM = 1.15 already accounts for this.
 
-			// ─── DESIGN CLASSIFICATION (§5) ───
-			if (dcInput != null)
-			{
-				var dc = DesignClassification.ClassifyJoint(
-					dcInput.SubstantialConsequences, dcInput.ResidualStrength, dcInput.HighComplexity);
-
-				// Use max weld utilization for stress classification
-				double maxWeldUtil = parsed.Welds.Count > 0
-					? parsed.Welds.Max(w => w.MaxUnityCheck) : 0;
-				var stressLevel = DesignClassification.ClassifyStressLevel(maxWeldUtil);
-
-				string sql = DesignClassification.GetSteelQualityLevel(dc, dcInput.ThroughThickness);
-				string ic = dcInput.HighFatigue
-					? DesignClassification.GetInspectionCategory_HighFatigue(dc, true)
-					: DesignClassification.GetInspectionCategory_LowFatigue(dc, stressLevel);
-
-				var dcResult = DesignClassification.GenerateClassificationReport(
-					dc, sql, ic, maxWeldUtil, dcInput.HighFatigue);
-				results.Add(dcResult);
-
-				_log($"    §5 Classification: {dc}, SQL={sql}, Inspection={ic}");
-			}
-
 			// ─── CBFEM PLATE / WELD / BOLT CHECKS ───
-			if (includeCbfemChecks)
+			if (includeCbfemChecks && parsed != null)
 			{
 				EvaluatePlateChecks(parsed, gammaM0, results);
 				// Norsok Table 6-1: γM2 = 1.30 for welds (not EC3 default 1.25)
@@ -176,17 +154,12 @@ namespace NorsokChecker.Services
 				_log("    CBFEM plate/weld/bolt checks disabled (chapter toggle)");
 			}
 
-			// ─── TUBULAR MEMBER FORMULAS (§6.3.2–6.3.8) ───
-			// These require: load effects (N, V, M) + tubular geometry (D, t) + member length
-			if (loadEffects != null && loadEffects.Count > 0 && geometry != null)
-			{
-				EvaluateTubularMemberFormulas(loadEffects, geometry, memberLength, kFactor, gammaM0, results, members);
-			}
-			else
-			{
-				string reason = geometry == null ? "tubular geometry not provided" : "no load effects available";
-				_log($"    Skipping §6.3 tubular member formulas ({reason})");
-			}
+			// ─── TUBULAR MEMBER FORMULAS (§6.3) — MOTHBALLED ───
+			// EvaluateTubularMemberFormulas and everything under Services/Formulas/ still compiles
+			// but is no longer called. Two inputs Eq 6.27 needs cannot be derived from a connection
+			// model or expressed by this app: k per plane (the restraint is not symmetric even for
+			// a round tube) and the far-end moments M1 for C_m case (b). See CHAPTER_63_FINDINGS.md
+			// for the measurements and for what re-enabling would require.
 
 			// ─── TUBULAR JOINT CHECKS (§6.4) ───
 			if (loadEffects != null && loadEffects.Count > 0 && jointGeometry != null && jointGeometry.D > 0)
