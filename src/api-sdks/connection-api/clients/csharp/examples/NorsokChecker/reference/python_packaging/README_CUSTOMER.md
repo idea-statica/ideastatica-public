@@ -51,13 +51,26 @@ keep the lower capacity.
 
 ## If something goes wrong
 
-`norsok_app.log`, written next to the `.exe`, records the normal flow as well as errors: which
-file was opened, which service version, how many load effects, how many checks passed or were
-skipped and why.
+`norsok_app.log` records the normal flow as well as errors: which file was opened, which service
+version, how many load effects, how many checks passed or were skipped and why.
+
+It is written next to the `.exe`. If that folder is not writable — the exe is in `Program Files`,
+on a read-only network drive, or still inside the ZIP it arrived in — the log goes to
+`%LOCALAPPDATA%\NorsokJointCalculator\` instead, and the tool says so in a message box as it
+starts. In the rare case that neither location can be written, it says that too and runs anyway,
+just without a log. A missing log never stops the tool from starting.
 
 | Message | Meaning |
 |---|---|
 | No usable IDEA StatiCa installation found | Nothing from 26.0 up was located. The message lists where it looked; use `IDEA_CONNECTION_REST_EXE` if your installation is elsewhere. |
 | Service did not come up within 30 s | The service was found but failed to start — usually a licence or .NET runtime problem on its side. |
+| This folder is not writable, so the log went to … | Informational. The tool works normally; only the log moved. |
+| Could not create a log file | Informational. The tool works normally but writes no log, so there will be nothing to send if you hit a problem. |
 | Blank window | The WebView2 runtime is missing (see above). |
 | Opening a file fails | The project was saved by a newer version of IDEA StatiCa than the service being used. Open and re-save it in that version, or install it. |
+
+## Disk space in your temp folder
+
+Because the tool is a single self-contained exe, each launch unpacks itself into a `_MEI…` folder
+in `%TEMP%` (about 50 MB) and removes it on exit; if the tool is killed instead of closed — Task
+Manager, a power loss — that folder is left behind and can be deleted by hand at any time.

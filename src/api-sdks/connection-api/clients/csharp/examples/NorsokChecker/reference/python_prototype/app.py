@@ -15,9 +15,10 @@ Lifecycle:
       * if not -> launch IdeaStatiCa.ConnectionRestApi.exe, wait, remember we own it
   - native file dialog to pick an .ideaCon
   - extract geometry (extract.py) and hand JSON to the UI
-  - on window close, shut the service down ONLY if we started it
+  - shut the service down ONLY if we started it — on window close, on interpreter exit, and
+    via a Job Object that makes Windows do it even if this process is killed outright
 """
-import os, re, sys, time, socket, subprocess, json, logging, traceback
+import os, re, sys, time, socket, subprocess, json, logging, traceback, tempfile, atexit
 from logging.handlers import RotatingFileHandler
 import requests
 import webview
@@ -176,16 +177,78 @@ def free_port():
 # flow — which file was opened, how many load effects, how many 6.4 checks passed/skipped — so a UI
 # error like "division by zero" is never a dead end: the log says which brace/LE and which line.
 # Rotation caps it at ~1 MB x 3 files so it never grows unbounded during long sessions.
-LOG_PATH = os.path.join(DATA_DIR, "norsok_app.log")
-_fh = RotatingFileHandler(LOG_PATH, maxBytes=1_000_000, backupCount=3, encoding="utf-8")
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)-7s %(message)s",
-    handlers=[_fh, logging.StreamHandler()],
-)
+LOG_NAME = "norsok_app.log"
+APP_NAME = "NorsokJointCalculator"
+
+
+def _fallback_log_dir():
+    """%LOCALAPPDATA%\\NorsokJointCalculator, or the temp dir if even LOCALAPPDATA is unset."""
+    base = os.environ.get("LOCALAPPDATA") or tempfile.gettempdir()
+    return os.path.join(base, APP_NAME)
+
+
+def _make_file_handler(directory):
+    """(handler, path) for a rotating log in `directory`, or (None, None) if it cannot be written.
+
+    Opening the handler is not enough to prove the location works: RotatingFileHandler defaults to
+    delay=False so it opens the file here, but a directory that only refuses on rotation would
+    still pass. Writing nothing more than the open is the best cheap evidence available.
+    """
+    try:
+        os.makedirs(directory, exist_ok=True)
+        path = os.path.join(directory, LOG_NAME)
+        handler = RotatingFileHandler(path, maxBytes=1_000_000, backupCount=3, encoding="utf-8")
+        return handler, path
+    except Exception:
+        return None, None
+
+
+def _init_logging():
+    """(log_path, note) — set up logging, degrading rather than dying.
+
+    A log file is a diagnostic, never a precondition: the app must start even when nothing is
+    writable. DATA_DIR (beside the exe) is preferred so the user finds the log where the README
+    says it is; it is unwritable whenever the exe sits in Program Files, on a read-only share, or
+    is run from inside a ZIP. `note` is non-empty only when the outcome needs telling.
+    """
+    handler, path = _make_file_handler(DATA_DIR)
+    note = ""
+    if handler is None:
+        fallback = _fallback_log_dir()
+        handler, path = _make_file_handler(fallback)
+        if handler is None:
+            note = (f"Could not create a log file — neither beside the application nor in\n"
+                    f"{fallback}\n\nThe application runs normally, but writes no log, so there "
+                    f"will be nothing to send if you hit a problem.")
+        else:
+            note = (f"This folder is not writable, so the log went to\n{path}\n\n"
+                    f"Everything else works as usual.")
+    handlers = [logging.StreamHandler()]
+    if handler is not None:
+        handlers.insert(0, handler)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)-7s %(message)s",
+        handlers=handlers,
+    )
+    return path, note
+
+
+LOG_PATH, LOG_NOTE = _init_logging()
 log = logging.getLogger("norsok")
 log.info("=" * 60)
-log.info("NORSOK Joint Calculator starting — log at %s", LOG_PATH)
+log.info("NORSOK Joint Calculator starting — log at %s", LOG_PATH or "(file logging disabled)")
+if LOG_NOTE:
+    log.warning("logging fallback: %s", LOG_NOTE.replace("\n", " "))
+
+
+def _message_box(text, caption=APP_NAME, style=0x40):
+    """MessageBox, ignoring any failure — this is only ever used to tell the user something."""
+    try:
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(None, text, caption, style)
+    except Exception:
+        pass
 
 
 def service_alive(port, timeout=2):
@@ -198,6 +261,243 @@ def service_alive(port, timeout=2):
 
 def service_version(port, timeout=4):
     return requests.get(version_ep(port), timeout=timeout).text.strip().strip('"')
+
+
+# --- making sure the service never outlives us ---------------------------------------------
+# A service we started holds an IDEA StatiCa licence seat, so leaking one costs the user a seat
+# until they find it in Task Manager. The window's `closed` event alone does not cover a crash or
+# a kill, and the leak compounds: we start the service on a free port but only detect a running
+# one on 5000, so the next launch never finds the orphan and starts another.
+#
+# Three mechanisms, weakest last, because each covers what the others cannot:
+#   1. a Job Object with KILL_ON_JOB_CLOSE — the only one that survives a hard kill of this
+#      process, since Windows itself does the killing when the last job handle closes;
+#   2. atexit — covers an orderly interpreter exit that never reaches the window event;
+#   3. a PID file reaped on the next startup — the backstop for whatever still gets through.
+_JOB_HANDLE = None
+
+
+def _create_kill_on_close_job():
+    """A Job Object handle whose closure kills everything in it, or None.
+
+    Deliberately degrades to None: no job is worse than the app refusing to start, and every
+    caller treats None as "rely on the other two mechanisms".
+    """
+    try:
+        import ctypes
+        from ctypes import wintypes
+    except Exception:
+        return None
+
+    class JOBOBJECT_BASIC_LIMIT_INFORMATION(ctypes.Structure):
+        _fields_ = [("PerProcessUserTimeLimit", ctypes.c_int64),
+                    ("PerJobUserTimeLimit", ctypes.c_int64),
+                    ("LimitFlags", wintypes.DWORD),
+                    ("MinimumWorkingSetSize", ctypes.c_size_t),
+                    ("MaximumWorkingSetSize", ctypes.c_size_t),
+                    ("ActiveProcessLimit", wintypes.DWORD),
+                    ("Affinity", ctypes.c_size_t),
+                    ("PriorityClass", wintypes.DWORD),
+                    ("SchedulingClass", wintypes.DWORD)]
+
+    class IO_COUNTERS(ctypes.Structure):
+        _fields_ = [("ReadOperationCount", ctypes.c_uint64),
+                    ("WriteOperationCount", ctypes.c_uint64),
+                    ("OtherOperationCount", ctypes.c_uint64),
+                    ("ReadTransferCount", ctypes.c_uint64),
+                    ("WriteTransferCount", ctypes.c_uint64),
+                    ("OtherTransferCount", ctypes.c_uint64)]
+
+    class JOBOBJECT_EXTENDED_LIMIT_INFORMATION(ctypes.Structure):
+        _fields_ = [("BasicLimitInformation", JOBOBJECT_BASIC_LIMIT_INFORMATION),
+                    ("IoInfo", IO_COUNTERS),
+                    ("ProcessMemoryLimit", ctypes.c_size_t),
+                    ("JobMemoryLimit", ctypes.c_size_t),
+                    ("PeakProcessMemoryUsed", ctypes.c_size_t),
+                    ("PeakJobMemoryUsed", ctypes.c_size_t)]
+
+    JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x2000
+    JOBOBJECT_EXTENDED_LIMIT_INFORMATION_CLASS = 9
+    try:
+        k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        k32.CreateJobObjectW.restype = wintypes.HANDLE
+        k32.CreateJobObjectW.argtypes = [wintypes.LPCVOID, wintypes.LPCWSTR]
+        # unnamed: a named job could collide with another instance's and we want our own
+        job = k32.CreateJobObjectW(None, None)
+        if not job:
+            log.warning("CreateJobObjectW failed (err %s) — service cleanup falls back to "
+                        "atexit and the PID file", ctypes.get_last_error())
+            return None
+        info = JOBOBJECT_EXTENDED_LIMIT_INFORMATION()
+        info.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+        ok = k32.SetInformationJobObject(job, JOBOBJECT_EXTENDED_LIMIT_INFORMATION_CLASS,
+                                        ctypes.byref(info), ctypes.sizeof(info))
+        if not ok:
+            log.warning("SetInformationJobObject failed (err %s) — a job without "
+                        "KILL_ON_JOB_CLOSE would not help, dropping it", ctypes.get_last_error())
+            k32.CloseHandle(job)
+            return None
+        return job
+    except Exception:
+        log.exception("could not create the Job Object — falling back to atexit and the PID file")
+        return None
+
+
+def _assign_to_job(pid):
+    """Put `pid` in our kill-on-close job, creating the job on first use. True if it is in."""
+    global _JOB_HANDLE
+    try:
+        import ctypes
+        from ctypes import wintypes
+    except Exception:
+        return False
+    if _JOB_HANDLE is None:
+        _JOB_HANDLE = _create_kill_on_close_job()
+    if not _JOB_HANDLE:
+        return False
+    PROCESS_SET_QUOTA, PROCESS_TERMINATE = 0x0100, 0x0001
+    try:
+        k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        k32.OpenProcess.restype = wintypes.HANDLE
+        k32.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        h = k32.OpenProcess(PROCESS_SET_QUOTA | PROCESS_TERMINATE, False, int(pid))
+        if not h:
+            log.warning("OpenProcess(%s) failed (err %s) — not assigned to the job",
+                        pid, ctypes.get_last_error())
+            return False
+        try:
+            if not k32.AssignProcessToJobObject(_JOB_HANDLE, h):
+                log.warning("AssignProcessToJobObject failed (err %s)", ctypes.get_last_error())
+                return False
+            return True
+        finally:
+            k32.CloseHandle(h)
+    except Exception:
+        log.exception("could not assign the service to the Job Object")
+        return False
+
+
+def _pid_file():
+    """Where the owned service's PID is recorded. DATA_DIR, never BUNDLE_DIR: in a one-file build
+    BUNDLE_DIR is the temp unpack, which is a different folder on every launch — a PID written
+    there could never be read back by the next one."""
+    directory = DATA_DIR
+    try:
+        os.makedirs(directory, exist_ok=True)
+        probe = os.path.join(directory, ".norsok_write_probe")
+        with open(probe, "w"):
+            pass
+        os.remove(probe)
+    except Exception:
+        directory = _fallback_log_dir()
+        try:
+            os.makedirs(directory, exist_ok=True)
+        except Exception:
+            return None
+    return os.path.join(directory, "service.pid")
+
+
+def _process_image_name(pid):
+    """The executable name of `pid` ('idea...exe'), or None if it cannot be read.
+
+    Verified before any kill: PIDs are recycled, so a recorded PID may by now belong to something
+    else entirely, and killing that would be far worse than leaking a seat.
+    """
+    try:
+        import ctypes
+        from ctypes import wintypes
+    except Exception:
+        return None
+    PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+    try:
+        k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        k32.OpenProcess.restype = wintypes.HANDLE
+        k32.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        h = k32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, int(pid))
+        if not h:
+            return None
+        try:
+            buf = ctypes.create_unicode_buffer(32768)
+            size = wintypes.DWORD(len(buf))
+            if not k32.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(size)):
+                return None
+            return os.path.basename(buf.value)
+        finally:
+            k32.CloseHandle(h)
+    except Exception:
+        return None
+
+
+def _write_pid_file(pid):
+    path = _pid_file()
+    if not path:
+        return
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(str(int(pid)))
+    except Exception:
+        log.warning("could not record the service PID in %s", path)
+
+
+def _clear_pid_file():
+    path = _pid_file()
+    if not path:
+        return
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+    except Exception:
+        pass
+
+
+def reap_stale_service():
+    """Kill a service recorded by a previous run that never got to clean up, freeing its seat.
+
+    Only ever kills a process whose image name is the service exe — a recycled PID must not make
+    this kill something unrelated.
+    """
+    path = _pid_file()
+    if not path or not os.path.exists(path):
+        return False
+    try:
+        with open(path, encoding="utf-8") as f:
+            pid = int(f.read().strip())
+    except Exception:
+        _clear_pid_file()
+        return False
+    name = _process_image_name(pid)
+    if name is None:
+        log.info("recorded service PID %s is gone — nothing to reap", pid)
+        _clear_pid_file()
+        return False
+    if name.lower() != EXE_NAME.lower():
+        log.warning("recorded PID %s is now '%s', not %s — leaving it alone", pid, name, EXE_NAME)
+        _clear_pid_file()
+        return False
+    log.warning("reaping orphaned %s (pid %s) left by a previous run", EXE_NAME, pid)
+    try:
+        import ctypes
+        from ctypes import wintypes
+        PROCESS_TERMINATE = 0x0001
+        k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        k32.OpenProcess.restype = wintypes.HANDLE
+        k32.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        h = k32.OpenProcess(PROCESS_TERMINATE, False, pid)
+        if not h:
+            log.warning("could not open pid %s to terminate it (err %s)",
+                        pid, ctypes.get_last_error())
+            _clear_pid_file()
+            return False
+        try:
+            k32.TerminateProcess(h, 1)
+        finally:
+            k32.CloseHandle(h)
+    except Exception:
+        log.exception("could not terminate the orphaned service")
+        _clear_pid_file()
+        return False
+    _clear_pid_file()
+    return True
 
 
 class Api:
@@ -236,6 +536,13 @@ class Api:
                                           stderr=subprocess.DEVNULL)
         except Exception as e:
             return {"ok": False, "msg": f"Failed to start the service: {e}"}
+        # before waiting for it to answer: a service that hangs during startup and is then killed
+        # with the app would otherwise be exactly the orphan this guards against
+        if not _assign_to_job(self._proc.pid):
+            log.warning("service pid %s is NOT in a Job Object — a hard kill of this app would "
+                        "leave it running; atexit and the PID file still cover it",
+                        self._proc.pid)
+        _write_pid_file(self._proc.pid)
         # wait up to ~30 s for it to come up
         for _ in range(60):
             if service_alive(port, timeout=1):
@@ -248,11 +555,20 @@ class Api:
         return {"ok": False, "msg": f"Service did not come up on port {port} within 30 s."}
 
     def shutdown_service(self):
-        """Close project; kill the exe only if we started it."""
+        """Close project; kill the exe only if we started it.
+
+        Safe to call more than once and from any of the three cleanup paths (window closed,
+        atexit, an explicit call), because they legitimately overlap.
+        """
         if self._pid and self._session is not None:
-            extract.close_project(self._session, self._pid)
+            try:
+                extract.close_project(self._session, self._pid)
+            except Exception:
+                log.exception("could not close the project cleanly")
             self._pid = None
-        if self._owns_service and self._proc and self._proc.poll() is None:
+        # `self._proc` set but `_owns_service` False means the service never answered: we still
+        # started that process, so it is still ours to kill.
+        if self._proc is not None and self._proc.poll() is None:
             try:
                 self._proc.terminate()
                 try:
@@ -260,8 +576,10 @@ class Api:
                 except subprocess.TimeoutExpired:
                     self._proc.kill()
             except Exception:
-                pass
-            self._owns_service = False
+                log.exception("could not terminate the service")
+        self._owns_service = False
+        self._proc = None
+        _clear_pid_file()
 
     # ---- UI-callable ----
     def pick_file(self):
@@ -345,7 +663,8 @@ class Api:
             log.exception("build_connection failed for conn_id=%s", conn_id)
             # surface the exception TYPE too — a bare "division by zero" is otherwise opaque;
             # the full traceback (which brace/LE, which line) is in norsok_app.log.
-            return {"error": f"Extraction failed: {type(e).__name__}: {e}\n(details in {LOG_PATH})"}
+            where = f"details in {LOG_PATH}" if LOG_PATH else "file logging is disabled"
+            return {"error": f"Extraction failed: {type(e).__name__}: {e}\n({where})"}
 
     def ui_log(self, level, message):
         """Log a message coming from the JS/UI layer into the same file, so front-end errors
@@ -398,19 +717,21 @@ def main():
     lock = acquire_single_instance()
     if lock is None:
         log.warning("another instance is already running — exiting")
-        try:
-            import ctypes
-            ctypes.windll.user32.MessageBoxW(
-                None,
-                "NORSOK Joint Calculator is already running.\n\n"
-                "Only one instance can run at a time: they would compete for the same "
-                "IDEA StatiCa licence seat and write to the same log file.",
-                "NORSOK Joint Calculator", 0x40)   # MB_ICONINFORMATION
-        except Exception:
-            pass
+        _message_box(
+            "NORSOK Joint Calculator is already running.\n\n"
+            "Only one instance can run at a time: they would compete for the same "
+            "IDEA StatiCa licence seat and write to the same log file.")
         return
 
+    if LOG_NOTE:
+        _message_box(LOG_NOTE)
+
+    # a seat leaked by a previous run is freed here — the single-instance mutex cannot see it,
+    # because we start the service on a free port and only probe 5000 for a foreign one
+    reap_stale_service()
+
     api = Api()
+    atexit.register(api.shutdown_service)
     html_path = os.path.join(BUNDLE_DIR, "ui.html")
     window = webview.create_window("NORSOK Joint Calculator", html_path,
                                    js_api=api, width=1280, height=820,
@@ -421,6 +742,7 @@ def main():
 
     window.events.closed += on_closed
     webview.start()
+    api.shutdown_service()
 
 
 if __name__ == "__main__":
