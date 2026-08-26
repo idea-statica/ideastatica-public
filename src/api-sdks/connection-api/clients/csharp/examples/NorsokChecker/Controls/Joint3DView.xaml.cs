@@ -28,6 +28,16 @@ namespace NorsokChecker.Controls
 		private double _fitWidth = 1.5;
 		private Point? _dragFrom;
 
+		/// <summary>Where the press landed, to tell a click from the end of a drag.</summary>
+		private Point? _pressAt;
+
+		/// <summary>
+		/// Raised with the member id when a body is clicked, and with -1 when the click misses every
+		/// body. Lets the host select the matching table row — the reverse of
+		/// <see cref="HighlightMember"/>.
+		/// </summary>
+		public event EventHandler<int>? MemberClicked;
+
 		public Joint3DView()
 		{
 			InitializeComponent();
@@ -37,10 +47,21 @@ namespace NorsokChecker.Controls
 			MouseLeftButtonDown += (_, e) =>
 			{
 				_dragFrom = e.GetPosition(this);
+				_pressAt = _dragFrom;
 				CaptureMouse();
 			};
-			MouseLeftButtonUp += (_, _) =>
+			MouseLeftButtonUp += (_, e) =>
 			{
+				// A click and a rotate share the left button, so tell them apart by distance: a
+				// release within a few pixels of the press was a click, anything further was a drag
+				// and must not also select a member.
+				if (_pressAt is { } down)
+				{
+					var up = e.GetPosition(this);
+					if (Math.Abs(up.X - down.X) <= 3 && Math.Abs(up.Y - down.Y) <= 3)
+						MemberClicked?.Invoke(this, HitTestMember(up));
+				}
+				_pressAt = null;
 				_dragFrom = null;
 				ReleaseMouseCapture();
 			};
@@ -122,6 +143,41 @@ namespace NorsokChecker.Controls
 			ResetView();
 			Placeholder.Visibility = Visibility.Collapsed;
 			HintLabel.Text = $"{meshes.Count} members";
+		}
+
+		/// <summary>
+		/// Which member's body is under this point, or -1 for none. The hit test runs against the
+		/// Viewport3D, so it accounts for the current rotation and zoom without any maths here.
+		/// </summary>
+		private int HitTestMember(Point p)
+		{
+			// The point comes from this control; the viewport may sit inside padding, so re-base it.
+			Point inViewport = TranslatePoint(p, Viewport);
+			if (inViewport.X < 0 || inViewport.Y < 0
+				|| inViewport.X > Viewport.ActualWidth || inViewport.Y > Viewport.ActualHeight)
+				return -1;
+
+			int found = -1;
+			VisualTreeHelper.HitTest(Viewport, null,
+				result =>
+				{
+					if (result is RayMeshGeometry3DHitTestResult r)
+					{
+						foreach (var kv in _byMember)
+						{
+							if (ReferenceEquals(kv.Value, r.ModelHit))
+							{
+								found = kv.Key;
+								return HitTestResultBehavior.Stop;
+							}
+						}
+					}
+					// not one of ours (a light, or a model we do not track) — keep looking behind it
+					return HitTestResultBehavior.Continue;
+				},
+				new PointHitTestParameters(inViewport));
+
+			return found;
 		}
 
 		/// <summary>Paint one member's body in the highlight colour; -1 clears.</summary>

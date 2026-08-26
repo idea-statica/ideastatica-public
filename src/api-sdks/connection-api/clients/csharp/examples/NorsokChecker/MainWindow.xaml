@@ -322,7 +322,8 @@
                                  heading plus the list beside it. -->
                             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="2"
                                     BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="2">
-                                <controls:Joint3DView x:Name="Joint3D"/>
+                                <controls:Joint3DView x:Name="Joint3D"
+                                                      MemberClicked="Joint3D_MemberClicked"/>
                             </Border>
                         </Grid>
 
@@ -363,8 +364,13 @@
                                      sat below it. The expander fills its Grid row, so the table gets
                                      whatever the grip leaves it and the scrollbar appears only when the
                                      rows really do not fit. -->
+                                <!-- Whole rows, one at a time: the 3D view selects a MEMBER, so a
+                                     row is the unit that means anything here. IsReadOnly on the grid
+                                     because every column is read from the model - see the D/t/f_y
+                                     columns below. -->
                                 <DataGrid x:Name="MembersGrid" AutoGenerateColumns="False"
-                                          CanUserAddRows="False"
+                                          CanUserAddRows="False" IsReadOnly="True"
+                                          SelectionMode="Single" SelectionUnit="FullRow"
                                           md:DataGridAssist.CellPadding="6 3"
                                           GridLinesVisibility="Horizontal" BorderThickness="0"
                                           VerticalScrollBarVisibility="Auto"
@@ -381,9 +387,17 @@
                                         <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="*" MinWidth="90" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
-                                        <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="55"/>
-                                        <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="50"/>
-                                        <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" Width="SizeToHeader" MinWidth="60"/>
+                                        <!-- Read-only, like every other column here. These three were
+                                             editable from the days before the app could read them
+                                             from the model and the user had to type them in. They now
+                                             come from the connection itself - D/t from the IOM facet
+                                             ring, f_y from the section's material - and
+                                             EnrichSectionsFromIomAsync overwrites D and t on every
+                                             run, so an edit looked accepted and was then silently
+                                             discarded. -->
+                                        <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, StringFormat=F1}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, StringFormat=F1}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, StringFormat=F0}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                     </DataGrid.Columns>
                                 </DataGrid>

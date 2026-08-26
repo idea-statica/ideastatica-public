@@ -710,7 +710,7 @@ namespace NorsokChecker
 			Joint3D.Load(meshes);
 		}
 
-		/// <summary>Hovering or selecting a member row highlights its body in the 3D view.</summary>
+		/// <summary>Hovering a member row highlights its body in the 3D view.</summary>
 		private void MembersGrid_MemberHighlight(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 			if (Joint3D == null) return;
@@ -718,8 +718,37 @@ namespace NorsokChecker
 				Joint3D.HighlightMember(m.Id);
 		}
 
+		/// <summary>
+		/// Leaving a row falls back to the SELECTED member rather than clearing outright — otherwise
+		/// picking a member in the 3D view lost its highlight the moment the pointer left the table.
+		/// </summary>
 		private void MembersGrid_ClearHighlight(object sender, System.Windows.Input.MouseEventArgs e)
-			=> Joint3D?.HighlightMember(-1);
+		{
+			if (Joint3D == null) return;
+			Joint3D.HighlightMember(MembersGrid.SelectedItem is MemberDisplayInfo sel ? sel.Id : -1);
+		}
+
+		/// <summary>
+		/// Clicking a body in the 3D view selects its row — the reverse of the hover highlight, so
+		/// the two views agree whichever one the user points at. A click on nothing clears both.
+		/// </summary>
+		private void Joint3D_MemberClicked(object? sender, int memberId)
+		{
+			if (memberId < 0)
+			{
+				MembersGrid.SelectedItem = null;
+				Joint3D?.HighlightMember(-1);
+				return;
+			}
+
+			var row = MembersGrid.ItemsSource?.OfType<MemberDisplayInfo>()
+				.FirstOrDefault(m => m.Id == memberId);
+			if (row == null) return;      // a body with no row (a weld, say) — leave the table alone
+
+			MembersGrid.SelectedItem = row;
+			MembersGrid.ScrollIntoView(row);
+			Joint3D?.HighlightMember(memberId);
+		}
 
 		/// <summary>
 		/// Replace each tubular member's D/T with the values measured from the connection's own IOM
