@@ -42,8 +42,25 @@ namespace NorsokChecker.Models
 		/// <summary>True if check passes (utilization ≤ 1.0)</summary>
 		public bool Passed { get; set; }
 
+		/// <summary>
+		/// The check was not carried out — the conditions for it are not met. This is a THIRD state,
+		/// distinct from both pass and fail: "not assessed" and "FAIL" cannot both be true, and
+		/// reporting one as the other is what made the results table self-contradictory. When this
+		/// is set, <see cref="Passed"/> and <see cref="Utilization"/> carry no meaning.
+		/// </summary>
+		public bool NotAssessed { get; set; }
+
+		/// <summary>PASS / FAIL / N/A — the single place that decides the wording.</summary>
+		public string Verdict => NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
+
 		/// <summary>Load case ID (0 = envelope/all). For per-LC breakdown.</summary>
 		public int LoadCaseId { get; set; }
+
+		/// <summary>
+		/// Display name of the governing load effect. Names are user-editable and not guaranteed
+		/// unique, so <see cref="LoadCaseId"/> stays the key — this is only what gets shown.
+		/// </summary>
+		public string? LoadCaseName { get; set; }
 
 		/// <summary>
 		/// Full §6.4 auto-topology check detail (engine result, classification, chord-stress trail).

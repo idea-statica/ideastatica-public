@@ -37,35 +37,39 @@ namespace NorsokChecker.Services.Norsok64
 			_log = log;
 		}
 
-		/// <summary>Chord = the bearing member; fallback continuous / largest Ø. Port of identify_chord.</summary>
+		/// <summary>
+		/// Chord = the continuous member with the largest diameter. Port of identify_chord.
+		///
+		/// The bearing flag is deliberately NOT a criterion: it decides which member carries the
+		/// others in the FE model, and the user may set it on any member — including a brace. It
+		/// says nothing about which member is the chord. §6.4 means a through member, so continuity
+		/// decides and the diameter breaks ties. Measured on the python side (25dbb877): with the
+		/// bearing flag on a brace, every θ/β/γ/gap referenced the wrong member and the joint was
+		/// rejected as out of scope; with continuity deciding, the same joint checks out.
+		/// </summary>
 		public static (JointMemberData? Chord, List<string> Warnings) IdentifyChord(IReadOnlyList<JointMemberData> members)
 		{
 			var warns = new List<string>();
 			if (members.Count == 0)
 				return (null, new List<string> { "No members in this connection — nothing to identify as a chord." });
 
-			var bearings = members.Where(m => m.IsBearing).ToList();
 			var continuous = members.Where(m => m.IsContinuous).ToList();
 
 			JointMemberData chord;
-			if (bearings.Count == 1)
-				chord = bearings[0];
-			else if (bearings.Count > 1)
+			if (continuous.Count > 0)
 			{
-				warns.Add($"{bearings.Count} bearing members — chord ambiguous.");
-				chord = bearings[0];
+				chord = continuous.OrderByDescending(m => m.Section.D ?? 0).First();
+				if (continuous.Count > 1)
+					warns.Add($"{continuous.Count} continuous members — chord taken as the largest Ø.");
 			}
 			else
 			{
-				warns.Add("No bearing member — chord picked by heuristic (continuous / largest Ø).");
-				var cand = continuous.Count > 0 ? continuous : members.ToList();
-				chord = cand.OrderByDescending(m => m.Section.D ?? 0).First();
+				// no through member at all — reported as an error downstream; pick something so the
+				// rest of the topology can still be built and its other gates can report too
+				warns.Add("No continuous member (chord must be continuous).");
+				chord = members.OrderByDescending(m => m.Section.D ?? 0).First();
 			}
 
-			if (continuous.Count == 0)
-				warns.Add("No continuous member (chord must be continuous).");
-			else if (continuous.Count > 1)
-				warns.Add($"{continuous.Count} continuous members — chord ambiguous.");
 			return (chord, warns);
 		}
 

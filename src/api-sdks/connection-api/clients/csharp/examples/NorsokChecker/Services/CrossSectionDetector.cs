@@ -63,6 +63,15 @@ namespace NorsokChecker.Services
 			return results;
 		}
 
+		/// <summary>Read a double property by name — the steel material subclasses differ per code.</summary>
+		private static double? ReadDouble(object obj, string prop)
+		{
+			var p = obj.GetType().GetProperty(prop);
+			if (p == null || p.PropertyType != typeof(double)) return null;
+			double v = (double)p.GetValue(obj)!;
+			return v > 0 ? v : null;
+		}
+
 		private DetectedCrossSection? ParseCrossSection(object cssObj)
 		{
 			try
@@ -72,10 +81,16 @@ namespace NorsokChecker.Services
 				// The API returns CrossSectionParameter objects directly
 				if (cssObj is CrossSectionParameter cssPar)
 				{
+					result.Id = cssPar.Id;
 					result.Name = cssPar.Name ?? cssPar.CrossSectionType.ToString();
-					_log($"      CSS: '{result.Name}' type={cssPar.CrossSectionType}");
 
-					// Detect shape from CrossSectionType enum
+					_log($"      CSS id={result.Id}: '{result.Name}' type={cssPar.CrossSectionType}");
+
+					// Detect shape from CrossSectionType enum. The tubular cases below must stay in
+					// step with JointSectionMap.ChsTypes, which is what the §6.4 path gates on —
+					// this list used to include CFRegPolygon and that one did not, so a section
+					// could be tubular for one path and not the other. A regular polygon is not a
+					// circular tube and §6.4 does not address it, so it is out of both.
 					switch (cssPar.CrossSectionType)
 					{
 						case CrossSectionType.RolledCHS:
@@ -83,7 +98,6 @@ namespace NorsokChecker.Services
 						case CrossSectionType.CHSg:
 						case CrossSectionType.O:
 						case CrossSectionType.Oval:
-						case CrossSectionType.CFRegPolygon:
 							result.IsCHS = true;
 							result.ShapeType = "CHS";
 							// Extract D and t from parameters
@@ -177,6 +191,21 @@ namespace NorsokChecker.Services
 						}
 					}
 
+					// Material off the cross-section itself, so the grid can show it without a
+					// calculation — it used to come only from the raw results' plates, i.e. never
+					// before the first run. Same source and the same >40 mm fy40 band as
+					// JointSectionMap uses, so the two cannot report different steel. Read after the
+					// dimensions above, because the band depends on the wall thickness.
+					var matEl = cssPar.Material?.Element;
+					if (matEl != null)
+					{
+						result.MaterialName = (matEl as IdeaRS.OpenModel.Material.Material)?.Name ?? "";
+						double? fy = ReadDouble(matEl, "fy");
+						double? fyThick = ReadDouble(matEl, "fy40");
+						if (result.Thickness > 40.0 && fyThick is > 0) fy = fyThick;
+						if (fy is > 0) result.Fy = fy.Value / 1e6;      // Pa -> MPa
+					}
+
 					return result;
 				}
 
@@ -210,6 +239,13 @@ namespace NorsokChecker.Services
 
 	public class DetectedCrossSection
 	{
+		/// <summary>
+		/// The cross-section's own id, so a member can be matched to ITS section via
+		/// ConMember.CrossSectionId. Without this the caller had nothing to match on and fell back
+		/// to sorting the project's sections by diameter, which assigned the wrong profile to every
+		/// member but one.
+		/// </summary>
+		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
 		public string ShapeType { get; set; } = "Other";
 		public bool IsCHS { get; set; }
@@ -219,5 +255,9 @@ namespace NorsokChecker.Services
 		public double Thickness { get; set; }
 		/// <summary>All parameters from the cross-section</summary>
 		public Dictionary<string, double> AllParams { get; set; } = new();
+		/// <summary>Steel grade name, e.g. "S 355" — available without a calculation.</summary>
+		public string MaterialName { get; set; } = string.Empty;
+		/// <summary>Yield strength [MPa], fy40 band applied for a wall over 40 mm. 0 when unknown.</summary>
+		public double Fy { get; set; }
 	}
 }

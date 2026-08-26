@@ -14,11 +14,27 @@ namespace NorsokChecker.Services.Norsok64
 		private static readonly Regex DimRegex = new(@"(\d+\.?\d*)\s*[/x×]\s*(\d+\.?\d*)",
 			RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-		private static readonly HashSet<CrossSectionType> ChsTypes = new()
+		/// <summary>
+		/// The one definition of "tubular" in this app. CrossSectionDetector used to keep a second,
+		/// slightly different set (it also listed CFRegPolygon), which meant a section could be
+		/// tubular for one code path and not the other.
+		/// </summary>
+		public static readonly HashSet<CrossSectionType> ChsTypes = new()
 		{
 			CrossSectionType.RolledCHS, CrossSectionType.CHSPar, CrossSectionType.CHSg,
 			CrossSectionType.O, CrossSectionType.Oval,
 		};
+
+		/// <summary>
+		/// Same test against the type NAME, for the IOM payload — BeamData.CrossSectionType is a
+		/// string there, not the enum.
+		/// </summary>
+		public static bool IsTubularTypeName(string? typeName)
+		{
+			if (string.IsNullOrWhiteSpace(typeName)) return false;
+			return ChsTypes.Any(t =>
+				string.Equals(t.ToString(), typeName!.Trim(), StringComparison.OrdinalIgnoreCase));
+		}
 
 		public static Dictionary<int, JointSectionInfo> FromCrossSections(IEnumerable<object> crossSections)
 		{

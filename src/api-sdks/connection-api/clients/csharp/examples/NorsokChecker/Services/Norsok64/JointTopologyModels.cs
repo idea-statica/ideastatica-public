@@ -213,6 +213,14 @@ namespace NorsokChecker.Services.Norsok64
 		public ChordStressRow? ChordStress { get; set; }
 		/// <summary>Classification driving the weighted resistance.</summary>
 		public KyxClass? Classification { get; set; }
+
+		/// <summary>
+		/// Stamped on the winner of <see cref="JointEnvelope.Pick"/>: the load effect this brace's
+		/// governing check came from. The id is the stable key — load-effect names are user-editable
+		/// and not guaranteed unique — while the name is what the user reads.
+		/// </summary>
+		public int GovLeId { get; set; }
+		public string? GovLeName { get; set; }
 	}
 
 	/// <summary>

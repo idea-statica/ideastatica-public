@@ -28,14 +28,6 @@ namespace NorsokChecker.Services
 		}
 
 		/// <summary>
-		/// Fetch load effects (internal forces) for a connection from the API.
-		/// </summary>
-		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int connectionId, CancellationToken ct = default)
-		{
-			return await _client.LoadEffect.GetLoadEffectsAsync(_projectId, connectionId, cancellationToken: ct);
-		}
-
-		/// <summary>
 		/// §6.4 via AUTO-TOPOLOGY (port of the python reference pipeline): chord/brace identification,
 		/// joint-plane fit, per-brace force resolution, chord-stress averaging (Begin/End), K/Y/X
 		/// force-balance classification, weighted §6.4 check per brace. One report card per brace,
@@ -56,7 +48,30 @@ namespace NorsokChecker.Services
 			foreach (var w in topo.Verdict.Warnings) _log($"      [W] {w}");
 
 			if (topo.Verdict.Status == "ERROR" || topo.JointChecks.Count == 0)
+			{
+				// Publish the rejection as a FAILING result rather than only logging it. A joint
+				// outside the scope of §6.4 has NOT passed — it has not been assessed, and an empty
+				// result set used to read as "everything passed" in the caller.
+				var reasons = topo.Verdict.Errors.Count > 0
+					? topo.Verdict.Errors
+					: new List<string> { "the joint produced no §6.4 check" };
+				results.Add(new NorsokFormulaResult
+				{
+					Section = "6.4",
+					Equation = "6.4.3",
+					Title = "Joint outside the scope of §6.4",
+					CheckExpression = string.Join(";  ", reasons),
+					Formula = "-",
+					FormulaSubstituted = $"{reasons.Count} condition(s) not met — no §6.4 check was performed",
+					Demand = 0,
+					Capacity = 0,
+					Utilization = 0,
+					// not a failure: nothing was checked. Reporting this as FAIL alongside the words
+					// "NOT ASSESSED" said both at once, which cannot be true.
+					NotAssessed = true,
+				});
 				return false;
+			}
 
 			// per-LE classification summary
 			foreach (var le in topo.Classification)
@@ -64,34 +79,27 @@ namespace NorsokChecker.Services
 					_log($"      LE{le.Id} {c.Name}: K={c.FrK:P0} X={c.FrX:P0} Y={c.FrY:P0} " +
 						 $"(q={c.QTrans / 1e3:F1} kN){(string.IsNullOrEmpty(c.Note) ? "" : " — " + c.Note)}");
 
-			// envelope: worst (highest-util non-skipped) LE per brace
+			// envelope: the governing load effect per brace — see JointEnvelope for the rule
 			foreach (var brace in topo.GapBraces)
 			{
-				JointCheckRow? worst = null;
-				string worstLe = "";
-				foreach (var le in topo.JointChecks)
+				var gov = JointEnvelope.Pick(topo.JointChecks, brace.Name);
+				if (gov == null)
 				{
-					var row = le.Rows.FirstOrDefault(x => x.Name == brace.Name);
-					if (row == null || row.Skipped) continue;
-					// chord-overstressed / out-of-range rows carry +inf util — they envelope correctly
-					if (worst == null || row.Util > worst.Util || (!row.Passed && worst.Passed))
-					{
-						worst = row;
-						worstLe = string.IsNullOrEmpty(le.Name) ? $"LE{le.Id}" : le.Name;
-					}
-				}
-				if (worst == null)
-				{
-					var reason = topo.JointChecks
-						.SelectMany(le => le.Rows)
-						.FirstOrDefault(x => x.Name == brace.Name && x.Skipped)?.Reason;
+					var reason = JointEnvelope.SkipReason(topo.JointChecks, brace.Name);
 					_log($"    §6.4 {brace.Name}: skipped ({reason ?? "no data"})");
 					continue;
 				}
-				var card = TubularJointCheck.BuildResultFromRow(worst, worstLe);
+
+				// carry the governing state onto the row so the results table and the report can
+				// point at it — the id is what a detail view would resolve by, the name is display
+				var worst = gov.Row;
+				worst.GovLeId = gov.LeId;
+				worst.GovLeName = gov.LeName;
+
+				var card = TubularJointCheck.BuildResultFromRow(worst, gov.LeName);
 				results.Add(card);
 				_log($"    §6.4.3.6 {brace.Name}: util={(double.IsInfinity(worst.Util) ? 999 : worst.Util) * 100:F1}% " +
-					 $"[{worstLe}] {(worst.Passed ? "PASS" : "FAIL")}");
+					 $"[{gov.LeName}] {(worst.Passed ? "PASS" : "FAIL")}");
 			}
 			return true;
 		}
@@ -200,7 +208,11 @@ namespace NorsokChecker.Services
 
 				results.Add(new NorsokFormulaResult
 				{
-					Section = "6.3.2",
+					// "Plate", not "6.3.2": this is a CBFEM plate von-Mises check, not a §6.3
+					// tubular member check. Sharing the key put it under a §6.3 report heading,
+					// and would have merged it with the §6.3.2 axial-tension results if §6.3 were
+					// ever re-enabled. Same shape as the Weld / Bolt groups.
+					Section = "Plate",
 					Equation = "6.1",
 					Title = $"Plate: {plate.Name}",
 					CheckExpression = "σ_Ed ≤ f_yd = f_y / γ_M",

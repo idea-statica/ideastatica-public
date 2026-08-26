@@ -93,8 +93,8 @@
             </Grid>
         </Border>
 
-        <!-- ═══ Configuration Card ═══ -->
-        <md:Card Grid.Row="1" Margin="16,12,16,4" Padding="0" md:ElevationAssist.Elevation="Dp2">
+        <!-- ═══ Configuration Card — only shown on the Check tab ═══ -->
+        <md:Card x:Name="ConfigCard" Grid.Row="1" Margin="16,12,16,4" Padding="0" md:ElevationAssist.Elevation="Dp2">
             <Expander IsExpanded="True" md:ExpanderAssist.HorizontalHeaderPadding="16"
                       Background="Transparent">
                 <Expander.Header>
@@ -118,18 +118,21 @@
 
                     <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,0,0,8">
                         <RadioButton x:Name="RbSpawn" Content="Spawn local API" IsChecked="True"
+                                     Checked="ServiceMode_Changed"
                                      Margin="0,0,24,0" Style="{StaticResource MaterialDesignRadioButton}"/>
                         <RadioButton x:Name="RbAttach" Content="Attach to running service"
+                                     Checked="ServiceMode_Changed"
                                      Style="{StaticResource MaterialDesignRadioButton}"/>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="IDEA StatiCa folder:"
+                    <TextBlock Grid.Row="1" Grid.Column="0" x:Name="LblApiPath" Text="IDEA StatiCa folder:"
                                VerticalAlignment="Center" Margin="0,0,12,0"/>
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtApiPath"
                              Text="C:\Program Files\IDEA StatiCa\StatiCa 26.0"
                              md:HintAssist.Hint="Path to installation or service URL"
                              Margin="0,0,8,0"/>
-                    <Button Grid.Row="1" Grid.Column="2" Content="Browse..." Click="BrowseApiPath_Click"
+                    <Button Grid.Row="1" Grid.Column="2" x:Name="BtnBrowseApiPath" Content="Browse..."
+                            Click="BrowseApiPath_Click"
                             Style="{StaticResource IdeaOutlineButton}"/>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Project file (.ideaCon):"
@@ -144,7 +147,8 @@
         </md:Card>
 
         <!-- ═══ Main workspace ═══ -->
-        <TabControl Grid.Row="2" Margin="16,8,16,8"
+        <TabControl x:Name="MainTabs" Grid.Row="2" Margin="16,8,16,8"
+                    SelectionChanged="MainTabs_SelectionChanged"
                     Style="{StaticResource MaterialDesignNavigationRailTabControl}">
 
             <!-- Tab 1: Check -->
@@ -197,6 +201,8 @@
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
                                              Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
                                 <TextBlock Text="Members" FontWeight="Medium"/>
+                                <TextBlock x:Name="MembersOfLabel" Text="  — select a connection below"
+                                           FontSize="11" Foreground="#9E9E9E" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="8,4,8,4">
@@ -276,6 +282,8 @@
                     <!-- Connections grid — fills remaining space -->
                     <DataGrid x:Name="ConnectionsGrid" AutoGenerateColumns="False"
                               IsReadOnly="True" CanUserAddRows="False"
+                              SelectionMode="Single" SelectionUnit="FullRow"
+                              SelectionChanged="ConnectionsGrid_SelectionChanged"
                               md:DataGridAssist.CellPadding="10 6"
                               VerticalScrollBarVisibility="Auto"
                               GridLinesVisibility="Horizontal"
@@ -289,6 +297,15 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
                                         <Setter Property="Background" Value="#E8F5E9"/>
+                                    </DataTrigger>
+                                    <!-- amber, not green: nothing (or only part) was assessed -->
+                                    <DataTrigger Binding="{Binding NorsokPass}" Value="N/A">
+                                        <Setter Property="Background" Value="#FFF8E1"/>
+                                        <Setter Property="Foreground" Value="#E65100"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
+                                        <Setter Property="Background" Value="#FFF8E1"/>
+                                        <Setter Property="Foreground" Value="#E65100"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -323,7 +340,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="NORSOK N-004 §6.3 formula results — per connection, per equation."
+                        <TextBlock Grid.Column="0" Text="NORSOK N-004 §6.4 joint results — per connection, per brace, with the governing load effect."
                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
                                    Foreground="#546E7A" VerticalAlignment="Center"/>
                         <Button Grid.Column="1" x:Name="BtnExportPdf" Click="ExportPdf_Click"
@@ -382,8 +399,8 @@
             </StackPanel>
         </Border>
 
-        <!-- ═══ Log panel ═══ -->
-        <md:Card Grid.Row="4" Margin="16,0,16,12" Padding="0" md:ElevationAssist.Elevation="Dp1">
+        <!-- ═══ Log panel — only shown on the Check tab ═══ -->
+        <md:Card x:Name="LogCard" Grid.Row="4" Margin="16,0,16,12" Padding="0" md:ElevationAssist.Elevation="Dp1">
             <Expander IsExpanded="True" md:ExpanderAssist.HorizontalHeaderPadding="16"
                       Background="Transparent">
                 <Expander.Header>

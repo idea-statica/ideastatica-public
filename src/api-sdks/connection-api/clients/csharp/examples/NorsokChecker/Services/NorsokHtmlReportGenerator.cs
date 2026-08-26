@@ -104,7 +104,7 @@ namespace NorsokChecker.Services
 			// Norm reference box
 			sb.AppendLine("<div class='norm-box'>");
 			sb.AppendLine("  <strong>Design Code:</strong> NORSOK N-004, Rev. 3, February 2013 &mdash; Design of Steel Structures<br/>");
-			sb.AppendLine("  <strong>Chapter 6.3:</strong> Tubular Members &mdash; Strength and Stability Requirements<br/>");
+			sb.AppendLine("  <strong>Chapter 6.4:</strong> Tubular Joints &mdash; Simple Joints (&sect;6.4.3)<br/>");
 			sb.AppendLine("  <strong>Engine:</strong> IDEA StatiCa Connection CBFEM Analysis via REST API");
 			sb.AppendLine("</div>");
 
@@ -134,11 +134,9 @@ namespace NorsokChecker.Services
 				// Group by chapter — each formula assigned to exactly one group
 				var groups = new (string key, string title)[]
 				{
-					("5", "§5 — Design Classification"),
-					("6.3.2", "§6.3 — Plate Stress Checks"),
+					("Plate", "Plate Stress Checks (CBFEM)"),
 					("Weld", "Weld Checks (EN 1993-1-8)"),
 					("Bolt", "Bolt Checks (EN 1993-1-8)"),
-					("6.3", "§6.3 — Tubular Member Checks"),
 					("6.4", "§6.4 — Tubular Joint Checks"),
 				};
 
@@ -198,18 +196,23 @@ namespace NorsokChecker.Services
 		private static void RenderSummaryCard(StringBuilder sb,
 			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
 		{
+			// Not-assessed rows are counted separately. Deriving failed as (total - passed) made
+			// them failures, and leaving them out of the total would have hidden them entirely —
+			// neither is honest about a joint nobody checked.
 			int totalChecks = allResults.Sum(r => r.formulas.Count);
-			int passed = allResults.Sum(r => r.formulas.Count(f => f.Passed));
-			int failed = totalChecks - passed;
-			bool allPass = failed == 0;
+			int notAssessed = allResults.Sum(r => r.formulas.Count(f => f.NotAssessed));
+			int passed = allResults.Sum(r => r.formulas.Count(f => !f.NotAssessed && f.Passed));
+			int failed = totalChecks - passed - notAssessed;
+			bool allPass = failed == 0 && notAssessed == 0;
 
-			// Find governing formula (highest utilization)
+			// Governing formula (highest utilization) — only among rows that were actually checked
 			NorsokFormulaResult? governing = null;
 			string? governingConnection = null;
 			foreach (var (name, formulas) in allResults)
 			{
 				foreach (var f in formulas)
 				{
+					if (f.NotAssessed) continue;
 					if (governing == null || f.Utilization > governing.Utilization)
 					{
 						governing = f;
@@ -218,9 +221,12 @@ namespace NorsokChecker.Services
 				}
 			}
 
-			string statusClass = allPass ? "pass" : "fail";
-			string verdict = allPass ? "COMPLIANT" : "NON-COMPLIANT";
-			string icon = allPass ? "&#x2714;" : "&#x2718;";
+			// "COMPLIANT" must not be claimed when part of the model was never checked
+			string statusClass = failed > 0 ? "fail" : notAssessed > 0 ? "warn" : "pass";
+			string verdict = failed > 0 ? "NON-COMPLIANT"
+				: notAssessed > 0 ? "INCOMPLETE — part of the model was not assessed"
+				: "COMPLIANT";
+			string icon = failed > 0 ? "&#x2718;" : notAssessed > 0 ? "&#x26A0;" : "&#x2714;";
 
 			sb.AppendLine($"<div class='summary-card {statusClass}'>");
 			sb.AppendLine($"  <div class='summary-verdict'>");
@@ -231,6 +237,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <div class='stat'><span class='stat-value'>{totalChecks}</span><span class='stat-label'>Total Checks</span></div>");
 			sb.AppendLine($"    <div class='stat stat-pass'><span class='stat-value'>{passed}</span><span class='stat-label'>Passed</span></div>");
 			sb.AppendLine($"    <div class='stat stat-fail'><span class='stat-value'>{failed}</span><span class='stat-label'>Failed</span></div>");
+			if (notAssessed > 0)
+				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notAssessed}</span><span class='stat-label'>Not assessed</span></div>");
 
 			if (governing != null)
 			{
@@ -246,9 +254,10 @@ namespace NorsokChecker.Services
 
 		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr, bool expandAll = false)
 		{
-			string statusClass = fr.Passed ? "pass" : "fail";
-			string statusIcon = fr.Passed ? "&#x2714;" : "&#x2718;";
-			string statusText = fr.Passed ? "PASS" : "FAIL";
+			// three states: a row that was not assessed is neither a tick nor a cross
+			string statusClass = fr.NotAssessed ? "warn" : fr.Passed ? "pass" : "fail";
+			string statusIcon = fr.NotAssessed ? "&#x26A0;" : fr.Passed ? "&#x2714;" : "&#x2718;";
+			string statusText = fr.Verdict;
 
 			sb.AppendLine($"<details class='check-card {statusClass}'{(expandAll ? " open" : "")}>");
 
@@ -258,8 +267,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
 			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
 			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
-			if (fr.LoadCaseId > 0)
-				sb.AppendLine($"    <span class='lc-badge'>LE{fr.LoadCaseId}</span>");
+			if (fr.LoadCaseId > 0 || !string.IsNullOrEmpty(fr.LoadCaseName))
+				sb.AppendLine($"    <span class='lc-badge'>{Esc(fr.LoadCaseName ?? $"LE{fr.LoadCaseId}")}</span>");
 			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization * 100:F1}%</span>");
 			sb.AppendLine("  </summary>");
 
@@ -667,6 +676,8 @@ body {
 }
 .util-badge.pass { background: #c8e6c9; color: #2e7d32; }
 .util-badge.fail { background: #ffcdd2; color: #c62828; }
+/* not assessed: deliberately neither green nor red — nothing was checked */
+.util-badge.warn { background: #ffe0b2; color: #e65100; }
 .card-body { padding: 12px 20px 16px 20px; }
 .formula-block { margin-bottom: 12px; }
 .formula-label {
@@ -771,6 +782,11 @@ body {
   background: linear-gradient(135deg, #ffebee, #ffcdd2);
   border: 2px solid #f44336;
 }
+/* incomplete: something was not assessed. Deliberately not green — nobody checked it. */
+.summary-card.warn {
+  background: linear-gradient(135deg, #fff8e1, #ffe0b2);
+  border: 2px solid #ff9800;
+}
 .summary-verdict {
   display: flex;
   align-items: center;
@@ -781,6 +797,7 @@ body {
 .summary-icon { font-size: 32px; }
 .summary-card.pass .summary-icon { color: #2e7d32; }
 .summary-card.fail .summary-icon { color: #c62828; }
+.summary-card.warn .summary-icon { color: #e65100; }
 .summary-text { font-size: 20px; color: #333; }
 .summary-stats {
   display: flex;

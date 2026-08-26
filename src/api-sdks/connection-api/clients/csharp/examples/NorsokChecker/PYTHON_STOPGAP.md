@@ -119,10 +119,51 @@ One connection per condition:
 
 The bearing flag sits on a brace throughout, which is what surfaced the chord defect.
 
+## Carry-over status (August 2026) — done
+
+All four defects below were carried into the C# app, plus two the python side never had. The engine
+itself needed nothing: comparing it function by function against `n64.py` (`QuAxial`, `QuIpb`,
+`QuOpb`, `QBeta`, `Qg` with its interpolation band, `CCoeffs` with the X β-lerp, `Qf`,
+`CheckJointOnce`, `CheckJoint` and its clamp-and-take-the-lesser §6.4.3.1 pass) found **no
+divergence**, which is consistent with the oracle holding at 1e-6. Force handling is likewise a
+faithful port — pure SI, in-plane projection, the three sign conventions, and the chord Begin/End
+average per NORSOK p.31.
+
+| carried | commit | note |
+|---|---|---|
+| tube D/T from the IOM facet ring | `87623540` | `TubeFromIom`, with 14 tests generated from the geometry rather than captured |
+| chord by continuity, not the bearing flag | `e2dcd6ef` | the bearing flag is no longer a criterion at all |
+| one definition of "tubular" | `87623540` | `CrossSectionDetector` used to include `CFRegPolygon` and `JointSectionMap` did not |
+| the `theta = 0` message | — | C# was already logically correct; the message is still generic |
+
+Two defects were C#-only, in code the python has no counterpart for and the oracle therefore never
+touched:
+
+- **the envelope selection rule** (`5958b6b1`). It ordered by utilisation *and* pass/fail at once:
+  a low-util failing row was promoted over a passing one, then overwritten again by any later
+  higher-util passing row. Worked example, three load effects — 0.80 PASS, 0.05 FAIL, 0.60 PASS —
+  reported **0.60 PASS**, losing the failing state entirely; stopping one step earlier reported
+  **5 % FAIL** while 80 % existed elsewhere. Python has no envelope at all (`joint_checks_all_les`
+  returns the full per-LE matrix and `ui.html` envelopes it for display), so nothing pinned this.
+  Now `JointEnvelope`, with python's two-stage rule and 7 tests — two of which fail on the old
+  condition, which is how they were validated.
+- **the governing-state pointer** (`5958b6b1`). `BuildResultFromRow` took a `loadCaseName` and used
+  it only inside a sentence, never setting `LoadCaseId` — so the results grid printed "envelope" and
+  the report dropped the LE badge. An envelope is only useful if it says which state it came from.
+
+And one fallback path was wrong twice (`15632ed0`): `ExtractChordStresses` iterated **every**
+member rather than the chord, and enveloped σ_a / σ_my / σ_mz **independently across load effects**,
+producing a stress state that occurred in none of them. It only runs when auto-topology rejects the
+joint — exactly when the numbers most need to be trustworthy.
+
 ## Carry-over to C#
 
 Each of these is a real defect of the C# app too, not a python-only artefact. They are listed
 smallest-blast-radius first.
+
+> **This table is the original diagnosis and describes the code as it was before the fixes above.**
+> It is kept because it records what was measured and where; for the current state read
+> *Carry-over status* above.
 
 | Python change | C# counterpart |
 |---|---|
@@ -144,8 +185,10 @@ at all.
 1. ~~Close out the python app.~~ **Done** — the fixes above, plus a one-dir build and a
    hand-over README in [`reference/python_packaging/`](reference/python_packaging/README.md).
 2. Hand it to the customer as the stopgap.
-3. Then return to the C# app and carry the fixes over, with `test_cs.ideaCon` added to its test
-   data.
+3. ~~Then return to the C# app and carry the fixes over.~~ **Done** — see *Carry-over status*
+   above. Still open: adding `test_cs.ideaCon` to the C# test data, and running it through the app
+   (the fixes are covered by 47 unit tests, but the gate-coverage file has not been driven through
+   the UI yet).
 4. The python goes back to reference-only, as `UNIFICATION.md` intends.
 
 ## Verification used throughout

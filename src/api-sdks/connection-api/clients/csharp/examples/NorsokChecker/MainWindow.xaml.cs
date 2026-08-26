@@ -26,6 +26,12 @@ namespace NorsokChecker
 		/// <summary>All formula evaluation results, keyed by connection ID.</summary>
 		private readonly Dictionary<int, List<NorsokFormulaResult>> _formulaResults = new();
 
+		/// <summary>
+		/// Members per connection, read once when the project is opened. Switching connections then
+		/// costs nothing — it used to re-read members and re-export the IOM on every click.
+		/// </summary>
+		private readonly Dictionary<int, List<MemberDisplayInfo>> _membersPerConnection = new();
+
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public MainWindow()
@@ -55,6 +61,30 @@ namespace NorsokChecker
 			var dialog = new OpenFolderDialog { Title = "Select IDEA StatiCa installation folder" };
 			if (dialog.ShowDialog() == true)
 				TxtApiPath.Text = dialog.FolderName;
+		}
+
+		/// <summary>
+		/// The one text box serves both modes, so it has to say — and hold — the right thing.
+		/// Attaching used to send whatever was in the box to ConnectionApiServiceAttacher, and the
+		/// box defaults to the installation folder, so "Attach to running service" always failed:
+		/// an install path is not a URL.
+		/// </summary>
+		private void ServiceMode_Changed(object sender, RoutedEventArgs e)
+		{
+			if (LblApiPath == null || TxtApiPath == null) return;   // fires during XAML init
+
+			bool attach = RbAttach.IsChecked == true;
+			LblApiPath.Text = attach ? "Service URL:" : "IDEA StatiCa folder:";
+			if (BtnBrowseApiPath != null)
+				BtnBrowseApiPath.IsEnabled = !attach;
+
+			string cur = TxtApiPath.Text.Trim();
+			bool looksUrl = cur.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
+				|| cur.StartsWith("https://", StringComparison.OrdinalIgnoreCase);
+			if (attach && !looksUrl)
+				TxtApiPath.Text = "http://localhost:5000";
+			else if (!attach && looksUrl)
+				TxtApiPath.Text = @"C:\Program Files\IDEA StatiCa\StatiCa 26.0";
 		}
 
 		private void BrowseProject_Click(object sender, RoutedEventArgs e)
@@ -132,66 +162,14 @@ namespace NorsokChecker
 
 				Log($"Found {connections.Count} connection(s).");
 
-				// Read members and cross-sections (GET only — no calculation)
+				// Every connection's members are read here, once, so switching between them later is
+				// instant and silent.
 				_members.Clear();
 				if (connections.Count > 0)
 				{
-					try
-					{
-						ShowStatus("Reading members and cross-sections...");
-
-						// GET members
-						var geoReader = new MemberGeometryReader(_apiClient, Log);
-						var memberInfos = await geoReader.ReadMembersAsync(
-							_projectId, connections[0].Id, rawResults: null, ct: default);
-
-						// GET cross-section catalog names for diameter detection
-						var cssDetector = new CrossSectionDetector(_apiClient, Log);
-						var detectedCss = await cssDetector.DetectAsync(_projectId);
-
-						foreach (var info in memberInfos)
-						{
-							double diameter = 0;
-							double wallThickness = info.WallThickness;
-							string shape = info.ShapeType; // Will be "Other" without raw results
-
-							// Try to detect shape from cross-section catalog
-							DetectedCrossSection? matchCss = null;
-							if (detectedCss.Count > 0)
-							{
-								matchCss = info.IsContinuous
-									? detectedCss.OrderByDescending(c => c.Diameter).FirstOrDefault()
-									: detectedCss.OrderBy(c => c.Diameter).FirstOrDefault();
-
-								if (matchCss != null)
-								{
-									shape = matchCss.ShapeType;
-									if (matchCss.Diameter > 0) diameter = matchCss.Diameter;
-									if (matchCss.Thickness > 0) wallThickness = matchCss.Thickness;
-								}
-							}
-
-							_members.Add(new MemberDisplayInfo
-							{
-								Id = info.Id,
-								Name = info.Name,
-								Role = info.IsContinuous ? "Chord" : "Brace",
-								Shape = shape,
-								Profile = matchCss?.Name ?? "",
-								Diameter = diameter,
-								WallThickness = wallThickness,
-								Fy = info.Fy > 0 ? info.Fy : 355,
-								MaterialName = info.MaterialName,
-							});
-						}
-
-						Log($"  Members loaded: {_members.Count}");
-						UpdateTubularState();
-					}
-					catch (Exception ex)
-					{
-						Log($"  WARNING: Could not read members: {ex.Message}");
-					}
+					await LoadAllConnectionMembersAsync();
+					ConnectionsGrid.SelectedIndex = 0;
+					ShowMembersOf(_connections[0]);
 				}
 
 				BtnRunCheck.IsEnabled = true;
@@ -399,6 +377,12 @@ namespace NorsokChecker
 									sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1)
 										?? new Services.Norsok64.JointSectionInfo()))
 								.ToList();
+
+							// D/T from the connection's OWN model, not from the section name. The
+							// section map is per project and name-derived, which is wrong for 96 % of
+							// catalogue circular profiles; the IOM facet ring is per connection and
+							// measured. See TubeFromIom.
+							await EnrichSectionsFromIomAsync(con.Id, topoMembers);
 						}
 						catch (Exception ex)
 						{
@@ -409,36 +393,86 @@ namespace NorsokChecker
 					var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
 
 					bool autoJointDone = false;
+					bool topologyRejected = false;
 					var autoJointResults = new List<NorsokFormulaResult>();
 					if (topoMembers != null)
+					{
 						autoJointDone = checker.EvaluateJointChecksFromTopology(topoMembers, loadEffects, autoJointResults);
-					if (topoMembers != null && !autoJointDone)
-						Log("    §6.4 auto-topology rejected the joint (verdict ERROR) — manual joint parameters used");
+						topologyRejected = !autoJointDone;
+					}
+
+					// A joint that fails the §6.4 conditions is not assessed per brace either. The
+					// manual parameters used to run as a fallback here, so a rejected joint reported
+					// "outside the scope of §6.4" AND a per-brace interaction at 205 % AND a valid
+					// geometry, all at once — three rows contradicting each other. Once the joint is
+					// out of scope, the quantities the check rests on (the joint plane, the averaged
+					// chord stresses, the K/Y/X balance) are not meaningful, so nothing downstream
+					// of them is published.
+					var manualJoint = topologyRejected ? null : jointGeometry;
+					if (topologyRejected)
+						Log("    §6.4 auto-topology rejected the joint — no §6.4 check is performed "
+							+ "(the manual joint parameters are NOT used as a fallback)");
 
 					// Find chord member load effects for Qf calculation (manual §6.4 path only)
-					double[] chordStresses = ExtractChordStresses(loadEffects, autoJointDone ? null : jointGeometry);
+					double[] chordStresses = ExtractChordStresses(
+						loadEffects, autoJointDone ? null : manualJoint, topoMembers);
 
 					var formulaResults = checker.EvaluateNorsokFormulas(
 						con.Id, rawJson, loadEffects,
-						autoJointDone ? null : jointGeometry, chordStresses, _members.ToList(), includeCbfem);
+						autoJointDone ? null : manualJoint, chordStresses, _members.ToList(), includeCbfem);
 					formulaResults.AddRange(autoJointResults);
 					_formulaResults[con.Id] = formulaResults;
 
-					// Determine worst-case Norsok utilization
+					// Three outcomes, not two. A "not assessed" row is neither a pass nor a failure,
+					// so it must not be counted as either — and a connection that carries one cannot
+					// be reported as PASS, because part of it was never checked.
 					double maxNorsokUtil = 0;
-					bool allPassed = true;
+					bool anyFailed = false;
+					bool anyNotAssessed = false;
+					int assessed = 0;
 					foreach (var fr in formulaResults)
 					{
-						if (fr.Utilization > maxNorsokUtil)
-							maxNorsokUtil = fr.Utilization;
-						if (!fr.Passed)
-							allPassed = false;
-						Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {(fr.Passed ? "PASS" : "FAIL")}");
+						if (fr.NotAssessed)
+						{
+							anyNotAssessed = true;
+						}
+						else
+						{
+							assessed++;
+							if (fr.Utilization > maxNorsokUtil) maxNorsokUtil = fr.Utilization;
+							if (!fr.Passed) anyFailed = true;
+						}
+						Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {fr.Verdict}");
 					}
 
-					con.NorsokPass = allPassed ? "PASS" : "FAIL";
-					con.MaxUtilization = maxNorsokUtil;
-					con.Status = allPassed ? "Norsok OK" : "Norsok FAIL";
+					if (anyFailed)
+					{
+						con.NorsokPass = "FAIL";
+						con.MaxUtilization = maxNorsokUtil;
+						con.Status = "Norsok FAIL";
+					}
+					else if (assessed == 0)
+					{
+						// nothing was checked at all — an empty result set used to leave the
+						// connection reading as "Norsok OK / PASS / 0.0 %"
+						con.NorsokPass = "N/A";
+						con.MaxUtilization = 0;
+						con.Status = anyNotAssessed ? "Outside §6.4 scope" : "Not assessed";
+						Log("    nothing was assessed for this connection — reported as N/A, not as a pass");
+					}
+					else if (anyNotAssessed)
+					{
+						con.NorsokPass = "PARTIAL";
+						con.MaxUtilization = maxNorsokUtil;
+						con.Status = "Partly assessed";
+						Log($"    {assessed} check(s) passed, but part of this connection was not assessed");
+					}
+					else
+					{
+						con.NorsokPass = "PASS";
+						con.MaxUtilization = maxNorsokUtil;
+						con.Status = "Norsok OK";
+					}
 				}
 
 				// Populate tabs
@@ -466,48 +500,297 @@ namespace NorsokChecker
 		}
 
 		/// <summary>
-		/// Extract chord stresses from load effects for Qf calculation.
-		/// Returns [sigmaA, sigmaMy, sigmaMz] in MPa.
-		/// The chord is the continuous member (highest member ID or IsContinuous).
+		/// Read the members of EVERY connection once, at load time, and cache them. Switching
+		/// connections then only swaps the grid contents — no API calls, no log noise, no waiting.
 		/// </summary>
-		private double[] ExtractChordStresses(List<ConLoadEffect>? loadEffects, TubularJointGeometry? joint)
+		private async Task LoadAllConnectionMembersAsync()
+		{
+			if (_apiClient == null || _projectId == Guid.Empty) return;
+
+			_membersPerConnection.Clear();
+
+			// project-wide, so it is fetched once rather than per connection
+			var detectedCss = await new CrossSectionDetector(_apiClient, Log).DetectAsync(_projectId);
+
+			foreach (var con in _connections)
+			{
+				ShowStatus($"Reading members of {con.Name}...");
+				try
+				{
+					_membersPerConnection[con.Id] = await ReadMembersAsync(con, detectedCss);
+					Log($"  {con.Name}: {_membersPerConnection[con.Id].Count} member(s)");
+				}
+				catch (Exception ex)
+				{
+					_membersPerConnection[con.Id] = new List<MemberDisplayInfo>();
+					Log($"  WARNING: could not read members of {con.Name}: {ex.Message}");
+				}
+			}
+		}
+
+		/// <summary>Show a cached connection's members. No API traffic.</summary>
+		private void ShowMembersOf(ConnectionCheckResult con)
+		{
+			_members.Clear();
+			foreach (var m in _membersPerConnection.GetValueOrDefault(con.Id) ?? new List<MemberDisplayInfo>())
+				_members.Add(m);
+
+			if (MembersOfLabel != null)
+				MembersOfLabel.Text = $"  — {con.Name}";
+			MembersGrid.Items.Refresh();
+			UpdateTubularState();
+		}
+
+		/// <summary>
+		/// The members of ONE connection, with each member matched to its own cross-section and its
+		/// D/t taken from the connection's own IOM model where that can be read.
+		/// </summary>
+		private async Task<List<MemberDisplayInfo>> ReadMembersAsync(
+			ConnectionCheckResult con, List<DetectedCrossSection> detectedCss)
+		{
+			var result = new List<MemberDisplayInfo>();
+			var geoReader = new MemberGeometryReader(_apiClient!, Log);
+			var memberInfos = await geoReader.ReadMembersAsync(
+				_projectId, con.Id, rawResults: null, ct: default);
+
+			foreach (var info in memberInfos)
+			{
+				double diameter = 0;
+				double wallThickness = info.WallThickness;
+				string shape = info.ShapeType;
+
+				// The member's OWN cross-section, matched by id. This used to sort the project's
+				// sections by diameter and take the largest for a continuous member and the
+				// smallest for every other — so on a joint with several profiles every member
+				// but one got the wrong section. Measured on test_cs CON1: four different braces
+				// all reported PIPE127STD, the chord got the smallest section, and D/t came out
+				// 0 wherever that name did not parse.
+				var matchCss = detectedCss.FirstOrDefault(c => c.Id == info.CrossSectionId);
+				if (matchCss != null)
+				{
+					shape = matchCss.ShapeType;
+					if (matchCss.Diameter > 0) diameter = matchCss.Diameter;
+					if (matchCss.Thickness > 0) wallThickness = matchCss.Thickness;
+				}
+				else if (info.CrossSectionId != null)
+				{
+					Log($"  WARNING: member '{info.Name}' references cross-section "
+						+ $"{info.CrossSectionId}, which was not read — D/t unknown");
+				}
+
+				result.Add(new MemberDisplayInfo
+				{
+					Id = info.Id,
+					Name = info.Name,
+					Role = info.IsContinuous ? "Chord" : "Brace",
+					Shape = shape,
+					Profile = matchCss?.Name ?? "",
+					Diameter = diameter,
+					WallThickness = wallThickness,
+					// material and fy come from the cross-section, so they are known before any
+					// calculation; the raw-results values (when a run happens) refine them
+					Fy = info.Fy > 0 ? info.Fy : matchCss?.Fy > 0 ? matchCss.Fy : 355,
+					MaterialName = !string.IsNullOrEmpty(info.MaterialName)
+						? info.MaterialName
+						: matchCss?.MaterialName ?? "",
+				});
+			}
+
+			// D/T from the connection's own model wherever it can be read — the section name is
+			// wrong for most catalogue circular profiles. See TubeFromIom.
+			await EnrichFromIomAsync(con.Id, result);
+			return result;
+		}
+
+		/// <summary>
+		/// Overwrite the grid's D/t with the values measured from the IOM facet ring, matched by
+		/// member name. Same source as the §6.4 path uses — without this the grid would keep showing
+		/// the name-parsed values (or 0) while the check ran on different numbers.
+		/// </summary>
+		private async Task EnrichFromIomAsync(int connectionId, List<MemberDisplayInfo> grid)
+		{
+			IdeaRS.OpenModel.Connection.ConnectionData? iom;
+			try
+			{
+				iom = await _apiClient!.Export.ExportIomConnectionDataAsync(_projectId, connectionId);
+			}
+			catch (Exception ex)
+			{
+				Log($"  IOM export failed ({ex.Message}) — D/t stay as read from the cross-sections");
+				return;
+			}
+
+			var beams = Services.Norsok64.TubeFromIom.TubularBeamsByName(iom);
+			foreach (var m in grid)
+			{
+				if (!beams.TryGetValue(m.Name, out var beam)) continue;
+				var (d, t, why) = Services.Norsok64.TubeFromIom.FromBeam(beam);
+				if (d is not > 0 || t is not > 0)
+				{
+					Log($"  IOM: '{m.Name}' D/t not readable ({why})");
+					continue;
+				}
+				bool changed = Math.Abs(m.Diameter - d.Value) > 0.05 || Math.Abs(m.WallThickness - t.Value) > 0.01;
+				if (changed)
+					Log($"  IOM: '{m.Name}' Ø{d:F1}/{t:F1} mm from the model "
+						+ $"(cross-section said Ø{m.Diameter:F1}/{m.WallThickness:F1})");
+				m.Diameter = d.Value;
+				m.WallThickness = t.Value;
+				m.Shape = "CHS";
+			}
+		}
+
+		/// <summary>
+		/// The API configuration and the log belong to setting the run up, so they are shown on the
+		/// Check tab only. They used to sit outside the tab control and take vertical space on
+		/// Results and Report, where neither is any use.
+		/// </summary>
+		private void MainTabs_SelectionChanged(object sender,
+			System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			if (!ReferenceEquals(e.OriginalSource, MainTabs)) return;   // ignore inner grids' events
+			if (ConfigCard == null || LogCard == null) return;          // fires during XAML init
+
+			bool onCheck = MainTabs.SelectedIndex == 0;
+			ConfigCard.Visibility = onCheck ? Visibility.Visible : Visibility.Collapsed;
+			LogCard.Visibility = onCheck ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		/// <summary>
+		/// Selecting a connection shows ITS members — from the cache, so this is a grid swap and
+		/// nothing else. No API call, no log output, no calculation.
+		/// </summary>
+		private void ConnectionsGrid_SelectionChanged(object sender,
+			System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			if (!IsLoaded) return;
+			// this event bubbles up to the tab control, so it must not be mistaken for a tab change
+			e.Handled = true;
+			if (ConnectionsGrid.SelectedItem is ConnectionCheckResult con)
+				ShowMembersOf(con);
+		}
+
+		/// <summary>
+		/// Replace each tubular member's D/T with the values measured from the connection's own IOM
+		/// model. Port of extract.py enrich_sections_from_iom.
+		///
+		/// The section map this overrides is built per project from the cross-section name, which is
+		/// wrong for most catalogue profiles and can be confidently wrong (PIPE127STD is D = 141.3,
+		/// not 127). The IOM facet ring is the modelled geometry, so it is what the check should
+		/// stand on; the name survives only as a cross-check in the log.
+		///
+		/// Never fatal: if the export or a beam cannot be read, the member keeps whatever the name
+		/// gave it and the existing gates still decide whether that is good enough.
+		/// </summary>
+		private async Task EnrichSectionsFromIomAsync(
+			int connectionId, List<Services.Norsok64.JointMemberData> members)
+		{
+			IdeaRS.OpenModel.Connection.ConnectionData? iom;
+			try
+			{
+				iom = await _apiClient!.Export.ExportIomConnectionDataAsync(_projectId, connectionId);
+			}
+			catch (Exception ex)
+			{
+				Log($"    WARNING: IOM export failed ({ex.Message}) — D/T stay as parsed from the section names");
+				return;
+			}
+
+			var beams = Services.Norsok64.TubeFromIom.TubularBeamsByName(iom);
+			if (beams.Count == 0)
+			{
+				Log("    IOM: no tubular beams in the model — D/T stay as parsed from the section names");
+				return;
+			}
+
+			foreach (var m in members)
+			{
+				// only tubular members: the facet formula would return a plausible-looking number
+				// for an I-section too, and that is worse than no number at all
+				if (!beams.TryGetValue(m.Name ?? "", out var beam)) continue;
+
+				var (d, t, why) = Services.Norsok64.TubeFromIom.FromBeam(beam);
+				if (d is not > 0 || t is not > 0)
+				{
+					Log($"    IOM: '{m.Name}' D/T not readable ({why}) — keeping the name-derived values");
+					continue;
+				}
+
+				double? nameD = m.Section.D, nameT = m.Section.T;
+				m.Section.D = d;
+				m.Section.T = t;
+				m.Section.IsCHS = true;
+
+				string cross = nameD is > 0 && nameT is > 0
+					? $" (name said Ø{nameD:F1}/{nameT:F1})"
+					: " (name gave nothing)";
+				Log($"    IOM: '{m.Name}' Ø{d:F1}/{t:F1} mm from {beam.Plates.Count} facets{cross}");
+			}
+		}
+
+		/// <summary>
+		/// Chord stresses [σ_a, σ_my, σ_mz] in MPa for Qf, on the MANUAL §6.4 path only — the
+		/// auto-topology path derives them properly per load effect and per brace
+		/// (JointForceResolver.ChordAvgLoad / ChordStressAtBrace), in the brace's own frame.
+		///
+		/// This crude version cannot do that: with the topology rejected there is no joint plane
+		/// and no per-brace frame. It stays deliberately conservative but keeps two properties the
+		/// previous version broke:
+		///   - only the CHORD's loadings are read. It used to iterate every member, so a brace's
+		///     forces could end up reported as chord stress.
+		///   - the three components come from ONE load effect — the one with the largest resultant.
+		///     They used to be enveloped independently, producing a stress state that occurred in
+		///     no single load case.
+		/// The chord's own Begin/End loadings are averaged, per NORSOK p.31.
+		/// </summary>
+		private double[] ExtractChordStresses(
+			List<ConLoadEffect>? loadEffects,
+			TubularJointGeometry? joint,
+			IReadOnlyList<Services.Norsok64.JointMemberData>? topoMembers)
 		{
 			if (loadEffects == null || joint == null || joint.D <= 0 || joint.T <= 0)
 				return new double[] { 0, 0, 0 };
 
-			// Chord cross-section properties for stress calculation
+			var (chord, _) = topoMembers != null && topoMembers.Count > 0
+				? Services.Norsok64.JointTopologyBuilder.IdentifyChord(topoMembers)
+				: (null, null);
+			if (chord == null)
+			{
+				Log("    Chord stresses for Qf: chord unknown (no member geometry) — Qf falls back to 1.0");
+				return new double[] { 0, 0, 0 };
+			}
+
 			var chordGeo = TubularGeometryCalc.Calculate(joint.D, joint.T);
-			double sigmaA = 0, sigmaMy = 0, sigmaMz = 0;
+			double sigmaA = 0, sigmaMy = 0, sigmaMz = 0, worstResultant = -1;
 
 			foreach (var le in loadEffects)
 			{
-				if (le.MemberLoadings == null) continue;
+				var chordLoads = le.MemberLoadings?
+					.Where(ml => ml.MemberId == chord.Id && ml.SectionLoad != null)
+					.Select(ml => ml.SectionLoad!)
+					.ToList();
+				if (chordLoads == null || chordLoads.Count == 0) continue;
 
-				// Find the chord member (typically the first/continuous member)
-				// In a typical joint, member with the largest N is the chord
-				foreach (var ml in le.MemberLoadings)
+				// average the chord's sections either side of the intersection (NORSOK p.31)
+				double n = chordLoads.Average(sl => sl.N) / 1000.0;      // N → kN
+				double my = chordLoads.Average(sl => sl.My) / 1000.0;    // N·m → kNm
+				double mz = chordLoads.Average(sl => sl.Mz) / 1000.0;
+
+				double sA = n * 1000.0 / chordGeo.A;                     // kN, mm² → MPa
+				double sMy = Math.Abs(my * 1e6 / chordGeo.W);
+				double sMz = Math.Abs(mz * 1e6 / chordGeo.W);
+
+				// one load effect governs all three components — never mix them across states
+				double resultant = Math.Sqrt(sA * sA + sMy * sMy + sMz * sMz);
+				if (resultant > worstResultant)
 				{
-					if (ml.SectionLoad == null) continue;
-					var sl = ml.SectionLoad;
-
-					// Convert N→kN, N·m→kNm, then to stress
-					double N_kN = sl.N / 1000.0;
-					double My_kNm = sl.My / 1000.0;
-					double Mz_kNm = sl.Mz / 1000.0;
-
-					// Axial stress = N/A [kN/mm² → MPa: ×1000/A]
-					double sA = Math.Abs(N_kN * 1000.0 / chordGeo.A);
-					double sMy = Math.Abs(My_kNm * 1e6 / chordGeo.W);
-					double sMz = Math.Abs(Mz_kNm * 1e6 / chordGeo.W);
-
-					// Take worst envelope
-					if (sA > Math.Abs(sigmaA)) sigmaA = N_kN >= 0 ? sA : -sA; // Keep sign
-					if (sMy > Math.Abs(sigmaMy)) sigmaMy = sMy;
-					if (sMz > Math.Abs(sigmaMz)) sigmaMz = sMz;
+					worstResultant = resultant;
+					sigmaA = sA; sigmaMy = sMy; sigmaMz = sMz;
 				}
 			}
 
-			Log($"    Chord stresses for Qf: σ_a={sigmaA:F1} MPa, σ_my={sigmaMy:F1} MPa, σ_mz={sigmaMz:F1} MPa");
+			Log($"    Chord stresses for Qf (chord '{chord.Name}', worst single LE): " +
+				$"σ_a={sigmaA:F1} MPa, σ_my={sigmaMy:F1} MPa, σ_mz={sigmaMz:F1} MPa");
 			return new double[] { sigmaA, sigmaMy, sigmaMz };
 		}
 
@@ -556,11 +839,13 @@ namespace NorsokChecker
 						fr.Section,
 						fr.Title,
 						fr.Equation,
-						LoadCase = fr.LoadCaseId > 0 ? $"LC{fr.LoadCaseId}" : "envelope",
+						LoadCase = !string.IsNullOrEmpty(fr.LoadCaseName) ? fr.LoadCaseName
+							: fr.LoadCaseId > 0 ? $"LC{fr.LoadCaseId}" : "envelope",
 						Demand = Math.Round(fr.Demand, 2),
 						Capacity = Math.Round(fr.Capacity, 2),
-						Utilization = $"{fr.Utilization * 100:F1}%",
-						Result = fr.Passed ? "PASS" : "FAIL"
+						// a utilisation of "0.0 %" next to "not assessed" reads as a result; it is not
+						Utilization = fr.NotAssessed ? "—" : $"{fr.Utilization * 100:F1}%",
+						Result = fr.Verdict
 					});
 				}
 			}

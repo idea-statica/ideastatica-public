@@ -59,6 +59,12 @@ namespace NorsokChecker.Services.Formulas
 
 			double utilDisplay = double.IsInfinity(r.UtilWeighted) ? 999.0 : r.UtilWeighted;
 
+			// The governing load effect. Without this the card reports LoadCaseId = 0, which the
+			// results table renders as "envelope" and the report drops the LE badge entirely —
+			// the envelope is only useful if it says which state it came from.
+			int govLeId = row.GovLeId;
+			string govLeName = row.GovLeName ?? loadCaseName;
+
 			var variables = new List<FormulaVariable>
 			{
 				new() { Symbol = "D", Description = "chord outside diameter", Value = inp.D * 1000, Unit = "mm" },
@@ -112,11 +118,13 @@ namespace NorsokChecker.Services.Formulas
 				CheckExpression = "|N_Sd|/N_Rd + (M_ip,Sd/M_ip,Rd)² + |M_op,Sd|/M_op,Rd ≤ 1.0",
 				Formula = @"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
 				FormulaSubstituted =
-					$"N_Rd(weighted {clsStr}) = {nRdKn:F1} kN;  worst LC: {loadCaseName}",
+					$"N_Rd(weighted {clsStr}) = {nRdKn:F1} kN;  governing LC: {govLeName}",
 				Demand = utilDisplay,
 				Capacity = 1.0,
 				Utilization = utilDisplay,
 				Passed = row.Passed,
+				LoadCaseId = govLeId,
+				LoadCaseName = govLeName,
 				Variables = variables,
 				JointDetail = row,
 			};
