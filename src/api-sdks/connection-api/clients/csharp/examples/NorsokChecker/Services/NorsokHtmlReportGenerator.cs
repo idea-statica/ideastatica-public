@@ -364,6 +364,25 @@ namespace NorsokChecker.Services
 		/// their own axial row), K per-gap resistances, shared bending resistances, chord-stress trail
 		/// (Begin/End average → section props → σ), and the §6.4.3.1 validity table.
 		/// </summary>
+		/// <summary>
+		/// The derivation of one brace's check as a standalone page, for the §6.4 tab's derivation
+		/// window. Same renderer as the report so the two can never disagree.
+		/// </summary>
+		public static string GenerateDerivationPage(Norsok64.JointCheckRow row, string title)
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/>");
+			sb.AppendLine("<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'/>");
+			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js'></script>");
+			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js'");
+			sb.AppendLine("  onload=\"renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});\"></script>");
+			sb.AppendLine($"<style>{CssStyles}</style></head><body style='padding:14px'>");
+			sb.AppendLine($"<h2 style='margin:0 0 10px;color:#1f3a5f;font-size:16px'>{Esc(title)}</h2>");
+			RenderJointDerivation(sb, row);
+			sb.AppendLine("</body></html>");
+			return sb.ToString();
+		}
+
 		private static void RenderJointDerivation(StringBuilder sb, Norsok64.JointCheckRow row)
 		{
 			var r = row.Engine;

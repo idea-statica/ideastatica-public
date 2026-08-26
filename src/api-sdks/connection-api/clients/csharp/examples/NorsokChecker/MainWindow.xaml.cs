@@ -1015,12 +1015,15 @@ namespace NorsokChecker
 			}
 
 			ResultsGrid.ItemsSource = all;
-			Grid64.ItemsSource = joint;
 			GridCbfem.ItemsSource = cbfem;
 
 			// a tab with nothing in it is worse than no tab: it invites a click that shows nothing
-			Tab64.IsEnabled = joint.Count > 0;
 			TabCbfem.IsEnabled = cbfem.Count > 0;
+
+			// The §6.4 tab is not fed from these flat rows any more — it binds the per-load-effect
+			// topology, so it can show a single state as well as the envelope, the K/X/Y split and
+			// the derivation. It enables itself from what it finds.
+			PopulateJoint64Tab();
 
 			PopulateReportTab();
 		}

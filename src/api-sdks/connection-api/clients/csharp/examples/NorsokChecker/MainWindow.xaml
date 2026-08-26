@@ -425,22 +425,160 @@
                         <TextBlock Text="§6.4" HorizontalAlignment="Center" FontSize="11"/>
                     </StackPanel>
                 </TabItem.Header>
+                <!-- Shaped after the python reference's results sheet (ui.html): a connection and
+                     load-effect selector on top, the joint seen in its own plane beside the
+                     per-brace check table, and a click into a row for the full derivation. -->
                 <Grid Margin="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="0,0,0,10"
-                               Text="NORSOK N-004 §6.4 tubular joints — one row per brace, with the load effect that governs it. Conditions not met and assumptions made are listed first."
-                               TextWrapping="Wrap"
-                               Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               Foreground="#546E7A"/>
-                    <DataGrid Grid.Row="1" x:Name="Grid64" AutoGenerateColumns="True"
-                              IsReadOnly="True" CanUserAddRows="False"
-                              md:DataGridAssist.CellPadding="10 6"
-                              VerticalScrollBarVisibility="Auto"
-                              GridLinesVisibility="Horizontal"
-                              BorderThickness="0"/>
+
+                    <!-- ── selector bar ── -->
+                    <Grid Grid.Row="0" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Connection:" VerticalAlignment="Center"
+                                   Foreground="#546E7A" Margin="0,0,6,0"/>
+                        <ComboBox Grid.Column="1" x:Name="Cmb64Connection" MinWidth="120"
+                                  SelectionChanged="Joint64Selection_Changed" Margin="0,0,20,0"/>
+
+                        <!-- per-LC vs envelope. The envelope is per BRACE: each brace reports the
+                             state that governs IT, so different braces can name different states. -->
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"
+                                    Margin="0,0,12,0">
+                            <RadioButton x:Name="Rb64Envelope" Content="Envelope" IsChecked="True"
+                                         GroupName="Le64Mode" Margin="0,0,10,0"
+                                         Checked="Joint64Selection_Changed"
+                                         ToolTip="Per brace, the load effect with the highest utilisation"/>
+                            <RadioButton x:Name="Rb64PerLe" Content="per LC" GroupName="Le64Mode"
+                                         Checked="Joint64Selection_Changed"
+                                         ToolTip="Show one selected load effect"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="3" x:Name="Lbl64Le" Text="Load effect:"
+                                   VerticalAlignment="Center" Foreground="#546E7A" Margin="0,0,6,0"/>
+                        <ComboBox Grid.Column="4" x:Name="Cmb64Le" MinWidth="190"
+                                  DisplayMemberPath="Display"
+                                  SelectionChanged="Joint64Selection_Changed"/>
+
+                        <TextBlock Grid.Column="5" x:Name="Lbl64Summary" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right" Foreground="#78909C" FontSize="11"/>
+                    </Grid>
+
+                    <!-- ── the joint's verdict, and every condition it did not meet ── -->
+                    <Border Grid.Row="1" x:Name="Pnl64Verdict" Visibility="Collapsed"
+                            Background="{StaticResource VerdictNaBg}" CornerRadius="4"
+                            Padding="14,10" Margin="0,0,0,8">
+                        <StackPanel>
+                            <TextBlock x:Name="Lbl64VerdictTitle" FontWeight="Bold"
+                                       Foreground="{StaticResource VerdictFailFg}" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="Lbl64VerdictBody" Margin="0,4,0,0" TextWrapping="Wrap"
+                                       Foreground="#455A64" MaxWidth="900"/>
+                            <ItemsControl x:Name="Lst64Conditions" Margin="0,6,0,0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,1"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ── the joint in its plane, beside the per-brace table ── -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="380" MinWidth="220"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" MinWidth="320"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" BorderBrush="#E0E0E0" BorderThickness="1"
+                                CornerRadius="2">
+                            <!-- Same control as the Check tab, but turned to look square at the
+                                 joint plane with the chord across the view — see LookAtPlane. -->
+                            <controls:Joint3DView x:Name="Joint3D64"/>
+                        </Border>
+
+                        <GridSplitter Grid.Column="1" Width="8" HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch" Background="Transparent"
+                                      ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"
+                                      Cursor="SizeWE" ToolTip="Drag to resize the joint view">
+                            <GridSplitter.Template>
+                                <ControlTemplate TargetType="GridSplitter">
+                                    <Grid Background="Transparent">
+                                        <Border Width="2" Height="36" CornerRadius="1"
+                                                Background="#C4CCD6" x:Name="Pill64"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Pill64" Property="Background" Value="#2E6FB0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </GridSplitter.Template>
+                        </GridSplitter>
+
+                        <DockPanel Grid.Column="2" LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Bottom" x:Name="Lbl64Legend" Margin="0,6,0,0"
+                                       TextWrapping="Wrap" Foreground="#78909C" FontSize="11"/>
+                            <DataGrid x:Name="Grid64" AutoGenerateColumns="False"
+                                      IsReadOnly="True" CanUserAddRows="False"
+                                      SelectionMode="Single" SelectionUnit="FullRow"
+                                      md:DataGridAssist.CellPadding="8 5"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      GridLinesVisibility="Horizontal" BorderThickness="0"
+                                      FontSize="12"
+                                      MouseDoubleClick="Grid64_ShowDerivation">
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                        <Setter Property="ToolTip" Value="Double-click for the full derivation"/>
+                                        <EventSetter Event="MouseEnter" Handler="Grid64_HighlightBrace"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Verdict}" Value="FAIL">
+                                                <Setter Property="Background" Value="{StaticResource VerdictFailBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictFailFg}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Verdict}" Value="PASS">
+                                                <Setter Property="Background" Value="{StaticResource VerdictPassBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictPassFg}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Verdict}" Value="N/A">
+                                                <Setter Property="Background" Value="{StaticResource VerdictNaBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictNaFg}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.RowStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Brace" Binding="{Binding Brace}" Width="SizeToHeader" MinWidth="55"/>
+                                    <DataGridTextColumn x:Name="Col64Gov" Header="Governing LC" Binding="{Binding GoverningLe}" Width="SizeToCells" MinWidth="90"/>
+                                    <DataGridTextColumn Header="K" Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"/>
+                                    <DataGridTextColumn Header="X" Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"/>
+                                    <DataGridTextColumn Header="Y" Binding="{Binding FrY}" Width="SizeToHeader" MinWidth="50"/>
+                                    <DataGridTextColumn Header="N_Rd" Binding="{Binding NRd}" Width="SizeToHeader" MinWidth="70"/>
+                                    <DataGridTextColumn Header="M_Rd,ip" Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"/>
+                                    <DataGridTextColumn Header="M_Rd,op" Binding="{Binding MRdOp}" Width="SizeToHeader" MinWidth="70"/>
+                                    <DataGridTextColumn Header="axial" Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"/>
+                                    <DataGridTextColumn Header="in-pl." Binding="{Binding UtilIpb}" Width="SizeToHeader" MinWidth="55"/>
+                                    <DataGridTextColumn Header="out-pl." Binding="{Binding UtilOpb}" Width="SizeToHeader" MinWidth="55"/>
+                                    <DataGridTextColumn Header="Utilisation" Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"/>
+                                    <DataGridTextColumn Header="" Binding="{Binding Flags}" Width="SizeToCells" MinWidth="24"/>
+                                    <DataGridTextColumn Header="Verdict" Binding="{Binding Verdict}" Width="SizeToHeader" MinWidth="60"/>
+                                    <DataGridTextColumn Header="Not assessed because" Binding="{Binding SkipReason}" Width="*" MinWidth="120"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </Grid>
                 </Grid>
             </TabItem>
 
