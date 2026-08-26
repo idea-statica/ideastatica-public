@@ -224,12 +224,20 @@ namespace NorsokChecker.Services
 				}
 			}
 
-			// "COMPLIANT" must not be claimed when part of the model was never checked
-			string statusClass = failed > 0 ? "fail" : notAssessed > 0 ? "warn" : "pass";
+			// "COMPLIANT" must not be claimed when part of the model was never checked — nor when
+			// NOTHING was. With no rows at all every count is zero, so the arithmetic below used to
+			// fall through to COMPLIANT with a green tick over "0 Total Checks": reachable by
+			// unchecking both chapter boxes and pressing Run, and it is the exportable deliverable
+			// that said it. The connection list already reported that run as N/A.
+			bool nothingChecked = totalChecks - notAssessed <= 0;
+			string statusClass = failed > 0 ? "fail" : (notAssessed > 0 || nothingChecked) ? "warn" : "pass";
 			string verdict = failed > 0 ? "NON-COMPLIANT"
+				: nothingChecked ? "NOT ASSESSED — no check was performed"
 				: notAssessed > 0 ? "INCOMPLETE — part of the model was not assessed"
 				: "COMPLIANT";
-			string icon = failed > 0 ? "&#x2718;" : notAssessed > 0 ? "&#x26A0;" : "&#x2714;";
+			string icon = failed > 0 ? "&#x2718;"
+				: (notAssessed > 0 || nothingChecked) ? "&#x26A0;"
+				: "&#x2714;";
 
 			sb.AppendLine($"<div class='summary-card {statusClass}'>");
 			sb.AppendLine($"  <div class='summary-verdict'>");
@@ -276,7 +284,11 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
 			if (fr.LoadCaseId > 0 || !string.IsNullOrEmpty(fr.LoadCaseName))
 				sb.AppendLine($"    <span class='lc-badge'>{Esc(fr.LoadCaseName ?? $"LE{fr.LoadCaseId}")}</span>");
-			sb.AppendLine($"    <span class='util-badge {statusClass}'>{fr.Utilization * 100:F1}%</span>");
+			// An em dash, not "0.0 %": on a note or an unassessed row the utilisation is not a small
+			// number, it is no number at all (NorsokFormulaResult says so), and "0.0 %" reads as an
+			// excellent result. The results grid already does this; the report did not.
+			string utilBadge = fr.IsNote || fr.NotAssessed ? "&mdash;" : $"{fr.Utilization * 100:F1}%";
+			sb.AppendLine($"    <span class='util-badge {statusClass}'>{utilBadge}</span>");
 			sb.AppendLine("  </summary>");
 
 			sb.AppendLine("  <div class='card-body'>");
@@ -327,9 +339,14 @@ namespace NorsokChecker.Services
 			if (fr.JointDetail != null)
 				RenderJointDerivation(sb, fr.JointDetail);
 
-			// Result bar
+			// Result bar. On a note or an unassessed row there is no utilisation to state and no
+			// inequality to assert about it — "0.0% (= 0.0000 <= 1.0)" claimed a check had been made
+			// and had passed comfortably, next to the word N/A.
 			sb.AppendLine($"    <div class='result-bar {statusClass}'>");
-			sb.AppendLine($"      <span>Utilization: <strong>{fr.Utilization * 100:F1}%</strong> (= {fr.Utilization:F4} &le; 1.0)</span>");
+			sb.AppendLine(fr.IsNote || fr.NotAssessed
+				? "      <span>Utilization: <strong>&mdash;</strong> (not assessed)</span>"
+				: $"      <span>Utilization: <strong>{fr.Utilization * 100:F1}%</strong> "
+					+ $"(= {fr.Utilization:F4} &le; 1.0)</span>");
 			sb.AppendLine($"      <span class='result-verdict'>{statusIcon} {statusText}</span>");
 			sb.AppendLine("    </div>");
 
@@ -661,9 +678,14 @@ body {
 .card-header:hover { filter: brightness(0.97); }
 .card-header.pass { background: #e8f5e9; border-left: 4px solid #4caf50; }
 .card-header.fail { background: #ffebee; border-left: 4px solid #f44336; }
+/* warn = a note, or a row nothing was assessed for. It was missing, so those cards rendered
+   with an unstyled white header and an icon in the body colour -- the one state the app
+   deliberately distinguishes was the one the report did not show. */
+.card-header.warn { background: #fff8e1; border-left: 4px solid #ffa726; }
 .status-icon { font-size: 18px; }
 .pass .status-icon { color: #2e7d32; }
 .fail .status-icon { color: #c62828; }
+.warn .status-icon { color: #e65100; }
 .section-ref { color: #00695c; font-weight: 600; }
 .card-title { flex: 1; }
 .eq-ref { color: #9e9e9e; font-size: 12px; }
@@ -737,6 +759,7 @@ body {
 }
 .result-bar.pass { background: #e8f5e9; }
 .result-bar.fail { background: #ffebee; }
+.result-bar.warn { background: #fff8e1; }
 .result-verdict { font-weight: 700; font-size: 15px; }
 .pass .result-verdict { color: #2e7d32; }
 .fail .result-verdict { color: #c62828; }

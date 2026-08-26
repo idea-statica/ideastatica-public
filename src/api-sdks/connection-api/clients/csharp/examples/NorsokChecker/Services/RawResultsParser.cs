@@ -35,6 +35,7 @@ namespace NorsokChecker.Services
 						Id = GetInt(p, "id"),
 						Name = GetString(p, "name"),
 						MaxStress = GetDouble(p, "maxStress") / 1e6,             // Pa → MPa
+						HasStress = HasNumber(p, "maxStress"),
 						MaxStrain = GetDouble(p, "maxStrain"),
 						MaxUnityCheck = GetDouble(p, "maxUnityCheck"),
 						Thickness = GetDouble(p, "thickness") * 1000.0,           // m → mm
@@ -60,6 +61,7 @@ namespace NorsokChecker.Services
 						Id = GetInt(w, "id"),
 						Name = GetString(w, "name"),
 						MaxEquivalentStress = GetDouble(w, "maxEquivalentStress") / 1e6, // Pa → MPa
+						HasStress = HasNumber(w, "maxEquivalentStress"),
 						EquivalentStressResistance = GetDouble(w, "equivalentStressResistance") / 1e6, // Pa → MPa
 						UnityCheckWeld = GetDouble(w, "unityCheckWeld"),
 						UnityCheckBaseMetal = GetDouble(w, "unityCheckBaseMetal"),
@@ -107,6 +109,15 @@ namespace NorsokChecker.Services
 			return result;
 		}
 
+		/// <summary>
+		/// A numeric property, or 0 when it is absent or the engine reported NaN.
+		///
+		/// Zero is a poor stand-in for "no result" — for a STRESS it is the most favourable value
+		/// there is — but it is what 32 call sites here already assume, several of which divide by the
+		/// result. Rather than change all of them, <see cref="HasNumber"/> lets a caller ask whether
+		/// the value was really reported, and the plate/weld checks use it to mark an absent result
+		/// not-assessed instead of passed.
+		/// </summary>
 		private static double GetDouble(JsonElement el, string prop)
 		{
 			if (el.TryGetProperty(prop, out var val))
@@ -119,6 +130,14 @@ namespace NorsokChecker.Services
 			}
 			return 0;
 		}
+
+		/// <summary>
+		/// Was this property a real number? False for an absent property and for the engine's "NaN",
+		/// both of which <see cref="GetDouble"/> reports as 0 — a plate whose maxStress arrived as
+		/// "NaN" was otherwise checked as 0 / f_d and reported PASS at 0.0 %.
+		/// </summary>
+		private static bool HasNumber(JsonElement el, string prop)
+			=> el.TryGetProperty(prop, out var val) && val.ValueKind == JsonValueKind.Number;
 
 		private static int GetInt(JsonElement el, string prop)
 		{
@@ -159,6 +178,13 @@ namespace NorsokChecker.Services
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
 		public double MaxStress { get; set; }              // MPa
+
+		/// <summary>
+		/// False when the engine reported no stress for this plate (absent, or "NaN"). MaxStress is
+		/// then 0, which as a stress is the most favourable value there is — so the check must report
+		/// "not assessed", not a pass at 0 %.
+		/// </summary>
+		public bool HasStress { get; set; }
 		public double MaxStrain { get; set; }
 		public double MaxUnityCheck { get; set; }
 		public double Thickness { get; set; }              // mm
@@ -176,6 +202,9 @@ namespace NorsokChecker.Services
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
 		public double MaxEquivalentStress { get; set; }    // MPa
+
+		/// <inheritdoc cref="PlateData.HasStress"/>
+		public bool HasStress { get; set; }
 		public double EquivalentStressResistance { get; set; } // MPa — engine-computed weld resistance
 		public double UnityCheckWeld { get; set; }
 		public double UnityCheckBaseMetal { get; set; }

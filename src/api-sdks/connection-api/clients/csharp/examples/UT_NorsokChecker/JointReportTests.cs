@@ -88,5 +88,60 @@ namespace UT_NorsokChecker
 				Assert.That(html, Does.Contain("KB"));
 			});
 		}
+
+		/// <summary>
+		/// The report must not claim COMPLIANT for a run in which nothing was checked.
+		///
+		/// Every count is zero there, so the verdict arithmetic fell through to the all-clear: a
+		/// green tick and "COMPLIANT" over "0 Total Checks", in the exportable PDF, while the
+		/// connection list correctly said N/A for the same run. Reachable by unchecking both chapter
+		/// boxes and pressing Run. The guard that catches this in the grid was never added here.
+		/// </summary>
+		[Test]
+		public void HtmlReport_WithNoChecksAtAll_IsNotCompliant()
+		{
+			string html = NorsokHtmlReportGenerator.GenerateReport(
+				"UT", new[] { ("EMPTY", new List<NorsokFormulaResult>()) }, expandAll: true);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Not.Contain("COMPLIANT</"),
+					"a run with no checks must not be reported as compliant");
+				Assert.That(html, Does.Contain("NOT ASSESSED"), "it must say so instead");
+			});
+		}
+
+		/// <summary>
+		/// A not-assessed row must not show a utilisation. "0.0 %" and "(= 0.0000 ≤ 1.0)" asserted a
+		/// comfortable pass next to the word N/A — the same trap the results grid already avoids with
+		/// an em dash, duplicated in the report.
+		/// </summary>
+		[Test]
+		public void HtmlReport_NotAssessedRow_ShowsNoUtilisation()
+		{
+			var results = new List<NorsokFormulaResult>
+			{
+				new()
+				{
+					Section = "6.4", Equation = "6.4.3",
+					Title = "Outside the scope of §6.4",
+					CheckExpression = "Chord: HEB300 is RolledI — NORSOK 6.4 applies to tubular sections only.",
+					NotAssessed = true,
+				},
+			};
+
+			string html = NorsokHtmlReportGenerator.GenerateReport(
+				"UT", new[] { ("REJECTED", results) }, expandAll: true);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Not.Contain("0.0%"),
+					"an unassessed row has no utilisation, and 0.0 % reads as an excellent one");
+				Assert.That(html, Does.Not.Contain("&le; 1.0"),
+					"nor is there any inequality to assert about it");
+				Assert.That(html, Does.Contain("card-header warn"),
+					"and the card must carry the warn styling that now exists for it");
+			});
+		}
 	}
 }

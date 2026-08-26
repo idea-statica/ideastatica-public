@@ -101,9 +101,18 @@ namespace UT_NorsokChecker
 			Assert.That(gov.Row.Skipped, Is.False);
 		}
 
-		/// <summary>Skipped everywhere → no governing row, and the reason survives for the log.</summary>
+		/// <summary>
+		/// Skipped everywhere → the SKIPPED row is still returned, carrying its reason.
+		///
+		/// This test used to assert null, which is what the code did — and it pinned a real defect
+		/// rather than the reference rule. With null, the caller added no result of any kind: a
+		/// three-brace joint where one brace carries no force in any state published two rows,
+		/// counted two checks, and the connection read PASS with a brace nobody had assessed,
+		/// invisible in the grid, the §6.4 tab and the report alike. The python reference
+		/// (ui.html envelopeData) accepts the first row unconditionally for exactly this reason.
+		/// </summary>
 		[Test]
-		public void Pick_ReturnsNullWhenSkippedEverywhere()
+		public void Pick_ReturnsTheSkippedRowWhenSkippedEverywhere()
 		{
 			var les = new[]
 			{
@@ -111,8 +120,63 @@ namespace UT_NorsokChecker
 				Le(2, "LE2", Skipped("B1", "no axial force to classify")),
 			};
 
-			Assert.That(JointEnvelope.Pick(les, "B1"), Is.Null);
-			Assert.That(JointEnvelope.SkipReason(les, "B1"), Is.EqualTo("no axial force to classify"));
+			var gov = JointEnvelope.Pick(les, "B1");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(gov, Is.Not.Null, "a brace must never vanish from the envelope");
+				Assert.That(gov!.Row.Skipped, Is.True, "and it must be recognisable as unassessed");
+				Assert.That(gov.Row.Reason, Is.EqualTo("no axial force to classify"));
+				Assert.That(JointEnvelope.SkipReason(les, "B1"), Is.EqualTo("no axial force to classify"));
+			});
+		}
+
+		/// <summary>A brace with no row at all in any state is the one case that yields null.</summary>
+		[Test]
+		public void Pick_ReturnsNullOnlyWhenTheBraceHasNoRowAtAll()
+		{
+			var les = new[]
+			{
+				Le(1, "LE1", Row("B1", 0.5, true)),
+				Le(2, "LE2", Row("B1", 0.6, true)),
+			};
+
+			Assert.That(JointEnvelope.Pick(les, "B2"), Is.Null);
+		}
+
+		/// <summary>
+		/// The consequence that made the null case a defect rather than a detail: EVERY brace of the
+		/// joint must come back from the envelope, so the caller can publish one row each. With the
+		/// third brace dropped, the connection counted two checks out of three and read PASS.
+		///
+		/// Asserted as a count over the brace set, not per brace, because that is the property that
+		/// was violated — each individual Pick call looked reasonable in isolation.
+		/// </summary>
+		[Test]
+		public void Pick_YieldsARowForEveryBrace_EvenTheUnassessedOne()
+		{
+			var braces = new[] { "B1", "B2", "B3" };
+			var les = new[]
+			{
+				Le(1, "LE1", Row("B1", 0.40, true), Row("B2", 0.70, true),
+					Skipped("B3", "no axial force to classify (K/Y/X = 0) and no bending load")),
+				Le(2, "LE2", Row("B1", 0.55, true), Row("B2", 0.30, true),
+					Skipped("B3", "no axial force to classify (K/Y/X = 0) and no bending load")),
+			};
+
+			var governing = braces
+				.Select(b => new { Brace = b, Gov = JointEnvelope.Pick(les, b) })
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(governing.Count(g => g.Gov != null), Is.EqualTo(3),
+					"a three-brace joint must produce three envelope entries, assessed or not");
+				Assert.That(governing.Single(g => g.Brace == "B3").Gov!.Row.Skipped, Is.True,
+					"and the unassessed one must be marked, not omitted");
+				Assert.That(governing.Where(g => g.Brace != "B3").All(g => !g.Gov!.Row.Skipped), Is.True,
+					"while the loaded braces keep their real governing rows");
+			});
 		}
 
 		/// <summary>

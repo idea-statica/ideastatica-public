@@ -264,25 +264,48 @@ namespace NorsokChecker
 					// ── Refine member wall thickness and f_y from raw results plate names ──
 					// The shape itself comes from CrossSectionType when the members are read, which
 					// needs no calculation; only t and f_y are refined from the modelled plates.
+					//
+					// Every connection is refined from ITS OWN results. This used to parse
+					// rawResults[0] — connection index 0 — and write into _members, which holds
+					// whichever connection is currently selected: with connection 2 showing, any
+					// member whose name prefix matched a plate in connection 1 took connection 1's
+					// thickness and steel. Member names repeat across connections ("C", "B1", "B2"),
+					// so the match usually succeeded, and because ShowMembersOf hands out the same
+					// objects held in _membersPerConnection, the wrong values were then cached for
+					// every later selection.
 					if (rawResults.Count > 0)
 					{
 						try
 						{
-							var parsed = RawResultsParser.Parse(rawResults[0]);
-							Log($"  Raw results: {parsed.Plates.Count} plates, {parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
-
-							foreach (var member in _members)
+							int refined = 0;
+							foreach (var (conId, rawJson) in _rawResultsPerConnection)
 							{
-								string prefix = $"{member.Name}-";
-								var memberPlates = parsed.Plates
-									.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-									.ToList();
+								if (!_membersPerConnection.TryGetValue(conId, out var conMembers)) continue;
+								var parsed = RawResultsParser.Parse(rawJson);
+								if (conId == connectionIds[0])
+									Log($"  Raw results: {parsed.Plates.Count} plates, "
+										+ $"{parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
 
-								if (memberPlates.Count > 0)
+								foreach (var member in conMembers)
 								{
-									var thicknesses = memberPlates.Where(p => p.Thickness > 0).Select(p => p.Thickness).ToList();
+									string prefix = $"{member.Name}-";
+									var memberPlates = parsed.Plates
+										.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+										.ToList();
+									if (memberPlates.Count == 0) continue;
+
+									var thicknesses = memberPlates.Where(p => p.Thickness > 0)
+										.Select(p => p.Thickness).ToList();
 									if (thicknesses.Count > 0)
-										member.WallThickness = thicknesses.GroupBy(t => Math.Round(t, 1)).OrderByDescending(g => g.Count()).First().Key;
+									{
+										// the most common thickness, NOT the rounded key: grouping by
+										// Round(t, 1) buckets 8.05 and 8.14 together, and taking the
+										// key would report 8.1 for a wall that is neither
+										member.WallThickness = thicknesses
+											.GroupBy(t => Math.Round(t, 1))
+											.OrderByDescending(g => g.Count())
+											.First().First();
+									}
 
 									var refPlate = memberPlates.FirstOrDefault(p => p.MaterialFy > 0);
 									if (refPlate != null)
@@ -290,8 +313,10 @@ namespace NorsokChecker
 										member.Fy = refPlate.MaterialFy;
 										member.MaterialName = refPlate.MaterialName;
 									}
+									refined++;
 								}
 							}
+							Log($"  refined t / f_y on {refined} member(s) from their own connection's results");
 
 							MembersGrid.Items.Refresh();
 							UpdateTubularState();
@@ -374,10 +399,13 @@ namespace NorsokChecker
 						Log($"    WARNING: Could not fetch load effects: {ex.Message}");
 					}
 
-					// §6.4 AUTO-TOPOLOGY (preferred): typed members carry origin/axes/offsets → build the
-					// joint topology, auto-classify K/Y/X from the force balance, check every brace.
-					// Falls back to the manual dropdown parameters when the topology gate rejects.
+					// §6.4 topology: typed members carry origin/axes/offsets → build the joint
+					// topology, classify K/Y/X from the force balance, check every brace. This is the
+					// ONLY §6.4 path; the manual dropdown parameters it used to fall back to were
+					// removed along with the Joint Configuration panel, so a failure here means no
+					// §6.4 result at all rather than a degraded one.
 					List<Services.Norsok64.JointMemberData>? topoMembers = null;
+					string? fetchFailure = null;
 					if (includeCh64 && sectionMap.Count > 0 && loadEffects != null)
 					{
 						try
@@ -397,7 +425,15 @@ namespace NorsokChecker
 						}
 						catch (Exception ex)
 						{
-							Log($"    WARNING: §6.4 member fetch failed ({ex.Message}) — manual joint parameters used");
+							// No fallback exists, so this is a GAP, not a degraded check — and it has
+							// to reach the results, or the connection reads PASS off its CBFEM rows
+							// with §6.4 silently absent. The log used to claim "manual joint
+							// parameters used", which was doubly wrong: that path was removed, and
+							// nothing was checked at all.
+							Log($"    WARNING: §6.4 member fetch failed ({ex.Message}) "
+								+ "— no §6.4 check was performed for this connection");
+							topoMembers = null;
+							fetchFailure = ex.Message;
 						}
 					}
 
@@ -406,6 +442,19 @@ namespace NorsokChecker
 					bool autoJointDone = false;
 					bool topologyRejected = false;
 					var autoJointResults = new List<NorsokFormulaResult>();
+					if (fetchFailure != null)
+					{
+						autoJointResults.Add(new NorsokFormulaResult
+						{
+							Section = "6.4",
+							Equation = "6.4.3",
+							Title = "§6.4 could not be evaluated",
+							CheckExpression = $"the joint's members could not be read: {fetchFailure}",
+							Formula = "-",
+							FormulaSubstituted = "no §6.4 check was performed for this joint",
+							NotAssessed = true,
+						});
+					}
 					if (topoMembers != null)
 					{
 						// The topology is kept per connection: the §6.4 tab shows any single load

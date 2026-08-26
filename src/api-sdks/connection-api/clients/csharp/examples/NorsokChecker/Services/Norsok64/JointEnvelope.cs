@@ -29,7 +29,15 @@ namespace NorsokChecker.Services.Norsok64
 		}
 
 		/// <summary>
-		/// Governing row for <paramref name="braceName"/>, or null when every load effect skipped it.
+		/// Governing row for <paramref name="braceName"/>, or null only when NO load effect has a row
+		/// for it at all.
+		///
+		/// A brace that was skipped in every state still returns its skipped row, carrying the reason.
+		/// This used to return null instead, and the caller then added no result of any kind: a
+		/// three-brace joint where one brace carries no force in any state published two rows,
+		/// counted two checks, and the connection read PASS — with a brace that was never assessed
+		/// invisible in the grid, the §6.4 tab and the report alike. Returning the row lets the caller
+		/// publish it as NotAssessed, which is what it is.
 		/// </summary>
 		public static Governing? Pick(
 			IEnumerable<PerLoadEffect<JointCheckRow>> perLoadEffect,
@@ -39,17 +47,25 @@ namespace NorsokChecker.Services.Norsok64
 			foreach (var le in perLoadEffect)
 			{
 				var row = le.Rows.FirstOrDefault(x => x.Name == braceName);
-				if (row == null || row.Skipped) continue;
-				// NaN compares false against everything, so a NaN row never displaces a real one —
-				// it can still be picked first, which is the honest outcome when it is all there is.
-				if (best != null && !(row.Util > best.Row.Util)) continue;
+				if (row == null) continue;
 
-				best = new Governing
+				var candidate = new Governing
 				{
 					Row = row,
 					LeId = le.Id,
 					LeName = string.IsNullOrEmpty(le.Name) ? $"LE{le.Id}" : le.Name,
 				};
+
+				// Two stages, as the python reference does it (ui.html envelopeData):
+				//   1. anything beats nothing — so a skipped row is kept when it is all there is;
+				//   2. a real row beats a skipped one, whatever their utilisations;
+				//   3. among real rows, the higher utilisation governs.
+				if (best == null) { best = candidate; continue; }
+				if (row.Skipped) continue;                      // never displaces anything
+				if (best.Row.Skipped) { best = candidate; continue; }
+				// NaN compares false against everything, so a NaN row never displaces a real one —
+				// it can still be picked first, which is the honest outcome when it is all there is.
+				if (row.Util > best.Row.Util) best = candidate;
 			}
 			return best;
 		}

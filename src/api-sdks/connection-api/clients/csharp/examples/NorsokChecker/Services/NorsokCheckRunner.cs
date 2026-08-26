@@ -104,10 +104,25 @@ namespace NorsokChecker.Services
 			foreach (var brace in topo.GapBraces)
 			{
 				var gov = JointEnvelope.Pick(topo.JointChecks, brace.Name);
-				if (gov == null)
+				if (gov == null || gov.Row.Skipped)
 				{
-					var reason = JointEnvelope.SkipReason(topo.JointChecks, brace.Name);
-					_log($"    §6.4 {brace.Name}: skipped ({reason ?? "no data"})");
+					// A brace nothing could be checked on is NOT absent from the joint — publishing
+					// nothing let the connection read PASS while a brace went unassessed, and the
+					// §6.4 tab showed two rows for a three-brace joint. One row per brace, always.
+					var reason = gov?.Row.Reason
+						?? JointEnvelope.SkipReason(topo.JointChecks, brace.Name)
+						?? "no data";
+					_log($"    §6.4 {brace.Name}: not assessed ({reason})");
+					results.Add(new NorsokFormulaResult
+					{
+						Section = "6.4.3.6",
+						Equation = "6.57",
+						Title = $"Tubular Joint — {brace.Name}",
+						CheckExpression = reason,
+						Formula = "-",
+						FormulaSubstituted = $"{brace.Name} could not be checked: {reason}",
+						NotAssessed = true,
+					});
 					continue;
 				}
 
@@ -258,7 +273,10 @@ namespace NorsokChecker.Services
 					Demand = plate.MaxStress,
 					Capacity = f_d,
 					Utilization = utilization,
-					Passed = utilization <= 1.0,
+					// A plate the engine reported no stress for is NOT a plate at 0 %: zero is the
+					// most favourable stress there is, so this used to report PASS at 0.0 %.
+					Passed = plate.HasStress && utilization <= 1.0,
+					NotAssessed = !plate.HasStress,
 					LoadCaseId = plate.LoadCaseId,
 					Variables = new List<FormulaVariable>
 					{
@@ -298,23 +316,31 @@ namespace NorsokChecker.Services
 					resistanceFormula = "f_w,Rd unavailable — raw results contain neither equivalentStressResistance nor f_u";
 				}
 
-				bool noData = resistance <= 0;
+				// no resistance to check against, OR no stress reported for it — either way there is
+				// nothing to assess, and a missing stress is not a weld at 0 %
+				bool noData = resistance <= 0 || !weld.HasStress;
 				double utilization = noData ? 0 : weld.MaxEquivalentStress / resistance;
 
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "Weld",
 					Equation = "EN 1993-1-8 §4.5",
-					Title = $"Weld: {(string.IsNullOrEmpty(weld.Name) ? $"#{weld.Id}" : weld.Name)}{(noData ? " — NO RESISTANCE DATA" : "")}",
+					Title = $"Weld: {(string.IsNullOrEmpty(weld.Name) ? $"#{weld.Id}" : weld.Name)}{(noData ? " — NOT ASSESSED" : "")}",
 					CheckExpression = noData
-						? "Weld resistance not available — check cannot be verified, marked FAIL"
+						? (resistance <= 0
+							? "weld resistance not available in the raw results — nothing to check against"
+							: "the engine reported no stress for this weld")
 						: "σ_w ≤ f_w,Rd",
 					Formula = "f_w,Rd = f_u / (β_w · γ_M2)",
 					FormulaSubstituted = resistanceFormula,
 					Demand = weld.MaxEquivalentStress,
 					Capacity = resistance,
 					Utilization = utilization,
+					// NOT a failure. It used to say "check cannot be verified, marked FAIL" — which
+					// asserts two things that cannot both hold, the same contradiction the §6.4 rows
+					// had before the third state existed. Nothing was checked here.
 					Passed = !noData && utilization <= 1.0,
+					NotAssessed = noData,
 					LoadCaseId = weld.LoadCaseId,
 					Variables = new List<FormulaVariable>
 					{
