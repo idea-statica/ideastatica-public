@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using NorsokChecker.Services;
@@ -23,7 +24,51 @@ namespace NorsokChecker.Controls
 		private readonly Dictionary<int, string> _names = new();
 		private int _highlighted = -1;
 
-		public Joint3DView() => InitializeComponent();
+		/// <summary>Camera width that frames the model — the zoom is relative to this.</summary>
+		private double _fitWidth = 1.5;
+		private Point? _dragFrom;
+
+		public Joint3DView()
+		{
+			InitializeComponent();
+
+			// Drag turns the model, the wheel zooms, a double-click puts both back. Handled on the
+			// control rather than the viewport so the gestures work over the labels too.
+			MouseLeftButtonDown += (_, e) =>
+			{
+				_dragFrom = e.GetPosition(this);
+				CaptureMouse();
+			};
+			MouseLeftButtonUp += (_, _) =>
+			{
+				_dragFrom = null;
+				ReleaseMouseCapture();
+			};
+			MouseMove += (_, e) =>
+			{
+				if (_dragFrom is not { } from || e.LeftButton != MouseButtonState.Pressed) return;
+				var now = e.GetPosition(this);
+				RotateZ.Angle += (now.X - from.X) * 0.5;
+				// clamped so the model cannot be turned upside down, which loses the sense of up
+				RotateTilt.Angle = Math.Clamp(RotateTilt.Angle + (now.Y - from.Y) * 0.5, -89.0, 89.0);
+				_dragFrom = now;
+			};
+			MouseWheel += (_, e) =>
+			{
+				// a narrower camera is a closer look; 1.15 per notch is about 12 notches end to end
+				double f = e.Delta > 0 ? 1.0 / 1.15 : 1.15;
+				Camera.Width = Math.Clamp(Camera.Width * f, _fitWidth * 0.1, _fitWidth * 6.0);
+			};
+			MouseDoubleClick += (_, _) => ResetView();
+		}
+
+		/// <summary>Back to the framing and orientation the model loaded with.</summary>
+		public void ResetView()
+		{
+			Camera.Width = _fitWidth;
+			RotateZ.Angle = 0;
+			RotateTilt.Angle = 0;
+		}
 
 		/// <summary>Replace the view's contents with these member bodies.</summary>
 		public void Load(IReadOnlyList<MemberMesh> meshes)
@@ -71,8 +116,10 @@ namespace NorsokChecker.Controls
 			}
 
 			// The node is at (0,0,0) and lengths are metres, so the model self-centres — only the
-			// camera width has to match the joint's size.
-			Camera.Width = Math.Max(0.2, extent * 2.4);
+			// camera width has to match the joint's size. Kept as the zoom's reference and the
+			// double-click reset target.
+			_fitWidth = Math.Max(0.2, extent * 2.4);
+			ResetView();
 			Placeholder.Visibility = Visibility.Collapsed;
 			HintLabel.Text = $"{meshes.Count} members";
 		}

@@ -11,10 +11,48 @@ namespace NorsokChecker.Services.Norsok64
 		public string? Name { get; set; }
 		public double? D { get; set; }          // mm
 		public double? T { get; set; }          // mm
+
+		/// <summary>
+		/// The section's TYPE is tubular. Says nothing about whether D/T could be read — those are
+		/// two different reasons to reject a member and they used to be merged into this one flag,
+		/// which made the app report "not CHS (CHS 219.1/10)" about a section that plainly is one.
+		/// Use <see cref="HasDimensions"/> for the geometry, or <see cref="RejectReason"/> for both.
+		/// </summary>
 		public bool IsCHS { get; set; }
+
+		/// <summary>The cross-section type as the API named it, for the rejection message.</summary>
+		public string? TypeName { get; set; }
+
+		/// <summary>
+		/// Set when the section name and the model disagree about D by more than 2 % — e.g.
+		/// "PIPE127STD" is really Ø141.3 because 127 is the nominal size. Port of python's
+		/// geom_note; the whole point of reading D/T from the model rather than the name.
+		/// </summary>
+		public string? GeomNote { get; set; }
+
 		public double? Fy { get; set; }         // Pa
 		public double? Fu { get; set; }         // Pa
 		public string? MaterialName { get; set; }
+
+		/// <summary>D and T are both known.</summary>
+		public bool HasDimensions => D is > 0 && T is > 0;
+
+		/// <summary>
+		/// Why §6.4 cannot use this section, or null when it can. Two distinct answers, as the
+		/// python reference gives (_section_reject): a section that is not tubular at all, and a
+		/// tubular one whose dimensions could not be read.
+		/// </summary>
+		public string? RejectReason(string label)
+		{
+			string nm = string.IsNullOrEmpty(Name) ? "?" : Name!;
+			if (!IsCHS)
+				return $"{label}: {nm} is {TypeName ?? "an unknown type"} — NORSOK 6.4 applies to "
+					+ "tubular (circular hollow) sections only.";
+			if (!HasDimensions)
+				return $"{label}: {nm} is tubular but its D/T are unknown — "
+					+ (GeomNote ?? "dimensions could not be read from the model") + ".";
+			return null;
+		}
 
 		/// <summary>
 		/// CHS name → (D, T) mm; (null, null) if not parseable. Port of parse_chs, tolerant to the

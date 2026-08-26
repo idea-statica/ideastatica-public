@@ -198,7 +198,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="8"/>
-                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="440"/>
                         </Grid.ColumnDefinitions>
                         <!-- Connections grid — fills remaining space -->
                         <DataGrid Grid.Column="0" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
@@ -239,7 +239,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <Border Grid.Column="2" BorderBrush="#E0E0E0" BorderThickness="1"
-                                CornerRadius="2" MinHeight="200">
+                                CornerRadius="2" MinHeight="340">
                             <controls:Joint3DView x:Name="Joint3D"/>
                         </Border>
                     </Grid>

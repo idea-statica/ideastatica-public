@@ -81,7 +81,10 @@ namespace NorsokChecker.Services.Norsok64
 						}
 					}
 				}
-				isChs = isChs && d is > 0 && t is > 0;
+				// IsCHS says only that the TYPE is tubular. It used to also require D and T, so a
+				// tube whose dimensions could not be read was reported as "not CHS" — a statement
+				// contradicted by its own name. The two are separate answers; see
+				// JointSectionInfo.RejectReason.
 
 				// material inline on the cross-section: fy/fu already in Pa; >40 mm → fy40/fu40 band
 				double? fy = null, fu = null;
@@ -100,6 +103,7 @@ namespace NorsokChecker.Services.Norsok64
 				map[cs.Id] = new JointSectionInfo
 				{
 					Name = name, D = d, T = t, IsCHS = isChs,
+					TypeName = cs.CrossSectionType.ToString(),
 					Fy = fy, Fu = fu, MaterialName = matName,
 				};
 			}

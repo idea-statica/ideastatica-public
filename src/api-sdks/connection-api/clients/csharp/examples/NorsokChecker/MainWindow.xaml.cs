@@ -780,6 +780,17 @@ namespace NorsokChecker
 				m.Section.T = t;
 				m.Section.IsCHS = true;
 
+				// Cross-check the name against the model. This is the whole reason for reading the
+				// facet ring: "PIPE127STD" is really Ø141.3, because 127 is the nominal size. Over
+				// 2 % apart, the disagreement is recorded so the report can say so rather than
+				// silently using a different number than the name implies.
+				if (nameD is > 0 && Math.Abs(nameD.Value - d.Value) / d.Value > 0.02)
+				{
+					m.Section.GeomNote = $"the section name suggests D = {nameD:F1} mm but the model "
+						+ $"has D = {d:F1} mm — using the model";
+					Log($"    IOM: '{m.Name}' {m.Section.GeomNote}");
+				}
+
 				string cross = nameD is > 0 && nameT is > 0
 					? $" (name said Ø{nameD:F1}/{nameT:F1})"
 					: " (name gave nothing)";

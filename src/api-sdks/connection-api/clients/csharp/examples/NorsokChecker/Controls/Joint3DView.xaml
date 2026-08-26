@@ -25,8 +25,24 @@
                 </ModelVisual3D.Content>
             </ModelVisual3D>
 
-            <!-- member bodies are added here at runtime, one ModelVisual3D each -->
+            <!-- member bodies are added here at runtime, one ModelVisual3D each. The rotation is
+                 applied to the whole group, so dragging turns the joint rather than the camera —
+                 which keeps the lights fixed and the shape readable. -->
             <ModelVisual3D x:Name="MembersVisual">
+                <ModelVisual3D.Transform>
+                    <Transform3DGroup>
+                        <RotateTransform3D>
+                            <RotateTransform3D.Rotation>
+                                <AxisAngleRotation3D x:Name="RotateZ" Axis="0,0,1" Angle="0"/>
+                            </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+                        <RotateTransform3D>
+                            <RotateTransform3D.Rotation>
+                                <AxisAngleRotation3D x:Name="RotateTilt" Axis="1,0,0" Angle="0"/>
+                            </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+                    </Transform3DGroup>
+                </ModelVisual3D.Transform>
                 <ModelVisual3D.Content>
                     <Model3DGroup x:Name="MembersGroup"/>
                 </ModelVisual3D.Content>
@@ -40,5 +56,9 @@
         <TextBlock x:Name="HintLabel" Text="" Margin="8,6,8,0"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Foreground="#607D8B" FontSize="11"/>
+
+        <TextBlock Text="drag to rotate · wheel to zoom · double-click to reset"
+                   Margin="8,0,8,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                   Foreground="#B0BEC5" FontSize="10"/>
     </Grid>
 </UserControl>

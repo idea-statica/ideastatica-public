@@ -445,12 +445,27 @@ namespace NorsokChecker.Services.Norsok64
 				if (b.ForcesIn != ConMemberForcesInEnum.Node && b.ForcesIn != ConMemberForcesInEnum.Position)
 					errors.Add($"{b.Name}: unsupported forces input '{b.ForcesIn}' (only node/position).");
 
-			// all members CHS
-			if (!secC.IsCHS)
-				errors.Add($"Chord not CHS ({secC.Name}).");
+			// every member must be a tubular section whose D/T are known — two separate reasons to
+			// refuse it, reported apart (see JointSectionInfo.RejectReason). Saying "not CHS" about
+			// a tube whose dimensions merely could not be read sent the reader after the wrong
+			// problem.
+			string? chordWhy = secC.RejectReason(chord.Name ?? "Chord");
+			if (chordWhy != null)
+				errors.Add(chordWhy);
 			foreach (var bm in bracesMeta)
-				if (!bm.IsCHS)
-					errors.Add($"{bm.Name}: not CHS ({bm.Section.Name}).");
+			{
+				string? braceWhy = bm.Section.RejectReason(bm.Name ?? "brace");
+				if (braceWhy != null)
+					errors.Add(braceWhy);
+			}
+
+			// a name that disagrees with the model is not a reason to refuse the joint, but the
+			// reader should know the check is standing on the modelled dimensions
+			if (!string.IsNullOrEmpty(secC.GeomNote))
+				warnings.Add($"{chord.Name}: {secC.GeomNote}.");
+			foreach (var bm in bracesMeta)
+				if (!string.IsNullOrEmpty(bm.Section.GeomNote))
+					warnings.Add($"{bm.Name}: {bm.Section.GeomNote}.");
 
 			if (braces.Count == 0)
 				errors.Add("No brace (chord only).");
