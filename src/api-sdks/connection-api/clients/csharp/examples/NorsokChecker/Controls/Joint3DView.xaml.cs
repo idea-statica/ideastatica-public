@@ -32,6 +32,25 @@ namespace NorsokChecker.Controls
 		private Point? _pressAt;
 
 		/// <summary>
+		/// The orientation a double-click returns to. Zero until <see cref="LookAtPlane"/> sets it,
+		/// so on the Check tab "reset" still means the oblique load view, while on the §6.4 tab it
+		/// means looking square at the joint plane.
+		/// </summary>
+		private double _homeZ, _homeTilt;
+
+		/// <summary>
+		/// The camera frame a double-click returns to, set by <see cref="LookAtPlane"/>. Null until
+		/// then, so on the Check tab "reset" keeps the oblique view declared in XAML.
+		/// </summary>
+		private (Point3D Position, Vector3D Look, Vector3D Up)? _homeCamera;
+
+		/// <summary>
+		/// The camera frame <see cref="LookAtPlane"/> produced, so a test can check the plane really
+		/// does end up perpendicular to the line of sight and the chord across the screen.
+		/// </summary>
+		public (Point3D Position, Vector3D Look, Vector3D Up)? HomeCameraForTest => _homeCamera;
+
+		/// <summary>
 		/// Raised with the member id when a body is clicked, and with -1 when the click misses every
 		/// body. Lets the host select the matching table row — the reverse of
 		/// <see cref="HighlightMember"/>.
@@ -87,8 +106,60 @@ namespace NorsokChecker.Controls
 		public void ResetView()
 		{
 			Camera.Width = _fitWidth;
+			RotateZ.Angle = _homeZ;
+			RotateTilt.Angle = _homeTilt;
+			if (_homeCamera is { } home)
+			{
+				Camera.Position = home.Position;
+				Camera.LookDirection = home.Look;
+				Camera.UpDirection = home.Up;
+			}
+		}
+
+		/// <summary>
+		/// Look square at the joint plane, with the chord running across the view — the view §6.4 is
+		/// read in.
+		///
+		/// This moves the CAMERA, not the model, and that is not a stylistic choice: the model
+		/// transform offers only two angles (RotateZ about global Z, then RotateTilt about global X,
+		/// clamped to +-89 deg), and two angles cannot bring an arbitrary normal onto this camera's
+		/// oblique line of sight. Measured: for a joint in the global XY plane the best any (z, tilt)
+		/// pair achieves is |dot| = 0.84 — it never faces the plane at all. The camera has a full
+		/// frame to set, so it lands exactly.
+		///
+		/// The model rotations are zeroed, so a subsequent drag turns the joint from this view rather
+		/// than from wherever it was.
+		/// </summary>
+		public void LookAtPlane(Vector3D planeNormal, Vector3D chordAxis)
+		{
+			if (planeNormal.Length < 1e-9) return;
+			planeNormal.Normalize();
+
+			// Look ALONG the normal, at the origin (the joint node is at (0,0,0) by construction).
+			var look = -planeNormal;
+
+			// Up is chosen so the chord lies across the screen: screen-right should be the chord, so
+			// up = look x chord. Falls back to any perpendicular when the chord is parallel to the
+			// normal, which would mean a chord perpendicular to its own joint plane — not a real
+			// joint, but the view must not produce NaNs for it.
+			var up = Vector3D.CrossProduct(look, chordAxis);
+			if (up.Length < 1e-6)
+			{
+				up = Vector3D.CrossProduct(look, new Vector3D(0, 0, 1));
+				if (up.Length < 1e-6) up = Vector3D.CrossProduct(look, new Vector3D(1, 0, 0));
+			}
+			up.Normalize();
+
+			// Orthographic: the position only has to be outside the model, the width does the framing.
+			Camera.Position = (Point3D)(planeNormal * Math.Max(1.0, _fitWidth * 2.0));
+			Camera.LookDirection = look;
+			Camera.UpDirection = up;
+
+			_homeZ = 0;
+			_homeTilt = 0;
 			RotateZ.Angle = 0;
 			RotateTilt.Angle = 0;
+			_homeCamera = (Camera.Position, look, up);
 		}
 
 		/// <summary>Replace the view's contents with these member bodies.</summary>
@@ -98,6 +169,11 @@ namespace NorsokChecker.Controls
 			_byMember.Clear();
 			_names.Clear();
 			_highlighted = -1;
+			// a new connection has a different joint plane, so a LookAtPlane home set for the previous
+			// one would aim at the wrong plane — back to the oblique default until it is set again
+			_homeZ = 0;
+			_homeTilt = 0;
+			_homeCamera = null;
 
 			if (meshes.Count == 0)
 			{
@@ -212,6 +288,11 @@ namespace NorsokChecker.Controls
 			_byMember.Clear();
 			_names.Clear();
 			_highlighted = -1;
+			// a new connection has a different joint plane, so a LookAtPlane home set for the previous
+			// one would aim at the wrong plane — back to the oblique default until it is set again
+			_homeZ = 0;
+			_homeTilt = 0;
+			_homeCamera = null;
 			Placeholder.Text = "Select a connection to see its members";
 			Placeholder.Visibility = Visibility.Visible;
 			HintLabel.Text = "";

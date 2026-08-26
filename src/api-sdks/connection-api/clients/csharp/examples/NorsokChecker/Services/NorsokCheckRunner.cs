@@ -34,13 +34,22 @@ namespace NorsokChecker.Services
 		/// enveloped over all load effects. Returns false when the topology gate rejects the joint
 		/// (verdict ERROR) — the caller may then fall back to the manual joint parameters.
 		/// </summary>
+		/// <param name="topology">
+		/// The finished topology, handed back whatever the verdict. <paramref name="results"/> carries
+		/// only the ENVELOPE — one row per brace, its governing load effect — because that is what a
+		/// summary needs. The §6.4 tab also has to show any single load effect, the K/Y/X split per
+		/// state and the derivation behind each number, and all of that lives here and was previously
+		/// discarded when this method returned.
+		/// </param>
 		public bool EvaluateJointChecksFromTopology(
 			IReadOnlyList<JointMemberData> members,
 			List<ConLoadEffect>? loadEffects,
 			List<NorsokFormulaResult> results,
-			double kyxGate = 0.0)
+			double kyxGate = 0.0,
+			Action<JointTopology>? topology = null)
 		{
 			var topo = new JointTopologyBuilder(kyxGate: kyxGate, log: _log).Build(members, loadEffects);
+			topology?.Invoke(topo);
 
 			_log($"    §6.4 topology: chord={topo.Chord?.Name}, braces={topo.GapBraces.Count}, " +
 				 $"plane fit: {topo.PlaneFitBasis}, verdict={topo.Verdict.Status}");

@@ -26,6 +26,14 @@ namespace NorsokChecker
 		private readonly Dictionary<int, List<NorsokFormulaResult>> _formulaResults = new();
 
 		/// <summary>
+		/// The §6.4 topology per connection: every load effect's brace checks, classification and
+		/// chord stresses. The results table above holds only the envelope (the governing state per
+		/// brace), which cannot answer "show me LE7" or "how was this number reached".
+		/// Present even for a rejected joint — its errors are what the tab then lists.
+		/// </summary>
+		private readonly Dictionary<int, Services.Norsok64.JointTopology> _topologyPerConnection = new();
+
+		/// <summary>
 		/// Members per connection, read once when the project is opened. Switching connections then
 		/// costs nothing — it used to re-read members and re-export the IOM on every click.
 		/// </summary>
@@ -149,6 +157,7 @@ namespace NorsokChecker
 				_connections.Clear();
 				_rawResultsPerConnection.Clear();
 				_formulaResults.Clear();
+				_topologyPerConnection.Clear();
 				_meshesPerConnection.Clear();
 				Joint3D?.Clear();
 
@@ -323,6 +332,7 @@ namespace NorsokChecker
 				ShowStatus("Evaluating Norsok N-004 formulas...");
 				Log("Evaluating Norsok N-004 formulas...");
 				_formulaResults.Clear();
+				_topologyPerConnection.Clear();
 
 				foreach (var con in _connections)
 				{
@@ -398,7 +408,11 @@ namespace NorsokChecker
 					var autoJointResults = new List<NorsokFormulaResult>();
 					if (topoMembers != null)
 					{
-						autoJointDone = checker.EvaluateJointChecksFromTopology(topoMembers, loadEffects, autoJointResults);
+						// The topology is kept per connection: the §6.4 tab shows any single load
+						// effect, not just the envelope the results table carries.
+						autoJointDone = checker.EvaluateJointChecksFromTopology(
+							topoMembers, loadEffects, autoJointResults,
+							topology: t => _topologyPerConnection[con.Id] = t);
 						topologyRejected = !autoJointDone;
 					}
 
