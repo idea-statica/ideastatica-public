@@ -536,7 +536,22 @@ namespace NorsokChecker
 				_members.Add(m);
 
 			if (MembersOfLabel != null)
-				MembersOfLabel.Text = $"  — {con.Name}";
+			{
+				// Say what the chord is. Without this, a joint with no through member shows "Brace"
+				// on every row and there is no way to tell whether that is the model or a bug —
+				// which is exactly how it read. §6.4 needs exactly one continuous member.
+				int chords = _members.Count(m => m.Role == "Chord");
+				string note = chords == 1
+					? $"  — {con.Name}, chord {_members.First(m => m.Role == "Chord").Name}"
+					: chords == 0
+						? $"  — {con.Name}: NO CONTINUOUS MEMBER — every member is a brace (§6.4 needs a through chord)"
+						: $"  — {con.Name}: {chords} continuous members — chord is ambiguous (§6.4 needs exactly one)";
+				MembersOfLabel.Text = note;
+				MembersOfLabel.Foreground = new System.Windows.Media.SolidColorBrush(
+					chords == 1
+						? System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E)
+						: System.Windows.Media.Color.FromRgb(0xE6, 0x51, 0x00));
+			}
 			MembersGrid.Items.Refresh();
 			UpdateTubularState();
 		}

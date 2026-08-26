@@ -413,10 +413,29 @@ namespace NorsokChecker.Services.Norsok64
 			// (non-adjacent negative just means an intermediate brace sits between them)
 			// note: called after topo.Gaps is populated via the outer instance — passed through field below
 
+			// §6.4 needs EXACTLY ONE through chord, and that is two separate gates: at least one
+			// continuous member, and at most one. Both are hard errors — with none there is no chord
+			// to check against; with several the chord is an arbitrary pick and every θ/β/γ/gap would
+			// be referenced to it.
+			//
+			// Decided on the member set, not by matching the wording of a warning. The previous
+			// `w.Contains("continuous member")` happened to catch the plural message too, but only
+			// because the singular is a substring of it — rewording either would silently have turned
+			// an error into a warning.
+			// chord + braces is the whole member set here, and the chord was picked from the
+			// continuous ones when there were any (see IdentifyChord)
+			int continuousCount = (chord.IsContinuous ? 1 : 0) + braces.Count(m => m.IsContinuous);
+			if (continuousCount == 0)
+				errors.Add("No continuous member — §6.4 needs a through chord.");
+			else if (continuousCount > 1)
+				errors.Add($"{continuousCount} continuous members — the chord is ambiguous; "
+					+ "§6.4 needs exactly one through member.");
+
 			foreach (var w in chordWarns)
 			{
-				if (w.Contains("continuous member")) errors.Add(w);   // chord must be exactly one continuous
-				else warnings.Add(w);
+				// the chord-count gates above decide this explicitly, on the member set
+				if (w.Contains("continuous member")) continue;
+				warnings.Add(w);
 			}
 
 			// forces input mode — only Node / Position supported (we know where the force acts)
