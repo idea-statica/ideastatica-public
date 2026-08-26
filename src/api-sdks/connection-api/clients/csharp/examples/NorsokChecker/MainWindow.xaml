@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:controls="clr-namespace:NorsokChecker.Controls"
         Title="IDEA StatiCa — NORSOK N-004 Connection Checker"
         Width="1100" Height="780"
         WindowStartupLocation="CenterScreen"
@@ -191,11 +192,60 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- Expanders — docked to top, stacking vertically -->
-                    <StackPanel DockPanel.Dock="Top">
+                    <!-- Connections first: the connection is what everything below is about, and
+                         the 3D view of the selected one sits beside the list. -->
+                    <Grid DockPanel.Dock="Top" Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Connections grid — fills remaining space -->
+                        <DataGrid Grid.Column="0" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
+                                  IsReadOnly="True" CanUserAddRows="False"
+                                  SelectionMode="Single" SelectionUnit="FullRow"
+                                  SelectionChanged="ConnectionsGrid_SelectionChanged"
+                                  md:DataGridAssist.CellPadding="10 6"
+                                  VerticalScrollBarVisibility="Auto"
+                                  GridLinesVisibility="Horizontal"
+                                  BorderThickness="0">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NorsokPass}" Value="FAIL">
+                                            <Setter Property="Background" Value="#FFEBEE"/>
+                                            <Setter Property="Foreground" Value="#C62828"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
+                                            <Setter Property="Background" Value="#E8F5E9"/>
+                                        </DataTrigger>
+                                        <!-- amber, not green: nothing (or only part) was assessed -->
+                                        <DataTrigger Binding="{Binding NorsokPass}" Value="N/A">
+                                            <Setter Property="Background" Value="#FFF8E1"/>
+                                            <Setter Property="Foreground" Value="#E65100"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
+                                            <Setter Property="Background" Value="#FFF8E1"/>
+                                            <Setter Property="Foreground" Value="#E65100"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="130"/>
+                                <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="130"/>
+                                <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Border Grid.Column="2" BorderBrush="#E0E0E0" BorderThickness="1"
+                                CornerRadius="2" MinHeight="200">
+                            <controls:Joint3DView x:Name="Joint3D"/>
+                        </Border>
+                    </Grid>
 
-                    <!-- Members (auto-populated from API) -->
-                    <Expander IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
+                    <!-- Members of the selected connection -->
+                    <Expander DockPanel.Dock="Top" IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
@@ -212,6 +262,13 @@
                                       GridLinesVisibility="Horizontal" BorderThickness="0"
                                       MaxHeight="140" VerticalScrollBarVisibility="Auto"
                                       FontSize="12">
+                                <!-- hovering a row highlights that member in the 3D view -->
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                        <EventSetter Event="MouseEnter" Handler="MembersGrid_MemberHighlight"/>
+                                        <EventSetter Event="MouseLeave" Handler="MembersGrid_ClearHighlight"/>
+                                    </Style>
+                                </DataGrid.RowStyle>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
                                     <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
@@ -225,48 +282,6 @@
                             </DataGrid>
                         </StackPanel>
                     </Expander>
-
-
-                    </StackPanel> <!-- end expanders stack -->
-
-                    <!-- Connections grid — fills remaining space -->
-                    <DataGrid x:Name="ConnectionsGrid" AutoGenerateColumns="False"
-                              IsReadOnly="True" CanUserAddRows="False"
-                              SelectionMode="Single" SelectionUnit="FullRow"
-                              SelectionChanged="ConnectionsGrid_SelectionChanged"
-                              md:DataGridAssist.CellPadding="10 6"
-                              VerticalScrollBarVisibility="Auto"
-                              GridLinesVisibility="Horizontal"
-                              BorderThickness="0">
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding NorsokPass}" Value="FAIL">
-                                        <Setter Property="Background" Value="#FFEBEE"/>
-                                        <Setter Property="Foreground" Value="#C62828"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
-                                        <Setter Property="Background" Value="#E8F5E9"/>
-                                    </DataTrigger>
-                                    <!-- amber, not green: nothing (or only part) was assessed -->
-                                    <DataTrigger Binding="{Binding NorsokPass}" Value="N/A">
-                                        <Setter Property="Background" Value="#FFF8E1"/>
-                                        <Setter Property="Foreground" Value="#E65100"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
-                                        <Setter Property="Background" Value="#FFF8E1"/>
-                                        <Setter Property="Foreground" Value="#E65100"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="130"/>
-                            <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="130"/>
-                            <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
 
                 </DockPanel>
             </TabItem>

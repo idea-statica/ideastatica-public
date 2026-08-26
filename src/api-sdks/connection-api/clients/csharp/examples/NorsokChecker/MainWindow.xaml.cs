@@ -31,6 +31,12 @@ namespace NorsokChecker
 		/// </summary>
 		private readonly Dictionary<int, List<MemberDisplayInfo>> _membersPerConnection = new();
 
+		/// <summary>
+		/// Drawn member bodies per connection, for the 3D view. Fetched on first selection rather
+		/// than up front: the presentation payload is around 1.7 MB per connection.
+		/// </summary>
+		private readonly Dictionary<int, List<MemberMesh>> _meshesPerConnection = new();
+
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public MainWindow()
@@ -143,6 +149,8 @@ namespace NorsokChecker
 				_connections.Clear();
 				_rawResultsPerConnection.Clear();
 				_formulaResults.Clear();
+				_meshesPerConnection.Clear();
+				Joint3D?.Clear();
 
 				foreach (var con in connections)
 				{
@@ -166,6 +174,7 @@ namespace NorsokChecker
 					await LoadAllConnectionMembersAsync();
 					ConnectionsGrid.SelectedIndex = 0;
 					ShowMembersOf(_connections[0]);
+					await ShowJoint3DAsync(_connections[0]);
 				}
 
 				BtnRunCheck.IsEnabled = true;
@@ -666,18 +675,59 @@ namespace NorsokChecker
 		}
 
 		/// <summary>
-		/// Selecting a connection shows ITS members — from the cache, so this is a grid swap and
-		/// nothing else. No API call, no log output, no calculation.
+		/// Selecting a connection shows ITS members — from the cache, so the grid swap costs nothing.
+		/// The 3D bodies are fetched on first selection and cached the same way.
 		/// </summary>
-		private void ConnectionsGrid_SelectionChanged(object sender,
+		private async void ConnectionsGrid_SelectionChanged(object sender,
 			System.Windows.Controls.SelectionChangedEventArgs e)
 		{
 			if (!IsLoaded) return;
 			// this event bubbles up to the tab control, so it must not be mistaken for a tab change
 			e.Handled = true;
-			if (ConnectionsGrid.SelectedItem is ConnectionCheckResult con)
-				ShowMembersOf(con);
+			if (ConnectionsGrid.SelectedItem is not ConnectionCheckResult con) return;
+
+			ShowMembersOf(con);
+			await ShowJoint3DAsync(con);
 		}
+
+		/// <summary>
+		/// Fill the 3D view with the connection's member bodies, fetching them the first time only.
+		/// A failure here never blocks anything: the view is a picture, not a result.
+		/// </summary>
+		private async Task ShowJoint3DAsync(ConnectionCheckResult con)
+		{
+			if (Joint3D == null || _apiClient == null || _projectId == Guid.Empty) return;
+
+			if (!_meshesPerConnection.TryGetValue(con.Id, out var meshes))
+			{
+				try
+				{
+					// presentations/text is the app's own drawing of the joint — see
+					// JointPresentationReader for the payload's shape
+					string json = await _apiClient.Presentation.GetDataScene3DTextAsync(_projectId, con.Id);
+					meshes = JointPresentationReader.ReadMembers(json, Log);
+				}
+				catch (Exception ex)
+				{
+					Log($"  3D view unavailable for {con.Name}: {ex.Message}");
+					meshes = new List<MemberMesh>();
+				}
+				_meshesPerConnection[con.Id] = meshes;
+			}
+
+			Joint3D.Load(meshes);
+		}
+
+		/// <summary>Hovering or selecting a member row highlights its body in the 3D view.</summary>
+		private void MembersGrid_MemberHighlight(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (Joint3D == null) return;
+			if (sender is System.Windows.Controls.DataGridRow { Item: MemberDisplayInfo m })
+				Joint3D.HighlightMember(m.Id);
+		}
+
+		private void MembersGrid_ClearHighlight(object sender, System.Windows.Input.MouseEventArgs e)
+			=> Joint3D?.HighlightMember(-1);
 
 		/// <summary>
 		/// Replace each tubular member's D/T with the values measured from the connection's own IOM
