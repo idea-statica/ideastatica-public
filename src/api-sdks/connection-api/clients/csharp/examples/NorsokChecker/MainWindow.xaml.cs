@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -41,9 +40,6 @@ namespace NorsokChecker
 			MembersGrid.ItemsSource = _members;
 			DataContext = this;
 			Log("Norsok Checker ready. Configure API path and load a project.");
-
-			// Draw initial joint schematic for default selection (T/Y)
-			Loaded += (_, _) => DrawJointSchematic(CmbJointType.SelectedIndex);
 		}
 
 		private void Log(string message)
@@ -295,26 +291,22 @@ namespace NorsokChecker
 						con.Status = "Not calculated";
 				}
 
-				TubularJointGeometry? jointGeometry = includeCh64 ? ParseJointGeometry() : null;
-				if (jointGeometry != null)
-					Log($"Joint geometry (manual fallback): Chord {jointGeometry.D}×{jointGeometry.T}, Brace {jointGeometry.d}×{jointGeometry.t}, θ={jointGeometry.ThetaDeg}°");
-
-				// §6.4 auto-topology: section map (id → D/T/fy) for chord/brace identification
-				bool autoTopology = ChkAutoTopology.IsChecked == true;
-				if (includeCh64)
-					Log($"§6.4 mode: {(autoTopology ? "AUTO topology (manual parameters = fallback only)" : "MANUAL joint parameters")}");
+				// §6.4 topology: section map (id → D/T/fy) for chord/brace identification.
+				// There is no manual alternative any more: a single joint type / θ / gap for the whole
+				// joint contradicts §6.4, where K/Y/X is resolved per brace from where the forces
+				// flow, and the path it fed was unreachable in any case.
 				Dictionary<int, Services.Norsok64.JointSectionInfo> sectionMap = new();
-				if (includeCh64 && autoTopology)
+				if (includeCh64)
 				{
 					try
 					{
 						var crossSections = await _apiClient.Material.GetCrossSectionsAsync(_projectId);
 						sectionMap = Services.Norsok64.JointSectionMap.FromCrossSections(crossSections.Cast<object>());
-						Log($"§6.4 auto-topology: section map with {sectionMap.Count} cross-section(s)");
+						Log($"§6.4: section map with {sectionMap.Count} cross-section(s)");
 					}
 					catch (Exception ex)
 					{
-						Log($"WARNING: §6.4 section map failed ({ex.Message}) — manual joint parameters will be used");
+						Log($"WARNING: §6.4 section map failed ({ex.Message}) — §6.4 cannot be checked");
 					}
 				}
 
@@ -401,25 +393,14 @@ namespace NorsokChecker
 						topologyRejected = !autoJointDone;
 					}
 
-					// A joint that fails the §6.4 conditions is not assessed per brace either. The
-					// manual parameters used to run as a fallback here, so a rejected joint reported
-					// "outside the scope of §6.4" AND a per-brace interaction at 205 % AND a valid
-					// geometry, all at once — three rows contradicting each other. Once the joint is
-					// out of scope, the quantities the check rests on (the joint plane, the averaged
-					// chord stresses, the K/Y/X balance) are not meaningful, so nothing downstream
-					// of them is published.
-					var manualJoint = topologyRejected ? null : jointGeometry;
+					// A joint that fails the §6.4 conditions is not assessed per brace either: the
+					// quantities the check rests on (the joint plane, the averaged chord stresses,
+					// the K/Y/X balance) are not meaningful, so nothing downstream is published.
 					if (topologyRejected)
-						Log("    §6.4 auto-topology rejected the joint — no §6.4 check is performed "
-							+ "(the manual joint parameters are NOT used as a fallback)");
-
-					// Find chord member load effects for Qf calculation (manual §6.4 path only)
-					double[] chordStresses = ExtractChordStresses(
-						loadEffects, autoJointDone ? null : manualJoint, topoMembers);
+						Log("    §6.4 topology rejected the joint — no §6.4 check is performed");
 
 					var formulaResults = checker.EvaluateNorsokFormulas(
-						con.Id, rawJson, loadEffects,
-						autoJointDone ? null : manualJoint, chordStresses, _members.ToList(), includeCbfem);
+						con.Id, rawJson, loadEffects, _members.ToList(), includeCbfem);
 					formulaResults.AddRange(autoJointResults);
 					_formulaResults[con.Id] = formulaResults;
 
@@ -756,102 +737,7 @@ namespace NorsokChecker
 			}
 		}
 
-		/// <summary>
-		/// Chord stresses [σ_a, σ_my, σ_mz] in MPa for Qf, on the MANUAL §6.4 path only — the
-		/// auto-topology path derives them properly per load effect and per brace
-		/// (JointForceResolver.ChordAvgLoad / ChordStressAtBrace), in the brace's own frame.
-		///
-		/// This crude version cannot do that: with the topology rejected there is no joint plane
-		/// and no per-brace frame. It stays deliberately conservative but keeps two properties the
-		/// previous version broke:
-		///   - only the CHORD's loadings are read. It used to iterate every member, so a brace's
-		///     forces could end up reported as chord stress.
-		///   - the three components come from ONE load effect — the one with the largest resultant.
-		///     They used to be enveloped independently, producing a stress state that occurred in
-		///     no single load case.
-		/// The chord's own Begin/End loadings are averaged, per NORSOK p.31.
-		/// </summary>
-		private double[] ExtractChordStresses(
-			List<ConLoadEffect>? loadEffects,
-			TubularJointGeometry? joint,
-			IReadOnlyList<Services.Norsok64.JointMemberData>? topoMembers)
-		{
-			if (loadEffects == null || joint == null || joint.D <= 0 || joint.T <= 0)
-				return new double[] { 0, 0, 0 };
 
-			var (chord, _) = topoMembers != null && topoMembers.Count > 0
-				? Services.Norsok64.JointTopologyBuilder.IdentifyChord(topoMembers)
-				: (null, null);
-			if (chord == null)
-			{
-				Log("    Chord stresses for Qf: chord unknown (no member geometry) — Qf falls back to 1.0");
-				return new double[] { 0, 0, 0 };
-			}
-
-			var chordGeo = TubularGeometryCalc.Calculate(joint.D, joint.T);
-			double sigmaA = 0, sigmaMy = 0, sigmaMz = 0, worstResultant = -1;
-
-			foreach (var le in loadEffects)
-			{
-				var chordLoads = le.MemberLoadings?
-					.Where(ml => ml.MemberId == chord.Id && ml.SectionLoad != null)
-					.Select(ml => ml.SectionLoad!)
-					.ToList();
-				if (chordLoads == null || chordLoads.Count == 0) continue;
-
-				// average the chord's sections either side of the intersection (NORSOK p.31)
-				double n = chordLoads.Average(sl => sl.N) / 1000.0;      // N → kN
-				double my = chordLoads.Average(sl => sl.My) / 1000.0;    // N·m → kNm
-				double mz = chordLoads.Average(sl => sl.Mz) / 1000.0;
-
-				double sA = n * 1000.0 / chordGeo.A;                     // kN, mm² → MPa
-				double sMy = Math.Abs(my * 1e6 / chordGeo.W);
-				double sMz = Math.Abs(mz * 1e6 / chordGeo.W);
-
-				// one load effect governs all three components — never mix them across states
-				double resultant = Math.Sqrt(sA * sA + sMy * sMy + sMz * sMz);
-				if (resultant > worstResultant)
-				{
-					worstResultant = resultant;
-					sigmaA = sA; sigmaMy = sMy; sigmaMz = sMz;
-				}
-			}
-
-			Log($"    Chord stresses for Qf (chord '{chord.Name}', worst single LE): " +
-				$"σ_a={sigmaA:F1} MPa, σ_my={sigmaMy:F1} MPa, σ_mz={sigmaMz:F1} MPa");
-			return new double[] { sigmaA, sigmaMy, sigmaMz };
-		}
-
-		/// <summary>Parse joint geometry from chord + brace members. Returns null if not all CHS.</summary>
-		private TubularJointGeometry? ParseJointGeometry()
-		{
-			// §6.4 only applies when ALL members are CHS
-			bool allCHS = _members.Count > 0 && _members.All(m => m.IsCHS);
-			if (!allCHS) return null;
-
-			var chord = _members.FirstOrDefault(m => m.Role == "Chord" && m.IsCHS);
-			var brace = _members.FirstOrDefault(m => m.Role == "Brace" && m.IsCHS);
-
-			if (chord == null || brace == null || chord.Diameter <= 0 || brace.Diameter <= 0)
-				return null;
-
-			double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle);
-			double.TryParse(TxtGap.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var gap);
-			if (angle <= 0) angle = 90;
-
-			var jtStr = (CmbJointType.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "T/Y";
-			JointType jt = jtStr switch { "K" => JointType.K, "X" => JointType.X, _ => JointType.T_Y };
-
-			return new TubularJointGeometry
-			{
-				D = chord.Diameter, T = chord.WallThickness,
-				d = brace.Diameter, t = brace.WallThickness,
-				ThetaDeg = angle,
-				FyChord = chord.Fy, FyBrace = brace.Fy,
-				Gap = gap,
-				JointType = jt
-			};
-		}
 
 		private void PopulateResultsTab()
 		{
@@ -991,36 +877,21 @@ namespace NorsokChecker
 		}
 
 		/// <summary>
-		/// Check if all members are CHS. Enable/disable §6.4 joint UI accordingly.
+		/// Report how many members are tubular. §6.4 needs every one of them to be, and the topology
+		/// gates say so per member when the check runs — this is only the up-front note. The chord
+		/// itself is named in the members-grid header (see ShowMembersOf).
 		/// </summary>
 		private void UpdateTubularState()
 		{
-			bool allCHS = _members.Count > 0 && _members.All(m => m.IsCHS);
 			int chsCount = _members.Count(m => m.IsCHS);
+			int other = _members.Count - chsCount;
 
-			JointConfigExpander.IsEnabled = allCHS;
-
-			if (allCHS)
-			{
-				JointConfigStatus.Text = $"  — all {_members.Count} members are CHS ✓";
-				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
-					System.Windows.Media.Color.FromRgb(0x2E, 0x7D, 0x32));
-				Log($"  All members CHS → §6.3 (member) + §6.4 (joint) checks enabled");
-			}
+			if (_members.Count > 0 && other == 0)
+				Log($"  all {_members.Count} members are tubular");
 			else if (chsCount > 0)
-			{
-				JointConfigStatus.Text = $"  — mixed sections ({chsCount} CHS, {_members.Count - chsCount} other) — §6.4 disabled";
-				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
-					System.Windows.Media.Color.FromRgb(0xF5, 0x7C, 0x00));
-				Log($"  Mixed sections: {chsCount} CHS + {_members.Count - chsCount} other → §6.3 only, §6.4 disabled");
-			}
+				Log($"  {chsCount} tubular + {other} other section(s) — §6.4 needs every member tubular");
 			else
-			{
-				JointConfigStatus.Text = $"  — not all members are tubular — §6.4 not applicable";
-				JointConfigStatus.Foreground = new System.Windows.Media.SolidColorBrush(
-					System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
-				Log($"  No CHS members → plate/weld/bolt checks only, §6.3/§6.4 disabled");
-			}
+				Log("  no tubular members — §6.4 does not apply");
 		}
 
 		private bool ValidateGeometryInputs()
@@ -1036,10 +907,8 @@ namespace NorsokChecker
 			var brace = _members.FirstOrDefault(m => m.Role == "Brace" && m.IsCHS);
 			if (chord != null && brace != null && brace.Diameter > chord.Diameter)
 				Log($"WARNING: Brace d={brace.Diameter}mm cannot exceed chord D={chord.Diameter}mm");
-			if (double.TryParse(TxtBraceAngle.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var angle))
-			{
-				if (angle < 30 || angle > 90) Log($"WARNING: Brace angle θ={angle}° outside range 30°–90° (§6.4.3.1)");
-			}
+			// θ is no longer entered by hand — it is derived per brace from the member geometry, and
+			// the topology gates report it per brace (θ < 5° an error, outside 30–90° a warning).
 			return true;
 		}
 
@@ -1064,180 +933,12 @@ namespace NorsokChecker
 			});
 		}
 
-		private void JointType_Changed(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-		{
-			if (JointSchematic == null) return;
-			DrawJointSchematic(CmbJointType.SelectedIndex);
 
-			// Gap only applies to K-joints
-			GapPanel.Visibility = CmbJointType.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
-		}
 
-		private void AutoTopology_Changed(object sender, RoutedEventArgs e)
-		{
-			// Manual joint parameters are editable only when auto-topology is off; with auto ON they
-			// remain visible (greyed) as the fallback used when the topology gate rejects the joint.
-			if (ManualJointPanel != null)
-				ManualJointPanel.IsEnabled = ChkAutoTopology.IsChecked != true;
 
-			// The checkbox is declared IsChecked="True", so this handler also runs while the XAML is
-			// being initialized. That is the default state, not a user action — do not report it.
-			if (!IsLoaded)
-				return;
 
-			Telemetry.AutoTopologyToggled(ChkAutoTopology.IsChecked == true);
-		}
 
-		private void DrawJointSchematic(int jointTypeIndex)
-		{
-			JointSchematic.Children.Clear();
 
-			var chordBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x60, 0x7D, 0x8B));
-			var chordFill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 0x60, 0x7D, 0x8B));
-			var braceBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xF5, 0x7C, 0x00));
-			var braceFill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 0xF5, 0x7C, 0x00));
-			var dimBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E));
-			var dashStyle = new System.Windows.Media.DoubleCollection { 3, 2 };
-
-			// Chord — double-line tubular representation
-			double cy = 38; // chord centerline Y
-			double cw = 6;  // chord half-width (wall representation)
-			AddLine(8, cy - cw, 232, cy - cw, chordBrush, 1.5);    // top wall
-			AddLine(8, cy + cw, 232, cy + cw, chordBrush, 1.5);    // bottom wall
-			AddLine(8, cy, 232, cy, dimBrush, 0.5, dashStyle);      // centerline
-
-			switch (jointTypeIndex)
-			{
-				case 0: // K-joint (Fig. 6-5): two braces on same side, angled apart
-					double k1x = 90, k2x = 150;
-					// Brace A leans left, Brace B leans right — both go UP from chord
-					DrawBrace(k1x, cy, -120, 46, braceBrush, braceFill, dimBrush); // A: up-left
-					DrawBrace(k2x, cy, -60, 46, braceBrush, braceFill, dimBrush);  // B: up-right
-					// Gap dimension
-					AddLine(k1x + 2, cy - 4, k2x - 2, cy - 4, dimBrush, 0.8, dashStyle);
-					AddLabel("g", (k1x + k2x) / 2 - 3, cy - 15, dimBrush, 9);
-					// Labels
-					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
-					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
-					AddLabel("dA", 52, 2, braceBrush, 8, true);
-					AddLabel("dB", 168, 2, braceBrush, 8, true);
-					AddLabel("θA", k1x + 4, cy - 22, dimBrush, 8, true);
-					AddLabel("θB", k2x - 20, cy - 22, dimBrush, 8, true);
-					AddLabel("β = d/D", 185, cy + 10, dimBrush, 8);
-					AddLabel("γ = D/2T", 185, cy + 20, dimBrush, 8);
-					JointTypeLabel.Text = "K-joint — Fig. 6-5";
-					break;
-
-				case 1: // T/Y-joint (Fig. 6-3): single brace at angle
-					double bx = 120;
-					DrawBrace(bx, cy, -60, 52, braceBrush, braceFill, dimBrush);
-					// Angle arc
-					AddArc(bx, cy, 18, dimBrush);
-					AddLabel("θ", bx + 14, cy - 22, dimBrush, 10, true);
-					// Dimension labels
-					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
-					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
-					AddLabel("d", bx - 30, 4, braceBrush, 9, true);
-					AddLabel("t", bx - 18, 12, braceBrush, 9, true);
-					AddLabel("crown", bx + 8, cy - 8, dimBrush, 7);
-					AddLabel("saddle", bx - 4, cy + 10, dimBrush, 7);
-					// Formulas
-					AddLabel("β = d/D", 175, 8, dimBrush, 8);
-					AddLabel("γ = D/(2T)", 175, 18, dimBrush, 8);
-					AddLabel("τ = t/T", 175, 28, dimBrush, 8);
-					JointTypeLabel.Text = "T/Y-joint — Fig. 6-3";
-					break;
-
-				case 2: // X-joint (Fig. 6-4): brace passes straight through chord
-					double xx = 120;
-					// One continuous brace through the chord — top and bottom are the same member
-					DrawBrace(xx, cy, -65, 44, braceBrush, braceFill, dimBrush);   // top half (up-right)
-					DrawBrace(xx, cy, 115, 44, braceBrush, braceFill, dimBrush);   // bottom half (down-left, same angle)
-					AddArc(xx, cy, 18, dimBrush);
-					AddLabel("θ", xx + 14, cy - 22, dimBrush, 10, true);
-					AddLabel("D", 6, cy + 8, chordBrush, 9, true);
-					AddLabel("T", 6, cy - 16, chordBrush, 9, true);
-					AddLabel("d", xx + 16, 2, braceBrush, 9, true);
-					AddLabel("t", xx + 26, 10, braceBrush, 9, true);
-					AddLabel("β = d/D", 185, 8, dimBrush, 8);
-					AddLabel("γ = D/(2T)", 185, 18, dimBrush, 8);
-					AddLabel("τ = t/T", 185, 28, dimBrush, 8);
-					JointTypeLabel.Text = "X-joint — Fig. 6-4";
-					break;
-			}
-		}
-
-		private void DrawBrace(double baseX, double baseY, double angleDeg, double length,
-			System.Windows.Media.Brush stroke, System.Windows.Media.Brush fill, System.Windows.Media.Brush dimBrush)
-		{
-			double rad = angleDeg * Math.PI / 180.0;
-			double ex = baseX + length * Math.Cos(rad);
-			double ey = baseY + length * Math.Sin(rad);
-			double bw = 3; // brace half-width
-			double nx = -Math.Sin(rad) * bw;
-			double ny = Math.Cos(rad) * bw;
-
-			// Brace as a parallelogram (two walls)
-			var poly = new System.Windows.Shapes.Polygon
-			{
-				Points = new System.Windows.Media.PointCollection
-				{
-					new(baseX - nx, baseY - ny), new(ex - nx, ey - ny),
-					new(ex + nx, ey + ny), new(baseX + nx, baseY + ny)
-				},
-				Stroke = stroke,
-				StrokeThickness = 1.2,
-				Fill = fill
-			};
-			JointSchematic.Children.Add(poly);
-
-			// Centerline
-			AddLine(baseX, baseY, ex, ey, dimBrush, 0.4,
-				new System.Windows.Media.DoubleCollection { 2, 2 });
-		}
-
-		private void AddLine(double x1, double y1, double x2, double y2,
-			System.Windows.Media.Brush stroke, double thickness,
-			System.Windows.Media.DoubleCollection? dash = null)
-		{
-			var line = new System.Windows.Shapes.Line
-			{
-				X1 = x1, Y1 = y1, X2 = x2, Y2 = y2,
-				Stroke = stroke, StrokeThickness = thickness
-			};
-			if (dash != null) line.StrokeDashArray = dash;
-			JointSchematic.Children.Add(line);
-		}
-
-		private void AddArc(double cx, double cy, double radius, System.Windows.Media.Brush stroke)
-		{
-			var arc = new System.Windows.Shapes.Path
-			{
-				Stroke = stroke, StrokeThickness = 0.8,
-				Data = new System.Windows.Media.StreamGeometry()
-			};
-			using (var ctx = ((System.Windows.Media.StreamGeometry)arc.Data).Open())
-			{
-				ctx.BeginFigure(new System.Windows.Point(cx + radius, cy), false, false);
-				ctx.ArcTo(new System.Windows.Point(cx, cy - radius),
-					new System.Windows.Size(radius, radius), 0, false,
-					System.Windows.Media.SweepDirection.Counterclockwise, true, false);
-			}
-			JointSchematic.Children.Add(arc);
-		}
-
-		private void AddLabel(string text, double x, double y, System.Windows.Media.Brush foreground,
-			double fontSize = 10, bool italic = false)
-		{
-			var tb = new System.Windows.Controls.TextBlock
-			{
-				Text = text, FontSize = fontSize, Foreground = foreground,
-				FontStyle = italic ? FontStyles.Italic : FontStyles.Normal
-			};
-			System.Windows.Controls.Canvas.SetLeft(tb, x);
-			System.Windows.Controls.Canvas.SetTop(tb, y);
-			JointSchematic.Children.Add(tb);
-		}
 
 		protected override void OnClosed(EventArgs e)
 		{
