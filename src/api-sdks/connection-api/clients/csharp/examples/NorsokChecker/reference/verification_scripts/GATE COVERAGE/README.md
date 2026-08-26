@@ -30,10 +30,14 @@ way. Keep this file for exactly that reason.
 | **CON14** | brace tilts for which the plane cannot be found, only **fitted** | OK with the plane-fit warning; basis "closest pair" |
 
 CON9–CON14 are copies of CON1, so they keep its five CUT operations, with one thing changed each.
-Their load effects were re-solved for the new geometry (residual 0.000 kN/kNm). CON10 is the
-exception: deleting the braces takes their loadings with them, so its inherited load effects
-reference members that no longer exist and the service answers 404 — the connection has no usable
-load effect, which is fine for a gate that fires before any load is read.
+Their load effects were re-solved for the new geometry (residual 0.000 kN/kNm) and then **scaled by
+1/100** to undo the unit mistake described under CON1 — equilibrium is linear, so a uniform factor
+keeps the residual at zero while the utilisation scales with it. CON9 needed 1/280 rather than
+1/100: its chord is an IPE100 (the not-tubular gate), far weaker than the `PIPE127STD` the forces
+were solved against, so the same loads utilise it several times as hard. CON10 is the exception:
+deleting the braces takes their loadings with them, so its inherited load effects reference members
+that no longer exist and the service answers 404 — the connection has no usable load effect, which
+is fine for a gate that fires before any load is read.
 
 Three notes from building them, each of which cost an attempt:
 
@@ -92,9 +96,10 @@ requirement. The layout is fixed; only the plane's orientation is free.
 
 Its 15 load effects are the inherited ones **re-solved for the new directions** — rotating a member
 invalidates a balance computed for the old one. Brace magnitudes are kept (they were sized against
-each member's own resistance, which has not changed) and the chord M2 re-absorbs the remainder.
-Verified on the saved file: residual **0.000000 kN/kNm** on all 15, worst 39.81 % axial+bending and
-19.55 % shear.
+each member's own resistance, which has not changed) and the chord M2 re-absorbs the remainder,
+then the whole set is scaled by 1/100 as above. Verified on the saved file: residual
+**0.000000 kN/kNm** on all 15, worst **0.398 axial+bending and 0.196 shear** as ratios — i.e.
+39.8 % and 19.6 % of characteristic capacity.
 
 ## CON1 also carries 15 load effects
 
@@ -106,18 +111,41 @@ How they were built, and what holds for every one of them:
 
 - **every brace is loaded in every state** (M1, M3, M4, M5, M6), and the chord M2 carries the
   imbalance across its two sides;
-- **node equilibrium is exact**: residual 0.000 kN / 0.000 kNm, verified on the *saved* file
-  rather than only on the generated numbers. (`LE1`, which predates this, carries 0.0005.)
-- **per member `|N|% + |My|% + |Mz|% ≤ 40 %`** — worst actual 39.81 % (LE2);
-- **per member `|Vy|% + |Vz|% ≤ 20 %`** — worst actual 19.74 % (LE9);
-- no torsion is applied (`mx = 0` on the braces); the percentage view reports `mx` as 0 regardless,
-  so it cannot be budgeted.
+- **node equilibrium is exact**: residual 0.00000 kN / 0.00000 kNm on all 14, verified on the
+  *saved* file rather than only on the generated numbers. (`LE1`, which predates this, carries
+  0.0006.)
+- **per member `|n| + |my| + |mz| ≤ 0.40`** and **`|vy| + |vz| ≤ 0.20`**, in the RATIOS the
+  percentage view returns — see the unit warning below. Worst 0.400 / 0.200.
+- **the chord's own utilisation is checked too**, which is the constraint that binds: M2 absorbs
+  all five braces, so at their full shear budget it reached 0.25–0.34 against its own 0.20 limit.
+  Five states are therefore scaled down (0.85, 0.70) until M2 fits.
+- **`LE9` deliberately overloads ONE brace** — M4 at 1.20 — so the "member overloaded" and NORSOK
+  chord-overstressed paths stay exercised. Only that member, only that state; CON1 as a whole
+  stays calculable.
+- no torsion is applied (`mx = 0` on the braces); the percentage view reports `mx` as 0 regardless
+  (verified on 40 loadings), so it cannot be budgeted this way at all.
+
+> ⚠️ **`?isPercentage=true` returns a RATIO 0..1, not a percentage.** `0.4` means 40 %. The first
+> version of these states was budgeted against those values read as percentages, so every one came
+> out **100× too large — 1300 % to 2500 % of capacity**. CBFEM then refused the whole connection
+> with `Connected member is overloaded [LE2] - M1`, and §6.4 reported `A = 3.3 … 8.0` on the chord
+> (A = 1 is the chord at yield). Nothing caught it, because the generator's own checks compared the
+> same misread numbers against the same limit — and this README claimed "worst actual 39.81 %",
+> which was really 3981 %. Proof of the scale, in one line: M1 is `CHS 76.0x3.5`, so
+> `N_pl = 283 kN`; the absolute read was 2 424 594 N and the percentage read 8.578, and
+> `2 424 594 / 8.578 = 282 653 N` — that divisor **is** `N_pl`. It is stated in the API skill
+> (`io-shapes.md:383`) and was simply not read.
 
 The N / My / Mz and Vy / Vz split is randomised per state and per member from a fixed seed, so the
 set exercises different force combinations rather than one pattern scaled 14 times. Utilisations
 are per member against that member's own characteristic resistance, which matters here: `CHS30,3`
 (M5, M6) has a bending divisor of 778 against `PIPE127STD`'s 41 696, i.e. **53× weaker**, so equal
 forces on every brace would overload the small ones while leaving the chord idle.
+
+**CON1 calculates.** With these states CBFEM returns results (analysis 95.7 %, plates 18.8 %)
+rather than refusing the connection. `LE1` carries M4 at 1.086 — that predates this work and is
+the model's own state, left untouched deliberately as the control every measurement is proved
+against.
 
 Two things measured while generating these, worth knowing before editing the file:
 
