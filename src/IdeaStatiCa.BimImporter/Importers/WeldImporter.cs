@@ -25,7 +25,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Material = weld.Material == null ? null : ctx.Import(weld.Material),
 				Thickness = weld.Thickness,
 				Name = weld.Name,
-				WeldType = weld.WeldType
+				WeldType = weld.WeldType,
+				OriginalModelId = weld.Id,
 			};
 
 			(connectionData.Welds ?? (connectionData.Welds = new List<WeldData>())).Add(weldIOM);

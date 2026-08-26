@@ -57,5 +57,12 @@ namespace IdeaRS.OpenModel.Connection
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Get or set the identification in the original model
+		/// In the case of the imported connection from another application
+		/// </summary>
+		[DataMember]
+		public string OriginalModelId { get; set; }
 	}
 }

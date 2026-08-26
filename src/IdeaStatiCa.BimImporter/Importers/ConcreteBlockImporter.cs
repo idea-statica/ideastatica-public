@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Length = concreteBlock.Lenght,
 				Material = concreteBlock.Material == null ? null : ctx.Import(concreteBlock.Material),
 				Width = concreteBlock.Width,
+				OriginalModelId = concreteBlock.Id,
 			};
 
 			(connectionData.ConcreteBlocks ?? (connectionData.ConcreteBlocks = new List<ConcreteBlockData>())).Add(concreteBlockIOM);

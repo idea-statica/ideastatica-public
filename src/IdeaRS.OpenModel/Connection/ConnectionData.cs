@@ -358,6 +358,12 @@ namespace IdeaRS.OpenModel.Connection
 		/// End of the weld
 		/// </summary>
 		public IdeaRS.OpenModel.Geometry3D.Point3D End { get; set; }
+
+		/// <summary>
+		/// Get or set the identification in the original model
+		/// In the case of the imported connection from another application
+		/// </summary>
+		public string OriginalModelId { get; set; }
 	}
 
 	/// <summary>
@@ -513,6 +519,12 @@ namespace IdeaRS.OpenModel.Connection
 		/// Offset - shift of cut
 		/// </summary>
 		public double Offset { get; set; }
+
+		/// <summary>
+		/// Get or set the identification in the original model
+		/// In the case of the imported connection from another application
+		/// </summary>
+		public string OriginalModelId { get; set; }
 	}
 
 	/// <summary>

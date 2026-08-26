@@ -33,6 +33,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Positions = boltGrid.Positions.Select(p => ctx.Import(p).Element as Point3D).ToList(),
 				Origin = ctx.Import(boltGrid.Origin).Element as Point3D,
 				Length = boltGrid.Length,
+				OriginalModelId = boltGrid.Id,
 			};
 			(connectionData.BoltGrids ?? (connectionData.BoltGrids = new List<BoltGrid>())).Add(boltGridIOM);
 

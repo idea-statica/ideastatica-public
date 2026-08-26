@@ -38,6 +38,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				AnchoringLength = anchotGrid.AnchoringLength,
 				HookLength = anchotGrid.HookLength,
 				Length = anchotGrid.Length,
+				OriginalModelId = anchotGrid.Id,
 			};
 			(connectionData.AnchorGrids ?? (connectionData.AnchorGrids = new List<AnchorGrid>())).Add(anchorGridIOM);
 

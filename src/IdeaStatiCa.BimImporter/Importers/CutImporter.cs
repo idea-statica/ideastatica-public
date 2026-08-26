@@ -27,7 +27,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					Offset = cut.Offset,
 					Direction = cut.CutOrientation,
 					PlanePoint = ctx.Import(workPlane.Origin).Element as Point3D,
-
+					OriginalModelId = cut.Id,
 				};
 				var beamIOM = FindIOMObjectData(cut, connectionData);
 
@@ -75,6 +75,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 						} : null),
 						ExtendBeforeCut = cut.ExtendBeforeCut,
 						Name = cut.Name,
+						OriginalModelId = cut.Id,
 					};
 
 
