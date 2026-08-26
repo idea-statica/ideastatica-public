@@ -248,7 +248,9 @@
                     </Grid>
 
                     <!-- Members of the selected connection -->
-                    <Expander DockPanel.Dock="Top" IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
+                    <!-- No Dock: as the DockPanel's last child it fills the remaining height
+                         (LastChildFill), so the grid inside it grows instead of scrolling. -->
+                    <Expander IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
@@ -256,12 +258,19 @@
                                 <TextBlock Text="Members" FontWeight="Medium"/>
                             </StackPanel>
                         </Expander.Header>
-                        <StackPanel Margin="8,4,8,4">
+                        <!-- Grid, not StackPanel: a StackPanel gives its child its natural height,
+                             so the grid would size to its rows and scroll no matter how much room
+                             the expander had. -->
+                        <Grid Margin="8,4,8,4">
+                            <!-- No MaxHeight: a 140 px cap made this grid scroll while empty space
+                                 sat below it. The expander fills the DockPanel's remaining height,
+                                 so the grid gets whatever the connection list and the 3D view leave
+                                 and the scrollbar appears only when the rows really do not fit. -->
                             <DataGrid x:Name="MembersGrid" AutoGenerateColumns="False"
                                       CanUserAddRows="False"
                                       md:DataGridAssist.CellPadding="6 3"
                                       GridLinesVisibility="Horizontal" BorderThickness="0"
-                                      MaxHeight="140" VerticalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Auto"
                                       FontSize="12">
                                 <!-- hovering a row highlights that member in the 3D view -->
                                 <DataGrid.RowStyle>
@@ -281,7 +290,7 @@
                                     <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                 </DataGrid.Columns>
                             </DataGrid>
-                        </StackPanel>
+                        </Grid>
                     </Expander>
 
                 </DockPanel>
