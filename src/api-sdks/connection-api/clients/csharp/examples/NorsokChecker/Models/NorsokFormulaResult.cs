@@ -50,8 +50,15 @@ namespace NorsokChecker.Models
 		/// </summary>
 		public bool NotAssessed { get; set; }
 
-		/// <summary>PASS / FAIL / N/A — the single place that decides the wording.</summary>
-		public string Verdict => NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
+		/// <summary>
+		/// An informational note rather than a check: an assumption the check rests on, or a
+		/// parameter clamped to the §6.4.3.1 range. Distinct from <see cref="NotAssessed"/> — the
+		/// joint WAS assessed, so a note must not make the connection read as unchecked.
+		/// </summary>
+		public bool IsNote { get; set; }
+
+		/// <summary>PASS / FAIL / NOTE / N/A — the single place that decides the wording.</summary>
+		public string Verdict => IsNote ? "NOTE" : NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
 
 		/// <summary>Load case ID (0 = envelope/all). For per-LC breakdown.</summary>
 		public int LoadCaseId { get; set; }

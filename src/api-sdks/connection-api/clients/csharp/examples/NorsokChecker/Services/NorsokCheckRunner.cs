@@ -47,29 +47,41 @@ namespace NorsokChecker.Services
 			foreach (var e in topo.Verdict.Errors) _log($"      [E] {e}");
 			foreach (var w in topo.Verdict.Warnings) _log($"      [W] {w}");
 
+			// Warnings are published whatever the verdict: they say the check ran with clamped
+			// parameters (§6.4.3.1) or on an assumption, and that belongs in the results, not only
+			// in the log where it used to stay.
+			PublishTopologyNotes(topo, results);
+
 			if (topo.Verdict.Status == "ERROR" || topo.JointChecks.Count == 0)
 			{
-				// Publish the rejection as a FAILING result rather than only logging it. A joint
-				// outside the scope of §6.4 has NOT passed — it has not been assessed, and an empty
-				// result set used to read as "everything passed" in the caller.
+				// A joint outside the scope of §6.4 has NOT passed — it has not been assessed, and
+				// an empty result set used to read as "everything passed" in the caller. One row per
+				// failed condition, as the python reference's UI lists them: joining them into a
+				// single string made a joint that failed six gates look like it failed one.
 				var reasons = topo.Verdict.Errors.Count > 0
 					? topo.Verdict.Errors
 					: new List<string> { "the joint produced no §6.4 check" };
-				results.Add(new NorsokFormulaResult
+
+				for (int i = 0; i < reasons.Count; i++)
 				{
-					Section = "6.4",
-					Equation = "6.4.3",
-					Title = "Joint outside the scope of §6.4",
-					CheckExpression = string.Join(";  ", reasons),
-					Formula = "-",
-					FormulaSubstituted = $"{reasons.Count} condition(s) not met — no §6.4 check was performed",
-					Demand = 0,
-					Capacity = 0,
-					Utilization = 0,
-					// not a failure: nothing was checked. Reporting this as FAIL alongside the words
-					// "NOT ASSESSED" said both at once, which cannot be true.
-					NotAssessed = true,
-				});
+					results.Add(new NorsokFormulaResult
+					{
+						Section = "6.4",
+						Equation = "6.4.3",
+						Title = reasons.Count > 1
+							? $"Outside the scope of §6.4 ({i + 1} of {reasons.Count})"
+							: "Outside the scope of §6.4",
+						CheckExpression = reasons[i],
+						Formula = "-",
+						FormulaSubstituted = "no §6.4 check was performed for this joint",
+						Demand = 0,
+						Capacity = 0,
+						Utilization = 0,
+						// not a failure: nothing was checked. Reporting this as FAIL alongside the
+						// words "NOT ASSESSED" said both at once, which cannot be true.
+						NotAssessed = true,
+					});
+				}
 				return false;
 			}
 
@@ -102,6 +114,41 @@ namespace NorsokChecker.Services
 					 $"[{gov.LeName}] {(worst.Passed ? "PASS" : "FAIL")}");
 			}
 			return true;
+		}
+
+		/// <summary>
+		/// Publish the topology's warnings as results, one per warning.
+		///
+		/// They used to go to the log only, so the engineer never saw that a joint had been checked
+		/// with β, γ or θ clamped to the §6.4.3.1 range, or that an assumption had been made about
+		/// its geometry. The python reference lists them next to the errors, in a different colour,
+		/// which is what the third state (NotAssessed) now allows here too — a warning is neither a
+		/// pass nor a failure, and the joint may well be checked despite it.
+		/// </summary>
+		private static void PublishTopologyNotes(JointTopology topo, List<NorsokFormulaResult> results)
+		{
+			var warns = topo.Verdict.Warnings;
+			for (int i = 0; i < warns.Count; i++)
+			{
+				results.Add(new NorsokFormulaResult
+				{
+					Section = "6.4.3.1",
+					Equation = "-",
+					Title = warns.Count > 1
+						? $"Assumption ({i + 1} of {warns.Count})"
+						: "Assumption",
+					CheckExpression = warns[i],
+					Formula = "-",
+					FormulaSubstituted = "the check proceeds; the note above qualifies its result",
+					Demand = 0,
+					Capacity = 0,
+					Utilization = 0,
+					// a note, not an unassessed check: the joint is still checked, so this must not
+					// make the connection read as "partly assessed"
+					IsNote = true,
+					NotAssessed = true,
+				});
+			}
 		}
 
 		/// <summary>

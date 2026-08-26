@@ -432,6 +432,12 @@ namespace NorsokChecker
 					int assessed = 0;
 					foreach (var fr in formulaResults)
 					{
+						// a note qualifies a check that DID run; it is neither a result nor a gap
+						if (fr.IsNote)
+						{
+							Log($"    {fr.Section} NOTE: {fr.CheckExpression}");
+							continue;
+						}
 						if (fr.NotAssessed)
 						{
 							anyNotAssessed = true;
@@ -455,10 +461,17 @@ namespace NorsokChecker
 					{
 						// nothing was checked at all — an empty result set used to leave the
 						// connection reading as "Norsok OK / PASS / 0.0 %"
+						// Check says only THAT §6.4 does not apply, and how many conditions failed.
+						// The conditions themselves are one row each in Results and in the report —
+						// this tab is the overview.
+						int gates = formulaResults.Count(f => !f.IsNote && f.NotAssessed);
 						con.NorsokPass = "N/A";
 						con.MaxUtilization = 0;
-						con.Status = anyNotAssessed ? "Outside §6.4 scope" : "Not assessed";
-						Log("    nothing was assessed for this connection — reported as N/A, not as a pass");
+						con.Status = anyNotAssessed
+							? (gates > 1 ? $"Outside §6.4 scope ({gates} conditions)" : "Outside §6.4 scope")
+							: "Not assessed";
+						Log("    nothing was assessed for this connection — reported as N/A, not as a pass"
+							+ "; see the Results tab for the conditions that were not met");
 					}
 					else if (anyNotAssessed)
 					{
@@ -858,8 +871,8 @@ namespace NorsokChecker
 							: fr.LoadCaseId > 0 ? $"LC{fr.LoadCaseId}" : "envelope",
 						Demand = Math.Round(fr.Demand, 2),
 						Capacity = Math.Round(fr.Capacity, 2),
-						// a utilisation of "0.0 %" next to "not assessed" reads as a result; it is not
-						Utilization = fr.NotAssessed ? "—" : $"{fr.Utilization * 100:F1}%",
+						// a utilisation of "0.0 %" next to "not assessed" or a note reads as a result
+						Utilization = fr.IsNote || fr.NotAssessed ? "—" : $"{fr.Utilization * 100:F1}%",
 						Result = fr.Verdict
 					});
 				}

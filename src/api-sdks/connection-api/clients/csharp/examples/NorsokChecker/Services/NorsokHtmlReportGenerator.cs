@@ -199,9 +199,12 @@ namespace NorsokChecker.Services
 			// Not-assessed rows are counted separately. Deriving failed as (total - passed) made
 			// them failures, and leaving them out of the total would have hidden them entirely —
 			// neither is honest about a joint nobody checked.
-			int totalChecks = allResults.Sum(r => r.formulas.Count);
-			int notAssessed = allResults.Sum(r => r.formulas.Count(f => f.NotAssessed));
-			int passed = allResults.Sum(r => r.formulas.Count(f => !f.NotAssessed && f.Passed));
+			// Notes are excluded from the counts entirely: they qualify a check that ran, so they are
+			// neither a check of their own nor a gap in the coverage.
+			int totalChecks = allResults.Sum(r => r.formulas.Count(f => !f.IsNote));
+			int notes = allResults.Sum(r => r.formulas.Count(f => f.IsNote));
+			int notAssessed = allResults.Sum(r => r.formulas.Count(f => !f.IsNote && f.NotAssessed));
+			int passed = allResults.Sum(r => r.formulas.Count(f => !f.IsNote && !f.NotAssessed && f.Passed));
 			int failed = totalChecks - passed - notAssessed;
 			bool allPass = failed == 0 && notAssessed == 0;
 
@@ -212,7 +215,7 @@ namespace NorsokChecker.Services
 			{
 				foreach (var f in formulas)
 				{
-					if (f.NotAssessed) continue;
+					if (f.IsNote || f.NotAssessed) continue;
 					if (governing == null || f.Utilization > governing.Utilization)
 					{
 						governing = f;
@@ -239,6 +242,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <div class='stat stat-fail'><span class='stat-value'>{failed}</span><span class='stat-label'>Failed</span></div>");
 			if (notAssessed > 0)
 				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notAssessed}</span><span class='stat-label'>Not assessed</span></div>");
+			if (notes > 0)
+				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notes}</span><span class='stat-label'>Notes</span></div>");
 
 			if (governing != null)
 			{
@@ -254,9 +259,11 @@ namespace NorsokChecker.Services
 
 		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr, bool expandAll = false)
 		{
-			// three states: a row that was not assessed is neither a tick nor a cross
-			string statusClass = fr.NotAssessed ? "warn" : fr.Passed ? "pass" : "fail";
-			string statusIcon = fr.NotAssessed ? "&#x26A0;" : fr.Passed ? "&#x2714;" : "&#x2718;";
+			// four states: a note qualifies a check that ran, an unassessed row means nothing ran,
+			// and neither is a tick or a cross
+			string statusClass = fr.IsNote || fr.NotAssessed ? "warn" : fr.Passed ? "pass" : "fail";
+			string statusIcon = fr.IsNote ? "&#x24D8;"
+				: fr.NotAssessed ? "&#x26A0;" : fr.Passed ? "&#x2714;" : "&#x2718;";
 			string statusText = fr.Verdict;
 
 			sb.AppendLine($"<details class='check-card {statusClass}'{(expandAll ? " open" : "")}>");
