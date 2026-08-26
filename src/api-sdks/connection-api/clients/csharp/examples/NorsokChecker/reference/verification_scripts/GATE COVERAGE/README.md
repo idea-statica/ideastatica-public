@@ -22,6 +22,36 @@ way. Keep this file for exactly that reason.
 | **CON6** | **no continuous member** | ERROR: §6.4 needs a through chord |
 | **CON7** | **two continuous members** | ERROR: chord taken as the larger diameter |
 | **CON8** | an **oblique joint plane** with no member's local CSYS aligned to it — see below | **OK**, and the M_ip / M_op split is genuinely resolved rather than read off my / mz |
+| **CON9** | the chord is an **I-section** (`IPE100`) | ERROR naming `RolledI` — §6.4 is for tubular sections |
+| **CON10** | the **chord alone**, every brace deleted | ERROR: "No brace (chord only)" |
+| **CON11** | a brace at **θ = 20°** — above the 5° error floor, below the 30° warning floor | OK with a warning: θ outside 30–90° |
+| **CON12** | a brace **60 mm eccentric along the chord** (D/4 = 35 mm on `PIPE127STD`) | OK with a warning: eccentricity along the chord |
+| **CON13** | one brace **8° out of plane**, the other four coplanar | OK with a warning: borderline off plane |
+| **CON14** | brace tilts for which the plane cannot be found, only **fitted** | OK with the plane-fit warning; basis "closest pair" |
+
+CON9–CON14 are copies of CON1, so they keep its five CUT operations, with one thing changed each.
+Their load effects were re-solved for the new geometry (residual 0.000 kN/kNm). CON10 is the
+exception: deleting the braces takes their loadings with them, so its inherited load effects
+reference members that no longer exist and the service answers 404 — the connection has no usable
+load effect, which is fine for a gate that fires before any load is read.
+
+Three notes from building them, each of which cost an attempt:
+
+- **A tilted brace moves the plane, it does not leave it.** The plane is fitted from the members, so
+  tilting one brace by 8° put THAT brace at 0° and the other four at 6–9°. CON13 tilts M6 and leaves
+  the other four in XY, so the fit lands where it is supposed to.
+- **The plane-fit warning (CON14) cannot be derived by hand.** "Are any two braces within 2° of a
+  common plane" is not the builder's test: it tries each brace's own perpendicular as a candidate and
+  counts inliers against that, so the answer depends on the seed. Two hand-derived spreads were
+  wrong. The tilts used come from `PlaneFitSearchTests` (marked `Explicit`), which asks the builder.
+- **A synthetic fixture is not CON1.** `GateCoverageTests` uses a 273 mm chord with three 48.3 mm
+  braces rather than CON1's angles, because CON1 relies on its CUT operations to resolve overlapping
+  feet and a fixture has none — copying its bearings produced "feet overlap (gap −70 mm)" and the
+  joint was rejected before the gate under test could speak.
+
+Still unreached, and why: a connection with **no members** (probably not constructible),
+**`forcesIn` other than node/position** (a model-level setting these scripts do not touch), and the
+**missing-data skip row** (in C# the not-tubular gate fires first, so it cannot be isolated).
 
 The bearing flag sits on a brace throughout — that is what surfaced the chord defect.
 
