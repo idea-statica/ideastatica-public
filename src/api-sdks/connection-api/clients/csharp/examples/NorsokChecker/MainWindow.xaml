@@ -214,112 +214,182 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- Connections first: the connection is what everything below is about, and
-                         the 3D view of the selected one sits beside the list. -->
-                    <Grid DockPanel.Dock="Top" Margin="0,0,0,6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="8"/>
-                            <ColumnDefinition Width="440"/>
-                        </Grid.ColumnDefinitions>
-                        <!-- Connections grid — fills remaining space -->
-                        <DataGrid Grid.Column="0" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
-                                  IsReadOnly="True" CanUserAddRows="False"
-                                  SelectionMode="Single" SelectionUnit="FullRow"
-                                  SelectionChanged="ConnectionsGrid_SelectionChanged"
-                                  md:DataGridAssist.CellPadding="10 6"
-                                  VerticalScrollBarVisibility="Auto"
-                                  GridLinesVisibility="Horizontal"
-                                  BorderThickness="0">
-                            <DataGrid.RowStyle>
-                                <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding NorsokPass}" Value="FAIL">
-                                            <Setter Property="Background" Value="{StaticResource VerdictFailBg}"/>
-                                            <Setter Property="Foreground" Value="{StaticResource VerdictFailFg}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
-                                            <Setter Property="Background" Value="{StaticResource VerdictPassBg}"/>
-                                            <Setter Property="Foreground" Value="{StaticResource VerdictPassFg}"/>
-                                        </DataTrigger>
-                                        <!-- grey, NOT amber: no verdict was reached, so this is neither
-                                             a pass nor a milder fail. It used to share PARTIAL's amber. -->
-                                        <DataTrigger Binding="{Binding NorsokPass}" Value="N/A">
-                                            <Setter Property="Background" Value="{StaticResource VerdictNaBg}"/>
-                                            <Setter Property="Foreground" Value="{StaticResource VerdictNaFg}"/>
-                                        </DataTrigger>
-                                        <!-- amber: everything CHECKED passed, but part of the joint was
-                                             not assessed. Verified against the verdict logic - PARTIAL is
-                                             only reached when anyFailed is false, so it is a qualified
-                                             pass, not a fail. It keeps amber; only N/A moved to grey. -->
-                                        <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
-                                            <Setter Property="Background" Value="{StaticResource VerdictPartialBg}"/>
-                                            <Setter Property="Foreground" Value="{StaticResource VerdictPartialFg}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </DataGrid.RowStyle>
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
-                                <!-- SizeToCells: the longest status is "Outside §6.4 scope (7 conditions)",
-                                     which a fixed 130 px truncated -->
-                                <DataGridTextColumn Header="Status" Binding="{Binding Status}"
-                                                    Width="SizeToCells" MinWidth="130"/>
-                                <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="130"/>
-                                <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Border Grid.Column="2" BorderBrush="#E0E0E0" BorderThickness="1"
-                                CornerRadius="2" MinHeight="340">
-                            <controls:Joint3DView x:Name="Joint3D"/>
-                        </Border>
-                    </Grid>
+                    <!-- Connections first (the connection is what everything below is about, with
+                         the 3D view of the selected one beside it), then the members table.
 
-                    <!-- Members of the selected connection -->
-                    <!-- No Dock: as the DockPanel's last child it fills the remaining height
-                         (LastChildFill), so the grid inside it grows instead of scrolling. -->
-                    <Expander IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
-                        <Expander.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
-                                             Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
-                                <TextBlock Text="Members" FontWeight="Medium"/>
-                            </StackPanel>
-                        </Expander.Header>
-                        <!-- Grid, not StackPanel: a StackPanel gives its child its natural height,
-                             so the grid would size to its rows and scroll no matter how much room
-                             the expander had. -->
-                        <Grid Margin="8,4,8,4">
-                            <!-- No MaxHeight: a 140 px cap made this grid scroll while empty space
-                                 sat below it. The expander fills the DockPanel's remaining height,
-                                 so the grid gets whatever the connection list and the 3D view leave
-                                 and the scrollbar appears only when the rows really do not fit. -->
-                            <DataGrid x:Name="MembersGrid" AutoGenerateColumns="False"
-                                      CanUserAddRows="False"
-                                      md:DataGridAssist.CellPadding="6 3"
-                                      GridLinesVisibility="Horizontal" BorderThickness="0"
+                         A Grid with GridSplitters rather than a DockPanel: the useful split depends
+                         on the project - how many connections, how big the joint - so it is the
+                         user's to set, and a splitter needs real rows/columns to resize. Row 0 is
+                         the connection+3D band, row 1 the grip, row 2 the members table.
+                         Star heights on both content rows: the grip then trades one against the
+                         other instead of either growing the tab. -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" MinHeight="120"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1*" MinHeight="80"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,2" x:Name="TopBand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MinWidth="260"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="440" MinWidth="220"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- Same size and indent as the Members heading below, and no icon on
+                                 either - the two tables are peers, so their headings must read alike. -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Connections" FontWeight="Medium"
+                                       Margin="16,0,0,4" VerticalAlignment="Center"/>
+                            <!-- Connections grid — takes the width the 3D view does not. Its own
+                                 scrollbar appears when the splitter squeezes it (VerticalScrollBar-
+                                 Visibility="Auto" below), which is the point of giving it a MinHeight
+                                 rather than letting it push the layout. -->
+                            <DataGrid Grid.Row="1" Grid.Column="0" x:Name="ConnectionsGrid" AutoGenerateColumns="False"
+                                      IsReadOnly="True" CanUserAddRows="False"
+                                      SelectionMode="Single" SelectionUnit="FullRow"
+                                      SelectionChanged="ConnectionsGrid_SelectionChanged"
+                                      md:DataGridAssist.CellPadding="10 6"
                                       VerticalScrollBarVisibility="Auto"
-                                      FontSize="12">
-                                <!-- hovering a row highlights that member in the 3D view -->
+                                      GridLinesVisibility="Horizontal"
+                                      BorderThickness="0">
                                 <DataGrid.RowStyle>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-                                        <EventSetter Event="MouseEnter" Handler="MembersGrid_MemberHighlight"/>
-                                        <EventSetter Event="MouseLeave" Handler="MembersGrid_ClearHighlight"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NorsokPass}" Value="FAIL">
+                                                <Setter Property="Background" Value="{StaticResource VerdictFailBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictFailFg}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
+                                                <Setter Property="Background" Value="{StaticResource VerdictPassBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictPassFg}"/>
+                                            </DataTrigger>
+                                            <!-- grey, NOT amber: no verdict was reached, so this is neither
+                                                 a pass nor a milder fail. It used to share PARTIAL's amber. -->
+                                            <DataTrigger Binding="{Binding NorsokPass}" Value="N/A">
+                                                <Setter Property="Background" Value="{StaticResource VerdictNaBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictNaFg}"/>
+                                            </DataTrigger>
+                                            <!-- amber: everything CHECKED passed, but part of the joint was
+                                                 not assessed. Verified against the verdict logic - PARTIAL is
+                                                 only reached when anyFailed is false, so it is a qualified
+                                                 pass, not a fail. It keeps amber; only N/A moved to grey. -->
+                                            <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
+                                                <Setter Property="Background" Value="{StaticResource VerdictPartialBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictPartialFg}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="*" MinWidth="90" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
-                                    <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="55"/>
-                                    <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="50"/>
-                                    <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" Width="SizeToHeader" MinWidth="60"/>
-                                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
+                                    <!-- SizeToCells: the longest status is "Outside §6.4 scope (7 conditions)",
+                                         which a fixed 130 px truncated -->
+                                    <DataGridTextColumn Header="Status" Binding="{Binding Status}"
+                                                        Width="SizeToCells" MinWidth="130"/>
+                                    <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="130"/>
+                                    <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
                                 </DataGrid.Columns>
                             </DataGrid>
+                            <!-- Vertical grip: 3D view width vs connection list width. Spans both rows
+                                 so it can be grabbed level with the headings too. -->
+                            <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                                          Width="8" HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch" Background="Transparent"
+                                          ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"
+                                          Cursor="SizeWE"
+                                          ToolTip="Drag to resize the 3D view">
+                                <GridSplitter.Template>
+                                    <ControlTemplate TargetType="GridSplitter">
+                                        <Grid Background="Transparent">
+                                            <Border Width="2" Height="36" CornerRadius="1"
+                                                    Background="#C4CCD6" x:Name="Pill"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Pill" Property="Background" Value="#2E6FB0"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </GridSplitter.Template>
+                            </GridSplitter>
+                            <!-- No MinHeight here: the 3D view follows the band's height, which the
+                                 horizontal splitter drives. A MinHeight would fight the splitter and
+                                 stop the band from shrinking. RowSpan 2 so it is as tall as the
+                                 heading plus the list beside it. -->
+                            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="2"
+                                    BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="2">
+                                <controls:Joint3DView x:Name="Joint3D"/>
+                            </Border>
                         </Grid>
-                    </Expander>
+
+                        <!-- Horizontal grip: the whole top band's height (connection list AND 3D view
+                             together) against the members table below. -->
+                        <GridSplitter Grid.Row="1" Height="10" HorizontalAlignment="Stretch"
+                                      Background="Transparent" ResizeDirection="Rows"
+                                      Cursor="SizeNS"
+                                      ToolTip="Drag to resize the connection list and the 3D view">
+                            <GridSplitter.Template>
+                                <ControlTemplate TargetType="GridSplitter">
+                                    <Grid Background="Transparent">
+                                        <Border Width="36" Height="2" CornerRadius="1"
+                                                Background="#C4CCD6" x:Name="Pill"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Pill" Property="Background" Value="#2E6FB0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </GridSplitter.Template>
+                        </GridSplitter>
+
+                        <!-- Members of the selected connection -->
+                        <!-- Row 2: whatever the grip leaves. No icon on the header - it is a peer of
+                             the Connections table, whose heading is a plain TextBlock, and one of the
+                             two carrying an icon made them read as different kinds of thing. -->
+                        <Expander Grid.Row="2" IsExpanded="True" Margin="0,0,0,4" Background="Transparent">
+                            <Expander.Header>
+                                <TextBlock Text="Members" FontWeight="Medium"/>
+                            </Expander.Header>
+                            <!-- Grid, not StackPanel: a StackPanel gives its child its natural height,
+                                 so the grid would size to its rows and scroll no matter how much room
+                                 the expander had. -->
+                            <Grid Margin="8,4,8,4">
+                                <!-- No MaxHeight: a 140 px cap made this grid scroll while empty space
+                                     sat below it. The expander fills its Grid row, so the table gets
+                                     whatever the grip leaves it and the scrollbar appears only when the
+                                     rows really do not fit. -->
+                                <DataGrid x:Name="MembersGrid" AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          md:DataGridAssist.CellPadding="6 3"
+                                          GridLinesVisibility="Horizontal" BorderThickness="0"
+                                          VerticalScrollBarVisibility="Auto"
+                                          FontSize="12">
+                                    <!-- hovering a row highlights that member in the 3D view -->
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                            <EventSetter Event="MouseEnter" Handler="MembersGrid_MemberHighlight"/>
+                                            <EventSetter Event="MouseLeave" Handler="MembersGrid_ClearHighlight"/>
+                                        </Style>
+                                    </DataGrid.RowStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="*" MinWidth="90" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="55"/>
+                                        <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1}" Width="SizeToHeader" MinWidth="50"/>
+                                        <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F0}" Width="SizeToHeader" MinWidth="60"/>
+                                        <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Expander>
+                    </Grid>
 
                 </DockPanel>
             </TabItem>
