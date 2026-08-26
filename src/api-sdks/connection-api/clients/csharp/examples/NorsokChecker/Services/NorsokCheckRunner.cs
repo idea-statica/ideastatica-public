@@ -213,10 +213,11 @@ namespace NorsokChecker.Services
 
 			double gammaM0 = ProjectSettingsService.GammaM0_Norsok;  // 1.15
 			double gammaM2 = ProjectSettingsService.GammaM2_Norsok;  // 1.30
-			// Note: γBC = 1.05 (ProjectSettingsService.GammaBC) is the additional
-			// building code factor per §6.1. It is applied implicitly when the CBFEM
-			// engine uses the updated γM values. For standalone formula checks on
-			// tubular members (§6.3), the Norsok γM = 1.15 already accounts for this.
+			// γBC = 1.05 (§6.1) is NOT applied, and not "implicitly" either, as this comment used to
+			// say. The norm asks for it only "where OTHER material factors are used than given in
+			// Table 6-1"; these two ARE Table 6-1, written into the project settings before the run,
+			// so multiplying by γBC as well would double-count — 1.15 × 1.05 = 1.21 against the 1.15
+			// the norm asks for. See ProjectSettingsService.GammaBC_NotApplied.
 
 			// ─── CBFEM PLATE / WELD / BOLT CHECKS ───
 			if (includeCbfemChecks && parsed != null)

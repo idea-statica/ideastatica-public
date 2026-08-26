@@ -221,7 +221,9 @@ namespace NorsokChecker
 				// ── Chapter toggles — read first: they decide whether a calculation is needed ──
 				bool includeCbfem = ChkChapterCbfem.IsChecked == true;
 				bool includeCh64 = ChkChapter64.IsChecked == true;
-				Log($"Chapters: CBFEM={(includeCbfem ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}");
+				bool activeLoadEffectsOnly = ChkActiveLoadEffectsOnly.IsChecked == true;
+				Log($"Chapters: CBFEM={(includeCbfem ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}"
+					+ $", load effects: {(activeLoadEffectsOnly ? "active only" : "all in the file")}");
 
 				var connectionIds = _connections.Select(c => c.Id).ToList();
 				_rawResultsPerConnection.Clear();
@@ -231,6 +233,17 @@ namespace NorsokChecker
 				// skipped entirely — the engine run is by far the most expensive step here.
 				if (includeCbfem)
 				{
+					// With the toggle OFF the user asked for every load effect in the file to be
+					// assessed, so switch them all on before the engine runs. Calculate takes no
+					// load-effect selector in this client, so the model's own flags are the only way
+					// to say it — and without this the CBFEM side would silently keep honouring the
+					// flags while §6.4 ignored them, and the two halves of one report would disagree.
+					//
+					// Only the copy in the service's memory is touched. The user's .ideaCon is
+					// written only by GET /download, which this app never calls.
+					if (!activeLoadEffectsOnly)
+						await ActivateAllLoadEffectsAsync(connectionIds);
+
 					foreach (var con in _connections)
 						con.Status = "Calculating...";
 
@@ -381,7 +394,37 @@ namespace NorsokChecker
 						// percentages (σ/fy ratios ~0.003); without the flag the service returns them
 						// as saved and every downstream check would silently collapse to util≈0.
 						loadEffects = await _apiClient.LoadEffect.GetLoadEffectsAsync(_projectId, con.Id, isPercentage: false);
-						Log($"    Load effects: {loadEffects.Count} load case(s)");
+
+						// Honour the model's own on/off switches. A load effect the engineer disabled
+						// in IDEA StatiCa is one they decided not to design for, so assessing it
+						// anyway reports utilisations for a state that is not part of the design —
+						// and on an envelope it can make a disabled state the governing one.
+						// Per connection, because the switches are per connection.
+						//
+						// This filters the §6.4 side only. The CBFEM side is calculated by the engine
+						// from the project itself, and this client version (26.0.4) exposes no
+						// load-effect selector on Calculate — verified: loadEffectIds appears nowhere
+						// in its surface — so there is nothing to pass. Whether the engine itself
+						// honours the active flags is NOT verified here; if a CBFEM utilisation ever
+						// disagrees with the §6.4 set under this toggle, that is the thing to check
+						// first.
+						if (activeLoadEffectsOnly)
+						{
+							int total = loadEffects.Count;
+							var active = loadEffects.Where(le => le.Active).ToList();
+							if (active.Count < total)
+								Log($"    Load effects: {active.Count} of {total} active "
+									+ $"({total - active.Count} switched off in the model, skipped)");
+							else
+								Log($"    Load effects: {total} load case(s), all active");
+							loadEffects = active;
+						}
+						else
+						{
+							int off = loadEffects.Count(le => !le.Active);
+							Log($"    Load effects: {loadEffects.Count} load case(s)"
+								+ (off > 0 ? $" — including {off} switched off in the model" : ""));
+						}
 
 						// Log per member per LC
 						foreach (var le in loadEffects)
@@ -771,6 +814,51 @@ namespace NorsokChecker
 			}
 
 			Joint3D.Load(meshes);
+		}
+
+		/// <summary>
+		/// Switch every load effect on, so the CBFEM engine calculates all of them.
+		///
+		/// Needed because Calculate takes no load-effect selector in this client version: the model's
+		/// own active flags are the only way to tell the engine what to include. Without this, turning
+		/// the "active only" toggle off would widen the §6.4 set while the CBFEM set stayed narrow,
+		/// and one report would carry two different load-effect sets.
+		///
+		/// Only the project in the service's memory is changed — the user's .ideaCon is written only
+		/// by GET /download, which this app never calls. A failure is logged and does not stop the
+		/// run: the calculation then covers the active states only, which is the narrower answer, and
+		/// the log says so.
+		/// </summary>
+		private async Task ActivateAllLoadEffectsAsync(List<int> connectionIds)
+		{
+			if (_apiClient == null) return;
+
+			int switched = 0, failed = 0;
+			foreach (int conId in connectionIds)
+			{
+				try
+				{
+					var les = await _apiClient.LoadEffect.GetLoadEffectsAsync(
+						_projectId, conId, isPercentage: false);
+					foreach (var le in les.Where(l => !l.Active))
+					{
+						le.Active = true;
+						await _apiClient.LoadEffect.UpdateLoadEffectAsync(_projectId, conId, le);
+						switched++;
+					}
+				}
+				catch (Exception ex)
+				{
+					failed++;
+					Log($"    WARNING: could not switch on the load effects of connection {conId} "
+						+ $"({ex.Message}) — CBFEM will cover its active states only");
+				}
+			}
+
+			if (switched > 0)
+				Log($"  switched on {switched} load effect(s) so CBFEM covers every state in the file");
+			else if (failed == 0)
+				Log("  every load effect in the file was already active");
 		}
 
 		/// <summary>Hovering a member row highlights its body in the 3D view.</summary>

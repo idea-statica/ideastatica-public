@@ -194,7 +194,13 @@
                             <TextBlock Text="Chapters:" FontWeight="Medium" VerticalAlignment="Center"
                                        Foreground="#546E7A" Margin="0,0,10,0"/>
                             <CheckBox x:Name="ChkChapterCbfem" Content="CBFEM plates/welds" IsChecked="True" Margin="0,0,12,0"/>
-                            <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="True"/>
+                            <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="True" Margin="0,0,20,0"/>
+                            <!-- On by default: a load effect switched off in IDEA StatiCa is one the
+                                 engineer decided not to design for, so honouring that is the expected
+                                 reading of the model rather than a special mode. -->
+                            <CheckBox x:Name="ChkActiveLoadEffectsOnly" Content="Active load effects only"
+                                      IsChecked="True"
+                                      ToolTip="Assess only the load effects switched on in the .ideaCon. Unchecked, every load effect in the file is assessed, including the ones the model has disabled."/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <Button x:Name="BtnLoadProject" Click="LoadProject_Click"

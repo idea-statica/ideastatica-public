@@ -118,10 +118,14 @@ namespace NorsokChecker.Services
 			sb.AppendLine("      <tr><td>$ \\gamma_{M1} $</td><td class='val-norsok'>1.15</td><td class='val-ec3'>1.00</td><td>Resistance of Class 4 cross-sections; buckling</td></tr>");
 			sb.AppendLine("      <tr><td>$ \\gamma_{M2} $</td><td class='val-norsok'>1.30</td><td class='val-ec3'>1.25</td><td>Net section at bolt holes; fillet &amp; partial penetration welds; bolted connections</td></tr>");
 			sb.AppendLine("      <tr><td>$ \\gamma_{M3} $</td><td class='val-norsok'>1.30</td><td class='val-ec3'>1.25</td><td>Slip-resistant connections</td></tr>");
-			sb.AppendLine("      <tr class='row-note'><td>$ \\gamma_{BC} $</td><td class='val-norsok'>1.05</td><td class='val-ec3'>&mdash;</td><td>Additional building code factor (&sect;6.1) &mdash; multiplied with EN 1993 factors where applicable</td></tr>");
+			// γBC is listed as NOT applied, and why. It used to sit in this table as though it were
+			// in force — §6.1 asks for it only "where OTHER material factors are used than given in
+			// Table 6-1", and the rows above ARE Table 6-1, so applying it too would double-count
+			// (γM0 = 1.15 × 1.05 = 1.21 against the 1.15 the norm asks for).
+			sb.AppendLine("      <tr class='row-note'><td>$ \\gamma_{BC} $</td><td class='val-ec3'>not applied</td><td class='val-ec3'>&mdash;</td><td>Additional building code factor (&sect;6.1) &mdash; required only where factors <em>other</em> than Table 6-1 are used; the factors above <em>are</em> Table 6-1, so it does not apply on top of them</td></tr>");
 			sb.AppendLine("    </tbody>");
 			sb.AppendLine("  </table>");
-			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise.&rdquo;</p>");
+			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo; These factors are written into the project's own settings before the CBFEM calculation runs, so the engine calculates with them.</p>");
 			sb.AppendLine("</div>");
 
 			// ── Executive Summary Card ──

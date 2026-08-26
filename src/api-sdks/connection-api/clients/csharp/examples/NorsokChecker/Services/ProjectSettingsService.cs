@@ -20,13 +20,28 @@ namespace NorsokChecker.Services
 		private readonly IConnectionApiClient _client;
 		private readonly Action<string> _log;
 
-		// NORSOK N-004 Table 6-1 material factors
-		public const double GammaM0_Norsok = 1.15;
-		public const double GammaM1_Norsok = 1.15;
-		public const double GammaM2_Norsok = 1.30;  // Was 1.25 (EC3) — Norsok requires 1.30
+		// NORSOK N-004 Table 6-1 material factors. §6.1: "The material factors according to
+		// Table 6-1 shall be used if NS-EN 1993-1-1 and NS-EN 1993-1-8 are used for calculation of
+		// structural resistance" — which is exactly what CBFEM does, so these replace the EC3
+		// defaults in the project's own settings and the engine then calculates with them.
+		public const double GammaM0_Norsok = 1.15;  // EC3 default 1.00
+		public const double GammaM1_Norsok = 1.15;  // EC3 default 1.00
+		public const double GammaM2_Norsok = 1.30;  // EC3 default 1.25
 
-		// §6.1: additional building code factor for EN 1993-based checks
-		public const double GammaBC = 1.05;
+		/// <summary>
+		/// §6.1's additional building code factor. It is CONDITIONAL, and the condition is not met
+		/// here — the norm says:
+		///
+		///   "For resistance check where OTHER material factors are used THAN GIVEN IN TABLE 6-1 the
+		///    recommended material factor in NS-EN 1993-1-1, NS-EN 1993-1-5 and NS-EN 1993-1-8
+		///    should be multiplied by an additional building code material factor γBC = 1.05"
+		///
+		/// Since this app sets the Table 6-1 factors themselves (above), γBC does NOT apply on top:
+		/// applying both would double-count, giving γM0 = 1.21 where the norm asks for 1.15. It is
+		/// kept as a named constant because the log and the report have to be able to say why it is
+		/// absent — they used to claim it was "applied in formula evaluation", which was never true.
+		/// </summary>
+		public const double GammaBC_NotApplied = 1.05;
 
 		public ProjectSettingsService(IConnectionApiClient client, Action<string> log)
 		{
@@ -98,7 +113,8 @@ namespace NorsokChecker.Services
 				updates[keyM3] = GammaM2_Norsok;
 			}
 
-			_log($"  γBC = {GammaBC} (additional building code factor, applied in formula evaluation)");
+			_log($"  γBC = {GammaBC_NotApplied} NOT applied — §6.1 asks for it only where factors "
+				+ "OTHER than Table 6-1 are used, and Table 6-1 is what was just set above");
 
 			_log($"Updating {updates.Count} code factor(s) via API...");
 			try
