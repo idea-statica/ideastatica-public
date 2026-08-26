@@ -22,6 +22,28 @@
         <Color x:Key="NorsokTealLight">#4FB3BF</Color>
         <SolidColorBrush x:Key="NorsokTealBrush" Color="{StaticResource NorsokTeal}"/>
 
+        <!-- Verdict colours. Defined once here because the same four states appear in the
+             connection list and in the per-check tables, and they were drifting apart.
+
+             Three degrees, not two, and the middle one is NOT a fail:
+               FAIL     red    - checked, and it does not comply
+               PASS     green  - checked, and it complies
+               PARTIAL  amber  - everything checked passed, but part was not assessed
+               N/A      grey   - NOTHING was checked; no verdict was ever reached
+             N/A and PARTIAL used to share the same amber, so "outside the scope of 6.4"
+             was indistinguishable from "checked, with a gap". Grey says "no answer here",
+             which is what N/A is. The amber foreground also sat next to the IDEA brand
+             orange, so it read as an accent rather than a caution - hence the darker
+             amber text below. -->
+        <SolidColorBrush x:Key="VerdictFailBg"     Color="#FFEBEE"/>
+        <SolidColorBrush x:Key="VerdictFailFg"     Color="#C62828"/>
+        <SolidColorBrush x:Key="VerdictPassBg"     Color="#E8F5E9"/>
+        <SolidColorBrush x:Key="VerdictPassFg"     Color="#1B5E20"/>
+        <SolidColorBrush x:Key="VerdictPartialBg"  Color="#FFF8E1"/>
+        <SolidColorBrush x:Key="VerdictPartialFg"  Color="#8D6E00"/>
+        <SolidColorBrush x:Key="VerdictNaBg"       Color="#EEEEEE"/>
+        <SolidColorBrush x:Key="VerdictNaFg"       Color="#546E7A"/>
+
         <!-- Button styles -->
         <Style x:Key="IdeaPrimaryButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
             <Setter Property="Background" Value="{StaticResource IdeaOrangeBrush}"/>
@@ -213,20 +235,26 @@
                                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding NorsokPass}" Value="FAIL">
-                                            <Setter Property="Background" Value="#FFEBEE"/>
-                                            <Setter Property="Foreground" Value="#C62828"/>
+                                            <Setter Property="Background" Value="{StaticResource VerdictFailBg}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource VerdictFailFg}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding NorsokPass}" Value="PASS">
-                                            <Setter Property="Background" Value="#E8F5E9"/>
+                                            <Setter Property="Background" Value="{StaticResource VerdictPassBg}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource VerdictPassFg}"/>
                                         </DataTrigger>
-                                        <!-- amber, not green: nothing (or only part) was assessed -->
+                                        <!-- grey, NOT amber: no verdict was reached, so this is neither
+                                             a pass nor a milder fail. It used to share PARTIAL's amber. -->
                                         <DataTrigger Binding="{Binding NorsokPass}" Value="N/A">
-                                            <Setter Property="Background" Value="#FFF8E1"/>
-                                            <Setter Property="Foreground" Value="#E65100"/>
+                                            <Setter Property="Background" Value="{StaticResource VerdictNaBg}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource VerdictNaFg}"/>
                                         </DataTrigger>
+                                        <!-- amber: everything CHECKED passed, but part of the joint was
+                                             not assessed. Verified against the verdict logic - PARTIAL is
+                                             only reached when anyFailed is false, so it is a qualified
+                                             pass, not a fail. It keeps amber; only N/A moved to grey. -->
                                         <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
-                                            <Setter Property="Background" Value="#FFF8E1"/>
-                                            <Setter Property="Foreground" Value="#E65100"/>
+                                            <Setter Property="Background" Value="{StaticResource VerdictPartialBg}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource VerdictPartialFg}"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
