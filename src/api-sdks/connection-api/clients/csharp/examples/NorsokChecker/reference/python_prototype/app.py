@@ -17,7 +17,7 @@ Lifecycle:
   - extract geometry (extract.py) and hand JSON to the UI
   - on window close, shut the service down ONLY if we started it
 """
-import os, re, sys, time, socket, subprocess, json, logging, traceback
+import os, re, sys, time, socket, subprocess, json, logging, traceback, tempfile, atexit
 from logging.handlers import RotatingFileHandler
 import requests
 import webview
@@ -176,16 +176,78 @@ def free_port():
 # flow — which file was opened, how many load effects, how many 6.4 checks passed/skipped — so a UI
 # error like "division by zero" is never a dead end: the log says which brace/LE and which line.
 # Rotation caps it at ~1 MB x 3 files so it never grows unbounded during long sessions.
-LOG_PATH = os.path.join(DATA_DIR, "norsok_app.log")
-_fh = RotatingFileHandler(LOG_PATH, maxBytes=1_000_000, backupCount=3, encoding="utf-8")
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)-7s %(message)s",
-    handlers=[_fh, logging.StreamHandler()],
-)
+LOG_NAME = "norsok_app.log"
+APP_NAME = "NorsokJointCalculator"
+
+
+def _fallback_log_dir():
+    """%LOCALAPPDATA%\\NorsokJointCalculator, or the temp dir if even LOCALAPPDATA is unset."""
+    base = os.environ.get("LOCALAPPDATA") or tempfile.gettempdir()
+    return os.path.join(base, APP_NAME)
+
+
+def _make_file_handler(directory):
+    """(handler, path) for a rotating log in `directory`, or (None, None) if it cannot be written.
+
+    Opening the handler is not enough to prove the location works: RotatingFileHandler defaults to
+    delay=False so it opens the file here, but a directory that only refuses on rotation would
+    still pass. Writing nothing more than the open is the best cheap evidence available.
+    """
+    try:
+        os.makedirs(directory, exist_ok=True)
+        path = os.path.join(directory, LOG_NAME)
+        handler = RotatingFileHandler(path, maxBytes=1_000_000, backupCount=3, encoding="utf-8")
+        return handler, path
+    except Exception:
+        return None, None
+
+
+def _init_logging():
+    """(log_path, note) — set up logging, degrading rather than dying.
+
+    A log file is a diagnostic, never a precondition: the app must start even when nothing is
+    writable. DATA_DIR (beside the exe) is preferred so the user finds the log where the README
+    says it is; it is unwritable whenever the exe sits in Program Files, on a read-only share, or
+    is run from inside a ZIP. `note` is non-empty only when the outcome needs telling.
+    """
+    handler, path = _make_file_handler(DATA_DIR)
+    note = ""
+    if handler is None:
+        fallback = _fallback_log_dir()
+        handler, path = _make_file_handler(fallback)
+        if handler is None:
+            note = (f"Could not create a log file — neither beside the application nor in\n"
+                    f"{fallback}\n\nThe application runs normally, but writes no log, so there "
+                    f"will be nothing to send if you hit a problem.")
+        else:
+            note = (f"This folder is not writable, so the log went to\n{path}\n\n"
+                    f"Everything else works as usual.")
+    handlers = [logging.StreamHandler()]
+    if handler is not None:
+        handlers.insert(0, handler)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)-7s %(message)s",
+        handlers=handlers,
+    )
+    return path, note
+
+
+LOG_PATH, LOG_NOTE = _init_logging()
 log = logging.getLogger("norsok")
 log.info("=" * 60)
-log.info("NORSOK Joint Calculator starting — log at %s", LOG_PATH)
+log.info("NORSOK Joint Calculator starting — log at %s", LOG_PATH or "(file logging disabled)")
+if LOG_NOTE:
+    log.warning("logging fallback: %s", LOG_NOTE.replace("\n", " "))
+
+
+def _message_box(text, caption=APP_NAME, style=0x40):
+    """MessageBox, ignoring any failure — this is only ever used to tell the user something."""
+    try:
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(None, text, caption, style)
+    except Exception:
+        pass
 
 
 def service_alive(port, timeout=2):
@@ -345,7 +407,8 @@ class Api:
             log.exception("build_connection failed for conn_id=%s", conn_id)
             # surface the exception TYPE too — a bare "division by zero" is otherwise opaque;
             # the full traceback (which brace/LE, which line) is in norsok_app.log.
-            return {"error": f"Extraction failed: {type(e).__name__}: {e}\n(details in {LOG_PATH})"}
+            where = f"details in {LOG_PATH}" if LOG_PATH else "file logging is disabled"
+            return {"error": f"Extraction failed: {type(e).__name__}: {e}\n({where})"}
 
     def ui_log(self, level, message):
         """Log a message coming from the JS/UI layer into the same file, so front-end errors
@@ -398,17 +461,14 @@ def main():
     lock = acquire_single_instance()
     if lock is None:
         log.warning("another instance is already running — exiting")
-        try:
-            import ctypes
-            ctypes.windll.user32.MessageBoxW(
-                None,
-                "NORSOK Joint Calculator is already running.\n\n"
-                "Only one instance can run at a time: they would compete for the same "
-                "IDEA StatiCa licence seat and write to the same log file.",
-                "NORSOK Joint Calculator", 0x40)   # MB_ICONINFORMATION
-        except Exception:
-            pass
+        _message_box(
+            "NORSOK Joint Calculator is already running.\n\n"
+            "Only one instance can run at a time: they would compete for the same "
+            "IDEA StatiCa licence seat and write to the same log file.")
         return
+
+    if LOG_NOTE:
+        _message_box(LOG_NOTE)
 
     api = Api()
     html_path = os.path.join(BUNDLE_DIR, "ui.html")
