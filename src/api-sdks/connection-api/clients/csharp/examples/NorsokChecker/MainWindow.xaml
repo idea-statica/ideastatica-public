@@ -233,7 +233,10 @@
                             </DataGrid.RowStyle>
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="130"/>
+                                <!-- SizeToCells: the longest status is "Outside §6.4 scope (7 conditions)",
+                                     which a fixed 130 px truncated -->
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}"
+                                                    Width="SizeToCells" MinWidth="130"/>
                                 <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="130"/>
                                 <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
                             </DataGrid.Columns>
@@ -251,8 +254,6 @@
                                 <md:PackIcon Kind="PipeDisconnected" Width="18" Height="18" VerticalAlignment="Center"
                                              Foreground="{StaticResource NorsokTealBrush}" Margin="0,0,8,0"/>
                                 <TextBlock Text="Members" FontWeight="Medium"/>
-                                <TextBlock x:Name="MembersOfLabel" Text="  — select a connection below"
-                                           FontSize="11" Foreground="#9E9E9E" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="8,4,8,4">
@@ -287,6 +288,61 @@
             </TabItem>
 
             <!-- Tab 2: Results -->
+            <!-- One tab per check family. Results below keeps everything, as the cross-cutting
+                 summary of whatever the user ran; these two are the detail per family. A §6.3 tab
+                 belongs here too, if that chapter is ever un-mothballed. -->
+            <TabItem x:Name="Tab64" IsEnabled="False">
+                <TabItem.Header>
+                    <StackPanel>
+                        <md:PackIcon Kind="VectorCircleVariant" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="§6.4" HorizontalAlignment="Center" FontSize="11"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="0,0,0,10"
+                               Text="NORSOK N-004 §6.4 tubular joints — one row per brace, with the load effect that governs it. Conditions not met and assumptions made are listed first."
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               Foreground="#546E7A"/>
+                    <DataGrid Grid.Row="1" x:Name="Grid64" AutoGenerateColumns="True"
+                              IsReadOnly="True" CanUserAddRows="False"
+                              md:DataGridAssist.CellPadding="10 6"
+                              VerticalScrollBarVisibility="Auto"
+                              GridLinesVisibility="Horizontal"
+                              BorderThickness="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="TabCbfem" IsEnabled="False">
+                <TabItem.Header>
+                    <StackPanel>
+                        <md:PackIcon Kind="ViewGridPlus" Width="24" Height="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="CBFEM" HorizontalAlignment="Center" FontSize="11"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="0,0,0,10"
+                               Text="CBFEM plate, weld and bolt checks from the calculation — Norsok material factors per Table 6-1."
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               Foreground="#546E7A"/>
+                    <DataGrid Grid.Row="1" x:Name="GridCbfem" AutoGenerateColumns="True"
+                              IsReadOnly="True" CanUserAddRows="False"
+                              md:DataGridAssist.CellPadding="10 6"
+                              VerticalScrollBarVisibility="Auto"
+                              GridLinesVisibility="Horizontal"
+                              BorderThickness="0"/>
+                </Grid>
+            </TabItem>
+
             <TabItem x:Name="TabResults" IsEnabled="False">
                 <TabItem.Header>
                     <StackPanel>
@@ -305,7 +361,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="NORSOK N-004 §6.4 joint results — per connection, per brace, with the governing load effect."
+                        <TextBlock Grid.Column="0" Text="Every check performed, across all chapters and connections. The per-chapter tabs show the same results grouped."
                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
                                    Foreground="#546E7A" VerticalAlignment="Center"/>
                         <Button Grid.Column="1" x:Name="BtnExportPdf" Click="ExportPdf_Click"

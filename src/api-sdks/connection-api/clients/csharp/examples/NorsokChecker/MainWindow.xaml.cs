@@ -538,23 +538,14 @@ namespace NorsokChecker
 			foreach (var m in _membersPerConnection.GetValueOrDefault(con.Id) ?? new List<MemberDisplayInfo>())
 				_members.Add(m);
 
-			if (MembersOfLabel != null)
-			{
-				// Say what the chord is. Without this, a joint with no through member shows "Brace"
-				// on every row and there is no way to tell whether that is the model or a bug —
-				// which is exactly how it read. §6.4 needs exactly one continuous member.
-				int chords = _members.Count(m => m.Role == "Chord");
-				string note = chords == 1
-					? $"  — {con.Name}, chord {_members.First(m => m.Role == "Chord").Name}"
-					: chords == 0
-						? $"  — {con.Name}: NO CONTINUOUS MEMBER — every member is a brace (§6.4 needs a through chord)"
-						: $"  — {con.Name}: {chords} continuous members — chord is ambiguous (§6.4 needs exactly one)";
-				MembersOfLabel.Text = note;
-				MembersOfLabel.Foreground = new System.Windows.Media.SolidColorBrush(
-					chords == 1
-						? System.Windows.Media.Color.FromRgb(0x9E, 0x9E, 0x9E)
-						: System.Windows.Media.Color.FromRgb(0xE6, 0x51, 0x00));
-			}
+			// The chord count is a §6.4 condition, so the check reports it per connection in the
+			// Status column and one row per condition in Results. Repeating it above the grid only
+			// duplicated it — the Role column already shows which member is the chord.
+			int chords = _members.Count(m => m.Role == "Chord");
+			if (chords != 1)
+				Log($"  {con.Name}: {(chords == 0 ? "no continuous member" : $"{chords} continuous members")}"
+					+ " — §6.4 needs exactly one");
+
 			MembersGrid.Items.Refresh();
 			UpdateTubularState();
 		}
@@ -669,6 +660,7 @@ namespace NorsokChecker
 			if (!ReferenceEquals(e.OriginalSource, MainTabs)) return;   // ignore inner grids' events
 			if (ConfigCard == null || LogCard == null) return;          // fires during XAML init
 
+			// Check is the first tab; the rest (§6.4, CBFEM, Results, Report) show results only
 			bool onCheck = MainTabs.SelectedIndex == 0;
 			ConfigCard.Visibility = onCheck ? Visibility.Visible : Visibility.Collapsed;
 			LogCard.Visibility = onCheck ? Visibility.Visible : Visibility.Collapsed;
@@ -800,15 +792,26 @@ namespace NorsokChecker
 
 
 
+		/// <summary>
+		/// Fill the results grids. Results holds every check; the per-chapter tabs hold the same rows
+		/// grouped, so §6.4 detail is not buried among the plate and weld checks.
+		///
+		/// The rows are ordered so that a joint's conditions and assumptions come before its checks —
+		/// reading "outside the scope" after a table of utilisations is the wrong way round.
+		/// </summary>
 		private void PopulateResultsTab()
 		{
-			var allFormulas = new List<object>();
+			var all = new List<object>();
+			var joint = new List<object>();
+			var cbfem = new List<object>();
+
 			foreach (var (conId, formulas) in _formulaResults)
 			{
 				var conName = _connections.FirstOrDefault(c => c.Id == conId)?.Name ?? $"Con {conId}";
-				foreach (var fr in formulas)
+				// notes and unassessed conditions first, then the checks
+				foreach (var fr in formulas.OrderBy(f => f.IsNote || f.NotAssessed ? 0 : 1))
 				{
-					allFormulas.Add(new
+					var row = new
 					{
 						Connection = conName,
 						fr.Section,
@@ -821,10 +824,24 @@ namespace NorsokChecker
 						// a utilisation of "0.0 %" next to "not assessed" or a note reads as a result
 						Utilization = fr.IsNote || fr.NotAssessed ? "—" : $"{fr.Utilization * 100:F1}%",
 						Result = fr.Verdict
-					});
+					};
+					all.Add(row);
+
+					if (fr.Section.StartsWith("6.4", StringComparison.Ordinal))
+						joint.Add(row);
+					else if (fr.Section is "Plate" or "Weld" or "Bolt" or "CBFEM")
+						cbfem.Add(row);
 				}
 			}
-			ResultsGrid.ItemsSource = allFormulas;
+
+			ResultsGrid.ItemsSource = all;
+			Grid64.ItemsSource = joint;
+			GridCbfem.ItemsSource = cbfem;
+
+			// a tab with nothing in it is worse than no tab: it invites a click that shows nothing
+			Tab64.IsEnabled = joint.Count > 0;
+			TabCbfem.IsEnabled = cbfem.Count > 0;
+
 			PopulateReportTab();
 		}
 
