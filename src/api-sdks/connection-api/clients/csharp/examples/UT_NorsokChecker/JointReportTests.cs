@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using IdeaStatiCa.Api.Connection.Model;
 using Newtonsoft.Json.Linq;
 using NorsokChecker.Models;
@@ -75,13 +75,17 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
+				// The derivation was restructured 2026-08-27 to match the python reference block for
+				// block: label/formula/substitution/result steps instead of tables of results. These
+				// assert the same INFORMATION is still present, under the new headings.
 				Assert.That(html, Does.Contain("deriv-block"), "derivation block rendered");
-				Assert.That(html, Does.Contain("K/Y/X classification"), "classification block");
-				Assert.That(html, Does.Contain("Per-class axial resistance"), "per-class table");
-				Assert.That(html, Does.Contain("K resistance per balancing gap"), "K per-gap table (KT case)");
-				Assert.That(html, Does.Contain("Chord stresses at this brace footprint"), "chord-stress trail");
+				Assert.That(html, Does.Contain("Geometry &amp; material"), "geometry and material");
+				Assert.That(html, Does.Contain("classification"), "the K/Y/X split");
+				Assert.That(html, Does.Contain("Mode K"), "the K mode block (KT case)");
+				Assert.That(html, Does.Contain("Q_g"), "per-gap Q_g, which is what the K table carried");
+				Assert.That(html, Does.Contain("Chord stress derivation"), "chord-stress trail");
 				Assert.That(html, Does.Contain("Validity ranges"), "validity table");
-				Assert.That(html, Does.Contain("active-class"), "active classes highlighted");
+				Assert.That(html, Does.Contain("deriv-step"), "steps, not just result tables");
 				// all three braces got a card
 				Assert.That(html, Does.Contain("KA"));
 				Assert.That(html, Does.Contain("KV"));

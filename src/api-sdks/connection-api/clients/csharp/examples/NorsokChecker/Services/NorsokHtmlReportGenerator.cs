@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using NorsokChecker.Models;
 
@@ -376,7 +376,22 @@ namespace NorsokChecker.Services
 			sb.AppendLine("</body></html>");
 			return sb.ToString();
 		}
-
+		/// <summary>
+		/// The full §6.4 derivation for one brace — the structure the python reference's detail modal
+		/// uses, block for block, because that is the sheet an engineer checks a number against.
+		///
+		/// Nine blocks, in this order: geometry &amp; material, applied forces, the chord stress
+		/// derivation (both sides then their average, then sigma), A² with the moment resistances,
+		/// one block per ACTIVE mode (K split per gap, Y, X), the weighted axial resistance, and
+		/// eq (6.57).
+		///
+		/// Each step is written as label / symbolic formula / substituted numbers / result — see
+		/// <see cref="Step"/>. The substitution is the point: a result alone cannot be checked, and a
+		/// symbolic formula alone does not say what went into it. Numbers there are in MPa, mm and kN
+		/// regardless of any display-unit setting, matching the norm's own convention.
+		///
+		/// Formulas are typeset by the EMBEDDED KaTeX (see AppendKatex), so this works offline.
+		/// </summary>
 		private static void RenderJointDerivation(StringBuilder sb, Norsok64.JointCheckRow row)
 		{
 			var r = row.Engine;
@@ -385,93 +400,259 @@ namespace NorsokChecker.Services
 			if (r == null || inp == null || cl == null)
 				return;
 
-			sb.AppendLine("    <div class='deriv-block'>");
-			sb.AppendLine("      <p class='deriv-title'>Derivation (auto-topology)</p>");
+			// mm / MPa / kN, as the norm writes them — not the app's display units
+			static string N(double v, int d = 3) =>
+				double.IsNaN(v) || double.IsInfinity(v) ? "—" : v.ToString("F" + d,
+					System.Globalization.CultureInfo.InvariantCulture);
+			// parenthesise a negative so "a + (−b)" reads correctly inside a substituted formula
+			static string P(double v, int d = 3) => v < 0 ? $"({N(v, d).Replace("-", "−")})" : N(v, d);
 
-			// ── classification breakdown ──
-			sb.AppendLine("      <p class='deriv-h'>K/Y/X classification — transverse-force balance (Comm. 6.4.2)</p>");
+			double fy = inp.FyChord / 1e6, sa = inp.SigmaASd / 1e6;
+			double smy = inp.SigmaMySd / 1e6, smz = inp.SigmaMzSd / 1e6;
+			double dMm = inp.d * 1e3, tMm = inp.t * 1e3, dChordMm = inp.D * 1e3, tChordMm = inp.T * 1e3;
+
+			sb.AppendLine("    <div class='deriv-block'>");
+
+			// ── 1. geometry & material ──
+			sb.AppendLine("      <p class='deriv-h'>Geometry &amp; material</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
-			sb.AppendLine("        <tr><th>q<sub>trans</sub> = N&middot;sin&theta;&middot;side</th><th>frK</th><th>frY</th><th>frX</th><th>note</th></tr>");
-			sb.AppendLine($"        <tr><td>{cl.QTrans / 1e3:F1} kN</td><td>{cl.FrK:F3}</td><td>{cl.FrY:F3}</td><td>{cl.FrX:F3}</td><td>{Esc(cl.Note)}</td></tr>");
+			Kv(sb, "Chord &oslash; D &times; T", $"{N(dChordMm, 1)}&times;{N(tChordMm, 1)} mm "
+				+ $"(f<sub>y</sub> = {N(fy, 0)} MPa)");
+			Kv(sb, "Brace &oslash; d &times; t", $"{N(dMm, 1)}&times;{N(tMm, 1)} mm "
+				+ $"(f<sub>y</sub> = {N(inp.FyBrace / 1e6, 0)} MPa)");
+			Kv(sb, "&theta; (brace&ndash;chord)", $"{N(r.ThetaDeg, 1)}&deg;");
+			Kv(sb, "chord face", row.ChordStress is { } cs0 ? (cs0.Side >= 0 ? "+ey face" : "&minus;ey face") : "&mdash;");
+			Kv(sb, "&beta; = d/D", N(r.Beta));
+			Kv(sb, "&gamma; = D/(2T)", N(r.Gamma));
+			Kv(sb, "&tau; = t/T", N(r.Tau));
+			Kv(sb, "classification", $"K {cl.FrK:P2} &middot; Y {cl.FrY:P2} &middot; X {cl.FrX:P2}");
+			Kv(sb, "&gamma;<sub>M</sub>", N(inp.GammaM, 3));
 			sb.AppendLine("      </table>");
-			if (cl.KComponents.Count > 0)
+
+			// ── 2. applied forces ──
+			sb.AppendLine("      <p class='deriv-h'>Applied forces (in the joint plane)</p>");
+			sb.AppendLine("      <table class='deriv-table'>");
+			Kv(sb, "N<sub>Sd</sub> (+ tension)", $"{N(inp.NSd / 1e3, 1)} kN");
+			Kv(sb, "M<sub>ip,Sd</sub>", $"{N(inp.MipSd / 1e3, 2)} kN&middot;m");
+			Kv(sb, "M<sub>op,Sd</sub>", $"{N(inp.MopSd / 1e3, 2)} kN&middot;m");
+			sb.AppendLine("      </table>");
+
+			// ── 3. chord stress derivation ──
+			if (row.ChordStress is { } st && st.A > 0)
 			{
+				double aMm2 = st.A * 1e6, iMm4 = st.I * 1e12, rMm = st.R * 1e3;
+				sb.AppendLine("      <p class='deriv-h'>Chord stress derivation &mdash; averaged sides "
+					+ "&rarr; &sigma; (NORSOK p.31)</p>");
+				sb.AppendLine("      <p class='deriv-note'>The chord carries two loadings at a joint "
+					+ "(one per side of the brace intersection); NORSOK p.31 requires their AVERAGE in "
+					+ "eq (6.54)/(6.55).</p>");
 				sb.AppendLine("      <table class='deriv-table'>");
-				sb.AppendLine("        <tr><th>K balanced against</th><th>gap</th><th>fraction of |q|</th></tr>");
-				foreach (var kc in cl.KComponents)
-					sb.AppendLine($"        <tr><td>{Esc(kc.Partner)}</td><td>{(kc.GapM is double g ? $"{g * 1000:F0} mm" : "n/a")}</td><td>{kc.Frac:F3}</td></tr>");
+				sb.AppendLine("        <tr><th>side</th><th>N<sub>chord</sub></th>"
+					+ "<th>M<sub>ip,chord</sub></th><th>M<sub>op,chord</sub></th></tr>");
+				sb.AppendLine($"        <tr><td><b>average</b></td><td>{N(st.NChord / 1e3, 1)} kN</td>"
+					+ $"<td>{N(st.MipChord / 1e3, 2)} kN&middot;m</td>"
+					+ $"<td>{N(st.MopChord / 1e3, 2)} kN&middot;m</td></tr>");
 				sb.AppendLine("      </table>");
+
+				Step(sb, "Chord section properties &mdash; CHS, thickness at the joint (p.31)",
+					@"A=\dfrac{\pi}{4}(D^2-d_i^2),\quad I=\dfrac{\pi}{64}(D^4-d_i^4),\quad R=D/2",
+					null,
+					$@"A={N(aMm2, 0)}\,mm^2,\ I={N(iMm4 / 1e6, 1)}\times 10^6\,mm^4,\ R={N(rMm, 1)}\,mm");
+
+				Step(sb, "&sigma;<sub>a</sub> &mdash; axial (+ tension)",
+					@"\sigma_{a,Sd} = N_{chord}/A",
+					$@"{N(st.NChord / 1e3, 1)}\,kN\ /\ {N(aMm2 / 1e3, 2)}\times10^3\,mm^2",
+					$@"{N(sa, 1)}\,MPa");
+
+				Step(sb, $"&sigma;<sub>my</sub> &mdash; in-plane bending, chord face "
+					+ (st.Side >= 0 ? "+ey" : "&minus;ey") + " (z = side&middot;R), sign FLIPPED so "
+					+ "+ = compression in the footprint (eq 6.54 note)",
+					@"\sigma_{my,Sd} = -\dfrac{M_{ip,chord}\cdot(\text{side}\cdot R)}{I}",
+					$@"-\dfrac{{{N(st.MipChord / 1e3, 2)}\,kNm\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot {N(rMm, 1)}\,mm)}}{{{N(iMm4 / 1e6, 1)}\times10^6\,mm^4}}",
+					$@"{N(smy, 1)}\,MPa");
+
+				Step(sb, "&sigma;<sub>mz</sub> &mdash; out-of-plane bending "
+					+ "(sign irrelevant &mdash; enters Q<sub>f</sub> only squared, via A&sup2;)",
+					@"\sigma_{mz,Sd} = \dfrac{M_{op,chord}\cdot R}{I}",
+					$@"\dfrac{{{N(st.MopChord / 1e3, 2)}\,kNm\cdot {N(rMm, 1)}\,mm}}{{{N(iMm4 / 1e6, 1)}\times10^6\,mm^4}}",
+					$@"{N(smz, 1)}\,MPa");
 			}
 
-			// ── per-class axial table (all three classes always computed; active = fr > 0) ──
-			sb.AppendLine("      <p class='deriv-h'>Per-class axial resistance (Table 6-3 / 6-4; weighted by the fractions above)</p>");
-			sb.AppendLine("      <table class='deriv-table'>");
-			sb.AppendLine("        <tr><th>class</th><th>fr</th><th>C1</th><th>C2</th><th>C3</th><th>Q<sub>f,ax</sub></th><th>A&sup2;</th><th>Q<sub>u,ax</sub></th><th>N<sub>Rd</sub></th></tr>");
+			// ── 4. A² and the moment resistances (shared by every class) ──
+			sb.AppendLine("      <p class='deriv-h'>Chord utilisation A&sup2; &amp; moment resistance "
+				+ "&mdash; 6.4.3.2&ndash;4, eq (6.53)/(6.55), Table 6-3/6-4</p>");
+
+			Step(sb, "Chord utilisation A&sup2; &mdash; eq (6.55) (shared by all classes)",
+				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_y}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_y^2}",
+				$@"\left(\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}}\right)^2 + \dfrac{{{P(smy, 1)}^2+{P(smz, 1)}^2}}{{1.62\cdot {N(fy, 0)}^2}}",
+				N(r.QfMomentA2, 4));
+
+			var cm = r.PerClass.TryGetValue(Norsok64.Joint64Class.K, out var kc0) ? kc0.CAxial : default;
+			Step(sb, "Q<sub>f</sub>, moment &mdash; Table 6-4 has ONE row for moment, no K/Y/X split",
+				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_y} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_y} - C_3\,A^2",
+				null, N(r.QfMoment, 3));
+
+			Step(sb, "In-plane bending resistance M<sub>Rd,ip</sub> &mdash; eq (6.53) "
+				+ "(Q<sub>u,ipb</sub> shared by all classes, Table 6-3)",
+				@"M_{Rd,ip} = \dfrac{f_y\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
+				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
+				$@"{N(r.MRdIp / 1e3, 2)}\,kN\!\cdot\!m");
+
+			Step(sb, "Out-of-plane bending resistance M<sub>Rd,op</sub> &mdash; eq (6.53)",
+				@"M_{Rd,op} = \dfrac{f_y\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
+				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}",
+				$@"{N(r.MRdOp / 1e3, 2)}\,kN\!\cdot\!m");
+
+			// ── 5-7. one block per ACTIVE mode. An inactive class is computed but plays no part in
+			// this brace's check, and showing it would suggest it does.
+			double baseAx = inp.FyChord * inp.T * inp.T / (inp.GammaM * r.SinTheta);
+
+			// K: one sub-block per gap — a brace's K share is a SUM over its pairings, and the sum
+			// alone cannot say whether it is one strong pairing or three weak ones
+			if (cl.FrK > 1e-9 && r.KTerms.Count > 0)
+			{
+				sb.AppendLine($"      <p class='deriv-h'>Mode K &mdash; fraction of N<sub>Sd</sub> = "
+					+ $"{cl.FrK:P2}" + (r.KTerms.Count > 1 ? $" (split over {r.KTerms.Count} gaps)" : "")
+					+ "</p>");
+				for (int i = 0; i < r.KTerms.Count; i++)
+				{
+					var kt = r.KTerms[i];
+					string lbl = r.KTerms.Count > 1 ? $"K{i + 1}" : "K";
+					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {kt.FrK:P1} of "
+						+ "N<sub>Sd</sub> balanced across this gap.</p>");
+					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 0)} mm, "
+						+ $"g/D = {N(kt.GapM / inp.D, 3)}",
+						@"Q_g\ (\text{note (b) under Table 6-3})", null, N(kt.Qg, 3));
+					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3 class K, "
+						+ $"&beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
+						@"Q_u = \min\{(16+1.2\gamma)\beta^{1.2}Q_g,\ 40\beta^{1.2}Q_g\}",
+						$@"\min\{{(16+1.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)},\ 40\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)}\}}",
+						N(kt.QuAxial, 3));
+					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52)",
+						@"N_{Rd,i} = \dfrac{f_y\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
+						$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}",
+						$@"{N(kt.NRd / 1e3, 1)}\,kN");
+				}
+			}
+
 			foreach (var (cls, frac) in new[]
 			{
-				(Norsok64.Joint64Class.K, cl.FrK),
 				(Norsok64.Joint64Class.Y, cl.FrY),
 				(Norsok64.Joint64Class.X, cl.FrX),
 			})
 			{
-				var c = r.PerClass[cls];
-				string rowClass = frac > 1e-9 ? " class='active-class'" : "";
-				sb.AppendLine($"        <tr{rowClass}><td>{cls}</td><td>{frac:F3}</td>" +
-					$"<td>{c.CAxial.C1:F2}</td><td>{c.CAxial.C2:F2}</td><td>{c.CAxial.C3:F2}</td>" +
-					$"<td>{c.QfAxial:F4}</td><td>{c.QfAxialA2:F4}</td><td>{c.QuAxial:F3}</td>" +
-					$"<td>{c.NRd / 1e3:F1} kN</td></tr>");
+				if (frac <= 1e-9 || !r.PerClass.TryGetValue(cls, out var c)) continue;
+				string tension = r.LoadAxial == "tension" ? "tension" : "compression";
+				sb.AppendLine($"      <p class='deriv-h'>Mode {cls} &mdash; fraction of "
+					+ $"N<sub>Sd</sub> = {frac:P2}</p>");
+				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, C&#8321;={N(c.CAxial.C1, 2)}, "
+					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
+					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
+					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_y} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_y} - C_3\,A^2",
+					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
+					N(c.QfAxial, 3));
+				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3 class {cls} (brace in {tension})",
+					cls == Norsok64.Joint64Class.Y
+						? (r.LoadAxial == "tension" ? @"Q_u = 30\beta"
+							: @"Q_u = \min\{2.8+(20+0.8\gamma)\beta^{1.6},\ 2.8+36\beta^{1.6}\}")
+						: (r.LoadAxial == "tension" ? @"Q_u = 6.4\,\gamma^{0.6\beta^2}"
+							: @"Q_u = (2.8+(12+0.1\gamma)\beta)\,Q_\beta"),
+					null, N(c.QuAxial, 3));
+				Step(sb, "N<sub>Rd</sub> &mdash; eq (6.52)",
+					@"N_{Rd} = \dfrac{f_y\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
+					$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
+					$@"{N(c.NRd / 1e3, 1)}\,kN");
 			}
-			sb.AppendLine("      </table>");
-			sb.AppendLine($"      <p class='deriv-note'>base = f<sub>y</sub>&middot;T&sup2;/(&gamma;<sub>M</sub>&middot;sin&theta;) with f<sub>y,chord</sub> = {inp.FyChord / 1e6:F0} MPa; weighted N<sub>Rd</sub> = &Sigma; fr<sub>i</sub>&middot;N<sub>Rd,i</sub> = <strong>{r.NRdWeighted / 1e3:F1} kN</strong></p>");
 
-			// ── K per-gap (each balancing gap gets its own Q_g → own K resistance) ──
-			if (r.KTerms.Count > 1 || (r.KTerms.Count == 1 && cl.KComponents.Count > 0))
+			// ── 8. the weighted axial resistance across whichever modes are active ──
+			var active = new[]
 			{
-				sb.AppendLine("      <p class='deriv-h'>K resistance per balancing gap (own Q<sub>g</sub> per gap, Table 6-3 note b)</p>");
-				sb.AppendLine("      <table class='deriv-table'>");
-				sb.AppendLine("        <tr><th>frK<sub>i</sub></th><th>g<sub>i</sub></th><th>g<sub>i</sub>/D</th><th>Q<sub>g,i</sub></th><th>Q<sub>u,i</sub></th><th>N<sub>Rd,i</sub></th></tr>");
-				foreach (var k in r.KTerms)
-					sb.AppendLine($"        <tr><td>{k.FrK:F3}</td><td>{k.GapM * 1000:F0} mm</td><td>{k.GapM / inp.D:F3}</td>" +
-						$"<td>{k.Qg:F4}</td><td>{k.QuAxial:F3}</td><td>{k.NRd / 1e3:F1} kN</td></tr>");
-				sb.AppendLine("      </table>");
-			}
+				(Norsok64.Joint64Class.K, cl.FrK),
+				(Norsok64.Joint64Class.Y, cl.FrY),
+				(Norsok64.Joint64Class.X, cl.FrX),
+			}.Where(x => x.Item2 > 1e-9).ToList();
 
-			// ── shared bending resistances ──
-			sb.AppendLine("      <p class='deriv-h'>Bending resistances (shared across classes — Table 6-3 bending rows are class-independent)</p>");
-			sb.AppendLine("      <table class='deriv-table'>");
-			sb.AppendLine("        <tr><th>Q<sub>u,ipb</sub></th><th>Q<sub>u,opb</sub></th><th>Q<sub>f,mom</sub> (C1=0.2, C2=0, C3=0.4)</th><th>A&sup2;</th><th>M<sub>ip,Rd</sub></th><th>M<sub>op,Rd</sub></th></tr>");
-			sb.AppendLine($"        <tr><td>{r.QuIpb:F3}</td><td>{r.QuOpb:F3}</td><td>{r.QfMoment:F4}</td><td>{r.QfMomentA2:F4}</td>" +
-				$"<td>{r.MRdIp / 1e3:F2} kNm</td><td>{r.MRdOp / 1e3:F2} kNm</td></tr>");
-			sb.AppendLine("      </table>");
-
-			// ── chord-stress trail (Begin/End average → section props → σ, NORSOK p.31 + Qf sign convention) ──
-			if (row.ChordStress is { } st && st.A > 0)
+			if (active.Count > 0)
 			{
-				sb.AppendLine("      <p class='deriv-h'>Chord stresses at this brace footprint (avg of both intersection sides, NORSOK p.31)</p>");
+				sb.AppendLine("      <p class='deriv-h'>Weighted axial resistance (all active modes) "
+					+ "&mdash; Comm. 6.4.2</p>");
 				sb.AppendLine("      <table class='deriv-table'>");
-				sb.AppendLine("        <tr><th>A</th><th>I</th><th>R</th><th>side</th><th>N<sub>chord</sub></th><th>M<sub>ip,chord</sub></th><th>M<sub>op,chord</sub></th></tr>");
-				sb.AppendLine($"        <tr><td>{st.A * 1e6:F0} mm&sup2;</td><td>{st.I * 1e12:G5} mm&#8308;</td><td>{st.R * 1000:F1} mm</td>" +
-					$"<td>{(st.Side > 0 ? "+" : "-")}</td><td>{st.NChord / 1e3:F1} kN</td><td>{st.MipChord / 1e3:F2} kNm</td><td>{st.MopChord / 1e3:F2} kNm</td></tr>");
+				sb.AppendLine("        <tr><th>mode</th><th>fraction</th><th>N<sub>Rd,mode</sub></th></tr>");
+				foreach (var (cls, frac) in active)
+					sb.AppendLine($"        <tr><td>{cls}</td><td>{frac:P2}</td>"
+						+ $"<td>{N(r.PerClass[cls].NRd / 1e3, 1)} kN</td></tr>");
 				sb.AppendLine("      </table>");
-				sb.AppendLine("      <table class='deriv-table'>");
-				sb.AppendLine("        <tr><th>&sigma;<sub>a,Sd</sub> = N/A (+tension)</th><th>&sigma;<sub>my,Sd</sub> = &minus;M<sub>ip</sub>&middot;side&middot;R/I (+compression at footprint)</th><th>&sigma;<sub>mz,Sd</sub> = M<sub>op</sub>&middot;R/I</th></tr>");
-				sb.AppendLine($"        <tr><td>{st.SigmaA / 1e6:F2} MPa</td><td>{st.SigmaMy / 1e6:F2} MPa</td><td>{st.SigmaMz / 1e6:F2} MPa</td></tr>");
-				sb.AppendLine("      </table>");
+				Step(sb, "Weighted axial resistance &mdash; Comm. 6.4.2 (mixture of K/Y/X)",
+					@"\dfrac{1}{N_{Rd}} = \sum_{\text{mode}} \dfrac{fr_{\text{mode}}}{N_{Rd,\text{mode}}}",
+					string.Join("+", active.Select(x =>
+						$@"\dfrac{{{N(x.Item2, 3)}}}{{{N(r.PerClass[x.Item1].NRd / 1e3, 1)}}}")),
+					$@"{N(r.NRdWeighted / 1e3, 1)}\,kN");
+			}
+			else
+			{
+				sb.AppendLine("      <p class='deriv-h'>Axial resistance</p>");
+				sb.AppendLine("      <p class='deriv-note'>No K/Y/X classification for this brace "
+					+ "(no axial force) &mdash; the axial term of eq. (6.57) is not applicable; only "
+					+ "the bending check below applies.</p>");
 			}
 
-			// ── validity ranges (6.4.3.1) ──
-			sb.AppendLine("      <p class='deriv-h'>Validity ranges (&sect;6.4.3.1)</p>");
-			sb.AppendLine("      <table class='deriv-table'>");
-			sb.AppendLine("        <tr><th>condition</th><th>status</th></tr>");
-			foreach (var (cond, ok) in r.Validity)
-				sb.AppendLine($"        <tr><td>{Esc(cond)}</td><td class='{(ok ? "v-ok" : "v-bad")}'>{(ok ? "&#x2714; within" : "&#x2718; infringed")}</td></tr>");
-			sb.AppendLine("      </table>");
+			// ── 9. eq (6.57) ──
+			sb.AppendLine("      <p class='deriv-h'>Utilisation &mdash; eq (6.57)</p>");
+			var dom = r.PerClass.TryGetValue(
+				Enum.TryParse<Norsok64.Joint64Class>(row.DomClass, out var dc) ? dc : Norsok64.Joint64Class.K,
+				out var dr) ? dr : null;
+			Step(sb, "Utilisation &mdash; eq (6.57)",
+				@"u = \dfrac{N_{Sd}}{N_{Rd}} + \left(\dfrac{M_{ip,Sd}}{M_{Rd,ip}}\right)^2 + \left|\dfrac{M_{op,Sd}}{M_{Rd,op}}\right|",
+				dom == null ? null
+					: $@"{N(dom.UtilAxialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
+				$@"{N(row.Util * 100, 2)}\%\ \ \text{{{(row.Passed ? "PASS" : "FAIL")}}}");
+
 			if (!r.WithinRange)
-				sb.AppendLine("      <p class='deriv-warn'>Outside the validity range &rarr; the usable strength is the LESSER of the capacities from actual vs. clamped limiting parameters (&sect;6.4.3.1) &mdash; the resistances above already include this comparison.</p>");
+				sb.AppendLine("      <p class='deriv-warn'>&#9888; Geometry outside the 6.4.3.1 "
+					+ "validity range &mdash; the resistance is extrapolated.</p>");
 			if (r.ChordOverstressed)
-				sb.AppendLine("      <p class='deriv-warn'>CHORD OVERSTRESSED: Q<sub>f</sub> (Eq. 6.54, no floor in the norm) drove an active resistance to &le; 0 &mdash; the check is forced to FAIL regardless of the utilisation sum (app-level safety rule).</p>");
+				sb.AppendLine("      <p class='deriv-warn'>&#9940; CHORD OVERSTRESSED: Q<sub>f</sub> "
+					+ "(eq 6.54, no floor in the norm) drove an active resistance to &le; 0 &mdash; the "
+					+ "check is forced to FAIL regardless of the utilisation sum (app-level safety "
+					+ "rule).</p>");
+
+			// ── validity ranges, as the python sheet lists them ──
+			if (r.Validity.Count > 0)
+			{
+				sb.AppendLine("      <p class='deriv-h'>Validity ranges (&sect;6.4.3.1)</p>");
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>condition</th><th>status</th></tr>");
+				foreach (var (cond, ok) in r.Validity)
+					sb.AppendLine($"        <tr><td>{Esc(cond)}</td>"
+						+ $"<td>{(ok ? "&#10003; within" : "&#10007; outside")}</td></tr>");
+				sb.AppendLine("      </table>");
+			}
 
 			sb.AppendLine("    </div>");
+		}
+
+		/// <summary>A key/value row in a derivation table.</summary>
+		private static void Kv(StringBuilder sb, string key, string value) =>
+			sb.AppendLine($"        <tr><td class='deriv-k'>{key}</td><td>{value}</td></tr>");
+
+		/// <summary>
+		/// One derivation step: what is being computed, the formula, the numbers put into it, and the
+		/// result. The python reference's `step()`, and the reason its sheet can be checked — a result
+		/// on its own cannot be verified, and a symbolic formula on its own does not say what went in.
+		///
+		/// <paramref name="substituted"/> may be null when the substitution would only repeat the
+		/// symbolic form (a table lookup, say) rather than show anything.
+		/// </summary>
+		private static void Step(StringBuilder sb, string label, string symbolic,
+			string? substituted, string result)
+		{
+			sb.AppendLine("      <div class='deriv-step'>");
+			sb.AppendLine($"        <div class='deriv-step-label'>{label}</div>");
+			sb.AppendLine($"        <div class='deriv-step-math'>$${symbolic}$$</div>");
+			if (!string.IsNullOrEmpty(substituted))
+				sb.AppendLine($"        <div class='deriv-step-math'>$$=\\;{substituted}$$</div>");
+			sb.AppendLine($"        <div class='deriv-step-res'>$$=\\;{result}$$</div>");
+			sb.AppendLine("      </div>");
 		}
 
 		/// <summary>Convert variable symbol names to KaTeX notation.</summary>
@@ -867,6 +1048,19 @@ body {
 }
 .deriv-title { font-weight: 700; font-size: 13px; color: #37474F; margin: 0 0 8px 0; }
 .deriv-h { font-weight: 600; font-size: 12px; color: #546E7A; margin: 10px 0 4px 0; }
+/* One derivation step, as a card: label, formula, substituted numbers, result. Boxed and with a
+   left rule so the four lines read as one unit — a wall of undivided formulas is what makes a
+   derivation unreadable, and the python sheet cards them for the same reason. */
+.deriv-step {
+  background: #F8FAFB; border: 1px solid #E3E9ED; border-left: 3px solid #90A4AE;
+  border-radius: 3px; padding: 7px 10px; margin: 6px 0;
+}
+.deriv-step-label { font-size: 11px; color: #546E7A; margin-bottom: 3px; }
+.deriv-step-math { font-size: 12px; margin: 2px 0; overflow-x: auto; }
+/* the result carries the weight: it is what a reader checks their own number against */
+.deriv-step-res { font-size: 12px; margin: 2px 0; color: #1B5E20; font-weight: 600; }
+.deriv-k { color: #546E7A; }
+.deriv-note { font-size: 11px; color: #78909C; margin: 3px 0 5px 0; }
 .deriv-note { font-size: 12px; color: #546E7A; margin: 4px 0; }
 .deriv-warn {
   font-size: 12px; font-weight: 600; color: #c62828;
