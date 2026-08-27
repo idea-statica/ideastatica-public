@@ -16,6 +16,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- KaTeX, embedded so the report and the derivation window render their formulas WITHOUT
+         INTERNET. They used to be pulled from cdn.jsdelivr.net, which meant an offline machine
+         showed the raw LaTeX source ($$\dfrac{...}$$) instead of the equations — unusable in a
+         report that is a deliverable and often read where there is no network.
+
+         The CSS has its fonts inlined as data: URIs, so nothing resolves a relative path: the
+         report is handed to WebView2 as a STRING (NavigateToString) and may be saved and moved,
+         so there is no base URL for url(fonts/...) to work against. woff2 only — WebView2 is
+         Chromium, and ttf+woff would triple the size for formats nothing will request.
+
+         MIT, same as this repo. LICENSE.katex.txt sits beside the files and THIRD_PARTY_NOTICES.md
+         records it, mirroring what reference/python_prototype/lib does for its MathJax copy. -->
+    <EmbeddedResource Include="Resources\katex.min.js" />
+    <EmbeddedResource Include="Resources\katex.min.css" />
+    <EmbeddedResource Include="Resources\katex-auto-render.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- The tests read the real MainWindow's start-up state (chapter toggles off, log collapsed,
          the connections grid's columns). Controls named in XAML are internal, and rebuilding copies
          of them in the test would keep passing after someone edited MainWindow.xaml — which is the

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text;
 using NorsokChecker.Models;
 
@@ -75,11 +76,7 @@ namespace NorsokChecker.Services
 			sb.AppendLine("<meta charset='utf-8'/>");
 			sb.AppendLine("<title>NORSOK N-004 Compliance Report</title>");
 
-			// KaTeX from CDN
-			sb.AppendLine("<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'/>");
-			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js'></script>");
-			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js'");
-			sb.AppendLine("  onload=\"renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});\"></script>");
+			AppendKatex(sb);
 
 			sb.AppendLine("<style>");
 			sb.AppendLine(CssStyles);
@@ -372,10 +369,7 @@ namespace NorsokChecker.Services
 		{
 			var sb = new StringBuilder();
 			sb.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/>");
-			sb.AppendLine("<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'/>");
-			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js'></script>");
-			sb.AppendLine("<script defer src='https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js'");
-			sb.AppendLine("  onload=\"renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});\"></script>");
+			AppendKatex(sb);
 			sb.AppendLine($"<style>{CssStyles}</style></head><body style='padding:14px'>");
 			sb.AppendLine($"<h2 style='margin:0 0 10px;color:#1f3a5f;font-size:16px'>{Esc(title)}</h2>");
 			RenderJointDerivation(sb, row);
@@ -564,6 +558,81 @@ namespace NorsokChecker.Services
 		}
 
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
+
+		/// <summary>
+		/// Write the whole of KaTeX into the page — library, styles and the call that typesets it.
+		///
+		/// EMBEDDED, not fetched. It used to be three cdn.jsdelivr.net tags, so on a machine with no
+		/// network the equations came out as raw LaTeX source (`$$\dfrac{f_y T^2}{...}$$`) — in a
+		/// report that is a deliverable and is often read exactly there. The fonts are inline data:
+		/// URIs too, because the page is handed to WebView2 as a STRING and may be saved and moved,
+		/// so a relative `url(fonts/…)` has no base to resolve against.
+		///
+		/// One method for both the report and the derivation window, because there WERE two copies
+		/// of the CDN block and fixing one left the other fetching from the network — the tests
+		/// caught that, a build could not.
+		/// </summary>
+		private static void AppendKatex(StringBuilder sb)
+		{
+			sb.AppendLine("<style>");
+			sb.AppendLine(ReadResource("katex.min.css"));
+			sb.AppendLine("</style>");
+			sb.AppendLine("<script>");
+			sb.AppendLine(ReadResource("katex.min.js"));
+			sb.AppendLine("</script>");
+			sb.AppendLine("<script>");
+			sb.AppendLine(ReadResource("katex-auto-render.min.js"));
+			sb.AppendLine("</script>");
+			// inline scripts run in order, so KaTeX is defined by now; the call waits for
+			// DOMContentLoaded only because the body it walks does not exist yet
+			sb.AppendLine("<script>document.addEventListener('DOMContentLoaded', function () {");
+			sb.AppendLine("  renderMathInElement(document.body, {delimiters: ["
+				+ "{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});");
+			sb.AppendLine("});</script>");
+		}
+
+		/// <summary>
+		/// One of the embedded KaTeX files, as text.
+		///
+		/// Returns "" and does NOT throw when a resource is missing: a report without typeset
+		/// formulas is still a usable report (the LaTeX source shows through), whereas an exception
+		/// here would take the whole report with it. The build embeds them, so an empty result means
+		/// the csproj lost its EmbeddedResource entries — which is what the cached-name assert in
+		/// the tests is for.
+		/// </summary>
+		private static string ReadResource(string fileName)
+		{
+			if (_resourceCache.TryGetValue(fileName, out var cached)) return cached;
+
+			var assembly = typeof(NorsokHtmlReportGenerator).Assembly;
+			// resource names are "<default namespace>.<folder>.<file>"; matched by suffix so a
+			// namespace or folder rename cannot silently break it
+			string? name = assembly.GetManifestResourceNames()
+				.FirstOrDefault(n => n.EndsWith("." + fileName, StringComparison.OrdinalIgnoreCase));
+
+			string text = "";
+			if (name != null)
+			{
+				using var stream = assembly.GetManifestResourceStream(name);
+				if (stream != null)
+				{
+					using var reader = new StreamReader(stream);
+					text = reader.ReadToEnd();
+				}
+			}
+
+			_resourceCache[fileName] = text;
+			return text;
+		}
+
+		/// <summary>Read once — the CSS alone is 359 kB, and a report renders several times.</summary>
+		private static readonly Dictionary<string, string> _resourceCache = new();
+
+		/// <summary>Are the KaTeX resources actually embedded? For the tests.</summary>
+		internal static bool KatexIsEmbedded =>
+			ReadResource("katex.min.js").Length > 1000
+			&& ReadResource("katex.min.css").Length > 1000
+			&& ReadResource("katex-auto-render.min.js").Length > 100;
 
 		private const string CssStyles = @"
 * { box-sizing: border-box; margin: 0; padding: 0; }
