@@ -1,4 +1,4 @@
-<UserControl x:Class="NorsokChecker.Controls.Joint3DView"
+﻿<UserControl x:Class="NorsokChecker.Controls.Joint3DView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="#FAFBFC">
@@ -18,9 +18,16 @@
             <ModelVisual3D>
                 <ModelVisual3D.Content>
                     <Model3DGroup>
-                        <!-- two lights so a tube reads as round from any angle -->
-                        <DirectionalLight Color="#FFFFFF" Direction="-1.0,1.4,-1.2"/>
-                        <DirectionalLight Color="#606060" Direction="1.0,-0.6,0.8"/>
+                        <!-- Ambient FIRST, and the dominant term: on the §6.4 tab a body's colour
+                             carries its utilisation, and a purely directional rig sank the faces
+                             turned away from the light to near-black — a green brace and a red one
+                             both read as dark olive there. Ambient lifts every face to the same
+                             floor, so the colour survives whichever way the body points; the two
+                             directional lights are kept, weaker, only to keep a tube reading as
+                             round rather than as a flat silhouette. -->
+                        <AmbientLight Color="#B4B4B4"/>
+                        <DirectionalLight Color="#4A4A4A" Direction="-1.0,1.4,-1.2"/>
+                        <DirectionalLight Color="#2A2A2A" Direction="1.0,-0.6,0.8"/>
                     </Model3DGroup>
                 </ModelVisual3D.Content>
             </ModelVisual3D>
@@ -57,7 +64,9 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Foreground="#607D8B" FontSize="11"/>
 
-        <TextBlock Text="drag to rotate · wheel to zoom · double-click to reset"
+        <!-- Named and set from Interactive: on the §6.4 tab the mouse does not turn or zoom this
+             view, so promising that it does described a control the reader does not have. -->
+        <TextBlock x:Name="GestureHint" Text="drag to rotate · wheel to zoom · double-click to reset"
                    Margin="8,0,8,5" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                    Foreground="#B0BEC5" FontSize="10"/>
     </Grid>

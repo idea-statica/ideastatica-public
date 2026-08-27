@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -122,7 +122,19 @@ namespace NorsokChecker.Controls
 		/// here is the same presentation geometry with the camera pinned, turned only in 90-degree
 		/// steps and flipped through the plane. Selecting a member by clicking stays live either way.
 		/// </summary>
-		public bool Interactive { get; set; } = true;
+		public bool Interactive
+		{
+			get => _interactive;
+			set
+			{
+				_interactive = value;
+				// the hint has to follow, or it promises gestures the reader does not have
+				GestureHint.Text = value
+					? "drag to rotate · wheel to zoom · double-click to reset"
+					: "click a member to select it";
+			}
+		}
+		private bool _interactive = true;
 
 		/// <summary>
 		/// Turn the view a quarter turn within the joint plane, keeping the plane face-on.
@@ -345,8 +357,11 @@ namespace NorsokChecker.Controls
 			}
 		}
 
-		private static readonly SolidColorBrush ChordBrush = new(Color.FromRgb(0x78, 0x90, 0x9C));
-		private static readonly SolidColorBrush NoCheckBrush = new(Color.FromRgb(0xBD, 0xBD, 0xBD));
+		// lighter than their legend swatches for the same reason as the utilisation ramp, but NOT
+		// so light that the lit face clips to white: #E0E0E0 came back as #FFFFFF, which on a white
+		// panel makes an unchecked member disappear rather than read as grey.
+		private static readonly SolidColorBrush ChordBrush = new(Color.FromRgb(0x9E, 0xAF, 0xB8));
+		private static readonly SolidColorBrush NoCheckBrush = new(Color.FromRgb(0xC4, 0xC4, 0xC4));
 
 		/// <summary>
 		/// The utilisation ramp, matching the legend beside the view: green to 0.5, yellow-green to
@@ -354,11 +369,32 @@ namespace NorsokChecker.Controls
 		/// because the four bands are what the legend shows, and a reader compares a body against the
 		/// legend, not against a gradient.
 		/// </summary>
+		/// Separated by HUE — green, yellow, orange, red — not by lightness, and measured rather
+		/// than eyeballed (2026-08-27, against WPF's own colour * (ambient + Σ lights) formula, on
+		/// the worst case: a face turned away from both directional lights).
+		///
+		/// The old ramp put yellow-green #C0CA33 next to amber #F9A825, which on an unlit face came
+		/// back as #888F24 and #B0771A — a brightness gap of 0.037, so a brace at 60 % and one at
+		/// 90 % looked alike. What actually fixed that was the ambient light (the old darkest tone
+		/// reached #205823, and no hue survives that little light); these tones are the second
+		/// guard, giving every neighbouring pair at least 0.09 in brightness AND 21 degrees in hue,
+		/// so either one alone is enough to tell them apart.
+		///
+		/// They are also LIGHTER than the flat swatches in the legend, because a lit surface never
+		/// returns its own colour — they land near the legend once the rig has multiplied them.
 		private static Brush UtilisationBrush(double util) =>
-			util >= 1.0 ? new SolidColorBrush(Color.FromRgb(0xC6, 0x28, 0x28))
-			: util >= 0.85 ? new SolidColorBrush(Color.FromRgb(0xF9, 0xA8, 0x25))
-			: util >= 0.5 ? new SolidColorBrush(Color.FromRgb(0xC0, 0xCA, 0x33))
-			: new SolidColorBrush(Color.FromRgb(0x2E, 0x7D, 0x32));
+			util >= 1.0 ? new SolidColorBrush(Color.FromRgb(0xEF, 0x53, 0x50))
+			: util >= 0.85 ? new SolidColorBrush(Color.FromRgb(0xF0, 0x8A, 0x2E))
+			: util >= 0.5 ? new SolidColorBrush(Color.FromRgb(0xE6, 0xC9, 0x3A))
+			: new SolidColorBrush(Color.FromRgb(0x66, 0xBB, 0x6A));
+
+		/// <summary>
+		/// The ramp and the no-check grey, exposed so the colour tests can measure what this view
+		/// will actually paint rather than a copy of it — a test that restates the ramp cannot fail
+		/// when the ramp changes.
+		/// </summary>
+		internal Brush UtilisationBrushForTest(double util) => UtilisationBrush(util);
+		internal Brush NoCheckBrushForTest => NoCheckBrush;
 
 		/// <summary>Paint one member's body in the highlight colour; -1 clears.</summary>
 		public void HighlightMember(int memberId)

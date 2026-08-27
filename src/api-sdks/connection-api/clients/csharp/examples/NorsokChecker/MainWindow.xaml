@@ -576,16 +576,20 @@
                                                        Margin="0,0,4,0"/>
                                             <TextBlock Text="0" Foreground="#78909C" FontSize="10.5"
                                                        VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                            <Border Width="14" Height="9" Background="#2E7D32" Margin="0,0,1,0"/>
-                                            <Border Width="14" Height="9" Background="#C0CA33" Margin="0,0,1,0"/>
-                                            <Border Width="14" Height="9" Background="#F9A825" Margin="0,0,1,0"/>
-                                            <Border Width="14" Height="9" Background="#C62828" Margin="0,0,2,0"/>
+                                            <!-- the same four tones Joint3DView paints the bodies
+                                                 with, so a body can be compared against the key -->
+                                            <Border Width="14" Height="9" Background="#66BB6A" Margin="0,0,1,0"/>
+                                            <Border Width="14" Height="9" Background="#E6C93A" Margin="0,0,1,0"/>
+                                            <Border Width="14" Height="9" Background="#F08A2E" Margin="0,0,1,0"/>
+                                            <Border Width="14" Height="9" Background="#EF5350" Margin="0,0,2,0"/>
                                             <TextBlock Text="1.0" Foreground="#78909C" FontSize="10.5"
                                                        VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                            <Border Width="14" Height="9" Background="#78909C" Margin="0,0,3,0"/>
+                                            <Border Width="14" Height="9" Background="#9EAFB8" Margin="0,0,3,0"
+                                                    BorderBrush="#7C8B93" BorderThickness="1"/>
                                             <TextBlock Text="chord" Foreground="#78909C" FontSize="10.5"
                                                        VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                            <Border Width="14" Height="9" Background="#BDBDBD" Margin="0,0,3,0"/>
+                                            <Border Width="14" Height="9" Background="#C4C4C4" Margin="0,0,3,0"
+                                                    BorderBrush="#A8A8A8" BorderThickness="1"/>
                                             <TextBlock Text="no check" Foreground="#78909C" FontSize="10.5"
                                                        VerticalAlignment="Center"/>
                                         </StackPanel>
