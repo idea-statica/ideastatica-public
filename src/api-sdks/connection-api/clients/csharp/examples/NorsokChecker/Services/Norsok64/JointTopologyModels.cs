@@ -156,6 +156,20 @@ namespace NorsokChecker.Services.Norsok64
 		public double GapM { get; set; }
 		public int Side { get; set; }           // +1 / -1
 		public bool Adjacent { get; set; }
+
+		/// <summary>
+		/// False when a diameter the gap depends on (the chord's, or either brace's) was not known,
+		/// so GapM is arithmetic on a missing value rather than a measurement.
+		///
+		/// This exists because the alternative is a confident wrong answer. A missing D used to
+		/// default to 0, which shortens the foot to nothing and moves the landing point, and the
+		/// toe-to-toe subtraction then comes out NEGATIVE — reported as "feet overlap, out of 6.4
+		/// gap rules". Measured 2026-08-27 on CON1 of test_cs against service 26.1, whose IOM export
+		/// returns no model at all: all five braces are physically clear of each other (real gaps
+		/// +1.5 to +47 mm) and the app rejected the joint for overlapping. A conclusion about
+		/// geometry drawn from the absence of geometry is worse than admitting the gap is unknown.
+		/// </summary>
+		public bool Known { get; set; } = true;
 	}
 
 	/// <summary>Assumption-gate verdict (port of classify_assumptions result).</summary>

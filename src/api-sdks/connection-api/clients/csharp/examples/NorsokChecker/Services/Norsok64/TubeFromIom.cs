@@ -1,4 +1,4 @@
-using IdeaRS.OpenModel.Connection;
+﻿using IdeaRS.OpenModel.Connection;
 // NorsokChecker.Services also declares a PlateData (the raw-results one), so the IOM types are
 // aliased here — an unqualified PlateData in this file would silently be the wrong type.
 using IomBeam = IdeaRS.OpenModel.Connection.BeamData;
@@ -83,6 +83,15 @@ namespace NorsokChecker.Services.Norsok64
 				return (null, null, "all facet origins coincide");
 
 			double d = maxDist / Math.Cos(Math.PI / n) + t;
+
+			// Plausibility, as extract.py:167-168 has it. No section in the library is anywhere near
+			// these bounds, so this never fires on real input — it is here because the alternative to
+			// rejecting an impossible tube is REPORTING one, and a number the caller cannot tell from
+			// a good one is worse than an admitted failure. A wall at or over half the diameter is not
+			// a tube at all, and it would make beta and gamma meaningless rather than merely wrong.
+			if (d < 10.0 || d > 5000.0 || t >= d / 2.0)
+				return (null, null, $"implausible geometry (D={d:F1} mm, T={t:F1} mm)");
+
 			return (d, t, null);
 		}
 

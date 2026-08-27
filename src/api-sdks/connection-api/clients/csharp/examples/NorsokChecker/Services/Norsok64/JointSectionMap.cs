@@ -1,5 +1,4 @@
-using System.Text.RegularExpressions;
-using IdeaRS.OpenModel.CrossSection;
+﻿using IdeaRS.OpenModel.CrossSection;
 
 namespace NorsokChecker.Services.Norsok64
 {
@@ -10,10 +9,6 @@ namespace NorsokChecker.Services.Norsok64
 	/// </summary>
 	public static class JointSectionMap
 	{
-		// tolerant CHS dimension fallback: "CHS 457/16", "CHS457x16", "RO 323.9/10"...
-		private static readonly Regex DimRegex = new(@"(\d+\.?\d*)\s*[/x×]\s*(\d+\.?\d*)",
-			RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
 		/// <summary>
 		/// The one definition of "tubular" in this app. CrossSectionDetector used to keep a second,
 		/// slightly different set (it also listed CFRegPolygon), which meant a section could be
@@ -66,21 +61,28 @@ namespace NorsokChecker.Services.Norsok64
 				}
 
 				// FALLBACK: parse the section name (also covers CHS-named sections whose type
-				// enum isn't in ChsTypes)
+				// enum isn't in ChsTypes). Requires the name to actually say "CHS" — see below.
 				if (d is not > 0 || t is not > 0)
 				{
 					var (nd, nt) = JointSectionInfo.ParseChs(name);
 					if (nd != null) { d = nd; t = nt; isChs = true; }
-					else if (isChs && name != null)
-					{
-						var m = DimRegex.Match(name);
-						if (m.Success)
-						{
-							d = double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
-							t = double.Parse(m.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture);
-						}
-					}
 				}
+				// There used to be a SECOND fallback here: any "<number><separator><number>" in the
+				// name of a tubular section, with no requirement that the name say "CHS" at all. It
+				// is gone, and the python reference never had it (xs_map calls only parse_chs).
+				//
+				// It did more harm than good. On 'PIPE(Imp)3-1/2XS' it matched the FRACTION in the
+				// name and returned D = 1 mm, T = 2 mm for a Ø102/8.3 tube — dimensions that are not
+				// merely imprecise but physically impossible, and that passed every downstream test
+				// for "dimensions are known". Two consequences, measured on CON1 of test_cs:
+				//   - the IOM refinement overwrote them with the real 102.0/8.3 and then, comparing
+				//     the name against the model, reported a 2 % disagreement as an assumption the
+				//     user had to read — a warning the python app does not raise, because it never
+				//     invented the 1 mm in the first place;
+				//   - had the IOM read failed for any reason, the 1 mm tube would have been checked
+				//     as valid data (beta = 1/141 = 0.007) instead of being reported as unreadable.
+				// A name that does not spell out its dimensions now yields nothing, and the model
+				// geometry is the only source - which is the honest answer.
 				// IsCHS says only that the TYPE is tubular. It used to also require D and T, so a
 				// tube whose dimensions could not be read was reported as "not CHS" — a statement
 				// contradicted by its own name. The two are separate answers; see

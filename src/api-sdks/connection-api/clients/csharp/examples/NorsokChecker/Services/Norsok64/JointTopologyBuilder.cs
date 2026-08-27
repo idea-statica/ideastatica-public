@@ -1,4 +1,4 @@
-using IdeaStatiCa.Api.Connection.Model;
+﻿using IdeaStatiCa.Api.Connection.Model;
 
 namespace NorsokChecker.Services.Norsok64
 {
@@ -269,11 +269,16 @@ namespace NorsokChecker.Services.Norsok64
 			topo.GapBraces = topo.Braces.Where(b => !b.IsContinuous).ToList();
 			if (topo.GapBraces.Count >= 2)
 			{
-				var groups = new Dictionary<int, List<(string Name, double Landing, double Foot)>> { [1] = new(), [-1] = new() };
+				// A gap needs three diameters: the chord's (where the feet land) and both braces'
+				// (how wide each foot is). Any one missing makes the number arithmetic on a
+				// default, not a measurement — see BraceGap.Known.
+				bool chordDKnown = secC.D is > 0;
+				var groups = new Dictionary<int, List<(string Name, double Landing, double Foot, bool DKnown)>>
+					{ [1] = new(), [-1] = new() };
 				foreach (var b in topo.GapBraces)
 				{
 					var (lnd, ft) = LandingAndFoot(b);
-					groups[BraceSide(b)].Add((b.Name, lnd, ft));
+					groups[BraceSide(b)].Add((b.Name, lnd, ft, b.Section.D is > 0));
 				}
 				foreach (var (sd, items) in groups)
 				{
@@ -288,6 +293,7 @@ namespace NorsokChecker.Services.Norsok64
 								A = a.Name, B = c.Name,
 								GapM = (c.Landing - c.Foot) - (a.Landing + a.Foot),  // toe-to-toe
 								Side = sd, Adjacent = j == i + 1,
+								Known = chordDKnown && a.DKnown && c.DKnown,
 							});
 						}
 				}
@@ -512,7 +518,11 @@ namespace NorsokChecker.Services.Norsok64
 		{
 			if (!string.IsNullOrEmpty(topo.PlaneWarn))
 				topo.Verdict.Warnings.Insert(0, topo.PlaneWarn!);
-			foreach (var g in topo.Gaps.Where(g => g.Adjacent && g.GapM < 0))
+			// Known: a gap computed without one of its diameters is not evidence of an overlap.
+			// The joint is still not checked — the missing diameter is reported by the section
+			// gates, which is the true reason — but it is no longer accused of a geometry it
+			// does not have. See BraceGap.Known.
+			foreach (var g in topo.Gaps.Where(g => g.Adjacent && g.Known && g.GapM < 0))
 				topo.Verdict.Errors.Insert(0,
 					$"{g.A}-{g.B}: feet overlap (gap {g.GapM * 1000:F0} mm < 0) — overlap joint, out of 6.4 gap rules.");
 			topo.Verdict.Status = topo.Verdict.Errors.Count > 0 ? "ERROR"
