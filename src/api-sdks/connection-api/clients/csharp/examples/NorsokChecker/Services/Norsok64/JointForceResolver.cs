@@ -72,12 +72,16 @@ namespace NorsokChecker.Services.Norsok64
 		/// <summary>
 		/// Per-LE residual (unbalanced) force/moment at the node — self-check that forces/axes/levers are
 		/// read right. PLAIN SUM (API forces are already 'member action on node'). Port of node_equilibrium.
+		///
+		/// Returns the residual as VECTORS, not as their magnitudes: the python reference's sheet shows
+		/// the X/Y/Z components, and a magnitude cannot say which DIRECTION is out of balance. The
+		/// unit tests compare the norms against the python oracle, so both forms are covered.
 		/// </summary>
-		public static List<(int Id, string Name, double ResF, double ResM, bool Ok)> NodeEquilibrium(
+		public static List<NodeEquilibriumRow> NodeEquilibrium(
 			IReadOnlyList<JointMemberData> members, IEnumerable<ConLoadEffect>? loadEffects, Vec3 node)
 		{
 			var byId = members.ToDictionary(m => m.Id);
-			var outp = new List<(int, string, double, double, bool)>();
+			var outp = new List<NodeEquilibriumRow>();
 			foreach (var le in loadEffects ?? Enumerable.Empty<ConLoadEffect>())
 			{
 				Vec3 SF = Vec3.Zero, SM = Vec3.Zero;
@@ -87,9 +91,11 @@ namespace NorsokChecker.Services.Norsok64
 					var (F, M) = MemberLoadingGlobal(m, ml.SectionLoad, node);
 					SF += F; SM += M;
 				}
-				double resF = SF.Norm, resM = SM.Norm;
-				outp.Add((le.Id, le.Name ?? "", resF, resM,
-					resF <= EquilibriumTolForceN && resM <= EquilibriumTolMomNm));
+				outp.Add(new NodeEquilibriumRow
+				{
+					Id = le.Id, Name = le.Name ?? "", SumF = SF, SumM = SM,
+					Ok = SF.Norm <= EquilibriumTolForceN && SM.Norm <= EquilibriumTolMomNm,
+				});
 			}
 			return outp;
 		}

@@ -172,6 +172,23 @@ namespace NorsokChecker.Services.Norsok64
 		public bool Known { get; set; } = true;
 	}
 
+	/// <summary>
+	/// One load effect's node-equilibrium residual: the sum of every member's force and moment
+	/// about the node, which must be ~0 for loads that balance.
+	///
+	/// This is the self-check that the forces, axes, levers and eccentricities were read correctly
+	/// — a large residual means the reading is wrong, not that the structure is. Small values are
+	/// normal because the stored input is rounded.
+	/// </summary>
+	public sealed class NodeEquilibriumRow
+	{
+		public int Id { get; set; }
+		public string Name { get; set; } = "";
+		public Vec3 SumF { get; set; }          // N
+		public Vec3 SumM { get; set; }          // N·m
+		public bool Ok { get; set; }
+	}
+
 	/// <summary>Assumption-gate verdict (port of classify_assumptions result).</summary>
 	public sealed class TopologyVerdict
 	{
@@ -300,6 +317,12 @@ namespace NorsokChecker.Services.Norsok64
 		public List<PerLoadEffect<BraceForceRow>> BraceForces { get; set; } = new();
 		public List<PerLoadEffect<ChordStressRow>> ChordStresses { get; set; } = new();
 		public List<PerLoadEffect<KyxClass>> Classification { get; set; } = new();
+
+		/// <summary>
+		/// Node-equilibrium residual per load effect. One row per LE, in the same order as
+		/// <see cref="JointChecks"/>.
+		/// </summary>
+		public List<NodeEquilibriumRow> Equilibrium { get; set; } = new();
 		public List<PerLoadEffect<JointCheckRow>> JointChecks { get; set; } = new();
 	}
 }

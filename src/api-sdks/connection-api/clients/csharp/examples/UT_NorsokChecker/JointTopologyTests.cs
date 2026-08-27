@@ -237,8 +237,10 @@ namespace UT_NorsokChecker
 				Assert.That(eq.Count, Is.EqualTo(oEq.Count), $"{name} LE count");
 				for (int i = 0; i < eq.Count; i++)
 				{
-					AssertNear(eq[i].ResF, (double)oEq[i]["resF_N"]!, $"{name} LE{i} resF");
-					AssertNear(eq[i].ResM, (double)oEq[i]["resM_Nm"]!, $"{name} LE{i} resM");
+					// the oracle stores the residual MAGNITUDE; NodeEquilibrium now returns the
+					// vectors (the §6.4 tab shows them by component), so compare their norms
+					AssertNear(eq[i].SumF.Norm, (double)oEq[i]["resF_N"]!, $"{name} LE{i} resF");
+					AssertNear(eq[i].SumM.Norm, (double)oEq[i]["resM_Nm"]!, $"{name} LE{i} resM");
 				}
 			}
 		}

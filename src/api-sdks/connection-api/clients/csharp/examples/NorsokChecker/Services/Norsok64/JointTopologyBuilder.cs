@@ -312,6 +312,15 @@ namespace NorsokChecker.Services.Norsok64
 			var sideByName = topo.GapBraces.ToDictionary(b => b.Name, BraceSide);
 			var thetaByName = topo.GapBraces.ToDictionary(b => b.Name, Theta);
 
+			// STEP 1: node equilibrium — the self-check that the forces, axes, levers and
+			// eccentricities were read correctly. Runs over ALL members (the chord included), not
+			// just the braces, because the chord is what balances them.
+			//
+			// NodeEquilibrium was verified against the python oracle by the unit tests all along
+			// (NodeEquilibrium_MatchesPythonReference) but had no caller in the APP, so the residual
+			// the python sheet puts in front of the engineer was never computed at runtime.
+			topo.Equilibrium = JointForceResolver.NodeEquilibrium(members, les, node);
+
 			// STEP 2: per-LE brace forces resolved into the joint plane
 			foreach (var le in les)
 			{

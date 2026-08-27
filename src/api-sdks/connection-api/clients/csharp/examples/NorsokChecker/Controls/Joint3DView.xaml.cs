@@ -22,6 +22,13 @@ namespace NorsokChecker.Controls
 
 		private readonly Dictionary<int, GeometryModel3D> _byMember = new();
 		private readonly Dictionary<int, string> _names = new();
+
+		/// <summary>
+		/// Each member's colour when it is NOT highlighted — the result colour once
+		/// <see cref="ColourByUtilisation"/> has run, absent before that. Held separately from the
+		/// models because un-highlighting has to know what to go back to.
+		/// </summary>
+		private readonly Dictionary<int, Brush> _baseBrush = new();
 		private int _highlighted = -1;
 
 		/// <summary>Camera width that frames the model — the zoom is relative to this.</summary>
@@ -86,6 +93,7 @@ namespace NorsokChecker.Controls
 			};
 			MouseMove += (_, e) =>
 			{
+				if (!Interactive) return;
 				if (_dragFrom is not { } from || e.LeftButton != MouseButtonState.Pressed) return;
 				var now = e.GetPosition(this);
 				RotateZ.Angle += (now.X - from.X) * 0.5;
@@ -95,11 +103,55 @@ namespace NorsokChecker.Controls
 			};
 			MouseWheel += (_, e) =>
 			{
+				if (!Interactive) return;
 				// a narrower camera is a closer look; 1.15 per notch is about 12 notches end to end
 				double f = e.Delta > 0 ? 1.0 / 1.15 : 1.15;
 				Camera.Width = Math.Clamp(Camera.Width * f, _fitWidth * 0.1, _fitWidth * 6.0);
 			};
-			MouseDoubleClick += (_, _) => ResetView();
+			MouseDoubleClick += (_, _) => { if (Interactive) ResetView(); };
+		}
+
+		/// <summary>
+		/// Whether the mouse may turn and zoom the view. True on the Check tab, where the point is to
+		/// look around the joint.
+		///
+		/// FALSE on the §6.4 tab: that view is read as a drawing of the joint plane, and a free-turned
+		/// camera destroys what the drawing means — "in-plane" and "out-of-plane" stop matching what
+		/// the reader sees, so M_ip and M_op become impossible to check against the picture. The
+		/// python reference draws a fixed 2D schematic there for exactly this reason; the equivalent
+		/// here is the same presentation geometry with the camera pinned, turned only in 90-degree
+		/// steps and flipped through the plane. Selecting a member by clicking stays live either way.
+		/// </summary>
+		public bool Interactive { get; set; } = true;
+
+		/// <summary>
+		/// Turn the view a quarter turn within the joint plane, keeping the plane face-on.
+		///
+		/// Rotates the UP direction about the line of sight, which is what keeps the plane square to
+		/// the camera — turning the model instead would tip the plane out of view (see LookAtPlane
+		/// for why two model angles cannot hold an arbitrary plane).
+		/// </summary>
+		public void TurnInPlane(double degrees)
+		{
+			var look = Camera.LookDirection;
+			if (look.Length < 1e-9) return;
+			look.Normalize();
+			var rot = new RotateTransform3D(new AxisAngleRotation3D(look, degrees));
+			var up = rot.Transform(Camera.UpDirection);
+			up.Normalize();
+			Camera.UpDirection = up;
+			_homeCamera = (Camera.Position, Camera.LookDirection, up);
+		}
+
+		/// <summary>
+		/// Look at the joint plane from the other side: the normal is reversed, so what was the +ey
+		/// face becomes the far one. Up is kept, so the view mirrors rather than turning upside down.
+		/// </summary>
+		public void FlipNormal()
+		{
+			Camera.Position = new Point3D(-Camera.Position.X, -Camera.Position.Y, -Camera.Position.Z);
+			Camera.LookDirection = -Camera.LookDirection;
+			_homeCamera = (Camera.Position, Camera.LookDirection, Camera.UpDirection);
 		}
 
 		/// <summary>Back to the framing and orientation the model loaded with.</summary>
@@ -168,6 +220,7 @@ namespace NorsokChecker.Controls
 			MembersGroup.Children.Clear();
 			_byMember.Clear();
 			_names.Clear();
+			_baseBrush.Clear();
 			_highlighted = -1;
 			// a new connection has a different joint plane, so a LookAtPlane home set for the previous
 			// one would aim at the wrong plane — back to the oblique default until it is set again
@@ -256,6 +309,57 @@ namespace NorsokChecker.Controls
 			return found;
 		}
 
+		/// <summary>
+		/// Colour each member by what its check said, as the python schematic does: green through
+		/// amber to red by utilisation, grey for a member nothing was checked on, and a fixed slate
+		/// for the chord. Members not named here keep the default.
+		///
+		/// The colours become each body's BASE colour, so hovering a table row still highlights and
+		/// un-highlighting returns to the result colour rather than to plain blue.
+		/// </summary>
+		public void ColourByUtilisation(IReadOnlyDictionary<int, double?> utilByMember, int chordMemberId = -1)
+		{
+			foreach (var (id, model) in _byMember)
+			{
+				Brush brush;
+				if (id == chordMemberId) brush = ChordBrush;
+				else if (!utilByMember.TryGetValue(id, out var u) || u == null) brush = NoCheckBrush;
+				else brush = UtilisationBrush(u.Value);
+
+				_baseBrush[id] = brush;
+				if (id == _highlighted) continue;      // leave the hovered one highlighted
+				model.Material = new DiffuseMaterial(brush);
+				model.BackMaterial = new DiffuseMaterial(brush);
+			}
+		}
+
+		/// <summary>Clear the result colours; every body goes back to the default.</summary>
+		public void ClearUtilisationColours()
+		{
+			_baseBrush.Clear();
+			foreach (var (id, model) in _byMember)
+			{
+				if (id == _highlighted) continue;
+				model.Material = new DiffuseMaterial(MemberBrush);
+				model.BackMaterial = new DiffuseMaterial(MemberBrush);
+			}
+		}
+
+		private static readonly SolidColorBrush ChordBrush = new(Color.FromRgb(0x78, 0x90, 0x9C));
+		private static readonly SolidColorBrush NoCheckBrush = new(Color.FromRgb(0xBD, 0xBD, 0xBD));
+
+		/// <summary>
+		/// The utilisation ramp, matching the legend beside the view: green to 0.5, yellow-green to
+		/// 0.85, amber below 1.0, red at or above it. Banded rather than continuously interpolated
+		/// because the four bands are what the legend shows, and a reader compares a body against the
+		/// legend, not against a gradient.
+		/// </summary>
+		private static Brush UtilisationBrush(double util) =>
+			util >= 1.0 ? new SolidColorBrush(Color.FromRgb(0xC6, 0x28, 0x28))
+			: util >= 0.85 ? new SolidColorBrush(Color.FromRgb(0xF9, 0xA8, 0x25))
+			: util >= 0.5 ? new SolidColorBrush(Color.FromRgb(0xC0, 0xCA, 0x33))
+			: new SolidColorBrush(Color.FromRgb(0x2E, 0x7D, 0x32));
+
 		/// <summary>Paint one member's body in the highlight colour; -1 clears.</summary>
 		public void HighlightMember(int memberId)
 		{
@@ -263,8 +367,11 @@ namespace NorsokChecker.Controls
 
 			if (_byMember.TryGetValue(_highlighted, out var previous))
 			{
-				previous.Material = new DiffuseMaterial(MemberBrush);
-				previous.BackMaterial = new DiffuseMaterial(MemberBrush);
+				// back to its RESULT colour when one was set — restoring MemberBrush unconditionally
+				// wiped the utilisation colouring off whichever body the mouse last touched
+				var back = _baseBrush.GetValueOrDefault(_highlighted) ?? MemberBrush;
+				previous.Material = new DiffuseMaterial(back);
+				previous.BackMaterial = new DiffuseMaterial(back);
 			}
 
 			_highlighted = memberId;
@@ -287,6 +394,7 @@ namespace NorsokChecker.Controls
 			MembersGroup.Children.Clear();
 			_byMember.Clear();
 			_names.Clear();
+			_baseBrush.Clear();
 			_highlighted = -1;
 			// a new connection has a different joint plane, so a LookAtPlane home set for the previous
 			// one would aim at the wrong plane — back to the oblique default until it is set again

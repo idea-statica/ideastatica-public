@@ -167,6 +167,117 @@ namespace UT_NorsokChecker
 			Assert.That(topoIom.JointChecks, Is.Not.Empty, "CON1 must produce §6.4 checks");
 		}
 
+		/// <summary>
+		/// Everything the §6.4 tab's four panels draw, for one load effect — so the tab can be
+		/// checked against the python sheet without launching the app. Each block is one panel.
+		/// </summary>
+		[Test]
+		public async Task Con1_SheetContentForLe1()
+		{
+			Assert.That(File.Exists(IdeaCon), $"{IdeaCon} must exist");
+
+			var client = await _runner!.CreateApiClient();
+			var project = await client.Project.OpenProjectAsync(IdeaCon);
+			var pid = project.ProjectId;
+			try
+			{
+				var conns = await client.Connection.GetConnectionsAsync(pid);
+				var con1 = conns.First(c => c.Name == "CON1");
+				var crossSections = await client.Material.GetCrossSectionsAsync(pid);
+				var sectionMap = JointSectionMap.FromCrossSections(crossSections.Cast<object>());
+				var conMembers = await client.Member.GetMembersAsync(pid, con1.Id);
+				var loadEffects = await client.LoadEffect.GetLoadEffectsAsync(pid, con1.Id, isPercentage: false);
+
+				var members = conMembers
+					.Select(m => JointMemberData.FromConMember(m,
+						sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1) ?? new JointSectionInfo()))
+					.ToList();
+				EnrichFromIom(await client.Export.ExportIomConnectionDataAsync(pid, con1.Id), members,
+					_ => { });
+				var topo = new JointTopologyBuilder().Build(members, loadEffects);
+
+				Assert.That(topo.Verdict.Status, Is.Not.EqualTo("ERROR"),
+					"CON1 must be checkable: " + string.Join(" | ", topo.Verdict.Errors));
+
+				var le1 = topo.JointChecks.First();
+				TestContext.Out.WriteLine($"=== load effect {le1.Name} (id {le1.Id}) ===");
+
+				// PANEL: node equilibrium
+				var eq = topo.Equilibrium.FirstOrDefault(r => r.Id == le1.Id);
+				TestContext.Out.WriteLine("\n-- Node equilibrium (self-check) --");
+				Assert.That(eq, Is.Not.Null, "the tab's equilibrium panel needs a row for this LE");
+				TestContext.Out.WriteLine($"  ΣF  [kN] : {eq!.SumF.X / 1e3,8:F1} {eq.SumF.Y / 1e3,8:F1} {eq.SumF.Z / 1e3,8:F1}");
+				TestContext.Out.WriteLine($"  ΣM [kNm] : {eq.SumM.X / 1e3,8:F2} {eq.SumM.Y / 1e3,8:F2} {eq.SumM.Z / 1e3,8:F2}");
+				TestContext.Out.WriteLine($"  state    : {(eq.Ok ? "OK" : "OUT OF BALANCE")}");
+
+				// PANEL: brace forces in the joint plane, with the chord's own forces
+				var bf = topo.BraceForces.First(r => r.Id == le1.Id);
+				var cs = topo.ChordStresses.First(r => r.Id == le1.Id);
+				var csByName = cs.Rows.GroupBy(r => r.Name).ToDictionary(g => g.Key, g => g.First());
+				TestContext.Out.WriteLine("\n-- Brace forces in joint plane --");
+				TestContext.Out.WriteLine("  brace   N_Sd    M_ip    M_op    V_ip    V_op   M_tor  face      N_chord  M_ip,ch");
+				foreach (var r in bf.Rows)
+				{
+					var c = csByName.GetValueOrDefault(r.Name);
+					TestContext.Out.WriteLine(
+						$"  {r.Name,-6}{r.NSd / 1e3,7:F1}{r.Mip / 1e3,8:F2}{r.Mop / 1e3,8:F2}"
+						+ $"{r.Vip / 1e3,8:F1}{r.Vop / 1e3,8:F1}{r.Mtor / 1e3,8:F2}"
+						+ $"  {(r.Side >= 0 ? "+ey" : "−ey"),-8}"
+						+ $"{(c == null ? "—" : (c.NChord / 1e3).ToString("F1")),9}"
+						+ $"{(c == null ? "—" : (c.MipChord / 1e3).ToString("F2")),9}");
+				}
+
+				// PANEL: classification + member checks, with the K sub-rows
+				TestContext.Out.WriteLine("\n-- Classification & member checks --");
+				foreach (var row in le1.Rows)
+				{
+					var cls = row.Classification;
+					if (row.Skipped)
+					{
+						TestContext.Out.WriteLine($"  {row.Name,-6} SKIPPED — {row.Reason}");
+						continue;
+					}
+					TestContext.Out.WriteLine(
+						$"  {row.Name,-6} K={cls?.FrK ?? 0,6:P0} X={cls?.FrX ?? 0,6:P0} Y={cls?.FrY ?? 0,6:P0}"
+						+ $"  N_Rd={row.NRdWeighted / 1e3,7:F1} kN  util={row.Util,7:P1}"
+						+ $"  {(row.Passed ? "PASS" : "FAIL")}"
+						+ (string.IsNullOrEmpty(cls?.Note) ? "" : $"   [{cls!.Note}]"));
+					foreach (var kc in cls?.KComponents ?? new List<KComponent>())
+						TestContext.Out.WriteLine(
+							$"         ↳ K via {kc.Partner,-4} {kc.Frac,6:P1} — {kc.Frac * Math.Abs(cls!.NSd) / 1e3:F1} kN"
+							+ $" across a {(kc.GapM is { } g ? $"{g * 1000:F0} mm" : "unknown")} gap");
+				}
+
+				// PANEL: the joint view's colours
+				TestContext.Out.WriteLine("\n-- Joint view colouring --");
+				TestContext.Out.WriteLine($"  chord (slate) : {topo.Chord?.Name} (id {topo.Chord?.Id})");
+				foreach (var brace in topo.GapBraces)
+				{
+					var row = le1.Rows.FirstOrDefault(r => r.Name == brace.Name);
+					string colour = (row == null || row.Skipped || double.IsNaN(row.Util)) ? "grey (no check)"
+						: row.Util >= 1.0 ? "red"
+						: row.Util >= 0.85 ? "amber"
+						: row.Util >= 0.5 ? "yellow-green" : "green";
+					TestContext.Out.WriteLine($"  {brace.Name,-6}(id {brace.Id,2}) : {colour}");
+				}
+
+				// The sheet must actually be populated — an empty panel is the defect being fixed.
+				Assert.Multiple(() =>
+				{
+					Assert.That(topo.Equilibrium, Is.Not.Empty, "equilibrium panel");
+					Assert.That(bf.Rows, Is.Not.Empty, "brace-force panel");
+					Assert.That(cs.Rows, Is.Not.Empty, "chord forces");
+					Assert.That(le1.Rows.Any(r => !r.Skipped), "at least one brace checked");
+					Assert.That(le1.Rows.Any(r => r.Classification?.KComponents.Count > 0),
+						"at least one K sub-row — CON1 has K pairings across its gaps");
+				});
+			}
+			finally
+			{
+				await client.Project.CloseProjectAsync(pid);
+			}
+		}
+
 		private static void Report(JointTopology topo)
 		{
 			TestContext.Out.WriteLine($"  chord={topo.Chord?.Name}, gapBraces={topo.GapBraces.Count}, "

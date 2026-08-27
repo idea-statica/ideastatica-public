@@ -15,6 +15,36 @@ namespace NorsokChecker.Models
 	{
 		public string Brace { get; set; } = "";
 
+		/// <summary>
+		/// The design actions this row was checked for — "N_Sd=-10 kN · M_ip=-1.00 kNm · M_op=0.00 kNm".
+		///
+		/// Shown under the brace name, as the python table has it. Without it the tab reported
+		/// resistances and utilisation ratios and not one single action, so there was no way to see
+		/// WHAT the joint was checked for — only how much of it was used up.
+		/// </summary>
+		public string Actions { get; set; } = "";
+
+		/// <summary>
+		/// A K sub-row rather than a brace: "↳ K via M5". Indented, and it fills only the K column
+		/// plus a note, because X / Y / resistances / utilisation do not apply to one K component.
+		/// </summary>
+		public bool IsSubRow { get; set; }
+
+		/// <summary>
+		/// For a K sub-row: the force this pairing balances and the gap it crosses. For a main row:
+		/// the classifier's own explanation of the split, when it has one (e.g. "no transverse
+		/// force", or that a near-balanced brace was rounded to 100 % K by the gate).
+		/// </summary>
+		public string Note { get; set; } = "";
+
+		/// <summary>
+		/// The one Notes cell: the skip reason when there is one, otherwise the note. A single
+		/// property rather than a PriorityBinding over both — PriorityBinding takes the first
+		/// binding that RESOLVES, and a null SkipReason resolves, so it would have shown an empty
+		/// cell on every assessed row instead of falling through to the note.
+		/// </summary>
+		public string Notes => !string.IsNullOrEmpty(SkipReason) ? SkipReason! : Note;
+
 		/// <summary>Governing load effect — envelope mode only; empty in per-LC mode.</summary>
 		public string GoverningLe { get; set; } = "";
 
@@ -47,7 +77,7 @@ namespace NorsokChecker.Models
 		/// <summary>The engine result behind this row, for the derivation window.</summary>
 		public JointCheckRow? Detail { get; set; }
 
-		public bool CanShowDetail => Detail?.Skipped == false && Detail.Engine != null;
+		public bool CanShowDetail => !IsSubRow && Detail?.Skipped == false && Detail.Engine != null;
 	}
 
 	/// <summary>An entry in the §6.4 tab's load-effect selector.</summary>

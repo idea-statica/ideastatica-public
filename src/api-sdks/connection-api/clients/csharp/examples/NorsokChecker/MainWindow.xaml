@@ -532,41 +532,209 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- ── the joint in its plane, beside the per-brace table ── -->
+                    <!-- ── the results sheet, laid out as the python reference's: a top band with
+                         the joint beside the per-LE force tables, and the classification + member
+                         check table across the full width below it.
+
+                         Two splitters, as python has: the horizontal grip trades the joint view
+                         against the force tables, the vertical one trades the whole top band
+                         against the table. Star heights so a grip moves space between them rather
+                         than growing the tab. ── -->
                     <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="380" MinWidth="220"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" MinWidth="320"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" MinHeight="180"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="3*" MinHeight="140"/>
+                        </Grid.RowDefinitions>
 
-                        <Border Grid.Column="0" BorderBrush="#E0E0E0" BorderThickness="1"
-                                CornerRadius="2">
-                            <!-- Same control as the Check tab, but turned to look square at the
-                                 joint plane with the chord across the view — see LookAtPlane. -->
-                            <controls:Joint3DView x:Name="Joint3D64"/>
-                        </Border>
+                        <!-- top band: joint | grip | per-LE force cards -->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="380" MinWidth="220"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" MinWidth="280"/>
+                            </Grid.ColumnDefinitions>
 
-                        <GridSplitter Grid.Column="1" Width="8" HorizontalAlignment="Stretch"
+                            <Border Grid.Column="0" BorderBrush="#E0E0E0" BorderThickness="1"
+                                    CornerRadius="2">
+                                <DockPanel LastChildFill="True">
+                                    <TextBlock DockPanel.Dock="Top" x:Name="Lbl64JointTitle"
+                                               Margin="8,6,8,4" FontWeight="Medium" FontSize="12"/>
+                                    <!-- utilisation colour key, as python's res-legend. Mouse
+                                         interaction is deliberately off on this view (see
+                                         Joint3DView.Interactive) so it behaves like python's 2D
+                                         schematic: fixed 90-degree turns and a normal flip. -->
+                                    <Grid DockPanel.Dock="Bottom" Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                                    VerticalAlignment="Center">
+                                            <TextBlock Text="utilisation:" Foreground="#78909C"
+                                                       FontSize="10.5" VerticalAlignment="Center"
+                                                       Margin="0,0,4,0"/>
+                                            <TextBlock Text="0" Foreground="#78909C" FontSize="10.5"
+                                                       VerticalAlignment="Center" Margin="0,0,2,0"/>
+                                            <Border Width="14" Height="9" Background="#2E7D32" Margin="0,0,1,0"/>
+                                            <Border Width="14" Height="9" Background="#C0CA33" Margin="0,0,1,0"/>
+                                            <Border Width="14" Height="9" Background="#F9A825" Margin="0,0,1,0"/>
+                                            <Border Width="14" Height="9" Background="#C62828" Margin="0,0,2,0"/>
+                                            <TextBlock Text="1.0" Foreground="#78909C" FontSize="10.5"
+                                                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            <Border Width="14" Height="9" Background="#78909C" Margin="0,0,3,0"/>
+                                            <TextBlock Text="chord" Foreground="#78909C" FontSize="10.5"
+                                                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            <Border Width="14" Height="9" Background="#BDBDBD" Margin="0,0,3,0"/>
+                                            <TextBlock Text="no check" Foreground="#78909C" FontSize="10.5"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <Button x:Name="Btn64RotL" Click="Joint64_RotateLeft"
+                                                    Width="24" Height="22" Padding="0" Margin="0,0,3,0"
+                                                    ToolTip="Turn the view 90° left">
+                                                <md:PackIcon Kind="RotateLeft" Width="14" Height="14"/>
+                                            </Button>
+                                            <Button x:Name="Btn64RotR" Click="Joint64_RotateRight"
+                                                    Width="24" Height="22" Padding="0" Margin="0,0,3,0"
+                                                    ToolTip="Turn the view 90° right">
+                                                <md:PackIcon Kind="RotateRight" Width="14" Height="14"/>
+                                            </Button>
+                                            <Button x:Name="Btn64Flip" Click="Joint64_FlipNormal"
+                                                    Width="24" Height="22" Padding="0"
+                                                    ToolTip="Look at the joint plane from the other side">
+                                                <md:PackIcon Kind="FlipHorizontal" Width="14" Height="14"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <controls:Joint3DView x:Name="Joint3D64"/>
+                                </DockPanel>
+                            </Border>
+
+                            <GridSplitter Grid.Column="1" Width="8" HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch" Background="Transparent"
+                                          ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"
+                                          Cursor="SizeWE" ToolTip="Drag to resize the joint view">
+                                <GridSplitter.Template>
+                                    <ControlTemplate TargetType="GridSplitter">
+                                        <Grid Background="Transparent">
+                                            <Border Width="2" Height="36" CornerRadius="1"
+                                                    Background="#C4CCD6" x:Name="Pill64"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Pill64" Property="Background" Value="#2E6FB0"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </GridSplitter.Template>
+                            </GridSplitter>
+
+                            <!-- right column: the two per-LE cards in per-LC mode, or the envelope
+                                 note. Both are per-load-effect quantities, so an envelope has no
+                                 single set of them to show — python hides them for the same reason. -->
+                            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <!-- envelope note -->
+                                    <Border x:Name="Pnl64EnvNote" Background="#F7F9FB"
+                                            BorderBrush="#E0E0E0" BorderThickness="1"
+                                            CornerRadius="2" Padding="12,10" Margin="0,0,0,8"
+                                            Visibility="Collapsed">
+                                        <StackPanel>
+                                            <TextBlock Text="Envelope" FontWeight="Medium" FontSize="12"
+                                                       Margin="0,0,0,4"/>
+                                            <TextBlock TextWrapping="Wrap" Foreground="#546E7A" FontSize="11.5"
+                                                       Text="Each brace shows its governing load effect — the one with the highest utilisation. The node-equilibrium and in-plane brace-force tables are per load effect, so switch to &quot;per LC&quot; to inspect a single one."/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- node equilibrium (self-check) -->
+                                    <Border x:Name="Pnl64Equilibrium" BorderBrush="#E0E0E0"
+                                            BorderThickness="1" CornerRadius="2" Padding="10,8"
+                                            Margin="0,0,0,8" Visibility="Collapsed">
+                                        <StackPanel>
+                                            <TextBlock Text="Node equilibrium (self-check)" FontWeight="Medium"
+                                                       FontSize="12" Margin="0,0,0,6"/>
+                                            <DataGrid x:Name="Grid64Equilibrium" AutoGenerateColumns="False"
+                                                      IsReadOnly="True" CanUserAddRows="False"
+                                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                                      BorderThickness="0" FontSize="11.5"
+                                                      md:DataGridAssist.CellPadding="8 3">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="quantity" Binding="{Binding Quantity}" Width="SizeToCells" MinWidth="80"/>
+                                                    <DataGridTextColumn Header="X" Binding="{Binding X}" Width="*" MinWidth="60"/>
+                                                    <DataGridTextColumn Header="Y" Binding="{Binding Y}" Width="*" MinWidth="60"/>
+                                                    <DataGridTextColumn Header="Z" Binding="{Binding Z}" Width="*" MinWidth="60"/>
+                                                    <DataGridTextColumn Header="state" Binding="{Binding State}" Width="SizeToHeader" MinWidth="44"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Foreground="#78909C"
+                                                       FontSize="10.5"
+                                                       Text="Residual force and moment at the node, summed over every member. Small values are normal (the stored input is rounded); a large residual means the loads are not in balance."/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- brace forces resolved into the joint plane -->
+                                    <Border x:Name="Pnl64BraceForces" BorderBrush="#E0E0E0"
+                                            BorderThickness="1" CornerRadius="2" Padding="10,8"
+                                            Visibility="Collapsed">
+                                        <StackPanel>
+                                            <TextBlock Text="Brace forces in joint plane" FontWeight="Medium"
+                                                       FontSize="12" Margin="0,0,0,6"/>
+                                            <DataGrid x:Name="Grid64BraceForces" AutoGenerateColumns="False"
+                                                      IsReadOnly="True" CanUserAddRows="False"
+                                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                                      BorderThickness="0" FontSize="11.5"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      md:DataGridAssist.CellPadding="7 3">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="brace" Binding="{Binding Brace}" Width="SizeToHeader" MinWidth="46"/>
+                                                    <DataGridTextColumn Header="N_Sd [kN]" Binding="{Binding NSd}" Width="SizeToHeader" MinWidth="62"/>
+                                                    <DataGridTextColumn Header="M_ip [kNm]" Binding="{Binding Mip}" Width="SizeToHeader" MinWidth="66"/>
+                                                    <DataGridTextColumn Header="M_op [kNm]" Binding="{Binding Mop}" Width="SizeToHeader" MinWidth="66"/>
+                                                    <DataGridTextColumn Header="V_ip [kN]" Binding="{Binding Vip}" Width="SizeToHeader" MinWidth="60"/>
+                                                    <DataGridTextColumn Header="V_op [kN]" Binding="{Binding Vop}" Width="SizeToHeader" MinWidth="60"/>
+                                                    <DataGridTextColumn Header="M_tor [kNm]" Binding="{Binding Mtor}" Width="SizeToHeader" MinWidth="68"/>
+                                                    <DataGridTextColumn Header="face" Binding="{Binding Face}" Width="SizeToHeader" MinWidth="58"/>
+                                                    <DataGridTextColumn Header="N_chord [kN]" Binding="{Binding NChord}" Width="SizeToHeader" MinWidth="72"/>
+                                                    <DataGridTextColumn Header="M_ip,chord [kNm]" Binding="{Binding MipChord}" Width="SizeToHeader" MinWidth="88"/>
+                                                    <DataGridTextColumn Header="M_op,chord [kNm]" Binding="{Binding MopChord}" Width="SizeToHeader" MinWidth="88"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Foreground="#78909C"
+                                                       FontSize="10.5"
+                                                       Text="Brace forces resolved into the joint plane. The last three columns are the chord's own internal forces at that brace's footprint — the raw input to the chord stress used in the member check."/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <!-- vertical grip: the whole top band vs the classification table below -->
+                        <GridSplitter Grid.Row="1" Height="8" HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch" Background="Transparent"
-                                      ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"
-                                      Cursor="SizeWE" ToolTip="Drag to resize the joint view">
+                                      ResizeBehavior="PreviousAndNext" ResizeDirection="Rows"
+                                      Cursor="SizeNS" ToolTip="Drag to resize the joint view">
                             <GridSplitter.Template>
                                 <ControlTemplate TargetType="GridSplitter">
                                     <Grid Background="Transparent">
-                                        <Border Width="2" Height="36" CornerRadius="1"
-                                                Background="#C4CCD6" x:Name="Pill64"/>
+                                        <Border Width="36" Height="2" CornerRadius="1"
+                                                Background="#C4CCD6" x:Name="Pill64V"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="Pill64" Property="Background" Value="#2E6FB0"/>
+                                            <Setter TargetName="Pill64V" Property="Background" Value="#2E6FB0"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </GridSplitter.Template>
                         </GridSplitter>
 
-                        <DockPanel Grid.Column="2" LastChildFill="True">
+                        <DockPanel Grid.Row="2" LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Top" Margin="0,0,0,6"
+                                       Text="Classification &amp; member checks — NORSOK Standard N-004"
+                                       FontWeight="Medium" FontSize="12"/>
                             <TextBlock DockPanel.Dock="Bottom" x:Name="Lbl64Legend" Margin="0,6,0,0"
                                        TextWrapping="Wrap" Foreground="#78909C" FontSize="11"/>
                             <DataGrid x:Name="Grid64" AutoGenerateColumns="False"
@@ -595,11 +763,34 @@
                                                 <Setter Property="Background" Value="{StaticResource VerdictNaBg}"/>
                                                 <Setter Property="Foreground" Value="{StaticResource VerdictNaFg}"/>
                                             </DataTrigger>
+                                            <!-- LAST, so it wins over the verdict colours: a K
+                                                 sub-row carries no verdict of its own and must not
+                                                 borrow the colour of the brace above it. Its own
+                                                 tooltip too — it cannot be double-clicked. -->
+                                            <DataTrigger Binding="{Binding IsSubRow}" Value="True">
+                                                <Setter Property="Background" Value="#F7F9FB"/>
+                                                <Setter Property="Foreground" Value="#78909C"/>
+                                                <Setter Property="ToolTip" Value="One K component of the brace above"/>
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Brace" Binding="{Binding Brace}" Width="SizeToHeader" MinWidth="55"/>
+                                    <!-- name + the design actions beneath it, as python's table has:
+                                         a template column because two lines cannot come from a text
+                                         column, and the actions are what the row was checked FOR. -->
+                                    <DataGridTemplateColumn Header="Brace" Width="SizeToCells" MinWidth="130"
+                                                            SortMemberPath="Brace">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Brace}" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{Binding Actions}" FontSize="10"
+                                                               Foreground="#78909C" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTextColumn x:Name="Col64Gov" Header="Governing LC" Binding="{Binding GoverningLe}" Width="SizeToCells" MinWidth="90"/>
                                     <DataGridTextColumn Header="K" Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"/>
                                     <DataGridTextColumn Header="X" Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"/>
@@ -613,7 +804,19 @@
                                     <DataGridTextColumn Header="Utilisation" Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"/>
                                     <DataGridTextColumn Header="" Binding="{Binding Flags}" Width="SizeToCells" MinWidth="24"/>
                                     <DataGridTextColumn Header="Verdict" Binding="{Binding Verdict}" Width="SizeToHeader" MinWidth="60"/>
-                                    <DataGridTextColumn Header="Not assessed because" Binding="{Binding SkipReason}" Width="*" MinWidth="120"/>
+                                    <!-- One column for both, because they are the same question
+                                         answered in two ways: on a brace row, why nothing could be
+                                         checked (or how the classifier reached its split); on a K
+                                         sub-row, the force and the gap behind that fraction. -->
+                                    <DataGridTextColumn Header="Notes" Binding="{Binding Notes}"
+                                                        Width="*" MinWidth="140">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                                <Setter Property="FontSize" Value="11"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </DockPanel>
