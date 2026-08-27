@@ -132,6 +132,25 @@ sections (`f_y/f_cle > 0.170`); below that γ_M = 1.15 and the branch never exec
 block any of the checks listed above. The BENCHMARK.md case (CHS 500×20, `f_y/f_cle = 0.070`) is in
 that safe range.
 
+## The state of the code, if this subset is ever wanted
+
+Nothing here has been implemented — this document is a survey. What a decision would be starting
+from, measured 2026-08-27:
+
+- **§6.3 is disconnected, not removed.** `NorsokCheckRunner.cs:235-240` is a comment where the call
+  to `EvaluateTubularMemberFormulas` used to be; that method and everything under
+  `Services/Formulas/` still compiles.
+- **Eq 6.28 already has its own entry point.** `CompressionBendingCheck.EvaluateCrossSection` takes
+  `(N_Sd, N_cl_Rd, M_y_Sd, M_z_Sd, M_Rd)` — no length, no `C_m`, no `N_E` — and returns its own
+  result row tagged `6.3.8.2` / `6.28`.
+- So the length-free subset is a question of which calls to make and how to report them, not of
+  writing formulas. The two things that would still need work: separating the length-free checks
+  from the length-dependent ones inside `EvaluateTubularMemberFormulas` (today it is one block), and
+  the ±20° proviso on 6.31/6.33, which nothing checks.
+- **Hydrostatic pressure is out of scope** by the same reasoning that keeps the length out: `p_Sd`
+  would have to be typed, and §6.3.6.1 also needs a second length (between stiffening rings), which
+  is a different quantity from the buckling `kl`.
+
 ## What was verified, and how
 
 - **Read in the norm** (`pdftotext -layout`): every equation number and threshold in the tables
