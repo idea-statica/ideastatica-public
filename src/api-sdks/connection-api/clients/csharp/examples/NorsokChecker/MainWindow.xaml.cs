@@ -242,6 +242,10 @@ namespace NorsokChecker
 			_checkCts = new CancellationTokenSource();
 			var ct = _checkCts.Token;
 
+			// Outside the try because the cancellation handler needs it: on a stop it marks the
+			// connections THIS run was working on, and must not touch the ones left unticked.
+			var selected = _connections.Where(c => c.Selected).ToList();
+
 			try
 			{
 				Telemetry.CheckClicked();
@@ -260,7 +264,26 @@ namespace NorsokChecker
 				Log($"Chapters: CBFEM={(includeCbfem ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}"
 					+ $", load effects: {(activeLoadEffectsOnly ? "active only" : "all in the file")}");
 
-				var connectionIds = _connections.Select(c => c.Id).ToList();
+				// ── Which connections? The per-row checkbox, not the whole project ──
+				// Everything downstream works off this list: the engine is asked to calculate only
+				// these, only these are evaluated, and only these are reported. A connection left
+				// unticked keeps whatever it said before rather than being cleared — the user
+				// excluded it from THIS run, which is not the same as having no result.
+				if (selected.Count == 0)
+				{
+					Log("No connection is ticked for assessment — nothing to check.");
+					MessageBox.Show("No connection is selected for assessment.\n\n"
+						+ "Tick at least one connection in the list.",
+						"Nothing to check", MessageBoxButton.OK, MessageBoxImage.Information);
+					return;
+				}
+				if (selected.Count < _connections.Count)
+					Log($"Connections: {selected.Count} of {_connections.Count} ticked for assessment "
+						+ $"({string.Join(", ", selected.Select(c => c.Name))})");
+				else
+					Log($"Connections: all {selected.Count} ticked for assessment");
+
+				var connectionIds = selected.Select(c => c.Id).ToList();
 				_rawResultsPerConnection.Clear();
 
 				// ── Calculate only for the CBFEM plate/weld/bolt group ──
@@ -279,7 +302,7 @@ namespace NorsokChecker
 					if (!activeLoadEffectsOnly)
 						await ActivateAllLoadEffectsAsync(connectionIds, ct);
 
-					foreach (var con in _connections)
+					foreach (var con in selected)
 						con.Status = "Calculating...";
 
 					ShowStatus("Running CBFEM calculation...");
@@ -295,11 +318,17 @@ namespace NorsokChecker
 					for (int idx = 0; idx < connectionIds.Count && idx < rawResults.Count; idx++)
 						_rawResultsPerConnection[connectionIds[idx]] = rawResults[idx];
 
-					// Update connection status from structured results
-					for (int idx = 0; idx < _connections.Count && idx < calcResults.Count; idx++)
+					// Update connection status from structured results.
+					//
+					// Paired by ID, not by position. calcResults comes back for the connections that
+					// were SENT, so indexing it against _connections was already only correct while
+					// every connection was sent — with the per-row assess-me checkbox that is no
+					// longer true, and the mismatch would have written each result onto the wrong
+					// connection (silently: every field involved is plausible on any row).
+					var byId = calcResults.Where(r => r != null).ToDictionary(r => r.Id);
+					foreach (var con in selected)
 					{
-						var con = _connections[idx];
-						var summary = calcResults[idx];
+						if (!byId.TryGetValue(con.Id, out var summary)) continue;
 						double maxUtil = 0;
 						foreach (var s in summary.ResultSummary ?? new())
 						{
@@ -379,7 +408,7 @@ namespace NorsokChecker
 				else
 				{
 					Log("CBFEM checks off — skipping the calculation entirely (§6.4 needs load effects only)");
-					foreach (var con in _connections)
+					foreach (var con in selected)
 						con.Status = "Not calculated";
 				}
 
@@ -408,10 +437,17 @@ namespace NorsokChecker
 				// ── Evaluate Norsok per connection ──
 				ShowStatus("Evaluating Norsok N-004 formulas...");
 				Log("Evaluating Norsok N-004 formulas...");
-				_formulaResults.Clear();
-				_topologyPerConnection.Clear();
+				// Drop the results of the connections being re-run ONLY. A blanket Clear() would
+				// also erase the stored §6.4 detail of connections the user left unticked, whose
+				// rows still show a verdict — the tab and the report would then have a row with
+				// nothing behind it.
+				foreach (var con in selected)
+				{
+					_formulaResults.Remove(con.Id);
+					_topologyPerConnection.Remove(con.Id);
+				}
 
-				foreach (var con in _connections)
+				foreach (var con in selected)
 				{
 					// Per connection: the §6.4 evaluation is the loop that is worth interrupting
 					// without the engine in the way.
@@ -642,9 +678,11 @@ namespace NorsokChecker
 				TabReport.IsEnabled = true;
 				Log("Norsok check completed.");
 
+				// Reports on what this run assessed. Measuring "all passed" over the whole project
+				// would let an untouched connection from an earlier run decide the verdict.
 				Telemetry.CheckCompleted(
-					allPassed: _connections.All(c => c.NorsokPass == "PASS"),
-					governingUtilization: _connections.Count == 0 ? 0 : _connections.Max(c => c.MaxUtilization));
+					allPassed: selected.All(c => c.NorsokPass == "PASS"),
+					governingUtilization: selected.Max(c => c.MaxUtilization));
 			}
 			// Cancelling is a decision, not a failure: no error dialog, no failure telemetry.
 			// Whatever finished before the stop keeps its verdict; the rest is left as it stood,
@@ -652,7 +690,7 @@ namespace NorsokChecker
 			catch (OperationCanceledException)
 			{
 				Log("Check cancelled. Results are partial — connections not reached keep their previous state.");
-				foreach (var con in _connections)
+				foreach (var con in selected)
 				{
 					if (con.Status == "Calculating...")
 						con.Status = "Cancelled";
@@ -1037,10 +1075,28 @@ namespace NorsokChecker
 				return;
 			}
 
+			// An export that comes back empty is NOT the same as a model without tubes, and saying
+			// "no tubular beams in the model" for it is a false statement about the user's model.
+			// Measured 2026-08-27: against service 26.1 this call returns a NULL ConnectionData for
+			// a connection whose six members are all CHS — the same call against 26.0 returns all
+			// six beams. So D/T then come from nowhere, and because the gaps are computed from the
+			// diameters, every gap goes negative and §6.4 rejects the joint for "feet overlap" —
+			// a conclusion about geometry drawn from the absence of geometry. Say plainly that the
+			// model could not be read.
+			if (iom == null || iom.Beams == null || iom.Beams.Count == 0)
+			{
+				Log("    WARNING: the IOM export returned no model for this connection"
+					+ $" ({(iom == null ? "no data at all" : "no beams")})"
+					+ " — D/T cannot be read from the model, so any tube whose section name does not"
+					+ " spell out its dimensions will be reported as unreadable");
+				return;
+			}
+
 			var beams = Services.Norsok64.TubeFromIom.TubularBeamsByName(iom);
 			if (beams.Count == 0)
 			{
-				Log("    IOM: no tubular beams in the model — D/T stay as parsed from the section names");
+				Log($"    IOM: the model has {iom.Beams.Count} beam(s) but none of a tubular type"
+					+ " — D/T stay as parsed from the section names");
 				return;
 			}
 
@@ -1199,7 +1255,11 @@ namespace NorsokChecker
 				// 1. Official IDEA StatiCa report via Connection API — one section per connection
 				ShowStatus("Generating IDEA StatiCa PDF report via API...");
 				Log("Generating IDEA StatiCa CBFEM PDF report via Connection API...");
-				var conIds = _connections.Select(c => c.Id).ToList();
+				// Only the connections that actually have a result. Asking the API to report on one
+				// that was never assessed (left unticked, or excluded by a cancelled run) either
+				// fails or produces an empty section.
+				var conIds = _connections.Where(c => _formulaResults.ContainsKey(c.Id))
+					.Select(c => c.Id).ToList();
 				await _apiClient.Report.SaveMultipleReportsPdfAsync(_projectId, conIds, ideaPdf);
 				Log($"  IDEA StatiCa report: {ideaPdf}");
 

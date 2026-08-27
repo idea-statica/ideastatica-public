@@ -308,6 +308,23 @@
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
+                                    <!-- Assess this connection? A DataGridTemplateColumn, not a
+                                         DataGridCheckBoxColumn: the grid is IsReadOnly (which keeps
+                                         the data columns from being edited), and a CheckBoxColumn
+                                         honours that and comes out greyed. A CheckBox inside a
+                                         template is a control, not a cell editor, so it stays live.
+                                         UpdateSourceTrigger=PropertyChanged because the default
+                                         LostFocus would not write back before Run is pressed. -->
+                                    <DataGridTemplateColumn Header="" Width="SizeToCells" MinWidth="34"
+                                                            CanUserSort="False">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          ToolTip="Assess this connection in the next run"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                                     <!-- Active / total load effects, read from the model at load time.
                                          An em dash until they have been read — "0 / 0" would state
@@ -411,7 +428,7 @@
                                         </Style>
                                     </DataGrid.RowStyle>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="Profile" Binding="{Binding Profile}" Width="*" MinWidth="90" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="Shape" Binding="{Binding Shape}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>

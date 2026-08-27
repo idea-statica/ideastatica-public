@@ -92,22 +92,146 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The connections table names its first column "Name", and carries the active/total load
-		/// effect count. Read off the real grid so a renamed or dropped column fails here.
+		/// The connections table: the assess-me checkbox first, then "Name", and the active/total
+		/// load effect count somewhere after. Read off the real grid so a renamed or dropped column
+		/// fails here.
 		/// </summary>
 		[Test]
-		public void TheConnectionsGridHasNameAndLoadEffectColumns()
+		public void TheConnectionsGridHasTheSelectionNameAndLoadEffectColumns()
 		{
 			var w = NewWindow();
 
-			var headers = w.ConnectionsGrid.Columns.Select(c => c.Header?.ToString()).ToList();
+			var cols = w.ConnectionsGrid.Columns;
+			var headers = cols.Select(c => c.Header?.ToString()).ToList();
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(headers[0], Is.EqualTo("Name"), "first column is the connection's name");
+				Assert.That(cols[0], Is.TypeOf<System.Windows.Controls.DataGridTemplateColumn>(),
+					"the assess-me checkbox comes first");
+				Assert.That(headers[1], Is.EqualTo("Name"), "the connection's name follows it");
 				Assert.That(headers, Has.Member("Active LC / Total"));
 				Assert.That(headers, Has.No.Member("Connection"), "the old header must be gone");
 			});
+		}
+
+		/// <summary>
+		/// The members table's first column is "Name" too — the two tables are peers, so they name
+		/// the same thing the same way.
+		/// </summary>
+		[Test]
+		public void TheMembersGridNamesItsFirstColumnName()
+		{
+			var w = NewWindow();
+
+			Assert.That(w.MembersGrid.Columns[0].Header?.ToString(), Is.EqualTo("Name"));
+		}
+	}
+
+	/// <summary>
+	/// The per-connection "assess this one" checkbox, and the consequence that made it more than a
+	/// UI flag: once the run sends a SUBSET of the project's connections, results can no longer be
+	/// paired with rows by position.
+	/// </summary>
+	[TestFixture]
+	public class ConnectionSelectionTests
+	{
+		private static List<ConnectionCheckResult> Project() => new()
+		{
+			new() { Id = 1, Name = "CON1" },
+			new() { Id = 2, Name = "CON2" },
+			new() { Id = 3, Name = "CON3" },
+		};
+
+		/// <summary>Opening a project and pressing Run means "check this project".</summary>
+		[Test]
+		public void EveryConnectionStartsSelected()
+		{
+			Assert.That(Project().All(c => c.Selected), Is.True);
+		}
+
+		/// <summary>The run's list is the ticked ones, in order.</summary>
+		[Test]
+		public void UntickingOneExcludesItFromTheRun()
+		{
+			var cons = Project();
+			cons[1].Selected = false;
+
+			var selected = cons.Where(c => c.Selected).ToList();
+
+			Assert.That(selected.Select(c => c.Id), Is.EqualTo(new[] { 1, 3 }));
+		}
+
+		/// <summary>
+		/// THE defect this feature would have introduced, pinned. calcResults comes back for the
+		/// connections that were SENT; the old code walked it against the full connection list by
+		/// index. With CON2 unticked, CON3's result (index 1 of the response) would have been
+		/// written onto CON2 (index 1 of the list) — silently, since a utilisation and a status are
+		/// plausible on any row. Pairing by Id is what makes it right.
+		///
+		/// Written as the two pairings side by side so the wrong one is visibly wrong, rather than
+		/// asserting only that the right one works.
+		/// </summary>
+		[Test]
+		public void ResultsArePairedByIdNotByPosition()
+		{
+			var cons = Project();
+			cons[1].Selected = false;                       // CON2 out
+			var sent = cons.Where(c => c.Selected).ToList();  // CON1, CON3
+
+			// what the API returns, in the order it was asked: one entry per SENT connection
+			var response = new[] { (Id: 1, Util: 0.10), (Id: 3, Util: 0.30) };
+
+			// the correct pairing: by id
+			var byId = response.ToDictionary(r => r.Id);
+			foreach (var con in sent)
+				if (byId.TryGetValue(con.Id, out var r)) con.MaxUtilization = r.Util;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(cons[0].MaxUtilization, Is.EqualTo(0.10), "CON1 keeps its own result");
+				Assert.That(cons[1].MaxUtilization, Is.EqualTo(0.0), "CON2 was not run, so it gets nothing");
+				Assert.That(cons[2].MaxUtilization, Is.EqualTo(0.30), "CON3 keeps its own result");
+
+				// and the pairing that was there before: index into the FULL list
+				Assert.That(response[1].Id, Is.Not.EqualTo(cons[1].Id),
+					"by position, response[1] would have landed on CON2 — which is the bug");
+			});
+		}
+
+		/// <summary>
+		/// A connection left unticked keeps the verdict it already had. Excluding it from a run is
+		/// not the same as having no result, and blanking it would read as a regression.
+		/// </summary>
+		[Test]
+		public void AnUntickedConnectionKeepsItsPreviousVerdict()
+		{
+			var cons = Project();
+			cons[1].NorsokPass = "PASS";
+			cons[1].MaxUtilization = 0.42;
+			cons[1].Selected = false;
+
+			// what the run does: touch only the selected ones
+			foreach (var con in cons.Where(c => c.Selected))
+			{
+				con.NorsokPass = "FAIL";
+				con.MaxUtilization = 1.5;
+			}
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(cons[1].NorsokPass, Is.EqualTo("PASS"));
+				Assert.That(cons[1].MaxUtilization, Is.EqualTo(0.42));
+			});
+		}
+
+		/// <summary>Nothing ticked is a real state the run has to refuse rather than run empty.</summary>
+		[Test]
+		public void NothingSelectedLeavesNothingToRun()
+		{
+			var cons = Project();
+			foreach (var c in cons) c.Selected = false;
+
+			Assert.That(cons.Where(c => c.Selected), Is.Empty);
 		}
 	}
 

@@ -12,6 +12,7 @@ namespace NorsokChecker.Models
 		private string _norsokPass = "-";
 		private int _activeLoadEffects = -1;
 		private int _totalLoadEffects = -1;
+		private bool _selected = true;
 
 		public int Id
 		{
@@ -53,6 +54,19 @@ namespace NorsokChecker.Models
 			// MaxUtilizationDisplay reads this too, and the two are set in either order,
 			// so it has to be re-raised here as well or the cell keeps the stale text.
 			set { _norsokPass = value; OnPropertyChanged(); OnPropertyChanged(nameof(MaxUtilizationDisplay)); }
+		}
+
+		/// <summary>
+		/// Whether this connection is assessed by the next run. On by default — opening a project
+		/// and pressing Run means "check this project".
+		///
+		/// This is the USER's selection, unrelated to the grid's row selection (which only decides
+		/// which connection the members table and the 3D view show).
+		/// </summary>
+		public bool Selected
+		{
+			get => _selected;
+			set { _selected = value; OnPropertyChanged(); }
 		}
 
 		/// <summary>
