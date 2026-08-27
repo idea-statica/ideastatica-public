@@ -16,6 +16,19 @@ namespace NorsokChecker
 		private readonly ObservableCollection<ConnectionCheckResult> _connections = new();
 		private readonly ObservableCollection<MemberDisplayInfo> _members = new();
 		private ConnectionApiServiceRunner? _runner;
+
+		/// <summary>
+		/// True once we have started a service of our own — the only case in which shutting one down
+		/// is ours to do. A service the user was already running must be left alone: taking it down
+		/// would remove something this app does not own.
+		/// </summary>
+		private bool _startedOwnService;
+
+		/// <summary>
+		/// Kills our service even if this app is killed outright, which Dispose cannot. Held for the
+		/// window's lifetime because closing its handle IS the kill.
+		/// </summary>
+		private ServiceReaper? _reaper;
 		private IConnectionApiClient? _apiClient;
 		private Guid _projectId;
 
@@ -124,19 +137,132 @@ namespace NorsokChecker
 				TxtProjectFile.Text = dialog.FileName;
 		}
 
+		/// <summary>
+		/// Connect to the Connection REST API: reuse one that is already running, or start our own.
+		///
+		/// The SDK's ConnectionApiServiceRunner picks a free port, waits for the heartbeat and
+		/// reports a missing exe clearly — but it always starts a NEW service, never notices one
+		/// already running, and never looks at the version. Both gaps cost something real:
+		///
+		///   - a service this app starts holds an IDEA StatiCa LICENCE SEAT for its lifetime, so
+		///     starting a second one beside a perfectly good first takes a seat for nothing;
+		///   - a setup folder pointing at 25.1 launches a service with no /api/4 at all, and the
+		///     failure only appears on the first call as a bare 404.
+		///
+		/// So: probe the default port first, check the version of whatever answers, and when a new
+		/// service has to be started, resolve the folder against what is actually installed.
+		/// </summary>
 		private async Task<IConnectionApiClient> CreateApiClientAsync()
 		{
-			if (RbSpawn.IsChecked == true)
-			{
-				var setupDir = TxtApiPath.Text.Trim();
-				_runner ??= new ConnectionApiServiceRunner(setupDir);
-				return await _runner.CreateApiClient();
-			}
-			else
+			if (RbAttach.IsChecked == true)
 			{
 				var url = TxtApiPath.Text.Trim();
+				string? version = await ServiceLocator.RunningVersionAsync(url);
+				if (version == null)
+					throw new InvalidOperationException(
+						$"No Connection REST API is answering at {url}.\n\n"
+						+ "Either start one there, or switch to \"Spawn local API\" to have this app "
+						+ "start its own.");
+				Log($"Attached to the service at {url} (v{version})");
+				WarnIfUnsupported(version);
 				return await new ConnectionApiServiceAttacher(url).CreateApiClient();
 			}
+
+			// ── spawn: but reuse a service already listening, rather than taking a second seat ──
+			string running = $"http://localhost:{ServiceLocator.DefaultPort}";
+			if (await ServiceLocator.RunningOnDefaultPortAsync() is { } already)
+			{
+				Log($"A service is already running on port {ServiceLocator.DefaultPort} (v{already})"
+					+ " — using it instead of starting another, which would take a second licence seat.");
+				WarnIfUnsupported(already);
+				return await new ConnectionApiServiceAttacher(running).CreateApiClient();
+			}
+
+			var setupDir = ResolveSetupDir(TxtApiPath.Text.Trim());
+
+			// noted BEFORE the launch: the process is identified by having started after this moment,
+			// so a service the user already had running can never be mistaken for ours
+			var launchedAfter = DateTime.Now.AddSeconds(-1);
+
+			_runner ??= new ConnectionApiServiceRunner(setupDir);
+			var client = await _runner.CreateApiClient();
+			_startedOwnService = true;
+
+			// Adopt it into a Job Object so Windows takes it down with us even on a hard kill —
+			// otherwise a killed app leaves the service holding a licence seat. The SDK runner keeps
+			// its Process private, hence the search.
+			_reaper ??= new ServiceReaper(Log);
+			var proc = ServiceReaper.FindServiceStartedAfter(launchedAfter);
+			if (proc == null)
+				Log("  note: the service process could not be identified, so only an orderly close "
+					+ "will shut it down");
+			else if (_reaper.Adopt(proc))
+				Log($"Started our own service (pid {proc.Id}) — it is shut down when this app closes, "
+					+ "even if this app is killed.");
+			else
+				Log($"Started our own service (pid {proc.Id}) — it is shut down when this app closes "
+					+ "normally.");
+
+			return client;
+		}
+
+		/// <summary>
+		/// The folder to launch the service from: what the user typed, if it holds the exe;
+		/// otherwise the best installed version, so a stale or empty path still works.
+		/// </summary>
+		private string ResolveSetupDir(string typed)
+		{
+			if (!string.IsNullOrWhiteSpace(typed)
+				&& File.Exists(Path.Combine(typed, ServiceLocator.ExeName)))
+			{
+				var v = ServiceLocator.VersionOfFolder(typed);
+				if (v.Major > 0 && v < ServiceLocator.MinVersion)
+					Log($"WARNING: {typed} looks like version {v.Major}.{v.Minor}; this app needs "
+						+ $"{ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor} or newer "
+						+ "(/api/4 does not exist before it). Starting it anyway — the first call will say.");
+				return typed;
+			}
+
+			var installs = ServiceLocator.FindInstalls();
+			var usable = installs.Where(i => i.Version >= ServiceLocator.MinVersion
+				|| i.Version.Major == 0).ToList();
+
+			if (usable.Count == 0)
+			{
+				string detail = installs.Count == 0
+					? $"No {ServiceLocator.ExeName} was found under {ServiceLocator.DefaultRoot}"
+					  + (ServiceLocator.RegistryInstallDir() is { } r ? $" or {r}" : "") + "."
+					// naming what IS installed matters: "nothing found" sends the user looking for a
+					// missing install when the real problem is that theirs is too old
+					: "The only installed versions are too old for this app: "
+					  + string.Join(", ", installs.Select(i => i.Label))
+					  + $". Version {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
+					  + " or newer is needed — /api/4 does not exist before it.";
+				throw new InvalidOperationException(
+					$"Cannot start the Connection REST API.\n\n{detail}\n\n"
+					+ $"You can also set {ServiceLocator.OverrideVariable} to the exe, or point the "
+					+ "folder box at an installation yourself.");
+			}
+
+			var best = usable[0];
+			Log($"Service folder: {best.Directory} (v{best.Label})"
+				+ (usable.Count > 1
+					? " — also installed: " + string.Join(", ", usable.Skip(1).Select(i => i.Label))
+					: ""));
+			return best.Directory;
+		}
+
+		private void WarnIfUnsupported(string version)
+		{
+			if (ServiceLocator.IsSupported(version)) return;
+			Log($"WARNING: the service reports v{version}, and this app needs "
+				+ $"{ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor} or newer — "
+				+ "/api/4 does not exist before it, so every call will fail.");
+			MessageBox.Show(
+				$"The service at this address reports version {version}.\n\n"
+				+ $"This app needs {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
+				+ " or newer: the /api/4 endpoints it uses do not exist in earlier versions.",
+				"Service too old", MessageBoxButton.OK, MessageBoxImage.Warning);
 		}
 
 		private async void LoadProject_Click(object sender, RoutedEventArgs e)
@@ -1407,7 +1533,19 @@ namespace NorsokChecker
 
 		protected override void OnClosed(EventArgs e)
 		{
-			try { _runner?.Dispose(); _runner = null; } catch { }
+			// Only ours. A service the user was already running is left alone — see
+			// _startedOwnService; taking it down would remove something this app does not own.
+			if (_startedOwnService)
+			{
+				try { _runner?.Dispose(); } catch { }
+			}
+			_runner = null;
+
+			// Closing the job's handle is what kills its processes, so this must run whether or not
+			// Dispose above succeeded — it is the mechanism that survives a kill.
+			try { _reaper?.Dispose(); } catch { }
+			_reaper = null;
+
 			base.OnClosed(e);
 		}
 
