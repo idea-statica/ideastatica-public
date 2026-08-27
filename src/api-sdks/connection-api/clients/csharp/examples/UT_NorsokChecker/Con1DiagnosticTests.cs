@@ -286,7 +286,14 @@ namespace UT_NorsokChecker
 		/// "0 members" while the tables beside it still held CON1's numbers. The cause was the tab
 		/// reading a mesh cache that only the Check tab fills — but "the payload is empty for CON8"
 		/// was an equally possible explanation, and the two call for opposite fixes. This measures
-		/// which it is, per connection, so the answer is not assumed.
+		/// which it is, per connection, so the answer is not assumed. (Measured: CON8 yields six
+		/// bodies and verdict OK, so it was the cache.)
+		///
+		/// CON10 is exempt and named here rather than passing by luck: it is the deliberate
+		/// "no brace (chord only)" gate, so ONE body — the chord — is the correct answer, and its
+		/// inherited load effects reference the deleted braces, which is why the service answers 404
+		/// for them. Both are documented in the GATE COVERAGE README; the gate fires before any load
+		/// is read, so the missing load effect has no consequence.
 		/// </summary>
 		[Test]
 		public async Task EveryConnectionYieldsMemberBodies()
@@ -341,6 +348,17 @@ namespace UT_NorsokChecker
 					}
 
 					TestContext.Out.WriteLine($"{con.Name,-12}{bodies,8}  {verdict}");
+
+					// CON10 is the chord-only gate: one body IS its correct answer, and its load
+					// effects legitimately 404. Asserting ">0 bodies" on it would pass by luck today
+					// and fail the day the gate is made stricter.
+					if (con.Name == "CON10")
+					{
+						Assert.That(bodies, Is.EqualTo(1),
+							"CON10 is the 'no brace (chord only)' gate — the chord alone");
+						continue;
+					}
+
 					if (bodies <= 0) empty.Add($"{con.Name} ({bodies} bodies)");
 				}
 

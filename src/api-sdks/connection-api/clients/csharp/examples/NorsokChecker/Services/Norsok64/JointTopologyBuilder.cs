@@ -299,16 +299,23 @@ namespace NorsokChecker.Services.Norsok64
 				}
 			}
 
-			// assumption gate (non-blocking); plane-fit warning + adjacent-overlap errors folded in after
+			var les = (loadEffects ?? Enumerable.Empty<ConLoadEffect>()).ToList();
+
+			// assumption gate (non-blocking); plane-fit warning + adjacent-overlap errors folded in
+			// after. les is read BEFORE this, not after, because the verdict now depends on whether
+			// the connection carries any load at all.
+			//
+			// null load effects mean "not supplied" and raise nothing; an EMPTY list means the
+			// connection genuinely has none, which is an error. The geometry gate tests pass null
+			// deliberately — they judge the member arrangement and have no load data to give.
 			topo.Verdict = ClassifyAssumptions(chord, secC, topo.Braces, topo.BracesMeta, rChord * 2.0, warns);
-			FinalizeVerdict(topo);
+			FinalizeVerdict(topo, loadEffects == null ? -1 : les.Count);
 
 			// coplanarity evaluation against the finished plane (decoupled 15° NORSOK tolerance)
 			topo.Coplanar = topo.BracesMeta.All(bm => bm.CoplanarDevDeg <= _coplanarTolDeg);
 			topo.EvalOutliers = topo.BracesMeta.Where(bm => bm.CoplanarDevDeg > _coplanarTolDeg)
 				.Select(bm => bm.Name).ToList();
 
-			var les = (loadEffects ?? Enumerable.Empty<ConLoadEffect>()).ToList();
 			var sideByName = topo.GapBraces.ToDictionary(b => b.Name, BraceSide);
 			var thetaByName = topo.GapBraces.ToDictionary(b => b.Name, Theta);
 
@@ -523,8 +530,22 @@ namespace NorsokChecker.Services.Norsok64
 		}
 
 		/// <summary>Adds the plane-fit warning + adjacent-overlap errors that need the built gaps/plane.</summary>
-		internal static void FinalizeVerdict(JointTopology topo)
+		internal static void FinalizeVerdict(JointTopology topo, int loadEffectCount = -1)
 		{
+			// No load effect at all is a hard ERROR, and it has to be said out loud.
+			//
+			// Every check in §6.4 divides a design action by a resistance, so with nothing applied
+			// every utilisation is 0 — and a joint reporting 0 % on every brace reads as an
+			// excellent result, not as one that was never loaded. The gates above cannot catch it:
+			// they judge GEOMETRY, and a joint can be geometrically perfect and carry no load.
+			//
+			// loadEffectCount defaults to -1 = "not stated" so the existing callers and tests that
+			// finalize a verdict without load data are unaffected.
+			if (loadEffectCount == 0)
+				topo.Verdict.Errors.Insert(0,
+					"No load effect on this connection — nothing to check. Every utilisation would "
+					+ "be 0 %, which is not a pass.");
+
 			if (!string.IsNullOrEmpty(topo.PlaneWarn))
 				topo.Verdict.Warnings.Insert(0, topo.PlaneWarn!);
 			// Known: a gap computed without one of its diameters is not evidence of an overlap.

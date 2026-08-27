@@ -536,7 +536,28 @@ namespace NorsokChecker
 					// §6.4 result at all rather than a degraded one.
 					List<Services.Norsok64.JointMemberData>? topoMembers = null;
 					string? fetchFailure = null;
-					if (includeCh64 && sectionMap.Count > 0 && loadEffects != null)
+
+					// Say WHY §6.4 is not going to run, when it is not going to run.
+					//
+					// Each of these three used to leave §6.4 silently absent: the load-effect fetch
+					// logs a warning and leaves loadEffects null, and the section map logs one and
+					// leaves the map empty — and then this condition just skipped, publishing no row
+					// at all. The connection's verdict was then decided by its CBFEM rows alone, so
+					// a joint whose §6.4 was never attempted could read PASS. Reachable in the
+					// shipped test set: CON10 of test_cs has its braces deleted, so its inherited
+					// load effects reference members that no longer exist and the service answers
+					// 404 for them.
+					if (includeCh64)
+					{
+						if (loadEffects == null)
+							fetchFailure = "the load effects of this connection could not be read";
+						else if (loadEffects.Count == 0)
+							fetchFailure = "this connection has no load effect — nothing to check";
+						else if (sectionMap.Count == 0)
+							fetchFailure = "no cross-section data was available for the project";
+					}
+
+					if (includeCh64 && fetchFailure == null && loadEffects != null)
 					{
 						try
 						{

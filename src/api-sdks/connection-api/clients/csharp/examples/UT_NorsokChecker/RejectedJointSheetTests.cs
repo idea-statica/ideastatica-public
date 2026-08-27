@@ -122,6 +122,65 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// A joint carrying NO load is not assessed either, and that is an ERROR rather than a
+		/// warning on purpose.
+		///
+		/// Every §6.4 check divides a design action by a resistance, so with nothing applied every
+		/// utilisation comes out 0 % and every brace PASSes — and a joint reporting 0 % on all five
+		/// braces reads as an excellent result, not as one that was never loaded. A warning would
+		/// have left exactly that table on screen. The geometry gates cannot catch it: a joint can
+		/// be geometrically perfect and carry no load.
+		///
+		/// Reachable in the shipped test set: CON10 of test_cs has its braces deleted, which took
+		/// their loadings with them, so its inherited load effects reference members that no longer
+		/// exist and the service answers 404 for them.
+		/// </summary>
+		[Test]
+		public void AJointWithNoLoadEffectIsNotAssessed()
+		{
+			var topo = new JointTopology();
+			JointTopologyBuilder.FinalizeVerdict(topo, loadEffectCount: 0);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(topo.Verdict.Status, Is.EqualTo("ERROR"),
+					"no load means nothing was checked, and 0 % on every brace is not a pass");
+				Assert.That(topo.Verdict.Errors, Has.Count.EqualTo(1));
+				Assert.That(topo.Verdict.Errors[0], Does.Contain("No load effect"));
+			});
+		}
+
+		/// <summary>
+		/// The known-good positive: a joint that HAS load effects is not accused of having none.
+		/// Without this row the gate could reject everything and still look correct.
+		/// </summary>
+		[Test]
+		public void AJointWithLoadEffectsIsNotRejectedForThat()
+		{
+			var topo = new JointTopology();
+			JointTopologyBuilder.FinalizeVerdict(topo, loadEffectCount: 15);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(topo.Verdict.Status, Is.EqualTo("OK"));
+				Assert.That(topo.Verdict.Errors, Is.Empty);
+			});
+		}
+
+		/// <summary>
+		/// Callers that do not state a load count (the geometry-only tests, and FinalizeVerdict's
+		/// other uses) must be unaffected — "not stated" is not "none".
+		/// </summary>
+		[Test]
+		public void AnUnstatedLoadCountRaisesNothing()
+		{
+			var topo = new JointTopology();
+			JointTopologyBuilder.FinalizeVerdict(topo);
+
+			Assert.That(topo.Verdict.Errors, Is.Empty);
+		}
+
+		/// <summary>
 		/// Every condition is listed separately. Joining them made a joint that failed six gates
 		/// look like it failed one, and the reader could not tell how much was wrong.
 		/// </summary>
