@@ -42,13 +42,54 @@ Cross-section, material, joint forces, γ_M. No length, no end moments.
 | Beam shear | 6.13 | `V_Rd = A·f_y/(2√3·γ_M)` |
 | Torsional shear | 6.14 | `M_T,Rd = 2·I_p·f_y/(D·√3·γ_M)` |
 | Tension + bending | 6.26 | the norm's own words: "at all cross sections along their length" |
-| **Compression + bending, cross-section** | **6.28** | **the finding above** |
+| **Compression + bending, cross-section** | **6.28** | **the finding above** — but an upper bound on a compression member, see below |
 | Shear + bending | 6.31–6.32 | ratios of 6.9 and 6.13 — but see the ±20° proviso below |
 | Shear + bending + torsion | 6.33 | `f_m,Red = f_m·√(1 − 3(τ_T,Sd/f_d)²)`, all section-level |
 
-For a member in **tension** this set is complete — nothing in §6.3 is left out except the pressure
-clauses. For a member in **compression** it leaves out only the two genuinely length-dependent
-checks, and keeps the section-level 6.28.
+For a member in **tension** this set is complete: every §6.3 limit state that applies to it is
+checked, except the pressure clauses. A member that passes has passed.
+
+For a member in **compression** it is NOT complete, and the difference matters — the two checks left
+out (6.2 and 6.27) are the buckling ones, and what remains (6.28) is an upper bound rather than a
+conservative stand-in. See "Pure compression" below before deciding how to report it.
+
+### Pure compression has no length-free check of its own — and Eq 6.28 is NOT a substitute
+
+§6.3 contains exactly one axial-compression check, Eq 6.2 `N_Sd ≤ A·f_c/γ_M`, and `f_c` runs through
+the slenderness:
+
+> `f_c = [1.0 − 0.28·λ²]·f_cl` for `λ ≤ 1.34`, `f_c = (0.9/λ²)·f_cl` for `λ > 1.34`   (6.3, 6.4)
+> `λ = √(f_cl/f_E) = (kl/i)·√(f_cl/(π²E))`   (6.5)
+
+So there is no "compression without stability" clause. The norm does not contemplate one — a
+compression member without a buckling length is not a case it recognises.
+
+**Eq 6.28 covers the same force, but only as an upper bound.** With `M = 0` it reduces to
+`N_Sd ≤ A·f_cl/γ_M`, which is exactly Eq 6.2 evaluated at `λ = 0`. That is *local* buckling alone.
+Measured on CHS 500×20 / S355 (`f_cl = f_y = 355 MPa`, `i ≈ 177 mm`, `k = 1.0`):
+
+| λ | `f_c/f_cl` | unbraced length it corresponds to |
+|---|---|---|
+| 0 | 1.000 | — |
+| 0.30 | 0.975 | ≈ 4 m |
+| 0.59 | 0.902 | ≈ 8 m |
+| 1.00 | 0.720 | ≈ 13 m |
+| 1.34 | 0.497 | the branch limit |
+
+**This is the one place in the length-free subset where leaving a check out is UNCONSERVATIVE.**
+The other eight are complete checks — a member that passes them has passed that limit state. Eq 6.28
+on a compression member is a ceiling: it can report 60 % where Eq 6.2 would report 83 % at λ = 1.0,
+and the reader has no way to see the difference because no length was ever entered.
+
+Consequences for how the subset would have to be reported, if it is ever built:
+
+- Eq 6.28 must not be labelled or read as "the compression check". It is the cross-section check.
+- A member in compression should carry an explicit note that the buckling check (6.2) was NOT
+  performed, in the same place the result appears — not only in documentation. The precedent is
+  already in this app: a brace with no result shows an em dash rather than 0.0 %, because a number
+  that looks like a result and is not is worse than an admitted gap.
+- Under about 4 m of unbraced length the difference is a few per cent, so the ceiling is close to
+  the truth for a short brace. That is an argument for showing it, not for calling it complete.
 
 ### The ±20° proviso on 6.31/6.33, which the app does not check
 
