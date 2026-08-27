@@ -66,15 +66,36 @@ compression member without a buckling length is not a case it recognises.
 
 **Eq 6.28 covers the same force, but only as an upper bound.** With `M = 0` it reduces to
 `N_Sd ≤ A·f_cl/γ_M`, which is exactly Eq 6.2 evaluated at `λ = 0`. That is *local* buckling alone.
-Measured on CHS 500×20 / S355 (`f_cl = f_y = 355 MPa`, `i ≈ 177 mm`, `k = 1.0`):
 
-| λ | `f_c/f_cl` | unbraced length it corresponds to |
-|---|---|---|
-| 0 | 1.000 | — |
-| 0.30 | 0.975 | ≈ 4 m |
-| 0.59 | 0.902 | ≈ 8 m |
-| 1.00 | 0.720 | ≈ 13 m |
-| 1.34 | 0.497 | the branch limit |
+The size of the gap is a function of **SLENDERNESS λ, never of length**:
+
+| λ | `f_c/f_cl` — how much Eq 6.28 over-states the compression capacity |
+|---|---|
+| 0 | 1.000 |
+| 0.30 | 0.975 |
+| 0.59 | 0.902 |
+| 1.00 | 0.720 |
+| 1.34 | 0.497 (the branch limit; above it `f_c = 0.9·f_cl/λ²`) |
+
+**Do not turn this into a rule about metres.** `λ = (kl/i)·√(f_cl/(π²E))`, so the length that
+reaches a given λ scales with the radius of gyration — a smaller section reaches the same slenderness
+at a far shorter length. Measured for S355 at `k = 1.0`:
+
+| section | `i` [mm] | length at −2.5 % | length at −10 % |
+|---|---|---|---|
+| CHS 500×20 | 169.9 | 3.88 m | 7.76 m |
+| CHS 273×12.5 | 92.2 | 2.11 m | 4.21 m |
+| CHS 219.1×10 | 74.0 | 1.69 m | 3.38 m |
+| CHS 141.3×6.5 | 47.7 | 1.09 m | 2.18 m |
+| CHS 102×8.3 | 33.3 | 0.76 m | 1.52 m |
+| CHS 76×3.5 | 25.7 | 0.59 m | 1.17 m |
+| CHS 42×2.5 | 14.0 | 0.32 m | 0.64 m |
+| CHS 30×3 | 9.6 | 0.22 m | 0.44 m |
+
+The same 10 % over-statement arrives at 7.8 m on the largest of these and at **0.44 m** on the
+smallest — a factor of eighteen. The bottom five rows are the sections in `test_cs`, i.e. a real
+joint, so this is not a corner case: on a slender brace the gap opens within the length of the brace
+itself.
 
 **This is the one place in the length-free subset where leaving a check out is UNCONSERVATIVE.**
 The other eight are complete checks — a member that passes them has passed that limit state. Eq 6.28
@@ -88,8 +109,10 @@ Consequences for how the subset would have to be reported, if it is ever built:
   performed, in the same place the result appears — not only in documentation. The precedent is
   already in this app: a brace with no result shows an em dash rather than 0.0 %, because a number
   that looks like a result and is not is worse than an admitted gap.
-- Under about 4 m of unbraced length the difference is a few per cent, so the ceiling is close to
-  the truth for a short brace. That is an argument for showing it, not for calling it complete.
+- **The note cannot be qualified by a length**, e.g. "negligible for short members": there is no
+  length at which it is safe across sections, and the app knows the section but not the length, so
+  it can state neither λ nor the size of the gap. The honest statement is that the buckling check
+  was not performed, with no estimate of what it would have cost.
 
 ### The ±20° proviso on 6.31/6.33, which the app does not check
 
