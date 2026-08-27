@@ -82,7 +82,75 @@ namespace NorsokChecker
 			ConnectionsGrid.ItemsSource = _connections;
 			MembersGrid.ItemsSource = _members;
 			DataContext = this;
+			PrefillServicePath(ServiceRootForTest);
 			Log("Norsok Checker ready. Configure API path and load a project.");
+		}
+
+		/// <summary>
+		/// Put the installation this app would actually use into the path box.
+		///
+		/// The box used to hold a hardcoded "…\StatiCa 26.0". That was a guess, and the app already
+		/// knows better: ServiceLocator resolves the same rule against the registry. On a machine
+		/// without 26.0 the hardcoded path pointed at a folder that does not exist, and the app only
+		/// recovered by failing the File.Exists test in ResolveSetupDir and searching then — so the
+		/// box showed a path that was never going to be used, and the user had no way to see which
+		/// version would be.
+		///
+		/// Preferred version first, otherwise newest — the same order ResolveSetupDir applies, so
+		/// what is shown is what will run. The hardcoded value in the XAML stays as the last resort
+		/// for a machine where nothing is found: an empty box would say less than a wrong path does.
+		///
+		/// <param name="rootOverride">
+		/// A directory to search instead of the machine's real installs — for tests only. It exists
+		/// because on a machine that HAS the preferred version the prefilled value coincides with
+		/// the old hardcoded one, so a test could not tell a derived value from a constant: it
+		/// compared the path with itself and passed either way (measured 2026-08-27 — the first
+		/// version of these tests survived removing the prefill entirely).
+		/// </param>
+		/// </summary>
+		/// <summary>
+		/// Set before constructing the window to make it search a synthetic tree instead of the
+		/// machine's real installs. Null in the app.
+		///
+		/// A static rather than a constructor parameter because the window is created by WPF from
+		/// XAML, and because the prefill has to be exercised THROUGH the constructor: a test that
+		/// calls PrefillServicePath itself cannot notice that the constructor stopped calling it —
+		/// measured, that is exactly what the first version of these tests missed.
+		/// </summary>
+		internal static string? ServiceRootForTest;
+
+		internal void PrefillServicePath(string? rootOverride = null)
+		{
+			// A URL in the box means we are coming back from attach mode, and it must not stay in a
+			// box that now means a folder. Falls back to the conventional root, which ResolveSetupDir
+			// then reports properly if it holds no exe.
+			const string fallback = ServiceLocator.DefaultRoot + @"\StatiCa 26.0";
+			bool boxHoldsUrl = TxtApiPath.Text.TrimStart()
+				.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+
+			try
+			{
+				var installs = ServiceLocator.FindInstalls(rootOverride)
+					.Where(i => i.Version >= ServiceLocator.MinVersion || i.Version.Major == 0)
+					.ToList();
+				if (installs.Count == 0)
+				{
+					if (boxHoldsUrl) TxtApiPath.Text = fallback;
+					return;
+				}
+
+				TxtApiPath.Text = installs[0].Directory;
+				Log($"Service: {installs[0].Directory} (v{installs[0].Label})"
+					+ (installs.Count > 1
+						? $" — also installed: {string.Join(", ", installs.Skip(1).Select(i => i.Label))}"
+						: ""));
+			}
+			catch (Exception ex)
+			{
+				// never block start-up over this
+				if (boxHoldsUrl) TxtApiPath.Text = fallback;
+				Log($"Could not detect the installed service ({ex.Message}) — using the default path.");
+			}
 		}
 
 		private void Log(string message)
@@ -123,7 +191,9 @@ namespace NorsokChecker
 			if (attach && !looksUrl)
 				TxtApiPath.Text = "http://localhost:5000";
 			else if (!attach && looksUrl)
-				TxtApiPath.Text = @"C:\Program Files\IDEA StatiCa\StatiCa 26.0";
+				// switching back to spawn: the detected installation, not a hardcoded guess —
+				// PrefillServicePath leaves the XAML default in place when nothing is found
+				PrefillServicePath(ServiceRootForTest);
 		}
 
 		private void BrowseProject_Click(object sender, RoutedEventArgs e)
