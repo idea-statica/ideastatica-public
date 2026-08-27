@@ -935,26 +935,39 @@ namespace NorsokChecker
 		/// </summary>
 		private async Task ShowJoint3DAsync(ConnectionCheckResult con)
 		{
-			if (Joint3D == null || _apiClient == null || _projectId == Guid.Empty) return;
+			if (Joint3D == null) return;
+			Joint3D.Load(await MeshesForAsync(con.Id, con.Name));
+		}
 
-			if (!_meshesPerConnection.TryGetValue(con.Id, out var meshes))
+		/// <summary>
+		/// One connection's member bodies, fetched the first time and cached.
+		///
+		/// Shared by both views deliberately. The §6.4 tab used to read the cache directly and show
+		/// "0 members" for any connection the user had not first selected on the Check tab — the
+		/// cache was only ever filled from there. Worse than an empty picture: the tables beside it
+		/// still held the PREVIOUS connection's numbers, so the sheet showed one joint's forces
+		/// under another joint's name.
+		/// </summary>
+		private async Task<List<MemberMesh>> MeshesForAsync(int connectionId, string? connectionName = null)
+		{
+			if (_apiClient == null || _projectId == Guid.Empty) return new List<MemberMesh>();
+			if (_meshesPerConnection.TryGetValue(connectionId, out var cached)) return cached;
+
+			List<MemberMesh> meshes;
+			try
 			{
-				try
-				{
-					// presentations/text is the app's own drawing of the joint — see
-					// JointPresentationReader for the payload's shape
-					string json = await _apiClient.Presentation.GetDataScene3DTextAsync(_projectId, con.Id);
-					meshes = JointPresentationReader.ReadMembers(json, Log);
-				}
-				catch (Exception ex)
-				{
-					Log($"  3D view unavailable for {con.Name}: {ex.Message}");
-					meshes = new List<MemberMesh>();
-				}
-				_meshesPerConnection[con.Id] = meshes;
+				// presentations/text is the app's own drawing of the joint — see
+				// JointPresentationReader for the payload's shape
+				string json = await _apiClient.Presentation.GetDataScene3DTextAsync(_projectId, connectionId);
+				meshes = JointPresentationReader.ReadMembers(json, Log);
 			}
-
-			Joint3D.Load(meshes);
+			catch (Exception ex)
+			{
+				Log($"  3D view unavailable for {connectionName ?? $"connection {connectionId}"}: {ex.Message}");
+				meshes = new List<MemberMesh>();
+			}
+			_meshesPerConnection[connectionId] = meshes;
+			return meshes;
 		}
 
 		/// <summary>

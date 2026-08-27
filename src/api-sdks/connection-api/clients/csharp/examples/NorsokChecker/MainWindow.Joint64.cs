@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 using NorsokChecker.Models;
@@ -23,6 +23,21 @@ namespace NorsokChecker
 	{
 		/// <summary>Guard: the selector handlers fire while the tab is being populated.</summary>
 		private bool _joint64Loading;
+
+		/// <summary>
+		/// Put one topology on the tab as a completed run would, so a test can read back what the
+		/// sheet decided — visibility, the summary line, the grid's contents.
+		///
+		/// Exists because the alternative is a test that restates the tab's own condition, and such
+		/// a test keeps passing when the tab changes. Measured twice on 2026-08-27: two fixtures
+		/// written that way stayed green while the production code they guarded was reverted.
+		/// </summary>
+		internal void SetJoint64TopologyForTest(int connectionId, string name, JointTopology topo)
+		{
+			_connections.Add(new ConnectionCheckResult { Id = connectionId, Name = name });
+			_topologyPerConnection[connectionId] = topo;
+			PopulateJoint64Tab();
+		}
 
 		/// <summary>Fill the §6.4 tab's selectors from the connections that produced a topology.</summary>
 		private void PopulateJoint64Tab()
@@ -88,6 +103,38 @@ namespace NorsokChecker
 			if (rebuildLeList) RebuildLe64List(topo);
 
 			ShowJoint64Verdict(topo);
+
+			// A joint outside the scope of §6.4 has NO results, so the sheet must not show any.
+			//
+			// It used to draw the whole sheet anyway, and the effect was a flat contradiction on one
+			// screen: the banner said "no brace can be assessed" while the table below it listed
+			// braces as PASS with utilisations, and the summary counted them as "3 assessed". The
+			// numbers were real arithmetic, but they were computed from quantities the rejected
+			// condition makes meaningless — a chord that is not tubular has no chord-wall check, and
+			// its neighbours' K balance is derived from a joint plane that was never valid. Showing
+			// them is the same defect as reporting 0.0 % for a brace nothing was checked on.
+			//
+			// What stays is the banner: the reason, expanded from the one-line Status in the
+			// connections table into the specific conditions that were not met.
+			bool rejected = topo.Verdict.Status == "ERROR";
+			Pnl64Sheet.Visibility = rejected ? Visibility.Collapsed : Visibility.Visible;
+
+			// the mode and load-effect selectors choose between results; with none, they do nothing
+			Rb64Envelope.IsEnabled = !rejected;
+			Rb64PerLe.IsEnabled = !rejected;
+			if (rejected)
+			{
+				Cmb64Le.IsEnabled = false;
+				Lbl64Le.Opacity = 0.5;
+				Grid64.ItemsSource = null;
+				Grid64Equilibrium.ItemsSource = null;
+				Grid64BraceForces.ItemsSource = null;
+				Joint3D64.Clear();
+				int gates = topo.Verdict.Errors.Count;
+				Lbl64Summary.Text = $"not assessed · {gates} condition(s) not met";
+				return;
+			}
+
 			ShowJoint64Table(topo, envelope);
 			ShowJoint64PerLeCards(topo, envelope);
 			ShowJoint64Plane(topo);
@@ -232,12 +279,26 @@ namespace NorsokChecker
 
 			if (error)
 			{
-				Lbl64VerdictTitle.Text = "✗ No check performed — this joint is outside the scope of NORSOK §6.4";
+				// This banner IS the result for a rejected joint — the rest of the sheet is hidden,
+				// so it has to expand the connections table's one-line Status into the specific
+				// conditions and say what each one means. It is the only thing the reader gets.
+				int n = v.Errors.Count;
+				Lbl64VerdictTitle.Text =
+					$"✗ Not assessed — this joint is outside the scope of NORSOK §6.4"
+					+ (n > 1 ? $" ({n} conditions not met)" : "");
 				Lbl64VerdictBody.Text =
 					"Section 6.4 covers simple tubular joints. The joint plane, the chord stresses "
 					+ "averaged across it and the K/Y/X force balance are properties of the WHOLE "
-					+ "joint, so while any of the conditions below is unmet no brace can be assessed "
-					+ "— not even one whose own geometry is fine.";
+					+ "joint, so while any condition below is unmet no brace can be assessed — not "
+					+ "even one whose own geometry is fine. Nothing is shown below rather than "
+					+ "numbers that would be arithmetic on quantities the norm does not define here."
+					+ $"\n\nThe joint: {topo.Chord?.Name ?? "no chord identified"}"
+					+ (topo.Chord?.Section.Name is { } cs ? $" ({cs})" : "")
+					+ $" as the chord, {topo.GapBraces.Count} brace(s)"
+					+ (topo.GapBraces.Count > 0
+						? " — " + string.Join(", ", topo.GapBraces.Select(b =>
+							$"{b.Name} ({b.Section.Name ?? "section unknown"})"))
+						: "");
 				lines.AddRange(v.Errors.Select(x => "•  " + x));
 				if (v.Warnings.Count > 0)
 					lines.AddRange(v.Warnings.Select(x => "⚠  " + x));
@@ -403,16 +464,26 @@ namespace NorsokChecker
 		/// an arbitrary plane normal onto this camera's oblique line of sight (measured: a joint in
 		/// the global XY plane reached only |dot| = 0.84). See Joint3DView.LookAtPlane.
 		/// </summary>
-		private void ShowJoint64Plane(JointTopology topo)
+		private async void ShowJoint64Plane(JointTopology topo)
 		{
 			// Read as a drawing of the joint plane, so the mouse must not turn it — see
 			// Joint3DView.Interactive. Turning is offered as 90-degree steps and a normal flip.
 			Joint3D64.Interactive = false;
 
-			Lbl64JointTitle.Text = $"Joint — {(Cmb64Connection.SelectedItem as ComboBoxItem)?.Content}";
+			if (Cmb64Connection.SelectedItem is not ComboBoxItem { Tag: int conId } item) return;
+			Lbl64JointTitle.Text = $"Joint — {item.Content}";
 
-			if (Cmb64Connection.SelectedItem is not ComboBoxItem { Tag: int conId }) return;
-			if (!_meshesPerConnection.TryGetValue(conId, out var meshes))
+			// Fetch on demand rather than reading the cache: it is filled from the Check tab, so a
+			// connection never selected there had no bodies here and the view said "0 members"
+			// beside a full set of tables.
+			var meshes = await MeshesForAsync(conId, item.Content?.ToString());
+
+			// The selection can change while the fetch is in flight — a slow presentation payload
+			// for CON8 must not paint itself over CON9 once the user has moved on.
+			if (Cmb64Connection.SelectedItem is not ComboBoxItem { Tag: int stillSelected }
+				|| stillSelected != conId) return;
+
+			if (meshes.Count == 0)
 			{
 				Joint3D64.Clear();
 				return;

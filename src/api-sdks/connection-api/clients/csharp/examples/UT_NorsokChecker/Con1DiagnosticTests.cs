@@ -278,6 +278,84 @@ namespace UT_NorsokChecker
 			}
 		}
 
+		/// <summary>
+		/// Every connection in test_cs: does the presentation payload yield member bodies, and is
+		/// the joint checkable?
+		///
+		/// Reported from the app (2026-08-27): switching from CON1 to CON8 on the §6.4 tab drew
+		/// "0 members" while the tables beside it still held CON1's numbers. The cause was the tab
+		/// reading a mesh cache that only the Check tab fills — but "the payload is empty for CON8"
+		/// was an equally possible explanation, and the two call for opposite fixes. This measures
+		/// which it is, per connection, so the answer is not assumed.
+		/// </summary>
+		[Test]
+		public async Task EveryConnectionYieldsMemberBodies()
+		{
+			Assert.That(File.Exists(IdeaCon), $"{IdeaCon} must exist");
+
+			var client = await _runner!.CreateApiClient();
+			var project = await client.Project.OpenProjectAsync(IdeaCon);
+			var pid = project.ProjectId;
+			try
+			{
+				var conns = await client.Connection.GetConnectionsAsync(pid);
+				var crossSections = await client.Material.GetCrossSectionsAsync(pid);
+				var sectionMap = JointSectionMap.FromCrossSections(crossSections.Cast<object>());
+
+				var empty = new List<string>();
+				TestContext.Out.WriteLine($"{"connection",-12}{"bodies",8}  verdict");
+				foreach (var con in conns)
+				{
+					int bodies;
+					try
+					{
+						string json = await client.Presentation.GetDataScene3DTextAsync(pid, con.Id);
+						bodies = NorsokChecker.Services.JointPresentationReader
+							.ReadMembers(json, _ => { }).Count;
+					}
+					catch (Exception ex)
+					{
+						bodies = -1;
+						TestContext.Out.WriteLine($"  {con.Name}: presentation failed — {ex.Message}");
+					}
+
+					string verdict;
+					try
+					{
+						var conMembers = await client.Member.GetMembersAsync(pid, con.Id);
+						var les = await client.LoadEffect.GetLoadEffectsAsync(pid, con.Id, isPercentage: false);
+						var members = conMembers
+							.Select(m => JointMemberData.FromConMember(m,
+								sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1) ?? new JointSectionInfo()))
+							.ToList();
+						EnrichFromIom(await client.Export.ExportIomConnectionDataAsync(pid, con.Id),
+							members, _ => { });
+						var topo = new JointTopologyBuilder().Build(members, les);
+						verdict = topo.Verdict.Status
+							+ (topo.Verdict.Errors.Count > 0
+								? $" ({topo.Verdict.Errors.Count}: {topo.Verdict.Errors[0]})" : "");
+					}
+					catch (Exception ex)
+					{
+						verdict = $"threw — {ex.GetType().Name}";
+					}
+
+					TestContext.Out.WriteLine($"{con.Name,-12}{bodies,8}  {verdict}");
+					if (bodies <= 0) empty.Add($"{con.Name} ({bodies} bodies)");
+				}
+
+				// If the payload IS populated for every connection, then "0 members" in the app was
+				// never about the data — it was the cache, and fetching on demand is the right fix.
+				Assert.That(empty, Is.Empty,
+					"these connections yield no drawable bodies, so an empty §6.4 view for them is "
+					+ "the model's doing rather than the cache's: " + string.Join(", ", empty));
+			}
+			finally
+			{
+				await client.Project.CloseProjectAsync(pid);
+			}
+		}
+
 		private static void Report(JointTopology topo)
 		{
 			TestContext.Out.WriteLine($"  chord={topo.Chord?.Name}, gapBraces={topo.GapBraces.Count}, "

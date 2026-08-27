@@ -540,7 +540,10 @@
                          against the force tables, the vertical one trades the whole top band
                          against the table. Star heights so a grip moves space between them rather
                          than growing the tab. ── -->
-                    <Grid Grid.Row="2">
+                    <!-- x:Name so a rejected joint can hide the whole sheet: with §6.4 out of
+                         scope there are no results, and showing a table of them next to a banner
+                         that says nothing was assessed states both at once. -->
+                    <Grid Grid.Row="2" x:Name="Pnl64Sheet">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*" MinHeight="180"/>
                             <RowDefinition Height="Auto"/>
