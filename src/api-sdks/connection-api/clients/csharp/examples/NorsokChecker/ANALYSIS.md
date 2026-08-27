@@ -317,37 +317,81 @@ f_d = f_y / γ_M
 
 ---
 
-## Architecture (Updated)
+## Architecture
+
+*Rewritten 2026-08-27. The previous version of this section described the app as it was before §6.4
+existed: it listed a `Services/ResultCache.cs` that **does not exist**, named all nine §6.3 formula
+files, and did not mention `Services/Norsok64/` — the engine that actually runs. A reader following
+it was pointed at the mothballed half.*
 
 ```
 NorsokChecker/
 ├── App.xaml(.cs)
-├── MainWindow.xaml(.cs)              # UI: config, check, results, log
+├── MainWindow.xaml(.cs)                 # UI: config, check, results, log  (large — see below)
+├── MainWindow.Joint64.cs                # the §6.4 results sheet (partial)
+├── Controls/
+│   ├── Joint3DView.xaml(.cs)            # the joint, from presentations/text
+│   └── Joint64DerivationWindow.xaml(.cs)# WebView2 host for one brace's derivation
+├── Converters/
+│   └── FractionConverters.cs            # proportional-bar widths (namespace stays .Controls)
 ├── Models/
-│   ├── ConnectionCheckResult.cs      # UI-bound row
-│   ├── NorsokResult.cs               # Check result per connection
-│   ├── NorsokFormulaResult.cs        # Single formula evaluation result
-│   └── TubularGeometry.cs            # D, t, A, W, Z, I_p, i
+│   ├── ConnectionCheckResult.cs         # connections-grid row
+│   ├── MemberDisplayInfo.cs             # members-grid row
+│   ├── Joint64RowView.cs                # §6.4 table row + LC selector option
+│   └── NorsokFormulaResult.cs           # THE check-result DTO: Passed / NotAssessed / IsNote
+├── Resources/                           # embedded KaTeX (offline formulas) + its licence
 ├── Services/
-│   ├── NorsokCheckRunner.cs          # Orchestrator: settings → calc → evaluate
-│   ├── ResultCache.cs                # JSON caching of raw results
-│   ├── ProjectSettingsService.cs     # Read/update γM code factors
-│   ├── TubularGeometryCalc.cs        # Compute A, W, Z, I_p, i from D, t
-│   └── Formulas/                     # One class per section
-│       ├── AxialTensionCheck.cs      # §6.3.2 Eq. 6.1
-│       ├── AxialCompressionCheck.cs  # §6.3.3 Eq. 6.2–6.8
-│       ├── BendingCheck.cs           # §6.3.4 Eq. 6.9–6.12
-│       ├── ShearCheck.cs             # §6.3.5 Eq. 6.13–6.14
-│       ├── MaterialFactorCalc.cs     # §6.3.7 Eq. 6.22–6.25
-│       ├── TensionBendingCheck.cs    # §6.3.8.1 Eq. 6.26
-│       ├── CompressionBendingCheck.cs# §6.3.8.2 Eq. 6.27–6.28
-│       ├── ShearBendingCheck.cs      # §6.3.8.3 Eq. 6.31–6.32
-│       └── ShearBendingTorsionCheck.cs # §6.3.8.4 Eq. 6.33
-├── NuGet.config
-├── NorsokChecker.csproj
-├── NorsokChecker.sln
-└── ANALYSIS.md
+│   ├── NorsokCheckRunner.cs             # orchestrator: CBFEM plates/welds/bolts + §6.4
+│   ├── ProjectSettingsService.cs        # NORSOK Table 6-1 γM into the project
+│   ├── ServiceLocator.cs                # find/version-check the REST service (26.0.x)
+│   ├── ServiceReaper.cs                 # Job Object: our service dies with us
+│   ├── CrossSectionDetector.cs          # section types from the Material API
+│   ├── MemberGeometryReader.cs          # member geometry from the Member API
+│   ├── JointPresentationReader.cs       # presentations/text → member meshes
+│   ├── RawResultsParser.cs              # rawresults-text → plates/welds/bolts
+│   ├── NorsokHtmlReportGenerator.cs     # the report AND the §6.4 derivation sheet
+│   ├── Telemetry.cs, AppLog.cs
+│   │
+│   ├── Norsok64/                        # ★ THE LIVE ENGINE — §6.4 simple tubular joints
+│   │   ├── Norsok64Engine.cs            #   the formulas: Qu, Qf, A², N_Rd, M_Rd, eq 6.57
+│   │   ├── Joint64Input.cs / Joint64Result.cs   # SI-strict DTOs at the engine boundary
+│   │   ├── JointTopologyBuilder.cs      #   chord, joint plane, gaps, the assumption gates
+│   │   ├── JointTopologyModels.cs       #   the vocabulary
+│   │   ├── KyxClassifier.cs             #   K/Y/X from the transverse-force balance
+│   │   ├── JointForceResolver.cs        #   forces into the joint plane; chord stresses
+│   │   ├── JointCheckOrchestrator.cs    #   per load effect, per brace
+│   │   ├── JointEnvelope.cs             #   the governing state per brace
+│   │   ├── JointSectionMap.cs           #   cross-section id → D/T/fy
+│   │   ├── TubeFromIom.cs               #   D/T from the IOM facet ring, not the name
+│   │   ├── Joint64ReportAdapter.cs      #   a check row → a report card
+│   │   └── Vec3.cs
+│   │
+│   └── Formulas63_Mothballed/           # §6.3 tubular MEMBERS — NOT CALLED
+│       ├── (nine §6.3 formula classes, MaterialFactorCalc among them)
+│       ├── TubularGeometry.cs / TubularGeometryCalc.cs
+│       └── see CHAPTER_63_FINDINGS.md and CHAPTER_63_REVISIT.md
+├── NuGet.config / NorsokChecker.csproj / NorsokChecker.sln
+└── *.md                                 # ANALYSIS, BENCHMARK, CHAPTER_63_*, PYTHON_STOPGAP, UNIFICATION
 ```
+
+**Why `Formulas63_Mothballed` is named that.** §6.3 is disconnected: two inputs eq 6.27 needs — the
+effective length `kl` per plane and the far-end moments for `C_m` — are properties of the member's
+unbraced span, which lies outside the joint this app can see. The code compiles and is unchanged,
+but nothing calls it. The folder name says so, because the previous name (`Formulas/`) made it look
+like a peer of the live engine. `CHAPTER_63_REVISIT.md` records which §6.3 checks would need no
+length at all, and would therefore be re-enableable.
+
+**The boundary that holds.** `Services/*.cs` at the root touch the API or the OS; nothing in
+`Services/Norsok64/` holds an `IConnectionApiClient` — those files take API DTOs as data and
+compute. That is why the §6.4 engine can be unit-tested against JSON fixtures with no service
+running.
+
+**Known structural debt.** `MainWindow.xaml.cs` still carries four responsibilities that are not UI
+(service lifecycle, the check workflow, data loading, report export) alongside the event handlers.
+`NorsokHtmlReportGenerator.cs` is the report, the derivation sheet, the KaTeX plumbing and a 330-line
+CSS constant in one file. Both are deliberate deferrals, not oversights: the split of MainWindow is
+real design work (eight shared private fields and three test seams), and the app is under daily
+change.
 
 ## Connection API Endpoints Used
 

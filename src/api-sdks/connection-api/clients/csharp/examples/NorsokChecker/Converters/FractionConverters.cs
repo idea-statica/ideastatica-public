@@ -2,6 +2,11 @@
 using System.Windows;
 using System.Windows.Data;
 
+// The FOLDER is Converters/ but the NAMESPACE stays NorsokChecker.Controls, deliberately: MainWindow
+// .xaml reaches these through xmlns:controls="clr-namespace:NorsokChecker.Controls", and a namespace
+// change there fails at RUNTIME as a missing StaticResource, not at compile time. C# namespaces do
+// not have to follow folders, so the file sits where it belongs at no risk. Rename the namespace
+// only together with the XAML, and only when something else already forces that file open.
 namespace NorsokChecker.Controls
 {
 	/// <summary>

@@ -3,7 +3,6 @@ using IdeaStatiCa.Api.Connection.Model;
 using Newtonsoft.Json.Linq;
 using NorsokChecker.Models;
 using NorsokChecker.Services;
-using NorsokChecker.Services.Formulas;
 using NorsokChecker.Services.Norsok64;
 
 namespace UT_NorsokChecker
@@ -46,7 +45,7 @@ namespace UT_NorsokChecker
 		{
 			var topo = BuildKtTopology();
 			var row = topo.JointChecks[0].Rows.First(r => r.Name == "KA");   // diagonal with 2 K gaps + Y remainder
-			var card = TubularJointCheck.BuildResultFromRow(row, "LE1");
+			var card = Joint64ReportAdapter.BuildResultFromRow(row, "LE1");
 
 			Assert.Multiple(() =>
 			{
@@ -68,7 +67,7 @@ namespace UT_NorsokChecker
 			var topo = BuildKtTopology();
 			var results = new List<NorsokFormulaResult>();
 			foreach (var r in topo.JointChecks[0].Rows.Where(r => !r.Skipped))
-				results.Add(TubularJointCheck.BuildResultFromRow(r, "LE1"));
+				results.Add(Joint64ReportAdapter.BuildResultFromRow(r, "LE1"));
 
 			string html = NorsokHtmlReportGenerator.GenerateReport(
 				"UT", new[] { ("KT_TEST", results) }, expandAll: true);

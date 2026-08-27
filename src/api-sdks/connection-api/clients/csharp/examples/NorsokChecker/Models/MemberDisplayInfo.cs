@@ -1,8 +1,10 @@
-namespace NorsokChecker.Models
+﻿namespace NorsokChecker.Models
 {
 	/// <summary>
 	/// Display model for the Members DataGrid — auto-populated from API.
-	/// L and k are editable per member (buckling parameters).
+	/// No buckling parameters here: L, k and the far-end moments are properties of the member's
+	/// unbraced SPAN, which lies outside the joint this app knows — see CHAPTER_63_FINDINGS.md.
+	/// They were once editable columns, and the run silently overwrote whatever was typed.
 	/// </summary>
 	public class MemberDisplayInfo
 	{
@@ -20,14 +22,6 @@ namespace NorsokChecker.Models
 		public double WallThickness { get; set; }
 		public double Fy { get; set; } = 355;
 		public string MaterialName { get; set; } = string.Empty;
-		/// <summary>Unbraced length [mm] — editable</summary>
-		public double L { get; set; } = 5000;
-		/// <summary>Effective length factor — editable (Table 6-2)</summary>
-		public double K { get; set; } = 0.7;
-		/// <summary>Far-end moment about y [kNm] for C_m case (b) — editable, 0 if unknown</summary>
-		public double M1y { get; set; }
-		/// <summary>Far-end moment about z [kNm] for C_m case (b) — editable, 0 if unknown</summary>
-		public double M1z { get; set; }
 		public bool IsCHS => Shape == "CHS";
 
 		/// <summary>Display string for the geometry column</summary>
