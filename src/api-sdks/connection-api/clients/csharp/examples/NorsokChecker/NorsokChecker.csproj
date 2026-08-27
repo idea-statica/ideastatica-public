@@ -16,6 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- The tests read the real MainWindow's start-up state (chapter toggles off, log collapsed,
+         the connections grid's columns). Controls named in XAML are internal, and rebuilding copies
+         of them in the test would keep passing after someone edited MainWindow.xaml — which is the
+         change those tests exist to catch. -->
+    <InternalsVisibleTo Include="UT_NorsokChecker" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />

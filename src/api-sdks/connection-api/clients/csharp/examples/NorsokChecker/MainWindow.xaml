@@ -191,16 +191,20 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- First, because it qualifies every chapter that follows: it says WHICH
+                                 load effects are assessed, not which check is run. On by default — a
+                                 load effect switched off in IDEA StatiCa is one the engineer decided
+                                 not to design for, so honouring that is the expected reading of the
+                                 model rather than a special mode. -->
+                            <CheckBox x:Name="ChkActiveLoadEffectsOnly" Content="Active load effects only"
+                                      IsChecked="True" Margin="0,0,20,0"
+                                      ToolTip="Assess only the load effects switched on in the .ideaCon. Unchecked, every load effect in the file is assessed, including the ones the model has disabled."/>
+                            <!-- Both chapters OFF by default: running a check is the user's decision,
+                                 and CBFEM in particular starts a calculation that costs minutes. -->
                             <TextBlock Text="Chapters:" FontWeight="Medium" VerticalAlignment="Center"
                                        Foreground="#546E7A" Margin="0,0,10,0"/>
-                            <CheckBox x:Name="ChkChapterCbfem" Content="CBFEM plates/welds" IsChecked="True" Margin="0,0,12,0"/>
-                            <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="True" Margin="0,0,20,0"/>
-                            <!-- On by default: a load effect switched off in IDEA StatiCa is one the
-                                 engineer decided not to design for, so honouring that is the expected
-                                 reading of the model rather than a special mode. -->
-                            <CheckBox x:Name="ChkActiveLoadEffectsOnly" Content="Active load effects only"
-                                      IsChecked="True"
-                                      ToolTip="Assess only the load effects switched on in the .ideaCon. Unchecked, every load effect in the file is assessed, including the ones the model has disabled."/>
+                            <CheckBox x:Name="ChkChapterCbfem" Content="CBFEM plates/welds" IsChecked="False" Margin="0,0,12,0"/>
+                            <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="False"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <Button x:Name="BtnLoadProject" Click="LoadProject_Click"
@@ -208,6 +212,19 @@
                                 <StackPanel Orientation="Horizontal">
                                     <md:PackIcon Kind="FolderOpen" VerticalAlignment="Center" Margin="0,0,6,0"/>
                                     <TextBlock Text="Load Project" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <!-- Shown only while a run is in progress. The token reaches the API calls
+                                 themselves, so a running calculation is aborted rather than waited
+                                 out (see _checkCts). What the service does with the abandoned run is
+                                 not verified, which is why the tooltip does not claim it stops there. -->
+                            <Button x:Name="BtnCancelCheck" IsEnabled="False" Click="CancelCheck_Click"
+                                    Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0"
+                                    Visibility="Collapsed"
+                                    ToolTip="Stop the check. Results already produced are kept; connections not reached are left unchecked.">
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="StopCircleOutline" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Cancel" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="BtnRunCheck" IsEnabled="False" Click="RunCheck_Click"
@@ -291,7 +308,12 @@
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Connection" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                    <!-- Active / total load effects, read from the model at load time.
+                                         An em dash until they have been read — "0 / 0" would state
+                                         that the connection has no load effects. -->
+                                    <DataGridTextColumn Header="Active LC / Total" Binding="{Binding LoadEffectsDisplay}"
+                                                        Width="SizeToHeader" MinWidth="110"/>
                                     <!-- SizeToCells: the longest status is "Outside §6.4 scope (7 conditions)",
                                          which a fixed 130 px truncated -->
                                     <DataGridTextColumn Header="Status" Binding="{Binding Status}"
@@ -687,7 +709,9 @@
 
         <!-- ═══ Log panel — only shown on the Check tab ═══ -->
         <md:Card x:Name="LogCard" Grid.Row="4" Margin="16,0,16,12" Padding="0" md:ElevationAssist.Elevation="Dp1">
-            <Expander IsExpanded="True" md:ExpanderAssist.HorizontalHeaderPadding="16"
+            <!-- Collapsed by default: the log is diagnostics, and expanded it takes height from the
+                 tables that carry the actual result. -->
+            <Expander x:Name="LogExpander" IsExpanded="False" md:ExpanderAssist.HorizontalHeaderPadding="16"
                       Background="Transparent">
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal">

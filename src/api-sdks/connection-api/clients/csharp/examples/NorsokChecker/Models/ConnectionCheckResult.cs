@@ -10,6 +10,8 @@ namespace NorsokChecker.Models
 		private string _status = "Pending";
 		private double _maxUtilization;
 		private string _norsokPass = "-";
+		private int _activeLoadEffects = -1;
+		private int _totalLoadEffects = -1;
 
 		public int Id
 		{
@@ -52,6 +54,27 @@ namespace NorsokChecker.Models
 			// so it has to be re-raised here as well or the cell keeps the stale text.
 			set { _norsokPass = value; OnPropertyChanged(); OnPropertyChanged(nameof(MaxUtilizationDisplay)); }
 		}
+
+		/// <summary>
+		/// Load effects switched ON in the model, and how many the connection has in total.
+		/// Both are -1 until the counts have actually been read, which is what
+		/// <see cref="LoadEffectsDisplay"/> shows as an em dash: "0 / 0" would be a claim
+		/// about the model, and an unread count is not the same as an empty one.
+		/// </summary>
+		public int ActiveLoadEffects
+		{
+			get => _activeLoadEffects;
+			set { _activeLoadEffects = value; OnPropertyChanged(); OnPropertyChanged(nameof(LoadEffectsDisplay)); }
+		}
+
+		public int TotalLoadEffects
+		{
+			get => _totalLoadEffects;
+			set { _totalLoadEffects = value; OnPropertyChanged(); OnPropertyChanged(nameof(LoadEffectsDisplay)); }
+		}
+
+		public string LoadEffectsDisplay =>
+			_totalLoadEffects < 0 || _activeLoadEffects < 0 ? "—" : $"{_activeLoadEffects} / {_totalLoadEffects}";
 
 		public event PropertyChangedEventHandler? PropertyChanged;
 

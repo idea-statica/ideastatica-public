@@ -19,6 +19,22 @@ namespace NorsokChecker
 		private IConnectionApiClient? _apiClient;
 		private Guid _projectId;
 
+		/// <summary>
+		/// Cancels the running check. Non-null only while a check is in progress.
+		///
+		/// The token reaches the API calls themselves: this client version DOES take a
+		/// cancellationToken on CalculateAsync and GetRawJsonResultsAsync (verified by compiling a
+		/// named-argument call — reflection could not answer it, the assembly's dependencies do not
+		/// load standalone, and there is no XML doc beside the DLL). So a stop aborts the in-flight
+		/// request rather than only landing between steps.
+		///
+		/// NOT verified: what the SERVICE does with an aborted request — whether the engine drops
+		/// the calculation or finishes it unread. That cannot be read off the method signature.
+		/// The ThrowIfCancellationRequested checkpoints below therefore stay: they are what makes a
+		/// stop clean for the steps this app runs itself.
+		/// </summary>
+		private CancellationTokenSource? _checkCts;
+
 		/// <summary>Raw JSON results per connection ID.</summary>
 		private readonly Dictionary<int, string> _rawResultsPerConnection = new();
 
@@ -181,6 +197,7 @@ namespace NorsokChecker
 				if (connections.Count > 0)
 				{
 					await LoadAllConnectionMembersAsync();
+					await LoadLoadEffectCountsAsync();
 					ConnectionsGrid.SelectedIndex = 0;
 					ShowMembersOf(_connections[0]);
 					await ShowJoint3DAsync(_connections[0]);
@@ -204,16 +221,34 @@ namespace NorsokChecker
 			}
 		}
 
+		/// <summary>
+		/// Stops the running check — see <see cref="_checkCts"/> for how far the token reaches.
+		/// </summary>
+		private void CancelCheck_Click(object sender, RoutedEventArgs e)
+		{
+			if (_checkCts == null || _checkCts.IsCancellationRequested) return;
+			Log("Cancel requested.");
+			ShowStatus("Cancelling…");
+			BtnCancelCheck.IsEnabled = false;   // one press is enough; it cannot be sped up
+			_checkCts.Cancel();
+		}
+
 		private async void RunCheck_Click(object sender, RoutedEventArgs e)
 		{
 			if (_apiClient == null)
 				return;
+
+			_checkCts?.Dispose();
+			_checkCts = new CancellationTokenSource();
+			var ct = _checkCts.Token;
 
 			try
 			{
 				Telemetry.CheckClicked();
 
 				BtnRunCheck.IsEnabled = false;
+				BtnCancelCheck.Visibility = Visibility.Visible;
+				BtnCancelCheck.IsEnabled = true;
 				ValidateGeometryInputs();
 				ShowStatus("Running NORSOK N-004 compliance check...");
 				Log("Starting Norsok N-004 compliance check...");
@@ -242,18 +277,19 @@ namespace NorsokChecker
 					// Only the copy in the service's memory is touched. The user's .ideaCon is
 					// written only by GET /download, which this app never calls.
 					if (!activeLoadEffectsOnly)
-						await ActivateAllLoadEffectsAsync(connectionIds);
+						await ActivateAllLoadEffectsAsync(connectionIds, ct);
 
 					foreach (var con in _connections)
 						con.Status = "Calculating...";
 
 					ShowStatus("Running CBFEM calculation...");
 					Log("Running CBFEM calculation...");
-					var calcResults = await _apiClient.Calculation.CalculateAsync(_projectId, connectionIds);
+					var calcResults = await _apiClient.Calculation.CalculateAsync(_projectId, connectionIds, cancellationToken: ct);
 
+					ct.ThrowIfCancellationRequested();
 					ShowStatus("Retrieving raw results...");
 					Log("Retrieving raw JSON results...");
-					var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, connectionIds);
+					var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, connectionIds, cancellationToken: ct);
 
 					// Store per-connection raw results
 					for (int idx = 0; idx < connectionIds.Count && idx < rawResults.Count; idx++)
@@ -356,10 +392,13 @@ namespace NorsokChecker
 				{
 					try
 					{
-						var crossSections = await _apiClient.Material.GetCrossSectionsAsync(_projectId);
+						var crossSections = await _apiClient.Material.GetCrossSectionsAsync(_projectId, cancellationToken: ct);
 						sectionMap = Services.Norsok64.JointSectionMap.FromCrossSections(crossSections.Cast<object>());
 						Log($"§6.4: section map with {sectionMap.Count} cross-section(s)");
 					}
+					// A cancelled run is not a failed section map — see the note on the same pattern
+					// in ActivateAllLoadEffectsAsync.
+					catch (OperationCanceledException) { throw; }
 					catch (Exception ex)
 					{
 						Log($"WARNING: §6.4 section map failed ({ex.Message}) — §6.4 cannot be checked");
@@ -374,6 +413,10 @@ namespace NorsokChecker
 
 				foreach (var con in _connections)
 				{
+					// Per connection: the §6.4 evaluation is the loop that is worth interrupting
+					// without the engine in the way.
+					ct.ThrowIfCancellationRequested();
+
 					// Null when no calculation was run — §6.4 does not need it.
 					_rawResultsPerConnection.TryGetValue(con.Id, out var rawJson);
 					if (includeCbfem && rawJson == null)
@@ -394,6 +437,13 @@ namespace NorsokChecker
 						// percentages (σ/fy ratios ~0.003); without the flag the service returns them
 						// as saved and every downstream check would silently collapse to util≈0.
 						loadEffects = await _apiClient.LoadEffect.GetLoadEffectsAsync(_projectId, con.Id, isPercentage: false);
+
+						// Refresh the grid's active/total column from what was just read. It is
+						// filled at load time, but the run can change it: with the toggle off,
+						// ActivateAllLoadEffectsAsync switches every state on, and a column still
+						// reading "4 / 15" would then contradict what was actually assessed.
+						con.TotalLoadEffects = loadEffects.Count;
+						con.ActiveLoadEffects = loadEffects.Count(le => le.Active);
 
 						// Honour the model's own on/off switches. A load effect the engineer disabled
 						// in IDEA StatiCa is one they decided not to design for, so assessing it
@@ -437,6 +487,7 @@ namespace NorsokChecker
 							}
 						}
 					}
+					catch (OperationCanceledException) { throw; }
 					catch (Exception ex)
 					{
 						Log($"    WARNING: Could not fetch load effects: {ex.Message}");
@@ -453,7 +504,7 @@ namespace NorsokChecker
 					{
 						try
 						{
-							var conMembers = await _apiClient.Member.GetMembersAsync(_projectId, con.Id);
+							var conMembers = await _apiClient.Member.GetMembersAsync(_projectId, con.Id, cancellationToken: ct);
 							topoMembers = conMembers
 								.Select(m => Services.Norsok64.JointMemberData.FromConMember(m,
 									sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1)
@@ -466,6 +517,7 @@ namespace NorsokChecker
 							// measured. See TubeFromIom.
 							await EnrichSectionsFromIomAsync(con.Id, topoMembers);
 						}
+						catch (OperationCanceledException) { throw; }
 						catch (Exception ex)
 						{
 							// No fallback exists, so this is a GAP, not a degraded check — and it has
@@ -594,6 +646,18 @@ namespace NorsokChecker
 					allPassed: _connections.All(c => c.NorsokPass == "PASS"),
 					governingUtilization: _connections.Count == 0 ? 0 : _connections.Max(c => c.MaxUtilization));
 			}
+			// Cancelling is a decision, not a failure: no error dialog, no failure telemetry.
+			// Whatever finished before the stop keeps its verdict; the rest is left as it stood,
+			// which is why the log says the results are partial rather than pretending it ran.
+			catch (OperationCanceledException)
+			{
+				Log("Check cancelled. Results are partial — connections not reached keep their previous state.");
+				foreach (var con in _connections)
+				{
+					if (con.Status == "Calculating...")
+						con.Status = "Cancelled";
+				}
+			}
 			catch (Exception ex)
 			{
 				Telemetry.CheckFailed(ex);
@@ -604,8 +668,47 @@ namespace NorsokChecker
 			finally
 			{
 				BtnRunCheck.IsEnabled = true;
+				BtnCancelCheck.Visibility = Visibility.Collapsed;
+				BtnCancelCheck.IsEnabled = false;
+				_checkCts?.Dispose();
+				_checkCts = null;
 				HideStatus();
 			}
+		}
+
+		/// <summary>
+		/// Read how many load effects each connection has, and how many are switched on, so the
+		/// connections table can show it before anything is run — that count is what the
+		/// "Active load effects only" toggle decides between.
+		///
+		/// A connection whose load effects cannot be read keeps its counts unset (-1), which the
+		/// grid shows as an em dash: not knowing is not the same as having none.
+		/// </summary>
+		private async Task LoadLoadEffectCountsAsync()
+		{
+			if (_apiClient == null || _projectId == Guid.Empty) return;
+
+			foreach (var con in _connections)
+			{
+				try
+				{
+					// isPercentage is irrelevant here — only Active and the count are read — but the
+					// flag is passed explicitly so this call cannot be mistaken for one that reads forces.
+					var les = await _apiClient.LoadEffect.GetLoadEffectsAsync(_projectId, con.Id, isPercentage: false);
+					con.TotalLoadEffects = les.Count;
+					con.ActiveLoadEffects = les.Count(le => le.Active);
+				}
+				catch (Exception ex)
+				{
+					Log($"  WARNING: could not read load effects of {con.Name}: {ex.Message}");
+				}
+			}
+
+			int known = _connections.Count(c => c.TotalLoadEffects >= 0);
+			if (known > 0)
+				Log($"  load effects: {_connections.Where(c => c.ActiveLoadEffects >= 0).Sum(c => c.ActiveLoadEffects)}"
+					+ $" active of {_connections.Where(c => c.TotalLoadEffects >= 0).Sum(c => c.TotalLoadEffects)}"
+					+ $" across {known} connection(s)");
 		}
 
 		/// <summary>
@@ -829,23 +932,30 @@ namespace NorsokChecker
 		/// run: the calculation then covers the active states only, which is the narrower answer, and
 		/// the log says so.
 		/// </summary>
-		private async Task ActivateAllLoadEffectsAsync(List<int> connectionIds)
+		private async Task ActivateAllLoadEffectsAsync(List<int> connectionIds, CancellationToken ct = default)
 		{
 			if (_apiClient == null) return;
 
 			int switched = 0, failed = 0;
 			foreach (int conId in connectionIds)
 			{
+				ct.ThrowIfCancellationRequested();
 				try
 				{
 					var les = await _apiClient.LoadEffect.GetLoadEffectsAsync(
-						_projectId, conId, isPercentage: false);
+						_projectId, conId, isPercentage: false, cancellationToken: ct);
 					foreach (var le in les.Where(l => !l.Active))
 					{
 						le.Active = true;
-						await _apiClient.LoadEffect.UpdateLoadEffectAsync(_projectId, conId, le);
+						await _apiClient.LoadEffect.UpdateLoadEffectAsync(_projectId, conId, le, cancellationToken: ct);
 						switched++;
 					}
+				}
+				// Cancelling must not be swallowed by the catch below and reported as a connection
+				// that could not be switched on — the run is stopping, nothing failed.
+				catch (OperationCanceledException)
+				{
+					throw;
 				}
 				catch (Exception ex)
 				{
