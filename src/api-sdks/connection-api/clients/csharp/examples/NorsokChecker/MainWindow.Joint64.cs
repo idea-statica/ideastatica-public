@@ -469,6 +469,9 @@ namespace NorsokChecker
 			// Read as a drawing of the joint plane, so the mouse must not turn it — see
 			// Joint3DView.Interactive. Turning is offered as 90-degree steps and a normal flip.
 			Joint3D64.Interactive = false;
+			// names on the bodies, as the python schematic labels its members — with the table
+			// beside it no longer highlighting on hover, the label is how a body is identified
+			Joint3D64.ShowMemberLabels = true;
 
 			if (Cmb64Connection.SelectedItem is not ComboBoxItem { Tag: int conId } item) return;
 			Lbl64JointTitle.Text = $"Joint — {item.Content}";
@@ -531,15 +534,6 @@ namespace NorsokChecker
 		private void Joint64_RotateLeft(object sender, RoutedEventArgs e) => Joint3D64.TurnInPlane(-90);
 		private void Joint64_RotateRight(object sender, RoutedEventArgs e) => Joint3D64.TurnInPlane(90);
 		private void Joint64_FlipNormal(object sender, RoutedEventArgs e) => Joint3D64.FlipNormal();
-
-		/// <summary>Hovering a brace row highlights that member in the joint view.</summary>
-		private void Grid64_HighlightBrace(object sender, System.Windows.Input.MouseEventArgs e)
-		{
-			if (sender is not DataGridRow { Item: Joint64RowView view }) return;
-			var topo = SelectedJoint64Topology();
-			var brace = topo?.GapBraces.FirstOrDefault(b => b.Name == view.Brace);
-			Joint3D64.HighlightMember(brace?.Id ?? -1);
-		}
 
 		/// <summary>Double-click a row for the derivation behind its numbers.</summary>
 		private void Grid64_ShowDerivation(object sender, System.Windows.Input.MouseButtonEventArgs e)

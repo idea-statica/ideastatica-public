@@ -12,6 +12,10 @@
         Background="#F0F2F5">
 
     <Window.Resources>
+        <!-- proportional-bar widths for the load-effect selector (WPF has no percentage width) -->
+        <controls:FractionToStarConverter x:Key="FractionToStar"/>
+        <controls:FractionToRestStarConverter x:Key="FractionToRestStar"/>
+
         <!-- IDEA StatiCa brand -->
         <Color x:Key="IdeaOrange">#F57C00</Color>
         <Color x:Key="IdeaDark">#2D2D2D</Color>
@@ -505,9 +509,49 @@
 
                         <TextBlock Grid.Column="3" x:Name="Lbl64Le" Text="Load effect:"
                                    VerticalAlignment="Center" Foreground="#546E7A" Margin="0,0,6,0"/>
-                        <ComboBox Grid.Column="4" x:Name="Cmb64Le" MinWidth="190"
-                                  DisplayMemberPath="Display"
-                                  SelectionChanged="Joint64Selection_Changed"/>
+                        <!-- The load-effect selector carries a utilisation bar per state, as the
+                             python selector does: name, a bar as wide as the worst utilisation in
+                             that state and coloured on the same four bands as the joint view, the
+                             number, and ✗ when a brace fails there. It answers "which state should
+                             I look at" without opening each one.
+
+                             The bar is a two-column Grid whose star widths come from BarFraction
+                             and its complement — a Width binding cannot be a percentage in WPF. -->
+                        <ComboBox Grid.Column="4" x:Name="Cmb64Le" MinWidth="240"
+                                  SelectionChanged="Joint64Selection_Changed">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid MinWidth="220">
+                                        <!-- the bar sits behind the text, at low opacity -->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="{Binding BarFraction, Converter={StaticResource FractionToStar}}"/>
+                                                <ColumnDefinition Width="{Binding BarFraction, Converter={StaticResource FractionToRestStar}}"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Opacity="0.30" CornerRadius="2"
+                                                    Background="{Binding BarColour}"/>
+                                        </Grid>
+                                        <Grid Margin="4,1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Name}"
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding FailMark}"
+                                                       Foreground="{StaticResource VerdictFailFg}"
+                                                       FontWeight="Bold" Margin="6,0,0,0"
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding UtilText}"
+                                                       Margin="10,0,0,0" MinWidth="46"
+                                                       TextAlignment="Right" FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
 
                         <TextBlock Grid.Column="5" x:Name="Lbl64Summary" VerticalAlignment="Center"
                                    HorizontalAlignment="Right" Foreground="#78909C" FontSize="11"/>
@@ -756,7 +800,12 @@
                                 <DataGrid.RowStyle>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
                                         <Setter Property="ToolTip" Value="Double-click for the full derivation"/>
-                                        <EventSetter Event="MouseEnter" Handler="Grid64_HighlightBrace"/>
+                                        <!-- No MouseEnter highlight here: the bodies carry their
+                                             member names now, so pointing at a row to find out
+                                             which body it is has nothing left to add, and the
+                                             colour it painted overwrote the utilisation colour the
+                                             view exists to show. -->
+
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Verdict}" Value="FAIL">
                                                 <Setter Property="Background" Value="{StaticResource VerdictFailBg}"/>

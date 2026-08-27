@@ -1,4 +1,4 @@
-using NorsokChecker.Services.Norsok64;
+﻿using NorsokChecker.Services.Norsok64;
 
 namespace NorsokChecker.Models
 {
@@ -95,5 +95,28 @@ namespace NorsokChecker.Models
 		public string Display => MaxUtil > 0
 			? $"{Name}   {MaxUtil * 100:F1} %{(AnyFail ? "  ✗" : "")}"
 			: Name;
+
+		/// <summary>The utilisation as text, or an em dash when this state produced no number.</summary>
+		public string UtilText => MaxUtil > 0 ? $"{MaxUtil * 100:F1} %" : "—";
+
+		/// <summary>"✗" when at least one brace fails in this state; empty otherwise.</summary>
+		public string FailMark => AnyFail ? "✗" : "";
+
+		/// <summary>
+		/// Bar width as a fraction of the row, so the selector shows at a glance which states are
+		/// near capacity — the python selector's own device. Clamped to 1: a state over 100 % fills
+		/// the row rather than overflowing it, and the number beside it says how far over.
+		/// </summary>
+		public double BarFraction => MaxUtil <= 0 ? 0 : Math.Min(1.0, MaxUtil);
+
+		/// <summary>
+		/// The bar's colour, on the same four bands as the joint view and its legend, so one
+		/// utilisation is one colour wherever it appears. Grey when there is no number.
+		/// </summary>
+		public string BarColour => MaxUtil <= 0 ? "#D7DBE0"
+			: MaxUtil >= 1.0 ? "#EF5350"
+			: MaxUtil >= 0.85 ? "#F08A2E"
+			: MaxUtil >= 0.5 ? "#E6C93A"
+			: "#66BB6A";
 	}
 }

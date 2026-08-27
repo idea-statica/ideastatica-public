@@ -56,6 +56,12 @@
             </ModelVisual3D>
         </Viewport3D>
 
+        <!-- Member names, projected onto the screen over the 3D scene. A 2D overlay rather than
+             3D text: WPF has no text primitive in a Viewport3D, and a name that turns and shrinks
+             with the model is harder to read than one that does not. IsHitTestVisible=False so a
+             label never swallows a click meant for the body under it. -->
+        <Canvas x:Name="LabelLayer" IsHitTestVisible="False"/>
+
         <TextBlock x:Name="Placeholder" Text="Select a connection to see its members"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Foreground="#9E9E9E" FontSize="11"/>

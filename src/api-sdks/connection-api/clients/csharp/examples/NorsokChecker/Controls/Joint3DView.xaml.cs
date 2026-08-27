@@ -109,6 +109,16 @@ namespace NorsokChecker.Controls
 				Camera.Width = Math.Clamp(Camera.Width * f, _fitWidth * 0.1, _fitWidth * 6.0);
 			};
 			MouseDoubleClick += (_, _) => { if (Interactive) ResetView(); };
+
+			// The labels are 2D and the fit depends on the aspect ratio, so both have to be redone
+			// when the control is resized — dragging the sheet's splitter would otherwise leave the
+			// names beside their members and the joint mis-framed.
+			SizeChanged += (_, _) =>
+			{
+				if (_byMember.Count == 0) return;
+				if (_homeCamera != null) FitToView();   // a plane view: keep it filling the frame
+				else RefreshLabels();
+			};
 		}
 
 		/// <summary>
@@ -153,6 +163,7 @@ namespace NorsokChecker.Controls
 			up.Normalize();
 			Camera.UpDirection = up;
 			_homeCamera = (Camera.Position, Camera.LookDirection, up);
+			FitToView();
 		}
 
 		/// <summary>
@@ -164,6 +175,139 @@ namespace NorsokChecker.Controls
 			Camera.Position = new Point3D(-Camera.Position.X, -Camera.Position.Y, -Camera.Position.Z);
 			Camera.LookDirection = -Camera.LookDirection;
 			_homeCamera = (Camera.Position, Camera.LookDirection, Camera.UpDirection);
+			FitToView();
+		}
+
+		/// <summary>
+		/// Set the camera width so the joint fills the view in its CURRENT orientation.
+		///
+		/// Load() sizes the camera from the model's largest coordinate — a sphere around the node,
+		/// which is safe for any rotation and therefore always too wide for the one actually being
+		/// looked at. Seen square onto its own plane a joint is flat, so most of the frame was
+		/// empty. This measures the vertices as PROJECTED onto the camera's own right/up axes, so
+		/// each quarter turn and each flip re-fits to what is really on screen.
+		///
+		/// The aspect ratio is accounted for: an orthographic camera's Width covers the horizontal
+		/// extent, so a joint that is tall and narrow has to be framed by its height instead.
+		/// </summary>
+		/// <summary>
+		/// Whether member names are drawn over the view. Off by default; the §6.4 sheet turns them
+		/// on, as the python schematic labels its members.
+		/// </summary>
+		public bool ShowMemberLabels
+		{
+			get => _showLabels;
+			set { _showLabels = value; RefreshLabels(); }
+		}
+		private bool _showLabels;
+
+		/// <summary>
+		/// Redraw the name labels at their members' current screen positions.
+		///
+		/// Called after anything that moves the projection — a turn, a flip, a re-fit, a reload —
+		/// because the labels are 2D and know nothing about the camera on their own.
+		///
+		/// The anchor is the member's FARTHEST vertex from the node, not its centroid: every body
+		/// meets at the node, so centroids cluster in the middle of the view and the labels land on
+		/// top of each other. The far end is where the member is unambiguously itself, which is also
+		/// where the python schematic puts its labels.
+		/// </summary>
+		private void RefreshLabels()
+		{
+			LabelLayer.Children.Clear();
+			if (!_showLabels || _byMember.Count == 0) return;
+			if (ActualWidth <= 0 || ActualHeight <= 0) return;
+
+			var look = Camera.LookDirection;
+			var up = Camera.UpDirection;
+			if (look.Length < 1e-9 || up.Length < 1e-9) return;
+			look.Normalize();
+			var right = Vector3D.CrossProduct(look, up);
+			if (right.Length < 1e-9) return;
+			right.Normalize();
+			up = Vector3D.CrossProduct(right, look);
+			up.Normalize();
+
+			double halfW = Camera.Width / 2.0;
+			double halfH = halfW * ActualHeight / ActualWidth;
+			if (halfW <= 0 || halfH <= 0) return;
+
+			foreach (var (id, model) in _byMember)
+			{
+				string name = _names.GetValueOrDefault(id) ?? "";
+				if (string.IsNullOrEmpty(name)) continue;
+				if (model.Geometry is not MeshGeometry3D mesh || mesh.Positions.Count == 0) continue;
+
+				// farthest vertex from the node, measured in the screen plane so the label lands at
+				// the visible end rather than at one pointing away from the camera
+				Point3D anchor = mesh.Positions[0];
+				double best = -1;
+				foreach (var p in mesh.Positions)
+				{
+					var v = new Vector3D(p.X, p.Y, p.Z);
+					double x = Vector3D.DotProduct(v, right), y = Vector3D.DotProduct(v, up);
+					double d = x * x + y * y;
+					if (d > best) { best = d; anchor = p; }
+				}
+
+				var av = new Vector3D(anchor.X, anchor.Y, anchor.Z);
+				// pull the label back toward the node by a tenth, so it sits ON the member's end
+				// rather than beyond its tip where it can fall outside the frame
+				av *= 0.9;
+				double sx = (Vector3D.DotProduct(av, right) / halfW + 1) / 2 * ActualWidth;
+				double sy = (1 - Vector3D.DotProduct(av, up) / halfH) / 2 * ActualHeight;
+
+				var label = new TextBlock
+				{
+					Text = name,
+					FontSize = 11,
+					FontWeight = FontWeights.SemiBold,
+					Foreground = new SolidColorBrush(Color.FromRgb(0x37, 0x47, 0x4F)),
+					// a pill behind the text, so a name over a dark body stays legible
+					Background = new SolidColorBrush(Color.FromArgb(0xD0, 0xFF, 0xFF, 0xFF)),
+					Padding = new Thickness(3, 0, 3, 0),
+				};
+				// centre the pill on the anchor; measured first, since a TextBlock has no size until then
+				label.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+				Canvas.SetLeft(label, sx - label.DesiredSize.Width / 2);
+				Canvas.SetTop(label, sy - label.DesiredSize.Height / 2);
+				LabelLayer.Children.Add(label);
+			}
+		}
+
+		public void FitToView()
+		{
+			if (_byMember.Count == 0) return;
+
+			var look = Camera.LookDirection;
+			var up = Camera.UpDirection;
+			if (look.Length < 1e-9 || up.Length < 1e-9) return;
+			look.Normalize();
+			var right = Vector3D.CrossProduct(look, up);
+			if (right.Length < 1e-9) return;
+			right.Normalize();
+			up = Vector3D.CrossProduct(right, look);
+			up.Normalize();
+
+			double halfW = 0, halfH = 0;
+			foreach (var model in _byMember.Values)
+			{
+				if (model.Geometry is not MeshGeometry3D mesh) continue;
+				foreach (var p in mesh.Positions)
+				{
+					var v = new Vector3D(p.X, p.Y, p.Z);
+					halfW = Math.Max(halfW, Math.Abs(Vector3D.DotProduct(v, right)));
+					halfH = Math.Max(halfH, Math.Abs(Vector3D.DotProduct(v, up)));
+				}
+			}
+			if (halfW <= 0 && halfH <= 0) return;
+
+			// 1.08 leaves a hair of margin so the outermost body does not touch the border
+			double needW = halfW * 2 * 1.08;
+			double needH = halfH * 2 * 1.08;
+			double aspect = ActualWidth > 0 && ActualHeight > 0 ? ActualWidth / ActualHeight : 1.0;
+			Camera.Width = Math.Max(needW, needH * aspect);
+			RefreshLabels();
 		}
 
 		/// <summary>Back to the framing and orientation the model loaded with.</summary>
@@ -224,6 +368,9 @@ namespace NorsokChecker.Controls
 			RotateZ.Angle = 0;
 			RotateTilt.Angle = 0;
 			_homeCamera = (Camera.Position, look, up);
+			// the whole point of this framing is to look square at the plane, so fill the view with
+			// it — the sphere-sized width Load() picked is always too wide for one orientation
+			FitToView();
 		}
 
 		/// <summary>Replace the view's contents with these member bodies.</summary>
@@ -284,6 +431,7 @@ namespace NorsokChecker.Controls
 			ResetView();
 			Placeholder.Visibility = Visibility.Collapsed;
 			HintLabel.Text = $"{meshes.Count} members";
+			RefreshLabels();
 		}
 
 		/// <summary>
@@ -440,6 +588,7 @@ namespace NorsokChecker.Controls
 			Placeholder.Text = "Select a connection to see its members";
 			Placeholder.Visibility = Visibility.Visible;
 			HintLabel.Text = "";
+			LabelLayer.Children.Clear();   // or the previous joint's names hang over an empty view
 		}
 	}
 }
