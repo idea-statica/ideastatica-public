@@ -16,6 +16,23 @@
         <controls:FractionToStarConverter x:Key="FractionToStar"/>
         <controls:FractionToRestStarConverter x:Key="FractionToRestStar"/>
 
+        <!-- Two-line column header for the §6.4 table: the group name on top, the column name
+             below. A DataGrid header shows a single line by default and swallows the newline, so
+             the template has to opt into wrapping; the group line is dimmed and the column line
+             carries the weight, which is what makes the pairing readable at a glance. -->
+        <Style x:Key="Grouped64Header" TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" TextWrapping="NoWrap" TextAlignment="Center"
+                                   LineHeight="14" LineStackingStrategy="BlockLineHeight"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+        </Style>
+
         <!-- IDEA StatiCa brand -->
         <Color x:Key="IdeaOrange">#F57C00</Color>
         <Color x:Key="IdeaDark">#2D2D2D</Color>
@@ -848,16 +865,46 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn x:Name="Col64Gov" Header="Governing LC" Binding="{Binding GoverningLe}" Width="SizeToCells" MinWidth="90"/>
-                                    <DataGridTextColumn Header="K" Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"/>
-                                    <DataGridTextColumn Header="X" Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"/>
-                                    <DataGridTextColumn Header="Y" Binding="{Binding FrY}" Width="SizeToHeader" MinWidth="50"/>
-                                    <DataGridTextColumn Header="N_Rd" Binding="{Binding NRd}" Width="SizeToHeader" MinWidth="70"/>
-                                    <DataGridTextColumn Header="M_Rd,ip" Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"/>
-                                    <DataGridTextColumn Header="M_Rd,op" Binding="{Binding MRdOp}" Width="SizeToHeader" MinWidth="70"/>
-                                    <DataGridTextColumn Header="axial" Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"/>
-                                    <DataGridTextColumn Header="in-pl." Binding="{Binding UtilIpb}" Width="SizeToHeader" MinWidth="55"/>
-                                    <DataGridTextColumn Header="out-pl." Binding="{Binding UtilOpb}" Width="SizeToHeader" MinWidth="55"/>
-                                    <DataGridTextColumn Header="Utilisation" Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"/>
+                                    <!-- Two-line headers carrying the python table's column GROUPS:
+                                         "Classification" over K/X/Y, "Resistance" over the three
+                                         N_Rd/M_Rd, "Utilisation breakdown" over the three shares,
+                                         "Check" over the total and the verdict. WPF's DataGrid has
+                                         no column-group concept, so the group name is the first
+                                         line of the FIRST column's header in each group and the
+                                         others carry a blank line to keep the two rows aligned.
+                                         Without this the eleven middle columns read as one flat
+                                         run, and "axial" next to "N_Rd" gives no clue that one is
+                                         a share of the utilisation and the other a resistance. -->
+                                    <DataGridTextColumn Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="Classification&#x0a;K"/>
+                                    <DataGridTextColumn Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="&#x0a;X"/>
+                                    <DataGridTextColumn Binding="{Binding FrY}" Width="SizeToHeader" MinWidth="50"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="&#x0a;Y"/>
+                                    <DataGridTextColumn Binding="{Binding NRd}" Width="SizeToHeader" MinWidth="70"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="Resistance&#x0a;N_Rd"/>
+                                    <DataGridTextColumn Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="&#x0a;M_Rd,ip"/>
+                                    <DataGridTextColumn Binding="{Binding MRdOp}" Width="SizeToHeader" MinWidth="70"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="&#x0a;M_Rd,op"/>
+                                    <DataGridTextColumn Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="Utilisation breakdown&#x0a;axial"/>
+                                    <DataGridTextColumn Binding="{Binding UtilIpb}" Width="SizeToHeader" MinWidth="55"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="&#x0a;in-plane"/>
+                                    <DataGridTextColumn Binding="{Binding UtilOpb}" Width="SizeToHeader" MinWidth="55"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="&#x0a;out-of-plane"/>
+                                    <DataGridTextColumn Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"
+                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        Header="Check&#x0a;utilisation"/>
                                     <DataGridTextColumn Header="" Binding="{Binding Flags}" Width="SizeToCells" MinWidth="24"/>
                                     <DataGridTextColumn Header="Verdict" Binding="{Binding Verdict}" Width="SizeToHeader" MinWidth="60"/>
                                     <!-- One column for both, because they are the same question

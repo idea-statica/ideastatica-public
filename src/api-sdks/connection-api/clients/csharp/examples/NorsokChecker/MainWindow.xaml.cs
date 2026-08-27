@@ -1175,6 +1175,10 @@ namespace NorsokChecker
 		private async Task ShowJoint3DAsync(ConnectionCheckResult con)
 		{
 			if (Joint3D == null) return;
+			// Names on the Check tab too. The joint is turned by dragging here, so the labels are
+			// re-projected on every rotation (SizeChanged / the drag handler call RefreshLabels) —
+			// without a name a body is identifiable only by clicking it.
+			Joint3D.ShowMemberLabels = true;
 			Joint3D.Load(await MeshesForAsync(con.Id, con.Name));
 		}
 

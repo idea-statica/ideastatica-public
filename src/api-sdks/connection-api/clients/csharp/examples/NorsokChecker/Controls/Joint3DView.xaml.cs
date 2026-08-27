@@ -100,6 +100,7 @@ namespace NorsokChecker.Controls
 				// clamped so the model cannot be turned upside down, which loses the sense of up
 				RotateTilt.Angle = Math.Clamp(RotateTilt.Angle + (now.Y - from.Y) * 0.5, -89.0, 89.0);
 				_dragFrom = now;
+				RefreshLabels();   // the labels are 2D; a turn leaves them beside their members
 			};
 			MouseWheel += (_, e) =>
 			{
@@ -107,6 +108,7 @@ namespace NorsokChecker.Controls
 				// a narrower camera is a closer look; 1.15 per notch is about 12 notches end to end
 				double f = e.Delta > 0 ? 1.0 / 1.15 : 1.15;
 				Camera.Width = Math.Clamp(Camera.Width * f, _fitWidth * 0.1, _fitWidth * 6.0);
+				RefreshLabels();   // zooming changes the projection scale
 			};
 			MouseDoubleClick += (_, _) => { if (Interactive) ResetView(); };
 
@@ -232,18 +234,32 @@ namespace NorsokChecker.Controls
 			double halfH = halfW * ActualHeight / ActualWidth;
 			if (halfW <= 0 || halfH <= 0) return;
 
+			// Dragging turns the MODEL, not the camera (see the MouseMove handler), so a projection
+			// built from the camera alone would be right only while those angles are zero — true on
+			// the §6.4 tab, false on the Check tab the moment the user drags. Fold the model
+			// transform into each vertex first.
+			Transform3D modelTransform = MembersVisual.Transform ?? Transform3D.Identity;
+
 			foreach (var (id, model) in _byMember)
 			{
 				string name = _names.GetValueOrDefault(id) ?? "";
 				if (string.IsNullOrEmpty(name)) continue;
 				if (model.Geometry is not MeshGeometry3D mesh || mesh.Positions.Count == 0) continue;
 
-				// farthest vertex from the node, measured in the screen plane so the label lands at
-				// the visible end rather than at one pointing away from the camera
-				Point3D anchor = mesh.Positions[0];
+				// Farthest vertex from the node, measured in the screen plane so the label lands at
+				// the visible end rather than at one pointing away from the camera.
+				//
+				// Only over the vertices this member's TRIANGLES actually use. The payload shares one
+				// vertex array across every member (see Load), so mesh.Positions holds the whole
+				// joint — scanning it gave all six members the same farthest point, and all six
+				// labels stacked on one pixel with only the last one drawn visible. That is the
+				// "only M6 is labelled" report: measured on CON8, all six landed at (20.5, 176.2).
+				Point3D anchor = modelTransform.Transform(mesh.Positions[0]);
 				double best = -1;
-				foreach (var p in mesh.Positions)
+				foreach (int idx in mesh.TriangleIndices)
 				{
+					if (idx < 0 || idx >= mesh.Positions.Count) continue;
+					var p = modelTransform.Transform(mesh.Positions[idx]);
 					var v = new Vector3D(p.X, p.Y, p.Z);
 					double x = Vector3D.DotProduct(v, right), y = Vector3D.DotProduct(v, up);
 					double d = x * x + y * y;

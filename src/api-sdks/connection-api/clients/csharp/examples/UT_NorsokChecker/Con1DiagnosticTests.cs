@@ -374,6 +374,85 @@ namespace UT_NorsokChecker
 			}
 		}
 
+		/// <summary>
+		/// Where do the member labels actually land, on the REAL geometry of a real connection?
+		///
+		/// Reported on CON8: one of six labels visible. A synthetic six-member joint does not
+		/// reproduce it — its labels all land inside the view — so the cause is something real
+		/// meshes have and the fixture does not (hundreds of vertices, genuine 3D extent, a chord
+		/// that dwarfs the braces). This prints the projected position of every label against the
+		/// view bounds, which is the property visibility depends on.
+		/// </summary>
+		[Test, Apartment(System.Threading.ApartmentState.STA)]
+		public async Task Con8_WhereDoTheMemberLabelsLand()
+		{
+			if (System.Windows.Application.Current == null)
+			{
+				var app = new NorsokChecker.App();
+				app.InitializeComponent();
+			}
+
+			var client = await _runner!.CreateApiClient();
+			var project = await client.Project.OpenProjectAsync(IdeaCon);
+			var pid = project.ProjectId;
+			try
+			{
+				var conns = await client.Connection.GetConnectionsAsync(pid);
+				foreach (string conName in new[] { "CON1", "CON8" })
+				{
+					var con = conns.First(c => c.Name == conName);
+					string json = await client.Presentation.GetDataScene3DTextAsync(pid, con.Id);
+					var meshes = NorsokChecker.Services.JointPresentationReader.ReadMembers(json, _ => { });
+
+					// the §6.4 view's real size, from the XAML column width
+					var view = new NorsokChecker.Controls.Joint3DView { Width = 380, Height = 300 };
+					view.Measure(new System.Windows.Size(380, 300));
+					view.Arrange(new System.Windows.Rect(0, 0, 380, 300));
+					view.UpdateLayout();
+					view.ShowMemberLabels = true;
+					view.Load(meshes);
+
+					// the joint plane, as the tab sets it
+					var crossSections = await client.Material.GetCrossSectionsAsync(pid);
+					var sectionMap = JointSectionMap.FromCrossSections(crossSections.Cast<object>());
+					var conMembers = await client.Member.GetMembersAsync(pid, con.Id);
+					var les = await client.LoadEffect.GetLoadEffectsAsync(pid, con.Id, isPercentage: false);
+					var members = conMembers
+						.Select(m => JointMemberData.FromConMember(m,
+							sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1) ?? new JointSectionInfo()))
+						.ToList();
+					EnrichFromIom(await client.Export.ExportIomConnectionDataAsync(pid, con.Id),
+						members, _ => { });
+					var topo = new JointTopologyBuilder().Build(members, les);
+					if (topo.NPlane.Norm > 1e-9)
+						view.LookAtPlane(
+							new System.Windows.Media.Media3D.Vector3D(topo.NPlane.X, topo.NPlane.Y, topo.NPlane.Z),
+							new System.Windows.Media.Media3D.Vector3D(topo.Ex.X, topo.Ex.Y, topo.Ex.Z));
+
+					var layer = (System.Windows.Controls.Canvas)view.FindName("LabelLayer")!;
+					TestContext.Out.WriteLine($"\n=== {conName}: {meshes.Count} member(s), "
+						+ $"{layer.Children.Count} label(s) in a 380x300 view ===");
+					int inside = 0;
+					foreach (var t in layer.Children.OfType<System.Windows.Controls.TextBlock>())
+					{
+						double x = System.Windows.Controls.Canvas.GetLeft(t);
+						double y = System.Windows.Controls.Canvas.GetTop(t);
+						t.Measure(new System.Windows.Size(double.PositiveInfinity, double.PositiveInfinity));
+						bool ok = !double.IsNaN(x) && !double.IsNaN(y) && x >= 0 && y >= 0
+							&& x + t.DesiredSize.Width <= 380 && y + t.DesiredSize.Height <= 300;
+						if (ok) inside++;
+						TestContext.Out.WriteLine($"   {t.Text,-5} at ({x,7:F1},{y,7:F1})  "
+							+ (ok ? "inside" : "OUTSIDE the view"));
+					}
+					TestContext.Out.WriteLine($"   {inside} of {layer.Children.Count} inside");
+				}
+			}
+			finally
+			{
+				await client.Project.CloseProjectAsync(pid);
+			}
+		}
+
 		private static void Report(JointTopology topo)
 		{
 			TestContext.Out.WriteLine($"  chord={topo.Chord?.Name}, gapBraces={topo.GapBraces.Count}, "
