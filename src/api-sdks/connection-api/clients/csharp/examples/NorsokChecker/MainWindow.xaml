@@ -33,6 +33,26 @@
             <Setter Property="VerticalContentAlignment" Value="Bottom"/>
         </Style>
 
+        <!-- The FIRST column of each group carries a vertical rule on its left, so the groups are
+             visibly divided rather than only labelled.
+
+             The python table gets this for free: it uses real colspan header cells over a table
+             whose every cell is bordered, so the group boundary IS a table line. WPF's DataGrid has
+             no colspan, so the boundary has to be drawn — and it has to be drawn on the CELLS too
+             (Group64CellStart below), or the division stops at the header and the eleven data
+             columns still read as one run. -->
+        <Style x:Key="Grouped64HeaderStart" TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource Grouped64Header}">
+            <Setter Property="BorderBrush" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="1,0,0,0"/>
+        </Style>
+
+        <Style x:Key="Group64CellStart" TargetType="DataGridCell"
+               BasedOn="{StaticResource MaterialDesignDataGridCell}">
+            <Setter Property="BorderBrush" Value="#DCE3E8"/>
+            <Setter Property="BorderThickness" Value="1,0,0,0"/>
+        </Style>
+
         <!-- IDEA StatiCa brand -->
         <Color x:Key="IdeaOrange">#F57C00</Color>
         <Color x:Key="IdeaDark">#2D2D2D</Color>
@@ -876,7 +896,8 @@
                                          run, and "axial" next to "N_Rd" gives no clue that one is
                                          a share of the utilisation and the other a resistance. -->
                                     <DataGridTextColumn Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"
-                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        HeaderStyle="{StaticResource Grouped64HeaderStart}"
+                                                        CellStyle="{StaticResource Group64CellStart}"
                                                         Header="Classification&#x0a;K"/>
                                     <DataGridTextColumn Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
@@ -885,7 +906,8 @@
                                                         HeaderStyle="{StaticResource Grouped64Header}"
                                                         Header="&#x0a;Y"/>
                                     <DataGridTextColumn Binding="{Binding NRd}" Width="SizeToHeader" MinWidth="70"
-                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        HeaderStyle="{StaticResource Grouped64HeaderStart}"
+                                                        CellStyle="{StaticResource Group64CellStart}"
                                                         Header="Resistance&#x0a;N_Rd"/>
                                     <DataGridTextColumn Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
@@ -894,7 +916,8 @@
                                                         HeaderStyle="{StaticResource Grouped64Header}"
                                                         Header="&#x0a;M_Rd,op"/>
                                     <DataGridTextColumn Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"
-                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        HeaderStyle="{StaticResource Grouped64HeaderStart}"
+                                                        CellStyle="{StaticResource Group64CellStart}"
                                                         Header="Utilisation breakdown&#x0a;axial"/>
                                     <DataGridTextColumn Binding="{Binding UtilIpb}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
@@ -903,7 +926,8 @@
                                                         HeaderStyle="{StaticResource Grouped64Header}"
                                                         Header="&#x0a;out-of-plane"/>
                                     <DataGridTextColumn Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"
-                                                        HeaderStyle="{StaticResource Grouped64Header}"
+                                                        HeaderStyle="{StaticResource Grouped64HeaderStart}"
+                                                        CellStyle="{StaticResource Group64CellStart}"
                                                         Header="Check&#x0a;utilisation"/>
                                     <DataGridTextColumn Header="" Binding="{Binding Flags}" Width="SizeToCells" MinWidth="24"/>
                                     <DataGridTextColumn Header="Verdict" Binding="{Binding Verdict}" Width="SizeToHeader" MinWidth="60"/>

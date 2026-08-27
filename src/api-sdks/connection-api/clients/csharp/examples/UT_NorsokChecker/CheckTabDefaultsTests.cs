@@ -115,6 +115,48 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The §6.4 table's column GROUPS are visibly divided, not merely labelled.
+		///
+		/// The python table gets this from real colspan header cells over a fully bordered table, so
+		/// the group boundary is a table line. WPF has no colspan, so the rule is drawn on the first
+		/// column of each group — and on its CELLS as well as its header, or the division stops at
+		/// the header row and the eleven data columns still read as one undivided run.
+		/// </summary>
+		[Test]
+		public void TheColumnGroupsAreVisiblyDivided()
+		{
+			var w = NewWindow();
+			var byHeader = w.Grid64.Columns
+				.Where(c => c.Header is string)
+				.ToDictionary(c => (string)c.Header, c => c);
+
+			// the first column of each of the four groups, by the group name in its header
+			string[] groupStarts =
+			{
+				"Classification\nK", "Resistance\nN_Rd",
+				"Utilisation breakdown\naxial", "Check\nutilisation",
+			};
+
+			Assert.Multiple(() =>
+			{
+				foreach (string header in groupStarts)
+				{
+					Assert.That(byHeader.ContainsKey(header), Is.True, $"column '{header}' is present");
+					if (!byHeader.TryGetValue(header, out var col)) continue;
+					Assert.That(col.HeaderStyle, Is.Not.Null, $"'{header}' header carries a style");
+					Assert.That(col.CellStyle, Is.Not.Null,
+						$"'{header}' must style its CELLS too, or the rule stops at the header");
+				}
+
+				// and a column INSIDE a group must not carry the rule, or every boundary is drawn
+				// and nothing is divided
+				var inside = byHeader["\nX"];
+				Assert.That(inside.CellStyle, Is.Null,
+					"a column inside a group draws no rule of its own");
+			});
+		}
+
+		/// <summary>
 		/// The members table's first column is "Name" too — the two tables are peers, so they name
 		/// the same thing the same way.
 		/// </summary>
