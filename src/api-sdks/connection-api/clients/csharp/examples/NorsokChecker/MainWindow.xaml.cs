@@ -131,7 +131,7 @@ namespace NorsokChecker
 			try
 			{
 				var installs = ServiceLocator.FindInstalls(rootOverride)
-					.Where(i => i.Version >= ServiceLocator.MinVersion || i.Version.Major == 0)
+					.Where(i => ServiceLocator.IsUsableVersion(i.Version))
 					.ToList();
 				if (installs.Count == 0)
 				{
@@ -233,21 +233,38 @@ namespace NorsokChecker
 						$"No Connection REST API is answering at {url}.\n\n"
 						+ "Either start one there, or switch to \"Spawn local API\" to have this app "
 						+ "start its own.");
+
+				// A hard stop, not a warning. A service outside the supported range answers every
+				// call, so the only symptom is that the IOM export comes back empty — and §6.4 then
+				// reports "feet overlap" for a joint whose feet are clear, which is a false
+				// statement about the user's model rather than a visible failure. Refusing to
+				// connect is the only way the user finds out at all. See ServiceLocator.MaxVersion.
+				if (!ServiceLocator.IsSupported(version))
+					throw new InvalidOperationException(
+						$"The service at {url} reports version {version}, which this app cannot use.\n\n"
+						+ $"Supported: {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
+						+ $" to {ServiceLocator.MaxVersion.Major}.{ServiceLocator.MaxVersion.Minor}.x.\n\n"
+						+ (ServiceLocator.VersionOf(version) is { } v && v > ServiceLocator.MaxVersion
+							? "This one is NEWER than the API client this app is built against. It "
+							+ "would answer every call, but the IOM export would come back empty, and "
+							+ "§6.4 would then reject sound joints for overlapping feet — a wrong "
+							+ "answer rather than an obvious failure, which is why this is refused "
+							+ "rather than warned about."
+							: "The /api/4 endpoints this app uses do not exist in versions before "
+							+ $"{ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}.")
+						+ "\n\nSwitch to \"Spawn local API\" to have this app start a supported one.");
+
 				Log($"Attached to the service at {url} (v{version})");
-				WarnIfUnsupported(version);
 				return await new ConnectionApiServiceAttacher(url).CreateApiClient();
 			}
 
-			// ── spawn: but reuse a service already listening, rather than taking a second seat ──
-			string running = $"http://localhost:{ServiceLocator.DefaultPort}";
-			if (await ServiceLocator.RunningOnDefaultPortAsync() is { } already)
-			{
-				Log($"A service is already running on port {ServiceLocator.DefaultPort} (v{already})"
-					+ " — using it instead of starting another, which would take a second licence seat.");
-				WarnIfUnsupported(already);
-				return await new ConnectionApiServiceAttacher(running).CreateApiClient();
-			}
-
+			// ── spawn: start our own, and do NOT go looking for a running one ──
+			// The two radio buttons mean two different things, and mixing them was a defect: with
+			// "Spawn local API" chosen the user asked for their own service, so probing port 5000
+			// belongs to "Attach to running service" and nowhere else. Reusing whatever happened to
+			// be listening also picked up a service NEWER than this app's API client, and the IOM
+			// export then deserialises to null — D/T unreadable, every gap negative, §6.4 rejecting
+			// a sound joint for "feet overlap". See ServiceLocator.MaxVersion.
 			var setupDir = ResolveSetupDir(TxtApiPath.Text.Trim());
 
 			// noted BEFORE the launch: the process is identified by having started after this moment,
@@ -285,17 +302,31 @@ namespace NorsokChecker
 			if (!string.IsNullOrWhiteSpace(typed)
 				&& File.Exists(Path.Combine(typed, ServiceLocator.ExeName)))
 			{
+				// A typed path outside the supported range is refused, not warned about. It used to
+				// log and start anyway ("the first call will say") — but on a NEWER service nothing
+				// fails: every call is answered and only the IOM comes back empty, so §6.4 quietly
+				// reports overlapping feet for a sound joint. And starting it takes a licence seat
+				// for a service that cannot be used.
 				var v = ServiceLocator.VersionOfFolder(typed);
-				if (v.Major > 0 && v < ServiceLocator.MinVersion)
-					Log($"WARNING: {typed} looks like version {v.Major}.{v.Minor}; this app needs "
-						+ $"{ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor} or newer "
-						+ "(/api/4 does not exist before it). Starting it anyway — the first call will say.");
+				if (v.Major > 0 && !ServiceLocator.IsUsableVersion(v))
+					throw new InvalidOperationException(
+						$"{typed} looks like version {v.Major}.{v.Minor}, which this app cannot use.\n\n"
+						+ $"Supported: {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
+						+ $" to {ServiceLocator.MaxVersion.Major}.{ServiceLocator.MaxVersion.Minor}.x.\n\n"
+						+ (v > ServiceLocator.MaxVersion
+							? "A newer service answers every call, but this app's API client cannot "
+							+ "read the model from it — §6.4 would then reject sound joints for "
+							+ "overlapping feet instead of failing visibly."
+							: "The /api/4 endpoints this app uses do not exist in earlier versions.")
+						+ "\n\nClear the box to let the app pick an installed version itself.");
 				return typed;
 			}
 
 			var installs = ServiceLocator.FindInstalls();
-			var usable = installs.Where(i => i.Version >= ServiceLocator.MinVersion
-				|| i.Version.Major == 0).ToList();
+			// IsUsableVersion, not just MinVersion: a 26.1 install is present on developer
+			// machines and would otherwise be picked, and this app's API client cannot read the IOM
+			// from it (see ServiceLocator.MaxVersion).
+			var usable = installs.Where(i => ServiceLocator.IsUsableVersion(i.Version)).ToList();
 
 			if (usable.Count == 0)
 			{
@@ -303,11 +334,15 @@ namespace NorsokChecker
 					? $"No {ServiceLocator.ExeName} was found under {ServiceLocator.DefaultRoot}"
 					  + (ServiceLocator.RegistryInstallDir() is { } r ? $" or {r}" : "") + "."
 					// naming what IS installed matters: "nothing found" sends the user looking for a
-					// missing install when the real problem is that theirs is too old
-					: "The only installed versions are too old for this app: "
+					// missing install when the real problem is the version. And the range has TWO
+					// ends — on a machine with only 26.1 the answer is "too new", and saying "too
+					// old" there would send them to install something even newer.
+					: "None of the installed versions can be used by this app: "
 					  + string.Join(", ", installs.Select(i => i.Label))
-					  + $". Version {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
-					  + " or newer is needed — /api/4 does not exist before it.";
+					  + $". Supported: {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
+					  + $" to {ServiceLocator.MaxVersion.Major}.{ServiceLocator.MaxVersion.Minor}.x"
+					  + " — /api/4 does not exist before that, and this app's API client cannot read"
+					  + " the model from a newer service.";
 				throw new InvalidOperationException(
 					$"Cannot start the Connection REST API.\n\n{detail}\n\n"
 					+ $"You can also set {ServiceLocator.OverrideVariable} to the exe, or point the "
@@ -320,19 +355,6 @@ namespace NorsokChecker
 					? " — also installed: " + string.Join(", ", usable.Skip(1).Select(i => i.Label))
 					: ""));
 			return best.Directory;
-		}
-
-		private void WarnIfUnsupported(string version)
-		{
-			if (ServiceLocator.IsSupported(version)) return;
-			Log($"WARNING: the service reports v{version}, and this app needs "
-				+ $"{ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor} or newer — "
-				+ "/api/4 does not exist before it, so every call will fail.");
-			MessageBox.Show(
-				$"The service at this address reports version {version}.\n\n"
-				+ $"This app needs {ServiceLocator.MinVersion.Major}.{ServiceLocator.MinVersion.Minor}"
-				+ " or newer: the /api/4 endpoints it uses do not exist in earlier versions.",
-				"Service too old", MessageBoxButton.OK, MessageBoxImage.Warning);
 		}
 
 		private async void LoadProject_Click(object sender, RoutedEventArgs e)
@@ -1307,9 +1329,20 @@ namespace NorsokChecker
 
 			// An export that comes back empty is NOT the same as a model without tubes, and saying
 			// "no tubular beams in the model" for it is a false statement about the user's model.
-			// Measured 2026-08-27: against service 26.1 this call returns a NULL ConnectionData for
-			// a connection whose six members are all CHS — the same call against 26.0 returns all
-			// six beams. So D/T then come from nowhere, and because the gaps are computed from the
+			//
+			// Measured 2026-08-27 against service 26.1.0.2007, and the cause is the CLIENT, not the
+			// service: on one open project, in one session, the endpoint returns HTTP 200 with
+			// 418 389 characters and all six beams over raw HTTP, while
+			// ExportIomConnectionDataAsync deserialises that same response to null. The two payloads
+			// (26.0 and 26.1) are structurally identical — same top-level keys, same beam keys, same
+			// plate keys — so what breaks is inside the generated client. Against 26.0 the same
+			// client returns all six beams. See IomExportVersionTests, which pins the distinction.
+			//
+			// An earlier version of this comment blamed the service. It was wrong, and the direction
+			// matters: a broken service means waiting for a service build, a broken client means an
+			// upgrade or reading the payload ourselves.
+			//
+			// Either way D/T then come from nowhere, and because the gaps are computed from the
 			// diameters, every gap goes negative and §6.4 rejects the joint for "feet overlap" —
 			// a conclusion about geometry drawn from the absence of geometry. Say plainly that the
 			// model could not be read.

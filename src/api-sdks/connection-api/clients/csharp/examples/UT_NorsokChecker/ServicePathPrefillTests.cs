@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using NorsokChecker.Services;
 
 namespace UT_NorsokChecker
@@ -59,7 +59,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void TheConstructorFillsTheBoxWithWhatWasFound()
 		{
-			string root = MakeTree("StatiCa 26.1");
+			string root = MakeTree("Connection API");
 			NorsokChecker.MainWindow.ServiceRootForTest = root;
 			try
 			{
@@ -67,7 +67,7 @@ namespace UT_NorsokChecker
 
 				Assert.Multiple(() =>
 				{
-					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "StatiCa 26.1")),
+					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "Connection API")),
 						"the constructor must prefill from the detected installation");
 					Assert.That(w.TxtApiPath.Text, Does.Not.Contain("Program Files"),
 						"a hardcoded path would still point into the real Program Files");
@@ -86,7 +86,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void TheBoxShowsWhatWasFoundNotTheHardcodedPath()
 		{
-			string root = MakeTree("StatiCa 26.1");
+			string root = MakeTree("Connection API");
 			try
 			{
 				var w = new NorsokChecker.MainWindow();
@@ -94,8 +94,8 @@ namespace UT_NorsokChecker
 
 				Assert.Multiple(() =>
 				{
-					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "StatiCa 26.1")),
-						"the only installation in this tree is 26.1, so that is what must be shown");
+					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "Connection API")),
+						"the only installation in this tree is this one, so that is what must be shown");
 					Assert.That(w.TxtApiPath.Text, Does.Not.Contain("Program Files"),
 						"a hardcoded path would still point into the real Program Files");
 					Assert.That(File.Exists(Path.Combine(w.TxtApiPath.Text, ServiceLocator.ExeName)),
@@ -170,7 +170,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void SwitchingBackFromAttachRestoresTheDetectedFolder()
 		{
-			string root = MakeTree("StatiCa 26.1");
+			string root = MakeTree("Connection API");
 			NorsokChecker.MainWindow.ServiceRootForTest = root;
 			try
 			{
@@ -187,7 +187,7 @@ namespace UT_NorsokChecker
 						"back in spawn mode the box means a folder, so a URL must not survive");
 					// the DETECTED one, not the hardcoded guess — this is what makes the assertion
 					// able to fail when the mode switch writes a constant again
-					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "StatiCa 26.1")));
+					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "Connection API")));
 				});
 			}
 			finally

@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using NorsokChecker.Services;
 
 namespace UT_NorsokChecker
@@ -47,12 +47,13 @@ namespace UT_NorsokChecker
 		/// worse than trying and reporting what the service then says.
 		/// </summary>
 		[TestCase("26.0.5.1259", true)]
-		[TestCase("26.1.0.2007", true)]
 		[TestCase("25.1.5.1504", false)]
 		[TestCase("24.0.0.1", false)]
 		[TestCase("", true)]
 		[TestCase(null, true)]
 		[TestCase("something unexpected", true)]
+		// 26.1 is covered by AReportedVersionIsCheckedAgainstBothEnds, which is where the ceiling
+		// belongs — this case used to assert it was supported, and the measurement disproved that.
 		public void SupportIsDecidedByMajorMinor(string? version, bool supported)
 		{
 			Assert.That(ServiceLocator.IsSupported(version), Is.EqualTo(supported));
@@ -116,6 +117,100 @@ namespace UT_NorsokChecker
 			{
 				try { Directory.Delete(root, recursive: true); } catch { }
 			}
+		}
+
+		/// <summary>
+		/// An installation OUTSIDE the conventional Program Files root is found, because the
+		/// registry names its real directory. This is the case the registry lookup exists for — a
+		/// pure directory scan of `C:\Program Files\IDEA StatiCa` would miss it entirely.
+		///
+		/// Simulated by pointing the scan at an arbitrary root, which is what the registry's
+		/// InstallDir64 amounts to: a path from somewhere other than the convention.
+		/// </summary>
+		[Test]
+		public void AnInstallationOutsideProgramFilesIsFound()
+		{
+			// deliberately not under Program Files, and not named like the convention either
+			string root = Path.Combine(Path.GetTempPath(), "idea-elsewhere-" + Guid.NewGuid().ToString("N"));
+			string dir = Path.Combine(root, "StatiCa 26.0");
+			try
+			{
+				Directory.CreateDirectory(dir);
+				File.WriteAllText(Path.Combine(dir, ServiceLocator.ExeName), "stub");
+
+				var found = ServiceLocator.FindInstalls(root);
+
+				Assert.Multiple(() =>
+				{
+					Assert.That(found, Has.Count.EqualTo(1));
+					Assert.That(found[0].Directory, Is.EqualTo(dir));
+					Assert.That(found[0].Directory, Does.Not.Contain("Program Files"),
+						"the point of the test: the path is nowhere near the conventional root");
+					Assert.That(found[0].Version, Is.EqualTo(new Version(26, 0)));
+				});
+			}
+			finally { try { Directory.Delete(root, true); } catch { } }
+		}
+
+		/// <summary>
+		/// The version ceiling. 26.1 IS installed on developer machines and must NOT be selected:
+		/// measured 2026-08-27, the service answers every call but this app's API client (26.0.4)
+		/// deserialises its IOM export to null, and §6.4 then rejects sound joints for overlapping
+		/// feet. A wrong answer, not a visible failure — hence a hard exclusion.
+		/// </summary>
+		[Test]
+		public void AVersionNewerThanTheClientSupportsIsNotUsable()
+		{
+			Assert.Multiple(() =>
+			{
+				Assert.That(ServiceLocator.IsUsableVersion(new Version(26, 0)), Is.True);
+				Assert.That(ServiceLocator.IsUsableVersion(new Version(26, 1)), Is.False,
+					"26.1 answers calls but its IOM cannot be read by the referenced client");
+				Assert.That(ServiceLocator.IsUsableVersion(new Version(27, 0)), Is.False);
+				Assert.That(ServiceLocator.IsUsableVersion(new Version(25, 1)), Is.False, "below /api/4");
+				Assert.That(ServiceLocator.IsUsableVersion(new Version(0, 0)), Is.True,
+					"a folder that states no version is still a candidate — it may be the right one");
+			});
+		}
+
+		/// <summary>The same ceiling on a version STRING, as a running service reports it.</summary>
+		[TestCase("26.0.5.1259", true)]
+		[TestCase("26.0.6.0235", true)]
+		[TestCase("26.1.0.2007", false)]
+		[TestCase("27.0.0.1", false)]
+		[TestCase("25.1.5.1504", false)]
+		public void AReportedVersionIsCheckedAgainstBothEnds(string version, bool supported)
+		{
+			Assert.That(ServiceLocator.IsSupported(version), Is.EqualTo(supported));
+		}
+
+		/// <summary>
+		/// With both installed, the scan offers 26.0 and the filter drops 26.1 — the combination
+		/// that matters on this machine.
+		/// </summary>
+		[Test]
+		public void With26Point0And26Point1PresentOnly26Point0IsUsable()
+		{
+			string root = Path.Combine(Path.GetTempPath(), "norsok-ceiling-" + Guid.NewGuid().ToString("N"));
+			try
+			{
+				foreach (string name in new[] { "StatiCa 26.0", "StatiCa 26.1" })
+				{
+					string dir = Path.Combine(root, name);
+					Directory.CreateDirectory(dir);
+					File.WriteAllText(Path.Combine(dir, ServiceLocator.ExeName), "stub");
+				}
+
+				var usable = ServiceLocator.FindInstalls(root)
+					.Where(i => ServiceLocator.IsUsableVersion(i.Version)).ToList();
+
+				Assert.Multiple(() =>
+				{
+					Assert.That(usable, Has.Count.EqualTo(1), "26.1 must be excluded");
+					Assert.That(usable[0].Version, Is.EqualTo(new Version(26, 0)));
+				});
+			}
+			finally { try { Directory.Delete(root, true); } catch { } }
 		}
 
 		/// <summary>

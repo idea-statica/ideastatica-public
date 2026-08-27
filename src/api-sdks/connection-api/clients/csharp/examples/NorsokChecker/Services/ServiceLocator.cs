@@ -41,6 +41,30 @@ namespace NorsokChecker.Services
 		/// <summary>The version this app was developed and verified against; preferred when present.</summary>
 		public static readonly Version PreferredVersion = new(26, 0);
 
+		/// <summary>
+		/// The newest service this app may use — pinned to 26.0.x, and not for caution.
+		///
+		/// Measured 2026-08-27 against 26.1.0.2007: the IOM export works — the endpoint returns
+		/// HTTP 200 with 418 389 characters and all six beams over raw HTTP — but the
+		/// `IdeaStatiCa.ConnectionApi` 26.0.4.1707 client this app references deserialises that same
+		/// response to NULL. The payloads from 26.0 and 26.1 are structurally identical, so the
+		/// break is inside the generated client: it is older than the service.
+		///
+		/// The consequence is not a missing picture. Without the IOM, D/T cannot be read for any
+		/// tube whose section name does not spell out its dimensions, and because the gaps are
+		/// computed from the diameters, every gap goes negative and §6.4 rejects the whole joint for
+		/// "feet overlap" — a false statement about the user's model. CON1 of test_cs goes from a
+		/// clean check to four unmet conditions.
+		///
+		/// So a 26.1 service must not be used, however convenient it is that one is already running.
+		/// Lift this the day the client is upgraded, not before, and re-run IomExportVersionTests.
+		/// </summary>
+		public static readonly Version MaxVersion = new(26, 0);
+
+		/// <summary>Is this major.minor within the range the referenced client can talk to?</summary>
+		public static bool IsUsableVersion(Version v) =>
+			v.Major == 0 || (v >= MinVersion && v.Major == MaxVersion.Major && v.Minor <= MaxVersion.Minor);
+
 		public const string DefaultRoot = @"C:\Program Files\IDEA StatiCa";
 
 		/// <summary>The port a service nobody configured listens on — the one to probe for a reuse.</summary>
@@ -271,16 +295,27 @@ namespace NorsokChecker.Services
 			=> RunningVersionAsync($"http://localhost:{DefaultPort}");
 
 		/// <summary>
-		/// Whether a reported version string ("26.0.5.1259") meets <see cref="MinVersion"/>.
+		/// Whether a reported version string ("26.0.5.1259") is one this app can use — at or above
+		/// <see cref="MinVersion"/> AND at or below <see cref="MaxVersion"/>.
+		///
+		/// Too NEW is a real failure mode here, not a theoretical one: see MaxVersion. It is also
+		/// the harder one to notice, because a too-new service answers every call and only the IOM
+		/// comes back empty.
+		///
 		/// An unparseable string is accepted: refusing to run over a version format nobody has seen
 		/// would be worse than trying and reporting whatever the service then says.
 		/// </summary>
-		public static bool IsSupported(string? versionText)
+		public static bool IsSupported(string? versionText) => VersionOf(versionText) is not { } v
+			|| IsUsableVersion(v);
+
+		/// <summary>major.minor out of a reported version string, or null when it says none.</summary>
+		public static Version? VersionOf(string? versionText)
 		{
-			if (string.IsNullOrWhiteSpace(versionText)) return true;
+			if (string.IsNullOrWhiteSpace(versionText)) return null;
 			var m = Regex.Match(versionText, @"(\d+)\.(\d+)", RegexOptions.None, TimeSpan.FromSeconds(1));
-			if (!m.Success) return true;
-			return new Version(int.Parse(m.Groups[1].Value), int.Parse(m.Groups[2].Value)) >= MinVersion;
+			return m.Success
+				? new Version(int.Parse(m.Groups[1].Value), int.Parse(m.Groups[2].Value))
+				: null;
 		}
 	}
 }
