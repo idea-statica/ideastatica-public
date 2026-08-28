@@ -1462,6 +1462,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Implemented
       summary: Gets default conversion mappings for converting the project to a different
         design code.
       tags:
@@ -2930,7 +2936,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
-      summary: Gets cross sections used in the specified project.
+      summary: "Gets cross sections used in the specified project, in the IOM model-exchange\r\
+        \nrepresentation (IOM parameter names; some shape kinds carry no parameters\
+        \ here).\r\nFor inspecting or editing a section use `cross-sections/{cssId}`\
+        \ and the\r\n`cross-sections/parametric` endpoints — they speak the engine's\
+        \ exact\r\ndimension vocabulary and round-trip losslessly."
       tags:
       - Material
       x-requiresProject: true
@@ -3335,6 +3345,115 @@ paths:
         \ngiven one — a full replacement: dimensions not named revert to the shape's\
         \ defaults,\r\nso send the complete definition obtained from the detail GET.\
         \ Answers 409 when the id\r\nstores a library or general section. BETA."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes:
+    get:
+      operationId: GetParametricCrossSectionShapes
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Lists the shape types the parametric cross-section endpoints accept\
+        \ (e.g. \"Iw\", \"Tw\",\r\n\"CHSPar\"). Get a shape's fill-in template from\r\
+        \n`cross-sections/parametric/shapes/{shapeType}`. BETA."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}:
+    get:
+      operationId: GetParametricCrossSectionShapeTemplate
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Shape type name from `cross-sections/parametric/shapes`.
+        explode: false
+        in: path
+        name: shapeType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "The fill-in template of a parametric shape: every dimension with its\
+        \ stable id, its\r\nstable code name (e.g. \"wH\") and the shape's default\
+        \ value, in SI units. Change the\r\nvalues you care about, set the material,\
+        \ and POST it to\r\n`cross-sections/parametric`. BETA."
       tags:
       - Material
       x-requiresProject: true
@@ -4580,9 +4699,10 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: "Optional project metadata. The DesignCode field determines\r\
-          \n            the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults\
-          \ to ECEN if not provided."
+        description: "Optional project metadata. The CountryCode field determines\
+          \ the design\r\n            code and must be one of ECEN, American, Canada,\
+          \ Australia, RUS, CHN, India or HKG; any other value\r\n            of the\
+          \ enum is refused with 422. Defaults to ECEN when omitted or set to None."
       responses:
         "200":
           content:
@@ -4726,7 +4846,11 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: New project data to apply.
+        description: "New project data to apply. The CountryCode field may keep the\
+          \ project's\r\n            current design code or switch it to one of ECEN,\
+          \ American, Canada, Australia, RUS, CHN, India or\r\n            HKG; switching\
+          \ to any other value of the enum is refused with 422. None keeps the current\
+          \ code."
       responses:
         "200":
           content:
@@ -7643,16 +7767,44 @@ components:
     ConCrossSectionParameter:
       additionalProperties: false
       example:
+        stringValue: stringValue
+        intValue: 1
+        name: name
+        boolValue: true
         id: 0
         value: 6.027456183070403
+        valueKind: number
       properties:
         id:
           format: int32
           type: integer
+        name:
+          nullable: true
+          type: string
         value:
           format: double
+          nullable: true
           type: number
+        boolValue:
+          nullable: true
+          type: boolean
+        intValue:
+          format: int32
+          nullable: true
+          type: integer
+        stringValue:
+          nullable: true
+          type: string
+        valueKind:
+          $ref: '#/components/schemas/ConCrossSectionParameterValueKind'
       type: object
+    ConCrossSectionParameterValueKind:
+      enum:
+      - number
+      - bool
+      - int
+      - enum
+      type: string
     ConCrossSectionParametricDefinition:
       allOf:
       - $ref: '#/components/schemas/ConCrossSectionDefinition'
@@ -7679,10 +7831,20 @@ components:
         shapeType: shapeType
         definitionType: definitionType
         parameters:
-        - id: 0
+        - stringValue: stringValue
+          intValue: 1
+          name: name
+          boolValue: true
+          id: 0
           value: 6.027456183070403
-        - id: 0
+          valueKind: number
+        - stringValue: stringValue
+          intValue: 1
+          name: name
+          boolValue: true
+          id: 0
           value: 6.027456183070403
+          valueKind: number
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
           \ IdeaStatiCa.Api"
     ConCssPoint2D:
