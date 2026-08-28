@@ -187,7 +187,11 @@ Templates applied to a connection remain associated with it and can be listed an
 The Connection Library is the set of predefined, company, and personal connection designs known from the desktop application. Through the API you can browse it, ask it to **propose** suitable design items for a given connection (based on its topology and design code), download a design item's template and picture, and **publish** a finished connection back to your Private or Company set as a new template (`ConTemplatePublishParam`).
 
 > [!IMPORTANT]
-> `connection_library.get_template` / `ConnectionLibrary.GetTemplateAsync` returns the template **BASE64-encoded**. Decode it to XML before passing it to `get_default_template_mapping` or `apply_template`.
+> `connection_library.get_template` / `ConnectionLibrary.GetTemplateAsync` returns the template in the form the library stores it — usually BASE64-encoded, but raw XML for items published through the API or the desktop.
+>
+> **From 26.1, pass that string straight to `get_default_template_mapping` and `apply_template`** — they accept either form. Do not decode it yourself: `base64.b64decode` throws on the items that are stored as XML.
+>
+> Before 26.1 those two endpoints only accepted XML, so scripts had to call `base64.b64decode(...)` first. That still works for BASE64-stored items and needs no change; it just is no longer necessary, and it never worked for XML-stored ones.
 
 | Endpoint | Python | C# |
 |---|---|---|
@@ -200,7 +204,6 @@ The Connection Library is the set of predefined, company, and personal connectio
 The following complete script shows the whole propose-and-apply pipeline end to end:
 
 ```python
-import base64
 import logging
 import ideastatica_connection_api
 import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
@@ -230,19 +233,18 @@ with attacher.create_api_client() as api_client:
         raise RuntimeError("No design items proposed for this connection topology.")
     item = proposals[0]
 
-    # 2. Download the template - the response is BASE64-encoded, decode it to XML
-    template_b64 = api_client.connection_library.get_template(
+    # 2. Download the template - pass it on as it is, whichever form the library stored it in
+    template = api_client.connection_library.get_template(
         design_set_id=item.con_design_set_id,
         design_item_id=item.con_design_item_id)
-    template_xml = base64.b64decode(template_b64).decode("utf-8")
 
     # 3. Get the default mapping of the template onto this connection
     mapping = api_client.template.get_default_template_mapping(
         project_id, connection.id,
-        ConTemplateMappingGetParam(template=template_xml))
+        ConTemplateMappingGetParam(template=template))
 
     # 4. Optionally edit the mapping, then apply the template
-    apply_param = ConTemplateApplyParam(connection_template=template_xml, mapping=mapping)
+    apply_param = ConTemplateApplyParam(connection_template=template, mapping=mapping)
     api_client.template.apply_template(project_id, connection.id, apply_param)
 
     # 5. Calculate and print the outcome

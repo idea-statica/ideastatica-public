@@ -19,7 +19,7 @@ A single-file reference for the IDEA StatiCa Connection API, written to be paste
 2. Use the client accessors, not standalone API classes. In Python: `api_client.project`, `api_client.report`, `api_client.export`, and `api_client.connection_library` are extension wrappers with file-handling helpers; always prefer them over the raw generated equivalents.
 3. After opening a project, get its id from `api_client.project.active_project_id` (Python) or `client.Project.ProjectId` (C#). Almost every other call requires this id.
 4. Parameter expressions are always strings: `IdeaParameterUpdate(key="...", expression="15")`, never `expression=15`.
-5. Templates returned by `connection_library.get_template(...)` are BASE64-encoded. Decode to XML (`base64.b64decode(b64).decode("utf-8")`) before passing them to `get_default_template_mapping` or `apply_template`.
+5. `connection_library.get_template(...)` returns the template in the library's storage form — usually BASE64, but raw XML for items published through the API or the desktop. From 26.1, pass that string to `get_default_template_mapping` and `apply_template` unchanged; they accept either form. Do not `base64.b64decode` it — that throws on the XML-stored items. (Pre-26.1 those endpoints took XML only, so scripts had to decode first; such scripts keep working.)
 6. The mapping returned by `get_default_template_mapping` is a `TemplateConversions` object whose `.conversions` member is a flat list. Material-type items carry a category label in `.description` (values include `"Steel"`, `"Concrete"`, `"Weld"`, `"Bolt Assembly"` — note the capital A — and `"Bolt grade"`); cross-section/member items instead carry the name of the item from the template (e.g. the operation or member name), not a fixed label. These strings are localized — the values listed apply to a service running in English. Filter on `.description` (or, more robustly, on `.original_value`), then set `.new_value` on the items you want to remap.
 7. The public API has no endpoints for adding individual plates, bolts, welds, or cuts. Geometry and manufacturing operations are authored by applying templates, by the Connection Library propose/apply pipeline, or by importing an IOM model. Do not generate code that calls `add_plate`, `add_bolt`, `add_weld`, `add_cut`, or similar — they do not exist.
 8. The SDK tracks one ACTIVE project id per client — the last one opened via `open_project_from_filepath` / `OpenProjectAsync`. The service itself can hold multiple open projects per client (`get_active_projects` returns all of them); each stays in server memory until `close_project` is called for it. On exit/disposal the SDK clients automatically close only the active project — close any others yourself.
@@ -210,7 +210,7 @@ C#-only helper: `client.Template.ImportTemplateFromFile(fileName)` reads a `.con
 |---|---|
 | `get_design_sets()` | `List[ConDesignSet]` available to the signed-in user |
 | `propose(project_id, connection_id, con_connection_library_search_parameters=None)` | `List[ConDesignItem]` matching the connection topology |
-| `get_template(design_set_id=..., design_item_id=...)` | `str` — BASE64-encoded template; decode before use (Core rule 5) |
+| `get_template(design_set_id=..., design_item_id=...)` | `str` — template in the library's storage form; pass on unchanged (Core rule 5) |
 | `get_design_item_picture(design_set_id=..., design_item_id=...)` | returns `None` in the generated client — use `save_design_item_picture` instead |
 | `save_design_item_picture(design_set_id, design_item_id, file_name)` (ext) | downloads the design item PNG and writes it to `file_name` |
 | `publish_connection(project_id, connection_id, con_template_publish_param=None)` | `bool`; publishes the connection as a template to the Private or Company set (`ConTemplatePublishParam(name=..., author=..., company_name=..., design_set_type=...)`, `ConDesignSetType` is `private` or `company`) |
@@ -466,7 +466,6 @@ with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() a
 ### 2. Apply a Connection Library template
 
 ```python
-import base64
 import logging
 from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
 from ideastatica_connection_api import (
@@ -493,16 +492,15 @@ with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() a
     item = candidates[0]
     print(f"Applying '{item.name}' ({item.design_code})")
 
-    # 2) download the template - it is BASE64, decode to XML before use
-    template_b64 = api_client.connection_library.get_template(
+    # 2) download the template - pass it on unchanged, whichever form it is stored in
+    template = api_client.connection_library.get_template(
         design_set_id=item.con_design_set_id,
         design_item_id=item.con_design_item_id)
-    template_xml = base64.b64decode(template_b64).decode("utf-8")
 
     # 3) get the default mapping of template entities onto this connection
     mapping = api_client.template.get_default_template_mapping(
         project_id, conn.id,
-        ConTemplateMappingGetParam(template=template_xml, member_ids=member_ids))
+        ConTemplateMappingGetParam(template=template, member_ids=member_ids))
 
     # optional: remap materials - .conversions is a FLAT list, filter by .description
     for c in mapping.conversions:
@@ -512,7 +510,7 @@ with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() a
     # 4) apply
     result = api_client.template.apply_template(
         project_id, conn.id,
-        ConTemplateApplyParam(connection_template=template_xml, mapping=mapping))
+        ConTemplateApplyParam(connection_template=template, mapping=mapping))
     print("Applied without issues:", result.applied_without_issues)
 ```
 
@@ -620,7 +618,7 @@ More worked examples (both languages) are in the repository: <https://github.com
 | Wrong | Correct |
 |---|---|
 | `IdeaParameterUpdate(key="gap", expression=15)` | `expression="15"` — expressions are always strings |
-| Passing the `connection_library.get_template` result straight to `apply_template` | Decode it first: `base64.b64decode(b64).decode("utf-8")` |
+| `base64.b64decode(...)` on the `connection_library.get_template` result | Pass it to `apply_template` unchanged (26.1+); decoding throws on XML-stored items |
 | `summary.check_section`, `summary.check_type` | These fields do not exist; use `summary.name` |
 | `item.con_design_set_name` | Does not exist; build a lookup from `get_design_sets()`: `{ds.id: ds.name for ds in ...}` |
 | Looping `save_report_pdf` per connection for a batch | `save_multiple_report_pdf(project_id, conn_ids, file)` (C#: `SaveMultipleReportsPdfAsync`) |
@@ -637,7 +635,8 @@ More worked examples (both languages) are in the repository: <https://github.com
 - **Method not found / unexpected 404** — SDK package version does not match the installed service version, or the method was hallucinated. Verify against this page and reinstall the SDK version matching your IDEA StatiCa installation.
 - **404 or empty results referencing a project id** — the project was closed (clients close the active project on exit) or you used a stale id. Re-open and re-read `active_project_id`.
 - **Pydantic validation error on a parameter update** — a non-string was passed to `expression`.
-- **Template apply produces no change or reports issues** — check `ConTemplateApplyResult.applied_without_issues` and `.issues`; verify the template XML was base64-decoded and that `member_ids` in the mapping request match members from `get_members`.
+- **Template apply produces no change or reports issues** — check `ConTemplateApplyResult.applied_without_issues` and `.issues`, and that `member_ids` in the mapping request match members from `get_members`.
+- **422 "is not a readable connection template"** — the template string is not template XML. Templates from `get_template`, `create_from_connection` and `connection_library.get_template` are all usable as they are; the legacy `.contemp` files shipped in the installation's `SingleTemplates` folder are not (they predate the format the API needs and are rejected with a message saying so).
 - **Design-code conversion fails** — the source project is not ECEN; only ECEN projects can be converted.
 
 ## How to use this page with an AI assistant
