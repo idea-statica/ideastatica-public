@@ -3038,7 +3038,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
       summary: "Gets the full definition (library / parametric / custom) and the evaluated\
-        \ outline\r\ngeometry of one cross-section in the project. BETA."
+        \ outline\r\ngeometry of one cross-section in the project."
       tags:
       - Material
       x-requiresProject: true
@@ -3259,8 +3259,7 @@ paths:
       summary: "Creates a parametric cross-section (welded, boxed, cold-formed, parametric\
         \ rolled)\r\nfrom its shape type and dimensions, and returns the stored detail\
         \ with the evaluated\r\noutline geometry. Dimension ids are the stable parameter\
-        \ ids the detail GET exposes;\r\ndimensions not named keep the shape's defaults.\
-        \ BETA."
+        \ ids the detail GET exposes;\r\ndimensions not named keep the shape's defaults."
       tags:
       - Material
       x-requiresProject: true
@@ -3334,7 +3333,7 @@ paths:
       summary: "Replaces the definition of parametric cross-section cssId with the\r\
         \ngiven one — a full replacement: dimensions not named revert to the shape's\
         \ defaults,\r\nso send the complete definition obtained from the detail GET.\
-        \ Answers 409 when the id\r\nstores a library or general section. BETA."
+        \ Answers 409 when the id\r\nstores a library or general section."
       tags:
       - Material
       x-requiresProject: true

@@ -12,13 +12,13 @@ Method | Description
 [**add_material_reinforcement**](MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](MaterialApi.md#add_material_weld) | Adds a material to the project.
-[**add_parametric_cross_section**](MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
+[**add_parametric_cross_section**](MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults.
 [**add_pin**](MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
 [**get_all_materials**](MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
-[**get_cross_section_detail**](MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+[**get_cross_section_detail**](MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 [**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
 [**get_headed_stud_grade_materials**](MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project&#39;s design code.
@@ -26,7 +26,7 @@ Method | Description
 [**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
-[**update_parametric_cross_section**](MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+[**update_parametric_cross_section**](MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 
 <a id="add_bolt_assembly"></a>
@@ -689,7 +689,7 @@ No authorization required
 # **add_parametric_cross_section**
 > ConCrossSectionDetail add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
 
-Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 
 ### Parameters
 
@@ -724,7 +724,7 @@ def add_parametric_cross_sectionExampleFunc(api_client):
     con_cross_section_parametric_definition = ideastatica_connection_api.ConCrossSectionParametricDefinition() # ConCrossSectionParametricDefinition | Shape type, dimensions and material of the new cross-section. (optional)
 
     try:
-        # Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+        # Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
         api_response = api_client.material.add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
         print("The response of MaterialApi->add_parametric_cross_section:\n")
         pprint(api_response)
@@ -1166,7 +1166,7 @@ No authorization required
 # **get_cross_section_detail**
 > ConCrossSectionDetail get_cross_section_detail(project_id, css_id)
 
-Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 
 ### Parameters
 
@@ -1200,7 +1200,7 @@ def get_cross_section_detailExampleFunc(api_client):
     css_id = 56 # int | Id of the cross-section in the project.
 
     try:
-        # Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        # Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
         api_response = api_client.material.get_cross_section_detail(project_id, css_id)
         print("The response of MaterialApi->get_cross_section_detail:\n")
         pprint(api_response)
@@ -1796,7 +1796,7 @@ No authorization required
 # **update_parametric_cross_section**
 > ConCrossSectionDetail update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
 
-Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 ### Parameters
 
@@ -1833,7 +1833,7 @@ def update_parametric_cross_sectionExampleFunc(api_client):
     con_cross_section_parametric_definition = ideastatica_connection_api.ConCrossSectionParametricDefinition() # ConCrossSectionParametricDefinition | Shape type, dimensions and material replacing the stored definition. (optional)
 
     try:
-        # Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        # Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
         api_response = api_client.material.update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
         print("The response of MaterialApi->update_parametric_cross_section:\n")
         pprint(api_response)

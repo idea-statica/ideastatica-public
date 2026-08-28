@@ -261,13 +261,13 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**add_material_reinforcement**](docs/MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](docs/MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](docs/MaterialApi.md#add_material_weld) | Adds a material to the project.
-[**add_parametric_cross_section**](docs/MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+[**add_parametric_cross_section**](docs/MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 [**add_pin**](docs/MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
 [**get_all_materials**](docs/MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](docs/MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](docs/MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](docs/MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
-[**get_cross_section_detail**](docs/MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+[**get_cross_section_detail**](docs/MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 [**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project.
 [**get_headed_stud_grade_materials**](docs/MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](docs/MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project's design code.
@@ -275,7 +275,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_reinforcement_materials**](docs/MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](docs/MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](docs/MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
-[**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+[**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
   

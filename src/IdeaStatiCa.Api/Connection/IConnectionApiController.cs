@@ -387,7 +387,7 @@ namespace IdeaStatiCa.Api.Connection
 
 		/// <summary>
 		/// Get the full definition (library / parametric / custom) and the evaluated outline
-		/// geometry of one cross-section in the project. BETA.
+		/// geometry of one cross-section in the project.
 		/// </summary>
 		/// <param name="cssId">Id of the cross-section in the project</param>
 		/// <param name="cancellationToken">Cancellation token</param>
@@ -397,7 +397,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <summary>
 		/// Create a parametric cross-section (welded, boxed, cold-formed, parametric rolled) from
 		/// its shape type and dimensions. Dimension ids are the stable parameter ids the detail
-		/// GET exposes; dimensions not named keep the shape's defaults. BETA.
+		/// GET exposes; dimensions not named keep the shape's defaults.
 		/// </summary>
 		/// <param name="definition">Shape type, dimensions and material of the new cross-section</param>
 		/// <param name="cancellationToken">Cancellation token</param>
@@ -407,7 +407,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <summary>
 		/// Replace the definition of a parametric cross-section — a full replacement: dimensions
 		/// not named revert to the shape's defaults, so send the complete definition obtained from
-		/// the detail GET. BETA.
+		/// the detail GET.
 		/// </summary>
 		/// <param name="cssId">Id of the parametric cross-section to replace</param>
 		/// <param name="definition">Shape type, dimensions and material replacing the stored definition</param>
@@ -416,7 +416,7 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// List the shape types the parametric cross-section endpoints accept. BETA.
+		/// List the shape types the parametric cross-section endpoints accept.
 		/// </summary>
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns>The parametric shape type names (e.g. "Iw", "Tw", "CHSPar")</returns>
@@ -426,7 +426,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// Get the fill-in template of a parametric shape: every dimension with its stable id,
 		/// stable code name (e.g. "wH") and the shape's default value, in SI units. Change the
 		/// values, set the material, and create the section with
-		/// <see cref="AddParametricCrossSectionAsync"/>. BETA.
+		/// <see cref="AddParametricCrossSectionAsync"/>.
 		/// </summary>
 		/// <param name="shapeType">Shape type name from <see cref="GetParametricCrossSectionShapesAsync"/></param>
 		/// <param name="cancellationToken">Cancellation token</param>

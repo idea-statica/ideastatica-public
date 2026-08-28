@@ -10,13 +10,13 @@
 | [**AddMaterialReinforcementAsync**](MaterialApi.md#addmaterialreinforcementasync) | Adds a material to the project. |
 | [**AddMaterialSteelAsync**](MaterialApi.md#addmaterialsteelasync) | Adds a material to the project. |
 | [**AddMaterialWeldAsync**](MaterialApi.md#addmaterialweldasync) | Adds a material to the project. |
-| [**AddParametricCrossSectionAsync**](MaterialApi.md#addparametriccrosssectionasync) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. |
+| [**AddParametricCrossSectionAsync**](MaterialApi.md#addparametriccrosssectionasync) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. |
 | [**AddPinAsync**](MaterialApi.md#addpinasync) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. |
 | [**GetAllMaterialsAsync**](MaterialApi.md#getallmaterialsasync) | Gets materials used in the specified project. |
 | [**GetBoltAssembliesAsync**](MaterialApi.md#getboltassembliesasync) | Gets bolt assemblies used in the specified project. |
 | [**GetBoltGradeMaterialsAsync**](MaterialApi.md#getboltgradematerialsasync) | Gets materials used in the specified project. |
 | [**GetConcreteMaterialsAsync**](MaterialApi.md#getconcretematerialsasync) | Gets materials used in the specified project. |
-| [**GetCrossSectionDetailAsync**](MaterialApi.md#getcrosssectiondetailasync) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. |
+| [**GetCrossSectionDetailAsync**](MaterialApi.md#getcrosssectiondetailasync) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. |
 | [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Gets cross sections used in the specified project. |
 | [**GetHeadedStudGradeMaterialsAsync**](MaterialApi.md#getheadedstudgradematerialsasync) | Gets materials used in the specified project. |
 | [**GetMaterialLibraryAsync**](MaterialApi.md#getmateriallibraryasync) | Lists the MPRL names available in the material library for the project&#39;s design code. |
@@ -24,7 +24,7 @@
 | [**GetReinforcementMaterialsAsync**](MaterialApi.md#getreinforcementmaterialsasync) | Gets materials used in the specified project. |
 | [**GetSteelMaterialsAsync**](MaterialApi.md#getsteelmaterialsasync) | Gets materials used in the specified project. |
 | [**GetWeldingMaterialsAsync**](MaterialApi.md#getweldingmaterialsasync) | Gets materials used in the specified project. |
-| [**UpdateParametricCrossSectionAsync**](MaterialApi.md#updateparametriccrosssectionasync) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. |
+| [**UpdateParametricCrossSectionAsync**](MaterialApi.md#updateparametriccrosssectionasync) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. |
 
 <a id="addboltassembly"></a>
 ## **AddBoltAssemblyAsync**
@@ -1078,7 +1078,7 @@ No authorization required
 ## **AddParametricCrossSectionAsync**
 > **ConCrossSectionDetail AddParametricCrossSectionAsync (Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
 
-Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 
 
 
@@ -1129,7 +1129,7 @@ namespace Example
 
                     try
                     {
-                        // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+                        // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
                         ConCrossSectionDetail result = await conClient.Material.AddParametricCrossSectionAsync(projectId, conCrossSectionParametricDefinition);
                         Debug.WriteLine(result);
                     }
@@ -1170,7 +1170,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+    // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
     ApiResponse<ConCrossSectionDetail> response = conClient.Material.AddParametricCrossSectionWithHttpInfo(projectId, conCrossSectionParametricDefinition);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1852,7 +1852,7 @@ No authorization required
 ## **GetCrossSectionDetailAsync**
 > **ConCrossSectionDetail GetCrossSectionDetailAsync (Guid projectId, int cssId)**
 
-Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 
 
 
@@ -1903,7 +1903,7 @@ namespace Example
 
                     try
                     {
-                        // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+                        // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
                         ConCrossSectionDetail result = await conClient.Material.GetCrossSectionDetailAsync(projectId, cssId);
                         Debug.WriteLine(result);
                     }
@@ -1944,7 +1944,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+    // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
     ApiResponse<ConCrossSectionDetail> response = conClient.Material.GetCrossSectionDetailWithHttpInfo(projectId, cssId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -2881,7 +2881,7 @@ No authorization required
 ## **UpdateParametricCrossSectionAsync**
 > **ConCrossSectionDetail UpdateParametricCrossSectionAsync (Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
 
-Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 
 
@@ -2934,7 +2934,7 @@ namespace Example
 
                     try
                     {
-                        // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+                        // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
                         ConCrossSectionDetail result = await conClient.Material.UpdateParametricCrossSectionAsync(projectId, cssId, conCrossSectionParametricDefinition);
                         Debug.WriteLine(result);
                     }
@@ -2975,7 +2975,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+    // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
     ApiResponse<ConCrossSectionDetail> response = conClient.Material.UpdateParametricCrossSectionWithHttpInfo(projectId, cssId, conCrossSectionParametricDefinition);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
