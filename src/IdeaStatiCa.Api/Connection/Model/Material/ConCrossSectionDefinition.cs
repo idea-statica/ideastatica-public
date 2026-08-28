@@ -66,7 +66,44 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		/// <summary>Stable non-localized dimension code of the shape (e.g. "wH", "fT").</summary>
 		public string Name { get; set; }
 
+		/// <summary>
+		/// The dimension's value, interpreted according to <see cref="ValueKind"/>: an SI double
+		/// for <see cref="ConCrossSectionParameterValueKind.Number"/>, 0/1 for
+		/// <see cref="ConCrossSectionParameterValueKind.Bool"/>, a whole number for
+		/// <see cref="ConCrossSectionParameterValueKind.Int"/> and a zero-based option index for
+		/// <see cref="ConCrossSectionParameterValueKind.Enum"/>.
+		/// </summary>
 		public double Value { get; set; }
+
+		/// <summary>
+		/// What <see cref="Value"/> means. Always set on read. Optional on write — omitted means
+		/// "whatever this dimension is", and a kind that contradicts the addressed dimension is
+		/// rejected, so a switch cannot be written as if it were a length.
+		/// </summary>
+		public ConCrossSectionParameterValueKind? ValueKind { get; set; }
+	}
+
+	/// <summary>
+	/// What a parametric dimension's value carries. Most dimensions are SI doubles, but a
+	/// shape's defining input can also be a switch (mirroring), a count (polygon vertices) or
+	/// a choice (web alignment), and those have to round-trip too.
+	/// </summary>
+	public enum ConCrossSectionParameterValueKind
+	{
+		/// <summary>SI double — a length or thickness in meters, an angle in radians.</summary>
+		Number = 0,
+
+		/// <summary>Switch; the value is 0 (off) or 1 (on).</summary>
+		Bool = 1,
+
+		/// <summary>Whole number; the value must have no fractional part.</summary>
+		Int = 2,
+
+		/// <summary>
+		/// Choice; the value is the zero-based index into the shape's option list for this
+		/// dimension. Sending an index out of range answers 422 and lists the options.
+		/// </summary>
+		Enum = 3,
 	}
 
 	/// <summary>One polygonal component of a custom cross-section.</summary>
