@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -59,6 +60,13 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// On input either <see cref="Name"/> or <see cref="Id"/> is enough; when both are given
 	/// they must identify the same dimension.
 	/// </summary>
+	/// <remarks>
+	/// A dimension carries its value in the field that fits its type, named by
+	/// <see cref="ValueKind"/>: <see cref="Value"/> for a number, <see cref="BoolValue"/> for a
+	/// switch, <see cref="IntValue"/> for a count, <see cref="StringValue"/> for a choice. Only
+	/// that one field is written on read and only that one is accepted on write — sending the
+	/// wrong one answers 422 and says which is expected.
+	/// </remarks>
 	public class ConCrossSectionParameter
 	{
 		public int Id { get; set; }
@@ -67,42 +75,54 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		public string Name { get; set; }
 
 		/// <summary>
-		/// The dimension's value, interpreted according to <see cref="ValueKind"/>: an SI double
-		/// for <see cref="ConCrossSectionParameterValueKind.Number"/>, 0/1 for
-		/// <see cref="ConCrossSectionParameterValueKind.Bool"/>, a whole number for
-		/// <see cref="ConCrossSectionParameterValueKind.Int"/> and a zero-based option index for
-		/// <see cref="ConCrossSectionParameterValueKind.Enum"/>.
+		/// The value of a <see cref="ConCrossSectionParameterValueKind.Number"/> dimension, in SI
+		/// units — a length or thickness in meters, an angle in radians.
 		/// </summary>
-		public double Value { get; set; }
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public double? Value { get; set; }
+
+		/// <summary>The value of a <see cref="ConCrossSectionParameterValueKind.Bool"/> dimension, e.g. mirroring.</summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public bool? BoolValue { get; set; }
+
+		/// <summary>The value of an <see cref="ConCrossSectionParameterValueKind.Int"/> dimension, e.g. a polygon vertex count.</summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int? IntValue { get; set; }
 
 		/// <summary>
-		/// What <see cref="Value"/> means. Always set on read. Optional on write — omitted means
-		/// "whatever this dimension is", and a kind that contradicts the addressed dimension is
-		/// rejected, so a switch cannot be written as if it were a length.
+		/// The value of an <see cref="ConCrossSectionParameterValueKind.Enum"/> dimension: the
+		/// chosen option under its stable, non-localized name (e.g. "Center" | "Left" | "Right"
+		/// for a web alignment). Matched case-insensitively on write; an unknown option answers
+		/// 422 listing the ones the shape offers.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string StringValue { get; set; }
+
+		/// <summary>
+		/// Which of the value fields this dimension uses. Always set on read. Optional on write —
+		/// omitted means "whatever this dimension is", and a kind that contradicts the addressed
+		/// dimension is rejected, so a switch cannot be written as if it were a length.
 		/// </summary>
 		public ConCrossSectionParameterValueKind? ValueKind { get; set; }
 	}
 
 	/// <summary>
-	/// What a parametric dimension's value carries. Most dimensions are SI doubles, but a
-	/// shape's defining input can also be a switch (mirroring), a count (polygon vertices) or
-	/// a choice (web alignment), and those have to round-trip too.
+	/// Which field of <see cref="ConCrossSectionParameter"/> carries the value. Most dimensions
+	/// are SI numbers, but a shape's defining input can also be a switch (mirroring), a count
+	/// (polygon vertices) or a choice (web alignment), and those have to round-trip too.
 	/// </summary>
 	public enum ConCrossSectionParameterValueKind
 	{
-		/// <summary>SI double — a length or thickness in meters, an angle in radians.</summary>
+		/// <summary>Uses <see cref="ConCrossSectionParameter.Value"/>.</summary>
 		Number = 0,
 
-		/// <summary>Switch; the value is 0 (off) or 1 (on).</summary>
+		/// <summary>Uses <see cref="ConCrossSectionParameter.BoolValue"/>.</summary>
 		Bool = 1,
 
-		/// <summary>Whole number; the value must have no fractional part.</summary>
+		/// <summary>Uses <see cref="ConCrossSectionParameter.IntValue"/>.</summary>
 		Int = 2,
 
-		/// <summary>
-		/// Choice; the value is the zero-based index into the shape's option list for this
-		/// dimension. Sending an index out of range answers 422 and lists the options.
-		/// </summary>
+		/// <summary>Uses <see cref="ConCrossSectionParameter.StringValue"/>, the option's stable name.</summary>
 		Enum = 3,
 	}
 
