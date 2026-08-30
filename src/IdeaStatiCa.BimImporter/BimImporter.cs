@@ -236,6 +236,32 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
+		/// <inheritdoc cref="IBimImporter.ImportSubstructure"/>
+		/// <exception cref="ArgumentNullException">Throws when argument is null.</exception>
+		public ModelBIM ImportSubstructure(IEnumerable<IIdeaMember1D> members, CountryCode countryCode)
+		{
+			if (members is null)
+			{
+				throw new ArgumentNullException(nameof(members));
+			}
+
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingMembers);
+
+			List<IIdeaMember1D> importedMembers = members.Where(x => x != null).ToList();
+
+			// Map the members up front so they hold the model's leading IOM ids. The import maps a member only
+			// after the geometry it references, which would otherwise scatter them through the numbering.
+			foreach (IIdeaMember1D member in importedMembers)
+			{
+				_project.GetIomId(member);
+			}
+
+			return CreateModelBIM(
+				Enumerable.Empty<IIdeaObject>(),
+				importedMembers.Select(x => new Member(x)),
+				countryCode);
+		}
+
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode)

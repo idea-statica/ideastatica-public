@@ -50,7 +50,27 @@ namespace IdeaStatiCa.BimImporter
 		ModelBIM ImportMembers(CountryCode countryCode);
 
 		/// <summary>
-		/// Reimports previously imported objects. 
+		/// Imports the given members into IOM. Reads no selection from the model and adds none of the members
+		/// framing into their end nodes, so the result holds exactly the members passed in.
+		/// </summary>
+		/// <remarks>
+		/// For a caller that already holds the members: they are read from the BIM application once.
+		/// <see cref="ImportSelected"/> addresses items by IOM id and resolves each one back into an object,
+		/// which reads every entity a second time.
+		/// <para>
+		/// The members are given the model's leading IOM ids, ahead of the geometry they reference. A member
+		/// that is null is skipped, which is what an unresolvable entity arrives as. Details are not supported
+		/// here — a <see cref="RequestedItemsType.Substructure"/> group can also carry them, this cannot.
+		/// </para>
+		/// </remarks>
+		/// <param name="members">Members to import.</param>
+		/// <param name="countryCode"></param>
+		/// <returns>ModelBIM object.</returns>
+		/// <exception cref="System.ArgumentNullException">Throws when <paramref name="members"/> is null.</exception>
+		ModelBIM ImportSubstructure(IEnumerable<IIdeaMember1D> members, CountryCode countryCode);
+
+		/// <summary>
+		/// Reimports previously imported objects.
 		/// </summary>
 		/// <param name="selected">List of objects to reimport.</param>
 		/// <param name="countryCode"></param>
