@@ -1205,7 +1205,16 @@ namespace NorsokChecker
 				// presentations/text is the app's own drawing of the joint — see
 				// JointPresentationReader for the payload's shape
 				string json = await _apiClient.Presentation.GetDataScene3DTextAsync(_projectId, connectionId);
-				meshes = JointPresentationReader.ReadMembers(json, Log);
+
+				// The connection's real member ids, so a body tagged "member" that is not one of them
+				// is drawn as context rather than counted as a member. Measured on test_cs CON15: the
+				// payload returns nine "member" groups where /members reports six. Null when the
+				// members have not been read yet, which leaves the tag taken at face value.
+				var knownIds = _membersPerConnection.TryGetValue(connectionId, out var known) && known.Count > 0
+					? known.Select(m => m.Id).ToHashSet()
+					: null;
+
+				meshes = JointPresentationReader.ReadMembers(json, Log, knownIds);
 			}
 			catch (Exception ex)
 			{

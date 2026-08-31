@@ -405,7 +405,7 @@ namespace NorsokChecker.Controls
 
 			if (meshes.Count == 0)
 			{
-				Placeholder.Text = "No drawable members in this connection";
+				Placeholder.Text = "No drawable geometry in this connection";
 				Placeholder.Visibility = Visibility.Visible;
 				HintLabel.Text = "";
 				return;
@@ -430,14 +430,26 @@ namespace NorsokChecker.Controls
 				foreach (int idx in m.Indices)
 					mesh.TriangleIndices.Add(idx);
 
-				var model = new GeometryModel3D(mesh, new DiffuseMaterial(MemberBrush))
+				// A member is the assessable thing; everything else — plates, welds, bolts — is context
+				// and gets its own fixed colour. Only members go into _byMember, which is what the
+				// utilisation colouring, the table's hover highlight and the labels are keyed on: an
+				// id of -1 shared by every plate and weld would collapse them into one entry and let
+				// a plate answer to a member's row.
+				bool assessable = m.Kind == BodyKind.Member;
+				var brush = assessable ? MemberBrush : ContextBrush(m.Kind);
+
+				var model = new GeometryModel3D(mesh, new DiffuseMaterial(brush))
 				{
 					// tubes are closed surfaces, but a cut member can be seen into
-					BackMaterial = new DiffuseMaterial(MemberBrush),
+					BackMaterial = new DiffuseMaterial(brush),
 				};
 				MembersGroup.Children.Add(model);
-				_byMember[m.MemberId] = model;
-				_names[m.MemberId] = m.Name;
+
+				if (assessable)
+				{
+					_byMember[m.MemberId] = model;
+					_names[m.MemberId] = m.Name;
+				}
 			}
 
 			// The node is at (0,0,0) and lengths are metres, so the model self-centres — only the
@@ -446,7 +458,11 @@ namespace NorsokChecker.Controls
 			_fitWidth = Math.Max(0.2, extent * 2.4);
 			ResetView();
 			Placeholder.Visibility = Visibility.Collapsed;
-			HintLabel.Text = $"{meshes.Count} members";
+			// members, not bodies: meshes now also carries the plates, welds and bolts, and counting
+			// those as members would have reported "60 members" on a nine-member bolted joint
+			int drawnOther = meshes.Count - _byMember.Count;
+			HintLabel.Text = _byMember.Count == 1 ? "1 member" : $"{_byMember.Count} members";
+			if (drawnOther > 0) HintLabel.Text += $" + {drawnOther} plates/welds/bolts";
 			RefreshLabels();
 		}
 
@@ -526,6 +542,25 @@ namespace NorsokChecker.Controls
 		// panel makes an unchecked member disappear rather than read as grey.
 		private static readonly SolidColorBrush ChordBrush = new(Color.FromRgb(0x9E, 0xAF, 0xB8));
 		private static readonly SolidColorBrush NoCheckBrush = new(Color.FromRgb(0xC4, 0xC4, 0xC4));
+
+		/// <summary>
+		/// The fixed colour of a body that is NOT assessed — a plate, a weld, a bolt. Deliberately
+		/// desaturated: these are drawn so the picture matches the model, but §6.4 says nothing about
+		/// them, and a plate in a utilisation tone would claim a verdict it never got.
+		///
+		/// Welds are the IDEA yellow the desktop app uses, bolts a dark metal, plates a neutral grey
+		/// — recognisable as themselves rather than as another member.
+		/// </summary>
+		private static Brush ContextBrush(BodyKind kind) => kind switch
+		{
+			BodyKind.Weld => WeldBrush,
+			BodyKind.BoltGrid or BodyKind.AnchorGrid => BoltBrush,
+			_ => PlateBrush,
+		};
+
+		private static readonly SolidColorBrush PlateBrush = new(Color.FromRgb(0xBD, 0xC6, 0xCC));
+		private static readonly SolidColorBrush WeldBrush = new(Color.FromRgb(0xE8, 0xC0, 0x5A));
+		private static readonly SolidColorBrush BoltBrush = new(Color.FromRgb(0x8A, 0x94, 0x9C));
 
 		/// <summary>
 		/// The utilisation ramp, delegated to <see cref="Models.UtilisationScale"/> so this view, the
