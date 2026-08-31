@@ -46,4 +46,27 @@ namespace NorsokChecker.Controls
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			=> throw new NotSupportedException();
 	}
+
+	/// <summary>
+	/// A Color to a Brush, for binding a row's Background to a computed colour.
+	///
+	/// Needed because Background wants a Brush and the row exposes a Color — the utilisation tint is
+	/// computed per row, so it cannot be a static resource. Transparent maps to null so the row keeps
+	/// whatever the theme gives it (alternating stripes, selection) rather than being painted over
+	/// with a transparent brush that defeats them.
+	/// </summary>
+	public sealed class ColorToBrushConverter : IValueConverter
+	{
+		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (value is not System.Windows.Media.Color c) return null;
+			if (c.A == 0) return null;
+			var brush = new System.Windows.Media.SolidColorBrush(c);
+			brush.Freeze();
+			return brush;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+			=> throw new NotSupportedException();
+	}
 }

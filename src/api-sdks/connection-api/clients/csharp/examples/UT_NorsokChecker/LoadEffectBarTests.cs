@@ -42,13 +42,51 @@ namespace UT_NorsokChecker
 		[Test]
 		public void TheBarColourUsesTheSameBandsAsTheJointView()
 		{
+			// Compared against the SCALE, not against copied hex literals. The old version listed the
+			// four colours by hand, so it asserted "the ramp is what it was when I typed this" — it
+			// failed on a deliberate change to the scale while proving nothing about agreement between
+			// the bar and the view, which is the property that actually matters.
 			Assert.Multiple(() =>
 			{
-				Assert.That(Le(0.30).BarColour, Is.EqualTo("#66BB6A"), "green");
-				Assert.That(Le(0.70).BarColour, Is.EqualTo("#E6C93A"), "yellow");
-				Assert.That(Le(0.92).BarColour, Is.EqualTo("#F08A2E"), "orange");
-				Assert.That(Le(1.20).BarColour, Is.EqualTo("#EF5350"), "red");
-				Assert.That(Le(0.0).BarColour, Is.EqualTo("#D7DBE0"), "grey when there is no number");
+				foreach (double util in new[] { 0.05, 0.30, 0.55, 0.70, 0.92, 0.99, 1.20 })
+					Assert.That(Le(util).BarColour,
+						Is.EqualTo(NorsokChecker.Models.UtilisationScale.Hex(util)),
+						$"the bar at {util:P0} must be its band's colour");
+
+				Assert.That(Le(0.0).BarColour,
+					Is.EqualTo(NorsokChecker.Models.UtilisationScale.NoValueHex),
+					"grey when there is no number");
+			});
+		}
+
+		/// <summary>
+		/// Every band must be reachable from a utilisation, and each one distinct. This is what makes
+		/// "ten bands" a fact about the app rather than about a constant: a BandOf that clamped early,
+		/// or a palette with a duplicated entry, would leave the scale coarser than it claims while
+		/// BandCount still said ten.
+		/// </summary>
+		[Test]
+		public void EveryBandIsReachableAndDistinct()
+		{
+			int ramp = NorsokChecker.Models.UtilisationScale.RampBandCount;
+			int total = NorsokChecker.Models.UtilisationScale.BandCount;
+			var seen = new List<string>();
+
+			// one utilisation in the middle of each tenth, then one over capacity
+			for (int b = 0; b < ramp; b++)
+				seen.Add(Le((b + 0.5) / ramp).BarColour);
+			seen.Add(Le(1.10).BarColour);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(ramp, Is.EqualTo(10), "capacity is divided into ten bands");
+				Assert.That(total, Is.EqualTo(ramp + 1), "plus one band for over-capacity");
+				Assert.That(seen.Distinct().Count(), Is.EqualTo(total),
+					"every band must have its own colour: " + string.Join(" ", seen));
+
+				// the specific collapse that a divide-by-BandCount reintroduces
+				Assert.That(Le(0.99).BarColour, Is.Not.EqualTo(Le(1.30).BarColour),
+					"99 % must not be painted as overloaded");
 			});
 		}
 

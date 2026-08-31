@@ -96,37 +96,88 @@ namespace UT_NorsokChecker
 			return h * 60;
 		}
 
-		/// <summary>One representative utilisation per band, in order.</summary>
-		private static readonly (string Name, double Util)[] Bands =
-		{
-			("green (<0.5)", 0.30),
-			("yellow (0.5-0.85)", 0.70),
-			("orange (0.85-1.0)", 0.92),
-			("red (>=1.0)", 1.20),
-		};
+		/// <summary>
+		/// One representative utilisation per band, derived from the scale rather than listed: a
+		/// hand-written list silently stops covering the scale the moment its band count changes,
+		/// which is exactly what happened when it went from four bands to ten (two of the four
+		/// samples then landed in the same band and the neighbour test compared a colour with
+		/// itself, reporting Δ=0 as a defect).
+		/// </summary>
+		private static (string Name, double Util)[] Bands =>
+			Enumerable.Range(0, NorsokChecker.Models.UtilisationScale.BandCount)
+				.Select(b =>
+				{
+					int ramp = NorsokChecker.Models.UtilisationScale.RampBandCount;
+					bool over = b == NorsokChecker.Models.UtilisationScale.BandCount - 1;
+					// mid-band across the ten tenths, then one clearly over capacity
+					double util = over ? 1.20 : (b + 0.5) / ramp;
+					string name = over
+						? "over capacity (>=1.0)"
+						: $"band {b + 1} ({b * 100 / ramp}-{(b + 1) * 100 / ramp} %)";
+					return (name, util);
+				})
+				.ToArray();
 
 		/// <summary>
-		/// Every neighbouring pair must differ enough in brightness OR in hue. Either alone is
+		/// Every neighbouring pair must stay tellable apart in brightness OR in hue. Either alone is
 		/// sufficient — requiring both would rule out ramps that read perfectly well.
+		///
+		/// The thresholds are LOWER than the four-band ramp's (0.08 / 20°): ten bands over the same
+		/// green-to-red range are neighbours on a fine scale, and demanding the old separation would
+		/// force a rainbow. What still has to hold is that no two adjacent bands are the SAME colour,
+		/// and that the ends of the scale remain unmistakable — the last pair is checked separately
+		/// below, because crossing 100 % must not look like approaching it.
 		/// </summary>
 		[Test]
 		public void NeighbouringBandsStayApartOnAnUnlitFace()
 		{
+			var bands = Bands;
 			Assert.Multiple(() =>
 			{
-				for (int i = 0; i < Bands.Length - 1; i++)
+				for (int i = 0; i < bands.Length - 1; i++)
 				{
-					var a = Unlit(Bands[i].Util);
-					var b = Unlit(Bands[i + 1].Util);
+					var a = Unlit(bands[i].Util);
+					var b = Unlit(bands[i + 1].Util);
 
 					double dBright = Math.Abs(Brightness(a) - Brightness(b));
 					double dHue = Math.Abs(Hue(a) - Hue(b));
 					dHue = Math.Min(dHue, 360 - dHue);
 
-					Assert.That(dBright > 0.08 || dHue > 20.0, Is.True,
-						$"{Bands[i].Name} vs {Bands[i + 1].Name}: Δbrightness={dBright:F3}, "
+					Assert.That(dBright > 0.02 || dHue > 5.0, Is.True,
+						$"{bands[i].Name} vs {bands[i + 1].Name}: Δbrightness={dBright:F3}, "
 						+ $"Δhue={dHue:F1}° — indistinguishable on a face turned away from the lights");
 				}
+			});
+		}
+
+		/// <summary>
+		/// The two ENDS of the scale must be unmistakable, and so must the step over 100 %. This is
+		/// what the old four-band thresholds really protected, and it does not weaken when the scale
+		/// is subdivided: a band-1 body (nearly unloaded) and a band-10 body (overloaded) can never
+		/// be confused, and neither can the last two.
+		/// </summary>
+		[Test]
+		public void TheEndsOfTheScaleAndTheStepOver100PercentAreUnmistakable()
+		{
+			var bands = Bands;
+			var first = Unlit(bands[0].Util);
+			var last = Unlit(bands[^1].Util);
+			var penultimate = Unlit(bands[^2].Util);
+
+			double endHue = Math.Abs(Hue(first) - Hue(last));
+			endHue = Math.Min(endHue, 360 - endHue);
+
+			double stepBright = Math.Abs(Brightness(penultimate) - Brightness(last));
+			double stepHue = Math.Abs(Hue(penultimate) - Hue(last));
+			stepHue = Math.Min(stepHue, 360 - stepHue);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(endHue, Is.GreaterThan(60.0),
+					"green at the bottom and red at the top must be far apart in hue");
+				Assert.That(stepBright > 0.05 || stepHue > 12.0, Is.True,
+					$"crossing 100 % must not look like approaching it: Δbrightness={stepBright:F3}, "
+					+ $"Δhue={stepHue:F1}°");
 			});
 		}
 

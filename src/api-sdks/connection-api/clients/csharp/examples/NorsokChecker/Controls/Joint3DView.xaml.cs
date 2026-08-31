@@ -528,29 +528,16 @@ namespace NorsokChecker.Controls
 		private static readonly SolidColorBrush NoCheckBrush = new(Color.FromRgb(0xC4, 0xC4, 0xC4));
 
 		/// <summary>
-		/// The utilisation ramp, matching the legend beside the view: green to 0.5, yellow-green to
-		/// 0.85, amber below 1.0, red at or above it. Banded rather than continuously interpolated
-		/// because the four bands are what the legend shows, and a reader compares a body against the
-		/// legend, not against a gradient.
+		/// The utilisation ramp, delegated to <see cref="Models.UtilisationScale"/> so this view, the
+		/// load-effect bar, the result rows and the legend cannot drift apart — they did, as three
+		/// copies of a four-band ramp. The scale's LIT tones are the ones used here: a lit face never
+		/// returns its own colour, so those are lighter and land near the flat legend swatches once
+		/// WPF has multiplied them by (ambient + Σ lights).
+		///
+		/// Banded, not interpolated, because the legend shows bands and a reader compares a body
+		/// against the legend rather than against a gradient.
 		/// </summary>
-		/// Separated by HUE — green, yellow, orange, red — not by lightness, and measured rather
-		/// than eyeballed (2026-08-27, against WPF's own colour * (ambient + Σ lights) formula, on
-		/// the worst case: a face turned away from both directional lights).
-		///
-		/// The old ramp put yellow-green #C0CA33 next to amber #F9A825, which on an unlit face came
-		/// back as #888F24 and #B0771A — a brightness gap of 0.037, so a brace at 60 % and one at
-		/// 90 % looked alike. What actually fixed that was the ambient light (the old darkest tone
-		/// reached #205823, and no hue survives that little light); these tones are the second
-		/// guard, giving every neighbouring pair at least 0.09 in brightness AND 21 degrees in hue,
-		/// so either one alone is enough to tell them apart.
-		///
-		/// They are also LIGHTER than the flat swatches in the legend, because a lit surface never
-		/// returns its own colour — they land near the legend once the rig has multiplied them.
-		private static Brush UtilisationBrush(double util) =>
-			util >= 1.0 ? new SolidColorBrush(Color.FromRgb(0xEF, 0x53, 0x50))
-			: util >= 0.85 ? new SolidColorBrush(Color.FromRgb(0xF0, 0x8A, 0x2E))
-			: util >= 0.5 ? new SolidColorBrush(Color.FromRgb(0xE6, 0xC9, 0x3A))
-			: new SolidColorBrush(Color.FromRgb(0x66, 0xBB, 0x6A));
+		private static Brush UtilisationBrush(double util) => Models.UtilisationScale.LitBrush(util);
 
 		/// <summary>
 		/// The ramp and the no-check grey, exposed so the colour tests can measure what this view

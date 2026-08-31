@@ -82,6 +82,8 @@ namespace NorsokChecker
 			ConnectionsGrid.ItemsSource = _connections;
 			MembersGrid.ItemsSource = _members;
 			DataContext = this;
+			BuildUtilisationLegend();
+			HookGroup64Band();
 			PrefillServicePath(ServiceRootForTest);
 			Log("Norsok Checker ready. Configure API path and load a project.");
 		}

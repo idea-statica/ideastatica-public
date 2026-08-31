@@ -65,7 +65,28 @@ namespace NorsokChecker.Models
 		/// <summary>Total utilisation, or an em dash when the brace was not assessed.</summary>
 		public string Util { get; set; } = "—";
 
-		/// <summary>PASS / FAIL / N/A — drives the row colour.</summary>
+		/// <summary>
+		/// The same utilisation as a number, 0..∞, or NaN when the brace was not assessed. Exists
+		/// because <see cref="Util"/> is formatted text and a row colour cannot be derived from it.
+		/// </summary>
+		public double UtilValue { get; set; } = double.NaN;
+
+		/// <summary>
+		/// The row's background: a pale tint of the utilisation band, so the table reads on the same
+		/// ten-band scale as the 3D view, the load-effect bar and the legend.
+		///
+		/// This replaced a verdict colour (green PASS / red FAIL), which said only whether the row
+		/// was over 100 % — every passing brace looked alike whether it was at 7 % or 99 %, which is
+		/// precisely the comparison the table exists to support. The verdict is still in its own
+		/// column, and FAIL still gets the strong red band because the top band IS red.
+		///
+		/// An unassessed row (NaN) and a K sub-row get no tint; the XAML handles those separately.
+		/// </summary>
+		public System.Windows.Media.Color RowTint =>
+			double.IsNaN(UtilValue) ? System.Windows.Media.Colors.Transparent
+			: UtilisationScale.RowTint(UtilValue);
+
+		/// <summary>PASS / FAIL / N/A — its own column; no longer the row colour.</summary>
 		public string Verdict { get; set; } = "";
 
 		/// <summary>Why nothing could be checked; shown instead of the numbers.</summary>
@@ -110,13 +131,9 @@ namespace NorsokChecker.Models
 		public double BarFraction => MaxUtil <= 0 ? 0 : Math.Min(1.0, MaxUtil);
 
 		/// <summary>
-		/// The bar's colour, on the same four bands as the joint view and its legend, so one
-		/// utilisation is one colour wherever it appears. Grey when there is no number.
+		/// The bar's colour, on the same ten bands as the joint view, the result rows and the legend,
+		/// so one utilisation is one colour wherever it appears. Grey when there is no number.
 		/// </summary>
-		public string BarColour => MaxUtil <= 0 ? "#D7DBE0"
-			: MaxUtil >= 1.0 ? "#EF5350"
-			: MaxUtil >= 0.85 ? "#F08A2E"
-			: MaxUtil >= 0.5 ? "#E6C93A"
-			: "#66BB6A";
+		public string BarColour => MaxUtil <= 0 ? UtilisationScale.NoValueHex : UtilisationScale.Hex(MaxUtil);
 	}
 }

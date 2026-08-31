@@ -112,6 +112,51 @@ namespace UT_NorsokChecker
 			w.UpdateLayout();
 			DoEvents();
 
+			// the classification grid's real column order — what the group banner spans index into
+			TestContext.Out.WriteLine();
+			TestContext.Out.WriteLine("=== Grid64 COLUMNS (DisplayIndex: header) ===");
+			foreach (var c in w.Grid64.Columns.OrderBy(c => c.DisplayIndex))
+				TestContext.Out.WriteLine($"  {c.DisplayIndex}: '{c.Header}'");
+
+			// ---- does the group banner actually line up with those columns? ----
+			// The banner is positioned in code, so this is the only place the alignment is checked
+			// against the real widths rather than against the intent.
+			w.Grid64.ItemsSource = Enumerable.Range(0, 4).Select(i => new NorsokChecker.Models.Joint64RowView
+			{
+				Brace = $"M{i + 1}", Actions = "N_Sd=-10.0 kN", FrK = "0 %", FrX = "100 %", FrY = "0 %",
+				NRd = "149 kN", MRdIp = "6.9 kNm", MRdOp = "4.4 kNm",
+				UtilAxial = "6.7 %", UtilIpb = "2.1 %", UtilOpb = "0.0 %",
+				Util = "8.8 %", UtilValue = 0.088, Verdict = "PASS",
+			}).ToList();
+			w.UpdateLayout();
+			DoEvents();
+			w.UpdateLayout();          // the banner is drawn from a LayoutUpdated handler
+			DoEvents();
+
+			var cols = w.Grid64.Columns.OrderBy(c => c.DisplayIndex).ToList();
+			var edges = new double[cols.Count + 1];
+			for (int i = 0; i < cols.Count; i++) edges[i + 1] = edges[i] + cols[i].ActualWidth;
+
+			TestContext.Out.WriteLine();
+			TestContext.Out.WriteLine("=== GROUP BANNER alignment ===");
+			var cells = w.Group64Band.Children.OfType<System.Windows.Controls.Border>().ToList();
+			TestContext.Out.WriteLine($"banner cells      : {cells.Count}");
+			var spans = new[] { ("Classification", 2, 4), ("Resistance", 5, 7),
+				("Utilisation breakdown", 8, 10), ("Check", 11, 13) };
+			for (int i = 0; i < cells.Count && i < spans.Length; i++)
+			{
+				var (label, first, last) = spans[i];
+				double wantX = edges[first], wantW = edges[last + 1] - edges[first];
+				double gotX = System.Windows.Controls.Canvas.GetLeft(cells[i]);
+				double gotW = cells[i].Width;
+				string text = (cells[i].Child as TextBlock)?.Text ?? "?";
+				bool ok = Math.Abs(gotX - wantX) < 0.6 && Math.Abs(gotW - wantW) < 0.6;
+				TestContext.Out.WriteLine(
+					$"  '{text}': x={gotX:F1} (want {wantX:F1}) w={gotW:F1} (want {wantW:F1})  "
+					+ (ok ? "ALIGNED" : "*** MISALIGNED ***")
+					+ (text == label ? "" : $"  *** LABEL MISMATCH, expected '{label}' ***"));
+			}
+
 			var bf = w.Grid64BraceForces;
 			TestContext.Out.WriteLine();
 			TestContext.Out.WriteLine("=== BRACE FORCES (6.4) ===");

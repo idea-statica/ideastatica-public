@@ -25,6 +25,175 @@ namespace NorsokChecker
 		private bool _joint64Loading;
 
 		/// <summary>
+		/// The column groups of the classification table: a label and the columns it spans, by index
+		/// into <c>Grid64.Columns</c>.
+		///
+		/// Indices rather than header names because the headers are now the bare column names ("K",
+		/// "N_Rd", "axial") and two groups could legitimately contain a column with the same name.
+		/// Brace (0), Governing LC (1) and Notes (14) sit outside any group and get no banner cell.
+		///
+		/// Verified against the grid's real DisplayIndex order, not counted off the XAML: the source
+		/// nests a template column inside the Brace column, so reading the file top to bottom gives
+		/// an order that is one out. TheGroupBandSpansTheRightColumns pins it.
+		/// </summary>
+		private static readonly (string Label, int First, int Last)[] Group64Spans =
+		{
+			("Classification", 2, 4),            // K, X, Y
+			("Resistance", 5, 7),                // N_Rd, M_Rd,ip, M_Rd,op
+			("Utilisation breakdown", 8, 10),    // axial, in-plane, out-of-plane
+			("Check", 11, 13),                   // utilisation, flags, Verdict
+		};
+
+		/// <summary>
+		/// Lay out the group banner over the classification table: one centred label per group,
+		/// spanning exactly the columns of that group, divided by the same rules the cells carry.
+		///
+		/// Done in code and re-run on every layout change because a group heading has to span
+		/// columns, and WPF's DataGrid has no colspan — the banner is a separate Canvas that has to
+		/// be kept in step with column widths that change with their content (SizeToHeader) and with
+		/// the grid's horizontal scroll offset. The previous attempt put the group name on the first
+		/// line of the group's FIRST column header, which reads as a label for that one column
+		/// instead of a heading over three.
+		/// </summary>
+		/// <summary>
+		/// Keep the banner aligned for the life of the window. Hooked to LayoutUpdated rather than
+		/// called once after binding, because every one of these moves the columns and each would
+		/// otherwise leave the banner behind: the window resized, the splitter dragged, a column
+		/// auto-sized to a longer number, the table scrolled sideways, the tab shown for the first
+		/// time (nothing has a width until then).
+		/// </summary>
+		private void HookGroup64Band()
+		{
+			Grid64.LayoutUpdated += (_, _) => SyncGroup64Band();
+		}
+
+		/// <summary>
+		/// The geometry the banner was last drawn for. Rebuilding the Canvas dirties the layout, which
+		/// raises LayoutUpdated again — without this guard the handler would loop forever, pegging a
+		/// core and never settling. Comparing the widths and the scroll offset makes the rebuild
+		/// happen only when something actually moved.
+		/// </summary>
+		private string _group64BandKey = "";
+
+		private void SyncGroup64Band()
+		{
+			if (Group64Band == null || Grid64 == null) return;
+			if (Grid64.Columns.Count <= Group64Spans.Max(g => g.Last)) return;   // grid not built yet
+
+			string key = string.Join(",", Grid64.Columns
+					.OrderBy(c => c.DisplayIndex)
+					.Select(c => c.ActualWidth.ToString("F1")))
+				+ "|" + HorizontalOffsetOf(Grid64).ToString("F1");
+			if (key == _group64BandKey) return;
+			_group64BandKey = key;
+
+			Group64Band.Children.Clear();
+
+			// x of each column's left edge, from the display order the grid actually uses
+			var ordered = Grid64.Columns.OrderBy(c => c.DisplayIndex).ToList();
+			var left = new double[ordered.Count + 1];
+			for (int i = 0; i < ordered.Count; i++)
+				left[i + 1] = left[i] + ordered[i].ActualWidth;
+
+			double scroll = HorizontalOffsetOf(Grid64);
+
+			foreach (var (label, first, last) in Group64Spans)
+			{
+				if (last >= ordered.Count) continue;
+
+				double x = left[first] - scroll;
+				double width = left[last + 1] - left[first];
+				if (width <= 0) continue;
+
+				var cell = new System.Windows.Controls.Border
+				{
+					Width = width,
+					Height = Group64Band.Height,
+					// left rule only: the next group's cell draws the boundary on its own left, so a
+					// right rule would double every internal line
+					BorderBrush = new System.Windows.Media.SolidColorBrush(
+						System.Windows.Media.Color.FromRgb(0xB0, 0xBE, 0xC5)),
+					BorderThickness = new Thickness(1, 0, 0, 0),
+					Child = new TextBlock
+					{
+						Text = label,
+						FontSize = 10.5,
+						Foreground = new System.Windows.Media.SolidColorBrush(
+							System.Windows.Media.Color.FromRgb(0x54, 0x6E, 0x7A)),
+						HorizontalAlignment = HorizontalAlignment.Center,
+						VerticalAlignment = VerticalAlignment.Center,
+						TextTrimming = TextTrimming.CharacterEllipsis,
+						ToolTip = label,
+					},
+				};
+				System.Windows.Controls.Canvas.SetLeft(cell, x);
+				System.Windows.Controls.Canvas.SetTop(cell, 0);
+				Group64Band.Children.Add(cell);
+			}
+		}
+
+		/// <summary>
+		/// The horizontal scroll offset of a DataGrid's internal ScrollViewer, or 0.
+		///
+		/// The viewer is found once and kept: this is called from a LayoutUpdated handler, and walking
+		/// the whole visual tree of a populated grid on every layout pass is not free.
+		/// </summary>
+		private System.Windows.Controls.ScrollViewer? _grid64Scroll;
+
+		private double HorizontalOffsetOf(DependencyObject grid)
+		{
+			_grid64Scroll ??= FindVisualChild<System.Windows.Controls.ScrollViewer>(grid);
+			return _grid64Scroll?.HorizontalOffset ?? 0;
+		}
+
+		private static T? FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+		{
+			int n = System.Windows.Media.VisualTreeHelper.GetChildrenCount(parent);
+			for (int i = 0; i < n; i++)
+			{
+				var child = System.Windows.Media.VisualTreeHelper.GetChild(parent, i);
+				if (child is T hit) return hit;
+				var deeper = FindVisualChild<T>(child);
+				if (deeper != null) return deeper;
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// Draw the utilisation legend from <see cref="UtilisationScale"/> — one swatch per band, in
+		/// order. Built in code rather than listed in the XAML so the key cannot disagree with the
+		/// scale the view and the rows actually use; the four hand-written swatches it replaced had
+		/// to be edited in step with two other copies of the ramp.
+		///
+		/// The swatches show the FLAT tones. The 3D bodies are painted with the lit variants, which
+		/// are lighter on purpose so that they land near these once the viewport's lighting has
+		/// multiplied them — comparing a body against this key is the point of it.
+		/// </summary>
+		private void BuildUtilisationLegend()
+		{
+			Legend64Swatches.Children.Clear();
+			for (int band = 0; band < UtilisationScale.BandCount; band++)
+			{
+				bool over = band == UtilisationScale.BandCount - 1;
+				var colour = UtilisationScale.Parse(UtilisationScale.HexOfBand(band));
+				double from = band / (double)UtilisationScale.RampBandCount;
+				double to = (band + 1) / (double)UtilisationScale.RampBandCount;
+				Legend64Swatches.Children.Add(new System.Windows.Controls.Border
+				{
+					// narrower than the four swatches this replaced, so eleven take about the room
+					// the old four did
+					Width = 9,
+					Height = 9,
+					Background = new System.Windows.Media.SolidColorBrush(colour),
+					// a gap before the over-capacity swatch: it is a different KIND of statement from
+					// the ten that divide capacity, and butting it against them reads as an 11th tenth
+					Margin = new Thickness(over ? 3 : 0, 0, 1, 0),
+					ToolTip = over ? "at or over 100 % — overloaded" : $"{from * 100:F0}–{to * 100:F0} %",
+				});
+			}
+		}
+
+		/// <summary>
 		/// Put one topology on the tab as a completed run would, so a test can read back what the
 		/// sheet decided — visibility, the summary line, the grid's contents.
 		///
@@ -405,6 +574,7 @@ namespace NorsokChecker
 					view.UtilOpb = Pct(dom?.UtilOpTerm ?? double.NaN);
 				}
 				view.Util = double.IsInfinity(row.Util) ? "> 999 %" : $"{row.Util * 100:F1} %";
+				view.UtilValue = row.Util;          // the number behind the text, for the row colour
 				view.Verdict = row.Passed ? "PASS" : "FAIL";
 
 				// ⚠ geometry outside 6.4.3.1 (resistance extrapolated); ⛔ the chord wall has no

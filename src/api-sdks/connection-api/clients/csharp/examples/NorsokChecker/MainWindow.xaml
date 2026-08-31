@@ -15,18 +15,24 @@
         <!-- proportional-bar widths for the load-effect selector (WPF has no percentage width) -->
         <controls:FractionToStarConverter x:Key="FractionToStar"/>
         <controls:FractionToRestStarConverter x:Key="FractionToRestStar"/>
+        <!-- for a row background computed per row (the utilisation tint) -->
+        <controls:ColorToBrushConverter x:Key="ColorToBrush"/>
 
-        <!-- Two-line column header for the §6.4 table: the group name on top, the column name
-             below. A DataGrid header shows a single line by default and swallows the newline, so
-             the template has to opt into wrapping; the group line is dimmed and the column line
-             carries the weight, which is what makes the pairing readable at a glance. -->
+        <!-- Column header for the §6.4 table. One line only: the GROUP name lives in its own banner
+             above the grid (Group64Band, filled by SyncGroup64Band), spanning and centred over the
+             columns it covers.
+
+             It used to be a two-line header with the group name on the first line of the group's
+             FIRST column and a blank line on the rest. That reads as a label for that one column —
+             "Classification" over K, "Resistance" over N_Rd — rather than as a heading over three,
+             which is the opposite of what the grouping is for. WPF's DataGrid has no colspan, so a
+             real merged cell has to be drawn outside the grid and kept aligned to it. -->
         <Style x:Key="Grouped64Header" TargetType="DataGridColumnHeader"
                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" TextWrapping="NoWrap" TextAlignment="Center"
-                                   LineHeight="14" LineStackingStrategy="BlockLineHeight"/>
+                        <TextBlock Text="{Binding}" TextWrapping="NoWrap" TextAlignment="Center"/>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -680,12 +686,12 @@
                                                        Margin="0,0,4,0"/>
                                             <TextBlock Text="0" Foreground="#78909C" FontSize="10.5"
                                                        VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                            <!-- the same four tones Joint3DView paints the bodies
-                                                 with, so a body can be compared against the key -->
-                                            <Border Width="14" Height="9" Background="#66BB6A" Margin="0,0,1,0"/>
-                                            <Border Width="14" Height="9" Background="#E6C93A" Margin="0,0,1,0"/>
-                                            <Border Width="14" Height="9" Background="#F08A2E" Margin="0,0,1,0"/>
-                                            <Border Width="14" Height="9" Background="#EF5350" Margin="0,0,2,0"/>
+                                            <!-- Filled in code from UtilisationScale (see
+                                                 BuildUtilisationLegend), not listed here: the swatches
+                                                 ARE the scale, and a hand-written copy of it drifts
+                                                 the moment a band changes. -->
+                                            <StackPanel x:Name="Legend64Swatches" Orientation="Horizontal"
+                                                        VerticalAlignment="Center" Margin="0,0,2,0"/>
                                             <TextBlock Text="1.0" Foreground="#78909C" FontSize="10.5"
                                                        VerticalAlignment="Center" Margin="0,0,8,0"/>
                                             <Border Width="14" Height="9" Background="#9EAFB8" Margin="0,0,3,0"
@@ -771,9 +777,14 @@
                                         <StackPanel>
                                             <TextBlock Text="Node equilibrium (self-check)" FontWeight="Medium"
                                                        FontSize="12" Margin="0,0,0,6"/>
+                                            <!-- Sorting OFF: two fixed rows (ΣF then ΣM), and the
+                                                 ItemsSource is a plain List so it never sorted. -->
                                             <DataGrid x:Name="Grid64Equilibrium" AutoGenerateColumns="False"
                                                       IsReadOnly="True" CanUserAddRows="False"
-                                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                                      CanUserSortColumns="False"
+                                                      HeadersVisibility="Column" GridLinesVisibility="All"
+                                                      VerticalGridLinesBrush="#DCE3E8"
+                                                      HorizontalGridLinesBrush="#ECF0F3"
                                                       BorderThickness="0" FontSize="11.5"
                                                       md:DataGridAssist.CellPadding="8 3">
                                                 <DataGrid.Columns>
@@ -797,9 +808,16 @@
                                         <StackPanel>
                                             <TextBlock Text="Brace forces in joint plane" FontWeight="Medium"
                                                        FontSize="12" Margin="0,0,0,6"/>
+                                            <!-- Sorting OFF: the row order is the joint's member order,
+                                                 which is how this table is read against the 3D view
+                                                 and the classification table below. Never sorted
+                                                 anyway — the ItemsSource is a plain List. -->
                                             <DataGrid x:Name="Grid64BraceForces" AutoGenerateColumns="False"
                                                       IsReadOnly="True" CanUserAddRows="False"
-                                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                                      CanUserSortColumns="False"
+                                                      HeadersVisibility="Column" GridLinesVisibility="All"
+                                                      VerticalGridLinesBrush="#DCE3E8"
+                                                      HorizontalGridLinesBrush="#ECF0F3"
                                                       BorderThickness="0" FontSize="11.5"
                                                       HorizontalScrollBarVisibility="Auto"
                                                       md:DataGridAssist.CellPadding="7 3">
@@ -850,15 +868,33 @@
                             <TextBlock DockPanel.Dock="Top" Margin="0,0,0,6"
                                        Text="Classification &amp; member checks — NORSOK Standard N-004"
                                        FontWeight="Medium" FontSize="12"/>
+                            <!-- The group banner: one merged cell per group of columns, each centred
+                                 over the columns it spans, as the python table's colspan header row
+                                 is. Its cells are sized in code from the grid's actual column widths
+                                 (SyncGroup64Band) because those widths are SizeToHeader and change
+                                 with the content — a fixed set of widths here would drift out of
+                                 alignment the first time a number grew a digit.
+                                 Horizontally offset by the grid's own scroll position so the banner
+                                 tracks the columns when the table is scrolled sideways. -->
+                            <Canvas DockPanel.Dock="Top" x:Name="Group64Band" Height="19"
+                                    ClipToBounds="True" Background="#F4F7F9"/>
                             <TextBlock DockPanel.Dock="Bottom" x:Name="Lbl64Legend" Margin="0,6,0,0"
                                        TextWrapping="Wrap" Foreground="#78909C" FontSize="11"/>
+                            <!-- Sorting OFF. The rows are not a flat list: every "K via <partner>"
+                                 sub-row is a breakdown of the brace row directly above it, and any
+                                 reordering separates the two and silently attaches the sub-row to a
+                                 different brace. It also never worked — the ItemsSource is a plain
+                                 List, so the header showed a sort arrow and reordered nothing. -->
                             <DataGrid x:Name="Grid64" AutoGenerateColumns="False"
                                       IsReadOnly="True" CanUserAddRows="False"
+                                      CanUserSortColumns="False"
                                       SelectionMode="Single" SelectionUnit="FullRow"
                                       md:DataGridAssist.CellPadding="8 5"
                                       VerticalScrollBarVisibility="Auto"
                                       HorizontalScrollBarVisibility="Auto"
-                                      GridLinesVisibility="Horizontal" BorderThickness="0"
+                                      GridLinesVisibility="All"
+                                                      VerticalGridLinesBrush="#DCE3E8"
+                                                      HorizontalGridLinesBrush="#ECF0F3" BorderThickness="0"
                                       FontSize="12"
                                       MouseDoubleClick="Grid64_ShowDerivation">
                                 <DataGrid.RowStyle>
@@ -870,15 +906,20 @@
                                              colour it painted overwrote the utilisation colour the
                                              view exists to show. -->
 
+                                        <!-- Coloured by UTILISATION, not by verdict. The verdict only
+                                             says whether the row crossed 100 %, so a brace at 7 % and
+                                             one at 99 % were the same green — the very comparison this
+                                             table exists to support. The tint is a pale form of the
+                                             ten-band scale shared with the 3D view, the load-effect
+                                             bar and the legend, so one utilisation is one colour
+                                             everywhere. FAIL still reads red: the top band IS red. -->
+                                        <Setter Property="Background"
+                                                Value="{Binding RowTint, Converter={StaticResource ColorToBrush}}"/>
+
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Verdict}" Value="FAIL">
-                                                <Setter Property="Background" Value="{StaticResource VerdictFailBg}"/>
-                                                <Setter Property="Foreground" Value="{StaticResource VerdictFailFg}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Verdict}" Value="PASS">
-                                                <Setter Property="Background" Value="{StaticResource VerdictPassBg}"/>
-                                                <Setter Property="Foreground" Value="{StaticResource VerdictPassFg}"/>
-                                            </DataTrigger>
+                                            <!-- N/A keeps its own flat colour: there is no number, so
+                                                 there is no band, and an untinted row would read as
+                                                 0 % rather than as "not assessed". -->
                                             <DataTrigger Binding="{Binding Verdict}" Value="N/A">
                                                 <Setter Property="Background" Value="{StaticResource VerdictNaBg}"/>
                                                 <Setter Property="Foreground" Value="{StaticResource VerdictNaFg}"/>
@@ -925,37 +966,37 @@
                                     <DataGridTextColumn Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="Classification&#x0a;K"/>
+                                                        Header="K"/>
                                     <DataGridTextColumn Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="&#x0a;X"/>
+                                                        Header="X"/>
                                     <DataGridTextColumn Binding="{Binding FrY}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="&#x0a;Y"/>
+                                                        Header="Y"/>
                                     <DataGridTextColumn Binding="{Binding NRd}" Width="SizeToHeader" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="Resistance&#x0a;N_Rd"/>
+                                                        Header="N_Rd"/>
                                     <DataGridTextColumn Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="&#x0a;M_Rd,ip"/>
+                                                        Header="M_Rd,ip"/>
                                     <DataGridTextColumn Binding="{Binding MRdOp}" Width="SizeToHeader" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="&#x0a;M_Rd,op"/>
+                                                        Header="M_Rd,op"/>
                                     <DataGridTextColumn Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="Utilisation breakdown&#x0a;axial"/>
+                                                        Header="axial"/>
                                     <DataGridTextColumn Binding="{Binding UtilIpb}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="&#x0a;in-plane"/>
+                                                        Header="in-plane"/>
                                     <DataGridTextColumn Binding="{Binding UtilOpb}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="&#x0a;out-of-plane"/>
+                                                        Header="out-of-plane"/>
                                     <DataGridTextColumn Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="Check&#x0a;utilisation"/>
+                                                        Header="utilisation"/>
                                     <DataGridTextColumn Header="" Binding="{Binding Flags}" Width="SizeToCells" MinWidth="24"/>
                                     <DataGridTextColumn Header="Verdict" Binding="{Binding Verdict}" Width="SizeToHeader" MinWidth="60"/>
                                     <!-- One column for both, because they are the same question

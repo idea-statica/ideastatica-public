@@ -240,6 +240,74 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The row's tint follows its UTILISATION, and two rows at clearly different utilisations must
+		/// not share a colour.
+		///
+		/// This is the property the change was made for. Before it, the row colour came from the
+		/// verdict, so every PASS row was the same green whether the brace was at 7 % or 99 % — and
+		/// telling those apart at a glance is what the table is for. A test that only checked "a
+		/// tinted row is not transparent" would have passed on the verdict colouring too, so the
+		/// assertion here is that DIFFERENT utilisations give DIFFERENT colours.
+		/// </summary>
+		[Test]
+		public void TheRowTintFollowsUtilisation()
+		{
+			var low = new Joint64RowView { UtilValue = 0.07, Verdict = "PASS" };
+			var mid = new Joint64RowView { UtilValue = 0.55, Verdict = "PASS" };
+			var high = new Joint64RowView { UtilValue = 0.99, Verdict = "PASS" };
+			var over = new Joint64RowView { UtilValue = 1.30, Verdict = "FAIL" };
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(low.RowTint, Is.Not.EqualTo(mid.RowTint), "7 % and 55 % must differ");
+				Assert.That(mid.RowTint, Is.Not.EqualTo(high.RowTint), "55 % and 99 % must differ");
+				Assert.That(high.RowTint, Is.Not.EqualTo(over.RowTint), "99 % and 130 % must differ");
+
+				// and the two rows that pass must NOT look alike just because they both pass
+				Assert.That(low.RowTint, Is.Not.EqualTo(high.RowTint),
+					"the defect this replaced: both PASS, so both were the same green");
+			});
+		}
+
+		/// <summary>
+		/// An unassessed row is transparent, not tinted. Its utilisation is NaN, and painting it with
+		/// the bottom band would state a measured 0 % where there is no measurement at all — the XAML
+		/// gives it the N/A colour instead.
+		/// </summary>
+		[Test]
+		public void AnUnassessedRowHasNoTint()
+		{
+			var na = new Joint64RowView { Verdict = "N/A", SkipReason = "no transverse force" };
+
+			Assert.That(na.RowTint, Is.EqualTo(System.Windows.Media.Colors.Transparent));
+		}
+
+		/// <summary>
+		/// The tint is a PALE form of the band, not the band itself: it sits behind text. Checked as
+		/// "much closer to white than the band is" rather than against a fixed value, so the tint
+		/// factor can be tuned without rewriting the test.
+		/// </summary>
+		[Test]
+		public void TheRowTintIsPaleEnoughToReadTextOver()
+		{
+			var row = new Joint64RowView { UtilValue = 1.30 };     // the strongest band, red
+			var tint = row.RowTint;
+			var band = NorsokChecker.Models.UtilisationScale.Parse(
+				NorsokChecker.Models.UtilisationScale.Hex(1.30));
+
+			double tintGap = (765 - tint.R - tint.G - tint.B) / 765.0;
+			double bandGap = (765 - band.R - band.G - band.B) / 765.0;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(tintGap, Is.LessThan(bandGap / 2),
+					"the tint must be far paler than the band it comes from");
+				Assert.That(tintGap, Is.GreaterThan(0.01),
+					"but not so pale it is indistinguishable from white");
+			});
+		}
+
+		/// <summary>
 		/// The Notes cell falls through to the note when there is no skip reason. A PriorityBinding
 		/// over both would not have: it takes the first binding that RESOLVES, and a null
 		/// SkipReason resolves, so every assessed row would have shown an empty cell.

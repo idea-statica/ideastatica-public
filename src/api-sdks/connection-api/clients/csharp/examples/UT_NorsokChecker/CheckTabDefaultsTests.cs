@@ -137,30 +137,33 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The §6.4 table's column GROUPS are visibly divided, not merely labelled.
+		/// The §6.4 table's column GROUPS are named by a spanning banner above the grid, and their
+		/// boundaries are drawn more strongly than the ordinary column dividers.
 		///
-		/// The python table gets this from real colspan header cells over a fully bordered table, so
-		/// the group boundary is a table line. WPF has no colspan, so the rule is drawn on the first
-		/// column of each group — and on its CELLS as well as its header, or the division stops at
-		/// the header row and the eleven data columns still read as one undivided run.
+		/// The python table gets both from a real colspan header row over a fully bordered table.
+		/// WPF's DataGrid has no colspan, so the banner is a separate Canvas kept aligned to the
+		/// columns in code, and the group boundary is a rule on the first column of each group —
+		/// on its CELLS as well as its header, or the division stops at the header row.
+		///
+		/// Two things have to hold together, which is why they are one test: a banner over columns
+		/// with no boundary rules is a heading nothing supports, and rules with no banner divide the
+		/// table into groups it never names.
 		/// </summary>
 		[Test]
-		public void TheColumnGroupsAreVisiblyDivided()
+		public void TheColumnGroupsAreNamedAndVisiblyDivided()
 		{
 			var w = NewWindow();
 			var byHeader = w.Grid64.Columns
 				.Where(c => c.Header is string)
 				.ToDictionary(c => (string)c.Header, c => c);
 
-			// the first column of each of the four groups, by the group name in its header
-			string[] groupStarts =
-			{
-				"Classification\nK", "Resistance\nN_Rd",
-				"Utilisation breakdown\naxial", "Check\nutilisation",
-			};
+			// the first column of each group — the one that carries the boundary rule
+			string[] groupStarts = { "K", "N_Rd", "axial", "utilisation" };
 
 			Assert.Multiple(() =>
 			{
+				Assert.That(w.Group64Band, Is.Not.Null, "the group banner exists");
+
 				foreach (string header in groupStarts)
 				{
 					Assert.That(byHeader.ContainsKey(header), Is.True, $"column '{header}' is present");
@@ -170,11 +173,11 @@ namespace UT_NorsokChecker
 						$"'{header}' must style its CELLS too, or the rule stops at the header");
 				}
 
-				// and a column INSIDE a group must not carry the rule, or every boundary is drawn
-				// and nothing is divided
-				var inside = byHeader["\nX"];
-				Assert.That(inside.CellStyle, Is.Null,
-					"a column inside a group draws no rule of its own");
+				// a column INSIDE a group carries no boundary rule of its own — the ordinary vertical
+				// grid line divides it from its neighbour, and a second rule would make every column
+				// look like a group start
+				Assert.That(byHeader["X"].CellStyle, Is.Null,
+					"a column inside a group draws no group rule of its own");
 			});
 		}
 
@@ -188,6 +191,127 @@ namespace UT_NorsokChecker
 			var w = NewWindow();
 
 			Assert.That(w.MembersGrid.Columns[0].Header?.ToString(), Is.EqualTo("Name"));
+		}
+
+		/// <summary>
+		/// None of the three §6.4 result tables may be sortable. Two independent reasons, and the
+		/// first is a correctness one: the classification table interleaves "K via &lt;partner&gt;"
+		/// sub-rows that belong to the brace row directly above, so ANY reorder re-parents them onto
+		/// a different brace while still reading as a valid table. The second is that it never worked
+		/// — each ItemsSource is a plain List, so a header click drew a sort arrow and moved nothing,
+		/// which is worse than no affordance at all.
+		///
+		/// Asserted on the real window, per grid by name, so re-enabling one fails here.
+		/// </summary>
+		[Test]
+		public void The64ResultTablesAreNotSortable()
+		{
+			var w = NewWindow();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(w.Grid64.CanUserSortColumns, Is.False,
+					"sorting re-parents the K sub-rows onto the wrong brace");
+				Assert.That(w.Grid64BraceForces.CanUserSortColumns, Is.False,
+					"row order is the joint's member order, read against the 3D view");
+				Assert.That(w.Grid64Equilibrium.CanUserSortColumns, Is.False,
+					"two fixed rows, nothing to sort");
+			});
+		}
+
+		/// <summary>
+		/// All three §6.4 tables draw vertical column dividers. They are dense numeric tables read
+		/// across a row — eleven columns of forces, or eleven of resistances and shares — and with
+		/// horizontal lines only, a value cannot be tied back to its column heading by eye.
+		/// </summary>
+		[Test]
+		public void The64TablesDrawVerticalColumnDividers()
+		{
+			var w = NewWindow();
+
+			Assert.Multiple(() =>
+			{
+				foreach (var (name, grid) in new[]
+				{
+					("classification", w.Grid64),
+					("brace forces", w.Grid64BraceForces),
+					("node equilibrium", w.Grid64Equilibrium),
+				})
+				{
+					Assert.That(grid.GridLinesVisibility,
+						Is.EqualTo(System.Windows.Controls.DataGridGridLinesVisibility.All),
+						$"the {name} table must divide its columns");
+					Assert.That(grid.VerticalGridLinesBrush, Is.Not.Null,
+						$"the {name} table's dividers need a colour");
+				}
+			});
+		}
+
+		/// <summary>
+		/// The group banner must span exactly the columns it names. The spans are column INDICES, so
+		/// this is the test that keeps them honest: inserting or reordering a column silently shifts
+		/// every group one place, and a banner over the wrong columns is a table that lies about what
+		/// its numbers are.
+		///
+		/// Checked by asserting the header at each end of every span, which is the fact the indices
+		/// are supposed to encode. Reading the indices off the XAML by eye is not enough — the source
+		/// nests a template column inside the Brace column, so the file order is one out from the
+		/// grid's real DisplayIndex order.
+		/// </summary>
+		[Test]
+		public void TheGroupBandSpansTheRightColumns()
+		{
+			var w = NewWindow();
+			var headers = w.Grid64.Columns
+				.OrderBy(c => c.DisplayIndex)
+				.Select(c => c.Header?.ToString() ?? "")
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(headers[2], Is.EqualTo("K"), "Classification starts at K");
+				Assert.That(headers[4], Is.EqualTo("Y"), "Classification ends at Y");
+				Assert.That(headers[5], Is.EqualTo("N_Rd"), "Resistance starts at N_Rd");
+				Assert.That(headers[7], Is.EqualTo("M_Rd,op"), "Resistance ends at M_Rd,op");
+				Assert.That(headers[8], Is.EqualTo("axial"), "Utilisation breakdown starts at axial");
+				Assert.That(headers[10], Is.EqualTo("out-of-plane"), "…and ends at out-of-plane");
+				Assert.That(headers[11], Is.EqualTo("utilisation"), "Check starts at utilisation");
+				Assert.That(headers[13], Is.EqualTo("Verdict"), "Check ends at Verdict");
+
+				// the group name must NOT also be in the column header — that was the old two-line
+				// form, which read as a label for the group's first column rather than for the group
+				foreach (var h in headers)
+					Assert.That(h, Does.Not.Contain("Classification").And.Not.Contain("Resistance"),
+						$"'{h}' still carries a group name");
+			});
+		}
+
+		/// <summary>
+		/// The legend has one swatch per band, in the scale's own colours — it IS the scale, drawn.
+		/// Read off the real window, so a legend built from a hardcoded count (as the four hand-written
+		/// swatches were) fails here instead of quietly describing a ramp the app no longer uses.
+		/// </summary>
+		[Test]
+		public void TheLegendHasOneSwatchPerBand()
+		{
+			var w = NewWindow();
+			var swatches = w.Legend64Swatches.Children
+				.OfType<System.Windows.Controls.Border>()
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(swatches.Count, Is.EqualTo(NorsokChecker.Models.UtilisationScale.BandCount),
+					"one swatch per band, over-capacity included");
+
+				for (int i = 0; i < swatches.Count; i++)
+				{
+					var expected = NorsokChecker.Models.UtilisationScale.Parse(
+						NorsokChecker.Models.UtilisationScale.HexOfBand(i));
+					var actual = (swatches[i].Background as System.Windows.Media.SolidColorBrush)?.Color;
+					Assert.That(actual, Is.EqualTo(expected), $"swatch {i} must be its band's colour");
+				}
+			});
 		}
 	}
 
@@ -361,5 +485,6 @@ namespace UT_NorsokChecker
 
 			Assert.That(raised.Count(p => p == nameof(ConnectionCheckResult.LoadEffectsDisplay)), Is.EqualTo(2));
 		}
+
 	}
 }
