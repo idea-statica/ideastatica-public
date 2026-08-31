@@ -83,7 +83,10 @@ namespace UT_NorsokChecker
 				Assert.That(html, Does.Contain("Mode K"), "the K mode block (KT case)");
 				Assert.That(html, Does.Contain("Q_g"), "per-gap Q_g, which is what the K table carried");
 				Assert.That(html, Does.Contain("Chord stress derivation"), "chord-stress trail");
-				Assert.That(html, Does.Contain("Validity ranges"), "validity table");
+				// The §6.4.3.1 conditions are always tabulated, pass or fail — the sheet is meant to be
+				// checked, and a summarised "all met" would ask the reader to trust the app instead.
+				Assert.That(html, Does.Contain("validity ranges (&sect;6.4.3.1)")
+					.IgnoreCase, "the validity table");
 				Assert.That(html, Does.Contain("deriv-step"), "steps, not just result tables");
 				// all three braces got a card
 				Assert.That(html, Does.Contain("KA"));

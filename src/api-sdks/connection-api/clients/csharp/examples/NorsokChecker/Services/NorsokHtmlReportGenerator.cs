@@ -365,13 +365,40 @@ namespace NorsokChecker.Services
 		/// The derivation of one brace's check as a standalone page, for the §6.4 tab's derivation
 		/// window. Same renderer as the report so the two can never disagree.
 		/// </summary>
-		public static string GenerateDerivationPage(Norsok64.JointCheckRow row, string title)
+		/// <param name="brace">The brace this derivation is for — the subject of the page.</param>
+		/// <param name="connection">The joint it belongs to.</param>
+		/// <param name="state">The load effect, or "governing LEn" in envelope mode.</param>
+		/// <param name="utilisation">Formatted utilisation, e.g. "88.8 %".</param>
+		/// <param name="verdict">PASS / FAIL / N/A.</param>
+		public static string GenerateDerivationPage(Norsok64.JointCheckRow row, string brace,
+			string connection = "", string state = "", string utilisation = "", string verdict = "")
 		{
 			var sb = new StringBuilder();
 			sb.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/>");
 			AppendKatex(sb);
 			sb.AppendLine($"<style>{CssStyles}</style></head><body style='padding:14px'>");
-			sb.AppendLine($"<h2 style='margin:0 0 10px;color:#1f3a5f;font-size:16px'>{Esc(title)}</h2>");
+
+			// Identity first, and all three parts of it: several of these pages can be open at once, so
+			// the brace name alone does not say which check is being read. The subject (brace) is the
+			// heading; the joint and the state qualify it on their own line.
+			bool failed = string.Equals(verdict, "FAIL", StringComparison.OrdinalIgnoreCase);
+			string verdictColour = failed ? "#C62828" : "#2E7D32";
+
+			sb.AppendLine("<div style='margin:0 0 12px;padding:0 0 10px;border-bottom:2px solid #E3E8ED'>");
+			var context = new[] { connection, state }.Where(s => !string.IsNullOrEmpty(s));
+			if (context.Any())
+				sb.AppendLine("  <div style='font-size:11.5px;color:#607D8B;margin:0 0 3px'>"
+					+ Esc(string.Join(" · ", context)) + "</div>");
+
+			sb.AppendLine("  <h2 style='margin:0;color:#1f3a5f;font-size:17px'>"
+				+ $"{Esc(brace)}"
+				+ (string.IsNullOrEmpty(utilisation) ? "" :
+					$" <span style='font-weight:400;color:#455A64'>&mdash; utilisation {Esc(utilisation)}</span>")
+				+ (string.IsNullOrEmpty(verdict) ? "" :
+					$" <span style='color:{verdictColour};font-size:14px'>{Esc(verdict)}</span>")
+				+ "</h2>");
+			sb.AppendLine("</div>");
+
 			RenderJointDerivation(sb, row);
 			sb.AppendLine("</body></html>");
 			return sb.ToString();
@@ -380,10 +407,23 @@ namespace NorsokChecker.Services
 		/// The full §6.4 derivation for one brace — the structure the python reference's detail modal
 		/// uses, block for block, because that is the sheet an engineer checks a number against.
 		///
-		/// Nine blocks, in this order: geometry &amp; material, applied forces, the chord stress
-		/// derivation (both sides then their average, then sigma), A² with the moment resistances,
-		/// one block per ACTIVE mode (K split per gap, Y, X), the weighted axial resistance, and
-		/// eq (6.57).
+		/// THE ORDER OF A HAND CALCULATION, in four phases, because that is what makes the sheet
+		/// checkable — and being checkable is the whole point: an engineer who cannot follow the
+		/// numbers will not trust the tool, and a half-transparent derivation is no better than none.
+		///
+		///   1. INPUTS — geometry &amp; material, then the applied forces.
+		///   2. BASIC ASSUMPTIONS — the §6.4.3.1 validity ranges, every condition with its status.
+		///      After the inputs (each condition is a relation between dimensions just listed) and
+		///      before the derivation (outside these ranges the resistance is extrapolated).
+		///   3. THE CHECK, step by step — chord stress trail (averaged sides, then sigma), A² with the
+		///      moment resistances, one block per ACTIVE mode (K split per gap, Y, X), and the weighted
+		///      axial resistance.
+		///   4. FINAL VERDICT ON CAPACITY — eq (6.57).
+		///
+		/// Each step is label / symbolic formula / substituted numbers / result, so every line can be
+		/// recomputed by hand. Two orders were tried and rejected before this one: eq (6.57) first
+		/// (reads as a claim with an appendix, and the reader cannot verify a sum whose terms come
+		/// after it), and the validity table last (it warns about numbers already read).
 		///
 		/// Each step is written as label / symbolic formula / substituted numbers / result — see
 		/// <see cref="Step"/>. The substitution is the point: a result alone cannot be checked, and a
@@ -413,7 +453,9 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("    <div class='deriv-block'>");
 
-			// ── 1. geometry & material ──
+			// ══ 1. INPUTS ══ geometry, material and the actions, as they would be written down at the
+			// top of the hand calculation this sheet is meant to be checked against.
+			sb.AppendLine("      <p class='deriv-h'>Geometry &amp; material</p>");
 			sb.AppendLine("      <p class='deriv-h'>Geometry &amp; material</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
 			Kv(sb, "Chord &oslash; D &times; T", $"{N(dChordMm, 1)}&times;{N(tChordMm, 1)} mm "
@@ -429,7 +471,6 @@ namespace NorsokChecker.Services
 			Kv(sb, "&gamma;<sub>M</sub>", N(inp.GammaM, 3));
 			sb.AppendLine("      </table>");
 
-			// ── 2. applied forces ──
 			sb.AppendLine("      <p class='deriv-h'>Applied forces (in the joint plane)</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
 			Kv(sb, "N<sub>Sd</sub> (+ tension)", $"{N(inp.NSd / 1e3, 1)} kN");
@@ -437,7 +478,39 @@ namespace NorsokChecker.Services
 			Kv(sb, "M<sub>op,Sd</sub>", $"{N(inp.MopSd / 1e3, 2)} kN&middot;m");
 			sb.AppendLine("      </table>");
 
-			// ── 3. chord stress derivation ──
+			// ══ 2. BASIC ASSUMPTIONS ══ §6.4.3.1, checked against the inputs above.
+			//
+			// After the inputs, not before: every condition is a relation between the dimensions just
+			// listed (beta = d/D, gamma = D/2T, tau = t/T, theta), so a reader can only verify one with
+			// d and D already in front of them. And before the derivation, because §6.4's resistance
+			// formulas are fitted to these ranges — outside them the resistance below is an
+			// extrapolation, which is something to know before reading it rather than after.
+			//
+			// Every condition is listed with its status, always. Summarising them as "all met" was a
+			// half-measure: whether beta = 0.298 lies in 0.2..1.0 is exactly what is being verified
+			// here, and a single tick asks the reader to take the app's word for it — which is the
+			// opposite of what this sheet is for.
+			if (r.Validity.Count > 0)
+			{
+				int outside = r.Validity.Count(v => !v.Value);
+				sb.AppendLine("      <p class='deriv-h'>Basic assumptions &mdash; validity ranges "
+					+ "(&sect;6.4.3.1)"
+					+ (outside > 0 ? $" &mdash; {outside} of {r.Validity.Count} OUTSIDE" : "")
+					+ "</p>");
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>condition</th><th>status</th></tr>");
+				foreach (var (cond, ok) in r.Validity)
+					sb.AppendLine($"        <tr><td>{Esc(cond)}</td>"
+						+ $"<td>{(ok ? "&#10003; within" : "&#10007; outside")}</td></tr>");
+				sb.AppendLine("      </table>");
+			}
+
+			if (!r.WithinRange)
+				sb.AppendLine("      <p class='deriv-warn'>&#9888; Geometry outside the 6.4.3.1 "
+					+ "validity range &mdash; the resistance below is extrapolated.</p>");
+
+			// ══ 3. THE CHECK, step by step ══ chord stress, A², resistances, then the modes.
+			// ── chord stress derivation ──
 			if (row.ChordStress is { } st && st.A > 0)
 			{
 				double aMm2 = st.A * 1e6, iMm4 = st.I * 1e12, rMm = st.R * 1e3;
@@ -478,7 +551,7 @@ namespace NorsokChecker.Services
 					$@"{N(smz, 1)}\,MPa");
 			}
 
-			// ── 4. A² and the moment resistances (shared by every class) ──
+			// ── A² and the moment resistances (shared by every class) ──
 			sb.AppendLine("      <p class='deriv-h'>Chord utilisation A&sup2; &amp; moment resistance "
 				+ "&mdash; 6.4.3.2&ndash;4, eq (6.53)/(6.55), Table 6-3/6-4</p>");
 
@@ -503,7 +576,7 @@ namespace NorsokChecker.Services
 				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdOp / 1e3, 2)}\,kN\!\cdot\!m");
 
-			// ── 5-7. one block per ACTIVE mode. An inactive class is computed but plays no part in
+			// ── one block per ACTIVE mode. An inactive class is computed but plays no part in
 			// this brace's check, and showing it would suggest it does.
 			double baseAx = inp.FyChord * inp.T * inp.T / (inp.GammaM * r.SinTheta);
 
@@ -564,7 +637,7 @@ namespace NorsokChecker.Services
 					$@"{N(c.NRd / 1e3, 1)}\,kN");
 			}
 
-			// ── 8. the weighted axial resistance across whichever modes are active ──
+			// ── the weighted axial resistance across whichever modes are active ──
 			var active = new[]
 			{
 				(Norsok64.Joint64Class.K, cl.FrK),
@@ -596,7 +669,14 @@ namespace NorsokChecker.Services
 					+ "the bending check below applies.</p>");
 			}
 
-			// ── 9. eq (6.57) ──
+			// ══ 4. FINAL VERDICT ON CAPACITY ══ eq (6.57).
+			//
+			// Last, because it is the last line of the hand calculation this page exists to be checked
+			// against: every quantity in it — N_Rd, M_Rd,ip, M_Rd,op — was derived in the blocks above,
+			// and a reader verifying the sum has to have read them first. Putting it at the top made
+			// the page a claim followed by its justification rather than a calculation to follow
+			// through. (The number is also in the header, which is identity rather than verdict: the
+			// reader clicked a row that already showed it.)
 			sb.AppendLine("      <p class='deriv-h'>Utilisation &mdash; eq (6.57)</p>");
 			var dom = r.PerClass.TryGetValue(
 				Enum.TryParse<Norsok64.Joint64Class>(row.DomClass, out var dc) ? dc : Norsok64.Joint64Class.K,
@@ -607,26 +687,11 @@ namespace NorsokChecker.Services
 					: $@"{N(dom.UtilAxialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
 				$@"{N(row.Util * 100, 2)}\%\ \ \text{{{(row.Passed ? "PASS" : "FAIL")}}}");
 
-			if (!r.WithinRange)
-				sb.AppendLine("      <p class='deriv-warn'>&#9888; Geometry outside the 6.4.3.1 "
-					+ "validity range &mdash; the resistance is extrapolated.</p>");
 			if (r.ChordOverstressed)
 				sb.AppendLine("      <p class='deriv-warn'>&#9940; CHORD OVERSTRESSED: Q<sub>f</sub> "
 					+ "(eq 6.54, no floor in the norm) drove an active resistance to &le; 0 &mdash; the "
 					+ "check is forced to FAIL regardless of the utilisation sum (app-level safety "
 					+ "rule).</p>");
-
-			// ── validity ranges, as the python sheet lists them ──
-			if (r.Validity.Count > 0)
-			{
-				sb.AppendLine("      <p class='deriv-h'>Validity ranges (&sect;6.4.3.1)</p>");
-				sb.AppendLine("      <table class='deriv-table'>");
-				sb.AppendLine("        <tr><th>condition</th><th>status</th></tr>");
-				foreach (var (cond, ok) in r.Validity)
-					sb.AppendLine($"        <tr><td>{Esc(cond)}</td>"
-						+ $"<td>{(ok ? "&#10003; within" : "&#10007; outside")}</td></tr>");
-				sb.AppendLine("      </table>");
-			}
 
 			sb.AppendLine("    </div>");
 		}

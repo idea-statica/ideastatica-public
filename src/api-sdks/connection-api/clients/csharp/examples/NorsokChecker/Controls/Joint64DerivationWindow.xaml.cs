@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using NorsokChecker.Models;
 using NorsokChecker.Services;
 
@@ -14,12 +14,36 @@ namespace NorsokChecker.Controls
 	/// </summary>
 	public partial class Joint64DerivationWindow : Window
 	{
-		public Joint64DerivationWindow(Joint64RowView row, Window owner)
+		/// <param name="connectionName">The joint this brace belongs to.</param>
+		/// <param name="loadEffectName">
+		/// The mode being inspected — a load effect's name in per-LC mode, or "envelope". Only used
+		/// when the row does not name a governing state of its own; see below.
+		/// </param>
+		public Joint64DerivationWindow(Joint64RowView row, Window owner,
+			string connectionName = "", string loadEffectName = "")
 		{
 			InitializeComponent();
-			Owner = owner;
-			Title = $"NORSOK §6.4 — {row.Brace}"
-				+ (string.IsNullOrEmpty(row.GoverningLe) ? "" : $" ({row.GoverningLe})");
+			// WPF refuses an Owner that has never been shown, and throws rather than ignoring it. The
+			// app always passes a live window, so this only guards the case where the owner is not on
+			// screen yet — losing the owner relationship is a far smaller matter than not opening.
+			if (owner.IsLoaded) Owner = owner;
+
+			// The STATE this derivation is of. An envelope is not a state: the numbers below belong to
+			// the one load effect that governs THIS brace, and in an envelope each brace may be
+			// governed by a different one — so naming the mode would leave two windows both titled
+			// "envelope" while showing different states. The row carries the governing state precisely
+			// for this, and it is resolved BEFORE the title so the title gets it too (it did not, and
+			// the taskbar showed "envelope" where it should have shown "LE7").
+			string state = !string.IsNullOrEmpty(row.GoverningLe)
+				? row.GoverningLe
+				: loadEffectName;
+
+			// Connection · state · brace, in the WINDOW TITLE as well as on the page: these windows are
+			// meant to be left open side by side while other braces are inspected, and a title of just
+			// "M4" cannot be told from another joint's M4 on the taskbar.
+			string who = string.Join(" · ", new[] { connectionName, state, row.Brace }
+				.Where(s => !string.IsNullOrEmpty(s)));
+			Title = $"NORSOK §6.4 — {who}";
 
 			if (row.Detail == null)
 			{
@@ -27,9 +51,18 @@ namespace NorsokChecker.Controls
 				return;
 			}
 
-			string subtitle = $"{row.Brace} — utilisation {row.Util}, {row.Verdict}"
-				+ (string.IsNullOrEmpty(row.GoverningLe) ? "" : $" · governing {row.GoverningLe}");
-			string html = NorsokHtmlReportGenerator.GenerateDerivationPage(row.Detail, subtitle);
+			// On the page the state is qualified as governing, which the title has no room for.
+			string pageState = !string.IsNullOrEmpty(row.GoverningLe)
+				? $"governing {row.GoverningLe}"
+				: loadEffectName;
+
+			string html = NorsokHtmlReportGenerator.GenerateDerivationPage(
+				row.Detail,
+				brace: row.Brace,
+				connection: connectionName,
+				state: pageState,
+				utilisation: row.Util,
+				verdict: row.Verdict);
 
 			Loaded += async (_, _) =>
 			{

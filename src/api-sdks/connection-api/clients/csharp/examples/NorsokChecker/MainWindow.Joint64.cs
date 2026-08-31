@@ -715,7 +715,16 @@ namespace NorsokChecker
 				return;
 			}
 
-			var window = new Controls.Joint64DerivationWindow(view, Owner ?? this);
+			// The connection and the load effect come from the tab, not from the row: a row knows its
+			// governing state only in envelope mode, and neither ever knew which connection it was
+			// from. Several of these windows are meant to be open side by side, so each has to name
+			// its own joint, state and brace or they cannot be told apart.
+			string conName = (Cmb64Connection.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
+			string leName = Rb64Envelope.IsChecked == true
+				? "envelope"
+				: (Cmb64Le.SelectedItem as Le64Option)?.Name ?? "";
+
+			var window = new Controls.Joint64DerivationWindow(view, Owner ?? this, conName, leName);
 			window.Show();
 		}
 	}
