@@ -42,6 +42,7 @@ docs/ConCrossSectionGeometry.md
 docs/ConCrossSectionGeometryComponent.md
 docs/ConCrossSectionLibraryDefinition.md
 docs/ConCrossSectionParameter.md
+docs/ConCrossSectionParameterValueKind.md
 docs/ConCrossSectionParametricDefinition.md
 docs/ConCssPoint2D.md
 docs/ConDesignItem.md
@@ -218,6 +219,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionGeometry.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionGeometryComponent.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionLibraryDefinition.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionParameter.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionParameterValueKind.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionParametricDefinition.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCssPoint2D.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConDesignItem.cs

@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from ideastatica_connection_api.models.con_cross_section_parameter_value_kind import ConCrossSectionParameterValueKind
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +29,13 @@ class ConCrossSectionParameter(BaseModel):
     ConCrossSectionParameter
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    name: Optional[StrictStr] = None
     value: Optional[Union[StrictFloat, StrictInt]] = None
-    __properties: ClassVar[List[str]] = ["id", "value"]
+    bool_value: Optional[StrictBool] = Field(default=None, alias="boolValue")
+    int_value: Optional[StrictInt] = Field(default=None, alias="intValue")
+    string_value: Optional[StrictStr] = Field(default=None, alias="stringValue")
+    value_kind: Optional[ConCrossSectionParameterValueKind] = Field(default=None, alias="valueKind")
+    __properties: ClassVar[List[str]] = ["id", "name", "value", "boolValue", "intValue", "stringValue", "valueKind"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +76,31 @@ class ConCrossSectionParameter(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if value (nullable) is None
+        # and model_fields_set contains the field
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['value'] = None
+
+        # set to None if bool_value (nullable) is None
+        # and model_fields_set contains the field
+        if self.bool_value is None and "bool_value" in self.model_fields_set:
+            _dict['boolValue'] = None
+
+        # set to None if int_value (nullable) is None
+        # and model_fields_set contains the field
+        if self.int_value is None and "int_value" in self.model_fields_set:
+            _dict['intValue'] = None
+
+        # set to None if string_value (nullable) is None
+        # and model_fields_set contains the field
+        if self.string_value is None and "string_value" in self.model_fields_set:
+            _dict['stringValue'] = None
+
         return _dict
 
     @classmethod
@@ -83,7 +114,12 @@ class ConCrossSectionParameter(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "value": obj.get("value")
+            "name": obj.get("name"),
+            "value": obj.get("value"),
+            "boolValue": obj.get("boolValue"),
+            "intValue": obj.get("intValue"),
+            "stringValue": obj.get("stringValue"),
+            "valueKind": obj.get("valueKind")
         })
         return _obj
 

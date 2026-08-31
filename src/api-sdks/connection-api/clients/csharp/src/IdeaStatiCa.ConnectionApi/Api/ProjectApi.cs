@@ -59,7 +59,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Creates a new empty IdeaCon project with no connections.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
         ConProject CreateEmptyProject(ConProjectData conProjectData = default(ConProjectData), int operationIndex = 0);
@@ -71,7 +71,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
@@ -209,7 +209,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conProjectData">New project data to apply. (optional)</param>
+        /// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
         ConProject UpdateProjectData(Guid projectId, ConProjectData conProjectData = default(ConProjectData), int operationIndex = 0);
@@ -222,7 +222,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="conProjectData">New project data to apply. (optional)</param>
+/// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
@@ -269,7 +269,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
@@ -282,7 +282,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -454,7 +454,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conProjectData">New project data to apply. (optional)</param>
+        /// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
@@ -468,7 +468,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conProjectData">New project data to apply. (optional)</param>
+        /// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -740,7 +740,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Creates a new empty IdeaCon project with no connections. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
         public ConProject CreateEmptyProject(ConProjectData conProjectData = default(ConProjectData), int operationIndex = 0)
@@ -753,7 +753,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Creates a new empty IdeaCon project with no connections. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
@@ -814,7 +814,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Creates a new empty IdeaCon project with no connections. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
@@ -828,7 +828,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Creates a new empty IdeaCon project with no connections. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="conProjectData">Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. (optional)</param>
+        /// <param name="conProjectData">Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1815,7 +1815,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conProjectData">New project data to apply. (optional)</param>
+        /// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConProject</returns>
         public ConProject UpdateProjectData(Guid projectId, ConProjectData conProjectData = default(ConProjectData), int operationIndex = 0)
@@ -1829,7 +1829,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="conProjectData">New project data to apply. (optional)</param>
+/// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConProject</returns>
@@ -1892,7 +1892,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conProjectData">New project data to apply. (optional)</param>
+        /// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConProject</returns>
@@ -1907,7 +1907,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conProjectData">New project data to apply. (optional)</param>
+        /// <param name="conProjectData">New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
