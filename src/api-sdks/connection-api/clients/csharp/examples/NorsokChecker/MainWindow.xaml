@@ -5,7 +5,7 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:controls="clr-namespace:NorsokChecker.Controls"
         Title="IDEA StatiCa — NORSOK N-004 Connection Checker"
-        Width="1100" Height="780"
+        Width="1780" Height="1040"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource MaterialDesignWindow}"
         TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -291,8 +291,13 @@
                          Star heights on both content rows: the grip then trades one against the
                          other instead of either growing the tab. -->
                     <Grid>
+                        <!-- 1:1, measured not guessed: the members table needs 241 px to show 7 rows
+                             without scrolling (row 21.4 + header 35.4 + expander chrome 56 —
+                             LayoutMeasurementProbe). The original 2:1 gave it 181 and 3:2 only 216;
+                             an even split clears it with room to spare, and the connections band
+                             above keeps enough for its own rows plus the 3D view. -->
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" MinHeight="120"/>
+                            <RowDefinition Height="1*" MinHeight="120"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="1*" MinHeight="80"/>
                         </Grid.RowDefinitions>
@@ -305,7 +310,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MinWidth="260"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="440" MinWidth="220"/>
+                                <ColumnDefinition Width="600" MinWidth="440"/>
                             </Grid.ColumnDefinitions>
                             <!-- Same size and indent as the Members heading below, and no icon on
                                  either - the two tables are peers, so their headings must read alike. -->
@@ -628,16 +633,28 @@
                          scope there are no results, and showing a table of them next to a banner
                          that says nothing was assessed states both at once. -->
                     <Grid Grid.Row="2" x:Name="Pnl64Sheet">
+                        <!-- 1:1, measured not guessed: in per-LC mode with 6 braces the right column
+                             (node equilibrium + brace forces) needs 356 px, and 2* of 5* gave it
+                             only 329 — a vertical scrollbar over the brace-force table. An even
+                             split clears it and still leaves the classification table below more
+                             than its 140 px floor. See LayoutMeasurementProbe. -->
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" MinHeight="180"/>
+                            <RowDefinition Height="1*" MinHeight="180"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="3*" MinHeight="140"/>
+                            <RowDefinition Height="1*" MinHeight="140"/>
                         </Grid.RowDefinitions>
 
                         <!-- top band: joint | grip | per-LE force cards -->
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="380" MinWidth="220"/>
+                                <!-- 600, measured not guessed: the brace-force table wants 969 px for
+                                     its 11 columns with 6 braces in it (LayoutMeasurementProbe — the
+                                     sum of their MinWidths is only 734, because SizeToHeader columns
+                                     grow to their content). At the 1780 start-up width that leaves
+                                     this much for the view, and the right column is no longer able to
+                                     borrow width from outside the window now that its ScrollViewer
+                                     has horizontal scrolling Disabled. -->
+                                <ColumnDefinition Width="600" MinWidth="440"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*" MinWidth="280"/>
                             </Grid.ColumnDefinitions>
@@ -724,8 +741,15 @@
                             <!-- right column: the two per-LE cards in per-LC mode, or the envelope
                                  note. Both are per-load-effect quantities, so an envelope has no
                                  single set of them to show — python hides them for the same reason. -->
+                            <!-- Horizontal scrolling DISABLED, not Auto. On Auto this viewer hands its
+                                 content unlimited width, so the envelope note's TextWrapping="Wrap"
+                                 had nothing to wrap against and the whole column scrolled sideways
+                                 instead (measured: 1039 px of content in a 908 px viewport). Disabled
+                                 pins the content to the viewport, the note wraps, and the one child
+                                 that really is wider than the column — the brace-force table — brings
+                                 its own horizontal scrollbar. -->
                             <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollBarVisibility="Auto">
+                                          HorizontalScrollBarVisibility="Disabled">
                                 <StackPanel>
                                     <!-- envelope note -->
                                     <Border x:Name="Pnl64EnvNote" Background="#F7F9FB"
