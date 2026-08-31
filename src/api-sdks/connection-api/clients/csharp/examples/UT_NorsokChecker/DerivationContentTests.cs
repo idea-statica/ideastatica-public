@@ -182,6 +182,37 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// No section heading appears twice.
+		///
+		/// A real defect, shipped and spotted by eye rather than by any test: moving the validity block
+		/// left "Geometry &amp; material" printed twice in a row. Every position test passed — they use
+		/// IndexOf, which happily finds the first of two — and so did every content test, because the
+		/// content was all there. Counting the headings is what catches a block emitted twice, whether
+		/// by a duplicated line or by a loop that runs once too often.
+		/// </summary>
+		[Test]
+		public void NoSectionHeadingIsEmittedTwice()
+		{
+			string html = Page();
+			var headings = System.Text.RegularExpressions.Regex
+				.Matches(html, @"<p class='deriv-h'>(.*?)</p>")
+				.Select(m => m.Groups[1].Value)
+				.ToList();
+
+			var duplicated = headings.GroupBy(h => h)
+				.Where(g => g.Count() > 1)
+				.Select(g => $"'{g.Key}' x{g.Count()}")
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(headings, Is.Not.Empty, "the sheet has section headings at all");
+				Assert.That(duplicated, Is.Empty,
+					"repeated heading(s): " + string.Join(", ", duplicated));
+			});
+		}
+
+		/// <summary>
 		/// The four phases of a hand calculation, in order: inputs, basic assumptions, the check, the
 		/// verdict on capacity.
 		///

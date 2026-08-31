@@ -456,7 +456,6 @@ namespace NorsokChecker.Services
 			// ══ 1. INPUTS ══ geometry, material and the actions, as they would be written down at the
 			// top of the hand calculation this sheet is meant to be checked against.
 			sb.AppendLine("      <p class='deriv-h'>Geometry &amp; material</p>");
-			sb.AppendLine("      <p class='deriv-h'>Geometry &amp; material</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
 			Kv(sb, "Chord &oslash; D &times; T", $"{N(dChordMm, 1)}&times;{N(tChordMm, 1)} mm "
 				+ $"(f<sub>y</sub> = {N(fy, 0)} MPa)");
