@@ -168,6 +168,7 @@ No authorization required
 **404** | Not Found |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
+**501** | Not Implemented |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
