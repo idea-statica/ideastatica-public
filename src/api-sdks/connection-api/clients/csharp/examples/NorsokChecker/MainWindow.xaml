@@ -159,7 +159,10 @@
 
         <!-- ═══ Configuration Card — only shown on the Check tab ═══ -->
         <md:Card x:Name="ConfigCard" Grid.Row="1" Margin="16,12,16,4" Padding="0" md:ElevationAssist.Elevation="Dp2">
-            <Expander IsExpanded="True" md:ExpanderAssist.HorizontalHeaderPadding="16"
+            <!-- Collapsed once a project has loaded (see LoadProject_Click): the settings are needed
+                 to get started and are dead weight afterwards, but they stay reachable by hand
+                 because changing the service or the file is a normal thing to want next. -->
+            <Expander x:Name="ApiConfigExpander" IsExpanded="True" md:ExpanderAssist.HorizontalHeaderPadding="16"
                       Background="Transparent">
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal">

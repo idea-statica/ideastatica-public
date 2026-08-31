@@ -422,6 +422,7 @@ namespace NorsokChecker
 				}
 
 				BtnRunCheck.IsEnabled = true;
+				ApiConfigExpander.IsExpanded = false;
 
 				Telemetry.ProjectLoaded(_connections.Count, _members.Count > 0 && _members.All(m => m.IsCHS));
 			}

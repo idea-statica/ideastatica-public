@@ -76,6 +76,28 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// API Configuration starts OPEN — it carries the service and the project file, so nothing can
+		/// happen until the user has been through it. LoadProject_Click collapses it on success; the
+		/// pair of assertions here is what keeps that collapse REVERSIBLE, because the tempting way to
+		/// write it (disable or hide the expander once loaded) would strand a user who wants a
+		/// different file or service next, and would not be visible in any other test.
+		/// </summary>
+		[Test]
+		public void ApiConfigurationStartsExpandedAndStaysCollapsible()
+		{
+			var w = NewWindow();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(w.ApiConfigExpander.IsExpanded, Is.True,
+					"nothing can be loaded before the user has seen these settings");
+				Assert.That(w.ApiConfigExpander.IsEnabled, Is.True,
+					"collapsing after a load must stay reversible by hand");
+				Assert.That(w.ApiConfigExpander.Visibility, Is.EqualTo(System.Windows.Visibility.Visible));
+			});
+		}
+
+		/// <summary>
 		/// Cancel is hidden until a run is in progress — an always-visible disabled button reads as
 		/// a broken feature rather than an inapplicable one.
 		/// </summary>
