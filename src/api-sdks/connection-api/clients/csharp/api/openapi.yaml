@@ -7179,20 +7179,14 @@ components:
           format: int32
           type: integer
         unityCheck:
-          description: "Unity Check Stress. NaN when the weld has no computed stress\
-            \ utilisation -\r\nfull-strength welds are not stress-checked, see IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength"
+          description: "Unity Check Stress. NaN when the weld has no computed stress utilisation,\r\nsee IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength"
           format: double
           type: number
         checkStatus:
           description: Status of the Check
           type: boolean
         isFullStrength:
-          description: "True when the weld is not rated by a stress utilisation and\
-            \ its check is satisfied by definition -\r\nthe check treats it as a full-strength\
-            \ weld. This applies to butt/bevel welds (e.g. CJP) and to\r\nwelds placed\
-            \ edge-to-edge. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is\
-            \ NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true\r\
-            \nin that case"
+          description: "True when the check does not rate this weld by a stress utilisation, so its check is\r\nsatisfied by definition. Set for butt/bevel welds (e.g. CJP) and for any weld placed\r\nedge-to-edge - despite the name, the latter includes fillet welds, so this flag is not a\r\nstatement that the weld develops the capacity of the connected plates. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true in that case"
           type: boolean
         loadCaseId:
           description: Id of Load Case
