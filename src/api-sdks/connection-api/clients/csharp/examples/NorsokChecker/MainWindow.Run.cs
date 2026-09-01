@@ -37,11 +37,20 @@ namespace NorsokChecker
 				ShowStatus("Running NORSOK N-004 compliance check...");
 				Log("Starting Norsok N-004 compliance check...");
 
-				// ── Chapter toggles ──
-				bool includeCh64 = ChkChapter64.IsChecked == true;
+				// ── Which chapters? Whatever the registry offers and the user ticked ──
+				var selectedChapters = SelectedChapters();
 				bool activeLoadEffectsOnly = ChkActiveLoadEffectsOnly.IsChecked == true;
-				Log($"Chapters: §6.4={(includeCh64 ? "on" : "off")}"
-					+ $", load effects: {(activeLoadEffectsOnly ? "active only" : "all in the file")}");
+				Log("Chapters: "
+					+ (selectedChapters.Count == 0
+						? "none selected"
+						: string.Join(", ", selectedChapters.Select(c => c.Key)))
+					+ $"; load effects: {(activeLoadEffectsOnly ? "active only" : "all in the file")}");
+
+				// §6.4 keeps its topology per connection so its tab can show a single load effect and
+				// not just the envelope. Only a chapter with its own tab needs this, which is why it
+				// is set here rather than being part of the interface.
+				foreach (var c64 in selectedChapters.OfType<Services.Chapters.Chapter64>())
+					c64.Topology = (conId, topo) => _topologyPerConnection[conId] = topo;
 
 				// ── Which connections? The per-row checkbox, not the whole project ──
 				// Everything downstream works off this list: the engine is asked to calculate only
@@ -69,25 +78,26 @@ namespace NorsokChecker
 				foreach (var con in selected)
 					con.Status = "Checking...";
 
-				// §6.4 topology: section map (id → D/T/fy) for chord/brace identification.
-				// There is no manual alternative any more: a single joint type / θ / gap for the whole
-				// joint contradicts §6.4, where K/Y/X is resolved per brace from where the forces
-				// flow, and the path it fed was unreachable in any case.
+				// The section map (cross-section id → D/T/fy) is read once for the project and handed
+				// to every chapter through ChapterContext: §6.4 identifies chord and braces from it,
+				// and any member-level chapter would need the same. Read whenever a chapter is going
+				// to run, so no chapter has to fetch it for itself.
 				Dictionary<int, Services.Norsok64.JointSectionInfo> sectionMap = new();
-				if (includeCh64)
+				if (selectedChapters.Count > 0)
 				{
 					try
 					{
 						var crossSections = await _apiClient.Material.GetCrossSectionsAsync(_projectId, cancellationToken: ct);
 						sectionMap = Services.Norsok64.JointSectionMap.FromCrossSections(crossSections.Cast<object>());
-						Log($"§6.4: section map with {sectionMap.Count} cross-section(s)");
+						Log($"Section map: {sectionMap.Count} cross-section(s)");
 					}
-					// A cancelled run is not a failed section map — see the note on the same pattern
-					// in ActivateAllLoadEffectsAsync.
+					// A cancelled run is not a failed section map.
 					catch (OperationCanceledException) { throw; }
 					catch (Exception ex)
 					{
-						Log($"WARNING: §6.4 section map failed ({ex.Message}) — §6.4 cannot be checked");
+						// Not fatal here: a chapter that needs the map says so itself, with a reason
+						// the reader sees in the results (ChapterOutcome.NotPerformed).
+						Log($"WARNING: the section map could not be read ({ex.Message})");
 					}
 				}
 
@@ -177,103 +187,35 @@ namespace NorsokChecker
 						Log($"    WARNING: Could not fetch load effects: {ex.Message}");
 					}
 
-					// §6.4 topology: typed members carry origin/axes/offsets → build the joint
-					// topology, classify K/Y/X from the force balance, check every brace. This is the
-					// ONLY §6.4 path; the manual dropdown parameters it used to fall back to were
-					// removed along with the Joint Configuration panel, so a failure here means no
-					// §6.4 result at all rather than a degraded one.
-					List<Services.Norsok64.JointMemberData>? topoMembers = null;
-					string? fetchFailure = null;
-
-					// Say WHY §6.4 is not going to run, when it is not going to run.
+					// ── Every selected chapter, in turn ──
 					//
-					// Each of these three used to leave §6.4 silently absent: the load-effect fetch
-					// logs a warning and leaves loadEffects null, and the section map logs one and
-					// leaves the map empty — and then this condition just skipped, publishing no row
-					// at all. The connection's verdict was then decided by its CBFEM rows alone, so
-					// a joint whose §6.4 was never attempted could read PASS. Reachable in the
-					// shipped test set: CON10 of test_cs has its braces deleted, so its inherited
-					// load effects reference members that no longer exist and the service answers
-					// 404 for them.
-					if (includeCh64)
+					// The run no longer knows how any chapter works: each one prepares its own inputs
+					// and returns its rows. Adding a chapter is a new IChapter plus a line in the
+					// registry — this loop does not change. (ChapterRegistryTests holds the app to
+					// that.)
+					var context = new Services.Chapters.ChapterContext
 					{
-						if (loadEffects == null)
-							fetchFailure = "the load effects of this connection could not be read";
-						else if (loadEffects.Count == 0)
-							fetchFailure = "this connection has no load effect — nothing to check";
-						else if (sectionMap.Count == 0)
-							fetchFailure = "no cross-section data was available for the project";
+						Client = _apiClient,
+						ProjectId = _projectId,
+						ConnectionId = con.Id,
+						ConnectionName = con.Name,
+						LoadEffects = loadEffects,
+						SectionMap = sectionMap,
+						Log = Log,
+					};
+
+					var formulaResults = new List<NorsokFormulaResult>();
+					foreach (var chapter in selectedChapters)
+					{
+						var outcome = await chapter.EvaluateAsync(context, ct);
+						formulaResults.AddRange(outcome.Rows);
+
+						// A chapter that deliberately skipped a check says so where the results are
+						// read, not only in its own log — see ChapterOutcome.NotPerformed.
+						foreach (var np in outcome.NotPerformed)
+							Log($"    {chapter.Key} NOT PERFORMED — {np.What}: {np.Why}");
 					}
 
-					if (includeCh64 && fetchFailure == null && loadEffects != null)
-					{
-						try
-						{
-							var conMembers = await _apiClient.Member.GetMembersAsync(_projectId, con.Id, cancellationToken: ct);
-							topoMembers = conMembers
-								.Select(m => Services.Norsok64.JointMemberData.FromConMember(m,
-									sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1)
-										?? new Services.Norsok64.JointSectionInfo()))
-								.ToList();
-
-							// D/T from the connection's OWN model, not from the section name. The
-							// section map is per project and name-derived, which is wrong for 96 % of
-							// catalogue circular profiles; the IOM facet ring is per connection and
-							// measured. See TubeFromIom.
-							await EnrichSectionsFromIomAsync(con.Id, topoMembers);
-						}
-						catch (OperationCanceledException) { throw; }
-						catch (Exception ex)
-						{
-							// No fallback exists, so this is a GAP, not a degraded check — and it has
-							// to reach the results, or the connection reads PASS off its CBFEM rows
-							// with §6.4 silently absent. The log used to claim "manual joint
-							// parameters used", which was doubly wrong: that path was removed, and
-							// nothing was checked at all.
-							Log($"    WARNING: §6.4 member fetch failed ({ex.Message}) "
-								+ "— no §6.4 check was performed for this connection");
-							topoMembers = null;
-							fetchFailure = ex.Message;
-						}
-					}
-
-					var checker = new NorsokCheckRunner(_apiClient, _projectId, Log);
-
-					bool autoJointDone = false;
-					bool topologyRejected = false;
-					var autoJointResults = new List<NorsokFormulaResult>();
-					if (fetchFailure != null)
-					{
-						autoJointResults.Add(new NorsokFormulaResult
-						{
-							Section = "6.4",
-							Equation = "6.4.3",
-							Title = "§6.4 could not be evaluated",
-							CheckExpression = $"the joint's members could not be read: {fetchFailure}",
-							Formula = "-",
-							FormulaSubstituted = "no §6.4 check was performed for this joint",
-							NotAssessed = true,
-						});
-					}
-					if (topoMembers != null)
-					{
-						// The topology is kept per connection: the §6.4 tab shows any single load
-						// effect, not just the envelope the results table carries.
-						autoJointDone = checker.EvaluateJointChecksFromTopology(
-							topoMembers, loadEffects, autoJointResults,
-							topology: t => _topologyPerConnection[con.Id] = t);
-						topologyRejected = !autoJointDone;
-					}
-
-					// A joint that fails the §6.4 conditions is not assessed per brace either: the
-					// quantities the check rests on (the joint plane, the averaged chord stresses,
-					// the K/Y/X balance) are not meaningful, so nothing downstream is published.
-					if (topologyRejected)
-						Log("    §6.4 topology rejected the joint — no §6.4 check is performed");
-
-					// §6.4 is the only chapter now: the CBFEM group that used to be merged in here is
-					// mothballed (Services/Cbfem_Mothballed/README.md).
-					var formulaResults = autoJointResults;
 					_formulaResults[con.Id] = formulaResults;
 
 					// The rules themselves are in CheckWorkflow.Roll — a pure function, so the app's

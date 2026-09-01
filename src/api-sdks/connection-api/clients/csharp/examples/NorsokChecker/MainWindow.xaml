@@ -249,10 +249,15 @@
                             <CheckBox x:Name="ChkActiveLoadEffectsOnly" Content="Active load effects only"
                                       IsChecked="True" Margin="0,0,20,0"
                                       ToolTip="Assess only the load effects switched on in the .ideaCon. Unchecked, every load effect in the file is assessed, including the ones the model has disabled."/>
-                            <!-- OFF by default: running a check is the user's decision. -->
+                            <!-- One checkbox per registered chapter, built in code from
+                                 ChapterRegistry (see BuildChapterToggles) rather than listed here:
+                                 a chapter that exists but has no toggle can never be run, and a
+                                 toggle for a chapter that no longer exists is worse. All OFF by
+                                 default — running a check is the user's decision. -->
                             <TextBlock Text="Chapters:" FontWeight="Medium" VerticalAlignment="Center"
                                        Foreground="#546E7A" Margin="0,0,10,0"/>
-                            <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="False"/>
+                            <StackPanel x:Name="ChapterToggles" Orientation="Horizontal"
+                                        VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <Button x:Name="BtnLoadProject" Click="LoadProject_Click"

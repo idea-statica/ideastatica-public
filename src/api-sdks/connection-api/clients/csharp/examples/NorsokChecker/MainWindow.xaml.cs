@@ -97,6 +97,7 @@ namespace NorsokChecker
 			ConnectionsGrid.ItemsSource = _connections;
 			MembersGrid.ItemsSource = _members;
 			DataContext = this;
+			BuildChapterToggles();
 			BuildUtilisationLegend();
 			HookGroup64Band();
 			PrefillServicePath(ServiceRootForTest);

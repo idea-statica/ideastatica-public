@@ -2,6 +2,7 @@ using System.IO;
 using IdeaStatiCa.ConnectionApi;
 using NorsokChecker.Models;
 using NorsokChecker.Services;
+using NorsokChecker.Services.Chapters;
 using NorsokChecker.Services.Norsok64;
 
 namespace UT_NorsokChecker
@@ -62,7 +63,6 @@ namespace UT_NorsokChecker
 
 			var crossSections = await client.Material.GetCrossSectionsAsync(project.ProjectId);
 			var sectionMap = JointSectionMap.FromCrossSections(crossSections.Cast<object>());
-			var runner = new NorsokCheckRunner(client, project.ProjectId, Log);
 
 			var rows = new List<string>
 			{
@@ -76,7 +76,7 @@ namespace UT_NorsokChecker
 
 			foreach (var con in project.Connections ?? new())
 			{
-				var v = await AssessAsync(client, runner, project.ProjectId, con, sectionMap);
+				var v = await AssessAsync(client, project.ProjectId, con, sectionMap, Log);
 				rows.Add($"{con.Name,-8} {v.Pass,-8} {v.MaxUtilisation * 100,8:F1}%  {v.Status}");
 			}
 
@@ -93,29 +93,40 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// One connection through §6.4 and the verdict roll-up, mirroring the app's run — but by
-		/// CALLING the same services, so the only thing this method contributes is the sequence.
+		/// One connection through the chapter and the verdict roll-up, exactly as the app's run does
+		/// it: the same ChapterContext, the same IChapter.EvaluateAsync, the same CheckWorkflow.
+		///
+		/// It restates nothing. An earlier version prepared the topology and the IOM override itself,
+		/// which made the baseline a measurement of the rig — and would have gone on passing while
+		/// the chapter it was supposed to be watching changed underneath it.
 		/// </summary>
 		private static async Task<ConnectionVerdict> AssessAsync(
-			IConnectionApiClient client, NorsokCheckRunner runner, Guid projectId,
+			IConnectionApiClient client, Guid projectId,
 			IdeaStatiCa.Api.Connection.Model.ConConnection con,
-			Dictionary<int, JointSectionInfo> sectionMap)
+			Dictionary<int, JointSectionInfo> sectionMap, Action<string> log)
 		{
 			var results = new List<NorsokFormulaResult>();
 			try
 			{
 				var loadEffects = await client.LoadEffect.GetLoadEffectsAsync(
 					projectId, con.Id, isPercentage: false);
-				var conMembers = await client.Member.GetMembersAsync(projectId, con.Id);
-				// same lookup the app does: the map is keyed by cross-section id, and a member whose
-				// section is unknown gets an empty one rather than being dropped
-				var topoMembers = conMembers
-					.Select(m => JointMemberData.FromConMember(m,
-						sectionMap.GetValueOrDefault(m.CrossSectionId ?? -1) ?? new JointSectionInfo()))
-					.ToList();
 
-				await EnrichFromIomAsync(client, projectId, con.Id, topoMembers);
-				runner.EvaluateJointChecksFromTopology(topoMembers, loadEffects, results);
+				var ctx = new ChapterContext
+				{
+					Client = client,
+					ProjectId = projectId,
+					ConnectionId = con.Id,
+					ConnectionName = con.Name ?? $"Con {con.Id}",
+					LoadEffects = loadEffects,
+					SectionMap = sectionMap,
+					Log = log,
+				};
+
+				foreach (var chapter in ChapterRegistry.All)
+				{
+					var outcome = await chapter.EvaluateAsync(ctx, CancellationToken.None);
+					results.AddRange(outcome.Rows);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -128,35 +139,6 @@ namespace UT_NorsokChecker
 			}
 
 			return CheckWorkflow.Roll(results);
-		}
-
-		/// <summary>
-		/// D/T measured off the IOM facet ring beat the name-parsed dimensions — the app does this
-		/// before every check (MainWindow.EnrichSectionsFromIomAsync) and the numbers depend on it:
-		/// without it CON1's gaps go negative and the joint is rejected for "feet overlap".
-		///
-		/// Kept deliberately short here. When the app's version moves into a service, this should
-		/// call that instead — it is the one piece of app logic this rig still restates.
-		/// </summary>
-		private static async Task EnrichFromIomAsync(
-			IConnectionApiClient client, Guid projectId, int connectionId, List<JointMemberData> members)
-		{
-			var iom = await client.Export.ExportIomConnectionDataAsync(projectId, connectionId);
-			if (iom?.Beams == null || iom.Beams.Count == 0) return;
-
-			var beams = TubeFromIom.TubularBeamsByName(iom);
-			foreach (var m in members)
-			{
-				if (m.Section == null) continue;
-				if (!beams.TryGetValue(m.Name ?? "", out var beam)) continue;
-
-				var (d, t, _) = TubeFromIom.FromBeam(beam);
-				if (d is > 0 && t is > 0)
-				{
-					m.Section.D = d;
-					m.Section.T = t;
-				}
-			}
 		}
 	}
 }

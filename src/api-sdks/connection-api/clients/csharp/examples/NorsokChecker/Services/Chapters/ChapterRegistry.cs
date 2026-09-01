@@ -1,4 +1,4 @@
-namespace NorsokChecker.Services.Chapters
+﻿namespace NorsokChecker.Services.Chapters
 {
 	/// <summary>
 	/// The chapters this app knows about — the one list, read by everything that needs to know.

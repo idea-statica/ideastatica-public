@@ -36,17 +36,30 @@ namespace UT_NorsokChecker
 		private static NorsokChecker.MainWindow NewWindow() => new();
 
 		/// <summary>
-		/// No chapter is ticked at start-up: running a check is the user's decision.
+		/// Every registered chapter has a toggle, and none of them starts ticked.
+		///
+		/// Two properties in one test because they fail together: the toggles are built from
+		/// ChapterRegistry (see BuildChapterToggles), so a chapter with no toggle could never be run
+		/// and a stray toggle would promise a chapter that does not exist.
 		///
 		/// Paired with <see cref="ActiveLoadEffectsOnlyStartsTicked"/>, which is deliberately ON — a
 		/// rig that read "unticked" for every box would pass this one and fail that one.
 		/// </summary>
 		[Test]
-		public void TheChapterToggleStartsUnticked()
+		public void EveryChapterHasAToggleAndNoneStartsTicked()
 		{
 			var w = NewWindow();
+			var boxes = w.ChapterToggles.Children
+				.OfType<System.Windows.Controls.CheckBox>()
+				.ToList();
 
-			Assert.That(w.ChkChapter64.IsChecked, Is.False, "§6.4 chapter must start off");
+			Assert.Multiple(() =>
+			{
+				Assert.That(boxes, Has.Count.EqualTo(NorsokChecker.Services.Chapters.ChapterRegistry.All.Count),
+					"one toggle per registered chapter");
+				foreach (var cb in boxes)
+					Assert.That(cb.IsChecked, Is.False, $"'{cb.Content}' must start off");
+			});
 		}
 
 		/// <summary>

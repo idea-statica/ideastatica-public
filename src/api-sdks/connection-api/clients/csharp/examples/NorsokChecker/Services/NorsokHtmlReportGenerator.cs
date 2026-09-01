@@ -132,14 +132,14 @@ namespace NorsokChecker.Services
 			{
 				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
 
-				// Group by chapter — each formula assigned to exactly one group
-				var groups = new (string key, string title)[]
-				{
-					("Plate", "Plate Stress Checks (CBFEM)"),
-					("Weld", "Weld Checks (EN 1993-1-8)"),
-					("Bolt", "Bolt Checks (EN 1993-1-8)"),
-					("6.4", "§6.4 — Tubular Joint Checks"),
-				};
+				// Group by chapter, from the registry rather than a list kept here.
+				//
+				// This used to be a hardcoded four-entry array, which meant a new chapter's rows
+				// landed in "Other Checks" below with nothing to say they had been mis-filed — the
+				// report looked complete and quietly grouped the new work as leftovers.
+				var groups = Chapters.ChapterRegistry.All
+					.Select(c => (key: c.Key, title: c.ReportGroup))
+					.ToArray();
 
 				var assigned = new HashSet<NorsokFormulaResult>();
 

@@ -14,6 +14,40 @@ namespace NorsokChecker
 	/// </summary>
 	public partial class MainWindow
 	{
+		/// <summary>
+		/// One checkbox per registered chapter, in the registry's order.
+		///
+		/// Built in code so the toggles cannot disagree with the registry: a chapter with no toggle
+		/// could never be run, and a toggle for a chapter that no longer exists would be a promise
+		/// the app cannot keep. Both were possible while the list lived in the XAML.
+		///
+		/// The chapter itself is put in Tag, so reading the selection needs no name lookup.
+		/// </summary>
+		private void BuildChapterToggles()
+		{
+			ChapterToggles.Children.Clear();
+			foreach (var chapter in Services.Chapters.ChapterRegistry.All)
+			{
+				ChapterToggles.Children.Add(new System.Windows.Controls.CheckBox
+				{
+					Content = chapter.DisplayName,
+					IsChecked = false,          // running a check is the user's decision
+					Tag = chapter,
+					Margin = new Thickness(0, 0, 12, 0),
+					VerticalAlignment = VerticalAlignment.Center,
+				});
+			}
+		}
+
+		/// <summary>The chapters the user ticked, in registry order.</summary>
+		private List<Services.Chapters.IChapter> SelectedChapters() =>
+			ChapterToggles.Children
+				.OfType<System.Windows.Controls.CheckBox>()
+				.Where(cb => cb.IsChecked == true)
+				.Select(cb => cb.Tag)
+				.OfType<Services.Chapters.IChapter>()
+				.ToList();
+
 		private void BrowseApiPath_Click(object sender, RoutedEventArgs e)
 		{
 			var dialog = new OpenFolderDialog { Title = "Select IDEA StatiCa installation folder" };
