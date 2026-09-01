@@ -69,14 +69,22 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		public double Value { get; set; }
 	}
 
-	/// <summary>One polygonal component of a custom cross-section.</summary>
+	/// <summary>
+	/// One component of a custom cross-section. Read-only facet: custom sections are authored in
+	/// the desktop application — the parametric POST/PUT endpoints do not accept them.
+	/// </summary>
 	public class ConCrossSectionCustomComponent
 	{
-		/// <summary>Outer boundary of the component in the section plane.</summary>
-		public List<ConCssPoint2D> Outline { get; set; }
+		/// <summary>
+		/// Outer boundary of the component as an ordered chain of typed segments — the same
+		/// contract as the evaluated geometry (see <see cref="ConCssSegment"/>). A hand-drawn
+		/// polygon arrives as line segments, but construction geometry (e.g. a plate trimmed by
+		/// a tube) carries circular arcs, so a consumer must not assume lines only.
+		/// </summary>
+		public List<ConCssSegment> Outline { get; set; }
 
-		/// <summary>Holes inside the outline (each a closed polygon).</summary>
-		public List<List<ConCssPoint2D>> Openings { get; set; }
+		/// <summary>Holes inside the outline, each a closed segment chain with the same contract as <see cref="Outline"/>.</summary>
+		public List<List<ConCssSegment>> Openings { get; set; }
 
 		/// <summary>Material of this component; null = the section's material.</summary>
 		public string MaterialName { get; set; }

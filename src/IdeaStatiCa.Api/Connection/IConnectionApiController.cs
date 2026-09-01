@@ -392,7 +392,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// </summary>
 		/// <param name="cssId">Id of the cross-section in the project</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>The cross-section detail: definition + tessellated outline geometry</returns>
+		/// <returns>The cross-section detail: definition + outline geometry as ordered chains of line/arc segments</returns>
 		Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(int cssId, CancellationToken cancellationToken = default);
 
 		/// <summary>
@@ -402,7 +402,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// </summary>
 		/// <param name="definition">Shape type, dimensions and material of the new cross-section</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>The created cross-section detail: definition + tessellated outline geometry</returns>
+		/// <returns>The created cross-section detail: definition + outline geometry as ordered chains of line/arc segments</returns>
 		Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
 
 		/// <summary>
@@ -413,7 +413,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cssId">Id of the parametric cross-section to replace</param>
 		/// <param name="definition">Shape type, dimensions and material replacing the stored definition</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>The updated cross-section detail: definition + tessellated outline geometry</returns>
+		/// <returns>The updated cross-section detail: definition + outline geometry as ordered chains of line/arc segments</returns>
 		Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
 
 		/// <summary>
