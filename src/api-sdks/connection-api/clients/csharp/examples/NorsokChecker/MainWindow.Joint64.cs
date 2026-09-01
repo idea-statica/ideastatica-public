@@ -690,10 +690,23 @@ namespace NorsokChecker
 		/// standing in for "not assessed".
 		/// </summary>
 		private void ColourJoint64ByResults(JointTopology topo)
-		{
-			bool envelope = Rb64Envelope.IsChecked == true;
-			int? leId = (Cmb64Le.SelectedItem as Le64Option)?.Id;
+			=> Joint3D64.ColourByUtilisation(
+				UtilisationByMember(topo, envelope: Rb64Envelope.IsChecked == true,
+					leId: (Cmb64Le.SelectedItem as Le64Option)?.Id),
+				topo.Chord?.Id ?? -1);
 
+		/// <summary>
+		/// Utilisation per member id, for colouring a joint view — the governing state per brace in
+		/// envelope mode, the named state otherwise.
+		///
+		/// Split out of <see cref="ColourJoint64ByResults"/> so the report can ask for the ENVELOPE
+		/// without the §6.4 tab's radio buttons deciding for it. A brace with no result maps to null,
+		/// which the view paints grey: an unchecked member coloured "safe" is the same mistake as a
+		/// 0.0 % utilisation standing in for "not assessed".
+		/// </summary>
+		private static Dictionary<int, double?> UtilisationByMember(
+			JointTopology topo, bool envelope, int? leId)
+		{
 			var utilByMember = new Dictionary<int, double?>();
 			foreach (var brace in topo.GapBraces)
 			{
@@ -707,7 +720,7 @@ namespace NorsokChecker
 					: row.Util;
 			}
 
-			Joint3D64.ColourByUtilisation(utilByMember, topo.Chord?.Id ?? -1);
+			return utilByMember;
 		}
 
 		private void Joint64_RotateLeft(object sender, RoutedEventArgs e) => Joint3D64.TurnInPlane(-90);

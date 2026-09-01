@@ -10,6 +10,13 @@ namespace NorsokChecker
 	/// </summary>
 	public partial class MainWindow
 	{
+		/// <summary>
+		/// The report HTML the tab would show, without a WebView2. Lets a test see what the app
+		/// produced rather than what the generator is capable of producing — the two came apart when
+		/// the Report tab went blank after a run that had no chapter ticked.
+		/// </summary>
+		internal string BuildReportHtmlForTest() => BuildReportHtml();
+
 		private string BuildReportHtml(bool expandAll = false)
 		{
 			var allResults = new List<(string connectionName, List<NorsokFormulaResult> formulas)>();
@@ -20,7 +27,69 @@ namespace NorsokChecker
 			}
 
 			return NorsokHtmlReportGenerator.GenerateReport(
-				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll);
+				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, RenderJointFigures());
+		}
+
+		/// <summary>
+		/// A joint figure per connection, as base64 PNG, for the report.
+		///
+		/// Rendered here rather than in the generator: it needs the WPF control and the topology, and
+		/// a generator that reached for either could no longer be called without a UI thread.
+		///
+		/// An OFF-SCREEN view, not the one on the §6.4 tab. Reusing that one would leave whatever the
+		/// report wanted painted on the tab the user is looking at — a different load effect, a
+		/// different rotation — and the two would fight over one control.
+		///
+		/// Only connections with a topology get a figure. A joint the chapter rejected has no
+		/// envelope to colour by, and an uncoloured picture beside a "not assessed" card would imply
+		/// there was something to see.
+		/// </summary>
+		private Dictionary<string, string> RenderJointFigures()
+		{
+			var figures = new Dictionary<string, string>();
+
+			foreach (var (conId, topo) in _topologyPerConnection)
+			{
+				if (!_meshesPerConnection.TryGetValue(conId, out var meshes) || meshes.Count == 0)
+					continue;
+
+				string? name = _connections.FirstOrDefault(c => c.Id == conId)?.Name;
+				if (string.IsNullOrEmpty(name)) continue;
+
+				try
+				{
+					var view = new Controls.Joint3DView
+					{
+						Interactive = false,
+						ShowMemberLabels = true,
+						ChromeVisible = false,
+					};
+					view.Load(meshes);
+
+					var n = topo.NPlane;
+					var axis = topo.Ex;
+					if (n.Norm > 1e-9)
+						view.LookAtPlane(
+							new System.Windows.Media.Media3D.Vector3D(n.X, n.Y, n.Z),
+							new System.Windows.Media.Media3D.Vector3D(axis.X, axis.Y, axis.Z));
+
+					// The envelope, always: a report is not looking at one load effect, and the
+					// governing state per brace is what its result rows carry.
+					view.ColourByUtilisation(
+						UtilisationByMember(topo, envelope: true, leId: null),
+						topo.Chord?.Id ?? -1);
+
+					byte[]? png = view.RenderToPng();
+					if (png != null) figures[name] = Convert.ToBase64String(png);
+				}
+				catch (Exception ex)
+				{
+					// A figure is an illustration; the report is still valid without one.
+					Log($"  WARNING: the joint figure for {name} could not be rendered ({ex.Message})");
+				}
+			}
+
+			return figures;
 		}
 
 		private async void PopulateReportTab()
@@ -39,9 +108,9 @@ namespace NorsokChecker
 		}
 
 		/// <summary>
-		/// Export both PDF reports: the official IDEA StatiCa CBFEM report via the
-		/// Connection API, and the NORSOK compliance report printed from the HTML
-		/// report via WebView2.
+		/// Export the NORSOK report: the same HTML the tab shows, printed to PDF through WebView2 with
+		/// every card expanded. One file — the second, IDEA StatiCa's own report via the API, was
+		/// dropped with the CBFEM chapter.
 		/// </summary>
 		private async void ExportPdf_Click(object sender, RoutedEventArgs e)
 		{
@@ -95,8 +164,8 @@ namespace NorsokChecker
 				Log("PDF export completed.");
 				Telemetry.ReportExported();
 
-					MessageBox.Show("Exported:" + Environment.NewLine + norsokPdf, "PDF Export",
-						MessageBoxButton.OK, MessageBoxImage.Information);
+				MessageBox.Show("Exported:" + Environment.NewLine + norsokPdf, "PDF Export",
+					MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			catch (Exception ex)
 			{
@@ -111,12 +180,6 @@ namespace NorsokChecker
 				HideStatus();
 			}
 		}
-
-		/// <summary>
-		/// Report how many members are tubular. §6.4 needs every one of them to be, and the topology
-		/// gates say so per member when the check runs — this is only the up-front note. The chord
-		/// itself is named in the members-grid header (see ShowMembersOf).
-		/// </summary>
 
 	}
 }

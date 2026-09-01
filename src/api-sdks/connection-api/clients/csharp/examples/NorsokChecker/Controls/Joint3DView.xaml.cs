@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using NorsokChecker.Services;
 
@@ -147,6 +149,83 @@ namespace NorsokChecker.Controls
 			}
 		}
 		private bool _interactive = true;
+
+		/// <summary>
+		/// The screen-only captions: the gesture hint, the body count and the placeholder.
+		///
+		/// True on the Check tab, where the view is what you explore — there the hint and the count
+		/// help. False on the §6.4 tab and in <see cref="RenderToPng"/>, where the view is a figure
+		/// beside a table that already names every member, and where a caption only covers the
+		/// drawing. In a printed report they are worse than redundant: instructions nobody can follow.
+		/// </summary>
+		public bool ChromeVisible
+		{
+			get => _chromeVisible;
+			set
+			{
+				_chromeVisible = value;
+				var vis = value ? Visibility.Visible : Visibility.Collapsed;
+				GestureHint.Visibility = vis;
+				HintLabel.Visibility = vis;
+				// the placeholder stays hidden either way once a joint is loaded; this only stops it
+				// appearing over an empty figure
+				if (!value) Placeholder.Visibility = Visibility.Collapsed;
+			}
+		}
+		private bool _chromeVisible = true;
+
+		/// <summary>The captions, so a test can read what ChromeVisible did rather than restate it.</summary>
+		internal TextBlock GestureHintForTest => GestureHint;
+		internal TextBlock HintLabelForTest => HintLabel;
+
+		/// <summary>
+		/// The view as a PNG, for the report.
+		///
+		/// Two things this has to do that a screen render does not:
+		///
+		/// - **Size it first.** A control that has never been laid out has no size, and
+		///   RenderTargetBitmap would return an empty image. Measure/Arrange at the requested size
+		///   makes it real without showing it. (Measured the same way in LayoutMeasurementProbe: a
+		///   DataGrid's columns have no ActualWidth until the window is rendered.)
+		/// - **Capture the labels.** The member names live on a 2D Canvas OVER the Viewport3D
+		///   (see LabelLayer), so rendering the viewport alone would produce an unlabelled picture.
+		///   Rendering `this` takes the whole control, labels included.
+		///
+		/// Returns null when there is nothing to draw, so a caller cannot embed a blank figure.
+		/// </summary>
+		public byte[]? RenderToPng(int width = 900, int height = 620)
+		{
+			if (_byMember.Count == 0) return null;
+
+			bool chromeWas = ChromeVisible;
+			ChromeVisible = false;
+
+			try
+			{
+				var size = new Size(width, height);
+				Measure(size);
+				Arrange(new Rect(size));
+				UpdateLayout();
+
+				// the labels are positioned from the projected geometry, which only exists after the
+				// arrange above — so they have to be refreshed once the control has its real size
+				RefreshLabels();
+				UpdateLayout();
+
+				var bmp = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+				bmp.Render(this);
+
+				var encoder = new PngBitmapEncoder();
+				encoder.Frames.Add(BitmapFrame.Create(bmp));
+				using var ms = new MemoryStream();
+				encoder.Save(ms);
+				return ms.ToArray();
+			}
+			finally
+			{
+				ChromeVisible = chromeWas;
+			}
+		}
 
 		/// <summary>
 		/// Turn the view a quarter turn within the joint plane, keeping the plane face-on.
