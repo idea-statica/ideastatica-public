@@ -849,69 +849,27 @@ namespace NorsokChecker
 					formulaResults.AddRange(autoJointResults);
 					_formulaResults[con.Id] = formulaResults;
 
-					// Three outcomes, not two. A "not assessed" row is neither a pass nor a failure,
-					// so it must not be counted as either — and a connection that carries one cannot
-					// be reported as PASS, because part of it was never checked.
-					double maxNorsokUtil = 0;
-					bool anyFailed = false;
-					bool anyNotAssessed = false;
-					int assessed = 0;
+					// The rules themselves are in CheckWorkflow.Roll — a pure function, so the app's
+					// headline verdict can be tested without a window. Logging stays here because it
+					// is a UI concern; the roll-up must not know about a log.
 					foreach (var fr in formulaResults)
 					{
-						// a note qualifies a check that DID run; it is neither a result nor a gap
 						if (fr.IsNote)
-						{
 							Log($"    {fr.Section} NOTE: {fr.CheckExpression}");
-							continue;
-						}
-						if (fr.NotAssessed)
-						{
-							anyNotAssessed = true;
-						}
 						else
-						{
-							assessed++;
-							if (fr.Utilization > maxNorsokUtil) maxNorsokUtil = fr.Utilization;
-							if (!fr.Passed) anyFailed = true;
-						}
-						Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {fr.Verdict}");
+							Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {fr.Verdict}");
 					}
 
-					if (anyFailed)
-					{
-						con.NorsokPass = "FAIL";
-						con.MaxUtilization = maxNorsokUtil;
-						con.Status = "Norsok FAIL";
-					}
-					else if (assessed == 0)
-					{
-						// nothing was checked at all — an empty result set used to leave the
-						// connection reading as "Norsok OK / PASS / 0.0 %"
-						// Check says only THAT §6.4 does not apply, and how many conditions failed.
-						// The conditions themselves are one row each in Results and in the report —
-						// this tab is the overview.
-						int gates = formulaResults.Count(f => !f.IsNote && f.NotAssessed);
-						con.NorsokPass = "N/A";
-						con.MaxUtilization = 0;
-						con.Status = anyNotAssessed
-							? (gates > 1 ? $"Outside §6.4 scope ({gates} conditions)" : "Outside §6.4 scope")
-							: "Not assessed";
+					var verdict = Services.CheckWorkflow.Roll(formulaResults);
+					con.NorsokPass = verdict.Pass;
+					con.MaxUtilization = verdict.MaxUtilisation;
+					con.Status = verdict.Status;
+
+					if (verdict.Pass == "N/A")
 						Log("    nothing was assessed for this connection — reported as N/A, not as a pass"
 							+ "; see the Results tab for the conditions that were not met");
-					}
-					else if (anyNotAssessed)
-					{
-						con.NorsokPass = "PARTIAL";
-						con.MaxUtilization = maxNorsokUtil;
-						con.Status = "Partly assessed";
-						Log($"    {assessed} check(s) passed, but part of this connection was not assessed");
-					}
-					else
-					{
-						con.NorsokPass = "PASS";
-						con.MaxUtilization = maxNorsokUtil;
-						con.Status = "Norsok OK";
-					}
+					else if (verdict.Pass == "PARTIAL")
+						Log("    part of this connection was not assessed");
 				}
 
 				// Populate tabs
