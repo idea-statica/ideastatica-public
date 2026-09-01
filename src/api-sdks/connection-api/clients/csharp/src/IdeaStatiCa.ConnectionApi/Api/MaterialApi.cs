@@ -219,29 +219,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionDetail</returns>
-        ConCrossSectionDetail AddParametricCrossSection(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0);
-
-        /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionDetail</returns>
-        ApiResponse<ConCrossSectionDetail> AddParametricCrossSectionWithHttpInfo(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0);
-        /// <summary>
         /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -349,30 +326,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of List&lt;Object&gt;</returns>
         ApiResponse<List<Object>> GetConcreteMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionDetail</returns>
-        ConCrossSectionDetail GetCrossSectionDetail(Guid projectId, int cssId, int operationIndex = 0);
-
-        /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionDetail</returns>
-        ApiResponse<ConCrossSectionDetail> GetCrossSectionDetailWithHttpInfo(Guid projectId, int cssId, string requestedType = null, int operationIndex = 0);
-        /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly.
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -381,7 +335,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         List<Object> GetCrossSections(Guid projectId, int operationIndex = 0);
 
         /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly.
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
         /// </summary>
         /// <remarks>
         /// 
@@ -436,50 +390,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         ApiResponse<List<string>> GetMaterialLibraryWithHttpInfo(Guid projectId, string materialType, string requestedType = null, int operationIndex = 0);
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionParametricDefinition</returns>
-        ConCrossSectionParametricDefinition GetParametricCrossSectionShapeTemplate(Guid projectId, string shapeType, int operationIndex = 0);
-
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionParametricDefinition</returns>
-        ApiResponse<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateWithHttpInfo(Guid projectId, string shapeType, string requestedType = null, int operationIndex = 0);
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;string&gt;</returns>
-        List<string> GetParametricCrossSectionShapes(Guid projectId, int operationIndex = 0);
-
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        ApiResponse<List<string>> GetParametricCrossSectionShapesWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Gets pins used in the specified project.
         /// </summary>
@@ -564,31 +474,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of List&lt;Object&gt;</returns>
         ApiResponse<List<Object>> GetWeldingMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the parametric cross-section to replace.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionDetail</returns>
-        ConCrossSectionDetail UpdateParametricCrossSection(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0);
-
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="cssId">Id of the parametric cross-section to replace.</param>
-/// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionDetail</returns>
-        ApiResponse<ConCrossSectionDetail> UpdateParametricCrossSectionWithHttpInfo(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -823,34 +708,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionDetail</returns>
-        System.Threading.Tasks.Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionDetail)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConCrossSectionDetail>> AddParametricCrossSectionWithHttpInfoAsync(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
         /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
         /// </summary>
         /// <remarks>
@@ -983,35 +840,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetConcreteMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionDetail</returns>
-        System.Threading.Tasks.Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(Guid projectId, int cssId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionDetail)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConCrossSectionDetail>> GetCrossSectionDetailWithHttpInfoAsync(Guid projectId, int cssId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly.
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
         /// </summary>
         /// <remarks>
         /// 
@@ -1024,7 +853,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<List<Object>> GetCrossSectionsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly.
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
         /// </summary>
         /// <remarks>
         /// 
@@ -1090,60 +919,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<string>>> GetMaterialLibraryWithHttpInfoAsync(Guid projectId, string materialType, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionParametricDefinition</returns>
-        System.Threading.Tasks.Task<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateAsync(Guid projectId, string shapeType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionParametricDefinition)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConCrossSectionParametricDefinition>> GetParametricCrossSectionShapeTemplateWithHttpInfoAsync(Guid projectId, string shapeType, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;string&gt;</returns>
-        System.Threading.Tasks.Task<List<string>> GetParametricCrossSectionShapesAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<string>>> GetParametricCrossSectionShapesWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Gets pins used in the specified project.
         /// </summary>
@@ -1248,36 +1023,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetWeldingMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the parametric cross-section to replace.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionDetail</returns>
-        System.Threading.Tasks.Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the parametric cross-section to replace.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionDetail)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConCrossSectionDetail>> UpdateParametricCrossSectionWithHttpInfoAsync(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -2615,158 +2360,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionDetail</returns>
-        public ConCrossSectionDetail AddParametricCrossSection(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> localVarResponse = AddParametricCrossSectionWithHttpInfo(projectId, conCrossSectionParametricDefinition);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionDetail</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> AddParametricCrossSectionWithHttpInfo(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.Data = conCrossSectionParametricDefinition;
-
-            localVarRequestOptions.Operation = "MaterialApi.AddParametricCrossSection";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Post<ConCrossSectionDetail>("/api/4/projects/{projectId}/materials/cross-sections/parametric", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("AddParametricCrossSection", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionDetail</returns>
-        public async System.Threading.Tasks.Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> localVarResponse = await AddParametricCrossSectionWithHttpInfoAsync(projectId, conCrossSectionParametricDefinition, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material of the new cross-section. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionDetail)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail>> AddParametricCrossSectionWithHttpInfoAsync(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.Data = conCrossSectionParametricDefinition;
-
-            localVarRequestOptions.Operation = "MaterialApi.AddParametricCrossSection";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConCrossSectionDetail>("/api/4/projects/{projectId}/materials/cross-sections/parametric", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("AddParametricCrossSection", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
         /// Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -3495,157 +3088,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionDetail</returns>
-        public ConCrossSectionDetail GetCrossSectionDetail(Guid projectId, int cssId, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> localVarResponse = GetCrossSectionDetailWithHttpInfo(projectId, cssId);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionDetail</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> GetCrossSectionDetailWithHttpInfo(Guid projectId, int cssId, string requestedType = null, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("cssId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(cssId)); // path parameter
-
-            localVarRequestOptions.Operation = "MaterialApi.GetCrossSectionDetail";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<ConCrossSectionDetail>("/api/4/projects/{projectId}/materials/cross-sections/{cssId}", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetCrossSectionDetail", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionDetail</returns>
-        public async System.Threading.Tasks.Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(Guid projectId, int cssId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> localVarResponse = await GetCrossSectionDetailWithHttpInfoAsync(projectId, cssId, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the cross-section in the project.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionDetail)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail>> GetCrossSectionDetailWithHttpInfoAsync(Guid projectId, int cssId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("cssId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(cssId)); // path parameter
-
-            localVarRequestOptions.Operation = "MaterialApi.GetCrossSectionDetail";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<ConCrossSectionDetail>("/api/4/projects/{projectId}/materials/cross-sections/{cssId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetCrossSectionDetail", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly. 
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3658,7 +3101,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly. 
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3715,7 +3158,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly. 
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3729,7 +3172,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly. 
+        /// Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here). 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4085,312 +3528,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetMaterialLibrary", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionParametricDefinition</returns>
-        public ConCrossSectionParametricDefinition GetParametricCrossSectionShapeTemplate(Guid projectId, string shapeType, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionParametricDefinition> localVarResponse = GetParametricCrossSectionShapeTemplateWithHttpInfo(projectId, shapeType);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionParametricDefinition</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateWithHttpInfo(Guid projectId, string shapeType, string requestedType = null, int operationIndex = 0)
-        {
-            // verify the required parameter 'shapeType' is set
-            if (shapeType == null)
-            {
-                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'shapeType' when calling MaterialApi->GetParametricCrossSectionShapeTemplate");
-            }
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("shapeType", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(shapeType)); // path parameter
-
-            localVarRequestOptions.Operation = "MaterialApi.GetParametricCrossSectionShapeTemplate";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<ConCrossSectionParametricDefinition>("/api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetParametricCrossSectionShapeTemplate", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionParametricDefinition</returns>
-        public async System.Threading.Tasks.Task<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateAsync(Guid projectId, string shapeType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionParametricDefinition> localVarResponse = await GetParametricCrossSectionShapeTemplateWithHttpInfoAsync(projectId, shapeType, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="shapeType">Shape type name from &#x60;cross-sections/parametric/shapes&#x60;.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionParametricDefinition)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionParametricDefinition>> GetParametricCrossSectionShapeTemplateWithHttpInfoAsync(Guid projectId, string shapeType, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            // verify the required parameter 'shapeType' is set
-            if (shapeType == null)
-            {
-                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'shapeType' when calling MaterialApi->GetParametricCrossSectionShapeTemplate");
-            }
-
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("shapeType", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(shapeType)); // path parameter
-
-            localVarRequestOptions.Operation = "MaterialApi.GetParametricCrossSectionShapeTemplate";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<ConCrossSectionParametricDefinition>("/api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetParametricCrossSectionShapeTemplate", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;string&gt;</returns>
-        public List<string> GetParametricCrossSectionShapes(Guid projectId, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> localVarResponse = GetParametricCrossSectionShapesWithHttpInfo(projectId);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> GetParametricCrossSectionShapesWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-
-            localVarRequestOptions.Operation = "MaterialApi.GetParametricCrossSectionShapes";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<List<string>>("/api/4/projects/{projectId}/materials/cross-sections/parametric/shapes", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetParametricCrossSectionShapes", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;string&gt;</returns>
-        public async System.Threading.Tasks.Task<List<string>> GetParametricCrossSectionShapesAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>> localVarResponse = await GetParametricCrossSectionShapesWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<string>>> GetParametricCrossSectionShapesWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-
-            localVarRequestOptions.Operation = "MaterialApi.GetParametricCrossSectionShapes";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<string>>("/api/4/projects/{projectId}/materials/cross-sections/parametric/shapes", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetParametricCrossSectionShapes", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -4967,164 +4104,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetWeldingMaterials", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the parametric cross-section to replace.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConCrossSectionDetail</returns>
-        public ConCrossSectionDetail UpdateParametricCrossSection(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> localVarResponse = UpdateParametricCrossSectionWithHttpInfo(projectId, cssId, conCrossSectionParametricDefinition);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-/// <param name="cssId">Id of the parametric cross-section to replace.</param>
-/// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConCrossSectionDetail</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> UpdateParametricCrossSectionWithHttpInfo(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("cssId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(cssId)); // path parameter
-            localVarRequestOptions.Data = conCrossSectionParametricDefinition;
-
-            localVarRequestOptions.Operation = "MaterialApi.UpdateParametricCrossSection";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Put<ConCrossSectionDetail>("/api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId}", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("UpdateParametricCrossSection", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the parametric cross-section to replace.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConCrossSectionDetail</returns>
-        public async System.Threading.Tasks.Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail> localVarResponse = await UpdateParametricCrossSectionWithHttpInfoAsync(projectId, cssId, conCrossSectionParametricDefinition, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
-        /// <param name="cssId">Id of the parametric cross-section to replace.</param>
-        /// <param name="conCrossSectionParametricDefinition">Shape type, dimensions and material replacing the stored definition. (optional)</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConCrossSectionDetail)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConCrossSectionDetail>> UpdateParametricCrossSectionWithHttpInfoAsync(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("cssId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(cssId)); // path parameter
-            localVarRequestOptions.Data = conCrossSectionParametricDefinition;
-
-            localVarRequestOptions.Operation = "MaterialApi.UpdateParametricCrossSection";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PutAsync<ConCrossSectionDetail>("/api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("UpdateParametricCrossSection", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
