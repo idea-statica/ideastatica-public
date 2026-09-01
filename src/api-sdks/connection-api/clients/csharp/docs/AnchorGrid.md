@@ -6,7 +6,7 @@ Data of the anchor grid
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ShearInThread** | **bool** | Indicates, whether a shear plane is in the thread of a bolt. | [optional] 
-**ConcreteBlock** | [**ConcreteBlock**](ConcreteBlock.md) |  | [optional] 
+**ConcreteBlock** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **AnchorType** | **AnchorType** |  | [optional] 
 **AnchorInstallationProcess** | **InstallationProcessTypeEnum** |  | [optional] 
 **WasherSize** | **double** | Washer Size used if AnchorType is washer | [optional] 
@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **ConnectedParts** | [**List&lt;ReferenceElement&gt;**](ReferenceElement.md) | List of the connected parts | [optional] 
 **Name** | **string** | Name | [optional] 
 **Length** | **double** | Length | [optional] 
+**OriginalModelId** | **string** | Get or set the identification in the original model  In the case of the imported connection from another application | [optional] 
 **Id** | **int** | Element Id | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1462,6 +1462,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Implemented
       summary: Gets default conversion mappings for converting the project to a different
         design code.
       tags:
@@ -2930,7 +2936,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
-      summary: Gets cross sections used in the specified project.
+      summary: "Gets cross sections used in the specified project, in the IOM model-exchange\r\
+        \nrepresentation (IOM parameter names; some shape kinds carry no parameters\
+        \ here).\r\nFor inspecting or editing a section use `cross-sections/{cssId}`\
+        \ and the\r\n`cross-sections/parametric` endpoints — they speak the engine's\
+        \ exact\r\ndimension vocabulary and round-trip losslessly."
       tags:
       - Material
       x-requiresProject: true
@@ -3335,6 +3345,115 @@ paths:
         \ngiven one — a full replacement: dimensions not named revert to the shape's\
         \ defaults,\r\nso send the complete definition obtained from the detail GET.\
         \ Answers 409 when the id\r\nstores a library or general section. BETA."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes:
+    get:
+      operationId: GetParametricCrossSectionShapes
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Lists the shape types the parametric cross-section endpoints accept\
+        \ (e.g. \"Iw\", \"Tw\",\r\n\"CHSPar\"). Get a shape's fill-in template from\r\
+        \n`cross-sections/parametric/shapes/{shapeType}`. BETA."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}:
+    get:
+      operationId: GetParametricCrossSectionShapeTemplate
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Shape type name from `cross-sections/parametric/shapes`.
+        explode: false
+        in: path
+        name: shapeType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "The fill-in template of a parametric shape: every dimension with its\
+        \ stable id, its\r\nstable code name (e.g. \"wH\") and the shape's default\
+        \ value, in SI units. Change the\r\nvalues you care about, set the material,\
+        \ and POST it to\r\n`cross-sections/parametric`. BETA."
       tags:
       - Material
       x-requiresProject: true
@@ -4213,6 +4332,78 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
+    post:
+      operationId: CreateParameter
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the parameter is added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConParameterCreate'
+        description: "Identifier, type and value or expression of the new parameter."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdeaParameter'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Creates a parameter in the connection.\r\n\r\nThe expression is evaluated\
+        \ before the parameter is stored, and the request is rejected if it\r\ncannot\
+        \ be evaluated - an unknown identifier, a syntax error, a reference to the\
+        \ parameter being\r\ncreated. It must therefore reference only parameters\
+        \ that already exist, so a set of dependent\r\nparameters is created driver-first.\r\
+        \nBounds are checked, not enforced: a value outside the bounds given in the\
+        \ same request is\r\ncreated and applied, and reported with a warning status\
+        \ and a message saying which bound it\r\nexceeds - the same answer a later\
+        \ update of that value gives."
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
     put:
       operationId: Update
       parameters:
@@ -4276,6 +4467,482 @@ paths:
           description: Internal Server Error
       summary: Updates parameters for the specified connection in the project with
         the values provided.
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/parameters/{key}:
+    delete:
+      operationId: DeleteParameter
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Identifier of the parameter to delete.
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConParameterDeleteResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Deletes one parameter and every link through which it drove a model
+        property.
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/parameters/links:
+    get:
+      operationId: GetParameterLinks
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConParameterLink'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Lists the parameter-to-property links of the connection.
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: CreateParameterLink
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConParameterLinkCreate'
+        description: "Parameter identifier, property owner and property id."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConParameterLink'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Links a parameter to a model property so the parameter drives it.\
+        \ Name the owner exactly as the\r\nlinkable-properties catalog reports it\
+        \ and pass its propertyId unchanged.\r\n\r\nA link is deliberately type-agnostic:\
+        \ the parameter's type is not checked against the property's\r\n`valueType`,\
+        \ because an Expression parameter can evaluate to any type and the value a\r\
+        \nparameter yields is only known once it is evaluated. A parameter whose value\
+        \ the property cannot\r\ntake is reported by the engine when the parameters\
+        \ are applied, not when the link is created -\r\nso match the catalog's `valueType`\
+        \ when choosing which parameter to link."
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}:
+    delete:
+      operationId: DeleteParameterLink
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Id of the link to remove.
+        explode: false
+        in: path
+        name: linkId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Removes a parameter-to-property link. The parameter is kept, and the\
+        \ property retains the value\r\nthe parameter last applied."
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties:
+    get:
+      operationId: GetMemberLinkableProperties
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Id of the member whose properties are listed.
+        explode: false
+        in: path
+        name: memberId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: "Keep only properties of this parameter type, e.g. `Float`."
+        explode: true
+        in: query
+        name: valueType
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConLinkableProperty'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Lists the model properties of one member that a parameter can be linked
+        to.
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties:
+    get:
+      operationId: GetOperationLinkableProperties
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Id of the operation whose properties are listed.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: "Keep only properties of this parameter type, e.g. `Float`."
+        explode: true
+        in: query
+        name: valueType
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConLinkableProperty'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Lists the model properties of one operation that a parameter can be
+        linked to.
+      tags:
+      - Parameter
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties:
+    get:
+      operationId: GetLinkableProperties
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: "Keep only properties of this parameter type, e.g. `Float`."
+        explode: true
+        in: query
+        name: valueType
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConLinkableProperty'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Lists every model property of the connection that a parameter can\
+        \ be linked to, across\r\noperations, members and the library items the connection\
+        \ edits (cross-sections, materials,\r\nbolt assemblies). Each row names its\
+        \ owner.\r\n\r\nThe list is not filtered by what the Design tab currently\
+        \ shows: deciding that needs the\r\ndesktop editor context, which the service\
+        \ does not have. Some rows therefore belong to a\r\nproperty the application\
+        \ hides for the operation's present configuration, and linking a\r\nparameter\
+        \ to one of those drives a value the design does not use."
       tags:
       - Parameter
       x-requiresProject: true
@@ -4580,9 +5247,10 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: "Optional project metadata. The DesignCode field determines\r\
-          \n            the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults\
-          \ to ECEN if not provided."
+        description: "Optional project metadata. The CountryCode field determines\
+          \ the design\r\n            code and must be one of ECEN, American, Canada,\
+          \ Australia, RUS, CHN, India or HKG; any other value\r\n            of the\
+          \ enum is refused with 422. Defaults to ECEN when omitted or set to None."
       responses:
         "200":
           content:
@@ -4726,7 +5394,11 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: New project data to apply.
+        description: "New project data to apply. The CountryCode field may keep the\
+          \ project's\r\n            current design code or switch it to one of ECEN,\
+          \ American, Canada, Australia, RUS, CHN, India or\r\n            HKG; switching\
+          \ to any other value of the enum is refused with 422. None keeps the current\
+          \ code."
       responses:
         "200":
           content:
@@ -6266,19 +6938,19 @@ components:
           id: 0
           element:
             id: 6
-        washerSize: 6.965117697638846
+        washerSize: 9.018348186070783
         concreteBlock:
-          lenght: 9.018348186070783
-          material: material
-          width: 6.438423552598547
-          height: 3.5571952270680973
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
         origin:
           x: 2.3021358869347655
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
         shearInThread: true
-        length: 5.944895607614016
+        length: 2.8841621266687802
         anchorInstallationProcess: postInstalled
         positions:
         - x: 2.3021358869347655
@@ -6289,7 +6961,8 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        headedStudHeadDiameter: 6.778324963048013
+        headedStudHeadDiameter: 6.965117697638846
+        originalModelId: originalModelId
         axisZ:
           x: 2.027123023002322
           "y": 4.145608029883936
@@ -6308,17 +6981,17 @@ components:
           id: 0
           element:
             id: 6
-        hookLength: 2.8841621266687802
-        reinforcementMandrelDiameter: 6.878052220127876
+        hookLength: 3.5571952270680973
+        reinforcementMandrelDiameter: 1.284659006116532
         id: 6
         anchorType: straight
-        anchoringLength: 1.284659006116532
+        anchoringLength: 6.438423552598547
       properties:
         shearInThread:
           description: "Indicates, whether a shear plane is in the thread of a bolt."
           type: boolean
         concreteBlock:
-          $ref: '#/components/schemas/ConcreteBlock'
+          $ref: '#/components/schemas/ReferenceElement'
         anchorType:
           $ref: '#/components/schemas/AnchorType'
         anchorInstallationProcess:
@@ -6377,6 +7050,11 @@ components:
           description: Length
           format: double
           type: number
+        originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
+          nullable: true
+          type: string
         id:
           description: Element Id
           format: int32
@@ -6446,7 +7124,11 @@ components:
             "y": 5.637376656633329
           - x: 5.962133916683182
             "y": 5.637376656633329
-          material: material
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -6508,7 +7190,11 @@ components:
             "y": 5.637376656633329
           - x: 5.962133916683182
             "y": 5.637376656633329
-          material: material
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -6575,28 +7261,8 @@ components:
             id: 6
         id: 6
         cuts:
-        - planePoint:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          normalVector:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          offset: 1.0246457001441578
-          direction: default
-        - planePoint:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          normalVector:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          offset: 1.0246457001441578
-          direction: default
+        - id: 1
+        - id: 1
       properties:
         name:
           description: Name of the beam
@@ -6782,6 +7448,7 @@ components:
             element:
               id: 6
           sizeFactor: 9.965781217890562
+        originalModelId: originalModelId
         axisZ:
           x: 2.027123023002322
           "y": 4.145608029883936
@@ -6845,6 +7512,11 @@ components:
           description: Length
           format: double
           type: number
+        originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
+          nullable: true
+          type: string
         id:
           description: Element Id
           format: int32
@@ -7427,13 +8099,13 @@ components:
       properties:
         outline:
           items:
-            $ref: '#/components/schemas/ConCssPoint2D'
+            $ref: '#/components/schemas/ConCrossSectionCustomComponent_outline_inner'
           nullable: true
           type: array
         openings:
           items:
             items:
-              $ref: '#/components/schemas/ConCssPoint2D'
+              $ref: '#/components/schemas/ConCrossSectionCustomComponent_outline_inner'
             type: array
           nullable: true
           type: array
@@ -7495,34 +8167,54 @@ components:
           components:
           - materialName: materialName
             outline:
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
+            - start:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              end:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              segmentType: segmentType
+              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
+                \ IdeaStatiCa.Api"
+            - start:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              end:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              segmentType: segmentType
+              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
+                \ IdeaStatiCa.Api"
             openings:
-            - - "y": 6.027456183070403
-                z: 1.4658129805029452
-              - "y": 6.027456183070403
-                z: 1.4658129805029452
-            - - "y": 6.027456183070403
-                z: 1.4658129805029452
-              - "y": 6.027456183070403
-                z: 1.4658129805029452
+            - - null
+              - null
+            - - null
+              - null
           - materialName: materialName
             outline:
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
+            - start:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              end:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              segmentType: segmentType
+              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
+                \ IdeaStatiCa.Api"
+            - start:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              end:
+                "y": 6.027456183070403
+                z: 1.4658129805029452
+              segmentType: segmentType
+              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
+                \ IdeaStatiCa.Api"
             openings:
-            - - "y": 6.027456183070403
-                z: 1.4658129805029452
-              - "y": 6.027456183070403
-                z: 1.4658129805029452
-            - - "y": 6.027456183070403
-                z: 1.4658129805029452
-              - "y": 6.027456183070403
-                z: 1.4658129805029452
+            - - null
+              - null
+            - - null
+              - null
         id: 0
       properties:
         id:
@@ -7542,34 +8234,50 @@ components:
         components:
         - materialName: materialName
           outline:
-          - "y": 6.027456183070403
-            z: 1.4658129805029452
-          - "y": 6.027456183070403
-            z: 1.4658129805029452
+          - start:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            end:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            segmentType: segmentType
+            $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
+          - start:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            end:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            segmentType: segmentType
+            $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
           openings:
-          - - "y": 6.027456183070403
-              z: 1.4658129805029452
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
-          - - "y": 6.027456183070403
-              z: 1.4658129805029452
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
+          - - null
+            - null
+          - - null
+            - null
         - materialName: materialName
           outline:
-          - "y": 6.027456183070403
-            z: 1.4658129805029452
-          - "y": 6.027456183070403
-            z: 1.4658129805029452
+          - start:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            end:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            segmentType: segmentType
+            $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
+          - start:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            end:
+              "y": 6.027456183070403
+              z: 1.4658129805029452
+            segmentType: segmentType
+            $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
           openings:
-          - - "y": 6.027456183070403
-              z: 1.4658129805029452
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
-          - - "y": 6.027456183070403
-              z: 1.4658129805029452
-            - "y": 6.027456183070403
-              z: 1.4658129805029452
+          - - null
+            - null
+          - - null
+            - null
       properties:
         components:
           items:
@@ -7582,29 +8290,37 @@ components:
       example:
         materialName: materialName
         outline:
-        - "y": 6.027456183070403
-          z: 1.4658129805029452
-        - "y": 6.027456183070403
-          z: 1.4658129805029452
+        - start:
+            "y": 6.027456183070403
+            z: 1.4658129805029452
+          end:
+            "y": 6.027456183070403
+            z: 1.4658129805029452
+          segmentType: segmentType
+          $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
+        - start:
+            "y": 6.027456183070403
+            z: 1.4658129805029452
+          end:
+            "y": 6.027456183070403
+            z: 1.4658129805029452
+          segmentType: segmentType
+          $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
         openings:
-        - - "y": 6.027456183070403
-            z: 1.4658129805029452
-          - "y": 6.027456183070403
-            z: 1.4658129805029452
-        - - "y": 6.027456183070403
-            z: 1.4658129805029452
-          - "y": 6.027456183070403
-            z: 1.4658129805029452
+        - - null
+          - null
+        - - null
+          - null
       properties:
         outline:
           items:
-            $ref: '#/components/schemas/ConCssPoint2D'
+            $ref: '#/components/schemas/ConCrossSectionCustomComponent_outline_inner'
           nullable: true
           type: array
         openings:
           items:
             items:
-              $ref: '#/components/schemas/ConCssPoint2D'
+              $ref: '#/components/schemas/ConCrossSectionCustomComponent_outline_inner'
             type: array
           nullable: true
           type: array
@@ -7643,12 +8359,16 @@ components:
     ConCrossSectionParameter:
       additionalProperties: false
       example:
+        name: name
         id: 0
         value: 6.027456183070403
       properties:
         id:
           format: int32
           type: integer
+        name:
+          nullable: true
+          type: string
         value:
           format: double
           type: number
@@ -7679,12 +8399,51 @@ components:
         shapeType: shapeType
         definitionType: definitionType
         parameters:
-        - id: 0
+        - name: name
+          id: 0
           value: 6.027456183070403
-        - id: 0
+        - name: name
+          id: 0
           value: 6.027456183070403
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
           \ IdeaStatiCa.Api"
+    ConCssArcSegment:
+      allOf:
+      - $ref: '#/components/schemas/ConCssSegment'
+      - properties:
+          segmentType:
+            nullable: true
+            readOnly: true
+            type: string
+          mid:
+            $ref: '#/components/schemas/ConCssPoint2D'
+          $type:
+            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment,\
+              \ IdeaStatiCa.Api"
+            type: string
+        type: object
+    ConCssLineSegment:
+      allOf:
+      - $ref: '#/components/schemas/ConCssSegment'
+      - properties:
+          segmentType:
+            nullable: true
+            readOnly: true
+            type: string
+          $type:
+            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
+              \ IdeaStatiCa.Api"
+            type: string
+        type: object
+      example:
+        start:
+          "y": 6.027456183070403
+          z: 1.4658129805029452
+        end:
+          "y": 6.027456183070403
+          z: 1.4658129805029452
+        segmentType: segmentType
+        $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
     ConCssPoint2D:
       additionalProperties: false
       example:
@@ -7697,6 +8456,26 @@ components:
         z:
           format: double
           type: number
+      type: object
+    ConCssSegment:
+      description: Polymorphic root. Every element on the wire is one of the concrete
+        subtypes listed in the discriminator mapping and carries the $type discriminator;
+        $type is deliberately declared on each subtype schema (with its exact wire
+        value as default) rather than here.
+      discriminator:
+        mapping:
+          IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api: '#/components/schemas/ConCssLineSegment'
+          IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment, IdeaStatiCa.Api: '#/components/schemas/ConCssArcSegment'
+        propertyName: $type
+      properties:
+        segmentType:
+          nullable: true
+          readOnly: true
+          type: string
+        start:
+          $ref: '#/components/schemas/ConCssPoint2D'
+        end:
+          $ref: '#/components/schemas/ConCssPoint2D'
       type: object
     ConDesignItem:
       additionalProperties: false
@@ -7768,6 +8547,52 @@ components:
           type: string
         active:
           type: boolean
+      type: object
+    ConLinkableProperty:
+      additionalProperties: false
+      example:
+        linkedParameter: linkedParameter
+        owner:
+          boltAssemblyId: 2
+          kind: operation
+          name: name
+          operationId: 6
+          crossSectionId: 5
+          materialId: 5
+          memberId: 1
+        unit: unit
+        valueType: valueType
+        name: name
+        description: description
+        propertyId: propertyId
+        currentValue: ""
+        group: group
+      properties:
+        propertyId:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        group:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        valueType:
+          nullable: true
+          type: string
+        unit:
+          nullable: true
+          type: string
+        currentValue:
+          nullable: true
+        linkedParameter:
+          nullable: true
+          type: string
+        owner:
+          $ref: '#/components/schemas/ConPropertyOwner'
       type: object
     ConLoadEffect:
       additionalProperties: false
@@ -8209,6 +9034,101 @@ components:
           nullable: true
           type: integer
       type: object
+    ConParameterCreate:
+      additionalProperties: false
+      example:
+        parameterType: parameterType
+        expression: expression
+        upperBound: upperBound
+        description: description
+        lowerBound: lowerBound
+        key: key
+      properties:
+        key:
+          nullable: true
+          type: string
+        parameterType:
+          nullable: true
+          type: string
+        expression:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        lowerBound:
+          nullable: true
+          type: string
+        upperBound:
+          nullable: true
+          type: string
+      type: object
+    ConParameterDeleteResult:
+      additionalProperties: false
+      example:
+        deletedLinks: 0
+        key: key
+      properties:
+        key:
+          nullable: true
+          type: string
+        deletedLinks:
+          format: int32
+          type: integer
+      type: object
+    ConParameterLink:
+      additionalProperties: false
+      example:
+        owner:
+          boltAssemblyId: 2
+          kind: operation
+          name: name
+          operationId: 6
+          crossSectionId: 5
+          materialId: 5
+          memberId: 1
+        parameter: parameter
+        id: 0
+        propertyId: propertyId
+      properties:
+        id:
+          format: int32
+          type: integer
+        parameter:
+          nullable: true
+          type: string
+        owner:
+          $ref: '#/components/schemas/ConPropertyOwner'
+        propertyId:
+          nullable: true
+          type: string
+      type: object
+    ConParameterLinkCreate:
+      additionalProperties: false
+      example:
+        kind: operation
+        parameter: parameter
+        operationId: 0
+        propertyId: propertyId
+        memberId: 6
+      properties:
+        parameter:
+          nullable: true
+          type: string
+        kind:
+          $ref: '#/components/schemas/ConPropertyOwnerKind'
+        operationId:
+          format: int32
+          nullable: true
+          type: integer
+        memberId:
+          format: int32
+          nullable: true
+          type: integer
+        propertyId:
+          nullable: true
+          type: string
+      type: object
     ConProductionCost:
       additionalProperties: false
       example:
@@ -8284,6 +9204,51 @@ components:
           format: date-time
           type: string
       type: object
+    ConPropertyOwner:
+      additionalProperties: false
+      example:
+        boltAssemblyId: 2
+        kind: operation
+        name: name
+        operationId: 6
+        crossSectionId: 5
+        materialId: 5
+        memberId: 1
+      properties:
+        kind:
+          $ref: '#/components/schemas/ConPropertyOwnerKind'
+        operationId:
+          format: int32
+          nullable: true
+          type: integer
+        memberId:
+          format: int32
+          nullable: true
+          type: integer
+        crossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        materialId:
+          format: int32
+          nullable: true
+          type: integer
+        boltAssemblyId:
+          format: int32
+          nullable: true
+          type: integer
+        name:
+          nullable: true
+          type: string
+      type: object
+    ConPropertyOwnerKind:
+      enum:
+      - operation
+      - member
+      - crossSection
+      - material
+      - boltAssembly
+      type: string
     ConResultSummary:
       additionalProperties: false
       example:
@@ -8499,111 +9464,16 @@ components:
       - overStrengthFactor
       - capacityEstimation
       type: string
-    ConcreteBlock:
-      additionalProperties: false
-      description: Data of concrete block
-      example:
-        lenght: 9.018348186070783
-        material: material
-        width: 6.438423552598547
-        height: 3.5571952270680973
-      properties:
-        lenght:
-          description: Lenght of ConcreteBlock
-          format: double
-          type: number
-        width:
-          description: Width of ConcreteBlock
-          format: double
-          type: number
-        height:
-          description: Height of ConcreteBlock
-          format: double
-          type: number
-        material:
-          description: Material of ConcreteBlock
-          nullable: true
-          type: string
-      type: object
     ConcreteBlockData:
       additionalProperties: false
       description: Provides data of the single concrete block
       example:
-        originalModelId: originalModelId
-        depth: 6.519180951018382
-        outlinePoints:
-        - x: 5.962133916683182
-          "y": 5.637376656633329
-        - x: 5.962133916683182
-          "y": 5.637376656633329
-        material: material
-        axisZ:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
-        center:
-          x: 2.3021358869347655
-          "y": 7.061401241503109
-          z: 9.301444243932576
-          id: 3
-        origin:
-          x: 2.3021358869347655
-          "y": 7.061401241503109
-          z: 9.301444243932576
-          id: 3
-        axisY:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
-        name: name
-        axisX:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
-        id: 7
-        region: region
+        id: 3
       properties:
         id:
-          description: Plate unique ID
+          description: Element Id
           format: int32
           type: integer
-        name:
-          description: Name of the concrete block
-          nullable: true
-          type: string
-        depth:
-          description: Depth of the concrete block
-          format: double
-          type: number
-        material:
-          description: Name of the material
-          nullable: true
-          type: string
-        center:
-          $ref: '#/components/schemas/Point3D'
-        outlinePoints:
-          description: Outline points
-          items:
-            $ref: '#/components/schemas/Point2D'
-          nullable: true
-          type: array
-        origin:
-          $ref: '#/components/schemas/Point3D'
-        axisX:
-          $ref: '#/components/schemas/Vector3D'
-        axisY:
-          $ref: '#/components/schemas/Vector3D'
-        axisZ:
-          $ref: '#/components/schemas/Vector3D'
-        region:
-          description: Geometry of the concrete block in svg format
-          nullable: true
-          type: string
-        originalModelId:
-          description: "Get or set the identification in the original model\r\nIn\
-            \ the case of the imported connection from another application"
-          nullable: true
-          type: string
       type: object
     ConcreteTemplateConversion:
       allOf:
@@ -8787,7 +9657,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -8849,7 +9723,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -8916,28 +9794,8 @@ components:
               id: 6
           id: 6
           cuts:
-          - planePoint:
-              x: 2.3021358869347655
-              "y": 7.061401241503109
-              z: 9.301444243932576
-              id: 3
-            normalVector:
-              x: 2.027123023002322
-              "y": 4.145608029883936
-              z: 7.386281948385884
-            offset: 1.0246457001441578
-            direction: default
-          - planePoint:
-              x: 2.3021358869347655
-              "y": 7.061401241503109
-              z: 9.301444243932576
-              id: 3
-            normalVector:
-              x: 2.027123023002322
-              "y": 4.145608029883936
-              z: 7.386281948385884
-            offset: 1.0246457001441578
-            direction: default
+          - id: 1
+          - id: 1
         - crossSectionType: crossSectionType
           plates:
           - thickness: 1.4658129805029452
@@ -8952,7 +9810,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -9014,7 +9876,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -9081,77 +9947,11 @@ components:
               id: 6
           id: 6
           cuts:
-          - planePoint:
-              x: 2.3021358869347655
-              "y": 7.061401241503109
-              z: 9.301444243932576
-              id: 3
-            normalVector:
-              x: 2.027123023002322
-              "y": 4.145608029883936
-              z: 7.386281948385884
-            offset: 1.0246457001441578
-            direction: default
-          - planePoint:
-              x: 2.3021358869347655
-              "y": 7.061401241503109
-              z: 9.301444243932576
-              id: 3
-            normalVector:
-              x: 2.027123023002322
-              "y": 4.145608029883936
-              z: 7.386281948385884
-            offset: 1.0246457001441578
-            direction: default
+          - id: 1
+          - id: 1
         welds:
-        - connectedPartIds:
-          - connectedPartIds
-          - connectedPartIds
-          material: material
-          thickness: 0.8851374739011653
-          weldType: notSpecified
-          isIntermittent: true
-          name: name
-          start:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          end:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          id: 7
-          weldMaterial:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
-        - connectedPartIds:
-          - connectedPartIds
-          - connectedPartIds
-          material: material
-          thickness: 0.8851374739011653
-          weldType: notSpecified
-          isIntermittent: true
-          name: name
-          start:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          end:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          id: 7
-          weldMaterial:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
+        - id: 6
+        - id: 6
         plates:
         - thickness: 1.4658129805029452
           origin:
@@ -9165,7 +9965,11 @@ components:
             "y": 5.637376656633329
           - x: 5.962133916683182
             "y": 5.637376656633329
-          material: material
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -9227,7 +10031,11 @@ components:
             "y": 5.637376656633329
           - x: 5.962133916683182
             "y": 5.637376656633329
-          material: material
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -9278,74 +10086,10 @@ components:
           id: 1
           region: region
         cutBeamByBeams:
-        - cuttingObject:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
-          orientation: null
-          offset: 4.652396432933246
-          method: boundingBox
-          webWeld:
-            thickness: 0.10263654006109402
-            weldType: null
-            weldMaterial:
-              typeName: typeName
-              id: 0
-              element:
-                id: 6
-          name: name
-          modifiedObject:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
-          isWeld: true
-          flangeWeld:
-            thickness: 0.10263654006109402
-            weldType: null
-            weldMaterial:
-              typeName: typeName
-              id: 0
-              element:
-                id: 6
-          planeOnCuttingObject: closer
-          cutPart: begin
-          extendBeforeCut: true
-        - cuttingObject:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
-          orientation: null
-          offset: 4.652396432933246
-          method: boundingBox
-          webWeld:
-            thickness: 0.10263654006109402
-            weldType: null
-            weldMaterial:
-              typeName: typeName
-              id: 0
-              element:
-                id: 6
-          name: name
-          modifiedObject:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
-          isWeld: true
-          flangeWeld:
-            thickness: 0.10263654006109402
-            weldType: null
-            weldMaterial:
-              typeName: typeName
-              id: 0
-              element:
-                id: 6
-          planeOnCuttingObject: closer
-          cutPart: begin
-          extendBeforeCut: true
+        - name: name
+          id: 3
+        - name: name
+          id: 3
         anchorGrids:
         - connectedParts:
           - typeName: typeName
@@ -9356,19 +10100,19 @@ components:
             id: 0
             element:
               id: 6
-          washerSize: 6.965117697638846
+          washerSize: 9.018348186070783
           concreteBlock:
-            lenght: 9.018348186070783
-            material: material
-            width: 6.438423552598547
-            height: 3.5571952270680973
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           origin:
             x: 2.3021358869347655
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
           shearInThread: true
-          length: 5.944895607614016
+          length: 2.8841621266687802
           anchorInstallationProcess: postInstalled
           positions:
           - x: 2.3021358869347655
@@ -9379,7 +10123,8 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          headedStudHeadDiameter: 6.778324963048013
+          headedStudHeadDiameter: 6.965117697638846
+          originalModelId: originalModelId
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -9398,11 +10143,11 @@ components:
             id: 0
             element:
               id: 6
-          hookLength: 2.8841621266687802
-          reinforcementMandrelDiameter: 6.878052220127876
+          hookLength: 3.5571952270680973
+          reinforcementMandrelDiameter: 1.284659006116532
           id: 6
           anchorType: straight
-          anchoringLength: 1.284659006116532
+          anchoringLength: 6.438423552598547
         - connectedParts:
           - typeName: typeName
             id: 0
@@ -9412,19 +10157,19 @@ components:
             id: 0
             element:
               id: 6
-          washerSize: 6.965117697638846
+          washerSize: 9.018348186070783
           concreteBlock:
-            lenght: 9.018348186070783
-            material: material
-            width: 6.438423552598547
-            height: 3.5571952270680973
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           origin:
             x: 2.3021358869347655
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
           shearInThread: true
-          length: 5.944895607614016
+          length: 2.8841621266687802
           anchorInstallationProcess: postInstalled
           positions:
           - x: 2.3021358869347655
@@ -9435,7 +10180,8 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          headedStudHeadDiameter: 6.778324963048013
+          headedStudHeadDiameter: 6.965117697638846
+          originalModelId: originalModelId
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -9454,78 +10200,14 @@ components:
             id: 0
             element:
               id: 6
-          hookLength: 2.8841621266687802
-          reinforcementMandrelDiameter: 6.878052220127876
+          hookLength: 3.5571952270680973
+          reinforcementMandrelDiameter: 1.284659006116532
           id: 6
           anchorType: straight
-          anchoringLength: 1.284659006116532
+          anchoringLength: 6.438423552598547
         concreteBlocks:
-        - originalModelId: originalModelId
-          depth: 6.519180951018382
-          outlinePoints:
-          - x: 5.962133916683182
-            "y": 5.637376656633329
-          - x: 5.962133916683182
-            "y": 5.637376656633329
-          material: material
-          axisZ:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          center:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          origin:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          axisY:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          name: name
-          axisX:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          id: 7
-          region: region
-        - originalModelId: originalModelId
-          depth: 6.519180951018382
-          outlinePoints:
-          - x: 5.962133916683182
-            "y": 5.637376656633329
-          - x: 5.962133916683182
-            "y": 5.637376656633329
-          material: material
-          axisZ:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          center:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          origin:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
-            z: 9.301444243932576
-            id: 3
-          axisY:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          name: name
-          axisX:
-            x: 2.027123023002322
-            "y": 4.145608029883936
-            z: 7.386281948385884
-          id: 7
-          region: region
+        - id: 3
+        - id: 3
         connectionPoint:
           typeName: typeName
           id: 0
@@ -9545,7 +10227,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -9607,7 +10293,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -9725,7 +10415,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -9787,7 +10481,11 @@ components:
               "y": 5.637376656633329
             - x: 5.962133916683182
               "y": 5.637376656633329
-            material: material
+            material:
+              typeName: typeName
+              id: 0
+              element:
+                id: 6
             axisZ:
               x: 2.027123023002322
               "y": 4.145608029883936
@@ -9902,6 +10600,7 @@ components:
             id: 0
             element:
               id: 6
+          originalModelId: originalModelId
           pin:
             typeName: typeName
             id: 0
@@ -9925,7 +10624,7 @@ components:
             "y": 4.145608029883936
             z: 7.386281948385884
           name: name
-          length: 3.353193347011243
+          length: 6.878052220127876
           isReplaceable: true
           positions:
           - x: 2.3021358869347655
@@ -9936,7 +10635,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 3
+          id: 5
         - connectedParts:
           - typeName: typeName
             id: 0
@@ -9946,6 +10645,7 @@ components:
             id: 0
             element:
               id: 6
+          originalModelId: originalModelId
           pin:
             typeName: typeName
             id: 0
@@ -9969,7 +10669,7 @@ components:
             "y": 4.145608029883936
             z: 7.386281948385884
           name: name
-          length: 3.353193347011243
+          length: 6.878052220127876
           isReplaceable: true
           positions:
           - x: 2.3021358869347655
@@ -9980,7 +10680,7 @@ components:
             "y": 7.061401241503109
             z: 9.301444243932576
             id: 3
-          id: 3
+          id: 5
         boltGrids:
         - connectedParts:
           - typeName: typeName
@@ -10024,6 +10724,7 @@ components:
               element:
                 id: 6
             sizeFactor: 9.965781217890562
+          originalModelId: originalModelId
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -10086,6 +10787,7 @@ components:
               element:
                 id: 6
             sizeFactor: 9.965781217890562
+          originalModelId: originalModelId
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -10203,128 +10905,29 @@ components:
       additionalProperties: false
       description: Provides data of the cut objec by object
       example:
-        cuttingObject:
-          typeName: typeName
-          id: 0
-          element:
-            id: 6
-        orientation: null
-        offset: 4.652396432933246
-        method: boundingBox
-        webWeld:
-          thickness: 0.10263654006109402
-          weldType: null
-          weldMaterial:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
         name: name
-        modifiedObject:
-          typeName: typeName
-          id: 0
-          element:
-            id: 6
-        isWeld: true
-        flangeWeld:
-          thickness: 0.10263654006109402
-          weldType: null
-          weldMaterial:
-            typeName: typeName
-            id: 0
-            element:
-              id: 6
-        planeOnCuttingObject: closer
-        cutPart: begin
-        extendBeforeCut: true
+        id: 3
       properties:
         name:
           description: Name of the cut
           nullable: true
           type: string
-        modifiedObject:
-          $ref: '#/components/schemas/ReferenceElement'
-        cuttingObject:
-          $ref: '#/components/schemas/ReferenceElement'
-        isWeld:
-          description: is cut welded
-          type: boolean
-        webWeld:
-          $ref: '#/components/schemas/WeldDefinition'
-        flangeWeld:
-          $ref: '#/components/schemas/WeldDefinition'
-        offset:
-          description: Offset
-          format: double
-          type: number
-        method:
-          $ref: '#/components/schemas/CutMethod'
-        orientation:
-          $ref: '#/components/schemas/CutOrientation'
-        planeOnCuttingObject:
-          $ref: '#/components/schemas/DistanceComparison'
-        cutPart:
-          $ref: '#/components/schemas/CutPart'
-        extendBeforeCut:
-          description: Extend before cut - for cuts where user can decide if modified
-            beam will be extended or not
-          type: boolean
+        id:
+          description: Element Id
+          format: int32
+          type: integer
       type: object
     CutData:
       additionalProperties: false
       description: Provides data of the cut beam
       example:
-        planePoint:
-          x: 2.3021358869347655
-          "y": 7.061401241503109
-          z: 9.301444243932576
-          id: 3
-        normalVector:
-          x: 2.027123023002322
-          "y": 4.145608029883936
-          z: 7.386281948385884
-        offset: 1.0246457001441578
-        direction: default
+        id: 1
       properties:
-        planePoint:
-          $ref: '#/components/schemas/Point3D'
-        normalVector:
-          $ref: '#/components/schemas/Vector3D'
-        direction:
-          $ref: '#/components/schemas/CutOrientation'
-        offset:
-          description: Offset - shift of cut
-          format: double
-          type: number
+        id:
+          description: Element Id
+          format: int32
+          type: integer
       type: object
-    CutMethod:
-      description: Cut method
-      enum:
-      - boundingBox
-      - surface
-      - mitre
-      - surfaceAll
-      type: string
-    CutOrientation:
-      description: Represents the type of the cut
-      enum:
-      - default
-      - parallel
-      - perpendicular
-      type: string
-    CutPart:
-      enum:
-      - begin
-      - end
-      type: string
-    DistanceComparison:
-      description: Represents the result of comparison of distances of two object
-        from the same point
-      enum:
-      - closer
-      - farther
-      - same
-      type: string
     DrawData:
       additionalProperties: false
       example:
@@ -10480,7 +11083,11 @@ components:
             "y": 5.637376656633329
           - x: 5.962133916683182
             "y": 5.637376656633329
-          material: material
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -10542,7 +11149,11 @@ components:
             "y": 5.637376656633329
           - x: 5.962133916683182
             "y": 5.637376656633329
-          material: material
+          material:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
             x: 2.027123023002322
             "y": 4.145608029883936
@@ -11069,6 +11680,7 @@ components:
           id: 0
           element:
             id: 6
+        originalModelId: originalModelId
         pin:
           typeName: typeName
           id: 0
@@ -11092,7 +11704,7 @@ components:
           "y": 4.145608029883936
           z: 7.386281948385884
         name: name
-        length: 3.353193347011243
+        length: 6.878052220127876
         isReplaceable: true
         positions:
         - x: 2.3021358869347655
@@ -11103,7 +11715,7 @@ components:
           "y": 7.061401241503109
           z: 9.301444243932576
           id: 3
-        id: 3
+        id: 5
       properties:
         isReplaceable:
           description: Replaceable pin
@@ -11138,6 +11750,11 @@ components:
           description: Length
           format: double
           type: number
+        originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
+          nullable: true
+          type: string
         id:
           description: Element Id
           format: int32
@@ -11167,7 +11784,11 @@ components:
           "y": 5.637376656633329
         - x: 5.962133916683182
           "y": 5.637376656633329
-        material: material
+        material:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
         axisZ:
           x: 2.027123023002322
           "y": 4.145608029883936
@@ -11227,9 +11848,7 @@ components:
           format: double
           type: number
         material:
-          description: Name of the material
-          nullable: true
-          type: string
+          $ref: '#/components/schemas/ReferenceElement'
         outlinePoints:
           description: Outline points
           items:
@@ -11622,101 +12241,13 @@ components:
       additionalProperties: false
       description: Provides data of the single weld
       example:
-        connectedPartIds:
-        - connectedPartIds
-        - connectedPartIds
-        material: material
-        thickness: 0.8851374739011653
-        weldType: notSpecified
-        isIntermittent: true
-        name: name
-        start:
-          x: 2.3021358869347655
-          "y": 7.061401241503109
-          z: 9.301444243932576
-          id: 3
-        end:
-          x: 2.3021358869347655
-          "y": 7.061401241503109
-          z: 9.301444243932576
-          id: 3
-        id: 7
-        weldMaterial:
-          typeName: typeName
-          id: 0
-          element:
-            id: 6
+        id: 6
       properties:
         id:
-          description: Id of the weld
+          description: Element Id
           format: int32
           type: integer
-        name:
-          description: Name of the weld
-          nullable: true
-          type: string
-        thickness:
-          description: Thickness of the weld
-          format: double
-          type: number
-        material:
-          description: Name of the material
-          nullable: true
-          type: string
-        weldMaterial:
-          $ref: '#/components/schemas/ReferenceElement'
-        weldType:
-          $ref: '#/components/schemas/WeldType'
-        isIntermittent:
-          description: True for an intermittent (stitch) weld; WeldType holds the
-            base weld type
-          type: boolean
-        connectedPartIds:
-          description: Id of the weld
-          items:
-            type: string
-          nullable: true
-          type: array
-        start:
-          $ref: '#/components/schemas/Point3D'
-        end:
-          $ref: '#/components/schemas/Point3D'
       type: object
-    WeldDefinition:
-      additionalProperties: false
-      description: Weld definition for cut operations (web or flange weld).
-      example:
-        thickness: 0.10263654006109402
-        weldType: null
-        weldMaterial:
-          typeName: typeName
-          id: 0
-          element:
-            id: 6
-      properties:
-        thickness:
-          description: Thickness of the weld - value 0 = recommended size
-          format: double
-          type: number
-        weldType:
-          $ref: '#/components/schemas/WeldType'
-        weldMaterial:
-          $ref: '#/components/schemas/ReferenceElement'
-      type: object
-    WeldType:
-      description: enum of weld types
-      enum:
-      - notSpecified
-      - fillet
-      - doubleFillet
-      - bevel
-      - pjp
-      - pjpRear
-      - lengthAtHaunch
-      - filletRear
-      - contact
-      - intermittent
-      type: string
     OpenProject_request:
       properties:
         ideaConFile:
@@ -11743,6 +12274,14 @@ components:
           format: binary
           type: string
       type: object
+    ConCrossSectionCustomComponent_outline_inner:
+      description: Polymorphic root. Every element on the wire is one of the concrete
+        subtypes listed in the discriminator mapping and carries the $type discriminator;
+        $type is deliberately declared on each subtype schema (with its exact wire
+        value as default) rather than here.
+      oneOf:
+      - $ref: '#/components/schemas/ConCssLineSegment'
+      - $ref: '#/components/schemas/ConCssArcSegment'
     ConCrossSectionDetail_definition:
       description: Polymorphic root. Every element on the wire is one of the concrete
         subtypes listed in the discriminator mapping and carries the $type discriminator;

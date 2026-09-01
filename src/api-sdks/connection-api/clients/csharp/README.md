@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 4.0
 
 - API version: 4.0
-- SDK version: 26.0.5.1087
+- SDK version: 26.1.0.2602
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -216,9 +216,11 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**GetBoltGradeMaterials**](docs/MaterialApi.md#getboltgradematerials) | Gets materials used in the specified project.
 [**GetConcreteMaterials**](docs/MaterialApi.md#getconcretematerials) | Gets materials used in the specified project.
 [**GetCrossSectionDetail**](docs/MaterialApi.md#getcrosssectiondetail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
-[**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Gets cross sections used in the specified project.
+[**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
 [**GetHeadedStudGradeMaterials**](docs/MaterialApi.md#getheadedstudgradematerials) | Gets materials used in the specified project.
 [**GetMaterialLibrary**](docs/MaterialApi.md#getmateriallibrary) | Lists the MPRL names available in the material library for the project's design code.
+[**GetParametricCrossSectionShapeTemplate**](docs/MaterialApi.md#getparametriccrosssectionshapetemplate) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
+[**GetParametricCrossSectionShapes**](docs/MaterialApi.md#getparametriccrosssectionshapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
 [**GetPins**](docs/MaterialApi.md#getpins) | Gets pins used in the specified project.
 [**GetReinforcementMaterials**](docs/MaterialApi.md#getreinforcementmaterials) | Gets materials used in the specified project.
 [**GetSteelMaterials**](docs/MaterialApi.md#getsteelmaterials) | Gets materials used in the specified project.
@@ -253,8 +255,16 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**CreateParameter**](docs/ParameterApi.md#createparameter) | Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+[**CreateParameterLink**](docs/ParameterApi.md#createparameterlink) | Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+[**DeleteParameter**](docs/ParameterApi.md#deleteparameter) | Deletes one parameter and every link through which it drove a model property.
+[**DeleteParameterLink**](docs/ParameterApi.md#deleteparameterlink) | Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
 [**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
+[**GetLinkableProperties**](docs/ParameterApi.md#getlinkableproperties) | Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+[**GetMemberLinkableProperties**](docs/ParameterApi.md#getmemberlinkableproperties) | Lists the model properties of one member that a parameter can be linked to.
+[**GetOperationLinkableProperties**](docs/ParameterApi.md#getoperationlinkableproperties) | Lists the model properties of one operation that a parameter can be linked to.
+[**GetParameterLinks**](docs/ParameterApi.md#getparameterlinks) | Lists the parameter-to-property links of the connection.
 [**GetParameters**](docs/ParameterApi.md#getparameters) | Gets all parameters defined for the specified project and connection.
 [**Update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
   ### PresentationApi
@@ -349,6 +359,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConConnectionTemplate](docs/ConConnectionTemplate.md)
  - [Model.ConConversionSettings](docs/ConConversionSettings.md)
  - [Model.ConCrossSectionCustomComponent](docs/ConCrossSectionCustomComponent.md)
+ - [Model.ConCrossSectionCustomComponentOutlineInner](docs/ConCrossSectionCustomComponentOutlineInner.md)
  - [Model.ConCrossSectionCustomDefinition](docs/ConCrossSectionCustomDefinition.md)
  - [Model.ConCrossSectionDefinition](docs/ConCrossSectionDefinition.md)
  - [Model.ConCrossSectionDetail](docs/ConCrossSectionDetail.md)
@@ -358,11 +369,15 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
  - [Model.ConCrossSectionParameter](docs/ConCrossSectionParameter.md)
  - [Model.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
+ - [Model.ConCssArcSegment](docs/ConCssArcSegment.md)
+ - [Model.ConCssLineSegment](docs/ConCssLineSegment.md)
  - [Model.ConCssPoint2D](docs/ConCssPoint2D.md)
+ - [Model.ConCssSegment](docs/ConCssSegment.md)
  - [Model.ConDesignItem](docs/ConDesignItem.md)
  - [Model.ConDesignSet](docs/ConDesignSet.md)
  - [Model.ConDesignSetType](docs/ConDesignSetType.md)
  - [Model.ConItem](docs/ConItem.md)
+ - [Model.ConLinkableProperty](docs/ConLinkableProperty.md)
  - [Model.ConLoadEffect](docs/ConLoadEffect.md)
  - [Model.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [Model.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
@@ -383,9 +398,15 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [Model.ConOperation](docs/ConOperation.md)
  - [Model.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
+ - [Model.ConParameterCreate](docs/ConParameterCreate.md)
+ - [Model.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
+ - [Model.ConParameterLink](docs/ConParameterLink.md)
+ - [Model.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
  - [Model.ConProductionCost](docs/ConProductionCost.md)
  - [Model.ConProject](docs/ConProject.md)
  - [Model.ConProjectData](docs/ConProjectData.md)
+ - [Model.ConPropertyOwner](docs/ConPropertyOwner.md)
+ - [Model.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
  - [Model.ConResultSummary](docs/ConResultSummary.md)
  - [Model.ConStiffnessAnalysis](docs/ConStiffnessAnalysis.md)
  - [Model.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
@@ -394,7 +415,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [Model.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
- - [Model.ConcreteBlock](docs/ConcreteBlock.md)
  - [Model.ConcreteBlockData](docs/ConcreteBlockData.md)
  - [Model.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [Model.ConnectionCheckRes](docs/ConnectionCheckRes.md)
@@ -404,10 +424,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CssTemplateConversion](docs/CssTemplateConversion.md)
  - [Model.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [Model.CutData](docs/CutData.md)
- - [Model.CutMethod](docs/CutMethod.md)
- - [Model.CutOrientation](docs/CutOrientation.md)
- - [Model.CutPart](docs/CutPart.md)
- - [Model.DistanceComparison](docs/DistanceComparison.md)
  - [Model.DrawData](docs/DrawData.md)
  - [Model.ElectrodeTemplateConversion](docs/ElectrodeTemplateConversion.md)
  - [Model.FoldedPlateData](docs/FoldedPlateData.md)
@@ -446,8 +462,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.TimberTemplateConversion](docs/TimberTemplateConversion.md)
  - [Model.Vector3D](docs/Vector3D.md)
  - [Model.WeldData](docs/WeldData.md)
- - [Model.WeldDefinition](docs/WeldDefinition.md)
- - [Model.WeldType](docs/WeldType.md)
 
 
 <a id="documentation-for-authorization"></a>
@@ -461,7 +475,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- SDK version: 26.0.5.1087
+- SDK version: 26.1.0.2602
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

@@ -18,11 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from ideastatica_connection_api.models.cut_orientation import CutOrientation
-from ideastatica_connection_api.models.point3_d import Point3D
-from ideastatica_connection_api.models.vector3_d import Vector3D
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,11 +27,8 @@ class CutData(BaseModel):
     """
     Provides data of the cut beam
     """ # noqa: E501
-    plane_point: Optional[Point3D] = Field(default=None, alias="planePoint")
-    normal_vector: Optional[Vector3D] = Field(default=None, alias="normalVector")
-    direction: Optional[CutOrientation] = None
-    offset: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Offset - shift of cut")
-    __properties: ClassVar[List[str]] = ["planePoint", "normalVector", "direction", "offset"]
+    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,12 +69,6 @@ class CutData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of plane_point
-        if self.plane_point:
-            _dict['planePoint'] = self.plane_point.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of normal_vector
-        if self.normal_vector:
-            _dict['normalVector'] = self.normal_vector.to_dict()
         return _dict
 
     @classmethod
@@ -93,10 +81,7 @@ class CutData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "planePoint": Point3D.from_dict(obj["planePoint"]) if obj.get("planePoint") is not None else None,
-            "normalVector": Vector3D.from_dict(obj["normalVector"]) if obj.get("normalVector") is not None else None,
-            "direction": obj.get("direction"),
-            "offset": obj.get("offset")
+            "id": obj.get("id")
         })
         return _obj
 

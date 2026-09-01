@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.point2_d import Point2D
 from ideastatica_connection_api.models.point3_d import Point3D
+from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.region2_d import Region2D
 from ideastatica_connection_api.models.vector3_d import Vector3D
 from typing import Optional, Set
@@ -33,7 +34,7 @@ class PlateData(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Name of the plate")
     thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Thickness of the plate")
-    material: Optional[StrictStr] = Field(default=None, description="Name of the material")
+    material: Optional[ReferenceElement] = None
     outline_points: Optional[List[Point2D]] = Field(default=None, description="Outline points", alias="outlinePoints")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
@@ -85,6 +86,9 @@ class PlateData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of material
+        if self.material:
+            _dict['material'] = self.material.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in outline_points (list)
         _items = []
         if self.outline_points:
@@ -111,11 +115,6 @@ class PlateData(BaseModel):
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
-
-        # set to None if material (nullable) is None
-        # and model_fields_set contains the field
-        if self.material is None and "material" in self.model_fields_set:
-            _dict['material'] = None
 
         # set to None if outline_points (nullable) is None
         # and model_fields_set contains the field
@@ -146,7 +145,7 @@ class PlateData(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "thickness": obj.get("thickness"),
-            "material": obj.get("material"),
+            "material": ReferenceElement.from_dict(obj["material"]) if obj.get("material") is not None else None,
             "outlinePoints": [Point2D.from_dict(_item) for _item in obj["outlinePoints"]] if obj.get("outlinePoints") is not None else None,
             "origin": Point3D.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "axisX": Vector3D.from_dict(obj["axisX"]) if obj.get("axisX") is not None else None,

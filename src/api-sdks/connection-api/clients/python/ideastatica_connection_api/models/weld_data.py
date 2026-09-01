@@ -18,11 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from ideastatica_connection_api.models.point3_d import Point3D
-from ideastatica_connection_api.models.reference_element import ReferenceElement
-from ideastatica_connection_api.models.weld_type import WeldType
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,17 +27,8 @@ class WeldData(BaseModel):
     """
     Provides data of the single weld
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Id of the weld")
-    name: Optional[StrictStr] = Field(default=None, description="Name of the weld")
-    thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Thickness of the weld")
-    material: Optional[StrictStr] = Field(default=None, description="Name of the material")
-    weld_material: Optional[ReferenceElement] = Field(default=None, alias="weldMaterial")
-    weld_type: Optional[WeldType] = Field(default=None, alias="weldType")
-    is_intermittent: Optional[StrictBool] = Field(default=None, description="True for an intermittent (stitch) weld; WeldType holds the base weld type", alias="isIntermittent")
-    connected_part_ids: Optional[List[StrictStr]] = Field(default=None, description="Id of the weld", alias="connectedPartIds")
-    start: Optional[Point3D] = None
-    end: Optional[Point3D] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "thickness", "material", "weldMaterial", "weldType", "isIntermittent", "connectedPartIds", "start", "end"]
+    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,30 +69,6 @@ class WeldData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of weld_material
-        if self.weld_material:
-            _dict['weldMaterial'] = self.weld_material.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of start
-        if self.start:
-            _dict['start'] = self.start.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of end
-        if self.end:
-            _dict['end'] = self.end.to_dict()
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
-        # set to None if material (nullable) is None
-        # and model_fields_set contains the field
-        if self.material is None and "material" in self.model_fields_set:
-            _dict['material'] = None
-
-        # set to None if connected_part_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.connected_part_ids is None and "connected_part_ids" in self.model_fields_set:
-            _dict['connectedPartIds'] = None
-
         return _dict
 
     @classmethod
@@ -117,16 +81,7 @@ class WeldData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "name": obj.get("name"),
-            "thickness": obj.get("thickness"),
-            "material": obj.get("material"),
-            "weldMaterial": ReferenceElement.from_dict(obj["weldMaterial"]) if obj.get("weldMaterial") is not None else None,
-            "weldType": obj.get("weldType"),
-            "isIntermittent": obj.get("isIntermittent"),
-            "connectedPartIds": obj.get("connectedPartIds"),
-            "start": Point3D.from_dict(obj["start"]) if obj.get("start") is not None else None,
-            "end": Point3D.from_dict(obj["end"]) if obj.get("end") is not None else None
+            "id": obj.get("id")
         })
         return _obj
 

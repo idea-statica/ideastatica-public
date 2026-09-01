@@ -20,6 +20,11 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from ideastatica_connection_api.models.con_linkable_property import ConLinkableProperty
+from ideastatica_connection_api.models.con_parameter_create import ConParameterCreate
+from ideastatica_connection_api.models.con_parameter_delete_result import ConParameterDeleteResult
+from ideastatica_connection_api.models.con_parameter_link import ConParameterLink
+from ideastatica_connection_api.models.con_parameter_link_create import ConParameterLinkCreate
 from ideastatica_connection_api.models.idea_parameter import IdeaParameter
 from ideastatica_connection_api.models.idea_parameter_update import IdeaParameterUpdate
 from ideastatica_connection_api.models.parameter_update_response import ParameterUpdateResponse
@@ -40,6 +45,1228 @@ class ParameterApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
+
+
+    @validate_call
+    def create_parameter(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection the parameter is added to.")],
+        con_parameter_create: Annotated[Optional[ConParameterCreate], Field(description="Identifier, type and value or expression of the new parameter.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> IdeaParameter:
+        """Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection the parameter is added to. (required)
+        :type connection_id: int
+        :param con_parameter_create: Identifier, type and value or expression of the new parameter.
+        :type con_parameter_create: ConParameterCreate
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_parameter_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            con_parameter_create=con_parameter_create,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IdeaParameter",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def create_parameter_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection the parameter is added to.")],
+        con_parameter_create: Annotated[Optional[ConParameterCreate], Field(description="Identifier, type and value or expression of the new parameter.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[IdeaParameter]:
+        """Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection the parameter is added to. (required)
+        :type connection_id: int
+        :param con_parameter_create: Identifier, type and value or expression of the new parameter.
+        :type con_parameter_create: ConParameterCreate
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_parameter_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            con_parameter_create=con_parameter_create,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IdeaParameter",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def create_parameter_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection the parameter is added to.")],
+        con_parameter_create: Annotated[Optional[ConParameterCreate], Field(description="Identifier, type and value or expression of the new parameter.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection the parameter is added to. (required)
+        :type connection_id: int
+        :param con_parameter_create: Identifier, type and value or expression of the new parameter.
+        :type con_parameter_create: ConParameterCreate
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_parameter_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            con_parameter_create=con_parameter_create,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IdeaParameter",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_parameter_serialize(
+        self,
+        project_id,
+        connection_id,
+        con_parameter_create,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if con_parameter_create is not None:
+            _body_params = con_parameter_create
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/parameters',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def create_parameter_link(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        con_parameter_link_create: Annotated[Optional[ConParameterLinkCreate], Field(description="Parameter identifier, property owner and property id.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ConParameterLink:
+        """Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param con_parameter_link_create: Parameter identifier, property owner and property id.
+        :type con_parameter_link_create: ConParameterLinkCreate
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_parameter_link_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            con_parameter_link_create=con_parameter_link_create,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ConParameterLink",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def create_parameter_link_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        con_parameter_link_create: Annotated[Optional[ConParameterLinkCreate], Field(description="Parameter identifier, property owner and property id.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ConParameterLink]:
+        """Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param con_parameter_link_create: Parameter identifier, property owner and property id.
+        :type con_parameter_link_create: ConParameterLinkCreate
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_parameter_link_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            con_parameter_link_create=con_parameter_link_create,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ConParameterLink",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def create_parameter_link_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        con_parameter_link_create: Annotated[Optional[ConParameterLinkCreate], Field(description="Parameter identifier, property owner and property id.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param con_parameter_link_create: Parameter identifier, property owner and property id.
+        :type con_parameter_link_create: ConParameterLinkCreate
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_parameter_link_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            con_parameter_link_create=con_parameter_link_create,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ConParameterLink",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_parameter_link_serialize(
+        self,
+        project_id,
+        connection_id,
+        con_parameter_link_create,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if con_parameter_link_create is not None:
+            _body_params = con_parameter_link_create
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/parameters/links',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def delete_parameter(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        key: Annotated[StrictStr, Field(description="Identifier of the parameter to delete.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ConParameterDeleteResult:
+        """Deletes one parameter and every link through which it drove a model property.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param key: Identifier of the parameter to delete. (required)
+        :type key: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_parameter_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            key=key,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ConParameterDeleteResult",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def delete_parameter_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        key: Annotated[StrictStr, Field(description="Identifier of the parameter to delete.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ConParameterDeleteResult]:
+        """Deletes one parameter and every link through which it drove a model property.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param key: Identifier of the parameter to delete. (required)
+        :type key: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_parameter_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            key=key,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ConParameterDeleteResult",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def delete_parameter_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        key: Annotated[StrictStr, Field(description="Identifier of the parameter to delete.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Deletes one parameter and every link through which it drove a model property.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param key: Identifier of the parameter to delete. (required)
+        :type key: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_parameter_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            key=key,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ConParameterDeleteResult",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _delete_parameter_serialize(
+        self,
+        project_id,
+        connection_id,
+        key,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        if key is not None:
+            _path_params['key'] = key
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/parameters/{key}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def delete_parameter_link(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        link_id: Annotated[StrictInt, Field(description="Id of the link to remove.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param link_id: Id of the link to remove. (required)
+        :type link_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_parameter_link_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            link_id=link_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def delete_parameter_link_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        link_id: Annotated[StrictInt, Field(description="Id of the link to remove.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param link_id: Id of the link to remove. (required)
+        :type link_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_parameter_link_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            link_id=link_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def delete_parameter_link_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        link_id: Annotated[StrictInt, Field(description="Id of the link to remove.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param link_id: Id of the link to remove. (required)
+        :type link_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_parameter_link_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            link_id=link_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '422': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _delete_parameter_link_serialize(
+        self,
+        project_id,
+        connection_id,
+        link_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        if link_id is not None:
+            _path_params['linkId'] = link_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
 
 
     @validate_call
@@ -620,6 +1847,1211 @@ class ParameterApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_linkable_properties(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[ConLinkableProperty]:
+        """Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_linkable_properties_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[ConLinkableProperty]]:
+        """Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_linkable_properties_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_linkable_properties_serialize(
+        self,
+        project_id,
+        connection_id,
+        value_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        # process the query parameters
+        if value_type is not None:
+            
+            _query_params.append(('valueType', value_type))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_member_linkable_properties(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        member_id: Annotated[StrictInt, Field(description="Id of the member whose properties are listed.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[ConLinkableProperty]:
+        """Lists the model properties of one member that a parameter can be linked to.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param member_id: Id of the member whose properties are listed. (required)
+        :type member_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_member_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            member_id=member_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_member_linkable_properties_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        member_id: Annotated[StrictInt, Field(description="Id of the member whose properties are listed.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[ConLinkableProperty]]:
+        """Lists the model properties of one member that a parameter can be linked to.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param member_id: Id of the member whose properties are listed. (required)
+        :type member_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_member_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            member_id=member_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_member_linkable_properties_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        member_id: Annotated[StrictInt, Field(description="Id of the member whose properties are listed.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Lists the model properties of one member that a parameter can be linked to.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param member_id: Id of the member whose properties are listed. (required)
+        :type member_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_member_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            member_id=member_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_member_linkable_properties_serialize(
+        self,
+        project_id,
+        connection_id,
+        member_id,
+        value_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        if member_id is not None:
+            _path_params['memberId'] = member_id
+        # process the query parameters
+        if value_type is not None:
+            
+            _query_params.append(('valueType', value_type))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_operation_linkable_properties(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        operation_id: Annotated[StrictInt, Field(description="Id of the operation whose properties are listed.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[ConLinkableProperty]:
+        """Lists the model properties of one operation that a parameter can be linked to.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param operation_id: Id of the operation whose properties are listed. (required)
+        :type operation_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_operation_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            operation_id=operation_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_operation_linkable_properties_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        operation_id: Annotated[StrictInt, Field(description="Id of the operation whose properties are listed.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[ConLinkableProperty]]:
+        """Lists the model properties of one operation that a parameter can be linked to.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param operation_id: Id of the operation whose properties are listed. (required)
+        :type operation_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_operation_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            operation_id=operation_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_operation_linkable_properties_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        operation_id: Annotated[StrictInt, Field(description="Id of the operation whose properties are listed.")],
+        value_type: Annotated[Optional[StrictStr], Field(description="Keep only properties of this parameter type, e.g. `Float`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Lists the model properties of one operation that a parameter can be linked to.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param operation_id: Id of the operation whose properties are listed. (required)
+        :type operation_id: int
+        :param value_type: Keep only properties of this parameter type, e.g. `Float`.
+        :type value_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_operation_linkable_properties_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            operation_id=operation_id,
+            value_type=value_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConLinkableProperty]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_operation_linkable_properties_serialize(
+        self,
+        project_id,
+        connection_id,
+        operation_id,
+        value_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        if operation_id is not None:
+            _path_params['operationId'] = operation_id
+        # process the query parameters
+        if value_type is not None:
+            
+            _query_params.append(('valueType', value_type))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_parameter_links(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[ConParameterLink]:
+        """Lists the parameter-to-property links of the connection.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_parameter_links_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConParameterLink]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_parameter_links_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[ConParameterLink]]:
+        """Lists the parameter-to-property links of the connection.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_parameter_links_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConParameterLink]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_parameter_links_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
+        connection_id: Annotated[StrictInt, Field(description="Id of the connection.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Lists the parameter-to-property links of the connection.
+
+
+        :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
+        :type project_id: str
+        :param connection_id: Id of the connection. (required)
+        :type connection_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_parameter_links_serialize(
+            project_id=project_id,
+            connection_id=connection_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ConParameterLink]",
+            '401': "ProblemDetails",
+            '404': "ProblemDetails",
+            '500': "ProblemDetails",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_parameter_links_serialize(
+        self,
+        project_id,
+        connection_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['projectId'] = project_id
+        if connection_id is not None:
+            _path_params['connectionId'] = connection_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/4/projects/{projectId}/connections/{connectionId}/parameters/links',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

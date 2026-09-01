@@ -40,8 +40,9 @@ class PinGrid(BaseModel):
     connected_parts: Optional[List[ReferenceElement]] = Field(default=None, description="List of the connected parts", alias="connectedParts")
     name: Optional[StrictStr] = Field(default=None, description="Name")
     length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
+    original_model_id: Optional[StrictStr] = Field(default=None, description="Get or set the identification in the original model  In the case of the imported connection from another application", alias="originalModelId")
     id: Optional[StrictInt] = Field(default=None, description="Element Id")
-    __properties: ClassVar[List[str]] = ["isReplaceable", "pin", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
+    __properties: ClassVar[List[str]] = ["isReplaceable", "pin", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "originalModelId", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -126,6 +127,11 @@ class PinGrid(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if original_model_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.original_model_id is None and "original_model_id" in self.model_fields_set:
+            _dict['originalModelId'] = None
+
         return _dict
 
     @classmethod
@@ -148,6 +154,7 @@ class PinGrid(BaseModel):
             "connectedParts": [ReferenceElement.from_dict(_item) for _item in obj["connectedParts"]] if obj.get("connectedParts") is not None else None,
             "name": obj.get("name"),
             "length": obj.get("length"),
+            "originalModelId": obj.get("originalModelId"),
             "id": obj.get("id")
         })
         return _obj

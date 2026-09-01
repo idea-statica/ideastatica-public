@@ -21,6 +21,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.Api.Connection.Model.Parameters;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
 using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Model;
@@ -34,6 +35,106 @@ namespace IdeaStatiCa.ConnectionApi.Api
     public interface IParameterApiSync : IApiAccessor
     {
         #region Synchronous Operations
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection the parameter is added to.</param>
+        /// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>IdeaParameter</returns>
+        IdeaParameter CreateParameter(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), int operationIndex = 0);
+
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection the parameter is added to.</param>
+/// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of IdeaParameter</returns>
+        ApiResponse<IdeaParameter> CreateParameterWithHttpInfo(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConParameterLink</returns>
+        ConParameterLink CreateParameterLink(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), int operationIndex = 0);
+
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConParameterLink</returns>
+        ApiResponse<ConParameterLink> CreateParameterLinkWithHttpInfo(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConParameterDeleteResult</returns>
+        ConParameterDeleteResult DeleteParameter(Guid projectId, int connectionId, string key, int operationIndex = 0);
+
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConParameterDeleteResult</returns>
+        ApiResponse<ConParameterDeleteResult> DeleteParameterWithHttpInfo(Guid projectId, int connectionId, string key, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void DeleteParameterLink(Guid projectId, int connectionId, int linkId, int operationIndex = 0);
+
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DeleteParameterLinkWithHttpInfo(Guid projectId, int connectionId, int linkId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Delete all parameters and parameter model links for the connection connectionId in the project projectId.
         /// </summary>
@@ -82,6 +183,108 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> EvaluateExpressionWithHttpInfo(Guid projectId, int connectionId, string body = default(string), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConLinkableProperty&gt;</returns>
+        List<ConLinkableProperty> GetLinkableProperties(Guid projectId, int connectionId, string valueType = default(string), int operationIndex = 0);
+
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConLinkableProperty&gt;</returns>
+        ApiResponse<List<ConLinkableProperty>> GetLinkablePropertiesWithHttpInfo(Guid projectId, int connectionId, string valueType = default(string), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="memberId">Id of the member whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConLinkableProperty&gt;</returns>
+        List<ConLinkableProperty> GetMemberLinkableProperties(Guid projectId, int connectionId, int memberId, string valueType = default(string), int operationIndex = 0);
+
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="memberId">Id of the member whose properties are listed.</param>
+/// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConLinkableProperty&gt;</returns>
+        ApiResponse<List<ConLinkableProperty>> GetMemberLinkablePropertiesWithHttpInfo(Guid projectId, int connectionId, int memberId, string valueType = default(string), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationId">Id of the operation whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConLinkableProperty&gt;</returns>
+        List<ConLinkableProperty> GetOperationLinkableProperties(Guid projectId, int connectionId, int operationId, string valueType = default(string), int operationIndex = 0);
+
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="operationId">Id of the operation whose properties are listed.</param>
+/// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConLinkableProperty&gt;</returns>
+        ApiResponse<List<ConLinkableProperty>> GetOperationLinkablePropertiesWithHttpInfo(Guid projectId, int connectionId, int operationId, string valueType = default(string), string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConParameterLink&gt;</returns>
+        List<ConParameterLink> GetParameterLinks(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConParameterLink&gt;</returns>
+        ApiResponse<List<ConParameterLink>> GetParameterLinksWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Gets all parameters defined for the specified project and connection.
         /// </summary>
@@ -142,6 +345,126 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Asynchronous Operations
         /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection the parameter is added to.</param>
+        /// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of IdeaParameter</returns>
+        System.Threading.Tasks.Task<IdeaParameter> CreateParameterAsync(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection the parameter is added to.</param>
+        /// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (IdeaParameter)</returns>
+        System.Threading.Tasks.Task<ApiResponse<IdeaParameter>> CreateParameterWithHttpInfoAsync(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConParameterLink</returns>
+        System.Threading.Tasks.Task<ConParameterLink> CreateParameterLinkAsync(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConParameterLink)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConParameterLink>> CreateParameterLinkWithHttpInfoAsync(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConParameterDeleteResult</returns>
+        System.Threading.Tasks.Task<ConParameterDeleteResult> DeleteParameterAsync(Guid projectId, int connectionId, string key, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConParameterDeleteResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConParameterDeleteResult>> DeleteParameterWithHttpInfoAsync(Guid projectId, int connectionId, string key, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DeleteParameterLinkAsync(Guid projectId, int connectionId, int linkId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteParameterLinkWithHttpInfoAsync(Guid projectId, int connectionId, int linkId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
         /// Delete all parameters and parameter model links for the connection connectionId in the project projectId.
         /// </summary>
         /// <remarks>
@@ -199,6 +522,128 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> EvaluateExpressionWithHttpInfoAsync(Guid projectId, int connectionId, string body = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConLinkableProperty&gt;</returns>
+        System.Threading.Tasks.Task<List<ConLinkableProperty>> GetLinkablePropertiesAsync(Guid projectId, int connectionId, string valueType = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConLinkableProperty&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ConLinkableProperty>>> GetLinkablePropertiesWithHttpInfoAsync(Guid projectId, int connectionId, string valueType = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="memberId">Id of the member whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConLinkableProperty&gt;</returns>
+        System.Threading.Tasks.Task<List<ConLinkableProperty>> GetMemberLinkablePropertiesAsync(Guid projectId, int connectionId, int memberId, string valueType = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="memberId">Id of the member whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConLinkableProperty&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ConLinkableProperty>>> GetMemberLinkablePropertiesWithHttpInfoAsync(Guid projectId, int connectionId, int memberId, string valueType = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationId">Id of the operation whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConLinkableProperty&gt;</returns>
+        System.Threading.Tasks.Task<List<ConLinkableProperty>> GetOperationLinkablePropertiesAsync(Guid projectId, int connectionId, int operationId, string valueType = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationId">Id of the operation whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConLinkableProperty&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ConLinkableProperty>>> GetOperationLinkablePropertiesWithHttpInfoAsync(Guid projectId, int connectionId, int operationId, string valueType = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConParameterLink&gt;</returns>
+        System.Threading.Tasks.Task<List<ConParameterLink>> GetParameterLinksAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConParameterLink&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ConParameterLink>>> GetParameterLinksWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Gets all parameters defined for the specified project and connection.
         /// </summary>
@@ -377,6 +822,644 @@ namespace IdeaStatiCa.ConnectionApi.Api
                 return _exceptionFactory;
             }
             set { _exceptionFactory = value; }
+        }
+
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection the parameter is added to.</param>
+        /// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>IdeaParameter</returns>
+        public IdeaParameter CreateParameter(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<IdeaParameter> localVarResponse = CreateParameterWithHttpInfo(projectId, connectionId, conParameterCreate);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection the parameter is added to.</param>
+/// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of IdeaParameter</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<IdeaParameter> CreateParameterWithHttpInfo(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conParameterCreate;
+
+            localVarRequestOptions.Operation = "ParameterApi.CreateParameter";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<IdeaParameter>("/api/4/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CreateParameter", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection the parameter is added to.</param>
+        /// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of IdeaParameter</returns>
+        public async System.Threading.Tasks.Task<IdeaParameter> CreateParameterAsync(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<IdeaParameter> localVarResponse = await CreateParameterWithHttpInfoAsync(projectId, connectionId, conParameterCreate, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection the parameter is added to.</param>
+        /// <param name="conParameterCreate">Identifier, type and value or expression of the new parameter. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (IdeaParameter)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<IdeaParameter>> CreateParameterWithHttpInfoAsync(Guid projectId, int connectionId, ConParameterCreate conParameterCreate = default(ConParameterCreate), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conParameterCreate;
+
+            localVarRequestOptions.Operation = "ParameterApi.CreateParameter";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<IdeaParameter>("/api/4/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CreateParameter", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConParameterLink</returns>
+        public ConParameterLink CreateParameterLink(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterLink> localVarResponse = CreateParameterLinkWithHttpInfo(projectId, connectionId, conParameterLinkCreate);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConParameterLink</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterLink> CreateParameterLinkWithHttpInfo(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conParameterLinkCreate;
+
+            localVarRequestOptions.Operation = "ParameterApi.CreateParameterLink";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<ConParameterLink>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/links", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CreateParameterLink", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConParameterLink</returns>
+        public async System.Threading.Tasks.Task<ConParameterLink> CreateParameterLinkAsync(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterLink> localVarResponse = await CreateParameterLinkWithHttpInfoAsync(projectId, connectionId, conParameterLinkCreate, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter&#39;s type is not checked against the property&#39;s  &#x60;valueType&#x60;, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog&#39;s &#x60;valueType&#x60; when choosing which parameter to link. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="conParameterLinkCreate">Parameter identifier, property owner and property id. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConParameterLink)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterLink>> CreateParameterLinkWithHttpInfoAsync(Guid projectId, int connectionId, ConParameterLinkCreate conParameterLinkCreate = default(ConParameterLinkCreate), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.Data = conParameterLinkCreate;
+
+            localVarRequestOptions.Operation = "ParameterApi.CreateParameterLink";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<ConParameterLink>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/links", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("CreateParameterLink", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ConParameterDeleteResult</returns>
+        public ConParameterDeleteResult DeleteParameter(Guid projectId, int connectionId, string key, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterDeleteResult> localVarResponse = DeleteParameterWithHttpInfo(projectId, connectionId, key);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of ConParameterDeleteResult</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterDeleteResult> DeleteParameterWithHttpInfo(Guid projectId, int connectionId, string key, string requestedType = null, int operationIndex = 0)
+        {
+            // verify the required parameter 'key' is set
+            if (key == null)
+            {
+                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'key' when calling ParameterApi->DeleteParameter");
+            }
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("key", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(key)); // path parameter
+
+            localVarRequestOptions.Operation = "ParameterApi.DeleteParameter";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<ConParameterDeleteResult>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/{key}", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteParameter", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ConParameterDeleteResult</returns>
+        public async System.Threading.Tasks.Task<ConParameterDeleteResult> DeleteParameterAsync(Guid projectId, int connectionId, string key, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterDeleteResult> localVarResponse = await DeleteParameterWithHttpInfoAsync(projectId, connectionId, key, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes one parameter and every link through which it drove a model property. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="key">Identifier of the parameter to delete.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ConParameterDeleteResult)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConParameterDeleteResult>> DeleteParameterWithHttpInfoAsync(Guid projectId, int connectionId, string key, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            // verify the required parameter 'key' is set
+            if (key == null)
+            {
+                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'key' when calling ParameterApi->DeleteParameter");
+            }
+
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("key", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(key)); // path parameter
+
+            localVarRequestOptions.Operation = "ParameterApi.DeleteParameter";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<ConParameterDeleteResult>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/{key}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteParameter", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void DeleteParameterLink(Guid projectId, int connectionId, int linkId, int operationIndex = 0)
+        {
+            DeleteParameterLinkWithHttpInfo(projectId, connectionId, linkId);
+        }
+
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> DeleteParameterLinkWithHttpInfo(Guid projectId, int connectionId, int linkId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("linkId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(linkId)); // path parameter
+
+            localVarRequestOptions.Operation = "ParameterApi.DeleteParameterLink";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteParameterLink", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DeleteParameterLinkAsync(Guid projectId, int connectionId, int linkId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await DeleteParameterLinkWithHttpInfoAsync(projectId, connectionId, linkId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="linkId">Id of the link to remove.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> DeleteParameterLinkWithHttpInfoAsync(Guid projectId, int connectionId, int linkId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("linkId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(linkId)); // path parameter
+
+            localVarRequestOptions.Operation = "ParameterApi.DeleteParameterLink";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteParameterLink", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
         }
 
         /// <summary>
@@ -676,6 +1759,654 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("EvaluateExpression", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConLinkableProperty&gt;</returns>
+        public List<ConLinkableProperty> GetLinkableProperties(Guid projectId, int connectionId, string valueType = default(string), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> localVarResponse = GetLinkablePropertiesWithHttpInfo(projectId, connectionId, valueType);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConLinkableProperty&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> GetLinkablePropertiesWithHttpInfo(Guid projectId, int connectionId, string valueType = default(string), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (valueType != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "valueType", valueType));
+            }
+
+            localVarRequestOptions.Operation = "ParameterApi.GetLinkableProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<List<ConLinkableProperty>>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetLinkableProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConLinkableProperty&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ConLinkableProperty>> GetLinkablePropertiesAsync(Guid projectId, int connectionId, string valueType = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> localVarResponse = await GetLinkablePropertiesWithHttpInfoAsync(projectId, connectionId, valueType, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation&#39;s present configuration, and linking a  parameter to one of those drives a value the design does not use. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConLinkableProperty&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>>> GetLinkablePropertiesWithHttpInfoAsync(Guid projectId, int connectionId, string valueType = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            if (valueType != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "valueType", valueType));
+            }
+
+            localVarRequestOptions.Operation = "ParameterApi.GetLinkableProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConLinkableProperty>>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetLinkableProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="memberId">Id of the member whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConLinkableProperty&gt;</returns>
+        public List<ConLinkableProperty> GetMemberLinkableProperties(Guid projectId, int connectionId, int memberId, string valueType = default(string), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> localVarResponse = GetMemberLinkablePropertiesWithHttpInfo(projectId, connectionId, memberId, valueType);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="memberId">Id of the member whose properties are listed.</param>
+/// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConLinkableProperty&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> GetMemberLinkablePropertiesWithHttpInfo(Guid projectId, int connectionId, int memberId, string valueType = default(string), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("memberId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(memberId)); // path parameter
+            if (valueType != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "valueType", valueType));
+            }
+
+            localVarRequestOptions.Operation = "ParameterApi.GetMemberLinkableProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<List<ConLinkableProperty>>("/api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMemberLinkableProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="memberId">Id of the member whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConLinkableProperty&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ConLinkableProperty>> GetMemberLinkablePropertiesAsync(Guid projectId, int connectionId, int memberId, string valueType = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> localVarResponse = await GetMemberLinkablePropertiesWithHttpInfoAsync(projectId, connectionId, memberId, valueType, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one member that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="memberId">Id of the member whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConLinkableProperty&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>>> GetMemberLinkablePropertiesWithHttpInfoAsync(Guid projectId, int connectionId, int memberId, string valueType = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("memberId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(memberId)); // path parameter
+            if (valueType != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "valueType", valueType));
+            }
+
+            localVarRequestOptions.Operation = "ParameterApi.GetMemberLinkableProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConLinkableProperty>>("/api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMemberLinkableProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationId">Id of the operation whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConLinkableProperty&gt;</returns>
+        public List<ConLinkableProperty> GetOperationLinkableProperties(Guid projectId, int connectionId, int operationId, string valueType = default(string), int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> localVarResponse = GetOperationLinkablePropertiesWithHttpInfo(projectId, connectionId, operationId, valueType);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+/// <param name="operationId">Id of the operation whose properties are listed.</param>
+/// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConLinkableProperty&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> GetOperationLinkablePropertiesWithHttpInfo(Guid projectId, int connectionId, int operationId, string valueType = default(string), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("operationId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(operationId)); // path parameter
+            if (valueType != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "valueType", valueType));
+            }
+
+            localVarRequestOptions.Operation = "ParameterApi.GetOperationLinkableProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<List<ConLinkableProperty>>("/api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetOperationLinkableProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationId">Id of the operation whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConLinkableProperty&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ConLinkableProperty>> GetOperationLinkablePropertiesAsync(Guid projectId, int connectionId, int operationId, string valueType = default(string), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>> localVarResponse = await GetOperationLinkablePropertiesWithHttpInfoAsync(projectId, connectionId, operationId, valueType, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists the model properties of one operation that a parameter can be linked to. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationId">Id of the operation whose properties are listed.</param>
+        /// <param name="valueType">Keep only properties of this parameter type, e.g. &#x60;Float&#x60;. (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConLinkableProperty&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConLinkableProperty>>> GetOperationLinkablePropertiesWithHttpInfoAsync(Guid projectId, int connectionId, int operationId, string valueType = default(string), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("operationId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(operationId)); // path parameter
+            if (valueType != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("", "valueType", valueType));
+            }
+
+            localVarRequestOptions.Operation = "ParameterApi.GetOperationLinkableProperties";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConLinkableProperty>>("/api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetOperationLinkableProperties", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConParameterLink&gt;</returns>
+        public List<ConParameterLink> GetParameterLinks(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConParameterLink>> localVarResponse = GetParameterLinksWithHttpInfo(projectId, connectionId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="connectionId">Id of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConParameterLink&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConParameterLink>> GetParameterLinksWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "ParameterApi.GetParameterLinks";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<List<ConParameterLink>>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/links", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetParameterLinks", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConParameterLink&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ConParameterLink>> GetParameterLinksAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConParameterLink>> localVarResponse = await GetParameterLinksWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Lists the parameter-to-property links of the connection. 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="connectionId">Id of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConParameterLink&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConParameterLink>>> GetParameterLinksWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "ParameterApi.GetParameterLinks";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConParameterLink>>("/api/4/projects/{projectId}/connections/{connectionId}/parameters/links", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetParameterLinks", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

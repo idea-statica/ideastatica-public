@@ -5,10 +5,7 @@ Provides data of the cut beam
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PlanePoint** | [**Point3D**](Point3D.md) |  | [optional] 
-**NormalVector** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**Direction** | **CutOrientation** |  | [optional] 
-**Offset** | **double** | Offset - shift of cut | [optional] 
+**Id** | **int** | Element Id | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

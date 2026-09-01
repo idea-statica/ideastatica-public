@@ -6,18 +6,7 @@ Provides data of the single concrete block
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Plate unique ID | [optional] 
-**name** | **str** | Name of the concrete block | [optional] 
-**depth** | **float** | Depth of the concrete block | [optional] 
-**material** | **str** | Name of the material | [optional] 
-**center** | [**Point3D**](Point3D.md) |  | [optional] 
-**outline_points** | [**List[Point2D]**](Point2D.md) | Outline points | [optional] 
-**origin** | [**Point3D**](Point3D.md) |  | [optional] 
-**axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**axis_y** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**axis_z** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**region** | **str** | Geometry of the concrete block in svg format | [optional] 
-**original_model_id** | **str** | Get or set the identification in the original model  In the case of the imported connection from another application | [optional] 
+**id** | **int** | Element Id | [optional] 
 
 ## Example
 

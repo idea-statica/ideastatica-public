@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.con_css_point2_d import ConCssPoint2D
+from ideastatica_connection_api.models.con_cross_section_custom_component_outline_inner import ConCrossSectionCustomComponentOutlineInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +28,8 @@ class ConCrossSectionGeometryComponent(BaseModel):
     """
     ConCrossSectionGeometryComponent
     """ # noqa: E501
-    outline: Optional[List[ConCssPoint2D]] = None
-    openings: Optional[List[List[ConCssPoint2D]]] = None
+    outline: Optional[List[ConCrossSectionCustomComponentOutlineInner]] = None
+    openings: Optional[List[List[ConCrossSectionCustomComponentOutlineInner]]] = None
     material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
     __properties: ClassVar[List[str]] = ["outline", "openings", "materialName"]
 
@@ -115,9 +115,9 @@ class ConCrossSectionGeometryComponent(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "outline": [ConCssPoint2D.from_dict(_item) for _item in obj["outline"]] if obj.get("outline") is not None else None,
+            "outline": [ConCrossSectionCustomComponentOutlineInner.from_dict(_item) for _item in obj["outline"]] if obj.get("outline") is not None else None,
             "openings": [
-                    [ConCssPoint2D.from_dict(_inner_item) for _inner_item in _item]
+                    [ConCrossSectionCustomComponentOutlineInner.from_dict(_inner_item) for _inner_item in _item]
                     for _item in obj["openings"]
                 ] if obj.get("openings") is not None else None,
             "materialName": obj.get("materialName")
