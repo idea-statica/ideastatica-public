@@ -80,9 +80,18 @@ namespace NorsokChecker
 			if (Group64Band == null || Grid64 == null) return;
 			if (Grid64.Columns.Count <= Group64Spans.Max(g => g.Last)) return;   // grid not built yet
 
+			// A hidden column occupies no space but KEEPS the ActualWidth it had while visible, so it
+			// has to be counted as zero. "Governing LC" is collapsed in per-LC mode (see
+			// RenderJoint64Sheet), and taking its stale width shifted every group cell right by ~90 px
+			// — the banner sat one column off, over numbers it does not describe.
+			static double WidthOf(System.Windows.Controls.DataGridColumn c) =>
+				c.Visibility == Visibility.Visible ? c.ActualWidth : 0.0;
+
+			// The key includes visibility, or switching envelope <-> per-LC would leave the banner
+			// where it was: the widths alone are unchanged by hiding a column.
 			string key = string.Join(",", Grid64.Columns
 					.OrderBy(c => c.DisplayIndex)
-					.Select(c => c.ActualWidth.ToString("F1")))
+					.Select(c => WidthOf(c).ToString("F1")))
 				+ "|" + HorizontalOffsetOf(Grid64).ToString("F1");
 			if (key == _group64BandKey) return;
 			_group64BandKey = key;
@@ -93,7 +102,7 @@ namespace NorsokChecker
 			var ordered = Grid64.Columns.OrderBy(c => c.DisplayIndex).ToList();
 			var left = new double[ordered.Count + 1];
 			for (int i = 0; i < ordered.Count; i++)
-				left[i + 1] = left[i] + ordered[i].ActualWidth;
+				left[i + 1] = left[i] + WidthOf(ordered[i]);
 
 			double scroll = HorizontalOffsetOf(Grid64);
 

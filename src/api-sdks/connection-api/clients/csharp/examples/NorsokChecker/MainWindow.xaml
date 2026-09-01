@@ -615,8 +615,14 @@
                         <StackPanel>
                             <TextBlock x:Name="Lbl64VerdictTitle" FontWeight="Bold"
                                        Foreground="{StaticResource VerdictFailFg}" TextWrapping="Wrap"/>
+                            <!-- HorizontalAlignment Left, not the StackPanel's default Stretch: with a
+                                 MaxWidth the block is narrower than the panel, and a stretched child
+                                 that cannot fill its space is CENTRED — so this paragraph sat indented
+                                 while the title and the condition list above and below it started at
+                                 the left edge. -->
                             <TextBlock x:Name="Lbl64VerdictBody" Margin="0,4,0,0" TextWrapping="Wrap"
-                                       Foreground="#455A64" MaxWidth="900"/>
+                                       Foreground="#455A64" MaxWidth="900"
+                                       HorizontalAlignment="Left"/>
                             <ItemsControl x:Name="Lst64Conditions" Margin="0,6,0,0">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>

@@ -287,6 +287,106 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The group banner stays aligned when a column is HIDDEN.
+		///
+		/// A real defect, seen in per-LC mode: "Governing LC" is collapsed there, and a hidden
+		/// DataGridColumn keeps the ActualWidth it had while visible — so summing widths blindly
+		/// shifted every group cell 90 px right, putting each heading over the next group's numbers.
+		/// A banner that names the wrong columns is worse than no banner.
+		///
+		/// Driven through the real window with the column collapsed, and the expected positions
+		/// computed the same way the eye checks them: from the VISIBLE columns only.
+		///
+		/// STA: constructs WPF controls.
+		/// </summary>
+		[Test]
+		public void TheGroupBannerFollowsAHiddenColumn()
+		{
+			var w = NewWindow();
+			// Shown off-screen: a DataGrid's columns have no ActualWidth until the window is rendered,
+			// and the banner is computed from those widths — without this the band comes back empty
+			// and the test measures nothing.
+			w.Left = -10000;
+			w.Top = -10000;
+			w.Show();
+
+			w.Tab64.IsEnabled = true;
+			w.MainTabs.SelectedItem = w.Tab64;
+			w.Col64Gov.Visibility = System.Windows.Visibility.Collapsed;   // per-LC mode
+			w.UpdateLayout();
+			Pump();
+			w.UpdateLayout();          // the banner is drawn from a LayoutUpdated handler
+			Pump();
+
+			var cols = w.Grid64.Columns.OrderBy(c => c.DisplayIndex).ToList();
+			var edges = new double[cols.Count + 1];
+			for (int i = 0; i < cols.Count; i++)
+				edges[i + 1] = edges[i]
+					+ (cols[i].Visibility == System.Windows.Visibility.Visible ? cols[i].ActualWidth : 0.0);
+
+			var cells = w.Group64Band.Children
+				.OfType<System.Windows.Controls.Border>()
+				.ToList();
+
+			// (label, first column, last column) — the spans the banner draws
+			var spans = new[] { ("Classification", 2, 4), ("Resistance", 5, 7),
+				("Utilisation breakdown", 8, 10), ("Check", 11, 13) };
+
+			Assert.That(cells, Has.Count.EqualTo(spans.Length), "one cell per group");
+			Assert.Multiple(() =>
+			{
+				for (int i = 0; i < spans.Length; i++)
+				{
+					var (label, first, last) = spans[i];
+					double x = System.Windows.Controls.Canvas.GetLeft(cells[i]);
+					Assert.That(x, Is.EqualTo(edges[first]).Within(0.6),
+						$"'{label}' must start at its first column");
+					Assert.That(cells[i].Width, Is.EqualTo(edges[last + 1] - edges[first]).Within(0.6),
+						$"'{label}' must span exactly its columns");
+				}
+			});
+		}
+
+		/// <summary>
+		/// Everything in the rejection banner starts at the same left edge.
+		///
+		/// The explanatory paragraph has a MaxWidth so long prose does not run the full width of a
+		/// wide window — but a StackPanel child defaults to Stretch, and a stretched child that cannot
+		/// fill its space is CENTRED. The paragraph therefore sat indented while the title above it
+		/// and the condition list below it began at the left edge, which reads as a different kind of
+		/// content rather than as one message.
+		///
+		/// Asserted on the alignment rather than on a measured x, so it holds at any window width.
+		/// </summary>
+		[Test]
+		public void TheRejectionBannerIsLeftAligned()
+		{
+			var w = NewWindow();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(w.Lbl64VerdictBody.HorizontalAlignment,
+					Is.EqualTo(System.Windows.HorizontalAlignment.Left),
+					"a MaxWidth block must be pinned left, or WPF centres it");
+				// the control: these two have no MaxWidth, so Stretch already puts them at the left
+				Assert.That(w.Lbl64VerdictTitle.MaxWidth, Is.EqualTo(double.PositiveInfinity),
+					"the title fills the panel, so it needs no alignment of its own");
+				Assert.That(w.Lst64Conditions.MaxWidth, Is.EqualTo(double.PositiveInfinity),
+					"and so does the condition list");
+			});
+		}
+
+		/// <summary>Let WPF finish the layout pass the banner is drawn from.</summary>
+		private static void Pump()
+		{
+			var frame = new System.Windows.Threading.DispatcherFrame();
+			System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(
+				System.Windows.Threading.DispatcherPriority.Background,
+				new Action(() => frame.Continue = false));
+			System.Windows.Threading.Dispatcher.PushFrame(frame);
+		}
+
+		/// <summary>
 		/// The legend has one swatch per band, in the scale's own colours — it IS the scale, drawn.
 		/// Read off the real window, so a legend built from a hardcoded count (as the four hand-written
 		/// swatches were) fails here instead of quietly describing a ramp the app no longer uses.

@@ -133,28 +133,45 @@ namespace UT_NorsokChecker
 			w.UpdateLayout();          // the banner is drawn from a LayoutUpdated handler
 			DoEvents();
 
-			var cols = w.Grid64.Columns.OrderBy(c => c.DisplayIndex).ToList();
-			var edges = new double[cols.Count + 1];
-			for (int i = 0; i < cols.Count; i++) edges[i + 1] = edges[i] + cols[i].ActualWidth;
-
-			TestContext.Out.WriteLine();
-			TestContext.Out.WriteLine("=== GROUP BANNER alignment ===");
-			var cells = w.Group64Band.Children.OfType<System.Windows.Controls.Border>().ToList();
-			TestContext.Out.WriteLine($"banner cells      : {cells.Count}");
-			var spans = new[] { ("Classification", 2, 4), ("Resistance", 5, 7),
-				("Utilisation breakdown", 8, 10), ("Check", 11, 13) };
-			for (int i = 0; i < cells.Count && i < spans.Length; i++)
+			// BOTH modes: per-LC collapses the "Governing LC" column, and a hidden column keeps the
+			// ActualWidth it had while visible — which is what put the banner one column off.
+			foreach (bool envelope in new[] { true, false })
 			{
-				var (label, first, last) = spans[i];
-				double wantX = edges[first], wantW = edges[last + 1] - edges[first];
-				double gotX = System.Windows.Controls.Canvas.GetLeft(cells[i]);
-				double gotW = cells[i].Width;
-				string text = (cells[i].Child as TextBlock)?.Text ?? "?";
-				bool ok = Math.Abs(gotX - wantX) < 0.6 && Math.Abs(gotW - wantW) < 0.6;
-				TestContext.Out.WriteLine(
-					$"  '{text}': x={gotX:F1} (want {wantX:F1}) w={gotW:F1} (want {wantW:F1})  "
-					+ (ok ? "ALIGNED" : "*** MISALIGNED ***")
-					+ (text == label ? "" : $"  *** LABEL MISMATCH, expected '{label}' ***"));
+				w.Rb64Envelope.IsChecked = envelope;
+				w.Rb64PerLe.IsChecked = !envelope;
+				w.Col64Gov.Visibility = envelope ? Visibility.Visible : Visibility.Collapsed;
+				w.UpdateLayout();
+				DoEvents();
+				w.UpdateLayout();      // the banner is drawn from a LayoutUpdated handler
+				DoEvents();
+
+				var cols = w.Grid64.Columns.OrderBy(c => c.DisplayIndex).ToList();
+				var edges = new double[cols.Count + 1];
+				for (int i = 0; i < cols.Count; i++)
+					edges[i + 1] = edges[i]
+						+ (cols[i].Visibility == Visibility.Visible ? cols[i].ActualWidth : 0.0);
+
+				TestContext.Out.WriteLine();
+				TestContext.Out.WriteLine($"=== GROUP BANNER alignment — {(envelope ? "ENVELOPE" : "per LC")} ===");
+				var cells = w.Group64Band.Children.OfType<System.Windows.Controls.Border>().ToList();
+				TestContext.Out.WriteLine($"banner cells      : {cells.Count}");
+				TestContext.Out.WriteLine($"Governing LC      : {w.Col64Gov.Visibility}, "
+					+ $"ActualWidth={w.Col64Gov.ActualWidth:F1}");
+				var spans = new[] { ("Classification", 2, 4), ("Resistance", 5, 7),
+					("Utilisation breakdown", 8, 10), ("Check", 11, 13) };
+				for (int i = 0; i < cells.Count && i < spans.Length; i++)
+				{
+					var (label, first, last) = spans[i];
+					double wantX = edges[first], wantW = edges[last + 1] - edges[first];
+					double gotX = System.Windows.Controls.Canvas.GetLeft(cells[i]);
+					double gotW = cells[i].Width;
+					string text = (cells[i].Child as TextBlock)?.Text ?? "?";
+					bool ok = Math.Abs(gotX - wantX) < 0.6 && Math.Abs(gotW - wantW) < 0.6;
+					TestContext.Out.WriteLine(
+						$"  '{text}': x={gotX:F1} (want {wantX:F1}) w={gotW:F1} (want {wantW:F1})  "
+						+ (ok ? "ALIGNED" : "*** MISALIGNED ***")
+						+ (text == label ? "" : $"  *** LABEL MISMATCH, expected '{label}' ***"));
+				}
 			}
 
 			var bf = w.Grid64BraceForces;
