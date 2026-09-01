@@ -504,9 +504,43 @@ namespace NorsokChecker.Services
 				sb.AppendLine("      </table>");
 			}
 
+			// The out-of-range rule, quoted and shown. §6.4.3.1 does not forbid a joint outside the
+			// ranges — it requires the check to be run twice and the LESSER capacity used. That is
+			// what the engine does, and until this block existed the sheet gave no sign of it: an
+			// engineer recomputing N_Rd from the actual beta got a different number with nothing to
+			// explain the difference, which is exactly the kind of unexplained gap that costs trust.
+			if (r.LimitingPassApplied)
+			{
+				sb.AppendLine("      <p class='deriv-h'>Out-of-range rule (&sect;6.4.3.1)</p>");
+				sb.AppendLine("      <p class='deriv-note'>&sect;6.4.3.1: &ldquo;The equations can be "
+					+ "used for joints with geometries which lie outside the validity ranges, by taking "
+					+ "the usable strength as the <b>lesser</b> of the capacities calculated on the "
+					+ "basis of: a) actual geometric parameters, b) imposed limiting parameters for the "
+					+ "validity range, where these limits are infringed.&rdquo; The check below was "
+					+ "therefore run twice, and the smaller axial resistance is the one carried "
+					+ "forward.</p>");
+				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("        <tr><th>pass</th><th>&beta;</th><th>&gamma;</th>"
+					+ "<th>&theta;</th><th>N<sub>Rd</sub></th></tr>");
+
+				bool actualGoverns = !double.IsNaN(r.NRdActual) && !double.IsNaN(r.NRdLimiting)
+					&& r.NRdActual <= r.NRdLimiting;
+				string mark = " &nbsp;&larr; governs";
+
+				sb.AppendLine($"        <tr><td>a) actual geometry</td><td>{N(r.Beta)}</td>"
+					+ $"<td>{N(r.Gamma)}</td><td>{N(r.ThetaDeg, 1)}&deg;</td>"
+					+ $"<td>{N(r.NRdActual / 1e3, 1)} kN{(actualGoverns ? mark : "")}</td></tr>");
+				sb.AppendLine($"        <tr><td>b) imposed limits</td><td>{N(r.BetaLimiting)}</td>"
+					+ $"<td>{N(r.GammaLimiting)}</td><td>{N(r.ThetaLimitingDeg, 1)}&deg;</td>"
+					+ $"<td>{N(r.NRdLimiting / 1e3, 1)} kN{(actualGoverns ? "" : mark)}</td></tr>");
+				sb.AppendLine("      </table>");
+			}
+
 			if (!r.WithinRange)
 				sb.AppendLine("      <p class='deriv-warn'>&#9888; Geometry outside the 6.4.3.1 "
-					+ "validity range &mdash; the resistance below is extrapolated.</p>");
+					+ "validity range &mdash; the resistance below is the lesser of the two passes "
+					+ "above, per &sect;6.4.3.1, and remains an extrapolation of formulas fitted "
+					+ "inside the ranges.</p>");
 
 			// ══ 3. THE CHECK, step by step ══ chord stress, A², resistances, then the modes.
 			// ── chord stress derivation ──

@@ -278,6 +278,13 @@ namespace UT_NorsokChecker
 					"the table is rendered, not summarised away");
 				Assert.That(rows, Is.EqualTo(conditions),
 					$"all {conditions} conditions must be listed, one row each");
+
+				// the control for the out-of-range test: an in-range joint ran ONE pass, so claiming a
+				// two-pass reduction would be a false statement about how its resistance was obtained
+				Assert.That(html, Does.Not.Contain("Out-of-range rule"),
+					"no two-pass rule on a joint inside the ranges");
+				Assert.That(html, Does.Not.Contain("remains an extrapolation"),
+					"and no extrapolation warning");
 			});
 		}
 
@@ -330,8 +337,17 @@ namespace UT_NorsokChecker
 					"every failing condition is marked as outside");
 				Assert.That(html, Does.Contain($"{outside} of {result.Validity.Count} OUTSIDE"),
 					"the heading counts them, so the reader knows before scanning the table");
-				Assert.That(html, Does.Contain("the resistance below is extrapolated"),
+				Assert.That(html, Does.Contain("remains an extrapolation"),
 					"and says what that means for the numbers that follow");
+
+				// §6.4.3.1 does not forbid the joint — it requires two passes and the LESSER capacity.
+				// The sheet has to show that, or the resistance below cannot be reproduced from the
+				// actual geometry and the difference has no explanation.
+				Assert.That(html, Does.Contain("Out-of-range rule"), "the rule is named");
+				Assert.That(html, Does.Contain("lesser"), "and quoted");
+				Assert.That(html, Does.Contain("a) actual geometry"), "pass (a)");
+				Assert.That(html, Does.Contain("b) imposed limits"), "pass (b)");
+				Assert.That(html, Does.Contain("governs"), "and which one was carried forward");
 			});
 		}
 

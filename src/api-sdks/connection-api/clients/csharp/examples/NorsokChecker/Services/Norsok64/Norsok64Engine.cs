@@ -1,4 +1,4 @@
-namespace NorsokChecker.Services.Norsok64
+﻿namespace NorsokChecker.Services.Norsok64
 {
 	/// <summary>Load kind for the Table 6-4 chord-action coefficients.</summary>
 	public enum QfLoadKind { Moment, AxialTension, AxialCompression }
@@ -271,6 +271,16 @@ namespace NorsokChecker.Services.Norsok64
 			result.Validity = actual.Validity; result.WithinRange = actual.WithinRange;
 			result.MRdIp = mRdIp; result.MRdOp = mRdOp; result.NRdWeighted = wN; result.UtilWeighted = wU;
 			result.Passed = wU <= 1.0 && !chordOver; result.ChordOverstressed = chordOver;
+
+			// Record that the rule was applied and what it chose between, so the derivation can show
+			// it. The resistance above is already the reduced one; without this the sheet gave no sign
+			// of the second pass, and recomputing N_Rd from the actual geometry would not reproduce it.
+			result.LimitingPassApplied = true;
+			result.NRdActual = actual.NRdWeighted;
+			result.NRdLimiting = limiting.NRdWeighted;
+			result.BetaLimiting = clampBeta;
+			result.GammaLimiting = clampGamma;
+			result.ThetaLimitingDeg = clampTheta;
 			return result;
 		}
 

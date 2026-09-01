@@ -47,6 +47,27 @@ namespace NorsokChecker.Services.Norsok64
 		public Dictionary<string, bool> Validity { get; set; } = new();
 		public bool WithinRange { get; set; }
 
+		/// <summary>
+		/// Set when §6.4.3.1's out-of-range rule was applied — the check ran TWICE, once on the actual
+		/// geometry and once with the infringed parameters imposed at their limits, and the resistance
+		/// below is the LESSER of the two.
+		///
+		/// Recorded so the derivation can say so. Without it the sheet showed a resistance already
+		/// reduced by the rule with nothing to distinguish it from a plain in-range result, and an
+		/// engineer recomputing N_Rd from the actual β would get a different number and have no way to
+		/// see why.
+		/// </summary>
+		public bool LimitingPassApplied { get; set; }
+
+		/// <summary>The two candidate axial resistances [N] the rule chose between — actual, limiting.</summary>
+		public double NRdActual { get; set; } = double.NaN;
+		public double NRdLimiting { get; set; } = double.NaN;
+
+		/// <summary>The clamped values used in the limiting pass, for the ones that were infringed.</summary>
+		public double BetaLimiting { get; set; } = double.NaN;
+		public double GammaLimiting { get; set; } = double.NaN;
+		public double ThetaLimitingDeg { get; set; } = double.NaN;
+
 		// ── helper factors ──
 		public double QBeta { get; set; }
 		public double Qg { get; set; }
