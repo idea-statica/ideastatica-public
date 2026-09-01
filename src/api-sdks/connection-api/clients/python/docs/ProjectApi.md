@@ -101,7 +101,7 @@ Creates a new empty IdeaCon project with no connections.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **con_project_data** | [**ConProjectData**](ConProjectData.md)| Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. | [optional] 
+ **con_project_data** | [**ConProjectData**](ConProjectData.md)| Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. | [optional] 
 
 ### Return type
 
@@ -124,7 +124,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 ```python
 def create_empty_projectExampleFunc(api_client):
     
-    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional)
+    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided. (optional)
 
     try:
         # Creates a new empty IdeaCon project with no connections.
@@ -652,7 +652,7 @@ Updates ConProjectData of project.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **con_project_data** | [**ConProjectData**](ConProjectData.md)| New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. | [optional] 
+ **con_project_data** | [**ConProjectData**](ConProjectData.md)| New project data to apply. | [optional] 
 
 ### Return type
 
@@ -676,7 +676,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 def update_project_dataExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)
+    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | New project data to apply. (optional)
 
     try:
         # Updates ConProjectData of project.
