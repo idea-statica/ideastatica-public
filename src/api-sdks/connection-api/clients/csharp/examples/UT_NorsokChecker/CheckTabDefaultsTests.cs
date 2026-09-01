@@ -36,19 +36,17 @@ namespace UT_NorsokChecker
 		private static NorsokChecker.MainWindow NewWindow() => new();
 
 		/// <summary>
-		/// Neither chapter is ticked at start-up: running a check is the user's decision, and the
-		/// CBFEM one is expensive enough that defaulting it on spends the engine's time uninvited.
+		/// No chapter is ticked at start-up: running a check is the user's decision.
+		///
+		/// Paired with <see cref="ActiveLoadEffectsOnlyStartsTicked"/>, which is deliberately ON — a
+		/// rig that read "unticked" for every box would pass this one and fail that one.
 		/// </summary>
 		[Test]
-		public void BothChapterTogglesStartUnticked()
+		public void TheChapterToggleStartsUnticked()
 		{
 			var w = NewWindow();
 
-			Assert.Multiple(() =>
-			{
-				Assert.That(w.ChkChapterCbfem.IsChecked, Is.False, "CBFEM chapter must start off");
-				Assert.That(w.ChkChapter64.IsChecked, Is.False, "§6.4 chapter must start off");
-			});
+			Assert.That(w.ChkChapter64.IsChecked, Is.False, "§6.4 chapter must start off");
 		}
 
 		/// <summary>

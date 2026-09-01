@@ -249,11 +249,9 @@
                             <CheckBox x:Name="ChkActiveLoadEffectsOnly" Content="Active load effects only"
                                       IsChecked="True" Margin="0,0,20,0"
                                       ToolTip="Assess only the load effects switched on in the .ideaCon. Unchecked, every load effect in the file is assessed, including the ones the model has disabled."/>
-                            <!-- Both chapters OFF by default: running a check is the user's decision,
-                                 and CBFEM in particular starts a calculation that costs minutes. -->
+                            <!-- OFF by default: running a check is the user's decision. -->
                             <TextBlock Text="Chapters:" FontWeight="Medium" VerticalAlignment="Center"
                                        Foreground="#546E7A" Margin="0,0,10,0"/>
-                            <CheckBox x:Name="ChkChapterCbfem" Content="CBFEM plates/welds" IsChecked="False" Margin="0,0,12,0"/>
                             <CheckBox x:Name="ChkChapter64" Content="§6.4 Joints" IsChecked="False"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -1022,32 +1020,6 @@
                             </DataGrid>
                         </DockPanel>
                     </Grid>
-                </Grid>
-            </TabItem>
-
-            <TabItem x:Name="TabCbfem" IsEnabled="False">
-                <TabItem.Header>
-                    <StackPanel>
-                        <md:PackIcon Kind="ViewGridPlus" Width="24" Height="24" HorizontalAlignment="Center"/>
-                        <TextBlock Text="CBFEM" HorizontalAlignment="Center" FontSize="11"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <Grid Margin="12">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="0,0,0,10"
-                               Text="CBFEM plate, weld and bolt checks from the calculation — Norsok material factors per Table 6-1."
-                               TextWrapping="Wrap"
-                               Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               Foreground="#546E7A"/>
-                    <DataGrid Grid.Row="1" x:Name="GridCbfem" AutoGenerateColumns="True"
-                              IsReadOnly="True" CanUserAddRows="False"
-                              md:DataGridAssist.CellPadding="10 6"
-                              VerticalScrollBarVisibility="Auto"
-                              GridLinesVisibility="Horizontal"
-                              BorderThickness="0"/>
                 </Grid>
             </TabItem>
 

@@ -48,9 +48,6 @@ namespace NorsokChecker
 		/// </summary>
 		private CancellationTokenSource? _checkCts;
 
-		/// <summary>Raw JSON results per connection ID.</summary>
-		private readonly Dictionary<int, string> _rawResultsPerConnection = new();
-
 		/// <summary>All formula evaluation results, keyed by connection ID.</summary>
 		private readonly Dictionary<int, List<NorsokFormulaResult>> _formulaResults = new();
 
@@ -391,7 +388,6 @@ namespace NorsokChecker
 
 				var connections = project.Connections ?? new();
 				_connections.Clear();
-				_rawResultsPerConnection.Clear();
 				_formulaResults.Clear();
 				_topologyPerConnection.Clear();
 				_meshesPerConnection.Clear();
@@ -478,11 +474,10 @@ namespace NorsokChecker
 				ShowStatus("Running NORSOK N-004 compliance check...");
 				Log("Starting Norsok N-004 compliance check...");
 
-				// ── Chapter toggles — read first: they decide whether a calculation is needed ──
-				bool includeCbfem = ChkChapterCbfem.IsChecked == true;
+				// ── Chapter toggles ──
 				bool includeCh64 = ChkChapter64.IsChecked == true;
 				bool activeLoadEffectsOnly = ChkActiveLoadEffectsOnly.IsChecked == true;
-				Log($"Chapters: CBFEM={(includeCbfem ? "on" : "off")}, §6.4={(includeCh64 ? "on" : "off")}"
+				Log($"Chapters: §6.4={(includeCh64 ? "on" : "off")}"
 					+ $", load effects: {(activeLoadEffectsOnly ? "active only" : "all in the file")}");
 
 				// ── Which connections? The per-row checkbox, not the whole project ──
@@ -505,133 +500,11 @@ namespace NorsokChecker
 					Log($"Connections: all {selected.Count} ticked for assessment");
 
 				var connectionIds = selected.Select(c => c.Id).ToList();
-				_rawResultsPerConnection.Clear();
-
-				// ── Calculate only for the CBFEM plate/weld/bolt group ──
-				// §6.4 needs load effects and geometry only, so with CBFEM off the calculation is
-				// skipped entirely — the engine run is by far the most expensive step here.
-				if (includeCbfem)
-				{
-					// With the toggle OFF the user asked for every load effect in the file to be
-					// assessed, so switch them all on before the engine runs. Calculate takes no
-					// load-effect selector in this client, so the model's own flags are the only way
-					// to say it — and without this the CBFEM side would silently keep honouring the
-					// flags while §6.4 ignored them, and the two halves of one report would disagree.
-					//
-					// Only the copy in the service's memory is touched. The user's .ideaCon is
-					// written only by GET /download, which this app never calls.
-					if (!activeLoadEffectsOnly)
-						await ActivateAllLoadEffectsAsync(connectionIds, ct);
-
-					foreach (var con in selected)
-						con.Status = "Calculating...";
-
-					ShowStatus("Running CBFEM calculation...");
-					Log("Running CBFEM calculation...");
-					var calcResults = await _apiClient.Calculation.CalculateAsync(_projectId, connectionIds, cancellationToken: ct);
-
-					ct.ThrowIfCancellationRequested();
-					ShowStatus("Retrieving raw results...");
-					Log("Retrieving raw JSON results...");
-					var rawResults = await _apiClient.Calculation.GetRawJsonResultsAsync(_projectId, connectionIds, cancellationToken: ct);
-
-					// Store per-connection raw results
-					for (int idx = 0; idx < connectionIds.Count && idx < rawResults.Count; idx++)
-						_rawResultsPerConnection[connectionIds[idx]] = rawResults[idx];
-
-					// Update connection status from structured results.
-					//
-					// Paired by ID, not by position. calcResults comes back for the connections that
-					// were SENT, so indexing it against _connections was already only correct while
-					// every connection was sent — with the per-row assess-me checkbox that is no
-					// longer true, and the mismatch would have written each result onto the wrong
-					// connection (silently: every field involved is plausible on any row).
-					var byId = calcResults.Where(r => r != null).ToDictionary(r => r.Id);
-					foreach (var con in selected)
-					{
-						if (!byId.TryGetValue(con.Id, out var summary)) continue;
-						double maxUtil = 0;
-						foreach (var s in summary.ResultSummary ?? new())
-						{
-							if (!s.Skipped && s.CheckValue > maxUtil)
-								maxUtil = s.CheckValue;
-						}
-						con.MaxUtilization = maxUtil;
-						con.Status = summary.Passed ? "Calculated" : "Failed (EC)";
-					}
-
-					// ── Refine member wall thickness and f_y from raw results plate names ──
-					// The shape itself comes from CrossSectionType when the members are read, which
-					// needs no calculation; only t and f_y are refined from the modelled plates.
-					//
-					// Every connection is refined from ITS OWN results. This used to parse
-					// rawResults[0] — connection index 0 — and write into _members, which holds
-					// whichever connection is currently selected: with connection 2 showing, any
-					// member whose name prefix matched a plate in connection 1 took connection 1's
-					// thickness and steel. Member names repeat across connections ("C", "B1", "B2"),
-					// so the match usually succeeded, and because ShowMembersOf hands out the same
-					// objects held in _membersPerConnection, the wrong values were then cached for
-					// every later selection.
-					if (rawResults.Count > 0)
-					{
-						try
-						{
-							int refined = 0;
-							foreach (var (conId, rawJson) in _rawResultsPerConnection)
-							{
-								if (!_membersPerConnection.TryGetValue(conId, out var conMembers)) continue;
-								var parsed = RawResultsParser.Parse(rawJson);
-								if (conId == connectionIds[0])
-									Log($"  Raw results: {parsed.Plates.Count} plates, "
-										+ $"{parsed.Welds.Count} welds, {parsed.Bolts.Count} bolts");
-
-								foreach (var member in conMembers)
-								{
-									string prefix = $"{member.Name}-";
-									var memberPlates = parsed.Plates
-										.Where(p => p.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-										.ToList();
-									if (memberPlates.Count == 0) continue;
-
-									var thicknesses = memberPlates.Where(p => p.Thickness > 0)
-										.Select(p => p.Thickness).ToList();
-									if (thicknesses.Count > 0)
-									{
-										// the most common thickness, NOT the rounded key: grouping by
-										// Round(t, 1) buckets 8.05 and 8.14 together, and taking the
-										// key would report 8.1 for a wall that is neither
-										member.WallThickness = thicknesses
-											.GroupBy(t => Math.Round(t, 1))
-											.OrderByDescending(g => g.Count())
-											.First().First();
-									}
-
-									var refPlate = memberPlates.FirstOrDefault(p => p.MaterialFy > 0);
-									if (refPlate != null)
-									{
-										member.Fy = refPlate.MaterialFy;
-										member.MaterialName = refPlate.MaterialName;
-									}
-									refined++;
-								}
-							}
-							Log($"  refined t / f_y on {refined} member(s) from their own connection's results");
-
-							MembersGrid.Items.Refresh();
-							UpdateTubularState();
-						}
-						catch (Exception ex)
-						{
-							Log($"  WARNING: Member refinement from raw results failed: {ex.Message}");
-						}
-					}
-				}
-				else
-				{
-					Log("CBFEM checks off — skipping the calculation entirely (§6.4 needs load effects only)");
-					foreach (var con in selected)
-						con.Status = "Not calculated";
-				}
+				// No calculation is run: §6.4 works from the load effects and the geometry alone. The
+				// CBFEM group was the only thing here that needed the engine, and it is mothballed
+				// (Services/Cbfem_Mothballed/README.md).
+				foreach (var con in selected)
+					con.Status = "Checking...";
 
 				// §6.4 topology: section map (id → D/T/fy) for chord/brace identification.
 				// There is no manual alternative any more: a single joint type / θ / gap for the whole
@@ -673,15 +546,6 @@ namespace NorsokChecker
 					// Per connection: the §6.4 evaluation is the loop that is worth interrupting
 					// without the engine in the way.
 					ct.ThrowIfCancellationRequested();
-
-					// Null when no calculation was run — §6.4 does not need it.
-					_rawResultsPerConnection.TryGetValue(con.Id, out var rawJson);
-					if (includeCbfem && rawJson == null)
-					{
-						con.Status = "No results";
-						con.NorsokPass = "N/A";
-						continue;
-					}
 
 					Log($"  ── Connection: {con.Name} ──");
 					ShowStatus($"Evaluating: {con.Name}...");
@@ -844,9 +708,9 @@ namespace NorsokChecker
 					if (topologyRejected)
 						Log("    §6.4 topology rejected the joint — no §6.4 check is performed");
 
-					var formulaResults = checker.EvaluateNorsokFormulas(
-						con.Id, rawJson, loadEffects, _members.ToList(), includeCbfem);
-					formulaResults.AddRange(autoJointResults);
+					// §6.4 is the only chapter now: the CBFEM group that used to be merged in here is
+					// mothballed (Services/Cbfem_Mothballed/README.md).
+					var formulaResults = autoJointResults;
 					_formulaResults[con.Id] = formulaResults;
 
 					// The rules themselves are in CheckWorkflow.Roll — a pure function, so the app's
@@ -1183,58 +1047,6 @@ namespace NorsokChecker
 			return meshes;
 		}
 
-		/// <summary>
-		/// Switch every load effect on, so the CBFEM engine calculates all of them.
-		///
-		/// Needed because Calculate takes no load-effect selector in this client version: the model's
-		/// own active flags are the only way to tell the engine what to include. Without this, turning
-		/// the "active only" toggle off would widen the §6.4 set while the CBFEM set stayed narrow,
-		/// and one report would carry two different load-effect sets.
-		///
-		/// Only the project in the service's memory is changed — the user's .ideaCon is written only
-		/// by GET /download, which this app never calls. A failure is logged and does not stop the
-		/// run: the calculation then covers the active states only, which is the narrower answer, and
-		/// the log says so.
-		/// </summary>
-		private async Task ActivateAllLoadEffectsAsync(List<int> connectionIds, CancellationToken ct = default)
-		{
-			if (_apiClient == null) return;
-
-			int switched = 0, failed = 0;
-			foreach (int conId in connectionIds)
-			{
-				ct.ThrowIfCancellationRequested();
-				try
-				{
-					var les = await _apiClient.LoadEffect.GetLoadEffectsAsync(
-						_projectId, conId, isPercentage: false, cancellationToken: ct);
-					foreach (var le in les.Where(l => !l.Active))
-					{
-						le.Active = true;
-						await _apiClient.LoadEffect.UpdateLoadEffectAsync(_projectId, conId, le, cancellationToken: ct);
-						switched++;
-					}
-				}
-				// Cancelling must not be swallowed by the catch below and reported as a connection
-				// that could not be switched on — the run is stopping, nothing failed.
-				catch (OperationCanceledException)
-				{
-					throw;
-				}
-				catch (Exception ex)
-				{
-					failed++;
-					Log($"    WARNING: could not switch on the load effects of connection {conId} "
-						+ $"({ex.Message}) — CBFEM will cover its active states only");
-				}
-			}
-
-			if (switched > 0)
-				Log($"  switched on {switched} load effect(s) so CBFEM covers every state in the file");
-			else if (failed == 0)
-				Log("  every load effect in the file was already active");
-		}
-
 		/// <summary>Hovering a member row highlights its body in the 3D view.</summary>
 		private void MembersGrid_MemberHighlight(object sender, System.Windows.Input.MouseEventArgs e)
 		{
@@ -1385,8 +1197,6 @@ namespace NorsokChecker
 		private void PopulateResultsTab()
 		{
 			var all = new List<object>();
-			var joint = new List<object>();
-			var cbfem = new List<object>();
 
 			foreach (var (conId, formulas) in _formulaResults)
 			{
@@ -1409,19 +1219,10 @@ namespace NorsokChecker
 						Result = fr.Verdict
 					};
 					all.Add(row);
-
-					if (fr.Section.StartsWith("6.4", StringComparison.Ordinal))
-						joint.Add(row);
-					else if (fr.Section is "Plate" or "Weld" or "Bolt" or "CBFEM")
-						cbfem.Add(row);
 				}
 			}
 
 			ResultsGrid.ItemsSource = all;
-			GridCbfem.ItemsSource = cbfem;
-
-			// a tab with nothing in it is worse than no tab: it invites a click that shows nothing
-			TabCbfem.IsEnabled = cbfem.Count > 0;
 
 			// The §6.4 tab is not fed from these flat rows any more — it binds the per-load-effect
 			// topology, so it can show a single state as well as the envelope, the K/X/Y split and

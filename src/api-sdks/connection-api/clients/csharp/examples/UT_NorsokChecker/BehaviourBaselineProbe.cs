@@ -119,7 +119,12 @@ namespace UT_NorsokChecker
 			}
 			catch (Exception ex)
 			{
-				return new ConnectionVerdict("ERROR", 0, ex.Message);
+				// First line only, and no ids: the service puts a fresh project GUID and traceId in
+				// every message, so keeping the whole thing would make each run differ from the last
+				// and the diff would report a change on every step.
+				string msg = ex.Message.Split('\n')[0];
+				if (msg.Length > 90) msg = msg[..90] + "…";
+				return new ConnectionVerdict("ERROR", 0, msg);
 			}
 
 			return CheckWorkflow.Roll(results);
