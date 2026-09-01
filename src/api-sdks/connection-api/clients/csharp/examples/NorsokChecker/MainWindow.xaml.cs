@@ -1277,31 +1277,20 @@ namespace NorsokChecker
 			{
 				Filter = "PDF files (*.pdf)|*.pdf",
 				FileName = $"{Path.GetFileNameWithoutExtension(TxtProjectFile.Text)}-NORSOK-report.pdf",
-				Title = "Save NORSOK report (the IDEA StatiCa CBFEM report is saved alongside)"
+				Title = "Save the NORSOK report"
 			};
 			if (dlg.ShowDialog() != true) return;
 
-			string dir = Path.GetDirectoryName(dlg.FileName) ?? ".";
 			string norsokPdf = dlg.FileName;
-			string ideaPdf = Path.Combine(dir, Path.GetFileNameWithoutExtension(dlg.FileName) + "-IDEA-CBFEM.pdf");
 
 			BtnExportPdf.IsEnabled = false;
 			try
 			{
 				Telemetry.ReportExportClicked();
 
-				// 1. Official IDEA StatiCa report via Connection API — one section per connection
-				ShowStatus("Generating IDEA StatiCa PDF report via API...");
-				Log("Generating IDEA StatiCa CBFEM PDF report via Connection API...");
-				// Only the connections that actually have a result. Asking the API to report on one
-				// that was never assessed (left unticked, or excluded by a cancelled run) either
-				// fails or produces an empty section.
-				var conIds = _connections.Where(c => _formulaResults.ContainsKey(c.Id))
-					.Select(c => c.Id).ToList();
-				await _apiClient.Report.SaveMultipleReportsPdfAsync(_projectId, conIds, ideaPdf);
-				Log($"  IDEA StatiCa report: {ideaPdf}");
-
-				// 2. NORSOK compliance report — render the HTML report and print to PDF
+				// One file: the NORSOK report. The export used to write IDEA StatiCa's own report
+				// beside it via the API, which meant re-running a calculation here to obtain a
+				// document Connection produces better — tuned to the model as it is worked on there.
 				ShowStatus("Exporting NORSOK compliance report to PDF...");
 				await Services.WebViewEnvironment.EnsureAsync(ReportWebView);
 
@@ -1328,8 +1317,8 @@ namespace NorsokChecker
 				Log("PDF export completed.");
 				Telemetry.ReportExported();
 
-				MessageBox.Show($"Exported:\n• {norsokPdf}\n• {ideaPdf}", "PDF Export",
-					MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show("Exported:" + Environment.NewLine + norsokPdf, "PDF Export",
+						MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			catch (Exception ex)
 			{
