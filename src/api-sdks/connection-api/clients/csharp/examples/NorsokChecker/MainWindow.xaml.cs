@@ -8,6 +8,22 @@ using NorsokChecker.Services;
 
 namespace NorsokChecker
 {
+	/// <summary>
+	/// The window's shared parts: construction, the state the tabs hold in common, and the two
+	/// things every one of them uses — the log and the status bar.
+	///
+	/// The work itself is in partials named for what they do:
+	///   MainWindow.Api.cs      — the service, the project, reading members and load effects
+	///   MainWindow.CheckTab.cs — choosing what to assess, and the 3D preview
+	///   MainWindow.Run.cs      — the run: what is checked, in what order
+	///   MainWindow.Results.cs  — the flat summary of every check
+	///   MainWindow.Report.cs   — the HTML report and the PDF
+	///   MainWindow.Joint64.cs  — the §6.4 sheet
+	///
+	/// This file was 1,676 lines carrying all of the above at once. Keep it small: anything that
+	/// belongs to one concern belongs in that concern's partial, and anything that belongs to none
+	/// of them is probably a service. MainWindowStructureTests fails if it grows past 300 lines.
+	/// </summary>
 	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		private readonly ObservableCollection<ConnectionCheckResult> _connections = new();
@@ -65,6 +81,11 @@ namespace NorsokChecker
 		/// <summary>
 		/// Drawn member bodies per connection, for the 3D view. Fetched on first selection rather
 		/// than up front: the presentation payload is around 1.7 MB per connection.
+		///
+		/// Shared by the Check tab and the §6.4 tab, which is why it lives here with the other
+		/// cross-tab state rather than in either of them: both views draw the same joint, and a cache
+		/// per tab would fetch that payload twice. MeshesForAsync, which fills it, is in
+		/// MainWindow.CheckTab.cs — the tab that reads it first.
 		/// </summary>
 		private readonly Dictionary<int, List<MemberMesh>> _meshesPerConnection = new();
 
