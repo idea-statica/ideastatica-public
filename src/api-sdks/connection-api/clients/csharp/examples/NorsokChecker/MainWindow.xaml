@@ -1041,28 +1041,21 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Margin="0,0,0,12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Every check performed, across all chapters and connections. The per-chapter tabs show the same results grouped."
-                                   Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                   Foreground="#546E7A" VerticalAlignment="Center"/>
-                        <Button Grid.Column="1" x:Name="BtnExportPdf" Click="ExportPdf_Click"
-                                Style="{StaticResource IdeaPrimaryButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Kind="FilePdfBox" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock Text="Export PDF Reports" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
+                    <!-- No export button here: the PDF is the Report tab's output, and offering it
+                         from the overview invited a click that leaves the tab you are reading. -->
+                    <TextBlock Grid.Row="0" Margin="0,0,0,12"
+                               Text="Every check performed, across all chapters and connections. The per-chapter tabs show the same results grouped."
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               Foreground="#546E7A"/>
 
                     <DataGrid Grid.Row="1" x:Name="ResultsGrid" AutoGenerateColumns="True"
                               IsReadOnly="True" CanUserAddRows="False"
+                              CanUserSortColumns="False"
                               md:DataGridAssist.CellPadding="10 6"
                               VerticalScrollBarVisibility="Auto"
-                              GridLinesVisibility="Horizontal"
+                              GridLinesVisibility="All"
+                              VerticalGridLinesBrush="#DCE3E8"
+                              HorizontalGridLinesBrush="#ECF0F3"
                               BorderThickness="0"/>
                 </Grid>
             </TabItem>
@@ -1076,7 +1069,24 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="4">
-                    <wv2:WebView2 x:Name="ReportWebView" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Export belongs here, beside the document it writes: the button used to sit on
+                         the Results tab, where clicking it produced a file of something the reader
+                         was not looking at. -->
+                    <Button Grid.Row="0" x:Name="BtnExportPdf" Click="ExportPdf_Click"
+                            Style="{StaticResource IdeaPrimaryButton}"
+                            HorizontalAlignment="Right" Margin="8,4,8,8">
+                        <StackPanel Orientation="Horizontal">
+                            <md:PackIcon Kind="FilePdfBox" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBlock Text="Export PDF" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <wv2:WebView2 Grid.Row="1" x:Name="ReportWebView" />
                 </Grid>
             </TabItem>
         </TabControl>
