@@ -1492,7 +1492,7 @@ namespace NorsokChecker
 
 			try
 			{
-				await ReportWebView.EnsureCoreWebView2Async();
+				await Services.WebViewEnvironment.EnsureAsync(ReportWebView);
 				ReportWebView.NavigateToString(html);
 			}
 			catch (Exception ex)
@@ -1544,7 +1544,7 @@ namespace NorsokChecker
 
 				// 2. NORSOK compliance report — render the HTML report and print to PDF
 				ShowStatus("Exporting NORSOK compliance report to PDF...");
-				await ReportWebView.EnsureCoreWebView2Async();
+				await Services.WebViewEnvironment.EnsureAsync(ReportWebView);
 
 				var navigated = new TaskCompletionSource<bool>();
 				void OnNavCompleted(object? s, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs a)

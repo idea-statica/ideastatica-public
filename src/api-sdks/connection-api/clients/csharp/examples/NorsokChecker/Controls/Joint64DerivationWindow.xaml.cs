@@ -68,7 +68,7 @@ namespace NorsokChecker.Controls
 			{
 				try
 				{
-					await Web.EnsureCoreWebView2Async();
+					await WebViewEnvironment.EnsureAsync(Web);
 					Web.NavigateToString(html);
 				}
 				catch (Exception ex)
