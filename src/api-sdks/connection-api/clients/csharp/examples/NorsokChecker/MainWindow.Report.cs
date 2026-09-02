@@ -92,18 +92,44 @@ namespace NorsokChecker
 			return figures;
 		}
 
+		/// <summary>
+		/// Fill the Report tab, saying so on screen while it happens.
+		///
+		/// The overlay is not decoration. An un-navigated WebView2 paints BLACK, which is the colour
+		/// of a failure, so every second of work here read as "the report is broken" — it produced
+		/// three wrong diagnoses before anyone measured the actual cost (~22 s on fifteen joints, see
+		/// FigureLiveProbe). Two things follow: the view has a white DefaultBackgroundColor, and this
+		/// method never leaves the tab blank without a reason printed in it.
+		///
+		/// async void, so an exception escaping it is unhandled — everything is inside the try, and
+		/// the failure is shown rather than only logged.
+		/// </summary>
 		private async void PopulateReportTab()
 		{
-			var html = BuildReportHtml();
+			ReportBusyDetail.Text = $"{_formulaResults.Count} connection(s)";
+			ReportBusy.Visibility = Visibility.Visible;
 
+			var sw = System.Diagnostics.Stopwatch.StartNew();
 			try
 			{
+				var html = BuildReportHtml();
+				Log($"  report HTML built in {sw.ElapsedMilliseconds} ms ({html.Length / 1024} kB)");
+
+				sw.Restart();
 				await Services.WebViewEnvironment.EnsureAsync(ReportWebView);
 				ReportWebView.NavigateToString(html);
+				Log($"  report shown in {sw.ElapsedMilliseconds} ms");
+
+				// Only on success: on failure the overlay stays up, carrying the reason.
+				ReportBusy.Visibility = Visibility.Collapsed;
 			}
 			catch (Exception ex)
 			{
-				Log($"WARNING: WebView2 not available ({ex.Message}).");
+				// On screen, not only in the log: a blank tab with the reason elsewhere is what made
+				// this so hard to diagnose.
+				ReportBusyDetail.Text = $"The report could not be shown: {ex.Message}";
+				Log($"WARNING: the report could not be shown ({ex.Message}).");
+				AppLog.ReportFailure("Populating the Report tab failed", ex);
 			}
 		}
 

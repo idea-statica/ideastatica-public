@@ -1086,7 +1086,25 @@
                         </StackPanel>
                     </Button>
 
-                    <wv2:WebView2 Grid.Row="1" x:Name="ReportWebView" />
+                    <!-- DefaultBackgroundColor, because an un-navigated WebView2 paints BLACK. That
+                         is the colour of a failure, so the report looked broken whenever it was
+                         merely not ready yet — and it cost three wrong diagnoses before the cause
+                         was measured. White says "nothing here yet"; the overlay below says why. -->
+                    <wv2:WebView2 Grid.Row="1" x:Name="ReportWebView" DefaultBackgroundColor="White" />
+
+                    <!-- Sits OVER the WebView2 while the report is being built. The work is ~22 s on
+                         a fifteen-joint project (measured per connection in FigureLiveProbe), and
+                         the tab is reachable throughout — with no overlay the user stares at an
+                         empty view with nothing to say the app is working. -->
+                    <Border Grid.Row="1" x:Name="ReportBusy" Visibility="Collapsed"
+                            Background="#F7F9FB">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="Generating the report…" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="#33475B" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="ReportBusyDetail" FontSize="12" Foreground="#6B7C93"
+                                       Margin="0,6,0,0" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>

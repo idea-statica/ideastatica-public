@@ -49,11 +49,18 @@ namespace NorsokChecker.Services
 					await view.EnsureCoreWebView2Async(_shared);
 					return;
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
 					// One attempt only: if the folder cannot be used (permissions, a full disk, a
 					// locked profile), retrying per view would fail the same way every time.
 					_failed = true;
+
+					// Logged, because an uninitialised WebView2 shows nothing and says nothing: this
+					// catch was silent, and the fallback below can leave a blank view with no trace
+					// of why anywhere.
+					AppLog.ReportFailure(
+						$"The shared WebView2 profile ({UserDataFolder}) could not be used; "
+						+ "falling back to the control's own", ex);
 				}
 			}
 
