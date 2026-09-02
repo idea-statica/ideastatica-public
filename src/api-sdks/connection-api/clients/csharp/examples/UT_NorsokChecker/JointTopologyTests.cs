@@ -15,6 +15,25 @@ namespace UT_NorsokChecker
 	/// not the numbers. Note the built-in cross-links: X_TEST reproduces the Lukáš X-joint script
 	/// (util 1.3130 FAIL) and TY_TEST the PURE_TENSION script (util 0.5459 PASS) through the full
 	/// auto-classification pipeline.
+	///
+	/// ONE DELIBERATE DIVERGENCE, 2026-09-02 — the only place the numbers were edited rather than
+	/// the C#, so it is recorded here rather than left to be rediscovered as a puzzle:
+	///
+	///   `M_op`'s SIGN. The python reference builds the in-plane axis as `ip = n_b × bx`
+	///   (extract.py:388), which makes the brace frame (bx, n_b, ip) LEFT-handed — measured, triple
+	///   product −1 on every off-axis brace. The C# now uses `Cross(bx, nb)` so the frame is
+	///   right-handed, which reverses `M_op` and `V_ip`. Two oracle values were negated for it
+	///   (K_TEST/BA and KT_TEST/KV, the only non-zero `M_op` in the file).
+	///
+	///   Why this is defensible: NORSOK gives the BRACE quantities no sign convention at all — `S_d`
+	///   is a "design action effect", i.e. a magnitude (§4, eq 4.1), and eq (6.57) takes `M_z` in
+	///   absolute value. Nothing in the norm distinguishes the two senses, so neither side was
+	///   "right"; the right-handed frame is. BraceFrameTests asserts both the handedness and that no
+	///   result moves.
+	///
+	///   Cost, stated plainly: for `M_op`'s sign this oracle is no longer independent — it now
+	///   records our decision. Every other field, `sigma_my` included (where the sign DOES change
+	///   Q_f), is still the python reference's own output.
 	/// </summary>
 	[TestFixture]
 	public class JointTopologyTests

@@ -14,6 +14,20 @@ namespace UT_NorsokChecker
 	/// [Explicit]: requires IDEA StatiCa installed locally. Setup dir override:
 	///   IDEASTATICA_SETUP_DIR (default C:\Program Files\IDEA StatiCa\StatiCa 26.1)
 	/// Run:  dotnet test --filter FullyQualifiedName~LiveValidationTests
+	///
+	/// ONE DELIBERATE DIVERGENCE from the python reference, 2026-09-02 — `M_op_Sd`'s SIGN.
+	/// The reference builds the in-plane axis as `ip = n_b × bx` (extract.py:388), which makes the
+	/// brace frame (bx, n_b, ip) LEFT-handed; the C# now uses `Cross(bx, nb)` so it is right-handed,
+	/// and that reverses M_op. 15 `M_op_Sd` values were negated here for it — and nothing else: the
+	/// run flagged M_op_Sd alone, with no util / N_Rd / sigma_my / classification field moving,
+	/// which is what made the change safe to accept.
+	///
+	/// NORSOK gives the brace quantities no sign convention (`S_d` is a "design action effect", i.e.
+	/// a magnitude — §4 eq 4.1; eq 6.57 takes M_z in absolute value), so neither sense was "correct"
+	/// and the right-handed frame is the tie-breaker. BraceFrameTests asserts the handedness and that
+	/// no result depends on it. Cost: for M_op's sign this oracle now records our decision rather
+	/// than the reference's. Every other field, `sigma_my` included — where the sign DOES change
+	/// Q_f — is still the reference's own output.
 	/// </summary>
 	[TestFixture, Explicit("Requires a local IDEA StatiCa installation (Connection RestAPI)")]
 	[Category("Live")]

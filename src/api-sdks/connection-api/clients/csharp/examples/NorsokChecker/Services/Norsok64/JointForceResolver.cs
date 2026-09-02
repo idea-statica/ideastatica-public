@@ -132,16 +132,32 @@ namespace NorsokChecker.Services.Norsok64
 			Vec3 M = ax * sl.Mx + ay * sl.My + az * sl.Mz;
 
 			var (bx, nb) = BraceSubplaneNormal(m, ex, nPlane);
-			Vec3 ip = Vec3.Cross(nb, bx).Unit();   // in-plane transverse axis
+
+			// The brace frame, and it is deliberately RIGHT-handed: (x, y, z) = (bx, nb, ip) with
+			//   x = bx  along the brace, away from the node   -> + N_Sd is tension
+			//   y = nb  the joint plane's NORMAL               -> M_y = in-plane bending (eq 6.57)
+			//   z = ip  IN the joint plane                     -> M_z = out-of-plane bending
+			//
+			// Cross(bx, nb), not Cross(nb, bx): the latter gives the same LINE with the opposite
+			// sense, which makes the triple left-handed (measured: x·(y×z) = −1 on every off-axis
+			// brace tried, with a tilted chord too). Flipping x instead cannot fix it — nb and ip
+			// are built FROM bx and the re-orientation in BraceSubplaneNormal undoes the flip — and
+			// it would invert N_Sd, breaking the tension convention that does hold.
+			//
+			// Safe because no result depends on this sense: M_z enters eq (6.57) as |M_z| and σ_mz
+			// enters Q_f/A² squared only. The one sign that DOES change a resistance is σ_my, which
+			// is built from nb (not ip) and is guarded by the signed sigma_my values in
+			// LiveValidationTests' oracle.
+			Vec3 ip = Vec3.Cross(bx, nb).Unit();
 
 			return new BraceForceRow
 			{
 				Name = m.Name,
 				NSd = Vec3.Dot(F, bx),             // + tension
-				Vip = Vec3.Dot(F, ip),
-				Vop = Vec3.Dot(F, nb),
-				Mip = Vec3.Dot(M, nb),             // in-plane bending
-				Mop = Vec3.Dot(M, ip),             // out-of-plane bending
+				Vip = Vec3.Dot(F, ip),             // V_z — force IN the plane
+				Vop = Vec3.Dot(F, nb),             // V_y — force OUT of the plane
+				Mip = Vec3.Dot(M, nb),             // M_y — in-plane bending (about the normal)
+				Mop = Vec3.Dot(M, ip),             // M_z — out-of-plane bending
 				Mtor = Vec3.Dot(M, bx),            // torsion (excluded from 6.57)
 				SubNormalDot = Vec3.Dot(nb, nPlane),
 			};

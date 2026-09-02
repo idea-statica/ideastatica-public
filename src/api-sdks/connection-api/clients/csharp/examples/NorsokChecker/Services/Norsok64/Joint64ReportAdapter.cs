@@ -14,7 +14,11 @@ namespace NorsokChecker.Services.Norsok64
 	/// §6.4.3.2  Basic resistance:  N_Rd = fy·T²/(γM·sinθ)·Qu·Qf     (Eq. 6.52)
 	///                              M_Rd = fy·T²·d/(γM·sinθ)·Qu·Qf   (Eq. 6.53)
 	/// §6.4.3.3  Strength factor Qu (Table 6-3);  §6.4.3.4 Chord action Qf (Eq. 6.54–6.55)
-	/// §6.4.3.6  Interaction:  |N|/N_Rd + (M_ip/M_ip,Rd)² + |M_op|/M_op,Rd ≤ 1.0  (Eq. 6.57)
+	/// §6.4.3.6  Interaction:  |N|/N_Rd + (M_y,Sd/M_y,Rd)² + |M_z,Sd|/M_z,Rd ≤ 1.0  (Eq. 6.57)
+	///
+	/// The symbols this adapter emits are the NORM's: eq (6.57) writes M_y / M_z and defines M_y as
+	/// the in-plane and M_z as the out-of-plane moment. The engine's own properties stay MipSd /
+	/// MRdIp — a developer reads those, a customer reads these.
 	/// </summary>
 	public static class Joint64ReportAdapter
 	{
@@ -72,14 +76,14 @@ namespace NorsokChecker.Services.Norsok64
 				new() { Symbol = "σ_my", Description = "chord in-plane bending stress (+ compression at footprint)", Value = inp.SigmaMySd / 1e6, Unit = "MPa" },
 				new() { Symbol = "σ_mz", Description = "chord out-of-plane bending stress", Value = inp.SigmaMzSd / 1e6, Unit = "MPa" },
 				new() { Symbol = "N_Rd", Description = "joint axial resistance, weighted over K/Y/X (Eq. 6.52)", Value = nRdKn, Unit = "kN" },
-				new() { Symbol = "M_ip,Rd", Description = "in-plane bending resistance (Eq. 6.53)", Value = r.MRdIp / 1e3, Unit = "kNm" },
-				new() { Symbol = "M_op,Rd", Description = "out-of-plane bending resistance (Eq. 6.53)", Value = r.MRdOp / 1e3, Unit = "kNm" },
+				new() { Symbol = "M_y,Rd", Description = "in-plane bending resistance (Eq. 6.53)", Value = r.MRdIp / 1e3, Unit = "kNm" },
+				new() { Symbol = "M_z,Rd", Description = "out-of-plane bending resistance (Eq. 6.53)", Value = r.MRdOp / 1e3, Unit = "kNm" },
 				new() { Symbol = "N_Sd", Description = "brace axial force (+ tension)", Value = inp.NSd / 1e3, Unit = "kN" },
-				new() { Symbol = "M_ip,Sd", Description = "brace in-plane bending", Value = inp.MipSd / 1e3, Unit = "kNm" },
-				new() { Symbol = "M_op,Sd", Description = "brace out-of-plane bending", Value = inp.MopSd / 1e3, Unit = "kNm" },
+				new() { Symbol = "M_y,Sd", Description = "brace in-plane bending", Value = inp.MipSd / 1e3, Unit = "kNm" },
+				new() { Symbol = "M_z,Sd", Description = "brace out-of-plane bending", Value = inp.MopSd / 1e3, Unit = "kNm" },
 				new() { Symbol = "|N|/N_Rd", Description = "axial utilization term", Value = axialTerm, Unit = "-" },
-				new() { Symbol = "(M_ip/M_ip,Rd)²", Description = "in-plane bending term (squared)", Value = ipbTerm, Unit = "-" },
-				new() { Symbol = "|M_op|/M_op,Rd", Description = "out-of-plane bending term", Value = opbTerm, Unit = "-" },
+				new() { Symbol = "(M_y,Sd/M_y,Rd)²", Description = "in-plane bending term (squared)", Value = ipbTerm, Unit = "-" },
+				new() { Symbol = "|M_z,Sd|/M_z,Rd", Description = "out-of-plane bending term", Value = opbTerm, Unit = "-" },
 				new() { Symbol = "γ_M", Description = "material factor", Value = inp.GammaM, Unit = "-" },
 			};
 			// K per-gap breakdown (KT / multi-gap balancing)
@@ -99,7 +103,7 @@ namespace NorsokChecker.Services.Norsok64
 				Section = "6.4.3.6",
 				Equation = "6.57",
 				Title = title,
-				CheckExpression = "|N_Sd|/N_Rd + (M_ip,Sd/M_ip,Rd)² + |M_op,Sd|/M_op,Rd ≤ 1.0",
+				CheckExpression = "|N_Sd|/N_Rd + (M_y,Sd/M_y,Rd)² + |M_z,Sd|/M_z,Rd ≤ 1.0",
 				Formula = @"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
 				FormulaSubstituted =
 					$"N_Rd(weighted {clsStr}) = {nRdKn:F1} kN;  governing LC: {govLeName}",
