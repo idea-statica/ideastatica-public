@@ -78,8 +78,14 @@ namespace NorsokChecker.Services.Chapters
 						new NorsokFormulaResult
 						{
 							Section = "6.4",
-							Equation = "6.4.3",
-							Title = "§6.4 could not be evaluated",
+							// EMPTY, not "6.4.3": nothing was evaluated here, so there is no equation to
+							// name — and 6.4.3 is a CLAUSE, which printed as "(Eq. 6.4.3)" states
+							// something the norm does not contain. The card suppresses the badge when
+							// this is empty.
+							Equation = "",
+							// No "§6.4" prefix: the card already prints §{Section} beside the title, so
+							// carrying it here rendered "§6.4 §6.4 could not be evaluated".
+							Title = "Could not be evaluated",
 							CheckExpression = $"the joint's members could not be read: {blocked}",
 							Formula = "-",
 							FormulaSubstituted = "no §6.4 check was performed for this joint",

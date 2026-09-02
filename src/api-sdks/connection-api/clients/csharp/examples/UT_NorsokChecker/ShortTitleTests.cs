@@ -24,7 +24,9 @@ namespace UT_NorsokChecker
 		[TestCase("Outside the scope of §6.4", "Outside the scope of §6.4",
 			"nothing to strip")]
 		[TestCase("Assumption", "Assumption", "a note keeps its one word")]
-		[TestCase("§6.4 could not be evaluated", "§6.4 could not be evaluated",
+		// No "§6.4" in front of it any more: the card prints §{Section} beside the title, so carrying
+		// the clause here rendered "§6.4 §6.4 could not be evaluated" in the exported report.
+		[TestCase("Could not be evaluated", "Could not be evaluated",
 			"and so does the blocked-chapter row")]
 		public void ATitleKeepsItsSubjectAndLosesTheRest(string title, string expected, string why)
 		{

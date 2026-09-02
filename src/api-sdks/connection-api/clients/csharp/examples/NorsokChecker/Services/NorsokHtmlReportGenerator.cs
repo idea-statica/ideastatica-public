@@ -62,7 +62,11 @@ namespace NorsokChecker.Services
 					M_{y,Rd} &= \frac{f_{y,chord} \cdot T^2 \cdot d}{\gamma_M \cdot \sin\theta} \cdot Q_{u,ipb} \cdot Q_{f,mom} \\[2pt]
 					M_{z,Rd} &= \frac{f_{y,chord} \cdot T^2 \cdot d}{\gamma_M \cdot \sin\theta} \cdot Q_{u,opb} \cdot Q_{f,mom}
 				  \end{aligned}",
-				@"\frac{N_{Sd}}{N_{Rd}} + \left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \frac{M_{z,Sd}}{M_{z,Rd}} \leq 1.0"
+				// The BARS on the out-of-plane term are not decoration: the derivation evaluates
+				// |M_z,Sd/M_z,Rd| (see the eq 6.57 Step below), and without them here the header
+				// stated a DIFFERENT check from the one performed — a reviewer reads that as a
+				// calculation error, not a typo, because a negative M_z would reduce the sum.
+				@"\frac{N_{Sd}}{N_{Rd}} + \left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\frac{M_{z,Sd}}{M_{z,Rd}}\right| \leq 1.0"
 			),
 			["Bolt"] = (
 				@"\frac{F_{t,Sd}}{F_{t,Rd}} + \frac{F_{v,Sd}}{1.4 \cdot F_{v,Rd}} \leq 1.0",
@@ -529,7 +533,12 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <span class='status-icon'>{statusIcon}</span>");
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
 			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
-			sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
+			// Only where there IS an equation. It used to print unconditionally, so a card that
+			// evaluated nothing carried "(Eq. -)" or "(Eq. 6.4.3)" — the first is a placeholder shown
+			// to the customer, the second names a CLAUSE as though it were an equation. Suppressing
+			// beats placeholdering: a badge that says nothing is worse than no badge.
+			if (!string.IsNullOrWhiteSpace(fr.Equation) && fr.Equation != "-")
+				sb.AppendLine($"    <span class='eq-ref'>(Eq. {Esc(fr.Equation)})</span>");
 			if (fr.LoadCaseId > 0 || !string.IsNullOrEmpty(fr.LoadCaseName))
 				sb.AppendLine($"    <span class='lc-badge'>{Esc(fr.LoadCaseName ?? $"LE{fr.LoadCaseId}")}</span>");
 			// An em dash, not "0.0 %": on a note or an unassessed row the utilisation is not a small
@@ -629,7 +638,10 @@ namespace NorsokChecker.Services
 			}
 			else
 			{
-				sb.AppendLine($"      <span>Utilization: <strong>{fr.Utilization * 100:F1}%</strong> "
+				// "Utilisation", British — NORSOK and EN use it, and this was the one place in the
+				// report still spelling it the American way: 30 occurrences beside 60 of the other.
+				// The property is still called Utilization; renaming it would be churn no reader sees.
+				sb.AppendLine($"      <span>Utilisation: <strong>{fr.Utilization * 100:F1}%</strong> "
 					+ $"(= {fr.Utilization:F4} &le; 1.0)</span>");
 			}
 			sb.AppendLine($"      <span class='result-verdict'>{statusIcon} {statusText}</span>");
@@ -798,7 +810,7 @@ namespace NorsokChecker.Services
 				sb.AppendLine("      <table class='deriv-table'>");
 				sb.AppendLine("        <tr><th>condition</th><th>status</th></tr>");
 				foreach (var (cond, ok) in r.Validity)
-					sb.AppendLine($"        <tr><td>{Esc(cond)}</td>"
+					sb.AppendLine($"        <tr><td>{ConditionHtml(cond)}</td>"
 						+ $"<td>{(ok ? "&#10003; within" : "&#10007; outside")}</td></tr>");
 				sb.AppendLine("      </table>");
 			}
@@ -1024,7 +1036,11 @@ namespace NorsokChecker.Services
 			var dom = r.PerClass.TryGetValue(
 				Enum.TryParse<Norsok64.Joint64Class>(row.DomClass, out var dc) ? dc : Norsok64.Joint64Class.K,
 				out var dr) ? dr : null;
-			Step(sb, "Utilisation &mdash; eq (6.57)",
+			// The step's label says what the three terms ARE, not the heading again. Both used to read
+			// "Utilisation — eq (6.57)", printing it twice in immediate succession — 60 times in a
+			// 30-check report. The HEADING is the half that stays: it anchors the four-phase order the
+			// sheet is built on (DerivationContentTests asserts the sequence by position).
+			Step(sb, "Sum of the three interaction terms &mdash; axial, in-plane, out-of-plane",
 				@"u = \dfrac{N_{Sd}}{N_{Rd}} + \left(\dfrac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\dfrac{M_{z,Sd}}{M_{z,Rd}}\right|",
 				dom == null ? null
 					: $@"{N(dom.UtilAxialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
@@ -1147,6 +1163,33 @@ namespace NorsokChecker.Services
 		}
 
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
+
+		/// <summary>
+		/// A validity condition, typeset. The engine states them in ASCII — <c>"0.2&lt;=beta&lt;=1.0"</c>,
+		/// <c>"30&lt;=theta&lt;=90"</c> — and the report used to print that verbatim, in a monospace
+		/// face, beside fully typeset KaTeX everywhere else. Measured in the exported PDF: 180
+		/// occurrences of <c>&lt;=</c>.
+		///
+		/// Translated HERE rather than in the engine, deliberately: the strings are the engine's
+		/// description of its own mathematics, and an engine that emitted HTML entities so a report
+		/// could look right would be the wrong dependency. The engine says what it checked; this says
+		/// how it is written down.
+		///
+		/// Escaped FIRST, then the operators replaced — the other order would let HtmlEncode mangle
+		/// the entities it just inserted.
+		/// </summary>
+		internal static string ConditionHtml(string condition)
+		{
+			return Esc(condition)
+				.Replace("&lt;=", "&nbsp;&le;&nbsp;")
+				.Replace("&gt;=", "&nbsp;&ge;&nbsp;")
+				.Replace("&lt;", "&nbsp;&lt;&nbsp;")
+				.Replace("&gt;", "&nbsp;&gt;&nbsp;")
+				.Replace("beta", "&beta;")
+				.Replace("gamma", "&gamma;")
+				.Replace("theta", "&theta;")
+				.Replace("tau", "&tau;");
+		}
 
 		/// <summary>
 		/// Write the whole of KaTeX into the page — library, styles and the call that typesets it.

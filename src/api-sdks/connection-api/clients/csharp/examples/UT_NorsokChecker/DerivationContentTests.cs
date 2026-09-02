@@ -213,6 +213,45 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// A step's label does not restate the section heading immediately above it.
+		///
+		/// The gap the test above cannot see: it compares headings with each other, so a heading and
+		/// the FIRST STEP INSIDE IT carrying the same words counted as one of each and passed.
+		/// Measured in the exported PDF: "Utilisation — eq (6.57)" 60 times in a 30-check report,
+		/// once as the heading and once as the step label directly beneath it.
+		///
+		/// Pairs are compared by position rather than globally, because a label legitimately repeats
+		/// elsewhere — "N_Rd — eq (6.52)" appears once per active mode, which is correct.
+		/// </summary>
+		[Test]
+		public void NoHeadingIsRepeatedByTheStepBelowIt()
+		{
+			string html = Page();
+
+			// Every heading and every step label, in document order, tagged by which it is.
+			var items = System.Text.RegularExpressions.Regex
+				.Matches(html, @"<p class='deriv-h'>(.*?)</p>|<div class='deriv-step-label'>(.*?)</div>")
+				.Select(m => (
+					isHeading: m.Groups[1].Success,
+					text: (m.Groups[1].Success ? m.Groups[1].Value : m.Groups[2].Value).Trim()))
+				.ToList();
+
+			var echoed = items
+				.Zip(items.Skip(1), (a, b) => (a, b))
+				.Where(p => p.a.isHeading && !p.b.isHeading && p.a.text == p.b.text)
+				.Select(p => $"'{p.a.text}'")
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(items.Any(i => i.isHeading), "the sheet has headings");
+				Assert.That(items.Any(i => !i.isHeading), "and steps, or this compares nothing");
+				Assert.That(echoed, Is.Empty,
+					"step label(s) restating the heading above them: " + string.Join(", ", echoed));
+			});
+		}
+
+		/// <summary>
 		/// The four phases of a hand calculation, in order: inputs, basic assumptions, the check, the
 		/// verdict on capacity.
 		///

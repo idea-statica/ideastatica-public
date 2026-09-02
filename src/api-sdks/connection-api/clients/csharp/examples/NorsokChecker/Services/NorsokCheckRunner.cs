@@ -76,7 +76,10 @@ namespace NorsokChecker.Services
 					results.Add(new NorsokFormulaResult
 					{
 						Section = "6.4",
-						Equation = "6.4.3",
+						// EMPTY: no equation was evaluated on a joint outside the chapter's scope, and
+						// "6.4.3" is a CLAUSE — printed as "(Eq. 6.4.3)" it names an equation the norm
+						// does not have.
+						Equation = "",
 						Title = reasons.Count > 1
 							? $"Outside the scope of §6.4 ({i + 1} of {reasons.Count})"
 							: "Outside the scope of §6.4",
@@ -157,7 +160,9 @@ namespace NorsokChecker.Services
 				results.Add(new NorsokFormulaResult
 				{
 					Section = "6.4.3.1",
-					Equation = "-",
+					// EMPTY, not "-": a note evaluates no equation. The literal dash rendered as
+					// "(Eq. -)" on every note row.
+					Equation = "",
 					Title = warns.Count > 1
 						? $"Assumption ({i + 1} of {warns.Count})"
 						: "Assumption",
