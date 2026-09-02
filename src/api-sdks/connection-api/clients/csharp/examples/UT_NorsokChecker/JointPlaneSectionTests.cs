@@ -49,8 +49,22 @@ namespace UT_NorsokChecker
 						OopOffsetM = -0.002, Side = -1,
 						Section = new JointSectionInfo { Name = "CHS114.3/5.0" } },
 				},
+				// THREE states, with values that differ per state — so a table that shows one state
+				// for every brace, or the wrong state for a brace, is detectable. LE1 is first in
+				// the list on purpose: it is what the shipped version printed for everything.
 				BraceForces = new List<PerLoadEffect<BraceForceRow>>
 				{
+					new()
+					{
+						Id = 1, Name = "LE1",
+						Rows = new List<BraceForceRow>
+						{
+							new() { Name = "M2", LocalN = -11_000, LocalMy = 111, LocalMz = -11,
+								NSd = -11_000, Mip = 101, Mop = -12 },
+							new() { Name = "M3", LocalN = 22_000, LocalMy = 222, LocalMz = 22,
+								NSd = 22_000, Mip = 202, Mop = 24 },
+						},
+					},
 					new()
 					{
 						Id = 12, Name = "LE12",
@@ -61,6 +75,18 @@ namespace UT_NorsokChecker
 								LocalMx = 210, LocalMy = 4_700, LocalMz = -980,
 								NSd = -142_100, Vip = 2_900, Vop = -1_500,
 								Mip = 4_310, Mop = -1_620 },
+							new() { Name = "M3",
+								LocalN = 33_000, LocalMy = 333, LocalMz = 33,
+								NSd = 33_000, Mip = 303, Mop = 36 },
+						},
+					},
+					new()
+					{
+						Id = 9, Name = "LE9",
+						Rows = new List<BraceForceRow>
+						{
+							new() { Name = "M2", LocalN = -44_000, LocalMy = 444, LocalMz = -44,
+								NSd = -44_000, Mip = 404, Mop = -48 },
 							new() { Name = "M3",
 								LocalN = 88_400, LocalVy = -2_100, LocalVz = 900,
 								LocalMx = -140, LocalMy = -3_300, LocalMz = 720,
@@ -78,10 +104,46 @@ namespace UT_NorsokChecker
 			LoadCaseName = "LE12", Utilization = 0.476, Passed = true,
 		};
 
-		private static string Report(bool withTopology = true) =>
+		/// <summary>
+		/// A §6.4 check row for one brace, carrying the load effect that GOVERNS it.
+		///
+		/// The governing state is the point: the force table takes each brace's forces from ITS OWN
+		/// governing load effect, so a row without a JointDetail contributes nothing — and two braces
+		/// of one joint routinely govern on different states, which is what the fixture below
+		/// exercises.
+		/// </summary>
+		private static NorsokFormulaResult Check(string brace, int govLeId, string govLeName) => new()
+		{
+			Section = "6.4.3.6", Equation = "6.57", Title = $"Tubular Joint — {brace}",
+			LoadCaseName = govLeName, Utilization = 0.476, Passed = true,
+			JointDetail = new JointCheckRow
+			{
+				Name = brace, Skipped = false, Util = 0.476, Passed = true,
+				GovLeId = govLeId, GovLeName = govLeName,
+			},
+		};
+
+		/// <summary>The rejection rows a topology emits when the chapter does not apply.</summary>
+		private static NorsokFormulaResult Rejected(string why) => new()
+		{
+			Section = "6.4", Equation = "", Title = "Outside the scope of §6.4",
+			CheckExpression = why, NotAssessed = true,
+			Reason = NotAssessedReason.OutsideScope,
+		};
+
+		private static string Report(bool withTopology = true,
+			IEnumerable<NorsokFormulaResult>? rows = null) =>
 			NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
 				new List<(string, List<NorsokFormulaResult>)>
-					{ ("CON1", new List<NorsokFormulaResult> { Assessed() }) },
+				{
+					("CON1", (rows ?? new[]
+					{
+						// M2 governs on LE12, M3 on LE9 — different states, which a single-state
+						// table cannot represent and which the shipped version got wrong by
+						// printing LE1's forces for both.
+						Check("M2", 12, "LE12"), Check("M3", 9, "LE9"),
+					}).ToList()),
+				},
 				expandAll: false,
 				jointImages: null,
 				topologies: withTopology
@@ -106,7 +168,7 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
-				// M2's axial force, as the model carries it and as §6.4 checks it.
+				// M2's axial force at ITS governing state (LE12), as the model carries it.
 				Assert.That(table, Does.Contain("-142.1 kN"), "N from the model");
 				// Its in-plane moment differs between the two frames — 4.70 local, 4.31 projected —
 				// which is the whole point: the same loading, two frames, two numbers.
@@ -115,8 +177,16 @@ namespace UT_NorsokChecker
 				Assert.That(table, Does.Contain("from the model (local axes)"),
 					"the columns say which frame each half is in");
 				Assert.That(table, Does.Contain("resolved into the joint plane"));
-				Assert.That(table, Does.Contain("LE12"),
-					"and WHICH load effect is being shown, or the numbers are unattributable");
+
+				// EACH BRACE AT ITS OWN STATE. M2 governs on LE12 and M3 on LE9, so both names
+				// appear and M3's numbers are LE9's — 88.4 kN, not LE12's 33.0 kN. The shipped
+				// version printed LE1's forces for every brace, which is what the LE1 values in the
+				// fixture are there to catch.
+				Assert.That(table, Does.Contain("LE12").And.Contain("LE9"),
+					"each row names the state that governs that brace");
+				Assert.That(table, Does.Contain("88.4 kN"), "M3 is shown at LE9, its own governing state");
+				Assert.That(table, Does.Not.Contain("11.0 kN"),
+					"and nothing comes from LE1 merely because it is first in the list");
 			});
 		}
 
@@ -186,6 +256,100 @@ namespace UT_NorsokChecker
 			{
 				Assert.That(html, Does.Not.Contain("Joint plane and force transformation"));
 				Assert.That(html, Does.Contain("Tubular Joint"), "the check card is still there");
+			});
+		}
+
+		/// <summary>
+		/// A REJECTED joint shows how the verdict was reached, and no forces.
+		///
+		/// Two contradictions were shipped here in turn. First the section rendered unconditionally,
+		/// so CON7 stated the joint plane, the chord and the transformed forces directly above a card
+		/// saying those quantities are ones "the joint does not provide" and that no brace could be
+		/// assessed. Then suppressing it entirely created the opposite problem: every assessed joint
+		/// showed its workings while a rejected one gave a bare verdict — even though its conditions
+		/// quote measured numbers ("gap -16 mm", "20.0° off plane (>15°)").
+		///
+		/// So: the geometry and the chord stay, because that is what the conditions are read FROM,
+		/// and the force table goes, because no force was resolved.
+		/// </summary>
+		[Test]
+		public void ARejectedJointShowsItsGeometryButNoForces()
+		{
+			string html = Report(rows: new[]
+			{
+				Rejected("M4-M6: feet overlap (gap -16 mm < 0)"),
+				Rejected("M1: 20.0° off plane (>15°)"),
+			});
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Contain("How the joint was read"),
+					"the block says what it is for on a joint nothing was assessed on");
+				Assert.That(html, Does.Contain("Members &mdash; geometry at the joint"),
+					"the geometry the conditions are measured from is shown");
+				Assert.That(html, Does.Contain("chord (through member)"), "and the chord it identified");
+
+				// The TABLE, matched by its column markup. The prose "no forces were resolved into
+				// the joint plane" legitimately contains the same words, so matching the phrase
+				// failed on correct output — the header cell is what distinguishes them.
+				Assert.That(html, Does.Not.Contain("Force transformation"),
+					"but NO force table — none were resolved into the plane");
+				Assert.That(html, Does.Not.Contain("<th colspan='3'>resolved into the joint plane</th>"),
+					"nor its column heading");
+				Assert.That(html, Does.Not.Contain("from the model (local axes)"),
+					"nor the model-side half of it");
+			});
+		}
+
+		/// <summary>
+		/// An ambiguous chord is labelled as a CHOICE, not stated as a fact.
+		///
+		/// The builder tie-breaks on "the largest Ø of the continuous members"
+		/// (JointTopologyBuilder.cs:63). Printed bare, the row read as certainty immediately above a
+		/// condition saying the chord is ambiguous — the document contradicting itself again.
+		/// </summary>
+		[Test]
+		public void AnAmbiguousChordSaysSo()
+		{
+			string ambiguous = Report(rows: new[]
+			{
+				Rejected("2 continuous members — the chord is ambiguous; §6.4 needs exactly one"),
+			});
+			string plain = Report(rows: new[] { Rejected("M7: θ=0.0° — parallel to chord") });
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(ambiguous, Does.Contain("ambiguous &mdash; taken as the largest"),
+					"the tie-break is disclosed where the chord is ambiguous");
+				Assert.That(plain, Does.Not.Contain("taken as the largest"),
+					"and not where it is not — the caveat must not be boilerplate");
+			});
+		}
+
+		/// <summary>
+		/// The section sits INSIDE the §6.4 chapter group, not above it.
+		///
+		/// The joint plane, the chord and the K/Y/X frame are §6.4's own constructs — the user's
+		/// point: *"doufám že takhle tabulka je řiřazena k 6.4 protože jestli je obecná tak tam
+		/// nepatří"*. Rendered before the groups, as it was, it read as a general property of the
+		/// connection, and a second chapter would have inherited a section that is not about it.
+		/// </summary>
+		[Test]
+		public void TheSectionBelongsToTheSixFourGroup()
+		{
+			string html = Report();
+
+			int group = html.IndexOf("class='chapter-group'", StringComparison.Ordinal);
+			int header = html.IndexOf("Tubular joints", StringComparison.Ordinal);
+			int plane = html.IndexOf("Joint plane and force transformation", StringComparison.Ordinal);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(group, Is.GreaterThan(0), "the chapter group is rendered");
+				Assert.That(plane, Is.GreaterThan(group),
+					"the section is inside the group, not before it");
+				Assert.That(plane, Is.GreaterThan(header),
+					"and after the chapter heading that owns it");
 			});
 		}
 

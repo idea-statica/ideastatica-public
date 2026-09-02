@@ -252,9 +252,8 @@ namespace NorsokChecker.Services
 					sb.AppendLine("</figure>");
 				}
 
-				// Where the checked forces came from, BEFORE the checks that use them.
-				if (topologies != null && topologies.TryGetValue(connectionName, out var topo))
-					RenderJointPlane(sb, topo);
+				// The joint-plane section is NOT rendered here — it belongs INSIDE the §6.4 group,
+				// and only where §6.4 actually ran. See the chapter loop below.
 
 				// Group by chapter, from the registry rather than a list kept here.
 				//
@@ -288,6 +287,20 @@ namespace NorsokChecker.Services
 
 					sb.AppendLine($"<div class='chapter-group'>");
 					sb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
+
+					// The joint plane, INSIDE this chapter's group — it is strictly §6.4's, not a
+					// general property of the connection, and it used to render before the groups
+					// where it read as the latter.
+					//
+					// For a REJECTED joint too, but showing different things: see RenderJointPlane.
+					// The first fix here suppressed it entirely when nothing was assessed, which
+					// removed one contradiction (transformed forces above a card saying no force
+					// could be resolved) and created another — every assessed joint showed its
+					// workings while a rejected one gave only a verdict, though its conditions quote
+					// measured numbers. So the block stays and drops the forces instead.
+					if (key == "6.4"
+						&& topologies != null && topologies.TryGetValue(connectionName, out var topo))
+						RenderJointPlane(sb, topo, groupFormulas);
 
 					if (rejections.Count > 1)
 						RenderRejectionCard(sb, rejections, key, expandAll);
@@ -1184,7 +1197,13 @@ namespace NorsokChecker.Services
 		/// Reports what was RESOLVED, and computes nothing: every number here is already in the
 		/// topology, so this section cannot disagree with the checks below it.
 		/// </summary>
-		private static void RenderJointPlane(StringBuilder sb, Norsok64.JointTopology topo)
+		/// <param name="chapterRows">
+		/// This chapter's rows for this connection — the source of each brace's GOVERNING load
+		/// effect. Without them the force table could only show an arbitrary state, which is what it
+		/// did (the first one) and why none of its numbers matched the checks below it.
+		/// </param>
+		private static void RenderJointPlane(StringBuilder sb, Norsok64.JointTopology topo,
+			IReadOnlyList<NorsokFormulaResult>? chapterRows = null)
 		{
 			// InvariantCulture, like every other number in this report. Written without it first,
 			// and the test caught it immediately: on this cs-CZ machine the normal came out as
@@ -1199,20 +1218,56 @@ namespace NorsokChecker.Services
 				? "&mdash;"
 				: x.ToString("F" + d, System.Globalization.CultureInfo.InvariantCulture);
 
+			// TWO purposes, one block. On an assessed joint this says where the checked forces came
+			// from; on a REJECTED one it says how the chapter reached that verdict — the conditions
+			// on the card quote measured numbers ("gap -16 mm", "20.0° off plane (>15°)", "2
+			// continuous members"), and without the geometry they were measured from, a reader is
+			// asked to take the rejection on trust while every assessed joint shows its workings.
+			//
+			// The forces are omitted when nothing was assessed: none were resolved, and inventing a
+			// state to display would be the contradiction this block had before.
+			bool assessed = chapterRows?.Any(f => !f.IsNote && !f.NotAssessed) == true;
+
 			sb.AppendLine("<div class='deriv-block'>");
-			sb.AppendLine("  <p class='deriv-h'>Joint plane and force transformation</p>");
-			sb.AppendLine("  <p class='deriv-note'>The &sect;6.4 checks are evaluated on forces "
-				+ "resolved into the JOINT plane, not on the member load effects as IDEA StatiCa "
-				+ "Connection shows them. This section states how that plane and the chord were "
-				+ "determined, and lists both sets of forces side by side so every checked value can "
-				+ "be traced back to the model.</p>");
+			if (assessed)
+			{
+				sb.AppendLine("  <p class='deriv-h'>Joint plane and force transformation</p>");
+				sb.AppendLine("  <p class='deriv-note'>The &sect;6.4 checks are evaluated on forces "
+					+ "resolved into the JOINT plane, not on the member load effects as IDEA StatiCa "
+					+ "Connection shows them. This section states how that plane and the chord were "
+					+ "determined, and lists both sets of forces side by side so every checked value "
+					+ "can be traced back to the model.</p>");
+			}
+			else
+			{
+				sb.AppendLine("  <p class='deriv-h'>How the joint was read &mdash; the basis of the "
+					+ "conditions below</p>");
+				sb.AppendLine("  <p class='deriv-note'>No &sect;6.4 check was performed on this joint, "
+					+ "so no forces were resolved into the joint plane. What follows is the geometry "
+					+ "the chapter measured and the chord it identified &mdash; the numbers the "
+					+ "unmet conditions below are read from, given so the verdict can be checked "
+					+ "rather than taken on trust.</p>");
+			}
 
 			// ── the plane and its frame ──
 			sb.AppendLine("  <table class='deriv-table'>");
+			// The chord, and whether naming it was a MEASUREMENT or a CHOICE.
+			//
+			// On an ambiguous joint the builder picks "the largest Ø" among the continuous members
+			// (JointTopologyBuilder.cs:63) — a tie-break, not a fact about the model. Printed bare,
+			// as it was, the row read as certainty directly above a condition saying "2 continuous
+			// members — the chord is ambiguous", which is the document disagreeing with itself.
+			bool chordAmbiguous = chapterRows?.Any(f =>
+				(f.CheckExpression ?? "").Contains("chord is ambiguous",
+					StringComparison.OrdinalIgnoreCase)) == true;
 			Kv(sb, "chord (through member)", topo.Chord == null
 				? "&mdash; none identified"
 				: $"<b>{Esc(topo.Chord.Name ?? "?")}</b>"
-					+ (topo.Chord.Section?.Name is { Length: > 0 } cs ? $" &mdash; {Esc(cs)}" : ""));
+					+ (topo.Chord.Section?.Name is { Length: > 0 } cs ? $" &mdash; {Esc(cs)}" : "")
+					+ (chordAmbiguous
+						? " <span class='deriv-hint'>(ambiguous &mdash; taken as the largest &oslash; "
+							+ "of the continuous members; see the conditions below)</span>"
+						: ""));
 			Kv(sb, "plane normal <span class='deriv-hint'>(model coordinates)</span>", V(topo.NPlane));
 			Kv(sb, "chord axis e<sub>x</sub>", V(topo.Ex));
 			Kv(sb, "in-plane axis e<sub>y</sub>", V(topo.Ey));
@@ -1246,29 +1301,53 @@ namespace NorsokChecker.Services
 				sb.AppendLine("  </table>");
 			}
 
-			// ── the transformation itself, for the FIRST load effect ──
+			// ── the transformation, per brace, for the state that GOVERNS that brace ──
 			//
-			// One load effect, not all of them: the point is to show what the projection DOES, and
-			// the arithmetic is the same for every state. Naming which one is what keeps it honest.
-			var first = topo.BraceForces.FirstOrDefault();
-			if (first != null && first.Rows.Count > 0)
+			// Not the first load effect. It was, with the excuse that "the arithmetic is the same for
+			// every state" — which argues for showing SOME state, not for showing the first one. The
+			// result was a table of LE1 forces above checks evaluated on LE9, LE12 and whatever else
+			// each brace's envelope picked: none of the numbers a reader wanted to trace appeared
+			// anywhere, which is the exact failure this section exists to fix.
+			//
+			// Each row now names its own state, taken from the check row's GovLeId — the same
+			// envelope decision the derivation and the results table use, so the three cannot
+			// disagree. A brace whose check row has no governing state (nothing assessed on it) is
+			// left out rather than filled from an arbitrary one.
+			var governing = new List<(string Brace, string State, Norsok64.BraceForceRow Row)>();
+			foreach (var fr in chapterRows ?? Array.Empty<NorsokFormulaResult>())
 			{
-				sb.AppendLine("  <p class='deriv-h'>Force transformation &mdash; "
-					+ $"{Esc(first.Name ?? $"LE{first.Id}")}</p>");
+				var det = fr.JointDetail;
+				if (fr.IsNote || fr.NotAssessed || det == null || string.IsNullOrEmpty(det.Name))
+					continue;
+
+				var le = topo.BraceForces.FirstOrDefault(p => p.Id == det.GovLeId)
+					?? topo.BraceForces.FirstOrDefault();
+				var row = le?.Rows.FirstOrDefault(x => x.Name == det.Name);
+				if (le == null || row == null) continue;
+
+				governing.Add((det.Name, det.GovLeName ?? le.Name ?? $"LE{le.Id}", row));
+			}
+
+			if (governing.Count > 0)
+			{
+				sb.AppendLine("  <p class='deriv-h'>Force transformation &mdash; each brace at its "
+					+ "governing load effect</p>");
 				sb.AppendLine("  <p class='deriv-note'>Left: the member loading in its own local axes, "
 					+ "as the model carries it. Right: the same loading resolved into the brace's "
-					+ "sub-plane, which is what &sect;6.4 checks. N is positive in TENSION; "
+					+ "sub-plane, which is what &sect;6.4 checks. Each row is the load effect that "
+					+ "GOVERNS that brace &mdash; the state its check below is evaluated on, which "
+					+ "need not be the same for two braces of one joint. N is positive in TENSION; "
 					+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending OF THE JOINT "
 					+ "PLANE (eq 6.57), not a member's local y and z.</p>");
 				sb.AppendLine("  <table class='deriv-table'>");
-				sb.AppendLine("    <tr><th rowspan='2'>member</th>"
+				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>governing</th>"
 					+ "<th colspan='3'>from the model (local axes)</th>"
 					+ "<th colspan='3'>resolved into the joint plane</th></tr>");
 				sb.AppendLine("    <tr><th>N</th><th>M<sub>y,loc</sub></th><th>M<sub>z,loc</sub></th>"
 					+ "<th>N<sub>Sd</sub></th><th>M<sub>y,Sd</sub></th><th>M<sub>z,Sd</sub></th></tr>");
-				foreach (var f in first.Rows)
+				foreach (var (brace, state, f) in governing)
 				{
-					sb.AppendLine($"    <tr><td><b>{Esc(f.Name)}</b></td>"
+					sb.AppendLine($"    <tr><td><b>{Esc(brace)}</b></td><td>{Esc(state)}</td>"
 						+ $"<td>{N(f.LocalN / 1e3, 1)} kN</td>"
 						+ $"<td>{N(f.LocalMy / 1e3, 2)} kN&middot;m</td>"
 						+ $"<td>{N(f.LocalMz / 1e3, 2)} kN&middot;m</td>"
