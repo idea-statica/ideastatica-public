@@ -26,10 +26,21 @@ namespace NorsokChecker
 				allResults.Add((conName, formulas));
 			}
 
+			// The topologies, keyed by connection NAME — the generator has no ids, and the figures
+			// are keyed the same way. Built here rather than passed as the id-keyed dictionary so
+			// the generator stays free of the app's identifiers.
+			var topologies = new Dictionary<string, Services.Norsok64.JointTopology>();
+			foreach (var (conId, topo) in _topologyPerConnection)
+			{
+				var name = _connections.FirstOrDefault(c => c.Id == conId)?.Name;
+				if (!string.IsNullOrEmpty(name)) topologies[name] = topo;
+			}
+
 			// The figures were rendered during the run — see _jointFigures. Building the report stays
 			// synchronous: it assembles what is already known and fetches nothing.
 			return NorsokHtmlReportGenerator.GenerateReport(
-				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, _jointFigures);
+				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, _jointFigures,
+				topologies);
 		}
 
 		/// <summary>
@@ -72,7 +83,17 @@ namespace NorsokChecker
 			if (string.IsNullOrEmpty(name)) return;
 
 			// Nothing was assessed here — no utilisation, so no figure, and no work spent making one.
-			// The report would not print it anyway.
+			//
+			// The review asked for a figure on these too, so a claim like "gap -16 mm" or "IPE100 is
+			// RolledI" could be checked by eye. Tried and reverted, on the user's judgement and for a
+			// concrete reason: NEITHER of those conditions is visible in this view. It is a
+			// projection along the plane normal, where a toe-to-toe gap is foreshortened to nothing
+			// and a section TYPE does not appear at all. The picture would not verify the claim, it
+			// would merely sit next to it — and an uncoloured figure beside a rejection invites the
+			// reader to look for something the image cannot show.
+			//
+			// These conditions are taken on trust from the numbers in the rejection card, which is
+			// what the card is for.
 			if (con!.NorsokPass == "N/A") return;
 
 			try

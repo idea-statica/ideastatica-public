@@ -209,6 +209,23 @@ namespace NorsokChecker.Services.Norsok64
 		public double Mtor { get; set; }
 		public double SubNormalDot { get; set; }
 		public int Side { get; set; } = 1;
+
+		// ── The same loading BEFORE projection, in the member's own local axes ──
+		//
+		// Carried so the report can show where the checked forces came from. Until this existed the
+		// report printed only the projected values under the heading "Applied forces (in the joint
+		// plane)", and a reviewer holding the IDEA StatiCa model could not reconcile a single number
+		// in it: these are what the application shows, those are what §6.4 is evaluated on, and
+		// nothing in the document connected the two.
+		//
+		// Copied verbatim from the section load, in N and N·m — no arithmetic, so they cannot
+		// disagree with the model, and no result reads them.
+		public double LocalN { get; set; }
+		public double LocalVy { get; set; }
+		public double LocalVz { get; set; }
+		public double LocalMx { get; set; }
+		public double LocalMy { get; set; }
+		public double LocalMz { get; set; }
 	}
 
 	/// <summary>Chord nominal stresses at one brace footprint, NORSOK Qf convention (Pa).</summary>

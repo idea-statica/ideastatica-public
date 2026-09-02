@@ -88,11 +88,21 @@ namespace NorsokChecker.Services
 		/// could no longer be called from a test without a UI thread. Base64 rather than a file path
 		/// because WebView2's NavigateToString has no base URL to resolve one against.
 		/// </param>
+		/// <param name="topologies">
+		/// The resolved joint topology per connection name, for the "Joint plane and force
+		/// transformation" section.
+		///
+		/// Optional, and the section is simply absent without it — a test that only wants the check
+		/// cards should not have to build a topology. Passed in for the same reason the figures are:
+		/// deriving one needs the API and the members, and a generator that reached for either could
+		/// no longer be called without a service.
+		/// </param>
 		public static string GenerateReport(
 			string projectName,
 			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults,
 			bool expandAll = false,
-			IReadOnlyDictionary<string, string>? jointImages = null)
+			IReadOnlyDictionary<string, string>? jointImages = null,
+			IReadOnlyDictionary<string, Norsok64.JointTopology>? topologies = null)
 		{
 			var sb = new StringBuilder();
 
@@ -241,6 +251,10 @@ namespace NorsokChecker.Services
 						+ "members coloured by their governing utilisation.</figcaption>");
 					sb.AppendLine("</figure>");
 				}
+
+				// Where the checked forces came from, BEFORE the checks that use them.
+				if (topologies != null && topologies.TryGetValue(connectionName, out var topo))
+					RenderJointPlane(sb, topo);
 
 				// Group by chapter, from the registry rather than a list kept here.
 				//
@@ -544,6 +558,30 @@ namespace NorsokChecker.Services
 			}
 
 			sb.AppendLine("</table>");
+
+			// Which load effects actually governed anything, in one line under the table.
+			//
+			// The review asked for a load-case LEGEND, on the grounds that "LE12" appears as a
+			// governing state with nothing saying what it is. Not built, deliberately: LE1…LE12 are
+			// the model's OWN names for its load effects — the names the engineer typed in IDEA
+			// StatiCa — so a legend could only say "LE12 is called LE12". A legend worth having would
+			// list each state's FORCES, which is a different and much larger section.
+			//
+			// What was missing is cheaper and more useful: the reader cannot otherwise tell whether
+			// the whole envelope was exercised or one state governed everything.
+			var governingStates = allResults
+				.SelectMany(r => r.formulas)
+				.Where(f => !f.IsNote && !f.NotAssessed && !string.IsNullOrEmpty(f.LoadCaseName))
+				.Select(f => f.LoadCaseName!)
+				.Distinct()
+				.OrderBy(s => s, StringComparer.OrdinalIgnoreCase)
+				.ToList();
+
+			if (governingStates.Count > 0)
+				sb.AppendLine("<p class='settings-note'>Governing load effects across the project: "
+					+ $"<b>{Esc(string.Join(", ", governingStates))}</b> "
+					+ $"({governingStates.Count} of the model's states governed at least one check; "
+					+ "each check is evaluated against every state and reports its worst).</p>");
 		}
 
 		/// <summary>
@@ -1129,6 +1167,126 @@ namespace NorsokChecker.Services
 					+ "rule).</p>");
 
 			sb.AppendLine("    </div>");
+		}
+
+		/// <summary>
+		/// Where the checked forces came from: the joint plane, the chord, and the transformation.
+		///
+		/// THE gap a reviewer holding the IDEA StatiCa model hit hardest. §6.4 is not evaluated on
+		/// the load effects as the application shows them — the tool resolves a joint plane,
+		/// identifies the through chord, classifies each brace into K/Y/X fractions and projects the
+		/// member forces into that plane. The report printed only the OUTPUT of that pipeline, under
+		/// a heading that said "in the joint plane" and nothing more, so not one force in the
+		/// document could be reconciled against anything visible in Connection.
+		///
+		/// Once per connection, not once per brace: the plane, the chord and the frame are properties
+		/// of the JOINT. The same reasoning removes the per-brace repetition the review measured —
+		/// the chord's section properties and stresses were printed identically on pages 6 and 20 of
+		/// the shipped report.
+		///
+		/// Reports what was RESOLVED, and computes nothing: every number here is already in the
+		/// topology, so this section cannot disagree with the checks below it.
+		/// </summary>
+		private static void RenderJointPlane(StringBuilder sb, Norsok64.JointTopology topo)
+		{
+			// InvariantCulture, like every other number in this report. Written without it first,
+			// and the test caught it immediately: on this cs-CZ machine the normal came out as
+			// "+0,577" while the forces beside it used points. The same slip as the utilisation
+			// percentages, made again ten minutes after fixing those.
+			static string F(double x, string fmt) =>
+				x.ToString(fmt, System.Globalization.CultureInfo.InvariantCulture);
+			static string V(Norsok64.Vec3 v) =>
+				$"({F(v.X, "+0.000;-0.000;0.000")}, {F(v.Y, "+0.000;-0.000;0.000")}, "
+				+ $"{F(v.Z, "+0.000;-0.000;0.000")})";
+			static string N(double x, int d = 1) => double.IsNaN(x) || double.IsInfinity(x)
+				? "&mdash;"
+				: x.ToString("F" + d, System.Globalization.CultureInfo.InvariantCulture);
+
+			sb.AppendLine("<div class='deriv-block'>");
+			sb.AppendLine("  <p class='deriv-h'>Joint plane and force transformation</p>");
+			sb.AppendLine("  <p class='deriv-note'>The &sect;6.4 checks are evaluated on forces "
+				+ "resolved into the JOINT plane, not on the member load effects as IDEA StatiCa "
+				+ "Connection shows them. This section states how that plane and the chord were "
+				+ "determined, and lists both sets of forces side by side so every checked value can "
+				+ "be traced back to the model.</p>");
+
+			// ── the plane and its frame ──
+			sb.AppendLine("  <table class='deriv-table'>");
+			Kv(sb, "chord (through member)", topo.Chord == null
+				? "&mdash; none identified"
+				: $"<b>{Esc(topo.Chord.Name ?? "?")}</b>"
+					+ (topo.Chord.Section?.Name is { Length: > 0 } cs ? $" &mdash; {Esc(cs)}" : ""));
+			Kv(sb, "plane normal <span class='deriv-hint'>(model coordinates)</span>", V(topo.NPlane));
+			Kv(sb, "chord axis e<sub>x</sub>", V(topo.Ex));
+			Kv(sb, "in-plane axis e<sub>y</sub>", V(topo.Ey));
+			Kv(sb, "how the plane was fixed", Esc(topo.PlaneFitBasis ?? "&mdash;"));
+			if (!topo.Coplanar || topo.PlaneSpread > 0)
+				Kv(sb, "out-of-plane spread", $"{N(topo.PlaneSpread * 1e3, 1)} mm"
+					+ (topo.Coplanar ? "" : " <span class='deriv-hint'>(not coplanar)</span>"));
+			sb.AppendLine("  </table>");
+
+			if (!string.IsNullOrEmpty(topo.PlaneWarn))
+				sb.AppendLine($"  <p class='deriv-warn'>&#9888; {Esc(topo.PlaneWarn)}</p>");
+
+			// ── one geometry row per brace, instead of the same numbers inside every check ──
+			if (topo.BracesMeta.Count > 0)
+			{
+				sb.AppendLine("  <p class='deriv-h'>Members &mdash; geometry at the joint</p>");
+				sb.AppendLine("  <table class='deriv-table'>");
+				sb.AppendLine("    <tr><th>member</th><th>section</th><th>&theta;</th>"
+					+ "<th>&beta;</th><th>off-plane</th><th>ecc. along chord</th>"
+					+ "<th>chord face</th></tr>");
+				foreach (var b in topo.BracesMeta)
+				{
+					sb.AppendLine($"    <tr><td><b>{Esc(b.Name)}</b></td>"
+						+ $"<td>{Esc(b.Section?.Name ?? "&mdash;")}</td>"
+						+ $"<td>{N(b.ThetaDeg, 1)}&deg;</td>"
+						+ $"<td>{(b.Beta is { } be ? N(be, 3) : "&mdash;")}</td>"
+						+ $"<td>{N(b.CoplanarDevDeg, 1)}&deg;</td>"
+						+ $"<td>{N(b.OopOffsetM * 1e3, 1)} mm</td>"
+						+ $"<td>{(b.Side >= 0 ? "+ey" : "&minus;ey")}</td></tr>");
+				}
+				sb.AppendLine("  </table>");
+			}
+
+			// ── the transformation itself, for the FIRST load effect ──
+			//
+			// One load effect, not all of them: the point is to show what the projection DOES, and
+			// the arithmetic is the same for every state. Naming which one is what keeps it honest.
+			var first = topo.BraceForces.FirstOrDefault();
+			if (first != null && first.Rows.Count > 0)
+			{
+				sb.AppendLine("  <p class='deriv-h'>Force transformation &mdash; "
+					+ $"{Esc(first.Name ?? $"LE{first.Id}")}</p>");
+				sb.AppendLine("  <p class='deriv-note'>Left: the member loading in its own local axes, "
+					+ "as the model carries it. Right: the same loading resolved into the brace's "
+					+ "sub-plane, which is what &sect;6.4 checks. N is positive in TENSION; "
+					+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending OF THE JOINT "
+					+ "PLANE (eq 6.57), not a member's local y and z.</p>");
+				sb.AppendLine("  <table class='deriv-table'>");
+				sb.AppendLine("    <tr><th rowspan='2'>member</th>"
+					+ "<th colspan='3'>from the model (local axes)</th>"
+					+ "<th colspan='3'>resolved into the joint plane</th></tr>");
+				sb.AppendLine("    <tr><th>N</th><th>M<sub>y,loc</sub></th><th>M<sub>z,loc</sub></th>"
+					+ "<th>N<sub>Sd</sub></th><th>M<sub>y,Sd</sub></th><th>M<sub>z,Sd</sub></th></tr>");
+				foreach (var f in first.Rows)
+				{
+					sb.AppendLine($"    <tr><td><b>{Esc(f.Name)}</b></td>"
+						+ $"<td>{N(f.LocalN / 1e3, 1)} kN</td>"
+						+ $"<td>{N(f.LocalMy / 1e3, 2)} kN&middot;m</td>"
+						+ $"<td>{N(f.LocalMz / 1e3, 2)} kN&middot;m</td>"
+						+ $"<td>{N(f.NSd / 1e3, 1)} kN</td>"
+						+ $"<td>{N(f.Mip / 1e3, 2)} kN&middot;m</td>"
+						+ $"<td>{N(f.Mop / 1e3, 2)} kN&middot;m</td></tr>");
+				}
+				sb.AppendLine("  </table>");
+				sb.AppendLine("  <p class='deriv-note'>Section forces are taken AT THE NODE and "
+					+ "projected without an r&times;F transfer, matching the reference "
+					+ "implementation. Shear does not enter eq (6.57) and torsion is excluded by "
+					+ "&sect;6.4.</p>");
+			}
+
+			sb.AppendLine("</div>");
 		}
 
 		/// <summary>A key/value row in a derivation table.</summary>

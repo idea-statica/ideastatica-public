@@ -121,8 +121,11 @@ namespace NorsokChecker
 						// with no load-case id, including rows for a joint that was never assessed —
 						// an envelope is a set of load cases, so naming one on a row that has none
 						// states something that did not happen.
+						// "LE", not "LC": the report's fallback spells it LE and the model's own names
+						// are LE1…LE12, so the grid was the only place calling the same thing a load
+						// CASE. One name for one concept, whichever screen it appears on.
 						LoadCase = !string.IsNullOrEmpty(fr.LoadCaseName) ? fr.LoadCaseName
-							: fr.LoadCaseId > 0 ? $"LC{fr.LoadCaseId}"
+							: fr.LoadCaseId > 0 ? $"LE{fr.LoadCaseId}"
 							: noResult ? "—" : "envelope",
 
 						fr.Equation,

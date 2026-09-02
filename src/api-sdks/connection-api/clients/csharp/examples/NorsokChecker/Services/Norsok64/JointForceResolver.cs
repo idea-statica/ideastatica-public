@@ -160,6 +160,12 @@ namespace NorsokChecker.Services.Norsok64
 				Mop = Vec3.Dot(M, ip),             // M_z — out-of-plane bending
 				Mtor = Vec3.Dot(M, bx),            // torsion (excluded from 6.57)
 				SubNormalDot = Vec3.Dot(nb, nPlane),
+
+				// The INPUT, kept beside the output so the report can show the transformation rather
+				// than only its result. Verbatim from the section load — the numbers the engineer
+				// sees in IDEA StatiCa — with no arithmetic of any kind.
+				LocalN = sl.N, LocalVy = sl.Vy, LocalVz = sl.Vz,
+				LocalMx = sl.Mx, LocalMy = sl.My, LocalMz = sl.Mz,
 			};
 		}
 
