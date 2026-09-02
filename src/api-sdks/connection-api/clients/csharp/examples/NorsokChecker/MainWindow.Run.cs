@@ -112,6 +112,10 @@ namespace NorsokChecker
 				{
 					_formulaResults.Remove(con.Id);
 					_topologyPerConnection.Remove(con.Id);
+					// The figure too, keyed by NAME as the report keys it. It is coloured by the
+					// envelope utilisations, so a stale one does not merely look old — it states a
+					// different result from the table beside it.
+					if (con.Name != null) _jointFigures.Remove(con.Name);
 				}
 
 				foreach (var con in selected)
@@ -239,6 +243,10 @@ namespace NorsokChecker
 							+ "; see the Results tab for the conditions that were not met");
 					else if (verdict.Pass == "PARTIAL")
 						Log("    part of this connection was not assessed");
+
+					// The report's joint figure, made here while this connection's bodies are in
+					// hand — and only if something was assessed, which the verdict above now says.
+					await RenderJointFigureAsync(con.Id);
 				}
 
 				// Each tab is filled from here, in turn. PopulateResultsTab used to call the other two

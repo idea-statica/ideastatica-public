@@ -89,6 +89,17 @@ namespace NorsokChecker
 		/// </summary>
 		private readonly Dictionary<int, List<MemberMesh>> _meshesPerConnection = new();
 
+		/// <summary>
+		/// The report's joint figure per connection NAME (which is how the report keys them), as a
+		/// base64 PNG, rendered during the run.
+		///
+		/// Made there rather than when the report is built: the run already visits every assessed
+		/// connection and fetches its bodies, and it keeps report generation synchronous — a report
+		/// that waits on HTTP can fail there, and a failure that skips the navigation leaves an
+		/// uninitialised WebView2, which paints black with no message.
+		/// </summary>
+		private readonly Dictionary<string, string> _jointFigures = new();
+
 		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public MainWindow()

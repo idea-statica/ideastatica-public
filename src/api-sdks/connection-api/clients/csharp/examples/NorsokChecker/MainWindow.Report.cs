@@ -26,8 +26,10 @@ namespace NorsokChecker
 				allResults.Add((conName, formulas));
 			}
 
+			// The figures were rendered during the run — see _jointFigures. Building the report stays
+			// synchronous: it assembles what is already known and fetches nothing.
 			return NorsokHtmlReportGenerator.GenerateReport(
-				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, RenderJointFigures());
+				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, _jointFigures);
 		}
 
 		/// <summary>
@@ -40,56 +42,73 @@ namespace NorsokChecker
 		/// report wanted painted on the tab the user is looking at — a different load effect, a
 		/// different rotation — and the two would fight over one control.
 		///
-		/// Only connections with a topology get a figure. A joint the chapter rejected has no
-		/// envelope to colour by, and an uncoloured picture beside a "not assessed" card would imply
-		/// there was something to see.
+		/// Only a joint that was actually ASSESSED gets a figure, and the check is made before any work
+		/// is done for it. Two reasons, and the second is the reason it is a guard rather than a
+		/// filter at the end: the figure is coloured by utilisation, so a joint with no utilisation
+		/// has nothing to show and an uncoloured picture beside a "not assessed" card would imply
+		/// otherwise — and rendering one costs ~0.3–1.3 s (measured per connection in
+		/// FigureLiveProbe), which is pure waste for a picture the report then declines to print.
+		///
+		/// A topology is NOT enough on its own: one is built for a rejected joint too, precisely so
+		/// its errors can be listed. The verdict is what separates them — N/A means assessed == 0.
+		/// PARTIAL does get a figure: something in it was checked, so there is something to colour.
+		///
+		/// Called from the RUN, once per connection, while its bodies are being fetched anyway — not
+		/// when the report is built. Two things forced that. The bodies come from MeshesForAsync, and
+		/// reading its CACHE instead gave a figure only to the connections the user had clicked (in
+		/// practice CON1, the one selected when a project opens); and building the report must stay
+		/// synchronous, because a report that waits on HTTP can fail there, and a failure that skips
+		/// the navigation leaves an uninitialised WebView2 — which paints black with no message.
+		///
+		/// Never throws. A figure is an illustration: a joint that cannot be drawn costs its own
+		/// picture and nothing more, and must not take the run down with it.
 		/// </summary>
-		private Dictionary<string, string> RenderJointFigures()
+		private async Task RenderJointFigureAsync(int conId)
 		{
-			var figures = new Dictionary<string, string>();
+			if (!_topologyPerConnection.TryGetValue(conId, out var topo)) return;
 
-			foreach (var (conId, topo) in _topologyPerConnection)
+			var con = _connections.FirstOrDefault(c => c.Id == conId);
+			string? name = con?.Name;
+			if (string.IsNullOrEmpty(name)) return;
+
+			// Nothing was assessed here — no utilisation, so no figure, and no work spent making one.
+			// The report would not print it anyway.
+			if (con!.NorsokPass == "N/A") return;
+
+			try
 			{
-				if (!_meshesPerConnection.TryGetValue(conId, out var meshes) || meshes.Count == 0)
-					continue;
+				var meshes = await MeshesForAsync(conId, name);
+				if (meshes.Count == 0) return;
 
-				string? name = _connections.FirstOrDefault(c => c.Id == conId)?.Name;
-				if (string.IsNullOrEmpty(name)) continue;
-
-				try
+				var view = new Controls.Joint3DView
 				{
-					var view = new Controls.Joint3DView
-					{
-						Interactive = false,
-						ShowMemberLabels = true,
-						ChromeVisible = false,
-					};
-					view.Load(meshes);
+					Interactive = false,
+					ShowMemberLabels = true,
+					ChromeVisible = false,
+				};
+				view.Load(meshes);
 
-					var n = topo.NPlane;
-					var axis = topo.Ex;
-					if (n.Norm > 1e-9)
-						view.LookAtPlane(
-							new System.Windows.Media.Media3D.Vector3D(n.X, n.Y, n.Z),
-							new System.Windows.Media.Media3D.Vector3D(axis.X, axis.Y, axis.Z));
+				var n = topo.NPlane;
+				var axis = topo.Ex;
+				if (n.Norm > 1e-9)
+					view.LookAtPlane(
+						new System.Windows.Media.Media3D.Vector3D(n.X, n.Y, n.Z),
+						new System.Windows.Media.Media3D.Vector3D(axis.X, axis.Y, axis.Z));
 
-					// The envelope, always: a report is not looking at one load effect, and the
-					// governing state per brace is what its result rows carry.
-					view.ColourByUtilisation(
-						UtilisationByMember(topo, envelope: true, leId: null),
-						topo.Chord?.Id ?? -1);
+				// The envelope, always: a report is not looking at one load effect, and the
+				// governing state per brace is what its result rows carry.
+				view.ColourByUtilisation(
+					UtilisationByMember(topo, envelope: true, leId: null),
+					topo.Chord?.Id ?? -1);
 
-					byte[]? png = view.RenderToPng();
-					if (png != null) figures[name] = Convert.ToBase64String(png);
-				}
-				catch (Exception ex)
-				{
-					// A figure is an illustration; the report is still valid without one.
-					Log($"  WARNING: the joint figure for {name} could not be rendered ({ex.Message})");
-				}
+				byte[]? png = view.RenderToPng();
+				if (png != null) _jointFigures[name] = Convert.ToBase64String(png);
 			}
-
-			return figures;
+			catch (Exception ex)
+			{
+				// A figure is an illustration; the report is still valid without one.
+				Log($"  WARNING: the joint figure for {name} could not be rendered ({ex.Message})");
+			}
 		}
 
 		/// <summary>
