@@ -105,6 +105,7 @@ namespace NorsokChecker
 		public MainWindow()
 		{
 			InitializeComponent();
+			FitToScreen();
 			ConnectionsGrid.ItemsSource = _connections;
 			MembersGrid.ItemsSource = _members;
 			DataContext = this;
@@ -113,6 +114,34 @@ namespace NorsokChecker
 			HookGroup64Band();
 			PrefillServicePath(ServiceRootForTest);
 			Log("Norsok Checker ready. Configure API path and load a project.");
+		}
+
+		/// <summary>
+		/// Open inside the screen, at the wanted size where it fits.
+		///
+		/// Reported from a laptop: the app started with its title bar above the top edge, so the
+		/// window could not be moved, maximised or minimised — Task Manager was the only way out.
+		/// The XAML asks for 1780 × 1040 with CenterScreen, which puts Top at
+		/// (screenHeight − 1040) / 2 — negative on a 1080 px display.
+		///
+		/// The arithmetic is in Models.StartupWindowFit so the laptop case can be tested from a
+		/// machine that does not have that screen. Here there is only the plumbing: WPF's own
+		/// centring has to be turned OFF, or it recomputes the position from the SCREEN (taskbar
+		/// included) and undoes this.
+		///
+		/// The size stays a WISH: it was measured against the content — seven members without a
+		/// scrollbar, six braces in the §6.4 table — so it gives up only as much as the screen forces.
+		/// </summary>
+		private void FitToScreen()
+		{
+			var fitted = Models.StartupWindowFit.Fit(
+				new Size(Width, Height), SystemParameters.WorkArea);
+
+			WindowStartupLocation = WindowStartupLocation.Manual;
+			Width = fitted.Width;
+			Height = fitted.Height;
+			Left = fitted.Left;
+			Top = fitted.Top;
 		}
 
 		/// <summary>
