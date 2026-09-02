@@ -153,6 +153,30 @@ namespace NorsokChecker
 		}
 
 		/// <summary>
+		/// The page the report prints on. Held for the session so a second export does not re-ask;
+		/// not persisted, because this app has no settings store and inventing one is a larger change
+		/// than the page setup itself.
+		/// </summary>
+		private Models.PageSetup _pageSetup = new();
+
+		/// <summary>The page setup, for a test to read back what the dialog left.</summary>
+		internal Models.PageSetup PageSetupForTest => _pageSetup;
+
+		private void PageSetup_Click(object sender, RoutedEventArgs e)
+		{
+			var dlg = new Controls.PageSetupWindow(_pageSetup, this);
+			if (dlg.ShowDialog() == true)
+			{
+				_pageSetup = dlg.Result;
+				Log($"  page setup: {(_pageSetup.IsLetter ? "Letter" : "A4")} "
+					+ $"{(_pageSetup.Landscape ? "landscape" : "portrait")}, margins "
+					+ $"L{_pageSetup.MarginLeftMm:0.#} R{_pageSetup.MarginRightMm:0.#} "
+					+ $"T{_pageSetup.MarginTopMm:0.#} B{_pageSetup.MarginBottomMm:0.#} mm, "
+					+ $"backgrounds {(_pageSetup.PrintBackgrounds ? "on" : "OFF")}");
+			}
+		}
+
+		/// <summary>
 		/// Export the NORSOK report: the same HTML the tab shows, printed to PDF through WebView2 with
 		/// every card expanded. One file — the second, IDEA StatiCa's own report via the API, was
 		/// dropped with the CBFEM chapter.
@@ -198,7 +222,24 @@ namespace NorsokChecker
 				await navigated.Task;
 				await Task.Delay(1200); // allow KaTeX formulas and web fonts to settle (all cards render)
 
-				bool ok = await ReportWebView.CoreWebView2.PrintToPdfAsync(norsokPdf, null);
+				// The page, explicitly. Passing null took WebView2's defaults: 8.5 × 11 in — US
+				// LETTER, not A4 — and ShouldPrintBackgrounds = false, which drops every background
+				// colour. This report encodes PASS/FAIL and the eleven-band utilisation scale in
+				// background colour, so the exported PDF had a failing joint looking like a passing
+				// one. See Models.PageSetup.
+				var print = ReportWebView.CoreWebView2.Environment.CreatePrintSettings();
+				print.PageWidth = _pageSetup.WidthInches;
+				print.PageHeight = _pageSetup.HeightInches;
+				print.MarginLeft = _pageSetup.MarginLeftInches;
+				print.MarginRight = _pageSetup.MarginRightInches;
+				print.MarginTop = _pageSetup.MarginTopInches;
+				print.MarginBottom = _pageSetup.MarginBottomInches;
+				print.ShouldPrintBackgrounds = _pageSetup.PrintBackgrounds;
+				// The report carries its own header; WebView2's would add the print date, the page
+				// title and a file:// URI on every page.
+				print.ShouldPrintHeaderAndFooter = false;
+
+				bool ok = await ReportWebView.CoreWebView2.PrintToPdfAsync(norsokPdf, print);
 				if (!ok)
 					throw new InvalidOperationException("WebView2 PrintToPdf reported failure.");
 				Log($"  NORSOK report: {norsokPdf}");
