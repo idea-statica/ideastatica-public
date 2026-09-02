@@ -255,8 +255,16 @@ For class 4 cross-sections (f_y/f_cle > 0.170), γ_M is not constant:
 Where:
 
 ```
-λ_s = √(σ_c,Sd²/f_cl² · ξ_c + σ_p,Sd²/f_h² · ξ_h)     (Eq. 6.23)
+λ̄_s = |σ_c,Sd|/f_cl · λ_c + (σ_p,Sd/f_h)² · λ_h       (Eq. 6.23)
 ```
+
+`λ_c = f_y/f_cle` and `λ_h = f_y/f_he` (Eq. 6.24) — the code calls the same two `ξ_c`/`ξ_h`.
+
+> **The implementation does not match this.** `MaterialFactorCalc.cs:54-56` computes
+> `√(a² + b²)` where the norm asks for `a + b²`: it squares the axial term, which is first power in
+> the norm, and takes a square root the norm does not have. The result is unconservative (too small
+> a `λ̄_s`, hence too low a γ_M). Recorded in `CHAPTER_63_REVISIT.md`; not fixed, because §6.3 is
+> disconnected and this branch only runs for class 4 sections.
 
 ---
 

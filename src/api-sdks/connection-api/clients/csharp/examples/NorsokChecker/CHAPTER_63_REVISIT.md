@@ -5,7 +5,8 @@ reasoning is about Eq 6.27 specifically; this one asks which checks it applies t
 
 Every quote below was read from `N-004u3-16016541.pdf` (Rev. 3, February 2013) with
 `pdftotext -layout`. Where the extraction is unreliable, this document says so instead of
-resolving it — see the Eq 6.23 caveat at the end.
+resolving it. The one such case — the exponents in Eq 6.23, which `pdftotext` cannot render — was
+settled 2026-09-02 by reading the page itself; see the end.
 
 ## The finding: Eq 6.28 was disconnected for Eq 6.27's reasons
 
@@ -180,21 +181,39 @@ than the seven-per-member grid `CHAPTER_63_FINDINGS.md` costs it at.
 - **The re-enabling cost is over-stated.** Its "175 values per connection" table assumes `M1` per
   plane per load effect; `C_m = 1.0` removes that column entirely.
 
-## Open: the exponent in Eq 6.23 — NOT resolved
+## Resolved 2026-09-02: Eq 6.23 is implemented wrongly — three ways
 
-`MaterialFactorCalc.cs:54` implements the axial term of Eq 6.23 as `(σ_c,Sd/f_cl)² · ξ_c` — squared.
-The PDF's text layer shows a clear `2` on the hoop term and none on the axial term, which would make
-the code's squaring wrong and its `λ_s` too small — hence γ_M too low, which is unconservative.
+The equation, read off the rendered page (p. 22) by a human and cross-checked against the text
+layer:
 
-**This could not be settled here.** The equation is typeset in a Symbol font that `pdftotext` does
-not reproduce, and no PDF rasteriser is available in this sandbox (`pdftoppm`, `mutool` and
-ImageMagick are all absent, and installing poppler needs admin rights). So the exponent has to be
-read off the rendered page by a human, or by a machine that can render it.
+> `λ̄_s = |σ_c,Sd|/f_cl · λ_c + (σ_p,Sd/f_h)² · λ_h`   (6.23)
 
-**Until then, do not re-enable the variable-γ_M branch of §6.3.7.** It only runs for class 4
-sections (`f_y/f_cle > 0.170`); below that γ_M = 1.15 and the branch never executes, so it does not
-block any of the checks listed above. The BENCHMARK.md case (CHS 500×20, `f_y/f_cle = 0.070`) is in
-that safe range.
+`MaterialFactorCalc.cs:54-56` computes `√((σ_c,Sd/f_cl)²·ξ_c + (σ_p,Sd/f_h)²·ξ_h)`. Three
+differences, and they are not variations on one mistake:
+
+1. **The axial term is not squared** in the norm — it is first power, and inside an absolute value.
+   The code squares it.
+2. **The hoop term IS squared**, and the code has that right.
+3. **There is no square root** over the sum. The code takes one.
+
+So the code evaluates `√(a² + b²)` where the norm asks for `a + b²`.
+
+**The direction of the error is unconservative.** For the `a < 1` that a working section produces,
+`√(a² + b²) < a + b²`, so `λ̄_s` comes out too small, γ_M from Eq 6.22b too low, and the resistance
+too high.
+
+`λ_c`/`λ_h` in the norm's typesetting are the quantities Eq 6.24 defines as `f_y/f_cle` and
+`f_y/f_he` — the same two the code calls `ξ_c`/`ξ_h`. Only the symbol differs; nothing is missing.
+
+**Where the square root probably came from:** Eq 6.25, three lines below on the same page, defines
+`σ_c,Sd = N_Sd/A + √(M²_y,Sd + M²_z,Sd)/W`. There a square root belongs. Carrying it up into 6.23
+is the kind of error that survives review because the neighbouring equation justifies it.
+
+**Nothing has been fixed.** The branch lives in `Services/Formulas63_Mothballed/`, all of §6.3 is
+disconnected, and it runs only for class 4 sections (`f_y/f_cle > 0.170`) — below that γ_M = 1.15
+and the branch never executes. The BENCHMARK.md case (CHS 500×20, `f_y/f_cle = 0.070`) is in that
+safe range. **Re-enabling the variable-γ_M branch means fixing all three points above first**, and
+`BENCHMARK.md` has no hand calculation of Eq 6.23 to check the fix against — one has to be made.
 
 ## The state of the code, if this subset is ever wanted
 
@@ -226,7 +245,8 @@ from, measured 2026-08-27:
 - **Not re-verified**: BENCHMARK.md's six hand calculations. They were used only to see which
   equations are already trusted — and to note that Eq 6.14 and the torsion path are NOT among them
   (BENCHMARK.md says so itself).
-- **Unresolved**: the Eq 6.23 exponent, above.
+- **Read off the rendered page** (the text layer cannot carry it): Eq 6.23's exponents. Settled
+  2026-09-02 — the implementation is wrong three ways and unconservative; see above.
 - The python reference (`n63.py`) is **not** a usable oracle for §6.3.8.3: it implements Eq 6.31 as
   `(M/M_Rd)/√(1.4 − V/V_Rd)`, with a square root the norm does not have. BENCHMARK.md records the
   same error in the source worksheet. The C# `ShearBendingCheck` is correct. Where the python IS

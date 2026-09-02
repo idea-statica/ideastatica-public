@@ -50,7 +50,14 @@ namespace NorsokChecker.Services.Formulas
 				// ξ_h = f_y / f_he (Eq. 6.24)
 				double xi_h = f_he > 0 ? f_y / f_he : 0;
 
-				// λ_s (Eq. 6.23) — without hydrostatic pressure, the hoop term is zero
+				// WRONG against Eq 6.23, verified on the rendered page 2026-09-02. The norm reads
+				//     λ̄_s = |σ_c,Sd|/f_cl · λ_c + (σ_p,Sd/f_h)² · λ_h
+				// so the axial term is FIRST power inside an absolute value, only the hoop term is
+				// squared, and there is NO square root over the sum — this computes √(a²+b²) where
+				// the norm asks for a+b². It makes λ̄_s too small and γ_M too low, i.e.
+				// unconservative. Left as it is because §6.3 is disconnected and this branch runs
+				// only for class 4; fix all three before re-enabling, and get a hand calculation to
+				// check it against (BENCHMARK.md has none for 6.23). See CHAPTER_63_REVISIT.md.
 				double term_c = f_cl > 0 ? (sigma_c_Sd * sigma_c_Sd) / (f_cl * f_cl) * xi_c : 0;
 				double term_h = f_h > 0 ? (sigma_p_Sd * sigma_p_Sd) / (f_h * f_h) * xi_h : 0;
 				lambda_s = Math.Sqrt(term_c + term_h);
