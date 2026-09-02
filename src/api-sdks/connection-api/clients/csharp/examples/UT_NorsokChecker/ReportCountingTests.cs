@@ -345,6 +345,47 @@ namespace UT_NorsokChecker
 			}
 		}
 
+		/// <summary>
+		/// A load effect's name reaches the card intact, whatever it is called.
+		///
+		/// Worth a test because the names are FREE TEXT — a load effect is named in IDEA StatiCa
+		/// exactly like a connection, so "LE12" is not a convention to rely on; it is only this
+		/// app's fallback for a state the model left unnamed (JointEnvelope.cs:56). Diacritics and
+		/// an ampersand are the two cases a tidy "LE1" fixture never exercises: the first has to
+		/// survive the round trip, the second has to be escaped or it breaks the document.
+		/// </summary>
+		[Test]
+		public void ALoadEffectsOwnNameReachesTheCard()
+		{
+			NorsokFormulaResult At(string le)
+			{
+				var r = Passed(0.5);
+				r.LoadCaseName = le;
+				return r;
+			}
+
+			string html = Report(
+				("CON1", new[] { At("Vítr Y+") }),
+				("CON2", new[] { At("ULS 3 & wind") }));
+
+			// The BADGE, not the document: `&amp;` occurs all over the page (&mdash;, &sect;), so
+			// asserting on it document-wide can never fail — measured, removing Esc() from the badge
+			// left that version of this test green.
+			var badges = System.Text.RegularExpressions.Regex
+				.Matches(html, @"<span class='lc-badge'>(.*?)</span>")
+				.Select(m => m.Groups[1].Value)
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(badges, Has.Count.EqualTo(2), "one badge per check");
+				Assert.That(badges, Does.Contain("V&#237;tr Y+"),
+					"diacritics reach the badge, encoded");
+				Assert.That(badges, Does.Contain("ULS 3 &amp; wind"),
+					"and the ampersand is escaped IN THE BADGE — raw, it would open an entity");
+			});
+		}
+
 		/// <summary>An assessed row with a full §6.4 derivation, so every block renders.</summary>
 		private static NorsokFormulaResult WithDerivation()
 		{

@@ -559,29 +559,23 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("</table>");
 
-			// Which load effects actually governed anything, in one line under the table.
+			// NO project-wide list of governing load effects here.
 			//
-			// The review asked for a load-case LEGEND, on the grounds that "LE12" appears as a
-			// governing state with nothing saying what it is. Not built, deliberately: LE1…LE12 are
-			// the model's OWN names for its load effects — the names the engineer typed in IDEA
-			// StatiCa — so a legend could only say "LE12 is called LE12". A legend worth having would
-			// list each state's FORCES, which is a different and much larger section.
+			// One was built and removed. The review asked for a load-case legend, and this was the
+			// answer to it — but pooling the governing states of fifteen joints into one line is the
+			// same mistake as "Total Checks: 55": it adds up things that belong to different
+			// connections, and the sum means nothing to anyone. Which state governs a joint is a
+			// property OF THAT JOINT, and it is already on every check's card and in its derivation,
+			// where the reader is looking at the joint it belongs to.
 			//
-			// What was missing is cheaper and more useful: the reader cannot otherwise tell whether
-			// the whole envelope was exercised or one state governed everything.
-			var governingStates = allResults
-				.SelectMany(r => r.formulas)
-				.Where(f => !f.IsNote && !f.NotAssessed && !string.IsNullOrEmpty(f.LoadCaseName))
-				.Select(f => f.LoadCaseName!)
-				.Distinct()
-				.OrderBy(s => s, StringComparer.OrdinalIgnoreCase)
-				.ToList();
-
-			if (governingStates.Count > 0)
-				sb.AppendLine("<p class='settings-note'>Governing load effects across the project: "
-					+ $"<b>{Esc(string.Join(", ", governingStates))}</b> "
-					+ $"({governingStates.Count} of the model's states governed at least one check; "
-					+ "each check is evaluated against every state and reports its worst).</p>");
+			// (It was also wrong in detail, which is what exposed the idea: the list sorted the names
+			// alphabetically, so "LE11" and "LE12" came before "LE2" — and a load effect is named
+			// freely in IDEA StatiCa, exactly like a connection, so on names like "Vítr Y+" no
+			// ordering carries meaning at all. `LE{id}` is only this app's fallback for a state the
+			// model left unnamed; see JointEnvelope.cs:56.)
+			//
+			// A legend worth having would list each state's FORCES, per connection. That is an
+			// appendix, not a line under the overview table.
 		}
 
 		/// <summary>
