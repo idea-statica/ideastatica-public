@@ -756,7 +756,10 @@ namespace NorsokChecker.Services
 				// report still spelling it the American way: 30 occurrences beside 60 of the other.
 				// The property is still called Utilization; renaming it would be churn no reader sees.
 				sb.AppendLine($"      <span>Utilisation: <strong>{Pct(fr.Utilization)}</strong> "
-					+ $"(= {fr.Utilization:F4} &le; 1.0)</span>");
+					// InvariantCulture like the rest — this was the last comma decimal in the
+					// document, and the whole-document sweep is what found it.
+					+ $"(= {fr.Utilization.ToString("F4", System.Globalization.CultureInfo.InvariantCulture)}"
+					+ " &le; 1.0)</span>");
 			}
 			sb.AppendLine($"      <span class='result-verdict'>{statusIcon} {statusText}</span>");
 			sb.AppendLine("    </div>");
@@ -886,7 +889,7 @@ namespace NorsokChecker.Services
 			Kv(sb, "&beta; = d/D", N(r.Beta));
 			Kv(sb, "&gamma; = D/(2T)", N(r.Gamma));
 			Kv(sb, "&tau; = t/T", N(r.Tau));
-			Kv(sb, "classification", $"K {cl.FrK:P2} &middot; Y {cl.FrY:P2} &middot; X {cl.FrX:P2}");
+			Kv(sb, "classification", $"K {Pct2(cl.FrK)} &middot; Y {Pct2(cl.FrY)} &middot; X {Pct2(cl.FrX)}");
 			Kv(sb, "&gamma;<sub>M</sub>", N(inp.GammaM, 3));
 			sb.AppendLine("      </table>");
 
@@ -1054,13 +1057,13 @@ namespace NorsokChecker.Services
 			if (cl.FrK > 1e-9 && r.KTerms.Count > 0)
 			{
 				sb.AppendLine($"      <p class='deriv-h'>Mode K &mdash; fraction of N<sub>Sd</sub> = "
-					+ $"{cl.FrK:P2}" + (r.KTerms.Count > 1 ? $" (split over {r.KTerms.Count} gaps)" : "")
+					+ Pct2(cl.FrK) + (r.KTerms.Count > 1 ? $" (split over {r.KTerms.Count} gaps)" : "")
 					+ "</p>");
 				for (int i = 0; i < r.KTerms.Count; i++)
 				{
 					var kt = r.KTerms[i];
 					string lbl = r.KTerms.Count > 1 ? $"K{i + 1}" : "K";
-					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {kt.FrK:P1} of "
+					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {Pct(kt.FrK)} of "
 						+ "N<sub>Sd</sub> balanced across this gap.</p>");
 					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 0)} mm, "
 						+ $"g/D = {N(kt.GapM / inp.D, 3)}",
@@ -1086,7 +1089,7 @@ namespace NorsokChecker.Services
 				if (frac <= 1e-9 || !r.PerClass.TryGetValue(cls, out var c)) continue;
 				string tension = r.LoadAxial == "tension" ? "tension" : "compression";
 				sb.AppendLine($"      <p class='deriv-h'>Mode {cls} &mdash; fraction of "
-					+ $"N<sub>Sd</sub> = {frac:P2}</p>");
+					+ $"N<sub>Sd</sub> = {Pct2(frac)}</p>");
 				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, C&#8321;={N(c.CAxial.C1, 2)}, "
 					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
 					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
@@ -1121,7 +1124,7 @@ namespace NorsokChecker.Services
 				sb.AppendLine("      <table class='deriv-table'>");
 				sb.AppendLine("        <tr><th>mode</th><th>fraction</th><th>N<sub>Rd,mode</sub></th></tr>");
 				foreach (var (cls, frac) in active)
-					sb.AppendLine($"        <tr><td>{cls}</td><td>{frac:P2}</td>"
+					sb.AppendLine($"        <tr><td>{cls}</td><td>{Pct2(frac)}</td>"
 						+ $"<td>{N(r.PerClass[cls].NRd / 1e3, 1)} kN</td></tr>");
 				sb.AppendLine("      </table>");
 				Step(sb, "Weighted axial resistance &mdash; Comm. 6.4.2 (mixture of K/Y/X)",
@@ -1397,6 +1400,18 @@ namespace NorsokChecker.Services
 		}
 
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
+
+		/// <summary>
+		/// A fraction as a percentage to TWO decimals — the K/Y/X split and the per-mode fractions.
+		///
+		/// Same reason as <see cref="Pct"/>, and these were the larger half of the problem: measured
+		/// 126 comma decimals in one printed report ("100,00", "0,7370") beside the points used
+		/// everywhere else, all from `:P2`/`:P1` interpolations carrying no culture. They predate
+		/// this round of work — what is new is the check that found them.
+		/// </summary>
+		private static string Pct2(double ratio) =>
+			ratio.ToString("P2", System.Globalization.CultureInfo.InvariantCulture)
+				.Replace(" ", "").Replace(" ", "");
 
 		/// <summary>
 		/// A utilisation as a percentage, to one decimal — through ONE formatter, in one culture.

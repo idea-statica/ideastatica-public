@@ -300,5 +300,75 @@ namespace UT_NorsokChecker
 				System.Threading.Thread.CurrentThread.CurrentCulture = before;
 			}
 		}
+
+		/// <summary>
+		/// NO number anywhere in the report uses the machine's decimal separator.
+		///
+		/// The test above covers the utilisation figures; this covers the whole document, because
+		/// they were not the only offenders. Measured on a printed report after fixing them: 126
+		/// comma decimals remained — "100,00" and "0,7370" from the K/Y/X split and the per-mode
+		/// fractions, `:P2`/`:P1` interpolations with no culture that predate this work entirely.
+		///
+		/// A whole-document sweep rather than a list of call sites: the next one added will be caught
+		/// without anyone remembering to extend a list.
+		/// </summary>
+		[Test]
+		public void NoNumberInTheReportUsesTheMachinesDecimalSeparator()
+		{
+			var before = System.Threading.Thread.CurrentThread.CurrentCulture;
+			try
+			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("cs-CZ");
+
+				// A row WITH its derivation, or the K/Y/X and per-mode blocks never render and the
+				// sweep passes over a document that contains none of the offending numbers.
+				string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+					new List<(string, List<NorsokFormulaResult>)>
+						{ ("CON1", new List<NorsokFormulaResult> { WithDerivation() }) });
+
+				// The embedded KaTeX script and stylesheet are third-party verbatim, and minified JS
+				// is full of "1,2" sequences that are not decimals at all.
+				int bodyAt = html.IndexOf("</head>", StringComparison.Ordinal);
+				string body = html[bodyAt..];
+
+				var commas = System.Text.RegularExpressions.Regex.Matches(body, @"\d,\d")
+					.Select(m => m.Value)
+					.Distinct()
+					.ToList();
+
+				Assert.That(commas, Is.Empty,
+					"comma decimals reached the page: " + string.Join(", ", commas));
+			}
+			finally
+			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = before;
+			}
+		}
+
+		/// <summary>An assessed row with a full §6.4 derivation, so every block renders.</summary>
+		private static NorsokFormulaResult WithDerivation()
+		{
+			var inputs = NorsokChecker.Services.Norsok64.Joint64Input.FromSI(
+				D: 0.141, T: 0.0065, fyChord: 355e6,
+				d: 0.076, t: 0.0035, fyBrace: 355e6,
+				thetaDeg: 60.0, g: 0.047,
+				frK: 1.0, frY: 0.0, frX: 0.0,
+				nSd: -10e3, mipSd: -1e3, mopSd: 0,
+				sigmaASd: 9.27e6, sigmaMySd: -25.48e6, sigmaMzSd: 0,
+				gammaM: 1.15);
+
+			var row = Passed(0.737);
+			row.JointDetail = new NorsokChecker.Services.Norsok64.JointCheckRow
+			{
+				Name = "M1", Skipped = false, Util = 0.737, Passed = true,
+				Engine = NorsokChecker.Services.Norsok64.Norsok64Engine.CheckJoint(inputs),
+				Inputs = inputs, DomClass = "K",
+				Classification = new NorsokChecker.Services.Norsok64.KyxClass
+				{
+					Name = "M1", FrK = 1.0, FrY = 0, FrX = 0,
+				},
+			};
+			return row;
+		}
 	}
 }

@@ -65,8 +65,63 @@ namespace UT_NorsokChecker
 				cons.Add(($"CON{i}", new List<NorsokFormulaResult>
 					{ Assessed("M1"), Assessed("M2"), Assessed("M3") }));
 
-			return NorsokHtmlReportGenerator.GenerateReport("probe.ideaCon", cons, expandAll: true);
+			// WITH topologies, or the printed PDF is missing the joint-plane section entirely — the
+			// largest change in this round, and the one a reviewer most needs to see. A probe that
+			// prints a document the app would not produce measures the wrong thing.
+			var topo = new Dictionary<string, JointTopology>();
+			foreach (var (name, _) in cons) topo[name] = SampleTopology();
+
+			return NorsokHtmlReportGenerator.GenerateReport(
+				"probe.ideaCon", cons, expandAll: true, jointImages: null, topologies: topo);
 		}
+
+		/// <summary>
+		/// A resolved topology with an OFF-AXIS frame, so the projected forces genuinely differ from
+		/// the local ones — an axis-aligned joint would print two identical columns and show nothing.
+		/// </summary>
+		private static JointTopology SampleTopology() => new()
+		{
+			Chord = new JointMemberData
+			{
+				Id = 1, Name = "M1",
+				Section = new JointSectionInfo { Name = "CHS273.0/12.5", D = 0.273, T = 0.0125 },
+			},
+			Ex = new Vec3(0.7071, 0.7071, 0),
+			Ey = new Vec3(-0.4082, 0.4082, 0.8165),
+			NPlane = new Vec3(0.5774, -0.5774, 0.5774),
+			PlaneFitBasis = "least-squares fit over 2 braces",
+			PlaneSpread = 0.0032,
+			Coplanar = true,
+			BracesMeta = new List<BraceMeta>
+			{
+				new() { Name = "M2", ThetaDeg = 47.3, Beta = 0.279, CoplanarDevDeg = 2.1,
+					OopOffsetM = 0.004, Side = 1,
+					Section = new JointSectionInfo { Name = "CHS76.1/3.6" } },
+				new() { Name = "M3", ThetaDeg = 61.8, Beta = 0.418, CoplanarDevDeg = 0.4,
+					OopOffsetM = -0.002, Side = -1,
+					Section = new JointSectionInfo { Name = "CHS114.3/5.0" } },
+			},
+			BraceForces = new List<PerLoadEffect<BraceForceRow>>
+			{
+				new()
+				{
+					Id = 12, Name = "LE12",
+					Rows = new List<BraceForceRow>
+					{
+						new() { Name = "M2",
+							LocalN = -142_100, LocalVy = 3_200, LocalVz = -1_100,
+							LocalMx = 210, LocalMy = 4_700, LocalMz = -980,
+							NSd = -142_100, Vip = 2_900, Vop = -1_500,
+							Mip = 4_310, Mop = -1_620 },
+						new() { Name = "M3",
+							LocalN = 88_400, LocalVy = -2_100, LocalVz = 900,
+							LocalMx = -140, LocalMy = -3_300, LocalMz = 720,
+							NSd = 88_400, Vip = -1_800, Vop = 1_200,
+							Mip = -3_050, Mop = 1_140 },
+					},
+				},
+			},
+		};
 
 		/// <summary>
 		/// Print any HTML and return the PDF's path. EVERY await is bounded.
