@@ -355,10 +355,12 @@ namespace UT_NorsokChecker
 		/// The formulas are actually there, as LaTeX for KaTeX to typeset. This is the whole
 		/// difference from the six-tables-of-numbers version.
 		/// </summary>
-		[TestCase(@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_y}\right)^2", "eq (6.55), chord utilisation")]
-		[TestCase(@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_y}", "eq (6.54), the chord action factor")]
-		[TestCase(@"M_{Rd,ip} = \dfrac{f_y\,T^2\,d}{\gamma_M \sin\theta}", "eq (6.53), bending resistance")]
-		[TestCase(@"N_{Rd} = \dfrac{f_y\,T^2}{\gamma_M \sin\theta}", "eq (6.52), axial resistance")]
+		// f_{y,chord} and M_{y,Rd}: the formulas name WHICH yield they use (eq 6.52/6.53 key on the
+		// chord) and the moments use the norm's own y/z symbols — see NotationTests for both.
+		[TestCase(@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_{y,chord}}\right)^2", "eq (6.55), chord utilisation")]
+		[TestCase(@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}}", "eq (6.54), the chord action factor")]
+		[TestCase(@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}", "eq (6.53), bending resistance")]
+		[TestCase(@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}", "eq (6.52), axial resistance")]
 		[TestCase(@"u = \dfrac{N_{Sd}}{N_{Rd}}", "eq (6.57), the interaction")]
 		public void TheFormulasAreTypeset(string latex, string what)
 		{
@@ -423,6 +425,43 @@ namespace UT_NorsokChecker
 			// of this assertion failed for that reason, not because the code was wrong.
 			Assert.That(page, Does.Not.Contain("<div class='deriv-step'>"),
 				"nothing was computed, so there are no steps to show");
+		}
+
+		/// <summary>
+		/// The chord-stress table's first column names the chord FACE, and it follows the data.
+		///
+		/// It used to print the word "average" — which distinguished nothing (the table has one row)
+		/// and only repeated the sentence above it, while the face it should have shown is what
+		/// decides the fibre σ_my is taken at (z = side·R). The averaging is stated in the column
+		/// headers instead.
+		///
+		/// Both signs are exercised, because a face hardcoded to "+ey" would pass on the +1 fixture
+		/// alone — the same trap as any single-case check of a two-valued field.
+		/// </summary>
+		[TestCase(1, "+ey", "&minus;ey")]
+		[TestCase(-1, "&minus;ey", "+ey")]
+		public void TheChordStressTableNamesTheFace(int side, string expected, string other)
+		{
+			var row = CheckedRow();
+			row.ChordStress!.Side = side;
+
+			string html = NorsokHtmlReportGenerator.GenerateDerivationPage(row, brace: "M1",
+				connection: "CON1", state: "LE1", utilisation: "88.8 %", verdict: "PASS");
+
+			// The table's own row, not the whole page: "+ey face" also appears in the geometry table
+			// and in the σ_my step label, so matching anywhere would pass on a table still saying
+			// "average".
+			int at = html.IndexOf("<th>chord face</th>", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the chord-stress table is headed by the face");
+			string table = html[at..html.IndexOf("</table>", at, StringComparison.Ordinal)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(table, Does.Contain($"<b>{expected}</b>"), "the face this brace lands on");
+				Assert.That(table, Does.Not.Contain($"<b>{other}</b>"), "and not the other one");
+				Assert.That(table, Does.Not.Contain("average</b>"),
+					"'average' says nothing here — the header carries it");
+			});
 		}
 	}
 }

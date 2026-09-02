@@ -48,8 +48,20 @@ namespace NorsokChecker.Services
 				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}",
 				@"\frac{M_{Sd}}{M_{Rd}} \leq 1.4 - \frac{V_{Sd}}{V_{Rd}}"
 			),
+			// All THREE resistances the check condition names, aligned on their equals signs — the
+			// three share one base and differ only in the extra d and in which Q_u, which is the
+			// thing worth seeing at a glance. Printing N_Rd alone left two of the condition's three
+			// terms with no formula anywhere near them.
+			//
+			// f_{y,chord}, not a bare f_y: eq (6.52)/(6.53) key on the CHORD yield
+			// (Norsok64Engine.cs:117), the inputs table shows two f_y values, and with both steels
+			// S355 nothing on the page said which one was substituted.
 			["6.4.3.6"] = (
-				@"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
+				@"\begin{aligned}
+					N_{Rd} &= \frac{f_{y,chord} \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f \\[2pt]
+					M_{y,Rd} &= \frac{f_{y,chord} \cdot T^2 \cdot d}{\gamma_M \cdot \sin\theta} \cdot Q_{u,ipb} \cdot Q_{f,mom} \\[2pt]
+					M_{z,Rd} &= \frac{f_{y,chord} \cdot T^2 \cdot d}{\gamma_M \cdot \sin\theta} \cdot Q_{u,opb} \cdot Q_{f,mom}
+				  \end{aligned}",
 				@"\frac{N_{Sd}}{N_{Rd}} + \left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \frac{M_{z,Sd}}{M_{z,Rd}} \leq 1.0"
 			),
 			["Bolt"] = (
@@ -446,6 +458,19 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    <div class='formula-block'>");
 				sb.AppendLine($"      <p class='formula-label'>Check condition:</p>");
 				sb.AppendLine($"      <div class='formula-math'>$${latex.check}$$</div>");
+
+				// What y and z MEAN, at the point the symbols first appear.
+				//
+				// They are the norm's own (eq 6.57's where-list defines M_y as in-plane and M_z as
+				// out-of-plane), but everywhere else in this application y and z are a MEMBER's local
+				// axes — so a reader who knows the rest of the app would derive the wrong thing from
+				// them. The plane they refer to is the joint's, and saying so is the whole point of
+				// this line.
+				if (fr.Section == "6.4.3.6")
+					sb.AppendLine("      <p class='formula-legend'>M<sub>y</sub> = in-plane, "
+						+ "M<sub>z</sub> = out-of-plane bending &mdash; of the <b>joint plane</b>, "
+						+ "not a member's local axes (&sect;6.4.3.6)</p>");
+
 				sb.AppendLine($"      <p class='formula-label'>Design resistance:</p>");
 				sb.AppendLine($"      <div class='formula-math'>$${latex.latex}$$</div>");
 				sb.AppendLine("    </div>");
@@ -460,8 +485,22 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    </div>");
 			}
 
-			// Where block
-			if (fr.Variables.Count > 0)
+			// Where block — ONLY for a check that has no derivation of its own.
+			//
+			// A derivation states the same quantities with their formula AND their substitution, which
+			// is strictly more than a value in a table, so printing both made the taller half of the
+			// card a duplicate. Audited row by row on §6.4: of its 31 variables, D/T/d/t/θ/β/γ/τ/γ_M
+			// and the classification are the derivation's "Geometry & material" table, the three
+			// actions are its "Applied forces" table, σ_a/σ_my/σ_mz are three substituted steps,
+			// Q_u,ipb/Q_u,opb appear inside the M_Rd steps that use them, Q_g/Q_u,axial/Q_f/N_Rd are
+			// one step each per active mode with K split per gap, and the three interaction terms are
+			// substituted into eq (6.57) itself. Nothing was left over.
+			//
+			// The condition is on HAVING a derivation rather than on the section number: §6.3 (see
+			// Services/Formulas63_Mothballed) fills Variables and has no derivation renderer, so its
+			// cards keep the table — and a chapter that gains a derivation later loses it without
+			// anyone having to remember this rule.
+			if (fr.Variables.Count > 0 && fr.JointDetail == null)
 			{
 				sb.AppendLine("    <div class='where-block'>");
 				sb.AppendLine("      <p class='where-header'>Where:</p>");
@@ -613,11 +652,21 @@ namespace NorsokChecker.Services
 			// top of the hand calculation this sheet is meant to be checked against.
 			sb.AppendLine("      <p class='deriv-h'>Geometry &amp; material</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
+			// The two yields are NAMED, because they are two different quantities that the formulas
+			// treat differently: f_y,chord is the one in eq (6.52)/(6.53), and f_y,brace reaches a
+			// result only through Q_g's phi, and only on an overlapped joint. Printed as a bare f_y
+			// on both rows they looked like the same value repeated — which is exactly how they read
+			// when both steels are S355 and the numbers coincide.
 			Kv(sb, "Chord &oslash; D &times; T", $"{N(dChordMm, 1)}&times;{N(tChordMm, 1)} mm "
-				+ $"(f<sub>y</sub> = {N(fy, 0)} MPa)");
+				+ $"(f<sub>y,chord</sub> = {N(fy, 0)} MPa)");
 			Kv(sb, "Brace &oslash; d &times; t", $"{N(dMm, 1)}&times;{N(tMm, 1)} mm "
-				+ $"(f<sub>y</sub> = {N(inp.FyBrace / 1e6, 0)} MPa)");
-			Kv(sb, "&theta; (brace&ndash;chord)", $"{N(r.ThetaDeg, 1)}&deg;");
+				+ $"(f<sub>y,brace</sub> = {N(inp.FyBrace / 1e6, 0)} MPa)");
+			// "from the member axes" is worth saying: theta is DERIVED (JointTopologyBuilder's Theta —
+			// the angle between the brace's effective direction and the chord axis, folded into
+			// 0..90°), not a value anyone typed. It was the one description in the old "Where:" table
+			// carrying information the derivation did not already state.
+			Kv(sb, "&theta; (brace&ndash;chord)",
+				$"{N(r.ThetaDeg, 1)}&deg; <span class='deriv-hint'>(from the member axes)</span>");
 			Kv(sb, "chord face", row.ChordStress is { } cs0 ? (cs0.Side >= 0 ? "+ey face" : "&minus;ey face") : "&mdash;");
 			Kv(sb, "&beta; = d/D", N(r.Beta));
 			Kv(sb, "&gamma; = D/(2T)", N(r.Gamma));
@@ -629,8 +678,13 @@ namespace NorsokChecker.Services
 			sb.AppendLine("      <p class='deriv-h'>Applied forces (in the joint plane)</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
 			Kv(sb, "N<sub>Sd</sub> (+ tension)", $"{N(inp.NSd / 1e3, 1)} kN");
-			Kv(sb, "M<sub>ip,Sd</sub>", $"{N(inp.MipSd / 1e3, 2)} kN&middot;m");
-			Kv(sb, "M<sub>op,Sd</sub>", $"{N(inp.MopSd / 1e3, 2)} kN&middot;m");
+			// y/z, as eq (6.57) writes them — M_y is the in-plane moment, M_z the out-of-plane one.
+			// (The chord's own moments below keep ip/op: the norm gives THOSE no y/z symbol, and
+			// they do not appear in eq 6.57 at all.)
+			Kv(sb, "M<sub>y,Sd</sub> <span class='deriv-hint'>(in-plane)</span>",
+				$"{N(inp.MipSd / 1e3, 2)} kN&middot;m");
+			Kv(sb, "M<sub>z,Sd</sub> <span class='deriv-hint'>(out-of-plane)</span>",
+				$"{N(inp.MopSd / 1e3, 2)} kN&middot;m");
 			sb.AppendLine("      </table>");
 
 			// ══ 2. BASIC ASSUMPTIONS ══ §6.4.3.1, checked against the inputs above.
@@ -709,9 +763,20 @@ namespace NorsokChecker.Services
 					+ "(one per side of the brace intersection); NORSOK p.31 requires their AVERAGE in "
 					+ "eq (6.54)/(6.55).</p>");
 				sb.AppendLine("      <table class='deriv-table'>");
-				sb.AppendLine("        <tr><th>side</th><th>N<sub>chord</sub></th>"
-					+ "<th>M<sub>ip,chord</sub></th><th>M<sub>op,chord</sub></th></tr>");
-				sb.AppendLine($"        <tr><td><b>average</b></td><td>{N(st.NChord / 1e3, 1)} kN</td>"
+				// y/z here too, with a ,chord index. These are NOT terms of eq (6.57) — they are the
+				// chord's own moments, on the way to sigma — but they are resolved into the SAME
+				// plane as the brace's M_y/M_z (JointForceResolver projects both onto nb = ex × bx),
+				// so calling them ip/op beside a y/z table would suggest two different planes where
+				// there is one. The index says which member they belong to.
+				// The "side" cell names the chord FACE this brace lands on — the thing that decides
+				// which fibre σ_my is taken at (z = side·R below). It used to read "average", which
+				// distinguished nothing (there is one row) and only repeated the sentence above. The
+				// averaging is stated in the header instead, where it belongs: these three values
+				// are already the mean of the chord's two loadings.
+				sb.AppendLine("        <tr><th>chord face</th><th>N<sub>chord</sub> (avg)</th>"
+					+ "<th>M<sub>y,chord</sub> (avg)</th><th>M<sub>z,chord</sub> (avg)</th></tr>");
+				sb.AppendLine($"        <tr><td><b>{(st.Side >= 0 ? "+ey" : "&minus;ey")}</b></td>"
+					+ $"<td>{N(st.NChord / 1e3, 1)} kN</td>"
 					+ $"<td>{N(st.MipChord / 1e3, 2)} kN&middot;m</td>"
 					+ $"<td>{N(st.MopChord / 1e3, 2)} kN&middot;m</td></tr>");
 				sb.AppendLine("      </table>");
@@ -729,13 +794,13 @@ namespace NorsokChecker.Services
 				Step(sb, $"&sigma;<sub>my</sub> &mdash; in-plane bending, chord face "
 					+ (st.Side >= 0 ? "+ey" : "&minus;ey") + " (z = side&middot;R), sign FLIPPED so "
 					+ "+ = compression in the footprint (eq 6.54 note)",
-					@"\sigma_{my,Sd} = -\dfrac{M_{ip,chord}\cdot(\text{side}\cdot R)}{I}",
+					@"\sigma_{my,Sd} = -\dfrac{M_{y,chord}\cdot(\text{side}\cdot R)}{I}",
 					$@"-\dfrac{{{N(st.MipChord / 1e3, 2)}\,kNm\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot {N(rMm, 1)}\,mm)}}{{{N(iMm4 / 1e6, 1)}\times10^6\,mm^4}}",
 					$@"{N(smy, 1)}\,MPa");
 
 				Step(sb, "&sigma;<sub>mz</sub> &mdash; out-of-plane bending "
 					+ "(sign irrelevant &mdash; enters Q<sub>f</sub> only squared, via A&sup2;)",
-					@"\sigma_{mz,Sd} = \dfrac{M_{op,chord}\cdot R}{I}",
+					@"\sigma_{mz,Sd} = \dfrac{M_{z,chord}\cdot R}{I}",
 					$@"\dfrac{{{N(st.MopChord / 1e3, 2)}\,kNm\cdot {N(rMm, 1)}\,mm}}{{{N(iMm4 / 1e6, 1)}\times10^6\,mm^4}}",
 					$@"{N(smz, 1)}\,MPa");
 			}
@@ -745,23 +810,23 @@ namespace NorsokChecker.Services
 				+ "&mdash; 6.4.3.2&ndash;4, eq (6.53)/(6.55), Table 6-3/6-4</p>");
 
 			Step(sb, "Chord utilisation A&sup2; &mdash; eq (6.55) (shared by all classes)",
-				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_y}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_y^2}",
+				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_{y,chord}}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_{y,chord}^2}",
 				$@"\left(\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}}\right)^2 + \dfrac{{{P(smy, 1)}^2+{P(smz, 1)}^2}}{{1.62\cdot {N(fy, 0)}^2}}",
 				N(r.QfMomentA2, 4));
 
 			var cm = r.PerClass.TryGetValue(Norsok64.Joint64Class.K, out var kc0) ? kc0.CAxial : default;
 			Step(sb, "Q<sub>f</sub>, moment &mdash; Table 6-4 has ONE row for moment, no K/Y/X split",
-				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_y} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_y} - C_3\,A^2",
+				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
 				null, N(r.QfMoment, 3));
 
-			Step(sb, "In-plane bending resistance M<sub>Rd,ip</sub> &mdash; eq (6.53) "
+			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
 				+ "(Q<sub>u,ipb</sub> shared by all classes, Table 6-3)",
-				@"M_{Rd,ip} = \dfrac{f_y\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
+				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
 				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdIp / 1e3, 2)}\,kN\!\cdot\!m");
 
-			Step(sb, "Out-of-plane bending resistance M<sub>Rd,op</sub> &mdash; eq (6.53)",
-				@"M_{Rd,op} = \dfrac{f_y\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
+			Step(sb, "Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53)",
+				@"M_{z,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
 				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdOp / 1e3, 2)}\,kN\!\cdot\!m");
 
@@ -791,7 +856,7 @@ namespace NorsokChecker.Services
 						$@"\min\{{(16+1.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)},\ 40\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)}\}}",
 						N(kt.QuAxial, 3));
 					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52)",
-						@"N_{Rd,i} = \dfrac{f_y\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
+						@"N_{Rd,i} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
 						$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}",
 						$@"{N(kt.NRd / 1e3, 1)}\,kN");
 				}
@@ -810,7 +875,7 @@ namespace NorsokChecker.Services
 				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, C&#8321;={N(c.CAxial.C1, 2)}, "
 					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
 					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
-					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_y} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_y} - C_3\,A^2",
+					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
 					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
 					N(c.QfAxial, 3));
 				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3 class {cls} (brace in {tension})",
@@ -821,7 +886,7 @@ namespace NorsokChecker.Services
 							: @"Q_u = (2.8+(12+0.1\gamma)\beta)\,Q_\beta"),
 					null, N(c.QuAxial, 3));
 				Step(sb, "N<sub>Rd</sub> &mdash; eq (6.52)",
-					@"N_{Rd} = \dfrac{f_y\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
+					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
 					$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
 					$@"{N(c.NRd / 1e3, 1)}\,kN");
 			}
@@ -871,7 +936,7 @@ namespace NorsokChecker.Services
 				Enum.TryParse<Norsok64.Joint64Class>(row.DomClass, out var dc) ? dc : Norsok64.Joint64Class.K,
 				out var dr) ? dr : null;
 			Step(sb, "Utilisation &mdash; eq (6.57)",
-				@"u = \dfrac{N_{Sd}}{N_{Rd}} + \left(\dfrac{M_{ip,Sd}}{M_{Rd,ip}}\right)^2 + \left|\dfrac{M_{op,Sd}}{M_{Rd,op}}\right|",
+				@"u = \dfrac{N_{Sd}}{N_{Rd}} + \left(\dfrac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\dfrac{M_{z,Sd}}{M_{z,Rd}}\right|",
 				dom == null ? null
 					: $@"{N(dom.UtilAxialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
 				$@"{N(row.Util * 100, 2)}\%\ \ \text{{{(row.Passed ? "PASS" : "FAIL")}}}");
@@ -1248,6 +1313,14 @@ body {
   padding: 8px 0;
   font-size: 16px;
 }
+/* what a symbol means, under the formula that introduces it — not upper-cased like a section
+   label, because it is a sentence to read rather than a heading to skip */
+.formula-legend {
+  font-size: 11.5px;
+  color: #607D8B;
+  margin: 0 0 4px 0;
+  text-align: center;
+}
 .substituted {
   background: #fafafa;
   padding: 8px 12px;
@@ -1314,6 +1387,8 @@ body {
 /* the result carries the weight: it is what a reader checks their own number against */
 .deriv-step-res { font-size: 12px; margin: 2px 0; color: #1B5E20; font-weight: 600; }
 .deriv-k { color: #546E7A; }
+/* a value's provenance, subordinate to the value itself */
+.deriv-hint { font-size: 11px; color: #78909C; }
 .deriv-note { font-size: 11px; color: #78909C; margin: 3px 0 5px 0; }
 .deriv-note { font-size: 12px; color: #546E7A; margin: 4px 0; }
 .deriv-warn {
