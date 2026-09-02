@@ -70,8 +70,21 @@ namespace NorsokChecker.Services
 				int gates = gateRows.Count;
 				bool blocked = gateRows.Any(f => f.Reason == NotAssessedReason.NotEvaluated);
 
+				// Nothing to check, and WHICH nothing. All three are NotEvaluated rows — each is
+				// fixed by editing the model — but they say different things about what the reader
+				// will find there, and "could not be read" about a joint that read perfectly well is
+				// a false statement about their model.
+				bool allOff = gateRows.Any(f =>
+					(f.CheckExpression ?? "").Contains("switched off",
+						StringComparison.OrdinalIgnoreCase));
+				bool noLoad = gateRows.Any(f =>
+					(f.CheckExpression ?? "").Contains("no load effect",
+						StringComparison.OrdinalIgnoreCase));
+
 				string status =
 					!anyNotAssessed ? "Not assessed"
+					: allOff ? "Not assessed — every load effect switched off"
+					: noLoad ? "Not assessed — no load effect defined"
 					// A blocked input wins over a scope gate when both are present: the scope verdict
 					// was reached on inputs we know are incomplete, so it is not trustworthy.
 					: blocked ? "Not evaluated — the model could not be read"

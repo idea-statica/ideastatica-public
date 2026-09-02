@@ -79,6 +79,20 @@ namespace NorsokChecker.Services.Chapters
 		/// </summary>
 		public List<ConLoadEffect>? LoadEffects { get; init; }
 
+		/// <summary>
+		/// How many load effects the connection has IN THE FILE, before the active-only filter.
+		///
+		/// Needed because DEACTIVATION and ABSENCE are different facts about the model and reach a
+		/// chapter identically — both leave <see cref="LoadEffects"/> empty. Measured on the shipped
+		/// project: CON8 and CON15 carry 15 states of which 7 are active, so the difference is real
+		/// and not hypothetical, while an unreadable connection (CON10) answers HTTP 404 and is a
+		/// third case again.
+		///
+		/// Without this a report can only say "no load effect", which would tell an engineer who
+		/// switched every state off that their model is empty. Zero means genuinely none defined.
+		/// </summary>
+		public int LoadEffectsInFile { get; init; }
+
 		/// <summary>Cross-section id → D/T/fy for the project, or empty when it could not be read.</summary>
 		public required IReadOnlyDictionary<int, Norsok64.JointSectionInfo> SectionMap { get; init; }
 

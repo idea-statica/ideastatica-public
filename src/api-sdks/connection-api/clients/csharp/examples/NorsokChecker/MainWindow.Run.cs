@@ -204,6 +204,11 @@ namespace NorsokChecker
 						ConnectionId = con.Id,
 						ConnectionName = con.Name,
 						LoadEffects = loadEffects,
+						// The count BEFORE the active-only filter above, so a chapter can tell
+						// "every state is switched off" from "no state is defined" — the same to a
+						// chapter, different facts about the model. con.TotalLoadEffects is set
+						// before the filter runs, which is why it is read from there.
+						LoadEffectsInFile = con.TotalLoadEffects,
 						SectionMap = sectionMap,
 						Log = Log,
 					};

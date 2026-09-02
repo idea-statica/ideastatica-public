@@ -30,19 +30,28 @@ namespace NorsokChecker.Services.Chapters
 
 		public async Task<ChapterOutcome> EvaluateAsync(ChapterContext ctx, CancellationToken ct)
 		{
-			// Why §6.4 is not going to run, when it is not going to run. Each of these used to leave
-			// the chapter silently absent, and a connection with no §6.4 row could then read PASS off
-			// whatever else it had. Reachable in the shipped test set: CON10's braces are deleted, so
-			// its inherited load effects reference members that no longer exist and the service
-			// answers 404.
-			string? blocked =
-				ctx.LoadEffects == null ? "the load effects of this connection could not be read"
-				: ctx.LoadEffects.Count == 0 ? "this connection has no load effect — nothing to check"
-				: ctx.SectionMap.Count == 0 ? "no cross-section data was available for the project"
-				: null;
-
+			// THE MEMBERS FIRST, then the load effects — the order decides which reason the reader
+			// is given, and it used to be the wrong way round.
+			//
+			// Measured on CON10 of the shipped test project: it holds ONE member, M2, continuous. No
+			// brace. §6.4 checks a brace against a chord, so with no brace there is no d, hence no
+			// β = d/D, no θ, no Q_u — equations (6.52), (6.53) and (6.57) are undefined rather than
+			// unsatisfied. That is a permanent property of the geometry.
+			//
+			// Reading the load effects first reported a CONSEQUENCE instead: the connection's
+			// inherited load effects still reference the deleted braces, so the service answers 404
+			// ("The given key '1' was not present in the dictionary"), and the report said "the load
+			// effects of this connection could not be read". True, but it is not why no check is
+			// possible — and as a NotEvaluated it told the reader to fix the model and re-run, which
+			// cannot help: there is nothing here for §6.4 to assess whatever the load effects say.
 			List<JointMemberData>? members = null;
-			if (blocked == null)
+			string? blocked = null;
+
+			if (ctx.SectionMap.Count == 0)
+			{
+				blocked = "no cross-section data was available for the project";
+			}
+			else
 			{
 				try
 				{
@@ -67,6 +76,85 @@ namespace NorsokChecker.Services.Chapters
 					blocked = ex.Message;
 					members = null;
 				}
+			}
+
+			// A joint with no BRACE is outside §6.4 by geometry, and it is decidable from the members
+			// alone — before the load effects, whose own failure is a consequence of the same edit.
+			//
+			// §6.4 checks a brace against a chord: with no brace there is no d, so no β = d/D, no θ,
+			// no Q_u, and eq (6.52)/(6.53)/(6.57) are undefined rather than unsatisfied. Nothing a
+			// reader does to the model changes that, which is why it is OutsideScope and not
+			// NotEvaluated — the latter tells them to fix the input and run again.
+			//
+			// The topology says the same thing ("No brace (chord only).", JointTopologyBuilder.cs:493)
+			// but never got the chance on CON10: the load-effect 404 blocked the chapter first.
+			if (blocked == null && members is { Count: > 0 } && !members.Any(m => !m.IsContinuous))
+			{
+				// `Count: > 0` matters: an EMPTY member list also has no brace, but "one continuous
+				// member and no brace" would be a false description of it. An empty connection falls
+				// through to the topology, which reports it on its own terms.
+				return OutsideScope(members.Count == 1
+					? $"the connection holds one continuous member ({members[0].Name}) and no brace "
+						+ "— §6.4 checks a brace against a chord, so there is nothing to assess"
+					: $"the connection has {members.Count} continuous members and no brace "
+						+ "— §6.4 checks a brace against a chord");
+			}
+
+			// A geometrically valid joint with NO load effect to check.
+			//
+			// Its own answer, because it is neither of the other two. The model read perfectly well
+			// — there is simply nothing in it to assess, either because no load effect is defined or
+			// because every one is switched off (the app filters to active-only by default, so a
+			// joint whose states are all disabled arrives here with an empty list). That is a
+			// legitimate state of a model someone is still working on, not a failure, and the reader
+			// needs to be told which of the two it is.
+			//
+			// It used to fall into the blocked-input row below and report "the model could not be
+			// read", which is false: nothing failed. Kept as NotEvaluated all the same — unlike the
+			// brace-less case, this one IS fixed by editing the model, which is exactly what that
+			// state tells the reader to do.
+			if (blocked == null && (ctx.LoadEffects == null || ctx.LoadEffects.Count == 0))
+			{
+				// THREE distinct facts about the model, and the API tells them apart even though all
+				// three arrive here as "nothing to check":
+				//   404          -> unreadable (CON10: states reference deleted members)
+				//   200 + []     -> none was ever defined
+				//   200 + n rows, every one active=false -> the engineer switched them off
+				// The third is invisible without LoadEffectsInFile, because the app filters to
+				// active-only before a chapter sees anything. Telling an engineer who deliberately
+				// disabled every state that their model has no load effect would be wrong about
+				// their model and would send them looking for something that is not missing.
+				bool unreadable = ctx.LoadEffects == null;
+				string why =
+					unreadable ? "the load effects of this connection could not be read"
+					: ctx.LoadEffectsInFile > 0
+						? $"all {ctx.LoadEffectsInFile} load effect(s) of this connection are switched "
+							+ "off in the model — switch one on, or run with 'active load effects "
+							+ "only' unticked"
+						: "this connection has no load effect defined";
+
+				return new ChapterOutcome
+				{
+					Rows = new[]
+					{
+						new NorsokFormulaResult
+						{
+							Section = "6.4",
+							Equation = "",
+							Title = unreadable ? "Could not be evaluated"
+								: ctx.LoadEffectsInFile > 0 ? "All load effects switched off"
+								: "No load effect defined",
+							CheckExpression = why,
+							Formula = "-",
+							FormulaSubstituted = "no §6.4 check was performed for this joint",
+							NotAssessed = true,
+							// Both are fixed by editing the model, so both are NotEvaluated — but
+							// they say different things about what the reader will find there.
+							Reason = NotAssessedReason.NotEvaluated,
+						},
+					},
+					NotPerformed = new[] { new NotPerformed("§6.4 tubular joint check", why) },
+				};
 			}
 
 			if (blocked != null || members == null)
@@ -115,6 +203,32 @@ namespace NorsokChecker.Services.Chapters
 
 			return new ChapterOutcome { Rows = rows };
 		}
+
+		/// <summary>
+		/// One row saying §6.4 does not COVER this joint — a permanent property of its geometry.
+		///
+		/// Distinct from the blocked-input row above in the one way that matters to a reader: there
+		/// is nothing to fix. "Not evaluated" asks them to correct the model and run again; this says
+		/// the chapter will never apply, so another method is needed.
+		/// </summary>
+		private static ChapterOutcome OutsideScope(string reason) => new()
+		{
+			Rows = new[]
+			{
+				new NorsokFormulaResult
+				{
+					Section = "6.4",
+					Equation = "",
+					Title = "Outside the scope of §6.4",
+					CheckExpression = reason,
+					Formula = "-",
+					FormulaSubstituted = "no §6.4 check was performed for this joint",
+					NotAssessed = true,
+					Reason = NotAssessedReason.OutsideScope,
+				},
+			},
+			NotPerformed = new[] { new NotPerformed("§6.4 tubular joint check", reason) },
+		};
 
 		/// <summary>
 		/// Measured D/T from the IOM facet ring, replacing whatever the section name implied.
