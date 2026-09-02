@@ -104,8 +104,13 @@ namespace NorsokChecker.Services
 			sb.AppendLine("</style>");
 			sb.AppendLine("<style>");
 			sb.AppendLine(".report-footer { margin-top: 28px; padding: 12px 16px; border-top: 2px solid #F36E21; color: #546E7A; font-size: 11px; line-height: 1.6; }");
+			// print-color-adjust asks the RENDERER not to drop background colours. Necessary but not
+			// sufficient: WebView2's PrintToPdf has its own ShouldPrintBackgrounds, false by default,
+			// which overrides this — the report was exported colourless for that reason alone, with
+			// this rule already in place. Both have to say yes; see Models.PageSetup.
 			sb.AppendLine("* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }");
-			sb.AppendLine("@media print { body { margin: 0; } .card { break-inside: avoid; } }");
+			// The print rules live in ONE place, in CssStyles. A second @media print block used to sit
+			// here and quietly compete with it.
 			sb.AppendLine("</style>");
 			sb.AppendLine("</head><body>");
 
@@ -127,8 +132,16 @@ namespace NorsokChecker.Services
 			// Analysis via REST API", which described the mothballed CBFEM chapter: since that went,
 			// no calculation is run at all — the model and its load effects are read over the API and
 			// §6.4 is evaluated here.
-			sb.AppendLine("  <strong>Model:</strong> read from IDEA StatiCa Connection via its REST API "
-				+ "&mdash; geometry, cross-sections and load effects");
+			// PROVENANCE, not mechanism. This line replaced a false "Engine: … CBFEM Analysis via
+			// REST API" when the CBFEM chapter went, and its first wording ("read from … via its
+			// REST API") named the transport — which tells the reader of a compliance report
+			// nothing. What matters is WHICH quantities came from the model and which this app
+			// derived. The service version would belong here too, but ServiceLocator does not retain
+			// it (it is fetched to pick an install and dropped), so it is not promised.
+			sb.AppendLine("  <strong>Model source:</strong> IDEA StatiCa Connection "
+				+ "&mdash; geometry, cross-sections, materials and load effects<br/>");
+			sb.AppendLine("  <strong>Checks by:</strong> NorsokChecker, evaluated from that model "
+				+ "&mdash; no analysis is run");
 			sb.AppendLine("</div>");
 
 			// Table 6-1 Material factors
@@ -148,15 +161,26 @@ namespace NorsokChecker.Services
 			sb.AppendLine("      <tr class='row-note'><td>$ \\gamma_{BC} $</td><td class='val-ec3'>not applied</td><td class='val-ec3'>&mdash;</td><td>Additional building code factor (&sect;6.1) &mdash; required only where factors <em>other</em> than Table 6-1 are used; the factors above <em>are</em> Table 6-1, so it does not apply on top of them</td></tr>");
 			sb.AppendLine("    </tbody>");
 			sb.AppendLine("  </table>");
-			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo; These factors are written into the project's own settings before the CBFEM calculation runs, so the engine calculates with them.</p>");
+			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo; These factors are written into the project's own settings, so anything calculated in IDEA StatiCa Connection afterwards uses them too.</p>");
 			sb.AppendLine("</div>");
 
 			// ── Executive Summary Card ──
 			RenderSummaryCard(sb, allResults);
 
+			// ── Contents, on a page of its own ──
+			RenderIndex(sb, allResults);
+
+			int chapter = ConnectionChapterBase;
 			foreach (var (connectionName, formulas) in allResults)
 			{
-				sb.AppendLine($"<h2 class='connection-header'>{Esc(connectionName)}</h2>");
+				// The id the index links to, and the number it announces. First connection excepted
+				// from the page break: the index's own break-after has already started a page, and a
+				// second break here would leave a blank one between them.
+				string anchor = AnchorFor(chapter);
+				string firstClass = chapter == ConnectionChapterBase ? " first-connection" : "";
+				sb.AppendLine($"<h2 class='connection-header{firstClass}' id='{anchor}'>"
+					+ $"<span class='chapter-no'>{chapter}</span> {Esc(connectionName)}</h2>");
+				chapter++;
 
 				// The joint, seen along its own plane normal — the same figure the §6.4 tab shows, so
 				// the reader is looking at one picture of the joint rather than two projections of it.
@@ -256,6 +280,65 @@ namespace NorsokChecker.Services
 			return sb.ToString();
 		}
 
+		/// <summary>
+		/// Chapters 1 and 2 are the summary and the connection overview, so the first connection is
+		/// chapter 3. A named constant because three places have to agree on it — the index, the
+		/// headings, and the "is this the first connection" test that suppresses one page break.
+		/// </summary>
+		private const int ConnectionChapterBase = 3;
+
+		private static string AnchorFor(int chapter) => $"ch-{chapter}";
+
+		/// <summary>
+		/// The contents page: every chapter, numbered, linked to its own heading.
+		///
+		/// On a page of its own (break-after), because a report of fifteen joints is read by looking
+		/// one up rather than front to back. No page NUMBERS: an HTML-to-PDF pass does not know them,
+		/// and a contents page with invented numbers is worse than one without.
+		///
+		/// The verdicts come from <see cref="CheckWorkflow.Roll"/>, the same function the connection
+		/// table and the app's own connection list use — recomputing them here is how an index comes
+		/// to disagree with the table two inches above it.
+		/// </summary>
+		private static void RenderIndex(StringBuilder sb,
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+		{
+			sb.AppendLine("<section class='index-page'>");
+			sb.AppendLine("  <h2 class='index-title'>Contents</h2>");
+			sb.AppendLine("  <table class='index-table'>");
+
+			sb.AppendLine("    <tr><td class='ix-no'>1</td>"
+				+ "<td class='ix-name'><a href='#ch-1'>Summary</a></td>"
+				+ "<td class='ix-verdict'></td><td class='ix-util'></td></tr>");
+			sb.AppendLine("    <tr><td class='ix-no'>2</td>"
+				+ "<td class='ix-name'><a href='#ch-2'>Connection overview</a></td>"
+				+ "<td class='ix-verdict'></td><td class='ix-util'></td></tr>");
+
+			int chapter = ConnectionChapterBase;
+			foreach (var (name, formulas) in allResults)
+			{
+				var verdict = CheckWorkflow.Roll(formulas);
+				string cls = verdict.Pass switch
+				{
+					"FAIL" => "fail",
+					"PASS" => "pass",
+					_ => "warn",
+				};
+				// An em dash where nothing was assessed — 0.0 % would read as an excellent result for
+				// a joint nobody checked, the trap this report has closed three times elsewhere.
+				string util = verdict.Pass == "N/A" ? "&mdash;" : $"{verdict.MaxUtilisation * 100:F1}%";
+
+				sb.AppendLine($"    <tr><td class='ix-no'>{chapter}</td>"
+					+ $"<td class='ix-name'><a href='#{AnchorFor(chapter)}'>{Esc(name)}</a></td>"
+					+ $"<td class='ix-verdict {cls}'>{Esc(verdict.Pass)}</td>"
+					+ $"<td class='ix-util'>{util}</td></tr>");
+				chapter++;
+			}
+
+			sb.AppendLine("  </table>");
+			sb.AppendLine("</section>");
+		}
+
 		private static void RenderSummaryCard(StringBuilder sb,
 			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
 		{
@@ -302,6 +385,9 @@ namespace NorsokChecker.Services
 				: (notAssessed > 0 || nothingChecked) ? "&#x26A0;"
 				: "&#x2714;";
 
+			// Chapter 1, with the id the contents page links to.
+			sb.AppendLine("<h2 class='section-header' id='ch-1'>"
+				+ "<span class='chapter-no'>1</span> Summary</h2>");
 			sb.AppendLine($"<div class='summary-card {statusClass}'>");
 			sb.AppendLine($"  <div class='summary-verdict'>");
 			sb.AppendLine($"    <span class='summary-icon'>{icon}</span>");
@@ -346,6 +432,9 @@ namespace NorsokChecker.Services
 		{
 			if (allResults.Count == 0) return;
 
+			// Chapter 2. Numbered and anchored like the rest, so the contents page can reach it.
+			sb.AppendLine("<h2 class='section-header' id='ch-2'>"
+				+ "<span class='chapter-no'>2</span> Connection overview</h2>");
 			sb.AppendLine("<table class='connection-table'>");
 			sb.AppendLine("  <tr><th>Connection</th><th>Verdict</th><th>Governing utilisation</th>"
 				+ "<th>Note</th></tr>");
@@ -1213,13 +1302,8 @@ body {
   margin-top: 10px;
   font-style: italic;
 }
-.connection-header {
-  font-size: 17px;
-  color: #2D2D2D;
-  border-bottom: 2px solid #F57C00;
-  padding-bottom: 6px;
-  margin: 24px 0 12px 0;
-}
+/* .connection-header shares .section-header's rule below — a connection heading IS a section
+   heading, and two copies of the same declarations drift. */
 .chapter-group { margin-bottom: 20px; }
 .chapter-header {
   font-size: 14px;
@@ -1513,12 +1597,68 @@ body {
   margin-top: 2px;
 }
 
-/* Print styles */
+/* ── Contents page ───────────────────────────────────────────────────────────
+   A chapter number is a span, not a list marker: the numbering has to be the same in the contents
+   and in the heading it points at, and CSS counters do not survive the HTML-to-PDF pass reliably. */
+.section-header, .connection-header {
+  font-size: 17px;
+  color: #2D2D2D;
+  border-bottom: 2px solid #F57C00;
+  padding-bottom: 6px;
+  margin: 24px 0 12px 0;
+}
+.chapter-no {
+  display: inline-block;
+  min-width: 1.6em;
+  color: #F57C00;
+  font-weight: 700;
+}
+.index-page { margin: 24px 0; }
+.index-title {
+  font-size: 17px;
+  color: #2D2D2D;
+  border-bottom: 2px solid #F57C00;
+  padding-bottom: 6px;
+  margin: 0 0 12px 0;
+}
+.index-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.index-table td { padding: 5px 8px; border-bottom: 1px solid #ECEFF1; }
+.ix-no { width: 3em; color: #F57C00; font-weight: 700; text-align: right; }
+.ix-name a { color: #1B2A4A; text-decoration: none; }
+.ix-name a:hover { text-decoration: underline; }
+.ix-verdict { width: 5em; font-weight: 700; font-size: 11.5px; }
+.ix-verdict.pass { color: #2e7d32; }
+.ix-verdict.fail { color: #c62828; }
+.ix-verdict.warn { color: #e65100; }
+.ix-util { width: 6em; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Print styles.
+   ONE block: there used to be a second, minimal @media print emitted inline with the <style> tag,
+   which is how the print rules came to be half-specified — a rule added to one was invisible in the
+   other. */
+@page {
+  /* The physical page comes from CoreWebView2PrintSettings (see Models.PageSetup) — this is what a
+     browser print from the tab obeys, and the two must agree or Ctrl+P gives a different document
+     from the Export button. Keep them in step. */
+  size: A4 portrait;
+  margin: 20mm 15mm;
+}
 @media print {
-  body { background: #fff; padding: 12px; }
+  body { background: #fff; padding: 0; }
   .check-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
   .summary-card { break-after: avoid; }
   details > summary::before { display: none; }
+
+  /* Contents on a page of its own, and one page per connection.
+     The FIRST connection is excepted: the contents page's break-after has already started a new
+     page, and a break-before here as well would leave a blank one between them. */
+  .index-page { break-after: page; }
+  .connection-header { break-before: page; }
+  .connection-header.first-connection { break-before: auto; }
+
+  /* A heading must not be the last thing on a page — the reader turns over to find out what it was
+     introducing. */
+  .connection-header, .section-header, .index-title, .chapter-header { break-after: avoid; }
 
   /* Every card open, whatever state the page is in.
      The export passes expandAll, so the markup already carries <details open> — but a closed card
