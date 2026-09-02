@@ -92,6 +92,9 @@ namespace NorsokChecker.Services
 						// not a failure: nothing was checked. Reporting this as FAIL alongside the
 						// words "NOT ASSESSED" said both at once, which cannot be true.
 						NotAssessed = true,
+						// The topology rejected the joint on a property of its geometry, so §6.4 does
+						// not cover it — a different statement from "the inputs would not read".
+						Reason = NotAssessedReason.OutsideScope,
 					});
 				}
 				return false;
@@ -125,6 +128,9 @@ namespace NorsokChecker.Services
 						Formula = "-",
 						FormulaSubstituted = $"{brace.Name} could not be checked: {reason}",
 						NotAssessed = true,
+						// This brace alone lacked the data for its check while the joint itself was
+						// assessed — the model is what to look at, not the chapter's scope.
+						Reason = NotAssessedReason.NotEvaluated,
 					});
 					continue;
 				}

@@ -372,7 +372,7 @@ namespace NorsokChecker.Services
 				};
 				// An em dash where nothing was assessed — 0.0 % would read as an excellent result for
 				// a joint nobody checked, the trap this report has closed three times elsewhere.
-				string util = verdict.Pass == "N/A" ? "&mdash;" : $"{verdict.MaxUtilisation * 100:F1}%";
+				string util = verdict.Pass == "N/A" ? "&mdash;" : Pct(verdict.MaxUtilisation);
 
 				sb.AppendLine($"    <tr><td class='ix-no'>{chapter}</td>"
 					+ $"<td class='ix-name'><a href='#{AnchorFor(chapter)}'>{Esc(name)}</a></td>"
@@ -388,17 +388,34 @@ namespace NorsokChecker.Services
 		private static void RenderSummaryCard(StringBuilder sb,
 			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
 		{
-			// Not-assessed rows are counted separately. Deriving failed as (total - passed) made
-			// them failures, and leaving them out of the total would have hidden them entirely —
-			// neither is honest about a joint nobody checked.
-			// Notes are excluded from the counts entirely: they qualify a check that ran, so they are
-			// neither a check of their own nor a gap in the coverage.
-			int totalChecks = allResults.Sum(r => r.formulas.Count(f => !f.IsNote));
+			// THREE counters, each with ONE unit. "Total Checks: 55" used to add 30 real check
+			// results to 25 unmet scope conditions — two different things in one number, and the
+			// bigger half was not checks at all. (One rejected joint contributes one row per unmet
+			// condition: CON6 alone put 7 into that total. Measured on the shipped report.)
+			//
+			// Notes take no part: they qualify a check that ran, so they are neither a check of
+			// their own nor a gap in the coverage.
+			int checksPerformed = allResults.Sum(r =>
+				r.formulas.Count(f => !f.IsNote && !f.NotAssessed));
+			int passed = allResults.Sum(r =>
+				r.formulas.Count(f => !f.IsNote && !f.NotAssessed && f.Passed));
+			int failed = checksPerformed - passed;
 			int notes = allResults.Sum(r => r.formulas.Count(f => f.IsNote));
-			int notAssessed = allResults.Sum(r => r.formulas.Count(f => !f.IsNote && f.NotAssessed));
-			int passed = allResults.Sum(r => r.formulas.Count(f => !f.IsNote && !f.NotAssessed && f.Passed));
-			int failed = totalChecks - passed - notAssessed;
-			bool allPass = failed == 0 && notAssessed == 0;
+
+			// The gaps, in their own unit: rows nobody checked, and how they split by REASON — the
+			// distinction a reader acts on. Scope means use another method; not evaluated means fix
+			// the model and run again.
+			var gapRows = allResults
+				.SelectMany(r => r.formulas.Where(f => !f.IsNote && f.NotAssessed))
+				.ToList();
+			int outsideScope = gapRows.Count(f => f.Reason != NotAssessedReason.NotEvaluated);
+			int notEvaluated = gapRows.Count(f => f.Reason == NotAssessedReason.NotEvaluated);
+			int notAssessed = gapRows.Count;
+
+			// And the connections, in theirs — the unit a reviewer actually counts in.
+			var verdicts = allResults.Select(r => CheckWorkflow.Roll(r.formulas)).ToList();
+			int consAssessed = verdicts.Count(v => v.Pass is "PASS" or "FAIL" or "PARTIAL");
+			int consNotAssessed = verdicts.Count - consAssessed;
 
 			// Governing formula (highest utilization) — only among rows that were actually checked
 			NorsokFormulaResult? governing = null;
@@ -421,7 +438,7 @@ namespace NorsokChecker.Services
 			// fall through to COMPLIANT with a green tick over "0 Total Checks": reachable by
 			// unchecking both chapter boxes and pressing Run, and it is the exportable deliverable
 			// that said it. The connection list already reported that run as N/A.
-			bool nothingChecked = totalChecks - notAssessed <= 0;
+			bool nothingChecked = checksPerformed <= 0;
 			string statusClass = failed > 0 ? "fail" : (notAssessed > 0 || nothingChecked) ? "warn" : "pass";
 			string verdict = failed > 0 ? "NON-COMPLIANT"
 				: nothingChecked ? "NOT ASSESSED — no check was performed"
@@ -440,18 +457,33 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <span class='summary-text'>NORSOK N-004: <strong>{verdict}</strong></span>");
 			sb.AppendLine($"  </div>");
 			sb.AppendLine($"  <div class='summary-stats'>");
-			sb.AppendLine($"    <div class='stat'><span class='stat-value'>{totalChecks}</span><span class='stat-label'>Total Checks</span></div>");
-			sb.AppendLine($"    <div class='stat stat-pass'><span class='stat-value'>{passed}</span><span class='stat-label'>Passed</span></div>");
-			sb.AppendLine($"    <div class='stat stat-fail'><span class='stat-value'>{failed}</span><span class='stat-label'>Failed</span></div>");
-			if (notAssessed > 0)
-				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notAssessed}</span><span class='stat-label'>Not assessed</span></div>");
+			// Each counter says what it counts. "Checks performed", not "Total Checks": the old label
+			// invited the reader to read it as everything the report covers, which is exactly what
+			// made adding unmet conditions to it seem reasonable.
+			sb.AppendLine($"    <div class='stat'><span class='stat-value'>{checksPerformed}</span>"
+				+ "<span class='stat-label'>Checks performed</span></div>");
+			sb.AppendLine($"    <div class='stat stat-pass'><span class='stat-value'>{passed}</span>"
+				+ "<span class='stat-label'>Passed</span></div>");
+			sb.AppendLine($"    <div class='stat stat-fail'><span class='stat-value'>{failed}</span>"
+				+ "<span class='stat-label'>Failed</span></div>");
+			// The two kinds of gap, separately — one is the norm's boundary, the other is our
+			// inability to read the model, and a reader does something different about each.
+			if (outsideScope > 0)
+				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{outsideScope}</span>"
+					+ "<span class='stat-label'>Outside &sect;6.4 scope</span></div>");
+			if (notEvaluated > 0)
+				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notEvaluated}</span>"
+					+ "<span class='stat-label'>Not evaluated</span></div>");
+			sb.AppendLine($"    <div class='stat'><span class='stat-value'>"
+				+ $"{consAssessed} / {verdicts.Count}</span>"
+				+ "<span class='stat-label'>Connections assessed</span></div>");
 			if (notes > 0)
 				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notes}</span><span class='stat-label'>Notes</span></div>");
 
 			if (governing != null)
 			{
 				sb.AppendLine($"    <div class='stat stat-governing'>");
-				sb.AppendLine($"      <span class='stat-value'>{governing.Utilization * 100:F1}%</span>");
+				sb.AppendLine($"      <span class='stat-value'>{Pct(governing.Utilization)}</span>");
 				sb.AppendLine($"      <span class='stat-label'>Governing: &sect;{Esc(governing.Section)} {Esc(governing.Title)}</span>");
 				sb.AppendLine($"    </div>");
 			}
@@ -501,7 +533,7 @@ namespace NorsokChecker.Services
 				// The governing utilisation only where something was assessed. On an N/A row the
 				// figure would be 0.0 %, which reads as an excellent result for a joint nobody checked
 				// — the same trap the check cards and the results table both had.
-				string util = verdict.Pass == "N/A" ? "&mdash;" : $"{verdict.MaxUtilisation * 100:F1}%";
+				string util = verdict.Pass == "N/A" ? "&mdash;" : Pct(verdict.MaxUtilisation);
 
 				sb.AppendLine("  <tr>");
 				sb.AppendLine($"    <td class='con-name'>{Esc(name)}</td>");
@@ -588,7 +620,7 @@ namespace NorsokChecker.Services
 			// An em dash, not "0.0 %": on a note or an unassessed row the utilisation is not a small
 			// number, it is no number at all (NorsokFormulaResult says so), and "0.0 %" reads as an
 			// excellent result. The results grid already does this; the report did not.
-			string utilBadge = fr.IsNote || fr.NotAssessed ? "&mdash;" : $"{fr.Utilization * 100:F1}%";
+			string utilBadge = fr.IsNote || fr.NotAssessed ? "&mdash;" : Pct(fr.Utilization);
 			sb.AppendLine($"    <span class='util-badge {statusClass}'>{utilBadge}</span>");
 			sb.AppendLine("  </summary>");
 
@@ -685,7 +717,7 @@ namespace NorsokChecker.Services
 				// "Utilisation", British — NORSOK and EN use it, and this was the one place in the
 				// report still spelling it the American way: 30 occurrences beside 60 of the other.
 				// The property is still called Utilization; renaming it would be churn no reader sees.
-				sb.AppendLine($"      <span>Utilisation: <strong>{fr.Utilization * 100:F1}%</strong> "
+				sb.AppendLine($"      <span>Utilisation: <strong>{Pct(fr.Utilization)}</strong> "
 					+ $"(= {fr.Utilization:F4} &le; 1.0)</span>");
 			}
 			sb.AppendLine($"      <span class='result-verdict'>{statusIcon} {statusText}</span>");
@@ -1207,6 +1239,24 @@ namespace NorsokChecker.Services
 		}
 
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
+
+		/// <summary>
+		/// A utilisation as a percentage, to one decimal — through ONE formatter, in one culture.
+		///
+		/// Measured on a printed report from this machine: the summary read "73,7%" with a comma
+		/// while every derivation step on the pages below read "73.70" with a point, because the
+		/// steps go through an InvariantCulture helper and these did not. Two decimal separators in
+		/// one English document, and on a machine with a different locale the report would differ
+		/// again — a document that renders differently per machine cannot be a deliverable.
+		///
+		/// Invariant rather than the norm's own locale: the report is written in English and NORSOK
+		/// is an English-language standard. A Czech localisation, if it ever comes, changes this one
+		/// method.
+		/// </summary>
+		private static string Pct(double ratio) =>
+			ratio.ToString("P1", System.Globalization.CultureInfo.InvariantCulture)
+				// "P1" gives "73.7 %" — the space is not wanted, the rest is.
+				.Replace(" ", "").Replace(" ", "");
 
 		/// <summary>
 		/// A validity condition, typeset. The engine states them in ASCII — <c>"0.2&lt;=beta&lt;=1.0"</c>,
@@ -1738,6 +1788,34 @@ body {
      from the Export button. Keep them in step. */
   size: A4 portrait;
   margin: 20mm 15mm;
+
+  /* Page numbers, and the report says whose they are.
+     `counter(page)` in an @page margin box is supported from Chrome 131, and the WebView2 SDK this
+     app pins (1.0.2903.40) IS the 131 build — the third version field mirrors the Chromium build.
+     So this needs no library and no post-processing pass: the exported PDF had no page numbers at
+     all, and 161 pages without them cannot be navigated or cited.
+
+     Scoped to the report deliberately. This document is an INSERT — it gets bound into someone
+     else's calculation package — so a bare page number would collide with the host document's own
+     numbering. Naming the standard in front of it cannot be mistaken for the host's own footer,
+     while still letting a reader cite page 7 of the check.
+     (No quotation marks anywhere in this comment: the stylesheet is a C# verbatim string, and a
+     single quote here ends the constant — 171 compile errors, all of them reported further down.)
+
+     ShouldPrintHeaderAndFooter stays false (MainWindow.Report.cs): WebView2's own furniture would
+     add the print date, the page title and a file:// URI on every page. This replaces it.
+
+     Only `page` and `pages` work in page context — user-defined counters do not, and `string()`
+     for a running header carrying the current connection's name is unimplemented in Blink
+     (crbug 376420244), which is why the header below is fixed text. */
+  @bottom-center {
+    /* Doubled quotes: this whole stylesheet is a C# verbatim string, so a CSS string literal has
+       to escape them or the constant ends here. */
+    content: ""NORSOK N-004 §6.4 — "" counter(page) "" / "" counter(pages);
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    font-size: 8pt;
+    color: #78909C;
+  }
 }
 @media print {
   body { background: #fff; padding: 0; }

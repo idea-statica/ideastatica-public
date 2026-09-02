@@ -1,6 +1,29 @@
 namespace NorsokChecker.Models
 {
 	/// <summary>
+	/// Why a check was not carried out. Two states that are opposite in what the reader must do.
+	/// </summary>
+	public enum NotAssessedReason
+	{
+		/// <summary>The row is a check that ran, or a note. No reason applies.</summary>
+		None = 0,
+
+		/// <summary>
+		/// The chapter does not cover this joint, and never will: a permanent property of the
+		/// geometry or the section type (no through chord, an overlap joint, a non-tubular member,
+		/// a brace out of the plane). The reader's move is to use another method — EN 1993-1-8, say.
+		/// </summary>
+		OutsideScope,
+
+		/// <summary>
+		/// The chapter may well apply, but the inputs could not be produced: load effects missing,
+		/// a member list that would not read, no section data. The reader's move is to fix the model
+		/// or the input and run again — nothing about the joint has been ruled out.
+		/// </summary>
+		NotEvaluated,
+	}
+
+	/// <summary>
 	/// Result of evaluating a single Norsok formula (e.g., §6.3.2 Axial Tension).
 	/// Contains the formula reference, all populated variable values, and the verdict.
 	///
@@ -56,6 +79,17 @@ namespace NorsokChecker.Models
 		/// joint WAS assessed, so a note must not make the connection read as unchecked.
 		/// </summary>
 		public bool IsNote { get; set; }
+
+		/// <summary>
+		/// WHY the check was not carried out — only meaningful when <see cref="NotAssessed"/> is set.
+		///
+		/// Two reasons that look identical in the data and are opposite in what the reader must do,
+		/// which is why they need separating. The report said BOTH about the same connection: the
+		/// overview row read "Outside §6.4 scope" while the detail card read "could not be
+		/// evaluated". A reviewer cannot act on that — the first says use another method, the second
+		/// says fix the model and run again.
+		/// </summary>
+		public NotAssessedReason Reason { get; set; }
 
 		/// <summary>PASS / FAIL / NOTE / N/A — the single place that decides the wording.</summary>
 		public string Verdict => IsNote ? "NOTE" : NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";

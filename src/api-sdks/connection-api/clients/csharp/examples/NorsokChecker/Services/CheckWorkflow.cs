@@ -60,12 +60,24 @@ namespace NorsokChecker.Services
 			{
 				// Nothing was checked at all. An empty result set used to leave the connection
 				// reading "Norsok OK / PASS / 0.0 %" — a pass awarded for the absence of a check.
-				// The status names only THAT §6.4 does not apply and how many conditions failed; the
-				// conditions themselves are one row each in Results and in the report.
-				int gates = results.Count(f => !f.IsNote && f.NotAssessed);
-				string status = anyNotAssessed
-					? (gates > 1 ? $"Outside §6.4 scope ({gates} conditions)" : "Outside §6.4 scope")
-					: "Not assessed";
+				//
+				// WHICH kind of "nothing" matters, and the roll-up used to flatten it: every
+				// unassessed row was reported as "Outside §6.4 scope" regardless of why, so a
+				// connection whose load effects would not read was told the chapter did not cover
+				// it — while its own detail card said "could not be evaluated". The two disagreed in
+				// the shipped report, and only one of them was true.
+				var gateRows = results.Where(f => !f.IsNote && f.NotAssessed).ToList();
+				int gates = gateRows.Count;
+				bool blocked = gateRows.Any(f => f.Reason == NotAssessedReason.NotEvaluated);
+
+				string status =
+					!anyNotAssessed ? "Not assessed"
+					// A blocked input wins over a scope gate when both are present: the scope verdict
+					// was reached on inputs we know are incomplete, so it is not trustworthy.
+					: blocked ? "Not evaluated — the model could not be read"
+					: gates > 1 ? $"Outside §6.4 scope ({gates} conditions)"
+					: "Outside §6.4 scope";
+
 				return new ConnectionVerdict("N/A", 0, status);
 			}
 

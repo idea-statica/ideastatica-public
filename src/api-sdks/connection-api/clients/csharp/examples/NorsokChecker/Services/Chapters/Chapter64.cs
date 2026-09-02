@@ -90,6 +90,10 @@ namespace NorsokChecker.Services.Chapters
 							Formula = "-",
 							FormulaSubstituted = "no §6.4 check was performed for this joint",
 							NotAssessed = true,
+							// NOT "outside scope": nothing here says the chapter fails to cover this
+							// joint. The inputs could not be produced, so the reader's move is to fix
+							// the model and run again. The overview row used to say the opposite.
+							Reason = NotAssessedReason.NotEvaluated,
 						},
 					},
 					NotPerformed = new[] { new NotPerformed("§6.4 tubular joint check", blocked ?? "unknown") },
