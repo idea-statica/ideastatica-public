@@ -15,9 +15,9 @@ namespace NorsokChecker
 		/// produced rather than what the generator is capable of producing — the two came apart when
 		/// the Report tab went blank after a run that had no chapter ticked.
 		/// </summary>
-		internal string BuildReportHtmlForTest() => BuildReportHtml();
+		internal Task<string> BuildReportHtmlForTest() => BuildReportHtml();
 
-		private string BuildReportHtml(bool expandAll = false)
+		private async Task<string> BuildReportHtml(bool expandAll = false)
 		{
 			var allResults = new List<(string connectionName, List<NorsokFormulaResult> formulas)>();
 			foreach (var (conId, formulas) in _formulaResults)
@@ -27,7 +27,7 @@ namespace NorsokChecker
 			}
 
 			return NorsokHtmlReportGenerator.GenerateReport(
-				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, RenderJointFigures());
+				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, await RenderJointFigures());
 		}
 
 		/// <summary>
@@ -43,18 +43,26 @@ namespace NorsokChecker
 		/// Only connections with a topology get a figure. A joint the chapter rejected has no
 		/// envelope to colour by, and an uncoloured picture beside a "not assessed" card would imply
 		/// there was something to see.
+		///
+		/// The bodies are FETCHED here, not read from the cache. Reading it gave a figure only to the
+		/// connections the user had happened to click, because nothing else fills it — in practice
+		/// CON1 alone, the one selected automatically when the project opens. The §6.4 tab had the
+		/// same defect for the same reason and MeshesForAsync is what fixed it there; the cache still
+		/// does its job, since a connection already visited is served from it.
 		/// </summary>
-		private Dictionary<string, string> RenderJointFigures()
+		private async Task<Dictionary<string, string>> RenderJointFigures()
 		{
 			var figures = new Dictionary<string, string>();
 
 			foreach (var (conId, topo) in _topologyPerConnection)
 			{
-				if (!_meshesPerConnection.TryGetValue(conId, out var meshes) || meshes.Count == 0)
-					continue;
-
+				// The name first: it keys the figure into the report, so without one there is nothing
+				// to fetch a 1.7 MB payload for.
 				string? name = _connections.FirstOrDefault(c => c.Id == conId)?.Name;
 				if (string.IsNullOrEmpty(name)) continue;
+
+				var meshes = await MeshesForAsync(conId, name);
+				if (meshes.Count == 0) continue;
 
 				try
 				{
@@ -94,7 +102,7 @@ namespace NorsokChecker
 
 		private async void PopulateReportTab()
 		{
-			var html = BuildReportHtml();
+			var html = await BuildReportHtml();
 
 			try
 			{
@@ -149,7 +157,7 @@ namespace NorsokChecker
 				}
 				// All cards expanded — the customer must see every formula in the PDF
 				ReportWebView.NavigationCompleted += OnNavCompleted;
-				ReportWebView.NavigateToString(BuildReportHtml(expandAll: true));
+				ReportWebView.NavigateToString(await BuildReportHtml(expandAll: true));
 				await navigated.Task;
 				await Task.Delay(1200); // allow KaTeX formulas and web fonts to settle (all cards render)
 

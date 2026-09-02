@@ -39,7 +39,10 @@ namespace UT_NorsokChecker
 		{
 			var w = new NorsokChecker.MainWindow();
 			foreach (var step in steps) step(w);
-			return w.BuildReportHtmlForTest();
+			// Synchronous on purpose: with no API client the figure fetch returns empty without ever
+			// awaiting anything, so the task is already complete and this cannot deadlock the STA
+			// thread the fixture runs on.
+			return w.BuildReportHtmlForTest().GetAwaiter().GetResult();
 		}
 
 		/// <summary>
