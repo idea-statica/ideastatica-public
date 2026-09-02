@@ -151,28 +151,70 @@ namespace NorsokChecker.Services
 			// Table 6-1 Material factors
 			sb.AppendLine("<div class='settings-card'>");
 			sb.AppendLine("  <h3 class='settings-title'>Table 6-1 &mdash; Material Factors Applied to Project</h3>");
+			// FIXED layout with declared widths. Left to auto-size, the browser gave the description
+			// column everything and squeezed the rest, so "not applied" and the header "EC3 Default"
+			// each wrapped onto two lines while the row heights ran 1, 1, 2, 1, 3 — the table read as
+			// damaged rather than dense.
 			sb.AppendLine("  <table class='settings-table'>");
-			sb.AppendLine("    <thead><tr><th>Factor</th><th>Value</th><th>EC3 Default</th><th>Application</th></tr></thead>");
+			sb.AppendLine("    <colgroup><col style='width:5.5em'/><col style='width:4.5em'/>"
+				+ "<col style='width:5em'/><col/></colgroup>");
+			sb.AppendLine("    <thead><tr><th>Factor</th><th>Value</th><th>EC3</th><th>Application</th></tr></thead>");
 			sb.AppendLine("    <tbody>");
-			sb.AppendLine("      <tr><td>$ \\gamma_{M0} $</td><td class='val-norsok'>1.15</td><td class='val-ec3'>1.00</td><td>Resistance of Class 1, 2 or 3 cross-sections</td></tr>");
-			sb.AppendLine("      <tr><td>$ \\gamma_{M1} $</td><td class='val-norsok'>1.15</td><td class='val-ec3'>1.00</td><td>Resistance of Class 4 cross-sections; buckling</td></tr>");
-			sb.AppendLine("      <tr><td>$ \\gamma_{M2} $</td><td class='val-norsok'>1.30</td><td class='val-ec3'>1.25</td><td>Net section at bolt holes; fillet &amp; partial penetration welds; bolted connections</td></tr>");
-			sb.AppendLine("      <tr><td>$ \\gamma_{M3} $</td><td class='val-norsok'>1.30</td><td class='val-ec3'>1.25</td><td>Slip-resistant connections</td></tr>");
-			// γBC is listed as NOT applied, and why. It used to sit in this table as though it were
-			// in force — §6.1 asks for it only "where OTHER material factors are used than given in
-			// Table 6-1", and the rows above ARE Table 6-1, so applying it too would double-count
-			// (γM0 = 1.15 × 1.05 = 1.21 against the 1.15 the norm asks for).
-			sb.AppendLine("      <tr class='row-note'><td>$ \\gamma_{BC} $</td><td class='val-ec3'>not applied</td><td class='val-ec3'>&mdash;</td><td>Additional building code factor (&sect;6.1) &mdash; required only where factors <em>other</em> than Table 6-1 are used; the factors above <em>are</em> Table 6-1, so it does not apply on top of them</td></tr>");
+			// TEXT-MODE symbols, not KaTeX, for SIZE — not for placement.
+			//
+			// Measured on the shipped PDF (glyph coordinates, page 1): the KaTeX γ sits at x=32 on
+			// y=327/365/412/459 and its row's value at x=105 on y=328/366/413/459 — the same line to
+			// within a point. The symbols are NOT detached from their rows; a linear extract_text()
+			// reading them "at the foot of the page" is an artefact of KaTeX drawing in a separate
+			// batch, and reading that as layout was wrong.
+			//
+			// What the measurement does show: γ renders at 15.7 pt and its subscript at 10 pt while
+			// every value and description in the table is 13 pt. One cell 20 % larger than its row is
+			// what makes nothing line up optically. Text-mode γ<sub> inherits the table's size.
+			// KaTeX stays for display formulas, where its own block layout is what is wanted.
+			foreach (var (sub, val, ec3, use) in new[]
+			{
+				("M0", "1.15", "1.00", "Resistance of Class 1, 2 or 3 cross-sections"),
+				("M1", "1.15", "1.00", "Resistance of Class 4 cross-sections; buckling"),
+				("M2", "1.30", "1.25", "Net section at bolt holes; fillet &amp; partial penetration welds"),
+				("M3", "1.30", "1.25", "Slip-resistant connections"),
+			})
+			{
+				sb.AppendLine($"      <tr><td class='fac'>&gamma;<sub>{sub}</sub></td>"
+					+ $"<td class='val-norsok'>{val}</td><td class='val-ec3'>{ec3}</td>"
+					+ $"<td>{use}</td></tr>");
+			}
+			// γBC: "not applied" and nothing else. The three-line argument for WHY used to live in
+			// this cell — italics and all — which tripled the row height and put a paragraph where a
+			// datum belongs. It is a sentence under the table now.
+			sb.AppendLine("      <tr class='row-note'><td class='fac'>&gamma;<sub>BC</sub></td>"
+				+ "<td class='val-ec3'>&mdash;</td><td class='val-ec3'>&mdash;</td>"
+				+ "<td>Additional building code factor (&sect;6.1) &mdash; not applied</td></tr>");
 			sb.AppendLine("    </tbody>");
 			sb.AppendLine("  </table>");
+			// Out of the cell. §6.1 asks for γBC only "where OTHER material factors are used than
+			// given in Table 6-1", and the rows above ARE Table 6-1, so applying it on top would
+			// double-count (γM0 = 1.15 × 1.05 = 1.21 against the 1.15 the norm asks for).
+			sb.AppendLine("  <p class='settings-note'>&gamma;<sub>BC</sub> is required only where "
+				+ "factors <em>other</em> than Table 6-1 are used; the factors above <em>are</em> "
+				+ "Table 6-1, so it does not apply on top of them.</p>");
 			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo; These factors are written into the project's own settings, so anything calculated in IDEA StatiCa Connection afterwards uses them too.</p>");
 			sb.AppendLine("</div>");
 
-			// ── Executive Summary Card ──
-			RenderSummaryCard(sb, allResults);
-
-			// ── Contents, on a page of its own ──
+			// ── Contents, then the summary, then the table the contents indexes ──
+			//
+			// The order matters and was wrong: the contents used to sit AFTER the connection overview,
+			// so a reader met the table first and the index to it second. Worse, in the shipped PDF it
+			// broke across pages 2 and 3 — its break-after started a page but nothing stopped it
+			// splitting, and the front matter above it had already filled page 1.
+			//
+			// It carries no chapter number: it is the navigation apparatus, not a chapter. That also
+			// leaves the numbering alone — Summary stays 1, the overview 2, connections 3+.
 			RenderIndex(sb, allResults);
+
+			// ── Executive Summary Card, then chapter 2 ──
+			RenderSummaryCard(sb, allResults);
+			RenderConnectionTable(sb, allResults);
 
 			int chapter = ConnectionChapterBase;
 			foreach (var (connectionName, formulas) in allResults)
@@ -417,7 +459,9 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"  </div>");
 			sb.AppendLine($"</div>");
 
-			RenderConnectionTable(sb, allResults);
+			// The connection table is NOT rendered here any more — GenerateReport orders the three
+			// front-matter blocks itself, because the contents page has to come before the table it
+			// indexes and could not while this method emitted both.
 		}
 
 		/// <summary>
@@ -1321,7 +1365,16 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
+  /* declared widths in the colgroup, honoured: the auto algorithm starved the narrow columns and
+     wrapped two-word values onto two lines */
+  table-layout: fixed;
 }
+/* ONE vertical rhythm for the whole table. The rows used to run 1, 1, 2, 1, 3 lines because each
+   cell sized itself, and nothing lined up across a row. */
+.settings-table td, .settings-table th { vertical-align: baseline; }
+.settings-table .fac { white-space: nowrap; }
+/* numbers form columns: same width per digit, aligned on the same edge as their header */
+.val-norsok, .val-ec3 { font-variant-numeric: tabular-nums; }
 .settings-table thead th {
   background: #1B2A4A;
   color: #fff;
@@ -1689,8 +1742,30 @@ body {
 @media print {
   body { background: #fff; padding: 0; }
   .check-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
-  .summary-card { break-after: avoid; }
-  details > summary::before { display: none; }
+  /* The disclosure triangle, gone in print — it is an affordance for a click that paper cannot
+     take. This rule USED to read `details > summary::before`, which matches nothing: the marker is
+     declared on `.check-card > summary::before`, so the more specific selector kept winning and the
+     glyph printed anyway. Measured in the shipped PDF: 41 × '▸'. Both selectors are listed now,
+     because the point is that the marker never prints, whichever rule drew it. */
+  details > summary::before,
+  .check-card > summary::before,
+  .check-card[open] > summary::before { content: none; display: none; }
+
+  /* Nothing that reads as one unit may be split.
+     The summary card WAS only break-after: avoid, which says where the page may end AFTER it and
+     nothing about breaking inside it — so the shipped PDF put the headline 73.7 % on page 2, alone,
+     away from the verdict and the counters it belongs to. Measured: 'INCOMPLETE' at y=748 on page 1
+     with the figure on the next page. That was the worst piece of typography in the document. */
+  .summary-card, .index-page, .settings-card, .norm-box,
+  .formula-block, .deriv-step, .joint-figure, table { break-inside: avoid; }
+
+  /* A row is never split from itself, and a long table repeats its header rather than continuing
+     into a page of anonymous numbers. */
+  tr, td, th { break-inside: avoid; }
+  thead { display: table-header-group; }
+
+  /* Body text does not leave one line behind. */
+  p, li { orphans: 3; widows: 3; }
 
   /* Contents on a page of its own, and one page per connection.
      The FIRST connection is excepted: the contents page's break-after has already started a new

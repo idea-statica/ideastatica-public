@@ -170,6 +170,144 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// Table 6-1's factor symbols are set at the table's own type size.
+		///
+		/// They were KaTeX (<c>$ \gamma_{M0} $</c>), and KaTeX sizes itself: measured by glyph
+		/// coordinate in the shipped PDF, γ came out at 15.7 pt with a 10 pt subscript while every
+		/// value and description in the same table is 13 pt. One cell a fifth larger than its row is
+		/// what stops anything lining up across it.
+		///
+		/// NOT a placement defect — an earlier reading of mine said the symbols were detached from
+		/// their rows and printed at the foot of page 1, and that was wrong: they sit on the same
+		/// baselines as their values, to within a point. Reading extract_text() order as layout is
+		/// what produced that claim, and the user's "it looks readable to me" was correct.
+		///
+		/// A declared layout is asserted too: left to auto-size, the browser starved the narrow
+		/// columns so "not applied" and the header "EC3 Default" each wrapped onto two lines.
+		/// </summary>
+		[Test]
+		public void TableSixOneUsesTheTablesOwnTypeSize()
+		{
+			string html = Report();
+
+			int at = html.IndexOf("class='settings-table'", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "Table 6-1 is rendered");
+			string table = html[at..html.IndexOf("</table>", at, StringComparison.Ordinal)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(table, Does.Not.Contain(@"\gamma"),
+					"no KaTeX in the cells — it sizes itself and ignores the table's 13 pt");
+				Assert.That(table, Does.Not.Contain("$"),
+					"nor any other math delimiter that KaTeX would pick up");
+				Assert.That(table, Does.Contain("&gamma;<sub>M0</sub>"),
+					"a text-mode symbol, which inherits the row's size");
+				Assert.That(html, Does.Contain("table-layout: fixed"),
+					"declared widths are honoured, so no column starves");
+				Assert.That(table, Does.Contain("<colgroup>"), "and the widths are declared");
+			});
+		}
+
+		/// <summary>
+		/// The contents comes BEFORE the table it indexes, and before the summary.
+		///
+		/// It used to sit after both, so a reader met the connection overview first and the index to
+		/// it second. Nothing guarded the order: the blocks were moved and all 355 tests stayed
+		/// green, which is why this test exists rather than the position being taken on trust.
+		///
+		/// Asserted by POSITION in the emitted document, the only thing that decides what a reader
+		/// meets first.
+		/// </summary>
+		[Test]
+		public void TheContentsPrecedesWhatItIndexes()
+		{
+			string html = Report();
+
+			int contents = html.IndexOf("class='index-page'", StringComparison.Ordinal);
+			int summary = html.IndexOf("id='ch-1'", StringComparison.Ordinal);
+			int overview = html.IndexOf("id='ch-2'", StringComparison.Ordinal);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(contents, Is.GreaterThan(-1), "the contents page is rendered");
+				Assert.That(summary, Is.GreaterThan(contents),
+					"the summary follows the contents that lists it");
+				Assert.That(overview, Is.GreaterThan(summary),
+					"and the connection overview follows the summary");
+			});
+		}
+
+		/// <summary>
+		/// Nothing that reads as one unit may be split across a page.
+		///
+		/// Measured in the shipped 161-page PDF by glyph coordinate: the summary card's verdict
+		/// ("INCOMPLETE", y=748 on page 1) and its headline figure ("73.7 %", 28 pt, y=1004 on
+		/// page 2) landed on different pages. The card had `break-after: avoid`, which says where a
+		/// page may end AFTER it and nothing about breaking inside it — the two are different
+		/// properties and only the second was needed.
+		///
+		/// The contents page had the same defect for the same reason: `break-after: page` starts a
+		/// new page after it without stopping it splitting, so it broke across pages 2 and 3.
+		/// </summary>
+		[TestCase(".summary-card", TestName = "the summary card, whose figure was orphaned")]
+		[TestCase(".index-page", TestName = "the contents, which broke across two pages")]
+		[TestCase(".settings-card", TestName = "Table 6-1")]
+		[TestCase("table", TestName = "and every table")]
+		public void AUnitThatReadsAsOneBlockIsNotSplitAcrossPages(string selector)
+		{
+			string html = Report();
+
+			int at = html.IndexOf("@media print", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the print block");
+			// OUR print block only: the embedded KaTeX stylesheet carries an @media print of its own,
+			// and searching the whole document finds that one too.
+			string print = html[at..];
+
+			// Comments stripped FIRST, from the whole block: the explanatory /* … */ sits BEFORE the
+			// rule, so removing them after splitting left the prose attached to the first selector.
+			// (Two failed attempts here, both on correct CSS — the selector list also spans several
+			// lines, so the pattern has to cross newlines.)
+			string css = System.Text.RegularExpressions.Regex.Replace(
+				print, @"/\*.*?\*/", "", System.Text.RegularExpressions.RegexOptions.Singleline);
+
+			var guarded = System.Text.RegularExpressions.Regex
+				.Matches(css, @"([^{}]+)\{[^}]*break-inside:\s*avoid[^}]*\}",
+					System.Text.RegularExpressions.RegexOptions.Singleline)
+				.SelectMany(m => m.Groups[1].Value.Split(','))
+				.Select(s => s.Trim())
+				.Where(s => s.Length > 0)
+				.ToList();
+
+			Assert.That(guarded, Does.Contain(selector),
+				$"'{selector}' must carry break-inside: avoid in the print block; guarded: "
+				+ string.Join(" | ", guarded));
+		}
+
+		/// <summary>
+		/// The disclosure triangle does not print.
+		///
+		/// A click affordance on paper is noise, and the rule meant to hide it did not work: it read
+		/// `details > summary::before` while the marker is declared on `.check-card > summary::before`,
+		/// so the more specific selector won. Measured: 41 × '▸' in the exported PDF.
+		/// </summary>
+		[Test]
+		public void ThePrintStylesheetHidesTheDisclosureMarker()
+		{
+			string html = Report();
+
+			int at = html.IndexOf("@media print", StringComparison.Ordinal);
+			string print = html[at..];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(print, Does.Contain(".check-card > summary::before"),
+					"the selector that actually draws the marker is the one that must be overridden");
+				Assert.That(print, Does.Contain("content: none"),
+					"and the generated content is removed, not merely hidden");
+			});
+		}
+
+		/// <summary>
 		/// The page is declared, and in ONE place.
 		///
 		/// There used to be two separate @media print blocks — one inline with the style tag, one in
