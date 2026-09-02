@@ -283,7 +283,7 @@ namespace UT_NorsokChecker
 				Assert.That(headers[2], Is.EqualTo("K"), "Classification starts at K");
 				Assert.That(headers[4], Is.EqualTo("Y"), "Classification ends at Y");
 				Assert.That(headers[5], Is.EqualTo("N_Rd"), "Resistance starts at N_Rd");
-				Assert.That(headers[7], Is.EqualTo("M_Rd,op"), "Resistance ends at M_Rd,op");
+				Assert.That(headers[7], Is.EqualTo("M_z,Rd"), "Resistance ends at M_z,Rd");
 				Assert.That(headers[8], Is.EqualTo("axial"), "Utilisation breakdown starts at axial");
 				Assert.That(headers[10], Is.EqualTo("out-of-plane"), "…and ends at out-of-plane");
 				Assert.That(headers[11], Is.EqualTo("utilisation"), "Check starts at utilisation");
@@ -423,6 +423,70 @@ namespace UT_NorsokChecker
 					Assert.That(actual, Is.EqualTo(expected), $"swatch {i} must be its band's colour");
 				}
 			});
+		}
+
+		/// <summary>
+		/// The brace-force table's shear columns are bound the way the frame requires: V_z to the
+		/// IN-plane component, V_y to the out-of-plane one.
+		///
+		/// The engine's property names are ip/op while the headers are the frame's axes, and the two
+		/// vocabularies CROSS OVER for the shears: a moment's index is its axis of ROTATION, a
+		/// force's its direction of ACTION, so the in-plane force (Vip) sits on the z axis. The
+		/// moments do not cross over — M_y is in-plane bending, i.e. Mip.
+		///
+		/// Nothing else in the suite noticed when that pairing was wrong: measured, swapping the two
+		/// bindings left every other test green. BraceFrameTests covers the frame itself.
+		/// </summary>
+		[Test]
+		public void TheBraceForceShearColumnsAreBoundToTheMatchingComponents()
+		{
+			var w = NewWindow();
+
+			string? PathOf(string header) => w.Grid64BraceForces.Columns
+				.OfType<System.Windows.Controls.DataGridTextColumn>()
+				.Where(c => (c.Header?.ToString() ?? "").StartsWith(header, StringComparison.Ordinal))
+				.Select(c => (c.Binding as System.Windows.Data.Binding)?.Path?.Path)
+				.FirstOrDefault();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(PathOf("V_z"), Is.EqualTo("Vip"),
+					"V_z is the force IN the joint plane, which the engine calls Vip");
+				Assert.That(PathOf("V_y"), Is.EqualTo("Vop"),
+					"V_y is the force OUT of the plane, which the engine calls Vop");
+
+				Assert.That(PathOf("M_y ["), Is.EqualTo("Mip"), "M_y is in-plane bending");
+				Assert.That(PathOf("M_z ["), Is.EqualTo("Mop"), "M_z is out-of-plane bending");
+			});
+		}
+
+		/// <summary>
+		/// Every §6.4 header with a subscript in it gets the typesetting style.
+		///
+		/// Without it WPF eats the underscore (it reads as an access-key marker), which is how the
+		/// brace-force table came to show "NSd" and "My" while the classification table showed
+		/// "N_Rd" and "M_y,Rd" — two notations on one screen. SubscriptHeaderTests covers what the
+		/// converter produces; this covers that the columns actually USE it, which is the half a
+		/// correct-but-unwired converter would pass.
+		/// </summary>
+		[Test]
+		public void EveryHeaderWithASubscriptIsTypeset()
+		{
+			var w = NewWindow();
+
+			var untyped = new List<string>();
+			foreach (var grid in new[] { w.Grid64BraceForces, w.Grid64, w.MembersGrid })
+				foreach (var c in grid.Columns)
+				{
+					string header = c.Header?.ToString() ?? "";
+					// A subscript is what needs typesetting; "brace", "face", "N [kN]" do not.
+					if (!header.Contains('_')) continue;
+					if (c.HeaderStyle == null) untyped.Add($"{header} (in {grid.Name})");
+				}
+
+			Assert.That(untyped, Is.Empty,
+				"these headers carry a subscript but no HeaderStyle, so WPF will swallow the "
+				+ "underscore and print e.g. 'MyRd':\n  " + string.Join("\n  ", untyped));
 		}
 	}
 

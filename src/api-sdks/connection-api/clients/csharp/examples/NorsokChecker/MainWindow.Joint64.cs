@@ -545,8 +545,9 @@ namespace NorsokChecker
 				// What this brace was checked FOR, under its name — the tab used to show only how
 				// much capacity was used, never the actions that used it.
 				if (row.Inputs is { } inp)
-					view.Actions = $"N_Sd={inp.NSd / 1e3:F1} kN · M_ip={inp.MipSd / 1e3:F2} kNm"
-						+ $" · M_op={inp.MopSd / 1e3:F2} kNm";
+					// eq (6.57)'s symbols, as everywhere else the user reads them
+					view.Actions = $"N_Sd={inp.NSd / 1e3:F1} kN · M_y={inp.MipSd / 1e3:F2} kNm"
+						+ $" · M_z={inp.MopSd / 1e3:F2} kNm";
 
 				if (cls != null)
 				{

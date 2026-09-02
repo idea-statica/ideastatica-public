@@ -17,6 +17,24 @@
         <controls:FractionToRestStarConverter x:Key="FractionToRestStar"/>
         <!-- for a row background computed per row (the utilisation tint) -->
         <controls:ColorToBrushConverter x:Key="ColorToBrush"/>
+        <!-- "M_y,chord [kNm]" -> M with y,chord as a real subscript. Also the only way an
+             underscore survives a column header at all: WPF reads it as an access-key marker
+             and eats it, which is why one §6.4 table showed "My" and the other "M_y,Rd". -->
+        <controls:SubscriptHeaderConverter x:Key="SubscriptHeader"/>
+
+        <!-- Every §6.4 header with a symbol in it uses this: the subscript is typeset, and the
+             swallowed-underscore problem is fixed in one place rather than per column. -->
+        <Style x:Key="SubscriptColumnHeader" TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding Converter={StaticResource SubscriptHeader}}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+        </Style>
 
         <!-- Column header for the §6.4 table. One line only: the GROUP name lives in its own banner
              above the grid (Group64Band, filled by SyncGroup64Band), spanning and centred over the
@@ -32,7 +50,12 @@
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" TextWrapping="NoWrap" TextAlignment="Center"/>
+                        <!-- Through the subscript converter, so "M_y,Rd" is typeset rather than
+                             printed with a literal underscore. This table kept its underscores
+                             where the brace-force table lost them (WPF eats "_" as an access key)
+                             purely because it had a TextBlock here — that accident is what made the
+                             two tables disagree. -->
+                        <ContentPresenter Content="{Binding Converter={StaticResource SubscriptHeader}}"/>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -500,7 +523,8 @@
                                              discarded. -->
                                         <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, StringFormat=F1}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
                                         <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, StringFormat=F1}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
-                                        <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, StringFormat=F0}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, StringFormat=F0}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"
+                                                            HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                         <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -832,21 +856,42 @@
                                                       md:DataGridAssist.CellPadding="7 3">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="brace" Binding="{Binding Brace}" Width="SizeToHeader" MinWidth="46"/>
-                                                    <DataGridTextColumn Header="N_Sd [kN]" Binding="{Binding NSd}" Width="SizeToHeader" MinWidth="62"/>
-                                                    <DataGridTextColumn Header="M_ip [kNm]" Binding="{Binding Mip}" Width="SizeToHeader" MinWidth="66"/>
-                                                    <DataGridTextColumn Header="M_op [kNm]" Binding="{Binding Mop}" Width="SizeToHeader" MinWidth="66"/>
-                                                    <DataGridTextColumn Header="V_ip [kN]" Binding="{Binding Vip}" Width="SizeToHeader" MinWidth="60"/>
-                                                    <DataGridTextColumn Header="V_op [kN]" Binding="{Binding Vop}" Width="SizeToHeader" MinWidth="60"/>
-                                                    <DataGridTextColumn Header="M_tor [kNm]" Binding="{Binding Mtor}" Width="SizeToHeader" MinWidth="68"/>
+                                                    <!-- N, not N_Sd: in THIS table the axial force is a COMPONENT of the
+                                                         frame, sibling to V_y and V_z. The Sd subscript marks a design
+                                                         action effect weighed against a resistance — eq (6.57) and the
+                                                         classification table — not a resolved component. -->
+                                                    <DataGridTextColumn Header="N [kN]" Binding="{Binding NSd}" Width="SizeToHeader" MinWidth="62"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <!-- The brace frame (x,y,z) = (brace axis, plane NORMAL, IN the plane),
+                                                         right-handed — see JointForceResolver.BraceForceInPlane.
+                                                         A MOMENT's index is its axis of ROTATION, a FORCE's index its
+                                                         direction of ACTION, so M_y bends in the plane (about the normal)
+                                                         while V_z acts in it. That is why V_z binds to Vip and V_y to Vop:
+                                                         the property names are the engine's ip/op, the headers are the
+                                                         frame's axes. The ,chord index marks the chord's own moments —
+                                                         same plane, but not terms of eq (6.57). -->
+                                                    <DataGridTextColumn Header="M_y [kNm]" Binding="{Binding Mip}" Width="SizeToHeader" MinWidth="66"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <DataGridTextColumn Header="M_z [kNm]" Binding="{Binding Mop}" Width="SizeToHeader" MinWidth="66"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <DataGridTextColumn Header="V_y [kN]" Binding="{Binding Vop}" Width="SizeToHeader" MinWidth="60"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <DataGridTextColumn Header="V_z [kN]" Binding="{Binding Vip}" Width="SizeToHeader" MinWidth="60"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <DataGridTextColumn Header="M_tor [kNm]" Binding="{Binding Mtor}" Width="SizeToHeader" MinWidth="68"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                                     <DataGridTextColumn Header="face" Binding="{Binding Face}" Width="SizeToHeader" MinWidth="58"/>
-                                                    <DataGridTextColumn Header="N_chord [kN]" Binding="{Binding NChord}" Width="SizeToHeader" MinWidth="72"/>
-                                                    <DataGridTextColumn Header="M_ip,chord [kNm]" Binding="{Binding MipChord}" Width="SizeToHeader" MinWidth="88"/>
-                                                    <DataGridTextColumn Header="M_op,chord [kNm]" Binding="{Binding MopChord}" Width="SizeToHeader" MinWidth="88"/>
+                                                    <DataGridTextColumn Header="N_chord [kN]" Binding="{Binding NChord}" Width="SizeToHeader" MinWidth="72"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <DataGridTextColumn Header="M_y,chord [kNm]" Binding="{Binding MipChord}" Width="SizeToHeader" MinWidth="88"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
+                                                    <DataGridTextColumn Header="M_z,chord [kNm]" Binding="{Binding MopChord}" Width="SizeToHeader" MinWidth="88"
+                                                                        HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                             <TextBlock Margin="0,5,0,0" TextWrapping="Wrap" Foreground="#78909C"
                                                        FontSize="10.5"
-                                                       Text="Brace forces resolved into the joint plane. The last three columns are the chord's own internal forces at that brace's footprint — the raw input to the chord stress used in the member check."/>
+                                                       Text="Brace forces in a right-handed frame per brace: x along the brace away from the node (so +N is tension), y the joint plane's normal, z in the plane. A moment's index is its axis of rotation, a force's index its direction of action — so M_y bends within the plane and V_z acts in it. Only N, M_y and M_z enter the check (eq. 6.57, where they appear as N_Sd, M_y,Sd and M_z,Sd); M_tor and the shears are reported, not assessed. The last three columns are the chord's own internal forces at that brace's footprint — the raw input to the chord stress."/>
                                         </StackPanel>
                                     </Border>
                                 </StackPanel>
@@ -988,10 +1033,10 @@
                                                         Header="N_Rd"/>
                                     <DataGridTextColumn Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="M_Rd,ip"/>
+                                                        Header="M_y,Rd"/>
                                     <DataGridTextColumn Binding="{Binding MRdOp}" Width="SizeToHeader" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="M_Rd,op"/>
+                                                        Header="M_z,Rd"/>
                                     <DataGridTextColumn Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
