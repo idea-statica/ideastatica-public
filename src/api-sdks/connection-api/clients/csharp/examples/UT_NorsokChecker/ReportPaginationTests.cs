@@ -431,6 +431,39 @@ namespace UT_NorsokChecker
 			});
 		}
 
+		/// <summary>
+		/// A CONTAINER is never protected from splitting — only the atomic blocks inside it.
+		///
+		/// Learned twice in one round, the second time from the real export. `.check-card` was the
+		/// first: a card that would not fit moved whole, wasting up to three quarters of a page.
+		/// `.deriv-block` was the second, and it was added BY the fix for the first — it holds the
+		/// entire joint-plane section, several tables and half a page of prose, so the joint figure
+		/// could no longer share a page with it. Measured on the export: six pages at 8 % fill, and
+		/// 173 pages became 187 — the fix for wasted space made it worse.
+		///
+		/// So this test names the rule rather than the two instances: a selector that denotes a
+		/// container must not carry break-inside: avoid.
+		/// </summary>
+		[Test]
+		public void NoContainerIsProtectedFromSplitting()
+		{
+			var guarded = SelectorsCarrying(PrintBlock(Report()), "break-inside:\\s*avoid");
+
+			var containers = new[] { ".check-card", ".deriv-block", "details", "body", ".chapter-group" };
+			var offenders = containers.Where(c => guarded.Contains(c)).ToList();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(offenders, Is.Empty,
+					"these are containers, not units: " + string.Join(", ", offenders));
+				// The control: the atomic blocks ARE protected, so this is a scoping rule and not a
+				// test that would pass on a stylesheet with no break control at all.
+				Assert.That(guarded, Does.Contain(".formula-block"));
+				Assert.That(guarded, Does.Contain(".deriv-step"));
+				Assert.That(guarded, Does.Contain("table"));
+			});
+		}
+
 		/// <summary>OUR print block, without the embedded KaTeX stylesheet's own @media print.</summary>
 		private static string PrintBlock(string html)
 		{

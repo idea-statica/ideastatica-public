@@ -328,8 +328,12 @@ namespace NorsokChecker.Services
 					sb.AppendLine($"  <img src='data:image/png;base64,{png}' alt='Joint {Esc(connectionName)}'/>");
 					sb.AppendLine("  <figcaption>Joint plane, viewed along its normal &mdash; "
 						+ "members coloured by their governing utilisation.</figcaption>");
-					RenderUtilisationLegend(sb);
 					sb.AppendLine("</figure>");
+					// AFTER the figure element, not inside it: .joint-figure carries
+					// break-inside: avoid, and adding the legend to that block made the figure too
+					// tall to share a page with the geometry table — six pages at 8 % fill, and the
+					// document grew from 173 pages to 187. See the CSS comment on .joint-figure.
+					RenderUtilisationLegend(sb);
 				}
 
 				// The joint-plane section is NOT rendered here — it belongs INSIDE the §6.4 group,
@@ -2271,8 +2275,13 @@ body {
 .connection-table .con-verdict.warn { color: #EF6C00; }
 
 /* The joint figure. break-inside so a page break never lands between the picture and its caption. */
+/* The figure and its caption stay together; the LEGEND is outside this box on purpose.
+   Measured on the first export after the legend was added: 173 pages became 187, and the six
+   figure pages went from 13 lines of text each to 3 — the legend pushed the protected block past
+   what would fit beside the geometry table, so the whole figure moved to a page of its own and
+   took 8 % of it. The legend is two lines of swatches; it may break away from the picture. */
 .joint-figure {
-  margin: 0 0 18px;
+  margin: 0 0 4px;
   padding: 0;
   break-inside: avoid;
 }
@@ -2457,7 +2466,12 @@ body {
      away from the verdict and the counters it belongs to. Measured: 'INCOMPLETE' at y=748 on page 1
      with the figure on the next page. That was the worst piece of typography in the document. */
   .summary-card, .index-page, .settings-card, .norm-box,
-  .formula-block, .deriv-step, .deriv-block, .joint-figure, table { break-inside: avoid; }
+  .formula-block, .deriv-step, .joint-figure, table { break-inside: avoid; }
+  /* NOT .deriv-block: it is a CONTAINER — the whole joint-plane section, several tables and half a
+     page of prose — so protecting it is the same mistake as protecting the check card was.
+     Measured after adding it in this round: the joint figure could no longer share a page with the
+     section below it, six pages came out at 8 % fill, and the document grew from 173 to 187 pages.
+     Its CONTENTS are protected individually, which is the whole point of the re-scoping. */
 
   /* A row is never split from itself, and a long table repeats its header rather than continuing
      into a page of anonymous numbers. */
