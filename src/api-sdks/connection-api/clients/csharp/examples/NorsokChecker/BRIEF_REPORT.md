@@ -32,18 +32,28 @@ failed it at least once.
    many. Declare the set in counts; keep the per-brace rows, which are one per brace whatever the
    count.
 9. **The report is an insert as well as a document.** It gets bound into someone else's calculation
-   package, so pagination is configurable and `continuous` numbering prints no total.
-10. **Every claim about the output is measured before it is written.** Three statements in our
+   package. It therefore prints NO page numbers of its own — see *Compromises*, where the attempt is
+   recorded — and the reader numbers the document it lands in.
+10. **A gate must be invariant to how the model expresses a thing.** Moving the chord by −e is the
+    same joint as moving every brace by +e, and a joint displaced as a rigid body is not displaced
+    at all as far as §6.4 is concerned. The evaluation plane therefore sits on the chord axis, not
+    on the work point, and a gate measures BETWEEN members rather than from the origin.
+11. **Every claim about the output is measured before it is written.** Three statements in our
     round-1 reply were wrong; `reference/verification_scripts/verify_report.py` exists so that
     cannot recur.
 
 ## Compromises
 
-- **The page footer sits in the bottom margin.** The reviewer's round-1 spec forbade it (the margins
-  are the user's); the rendering engine will only paginate a repeating element in a margin box, so
-  the alternative was no page numbers on a 173-page document. Flagged to them, and they overruled
-  their own rule in round 2. `footer.mode: off` is the escape hatch when a host document's own
-  footer would collide.
+- **The report prints no page numbers.** Numbering was built (three modes in Page setup, the
+  reviewer's own spec) and then removed, because it could not keep its promise: **an OFFSET page
+  number cannot be produced in a page margin box on this engine.** Measured six ways in
+  `PrintedPageProbe.WhatCounterResetDoesToPageNumbering` — a `counter-reset` in `@page` sets the
+  exact value AND re-applies on every page (start-at-77 printed 77 on all 187 pages), `@page:first`
+  gives 77,1,2, and a document counter works in the page CONTENT but reads 0 from a margin box,
+  because page context sees only `page` and `pages`. A reader numbers the document this is bound
+  into. Revisit only with a PDF post-processing pass, where an offset is a plain integer — the same
+  pass `/Outlines` and the document properties need, so all three would land together.
+  `NorsokHtmlReportGenerator.FooterCss` is left as that seam.
 - **PDF `/Subject` and `/Author` are absent, and `/Creator` names the browser engine.** Verified by
   compiling: `CoreWebView2PrintSettings` has no such properties. Setting them needs a
   post-processing pass over the finished PDF — the same pass `/Outlines` needs — and both are
@@ -69,7 +79,8 @@ failed it at least once.
 | The reader has the standard, or knows it | the audience widens to non-engineers; clause references would stop carrying their weight |
 | The report is read on paper or as a PDF, in greyscale as often as in colour | never rely on colour alone; already a requirement, and the reason every status carries a word |
 | A brace's own sub-plane frame is the right one for §6.4 (verified against the python reference) | the reference implementation changes, or the norm is read differently — then the identical CON12/CON13 force tables become a defect rather than a consequence |
-| `counter(page)` in an `@page` margin box works in the pinned WebView2 (SDK 1.0.2903.40 = Chromium 131) | the pinned runtime moves below 131, or the export path changes away from WebView2 |
+| A page margin box can show only the `page`/`pages` counters, and a reset in `@page` re-applies per page — so no offset numbering (measured on WebView2 1.0.2903.40 = Chromium 131) | the pinned runtime changes, or the export leaves WebView2 — then re-run `PrintedPageProbe` before believing either way |
+| The chord's eccentricity gives the evaluation plane its position, and `EccVec` is the way to read it (`Origin` is a distant axis point for a continuous chord) | the API changes how offsets or `origin` are expressed — the plane would then be placed from the wrong quantity and every out-of-plane verdict would shift |
 
 ## Decisions recorded but NOT built
 
