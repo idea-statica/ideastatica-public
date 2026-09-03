@@ -42,11 +42,30 @@ namespace IdeaStatiCa.Api.Connection.Model.Parameters
 
 		public ConPropertyOwnerKind Kind { get; set; }
 
+		/// <summary>
+		/// Id of the owner the property belongs to, in the field matching <see cref="Kind"/> - the same
+		/// shape the linkable-properties catalog reports as <c>owner</c>, so a catalog row round-trips
+		/// into this request. The one that matches the kind is required: without it the link would bind
+		/// to whichever owner of that kind the catalog happens to list first.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public int? OperationId { get; set; }
 
+		/// <inheritdoc cref="OperationId"/>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public int? MemberId { get; set; }
+
+		/// <inheritdoc cref="OperationId"/>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int? CrossSectionId { get; set; }
+
+		/// <inheritdoc cref="OperationId"/>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int? MaterialId { get; set; }
+
+		/// <inheritdoc cref="OperationId"/>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int? BoltAssemblyId { get; set; }
 
 		/// <summary>Opaque property identifier taken from the catalog; never assembled by the caller.</summary>
 		public string PropertyId { get; set; } = string.Empty;
