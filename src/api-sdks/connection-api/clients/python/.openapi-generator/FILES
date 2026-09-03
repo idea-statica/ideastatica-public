@@ -43,6 +43,7 @@ docs/ConCrossSectionGeometry.md
 docs/ConCrossSectionGeometryComponent.md
 docs/ConCrossSectionLibraryDefinition.md
 docs/ConCrossSectionParameter.md
+docs/ConCrossSectionParameterValueKind.md
 docs/ConCrossSectionParametricDefinition.md
 docs/ConCssArcSegment.md
 docs/ConCssLineSegment.md
@@ -212,6 +213,7 @@ ideastatica_connection_api/models/con_cross_section_geometry.py
 ideastatica_connection_api/models/con_cross_section_geometry_component.py
 ideastatica_connection_api/models/con_cross_section_library_definition.py
 ideastatica_connection_api/models/con_cross_section_parameter.py
+ideastatica_connection_api/models/con_cross_section_parameter_value_kind.py
 ideastatica_connection_api/models/con_cross_section_parametric_definition.py
 ideastatica_connection_api/models/con_css_arc_segment.py
 ideastatica_connection_api/models/con_css_line_segment.py

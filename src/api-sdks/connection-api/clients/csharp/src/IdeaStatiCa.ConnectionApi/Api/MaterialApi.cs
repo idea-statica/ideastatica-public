@@ -220,7 +220,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -230,7 +230,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConCrossSectionDetail AddParametricCrossSection(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0);
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults.
         /// </summary>
         /// <remarks>
         /// 
@@ -350,7 +350,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of List&lt;Object&gt;</returns>
         ApiResponse<List<Object>> GetConcreteMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -360,7 +360,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConCrossSectionDetail GetCrossSectionDetail(Guid projectId, int cssId, int operationIndex = 0);
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
         /// </summary>
         /// <remarks>
         /// 
@@ -438,7 +438,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         ApiResponse<List<string>> GetMaterialLibraryWithHttpInfo(Guid projectId, string materialType, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -448,7 +448,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConCrossSectionParametricDefinition GetParametricCrossSectionShapeTemplate(Guid projectId, string shapeType, int operationIndex = 0);
 
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -461,7 +461,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConCrossSectionParametricDefinition</returns>
         ApiResponse<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateWithHttpInfo(Guid projectId, string shapeType, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -470,7 +470,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         List<string> GetParametricCrossSectionShapes(Guid projectId, int operationIndex = 0);
 
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -566,7 +566,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of List&lt;Object&gt;</returns>
         ApiResponse<List<Object>> GetWeldingMaterialsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -577,7 +577,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConCrossSectionDetail UpdateParametricCrossSection(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0);
 
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
         /// </summary>
         /// <remarks>
         /// 
@@ -824,7 +824,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults.
         /// </summary>
         /// <remarks>
         /// 
@@ -838,7 +838,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA.
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults.
         /// </summary>
         /// <remarks>
         /// 
@@ -984,7 +984,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetConcreteMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
         /// </summary>
         /// <remarks>
         /// 
@@ -998,7 +998,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(Guid projectId, int cssId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
         /// </summary>
         /// <remarks>
         /// 
@@ -1092,7 +1092,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<string>>> GetMaterialLibraryWithHttpInfoAsync(Guid projectId, string materialType, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -1106,7 +1106,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConCrossSectionParametricDefinition> GetParametricCrossSectionShapeTemplateAsync(Guid projectId, string shapeType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA.
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -1120,7 +1120,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConCrossSectionParametricDefinition)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConCrossSectionParametricDefinition>> GetParametricCrossSectionShapeTemplateWithHttpInfoAsync(Guid projectId, string shapeType, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -1133,7 +1133,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<List<string>> GetParametricCrossSectionShapesAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA.
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;.
         /// </summary>
         /// <remarks>
         /// 
@@ -1250,7 +1250,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetWeldingMaterialsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
         /// </summary>
         /// <remarks>
         /// 
@@ -1265,7 +1265,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = default(ConCrossSectionParametricDefinition), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
         /// </summary>
         /// <remarks>
         /// 
@@ -2616,7 +2616,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -2630,7 +2630,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -2690,7 +2690,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -2705,7 +2705,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. BETA. 
+        /// Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3496,7 +3496,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3510,7 +3510,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3569,7 +3569,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -3584,7 +3584,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA. 
+        /// Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4096,7 +4096,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4110,7 +4110,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4175,7 +4175,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4190,7 +4190,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. BETA. 
+        /// The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4258,7 +4258,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4271,7 +4271,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4328,7 +4328,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4342,7 +4342,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. BETA. 
+        /// Lists the shape types the parametric cross-section endpoints accept (e.g. \&quot;Iw\&quot;, \&quot;Tw\&quot;,  \&quot;CHSPar\&quot;). Get a shape&#39;s fill-in template from  &#x60;cross-sections/parametric/shapes/{shapeType}&#x60;. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4978,7 +4978,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -4993,7 +4993,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -5055,7 +5055,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -5071,7 +5071,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA. 
+        /// Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>

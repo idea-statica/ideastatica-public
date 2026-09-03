@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 4.0
 
 - API version: 4.0
-- SDK version: 26.1.0.2602
+- SDK version: 26.1.0.2828
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -209,23 +209,23 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**AddMaterialReinforcement**](docs/MaterialApi.md#addmaterialreinforcement) | Adds a material to the project.
 [**AddMaterialSteel**](docs/MaterialApi.md#addmaterialsteel) | Adds a material to the project.
 [**AddMaterialWeld**](docs/MaterialApi.md#addmaterialweld) | Adds a material to the project.
-[**AddParametricCrossSection**](docs/MaterialApi.md#addparametriccrosssection) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+[**AddParametricCrossSection**](docs/MaterialApi.md#addparametriccrosssection) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 [**AddPin**](docs/MaterialApi.md#addpin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
 [**GetAllMaterials**](docs/MaterialApi.md#getallmaterials) | Gets materials used in the specified project.
 [**GetBoltAssemblies**](docs/MaterialApi.md#getboltassemblies) | Gets bolt assemblies used in the specified project.
 [**GetBoltGradeMaterials**](docs/MaterialApi.md#getboltgradematerials) | Gets materials used in the specified project.
 [**GetConcreteMaterials**](docs/MaterialApi.md#getconcretematerials) | Gets materials used in the specified project.
-[**GetCrossSectionDetail**](docs/MaterialApi.md#getcrosssectiondetail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+[**GetCrossSectionDetail**](docs/MaterialApi.md#getcrosssectiondetail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 [**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
 [**GetHeadedStudGradeMaterials**](docs/MaterialApi.md#getheadedstudgradematerials) | Gets materials used in the specified project.
 [**GetMaterialLibrary**](docs/MaterialApi.md#getmateriallibrary) | Lists the MPRL names available in the material library for the project's design code.
-[**GetParametricCrossSectionShapeTemplate**](docs/MaterialApi.md#getparametriccrosssectionshapetemplate) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
-[**GetParametricCrossSectionShapes**](docs/MaterialApi.md#getparametriccrosssectionshapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
+[**GetParametricCrossSectionShapeTemplate**](docs/MaterialApi.md#getparametriccrosssectionshapetemplate) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
+[**GetParametricCrossSectionShapes**](docs/MaterialApi.md#getparametriccrosssectionshapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 [**GetPins**](docs/MaterialApi.md#getpins) | Gets pins used in the specified project.
 [**GetReinforcementMaterials**](docs/MaterialApi.md#getreinforcementmaterials) | Gets materials used in the specified project.
 [**GetSteelMaterials**](docs/MaterialApi.md#getsteelmaterials) | Gets materials used in the specified project.
 [**GetWeldingMaterials**](docs/MaterialApi.md#getweldingmaterials) | Gets materials used in the specified project.
-[**UpdateParametricCrossSection**](docs/MaterialApi.md#updateparametriccrosssection) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+[**UpdateParametricCrossSection**](docs/MaterialApi.md#updateparametriccrosssection) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
   
@@ -368,6 +368,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
  - [Model.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
  - [Model.ConCrossSectionParameter](docs/ConCrossSectionParameter.md)
+ - [Model.ConCrossSectionParameterValueKind](docs/ConCrossSectionParameterValueKind.md)
  - [Model.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
  - [Model.ConCssArcSegment](docs/ConCssArcSegment.md)
  - [Model.ConCssLineSegment](docs/ConCssLineSegment.md)
@@ -475,7 +476,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- SDK version: 26.1.0.2602
+- SDK version: 26.1.0.2828
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

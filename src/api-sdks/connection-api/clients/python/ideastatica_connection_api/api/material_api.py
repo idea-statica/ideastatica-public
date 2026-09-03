@@ -2437,7 +2437,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConCrossSectionDetail:
-        """Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+        """Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2511,7 +2511,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConCrossSectionDetail]:
-        """Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+        """Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2585,7 +2585,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults. BETA.
+        """Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -4095,7 +4095,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConCrossSectionDetail:
-        """Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        """Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -4168,7 +4168,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConCrossSectionDetail]:
-        """Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        """Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -4241,7 +4241,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. BETA.
+        """Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -5192,7 +5192,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConCrossSectionParametricDefinition:
-        """The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
+        """The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -5266,7 +5266,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConCrossSectionParametricDefinition]:
-        """The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
+        """The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -5340,7 +5340,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`. BETA.
+        """The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -5475,7 +5475,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[str]:
-        """Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
+        """Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -5544,7 +5544,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[str]]:
-        """Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
+        """Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -5613,7 +5613,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`. BETA.
+        """Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -6807,7 +6807,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConCrossSectionDetail:
-        """Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        """Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -6886,7 +6886,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConCrossSectionDetail]:
-        """Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        """Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -6965,7 +6965,7 @@ class MaterialApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. BETA.
+        """Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)

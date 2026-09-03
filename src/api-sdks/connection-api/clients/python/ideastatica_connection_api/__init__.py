@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.1.0.2602"
+__version__ = "26.1.0.2828"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -84,6 +84,7 @@ from ideastatica_connection_api.models.con_cross_section_geometry import ConCros
 from ideastatica_connection_api.models.con_cross_section_geometry_component import ConCrossSectionGeometryComponent
 from ideastatica_connection_api.models.con_cross_section_library_definition import ConCrossSectionLibraryDefinition
 from ideastatica_connection_api.models.con_cross_section_parameter import ConCrossSectionParameter
+from ideastatica_connection_api.models.con_cross_section_parameter_value_kind import ConCrossSectionParameterValueKind
 from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
 from ideastatica_connection_api.models.con_css_arc_segment import ConCssArcSegment
 from ideastatica_connection_api.models.con_css_line_segment import ConCssLineSegment
