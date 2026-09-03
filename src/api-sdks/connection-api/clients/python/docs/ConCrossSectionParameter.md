@@ -8,6 +8,10 @@ Name | Type | Description | Notes
 **id** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
 **value** | **float** |  | [optional] 
+**bool_value** | **bool** |  | [optional] 
+**int_value** | **int** |  | [optional] 
+**string_value** | **str** |  | [optional] 
+**value_kind** | [**ConCrossSectionParameterValueKind**](ConCrossSectionParameterValueKind.md) |  | [optional] 
 
 ## Example
 
