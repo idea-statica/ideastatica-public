@@ -18,14 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from ideastatica_connection_api.models.cut_method import CutMethod
-from ideastatica_connection_api.models.cut_orientation import CutOrientation
-from ideastatica_connection_api.models.cut_part import CutPart
-from ideastatica_connection_api.models.distance_comparison import DistanceComparison
-from ideastatica_connection_api.models.reference_element import ReferenceElement
-from ideastatica_connection_api.models.weld_definition import WeldDefinition
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,18 +28,8 @@ class CutBeamByBeamData(BaseModel):
     Provides data of the cut objec by object
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="Name of the cut")
-    modified_object: Optional[ReferenceElement] = Field(default=None, alias="modifiedObject")
-    cutting_object: Optional[ReferenceElement] = Field(default=None, alias="cuttingObject")
-    is_weld: Optional[StrictBool] = Field(default=None, description="is cut welded", alias="isWeld")
-    web_weld: Optional[WeldDefinition] = Field(default=None, alias="webWeld")
-    flange_weld: Optional[WeldDefinition] = Field(default=None, alias="flangeWeld")
-    offset: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Offset")
-    method: Optional[CutMethod] = None
-    orientation: Optional[CutOrientation] = None
-    plane_on_cutting_object: Optional[DistanceComparison] = Field(default=None, alias="planeOnCuttingObject")
-    cut_part: Optional[CutPart] = Field(default=None, alias="cutPart")
-    extend_before_cut: Optional[StrictBool] = Field(default=None, description="Extend before cut - for cuts where user can decide if modified beam will be extended or not", alias="extendBeforeCut")
-    __properties: ClassVar[List[str]] = ["name", "modifiedObject", "cuttingObject", "isWeld", "webWeld", "flangeWeld", "offset", "method", "orientation", "planeOnCuttingObject", "cutPart", "extendBeforeCut"]
+    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    __properties: ClassVar[List[str]] = ["name", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,18 +70,6 @@ class CutBeamByBeamData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of modified_object
-        if self.modified_object:
-            _dict['modifiedObject'] = self.modified_object.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of cutting_object
-        if self.cutting_object:
-            _dict['cuttingObject'] = self.cutting_object.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of web_weld
-        if self.web_weld:
-            _dict['webWeld'] = self.web_weld.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of flange_weld
-        if self.flange_weld:
-            _dict['flangeWeld'] = self.flange_weld.to_dict()
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -116,17 +88,7 @@ class CutBeamByBeamData(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "modifiedObject": ReferenceElement.from_dict(obj["modifiedObject"]) if obj.get("modifiedObject") is not None else None,
-            "cuttingObject": ReferenceElement.from_dict(obj["cuttingObject"]) if obj.get("cuttingObject") is not None else None,
-            "isWeld": obj.get("isWeld"),
-            "webWeld": WeldDefinition.from_dict(obj["webWeld"]) if obj.get("webWeld") is not None else None,
-            "flangeWeld": WeldDefinition.from_dict(obj["flangeWeld"]) if obj.get("flangeWeld") is not None else None,
-            "offset": obj.get("offset"),
-            "method": obj.get("method"),
-            "orientation": obj.get("orientation"),
-            "planeOnCuttingObject": obj.get("planeOnCuttingObject"),
-            "cutPart": obj.get("cutPart"),
-            "extendBeforeCut": obj.get("extendBeforeCut")
+            "id": obj.get("id")
         })
         return _obj
 

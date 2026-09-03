@@ -21,7 +21,6 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.anchor_type import AnchorType
-from ideastatica_connection_api.models.concrete_block import ConcreteBlock
 from ideastatica_connection_api.models.installation_process_type_enum import InstallationProcessTypeEnum
 from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.reference_element import ReferenceElement
@@ -34,7 +33,7 @@ class AnchorGrid(BaseModel):
     Data of the anchor grid
     """ # noqa: E501
     shear_in_thread: Optional[StrictBool] = Field(default=None, description="Indicates, whether a shear plane is in the thread of a bolt.", alias="shearInThread")
-    concrete_block: Optional[ConcreteBlock] = Field(default=None, alias="concreteBlock")
+    concrete_block: Optional[ReferenceElement] = Field(default=None, alias="concreteBlock")
     anchor_type: Optional[AnchorType] = Field(default=None, alias="anchorType")
     anchor_installation_process: Optional[InstallationProcessTypeEnum] = Field(default=None, alias="anchorInstallationProcess")
     washer_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Washer Size used if AnchorType is washer", alias="washerSize")
@@ -51,8 +50,9 @@ class AnchorGrid(BaseModel):
     connected_parts: Optional[List[ReferenceElement]] = Field(default=None, description="List of the connected parts", alias="connectedParts")
     name: Optional[StrictStr] = Field(default=None, description="Name")
     length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
+    original_model_id: Optional[StrictStr] = Field(default=None, description="Get or set the identification in the original model  In the case of the imported connection from another application", alias="originalModelId")
     id: Optional[StrictInt] = Field(default=None, description="Element Id")
-    __properties: ClassVar[List[str]] = ["shearInThread", "concreteBlock", "anchorType", "anchorInstallationProcess", "washerSize", "anchoringLength", "hookLength", "headedStudHeadDiameter", "reinforcementMandrelDiameter", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
+    __properties: ClassVar[List[str]] = ["shearInThread", "concreteBlock", "anchorType", "anchorInstallationProcess", "washerSize", "anchoringLength", "hookLength", "headedStudHeadDiameter", "reinforcementMandrelDiameter", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "originalModelId", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -140,6 +140,11 @@ class AnchorGrid(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if original_model_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.original_model_id is None and "original_model_id" in self.model_fields_set:
+            _dict['originalModelId'] = None
+
         return _dict
 
     @classmethod
@@ -153,7 +158,7 @@ class AnchorGrid(BaseModel):
 
         _obj = cls.model_validate({
             "shearInThread": obj.get("shearInThread"),
-            "concreteBlock": ConcreteBlock.from_dict(obj["concreteBlock"]) if obj.get("concreteBlock") is not None else None,
+            "concreteBlock": ReferenceElement.from_dict(obj["concreteBlock"]) if obj.get("concreteBlock") is not None else None,
             "anchorType": obj.get("anchorType"),
             "anchorInstallationProcess": obj.get("anchorInstallationProcess"),
             "washerSize": obj.get("washerSize"),
@@ -170,6 +175,7 @@ class AnchorGrid(BaseModel):
             "connectedParts": [ReferenceElement.from_dict(_item) for _item in obj["connectedParts"]] if obj.get("connectedParts") is not None else None,
             "name": obj.get("name"),
             "length": obj.get("length"),
+            "originalModelId": obj.get("originalModelId"),
             "id": obj.get("id")
         })
         return _obj

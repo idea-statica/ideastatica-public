@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 4.0
 
 - API version: 4.0
-- Package version: 26.0.5.1421
+- Package version: 26.1.0.2828
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -261,18 +261,23 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**add_material_reinforcement**](docs/MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](docs/MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](docs/MaterialApi.md#add_material_weld) | Adds a material to the project.
+[**add_parametric_cross_section**](docs/MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 [**add_pin**](docs/MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
 [**get_all_materials**](docs/MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](docs/MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](docs/MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](docs/MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
-[**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
+[**get_cross_section_detail**](docs/MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
+[**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
 [**get_headed_stud_grade_materials**](docs/MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](docs/MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project's design code.
+[**get_parametric_cross_section_shape_template**](docs/MaterialApi.md#get_parametric_cross_section_shape_template) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
+[**get_parametric_cross_section_shapes**](docs/MaterialApi.md#get_parametric_cross_section_shapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 [**get_pins**](docs/MaterialApi.md#get_pins) | Gets pins used in the specified project.
 [**get_reinforcement_materials**](docs/MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](docs/MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](docs/MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
+[**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
   
@@ -302,8 +307,16 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**create_parameter**](docs/ParameterApi.md#create_parameter) | Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+[**create_parameter_link**](docs/ParameterApi.md#create_parameter_link) | Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+[**delete_parameter**](docs/ParameterApi.md#delete_parameter) | Deletes one parameter and every link through which it drove a model property.
+[**delete_parameter_link**](docs/ParameterApi.md#delete_parameter_link) | Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
 [**delete_parameters**](docs/ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**evaluate_expression**](docs/ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
+[**get_linkable_properties**](docs/ParameterApi.md#get_linkable_properties) | Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+[**get_member_linkable_properties**](docs/ParameterApi.md#get_member_linkable_properties) | Lists the model properties of one member that a parameter can be linked to.
+[**get_operation_linkable_properties**](docs/ParameterApi.md#get_operation_linkable_properties) | Lists the model properties of one operation that a parameter can be linked to.
+[**get_parameter_links**](docs/ParameterApi.md#get_parameter_links) | Lists the parameter-to-property links of the connection.
 [**get_parameters**](docs/ParameterApi.md#get_parameters) | Gets all parameters defined for the specified project and connection.
 [**update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
   ### PresentationApi
@@ -397,10 +410,27 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
  - [ideastatica_connection_api.models.ConConnectionTemplate](docs/ConConnectionTemplate.md)
  - [ideastatica_connection_api.models.ConConversionSettings](docs/ConConversionSettings.md)
+ - [ideastatica_connection_api.models.ConCrossSectionCustomComponent](docs/ConCrossSectionCustomComponent.md)
+ - [ideastatica_connection_api.models.ConCrossSectionCustomComponentOutlineInner](docs/ConCrossSectionCustomComponentOutlineInner.md)
+ - [ideastatica_connection_api.models.ConCrossSectionCustomDefinition](docs/ConCrossSectionCustomDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionDefinition](docs/ConCrossSectionDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionDetail](docs/ConCrossSectionDetail.md)
+ - [ideastatica_connection_api.models.ConCrossSectionDetailDefinition](docs/ConCrossSectionDetailDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionGeometry](docs/ConCrossSectionGeometry.md)
+ - [ideastatica_connection_api.models.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
+ - [ideastatica_connection_api.models.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParameter](docs/ConCrossSectionParameter.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParameterValueKind](docs/ConCrossSectionParameterValueKind.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
+ - [ideastatica_connection_api.models.ConCssArcSegment](docs/ConCssArcSegment.md)
+ - [ideastatica_connection_api.models.ConCssLineSegment](docs/ConCssLineSegment.md)
+ - [ideastatica_connection_api.models.ConCssPoint2D](docs/ConCssPoint2D.md)
+ - [ideastatica_connection_api.models.ConCssSegment](docs/ConCssSegment.md)
  - [ideastatica_connection_api.models.ConDesignItem](docs/ConDesignItem.md)
  - [ideastatica_connection_api.models.ConDesignSet](docs/ConDesignSet.md)
  - [ideastatica_connection_api.models.ConDesignSetType](docs/ConDesignSetType.md)
  - [ideastatica_connection_api.models.ConItem](docs/ConItem.md)
+ - [ideastatica_connection_api.models.ConLinkableProperty](docs/ConLinkableProperty.md)
  - [ideastatica_connection_api.models.ConLoadEffect](docs/ConLoadEffect.md)
  - [ideastatica_connection_api.models.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [ideastatica_connection_api.models.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
@@ -421,9 +451,15 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [ideastatica_connection_api.models.ConOperation](docs/ConOperation.md)
  - [ideastatica_connection_api.models.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
+ - [ideastatica_connection_api.models.ConParameterCreate](docs/ConParameterCreate.md)
+ - [ideastatica_connection_api.models.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
+ - [ideastatica_connection_api.models.ConParameterLink](docs/ConParameterLink.md)
+ - [ideastatica_connection_api.models.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
  - [ideastatica_connection_api.models.ConProductionCost](docs/ConProductionCost.md)
  - [ideastatica_connection_api.models.ConProject](docs/ConProject.md)
  - [ideastatica_connection_api.models.ConProjectData](docs/ConProjectData.md)
+ - [ideastatica_connection_api.models.ConPropertyOwner](docs/ConPropertyOwner.md)
+ - [ideastatica_connection_api.models.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
  - [ideastatica_connection_api.models.ConStiffnessAnalysis](docs/ConStiffnessAnalysis.md)
  - [ideastatica_connection_api.models.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
@@ -432,7 +468,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [ideastatica_connection_api.models.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
  - [ideastatica_connection_api.models.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
- - [ideastatica_connection_api.models.ConcreteBlock](docs/ConcreteBlock.md)
  - [ideastatica_connection_api.models.ConcreteBlockData](docs/ConcreteBlockData.md)
  - [ideastatica_connection_api.models.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [ideastatica_connection_api.models.ConnectionCheckRes](docs/ConnectionCheckRes.md)
@@ -442,10 +477,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CssTemplateConversion](docs/CssTemplateConversion.md)
  - [ideastatica_connection_api.models.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [ideastatica_connection_api.models.CutData](docs/CutData.md)
- - [ideastatica_connection_api.models.CutMethod](docs/CutMethod.md)
- - [ideastatica_connection_api.models.CutOrientation](docs/CutOrientation.md)
- - [ideastatica_connection_api.models.CutPart](docs/CutPart.md)
- - [ideastatica_connection_api.models.DistanceComparison](docs/DistanceComparison.md)
  - [ideastatica_connection_api.models.DrawData](docs/DrawData.md)
  - [ideastatica_connection_api.models.ElectrodeTemplateConversion](docs/ElectrodeTemplateConversion.md)
  - [ideastatica_connection_api.models.FoldedPlateData](docs/FoldedPlateData.md)
@@ -484,8 +515,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.TimberTemplateConversion](docs/TimberTemplateConversion.md)
  - [ideastatica_connection_api.models.Vector3D](docs/Vector3D.md)
  - [ideastatica_connection_api.models.WeldData](docs/WeldData.md)
- - [ideastatica_connection_api.models.WeldDefinition](docs/WeldDefinition.md)
- - [ideastatica_connection_api.models.WeldType](docs/WeldType.md)
 
 
 
@@ -494,7 +523,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 4.0
-- Package version: 26.0.5.1421
+- Package version: 26.1.0.2828
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

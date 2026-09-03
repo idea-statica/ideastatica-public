@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **connected_parts** | [**List[ReferenceElement]**](ReferenceElement.md) | List of the connected parts | [optional] 
 **name** | **str** | Name | [optional] 
 **length** | **float** | Length | [optional] 
+**original_model_id** | **str** | Get or set the identification in the original model  In the case of the imported connection from another application | [optional] 
 **id** | **int** | Element Id | [optional] 
 
 ## Example
