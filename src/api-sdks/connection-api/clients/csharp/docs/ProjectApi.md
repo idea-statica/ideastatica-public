@@ -151,7 +151,7 @@ This operation has an avaliable client extension method. Refer to code samples f
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **conProjectData** | [**ConProjectData**](ConProjectData.md) | Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. | [optional]  |
+| **conProjectData** | [**ConProjectData**](ConProjectData.md) | Optional project metadata. The DesignCode field determines              the design code (e.g. \&quot;ECEN\&quot;, \&quot;American\&quot;, \&quot;AUS\&quot;). Defaults to ECEN if not provided. | [optional]  |
 
 ### Return type
 
@@ -186,7 +186,7 @@ namespace Example
 
                     
                     // (Required) Select parameters
-                    var conProjectData = new ConProjectData(); // ConProjectData | Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None. (optional) 
+                    var conProjectData = new ConProjectData(); // ConProjectData | Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided. (optional) 
 
                     try
                     {
@@ -1043,7 +1043,7 @@ Updates ConProjectData of project.
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **conProjectData** | [**ConProjectData**](ConProjectData.md) | New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. | [optional]  |
+| **conProjectData** | [**ConProjectData**](ConProjectData.md) | New project data to apply. | [optional]  |
 
 ### Return type
 
@@ -1081,7 +1081,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conProjectData = new ConProjectData(); // ConProjectData | New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional) 
+                    var conProjectData = new ConProjectData(); // ConProjectData | New project data to apply. (optional) 
 
                     try
                     {

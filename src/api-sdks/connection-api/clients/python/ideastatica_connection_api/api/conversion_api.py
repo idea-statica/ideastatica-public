@@ -403,7 +403,6 @@ class ConversionApi:
             '404': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
-            '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -478,7 +477,6 @@ class ConversionApi:
             '404': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
-            '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -553,7 +551,6 @@ class ConversionApi:
             '404': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
-            '501': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -310,7 +310,7 @@ class ProjectApi:
     @validate_call
     def create_empty_project(
         self,
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -327,7 +327,7 @@ class ProjectApi:
         """Creates a new empty IdeaCon project with no connections.
 
 
-        :param con_project_data: Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None.
+        :param con_project_data: Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -379,7 +379,7 @@ class ProjectApi:
     @validate_call
     def create_empty_project_with_http_info(
         self,
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -396,7 +396,7 @@ class ProjectApi:
         """Creates a new empty IdeaCon project with no connections.
 
 
-        :param con_project_data: Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None.
+        :param con_project_data: Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -448,7 +448,7 @@ class ProjectApi:
     @validate_call
     def create_empty_project_without_preload_content(
         self,
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -465,7 +465,7 @@ class ProjectApi:
         """Creates a new empty IdeaCon project with no connections.
 
 
-        :param con_project_data: Optional project metadata. The CountryCode field determines the design              code and must be one of ECEN, American, Canada, Australia, RUS, CHN, India or HKG; any other value              of the enum is refused with 422. Defaults to ECEN when omitted or set to None.
+        :param con_project_data: Optional project metadata. The DesignCode field determines              the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults to ECEN if not provided.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2244,7 +2244,7 @@ class ProjectApi:
     def update_project_data(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2263,7 +2263,7 @@ class ProjectApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_project_data: New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.
+        :param con_project_data: New project data to apply.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2318,7 +2318,7 @@ class ProjectApi:
     def update_project_data_with_http_info(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2337,7 +2337,7 @@ class ProjectApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_project_data: New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.
+        :param con_project_data: New project data to apply.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2392,7 +2392,7 @@ class ProjectApi:
     def update_project_data_without_preload_content(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2411,7 +2411,7 @@ class ProjectApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_project_data: New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.
+        :param con_project_data: New project data to apply.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
