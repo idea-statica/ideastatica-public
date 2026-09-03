@@ -115,5 +115,57 @@ namespace UT_NorsokChecker
 				"a joint nobody checked has no utilisation to report");
 		}
 
+		/// <summary>
+		/// The §6.4.3.1 caveat reaches the OVERVIEW ROW, in words, on a non-green verdict.
+		///
+		/// The round-2 review's highest-priority finding: the reviewed report printed
+		/// "CON11 | PASS | 73.7% | Norsok OK" for a joint whose brace sits at θ = 20°, with the
+		/// caveat 64 pages away on the check card. Measured on that file, the word "validity"
+		/// occurred 34 times and not once on pages 1–3.
+		///
+		/// This is the WIRING half — the qualifier can be produced correctly and rolled up correctly
+		/// and still never be rendered.
+		/// </summary>
+		[Test]
+		public void TheOverviewRowCarriesTheValidityCaveat()
+		{
+			var qualified = Brace("M1", 0.737, true, 76, 1.0);
+			qualified.RangeQualifier = "M1: θ = 20.0°, outside 30–90°";
+
+			string html = Report(
+				("CON1", new[] { Brace("M1", 0.42, true, 76, 1.0) }),
+				("CON11", new[] { qualified }));
+
+			int at = html.IndexOf("class='connection-table'", StringComparison.Ordinal);
+			string table = html[at..html.IndexOf("</table>", at, StringComparison.Ordinal)];
+
+			var verdicts = System.Text.RegularExpressions.Regex
+				.Matches(table, @"class='con-verdict ([a-z]+)'>([^<]+)<")
+				.Select(m => (Cls: m.Groups[1].Value, Text: m.Groups[2].Value))
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				// The control row proves the difference is caused by the qualifier and not by the
+				// renderer treating every row alike.
+				Assert.That(verdicts[0].Text, Is.EqualTo("PASS"), "control: an ordinary pass");
+				Assert.That(verdicts[0].Cls, Is.EqualTo("pass"));
+
+				Assert.That(verdicts[1].Text, Is.EqualTo("QUALIFIED"),
+					"the qualified connection does not read as a plain pass");
+				Assert.That(verdicts[1].Cls, Is.Not.EqualTo("pass"),
+					"and not in the green the review asked us to stop using for it");
+
+				// The note column answers WHICH parameter — matched inside its own cell, because
+				// "20.0" and "θ" both occur elsewhere in a 600 kB document.
+				var notes = System.Text.RegularExpressions.Regex
+					.Matches(table, @"class='con-note'>([^<]*)<")
+					.Select(m => m.Groups[1].Value)
+					.ToList();
+				Assert.That(notes[0], Is.EqualTo("Norsok OK"), "control");
+				Assert.That(notes[1], Does.Contain("20.0"), "the value that breached");
+				Assert.That(notes[1], Does.Contain("M1"), "and the brace it belongs to");
+			});
+		}
 	}
 }

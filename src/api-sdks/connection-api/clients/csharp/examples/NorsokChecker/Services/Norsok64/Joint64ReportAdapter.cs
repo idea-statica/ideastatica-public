@@ -115,7 +115,47 @@ namespace NorsokChecker.Services.Norsok64
 				LoadCaseName = govLeName,
 				Variables = variables,
 				JointDetail = row,
+
+				// The caveat travels as DATA, so the roll-up can put it in the overview row. It used
+				// to exist only inside `title` above, where nothing but a reader could see it.
+				RangeQualifier = RangeQualifierOf(row.Name, r),
 			};
 		}
+
+		/// <summary>
+		/// "M1: θ = 20.0°, outside 30–90°" — which parameter breached its §6.4.3.1 range, and by what
+		/// value. Null when the geometry is inside every range.
+		///
+		/// Built from <see cref="JointResult64.Validity"/> — the same dictionary the derivation table
+		/// renders — so the overview and the detail sheet cannot disagree about which condition failed.
+		/// The VALUES come from the result's actual geometry, never the clamped comparison pass; the
+		/// engine keeps them that way deliberately (see CheckJoint's closing block).
+		///
+		/// Several breaches are named together rather than only the first: a brace can be outside two
+		/// ranges at once, and reporting one of them would understate the caveat exactly where the
+		/// reader is scanning for it.
+		/// </summary>
+		internal static string? RangeQualifierOf(string braceName, JointResult64 r)
+		{
+			if (r.WithinRange || r.Validity.Count == 0) return null;
+
+			var parts = new List<string>();
+			foreach (var (cond, ok) in r.Validity)
+			{
+				if (ok) continue;
+				parts.Add(cond switch
+				{
+					"0.2<=beta<=1.0" => $"β = {r.Beta.ToString("F3", Inv)}, outside 0.2–1.0",
+					"10<=gamma<=50" => $"γ = {r.Gamma.ToString("F1", Inv)}, outside 10–50",
+					"30<=theta<=90" => $"θ = {r.ThetaDeg.ToString("F1", Inv)}°, outside 30–90°",
+					"g/D>-0.6 (K)" => $"g/D = {r.GD.ToString("F2", Inv)}, outside > −0.6 (K)",
+					_ => cond,
+				});
+			}
+			return parts.Count == 0 ? null : $"{braceName}: {string.Join("; ", parts)}";
+		}
+
+		private static readonly System.Globalization.CultureInfo Inv =
+			System.Globalization.CultureInfo.InvariantCulture;
 	}
 }

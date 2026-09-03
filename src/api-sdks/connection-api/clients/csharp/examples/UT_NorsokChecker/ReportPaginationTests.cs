@@ -59,6 +59,75 @@ namespace UT_NorsokChecker
 				expandAll: false);
 
 		/// <summary>
+		/// A report with TWO method chapters on a connection, which is what makes a contents page
+		/// worth printing at all (see ShouldRenderContents). §6.4 is the only method that exists
+		/// today, so the second row is synthetic — and that is the point: the contents tests below
+		/// describe how a contents behaves, and without a second method there is no contents to
+		/// describe. The single-method report is asserted separately, by
+		/// ASingleMethodReportHasNoContentsPage.
+		/// </summary>
+		private static string MultiMethodReport() =>
+			NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult>
+					{
+						Assessed("M1", 0.476, true),
+						new()
+						{
+							Section = "6.3.2", Equation = "6.1", Title = "Axial tension",
+							Utilization = 0.31, Passed = true,
+						},
+					}),
+					("CON2", new List<NorsokFormulaResult> { Assessed("M1", 1.30, false) }),
+					("CON5", new List<NorsokFormulaResult> { Rejected("no brace") }),
+				},
+				expandAll: false);
+
+		/// <summary>
+		/// With ONE method per connection there is no contents page.
+		///
+		/// Round-3 §1, and it supersedes the round-2 decision to keep it: once the verdicts and the
+		/// chapter numbers go (they duplicate the overview, and the number shifts whenever a
+		/// connection is added), the contents is fifteen lines reproducing the first column of the
+		/// table on the next page — a full page out of 173 carrying nothing the reader cannot see
+		/// there. The emptiness is also why the verdicts were in it: they were filling a structural
+		/// void, not serving anybody.
+		///
+		/// A property of the DOCUMENT, not a setting: nobody should be asked to decide what the
+		/// document already determines. This is today's report, so this branch is the one that ships.
+		/// </summary>
+		[Test]
+		public void ASingleMethodReportHasNoContentsPage()
+		{
+			string single = Report();
+			string multi = MultiMethodReport();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(single, Does.Not.Contain("class='index-table'"),
+					"one method per connection: nothing to index");
+				// The control, and it is what makes the assertion above mean something: the SAME
+				// generator does print a contents when there is a hierarchy to map.
+				Assert.That(multi, Does.Contain("class='index-table'"),
+					"two methods on a connection: a contents earns its place");
+
+				// And the page it used to cost is not left behind as a blank one — the first
+				// connection must now break for itself, since no contents started that page.
+				//
+				// Matched on the HEADING, not on the class name: ".connection-header.first-connection"
+				// is a rule in the stylesheet every report carries, so a bare
+				// Does.Not.Contain("first-connection") can never fail. Measured — it did not.
+				Assert.That(Regex.Matches(single, @"<h2 class='connection-header first-connection'"),
+					Is.Empty,
+					"with no contents there is nothing to have positioned the first connection");
+				Assert.That(Regex.Matches(multi, @"<h2 class='connection-header first-connection'"),
+					Has.Count.EqualTo(1),
+					"with one, the exception applies to exactly the first connection");
+			});
+		}
+
+		/// <summary>
 		/// THE test: every link in the contents points at an id that EXISTS in the document.
 		///
 		/// A dangling anchor is the likely bug and the invisible one — a contents page that looks
@@ -68,7 +137,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void EveryContentsLinkResolvesToARealAnchor()
 		{
-			string html = Report();
+			string html = MultiMethodReport();
 
 			var links = Regex.Matches(html, @"href='#([^']+)'").Select(m => m.Groups[1].Value).ToList();
 			var ids = Regex.Matches(html, @"id='([^']+)'").Select(m => m.Groups[1].Value).ToHashSet();
@@ -120,7 +189,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void TheContentsListsEveryConnectionWithItsVerdict()
 		{
-			string html = Report();
+			string html = MultiMethodReport();
 
 			int at = html.IndexOf("class='index-table'", StringComparison.Ordinal);
 			Assert.That(at, Is.GreaterThan(0), "the contents table");
@@ -150,7 +219,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void EachConnectionStartsOnItsOwnPageExceptTheFirst()
 		{
-			string html = Report();
+			string html = MultiMethodReport();
 
 			Assert.Multiple(() =>
 			{
@@ -221,7 +290,7 @@ namespace UT_NorsokChecker
 		[Test]
 		public void TheContentsPrecedesWhatItIndexes()
 		{
-			string html = Report();
+			string html = MultiMethodReport();
 
 			int contents = html.IndexOf("class='index-page'", StringComparison.Ordinal);
 			int summary = html.IndexOf("id='ch-1'", StringComparison.Ordinal);
@@ -281,6 +350,112 @@ namespace UT_NorsokChecker
 			Assert.That(guarded, Does.Contain(selector),
 				$"'{selector}' must carry break-inside: avoid in the print block; guarded: "
 				+ string.Join(" | ", guarded));
+		}
+
+		/// <summary>
+		/// A derivation heading must not be the last thing on a page.
+		///
+		/// The round-2 review measured 17; re-measuring the same PDF found **25**, all of them
+		/// `.deriv-h`: 11 × 'Utilisation — eq (6.57)', 8 × 'Weighted axial resistance', 6 ×
+		/// 'Members — geometry at the joint'. The class was in no break rule at all, and
+		/// `p { orphans: 3 }` cannot substitute — an orphaned heading is a whole paragraph, not the
+		/// last line of one, so the orphans property has nothing to hold back.
+		/// </summary>
+		[Test]
+		public void ADerivationHeadingIsNotLeftAtTheFootOfAPage()
+		{
+			string print = PrintBlock(Report());
+
+			var guarded = SelectorsCarrying(print, "break-after:\\s*avoid");
+
+			Assert.That(guarded, Does.Contain(".deriv-h"),
+				"the derivation headings must keep their following block; guarded: "
+				+ string.Join(" | ", guarded));
+		}
+
+		/// <summary>
+		/// The check card FLOWS across a page break — it is a container, not a unit.
+		///
+		/// This is a property of the output, not a note-to-self: with `break-inside: avoid` on the
+		/// whole card, a card that does not fit the rest of a page moves entirely to the next one.
+		/// Measured on the shipped 173-page PDF: 11 pages filled to 22.7 % of their height and 41
+		/// under 65 %, against a median of 80 %. The atomic blocks inside it are what must not split,
+		/// and those are asserted by AUnitThatReadsAsOneBlockIsNotSplitAcrossPages above.
+		/// </summary>
+		[Test]
+		public void TheCheckCardIsAllowedToFlowAcrossPages()
+		{
+			string print = PrintBlock(Report());
+
+			var guarded = SelectorsCarrying(print, "break-inside:\\s*avoid");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(guarded, Does.Not.Contain(".check-card"),
+					"a whole card kept together wastes up to three quarters of a sheet; guarded: "
+					+ string.Join(" | ", guarded));
+				// And the control: the atomic blocks ARE protected, so this is a re-scoping rather
+				// than the break control having been dropped.
+				Assert.That(guarded, Does.Contain(".formula-block"), "the formula block still is");
+				Assert.That(guarded, Does.Contain("table"), "and so is every table");
+			});
+		}
+
+		/// <summary>
+		/// The footer names the standard and the page, and does NOT repeat the chapter.
+		///
+		/// It used to read "NORSOK N-004 §6.4 — n / m". Of 469 mentions of "6.4" in the reviewed
+		/// sample, 173 were this footer — one per page, the single largest source, on a document
+		/// whose title no longer pins itself to one chapter either. The substantive references stay
+		/// where they belong: the norm box, the chapter headings and the clause citations.
+		/// </summary>
+		[Test]
+		public void TheFooterNamesTheStandardWithoutRepeatingTheChapter()
+		{
+			string print = PrintBlock(Report());
+
+			var content = System.Text.RegularExpressions.Regex.Match(
+				print, @"@bottom-center\s*\{[^}]*?content:\s*(?<c>[^;]+);",
+				System.Text.RegularExpressions.RegexOptions.Singleline);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(content.Success, Is.True, "the footer has content at all");
+				string c = content.Groups["c"].Value;
+				Assert.That(c, Does.Contain("NORSOK N-004"), "it says which standard");
+				Assert.That(c, Does.Not.Contain("6.4"),
+					"and not the chapter, 173 times over");
+				// Still a citable page reference — the reason the footer exists.
+				Assert.That(c, Does.Contain("counter(page)"), "the page number");
+				Assert.That(c, Does.Contain("counter(pages)"), "and the total");
+			});
+		}
+
+		/// <summary>OUR print block, without the embedded KaTeX stylesheet's own @media print.</summary>
+		private static string PrintBlock(string html)
+		{
+			int at = html.IndexOf("@media print", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the print block");
+			return html[at..];
+		}
+
+		/// <summary>
+		/// Every selector carrying the given declaration, comments stripped first — the explanatory
+		/// /* … */ sits BEFORE its rule, so stripping after the split leaves prose attached to the
+		/// first selector. The selector list also spans lines, so the pattern crosses newlines.
+		/// </summary>
+		private static List<string> SelectorsCarrying(string print, string declaration)
+		{
+			string css = System.Text.RegularExpressions.Regex.Replace(
+				print, @"/\*.*?\*/", "", System.Text.RegularExpressions.RegexOptions.Singleline);
+
+			return System.Text.RegularExpressions.Regex
+				.Matches(css, @"([^{}]+)\{[^}]*" + declaration + @"[^}]*\}",
+					System.Text.RegularExpressions.RegexOptions.Singleline)
+				.SelectMany(m => m.Groups[1].Value.Split(','))
+				.Select(s => s.Trim())
+				.Where(s => s.Length > 0)
+				.ToList();
 		}
 
 		/// <summary>

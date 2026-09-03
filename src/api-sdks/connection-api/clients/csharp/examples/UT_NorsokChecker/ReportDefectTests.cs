@@ -388,5 +388,70 @@ namespace UT_NorsokChecker
 				Assert.That(html, Does.Not.Contain("gamma&nbsp;"), "and so is gamma");
 			});
 		}
+
+		/// <summary>
+		/// The document does not call itself a compliance report.
+		///
+		/// It becomes the PDF's /Title — what Explorer, a browser tab and an archive show — and it
+		/// claimed conformity for a document in which connections routinely go unassessed: 9 of 15
+		/// in the reviewed sample. Both emission sites must agree, so the title lives in one
+		/// constant; a test that read only the &lt;title&gt; would miss the printed header.
+		/// </summary>
+		[Test]
+		public void TheTitleDoesNotClaimCompliance()
+		{
+			string html = Report(("CON1", new[] { WithDerivation() }));
+
+			var title = System.Text.RegularExpressions.Regex.Match(html, @"<title>([^<]*)</title>");
+			var badge = System.Text.RegularExpressions.Regex.Match(html,
+				@"class='norsok-badge'>([^<]*)<");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(title.Success, Is.True, "the document has a title");
+				Assert.That(title.Groups[1].Value, Does.Not.Contain("Compliance"),
+					"'Compliance Report' overclaims; it is a check, and it may find nothing to check");
+				Assert.That(badge.Success, Is.True, "and a printed header");
+				Assert.That(badge.Groups[1].Value, Is.EqualTo(title.Groups[1].Value),
+					"the two say the same thing — they were separate literals and could drift");
+				Assert.That(title.Groups[1].Value, Does.Contain("NORSOK N-004"),
+					"it still names the standard");
+			});
+		}
+
+		/// <summary>
+		/// The §6.1 quotation and the tool's own disclosure are SEPARATE paragraphs.
+		///
+		/// They were one grey italic block, so "these factors are written into the project's own
+		/// settings" — this app telling the reader it MODIFIES their model — read as part of the
+		/// quotation from the standard. Nothing else in the document says the file is changed.
+		/// </summary>
+		[Test]
+		public void TheNormQuoteIsSeparateFromTheToolsDisclosure()
+		{
+			string html = Report(("CON1", new[] { WithDerivation() }));
+
+			var quote = System.Text.RegularExpressions.Regex.Match(html,
+				@"class='settings-note settings-quote'>(.*?)</p>",
+				System.Text.RegularExpressions.RegexOptions.Singleline);
+			var disclosure = System.Text.RegularExpressions.Regex.Match(html,
+				@"class='settings-disclosure'>(.*?)</p>",
+				System.Text.RegularExpressions.RegexOptions.Singleline);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(quote.Success, Is.True, "the §6.1 quotation is its own paragraph");
+				Assert.That(disclosure.Success, Is.True, "and the disclosure is another");
+
+				// The decisive assertion: the disclosure's sentence must NOT be inside the quotation.
+				Assert.That(quote.Groups[1].Value, Does.Not.Contain("written"),
+					"the quotation ends where the standard's words end");
+				Assert.That(disclosure.Groups[1].Value, Does.Contain("writes these factors"),
+					"and the disclosure states what the tool does");
+				Assert.That(disclosure.Groups[1].Value, Does.Contain("<strong>"),
+					"prominently — it was invisible as grey italics");
+			});
+		}
+
 	}
 }

@@ -27,6 +27,14 @@ namespace UT_NorsokChecker
 		private static NorsokFormulaResult Note(string what) =>
 			new() { Section = "6.4", Title = "note", IsNote = true, CheckExpression = what };
 
+		/// <summary>A check that RAN and PASSED, on geometry outside a §6.4.3.1 validity range.</summary>
+		private static NorsokFormulaResult Qualified(double util, string qualifier) =>
+			new()
+			{
+				Section = "6.4", Title = "brace", Utilization = util, Passed = true,
+				RangeQualifier = qualifier,
+			};
+
 		[Test]
 		public void AllPassing()
 		{
@@ -156,6 +164,104 @@ namespace UT_NorsokChecker
 				Assert.That(v.Pass, Is.EqualTo("N/A"));
 				Assert.That(v.Status, Is.EqualTo("Not assessed"));
 			});
+		}
+
+		/// <summary>
+		/// A pass on geometry outside the §6.4.3.1 ranges must NOT report as a plain pass.
+		///
+		/// This is the defect the round-2 review called the most serious remaining one: the detail
+		/// card said "outside validity range (6.4.3.1)" while the overview row said "PASS / Norsok
+		/// OK", and the caveat was sixty pages from the row an engineer scans. The qualifier reaches
+		/// the roll-up only because it travels as a FIELD; while it lived in the card's title text,
+		/// nothing here could see it.
+		/// </summary>
+		[Test]
+		public void OutsideValidityRangeQualifiesThePass()
+		{
+			var v = CheckWorkflow.Roll(new[]
+			{
+				Pass(0.42),
+				Qualified(0.737, "M1: θ = 20.0°, outside 30–90°"),
+			});
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(v.Pass, Is.EqualTo("QUALIFIED"),
+					"neither a plain PASS nor a FAIL — every check passed, on extrapolated formulas");
+				Assert.That(v.MaxUtilisation, Is.EqualTo(0.737).Within(1e-9),
+					"the utilisation is real and still governs");
+				Assert.That(v.Status, Does.Contain("θ = 20.0°"),
+					"the overview names the parameter and its value, not just 'outside range'");
+				Assert.That(v.Status, Does.Contain("M1"), "and which brace it was");
+			});
+		}
+
+		/// <summary>
+		/// A failure outranks the qualifier. A qualified FAIL is still a FAIL, and reporting
+		/// QUALIFIED for it would soften a connection that does not comply.
+		/// </summary>
+		[Test]
+		public void AFailureOutranksTheQualifier()
+		{
+			var v = CheckWorkflow.Roll(new[]
+			{
+				Qualified(0.50, "M1: β = 0.180, outside 0.2–1.0"),
+				Fail(1.20),
+			});
+
+			Assert.That(v.Pass, Is.EqualTo("FAIL"));
+		}
+
+		/// <summary>
+		/// An unassessed brace outranks the qualifier too: "part of this joint was never checked" is
+		/// a bigger claim than "what was checked rests on an extrapolation".
+		/// </summary>
+		[Test]
+		public void AnUnassessedBraceOutranksTheQualifier()
+		{
+			var v = CheckWorkflow.Roll(new[]
+			{
+				Qualified(0.50, "M1: θ = 20.0°, outside 30–90°"),
+				NotAssessed("no transverse force"),
+			});
+
+			Assert.That(v.Pass, Is.EqualTo("PARTIAL"));
+		}
+
+		/// <summary>
+		/// Two braces outside their ranges are both named. Reporting one would understate the caveat
+		/// exactly where the reader is scanning for it — and a count ("2 conditions") would send them
+		/// hunting instead of answering.
+		/// </summary>
+		[Test]
+		public void EveryQualifiedBraceIsNamed()
+		{
+			var v = CheckWorkflow.Roll(new[]
+			{
+				Qualified(0.50, "M1: θ = 20.0°, outside 30–90°"),
+				Qualified(0.61, "M3: β = 0.180, outside 0.2–1.0"),
+			});
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(v.Pass, Is.EqualTo("QUALIFIED"));
+				Assert.That(v.Status, Does.Contain("M1"));
+				Assert.That(v.Status, Does.Contain("M3"));
+			});
+		}
+
+		/// <summary>
+		/// A note is not a qualifier. Notes already existed and take no part in the roll-up; if the
+		/// new branch keyed on them instead of on the range field, every joint carrying a plane-fit
+		/// note would suddenly read QUALIFIED.
+		/// </summary>
+		[Test]
+		public void ANoteDoesNotQualifyThePass()
+		{
+			var v = CheckWorkflow.Roll(new[] { Pass(0.42), Note("plane fitted from 3 braces") });
+
+			Assert.That(v.Pass, Is.EqualTo("PASS"));
+			Assert.That(v.Status, Is.EqualTo("Norsok OK"));
 		}
 	}
 }

@@ -307,6 +307,17 @@ namespace NorsokChecker.Services.Norsok64
 		/// </summary>
 		public int GovLeId { get; set; }
 		public string? GovLeName { get; set; }
+
+		/// <summary>
+		/// Stamped alongside: the state that came SECOND on this brace, and its utilisation. Null
+		/// when there was none — <see cref="RunnerUpAbsence"/> then says why.
+		///
+		/// What a reviewer actually wants from an envelope: not the list of states, but whether the
+		/// winner won by a mile or by a whisker.
+		/// </summary>
+		public string? RunnerUpLeName { get; set; }
+		public double? RunnerUpUtil { get; set; }
+		public JointEnvelope.RunnerUpAbsence RunnerUpAbsence { get; set; }
 	}
 
 	/// <summary>
@@ -325,6 +336,17 @@ namespace NorsokChecker.Services.Norsok64
 		public List<string> PlaneOutliers { get; set; } = new();
 		public List<string> EvalOutliers { get; set; } = new();
 		public string? PlaneFitBasis { get; set; }
+
+		/// <summary>
+		/// The coplanarity tolerance the plane fit used, in degrees — as a NUMBER, so the view can
+		/// typeset it (2°) instead of the engine baking "2deg" into a sentence.
+		///
+		/// It is a TOOL setting, not a NORSOK requirement: §6.4 gives no value for it. The report has
+		/// to say so, because the string used to print beside genuine clause references with nothing
+		/// marking it as ours — the same normative/informative confusion the review warned about.
+		/// </summary>
+		public double PlaneFitTolDeg { get; set; }
+
 		public string? PlaneWarn { get; set; }
 		public double PlaneSpread { get; set; }
 		public Vec3 Ex { get; set; }             // chord axis (unit)

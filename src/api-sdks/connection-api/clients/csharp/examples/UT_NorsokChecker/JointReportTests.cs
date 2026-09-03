@@ -96,6 +96,136 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// END TO END for the round-2 §4.1 fix: engine → adapter → report, on geometry that is really
+		/// outside a §6.4.3.1 range. The caveat must arrive in the overview row.
+		///
+		/// Why this exists on top of the CheckWorkflow and ReportTable tests: those build their rows
+		/// by hand, so `RangeQualifier = null` in the adapter left every one of them green — measured
+		/// with the revert oracle. THE WIRING is the half nothing else guards.
+		///
+		/// And why the input is built here rather than taken from topology_fixtures.json: **not one
+		/// brace in any existing fixture is out of range** (both oracle files carry zero
+		/// `within_range: false`). A test whose fixture cannot contain the case it claims to cover
+		/// cannot fail.
+		/// </summary>
+		[Test]
+		public void HtmlReport_OutOfRangeBrace_PutsTheCaveatInTheOverview()
+		{
+			// θ = 20°, everything else inside its range — CON11/M1 of the reviewed report.
+			var outOfRange = Joint64Input.FromKn(
+				D: 141, T: 6.5, fyChord: 355, d: 76, t: 3.5, fyBrace: 355, thetaDeg: 20, g: 50,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSdKn: 33.7, mipSdKnm: 0.32, mopSdKnm: 1.23);
+			// the same joint at 60° — the control, and it must come out an ordinary PASS
+			var inRange = Joint64Input.FromKn(
+				D: 141, T: 6.5, fyChord: 355, d: 76, t: 3.5, fyBrace: 355, thetaDeg: 60, g: 50,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSdKn: 33.7, mipSdKnm: 0.32, mopSdKnm: 1.23);
+
+			static NorsokFormulaResult Card(string brace, Joint64Input inp)
+			{
+				var eng = Norsok64Engine.CheckJoint(inp);
+				var row = new JointCheckRow
+				{
+					Name = brace, Util = eng.UtilWeighted, Passed = eng.Passed,
+					Inputs = inp, Engine = eng, DomClass = "X",
+					Classification = new KyxClass { Name = brace, FrK = 0, FrY = 0, FrX = 1.0 },
+				};
+				return Joint64ReportAdapter.BuildResultFromRow(row, "LE9");
+			}
+
+			var qualified = Card("M1", outOfRange);
+			var ordinary = Card("M1", inRange);
+
+			string html = NorsokHtmlReportGenerator.GenerateReport(
+				"UT",
+				new[] { ("CON_OK", new List<NorsokFormulaResult> { ordinary }),
+						("CON_OOR", new List<NorsokFormulaResult> { qualified }) },
+				expandAll: false);
+
+			int at = html.IndexOf("class='connection-table'", StringComparison.Ordinal);
+			string table = html[at..html.IndexOf("</table>", at, StringComparison.Ordinal)];
+			var rows = System.Text.RegularExpressions.Regex
+				.Matches(table, @"class='con-verdict ([a-z]+)'>([^<]+)<.*?class='con-note'>([^<]*)<",
+					System.Text.RegularExpressions.RegexOptions.Singleline)
+				.Select(m => (Cls: m.Groups[1].Value, Verdict: m.Groups[2].Value, Note: m.Groups[3].Value))
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				// The engine has to actually disagree about these two, or the rest measures nothing.
+				Assert.That(Norsok64Engine.CheckJoint(inRange).WithinRange, Is.True, "control is inside");
+				Assert.That(Norsok64Engine.CheckJoint(outOfRange).WithinRange, Is.False, "case is outside");
+				Assert.That(qualified.Passed, Is.True, "and it PASSES — that is what makes it silent");
+
+				Assert.That(rows, Has.Count.EqualTo(2));
+				Assert.That(rows[0].Verdict, Is.EqualTo("PASS"), "control row");
+				Assert.That(rows[0].Note, Is.EqualTo("Norsok OK"));
+
+				Assert.That(rows[1].Verdict, Is.EqualTo("QUALIFIED"));
+				Assert.That(rows[1].Cls, Is.Not.EqualTo("pass"), "non-green, as the review asked");
+				Assert.That(rows[1].Note, Does.Contain("20.0"), "the value that breached");
+				Assert.That(rows[1].Note, Does.Contain("M1"), "the brace it belongs to");
+			});
+		}
+
+		/// <summary>
+		/// The joint figure carries a colour scale, and its swatches are the LIT tones.
+		///
+		/// The caption claims "members coloured by their governing utilisation" and the reviewed
+		/// report had no scale anywhere, so an olive member could be at 40 % or 70 %.
+		///
+		/// The lit/flat distinction is the part that would go wrong silently: the figure is a PNG
+		/// rendered by the 3D view, whose members carry UtilisationScale's LIT tones, so a legend
+		/// drawn from the flat swatches would sit beside a lit cylinder and not match. Both arrays
+		/// exist for that reason, and using the wrong one produces a legend that looks plausible.
+		/// </summary>
+		[Test]
+		public void HtmlReport_JointFigure_CarriesTheUtilisationScale()
+		{
+			// A 1x1 transparent PNG — the figure only has to be PRESENT for the legend to render.
+			const string png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGMAAQAABQAB"
+				+ "oIJXOQAAAABJRU5ErkJggg==";
+
+			string html = NorsokHtmlReportGenerator.GenerateReport(
+				"UT",
+				new[] { ("CON1", new List<NorsokFormulaResult>()) },
+				expandAll: false,
+				jointImages: new Dictionary<string, string> { ["CON1"] = png });
+
+			int at = html.IndexOf("class='util-legend'", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the legend is rendered beside the figure");
+			string legend = html[at..html.IndexOf("</div>", at, StringComparison.Ordinal)];
+
+			var swatches = System.Text.RegularExpressions.Regex
+				.Matches(legend, @"class='util-swatch[^']*' style='background:(#[0-9A-Fa-f]{6})'")
+				.Select(m => m.Groups[1].Value.ToUpperInvariant())
+				.ToList();
+
+			Assert.Multiple(() =>
+			{
+				// Eleven bands: ten across 0..100 % plus the separated over-capacity one.
+				Assert.That(swatches, Has.Count.EqualTo(UtilisationScale.BandCount),
+					"one swatch per band, including over-capacity");
+				Assert.That(swatches.Distinct().Count(), Is.EqualTo(swatches.Count),
+					"no two bands share a colour, or the scale cannot be read back");
+
+				// THE assertion: lit tones, not flat ones. Band 0 is #66BB6A lit against #43A047 flat.
+				Assert.That(swatches[0],
+					Is.EqualTo(UtilisationScale.LitHexOfBand(0).ToUpperInvariant()),
+					"the swatches match the LIT scale the 3D figure was rendered with");
+				Assert.That(swatches[0],
+					Is.Not.EqualTo(UtilisationScale.HexOfBand(0).ToUpperInvariant()),
+					"and are therefore NOT the flat swatches, which would not match the picture");
+
+				// The scale has to be readable as a scale: its ends are labelled.
+				Assert.That(legend, Does.Contain("100 %"), "the top of the ramp is named");
+				Assert.That(legend, Does.Contain("util-swatch-over"),
+					"and over-capacity is set apart, not shown as a finer step");
+			});
+		}
+
+		/// <summary>
 		/// The report must not claim COMPLIANT for a run in which nothing was checked.
 		///
 		/// Every count is zero there, so the verdict arithmetic fell through to the all-clear: a

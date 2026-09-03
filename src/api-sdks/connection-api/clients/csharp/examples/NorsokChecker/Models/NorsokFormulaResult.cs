@@ -91,6 +91,29 @@ namespace NorsokChecker.Models
 		/// </summary>
 		public NotAssessedReason Reason { get; set; }
 
+		/// <summary>
+		/// A check that RAN but whose result carries a caveat — today, geometry outside the §6.4.3.1
+		/// validity ranges. Null when there is none.
+		///
+		/// A FIELD, deliberately, and not re-derived from the card title. The qualifier used to exist
+		/// only as text appended to <see cref="Title"/>, so the roll-up could not see it: a connection
+		/// whose brace sits at θ = 20° reported "PASS / Norsok OK" in the overview while its own card
+		/// said "outside validity range (6.4.3.1)" sixty pages later. The overview is what an engineer
+		/// scans, so that is where the caveat has to arrive; a state carried in a sentence cannot be
+		/// rolled up, only re-parsed, and re-parsing a display string is how the two drifted apart.
+		///
+		/// Names the parameter and its value ("M1: θ = 20.0°, outside 30–90°") rather than saying
+		/// "outside range": the reader's next question is always WHICH parameter, and the answer is
+		/// already known where this is set.
+		/// </summary>
+		public string? RangeQualifier { get; set; }
+
+		/// <summary>
+		/// True when the check ran and produced a usable result, but <see cref="RangeQualifier"/>
+		/// qualifies it. Neither a pass nor a failure on its own — it modifies a pass.
+		/// </summary>
+		public bool IsQualified => !IsNote && !NotAssessed && !string.IsNullOrEmpty(RangeQualifier);
+
 		/// <summary>PASS / FAIL / NOTE / N/A — the single place that decides the wording.</summary>
 		public string Verdict => IsNote ? "NOTE" : NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
 

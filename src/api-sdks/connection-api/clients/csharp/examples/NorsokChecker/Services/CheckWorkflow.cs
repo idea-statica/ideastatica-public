@@ -15,7 +15,7 @@ namespace NorsokChecker.Services
 	/// The rules that turn a connection's check results into its verdict.
 	///
 	/// A pure function over the results: no UI, no API, no state. That is the point — the roll-up
-	/// decides PASS / FAIL / PARTIAL / N/A, and it has to be checkable on its own.
+	/// decides PASS / FAIL / PARTIAL / QUALIFIED / N/A, and it has to be checkable on its own.
 	/// </summary>
 	internal static class CheckWorkflow
 	{
@@ -96,6 +96,25 @@ namespace NorsokChecker.Services
 
 			if (anyNotAssessed)
 				return new ConnectionVerdict("PARTIAL", maxUtil, "Partly assessed");
+
+			// A check that RAN but whose geometry lies outside the §6.4.3.1 validity ranges. The
+			// resistance is an extrapolation of formulas fitted inside those ranges, so the pass is
+			// real but qualified — and the qualifier has to reach the row an engineer scans, not only
+			// the card sixty pages in. Until this branch existed the overview read a clean
+			// "PASS / Norsok OK" for a joint whose own detail card said "outside validity range".
+			//
+			// Named parameters, joined, rather than a count: "outside validity range (2 conditions)"
+			// tells the reader to go looking, whereas "M1: θ = 20.0°, outside 30–90°" is the answer.
+			var qualifiers = results
+				.Where(f => f.IsQualified)
+				.Select(f => f.RangeQualifier!)
+				.Distinct()
+				.ToList();
+
+			if (qualifiers.Count > 0)
+				return new ConnectionVerdict(
+					"QUALIFIED", maxUtil,
+					"Outside §6.4.3.1 validity range — " + string.Join(" · ", qualifiers));
 
 			return new ConnectionVerdict("PASS", maxUtil, "Norsok OK");
 		}

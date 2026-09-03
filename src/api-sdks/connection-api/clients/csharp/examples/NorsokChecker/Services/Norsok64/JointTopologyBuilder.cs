@@ -76,7 +76,7 @@ namespace NorsokChecker.Services.Norsok64
 		/// <summary>Build the full topology + per-LE analysis for one connection.</summary>
 		public JointTopology Build(IReadOnlyList<JointMemberData> members, IEnumerable<ConLoadEffect>? loadEffects)
 		{
-			var topo = new JointTopology();
+			var topo = new JointTopology { PlaneFitTolDeg = Math.Max(0.0, _planeTolDeg) };
 			var (chord, warns) = IdentifyChord(members);
 			if (chord == null)
 			{
@@ -142,7 +142,10 @@ namespace NorsokChecker.Services.Norsok64
 				else if (nInliers >= 2)
 				{
 					inlierPerps = best!.Value.Inliers;
-					topo.PlaneFitBasis = $"{nInliers} coplanar braces within {tol:G}deg";
+					// The tolerance travels as PlaneFitTolDeg, a number the view typesets — it used to
+					// be formatted into this sentence as "2deg", ASCII, in a document that typesets
+					// every other symbol.
+					topo.PlaneFitBasis = $"{nInliers} coplanar braces";
 				}
 				else
 				{

@@ -110,6 +110,27 @@ namespace NorsokChecker.Models
 		internal static string HexOfBand(int band) => FlatHex[Math.Clamp(band, 0, BandCount - 1)];
 
 		/// <summary>
+		/// The band's LIT colour by index — for a legend that sits beside a rendered 3D image.
+		///
+		/// Not <see cref="HexOfBand"/>: the report's joint figure is a PNG produced by the 3D view,
+		/// so its members carry <see cref="LitBrush"/> tones. A legend drawn from the flat swatches
+		/// would be compared against a lit cylinder and would visibly not match — the two arrays
+		/// differ for exactly that reason (see the remarks on <see cref="LitHex"/>).
+		/// </summary>
+		internal static string LitHexOfBand(int band) => LitHex[Math.Clamp(band, 0, BandCount - 1)];
+
+		/// <summary>
+		/// The band's range as text, for a legend label: "0–10 %" … "90–100 %", and "&gt; 100 %" for
+		/// the over-capacity band, which is a different statement rather than a finer step.
+		/// </summary>
+		internal static string BandLabel(int band)
+		{
+			if (band >= RampBandCount) return "> 100 %";
+			int lo = band * 100 / RampBandCount, hi = (band + 1) * 100 / RampBandCount;
+			return $"{lo}–{hi} %";
+		}
+
+		/// <summary>
 		/// The band's colour for the 3D viewport, pre-lightened for the lighting rig. Brushes are
 		/// created once and frozen: one per band, shared by every body in it.
 		/// </summary>

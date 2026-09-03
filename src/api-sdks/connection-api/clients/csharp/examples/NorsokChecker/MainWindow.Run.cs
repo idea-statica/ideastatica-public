@@ -248,6 +248,8 @@ namespace NorsokChecker
 							+ "; see the Results tab for the conditions that were not met");
 					else if (verdict.Pass == "PARTIAL")
 						Log("    part of this connection was not assessed");
+					else if (verdict.Pass == "QUALIFIED")
+						Log($"    every check passed, but the result is QUALIFIED: {verdict.Status}");
 
 					// The report's joint figure, made here while this connection's bodies are in
 					// hand — and only if something was assessed, which the verdict above now says.

@@ -12,6 +12,21 @@ namespace NorsokChecker.Services
 	public static class NorsokHtmlReportGenerator
 	{
 		/// <summary>
+		/// The document's name, in ONE place — it is emitted twice (the HTML title, which becomes the
+		/// PDF /Title, and the printed header on page 1) and the two used to be separate literals.
+		/// </summary>
+		internal const string ReportTitle = "NORSOK N-004 — Tubular joint check";
+
+		/// <summary>
+		/// The footer's default label. Deliberately without "§6.4": a title freed of the chapter
+		/// should not have it reasserted on all 173 pages, and of 469 mentions of "6.4" in the
+		/// reviewed sample, 173 were this footer alone — one per page, the single largest source.
+		/// The substantive references remain (15 chapter headings, 128 clause references, the norm
+		/// box). Overridable per export via PageSetup.
+		/// </summary>
+		internal const string DefaultFooterLabel = "NORSOK N-004";
+
+		/// <summary>
 		/// KaTeX formula mappings: section → (symbolic formula in LaTeX, check expression in LaTeX)
 		/// </summary>
 		private static readonly Dictionary<string, (string latex, string check)> FormulaLatex = new()
@@ -102,20 +117,41 @@ namespace NorsokChecker.Services
 			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults,
 			bool expandAll = false,
 			IReadOnlyDictionary<string, string>? jointImages = null,
-			IReadOnlyDictionary<string, Norsok64.JointTopology>? topologies = null)
+			IReadOnlyDictionary<string, Norsok64.JointTopology>? topologies = null,
+			string? footerCss = null,
+			(int Active, int Total)? loadEffectCounts = null)
 		{
 			var sb = new StringBuilder();
 
 			sb.AppendLine("<!DOCTYPE html>");
 			sb.AppendLine("<html><head>");
 			sb.AppendLine("<meta charset='utf-8'/>");
-			sb.AppendLine("<title>NORSOK N-004 Compliance Report</title>");
+			// NOT "Compliance Report": that claims conformity for a document in which connections
+			// routinely go unassessed (9 of 15 in the reviewed sample), and the <title> becomes the
+			// PDF's /Title — what a reader sees in Explorer, a browser tab and an archive.
+			//
+			// Nor "§6.4 — Tubular joint check", which the review proposed: it pins the title to one
+			// chapter and will be wrong again when §6.3 and CIDECT land. The chapter scope is already
+			// in the document, in the norm box and on every page's footer.
+			sb.AppendLine($"<title>{ReportTitle}</title>");
 
 			AppendKatex(sb);
 
 			sb.AppendLine("<style>");
 			sb.AppendLine(CssStyles);
 			sb.AppendLine("</style>");
+			// The footer, from the export's own settings — AFTER CssStyles so it overrides the
+			// default @page rule there. It cannot live in CssStyles itself: that is a static string
+			// and the label, the mode and the starting number are per-export.
+			//
+			// Passed as CSS rather than as a PageSetup, so the generator does not need to know what
+			// a page setup is (and PageSetup can stay internal). MainWindow builds it.
+			if (!string.IsNullOrEmpty(footerCss))
+			{
+				sb.AppendLine("<style>");
+				sb.AppendLine(footerCss);
+				sb.AppendLine("</style>");
+			}
 			sb.AppendLine("<style>");
 			sb.AppendLine(".report-footer { margin-top: 28px; padding: 12px 16px; border-top: 2px solid #F36E21; color: #546E7A; font-size: 11px; line-height: 1.6; }");
 			// print-color-adjust asks the RENDERER not to drop background colours. Necessary but not
@@ -133,7 +169,7 @@ namespace NorsokChecker.Services
 			sb.AppendLine("  <div class='brand-line'>");
 			sb.AppendLine("    <span class='idea-brand'><span class='idea-orange'>IDEA</span> StatiCa</span>");
 			sb.AppendLine("    <span class='brand-sep'>|</span>");
-			sb.AppendLine("    <span class='norsok-badge'>NORSOK N-004 Compliance Report</span>");
+			sb.AppendLine($"    <span class='norsok-badge'>{ReportTitle}</span>");
 			sb.AppendLine("  </div>");
 			sb.AppendLine($"  <p class='subtitle'>Project: {Esc(projectName)} &mdash; Generated: {DateTime.Now:yyyy-MM-dd HH:mm}</p>");
 			sb.AppendLine("</div>");
@@ -156,6 +192,24 @@ namespace NorsokChecker.Services
 				+ "&mdash; geometry, cross-sections, materials and load effects<br/>");
 			sb.AppendLine("  <strong>Checks by:</strong> NorsokChecker, evaluated from that model "
 				+ "&mdash; no analysis is run");
+			// WHAT WAS SEARCHED. The report stated which load effect governs each brace and nothing
+			// else, so a reader could not tell a search over fifteen states from a search over three
+			// — and had no way to know that nothing was skipped.
+			//
+			// COUNTS ONLY, never a list of identifiers: a model may hold arbitrarily many load
+			// effects, so an enumeration is a paragraph that grows without bound. The names stay on
+			// the per-brace rows, where there is one of them however many states exist.
+			if (loadEffectCounts is { Total: > 0 } lec)
+			{
+				sb.AppendLine("<br/>  <strong>Load effects:</strong> "
+					+ $"{lec.Total} defined in the model, <b>{lec.Active} active</b> and evaluated "
+					+ "&mdash; every active state was checked on every brace of every assessed "
+					+ "connection"
+					+ (lec.Active < lec.Total
+						? $"; the remaining {lec.Total - lec.Active} are switched off in the model "
+							+ "and were not evaluated, which is a limitation of this run"
+						: ""));
+			}
 			sb.AppendLine("</div>");
 
 			// Table 6-1 Material factors
@@ -208,7 +262,21 @@ namespace NorsokChecker.Services
 			sb.AppendLine("  <p class='settings-note'>&gamma;<sub>BC</sub> is required only where "
 				+ "factors <em>other</em> than Table 6-1 are used; the factors above <em>are</em> "
 				+ "Table 6-1, so it does not apply on top of them.</p>");
-			sb.AppendLine("  <p class='settings-note'>&sect;6.1: &ldquo;The material factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo; These factors are written into the project's own settings, so anything calculated in IDEA StatiCa Connection afterwards uses them too.</p>");
+			// TWO statements, and they used to be one grey italic paragraph. The first is the
+			// STANDARD speaking; the second is this tool disclosing that it MODIFIES the input model.
+			// Running them together made the disclosure read as part of the quotation — the reviewer
+			// asked for them split and for the second to be prominent, and both requests are right:
+			// nothing else in the document tells a reader that opening their project afterwards will
+			// find different material factors in it.
+			sb.AppendLine("  <p class='settings-note settings-quote'>&sect;6.1: &ldquo;The material "
+				+ "factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material "
+				+ "factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and "
+				+ "NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo;</p>");
+			sb.AppendLine("  <p class='settings-disclosure'><strong>This tool writes these factors "
+				+ "into the project.</strong> They are stored in the IDEA StatiCa Connection "
+				+ "project's own settings, so any calculation run there afterwards &mdash; by this "
+				+ "app or by anyone opening the file &mdash; uses them instead of whatever was set "
+				+ "before. The model is modified, not only read.</p>");
 			sb.AppendLine("</div>");
 
 			// ── Contents, then the summary, then the table the contents indexes ──
@@ -220,7 +288,13 @@ namespace NorsokChecker.Services
 			//
 			// It carries no chapter number: it is the navigation apparatus, not a chapter. That also
 			// leaves the numbering alone — Summary stays 1, the overview 2, connections 3+.
-			RenderIndex(sb, allResults);
+			//
+			// And it is printed only when there is a hierarchy to map. With one method per connection
+			// it is a list of connection names duplicating the overview's first column on the next
+			// page — see ShouldRenderContents.
+			bool contents = ShouldRenderContents(allResults);
+			if (contents)
+				RenderIndex(sb, allResults);
 
 			// ── Executive Summary Card, then chapter 2 ──
 			RenderSummaryCard(sb, allResults);
@@ -229,11 +303,16 @@ namespace NorsokChecker.Services
 			int chapter = ConnectionChapterBase;
 			foreach (var (connectionName, formulas) in allResults)
 			{
-				// The id the index links to, and the number it announces. First connection excepted
-				// from the page break: the index's own break-after has already started a page, and a
-				// second break here would leave a blank one between them.
+				// The id the index links to, and the number it announces. The first connection is
+				// excepted from the page break ONLY when the contents was printed: its break-after
+				// has already started a page, and a second break would leave a blank one between
+				// them. With no contents there is nothing to have started that page, so the first
+				// connection needs its own break like every other — without this, it would run on
+				// from the overview table and the "one page per connection" rule would hold for
+				// every connection except the first.
 				string anchor = AnchorFor(chapter);
-				string firstClass = chapter == ConnectionChapterBase ? " first-connection" : "";
+				string firstClass = contents && chapter == ConnectionChapterBase
+					? " first-connection" : "";
 				sb.AppendLine($"<h2 class='connection-header{firstClass}' id='{anchor}'>"
 					+ $"<span class='chapter-no'>{chapter}</span> {Esc(connectionName)}</h2>");
 				chapter++;
@@ -249,6 +328,7 @@ namespace NorsokChecker.Services
 					sb.AppendLine($"  <img src='data:image/png;base64,{png}' alt='Joint {Esc(connectionName)}'/>");
 					sb.AppendLine("  <figcaption>Joint plane, viewed along its normal &mdash; "
 						+ "members coloured by their governing utilisation.</figcaption>");
+					RenderUtilisationLegend(sb);
 					sb.AppendLine("</figure>");
 				}
 
@@ -363,6 +443,121 @@ namespace NorsokChecker.Services
 		private static string AnchorFor(int chapter) => $"ch-{chapter}";
 
 		/// <summary>
+		/// Is a contents page worth printing? Only when some connection has more than one method
+		/// chapter — otherwise there is no hierarchy to map.
+		///
+		/// A property of the DOCUMENT, not a user setting: nobody should be asked to decide what the
+		/// document already determines. With one method per connection the contents degenerates into
+		/// a list of connection names reproducing the first column of the overview table on the next
+		/// page — fifteen lines costing a full page out of 173. That emptiness is also why the
+		/// verdicts were in it: they were filling a structural void rather than serving a reader.
+		///
+		/// Today this is always false (the registry holds one chapter), which is exactly why the
+		/// rule is testable now: its false branch IS the current document.
+		/// </summary>
+		internal static bool ShouldRenderContents(
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+		{
+			foreach (var (_, formulas) in allResults)
+				if (MethodCountOf(formulas) > 1) return true;
+			return false;
+		}
+
+		/// <summary>
+		/// How many distinct method chapters one connection produced rows for.
+		///
+		/// Keyed on the row's own Section prefix rather than on ChapterRegistry: the registry holds
+		/// exactly one chapter today, so routing through it would make the multi-method case
+		/// impossible to construct in a test — a rule whose true branch cannot be reached is a rule
+		/// nobody can check. The prefix is what the registry itself matches on ("6.4", "6.3", …), so
+		/// this agrees with it for every chapter that exists and keeps working for ones that do not
+		/// yet.
+		/// </summary>
+		internal static int MethodCountOf(IEnumerable<NorsokFormulaResult> formulas) =>
+			formulas
+				.Where(f => !f.IsNote && !string.IsNullOrEmpty(f.Section))
+				.Select(f =>
+				{
+					// "6.4.3.6" → "6.4": the chapter is the first two dotted components.
+					var parts = f.Section.Split('.');
+					return parts.Length >= 2 ? $"{parts[0]}.{parts[1]}" : f.Section;
+				})
+				.Distinct()
+				.Count();
+
+		/// <summary>
+		/// The page footer, from this export's settings. Overrides the default @page rule in
+		/// <see cref="CssStyles"/>, which cannot see them (it is a static string).
+		///
+		/// The three modes and the two rules that are not optional:
+		///  • Local      "NORSOK N-004 — 4 / 173". Self-scoping; the default.
+		///  • Continuous "47" alone, from FooterStartAt, with NO total — printing "47 / 173" inside
+		///               a 400-page host document states something false about that document. The
+		///               label matters MORE here, not less: a bare number is indistinguishable from
+		///               the host's own numbering, so it is the only thing saying which document
+		///               the reader is in.
+		///  • Off        nothing, for a host that paginates everything itself.
+		///
+		/// `counter-reset` on @page is what shifts the start: `counter(page)` is the only counter
+		/// available in page context, so an offset has to come from resetting it on the first page.
+		/// </summary>
+		internal static string FooterCss(Models.PageSetup? setup)
+		{
+			var mode = setup?.FooterMode ?? Models.FooterMode.Local;
+			if (mode == Models.FooterMode.Off)
+				return "@page { @bottom-center { content: none; } }";
+
+			string label = setup?.FooterLabel ?? DefaultFooterLabel;
+			// A CSS string literal, so a quote or a backslash in the label would end it early.
+			string safe = label.Replace("\\", "\\\\").Replace("\"", "\\\"");
+			string prefix = string.IsNullOrWhiteSpace(safe) ? "" : $"\"{safe} — \" ";
+
+			if (mode == Models.FooterMode.Continuous)
+			{
+				int start = Math.Max(1, setup?.FooterStartAt ?? 1);
+				// counter(page) starts at 1, so the reset is start-1.
+				return "@page { counter-reset: page " + (start - 1) + "; @bottom-center { content: "
+					+ prefix + "counter(page); } }";
+			}
+
+			return "@page { @bottom-center { content: " + prefix
+				+ "counter(page) \" / \" counter(pages); } }";
+		}
+
+		/// <summary>
+		/// The utilisation colour scale, beside the figure it explains.
+		///
+		/// The caption claimed "members coloured by their governing utilisation" with no scale
+		/// anywhere in the document, so an olive member could be at 40 % or at 70 % and the reader
+		/// had no way to tell. A claim about a picture that the picture cannot support.
+		///
+		/// Drawn from <see cref="UtilisationScale.LitHexOfBand"/>, NOT the flat swatches: the figure
+		/// is a PNG rendered by the 3D view, so its members carry the lit tones, and a legend in the
+		/// flat colours would sit beside a lit cylinder and visibly not match. One definition of the
+		/// scale, two sets of tones for two lighting conditions — see UtilisationScale's remarks.
+		///
+		/// The over-capacity band is separated by a gap: it is not a finer step on the ramp but a
+		/// different statement, which is the one distinction a reader must not miss.
+		/// </summary>
+		private static void RenderUtilisationLegend(StringBuilder sb)
+		{
+			sb.AppendLine("  <div class='util-legend'>");
+			sb.AppendLine("    <span class='util-legend-label'>utilisation</span>");
+			for (int band = 0; band < Models.UtilisationScale.RampBandCount; band++)
+				sb.AppendLine($"    <span class='util-swatch' style='background:"
+					+ $"{Models.UtilisationScale.LitHexOfBand(band)}' "
+					+ $"title='{Models.UtilisationScale.BandLabel(band)}'></span>");
+			sb.AppendLine("    <span class='util-legend-tick'>0</span>");
+			sb.AppendLine("    <span class='util-legend-tick'>100 %</span>");
+			int over = Models.UtilisationScale.BandCount - 1;
+			sb.AppendLine($"    <span class='util-swatch util-swatch-over' style='background:"
+				+ $"{Models.UtilisationScale.LitHexOfBand(over)}' "
+				+ $"title='{Models.UtilisationScale.BandLabel(over)}'></span>");
+			sb.AppendLine("    <span class='util-legend-tick'>&gt; 100 %</span>");
+			sb.AppendLine("  </div>");
+		}
+
+		/// <summary>
 		/// The contents page: every chapter, numbered, linked to its own heading.
 		///
 		/// On a page of its own (break-after), because a report of fifteen joints is read by looking
@@ -441,7 +636,9 @@ namespace NorsokChecker.Services
 
 			// And the connections, in theirs — the unit a reviewer actually counts in.
 			var verdicts = allResults.Select(r => CheckWorkflow.Roll(r.formulas)).ToList();
-			int consAssessed = verdicts.Count(v => v.Pass is "PASS" or "FAIL" or "PARTIAL");
+			// QUALIFIED belongs here: the connection WAS assessed, its result simply carries the
+			// §6.4.3.1 caveat. Leaving it out counted a checked joint among the unassessed ones.
+			int consAssessed = verdicts.Count(v => v.Pass is "PASS" or "FAIL" or "PARTIAL" or "QUALIFIED");
 			int consNotAssessed = verdicts.Count - consAssessed;
 
 			// Governing formula (highest utilization) — only among rows that were actually checked
@@ -466,13 +663,25 @@ namespace NorsokChecker.Services
 			// unchecking both chapter boxes and pressing Run, and it is the exportable deliverable
 			// that said it. The connection list already reported that run as N/A.
 			bool nothingChecked = checksPerformed <= 0;
-			string statusClass = failed > 0 ? "fail" : (notAssessed > 0 || nothingChecked) ? "warn" : "pass";
+
+			// Nor may "COMPLIANT" be claimed when a check ran on geometry OUTSIDE the §6.4.3.1
+			// validity ranges. Every check can pass and nothing be unassessed, and the resistance is
+			// still an extrapolation of formulas fitted inside those ranges — which the norm itself
+			// flags. The headline is the one line a reader takes away, so the caveat has to survive
+			// into it, exactly as it now survives into the overview row.
+			int consQualified = verdicts.Count(v => v.Pass == "QUALIFIED");
+
+			string statusClass = failed > 0 ? "fail"
+				: (notAssessed > 0 || nothingChecked || consQualified > 0) ? "warn"
+				: "pass";
 			string verdict = failed > 0 ? "NON-COMPLIANT"
 				: nothingChecked ? "NOT ASSESSED — no check was performed"
 				: notAssessed > 0 ? "INCOMPLETE — part of the model was not assessed"
-				: "COMPLIANT";
+				: consQualified > 0
+					? "QUALIFIED — every check passed, but geometry outside the §6.4.3.1 validity range"
+					: "COMPLIANT";
 			string icon = failed > 0 ? "&#x2718;"
-				: (notAssessed > 0 || nothingChecked) ? "&#x26A0;"
+				: (notAssessed > 0 || nothingChecked || consQualified > 0) ? "&#x26A0;"
 				: "&#x2714;";
 
 			// Chapter 1, with the id the contents page links to.
@@ -1271,7 +1480,15 @@ namespace NorsokChecker.Services
 			Kv(sb, "plane normal <span class='deriv-hint'>(model coordinates)</span>", V(topo.NPlane));
 			Kv(sb, "chord axis e<sub>x</sub>", V(topo.Ex));
 			Kv(sb, "in-plane axis e<sub>y</sub>", V(topo.Ey));
-			Kv(sb, "how the plane was fixed", Esc(topo.PlaneFitBasis ?? "&mdash;"));
+			// The tolerance is typeset HERE, from the number, and labelled as ours. The engine used to
+			// bake "within 2deg" into the sentence: ASCII in a document that typesets ≤ and °, and
+			// printed beside real clause references with nothing saying §6.4 does not specify it.
+			Kv(sb, "how the plane was fixed",
+				(topo.PlaneFitBasis is { Length: > 0 } basis ? Esc(basis) : "&mdash;")
+				+ (topo.PlaneFitTolDeg > 0
+					? $" <span class='deriv-hint'>(within {N(topo.PlaneFitTolDeg, 1)}&deg; "
+						+ "&mdash; tool tolerance, not a &sect;6.4 requirement)</span>"
+					: ""));
 			if (!topo.Coplanar || topo.PlaneSpread > 0)
 				Kv(sb, "out-of-plane spread", $"{N(topo.PlaneSpread * 1e3, 1)} mm"
 					+ (topo.Coplanar ? "" : " <span class='deriv-hint'>(not coplanar)</span>"));
@@ -1284,19 +1501,27 @@ namespace NorsokChecker.Services
 			if (topo.BracesMeta.Count > 0)
 			{
 				sb.AppendLine("  <p class='deriv-h'>Members &mdash; geometry at the joint</p>");
+				// The last two columns are CHECKS against the fitted plane, not inputs to the
+				// resistance, and the table used to present all seven alike. A reviewer read the 8°
+				// in "off-plane" as a quantity the projection uses — reasonably, sitting between θ
+				// and β, which it does use — and then found two connections differing only in that
+				// column with identical force tables. Naming the two groups is the fix; see the note
+				// under the transformation table for why the angle cannot change those forces.
 				sb.AppendLine("  <table class='deriv-table'>");
-				sb.AppendLine("    <tr><th>member</th><th>section</th><th>&theta;</th>"
-					+ "<th>&beta;</th><th>off-plane</th><th>ecc. along chord</th>"
-					+ "<th>chord face</th></tr>");
+				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>section</th>"
+					+ "<th colspan='3'>used by the check</th>"
+					+ "<th colspan='2'>coplanarity checks (tool tolerances)</th></tr>");
+				sb.AppendLine("    <tr><th>&theta;</th><th>&beta;</th><th>chord face</th>"
+					+ "<th>off-plane</th><th>ecc. along chord</th></tr>");
 				foreach (var b in topo.BracesMeta)
 				{
 					sb.AppendLine($"    <tr><td><b>{Esc(b.Name)}</b></td>"
 						+ $"<td>{Esc(b.Section?.Name ?? "&mdash;")}</td>"
 						+ $"<td>{N(b.ThetaDeg, 1)}&deg;</td>"
 						+ $"<td>{(b.Beta is { } be ? N(be, 3) : "&mdash;")}</td>"
+						+ $"<td>{(b.Side >= 0 ? "+ey" : "&minus;ey")}</td>"
 						+ $"<td>{N(b.CoplanarDevDeg, 1)}&deg;</td>"
-						+ $"<td>{N(b.OopOffsetM * 1e3, 1)} mm</td>"
-						+ $"<td>{(b.Side >= 0 ? "+ey" : "&minus;ey")}</td></tr>");
+						+ $"<td>{N(b.OopOffsetM * 1e3, 1)} mm</td></tr>");
 				}
 				sb.AppendLine("  </table>");
 			}
@@ -1339,6 +1564,31 @@ namespace NorsokChecker.Services
 					+ "need not be the same for two braces of one joint. N is positive in TENSION; "
 					+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending OF THE JOINT "
 					+ "PLANE (eq 6.57), not a member's local y and z.</p>");
+
+				// WHICH plane each brace is resolved in — the question the section did not answer, and
+				// the one a reviewer has to be able to ask. Each brace gets the plane of its OWN
+				// chord-brace pair, so its deviation from the FITTED joint plane is absent from its own
+				// projection by construction. Without this paragraph two joints differing only in that
+				// deviation, with identical force tables, look like a calculation that failed to run.
+				sb.AppendLine("  <p class='deriv-note'>Each brace is resolved in the plane of "
+					+ "<b>its own chord&ndash;brace pair</b> &mdash; the normal is "
+					+ "e<sub>x</sub>&nbsp;&times;&nbsp;(brace axis) &mdash; not in the single fitted "
+					+ "joint plane above. The fitted plane does two other things: it decides the K/Y/X "
+					+ "classification and it fixes the SIGN of M<sub>y</sub> consistently across the "
+					+ "braces. So a brace's own <i>off-plane</i> deviation cannot appear in its own "
+					+ "resolved forces; that column is a coplanarity check on the joint, not an input "
+					+ "to this transformation. Two joints differing only in it therefore have "
+					+ "identical force tables, which is a consequence of the frame, not a "
+					+ "transformation that failed to run.</p>");
+
+				int offPlane = topo.BracesMeta.Count(b => Math.Abs(b.CoplanarDevDeg) > 0.05);
+				if (topo.BracesMeta.Count > 0)
+					sb.AppendLine($"  <p class='deriv-note'>In this joint "
+						+ $"<b>{topo.BracesMeta.Count - offPlane} of {topo.BracesMeta.Count}</b> "
+						+ "braces lie in the fitted plane to within 0.1&deg;. For those, the two halves "
+						+ "of the table differ by a relabelling and the sign convention above rather "
+						+ "than by arithmetic &mdash; worth knowing before reading the side-by-side "
+						+ "columns as evidence of a computation.</p>");
 				sb.AppendLine("  <table class='deriv-table'>");
 				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>governing</th>"
 					+ "<th colspan='3'>from the model (local axes)</th>"
@@ -1356,13 +1606,100 @@ namespace NorsokChecker.Services
 						+ $"<td>{N(f.Mop / 1e3, 2)} kN&middot;m</td></tr>");
 				}
 				sb.AppendLine("  </table>");
+				// "torsion is excluded by §6.4" read as "the standard deems it irrelevant", which is
+				// not what the clause says and not what we mean. Eq (6.57) has three terms and shear
+				// and torsion are not among them — so they are not checked HERE, and they still have
+				// to be checked. The difference between "not calculated" and "not calculated here"
+				// is the whole point, and the reader needs to be told where to go instead.
 				sb.AppendLine("  <p class='deriv-note'>Section forces are taken AT THE NODE and "
 					+ "projected without an r&times;F transfer, matching the reference "
-					+ "implementation. Shear does not enter eq (6.57) and torsion is excluded by "
-					+ "&sect;6.4.</p>");
+					+ "implementation. Eq (6.57) has three terms &mdash; axial, in-plane and "
+					+ "out-of-plane bending &mdash; so the brace's <b>shear and torsion do not enter "
+					+ "this check</b>. That is not a statement that they do not matter: they are "
+					+ "listed above so their magnitude can be seen, and they must be verified "
+					+ "elsewhere (member and section checks to &sect;6.3, and the weld or connection "
+					+ "detail itself).</p>");
+
+				RenderStateSelection(sb, chapterRows);
 			}
 
 			sb.AppendLine("</div>");
+		}
+
+		/// <summary>
+		/// How the governing state was chosen, and by what margin.
+		///
+		/// Two things the report could not answer. First, the CRITERION: "governing" is not the
+		/// largest force, because N_Rd depends on Q_f, Q_f on the chord stresses, and those on the
+		/// load effect — so every candidate state has its own resistance and the winner comes out of
+		/// a search in which the resistance is recomputed per state. Until that is stated the
+		/// selection is not reproducible even by a reader holding every number in the document.
+		///
+		/// Second, the MARGIN. A 0.3-point gap to the next state means a small change to the model
+		/// hands the joint to a different one; a 30-point gap means it does not. That is what a
+		/// reviewer wants from an envelope, and it cannot be recovered from a dump of every state.
+		///
+		/// One column per brace, so it does not grow with the number of load effects — a model may
+		/// hold arbitrarily many.
+		/// </summary>
+		private static void RenderStateSelection(StringBuilder sb,
+			IReadOnlyList<NorsokFormulaResult>? chapterRows)
+		{
+			var rows = (chapterRows ?? Array.Empty<NorsokFormulaResult>())
+				.Where(fr => !fr.IsNote && !fr.NotAssessed && fr.JointDetail is { Name.Length: > 0 })
+				.Select(fr => fr.JointDetail!)
+				.ToList();
+			if (rows.Count == 0) return;
+
+			sb.AppendLine("  <p class='deriv-h'>How the governing state was chosen</p>");
+			sb.AppendLine("  <p class='deriv-note'>Every active load effect was evaluated on every "
+				+ "brace, and the state with the highest utilisation governs. Note that this is NOT "
+				+ "the state with the largest force: N<sub>Rd</sub> depends on Q<sub>f</sub>, "
+				+ "Q<sub>f</sub> on the chord stresses, and those on the load effect &mdash; so each "
+				+ "candidate state has its <b>own resistance</b>, and the resistance is recomputed "
+				+ "for every state rather than the forces being compared against one. The runner-up "
+				+ "column says how close the decision was.</p>");
+			sb.AppendLine("  <table class='deriv-table'>");
+			sb.AppendLine("    <tr><th>member</th><th>governing</th><th>utilisation</th>"
+				+ "<th>runner-up</th><th>&Delta;</th></tr>");
+
+			foreach (var det in rows)
+			{
+				string util = double.IsNaN(det.Util) || double.IsInfinity(det.Util)
+					? "&mdash;" : Pct(det.Util);
+
+				string runner, delta;
+				if (det.RunnerUpUtil is { } ru && det.RunnerUpLeName is { Length: > 0 } rn)
+				{
+					runner = $"{Esc(rn)} &nbsp;{Pct(ru)}";
+					// Percentage POINTS, and said so: a "Δ 2.3 %" beside two percentages invites the
+					// reader to take it as a relative difference.
+					delta = double.IsNaN(det.Util) || double.IsInfinity(det.Util)
+						? "&mdash;"
+						: ((det.Util - ru) * 100).ToString("0.0",
+							System.Globalization.CultureInfo.InvariantCulture) + " pp";
+				}
+				else
+				{
+					// Three different facts, and a bare dash for all of them would be the CON10
+					// mistake again — one symbol standing for several situations a reader acts on
+					// differently.
+					runner = det.RunnerUpAbsence switch
+					{
+						Norsok64.JointEnvelope.RunnerUpAbsence.SingleState =>
+							"<span class='deriv-hint'>only one load effect was evaluated</span>",
+						Norsok64.JointEnvelope.RunnerUpAbsence.OthersSkipped =>
+							"<span class='deriv-hint'>no other state produced a check on this brace</span>",
+						_ => "&mdash;",
+					};
+					delta = "&mdash;";
+				}
+
+				sb.AppendLine($"    <tr><td><b>{Esc(det.Name)}</b></td>"
+					+ $"<td>{Esc(det.GovLeName ?? $"LE{det.GovLeId}")}</td>"
+					+ $"<td>{util}</td><td>{runner}</td><td>{delta}</td></tr>");
+			}
+			sb.AppendLine("  </table>");
 		}
 
 		/// <summary>A key/value row in a derivation table.</summary>
@@ -1694,6 +2031,19 @@ body {
   margin-top: 10px;
   font-style: italic;
 }
+/* A quotation from the standard: italic, quiet, clearly not ours. */
+.settings-quote { border-left: 3px solid #CFD8DC; padding-left: 10px; }
+/* A disclosure about what the TOOL does to the model — upright, not italic, and framed, because it
+   must not read as part of the quotation above it. The one thing in the front matter that tells a
+   reader their project file is changed. */
+.settings-disclosure {
+  font-size: 12px;
+  color: #37474F;
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: #FFF8E1;
+  border-left: 3px solid #FFA726;
+}
 /* .connection-header shares .section-header's rule below — a connection heading IS a section
    heading, and two copies of the same declarations drift. */
 .chapter-group { margin-bottom: 20px; }
@@ -1939,6 +2289,27 @@ body {
   color: #78909C;
 }
 
+/* The utilisation scale, beside the figure whose colours it explains. Ten bands for 0..100 % plus
+   a separated eleventh for over-capacity, which is a different statement rather than a finer step.
+   Swatches are borderless and butt together so the ramp reads as one scale. */
+.util-legend {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #78909C;
+}
+.util-legend-label { margin-right: 6px; }
+.util-legend-tick { margin: 0 4px; font-variant-numeric: tabular-nums; }
+.util-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 9px;
+  margin: 0;
+}
+.util-swatch-over { margin-left: 8px; }
+
 .summary-card.pass {
   background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
   border: 2px solid #4caf50;
@@ -2057,7 +2428,7 @@ body {
   @bottom-center {
     /* Doubled quotes: this whole stylesheet is a C# verbatim string, so a CSS string literal has
        to escape them or the constant ends here. */
-    content: ""NORSOK N-004 §6.4 — "" counter(page) "" / "" counter(pages);
+    content: ""NORSOK N-004 — "" counter(page) "" / "" counter(pages);
     font-family: 'Segoe UI', -apple-system, sans-serif;
     font-size: 8pt;
     color: #78909C;
@@ -2065,7 +2436,12 @@ body {
 }
 @media print {
   body { background: #fff; padding: 0; }
-  .check-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  /* The card MAY flow across a page break. It used to carry break-inside: avoid, and on a card
+     that does not fit the remainder of a page the whole thing moved to a fresh one — measured on
+     the shipped 173-page PDF: 11 pages filled to 22.7 % of their height, 41 under 65 %, against a
+     median of 80 %. The atomic blocks below are what must not split; a card is a container, and
+     protecting the container instead of its contents is what wasted three quarters of a sheet. */
+  .check-card { box-shadow: none; border: 1px solid #ddd; }
   /* The disclosure triangle, gone in print — it is an affordance for a click that paper cannot
      take. This rule USED to read `details > summary::before`, which matches nothing: the marker is
      declared on `.check-card > summary::before`, so the more specific selector kept winning and the
@@ -2081,7 +2457,7 @@ body {
      away from the verdict and the counters it belongs to. Measured: 'INCOMPLETE' at y=748 on page 1
      with the figure on the next page. That was the worst piece of typography in the document. */
   .summary-card, .index-page, .settings-card, .norm-box,
-  .formula-block, .deriv-step, .joint-figure, table { break-inside: avoid; }
+  .formula-block, .deriv-step, .deriv-block, .joint-figure, table { break-inside: avoid; }
 
   /* A row is never split from itself, and a long table repeats its header rather than continuing
      into a page of anonymous numbers. */
@@ -2099,8 +2475,18 @@ body {
   .connection-header.first-connection { break-before: auto; }
 
   /* A heading must not be the last thing on a page — the reader turns over to find out what it was
-     introducing. */
-  .connection-header, .section-header, .index-title, .chapter-header { break-after: avoid; }
+     introducing.
+
+     `.deriv-h` is the one that mattered and was missing: those are the derivation headings, and the
+     shipped PDF ended 25 pages on one. Measured, by heading: 11 × 'Utilisation — eq (6.57)',
+     8 × 'Weighted axial resistance', 6 × 'Members — geometry at the joint'. `p { orphans: 3 }`
+     cannot help there — an orphaned heading is a whole paragraph, not the last line of one, so the
+     orphans property has nothing to hold back. */
+  .connection-header, .section-header, .index-title, .chapter-header,
+  .deriv-h { break-after: avoid; }
+
+  /* And a heading is not split from itself either, so it cannot land half on each page. */
+  .deriv-h { break-inside: avoid; }
 
   /* Every card open, whatever state the page is in.
      The export passes expandAll, so the markup already carries <details open> — but a closed card

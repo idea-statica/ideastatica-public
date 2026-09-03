@@ -82,5 +82,66 @@ namespace UT_NorsokChecker
 			Assert.That(Read(file), Does.Contain(marker),
 				$"{file} should be where {marker} lives");
 		}
+
+		/// <summary>
+		/// Every text button on an action bar carries one of the two IDEA styles.
+		///
+		/// Page setup carried NO style, so it rendered in default WPF chrome beside an orange Export
+		/// PDF and the two did not read as a pair — spotted in the running app, not by either
+		/// review. On the source because the alternative is standing up a window; the property is
+		/// structural, and the failure it guards is a button someone adds without a style.
+		///
+		/// The three 24x22 icon buttons in the §6.4 view are deliberately unstyled and are excluded
+		/// by name: they are a different category (view manipulation, no text).
+		/// </summary>
+		[Test]
+		public void EveryActionBarButtonCarriesAnIdeaStyle()
+		{
+			string xaml = Read("MainWindow.xaml");
+
+			var unstyled = new List<string>();
+			foreach (var m in System.Text.RegularExpressions.Regex.Matches(
+					xaml, @"<Button\b(?<attrs>[^>]*)>", System.Text.RegularExpressions.RegexOptions.Singleline))
+			{
+				string attrs = ((System.Text.RegularExpressions.Match)m).Groups["attrs"].Value;
+				var name = System.Text.RegularExpressions.Regex.Match(attrs, @"x:Name=""(?<n>\w+)""");
+				string id = name.Success ? name.Groups["n"].Value : "(unnamed)";
+
+				// The §6.4 view's rotate/flip icons — square, textless, intentionally plain.
+				if (id is "Btn64RotL" or "Btn64RotR" or "Btn64Flip") continue;
+
+				if (!attrs.Contains("Style=")) unstyled.Add(id);
+			}
+
+			Assert.That(unstyled, Is.Empty,
+				"these buttons have no style and will not match their neighbours: "
+				+ string.Join(", ", unstyled));
+		}
+
+		/// <summary>
+		/// Page setup does not fix its own padding, so the shared style governs it.
+		///
+		/// IdeaOutlineButton sets 12,4 while the button carried an inline 12,6 — with the style
+		/// applied and the inline value left in place, the pair would still differ in height and the
+		/// mismatch would only have moved.
+		/// </summary>
+		[Test]
+		public void PageSetupButtonDoesNotOverrideTheStylesPadding()
+		{
+			string xaml = Read("MainWindow.xaml");
+
+			var button = System.Text.RegularExpressions.Regex.Match(xaml,
+				@"<Button[^>]*x:Name=""BtnPageSetup""[^>]*>",
+				System.Text.RegularExpressions.RegexOptions.Singleline);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(button.Success, Is.True, "the Page setup button exists");
+				Assert.That(button.Value, Does.Contain("IdeaOutlineButton"),
+					"secondary to Export PDF, as Cancel is to Run Norsok Check");
+				Assert.That(button.Value, Does.Not.Contain("Padding="),
+					"no inline padding — the style's 12,4 must win");
+			});
+		}
 	}
 }

@@ -92,19 +92,24 @@
         <Color x:Key="NorsokTealLight">#4FB3BF</Color>
         <SolidColorBrush x:Key="NorsokTealBrush" Color="{StaticResource NorsokTeal}"/>
 
-        <!-- Verdict colours. Defined once here because the same four states appear in the
+        <!-- Verdict colours. Defined once here because the same five states appear in the
              connection list and in the per-check tables, and they were drifting apart.
 
-             Three degrees, not two, and the middle one is NOT a fail:
-               FAIL     red    - checked, and it does not comply
-               PASS     green  - checked, and it complies
-               PARTIAL  amber  - everything checked passed, but part was not assessed
-               N/A      grey   - NOTHING was checked; no verdict was ever reached
-             N/A and PARTIAL used to share the same amber, so "outside the scope of 6.4"
-             was indistinguishable from "checked, with a gap". Grey says "no answer here",
-             which is what N/A is. The amber foreground also sat next to the IDEA brand
-             orange, so it read as an accent rather than a caution - hence the darker
-             amber text below. -->
+             Four degrees, not two, and the middle two are NOT fails:
+               FAIL       red    - checked, and it does not comply
+               PASS       green  - checked, and it complies
+               PARTIAL    amber  - everything checked passed, but part was not assessed
+               QUALIFIED  amber  - everything WAS checked and passed, but on geometry outside
+                                   the 6.4.3.1 validity range, so the resistance is an
+                                   extrapolation of formulas fitted inside it
+               N/A        grey   - NOTHING was checked; no verdict was ever reached
+             PARTIAL and QUALIFIED share the amber deliberately: both are a pass a reader
+             must not take at face value, and they differ in WHY, which the Note column
+             states. N/A and PARTIAL used to share it too, and that was wrong - "outside the
+             scope of 6.4" was indistinguishable from "checked, with a gap". Grey says "no
+             answer here", which is what N/A is. The amber foreground also sat next to the
+             IDEA brand orange, so it read as an accent rather than a caution - hence the
+             darker amber text below. -->
         <SolidColorBrush x:Key="VerdictFailBg"     Color="#FFEBEE"/>
         <SolidColorBrush x:Key="VerdictFailFg"     Color="#C62828"/>
         <SolidColorBrush x:Key="VerdictPassBg"     Color="#E8F5E9"/>
@@ -382,6 +387,15 @@
                                                  only reached when anyFailed is false, so it is a qualified
                                                  pass, not a fail. It keeps amber; only N/A moved to grey. -->
                                             <DataTrigger Binding="{Binding NorsokPass}" Value="PARTIAL">
+                                                <Setter Property="Background" Value="{StaticResource VerdictPartialBg}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource VerdictPartialFg}"/>
+                                            </DataTrigger>
+                                            <!-- amber too, and for the same reason: every brace WAS checked and
+                                                 passed, but on geometry outside the 6.4.3.1 validity range, so
+                                                 the resistance is an extrapolation. A qualified pass, not a
+                                                 fail and not unassessed. Without this trigger the row kept the
+                                                 default background and read as an ordinary result. -->
+                                            <DataTrigger Binding="{Binding NorsokPass}" Value="QUALIFIED">
                                                 <Setter Property="Background" Value="{StaticResource VerdictPartialBg}"/>
                                                 <Setter Property="Foreground" Value="{StaticResource VerdictPartialFg}"/>
                                             </DataTrigger>
@@ -1127,8 +1141,16 @@
                          stays one click. Setup first, export last — the order they are used in. -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal"
                                 HorizontalAlignment="Right" Margin="8,4,8,8">
+                        <!-- IdeaOutlineButton, matching the Run bar's pairing (Cancel beside Run
+                             Norsok Check): one primary action in orange with its secondary in the
+                             orange outline. This was the only text button on an action bar in the
+                             window with NO style, so it rendered in default WPF chrome next to an
+                             orange Export and the two did not read as a pair.
+                             No inline Padding: the style's 12,4 must govern, or the two buttons
+                             still differ in height and the mismatch only moves. -->
                         <Button x:Name="BtnPageSetup" Click="PageSetup_Click"
-                                Padding="12,6" Margin="0,0,8,0" VerticalAlignment="Center">
+                                Style="{StaticResource IdeaOutlineButton}"
+                                Margin="0,0,8,0" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="PageLayoutBody" VerticalAlignment="Center" Margin="0,0,6,0"/>
                                 <TextBlock Text="Page setup" VerticalAlignment="Center"/>

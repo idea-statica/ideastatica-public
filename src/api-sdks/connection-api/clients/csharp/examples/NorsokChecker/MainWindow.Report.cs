@@ -38,9 +38,21 @@ namespace NorsokChecker
 
 			// The figures were rendered during the run — see _jointFigures. Building the report stays
 			// synchronous: it assembles what is already known and fetches nothing.
+			// The footer as CSS: its mode, label and starting number are per-export, so the
+			// generator cannot bake them into its static stylesheet — and handing it the rule rather
+			// than the PageSetup keeps the generator free of the app's settings types.
+			// What was searched, in numbers — the report could not say whether a governing state
+			// came out of fifteen candidates or three. Counted over connections whose load effects
+			// actually read; a connection whose read failed carries -1 and must not be summed in.
+			var counted = _connections.Where(c => c.TotalLoadEffects >= 0).ToList();
+			(int, int)? loadEffectCounts = counted.Count == 0
+				? null
+				: (counted.Where(c => c.ActiveLoadEffects >= 0).Sum(c => c.ActiveLoadEffects),
+					counted.Sum(c => c.TotalLoadEffects));
+
 			return NorsokHtmlReportGenerator.GenerateReport(
 				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, _jointFigures,
-				topologies);
+				topologies, NorsokHtmlReportGenerator.FooterCss(_pageSetup), loadEffectCounts);
 		}
 
 		/// <summary>
@@ -259,6 +271,17 @@ namespace NorsokChecker
 				// The report carries its own header; WebView2's would add the print date, the page
 				// title and a file:// URI on every page.
 				print.ShouldPrintHeaderAndFooter = false;
+
+				// PDF document properties are NOT settable here, and the review's §3 asked for them.
+				// Verified by compiling against the pinned SDK (1.0.2903.40): CoreWebView2PrintSettings
+				// has no Title, Subject or Author — the assembly does contain those strings, but on
+				// other types, so reading them out of the DLL was not evidence.
+				//
+				// What the exported file therefore carries: /Title from the HTML <title> (now the real
+				// document name, not "Compliance Report"), /Creator = the WebView2 user agent, and no
+				// /Subject or /Author. Fixing the rest needs a post-processing pass over the finished
+				// PDF — PdfSharp can write those fields — which is the same pass /Outlines would need
+				// and is deferred with it.
 
 				bool ok = await ReportWebView.CoreWebView2.PrintToPdfAsync(norsokPdf, print);
 				if (!ok)

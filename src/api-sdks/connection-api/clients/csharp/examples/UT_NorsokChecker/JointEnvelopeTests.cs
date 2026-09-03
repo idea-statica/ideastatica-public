@@ -207,5 +207,135 @@ namespace UT_NorsokChecker
 
 			Assert.That(JointEnvelope.Pick(les, "B1")!.LeName, Is.EqualTo("LE7"));
 		}
+
+		/// <summary>
+		/// The runner-up is the SECOND-highest utilisation, so the report can print the margin.
+		///
+		/// The signal a reviewer wants from an envelope: whether the winner won by a mile or by a
+		/// whisker. A 0.3-point gap means a small change to the model hands the joint to a different
+		/// state; a 30-point gap means it does not. Unrecoverable from a dump of every state.
+		/// </summary>
+		[Test]
+		public void Pick_ReportsTheSecondHighestUtilisation()
+		{
+			var les = new[]
+			{
+				Le(1, "LE1", Row("B1", 0.42, passed: true)),
+				Le(9, "LE9", Row("B1", 0.80, passed: true)),
+				Le(3, "LE3", Row("B1", 0.71, passed: true)),
+			};
+
+			var gov = JointEnvelope.Pick(les, "B1")!;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(gov.LeName, Is.EqualTo("LE9"), "control: the highest still governs");
+				Assert.That(gov.RunnerUpLeName, Is.EqualTo("LE3"), "the second-highest, not the first LE");
+				Assert.That(gov.RunnerUpUtil, Is.EqualTo(0.71).Within(1e-12));
+				Assert.That(gov.Absence, Is.EqualTo(JointEnvelope.RunnerUpAbsence.None));
+			});
+		}
+
+		/// <summary>
+		/// An exact tie still reports a runner-up. Filtering the candidates by utilisation instead
+		/// of by ID would drop both tied states and report no runner-up on the one joint where the
+		/// margin is zero — precisely the case the column exists to surface.
+		/// </summary>
+		[Test]
+		public void Pick_AnExactTieStillHasARunnerUp()
+		{
+			var les = new[]
+			{
+				Le(1, "LE1", Row("B1", 0.65, passed: true)),
+				Le(2, "LE2", Row("B1", 0.65, passed: true)),
+			};
+
+			var gov = JointEnvelope.Pick(les, "B1")!;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(gov.RunnerUpUtil, Is.EqualTo(0.65).Within(1e-12), "a zero margin IS the finding");
+				Assert.That(gov.RunnerUpLeName, Is.Not.EqualTo(gov.LeName), "and it is the OTHER state");
+			});
+		}
+
+		/// <summary>
+		/// A skipped state is never the runner-up: it never governs, so it cannot come second
+		/// either. Reporting it would invite the reader to compare against a check that never ran.
+		/// </summary>
+		[Test]
+		public void Pick_ASkippedStateIsNotTheRunnerUp()
+		{
+			var les = new[]
+			{
+				Le(1, "LE1", Row("B1", 0.55, passed: true)),
+				Le(2, "LE2", Skipped("B1", "no force on this brace")),
+			};
+
+			var gov = JointEnvelope.Pick(les, "B1")!;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(gov.RunnerUpUtil, Is.Null);
+				Assert.That(gov.Absence, Is.EqualTo(JointEnvelope.RunnerUpAbsence.OthersSkipped),
+					"and the report says which of the three reasons applies");
+			});
+		}
+
+		/// <summary>
+		/// A row that could not be checked at all carries +infinity — it wins the envelope on that
+		/// alone, which is intended, but it must not be reported as a runner-up utilisation.
+		/// </summary>
+		[Test]
+		public void Pick_AnUncheckableStateIsNotAMeaningfulRunnerUp()
+		{
+			var les = new[]
+			{
+				Le(1, "LE1", Row("B1", double.PositiveInfinity, passed: false)),
+				Le(2, "LE2", Row("B1", 0.40, passed: true)),
+			};
+
+			var gov = JointEnvelope.Pick(les, "B1")!;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(gov.LeName, Is.EqualTo("LE1"), "control: infinity governs, as it should");
+				Assert.That(gov.RunnerUpUtil, Is.EqualTo(0.40).Within(1e-12),
+					"and the real state below it is the runner-up");
+			});
+
+			// The other way round: the infinite one must not become a runner-up figure.
+			var reversed = JointEnvelope.Pick(new[]
+			{
+				Le(1, "LE1", Row("B1", 0.40, passed: true)),
+				Le(2, "LE2", Row("B1", double.PositiveInfinity, passed: false)),
+			}, "B1")!;
+
+			Assert.That(reversed.RunnerUpUtil, Is.Null.Or.Not.EqualTo(double.PositiveInfinity),
+				"an unusable utilisation is never printed as a margin");
+		}
+
+		/// <summary>
+		/// ONE load effect: there is no runner-up, and the reason is not the same as "the others
+		/// were skipped". Three different facts print as one dash unless they are distinguished.
+		///
+		/// This case does NOT occur in the app's test model — eight distinct states appear as
+		/// governing there — so it needs its own fixture. A fixture that cannot contain the case a
+		/// test claims to cover is a test that cannot fail.
+		/// </summary>
+		[Test]
+		public void Pick_ASingleStateHasNoRunnerUpAndSaysSo()
+		{
+			var les = new[] { Le(1, "LE1", Row("B1", 0.55, passed: true)) };
+
+			var gov = JointEnvelope.Pick(les, "B1")!;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(gov.RunnerUpUtil, Is.Null);
+				Assert.That(gov.Absence, Is.EqualTo(JointEnvelope.RunnerUpAbsence.SingleState),
+					"'only one state existed' is not 'the others produced nothing'");
+			});
+		}
 	}
 }

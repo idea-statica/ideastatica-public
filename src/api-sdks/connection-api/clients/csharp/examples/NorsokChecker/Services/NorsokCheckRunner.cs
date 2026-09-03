@@ -140,6 +140,11 @@ namespace NorsokChecker.Services
 				var worst = gov.Row;
 				worst.GovLeId = gov.LeId;
 				worst.GovLeName = gov.LeName;
+				// And the margin over the next state, which is what says whether the choice above is
+				// robust or a near tie.
+				worst.RunnerUpLeName = gov.RunnerUpLeName;
+				worst.RunnerUpUtil = gov.RunnerUpUtil;
+				worst.RunnerUpAbsence = gov.Absence;
 
 				var card = Joint64ReportAdapter.BuildResultFromRow(worst, gov.LeName);
 				results.Add(card);

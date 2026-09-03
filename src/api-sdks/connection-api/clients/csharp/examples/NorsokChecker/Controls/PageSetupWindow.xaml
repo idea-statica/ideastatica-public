@@ -55,6 +55,35 @@
         <TextBlock Text="Off drops the PASS/FAIL colours and the utilisation scale from the PDF."
                    FontSize="11" Foreground="#78909C" TextWrapping="Wrap" Margin="22,0,0,14"/>
 
+        <!-- The footer. Three modes because the report has two lives: read on its own, and bound
+             into someone else's calculation package. `Continuous` deliberately prints no total —
+             "47 / 173" inside a 400-page document states something false about that document. -->
+        <TextBlock Text="Page footer" FontWeight="SemiBold" Margin="0,4,0,6"/>
+        <ComboBox x:Name="CmbFooterMode" Margin="0,0,0,4"
+                  SelectionChanged="FooterMode_Changed">
+            <ComboBoxItem Content="Page number and total (4 / 173)"/>
+            <ComboBoxItem Content="Continuous numbering, no total"/>
+            <ComboBoxItem Content="No footer"/>
+        </ComboBox>
+        <TextBlock x:Name="LblFooterHint" FontSize="11" Foreground="#78909C"
+                   TextWrapping="Wrap" Margin="0,0,0,8"/>
+
+        <Grid x:Name="PnlFooterDetail" Margin="0,0,0,14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Label" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox   Grid.Column="1" x:Name="TxtFooterLabel"
+                       ToolTip="Empty prints the page number alone."/>
+            <TextBlock Grid.Column="3" x:Name="LblStartAt" Text="Start at"
+                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox   Grid.Column="4" x:Name="TxtFooterStartAt"/>
+        </Grid>
+
         <TextBlock x:Name="LblError" Visibility="Collapsed" Foreground="#B71C1C"
                    FontSize="11.5" TextWrapping="Wrap" Margin="0,0,0,10"/>
 

@@ -376,6 +376,255 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The section says WHICH plane each brace is resolved in — its own chord–brace sub-plane,
+		/// not the fitted joint plane.
+		///
+		/// Round-2 §6: the reviewer found two connections differing only in one brace's `off-plane`
+		/// angle whose force tables were identical to the last digit, and could not tell from the
+		/// document whether that was correct. It is (the frame is built from the brace's own axis, so
+		/// its deviation from the FITTED plane is absent from its own projection by construction) —
+		/// but nothing in the report said so, and the geometry table presented the angle alongside θ
+		/// and β, which the resistance really does use.
+		/// </summary>
+		[Test]
+		public void TheSectionNamesTheSubPlaneEachBraceIsResolvedIn()
+		{
+			string html = Report();
+
+			int at = html.IndexOf("Force transformation", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the transformation section is rendered");
+			string section = html[at..Math.Min(html.Length, at + 6000)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(section, Does.Contain("its own chord&ndash;brace pair"),
+					"the plane each brace is actually resolved in");
+				Assert.That(section, Does.Contain("cannot appear in its own"),
+					"and why its own off-plane deviation cannot show up there");
+				// What the fitted plane IS for, so removing the angle from the inputs does not read as
+				// the plane being decorative.
+				Assert.That(section, Does.Contain("K/Y/X classification"),
+					"the fitted plane's real jobs are named");
+			});
+		}
+
+		/// <summary>
+		/// The geometry table separates the resistance INPUTS from the coplanarity CHECKS.
+		///
+		/// Same finding: with all seven columns presented alike, `off-plane` read as a quantity the
+		/// projection consumes. The values must stay attached to their braces after the reorder —
+		/// a column swap that shifted the numbers would be worse than the original defect.
+		/// </summary>
+		[Test]
+		public void TheGeometryTableSeparatesInputsFromChecks()
+		{
+			string html = Report();
+
+			int at = html.IndexOf("Members &mdash; geometry at the joint", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0));
+			string table = html[at..html.IndexOf("</table>", at, StringComparison.Ordinal)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(table, Does.Contain("used by the check"), "the input group is labelled");
+				Assert.That(table, Does.Contain("coplanarity checks"), "and so is the check group");
+				Assert.That(table, Does.Contain("tool tolerances"),
+					"marked as ours, not as a §6.4 requirement");
+
+				// The values still belong to their own braces. M2 is θ=47.3, β=0.279, dev=2.1;
+				// M3 is θ=61.8, β=0.418, dev=0.4 — so a shifted column would cross them over.
+				var m2 = System.Text.RegularExpressions.Regex.Match(table,
+					@"<b>M2</b></td>(?<cells>.*?)</tr>", System.Text.RegularExpressions.RegexOptions.Singleline);
+				Assert.That(m2.Success, Is.True, "M2 has a row");
+				var cells = System.Text.RegularExpressions.Regex
+					.Matches(m2.Groups["cells"].Value, @"<td>([^<]*)</td>")
+					.Select(x => x.Groups[1].Value).ToList();
+				// Assert on POSITION relative to the header groups, not on absolute indices: the
+				// column count is what the reorder changes, so an index-based assertion would have
+				// to be rewritten by the very change it is meant to catch.
+				string all = string.Join(" | ", cells);
+				int iTheta = cells.FindIndex(c => c.Contains("47.3"));
+				int iBeta = cells.FindIndex(c => c.Contains("0.279"));
+				int iFace = cells.FindIndex(c => c.Contains("ey"));
+				int iDev = cells.FindIndex(c => c.Contains("2.1"));
+
+				Assert.That(iTheta, Is.GreaterThanOrEqualTo(0), $"θ present — cells: {all}");
+				Assert.That(iBeta, Is.GreaterThan(iTheta), $"β after θ — cells: {all}");
+				Assert.That(iFace, Is.GreaterThan(iBeta), $"chord face closes the inputs — cells: {all}");
+				Assert.That(iDev, Is.GreaterThan(iFace),
+					$"the brace's own off-plane sits in the CHECKS group, after the inputs — cells: {all}");
+			});
+		}
+
+		/// <summary>
+		/// How many braces are actually in the fitted plane, so a reader does not take the
+		/// side-by-side columns as evidence of arithmetic that did not occur.
+		///
+		/// The reviewer asked for this: in the sample, 57 of 65 braces sit at 0.0°, where the two
+		/// halves differ by a relabelling and a sign convention. The fixture holds one brace at 0.0°
+		/// and one at 2.1°, so the count is 1 of 2 — a fixture with neither case could not fail.
+		/// </summary>
+		[Test]
+		public void TheSectionSaysHowManyBracesLieInThePlane()
+		{
+			var topo = Topology();
+			topo.BracesMeta[1].CoplanarDevDeg = 0.0;      // M3 exactly in the plane
+
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult> { Check("M2", 12, "LE12"), Check("M3", 9, "LE9") }),
+				},
+				expandAll: false, jointImages: null,
+				topologies: new Dictionary<string, JointTopology> { ["CON1"] = topo });
+
+			int at = html.IndexOf("Force transformation", StringComparison.Ordinal);
+			string section = html[at..Math.Min(html.Length, at + 6000)];
+
+			Assert.That(section, Does.Contain("<b>1 of 2</b>"),
+				"one of the two braces lies in the plane — counted, not asserted in prose");
+		}
+
+		/// <summary>
+		/// The selection criterion and the runner-up margin are printed.
+		///
+		/// Two questions the document could not answer. The criterion: "governing" is not the
+		/// largest force — N_Rd depends on Q_f, Q_f on the chord stresses, and those on the load
+		/// effect, so each candidate has its own resistance. Without that stated, the selection is
+		/// not reproducible even by a reader holding every number. The margin: whether the choice
+		/// was close, which is the one thing a reviewer wants from an envelope.
+		/// </summary>
+		[Test]
+		public void TheSectionStatesHowTheGoverningStateWasChosen()
+		{
+			var rowM2 = Check("M2", 12, "LE12");
+			rowM2.JointDetail!.Util = 0.737;
+			rowM2.JointDetail.RunnerUpLeName = "LE7";
+			rowM2.JointDetail.RunnerUpUtil = 0.712;
+
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult> { rowM2 }),
+				},
+				expandAll: false, jointImages: null,
+				topologies: new Dictionary<string, JointTopology> { ["CON1"] = Topology() });
+
+			int at = html.IndexOf("How the governing state was chosen", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the section is rendered");
+			string section = html[at..Math.Min(html.Length, at + 3000)];
+
+			Assert.Multiple(() =>
+			{
+				// The criterion, in the words that matter: not the largest force.
+				Assert.That(section, Does.Contain("own resistance"),
+					"each state has its own resistance — the reason force cannot pick the winner");
+				Assert.That(section, Does.Contain("Q<sub>f</sub>"), "and what it depends on");
+
+				// The margin, in percentage POINTS and said so — "2.3 %" beside two percentages
+				// invites the reader to take it as a relative difference.
+				Assert.That(section, Does.Contain("LE7"), "the runner-up state is named");
+				Assert.That(section, Does.Contain("2.5 pp"),
+					"73.7 % − 71.2 % = 2.5 percentage points, not 2.5 %");
+			});
+		}
+
+		/// <summary>
+		/// With no runner-up, the cell says WHICH of the three reasons applies rather than printing
+		/// a dash that stands for all of them — the CON10 mistake in miniature.
+		/// </summary>
+		[Test]
+		public void TheSectionDistinguishesTheReasonsForNoRunnerUp()
+		{
+			var single = Check("M2", 12, "LE12");
+			single.JointDetail!.Util = 0.5;
+			single.JointDetail.RunnerUpAbsence = JointEnvelope.RunnerUpAbsence.SingleState;
+
+			var skipped = Check("M3", 9, "LE9");
+			skipped.JointDetail!.Util = 0.4;
+			skipped.JointDetail.RunnerUpAbsence = JointEnvelope.RunnerUpAbsence.OthersSkipped;
+
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult> { single, skipped }),
+				},
+				expandAll: false, jointImages: null,
+				topologies: new Dictionary<string, JointTopology> { ["CON1"] = Topology() });
+
+			int at = html.IndexOf("How the governing state was chosen", StringComparison.Ordinal);
+			string section = html[at..Math.Min(html.Length, at + 3000)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(section, Does.Contain("only one load effect"),
+					"one state existed, so nothing could come second");
+				Assert.That(section, Does.Contain("no other state produced a check"),
+					"which is a different fact, and the reader acts differently on it");
+			});
+		}
+
+		/// <summary>
+		/// Shear and torsion are stated as outside THIS check, not as irrelevant.
+		///
+		/// "Shear does not enter eq (6.57) and torsion is excluded by §6.4" reads as "the standard
+		/// deems them unimportant", which is not what the clause says. Eq (6.57) has three terms;
+		/// the actions still have to be verified, and the report has to say where. Their §9.4:
+		/// the difference between "not calculated" and "not calculated here" is the whole point.
+		/// </summary>
+		[Test]
+		public void ShearAndTorsionAreExcludedFromThisCheckNotDismissed()
+		{
+			string html = Report();
+
+			int at = html.IndexOf("Force transformation", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the transformation section is rendered");
+			string section = html[at..Math.Min(html.Length, at + 6000)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(section, Does.Not.Contain("torsion is excluded by"),
+					"the wording that read as a dismissal");
+				Assert.That(section, Does.Contain("do not enter"), "they are outside THIS check");
+				Assert.That(section, Does.Contain("verified elsewhere"), "and must be checked");
+				Assert.That(section, Does.Contain("6.3"), "with a pointer to where");
+			});
+		}
+
+		/// <summary>
+		/// The coplanarity tolerance is typeset with a degree sign and labelled non-normative.
+		///
+		/// It was built in the ENGINE as "within 2deg" — ASCII, in a document that typesets ≤ and °,
+		/// and printed beside genuine clause references with nothing marking it as a tool setting.
+		/// </summary>
+		[Test]
+		public void ThePlaneFitToleranceIsTypesetAndDeclaredNonNormative()
+		{
+			var topo = Topology();
+			topo.PlaneFitTolDeg = 2.0;
+
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult> { Check("M2", 12, "LE12") }),
+				},
+				expandAll: false, jointImages: null,
+				topologies: new Dictionary<string, JointTopology> { ["CON1"] = topo });
+
+			int at = html.IndexOf("how the plane was fixed", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0));
+			string row = html[at..(at + 400)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(row, Does.Contain("2.0&deg;"), "typeset, not '2deg'");
+				Assert.That(row, Does.Not.Contain("2deg"), "the ASCII form is gone");
+				Assert.That(row, Does.Contain("tool tolerance"), "declared as ours");
+				Assert.That(row, Does.Contain("not a &sect;6.4 requirement"), "and not the norm's");
+			});
+		}
+
+		/// <summary>
 		/// The app HANDS the generator its topologies.
 		///
 		/// The section renders correctly and would render nothing at all if MainWindow stopped

@@ -86,6 +86,156 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// A QUALIFIED connection is an ASSESSED connection. Its geometry lies outside a §6.4.3.1
+		/// validity range, so the result carries a caveat — but every brace was checked, so leaving
+		/// it out of "Connections assessed" counts a checked joint among the unchecked ones.
+		///
+		/// Measured with the revert oracle: with QUALIFIED dropped from that counter, 21 existing
+		/// tests stayed green. The counter had no guard of its own for the new state.
+		/// </summary>
+		[Test]
+		public void AQualifiedConnectionCountsAsAssessed()
+		{
+			var qualified = Passed(0.737);
+			qualified.RangeQualifier = "M1: θ = 20.0°, outside 30–90°";
+
+			string html = Report(
+				("CON1", new[] { Passed() }),
+				("CON11", new[] { qualified }),
+				("CON5", new[] { Gate("no through chord") }));
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(CounterValue(html, "Connections assessed"), Is.EqualTo("2 / 3"),
+					"CON1 and CON11 were both assessed; only CON5 was not");
+				Assert.That(CounterValue(html, "Checks performed"), Is.EqualTo("2"),
+					"and the qualified check is still a check that was performed");
+				Assert.That(CounterValue(html, "Passed"), Is.EqualTo("2"),
+					"a qualified check PASSED — the caveat is about the formulas, not the outcome");
+			});
+		}
+
+		/// <summary>
+		/// Nor may the headline claim COMPLIANT when a check ran on geometry outside the validity
+		/// range. Every check passes and nothing is unassessed, so the arithmetic reaches the
+		/// all-clear on its own — the same fall-through that once printed COMPLIANT over "0 checks".
+		/// </summary>
+		[Test]
+		public void AQualifiedConnectionIsNotReportedCompliant()
+		{
+			var qualified = Passed(0.737);
+			qualified.RangeQualifier = "M1: θ = 20.0°, outside 30–90°";
+
+			string plain = Report(("CON1", new[] { Passed() }));
+			string withQualified = Report(("CON11", new[] { qualified }));
+
+			// Read the headline itself. "QUALIFIED" and "COMPLIANT" both occur elsewhere in a 600 kB
+			// document — in the stylesheet and in NON-COMPLIANT — so a Does.Contain on either would
+			// be a needle that cannot go missing.
+			static string Headline(string html)
+			{
+				var m = System.Text.RegularExpressions.Regex.Match(html,
+					@"class='summary-text'>NORSOK N-004: <strong>([^<]*)</strong>");
+				Assert.That(m.Success, Is.True, "the summary headline is rendered");
+				return m.Groups[1].Value;
+			}
+
+			Assert.Multiple(() =>
+			{
+				// control: an ordinary all-passing run DOES claim compliance
+				Assert.That(Headline(plain), Is.EqualTo("COMPLIANT"),
+					"control — without a caveat the headline is COMPLIANT");
+
+				Assert.That(Headline(withQualified), Does.StartWith("QUALIFIED"),
+					"the headline leads with the caveat");
+				Assert.That(Headline(withQualified), Is.Not.EqualTo("COMPLIANT"),
+					"and does not claim plain compliance");
+			});
+		}
+
+		/// <summary>
+		/// The APP stamps the runner-up onto the check row.
+		///
+		/// JointEnvelope computes it and the report prints it, and both are tested — but the step
+		/// between them is a plain assignment in NorsokCheckRunner, and setting it to null left
+		/// every one of those tests green (measured with the revert oracle). The third such wiring
+		/// gap found in this round of work.
+		///
+		/// On the SOURCE, because the runner needs a live API client. Matched as the ASSIGNMENT from
+		/// the envelope's own value, not the property name: "RunnerUpUtil" stays in the file after
+		/// the value is replaced by null.
+		/// </summary>
+		[Test]
+		public void TheAppStampsTheRunnerUpOntoTheCheckRow()
+		{
+			string runner = System.Text.RegularExpressions.Regex.Replace(
+				ReadAppSource("Services/NorsokCheckRunner.cs"), @"//[^\n]*", "");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(runner, Does.Match(@"RunnerUpUtil\s*=\s*gov\.RunnerUpUtil"),
+					"the margin comes from the envelope that computed it");
+				Assert.That(runner, Does.Match(@"RunnerUpLeName\s*=\s*gov\.RunnerUpLeName"),
+					"and so does the state's name");
+				Assert.That(runner, Does.Match(@"RunnerUpAbsence\s*=\s*gov\.Absence"),
+					"and the reason there is none, when there is none");
+			});
+		}
+
+		/// <summary>
+		/// The scope block declares WHAT WAS SEARCHED — in counts, and never as a list of names.
+		///
+		/// The report named the governing state per brace and nothing else, so a reader could not
+		/// tell a search over fifteen states from one over three, nor know that nothing was skipped.
+		///
+		/// Counts only, because **a model may hold arbitrarily many load effects**: the round-3
+		/// spec's draft wording enumerated "(LE1 … LE15)", which is a paragraph that grows without
+		/// bound — half a page at 500 states. Fifteen looking harmless is exactly how a limit gets
+		/// expressed in a convenient proxy for one example.
+		/// </summary>
+		[Test]
+		public void TheScopeBlockDeclaresWhatWasSearched()
+		{
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new[] { ("CON1", new List<NorsokFormulaResult> { Passed() }) },
+				expandAll: false, jointImages: null, topologies: null, footerCss: null,
+				loadEffectCounts: (12, 15));
+
+			int at = html.IndexOf("Load effects:", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the declaration is rendered");
+			string block = html[at..(at + 500)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(block, Does.Contain("15 defined"), "how many the model holds");
+				Assert.That(block, Does.Contain("12 active"), "how many were evaluated");
+				Assert.That(block, Does.Contain("every brace"), "and that none was skipped");
+				// The three switched off are a LIMITATION of the run, stated as such.
+				Assert.That(block, Does.Contain("3 are switched off"),
+					"the difference is named, not left for the reader to subtract");
+
+				// No enumeration, at any size. "LE1" would be the start of one.
+				Assert.That(block, Does.Not.Contain("LE1"),
+					"counts only — a list grows without bound with the model");
+			});
+		}
+
+		/// <summary>
+		/// With no load-effect counts available the declaration is omitted rather than printed with
+		/// zeros: "0 defined in the model" would be a false statement about the model.
+		/// </summary>
+		[Test]
+		public void TheScopeBlockOmitsTheDeclarationWhenNothingIsKnown()
+		{
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new[] { ("CON1", new List<NorsokFormulaResult> { Passed() }) },
+				expandAll: false);
+
+			Assert.That(html, Does.Not.Contain("Load effects:"),
+				"nothing is claimed about a set that could not be read");
+		}
+
+		/// <summary>
 		/// The value of one summary counter, found by its label.
 		///
 		/// The counters are &lt;span class='stat-value'&gt;N&lt;/span&gt; followed by their label, so

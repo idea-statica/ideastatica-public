@@ -166,6 +166,80 @@ namespace UT_NorsokChecker
 			});
 		}
 
+		/// <summary>
+		/// The overview's range qualifier is BUILT from the engine's own validity dictionary, so the
+		/// row and the derivation table can never disagree about which condition failed.
+		///
+		/// Guards the production half of the round-2 §4.1 fix. The consuming half (CheckWorkflow.Roll)
+		/// has its own tests; without this one, `RangeQualifierOf` could return null for every joint
+		/// and the roll-up tests would still pass on their fixtures.
+		/// </summary>
+		[Test]
+		public void RangeQualifier_NamesTheParameterAndItsValue()
+		{
+			// θ = 20° — CON11/M1 in the reviewed report: inside every other range, outside 30–90°.
+			var outOfRange = Joint64Input.FromKn(
+				D: 141, T: 6.5, fyChord: 355, d: 76, t: 3.5, fyBrace: 355, thetaDeg: 20, g: 50,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSdKn: 33.7, mipSdKnm: 0.32, mopSdKnm: 1.23);
+			var rOut = Norsok64Engine.CheckJoint(outOfRange);
+
+			// the same joint at 45° — inside every range
+			var inRange = Joint64Input.FromKn(
+				D: 141, T: 6.5, fyChord: 355, d: 76, t: 3.5, fyBrace: 355, thetaDeg: 45, g: 50,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSdKn: 33.7, mipSdKnm: 0.32, mopSdKnm: 1.23);
+			var rIn = Norsok64Engine.CheckJoint(inRange);
+
+			string? qOut = Joint64ReportAdapter.RangeQualifierOf("M1", rOut);
+			string? qIn = Joint64ReportAdapter.RangeQualifierOf("M1", rIn);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(rOut.WithinRange, Is.False, "control: 20° really is out of range");
+				Assert.That(rIn.WithinRange, Is.True, "control: 45° really is inside");
+
+				Assert.That(qIn, Is.Null, "a joint inside every range carries no qualifier");
+
+				Assert.That(qOut, Is.Not.Null);
+				Assert.That(qOut, Does.StartWith("M1:"), "the brace it belongs to");
+				Assert.That(qOut, Does.Contain("20.0"), "the value that breached");
+				Assert.That(qOut, Does.Contain("30–90"), "the range it breached");
+				// θ is the ONLY breach here, so no other parameter may be named — a qualifier that
+				// listed every condition would be as unhelpful as one that named none.
+				Assert.That(qOut, Does.Not.Contain("β"), "β is inside; do not name it");
+				Assert.That(qOut, Does.Not.Contain("γ"), "γ is inside; do not name it");
+			});
+		}
+
+		/// <summary>
+		/// Decimal points, not the machine's comma. The qualifier goes into the overview row of an
+		/// exported report, and this project has re-introduced a locale bug five separate times.
+		/// </summary>
+		[Test]
+		public void RangeQualifier_UsesDecimalPoints()
+		{
+			var inp = Joint64Input.FromKn(
+				D: 141, T: 6.5, fyChord: 355, d: 76, t: 3.5, fyBrace: 355, thetaDeg: 20, g: 50,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSdKn: 33.7, mipSdKnm: 0.32, mopSdKnm: 1.23);
+
+			var prev = System.Threading.Thread.CurrentThread.CurrentCulture;
+			try
+			{
+				System.Threading.Thread.CurrentThread.CurrentCulture =
+					new System.Globalization.CultureInfo("cs-CZ");
+				string? q = Joint64ReportAdapter.RangeQualifierOf("M1", Norsok64Engine.CheckJoint(inp));
+
+				Assert.That(q, Does.Contain("20.0"), "point, even under a comma-decimal culture");
+				Assert.That(q, Does.Not.Contain("20,0"));
+			}
+			finally
+			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = prev;
+			}
+		}
+
 		[Test]
 		public void OutOfRange_AppliesLesserCapacity_641()
 		{
