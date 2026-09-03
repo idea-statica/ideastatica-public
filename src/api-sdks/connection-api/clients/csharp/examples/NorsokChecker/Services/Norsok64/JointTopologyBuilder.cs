@@ -251,6 +251,31 @@ namespace NorsokChecker.Services.Norsok64
 				return (landing, foot);
 			}
 
+			// WHERE THE EVALUATION PLANE SITS: on the CHORD, not on the work point.
+			//
+			// The plane's DIRECTIONS are the fit's (ex, ey, nPlane above) and are unchanged. What is
+			// derived here is its POSITION: the chord's own eccentricity along the plane normal.
+			//
+			// This is the whole of the CON16 defect. The out-of-plane distance used to be measured
+			// from the plane through the node — |ecc_brace·n| — so a joint whose members all carry
+			// the same eccentricity (the braces staying perfectly coplanar, their common plane
+			// merely displaced) read as EVERY brace being out of plane, and the connection was
+			// rejected without a single check running.
+			//
+			// Two invariances the node-relative form did not have, both measured:
+			//   • a RIGID translation of the whole joint must change nothing. Verified on CON17 (a
+			//     copy of CON8 displaced 40 mm along its plane normal, chord included): every term
+			//     below cancels and the distance is 0.
+			//   • moving the CHORD by −e must read the same as moving every brace by +e. Those are
+			//     the same physical joint modelled from opposite ends; the old form gave them
+			//     opposite verdicts (+40 mm → ERROR, −40 mm → passed).
+			//
+			// EccVec, not Origin: for a CONTINUOUS chord, Origin is a distant point on the axis
+			// rather than the node, while EccVec is the offsets in the member's own frame. Measured
+			// on CON17 — EccVec·nPlane gives +40.0 mm for the continuous chord as well.
+			double chordOffN = Vec3.Dot(JointForceResolver.EccVec(chord), nPlane);
+			topo.PlaneOffsetM = chordOffN;
+
 			// braces meta (β from chord D; ecc decomposed against the joint frame)
 			foreach (var b in topo.Braces)
 			{
@@ -261,7 +286,7 @@ namespace NorsokChecker.Services.Norsok64
 					ThetaDeg = Theta(b),
 					Beta = (sb.D is > 0 && secC.D is > 0) ? sb.D / secC.D : null,
 					CoplanarDevDeg = CoplanarDev(b),
-					OopOffsetM = Math.Abs(Vec3.Dot(JointForceResolver.EccVec(b), nPlane)),
+					OopOffsetM = Math.Abs(Vec3.Dot(JointForceResolver.EccVec(b), nPlane) - chordOffN),
 					EccAlongM = Vec3.Dot(JointForceResolver.EccVec(b), ex),
 					IsCHS = sb.IsCHS,
 					Side = BraceSide(b),
@@ -504,9 +529,13 @@ namespace NorsokChecker.Services.Norsok64
 					errors.Add($"{bm.Name}: {dev:F1}° off plane (>{CoplanarMaxDeg:F0}°) — different plane / multiplanar.");
 				else if (dev > CoplanarWarnDeg)
 					warnings.Add($"{bm.Name}: {dev:F1}° off plane (borderline).");
+				// Measured from the plane through the CHORD AXIS — so the message has to say so.
+				// "out-of-plane ecc. 40 mm" on a joint the engineer displaced as one rigid body was
+				// both wrong and unactionable: nothing about that joint was out of plane.
 				double oopMm = bm.OopOffsetM * 1000.0;
 				if (oopMm > _oopTolMm)
-					errors.Add($"{bm.Name}: out-of-plane ecc. {oopMm:F0} mm (>{_oopTolMm:F0} mm).");
+					errors.Add($"{bm.Name}: {oopMm:F0} mm out of the joint plane through the chord "
+						+ $"(>{_oopTolMm:F0} mm).");
 				if (dChordM > 0)
 				{
 					double e = Math.Abs(bm.EccAlongM);

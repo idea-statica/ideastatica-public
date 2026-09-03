@@ -1,102 +1,1455 @@
 {
-  "comment": "Synthetic joint fixtures in the Connection REST API JSON schema. Consumed by BOTH gen_topology_oracle.py (runs the reference python extract.py -> topology_oracle.json) and the C# topology tests (deserialized into ConMember/ConLoadEffect and run through the ported pipeline). Node is at the global origin; braces pass through the node (no eccentricity); chord along +X; joint plane = XY.",
-  "crossSections": [
-    { "id": 1, "name": "CHS457/16.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
-    { "id": 2, "name": "CHS273/12.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
-    { "id": 3, "name": "CHS168.3/8.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
-    { "id": 4, "name": "CHS114.3/6.3", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 355000000.0, "fu": 490000000.0 } } },
-    { "id": 5, "name": "CHS139.7/8.0", "crossSectionType": "CHS", "material": { "element": { "name": "S 355", "fy": 490000000.0, "fu": 550000000.0 } } }
-  ],
-  "fixtures": [
-    {
-      "name": "K_TEST",
-      "connectionId": 1,
-      "members": [
-        { "id": 10, "name": "CH", "crossSectionId": 1, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 11, "name": "BA", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": -0.7071067811865476, "y": 0.7071067811865476, "z": 0 }, "axisY": { "x": -0.7071067811865476, "y": -0.7071067811865476, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 12, "name": "BB", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.7071067811865476, "y": 0.7071067811865476, "z": 0 }, "axisY": { "x": -0.7071067811865476, "y": 0.7071067811865476, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
-      ],
-      "loadEffects": [
-        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
-          { "memberId": 10, "position": "Begin", "sectionLoad": { "n": 200000, "vy": 0, "vz": 0, "mx": 0, "my": 50000, "mz": -10000 } },
-          { "memberId": 10, "position": "End", "sectionLoad": { "n": 46000, "vy": 0, "vz": 0, "mx": 0, "my": 127600, "mz": 6400 } },
-          { "memberId": 11, "position": "Begin", "sectionLoad": { "n": 800000, "vy": 0, "vz": 0, "mx": 0, "my": 10000, "mz": 40000 } },
-          { "memberId": 12, "position": "Begin", "sectionLoad": { "n": -800000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
-        ] }
-      ]
-    },
-    {
-      "name": "X_TEST",
-      "connectionId": 2,
-      "members": [
-        { "id": 20, "name": "CH", "crossSectionId": 1, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 21, "name": "XA", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.5, "y": 0.8660254037844386, "z": 0 }, "axisY": { "x": -0.8660254037844386, "y": 0.5, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 22, "name": "XB", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": -0.5, "y": -0.8660254037844386, "z": 0 }, "axisY": { "x": 0.8660254037844386, "y": -0.5, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
-      ],
-      "loadEffects": [
-        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
-          { "memberId": 21, "position": "Begin", "sectionLoad": { "n": 1355000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
-          { "memberId": 22, "position": "Begin", "sectionLoad": { "n": 1355000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
-        ] }
-      ]
-    },
-    {
-      "name": "TY_TEST",
-      "connectionId": 3,
-      "members": [
-        { "id": 30, "name": "CH", "crossSectionId": 3, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 31, "name": "TB", "crossSectionId": 4, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.5, "y": 0.8660254037844386, "z": 0 }, "axisY": { "x": -0.8660254037844386, "y": 0.5, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
-      ],
-      "loadEffects": [
-        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
-          { "memberId": 30, "position": "Begin", "sectionLoad": { "n": -62500, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
-          { "memberId": 30, "position": "End", "sectionLoad": { "n": -62500, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
-          { "memberId": 31, "position": "Begin", "sectionLoad": { "n": 250000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
-        ] }
-      ]
-    },
-    {
-      "name": "KT_TEST",
-      "connectionId": 4,
-      "members": [
-        { "id": 40, "name": "CH", "crossSectionId": 1, "isContinuous": true, "isBearing": true, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 1, "y": 0, "z": 0 }, "axisY": { "x": 0, "y": 1, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 41, "name": "KA", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": -0.8191520442889918, "y": 0.573576436351046, "z": 0 }, "axisY": { "x": -0.573576436351046, "y": -0.8191520442889918, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 42, "name": "KV", "crossSectionId": 5, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0, "y": 1, "z": 0 }, "axisY": { "x": -1, "y": 0, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } },
-        { "id": 43, "name": "KB", "crossSectionId": 2, "isContinuous": false, "isBearing": false, "connectedBy": "begin",
-          "model": { "forcesIn": "node", "x": 0 },
-          "position": { "origin": { "x": 0, "y": 0, "z": 0 }, "axisX": { "x": 0.8191520442889918, "y": 0.573576436351046, "z": 0 }, "axisY": { "x": -0.573576436351046, "y": 0.8191520442889918, "z": 0 }, "axisZ": { "x": 0, "y": 0, "z": 1 }, "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
-      ],
-      "loadEffects": [
-        { "id": 1, "name": "LE1", "active": true, "memberLoadings": [
-          { "memberId": 40, "position": "Begin", "sectionLoad": { "n": 100000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
-          { "memberId": 40, "position": "End", "sectionLoad": { "n": 150000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
-          { "memberId": 41, "position": "Begin", "sectionLoad": { "n": -900000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } },
-          { "memberId": 42, "position": "Begin", "sectionLoad": { "n": 300000, "vy": 0, "vz": 0, "mx": 0, "my": 20000, "mz": 5000 } },
-          { "memberId": 43, "position": "Begin", "sectionLoad": { "n": 300000, "vy": 0, "vz": 0, "mx": 0, "my": 0, "mz": 0 } }
-        ] }
-      ]
+ "comment": "Synthetic joint fixtures in the Connection REST API JSON schema. Consumed by BOTH gen_topology_oracle.py (runs the reference python extract.py -> topology_oracle.json) and the C# topology tests (deserialized into ConMember/ConLoadEffect and run through the ported pipeline). Node is at the global origin; braces pass through the node (no eccentricity); chord along +X; joint plane = XY.",
+ "crossSections": [
+  {
+   "id": 1,
+   "name": "CHS457/16.0",
+   "crossSectionType": "CHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
     }
-  ]
+   }
+  },
+  {
+   "id": 2,
+   "name": "CHS273/12.0",
+   "crossSectionType": "CHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 3,
+   "name": "CHS168.3/8.0",
+   "crossSectionType": "CHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 4,
+   "name": "CHS114.3/6.3",
+   "crossSectionType": "CHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 5,
+   "name": "CHS139.7/8.0",
+   "crossSectionType": "CHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 490000000.0,
+     "fu": 550000000.0
+    }
+   }
+  },
+  {
+   "id": 11,
+   "name": "CHS139.7/8.0",
+   "crossSectionType": "rolledCHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 12,
+   "name": "CHS76.1/3.6",
+   "crossSectionType": "rolledCHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 13,
+   "name": "CHS101.6/8.0",
+   "crossSectionType": "rolledCHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 14,
+   "name": "CHS42.4/2.6",
+   "crossSectionType": "rolledCHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 15,
+   "name": "CHS33.7/3.2",
+   "crossSectionType": "rolledCHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  },
+  {
+   "id": 16,
+   "name": "CHS48.3/3.2",
+   "crossSectionType": "rolledCHS",
+   "material": {
+    "element": {
+     "name": "S 355",
+     "fy": 355000000.0,
+     "fu": 490000000.0
+    }
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "K_TEST",
+   "connectionId": 1,
+   "members": [
+    {
+     "id": 10,
+     "name": "CH",
+     "crossSectionId": 1,
+     "isContinuous": true,
+     "isBearing": true,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "axisY": {
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 11,
+     "name": "BA",
+     "crossSectionId": 2,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": -0.7071067811865476,
+       "y": 0.7071067811865476,
+       "z": 0
+      },
+      "axisY": {
+       "x": -0.7071067811865476,
+       "y": -0.7071067811865476,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 12,
+     "name": "BB",
+     "crossSectionId": 2,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 0.7071067811865476,
+       "y": 0.7071067811865476,
+       "z": 0
+      },
+      "axisY": {
+       "x": -0.7071067811865476,
+       "y": 0.7071067811865476,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    }
+   ],
+   "loadEffects": [
+    {
+     "id": 1,
+     "name": "LE1",
+     "active": true,
+     "memberLoadings": [
+      {
+       "memberId": 10,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 200000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 50000,
+        "mz": -10000
+       }
+      },
+      {
+       "memberId": 10,
+       "position": "End",
+       "sectionLoad": {
+        "n": 46000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 127600,
+        "mz": 6400
+       }
+      },
+      {
+       "memberId": 11,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 800000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 10000,
+        "mz": 40000
+       }
+      },
+      {
+       "memberId": 12,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": -800000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "X_TEST",
+   "connectionId": 2,
+   "members": [
+    {
+     "id": 20,
+     "name": "CH",
+     "crossSectionId": 1,
+     "isContinuous": true,
+     "isBearing": true,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "axisY": {
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 21,
+     "name": "XA",
+     "crossSectionId": 2,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 0.5,
+       "y": 0.8660254037844386,
+       "z": 0
+      },
+      "axisY": {
+       "x": -0.8660254037844386,
+       "y": 0.5,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 22,
+     "name": "XB",
+     "crossSectionId": 2,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": -0.5,
+       "y": -0.8660254037844386,
+       "z": 0
+      },
+      "axisY": {
+       "x": 0.8660254037844386,
+       "y": -0.5,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    }
+   ],
+   "loadEffects": [
+    {
+     "id": 1,
+     "name": "LE1",
+     "active": true,
+     "memberLoadings": [
+      {
+       "memberId": 21,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 1355000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      },
+      {
+       "memberId": 22,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 1355000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TY_TEST",
+   "connectionId": 3,
+   "members": [
+    {
+     "id": 30,
+     "name": "CH",
+     "crossSectionId": 3,
+     "isContinuous": true,
+     "isBearing": true,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "axisY": {
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 31,
+     "name": "TB",
+     "crossSectionId": 4,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 0.5,
+       "y": 0.8660254037844386,
+       "z": 0
+      },
+      "axisY": {
+       "x": -0.8660254037844386,
+       "y": 0.5,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    }
+   ],
+   "loadEffects": [
+    {
+     "id": 1,
+     "name": "LE1",
+     "active": true,
+     "memberLoadings": [
+      {
+       "memberId": 30,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": -62500,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      },
+      {
+       "memberId": 30,
+       "position": "End",
+       "sectionLoad": {
+        "n": -62500,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      },
+      {
+       "memberId": 31,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 250000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "KT_TEST",
+   "connectionId": 4,
+   "members": [
+    {
+     "id": 40,
+     "name": "CH",
+     "crossSectionId": 1,
+     "isContinuous": true,
+     "isBearing": true,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 1,
+       "y": 0,
+       "z": 0
+      },
+      "axisY": {
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 41,
+     "name": "KA",
+     "crossSectionId": 2,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": -0.8191520442889918,
+       "y": 0.573576436351046,
+       "z": 0
+      },
+      "axisY": {
+       "x": -0.573576436351046,
+       "y": -0.8191520442889918,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 42,
+     "name": "KV",
+     "crossSectionId": 5,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 0,
+       "y": 1,
+       "z": 0
+      },
+      "axisY": {
+       "x": -1,
+       "y": 0,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    },
+    {
+     "id": 43,
+     "name": "KB",
+     "crossSectionId": 2,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "forcesIn": "node",
+      "x": 0
+     },
+     "position": {
+      "origin": {
+       "x": 0,
+       "y": 0,
+       "z": 0
+      },
+      "axisX": {
+       "x": 0.8191520442889918,
+       "y": 0.573576436351046,
+       "z": 0
+      },
+      "axisY": {
+       "x": -0.573576436351046,
+       "y": 0.8191520442889918,
+       "z": 0
+      },
+      "axisZ": {
+       "x": 0,
+       "y": 0,
+       "z": 1
+      },
+      "offsetEx": 0,
+      "offsetEy": 0,
+      "offsetEz": 0
+     }
+    }
+   ],
+   "loadEffects": [
+    {
+     "id": 1,
+     "name": "LE1",
+     "active": true,
+     "memberLoadings": [
+      {
+       "memberId": 40,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 100000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      },
+      {
+       "memberId": 40,
+       "position": "End",
+       "sectionLoad": {
+        "n": 150000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      },
+      {
+       "memberId": 41,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": -900000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      },
+      {
+       "memberId": 42,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 300000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 20000,
+        "mz": 5000
+       }
+      },
+      {
+       "memberId": 43,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 300000,
+        "vy": 0,
+        "vz": 0,
+        "mx": 0,
+        "my": 0,
+        "mz": 0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "CON17_RIGID_SHIFT",
+   "comment": "A copy of the model's CON8 — a GENERALLY ORIENTED planar joint (chord axis (0.588, 0.158, 0.793), plane normal (0.660, -0.660, -0.358), all six member axes 0.00 deg in the plane) — displaced as a RIGID BODY by 40 mm along the plane normal, the CHORD INCLUDED. Every brace is then 0 mm from the plane through the chord, so the joint must be ASSESSED. Read from the live service and confirmed in the GUI. Off every global plane on purpose: an axis-aligned case cannot tell 'measured against the chord' from 'measured against global Z'. Note the six local offset triples all differ — one global displacement decomposes differently in each member frame, because axisY = globalZ x axisX.",
+   "connectionId": 17,
+   "members": [
+    {
+     "id": 101,
+     "name": "M1",
+     "crossSectionId": 12,
+     "isContinuous": false,
+     "isBearing": true,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.02640736704875295,
+       "y": -0.02640765320536802,
+       "z": -0.0143283588640658
+      },
+      "axisX": {
+       "x": 0.11070339101413584,
+       "y": 0.5572219298582427,
+       "z": -0.8229510800181424
+      },
+      "axisY": {
+       "x": -0.9808307026843183,
+       "y": 0.19486182969423832,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": 0.16036175320118476,
+       "y": 0.8071756860890132,
+       "z": 0.5681122423403433
+      },
+      "offsetEx": 0.0,
+      "offsetEy": -0.031047,
+      "offsetEz": -0.025221
+     }
+    },
+    {
+     "id": 102,
+     "name": "M2",
+     "crossSectionId": 11,
+     "isContinuous": true,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.8555135354350634,
+       "y": 0.19575125870689697,
+       "z": 1.104299792056063
+      },
+      "axisX": {
+       "x": -0.5880183863281627,
+       "y": -0.15755905175128312,
+       "z": -0.7933533402912349
+      },
+      "axisY": {
+       "x": 0.2588190451025208,
+       "y": -0.9659258262890683,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": -0.7663204807600036,
+       "y": -0.20533495396307266,
+       "z": 0.6087614290087209
+      },
+      "offsetEx": 0.0,
+      "offsetEy": 0.032342,
+      "offsetEz": -0.023537
+     }
+    },
+    {
+     "id": 103,
+     "name": "M3",
+     "crossSectionId": 13,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.026407484973292705,
+       "y": -0.026407501395469865,
+       "z": -0.014328195679623342
+      },
+      "axisX": {
+       "x": 0.7508369050404029,
+       "y": 0.5927548150864532,
+       "z": 0.29135145652832045
+      },
+      "axisY": {
+       "x": -0.6196371000844879,
+       "y": 0.7848884406072537,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": -0.22867839038316545,
+       "y": -0.1805321716286002,
+       "z": 0.9566160822288251
+      },
+      "offsetEx": 0.0,
+      "offsetEy": -0.03709,
+      "offsetEz": -0.014978
+     }
+    },
+    {
+     "id": 104,
+     "name": "M4",
+     "crossSectionId": 14,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.026407178221755836,
+       "y": -0.026407205068943496,
+       "z": -0.014327704345469632
+      },
+      "axisX": {
+       "x": 0.7200811301652229,
+       "y": 0.6919502313300419,
+       "z": 0.051846343576735
+      },
+      "axisY": {
+       "x": -0.6928821065484312,
+       "y": 0.7210508903156617,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": -0.03738385219561646,
+       "y": -0.03592340375428188,
+       "z": 0.9986550739157756
+      },
+      "offsetEx": 0.0,
+      "offsetEy": -0.037338,
+      "offsetEz": -0.014347
+     }
+    },
+    {
+     "id": 105,
+     "name": "M5",
+     "crossSectionId": 15,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.026407367048752944,
+       "y": -0.026407653205368024,
+       "z": -0.01432835886406581
+      },
+      "axisX": {
+       "x": -0.11070339101413607,
+       "y": -0.557221929858243,
+       "z": 0.8229510800181422
+      },
+      "axisY": {
+       "x": 0.9808307026843183,
+       "y": -0.1948618296942386,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": 0.16036175320118495,
+       "y": 0.807175686089013,
+       "z": 0.5681122423403437
+      },
+      "offsetEx": 0.0,
+      "offsetEy": 0.031047,
+      "offsetEz": -0.025221
+     }
+    },
+    {
+     "id": 106,
+     "name": "M6",
+     "crossSectionId": 15,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.02640725727180866,
+       "y": -0.026407157389134725,
+       "z": -0.014327956518847197
+      },
+      "axisX": {
+       "x": -0.4673218388394457,
+       "y": -0.7343912233459041,
+       "z": 0.4922192905771021
+      },
+      "axisY": {
+       "x": 0.8436708696297861,
+       "y": -0.5368607489266842,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": 0.26425321697538423,
+       "y": 0.4152710769297401,
+       "z": 0.8704712344378613
+      },
+      "offsetEx": 0.0,
+      "offsetEy": 0.036456,
+      "offsetEz": -0.01646
+     }
+    }
+   ],
+   "loadEffects": [
+    {
+     "id": 1,
+     "name": "LE1",
+     "isPercentage": false,
+     "memberLoadings": [
+      {
+       "memberId": 101,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 10000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 1000.0
+       }
+      },
+      {
+       "memberId": 102,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 25462.195374,
+        "vy": 12765.51764,
+        "vz": 17541.458973,
+        "mx": 1482.485363,
+        "my": 425.919165,
+        "mz": -1159.556195
+       }
+      },
+      {
+       "memberId": 102,
+       "position": "End",
+       "sectionLoad": {
+        "n": 25462.195374,
+        "vy": 12765.51764,
+        "vz": 17541.458973,
+        "mx": 1482.485363,
+        "my": 425.919165,
+        "mz": -1159.556195
+       }
+      },
+      {
+       "memberId": 103,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 30000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 2000.0
+       }
+      },
+      {
+       "memberId": 104,
+       "position": "End",
+       "sectionLoad": {
+        "n": 40000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 1000.0
+       }
+      },
+      {
+       "memberId": 105,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 20000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 500.0
+       }
+      },
+      {
+       "memberId": 106,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 0.0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "CON18_BRACES_ONLY",
+   "comment": "The CONTROL for CON17: the same geometry and the same brace offsets, but the CHORD IS NOT MOVED. Every brace is then 40 mm from the plane through the chord — a real out-of-plane eccentricity — so the joint must still be REJECTED. Without this case CON17 would only prove the gate can accept; together they prove it still discriminates.",
+   "connectionId": 18,
+   "members": [
+    {
+     "id": 201,
+     "name": "M1",
+     "crossSectionId": 12,
+     "isContinuous": false,
+     "isBearing": true,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.02640736704875295,
+       "y": -0.02640765320536802,
+       "z": -0.0143283588640658
+      },
+      "axisX": {
+       "x": 0.11070339101413584,
+       "y": 0.5572219298582427,
+       "z": -0.8229510800181424
+      },
+      "axisY": {
+       "x": -0.9808307026843183,
+       "y": 0.19486182969423832,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": 0.16036175320118476,
+       "y": 0.8071756860890132,
+       "z": 0.5681122423403433
+      },
+      "offsetEx": 0.0,
+      "offsetEy": -0.031047,
+      "offsetEz": -0.025221
+     }
+    },
+    {
+     "id": 202,
+     "name": "M2",
+     "crossSectionId": 11,
+     "isContinuous": true,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.8291059247227094,
+       "y": 0.22215826296930918,
+       "z": 1.1186282098106413
+      },
+      "axisX": {
+       "x": -0.5880183863281627,
+       "y": -0.15755905175128312,
+       "z": -0.7933533402912349
+      },
+      "axisY": {
+       "x": 0.2588190451025208,
+       "y": -0.9659258262890683,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": -0.7663204807600036,
+       "y": -0.20533495396307266,
+       "z": 0.6087614290087209
+      },
+      "offsetEx": 0.0,
+      "offsetEy": 0.0,
+      "offsetEz": 0.0
+     }
+    },
+    {
+     "id": 203,
+     "name": "M3",
+     "crossSectionId": 13,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.026407484973292705,
+       "y": -0.026407501395469865,
+       "z": -0.014328195679623342
+      },
+      "axisX": {
+       "x": 0.7508369050404029,
+       "y": 0.5927548150864532,
+       "z": 0.29135145652832045
+      },
+      "axisY": {
+       "x": -0.6196371000844879,
+       "y": 0.7848884406072537,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": -0.22867839038316545,
+       "y": -0.1805321716286002,
+       "z": 0.9566160822288251
+      },
+      "offsetEx": 0.0,
+      "offsetEy": -0.03709,
+      "offsetEz": -0.014978
+     }
+    },
+    {
+     "id": 204,
+     "name": "M4",
+     "crossSectionId": 14,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "begin",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.026407178221755836,
+       "y": -0.026407205068943496,
+       "z": -0.014327704345469632
+      },
+      "axisX": {
+       "x": 0.7200811301652229,
+       "y": 0.6919502313300419,
+       "z": 0.051846343576735
+      },
+      "axisY": {
+       "x": -0.6928821065484312,
+       "y": 0.7210508903156617,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": -0.03738385219561646,
+       "y": -0.03592340375428188,
+       "z": 0.9986550739157756
+      },
+      "offsetEx": 0.0,
+      "offsetEy": -0.037338,
+      "offsetEz": -0.014347
+     }
+    },
+    {
+     "id": 205,
+     "name": "M5",
+     "crossSectionId": 15,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.026407367048752944,
+       "y": -0.026407653205368024,
+       "z": -0.01432835886406581
+      },
+      "axisX": {
+       "x": -0.11070339101413607,
+       "y": -0.557221929858243,
+       "z": 0.8229510800181422
+      },
+      "axisY": {
+       "x": 0.9808307026843183,
+       "y": -0.1948618296942386,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": 0.16036175320118495,
+       "y": 0.807175686089013,
+       "z": 0.5681122423403437
+      },
+      "offsetEx": 0.0,
+      "offsetEy": 0.031047,
+      "offsetEz": -0.025221
+     }
+    },
+    {
+     "id": 206,
+     "name": "M6",
+     "crossSectionId": 15,
+     "isContinuous": false,
+     "isBearing": false,
+     "connectedBy": "end",
+     "model": {
+      "modelTypeEnum": "loadedInXYZ",
+      "forcesIn": "node"
+     },
+     "position": {
+      "origin": {
+       "x": 0.02640725727180866,
+       "y": -0.026407157389134725,
+       "z": -0.014327956518847197
+      },
+      "axisX": {
+       "x": -0.4673218388394457,
+       "y": -0.7343912233459041,
+       "z": 0.4922192905771021
+      },
+      "axisY": {
+       "x": 0.8436708696297861,
+       "y": -0.5368607489266842,
+       "z": 0.0
+      },
+      "axisZ": {
+       "x": 0.26425321697538423,
+       "y": 0.4152710769297401,
+       "z": 0.8704712344378613
+      },
+      "offsetEx": 0.0,
+      "offsetEy": 0.036456,
+      "offsetEz": -0.01646
+     }
+    }
+   ],
+   "loadEffects": [
+    {
+     "id": 1,
+     "name": "LE1",
+     "isPercentage": false,
+     "memberLoadings": [
+      {
+       "memberId": 201,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 10000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 1000.0
+       }
+      },
+      {
+       "memberId": 202,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 25462.195374,
+        "vy": 12765.51764,
+        "vz": 17541.458973,
+        "mx": 1482.485363,
+        "my": 425.919165,
+        "mz": -1159.556195
+       }
+      },
+      {
+       "memberId": 202,
+       "position": "End",
+       "sectionLoad": {
+        "n": 25462.195374,
+        "vy": 12765.51764,
+        "vz": 17541.458973,
+        "mx": 1482.485363,
+        "my": 425.919165,
+        "mz": -1159.556195
+       }
+      },
+      {
+       "memberId": 203,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 30000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 2000.0
+       }
+      },
+      {
+       "memberId": 204,
+       "position": "End",
+       "sectionLoad": {
+        "n": 40000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 1000.0
+       }
+      },
+      {
+       "memberId": 205,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 20000.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 500.0
+       }
+      },
+      {
+       "memberId": 206,
+       "position": "Begin",
+       "sectionLoad": {
+        "n": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 0.0
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
 }

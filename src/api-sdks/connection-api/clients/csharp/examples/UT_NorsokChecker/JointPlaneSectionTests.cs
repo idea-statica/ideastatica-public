@@ -666,6 +666,62 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// A displaced joint says so, and the method chapter says what the offset means.
+		///
+		/// The CON16 defect was that a joint whose members all carry the same eccentricity was
+		/// rejected outright — the braces stayed coplanar and their common plane was merely offset,
+		/// but the gate measured from the work point. Now the plane sits on the chord, which means
+		/// the report has to disclose two things it did not before: WHERE the plane is, and that a
+		/// brace's eccentricity is judged against it rather than against the origin.
+		/// </summary>
+		[Test]
+		public void ADisplacedJointReportsWhereItsPlaneSits()
+		{
+			var topo = Topology();
+			topo.PlaneOffsetM = 0.040;          // 40 mm, as CON17 carries
+
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult> { Check("M2", 12, "LE12") }),
+				},
+				expandAll: false, jointImages: null,
+				topologies: new Dictionary<string, JointTopology> { ["CON1"] = topo });
+
+			int at = html.IndexOf("plane offset from the work point", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the offset is disclosed");
+			string row = html[at..(at + 400)];
+
+			// And the method chapter explains what it is measured against, once.
+			int method = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			string chapter = html[method..Math.Min(html.Length, method + 6000)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(row, Does.Contain("40.0 mm"), "the distance");
+				Assert.That(row, Does.Contain("whole joint is displaced"), "and what it means");
+				Assert.That(chapter, Does.Contain("passes through the chord axis"),
+					"the method states where the plane is");
+				Assert.That(chapter, Does.Contain("not from the model&#39;s work point")
+					.Or.Contain("not from the model's work point"),
+					"and what it is NOT measured from");
+			});
+		}
+
+		/// <summary>
+		/// An ordinary joint prints no offset row. Every joint carrying a 0.0 mm line would be a row
+		/// of noise on the great majority of them.
+		/// </summary>
+		[Test]
+		public void AJointOnTheWorkPointPrintsNoOffsetRow()
+		{
+			string html = Report();      // Topology() leaves PlaneOffsetM at zero
+
+			Assert.That(html, Does.Not.Contain("plane offset from the work point"),
+				"nothing to disclose when the joint sits on the work point");
+		}
+
+		/// <summary>
 		/// The coplanarity tolerance is typeset with a degree sign and labelled non-normative.
 		///
 		/// It was built in the ENGINE as "within 2deg" — ASCII, in a document that typesets ≤ and °,

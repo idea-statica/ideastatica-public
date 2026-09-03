@@ -236,6 +236,190 @@ namespace UT_NorsokChecker
 			Assert.That(pd, Is.Null, $"{name}");
 		}
 
+		/// <summary>
+		/// A joint displaced as a RIGID BODY is assessed; the same joint with only its braces moved
+		/// is not.
+		///
+		/// The defect this pair exists for: the out-of-plane gate measured each brace's eccentricity
+		/// from the plane through the WORK POINT, so a joint whose members all carry the same
+		/// eccentricity — braces perfectly coplanar, their common plane merely offset — read as
+		/// EVERY brace being out of plane and was rejected without one check running. The user found
+		/// it on CON16 of their own model and diagnosed it exactly: the plane keeps its directions,
+		/// it should sit on the CHORD.
+		///
+		/// Both fixtures are the model's own CON8 read from the live service, so the geometry is
+		/// GENERALLY ORIENTED (chord axis (0.588, 0.158, 0.793), plane normal
+		/// (0.660, −0.660, −0.358)). That is deliberate and it is the harder half: an axis-aligned
+		/// case cannot tell "measured against the chord" from "measured against global Z", and my
+		/// own first probe of this was broken for exactly that reason — applying the SAME local
+		/// offset triple to every member is not a rigid translation, because axisY = globalZ × axisX
+		/// differs per member. CON17's six triples all differ and produce one global displacement.
+		///
+		/// CON18 is the control, and without it CON17 would only prove the gate can accept.
+		/// </summary>
+		[TestCase("CON17_RIGID_SHIFT", 0.0, false,
+			TestName = "a rigidly displaced joint is assessed")]
+		[TestCase("CON18_BRACES_ONLY", 40.0, true,
+			TestName = "braces displaced away from the chord are still rejected")]
+		public void OutOfPlaneIsMeasuredFromThePlaneThroughTheChord(
+			string fixtureName, double expectedBraceOffsetMm, bool expectRejected)
+		{
+			var topo = BuildFixture(fixtureName);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(topo.Chord, Is.Not.Null, "the chord was identified");
+				Assert.That(topo.BracesMeta, Is.Not.Empty, "and the braces were read");
+
+				// Every brace's distance FROM THE PLANE THROUGH THE CHORD — 0 for a rigid shift,
+				// 40 mm when only the braces moved.
+				foreach (var bm in topo.BracesMeta)
+					Assert.That(bm.OopOffsetM * 1000.0,
+						Is.EqualTo(expectedBraceOffsetMm).Within(0.5),
+						$"{bm.Name}: distance from the plane through the chord");
+
+				// The gate's own verdict, which is what the connection lives or dies by.
+				bool rejected = topo.Verdict.Errors.Any(e => e.Contains("out of the joint plane"));
+				Assert.That(rejected, Is.EqualTo(expectRejected),
+					"errors: " + string.Join(" | ", topo.Verdict.Errors));
+			});
+		}
+
+		/// <summary>
+		/// The plane's own displacement is reported, and it is the CHORD's eccentricity.
+		///
+		/// It is a real feature of the model — the joint sits off the work point — so the reader has
+		/// to be able to see it. §6.4 gives no limit for it, so it is stated and not judged.
+		/// </summary>
+		[TestCase("CON17_RIGID_SHIFT", 40.0, TestName = "a rigid shift moves the plane")]
+		[TestCase("CON18_BRACES_ONLY", 0.0, TestName = "an unmoved chord leaves it at the work point")]
+		public void ThePlaneOffsetIsTakenFromTheChord(string fixtureName, double expectedMm)
+		{
+			var topo = BuildFixture(fixtureName);
+
+			Assert.That(Math.Abs(topo.PlaneOffsetM) * 1000.0, Is.EqualTo(expectedMm).Within(0.5),
+				"the plane's offset from the work point along its own normal");
+		}
+
+		/// <summary>
+		/// Moving the chord by −e is the same joint as moving every brace by +e, and must get the
+		/// same verdict.
+		///
+		/// This is the invariance the old form did not have, and the stronger half of the finding:
+		/// the two are one physical joint modelled from opposite ends, and the node-relative measure
+		/// gave them OPPOSITE answers — braces +40 mm was an ERROR, chord −40 mm passed. Built here
+		/// rather than stored, because it is CON18 with the sign moved onto the chord.
+		/// </summary>
+		[Test]
+		public void MovingTheChordReadsTheSameAsMovingTheBraces()
+		{
+			var bracesMoved = BuildFixture("CON18_BRACES_ONLY");
+
+			// The same joint with the displacement moved onto the CHORD: braces at zero, chord at −e.
+			//
+			// Built by decomposing ONE global vector into each member's own frame, not by arithmetic
+			// on the stored triples. Subtracting one member's triple from all of them looked
+			// equivalent and is not — offsets live in each member's OWN axes, so that leaves the
+			// other braces displaced by the difference between their frames. Measured: it left M5 at
+			// (0, +0.062, 0) instead of zero, and the test passed while building a joint it did not
+			// describe.
+			var fx = ((JArray)_fixtures["fixtures"]!).First(f => (string?)f["name"] == "CON18_BRACES_ONLY");
+			var members = fx["members"]!.Select(j => j.ToObject<ConMember>()!).ToList();
+
+			// −e as a global vector: the negated displacement CON18 gives its braces.
+			var braceRef = members.First(m => m.IsContinuous != true);
+			var refData = JointMemberData.FromConMember(braceRef, new JointSectionInfo());
+			Vec3 minusE = -JointForceResolver.EccVec(refData);
+
+			foreach (var m in members)
+			{
+				var md = JointMemberData.FromConMember(m, new JointSectionInfo());
+				bool isChord = m.IsContinuous == true;
+				// The chord carries −e; every brace goes to zero.
+				Vec3 want = isChord ? minusE : Vec3.Zero;
+				m.Position!.OffsetEx = Vec3.Dot(want, md.AxisX);
+				m.Position.OffsetEy = Vec3.Dot(want, md.AxisY);
+				m.Position.OffsetEz = Vec3.Dot(want, md.AxisZ);
+			}
+			var chordMoved = new JointTopologyBuilder().Build(
+				members.Select(m => JointMemberData.FromConMember(m,
+					_sections.GetValueOrDefault(m.CrossSectionId ?? -1) ?? new JointSectionInfo())).ToList(),
+				fx["loadEffects"]!.Select(j => j.ToObject<ConLoadEffect>()!).ToList());
+
+			bool RejectedFor(JointTopology t) =>
+				t.Verdict.Errors.Any(e => e.Contains("out of the joint plane"));
+
+			Assert.Multiple(() =>
+			{
+				// FIRST: prove the geometry is the one this test claims to have built. The earlier
+				// version of this setup silently produced something else and passed anyway.
+				Assert.That(Math.Abs(chordMoved.PlaneOffsetM) * 1000.0, Is.EqualTo(40.0).Within(0.5),
+					"the CHORD carries the 40 mm now");
+				foreach (var bm in chordMoved.BracesMeta)
+					Assert.That(bm.OopOffsetM * 1000.0, Is.EqualTo(40.0).Within(0.5),
+						$"{bm.Name}: 40 mm from the plane through the displaced chord");
+
+				Assert.That(RejectedFor(bracesMoved), Is.True,
+					"control: braces displaced from the chord IS an out-of-plane joint");
+				Assert.That(RejectedFor(chordMoved), Is.EqualTo(RejectedFor(bracesMoved)),
+					"the same joint modelled from the other end must get the same verdict; "
+					+ "chord-moved errors: " + string.Join(" | ", chordMoved.Verdict.Errors));
+			});
+		}
+
+		/// <summary>
+		/// A rigid displacement changes NO force. The user asked for this explicitly rather than
+		/// letting it be assumed, and it is the reason the change can be a geometry fix alone.
+		///
+		/// Measured against the live service before any code was written: over all 15 load effects
+		/// of CON8 vs CON17 the largest change in the node-equilibrium residual was 0.0001 kN, and
+		/// the chord's own section loads — the inputs to σ_a, σ_my, σ_mz and hence Q_f — were
+		/// identical to three decimals. Expected, because position.origin already embeds the
+		/// eccentricity and every lever moves together, but "expected" is not "checked".
+		/// </summary>
+		[Test]
+		public void ARigidShiftChangesNoForce()
+		{
+			ConMember[] Load(string name) =>
+				((JArray)_fixtures["fixtures"]!).First(f => (string?)f["name"] == name)["members"]!
+					.Select(j => j.ToObject<ConMember>()!).ToArray();
+			List<ConLoadEffect> Les(string name) =>
+				((JArray)_fixtures["fixtures"]!).First(f => (string?)f["name"] == name)["loadEffects"]!
+					.Select(j => j.ToObject<ConLoadEffect>()!).ToList();
+
+			// CON17 (rigidly displaced) against the same members with every offset removed.
+			var shifted = Load("CON17_RIGID_SHIFT");
+			var atOrigin = Load("CON17_RIGID_SHIFT");
+			foreach (var m in atOrigin)
+			{
+				m.Position!.OffsetEx = 0; m.Position.OffsetEy = 0; m.Position.OffsetEz = 0;
+			}
+
+			List<NodeEquilibriumRow> Residuals(ConMember[] ms) =>
+				JointForceResolver.NodeEquilibrium(
+					ms.Select(m => JointMemberData.FromConMember(m,
+						_sections.GetValueOrDefault(m.CrossSectionId ?? -1) ?? new JointSectionInfo()))
+						.ToList(),
+					Les("CON17_RIGID_SHIFT"), Vec3.Zero);
+
+			var a = Residuals(atOrigin);
+			var b = Residuals(shifted);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(b, Has.Count.EqualTo(a.Count), "same load effects both ways");
+				for (int i = 0; i < a.Count; i++)
+				{
+					// 1 N / 1 N·m: the inputs are stored rounded, so an exact match is not the claim
+					// — what matters is that a rigid shift does not move the residual.
+					Assert.That(b[i].SumF.Norm, Is.EqualTo(a[i].SumF.Norm).Within(1.0),
+						$"LE{i}: force residual must not move");
+					Assert.That(b[i].SumM.Norm, Is.EqualTo(a[i].SumM.Norm).Within(1.0),
+						$"LE{i}: moment residual must not move");
+				}
+			});
+		}
+
 		[Test]
 		public void NodeEquilibrium_MatchesPythonReference()
 		{
@@ -244,6 +428,11 @@ namespace UT_NorsokChecker
 			foreach (var fx in (JArray)_fixtures["fixtures"]!)
 			{
 				string name = (string)fx["name"]!;
+				// The CON17/CON18 pair is not in the python oracle: it exists to pin the plane's
+				// POSITION, which the reference implementation measures from the work point (the
+				// behaviour being corrected here). Its forces are asserted separately — see
+				// ARigidShiftChangesNoForce.
+				if (name.StartsWith("CON1", StringComparison.Ordinal)) continue;
 				var members = fx["members"]!
 					.Select(j => j.ToObject<ConMember>()!)
 					.Select(m => JointMemberData.FromConMember(m,

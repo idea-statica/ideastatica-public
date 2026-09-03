@@ -490,6 +490,14 @@ namespace NorsokChecker.Services
 				+ "identical force tables, which is a consequence of the frame rather than a "
 				+ "transformation that failed to run.</p>");
 
+			sb.AppendLine("  <p><strong>The plane passes through the chord axis.</strong> A brace's "
+				+ "out-of-plane eccentricity is measured from THAT plane, not from the model's work "
+				+ "point, so a joint whose members are all displaced together &mdash; the braces "
+				+ "staying coplanar, their common plane merely offset &mdash; is not penalised for "
+				+ "it. Each connection states the offset where there is one. What the check judges "
+				+ "is how far a brace sits from the plane through its chord; moving the chord by "
+				+ "&minus;e is the same joint as moving every brace by +e, and reads the same.</p>");
+
 			sb.AppendLine("  <p><strong>Sign conventions.</strong> N is positive in TENSION. "
 				+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending <em>of the joint "
 				+ "plane</em> (eq 6.57), not of a member's local y and z. Section forces are taken "
@@ -1552,8 +1560,25 @@ namespace NorsokChecker.Services
 					? $" <span class='deriv-hint'>(within {N(topo.PlaneFitTolDeg, 1)}&deg; "
 						+ "&mdash; tool tolerance, not a &sect;6.4 requirement)</span>"
 					: ""));
+			// WHERE the plane sits, when it is not on the work point. Reported because it is a real
+			// feature of the model — the joint is displaced — and because a reader tracing the
+			// geometry will otherwise find eccentricities in the model that appear nowhere here.
+			//
+			// Stated, not judged: a rigid displacement is not a defect (it changes no force — the
+			// residual moved by 0.0001 kN over 15 load effects when measured), and §6.4 gives no
+			// limit for it. What IS judged is each brace's distance FROM this plane, in the
+			// geometry table below.
+			if (Math.Abs(topo.PlaneOffsetM) > 1e-6)
+				Kv(sb, "plane offset from the work point",
+					$"{N(Math.Abs(topo.PlaneOffsetM) * 1e3, 1)} mm "
+					+ "<span class='deriv-hint'>along the plane normal &mdash; the whole joint is "
+					+ "displaced; brace eccentricities below are measured from THIS plane</span>");
 			if (!topo.Coplanar || topo.PlaneSpread > 0)
-				Kv(sb, "out-of-plane spread", $"{N(topo.PlaneSpread * 1e3, 1)} mm"
+				Kv(sb, "out-of-plane spread",
+					// PlaneSpread is the scatter of the brace DIRECTIONS (unit vectors from
+					// DominantDirection), so it is dimensionless — it used to print "mm".
+					$"{N(topo.PlaneSpread, 4)} <span class='deriv-hint'>(direction scatter, "
+					+ "dimensionless)</span>"
 					+ (topo.Coplanar ? "" : " <span class='deriv-hint'>(not coplanar)</span>"));
 			sb.AppendLine("  </table>");
 

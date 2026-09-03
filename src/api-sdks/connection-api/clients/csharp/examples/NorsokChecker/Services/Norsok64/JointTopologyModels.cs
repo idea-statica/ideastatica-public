@@ -141,6 +141,21 @@ namespace NorsokChecker.Services.Norsok64
 		public double ThetaDeg { get; set; }
 		public double? Beta { get; set; }
 		public double CoplanarDevDeg { get; set; }
+
+		/// <summary>
+		/// The brace's perpendicular distance from the evaluation plane, in metres — measured from
+		/// the plane THROUGH THE CHORD AXIS, not from the plane through the work point.
+		///
+		/// That distinction is the point. It used to be |ecc_brace·n|, distance from the work
+		/// point, which made a rigidly displaced joint read as every brace being out of plane: the
+		/// braces stayed perfectly coplanar, their common plane was merely offset, and the
+		/// connection was rejected with no check run. It is now
+		/// |ecc_brace·n − ecc_chord·n| (see JointTopologyBuilder), so a rigid translation cancels
+		/// and moving the chord by −e reads the same as moving every brace by +e.
+		///
+		/// This is what the >5 mm gate judges. The plane's own displacement is
+		/// <see cref="JointTopology.PlaneOffsetM"/> and is reported, not judged.
+		/// </summary>
 		public double OopOffsetM { get; set; }
 		public double EccAlongM { get; set; }
 		public bool IsCHS { get; set; }
@@ -346,6 +361,17 @@ namespace NorsokChecker.Services.Norsok64
 		/// marking it as ours — the same normative/informative confusion the review warned about.
 		/// </summary>
 		public double PlaneFitTolDeg { get; set; }
+
+		/// <summary>
+		/// Where the evaluation plane sits, in metres along its own normal, measured from the work
+		/// point. Taken from the CHORD's eccentricity: the plane passes through the chord axis.
+		///
+		/// Zero for an ordinary joint. Non-zero means the whole joint is modelled off the work
+		/// point, which is a real feature of the model and is reported rather than judged — a rigid
+		/// displacement is not a defect, and §6.4 gives no limit for it. It is the per-brace
+		/// distance FROM this plane (<see cref="BraceMeta.OopOffsetM"/>) that the gate measures.
+		/// </summary>
+		public double PlaneOffsetM { get; set; }
 
 		public string? PlaneWarn { get; set; }
 		public double PlaneSpread { get; set; }
