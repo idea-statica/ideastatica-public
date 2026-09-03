@@ -251,9 +251,116 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The real report, printed the way the app prints it. Read the file the log names.
+		/// What `counter-reset: page N` in @page ACTUALLY does on this build.
+		///
+		/// The user set continuous numbering to start at 77 and every page printed 76 — two defects
+		/// in one observation: the number was one too low AND it did not advance. The arithmetic
+		/// (`start - 1`, from assuming counter(page) adds one afterwards) is the first; a reset
+		/// re-applied on every page is the second, and it cannot be read off the stylesheet.
+		///
+		/// So this prints THREE pages under three candidate rules and reads back what each produced.
+		/// The answer decides FooterCss, rather than a guess about Blink's counter scoping — the
+		/// specs and the mailing lists disagree, and this is the engine that matters.
 		/// </summary>
 		[Test, Order(2)]
+		public void WhatCounterResetDoesToPageNumbering()
+		{
+			// Each variant prints "A|B|C" on three pages. Expected under the spec reading:
+			//   plain      : 1, 2, 3
+			//   reset 76   : 77, 78, 79  IF the reset applies once; 76, 76, 76 if it re-applies
+			//   reset 77   : 78, 79, 80  or  77, 77, 77 — the same question, offset by one
+			// A template with a placeholder rather than interpolation: the document is mostly CSS
+			// braces, and an interpolated raw string would need every one of them doubled.
+			const string template = """
+				<!DOCTYPE html><html><head><meta charset='utf-8'/><style>
+				@page { size: A4 portrait; margin: 20mm 15mm; /*RULE*/
+				        @bottom-center { content: "n=" counter(page); } }
+				.p { break-after: page; font-size: 40pt; }
+				</style></head><body>
+				<div class='p'>A</div><div class='p'>B</div><div class='p'>C</div>
+				</body></html>
+				""";
+			string Doc(string pageRule) => template.Replace("/*RULE*/", pageRule);
+
+			string plain = Print(Doc(""), "count-plain");
+			string r76 = Print(Doc("counter-reset: page 76;"), "count-r76");
+			string r77 = Print(Doc("counter-reset: page 77;"), "count-r77");
+
+			// MEASURED (WebView2 1.0.2903.40): plain → 1,2,3; reset 76 → 76,76,76; reset 77 →
+			// 77,77,77. So the reset sets the exact value AND re-applies on every page, which makes
+			// `counter-reset` in @page useless for an offset here. Candidates that might still work:
+			string firstOnly = Print(Doc("").Replace("</style>",
+				"@page:first { counter-reset: page 77; }\n</style>"), "count-first");
+			string incr = Print(Doc("counter-reset: page 76; counter-increment: page;"), "count-incr");
+			// A counter in DOCUMENT context, incremented per page-breaking element — the fallback if
+			// the page counter cannot be offset at all.
+			string docCounter = Print("""
+				<!DOCTYPE html><html><head><meta charset='utf-8'/><style>
+				body { counter-reset: sheet 76; }
+				.p { break-after: page; font-size: 40pt; counter-increment: sheet; }
+				.p::after { content: " n=" counter(sheet); font-size: 12pt; }
+				</style></head><body>
+				<div class='p'>A</div><div class='p'>B</div><div class='p'>C</div>
+				</body></html>
+				""", "count-doc");
+			// THE decisive one: can a document counter be read from inside a @page margin box? If it
+			// can, continuous numbering keeps the footer. If it cannot, the offset has to be given up
+			// or the number has to live in the page content, which is the user's margin space.
+			string docInMargin = Print("""
+				<!DOCTYPE html><html><head><meta charset='utf-8'/><style>
+				@page { size: A4 portrait; margin: 20mm 15mm;
+				        @bottom-center { content: "n=" counter(sheet); } }
+				body { counter-reset: sheet 76; }
+				.p { break-after: page; font-size: 40pt; counter-increment: sheet; }
+				</style></head><body>
+				<div class='p'>A</div><div class='p'>B</div><div class='p'>C</div>
+				</body></html>
+				""", "count-docmargin");
+
+			TestContext.Out.WriteLine("READ THEM ALL — the footers are the measurement:");
+			foreach (var (label, path) in new[]
+				{ ("plain (no reset)", plain), ("counter-reset: page 76", r76),
+					("counter-reset: page 77", r77), ("@page:first reset 77", firstOnly),
+					("reset 76 + increment", incr), ("document counter", docCounter),
+					("doc counter in margin", docInMargin) })
+			{
+				TestContext.Out.WriteLine($"  {label,-24} {path}");
+			}
+			TestContext.Out.WriteLine("  python -c \"import pypdf,sys;"
+				+ "[print(sys.argv[i], [p.extract_text().strip() for p in "
+				+ "pypdf.PdfReader(sys.argv[i]).pages]) for i in (1,2,3)]\" "
+				+ $"\"{plain}\" \"{r76}\" \"{r77}\"");
+
+			// ── MEASURED, WebView2 1.0.2903.40 (Chromium 131), 2026-09-03 ──────────────────────
+			//   plain, no reset                    1,  2,  3     ← the only thing that advances
+			//   @page { counter-reset: page 76 }  76, 76, 76     sets the exact value, EVERY page
+			//   @page { counter-reset: page 77 }  77, 77, 77     (so the value IS the start)
+			//   @page:first { reset 77 }          77,  1,  2     applies once, then counting restarts
+			//   reset 76 + counter-increment      77, 77, 77     increment also re-applies per page
+			//   document counter, in the CONTENT  77, 78, 79     works — but not in the margin
+			//   document counter, in @page box     0,  0,  0     invisible: page context sees only
+			//                                                    `page` and `pages`
+			//
+			// Conclusion: an offset page number CANNOT be produced in a margin box on this engine.
+			// The reset re-applies per page, and no other counter is readable from page context. So
+			// FooterMode.Continuous cannot print "start-at" numbering in the footer, and the setting
+			// was removed rather than left printing a constant.
+			Assert.Multiple(() =>
+			{
+				Assert.That(new FileInfo(plain).Length, Is.GreaterThan(500));
+				Assert.That(new FileInfo(r76).Length, Is.GreaterThan(500));
+				Assert.That(new FileInfo(r77).Length, Is.GreaterThan(500));
+				Assert.That(new FileInfo(firstOnly).Length, Is.GreaterThan(500));
+				Assert.That(new FileInfo(incr).Length, Is.GreaterThan(500));
+				Assert.That(new FileInfo(docCounter).Length, Is.GreaterThan(500));
+				Assert.That(new FileInfo(docInMargin).Length, Is.GreaterThan(500));
+			});
+		}
+
+		/// <summary>
+		/// The real report, printed the way the app prints it. Read the file the log names.
+		/// </summary>
+		[Test, Order(3)]
 		public void WhatTheExportedPdfActuallyCarries()
 		{
 			string pdf = Print(Report(), "report");

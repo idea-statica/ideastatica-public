@@ -188,10 +188,13 @@ namespace NorsokChecker.Services
 			// nothing. What matters is WHICH quantities came from the model and which this app
 			// derived. The service version would belong here too, but ServiceLocator does not retain
 			// it (it is fetched to pick an install and dropped), so it is not promised.
+			// Checks by, THEN model source: who did the work before where the inputs came from.
+			// And no "evaluated from that model — no analysis is run": it restated the line below it
+			// (the model IS the source, so "from that model" adds nothing) and the "no analysis"
+			// half described the app's internals rather than the document's provenance.
+			sb.AppendLine("  <strong>Checks by:</strong> NorsokChecker<br/>");
 			sb.AppendLine("  <strong>Model source:</strong> IDEA StatiCa Connection "
-				+ "&mdash; geometry, cross-sections, materials and load effects<br/>");
-			sb.AppendLine("  <strong>Checks by:</strong> NorsokChecker, evaluated from that model "
-				+ "&mdash; no analysis is run");
+				+ "&mdash; geometry, cross-sections, materials and load effects");
 			// WHAT WAS SEARCHED. The report stated which load effect governs each brace and nothing
 			// else, so a reader could not tell a search over fifteen states from a search over three
 			// — and had no way to know that nothing was skipped.
@@ -299,6 +302,10 @@ namespace NorsokChecker.Services
 			// ── Executive Summary Card, then chapter 2 ──
 			RenderSummaryCard(sb, allResults);
 			RenderConnectionTable(sb, allResults);
+
+			// Chapter 3: the method, once. It used to be repeated inside every assessed connection —
+			// six connections carrying six identical paragraphs each.
+			RenderMethodChapter(sb);
 
 			int chapter = ConnectionChapterBase;
 			foreach (var (connectionName, formulas) in allResults)
@@ -438,13 +445,76 @@ namespace NorsokChecker.Services
 		}
 
 		/// <summary>
-		/// Chapters 1 and 2 are the summary and the connection overview, so the first connection is
-		/// chapter 3. A named constant because three places have to agree on it — the index, the
-		/// headings, and the "is this the first connection" test that suppresses one page break.
+		/// Chapters 1–3 are the summary, the connection overview and the method, so the first
+		/// connection is chapter 4. A named constant because three places have to agree on it — the
+		/// index, the headings, and the "is this the first connection" test that suppresses one page
+		/// break. (It was 3 until the method chapter was pulled out of every connection.)
 		/// </summary>
-		private const int ConnectionChapterBase = 3;
+		private const int ConnectionChapterBase = 4;
 
 		private static string AnchorFor(int chapter) => $"ch-{chapter}";
+
+		/// <summary>
+		/// How the checks are made — ONCE, before the connections.
+		///
+		/// These six paragraphs used to sit inside every assessed connection: measured on the export,
+		/// six connections × six paragraphs of identical prose, and half of them had just been added
+		/// to answer the reviewer's questions. That is the repetition their §4 objected to, made
+		/// worse by answering §6.
+		///
+		/// What stays per connection is what DIFFERS there: the plane, the chord, the geometry, the
+		/// forces, the governing state, and the one sentence saying how many of ITS braces lie in the
+		/// fitted plane. The method is the same for all of them, so it is stated where a reader meets
+		/// it first and can refer back to it.
+		/// </summary>
+		private static void RenderMethodChapter(StringBuilder sb)
+		{
+			sb.AppendLine("<h2 class='section-header' id='ch-method'>"
+				+ "<span class='chapter-no'>3</span> How the checks are made</h2>");
+			sb.AppendLine("<div class='norm-box'>");
+
+			sb.AppendLine("  <p><strong>Forces are resolved into the joint plane.</strong> The "
+				+ "&sect;6.4 checks are not evaluated on the member load effects as IDEA StatiCa "
+				+ "Connection shows them. Each connection's chapter states how its plane and chord "
+				+ "were determined and lists both sets of forces side by side, so every checked "
+				+ "value can be traced back to the model.</p>");
+
+			sb.AppendLine("  <p><strong>Each brace is resolved in the plane of its own "
+				+ "chord&ndash;brace pair</strong> &mdash; the normal is "
+				+ "e<sub>x</sub>&nbsp;&times;&nbsp;(brace axis) &mdash; not in the single fitted "
+				+ "joint plane. The fitted plane does two other things: it decides the K/Y/X "
+				+ "classification, and it fixes the SIGN of M<sub>y</sub> consistently across the "
+				+ "braces. So a brace's own <i>off-plane</i> deviation cannot appear in its own "
+				+ "resolved forces &mdash; that column is a coplanarity check on the joint, not an "
+				+ "input to the transformation. Two joints differing only in it therefore have "
+				+ "identical force tables, which is a consequence of the frame rather than a "
+				+ "transformation that failed to run.</p>");
+
+			sb.AppendLine("  <p><strong>Sign conventions.</strong> N is positive in TENSION. "
+				+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending <em>of the joint "
+				+ "plane</em> (eq 6.57), not of a member's local y and z. Section forces are taken "
+				+ "AT THE NODE and projected without an r&times;F transfer, matching the reference "
+				+ "implementation.</p>");
+
+			sb.AppendLine("  <p><strong>Shear and torsion do not enter this check.</strong> "
+				+ "Eq (6.57) has three terms &mdash; axial, in-plane and out-of-plane bending. That "
+				+ "is not a statement that the other actions do not matter: they are listed with each "
+				+ "brace's forces so their magnitude can be seen, and they must be verified elsewhere "
+				+ "(member and section checks to &sect;6.3, and the weld or connection detail "
+				+ "itself).</p>");
+
+			sb.AppendLine("  <p><strong>The governing load effect is chosen per brace.</strong> "
+				+ "Every active load effect is evaluated on every brace, and the state with the "
+				+ "highest utilisation governs &mdash; which need not be the same state for two "
+				+ "braces of one joint. Note that it is NOT the state with the largest force: "
+				+ "N<sub>Rd</sub> depends on Q<sub>f</sub>, Q<sub>f</sub> on the chord stresses, and "
+				+ "those on the load effect, so each candidate state has its <b>own resistance</b> "
+				+ "and the resistance is recomputed for every state rather than the forces being "
+				+ "compared against one. Each connection's runner-up column says how close the "
+				+ "decision was.</p>");
+
+			sb.AppendLine("</div>");
+		}
 
 		/// <summary>
 		/// Is a contents page worth printing? Only when some connection has more than one method
@@ -490,43 +560,32 @@ namespace NorsokChecker.Services
 				.Count();
 
 		/// <summary>
-		/// The page footer, from this export's settings. Overrides the default @page rule in
-		/// <see cref="CssStyles"/>, which cannot see them (it is a static string).
+		/// No page footer. The report does not number its own pages — the reader does, in whatever
+		/// document this ends up in.
 		///
-		/// The three modes and the two rules that are not optional:
-		///  • Local      "NORSOK N-004 — 4 / 173". Self-scoping; the default.
-		///  • Continuous "47" alone, from FooterStartAt, with NO total — printing "47 / 173" inside
-		///               a 400-page host document states something false about that document. The
-		///               label matters MORE here, not less: a bare number is indistinguishable from
-		///               the host's own numbering, so it is the only thing saying which document
-		///               the reader is in.
-		///  • Off        nothing, for a host that paginates everything itself.
+		/// Numbering was built, shipped, and taken out again, and the reason is worth keeping:
+		/// **an offset page number cannot be produced in a page margin box on this engine.** Measured
+		/// on WebView2 1.0.2903.40 by printing three pages under six candidate rules
+		/// (PrintedPageProbe.WhatCounterResetDoesToPageNumbering):
 		///
-		/// `counter-reset` on @page is what shifts the start: `counter(page)` is the only counter
-		/// available in page context, so an offset has to come from resetting it on the first page.
+		///   plain, no reset                   1,  2,  3    the only thing that advances
+		///   @page { counter-reset: page 76 }  76, 76, 76   sets the exact value, on EVERY page
+		///   @page:first { reset 77 }          77,  1,  2   applies once, then counting restarts
+		///   reset + counter-increment         77, 77, 77   the increment re-applies too
+		///   document counter, in the content  77, 78, 79   works, but not in the margin
+		///   document counter, in @page box     0,  0,  0   page context sees only `page`/`pages`
+		///
+		/// So "start at page 77" printed 77 on all 187 pages — reported from the running app, which
+		/// is how the defect was found. Rather than keep a setting that cannot do what it says, the
+		/// footer is gone: a report bound into someone else's calculation package is numbered by
+		/// that package, and one read on its own is short enough to page through.
+		///
+		/// The method stays as the seam. If a PDF post-processing pass is ever added — the same one
+		/// /Outlines and the document properties need — page numbers become possible there, stamped
+		/// onto the finished file where the offset is a plain integer.
 		/// </summary>
-		internal static string FooterCss(Models.PageSetup? setup)
-		{
-			var mode = setup?.FooterMode ?? Models.FooterMode.Local;
-			if (mode == Models.FooterMode.Off)
-				return "@page { @bottom-center { content: none; } }";
-
-			string label = setup?.FooterLabel ?? DefaultFooterLabel;
-			// A CSS string literal, so a quote or a backslash in the label would end it early.
-			string safe = label.Replace("\\", "\\\\").Replace("\"", "\\\"");
-			string prefix = string.IsNullOrWhiteSpace(safe) ? "" : $"\"{safe} — \" ";
-
-			if (mode == Models.FooterMode.Continuous)
-			{
-				int start = Math.Max(1, setup?.FooterStartAt ?? 1);
-				// counter(page) starts at 1, so the reset is start-1.
-				return "@page { counter-reset: page " + (start - 1) + "; @bottom-center { content: "
-					+ prefix + "counter(page); } }";
-			}
-
-			return "@page { @bottom-center { content: " + prefix
-				+ "counter(page) \" / \" counter(pages); } }";
-		}
+		internal static string FooterCss(Models.PageSetup? setup) =>
+			"@page { @bottom-center { content: none; } }";
 
 		/// <summary>
 		/// The utilisation colour scale, beside the figure it explains.
@@ -1445,11 +1504,11 @@ namespace NorsokChecker.Services
 			if (assessed)
 			{
 				sb.AppendLine("  <p class='deriv-h'>Joint plane and force transformation</p>");
-				sb.AppendLine("  <p class='deriv-note'>The &sect;6.4 checks are evaluated on forces "
-					+ "resolved into the JOINT plane, not on the member load effects as IDEA StatiCa "
-					+ "Connection shows them. This section states how that plane and the chord were "
-					+ "determined, and lists both sets of forces side by side so every checked value "
-					+ "can be traced back to the model.</p>");
+				// One line, pointing at the method chapter. The full explanation used to be here,
+				// which meant six connections carried six copies of it.
+				sb.AppendLine("  <p class='deriv-note'>How this joint's plane and chord were "
+					+ "determined, and both sets of forces side by side. The conventions and the "
+					+ "method are in chapter 3.</p>");
 			}
 			else
 			{
@@ -1561,29 +1620,13 @@ namespace NorsokChecker.Services
 			{
 				sb.AppendLine("  <p class='deriv-h'>Force transformation &mdash; each brace at its "
 					+ "governing load effect</p>");
+				// One line. The conventions, the sub-plane frame and why an off-plane deviation cannot
+				// appear in its own projection are all in the method chapter now — they were repeated
+				// under every assessed connection, and three of the paragraphs had just been added.
 				sb.AppendLine("  <p class='deriv-note'>Left: the member loading in its own local axes, "
-					+ "as the model carries it. Right: the same loading resolved into the brace's "
-					+ "sub-plane, which is what &sect;6.4 checks. Each row is the load effect that "
-					+ "GOVERNS that brace &mdash; the state its check below is evaluated on, which "
-					+ "need not be the same for two braces of one joint. N is positive in TENSION; "
-					+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending OF THE JOINT "
-					+ "PLANE (eq 6.57), not a member's local y and z.</p>");
-
-				// WHICH plane each brace is resolved in — the question the section did not answer, and
-				// the one a reviewer has to be able to ask. Each brace gets the plane of its OWN
-				// chord-brace pair, so its deviation from the FITTED joint plane is absent from its own
-				// projection by construction. Without this paragraph two joints differing only in that
-				// deviation, with identical force tables, look like a calculation that failed to run.
-				sb.AppendLine("  <p class='deriv-note'>Each brace is resolved in the plane of "
-					+ "<b>its own chord&ndash;brace pair</b> &mdash; the normal is "
-					+ "e<sub>x</sub>&nbsp;&times;&nbsp;(brace axis) &mdash; not in the single fitted "
-					+ "joint plane above. The fitted plane does two other things: it decides the K/Y/X "
-					+ "classification and it fixes the SIGN of M<sub>y</sub> consistently across the "
-					+ "braces. So a brace's own <i>off-plane</i> deviation cannot appear in its own "
-					+ "resolved forces; that column is a coplanarity check on the joint, not an input "
-					+ "to this transformation. Two joints differing only in it therefore have "
-					+ "identical force tables, which is a consequence of the frame, not a "
-					+ "transformation that failed to run.</p>");
+					+ "as the model carries it. Right: the same loading resolved into the brace's own "
+					+ "chord&ndash;brace sub-plane, which is what &sect;6.4 checks. Each row is the "
+					+ "state that GOVERNS that brace. Conventions and frame: chapter 3.</p>");
 
 				int offPlane = topo.BracesMeta.Count(b => Math.Abs(b.CoplanarDevDeg) > 0.05);
 				if (topo.BracesMeta.Count > 0)
@@ -1610,19 +1653,9 @@ namespace NorsokChecker.Services
 						+ $"<td>{N(f.Mop / 1e3, 2)} kN&middot;m</td></tr>");
 				}
 				sb.AppendLine("  </table>");
-				// "torsion is excluded by §6.4" read as "the standard deems it irrelevant", which is
-				// not what the clause says and not what we mean. Eq (6.57) has three terms and shear
-				// and torsion are not among them — so they are not checked HERE, and they still have
-				// to be checked. The difference between "not calculated" and "not calculated here"
-				// is the whole point, and the reader needs to be told where to go instead.
-				sb.AppendLine("  <p class='deriv-note'>Section forces are taken AT THE NODE and "
-					+ "projected without an r&times;F transfer, matching the reference "
-					+ "implementation. Eq (6.57) has three terms &mdash; axial, in-plane and "
-					+ "out-of-plane bending &mdash; so the brace's <b>shear and torsion do not enter "
-					+ "this check</b>. That is not a statement that they do not matter: they are "
-					+ "listed above so their magnitude can be seen, and they must be verified "
-					+ "elsewhere (member and section checks to &sect;6.3, and the weld or connection "
-					+ "detail itself).</p>");
+				// Moved to the method chapter: it said the same thing under all six connections. The
+				// wording itself matters and is preserved there — "excluded by §6.4" read as "the
+				// standard deems it irrelevant", which is not what the clause says.
 
 				RenderStateSelection(sb, chapterRows);
 			}
@@ -1655,14 +1688,13 @@ namespace NorsokChecker.Services
 				.ToList();
 			if (rows.Count == 0) return;
 
-			sb.AppendLine("  <p class='deriv-h'>How the governing state was chosen</p>");
-			sb.AppendLine("  <p class='deriv-note'>Every active load effect was evaluated on every "
-				+ "brace, and the state with the highest utilisation governs. Note that this is NOT "
-				+ "the state with the largest force: N<sub>Rd</sub> depends on Q<sub>f</sub>, "
-				+ "Q<sub>f</sub> on the chord stresses, and those on the load effect &mdash; so each "
-				+ "candidate state has its <b>own resistance</b>, and the resistance is recomputed "
-				+ "for every state rather than the forces being compared against one. The runner-up "
-				+ "column says how close the decision was.</p>");
+			sb.AppendLine("  <p class='deriv-h'>Governing state, and by what margin</p>");
+			// The criterion is in chapter 3. What is per-connection is the MARGIN — how close the
+			// decision was on each brace of THIS joint.
+			sb.AppendLine("  <p class='deriv-note'>&Delta; is the gap in percentage points to the "
+				+ "next state. A small margin means a change to the model could hand this brace to a "
+				+ "different state; see chapter 3 for why the state with the largest force is not "
+				+ "necessarily the governing one.</p>");
 			sb.AppendLine("  <table class='deriv-table'>");
 			sb.AppendLine("    <tr><th>member</th><th>governing</th><th>utilisation</th>"
 				+ "<th>runner-up</th><th>&Delta;</th></tr>");
@@ -2415,33 +2447,19 @@ body {
   size: A4 portrait;
   margin: 20mm 15mm;
 
-  /* Page numbers, and the report says whose they are.
-     `counter(page)` in an @page margin box is supported from Chrome 131, and the WebView2 SDK this
-     app pins (1.0.2903.40) IS the 131 build — the third version field mirrors the Chromium build.
-     So this needs no library and no post-processing pass: the exported PDF had no page numbers at
-     all, and 161 pages without them cannot be navigated or cited.
+  /* No footer, and no page numbers. They were built here and removed, because an OFFSET page number
+     cannot be produced in a margin box on this engine: the reset re-applies on every page, and no
+     counter other than the two page ones is visible from page context at all. So a report inserted
+     into a larger document could not be numbered to match it — measured six ways in
+     PrintedPageProbe, and reported from the running app as start-at-77 printing 77 on every page.
+     The reader numbers whatever document this is bound into. FooterCss holds the measurements, and
+     stays as the seam if a PDF post-processing pass is ever added.
 
-     Scoped to the report deliberately. This document is an INSERT — it gets bound into someone
-     else's calculation package — so a bare page number would collide with the host document's own
-     numbering. Naming the standard in front of it cannot be mistaken for the host's own footer,
-     while still letting a reader cite page 7 of the check.
+     ShouldPrintHeaderAndFooter also stays false (MainWindow.Report.cs): WebView2's own furniture
+     would add the print date, the page title and a file:// URI to every page.
+
      (No quotation marks anywhere in this comment: the stylesheet is a C# verbatim string, and a
-     single quote here ends the constant — 171 compile errors, all of them reported further down.)
-
-     ShouldPrintHeaderAndFooter stays false (MainWindow.Report.cs): WebView2's own furniture would
-     add the print date, the page title and a file:// URI on every page. This replaces it.
-
-     Only `page` and `pages` work in page context — user-defined counters do not, and `string()`
-     for a running header carrying the current connection's name is unimplemented in Blink
-     (crbug 376420244), which is why the header below is fixed text. */
-  @bottom-center {
-    /* Doubled quotes: this whole stylesheet is a C# verbatim string, so a CSS string literal has
-       to escape them or the constant ends here. */
-    content: ""NORSOK N-004 — "" counter(page) "" / "" counter(pages);
-    font-family: 'Segoe UI', -apple-system, sans-serif;
-    font-size: 8pt;
-    color: #78909C;
-  }
+     single quote here ends the constant — 171 compile errors, all of them reported further down.) */
 }
 @media print {
   body { background: #fff; padding: 0; }

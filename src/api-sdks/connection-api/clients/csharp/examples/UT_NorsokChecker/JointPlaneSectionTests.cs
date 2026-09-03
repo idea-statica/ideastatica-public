@@ -391,20 +391,31 @@ namespace UT_NorsokChecker
 		{
 			string html = Report();
 
+			// In the METHOD chapter, stated once — it used to be repeated under every assessed
+			// connection, which is the repetition the review objected to. The per-connection section
+			// still has to point at it, which the second half asserts.
+			int method = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			Assert.That(method, Is.GreaterThan(0), "the method chapter is rendered");
+			string chapter = html[method..Math.Min(html.Length, method + 6000)];
+
 			int at = html.IndexOf("Force transformation", StringComparison.Ordinal);
 			Assert.That(at, Is.GreaterThan(0), "the transformation section is rendered");
-			string section = html[at..Math.Min(html.Length, at + 6000)];
+			string section = html[at..Math.Min(html.Length, at + 3000)];
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(section, Does.Contain("its own chord&ndash;brace pair"),
+				Assert.That(chapter, Does.Contain("its own chord&ndash;brace pair"),
 					"the plane each brace is actually resolved in");
-				Assert.That(section, Does.Contain("cannot appear in its own"),
+				Assert.That(chapter, Does.Contain("cannot appear in its own"),
 					"and why its own off-plane deviation cannot show up there");
 				// What the fitted plane IS for, so removing the angle from the inputs does not read as
 				// the plane being decorative.
-				Assert.That(section, Does.Contain("K/Y/X classification"),
+				Assert.That(chapter, Does.Contain("K/Y/X classification"),
 					"the fitted plane's real jobs are named");
+
+				// And the per-connection section says where to find it, rather than repeating it.
+				Assert.That(section, Does.Contain("sub-plane"), "the section names the frame");
+				Assert.That(section, Does.Contain("chapter 3"), "and points at the method");
 			});
 		}
 
@@ -510,22 +521,27 @@ namespace UT_NorsokChecker
 				expandAll: false, jointImages: null,
 				topologies: new Dictionary<string, JointTopology> { ["CON1"] = Topology() });
 
-			int at = html.IndexOf("How the governing state was chosen", StringComparison.Ordinal);
-			Assert.That(at, Is.GreaterThan(0), "the section is rendered");
+			int at = html.IndexOf("Governing state, and by what margin", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the per-connection table is rendered");
 			string section = html[at..Math.Min(html.Length, at + 3000)];
+
+			int method = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			string chapter = html[method..Math.Min(html.Length, method + 6000)];
 
 			Assert.Multiple(() =>
 			{
-				// The criterion, in the words that matter: not the largest force.
-				Assert.That(section, Does.Contain("own resistance"),
+				// The CRITERION is in the method chapter, once: not the largest force, because each
+				// candidate state has its own resistance.
+				Assert.That(chapter, Does.Contain("own resistance"),
 					"each state has its own resistance — the reason force cannot pick the winner");
-				Assert.That(section, Does.Contain("Q<sub>f</sub>"), "and what it depends on");
+				Assert.That(chapter, Does.Contain("Q<sub>f</sub>"), "and what it depends on");
 
-				// The margin, in percentage POINTS and said so — "2.3 %" beside two percentages
-				// invites the reader to take it as a relative difference.
+				// The MARGIN is per connection, in percentage POINTS and said so — "2.3 %" beside
+				// two percentages invites the reader to take it as a relative difference.
 				Assert.That(section, Does.Contain("LE7"), "the runner-up state is named");
 				Assert.That(section, Does.Contain("2.5 pp"),
 					"73.7 % − 71.2 % = 2.5 percentage points, not 2.5 %");
+				Assert.That(section, Does.Contain("percentage points"), "and the unit is named");
 			});
 		}
 
@@ -552,7 +568,7 @@ namespace UT_NorsokChecker
 				expandAll: false, jointImages: null,
 				topologies: new Dictionary<string, JointTopology> { ["CON1"] = Topology() });
 
-			int at = html.IndexOf("How the governing state was chosen", StringComparison.Ordinal);
+			int at = html.IndexOf("Governing state, and by what margin", StringComparison.Ordinal);
 			string section = html[at..Math.Min(html.Length, at + 3000)];
 
 			Assert.Multiple(() =>
@@ -561,6 +577,62 @@ namespace UT_NorsokChecker
 					"one state existed, so nothing could come second");
 				Assert.That(section, Does.Contain("no other state produced a check"),
 					"which is a different fact, and the reader acts differently on it");
+			});
+		}
+
+		/// <summary>
+		/// The method is explained ONCE, not under every connection.
+		///
+		/// Measured on the export: six assessed connections carried six identical copies of six
+		/// explanatory paragraphs — and three of those paragraphs had just been added to answer the
+		/// reviewer's own questions, so answering §6 made §4's repetition worse. Reported from the
+		/// running app.
+		///
+		/// The rule is per-PARAGRAPH rather than a page count: what belongs to a connection stays
+		/// there (its plane, chord, geometry, forces, governing states and how many of ITS braces
+		/// lie in the fitted plane), and what is the same for all of them is stated where a reader
+		/// meets it first.
+		/// </summary>
+		[Test]
+		public void TheMethodIsExplainedOnceNotPerConnection()
+		{
+			// THREE assessed connections, so a per-connection copy shows up as three occurrences.
+			var topos = new Dictionary<string, JointTopology>
+			{
+				["CON1"] = Topology(), ["CON2"] = Topology(), ["CON3"] = Topology(),
+			};
+			var rows = () => new List<NorsokFormulaResult> { Check("M2", 12, "LE12") };
+
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", rows()), ("CON2", rows()), ("CON3", rows()),
+				},
+				expandAll: false, jointImages: null, topologies: topos);
+
+			int Count(string needle) =>
+				System.Text.RegularExpressions.Regex.Matches(
+					html, System.Text.RegularExpressions.Regex.Escape(needle)).Count;
+
+			Assert.Multiple(() =>
+			{
+				// The control: three connections really are in the document, so "once" is a finding
+				// about the prose and not about an empty report.
+				Assert.That(Count("Joint plane and force transformation"), Is.EqualTo(3),
+					"control — three connections, three sections");
+
+				foreach (var paragraph in new[]
+				{
+					"its own chord&ndash;brace pair",       // the sub-plane frame
+					"Shear and torsion do not enter",      // eq (6.57) has three terms
+					"own resistance</b>",                  // why force cannot pick the governing state
+					"positive in TENSION",                 // the sign convention
+					"without an r&times;F transfer",       // forces at the node
+				})
+				{
+					Assert.That(Count(paragraph), Is.EqualTo(1),
+						$"'{paragraph}' must appear once, in the method chapter — not per connection");
+				}
 			});
 		}
 
@@ -577,17 +649,19 @@ namespace UT_NorsokChecker
 		{
 			string html = Report();
 
-			int at = html.IndexOf("Force transformation", StringComparison.Ordinal);
-			Assert.That(at, Is.GreaterThan(0), "the transformation section is rendered");
-			string section = html[at..Math.Min(html.Length, at + 6000)];
+			// In the method chapter now — the wording is what matters, not where it sits, and it
+			// used to sit under all six connections.
+			int at = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the method chapter is rendered");
+			string chapter = html[at..Math.Min(html.Length, at + 6000)];
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(section, Does.Not.Contain("torsion is excluded by"),
-					"the wording that read as a dismissal");
-				Assert.That(section, Does.Contain("do not enter"), "they are outside THIS check");
-				Assert.That(section, Does.Contain("verified elsewhere"), "and must be checked");
-				Assert.That(section, Does.Contain("6.3"), "with a pointer to where");
+				Assert.That(html, Does.Not.Contain("torsion is excluded by"),
+					"the wording that read as a dismissal — nowhere in the document");
+				Assert.That(chapter, Does.Contain("do not enter"), "they are outside THIS check");
+				Assert.That(chapter, Does.Contain("verified elsewhere"), "and must be checked");
+				Assert.That(chapter, Does.Contain("6.3"), "with a pointer to where");
 			});
 		}
 

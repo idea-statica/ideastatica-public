@@ -148,6 +148,42 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The report does not number its own pages.
+		///
+		/// Page numbering was built, shipped, and taken out, and this test exists so it is not
+		/// rebuilt the same way. **An offset page number cannot be rendered in a page margin box on
+		/// this engine.** Measured on WebView2 1.0.2903.40 by printing three pages under six rules
+		/// (PrintedPageProbe.WhatCounterResetDoesToPageNumbering):
+		///
+		///   plain, no reset                   1,  2,  3
+		///   @page { counter-reset: page 76 }  76, 76, 76   the reset re-applies on EVERY page
+		///   @page:first { reset 77 }          77,  1,  2   applies once, then counting restarts
+		///   reset + counter-increment         77, 77, 77
+		///   document counter, in the content  77, 78, 79   works — but not in a margin box
+		///   document counter, in @page box     0,  0,  0   page context sees only page/pages
+		///
+		/// Reported from the running app as "start at 77 and every page says 76", which is both
+		/// halves of that at once. A setting that cannot keep its promise is worse than no setting,
+		/// so the footer is gone and the reader numbers whatever document this is bound into.
+		///
+		/// If a PDF post-processing pass is ever added — the one /Outlines and the document
+		/// properties also need — numbering becomes possible there, where an offset is just an
+		/// integer. FooterCss is left as that seam.
+		/// </summary>
+		[Test]
+		public void TheReportPrintsNoPageNumbers()
+		{
+			string css = NorsokHtmlReportGenerator.FooterCss(new PageSetup());
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(css, Does.Contain("content: none"), "the margin box is emptied");
+				Assert.That(css, Does.Not.Contain("counter(page)"),
+					"and no page counter is printed — an offset one is not renderable here");
+			});
+		}
+
+		/// <summary>
 		/// The export USES the setup — it does not pass null and take WebView2's defaults.
 		///
 		/// This is the assertion the whole class depends on, and the one nothing else covers: a
@@ -213,134 +249,11 @@ namespace UT_NorsokChecker
 			});
 		}
 
-		/// <summary>
-		/// The footer settings survive a Clone. The dialog edits a COPY and hands it back on OK, so
-		/// a field missing from Clone is a setting the user changes and then loses — silently, and
-		/// only in the exported PDF.
-		/// </summary>
-		[Test]
-		public void CloneCarriesTheFooterSettings()
-		{
-			var original = new PageSetup
-			{
-				FooterMode = FooterMode.Continuous,
-				FooterStartAt = 47,
-				FooterLabel = "Appendix C",
-			};
 
-			var copy = original.Clone();
 
-			Assert.Multiple(() =>
-			{
-				Assert.That(copy.FooterMode, Is.EqualTo(FooterMode.Continuous));
-				Assert.That(copy.FooterStartAt, Is.EqualTo(47));
-				Assert.That(copy.FooterLabel, Is.EqualTo("Appendix C"));
-			});
-		}
 
-		/// <summary>Local numbering with the label — today's behaviour, and the default.</summary>
-		[Test]
-		public void FooterDefaultsToLocalNumberingWithTheLabel()
-		{
-			var s = new PageSetup();
-			string css = NorsokHtmlReportGenerator.FooterCss(s);
 
-			Assert.Multiple(() =>
-			{
-				Assert.That(s.FooterMode, Is.EqualTo(FooterMode.Local), "the default mode");
-				Assert.That(css, Does.Contain("counter(page)"), "the page number");
-				Assert.That(css, Does.Contain("counter(pages)"), "and the total");
-				Assert.That(css, Does.Contain("NORSOK N-004"), "prefixed by the label");
-				Assert.That(css, Does.Not.Contain("6.4"), "which no longer repeats the chapter");
-			});
-		}
 
-		/// <summary>
-		/// Continuous mode prints NO total. This is the rule that is not optional: "47 / 173" inside
-		/// a 400-page host document states something false about that document — the total belongs
-		/// to the host, not to the insert.
-		/// </summary>
-		[Test]
-		public void ContinuousFooterPrintsNoTotal()
-		{
-			string css = NorsokHtmlReportGenerator.FooterCss(new PageSetup
-			{
-				FooterMode = FooterMode.Continuous,
-				FooterStartAt = 47,
-			});
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(css, Does.Contain("counter(page)"), "a page number is printed");
-				Assert.That(css, Does.Not.Contain("counter(pages)"),
-					"but never a total — it would describe the host document");
-				// counter(page) starts at 1, so an offset of 46 makes the first page read 47.
-				Assert.That(css, Does.Contain("counter-reset: page 46"),
-					"and it starts where the user said");
-			});
-		}
-
-		/// <summary>
-		/// The label stays available in continuous mode, and empties to nothing.
-		///
-		/// In local mode "n / m" is self-scoping and the label is a convenience; in continuous mode
-		/// the bare number is indistinguishable from the host document's own, so the label is the
-		/// only thing telling a reader which document they are looking at.
-		/// </summary>
-		[Test]
-		public void TheFooterLabelIsOptionalButAvailableInEveryMode()
-		{
-			string withLabel = NorsokHtmlReportGenerator.FooterCss(new PageSetup
-			{
-				FooterMode = FooterMode.Continuous, FooterLabel = "Appendix C",
-			});
-			string without = NorsokHtmlReportGenerator.FooterCss(new PageSetup
-			{
-				FooterMode = FooterMode.Continuous, FooterLabel = "",
-			});
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(withLabel, Does.Contain("Appendix C"), "kept in continuous mode");
-				Assert.That(without, Does.Not.Contain("—"),
-					"an empty label prints the number alone, with no stray separator");
-				Assert.That(without, Does.Contain("counter(page)"), "the number still prints");
-			});
-		}
-
-		/// <summary>Off means no footer at all — for a host that paginates everything itself.</summary>
-		[Test]
-		public void FooterOffPrintsNothing()
-		{
-			string css = NorsokHtmlReportGenerator.FooterCss(new PageSetup { FooterMode = FooterMode.Off });
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(css, Does.Contain("content: none"), "the margin box is emptied");
-				Assert.That(css, Does.Not.Contain("counter(page)"), "no number is printed");
-			});
-		}
-
-		/// <summary>
-		/// A quote in the label cannot end the CSS string early. The label is user input and lands
-		/// inside a CSS string literal, where an unescaped quote would break every later rule in the
-		/// block — including the page size.
-		/// </summary>
-		[Test]
-		public void AQuoteInTheFooterLabelIsEscaped()
-		{
-			string css = NorsokHtmlReportGenerator.FooterCss(new PageSetup
-			{
-				FooterLabel = "the \"main\" report",
-			});
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(css, Does.Contain("\\\""), "the quotes are escaped");
-				// The rule must still be well formed: one opening quote for the content string.
-				Assert.That(css, Does.Contain("counter(page)"), "and the counter survives");
-			});
-		}
 
 		/// <summary>
 		/// The app HANDS the footer rule to the report. Every test above can pass while the export
@@ -379,23 +292,5 @@ namespace UT_NorsokChecker
 			});
 		}
 
-		/// <summary>
-		/// A start-at below 1 is refused rather than silently corrected. The validation belongs to
-		/// the model, where it is assertable without constructing a window.
-		/// </summary>
-		[Test]
-		public void ContinuousModeRefusesAStartBelowOne()
-		{
-			var s = new PageSetup { FooterMode = FooterMode.Continuous, FooterStartAt = 0 };
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(s.IsValid(out string? error), Is.False);
-				Assert.That(error, Does.Contain("page number"));
-				// And it is only a rule for continuous numbering — the value means nothing elsewhere.
-				var local = new PageSetup { FooterMode = FooterMode.Local, FooterStartAt = 0 };
-				Assert.That(local.IsValid(out _), Is.True, "ignored in local mode");
-			});
-		}
 	}
 }

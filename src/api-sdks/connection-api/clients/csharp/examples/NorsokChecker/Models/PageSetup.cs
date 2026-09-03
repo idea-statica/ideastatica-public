@@ -1,33 +1,6 @@
 namespace NorsokChecker.Models
 {
 	/// <summary>
-	/// How the page footer is numbered. Three modes, because this report has two lives: it is read
-	/// on its own, and it is bound into someone else's calculation package.
-	/// </summary>
-	internal enum FooterMode
-	{
-		/// <summary>
-		/// "NORSOK N-004 — 4 / 173". The default, and what a standalone report wants: the "n / m"
-		/// form is self-scoping, so a reader can cite page 7 of the check without ambiguity.
-		/// </summary>
-		Local,
-
-		/// <summary>
-		/// A single running number from <see cref="PageSetup.FooterStartAt"/>, with NO total.
-		/// For a report inserted at a known position in a larger document: printing "47 / 173"
-		/// inside a 400-page package states something false about the package.
-		/// </summary>
-		Continuous,
-
-		/// <summary>
-		/// No footer. For a host document that paginates and numbers everything itself — and it is
-		/// also the answer to the one real objection to a footer in the bottom margin, which is that
-		/// the host's own footer would collide with ours.
-		/// </summary>
-		Off,
-	}
-
-	/// <summary>
 	/// The page the PDF report is printed on: size, orientation, the four margins, and whether
 	/// background colours reach the paper.
 	///
@@ -74,28 +47,11 @@ namespace NorsokChecker.Models
 		/// </summary>
 		internal bool PrintBackgrounds { get; set; } = true;
 
-		/// <summary>
-		/// How the footer numbers pages. <see cref="FooterMode.Local"/> by default — today's
-		/// behaviour, and what a standalone report wants.
-		/// </summary>
-		internal FooterMode FooterMode { get; set; } = FooterMode.Local;
-
-		/// <summary>
-		/// First page number in <see cref="FooterMode.Continuous"/>, for a report inserted into a
-		/// larger document at a known position. Ignored in the other modes.
-		/// </summary>
-		internal int FooterStartAt { get; set; } = 1;
-
-		/// <summary>
-		/// What the footer calls the document. Empty suppresses it.
-		///
-		/// Worth keeping available even though "n / m" is self-scoping: in
-		/// <see cref="FooterMode.Continuous"/> the number is indistinguishable from the host
-		/// document's own, so the label is the only thing telling a reader which document they are
-		/// in. Suppressing it is a legitimate choice, not a sensible default.
-		/// </summary>
-		internal string FooterLabel { get; set; } =
-			Services.NorsokHtmlReportGenerator.DefaultFooterLabel;
+		// No footer settings. Three of them were here — mode, start-at and label — and they are gone
+		// because the feature could not keep its promise: an OFFSET page number cannot be rendered
+		// in a page margin box on this engine, so "start at 77" printed 77 on every page. Measured
+		// six ways in PrintedPageProbe.WhatCounterResetDoesToPageNumbering; the reader numbers the
+		// document this report is bound into.
 
 		internal static double MmToIn(double mm) => mm / MmPerInch;
 
@@ -148,12 +104,6 @@ namespace NorsokChecker.Models
 				return false;
 			}
 
-			if (FooterMode == FooterMode.Continuous && FooterStartAt < 1)
-			{
-				error = "The first page number must be 1 or more.";
-				return false;
-			}
-
 			error = null;
 			return true;
 		}
@@ -167,9 +117,6 @@ namespace NorsokChecker.Models
 			MarginTopMm = MarginTopMm,
 			MarginBottomMm = MarginBottomMm,
 			PrintBackgrounds = PrintBackgrounds,
-			FooterMode = FooterMode,
-			FooterStartAt = FooterStartAt,
-			FooterLabel = FooterLabel,
 		};
 	}
 }

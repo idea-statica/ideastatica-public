@@ -173,8 +173,9 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
-				// 1 Summary, 2 Connection overview, 3..5 the three connections
-				Assert.That(headingNos, Is.EqualTo(new[] { 1, 2, 3, 4, 5 }),
+				// 1 Summary, 2 Connection overview, 3 How the checks are made, 4..6 the connections.
+				// Chapter 3 is the method, pulled out of every connection where it was repeated.
+				Assert.That(headingNos, Is.EqualTo(new[] { 1, 2, 3, 4, 5, 6 }),
 					"chapters run 1..n with no gap and no repeat");
 			});
 		}
@@ -402,32 +403,34 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The footer names the standard and the page, and does NOT repeat the chapter.
-		///
-		/// It used to read "NORSOK N-004 §6.4 — n / m". Of 469 mentions of "6.4" in the reviewed
-		/// sample, 173 were this footer — one per page, the single largest source, on a document
-		/// whose title no longer pins itself to one chapter either. The substantive references stay
-		/// where they belong: the norm box, the chapter headings and the clause citations.
+		/// No footer is printed at all — see PageSetupTests.TheReportPrintsNoPageNumbers for the
+		/// measurements. An OFFSET page number cannot be rendered in a page margin box on this
+		/// engine, so "start at 77" printed 77 on all 187 pages; the setting is gone rather than
+		/// left printing a constant, and the reader numbers the document this is bound into.
 		/// </summary>
 		[Test]
-		public void TheFooterNamesTheStandardWithoutRepeatingTheChapter()
+		public void TheFooterIsEmpty()
 		{
-			string print = PrintBlock(Report());
-
-			var content = System.Text.RegularExpressions.Regex.Match(
-				print, @"@bottom-center\s*\{[^}]*?content:\s*(?<c>[^;]+);",
-				System.Text.RegularExpressions.RegexOptions.Singleline);
+			// The @page rule comes from FooterCss and is passed in per export; the static stylesheet
+			// no longer declares a margin box at all, which is why this reads both.
+			string css = NorsokHtmlReportGenerator.FooterCss(new PageSetup());
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokFormulaResult> { Assessed("M1", 0.476, true) }),
+				},
+				expandAll: false, jointImages: null, topologies: null, footerCss: css);
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(content.Success, Is.True, "the footer has content at all");
-				string c = content.Groups["c"].Value;
-				Assert.That(c, Does.Contain("NORSOK N-004"), "it says which standard");
-				Assert.That(c, Does.Not.Contain("6.4"),
-					"and not the chapter, 173 times over");
-				// Still a citable page reference — the reason the footer exists.
-				Assert.That(c, Does.Contain("counter(page)"), "the page number");
-				Assert.That(c, Does.Contain("counter(pages)"), "and the total");
+				Assert.That(css, Does.Contain("content: none"),
+					"the margin box is emptied — no numbering that cannot honour an offset");
+				Assert.That(css, Does.Not.Contain("counter(page)"), "and no page counter");
+				// And the document really carries that rule rather than a stale one of its own.
+				Assert.That(html, Does.Contain("content: none"), "the export applies it");
+				Assert.That(
+					System.Text.RegularExpressions.Regex.Matches(html, @"counter\(page\)"),
+					Is.Empty, "nothing anywhere prints a page number");
 			});
 		}
 
