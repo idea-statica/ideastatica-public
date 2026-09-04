@@ -704,9 +704,23 @@ namespace NorsokChecker.Services
 			// their own nor a gap in the coverage.
 			int checksPerformed = allResults.Sum(r =>
 				r.formulas.Count(f => !f.IsNote && !f.NotAssessed));
+
+			// QUALIFIED IS ITS OWN BUCKET, and it comes OUT of "passed".
+			//
+			// The summary read "40 Checks performed / 40 Passed / 0 Failed" over an overview that
+			// called CON11 QUALIFIED — the two levels disagreeing about the same connection, and
+			// from the summary alone a reader could not tell that one of the forty rested on
+			// formulas extrapolated outside the §6.4.3.1 validity ranges. That is the round-2
+			// defect (a caveat reaching the detail but not the roll-up) one level up.
+			//
+			// Subtracted rather than added: a qualified check DID pass, so counting it in both
+			// would make the buckets sum to more than the checks performed — the "Total Checks: 55"
+			// mistake in the other direction.
+			int qualified = allResults.Sum(r =>
+				r.formulas.Count(f => !f.IsNote && !f.NotAssessed && f.Passed && f.IsQualified));
 			int passed = allResults.Sum(r =>
-				r.formulas.Count(f => !f.IsNote && !f.NotAssessed && f.Passed));
-			int failed = checksPerformed - passed;
+				r.formulas.Count(f => !f.IsNote && !f.NotAssessed && f.Passed)) - qualified;
+			int failed = checksPerformed - passed - qualified;
 			int notes = allResults.Sum(r => r.formulas.Count(f => f.IsNote));
 
 			// The gaps, in their own unit: rows nobody checked, and how they split by REASON — the
@@ -789,6 +803,13 @@ namespace NorsokChecker.Services
 				+ "<span class='stat-label'>Checks performed</span></div>");
 			sb.AppendLine($"    <div class='stat stat-pass'><span class='stat-value'>{passed}</span>"
 				+ "<span class='stat-label'>Passed</span></div>");
+			// Between Passed and Failed, and only when there are any: a qualified check passed, but
+			// on extrapolated formulas, and the reader has to meet that here rather than sixty
+			// pages later in a detail card.
+			if (qualified > 0)
+				sb.AppendLine($"    <div class='stat stat-warn'><span class='stat-value'>{qualified}"
+					+ "</span><span class='stat-label'>Qualified &mdash; outside &sect;6.4.3.1 "
+					+ "range</span></div>");
 			sb.AppendLine($"    <div class='stat stat-fail'><span class='stat-value'>{failed}</span>"
 				+ "<span class='stat-label'>Failed</span></div>");
 			// The two kinds of gap, separately — one is the norm's boundary, the other is our
@@ -2602,6 +2623,9 @@ body {
 }
 .stat-pass .stat-value { color: #2e7d32; }
 .stat-fail .stat-value { color: #c62828; }
+/* Amber, not green: a qualified check passed on extrapolated formulas. The label carries the
+   words too — the document is read in greyscale as often as in colour. */
+.stat-warn .stat-value { color: #e65100; }
 .stat-governing .stat-value { color: #F57C00; }
 .stat-label {
   display: block;
@@ -2707,6 +2731,17 @@ body {
 
   /* Body text does not leave one line behind. */
   p, li { orphans: 3; widows: 3; }
+
+  /* A VERDICT IS NEVER LEFT ALONE ON A PAGE.
+     Measured on the 227-page export: page 35 held one line, the not-assessed banner, at 2 % fill.
+     The conditions table above it carries break-inside: avoid, did not fit the space left, moved
+     whole to the next page, and left its own verdict bar behind on the old one.
+     The fix is not to let the table split (a list of unmet conditions broken across a page is
+     worse) but to keep the bar WITH what it concludes: a break may not fall immediately before a
+     result bar, nor immediately after the table that feeds it.
+     NB this comment lives inside a C# string literal, so no double quotes here. */
+  .result-bar { break-before: avoid; }
+  .where-table { break-after: avoid; }
 
   /* Contents on a page of its own, and one page per connection.
      The FIRST connection is excepted: the contents page's break-after has already started a new

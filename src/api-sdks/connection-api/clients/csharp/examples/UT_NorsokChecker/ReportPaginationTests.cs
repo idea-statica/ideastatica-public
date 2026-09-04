@@ -375,6 +375,38 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// A VERDICT BAR IS NEVER LEFT ALONE ON A PAGE.
+		///
+		/// Measured on the 227-page export: page 35 carried one line — "Not assessed — the chapter
+		/// does not apply to this joint" — at 2 % fill. The conditions table above it rightly has
+		/// break-inside: avoid (a list of unmet conditions split across a page is worse than a
+		/// short page), did not fit the space left, moved whole to the next page, and left its own
+		/// verdict behind on the old one.
+		///
+		/// Stated as the rule rather than as "page 35 must be fuller", per the principle that a
+		/// layout claim about one export regresses the moment the margins change: a break may not
+		/// fall immediately before a result bar, nor immediately after the table that feeds it.
+		/// </summary>
+		[Test]
+		public void AVerdictBarStaysWithWhatItConcludes()
+		{
+			string print = PrintBlock(Report());
+
+			var before = SelectorsCarrying(print, "break-before:\\s*avoid");
+			var after = SelectorsCarrying(print, "break-after:\\s*avoid");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(before, Does.Contain(".result-bar"),
+					"no page may end immediately before a verdict; guarded before: "
+					+ string.Join(" | ", before));
+				Assert.That(after, Does.Contain(".where-table"),
+					"nor immediately after the conditions table that feeds it; guarded after: "
+					+ string.Join(" | ", after));
+			});
+		}
+
+		/// <summary>
 		/// The check card FLOWS across a page break — it is a container, not a unit.
 		///
 		/// This is a property of the output, not a note-to-self: with `break-inside: avoid` on the

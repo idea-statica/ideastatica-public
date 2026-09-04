@@ -110,9 +110,67 @@ namespace UT_NorsokChecker
 					"CON1 and CON11 were both assessed; only CON5 was not");
 				Assert.That(CounterValue(html, "Checks performed"), Is.EqualTo("2"),
 					"and the qualified check is still a check that was performed");
-				Assert.That(CounterValue(html, "Passed"), Is.EqualTo("2"),
-					"a qualified check PASSED — the caveat is about the formulas, not the outcome");
+
+				// "Passed" is now the UNQUALIFIED passes, and the qualified one has its own bucket.
+				//
+				// This assertion used to read 2 and it was not wrong then — a qualified check does
+				// pass. What it could not express is the level ABOVE: the summary read "40 performed
+				// / 40 passed / 0 failed" while the overview called a connection QUALIFIED, so the
+				// two disagreed about the same joint and nothing in the summary said that one of
+				// the forty rested on extrapolated formulas. Splitting the bucket is what lets the
+				// summary carry the caveat; the buckets still sum to the checks performed.
+				Assert.That(CounterValue(html, "Passed"), Is.EqualTo("1"),
+					"the unqualified pass");
+				Assert.That(CounterValue(html, "Qualified &mdash; outside &sect;6.4.3.1 range"),
+					Is.EqualTo("1"),
+					"and the qualified one, named where the reader meets the totals");
 			});
+		}
+
+		/// <summary>
+		/// The buckets sum to the checks performed — no check is counted twice and none is lost.
+		///
+		/// The failure this guards is the "Total Checks: 55" mistake in the other direction:
+		/// counting a qualified check in both Passed and Qualified would make the parts exceed the
+		/// whole, which is just as unreadable as adding conditions to checks.
+		/// </summary>
+		[Test]
+		public void ThePassFailQualifiedBucketsSumToTheChecksPerformed()
+		{
+			var qualified = Passed(0.737);
+			qualified.RangeQualifier = "M1: θ = 20.0°, outside 30–90°";
+
+			string html = Report(
+				("CON1", new[] { Passed(), Passed(0.4) }),
+				("CON11", new[] { qualified }),
+				("CON2", new[] { Failed() }));
+
+			int performed = int.Parse(CounterValue(html, "Checks performed")!);
+			int passed = int.Parse(CounterValue(html, "Passed")!);
+			int failedN = int.Parse(CounterValue(html, "Failed")!);
+			int qual = int.Parse(
+				CounterValue(html, "Qualified &mdash; outside &sect;6.4.3.1 range")!);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(performed, Is.EqualTo(4), "two passes, one qualified, one failure");
+				Assert.That(passed + failedN + qual, Is.EqualTo(performed),
+					$"{passed} passed + {failedN} failed + {qual} qualified must be {performed}");
+				Assert.That(qual, Is.EqualTo(1));
+			});
+		}
+
+		/// <summary>
+		/// With nothing qualified the bucket is absent — a zero counter is noise on the majority of
+		/// reports, and the summary row is already crowded.
+		/// </summary>
+		[Test]
+		public void TheQualifiedBucketIsAbsentWhenNothingIsQualified()
+		{
+			string html = Report(("CON1", new[] { Passed() }));
+
+			Assert.That(html, Does.Not.Contain("Qualified &mdash; outside"),
+				"no qualified checks, no bucket");
 		}
 
 		/// <summary>
