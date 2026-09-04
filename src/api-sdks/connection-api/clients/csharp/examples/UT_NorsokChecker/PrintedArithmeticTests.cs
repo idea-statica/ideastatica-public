@@ -292,6 +292,135 @@ namespace UT_NorsokChecker
 			});
 		}
 
+		/// <summary>
+		/// An OUT-OF-RANGE brace's derivation does not mix the two §6.4.3.1 passes.
+		///
+		/// The clause is handled correctly — both passes run, the lesser governs, the table above
+		/// the derivation shows both and marks the winner. The DERIVATION is what went wrong: the
+		/// engine keeps the lesser pass's resistances but overwrites β, γ, θ and sinθ with the
+		/// brace's ACTUAL geometry (Norsok64Engine.cs:268-271, deliberately — the validity statement
+		/// must describe the real brace). So the substitution printed the actual sinθ against the
+		/// imposed pass's Q_u: on a 20° brace `38.1 kN · 9.697 · 1.000 = 252.8 kN`, where the
+		/// printed factors give 369.5. The prefactor is pass (a)'s, the result is pass (b)'s.
+		///
+		/// A reader cannot reconcile that, and the page gives them no clue which θ each factor
+		/// belongs to. The fix is to say so in the substitution, not to change either number.
+		/// </summary>
+		[Test]
+		public void TheOutOfRangeDerivationSubstitutionIsSelfConsistent()
+		{
+			// θ = 20° is below the §6.4.3.1 lower limit of 30°, so the limiting pass clamps it.
+			var inp = Joint64Input.FromSI(
+				D: 0.141, T: 0.0065, fyChord: 355e6,
+				d: 0.076, t: 0.0035, fyBrace: 355e6,
+				thetaDeg: 20.0, g: 0.047,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSd: -38.1e3, mipSd: -1.2e3, mopSd: 0.0,
+				sigmaASd: 9.27e6, sigmaMySd: -25.48e6, sigmaMzSd: 0.0,
+				gammaM: 1.15);
+			var result = Norsok64Engine.CheckJoint(inp);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(result.WithinRange, Is.False, "θ = 20° is outside 30–90°");
+				Assert.That(result.LimitingPassApplied, Is.True, "so the second pass ran");
+				Assert.That(result.ThetaLimitingDeg, Is.EqualTo(30.0).Within(0.01),
+					"clamped to the lower limit");
+			});
+
+			string html = NorsokHtmlReportGenerator.GenerateDerivationPage(
+				new JointCheckRow
+				{
+					Name = "M1", Skipped = false, Engine = result, Inputs = inp,
+					Classification = new KyxClass
+					{
+						Name = "M1", FrK = 0.0, FrY = 0.0, FrX = 1.0,
+						NSd = -38.1e3, MipSd = -1.2e3, MopSd = 0.0,
+					},
+					DomClass = "X", Util = result.UtilWeighted, Passed = result.Passed,
+					NRdWeighted = result.NRdWeighted, MRdIp = result.MRdIp, MRdOp = result.MRdOp,
+					WithinRange = result.WithinRange, ChordOverstressed = result.ChordOverstressed,
+				},
+				brace: "M1", connection: "CON11", state: "LE1", utilisation: "—", verdict: "PASS");
+
+			// The N_Rd step, and whether its printed factors give its printed result.
+			// Through to the RESULT div, not to the first </div> — the label closes its own, which
+			// is how an earlier version of this regex captured a heading and nothing else.
+			var step = Regex.Match(html,
+				@"N<sub>Rd</sub>[^<]*&mdash;[^<]*eq \(6\.52\).*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, "the N_Rd step must be on the page");
+
+			// The arithmetic, not the wording: multiply the printed factors and compare with the
+			// printed result. `38.1 kN · 9.697 · 1.000` printed `252.8 kN`, and 38.1 · 9.697 is
+			// 369.5 — the prefactor was built from the actual sinθ (20°, giving 38.1) while Q_u and
+			// the result came from the clamped pass (30°, whose prefactor is 26.1).
+			//
+			// Read the SUBSTITUTION div only. A first version scanned the whole step and swallowed
+			// the digits of the clause reference in the label ("6.4.3.1" became 6.4 · 3.1 · 2.0),
+			// which is a reminder that a number in prose is not a factor.
+			var subst = Regex.Match(step.Value,
+				@"deriv-step-math'>\$\$=\\;(?<s>[^$]*)\$\$.*?deriv-step-res'>\$\$=\\;(?<r>[\d.]+)",
+				RegexOptions.Singleline);
+			Assert.That(subst.Success, Is.True,
+				"the step must carry a substitution and a result; got:\n" + step.Value);
+
+			var vals = Regex.Matches(subst.Groups["s"].Value, @"(\d+(?:\.\d+)?)")
+				.Select(m => double.Parse(m.Groups[1].Value, Inv)).ToArray();
+			Assert.That(vals, Has.Length.GreaterThanOrEqualTo(2),
+				"expected at least a prefactor and Q_u; found " + string.Join(", ", vals));
+
+			double product = vals.Aggregate(1.0, (a, b) => a * b);
+			double printed = double.Parse(subst.Groups["r"].Value, Inv);
+
+			Assert.That(product, Is.EqualTo(printed).Within(Math.Max(0.15, printed * 0.005)),
+				$"the printed factors {string.Join(" · ", vals.Select(v => v.ToString("F3", Inv)))}"
+				+ $" = {product.ToString("F1", Inv)} must give the printed result "
+				+ $"{printed.ToString("F1", Inv)} — on an out-of-range brace the prefactor came from "
+				+ "the actual θ and the result from the clamped pass");
+		}
+
+		/// <summary>
+		/// The moment-resistance substitution evaluates to its own printed result.
+		///
+		/// This is the arithmetic form of the rounded-thickness finding, and it is stronger than
+		/// asserting the absence of `7`: it evaluates `f_y·T²·d / (γ_M·sinθ) · Q_u · Q_f` exactly as
+		/// printed and compares. The reviewed report printed `355 · 7² · 76 / (1.15 · 0.866) ·
+		/// 3.837 · 0.974` against a result of 4.28 kN·m; the expression gives 4961 Nmm·10³ and the
+		/// real 6.5² gives 4278. Whatever precision policy the generator adopts, this test says the
+		/// policy has to keep the line self-consistent.
+		/// </summary>
+		[TestCase("In-plane bending resistance")]
+		[TestCase("Out-of-plane bending resistance")]
+		public void TheMomentResistanceSubstitutionEvaluatesToItsResult(string heading)
+		{
+			var step = Regex.Match(Page(),
+				Regex.Escape(heading) + @".*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, $"the {heading} step must be on the page");
+
+			// f_y · T² · d / (γ_M · sinθ) · Q_u · Q_f  =  result [kN·m]
+			var m = Regex.Match(step.Value,
+				@"dfrac\{(?<fy>[\d.]+)\\cdot (?<T>[\d.]+)\^2\\cdot (?<d>[\d.]+)\}"
+				+ @"\{(?<gm>[\d.]+)\\cdot (?<sin>[\d.]+)\}\\cdot (?<qu>[\d.]+)\\cdot (?<qf>[\d.]+)");
+			Assert.That(m.Success, Is.True,
+				"the substitution must be readable as f_y·T²·d/(γ_M·sinθ)·Q_u·Q_f — got:\n"
+				+ step.Value);
+
+			double G(string k) => double.Parse(m.Groups[k].Value, Inv);
+			// MPa · mm² · mm = N·mm; /1e6 -> kN·m
+			double computed = G("fy") * G("T") * G("T") * G("d") / (G("gm") * G("sin"))
+				* G("qu") * G("qf") / 1e6;
+
+			double printed = double.Parse(
+				Regex.Match(step.Value, @"deriv-step-res'>\$\$=\\;([\d.]+)").Groups[1].Value, Inv);
+
+			Assert.That(computed, Is.EqualTo(printed).Within(Math.Max(0.02, printed * 0.01)),
+				$"the printed expression evaluates to {computed.ToString("F2", Inv)} kN·m but the "
+				+ $"printed result is {printed.ToString("F2", Inv)} — a reader checking this line by "
+				+ "hand gets a different number from the one the check used");
+		}
+
 		private static string N3(double v) => v.ToString("F3", Inv);
 
 		/// <summary>

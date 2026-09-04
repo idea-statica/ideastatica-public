@@ -1328,20 +1328,68 @@ namespace NorsokChecker.Services
 				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
 				null, N(r.QfMoment, 3));
 
+			// THE SUBSTITUTED THICKNESS IS NOT ROUNDED, and the angle belongs to the governing pass.
+			//
+			// Two defects met on this line. `N(tChordMm, 0)` printed a 6.5 mm chord as `7`, and the
+			// result depends on its SQUARE: `355 · 7² · 76 / (1.15 · 0.866) · 3.837 · 0.974` gives
+			// 4961 where the printed result was 4.28 kN·m — with 6.5² it is 4278. 80 substitutions
+			// in the reviewed report carried the rounded value and none the real one, so evaluating
+			// any printed moment line overstated it by 16 %. `d` beside it was unrounded, which is
+			// what made the line look checkable.
+			//
+			// And r.SinTheta is the ACTUAL angle while Q_u,ipb/opb come from whichever §6.4.3.1 pass
+			// governs — see the N_Rd note below. Same fix: substitute the governing pass's sinθ and
+			// name the angle.
+			//
+			// One decimal on the thickness, not zero: enough for 6.5, and a catalogue wall thickness
+			// is never specified finer.
+			bool momLimiting = r.LimitingPassApplied
+				&& !double.IsNaN(r.NRdLimiting) && !double.IsNaN(r.NRdActual)
+				&& r.NRdLimiting < r.NRdActual;
+			double sinMom = momLimiting && !double.IsNaN(r.ThetaLimitingDeg)
+				? Math.Sin(r.ThetaLimitingDeg * Math.PI / 180.0)
+				: r.SinTheta;
+			string momNote = momLimiting
+				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, 1)}&deg; (&sect;6.4.3.1)"
+				: "";
+
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
-				+ "(Q<sub>u,ipb</sub> shared by all classes, Table 6-3)",
+				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
 				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
-				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
+				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 1)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdIp / 1e3, 2)}\,kN\!\cdot\!m");
 
-			Step(sb, "Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53)",
+			Step(sb, $"Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53){momNote}",
 				@"M_{z,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
-				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 0)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(r.SinTheta, 3)}}}\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}",
+				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 1)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdOp / 1e3, 2)}\,kN\!\cdot\!m");
 
 			// ── one block per ACTIVE mode. An inactive class is computed but plays no part in
 			// this brace's check, and showing it would suggest it does.
-			double baseAx = inp.FyChord * inp.T * inp.T / (inp.GammaM * r.SinTheta);
+			//
+			// THE PREFACTOR BELONGS TO THE PASS THE RESISTANCES CAME FROM.
+			//
+			// r.SinTheta is always the brace's ACTUAL angle — Norsok64Engine keeps β/γ/θ from the
+			// real geometry even when the §6.4.3.1 limiting pass governs the resistance, and rightly
+			// so: the validity statement has to describe the real brace. But the Q_u and N_Rd below
+			// then come from the clamped pass, so a prefactor built on the actual sinθ made the
+			// printed line unreconcilable: a 20° brace printed `38.1 kN · 9.697 · 1.000 = 252.8 kN`,
+			// whose factors give 369.5. 38.1 is the 20° prefactor; the result is the 30° pass's.
+			//
+			// So when the limiting pass governs, substitute ITS sinθ and say which angle it is. The
+			// alternative — printing the actual-θ prefactor and the actual-θ resistance — would be a
+			// different number from the one the check used, which is worse.
+			bool limitingGoverns = r.LimitingPassApplied
+				&& !double.IsNaN(r.NRdLimiting) && !double.IsNaN(r.NRdActual)
+				&& r.NRdLimiting < r.NRdActual;
+			double sinAx = limitingGoverns && !double.IsNaN(r.ThetaLimitingDeg)
+				? Math.Sin(r.ThetaLimitingDeg * Math.PI / 180.0)
+				: r.SinTheta;
+			double baseAx = inp.FyChord * inp.T * inp.T / (inp.GammaM * sinAx);
+			string axNote = limitingGoverns
+				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, 1)}&deg; (&sect;6.4.3.1 "
+					+ "limiting pass, which governs here)"
+				: "";
 
 			// K: one sub-block per gap — a brace's K share is a SUM over its pairings, and the sum
 			// alone cannot say whether it is one strong pairing or three weak ones
@@ -1412,7 +1460,7 @@ namespace NorsokChecker.Services
 						N(kt.QuAxial, 3));
 					// All THREE factors the formula above names. The Q_f,K was applied and omitted
 					// here, so the printed product did not give the printed result.
-					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52)",
+					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52){axNote}",
 						@"N_{Rd,i} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
 						kQf == null
 							? $@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}"
@@ -1444,7 +1492,7 @@ namespace NorsokChecker.Services
 						: (r.LoadAxial == "tension" ? @"Q_u = 6.4\,\gamma^{0.6\beta^2}"
 							: @"Q_u = (2.8+(12+0.1\gamma)\beta)\,Q_\beta"),
 					null, N(c.QuAxial, 3));
-				Step(sb, "N<sub>Rd</sub> &mdash; eq (6.52)",
+				Step(sb, $"N<sub>Rd</sub> &mdash; eq (6.52){axNote}",
 					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
 					$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
 					$@"{N(c.NRd / 1e3, 1)}\,kN");
