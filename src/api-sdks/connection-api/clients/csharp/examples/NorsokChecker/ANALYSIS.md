@@ -32,9 +32,16 @@ Before any calculation, the app must set the correct material factors via `Setti
 |--------|-------------|-------------|---------|
 | γM0 | **1.15** | 1.0 | Class 1,2,3 cross-sections |
 | γM1 | **1.15** | 1.0 | Class 4 cross-sections, buckling |
-| γM2 | **1.30** | 1.25 | Net section at bolt holes, welds, bolts |
-| γM3 | **1.30** | 1.25 | Slip-resistant connections |
+| γM2 | **1.30** | 1.25 | Net section at bolt holes, fillet and partial penetration welds, bolted connections |
 | γBC | **1.05** | N/A | Additional building code factor (§6.1) |
+
+> **There is no γM3 row, and there never should have been one.** Verified against N-004 Rev. 3
+> page 14: Table 6-1 lists γM0, γM1 and γM2 only, and neither "M3" nor "slip" appears anywhere in
+> the standard. This table used to carry `γM3 | 1.30 | 1.25 | Slip-resistant connections`, the
+> report printed that row under the standard's own caption, and `ProjectSettingsService` wrote the
+> value into the engineer's project — a factor with no basis, in a tool that discloses it modifies
+> the input model. γM3 is a real EN 1993-1-8 factor; where N-004 is silent the project's own value
+> stands, so the app now leaves it untouched and logs that it did.
 
 > **Note**: γM is not constant for class 4 cross-sections — see §6.3.7 Equation (6.22).
 > For λs < 0.5: γM = 1.15

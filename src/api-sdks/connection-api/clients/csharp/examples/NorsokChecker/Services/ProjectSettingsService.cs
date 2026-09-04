@@ -106,12 +106,20 @@ namespace NorsokChecker.Services
 				_log($"  γM2 = {GammaM2_Norsok} (Welds, bolts, net section)  [{keyM2}]: {settings[keyM2]} → {GammaM2_Norsok}");
 				updates[keyM2] = GammaM2_Norsok;
 			}
+			// γM3 IS LEFT ALONE — it is not in Table 6-1.
+			//
+			// This used to write 1.30 into the project with the comment "γM3 also gets 1.30 in
+			// Norsok (same as γM2 for slip-resistant connections)". Verified against N-004 Rev. 3
+			// page 14: Table 6-1 lists γM0, γM1 and γM2 and nothing else, and neither "M3" nor
+			// "slip" occurs anywhere in the standard. So the value had no basis, and this is not a
+			// display defect — the tool MODIFIES the engineer's project, and the report says so.
+			//
+			// Not zeroed or removed either: γM3 is a real EN 1993-1-8 factor for slip-resistant
+			// connections, and the project's own value is the right one to keep where the standard
+			// is silent. Logged so a reader of the run can see it was a decision.
 			if (keyM3 != null)
-			{
-				// γM3 also gets 1.30 in Norsok (same as γM2 for slip-resistant connections)
-				_log($"  γM3 = {GammaM2_Norsok} (Slip-resistant connections)  [{keyM3}]: {settings[keyM3]} → {GammaM2_Norsok}");
-				updates[keyM3] = GammaM2_Norsok;
-			}
+				_log($"  γM3 left at {settings[keyM3]} — not in Table 6-1 (EN 1993-1-8 governs it; "
+					+ "N-004 names no γM3)");
 
 			_log($"  γBC = {GammaBC_NotApplied} NOT applied — §6.1 asks for it only where factors "
 				+ "OTHER than Table 6-1 are used, and Table 6-1 is what was just set above");
