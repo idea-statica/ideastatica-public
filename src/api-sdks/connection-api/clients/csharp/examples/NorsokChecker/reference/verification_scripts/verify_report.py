@@ -25,6 +25,16 @@ import subprocess
 import sys
 from pathlib import Path
 
+# The report is full of typography -- section signs, en dashes, the disclosure triangles this very
+# script hunts for -- and a Windows console defaults to cp1252, so printing a finding raised
+# UnicodeEncodeError and the run died half way through its own checks. Reconfiguring the streams
+# here means the script no longer has to be invoked with PYTHONUTF8=1 to survive its own output.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 try:
     import pypdf
 except ImportError:
@@ -193,6 +203,45 @@ def main(argv: list[str]) -> int:
         # sample -- the reviewer's clearest case of wasted space -- has 18 lines with the last ink
         # on line 15, which as a self-relative ratio reads 83 % full. Dividing by the tallest page
         # (66 lines) instead gives 24 %, which is what the eye sees.
+        # A PAGE CARRYING A FIGURE IS NOT AN EMPTY PAGE.
+        #
+        # The line count above is blind to anything that is not text, so a chapter-opening page
+        # whose upper half is a joint figure reads as nearly empty and this check reported a defect
+        # on the title page. Measured on the 227-page export: p1 66 %, p5/p39/p66 38/38/22 % -- all
+        # four are figure pages and none is wasted space. The one real finding in that run (p35, a
+        # single verdict line at 2 %) has no image at all, which is exactly the discrimination the
+        # image area restores.
+        #
+        # A page's fill is its text fill PLUS the height its images take, capped at 1. Not the
+        # greater of the two: a figure page carries both, one above the other, and taking the max
+        # left p5 at 55 % (image alone) when text and picture together fill it -- measured, the
+        # first version of this fix changed nothing at all because of that. Images are read per
+        # page from the PDF resources, so a page with none behaves exactly as before.
+        def image_fraction(page_index: int) -> float:
+            try:
+                pg = r.reader.pages[page_index]
+                box = pg.mediabox
+                page_h = float(box.height) or 1.0
+                res = pg.get("/Resources") or {}
+                xobjs = res.get("/XObject")
+                if not xobjs:
+                    return 0.0
+                xobjs = xobjs.get_object()
+                # A drawn image's height on the page is in the content stream's CTM, which is more
+                # than this needs; the image's own pixel height against the page height is a good
+                # enough proxy for "does this page hold a picture worth a third of it".
+                total = 0.0
+                for name in xobjs:
+                    ob = xobjs[name].get_object()
+                    if ob.get("/Subtype") == "/Image":
+                        h = float(ob.get("/Height", 0) or 0)
+                        # 96 dpi is what the generator draws at; converting to points keeps the
+                        # comparison with page height honest.
+                        total += h * 72.0 / 96.0
+                return min(total / page_h, 1.0)
+            except Exception:
+                return 0.0
+
         last_inked = []
         for i, page in enumerate(pages[:len(r.reader.pages)], 1):
             lines = page.split("\n")
@@ -200,7 +249,7 @@ def main(argv: list[str]) -> int:
                      if ln.strip() and "NORSOK N-004" not in ln]
             last_inked.append((i, (max(inked) + 1) if inked else 0))
         tallest = max(n for _, n in last_inked) or 1
-        fills = [(i, n / tallest) for i, n in last_inked]
+        fills = [(i, min(n / tallest + image_fraction(i - 1), 1.0)) for i, n in last_inked]
         thin = sorted((p for p, f in fills if f < 0.65), key=lambda p: p)
         median = sorted(f for _, f in fills)[len(fills) // 2]
         c.add(len(thin) <= len(fills) * 0.1, "pages are not left mostly blank",
