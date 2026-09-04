@@ -1444,6 +1444,24 @@ namespace NorsokChecker.Services
 			var dom = r.PerClass.TryGetValue(
 				Enum.TryParse<Norsok64.Joint64Class>(row.DomClass, out var dc) ? dc : Norsok64.Joint64Class.K,
 				out var dr) ? dr : null;
+
+			// THE AXIAL TERM COMES FROM THE WEIGHTED RESISTANCE — the same N_Rd the total uses.
+			//
+			// It used to print dom.UtilAxialTerm, which is N_Sd / N_Rd(dominant mode), while the
+			// total beside it is the engine's weighted sum. On a MULTI-MODE brace those are
+			// different numbers, so the three printed terms did not add up to the printed total:
+			// the governing brace of the reviewed report showed 32.44 + 1.43 + 47.30 = 73.73 %,
+			// three figures that sum to 81.17. 21 of that report's 40 checks were affected and the
+			// error ran both ways (+7.44 pp and -5.36 pp), so a reader could not even assume the
+			// breakdown erred safely. The 19 single-mode checks balanced, which is exactly why it
+			// survived: on those two resistances coincide.
+			//
+			// The dominant mode's own term is not lost — the per-mode table above prints each
+			// mode's resistance, which is where a reader looks for it.
+			double axialTerm = r.NRdWeighted > 0.0 && row.Inputs != null
+				? Math.Abs(row.Inputs.NSd) / r.NRdWeighted
+				: 0.0;
+
 			// The step's label says what the three terms ARE, not the heading again. Both used to read
 			// "Utilisation — eq (6.57)", printing it twice in immediate succession — 60 times in a
 			// 30-check report. The HEADING is the half that stays: it anchors the four-phase order the
@@ -1451,7 +1469,7 @@ namespace NorsokChecker.Services
 			Step(sb, "Sum of the three interaction terms &mdash; axial, in-plane, out-of-plane",
 				@"u = \dfrac{N_{Sd}}{N_{Rd}} + \left(\dfrac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\dfrac{M_{z,Sd}}{M_{z,Rd}}\right|",
 				dom == null ? null
-					: $@"{N(dom.UtilAxialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
+					: $@"{N(axialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
 				$@"{N(row.Util * 100, 2)}\%\ \ \text{{{(row.Passed ? "PASS" : "FAIL")}}}");
 
 			if (r.ChordOverstressed)
