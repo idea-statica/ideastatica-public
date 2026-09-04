@@ -4,7 +4,7 @@
   {
    "id": 1,
    "name": "CHS457/16.0",
-   "crossSectionType": "CHS",
+   "crossSectionType": "rolledCHS",
    "material": {
     "element": {
      "name": "S 355",
@@ -16,7 +16,7 @@
   {
    "id": 2,
    "name": "CHS273/12.0",
-   "crossSectionType": "CHS",
+   "crossSectionType": "rolledCHS",
    "material": {
     "element": {
      "name": "S 355",
@@ -28,7 +28,7 @@
   {
    "id": 3,
    "name": "CHS168.3/8.0",
-   "crossSectionType": "CHS",
+   "crossSectionType": "rolledCHS",
    "material": {
     "element": {
      "name": "S 355",
@@ -40,7 +40,7 @@
   {
    "id": 4,
    "name": "CHS114.3/6.3",
-   "crossSectionType": "CHS",
+   "crossSectionType": "rolledCHS",
    "material": {
     "element": {
      "name": "S 355",
@@ -52,7 +52,7 @@
   {
    "id": 5,
    "name": "CHS139.7/8.0",
-   "crossSectionType": "CHS",
+   "crossSectionType": "rolledCHS",
    "material": {
     "element": {
      "name": "S 355",
