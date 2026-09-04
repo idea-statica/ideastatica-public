@@ -68,18 +68,20 @@ namespace NorsokChecker.Services
 				// the shipped report, and only one of them was true.
 				var gateRows = results.Where(f => !f.IsNote && f.NotAssessed).ToList();
 				int gates = gateRows.Count;
-				bool blocked = gateRows.Any(f => f.Reason == NotAssessedReason.NotEvaluated);
+				bool blocked = gateRows.Any(f => f.Reason.IsBlockedInput());
 
-				// Nothing to check, and WHICH nothing. All three are NotEvaluated rows — each is
+				// Nothing to check, and WHICH nothing. All three are blocked-input rows — each is
 				// fixed by editing the model — but they say different things about what the reader
 				// will find there, and "could not be read" about a joint that read perfectly well is
 				// a false statement about their model.
-				bool allOff = gateRows.Any(f =>
-					(f.CheckExpression ?? "").Contains("switched off",
-						StringComparison.OrdinalIgnoreCase));
-				bool noLoad = gateRows.Any(f =>
-					(f.CheckExpression ?? "").Contains("no load effect",
-						StringComparison.OrdinalIgnoreCase));
+				//
+				// Read from the enum, NOT from the sentence. This pair used to be
+				// `CheckExpression.Contains("switched off")` / `Contains("no load effect")`: the
+				// chapter decided the case, spelled it into prose, and this line spelled it back
+				// out. Swapping the chapter's two sentences swapped these two verdicts and every
+				// test stayed green, because the tests hand-wrote the same strings.
+				bool allOff = gateRows.Any(f => f.Reason == NotAssessedReason.AllSwitchedOff);
+				bool noLoad = gateRows.Any(f => f.Reason == NotAssessedReason.NoLoadEffectDefined);
 
 				string status =
 					!anyNotAssessed ? "Not assessed"

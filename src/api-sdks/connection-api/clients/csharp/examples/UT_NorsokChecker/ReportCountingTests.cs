@@ -550,9 +550,8 @@ namespace UT_NorsokChecker
 		/// but which has no load effect — none defined, or every one switched off in the model (the
 		/// app filters to active-only by default) — read perfectly well. Reporting "the model could
 		/// not be read" about it states a fault that does not exist and sends the reader hunting for
-		/// it. It stays NotEvaluated, because editing the model IS the fix here.
-		/// </summary>
-		/// <summary>
+		/// it. It stays a blocked-input case, because editing the model IS the fix here.
+		///
 		/// DEACTIVATION and ABSENCE read differently, because they are different facts.
 		///
 		/// The API distinguishes them and the app nearly threw it away: it filters to active-only
@@ -565,22 +564,31 @@ namespace UT_NorsokChecker
 		/// load effect would be wrong about their model, and would send them looking for something
 		/// that is not missing.
 		/// </summary>
-		[TestCase("all 15 load effect(s) of this connection are switched off in the model",
+		/// The row carries the case as its REASON, and the sentence is whatever the chapter chose to
+		/// print. This test used to hand Roll the two sentences and the generic NotEvaluated, which
+		/// made it a test of the string-matching it was meant to guard: rewording either sentence in
+		/// Chapter64 broke the product and left this green, and swapping the two swapped the two
+		/// verdicts undetected. Deliberately passing a MISLEADING sentence here — the one belonging
+		/// to the other case — is what proves the verdict no longer comes from the prose.
+		[TestCase(NotAssessedReason.AllSwitchedOff,
+			"this connection has no load effect defined",
 			"switched off", "no load effect defined",
 			TestName = "every state switched off — say so, and do not call the model empty")]
-		[TestCase("this connection has no load effect defined",
+		[TestCase(NotAssessedReason.NoLoadEffectDefined,
+			"all 15 load effect(s) of this connection are switched off in the model",
 			"no load effect defined", "switched off",
 			TestName = "no state defined — say that instead")]
 		public void DeactivationAndAbsenceAreReportedDifferently(
-			string checkExpression, string expected, string notExpected)
+			NotAssessedReason reason, string misleadingSentence,
+			string expected, string notExpected)
 		{
 			var verdict = CheckWorkflow.Roll(new List<NorsokFormulaResult>
 			{
 				new()
 				{
 					Section = "6.4", Title = "Nothing to assess",
-					CheckExpression = checkExpression,
-					NotAssessed = true, Reason = NotAssessedReason.NotEvaluated,
+					CheckExpression = misleadingSentence,
+					NotAssessed = true, Reason = reason,
 				},
 			});
 

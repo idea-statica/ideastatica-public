@@ -28,6 +28,20 @@ namespace NorsokChecker.Services.Chapters
 		/// </summary>
 		internal Action<int, JointTopology>? Topology { get; set; }
 
+		/// <summary>
+		/// How the chapter obtains the connection's members. Null in the app, which reads them from
+		/// the service; set by a test that needs the branches AFTER the member fetch.
+		///
+		/// It exists because those branches were unreachable offline. The member read is not
+		/// optional and its failure is caught as a blocked input, so a test with no service either
+		/// supplied an empty section map — which blocks the chapter before the load effects are
+		/// looked at — or handed in a null client, whose NullReferenceException the catch turns into
+		/// the very same blocked input. Either way the three "nothing to check" cases could not be
+		/// measured, which is how a swap of two of their sentences stayed invisible.
+		/// </summary>
+		internal Func<ChapterContext, CancellationToken, Task<List<JointMemberData>>>? MembersSource
+		{ get; set; }
+
 		public async Task<ChapterOutcome> EvaluateAsync(ChapterContext ctx, CancellationToken ct)
 		{
 			// THE MEMBERS FIRST, then the load effects — the order decides which reason the reader
@@ -47,7 +61,11 @@ namespace NorsokChecker.Services.Chapters
 			List<JointMemberData>? members = null;
 			string? blocked = null;
 
-			if (ctx.SectionMap.Count == 0)
+			if (MembersSource != null)
+			{
+				members = await MembersSource(ctx, ct);
+			}
+			else if (ctx.SectionMap.Count == 0)
 			{
 				blocked = "no cross-section data was available for the project";
 			}
@@ -124,14 +142,26 @@ namespace NorsokChecker.Services.Chapters
 				// active-only before a chapter sees anything. Telling an engineer who deliberately
 				// disabled every state that their model has no load effect would be wrong about
 				// their model and would send them looking for something that is not missing.
-				bool unreadable = ctx.LoadEffects == null;
-				string why =
-					unreadable ? "the load effects of this connection could not be read"
-					: ctx.LoadEffectsInFile > 0
-						? $"all {ctx.LoadEffectsInFile} load effect(s) of this connection are switched "
+				// ONE decision, from which the reason, the title and the sentence are all derived.
+				// They used to be three independent conditionals over the same two facts, and the
+				// roll-up then recovered the reason by matching the sentence — so a reworded
+				// sentence changed a verdict, and swapping two of them swapped two verdicts with
+				// every test still green. The enum is the carrier now; the text is display only.
+				NotAssessedReason reason =
+					ctx.LoadEffects == null ? NotAssessedReason.Unreadable
+					: ctx.LoadEffectsInFile > 0 ? NotAssessedReason.AllSwitchedOff
+					: NotAssessedReason.NoLoadEffectDefined;
+
+				string why = reason switch
+				{
+					NotAssessedReason.Unreadable =>
+						"the load effects of this connection could not be read",
+					NotAssessedReason.AllSwitchedOff =>
+						$"all {ctx.LoadEffectsInFile} load effect(s) of this connection are switched "
 							+ "off in the model — switch one on, or run with 'active load effects "
-							+ "only' unticked"
-						: "this connection has no load effect defined";
+							+ "only' unticked",
+					_ => "this connection has no load effect defined",
+				};
 
 				return new ChapterOutcome
 				{
@@ -141,16 +171,17 @@ namespace NorsokChecker.Services.Chapters
 						{
 							Section = "6.4",
 							Equation = "",
-							Title = unreadable ? "Could not be evaluated"
-								: ctx.LoadEffectsInFile > 0 ? "All load effects switched off"
-								: "No load effect defined",
+							Title = reason switch
+							{
+								NotAssessedReason.Unreadable => "Could not be evaluated",
+								NotAssessedReason.AllSwitchedOff => "All load effects switched off",
+								_ => "No load effect defined",
+							},
 							CheckExpression = why,
 							Formula = "-",
 							FormulaSubstituted = "no §6.4 check was performed for this joint",
 							NotAssessed = true,
-							// Both are fixed by editing the model, so both are NotEvaluated — but
-							// they say different things about what the reader will find there.
-							Reason = NotAssessedReason.NotEvaluated,
+							Reason = reason,
 						},
 					},
 					NotPerformed = new[] { new NotPerformed("§6.4 tubular joint check", why) },

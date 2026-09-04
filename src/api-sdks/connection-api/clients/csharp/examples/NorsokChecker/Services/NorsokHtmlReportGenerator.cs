@@ -701,8 +701,12 @@ namespace NorsokChecker.Services
 			var gapRows = allResults
 				.SelectMany(r => r.formulas.Where(f => !f.IsNote && f.NotAssessed))
 				.ToList();
-			int outsideScope = gapRows.Count(f => f.Reason != NotAssessedReason.NotEvaluated);
-			int notEvaluated = gapRows.Count(f => f.Reason == NotAssessedReason.NotEvaluated);
+			// Ask the predicate, never `== NotEvaluated`: the blocked-input case has three
+			// refinements (switched off / none defined / unreadable), and a `!=` test counted every
+			// one of them as a scope rejection — a joint whose states were merely switched off was
+			// reported to the reader as one §6.4 does not cover.
+			int outsideScope = gapRows.Count(f => f.Reason.IsOutsideScope());
+			int notEvaluated = gapRows.Count(f => f.Reason.IsBlockedInput());
 			int notAssessed = gapRows.Count;
 
 			// And the connections, in theirs — the unit a reviewer actually counts in.

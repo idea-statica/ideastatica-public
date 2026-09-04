@@ -1,7 +1,14 @@
 namespace NorsokChecker.Models
 {
 	/// <summary>
-	/// Why a check was not carried out. Two states that are opposite in what the reader must do.
+	/// Why a check was not carried out — and, where the app can tell them apart, WHICH kind of
+	/// "nothing to check" it was. States that differ in what the reader must do next.
+	///
+	/// The three NotEvaluated refinements exist because the roll-up needs them. They were once
+	/// carried only in the row's sentence, and <see cref="Services.CheckWorkflow"/> recovered them
+	/// by matching that sentence (`Contains("switched off")`). Rewording a sentence then changed a
+	/// verdict, and swapping two sentences swapped two verdicts with every test still green — so
+	/// the reason a joint went unassessed now travels as this enum and the sentence is display text.
 	/// </summary>
 	public enum NotAssessedReason
 	{
@@ -21,6 +28,52 @@ namespace NorsokChecker.Models
 		/// or the input and run again — nothing about the joint has been ruled out.
 		/// </summary>
 		NotEvaluated,
+
+		/// <summary>
+		/// The model read perfectly well and every load effect in it is switched OFF. Nothing
+		/// failed; the engineer disabled them. Distinct from <see cref="NoLoadEffectDefined"/>
+		/// because telling someone who deliberately disabled every state that their model has no
+		/// load effect is false about their model and sends them looking for what is not missing.
+		/// A refinement of <see cref="NotEvaluated"/>: still fixed by editing the model.
+		/// </summary>
+		AllSwitchedOff,
+
+		/// <summary>
+		/// The model read perfectly well and holds no load effect at all — a legitimate state of a
+		/// model someone is still building. A refinement of <see cref="NotEvaluated"/>.
+		/// </summary>
+		NoLoadEffectDefined,
+
+		/// <summary>
+		/// The load effects themselves would not read (CON10: states referencing deleted members).
+		/// The one case of the three where something genuinely failed. A refinement of
+		/// <see cref="NotEvaluated"/>.
+		/// </summary>
+		Unreadable,
+	}
+
+	/// <summary>
+	/// Grouping over <see cref="NotAssessedReason"/>, so that adding a refinement cannot silently
+	/// re-classify a row. Every consumer that used to write `Reason == NotEvaluated` or
+	/// `!= NotEvaluated` must ask here instead: the three refinements ARE not-evaluated cases, and
+	/// a `!=` test would have counted each of them as a scope rejection — which is what the report's
+	/// gap counters did the moment the enum grew.
+	/// </summary>
+	public static class NotAssessedReasonExtensions
+	{
+		/// <summary>
+		/// The inputs could not be produced, in any of its forms. The reader's move is to fix the
+		/// model and run again; nothing about the joint has been ruled out.
+		/// </summary>
+		public static bool IsBlockedInput(this NotAssessedReason r) =>
+			r is NotAssessedReason.NotEvaluated
+				or NotAssessedReason.AllSwitchedOff
+				or NotAssessedReason.NoLoadEffectDefined
+				or NotAssessedReason.Unreadable;
+
+		/// <summary>§6.4 does not cover this joint and no edit to the model will change that.</summary>
+		public static bool IsOutsideScope(this NotAssessedReason r) =>
+			r == NotAssessedReason.OutsideScope;
 	}
 
 	/// <summary>
