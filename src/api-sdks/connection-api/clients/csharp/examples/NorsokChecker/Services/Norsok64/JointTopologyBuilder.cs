@@ -540,7 +540,14 @@ namespace NorsokChecker.Services.Norsok64
 				{
 					double e = Math.Abs(bm.EccAlongM);
 					if (e > EccAlongChordFrac * dChordM)
-						warnings.Add($"{bm.Name}: ecc. along chord e={e * 1000:F0} mm (>D/4={EccAlongChordFrac * dChordM * 1000:F0} mm).");
+						// D/4 comes from Figure 6-1, which dimensions the heavy-wall chord section as
+						// "D/4 or Min.300mm" either side of the ECCENTRICITY it labels. So the number
+						// is not ours out of thin air — but the figure dimensions a joint CAN, not an
+						// admissible eccentricity, so reading it as a limit on the offset is our
+						// choice and the message now says which part is which.
+						warnings.Add($"{bm.Name}: ecc. along chord e={e * 1000:F0} mm "
+							+ $"(>D/4={EccAlongChordFrac * dChordM * 1000:F0} mm — tool tolerance, "
+							+ "from the joint-can dimension in Figure 6-1, not a §6.4 limit).");
 				}
 				if (bm.Beta is double beta && (beta < 0.2 || beta > 1.0))
 					warnings.Add($"{bm.Name}: β={beta:F3} outside 0.2–1.0.");

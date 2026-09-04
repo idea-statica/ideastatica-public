@@ -1235,6 +1235,28 @@ namespace NorsokChecker.Services
 					sb.AppendLine($"        <tr><td>{ConditionHtml(cond)}</td>"
 						+ $"<td>{(ok ? "&#10003; within" : "&#10007; outside")}</td></tr>");
 				sb.AppendLine("      </table>");
+
+				// §6.4.1's GAP PROVISION — informative, and it was missing entirely.
+				//
+				// "The gap for simple K-joints should be larger than 50 mm and less than D"
+				// (N-004 Rev. 3 §6.4.1, read off the clause). It is a detailing requirement in a
+				// General clause, separate from the four §6.4.3.1 validity conditions and worded
+				// with "should", so it changes no verdict and does not join the table above.
+				//
+				// But the string "50 mm" appeared nowhere in a 227-page report whose K gaps were
+				// 2, 8, 9 and 47 mm — every one of them below the provision — while the same report
+				// rejected joints for gap rules at the NEGATIVE end. Stating it is what lets a
+				// reader see that the detailing, not the check, is what deserves attention.
+				if (row.Inputs is { } gi && gi.FrK > 1e-9 && gi.D > 0.0)
+				{
+					double gapMm = gi.G * 1e3, dMmChord = gi.D * 1e3;
+					bool gapOk = gapMm > 50.0 && gapMm < dMmChord;
+					sb.AppendLine("      <p class='deriv-note'>&sect;6.4.1 (detailing, informative): "
+						+ "the gap of a simple K-joint <em>should</em> be larger than 50 mm and less "
+						+ $"than D. Here g = <b>{N(gapMm, 1)} mm</b> against 50 mm &lt; g &lt; "
+						+ $"{N(dMmChord, 0)} mm &mdash; <b>{(gapOk ? "satisfied" : "not satisfied")}</b>. "
+						+ "A &ldquo;should&rdquo; in a General clause: no verdict above depends on it.</p>");
+				}
 			}
 
 			// The out-of-range rule, quoted and shown. §6.4.3.1 does not forbid a joint outside the
@@ -1801,16 +1823,31 @@ namespace NorsokChecker.Services
 						+ "of the table differ by a relabelling and the sign convention above rather "
 						+ "than by arithmetic &mdash; worth knowing before reading the side-by-side "
 						+ "columns as evidence of a computation.</p>");
+				// SHEAR AND TORSION ARE PRINTED, in the model half of the table.
+				//
+				// The method chapter says the other actions "are listed with each brace's forces so
+				// their magnitude can be seen" — and they were not: V_y, V_z and M_x appeared nowhere
+				// in the document. That made the chapter meant to stand on its own the one place
+				// stating something untrue about the report.
+				//
+				// They belong in the model half, not the resolved half: §6.4 does not project them
+				// and eq (6.57) has three terms. A reader who sees them in IDEA StatiCa looks for
+				// them here, and their absence reads as an omission rather than as a scope decision
+				// — so the honest fix is to satisfy the sentence instead of deleting it.
 				sb.AppendLine("  <table class='deriv-table'>");
 				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>governing</th>"
-					+ "<th colspan='3'>from the model (local axes)</th>"
+					+ "<th colspan='6'>from the model (local axes)</th>"
 					+ "<th colspan='3'>resolved into the joint plane</th></tr>");
-				sb.AppendLine("    <tr><th>N</th><th>M<sub>y,loc</sub></th><th>M<sub>z,loc</sub></th>"
+				sb.AppendLine("    <tr><th>N</th><th>V<sub>y</sub></th><th>V<sub>z</sub></th>"
+					+ "<th>M<sub>x</sub></th><th>M<sub>y,loc</sub></th><th>M<sub>z,loc</sub></th>"
 					+ "<th>N<sub>Sd</sub></th><th>M<sub>y,Sd</sub></th><th>M<sub>z,Sd</sub></th></tr>");
 				foreach (var (brace, state, f) in governing)
 				{
 					sb.AppendLine($"    <tr><td><b>{Esc(brace)}</b></td><td>{Esc(state)}</td>"
 						+ $"<td>{N(f.LocalN / 1e3, 1)} kN</td>"
+						+ $"<td class='not-checked'>{N(f.LocalVy / 1e3, 1)} kN</td>"
+						+ $"<td class='not-checked'>{N(f.LocalVz / 1e3, 1)} kN</td>"
+						+ $"<td class='not-checked'>{N(f.LocalMx / 1e3, 2)} kN&middot;m</td>"
 						+ $"<td>{N(f.LocalMy / 1e3, 2)} kN&middot;m</td>"
 						+ $"<td>{N(f.LocalMz / 1e3, 2)} kN&middot;m</td>"
 						+ $"<td>{N(f.NSd / 1e3, 1)} kN</td>"
@@ -1818,6 +1855,10 @@ namespace NorsokChecker.Services
 						+ $"<td>{N(f.Mop / 1e3, 2)} kN&middot;m</td></tr>");
 				}
 				sb.AppendLine("  </table>");
+				sb.AppendLine("  <p class='deriv-note'>V<sub>y</sub>, V<sub>z</sub> and M<sub>x</sub> "
+					+ "are shown for completeness and are <b>not</b> checked here &mdash; eq (6.57) "
+					+ "has three terms. Verify them in the member and section checks and in the weld "
+					+ "or connection detail (see chapter 3).</p>");
 				// Moved to the method chapter: it said the same thing under all six connections. The
 				// wording itself matters and is preserved there — "excluded by §6.4" read as "the
 				// standard deems it irrelevant", which is not what the clause says.
@@ -2418,6 +2459,9 @@ body {
 .deriv-hint { font-size: 11px; color: #78909C; }
 .deriv-note { font-size: 11px; color: #78909C; margin: 3px 0 5px 0; }
 .deriv-note { font-size: 12px; color: #546E7A; margin: 4px 0; }
+/* A value shown for completeness that no check consumes. Greyed so a reader scanning the row
+   does not take it for an input to the resistance — the mistake the off-plane column invited. */
+.not-checked { color: #90A4AE; }
 .deriv-warn {
   font-size: 12px; font-weight: 600; color: #c62828;
   background: #ffebee; border-radius: 4px; padding: 6px 10px; margin: 6px 0;

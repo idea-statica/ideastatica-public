@@ -187,6 +187,26 @@ namespace UT_NorsokChecker
 				Assert.That(table, Does.Contain("88.4 kN"), "M3 is shown at LE9, its own governing state");
 				Assert.That(table, Does.Not.Contain("11.0 kN"),
 					"and nothing comes from LE1 merely because it is first in the list");
+
+				// SHEAR AND TORSION ARE LISTED, in the model half, greyed as unchecked.
+				//
+				// The method chapter says the other actions "are listed with each brace's forces so
+				// their magnitude can be seen" — and V_y, V_z and M_x appeared nowhere in 227 pages,
+				// making the one chapter meant to stand alone the place stating something untrue
+				// about the report. Printing them satisfies the sentence instead of deleting it: an
+				// engineer sees those components in IDEA StatiCa and reads their absence here as an
+				// omission. Model half only — §6.4 does not project them, eq (6.57) has three terms.
+				//
+				// The fixture's own values, so this measures the wiring and not just the headers:
+				// M2 carries V_y = 3200 N and V_z = -1100 N at its governing state.
+				Assert.That(table, Does.Contain("V<sub>y</sub>"), "shear y has a column");
+				Assert.That(table, Does.Contain("V<sub>z</sub>"), "shear z has a column");
+				Assert.That(table, Does.Contain("M<sub>x</sub>"), "torsion has a column");
+				Assert.That(table, Does.Contain("3.2 kN"), "M2's V_y from the model");
+				Assert.That(table, Does.Contain("-1.1 kN"), "and its V_z");
+				Assert.That(table, Does.Contain("not-checked"),
+					"greyed, because no check consumes them — the off-plane column showed how "
+					+ "readily a number beside resistance inputs is taken for one");
 			});
 		}
 

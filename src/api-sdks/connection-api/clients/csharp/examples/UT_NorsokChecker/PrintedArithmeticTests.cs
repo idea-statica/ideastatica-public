@@ -421,6 +421,40 @@ namespace UT_NorsokChecker
 				+ "hand gets a different number from the one the check used");
 		}
 
+		/// <summary>
+		/// §6.4.1's gap provision is stated, with the actual gap, and marked informative.
+		///
+		/// "The gap for simple K-joints should be larger than 50 mm and less than D" (N-004 Rev. 3
+		/// §6.4.1). The string "50 mm" occurred nowhere in a 227-page report whose K gaps were 2, 8,
+		/// 9 and 47 mm — all below it — while the same report rejected joints for gap rules at the
+		/// negative end. The clause says "should", so it must NOT read as a verdict.
+		/// </summary>
+		[Test]
+		public void TheGapProvisionIsStatedAsInformative()
+		{
+			string html = Page();
+			var row = MultiModeRow();
+
+			Assert.That(row.Classification!.FrK, Is.GreaterThan(0.0),
+				"the provision is about K joints, so the fixture must have a K fraction");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Contain("50 mm"), "the provision's threshold is printed");
+				Assert.That(html, Does.Contain("&sect;6.4.1"), "attributed to its own clause");
+				Assert.That(html, Does.Match(@"informative|should"),
+					"and marked as a 'should', not as a check");
+				Assert.That(html, Does.Contain(N(row.Inputs!.G * 1e3, 1)),
+					"beside the joint's actual gap, so the reader can compare");
+			});
+		}
+
+		// Shear and torsion in the per-brace force table are covered in JointPlaneSectionTests,
+		// which owns that section and already has a JointTopology fixture — the table is emitted by
+		// RenderJointPlane and needs one. My first attempt built a report with no topology, where
+		// the table is not rendered at all, so the test failed on an absence it had created itself.
+
+		private static string N(double v, int dp) => v.ToString("F" + dp, Inv);
 		private static string N3(double v) => v.ToString("F3", Inv);
 
 		/// <summary>
