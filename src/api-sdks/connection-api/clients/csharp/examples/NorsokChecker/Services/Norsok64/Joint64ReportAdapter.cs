@@ -148,7 +148,7 @@ namespace NorsokChecker.Services.Norsok64
 					"0.2<=beta<=1.0" => $"β = {r.Beta.ToString("F3", Inv)}, outside 0.2–1.0",
 					"10<=gamma<=50" => $"γ = {r.Gamma.ToString("F1", Inv)}, outside 10–50",
 					"30<=theta<=90" => $"θ = {r.ThetaDeg.ToString("F1", Inv)}°, outside 30–90°",
-					"g/D>-0.6 (K)" => $"g/D = {r.GD.ToString("F2", Inv)}, outside > −0.6 (K)",
+					"g/D>=-0.6 (K)" => $"g/D = {r.GD.ToString("F2", Inv)}, outside ≥ −0.6 (K)",
 					_ => cond,
 				});
 			}

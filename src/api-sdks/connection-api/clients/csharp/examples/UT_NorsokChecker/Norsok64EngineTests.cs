@@ -293,6 +293,49 @@ namespace UT_NorsokChecker
 			});
 		}
 
+		// ── §6.4.3.1 validity range: g/D >= -0.6 for K joints ─────────────────────
+		//
+		// The clause writes it NON-strict (N-004 Rev. 3 p. 28, read off the clause page). The engine
+		// tested `gD > -0.6`, so a K joint at exactly the limit was declared outside the validity
+		// range and its resistance was taken as the lesser of two passes with the extrapolation
+		// caveat printed — on geometry the standard admits. The other three conditions were already
+		// non-strict, which is what made this one look deliberate.
+		//
+		// Nothing tested this condition at all, in either form, so the rename of its dictionary key
+		// (from "g/D>-0.6 (K)") could have broken the report's mapping unnoticed. That is the second
+		// reason this test exists.
+
+		/// <summary>
+		/// A K joint exactly at g/D = -0.6 is INSIDE the range, and the report can name the
+		/// condition — the adapter's message must resolve, not fall through to the raw key.
+		/// </summary>
+		[TestCase(-0.6, true, TestName = "g/D = -0.6 exactly is admitted (non-strict)")]
+		[TestCase(-0.5999, true, TestName = "just inside")]
+		[TestCase(-0.6001, false, TestName = "just outside")]
+		public void TheGapRatioLimitIsNonStrict(double gd, bool expectedWithin)
+		{
+			const double d = 0.141, bigT = 0.0065;
+			var inp = Joint64Input.FromSI(
+				D: d, T: bigT, fyChord: 355e6,
+				d: 0.076, t: 0.0035, fyBrace: 355e6,
+				thetaDeg: 60.0, g: gd * d,           // the gap that produces this g/D
+				frK: 1.0, frY: 0.0, frX: 0.0,
+				nSd: -10e3, mipSd: 0.0, mopSd: 0.0,
+				sigmaASd: 0.0, sigmaMySd: 0.0, sigmaMzSd: 0.0,
+				gammaM: 1.15);
+
+			var r = Norsok64Engine.CheckJoint(inp);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(r.GD, Is.EqualTo(gd).Within(1e-9), "the fixture really produces this g/D");
+				Assert.That(r.Validity.ContainsKey("g/D>=-0.6 (K)"), Is.True,
+					"the condition is keyed non-strictly; the report's adapter matches this string "
+					+ "and would print the raw key if it changed");
+				Assert.That(r.Validity["g/D>=-0.6 (K)"], Is.EqualTo(expectedWithin));
+			});
+		}
+
 		// ── Q_g in the interpolation band, note (b) under Table 6-3 ────────────────
 		//
 		// Round 3 of the report review reported this as the highest-priority finding: a printed

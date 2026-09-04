@@ -239,12 +239,22 @@ namespace NorsokChecker.Services
 			// every value and description in the table is 13 pt. One cell 20 % larger than its row is
 			// what makes nothing line up optically. Text-mode γ<sub> inherits the table's size.
 			// KaTeX stays for display formulas, where its own block layout is what is wanted.
+			// THE ROWS ARE THE STANDARD'S OWN, verified against N-004 Rev. 3 page 14.
+			//
+			// Table 6-1 lists γM0, γM1 and γM2 and NOTHING else. A γM3 = 1.30 "Slip-resistant
+			// connections" row was printed here under the standard's table caption; "slip" does not
+			// occur anywhere in N-004 and neither does M3, so the document attributed to the norm a
+			// factor the norm does not contain. That is worse than a typo in a report which states,
+			// three lines below, that it WRITES these factors into the shared project.
+			//
+			// The standard's own six lines collapse onto three factors; its bolted-connections line
+			// under γM2 was missing and is restored.
 			foreach (var (sub, val, ec3, use) in new[]
 			{
 				("M0", "1.15", "1.00", "Resistance of Class 1, 2 or 3 cross-sections"),
-				("M1", "1.15", "1.00", "Resistance of Class 4 cross-sections; buckling"),
-				("M2", "1.30", "1.25", "Net section at bolt holes; fillet &amp; partial penetration welds"),
-				("M3", "1.30", "1.25", "Slip-resistant connections"),
+				("M1", "1.15", "1.00", "Resistance of Class 4 cross-sections; member buckling"),
+				("M2", "1.30", "1.25", "Net section at bolt holes; fillet &amp; partial penetration "
+					+ "welds; bolted connections"),
 			})
 			{
 				sb.AppendLine($"      <tr><td class='fac'>&gamma;<sub>{sub}</sub></td>"
@@ -271,8 +281,12 @@ namespace NorsokChecker.Services
 			// asked for them split and for the second to be prominent, and both requests are right:
 			// nothing else in the document tells a reader that opening their project afterwards will
 			// find different material factors in it.
+			// VERBATIM. Inside quotation marks the words are the standard's, not ours: this read
+			// "γM0 ... for ULS" where N-004 page 13 has "γM ... for ULSs". Silently tightening a
+			// quotation is how a reader ends up unable to find the sentence in their own copy — and
+			// γM vs γM0 is not cosmetic here, since Table 6-1 assigns different values to γM1/γM2.
 			sb.AppendLine("  <p class='settings-note settings-quote'>&sect;6.1: &ldquo;The material "
-				+ "factor &gamma;<sub>M0</sub> is 1.15 for ULS unless noted otherwise. The material "
+				+ "factor &gamma;<sub>M</sub> is 1.15 for ULSs unless noted otherwise. The material "
 				+ "factors according to Table 6-1 shall be used if NS-EN 1993-1-1 and "
 				+ "NS-EN 1993-1-8 are used for calculation of structural resistance.&rdquo;</p>");
 			sb.AppendLine("  <p class='settings-disclosure'><strong>This tool writes these factors "
@@ -1719,8 +1733,14 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>section</th>"
 					+ "<th colspan='3'>used by the check</th>"
 					+ "<th colspan='2'>coplanarity checks (tool tolerances)</th></tr>");
+				// The last column holds BraceMeta.OopOffsetM — the brace's distance FROM the joint
+				// plane through the chord — and was headed "ecc. along chord", which is a different
+				// quantity (the offset measured ALONG the chord axis, the one the D/4 warning is
+				// about). So the table and its own rejection message disagreed: a reader saw 40 mm
+				// under "along chord" beside a condition reading "40 mm out of the joint plane
+				// through the chord", with no way to tell they were the same number.
 				sb.AppendLine("    <tr><th>&theta;</th><th>&beta;</th><th>chord face</th>"
-					+ "<th>off-plane</th><th>ecc. along chord</th></tr>");
+					+ "<th>off-plane</th><th>offset from joint plane</th></tr>");
 				foreach (var b in topo.BracesMeta)
 				{
 					sb.AppendLine($"    <tr><td><b>{Esc(b.Name)}</b></td>"

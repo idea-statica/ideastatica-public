@@ -132,7 +132,11 @@
 				["0.2<=beta<=1.0"] = 0.2 <= beta && beta <= 1.0,
 				["10<=gamma<=50"] = 10 <= gamma && gamma <= 50,
 				["30<=theta<=90"] = 30 <= inp.ThetaDeg && inp.ThetaDeg <= 90,
-				["g/D>-0.6 (K)"] = (gD > -0.6) || inp.FrK <= 0.0,
+				// >= , not > : §6.4.3.1 writes "g/D >= -0.6 (for K joints)" (N-004 Rev. 3 p. 28,
+				// read off the clause). The strict form put a joint at exactly the limit outside the
+				// validity range and triggered the extrapolation caveat on geometry the standard
+				// admits. The other three conditions were already non-strict.
+				["g/D>=-0.6 (K)"] = (gD >= -0.6) || inp.FrK <= 0.0,
 			};
 			bool within = validity.Values.All(v => v);
 
