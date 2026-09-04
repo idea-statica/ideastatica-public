@@ -99,6 +99,15 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		public string StringValue { get; set; }
 
 		/// <summary>
+		/// The options an <see cref="ConCrossSectionParameterValueKind.Enum"/> dimension offers, under
+		/// their stable names and in the order the shape defines them; <see cref="StringValue"/> is
+		/// always one of them. Set on read for enum dimensions only, absent for every other kind.
+		/// Ignored on write — the chosen option travels in <see cref="StringValue"/>.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public List<string> Options { get; set; }
+
+		/// <summary>
 		/// Which of the value fields this dimension uses. Always set on read. Optional on write —
 		/// omitted means "whatever this dimension is", and a kind that contradicts the addressed
 		/// dimension is rejected, so a switch cannot be written as if it were a length.
