@@ -1350,23 +1350,73 @@ namespace NorsokChecker.Services
 				sb.AppendLine($"      <p class='deriv-h'>Mode K &mdash; fraction of N<sub>Sd</sub> = "
 					+ Pct2(cl.FrK) + (r.KTerms.Count > 1 ? $" (split over {r.KTerms.Count} gaps)" : "")
 					+ "</p>");
+
+				// Q_f FIRST, and once: it is the same for every gap of this brace (the chord stresses
+				// and the Table 6-4 K coefficients do not vary per pairing), so it belongs above the
+				// per-gap blocks rather than repeated inside each.
+				//
+				// It used to be absent altogether. The N_Rd line below promised Q_u,i · Q_f,K and
+				// substituted only the first, so `15.1 kN · 16.425 = 241.9 kN` printed a product
+				// whose printed factors give 248.0 — the 0.978 was applied and shown nowhere, while
+				// Y and X printed theirs correctly. A reader multiplying what they saw got a
+				// resistance 2.5 % high with nothing on the page to explain the gap.
+				var kQf = r.PerClass.TryGetValue(Norsok64.Joint64Class.K, out var kc) ? kc : null;
+				if (kQf != null)
+					Step(sb, $"Q<sub>f</sub>, axial &mdash; class K, C&#8321;={N(kQf.CAxial.C1, 2)}, "
+						+ $"C&#8322;={N(kQf.CAxial.C2, 2)}, C&#8323;={N(kQf.CAxial.C3, 2)}"
+						+ (string.IsNullOrEmpty(kQf.CAxial.Note) ? "" : $" ({Esc(kQf.CAxial.Note)})"),
+						@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
+						$@"1 + {N(kQf.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(kQf.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(kQf.CAxial.C3, 2)}\cdot {N(kQf.QfAxialA2, 4)}",
+						N(kQf.QfAxial, 3));
+
 				for (int i = 0; i < r.KTerms.Count; i++)
 				{
 					var kt = r.KTerms[i];
 					string lbl = r.KTerms.Count > 1 ? $"K{i + 1}" : "K";
 					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {Pct(kt.FrK)} of "
 						+ "N<sub>Sd</sub> balanced across this gap.</p>");
-					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 0)} mm, "
-						+ $"g/D = {N(kt.GapM / inp.D, 3)}",
-						@"Q_g\ (\text{note (b) under Table 6-3})", null, N(kt.Qg, 3));
+					// Q_g SHOWS ITS BRANCH AND ITS INPUTS.
+					//
+					// It was a heading and a value. Note (b) has three branches — g/D >= 0.05,
+					// g/D <= -0.05, and a linear interpolation between their limiting values in
+					// between — and the interpolation turns on phi = (t*fy,brace)/(T*fy,chord),
+					// which appeared nowhere on the page. So two braces of ONE joint both printed
+					// "g = 2 mm, g/D = 0.011" and then 1.188 and 1.810: a 52 % spread from input a
+					// reader sees as identical, feeding Q_u directly. The gap is printed to a tenth
+					// for the same reason — "2 mm" beside "g/D = 0.011" cannot both be right at
+					// D = 141 (2/141 = 0.0142), because the displayed gap was rounded from 1.55.
+					double gdI = kt.GapM / inp.D;
+					double phiI = inp.T > 0.0 && inp.FyChord > 0.0
+						? (inp.t * inp.FyBrace) / (inp.T * inp.FyChord)
+						: 0.0;
+					string qgBranch = gdI >= 0.05
+						? @"Q_g = \max\{1 + 0.2(1-2.8\,g/D)^3,\ 1\}"
+						: gdI <= -0.05
+							? @"Q_g = 0.13 + 0.65\,\varphi\,\gamma^{0.5}"
+							: @"Q_g = Q_g^{-} + (Q_g^{+} - Q_g^{-})\dfrac{g/D + 0.05}{0.10}"
+								+ @"\quad\text{(interpolated)}";
+					string qgSubst = gdI >= 0.05
+						? $@"\max\{{1 + 0.2(1-2.8\cdot {N(gdI, 4)})^3,\ 1\}}"
+						: $@"\varphi = \dfrac{{{N(inp.t * 1e3, 1)}\cdot {N(inp.FyBrace / 1e6, 0)}}}"
+							+ $@"{{{N(inp.T * 1e3, 1)}\cdot {N(inp.FyChord / 1e6, 0)}}} = {N(phiI, 4)}"
+							+ $@",\ \gamma = {N(r.Gamma, 2)},\ g/D = {N(gdI, 4)}";
+					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 1)} mm, "
+						+ $"g/D = {N(gdI, 4)} "
+						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
+						+ " (note (b) under Table 6-3)",
+						qgBranch, qgSubst, N(kt.Qg, 3));
 					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3 class K, "
 						+ $"&beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
 						@"Q_u = \min\{(16+1.2\gamma)\beta^{1.2}Q_g,\ 40\beta^{1.2}Q_g\}",
 						$@"\min\{{(16+1.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)},\ 40\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)}\}}",
 						N(kt.QuAxial, 3));
+					// All THREE factors the formula above names. The Q_f,K was applied and omitted
+					// here, so the printed product did not give the printed result.
 					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52)",
 						@"N_{Rd,i} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
-						$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}",
+						kQf == null
+							? $@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}"
+							: $@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}\cdot {N(kQf.QfAxial, 3)}",
 						$@"{N(kt.NRd / 1e3, 1)}\,kN");
 				}
 			}

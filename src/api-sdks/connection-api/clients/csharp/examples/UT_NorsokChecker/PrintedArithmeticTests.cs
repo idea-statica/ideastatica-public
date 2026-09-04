@@ -166,6 +166,135 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The K-mode N_Rd substitution prints ALL THREE factors, Q_f,K included.
+		///
+		/// The formula line promises `N_Rd,i = f_y·T²/(γ_M·sinθ) · Q_u,i · Q_f,K` and the
+		/// substitution printed only two of them: `15.1 kN · 16.425 = 241.9 kN`, where the product
+		/// of the printed pair is 248.0. The missing factor was Q_f,K = 0.9780, applied by the
+		/// engine and printed nowhere — the reviewed report had zero `Q_f, axial — class K` blocks
+		/// against 10 for Y and 33 for X, which print theirs correctly.
+		///
+		/// A reader multiplying what they see gets a resistance 2.5 % too high and no way to find
+		/// out why.
+		/// </summary>
+		[Test]
+		public void TheKModeResistanceSubstitutionPrintsItsQf()
+		{
+			string html = Page();
+			var row = MultiModeRow();
+			double qfK = row.Engine!.PerClass[Joint64Class.K].QfAxial;
+
+			Assert.That(qfK, Is.Not.EqualTo(1.0).Within(0.001),
+				"this fixture's chord is stressed, so Q_f,K differs from 1 and its absence is "
+				+ "arithmetically visible — with Q_f = 1 the defect would hide");
+
+			var block = Regex.Match(html, @"Mode K.*?(?=<p class='deriv-h'>|</div>\s*</div>)",
+				RegexOptions.Singleline);
+			Assert.That(block.Success, Is.True, "the Mode K section must be on the page");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(block.Value, Does.Contain("Q<sub>f</sub>, axial &mdash; class K"),
+					"class K gets its own Q_f block, as Y and X do");
+				Assert.That(block.Value, Does.Contain(N3(qfK)),
+					$"and the N_Rd substitution carries the factor {N3(qfK)} it was multiplied by");
+			});
+		}
+
+		/// <summary>
+		/// Q_g prints the inputs its branch needs — φ above all, on the branch that uses it.
+		///
+		/// It was a label and a value. Note (b) under Table 6-3 has three branches and the middle
+		/// one interpolates between the other two, which needs φ = (t·f_y,brace)/(T·f_y,chord); φ
+		/// appeared nowhere on the page, so two braces in one joint printed `g = 2 mm,
+		/// g/D = 0.011` and then 1.188 and 1.810 — a 52 % spread from what a reader sees as
+		/// identical input, feeding Q_u directly.
+		///
+		/// SEPARATE FIXTURE, and that is the point: the multi-mode row's gap is 47 mm, i.e.
+		/// g/D = 0.333, which is the plain gap branch where φ plays no part. Asserting φ there
+		/// would demand a quantity the branch does not use — my first version of this test did
+		/// exactly that and failed on correct output. A 2 mm gap at D = 141 gives g/D = 0.014 and
+		/// lands in the interpolation band, which is the case the defect was found on.
+		/// </summary>
+		[Test]
+		public void TheInterpolatedQgBlockPrintsPhiAndItsSubstitution()
+		{
+			var inp = Joint64Input.FromSI(
+				D: 0.141, T: 0.0065, fyChord: 355e6,
+				d: 0.102, t: 0.0065, fyBrace: 355e6,
+				thetaDeg: 45.0, g: 0.002,                    // g/D = 0.014 -> interpolated
+				frK: 1.0, frY: 0.0, frX: 0.0,
+				nSd: -88.8e3, mipSd: -1.2e3, mopSd: 2.4e3,
+				sigmaASd: 9.27e6, sigmaMySd: -25.48e6, sigmaMzSd: 0.0,
+				gammaM: 1.15);
+			var result = Norsok64Engine.CheckJoint(inp);
+
+			Assert.That(inp.G / inp.D, Is.InRange(-0.05, 0.05),
+				"the fixture must be INSIDE the interpolation band, or φ is not what decides it");
+
+			string html = NorsokHtmlReportGenerator.GenerateDerivationPage(
+				new JointCheckRow
+				{
+					Name = "M1", Skipped = false, Engine = result, Inputs = inp,
+					Classification = new KyxClass
+					{
+						Name = "M1", FrK = 1.0, FrY = 0.0, FrX = 0.0,
+						NSd = -88.8e3, MipSd = -1.2e3, MopSd = 2.4e3,
+					},
+					DomClass = "K", Util = result.UtilWeighted, Passed = result.Passed,
+					NRdWeighted = result.NRdWeighted, MRdIp = result.MRdIp, MRdOp = result.MRdOp,
+					WithinRange = result.WithinRange, ChordOverstressed = result.ChordOverstressed,
+				},
+				brace: "M1", connection: "CON1", state: "LE1", utilisation: "—", verdict: "PASS");
+
+			var block = Regex.Match(html,
+				@"Q<sub>g</sub>.*?deriv-step-res.*?</div>", RegexOptions.Singleline);
+			Assert.That(block.Success, Is.True, "the Q_g step must be on the page");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(block.Value, Does.Match(@"\\varphi|\\phi|&phi;"),
+					"φ is what the interpolation branch turns on, so it must be printed");
+				Assert.That(block.Value, Does.Contain("interpolated"),
+					"and the block says which of the three branches was taken");
+				Assert.That(block.Value, Does.Contain("deriv-step-math'>$$=\\;"),
+					"and shows a substitution, not just a result");
+			});
+		}
+
+		/// <summary>
+		/// The plain gap branch names itself and substitutes its own inputs too.
+		///
+		/// The multi-mode fixture's 47 mm gap takes this branch, so it is the one that would go
+		/// unguarded if only the interpolated case were tested. A reader cannot tell which of the
+		/// three branches produced a value unless the block says so — and two braces printing
+		/// different Q_g from the same-looking heading is precisely how the defect surfaced.
+		/// </summary>
+		[Test]
+		public void TheGapBranchQgNamesItselfAndSubstitutes()
+		{
+			var row = MultiModeRow();
+			double gd = row.Inputs!.G / row.Inputs!.D;
+
+			Assert.That(gd, Is.GreaterThanOrEqualTo(0.05),
+				"this fixture's gap is outside the band, so it exercises the gap branch");
+
+			var block = Regex.Match(Page(),
+				@"Q<sub>g</sub>.*?deriv-step-res.*?</div>", RegexOptions.Singleline);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(block.Value, Does.Contain("gap branch"), "the branch is named");
+				Assert.That(block.Value, Does.Not.Contain("interpolated"),
+					"and not described as interpolated, which it is not");
+				Assert.That(block.Value, Does.Contain("deriv-step-math'>$$=\\;"),
+					"a substitution is shown");
+			});
+		}
+
+		private static string N3(double v) => v.ToString("F3", Inv);
+
+		/// <summary>
 		/// Pull the eq (6.57) substitution and result out of the page.
 		///
 		/// Scoped to the interaction step rather than searched document-wide: percentages occur
