@@ -47,3 +47,11 @@ Removed along with the chapter, and worth knowing about:
 |---|---|
 | `CbfemChecks.cs` | the three evaluators — plates (von Mises vs f_y/γ_M0), welds (equivalent stress vs the engine's resistance, or f_u/(β_w·γ_M2)), bolts (tension/shear interaction) |
 | `RawResultsParser.cs` | raw CBFEM JSON → plates / welds / bolts, with stresses, resistances and materials |
+
+## If the calculate path ever returns
+
+**Pair the results to the connections by `Id`, never by position in the array.** The run sends only
+the ticked connections, so the response is shorter than the connection list and its indices do not
+line up: pairing by index awards CON2's utilisation to CON3 whenever anything is unticked, which
+looks plausible and is wrong. This was covered by a test that outlived the code it described
+(`ConnectionSelectionTests.ResultsArePairedByIdNotByPosition`); the test is gone, the rule is not.

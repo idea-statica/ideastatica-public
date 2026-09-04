@@ -285,27 +285,14 @@ namespace UT_NorsokChecker
 			Assert.That(html, Does.Contain("(Eq. 6.57)"), "eq (6.57) is the §6.4.3.6 check");
 		}
 
-		/// <summary>
-		/// The clause prefix is printed ONCE.
-		///
-		/// The card emits §{Section} beside the title, and the blocked-chapter row used to carry
-		/// "§6.4" in its title as well, so the header read "§6.4 §6.4 could not be evaluated".
-		/// Present once in the shipped PDF, which is once too often in a document a customer reads.
-		/// </summary>
-		[Test]
-		public void TheClausePrefixIsNotDoubled()
-		{
-			string html = Report(("CON10", new[]
-			{
-				Rejected("the load effects of this connection could not be read"),
-			}));
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(html, Does.Not.Contain("&sect;6.4 &sect;6.4"), "as emitted");
-				Assert.That(html, Does.Not.Contain("§6.4 §6.4"), "and in case it is ever emitted raw");
-			});
-		}
+		// Removed: TheClausePrefixIsNotDoubled. Neither needle can occur in the MARKUP — the card
+		// emits `section-ref` and `card-title` as two separate AppendLine calls, so a newline always
+		// separates them, and no contiguous "§6.4 §6.4" is ever produced whatever the titles say.
+		// Both assertions were therefore unfailable here.
+		//
+		// The defect was real, but it lives in the extracted TEXT, where the lines are joined. It is
+		// measured there: verify_report.py TEXT_DEFECTS["§6.4 §6.4 (doubled section)"], which runs on
+		// an exported PDF and passed on the reviewed sample.
 
 		/// <summary>
 		/// British spelling throughout — NORSOK and EN use it, and the report mixed both.

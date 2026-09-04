@@ -180,20 +180,12 @@ namespace UT_NorsokChecker
 			Assert.That(topo.Verdict.Errors, Is.Empty);
 		}
 
-		/// <summary>
-		/// Every condition is listed separately. Joining them made a joint that failed six gates
-		/// look like it failed one, and the reader could not tell how much was wrong.
-		/// </summary>
-		[Test]
-		public void EveryUnmetConditionIsCounted()
-		{
-			var topo = Topo("ERROR",
-				"Chord: PIPE127STD is tubular but its D/T are unknown",
-				"M1: 76.0x3.5 is tubular but its D/T are unknown",
-				"M3: IPE100 is RolledI — NORSOK 6.4 applies to tubular sections only");
-
-			Assert.That(topo.Verdict.Errors, Has.Count.EqualTo(3));
-		}
+		// Removed: EveryUnmetConditionIsCounted. It handed Topo() three errors and asserted that
+		// Errors held three — a tautology over the test's own helper, with no production code in
+		// between. The rule it was written for (conditions are listed separately, never joined,
+		// so a joint failing six gates does not read as failing one) is guarded where the reader
+		// sees it: ReportCountingTests asserts the verdict string "Outside §6.4 scope
+		// (2 conditions)" and the per-condition rows in the rejected-joint sheet below.
 	}
 
 	/// <summary>

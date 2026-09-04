@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using IdeaStatiCa.Api.Connection.Model;
 using NorsokChecker.Models;
 using NorsokChecker.Services;
@@ -156,6 +156,10 @@ namespace NorsokChecker
 						// honours the active flags is NOT verified here; if a CBFEM utilisation ever
 						// disagrees with the §6.4 set under this toggle, that is the thing to check
 						// first.
+						// `le.Active`, and not `le.Active != false`: the first version guarded a third
+						// "unstated" state on the assumption that the property was bool?. The compiler
+						// settled it — it is a plain bool, so there are two states and anything
+						// cleverer here guards a case the type system rules out.
 						if (activeLoadEffectsOnly)
 						{
 							int total = loadEffects.Count;

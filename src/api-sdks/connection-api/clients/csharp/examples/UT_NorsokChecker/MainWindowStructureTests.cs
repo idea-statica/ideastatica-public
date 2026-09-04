@@ -20,11 +20,31 @@ namespace UT_NorsokChecker
 				System.Reflection.Assembly.GetExecutingAssembly().Location)!);
 			while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, "NorsokChecker")))
 				dir = dir.Parent;
-			if (dir == null) Assert.Ignore("cannot locate the NorsokChecker source from the test output");
+			// Fail, not Ignore. These tests are the only guard on their wiring, and Ignore made them
+			// pass silently wherever the source tree is absent — a CI artefact, another machine —
+			// which is precisely the situation they exist to survive.
+			if (dir == null) Assert.Fail("cannot locate the NorsokChecker source from the test output");
 			return Path.Combine(dir!.FullName, "NorsokChecker");
 		}
 
 		private static string Read(string file) => File.ReadAllText(Path.Combine(AppDir(), file));
+
+		/// <summary>
+		/// The run assesses the TICKED connections, not every connection in the project.
+		///
+		/// Here on the source because `RunCheck_Click` is a click handler with no seam. It replaces
+		/// four tests that restated `Where(c => c.Selected)` inside themselves and asserted their own
+		/// copy — under the mutation that matters (iterate `_connections`) all four stayed green.
+		/// This at least fails on it.
+		/// </summary>
+		[Test]
+		public void TheRunAssessesTheSelectedConnectionsOnly()
+		{
+			string run = Read("MainWindow.Run.cs");
+
+			Assert.That(run, Does.Match(@"_connections\s*\.?\s*Where\(\s*c\s*=>\s*c\.Selected\s*\)"),
+				"the run must filter the project's connections by the tick box");
+		}
 
 		/// <summary>
 		/// Results reads the results and drives nothing else.

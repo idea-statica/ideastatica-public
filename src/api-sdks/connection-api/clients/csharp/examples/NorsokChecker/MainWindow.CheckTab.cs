@@ -329,6 +329,11 @@ namespace NorsokChecker
 		/// Clicking a body in the 3D view selects its row — the reverse of the hover highlight, so
 		/// the two views agree whichever one the user points at. A click on nothing clears both.
 		/// </summary>
+		// Not unit-tested, and deliberately so. It was once covered by a fixture that built its OWN
+		// DataGrid, set SelectedItem and asserted it came back — a test of WPF that never ran this
+		// method, while reading as coverage of it. What is actually worth guarding here is the
+		// negative below (a clicked body with no row must leave the table alone), and that needs the
+		// real window: see RejectedJointSheetTests / ResultsTabTests for how one is driven.
 		private void Joint3D_MemberClicked(object? sender, int memberId)
 		{
 			if (memberId < 0)

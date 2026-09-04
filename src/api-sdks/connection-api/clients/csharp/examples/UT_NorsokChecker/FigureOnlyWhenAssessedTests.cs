@@ -67,24 +67,32 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The figure comes from a FETCH, not from the selection-filled body cache.
+		/// The figure goes through MeshesForAsync, which FETCHES on a cache miss.
 		///
-		/// This is the original defect and it survived a revert: reading _meshesPerConnection gave a
-		/// figure only to the connections the user had clicked. Confirmed on screen 2026-09-02 — CON8
-		/// assessed cleanly, five checks green, and had no figure because nobody had selected it.
+		/// The original defect: the report read `_meshesPerConnection` directly, and that cache is
+		/// only ever filled by clicking a connection on the Check tab — so a joint nobody had
+		/// selected got no figure. Confirmed on screen 2026-09-02: CON8 assessed cleanly, five
+		/// checks green, no figure.
+		///
+		/// The fix was to route through MeshesForAsync, NOT to stop using the cache — that method
+		/// returns a cached entry when it has one (MainWindow.CheckTab.cs:282) and fetches when it
+		/// does not, which is the point. This test used to assert `_meshesPerConnection` appeared
+		/// nowhere in the report source and described that as "never reads the cache", which was a
+		/// false statement about the app: the figure does read it, via the fetch-on-miss path.
+		/// Asserting the call is what matters, and it is the half that can actually regress.
 		/// </summary>
 		[Test]
-		public void TheFigureIsFetchedRatherThanReadFromTheClickCache()
+		public void TheFigureGoesThroughTheFetchOnMissPath()
 		{
 			string code = ReportSource();
 
 			Assert.Multiple(() =>
 			{
 				Assert.That(code, Does.Contain("MeshesForAsync"),
-					"the figure fetches its bodies");
-				Assert.That(code, Does.Not.Contain("_meshesPerConnection"),
-					"and never reads the cache only selection fills — that is what limited the "
-					+ "figure to the connections the user happened to click");
+					"the figure asks for the bodies, so a connection nobody clicked still gets one");
+				Assert.That(code, Does.Not.Match(@"_meshesPerConnection\s*\.\s*TryGetValue"),
+					"and does not reach past it into the cache, which is what limited the figure to "
+					+ "the connections the user happened to click");
 			});
 		}
 	}

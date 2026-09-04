@@ -69,6 +69,8 @@ namespace UT_NorsokChecker
 				{
 					Assert.That(w.TxtApiPath.Text, Is.EqualTo(Path.Combine(root, "Connection API")),
 						"the constructor must prefill from the detected installation");
+					Assert.That(File.Exists(Path.Combine(w.TxtApiPath.Text, ServiceLocator.ExeName)),
+						Is.True, "and the prefilled path must actually hold the exe");
 					Assert.That(w.TxtApiPath.Text, Does.Not.Contain("Program Files"),
 						"a hardcoded path would still point into the real Program Files");
 				});
@@ -82,6 +84,12 @@ namespace UT_NorsokChecker
 
 		/// <summary>
 		/// The same, called directly — keeps the method itself covered independently of the wiring.
+		///
+		/// It reads as a duplicate of the test above and is not one: that test proves the CONSTRUCTOR
+		/// calls the prefill, this one proves the prefill picks the right path. Two failure modes,
+		/// and the pair exists because the first two versions of this fixture had only the direct
+		/// call and stayed green while the constructor had stopped calling it (measured 2026-08-27).
+		/// Delete either half and one of the two modes stops being covered.
 		/// </summary>
 		[Test]
 		public void TheBoxShowsWhatWasFoundNotTheHardcodedPath()

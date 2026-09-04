@@ -491,110 +491,35 @@ namespace UT_NorsokChecker
 	}
 
 	/// <summary>
-	/// The per-connection "assess this one" checkbox, and the consequence that made it more than a
-	/// UI flag: once the run sends a SUBSET of the project's connections, results can no longer be
-	/// paired with rows by position.
+	/// The per-connection "assess this one" checkbox.
+	///
+	/// Four of the five tests here were removed: they restated `RunCheck_Click`'s own
+	/// `Where(c => c.Selected)` inside the test and then asserted the restatement, so the mutation
+	/// that matters — iterating `_connections` instead of the ticked ones — left every one of them
+	/// green. A fifth pinned the pairing of `calcResults` to rows by Id, for a call that no longer
+	/// exists; that rule now lives in `Services/Cbfem_Mothballed/README.md`, where whoever revives
+	/// the calculate path will meet it.
+	///
+	/// What remains is the one fact about the MODEL rather than about the run.
 	/// </summary>
 	[TestFixture]
 	public class ConnectionSelectionTests
 	{
-		private static List<ConnectionCheckResult> Project() => new()
-		{
-			new() { Id = 1, Name = "CON1" },
-			new() { Id = 2, Name = "CON2" },
-			new() { Id = 3, Name = "CON3" },
-		};
-
-		/// <summary>Opening a project and pressing Run means "check this project".</summary>
+		/// <summary>
+		/// Opening a project and pressing Run means "check this project": a connection is selected
+		/// unless someone unticks it. The default lives on the model, so the grid, the run and the
+		/// report all inherit it — a false default here would silently skip connections.
+		/// </summary>
 		[Test]
 		public void EveryConnectionStartsSelected()
 		{
-			Assert.That(Project().All(c => c.Selected), Is.True);
-		}
-
-		/// <summary>The run's list is the ticked ones, in order.</summary>
-		[Test]
-		public void UntickingOneExcludesItFromTheRun()
-		{
-			var cons = Project();
-			cons[1].Selected = false;
-
-			var selected = cons.Where(c => c.Selected).ToList();
-
-			Assert.That(selected.Select(c => c.Id), Is.EqualTo(new[] { 1, 3 }));
-		}
-
-		/// <summary>
-		/// THE defect this feature would have introduced, pinned. calcResults comes back for the
-		/// connections that were SENT; the old code walked it against the full connection list by
-		/// index. With CON2 unticked, CON3's result (index 1 of the response) would have been
-		/// written onto CON2 (index 1 of the list) — silently, since a utilisation and a status are
-		/// plausible on any row. Pairing by Id is what makes it right.
-		///
-		/// Written as the two pairings side by side so the wrong one is visibly wrong, rather than
-		/// asserting only that the right one works.
-		/// </summary>
-		[Test]
-		public void ResultsArePairedByIdNotByPosition()
-		{
-			var cons = Project();
-			cons[1].Selected = false;                       // CON2 out
-			var sent = cons.Where(c => c.Selected).ToList();  // CON1, CON3
-
-			// what the API returns, in the order it was asked: one entry per SENT connection
-			var response = new[] { (Id: 1, Util: 0.10), (Id: 3, Util: 0.30) };
-
-			// the correct pairing: by id
-			var byId = response.ToDictionary(r => r.Id);
-			foreach (var con in sent)
-				if (byId.TryGetValue(con.Id, out var r)) con.MaxUtilization = r.Util;
-
-			Assert.Multiple(() =>
+			var project = new List<ConnectionCheckResult>
 			{
-				Assert.That(cons[0].MaxUtilization, Is.EqualTo(0.10), "CON1 keeps its own result");
-				Assert.That(cons[1].MaxUtilization, Is.EqualTo(0.0), "CON2 was not run, so it gets nothing");
-				Assert.That(cons[2].MaxUtilization, Is.EqualTo(0.30), "CON3 keeps its own result");
+				new() { Id = 1, Name = "CON1" },
+				new() { Id = 2, Name = "CON2" },
+			};
 
-				// and the pairing that was there before: index into the FULL list
-				Assert.That(response[1].Id, Is.Not.EqualTo(cons[1].Id),
-					"by position, response[1] would have landed on CON2 — which is the bug");
-			});
-		}
-
-		/// <summary>
-		/// A connection left unticked keeps the verdict it already had. Excluding it from a run is
-		/// not the same as having no result, and blanking it would read as a regression.
-		/// </summary>
-		[Test]
-		public void AnUntickedConnectionKeepsItsPreviousVerdict()
-		{
-			var cons = Project();
-			cons[1].NorsokPass = "PASS";
-			cons[1].MaxUtilization = 0.42;
-			cons[1].Selected = false;
-
-			// what the run does: touch only the selected ones
-			foreach (var con in cons.Where(c => c.Selected))
-			{
-				con.NorsokPass = "FAIL";
-				con.MaxUtilization = 1.5;
-			}
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(cons[1].NorsokPass, Is.EqualTo("PASS"));
-				Assert.That(cons[1].MaxUtilization, Is.EqualTo(0.42));
-			});
-		}
-
-		/// <summary>Nothing ticked is a real state the run has to refuse rather than run empty.</summary>
-		[Test]
-		public void NothingSelectedLeavesNothingToRun()
-		{
-			var cons = Project();
-			foreach (var c in cons) c.Selected = false;
-
-			Assert.That(cons.Where(c => c.Selected), Is.Empty);
+			Assert.That(project.All(c => c.Selected), Is.True);
 		}
 	}
 

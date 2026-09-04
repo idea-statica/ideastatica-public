@@ -1,5 +1,4 @@
 using NorsokChecker.Models;
-using NorsokChecker.Services;
 
 namespace UT_NorsokChecker
 {
@@ -147,41 +146,33 @@ namespace UT_NorsokChecker
 			Assert.That(new PageSetup().IsValid(out string? error), Is.True, error);
 		}
 
-		/// <summary>
-		/// The report does not number its own pages.
-		///
-		/// Page numbering was built, shipped, and taken out, and this test exists so it is not
-		/// rebuilt the same way. **An offset page number cannot be rendered in a page margin box on
-		/// this engine.** Measured on WebView2 1.0.2903.40 by printing three pages under six rules
-		/// (PrintedPageProbe.WhatCounterResetDoesToPageNumbering):
-		///
-		///   plain, no reset                   1,  2,  3
-		///   @page { counter-reset: page 76 }  76, 76, 76   the reset re-applies on EVERY page
-		///   @page:first { reset 77 }          77,  1,  2   applies once, then counting restarts
-		///   reset + counter-increment         77, 77, 77
-		///   document counter, in the content  77, 78, 79   works — but not in a margin box
-		///   document counter, in @page box     0,  0,  0   page context sees only page/pages
-		///
-		/// Reported from the running app as "start at 77 and every page says 76", which is both
-		/// halves of that at once. A setting that cannot keep its promise is worse than no setting,
-		/// so the footer is gone and the reader numbers whatever document this is bound into.
-		///
-		/// If a PDF post-processing pass is ever added — the one /Outlines and the document
-		/// properties also need — numbering becomes possible there, where an offset is just an
-		/// integer. FooterCss is left as that seam.
-		/// </summary>
-		[Test]
-		public void TheReportPrintsNoPageNumbers()
-		{
-			string css = NorsokHtmlReportGenerator.FooterCss(new PageSetup());
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(css, Does.Contain("content: none"), "the margin box is emptied");
-				Assert.That(css, Does.Not.Contain("counter(page)"),
-					"and no page counter is printed — an offset one is not renderable here");
-			});
-		}
+		// WHY THE REPORT DOES NOT NUMBER ITS OWN PAGES — kept here as the record, because the
+		// numbering was built, shipped and taken out, and this is what stops it being rebuilt the
+		// same way.
+		//
+		// An offset page number CANNOT be rendered in a page margin box on this engine. Measured on
+		// WebView2 1.0.2903.40 by printing three pages under six rules
+		// (PrintedPageProbe.WhatCounterResetDoesToPageNumbering):
+		//
+		//   plain, no reset                   1,  2,  3
+		//   @page { counter-reset: page 76 }  76, 76, 76   the reset re-applies on EVERY page
+		//   @page:first { reset 77 }          77,  1,  2   applies once, then counting restarts
+		//   reset + counter-increment         77, 77, 77
+		//   document counter, in the content  77, 78, 79   works — but not in a margin box
+		//   document counter, in @page box     0,  0,  0   page context sees only page/pages
+		//
+		// Reported from the running app as "start at 77 and every page says 76", which is both
+		// halves of that at once. A setting that cannot keep its promise is worse than no setting,
+		// so the footer is gone and the reader numbers whatever document this is bound into.
+		//
+		// If a PDF post-processing pass is ever added — the one /Outlines and the document
+		// properties also need — numbering becomes possible there, where an offset is just an
+		// integer. FooterCss is left as that seam.
+		//
+		// The GUARD is ReportPaginationTests.TheFooterIsEmpty, which asserts the same two facts
+		// (FooterCss says `content: none`, no `counter(page)`) and additionally reads the rendered
+		// document. A second test here asserted only the CSS half, so the two failed together on one
+		// change and the weaker could not see the document at all.
 
 		/// <summary>
 		/// The export USES the setup — it does not pass null and take WebView2's defaults.
