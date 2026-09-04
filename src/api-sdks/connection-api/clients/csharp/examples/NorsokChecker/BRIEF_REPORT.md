@@ -41,6 +41,21 @@ failed it at least once.
 11. **Every claim about the output is measured before it is written.** Three statements in our
     round-1 reply were wrong; `reference/verification_scripts/verify_report.py` exists so that
     cannot recur.
+12. **A printed substitution evaluates to its printed result.** Every factor that entered the
+    result appears in the substitution, and no input is displayed at a precision that breaks the
+    arithmetic. This is one rule and it covers five defects that shipped together: the eq (6.57)
+    terms summing to something other than the utilisation beside them (21 of 40 checks, the error
+    running both ways), `Q_f,K` applied without appearing, `Q_g` as a bare value, the chord
+    thickness printed as `7` where the result used 6.5 (80 substitutions), and the out-of-range
+    brace mixing one pass's prefactor with the other's result. A reader adding up three printed
+    numbers is the first check anyone makes, and it is the one the document failed.
+13. **The document does not attribute to the standard anything the standard does not say.** Not a
+    `γ_M3` row Table 6-1 has no such factor for, not a tightened quotation inside quote marks, not
+    a strict inequality where the clause writes `≥`. A tool threshold is labelled as one wherever
+    it prints, even where the number has a basis in a figure.
+14. **The document does not contradict itself.** A column header names what the column holds; a
+    chapter that says shear and torsion "are listed with each brace's forces" lists them; a
+    caveat in the overview reaches the counters that summarise it.
 
 ## Compromises
 
@@ -68,7 +83,16 @@ failed it at least once.
   3 %. Kept because the clause names one set of imposed limits, not a family — but the report must
   not imply the two printed passes are an envelope, because they are not.
 - **Unit formatting is not centralised.** 240 × `kN·m` against 60 × `kNm` in the reviewed sample.
-  One formatter is the fix and it is not built.
+  One formatter is the fix and it is not built. (Note the counts came from one extractor: poppler
+  and pypdf disagree here, because KaTeX puts a spacing strut inside the unit — a character count
+  is a statement about the extractor unless it is settled at font level.)
+- **The internal reviewer is now the only outside view.** The external correspondence is closed
+  (`01_Folders/NORSOK/review/README.md`), so a defect the agent misses is a defect that ships. Its
+  discipline — independent every round with no history, self-opposition before reporting, "it all
+  looks fine" not an available answer — stands in for the reviewer's independence and is not to be
+  softened to reduce noise. Two runs of it, on different models, found five faces of one fault the
+  three external rounds had seen two of; each also produced one wrong conclusion, and both were
+  caught by re-doing the arithmetic rather than by trusting the report.
 
 ## Assumptions
 
