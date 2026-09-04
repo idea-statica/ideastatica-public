@@ -23,15 +23,22 @@ namespace UT_NorsokChecker
 	///
 	/// Probe: needs the live 26.0 service and the .ideaCon. STA, because the figures need WPF.
 	/// Prints the path of the PDF it wrote — read that file, do not trust this test's own asserts.
+	///
+	/// Explicit, not merely Category: a category alone does not stop a plain `dotnet test`, and this
+	/// probe starts a service and renders a report. It used to write straight into the folder the
+	/// reviewer's deliverable is sent from, so an ordinary test run silently replaced a file nobody
+	/// had decided to change. It now writes to TEMP unless NORSOK_PROBE_PDF says otherwise.
 	/// </summary>
-	[TestFixture, Category("Probe"), Apartment(System.Threading.ApartmentState.STA)]
+	[TestFixture, Category("Probe"), Explicit("Starts a live service and renders the whole report")]
+	[Apartment(System.Threading.ApartmentState.STA)]
 	public class TestCsReportProbe
 	{
 		private const string IdeaCon =
 			@"C:\Users\OndrejSkorunka\Claude\01_Folders\NORSOK\ideacon\test_cs.ideaCon";
 
 		private static readonly string OutPdf =
-			@"C:\Users\OndrejSkorunka\Claude\01_Folders\NORSOK\deliver\NORSOK-report-after-review.pdf";
+			Environment.GetEnvironmentVariable("NORSOK_PROBE_PDF")
+			?? Path.Combine(Path.GetTempPath(), "NORSOK-report-probe.pdf");
 
 		private static string SetupDir =>
 			Environment.GetEnvironmentVariable("IDEASTATICA_SETUP_DIR")

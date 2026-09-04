@@ -17,7 +17,7 @@ namespace UT_NorsokChecker
 	///
 	/// Probe: needs a live 26.0 service and the .ideaCon.
 	/// </summary>
-	[TestFixture, Category("Probe")]
+	[TestFixture, Category("Probe"), Explicit("Needs a live service and the real .ideaCon")]
 	public class ReportContentProbe
 	{
 		private const string IdeaCon =

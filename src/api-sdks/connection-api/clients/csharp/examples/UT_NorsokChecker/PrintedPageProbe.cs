@@ -23,7 +23,8 @@ namespace UT_NorsokChecker
 	///
 	/// Run it with:  dotnet test --filter "FullyQualifiedName~PrintedPageProbe"
 	/// </summary>
-	[TestFixture, Category("Probe"), Apartment(System.Threading.ApartmentState.STA)]
+	[TestFixture, Category("Probe"), Explicit("Renders nine PDFs through WebView2; minutes per run")]
+	[Apartment(System.Threading.ApartmentState.STA)]
 	public class PrintedPageProbe
 	{
 		[OneTimeSetUp]

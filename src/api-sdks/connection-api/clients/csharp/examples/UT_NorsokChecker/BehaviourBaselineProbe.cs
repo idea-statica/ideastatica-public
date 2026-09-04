@@ -23,7 +23,7 @@ namespace UT_NorsokChecker
 	/// Probe category: needs a live service and the .ideaCon.
 	///     dotnet test --filter "FullyQualifiedName~BehaviourBaselineProbe"
 	/// </summary>
-	[TestFixture, Category("Probe")]
+	[TestFixture, Category("Probe"), Explicit("Needs a live service and the real .ideaCon")]
 	public class BehaviourBaselineProbe
 	{
 		private const string IdeaCon =

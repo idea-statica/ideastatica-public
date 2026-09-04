@@ -95,7 +95,22 @@ and there was no §6.4.3.1 lesser-of-clamped-capacity rule and no per-gap K weig
   `reference/verification_scripts/` (Lukáš's scripts + benchmark `.ideaCon`).
   Order of truth when a formula is in doubt: N-004 Rev.3 PDF → verification scripts →
   `n64.py` → the C# port (must match all three).
-- **Tests**: `UT_NorsokChecker` — 26 offline (always run) + 4 live (`[Explicit]`).
+- **Tests**: `UT_NorsokChecker` — 452 discovered; **433 run offline** in the plain suite (~10 s),
+  the remaining 19 are `[Explicit]` and are selected by category:
+
+  | what | command | needs |
+  |---|---|---|
+  | the suite | `dotnet test UT_NorsokChecker.csproj --no-build -c Debug` | nothing — no service, no window, no PDF |
+  | the measurement rigs | `dotnet test … --filter TestCategory=Probe` | a live 26.0 service, `test_cs.ideaCon`, a desktop |
+  | the live pins | `dotnet test … --filter TestCategory=Live` | a live service + the benchmark `.ideaCon` files |
+
+  A probe writes its PDF to `%TEMP%` unless `NORSOK_PROBE_PDF` names a path. It must never
+  default into `01_Folders/NORSOK/deliver/` — it used to, and an ordinary test run then replaced
+  the reviewer's deliverable. **`Category` selects; only `Explicit` deselects** — a probe needs
+  both, and one of them carried a comment claiming a category alone was enough.
+
+  Run `TestCategory=Live` before any change to `JointTopologyBuilder`, `JointForceResolver` or
+  `KyxClassifier`: those are the only end-to-end pins against the reference on real files.
 
 ## Open items
 

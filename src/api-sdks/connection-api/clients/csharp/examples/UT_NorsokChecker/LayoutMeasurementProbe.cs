@@ -11,10 +11,14 @@ namespace UT_NorsokChecker
 	/// Design row style and column widths from SizeToHeader — neither is knowable by adding up the
 	/// MinWidths in the XAML, which is what made the first guesses at these numbers wrong.
 	///
-	/// Explicit category so it never runs in the normal suite: it asserts almost nothing and its
-	/// output is for a human. Run with --filter TestCategory=Probe.
+	/// Explicit so it never runs in the normal suite: it asserts almost nothing, its output is for a
+	/// human, and it shows a window. Run with --filter TestCategory=Probe.
+	///
+	/// The category alone did NOT achieve that — a plain `dotnet test` ran it for months while this
+	/// remark claimed otherwise. A category selects; only Explicit deselects.
 	/// </summary>
-	[TestFixture, Category("Probe"), Apartment(System.Threading.ApartmentState.STA)]
+	[TestFixture, Category("Probe"), Explicit("Shows a real window; measures rather than asserts")]
+	[Apartment(System.Threading.ApartmentState.STA)]
 	public class LayoutMeasurementProbe
 	{
 		[OneTimeSetUp]
