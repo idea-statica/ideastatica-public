@@ -292,5 +292,99 @@ namespace UT_NorsokChecker
 				Assert.That(r.Passed, Is.False, "...but chord overstress forces FAIL");
 			});
 		}
+
+		// ── Q_g in the interpolation band, note (b) under Table 6-3 ────────────────
+		//
+		// Round 3 of the report review reported this as the highest-priority finding: a printed
+		// Q_g = 1.188 at g/D = 0.011 "cannot be an interpolated value", because interpolation is
+		// bounded above by the first expression at g/D = 0.05, which is 1.127. The estimated
+		// consequence was N_Rd 241.9 -> 171 kN and a utilisation 47.6 % -> 67 %, non-conservative.
+		//
+		// It is not a defect: the bound is inverted. It holds only when Qg_neg < Qg_pos, and on this
+		// geometry Qg_neg = 1.283 > Qg_pos = 1.127, so across the band interpolation DECREASES with
+		// g/D and every value in it sits ABOVE 1.127. 1.188 is the correct interpolated value.
+		//
+		// The reviewer could not have known — the report prints Q_g as a label and a number with no
+		// substitution and no statement of the branch, unlike every other quantity beside it. These
+		// tests exist because that exchange cost a round: the band was covered only through whole
+		// joints, and not one fixture landed inside it.
+
+		/// <summary>
+		/// The exact case from the review, computed by the engine rather than by hand.
+		///
+		/// CON1/M1: D = 141, T = 6.5, t = 3.5, both materials 355 MPa, g/D = 0.011.
+		/// </summary>
+		[Test]
+		public void QgInterpolatesInsideTheBandAndMayExceedTheUpperExpression()
+		{
+			const double d = 0.141, t = 0.0035, bigT = 0.0065, fy = 355e6;
+			double gamma = d / (2 * bigT);
+
+			double qgBand = Norsok64Engine.Qg(0.011 * d, d, t, bigT, fy, fy, gamma);
+			double qgAtPlus = Norsok64Engine.Qg(0.05 * d, d, t, bigT, fy, fy, gamma);
+			double qgAtMinus = Norsok64Engine.Qg(-0.05 * d, d, t, bigT, fy, fy, gamma);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(qgBand, Is.EqualTo(1.1878).Within(0.0005),
+					"the value the report prints as 1.188");
+				Assert.That(qgAtPlus, Is.EqualTo(1.1272).Within(0.0005),
+					"the g/D >= 0.05 expression at the band edge");
+				Assert.That(qgAtMinus, Is.EqualTo(1.2827).Within(0.0005),
+					"and the g/D <= -0.05 expression, which is the LARGER of the two here");
+				Assert.That(qgBand, Is.GreaterThan(qgAtPlus),
+					"so a value in the band legitimately exceeds the upper-branch edge value — the "
+					+ "assumption that it cannot is what produced the round-3 finding");
+			});
+		}
+
+		/// <summary>
+		/// Continuous at both edges and monotonic across the band — the property that makes the
+		/// interpolation an interpolation, and the one a reader cannot check from the report today.
+		/// </summary>
+		[Test]
+		public void QgIsContinuousAtBothBandEdgesAndMonotonicBetweenThem()
+		{
+			const double d = 0.141, t = 0.0035, bigT = 0.0065, fy = 355e6;
+			double gamma = d / (2 * bigT);
+			double Q(double gD) => Norsok64Engine.Qg(gD * d, d, t, bigT, fy, fy, gamma);
+
+			Assert.Multiple(() =>
+			{
+				// no step where the branches meet: just inside vs just outside
+				Assert.That(Q(0.0499), Is.EqualTo(Q(0.0501)).Within(0.002), "continuous at +0.05");
+				Assert.That(Q(-0.0501), Is.EqualTo(Q(-0.0499)).Within(0.002), "continuous at -0.05");
+
+				double[] gd = { -0.05, -0.03, -0.01, 0.0, 0.011, 0.03, 0.05 };
+				for (int i = 1; i < gd.Length; i++)
+					Assert.That(Q(gd[i]), Is.LessThan(Q(gd[i - 1])),
+						$"Qg must fall from g/D {gd[i - 1]} to {gd[i]} on this geometry");
+			});
+		}
+
+		/// <summary>
+		/// The other direction, so the test above is not passing on a coincidence of one geometry:
+		/// where the NEGATIVE branch is the smaller of the two, the band rises with g/D instead and
+		/// a band value is below the upper edge. Both orderings are legitimate; that is the point.
+		/// </summary>
+		[Test]
+		public void WhichWayTheBandRunsDependsOnTheGeometry()
+		{
+			// A thin brace on a stocky chord makes phi small, so Qg_neg drops below Qg_pos.
+			const double d = 0.5, t = 0.004, bigT = 0.04, fy = 355e6;
+			double gamma = d / (2 * bigT);
+
+			double qgAtMinus = Norsok64Engine.Qg(-0.05 * d, d, t, bigT, fy, fy, gamma);
+			double qgAtPlus = Norsok64Engine.Qg(0.05 * d, d, t, bigT, fy, fy, gamma);
+			double qgBand = Norsok64Engine.Qg(0.0, d, t, bigT, fy, fy, gamma);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(qgAtMinus, Is.LessThan(qgAtPlus),
+					"this geometry is the opposite ordering to the case above");
+				Assert.That(qgBand, Is.GreaterThan(qgAtMinus).And.LessThan(qgAtPlus),
+					"and the band value lies between the two edges, as interpolation requires");
+			});
+		}
 	}
 }
