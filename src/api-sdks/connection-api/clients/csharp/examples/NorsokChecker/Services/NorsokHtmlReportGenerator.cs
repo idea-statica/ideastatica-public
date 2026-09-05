@@ -1288,6 +1288,25 @@ namespace NorsokChecker.Services
 				$"{N(inp.MopSd / 1e3, 2)} kN&middot;m");
 			sb.AppendLine("      </table>");
 
+			// WHICH PLANE, said where the symbols first appear.
+			//
+			// "(in-plane)" and "(out-of-plane)" answer which KIND of bending and leave open
+			// in-plane of WHAT — and everywhere else in this application y and z are a MEMBER's
+			// local axes, so a reader who knows the rest of the app derives the wrong thing. The
+			// table heading names the joint plane, but that reads as where the forces were resolved
+			// rather than as what the subscripts mean.
+			//
+			// This renderer is SHARED. The report card sits after chapter 3, which states the
+			// convention in full — but the §6.4 tab's derivation window has no chapter 3, and that
+			// window is the first place a user meets these symbols. Removing the per-card legend was
+			// right for the report and left the app with nothing; the note belongs here instead, at
+			// the table, in one line rather than the three-line block that went.
+			//
+			// Deliberately duplicated with chapter 3: one line beside the symbols is worth more than
+			// a correct sentence forty pages earlier.
+			sb.AppendLine("      <p class='deriv-note'>y and z are the <b>joint plane's</b>, "
+				+ "not the member's local axes (eq 6.57, &sect;6.4.3.6).</p>");
+
 			// ══ 2. BASIC ASSUMPTIONS ══ §6.4.3.1, checked against the inputs above.
 			//
 			// After the inputs, not before: every condition is a relation between the dimensions just

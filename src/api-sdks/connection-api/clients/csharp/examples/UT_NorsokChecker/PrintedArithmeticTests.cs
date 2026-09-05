@@ -521,7 +521,81 @@ namespace UT_NorsokChecker
 			});
 		}
 
-		/// <summary>A report with one §6.4.3.6 card, which is what both tests above read.</summary>
+		/// <summary>
+		/// The derivation says WHICH plane y and z belong to, where the symbols first appear.
+		///
+		/// `(in-plane)` and `(out-of-plane)` beside M_y,Sd and M_z,Sd answer which KIND of bending
+		/// and leave open "in-plane of what" — and everywhere else in this application y and z are a
+		/// MEMBER's local axes, so a reader who knows the rest of the app derives the wrong thing.
+		/// The table heading says "in the joint plane", but that reads as where the forces were
+		/// resolved, not as what the subscripts mean.
+		///
+		/// BOTH SURFACES, and that is the point of having two tests. RenderJointDerivation is shared
+		/// by the report card and by the §6.4 tab's derivation window, and the window has no chapter
+		/// 3 to defer to — so when the per-card legend was removed because chapter 3 carried the
+		/// same sentence, the GUI lost the disambiguation altogether. It is the first place a user
+		/// meets these symbols.
+		/// </summary>
+		[Test]
+		public void TheDerivationSaysWhichPlaneYAndZBelongTo()
+		{
+			// The GUI derivation window — the surface that regressed, and the one no amount of
+			// reading the PDF would catch.
+			string page = Page();
+
+			// Scoped to the applied-forces block: "joint plane" occurs in headings and in the method
+			// chapter, so a document-wide search would pass with the note deleted.
+			int at = page.IndexOf("Applied forces", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the applied-forces table is rendered");
+			// From the END of the table to the next heading. Searching for "deriv-h" from just after
+			// "Applied forces" finds the heading that CONTAINS it — the label is itself inside a
+			// <p class='deriv-h'> — so the slice came back as the heading alone and the note that
+			// follows the table was never in it.
+			int tableEnd = page.IndexOf("</table>", at, StringComparison.Ordinal);
+			int end = page.IndexOf("deriv-h", tableEnd, StringComparison.Ordinal);
+			string block = end > at ? page[at..end] : page[at..Math.Min(at + 1500, page.Length)];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(block, Does.Match(@"not the member's local axes|not a member's local"),
+					"the contrast is what disambiguates — naming the joint plane alone does not "
+					+ "answer the reader who knows y and z as a member's own axes");
+				Assert.That(block, Does.Contain("6.4.3.6"),
+					"with the clause, so the reader can go to the norm rather than to chapter 3");
+			});
+		}
+
+		/// <summary>
+		/// And the same note reaches the report, whose derivation is the same method.
+		///
+		/// Deliberate duplication with chapter 3's sign-conventions sentence: one line beside the
+		/// symbols is worth more than a correct sentence forty pages earlier, and it is one line
+		/// rather than the three-line legend block that was removed.
+		/// </summary>
+		[Test]
+		public void TheReportCarriesTheSamePlaneNote()
+		{
+			string html = QualifiedReport();
+
+			int at = html.IndexOf("Applied forces", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the applied-forces table is in the card too");
+			// From the end of the table, for the reason given in the test above.
+			int tableEnd = html.IndexOf("</table>", at, StringComparison.Ordinal);
+			int end = html.IndexOf("deriv-h", tableEnd, StringComparison.Ordinal);
+			string block = end > at ? html[at..end] : html[at..Math.Min(at + 1500, html.Length)];
+
+			Assert.That(block, Does.Match(@"not the member's local axes|not a member's local"),
+				"the report's derivation carries it as well — same renderer, same need");
+		}
+
+		/// <summary>
+		/// A report with one §6.4.3.6 card.
+		///
+		/// `JointDetail` is set, and it has to be: the derivation — and with it the applied-forces
+		/// table — is rendered only when the row carries one (RenderFormulaCard line 1121). Without
+		/// it a test looking for that table finds nothing and fails on an absence it created
+		/// itself, which is how the first version of TheReportCarriesTheSamePlaneNote behaved.
+		/// </summary>
 		private static string QualifiedReport()
 		{
 			var row = MultiModeRow();
@@ -536,6 +610,7 @@ namespace UT_NorsokChecker
 							Title = "Tubular Joint — M3",
 							Utilization = row.Util, Passed = row.Passed,
 							FormulaSubstituted = "28.49% + 0.55% + 23.65%",
+							JointDetail = row,
 						},
 					}),
 				});
