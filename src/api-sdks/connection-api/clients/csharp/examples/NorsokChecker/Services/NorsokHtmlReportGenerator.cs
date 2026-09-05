@@ -546,12 +546,13 @@ namespace NorsokChecker.Services
 					("T, D", "chord wall thickness and outside diameter"),
 					("d", "brace outside diameter"),
 					("&theta;", "angle between the brace and the chord"),
-					("&gamma;<sub>M</sub>", "material factor, 1.15 (Table 6-1)"),
-					("Q<sub>u</sub>", "strength factor, Table 6-3 &mdash; differs by joint class (K/Y/X) "
-						+ "and by whether the brace is in tension or compression"),
-					("Q<sub>f</sub>", "chord-action factor, eq (6.54), with the Table 6-4 coefficients"),
-					("Q<sub>g</sub>", "gap factor for K, note (b) under Table 6-3 &mdash; three branches, "
-						+ "the middle one interpolated"),
+					("&gamma;<sub>M</sub>", "material factor, 1.15 (&sect;6.4.3.2, p. 29)"),
+					("Q<sub>u</sub>", "strength factor, Table 6-3, p. 30 &mdash; differs by joint class "
+						+ "(K/Y/X) and by whether the brace is in tension or compression"),
+					("Q<sub>f</sub>", "chord-action factor, eq (6.54), with the Table 6-4 coefficients "
+						+ "(p. 31)"),
+					("Q<sub>g</sub>", "gap factor for K, note (b) under Table 6-3, p. 30 &mdash; three "
+						+ "branches, the middle one interpolated"),
 					("Q<sub>&beta;</sub>", "geometric factor, note (a) &mdash; 1.0 for &beta; &le; 0.6"),
 				})
 					sb.AppendLine($"    <tr><td>{sym}</td><td>{meaning}</td></tr>");
@@ -1479,17 +1480,22 @@ namespace NorsokChecker.Services
 
 			// ── A² and the moment resistances (shared by every class) ──
 			sb.AppendLine("      <p class='deriv-h'>Chord utilisation A&sup2; &amp; moment resistance "
-				+ "&mdash; 6.4.3.2&ndash;4, eq (6.53)/(6.55), Table 6-3/6-4</p>");
+				+ "&mdash; &sect;6.4.3.2&ndash;4, pp. 29&ndash;31, eq (6.53)/(6.55)</p>");
 
 			Step(sb, "Chord utilisation A&sup2; &mdash; eq (6.55) (shared by all classes)",
 				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_{y,chord}}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_{y,chord}^2}",
 				$@"\left(\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}}\right)^2 + \dfrac{{{P(smy, 1)}^2+{P(smz, 1)}^2}}{{1.62\cdot {N(fy, 0)}^2}}",
 				N(r.QfMomentA2, 4));
 
-			var cm = r.PerClass.TryGetValue(Norsok64.Joint64Class.K, out var kc0) ? kc0.CAxial : default;
-			Step(sb, "Q<sub>f</sub>, moment &mdash; Table 6-4 has ONE row for moment, no K/Y/X split",
+			// The coefficients come from the RESULT, not from PerClass[K].CAxial — those are the
+			// AXIAL row of Table 6-4 and differ (K axial is C2 = 0.2, moment is C2 = 0). Reading them
+			// from the class was how this line came to print a formula in symbols and no substitution.
+			Step(sb, "Q<sub>f</sub>, moment &mdash; Table 6-4, p. 31: ONE row for moment, no K/Y/X split"
+				+ $" &mdash; C&#8321;={N(r.CMoment.C1, 2)}, C&#8322;={N(r.CMoment.C2, 2)}, "
+				+ $"C&#8323;={N(r.CMoment.C3, 2)}",
 				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-				null, N(r.QfMoment, 3));
+				$@"1 + {N(r.CMoment.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(r.CMoment.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(r.CMoment.C3, 2)}\cdot {N(r.QfMomentA2, 4)}",
+				N(r.QfMoment, 3));
 
 			// THE SUBSTITUTED THICKNESS IS NOT ROUNDED, and the angle belongs to the governing pass.
 			//
@@ -1517,7 +1523,7 @@ namespace NorsokChecker.Services
 				: "";
 
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
-				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
+				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3, p. 30){momNote}",
 				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
 				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 1)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdIp / 1e3, 2)}\,kN\!\cdot\!m");
@@ -1573,7 +1579,8 @@ namespace NorsokChecker.Services
 				// resistance 2.5 % high with nothing on the page to explain the gap.
 				var kQf = r.PerClass.TryGetValue(Norsok64.Joint64Class.K, out var kc) ? kc : null;
 				if (kQf != null)
-					Step(sb, $"Q<sub>f</sub>, axial &mdash; class K, C&#8321;={N(kQf.CAxial.C1, 2)}, "
+					Step(sb, $"Q<sub>f</sub>, axial &mdash; class K, Table 6-4, p. 31: "
+						+ $"C&#8321;={N(kQf.CAxial.C1, 2)}, "
 						+ $"C&#8322;={N(kQf.CAxial.C2, 2)}, C&#8323;={N(kQf.CAxial.C3, 2)}"
 						+ (string.IsNullOrEmpty(kQf.CAxial.Note) ? "" : $" ({Esc(kQf.CAxial.Note)})"),
 						@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
@@ -1614,9 +1621,9 @@ namespace NorsokChecker.Services
 					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 1)} mm, "
 						+ $"g/D = {N(gdI, 4)} "
 						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
-						+ " (note (b) under Table 6-3)",
+						+ " (note (b) under Table 6-3, p. 30)",
 						qgBranch, qgSubst, N(kt.Qg, 3));
-					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3 class K, "
+					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3, p. 30, class K, "
 						+ $"&beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
 						@"Q_u = \min\{(16+1.2\gamma)\beta^{1.2}Q_g,\ 40\beta^{1.2}Q_g\}",
 						$@"\min\{{(16+1.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)},\ 40\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)}\}}",
@@ -1642,13 +1649,14 @@ namespace NorsokChecker.Services
 				string tension = r.LoadAxial == "tension" ? "tension" : "compression";
 				sb.AppendLine($"      <p class='deriv-h'>Mode {cls} &mdash; fraction of "
 					+ $"N<sub>Sd</sub> = {Pct2(frac)}</p>");
-				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, C&#8321;={N(c.CAxial.C1, 2)}, "
+				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, Table 6-4, p. 31: "
+					+ $"C&#8321;={N(c.CAxial.C1, 2)}, "
 					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
 					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
 					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
 					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
 					N(c.QfAxial, 3));
-				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3 class {cls} (brace in {tension})",
+				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3, p. 30, class {cls} (brace in {tension})",
 					cls == Norsok64.Joint64Class.Y
 						? (r.LoadAxial == "tension" ? @"Q_u = 30\beta"
 							: @"Q_u = \min\{2.8+(20+0.8\gamma)\beta^{1.6},\ 2.8+36\beta^{1.6}\}")

@@ -539,6 +539,105 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// The moment Q_f prints its Table 6-4 coefficients and substitutes them.
+		///
+		/// It was a formula in symbols and a bare result: `Q_f = 1 + C₁σ_a/f_y − C₂σ_my/(1.62 f_y)
+		/// − C₃A²` then `= 0.974`, with C₁, C₂, C₃ left as letters and no substitution line. The
+		/// axial Q_f twenty lines below prints its coefficients in the heading AND substitutes them;
+		/// the moment block is the only Q_f on the page that does neither, so its value is the one
+		/// number in the derivation a reader cannot reach by any route.
+		///
+		/// Two tables, two treatments, and the distinction is what makes this a defect while
+		/// Q_u's bare result is not: Table 6-3 SELECTS a formula — the chosen expression is printed
+		/// and its inputs (β, γ) are in the geometry table, so the reader can reproduce it. Table
+		/// 6-4 SUPPLIES NUMBERS into a formula that never changes. Neither table is reproduced;
+		/// the coefficients are printed because they are inputs to a printed expression.
+		/// </summary>
+		[Test]
+		public void TheMomentQfSubstitutesItsTable64Coefficients()
+		{
+			string html = Page();
+			var r = MultiModeRow().Engine!;
+
+			// The fixture must make the defect visible: a chord at zero stress gives Q_f = 1 whatever
+			// the coefficients are, and every assertion below would pass on a block printing nothing.
+			Assert.That(r.QfMoment, Is.Not.EqualTo(1.0).Within(0.001),
+				"this fixture's chord is stressed, so Q_f,moment differs from 1 and the coefficients "
+				+ "it was computed with are arithmetically visible");
+
+			var step = Regex.Match(html,
+				@"Q<sub>f</sub>, moment.*?deriv-step-res'>\$\$=[^$]*\$\$", RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, "the moment Q_f step must be on the page");
+
+			// 1 + C1·(σ_a/f_y) − C2·(σ_my/(1.62 f_y)) − C3·A²
+			//
+			// A negative stress prints as `(−25.5)` — parenthesised, and with a TYPOGRAPHIC minus,
+			// not ASCII `-`. Matching only `-?[\d.]+` finds no substitution on exactly the fixtures
+			// that make this test discriminating, and reads as "the block prints nothing".
+			const string Num = @"\(?[-−]?[\d.]+\)?";
+			var m = Regex.Match(step.Value,
+				@"1 \+ (?<c1>" + Num + @")\\cdot\\dfrac\{(?<sa>" + Num + @")\}\{(?<fy1>[\d.]+)\}"
+				+ @" - (?<c2>" + Num + @")\\cdot\\dfrac\{(?<smy>" + Num + @")\}\{1\.62\\cdot (?<fy2>[\d.]+)\}"
+				+ @" - (?<c3>" + Num + @")\\cdot (?<a2>[\d.]+)");
+			Assert.That(m.Success, Is.True,
+				"the moment Q_f must substitute its coefficients, as the axial Q_f does — got:\n"
+				+ step.Value);
+
+			double G(string k) => double.Parse(
+				m.Groups[k].Value.Trim('(', ')').Replace('−', '-'), Inv);
+
+			Assert.Multiple(() =>
+			{
+				// The printed coefficients are the ones the engine used, so a later edit to CCoeffs
+				// cannot leave the page behind.
+				Assert.That(G("c1"), Is.EqualTo(r.CMoment.C1).Within(0.005), "C1 is the engine's");
+				Assert.That(G("c2"), Is.EqualTo(r.CMoment.C2).Within(0.005), "C2 is the engine's");
+				Assert.That(G("c3"), Is.EqualTo(r.CMoment.C3).Within(0.005), "C3 is the engine's");
+
+				double computed = 1.0 + G("c1") * (G("sa") / G("fy1"))
+					- G("c2") * (G("smy") / (1.62 * G("fy2")))
+					- G("c3") * G("a2");
+				double printed = double.Parse(
+					Regex.Match(step.Value, @"deriv-step-res'>\$\$=\\;(-?[\d.]+)").Groups[1].Value, Inv);
+
+				Assert.That(computed, Is.EqualTo(printed).Within(0.002),
+					$"the printed expression evaluates to {computed.ToString("F3", Inv)} but the "
+					+ $"printed result is {printed.ToString("F3", Inv)}");
+			});
+		}
+
+		/// <summary>
+		/// Table 6-3 and Table 6-4 are cited with the page they are on.
+		///
+		/// Neither table is reproduced — the reader has the norm, and copying a one-screen table
+		/// into forty cards is the repetition this report has been shedding. A page number turns
+		/// "look it up" into "open this page" and costs four characters. Verified against the
+		/// standard's own footers: Table 6-3 is on printed page 30, Table 6-4 on 31.
+		/// </summary>
+		[Test]
+		public void TheTableCitationsCarryTheirPage()
+		{
+			string html = Page();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Contain("Table 6-3"), "Q_u cites the table it selects from");
+				Assert.That(html, Does.Contain("Table 6-4"), "Q_f cites the table its C values come from");
+
+				// The page follows the table number after a comma — `Table 6-3, p. 30` — so the
+				// window must not stop at one. Excluding ',' matched the empty string every time
+				// and reported nine bare citations on a page that had none.
+				foreach (Match c in Regex.Matches(html, @"Table 6-([34])(?<page>.{0,10})"))
+				{
+					string want = c.Groups[1].Value == "3" ? "p. 30" : "p. 31";
+					Assert.That(c.Groups["page"].Value, Does.Contain(want),
+						$"'{c.Value.Trim()}' must name {want} — a bare table number sends the reader "
+						+ "hunting through a 264-page standard");
+				}
+			});
+		}
+
+		/// <summary>
 		/// §6.4.1's gap provision is stated, with the actual gap, and marked informative.
 		///
 		/// "The gap for simple K-joints should be larger than 50 mm and less than D" (N-004 Rev. 3

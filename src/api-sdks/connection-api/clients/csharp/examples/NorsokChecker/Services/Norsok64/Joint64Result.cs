@@ -77,6 +77,13 @@ namespace NorsokChecker.Services.Norsok64
 		public double QuOpb { get; set; }
 		public double QfMoment { get; set; }
 		public double QfMomentA2 { get; set; }
+		/// <summary>
+		/// Table 6-4 coefficients behind <see cref="QfMoment"/>. One row covers every class
+		/// ("All joints under brace moment loading"), so unlike <see cref="ClassResult64.CAxial"/>
+		/// this lives on the result, not per class. Carried so the report can substitute them —
+		/// eq (6.54) is a fixed formula and these three numbers are its only variable input.
+		/// </summary>
+		public (double C1, double C2, double C3, string Note) CMoment { get; set; }
 		/// <summary>in-plane bending resistance [N·m]</summary>
 		public double MRdIp { get; set; }
 		/// <summary>out-of-plane bending resistance [N·m]</summary>

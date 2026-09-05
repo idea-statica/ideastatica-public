@@ -211,7 +211,7 @@
 				Beta = beta, Gamma = gamma, Tau = tau, ThetaDeg = inp.ThetaDeg, SinTheta = sinT, GD = gD,
 				Validity = validity, WithinRange = within,
 				QBeta = qb, Qg = qg,
-				QuIpb = quI, QuOpb = quO, QfMoment = qfM, QfMomentA2 = qfMA2,
+				QuIpb = quI, QuOpb = quO, QfMoment = qfM, QfMomentA2 = qfMA2, CMoment = cm,
 				MRdIp = mRdIp, MRdOp = mRdOp,
 				PerClass = perClass,
 				NRdWeighted = wN, UtilWeighted = wU, Passed = wU <= 1.0 && !chordOver,
