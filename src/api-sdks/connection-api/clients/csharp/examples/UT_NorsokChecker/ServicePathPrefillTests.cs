@@ -163,10 +163,20 @@ namespace UT_NorsokChecker
 			try
 			{
 				var w = new NorsokChecker.MainWindow();
+				w.TxtApiPath.Text = @"C:\a\path\the\user\typed";
 				string before = w.TxtApiPath.Text;
 				w.PrefillServicePath(root);
 
-				Assert.That(w.TxtApiPath.Text, Is.EqualTo(before));
+				Assert.Multiple(() =>
+				{
+					// The box is SET first, deliberately. It used to compare the box to itself after
+					// a no-op, and on a machine where the constructor prefills nothing that is
+					// "" == "" — true whatever PrefillServicePath does, including blanking it.
+					Assert.That(before, Is.Not.Empty,
+						"there must be something in the box for 'leaves it alone' to mean anything");
+					Assert.That(w.TxtApiPath.Text, Is.EqualTo(before),
+						"an empty tree must not blank a path the user already has");
+				});
 			}
 			finally { try { Directory.Delete(root, true); } catch { } }
 		}

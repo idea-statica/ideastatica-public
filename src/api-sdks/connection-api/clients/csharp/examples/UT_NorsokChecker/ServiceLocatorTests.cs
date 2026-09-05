@@ -245,10 +245,14 @@ namespace UT_NorsokChecker
 	/// paths" — wrong, the paths sit one level deeper than it looked.
 	///
 	/// Explicit: the result depends on what is installed, so it reports rather than asserts a count.
+	///
+	/// NOT A TEST, and named accordingly. Both branches end in Assert.Pass — it is structurally
+	/// incapable of failing, which is right for a diagnostic and wrong for anything called a test.
+	/// It was `RegistryInstallTests`, and a fixture named Tests is read as coverage.
 	/// </summary>
 	[TestFixture, Explicit("Depends on what is installed on this machine")]
 	[Category("Live")]
-	public class RegistryInstallTests
+	public class RegistryInstallProbe
 	{
 		[Test]
 		public void ReportWhatTheRegistryAndTheScanEachFind()

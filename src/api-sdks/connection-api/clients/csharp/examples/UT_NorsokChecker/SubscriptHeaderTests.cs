@@ -109,7 +109,11 @@ namespace UT_NorsokChecker
 				System.Globalization.CultureInfo.InvariantCulture);
 			var runs = block.Inlines.OfType<Run>().ToList();
 
-			Assert.That(runs[1].FontSize, Is.LessThan(block.FontSize).Or.LessThan(12.0),
+			// `.Or.LessThan(12.0)` was appended here and defeated the relation the test is named
+			// for: a subscript set at the SAME size as its symbol still passes as long as both are
+			// under 12. The relation between the two runs is the whole subject, so it is asserted
+			// on its own.
+			Assert.That(runs[1].FontSize, Is.LessThan(block.FontSize),
 				"the subscript must be smaller than the symbol it qualifies");
 		}
 	}

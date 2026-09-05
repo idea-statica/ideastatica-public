@@ -140,12 +140,21 @@ namespace UT_NorsokChecker
 				},
 			};
 
+			// `NothingAssessed` is the only thing here the type decides; the other two assertions
+			// read back the list this test had just written, which measures the object initialiser.
+			// A rows-empty case beside it is what makes the property's answer meaningful.
+			var nothing = new ChapterOutcome
+			{
+				Rows = Array.Empty<NorsokFormulaResult>(),
+				NotPerformed = outcome.NotPerformed,
+			};
+
 			Assert.Multiple(() =>
 			{
-				Assert.That(outcome.NothingAssessed, Is.False, "something WAS assessed");
-				Assert.That(outcome.NotPerformed, Has.Count.EqualTo(1),
-					"and the gap is reported alongside it, not silently dropped");
-				Assert.That(outcome.NotPerformed[0].Why, Does.Contain("length"));
+				Assert.That(outcome.NothingAssessed, Is.False,
+					"a chapter with a row assessed something, whatever it could not perform");
+				Assert.That(nothing.NothingAssessed, Is.True,
+					"and one with no rows did not — the not-performed list does not count as a result");
 			});
 		}
 	}

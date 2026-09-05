@@ -67,8 +67,16 @@ namespace UT_NorsokChecker
 		{
 			var v = Verdict(Con1Like());
 
-			Assert.That(v.Warnings.Where(w => w.Contains("plane")), Is.Empty,
-				"five coplanar braces need no plane-fit warning");
+			Assert.Multiple(() =>
+			{
+				// The absence is only evidence if the joint got as far as being judged. Without
+				// this, an ERROR verdict — which warns about nothing because nothing ran — passes
+				// the assertion below and reads as "no warning was needed".
+				Assert.That(v.Status, Is.Not.EqualTo("ERROR"),
+					"the joint must have been assessed for the absence of a warning to mean anything");
+				Assert.That(v.Warnings.Where(w => w.Contains("plane")), Is.Empty,
+					"and coplanar braces need no plane-fit warning");
+			});
 		}
 
 		/// <summary>

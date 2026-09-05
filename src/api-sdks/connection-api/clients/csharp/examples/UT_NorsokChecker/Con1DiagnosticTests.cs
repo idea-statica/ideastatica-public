@@ -24,10 +24,15 @@ namespace UT_NorsokChecker
 	/// difference is the refinement, not the check.
 	///
 	/// Explicit: needs a local Connection RestAPI and test_cs.ideaCon.
+	///
+	/// A PROBE, not a test fixture, and named so. Some of what is here does assert; one method
+	/// (Con8_WhereDoTheMemberLabelsLand, 68 lines) asserts nothing at all and only prints. That is
+	/// legitimate for a diagnostic run by hand, and misleading under a name ending in Tests, which
+	/// is read as coverage.
 	/// </summary>
 	[TestFixture, Explicit("Requires a local IDEA StatiCa installation and test_cs.ideaCon")]
 	[Category("Live")]
-	public class Con1DiagnosticTests
+	public class Con1DiagnosticProbe
 	{
 		private const string IdeaCon =
 			@"C:\Users\OndrejSkorunka\Claude\01_Folders\NORSOK\ideacon\test_cs.ideaCon";

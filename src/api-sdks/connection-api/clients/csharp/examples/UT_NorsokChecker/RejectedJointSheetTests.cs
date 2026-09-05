@@ -195,32 +195,11 @@ namespace UT_NorsokChecker
 	[TestFixture]
 	public class SheetSummaryTests
 	{
-		/// <summary>
-		/// K sub-rows are a breakdown of a brace, not braces of their own — counting them inflated
-		/// the brace count on any joint with a K pairing.
-		/// </summary>
-		[Test]
-		public void SubRowsAreNotCountedAsBraces()
-		{
-			var rows = new List<Joint64RowView>
-			{
-				new() { Brace = "M1", Verdict = "PASS" },
-				new() { Brace = "M4", Verdict = "PASS" },
-				new() { Brace = "↳ K via M5", IsSubRow = true },
-				new() { Brace = "M5", Verdict = "FAIL" },
-				new() { Brace = "↳ K via M4", IsSubRow = true },
-				new() { Brace = "M6", Verdict = "N/A" },
-			};
-
-			var braces = rows.Where(r => !r.IsSubRow).ToList();
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(braces, Has.Count.EqualTo(4), "four braces, two of them with a K breakdown");
-				Assert.That(braces.Count(r => r.Verdict is "PASS" or "FAIL"), Is.EqualTo(3), "assessed");
-				Assert.That(braces.Count(r => r.Verdict == "FAIL"), Is.EqualTo(1), "failed");
-			});
-		}
+		// `SubRowsAreNotCountedAsBraces` was here and is gone. It built six rows, filtered them with
+		// `rows.Where(r => !r.IsSubRow)` INSIDE the test, and then counted its own list — so all
+		// three assertions measured LINQ, not the app. The production filter is one line inside
+		// ShowJoint64Table (MainWindow.Joint64.cs:620) with no seam to call, and the rule it
+		// encodes is worth a test only once that line can be reached from one.
 
 		/// <summary>A K sub-row cannot be double-clicked into a derivation — it has no check of its own.</summary>
 		[Test]

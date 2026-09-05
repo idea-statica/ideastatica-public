@@ -77,43 +77,50 @@ namespace UT_NorsokChecker
 			});
 		}
 
+		// `AnInfiniteUtilisationIsCappedForDisplay` was here and is gone. It copied the production
+		// ternary into the test body ("mirrors what ShowJoint64Table does") and asserted the copy,
+		// so it called no app code and would have stayed green through any change to the real one.
+		// The cap lives inline in ShowJoint64Table (MainWindow.Joint64.cs:586) with no seam to call,
+		// and adding one to test a number's formatting buys less than it risks.
+
 		/// <summary>
-		/// A row with infinite utilisation (chord overstressed, resistance collapsed to zero) must
-		/// not render as a number — the display cap is what stops "∞ %" or a meaningless figure
-		/// reaching the table.
+		/// A derivation is offered when, and only when, there is one to show.
+		///
+		/// `CanShowDetail` has four conditions and this used to assert three absences and nothing
+		/// else — no case where it returns true. It was green against `CanShowDetail => false`,
+		/// which is the state where the app offers no derivation at all.
+		///
+		/// The positive case is built by giving the row a real engine result, so the fourth
+		/// condition (IsSubRow) can be varied against it and each absence measured one at a time.
 		/// </summary>
 		[Test]
-		public void AnInfiniteUtilisationIsCappedForDisplay()
+		public void ADerivationIsOfferedOnlyWhenThereIsOneToShow()
 		{
-			var row = Row("B1", double.PositiveInfinity, passed: false);
-			row.ChordOverstressed = true;
+			var checkedRow = Row("B1", 0.4, true);
+			checkedRow.Engine = Norsok64Engine.CheckJoint(Joint64Input.FromSI(
+				D: 0.141, T: 0.0065, fyChord: 355e6, d: 0.102, t: 0.0065, fyBrace: 355e6,
+				thetaDeg: 45.0, g: 0.047, frK: 1.0, frY: 0.0, frX: 0.0,
+				nSd: -88.8e3, mipSd: -1.2e3, mopSd: 2.4e3,
+				sigmaASd: 9.27e6, sigmaMySd: -25.48e6, sigmaMzSd: 0.0, gammaM: 1.15));
 
-			// mirrors what ShowJoint64Table does
-			string util = double.IsInfinity(row.Util) ? "> 999 %" : $"{row.Util * 100:F1} %";
-			string flags = (row.WithinRange ? "" : "⚠") + (row.ChordOverstressed ? "⛔" : "");
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(util, Is.EqualTo("> 999 %"));
-				Assert.That(flags, Is.EqualTo("⛔"), "and the cause is flagged, not just the number");
-			});
-		}
-
-		/// <summary>The row view must carry the detail through, or the derivation window has nothing.</summary>
-		[Test]
-		public void ARowWithNoEngineResultCannotOfferADerivation()
-		{
-			var withEngine = new Joint64RowView { Detail = Row("B1", 0.4, true) };
+			var derivable = new Joint64RowView { Detail = checkedRow };
+			var asSubRow = new Joint64RowView { Detail = checkedRow, IsSubRow = true };
+			var noEngine = new Joint64RowView { Detail = Row("B1", 0.4, true) };
 			var skippedRow = new Joint64RowView { Detail = Skipped("B2", "no data") };
 			var noRow = new Joint64RowView();
 
 			Assert.Multiple(() =>
 			{
-				// Row() builds no Engine, so even a checked row is not derivable without one —
-				// asserting the guard rather than assuming Detail != null is enough
-				Assert.That(withEngine.CanShowDetail, Is.False, "no Engine, no derivation");
-				Assert.That(skippedRow.CanShowDetail, Is.False);
-				Assert.That(noRow.CanShowDetail, Is.False);
+				// FIRST: the case that must be true. Without it every assertion below is satisfied
+				// by a property that is false for everything.
+				Assert.That(derivable.CanShowDetail, Is.True,
+					"a checked row with an engine result HAS a derivation to show");
+
+				// Then each condition removed on its own, from that same row.
+				Assert.That(asSubRow.CanShowDetail, Is.False, "a sub-row is part of another row");
+				Assert.That(noEngine.CanShowDetail, Is.False, "no Engine, nothing to derive");
+				Assert.That(skippedRow.CanShowDetail, Is.False, "a skipped brace was not checked");
+				Assert.That(noRow.CanShowDetail, Is.False, "and no detail at all");
 			});
 		}
 	}
