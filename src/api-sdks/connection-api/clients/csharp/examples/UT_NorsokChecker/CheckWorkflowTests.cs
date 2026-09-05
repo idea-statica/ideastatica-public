@@ -52,6 +52,14 @@ namespace UT_NorsokChecker
 				RangeQualifier = qualifier,
 			};
 
+		/// <summary>A check that RAN and PASSED, on a joint missing a "should" of the standard.</summary>
+		private static NorsokFormulaResult WithRecommendation(double util, string rec) =>
+			new()
+			{
+				Section = "6.4", Title = "brace", Utilization = util, Passed = true,
+				Recommendation = rec,
+			};
+
 		[Test]
 		public void AllPassing()
 		{
@@ -239,6 +247,64 @@ namespace UT_NorsokChecker
 				Assert.That(scopeFirst.Status, Is.EqualTo("Not evaluated — the model could not be read"));
 				Assert.That(blockedFirst.Status, Is.EqualTo(scopeFirst.Status),
 					"and the order of the rows does not decide it");
+			});
+		}
+
+		/// <summary>
+		/// An unmet RECOMMENDATION reaches the overview and changes no verdict.
+		///
+		/// Both halves are asserted, and the pass is asserted FIRST. A test that only checked for
+		/// the note would pass if the verdict had flipped to FAIL or QUALIFIED — which is the thing
+		/// that must not happen: §6.4.1's gap provision says "should", and §3.1 defines that as a
+		/// recommendation rather than a requirement for conformity. A joint that misses it conforms.
+		///
+		/// The reviewed report had the opposite failure: the provision was evaluated in the card
+		/// renderer and discarded, so seven connections read "Norsok OK" in the overview while their
+		/// own detail pages recorded it unmet — twenty times, once at g = 1.5 mm against 50.
+		/// </summary>
+		[Test]
+		public void AnUnmetRecommendationIsReportedAndChangesNoVerdict()
+		{
+			const string rec = "M3: g = 1.5 mm, §6.4.1 recommends 50 mm < g < D (141 mm)";
+			var v = CheckWorkflow.Roll(new[] { Pass(0.42), WithRecommendation(0.55, rec) });
+			var without = CheckWorkflow.Roll(new[] { Pass(0.42), Pass(0.55) });
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(v.Pass, Is.EqualTo("PASS"),
+					"a recommendation is not a condition of conformity");
+				Assert.That(v.Status, Is.EqualTo(without.Status),
+					"and the status is the one it would have had anyway");
+				Assert.That(v.MaxUtilisation, Is.EqualTo(without.MaxUtilisation).Within(1e-9));
+
+				Assert.That(v.Recommendations, Is.EqualTo(rec),
+					"but it IS carried, so the overview row can show it");
+				Assert.That(without.Recommendations, Is.Null,
+					"and a joint that meets it carries nothing");
+			});
+		}
+
+		/// <summary>
+		/// A recommendation rides along with every verdict, not only with a pass.
+		///
+		/// It is attached around the decision rather than inside it, so that a "should" cannot alter
+		/// the outcome. The consequence worth pinning: a FAILING joint that also misses the gap
+		/// provision reports both.
+		/// </summary>
+		[Test]
+		public void ARecommendationSurvivesAFailingVerdict()
+		{
+			const string rec = "M3: g = 1.5 mm, §6.4.1 recommends 50 mm < g < D (141 mm)";
+			var v = CheckWorkflow.Roll(new[]
+			{
+				Fail(1.30),
+				WithRecommendation(0.55, rec),
+			});
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(v.Pass, Is.EqualTo("FAIL"), "the failure decides the verdict");
+				Assert.That(v.Recommendations, Is.EqualTo(rec), "and the recommendation still reaches the row");
 			});
 		}
 

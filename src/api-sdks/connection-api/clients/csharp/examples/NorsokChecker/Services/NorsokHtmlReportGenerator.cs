@@ -928,7 +928,14 @@ namespace NorsokChecker.Services
 				sb.AppendLine($"    <td class='con-name'>{Esc(name)}</td>");
 				sb.AppendLine($"    <td class='con-verdict {cls}'>{Esc(verdict.Pass)}</td>");
 				sb.AppendLine($"    <td class='con-util'>{util}</td>");
-				sb.AppendLine($"    <td class='con-note'>{Esc(verdict.Status)}</td>");
+				// The unmet recommendation goes in the Note column BESIDE the status, not into the
+				// verdict: a "should" of the standard is reported, not judged. Without this the
+				// overview said "Norsok OK" over a detail page recording §6.4.1 unmet.
+				string note = Esc(verdict.Status)
+					+ (string.IsNullOrEmpty(verdict.Recommendations)
+						? ""
+						: $"<br/><span class='con-rec'>{Esc(verdict.Recommendations!)}</span>");
+				sb.AppendLine($"    <td class='con-note'>{note}</td>");
 				sb.AppendLine("  </tr>");
 			}
 
@@ -1386,11 +1393,17 @@ namespace NorsokChecker.Services
 				{
 					double gapMm = gi.G * 1e3, dMmChord = gi.D * 1e3;
 					bool gapOk = gapMm > 50.0 && gapMm < dMmChord;
-					sb.AppendLine("      <p class='deriv-note'>&sect;6.4.1 (detailing, informative): "
-						+ "the gap of a simple K-joint <em>should</em> be larger than 50 mm and less "
-						+ $"than D. Here g = <b>{N(gapMm, 1)} mm</b> against 50 mm &lt; g &lt; "
-						+ $"{N(dMmChord, 0)} mm &mdash; <b>{(gapOk ? "satisfied" : "not satisfied")}</b>. "
-						+ "A &ldquo;should&rdquo; in a General clause: no verdict above depends on it.</p>");
+					// "informative" was wrong on the first half: §6.4.1 IS a normative clause. It is
+					// this PROVISION that is a recommendation, because it says "should", which §3.1
+					// defines as "among several possibilities one is recommended" against "shall" =
+					// "requirements strictly to be followed in order to conform".
+					sb.AppendLine("      <p class='deriv-note'>&sect;6.4.1 (detailing): the gap of a "
+						+ "simple K-joint <em>should</em> be larger than 50 mm and less than D. Here "
+						+ $"g = <b>{N(gapMm, 1)} mm</b> against 50 mm &lt; g &lt; {N(dMmChord, 0)} mm "
+						+ $"&mdash; <b>{(gapOk ? "satisfied" : "not satisfied")}</b>. A "
+						+ "&ldquo;should&rdquo; (&sect;3.1): a recommendation, not a condition of "
+						+ "conformity, so no verdict depends on it &mdash; it is carried to the "
+						+ "overview as a note.</p>");
 				}
 			}
 
@@ -2715,6 +2728,9 @@ body {
 .connection-table .con-name { font-weight: 600; }
 .connection-table .con-util { text-align: right; font-variant-numeric: tabular-nums; }
 .connection-table .con-note { color: #607D8B; }
+/* An unmet RECOMMENDATION of the standard. Lighter than the status it sits under, because it
+   qualifies nothing about conformity: a joint missing a should-provision still passes. */
+.connection-table .con-rec { color: #90A4AE; font-size: 11px; }
 .connection-table .con-verdict { font-weight: 600; }
 .connection-table .con-verdict.pass { color: #2E7D32; }
 .connection-table .con-verdict.fail { color: #C62828; }

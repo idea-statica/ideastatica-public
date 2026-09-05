@@ -119,7 +119,36 @@ namespace NorsokChecker.Services.Norsok64
 				// The caveat travels as DATA, so the roll-up can put it in the overview row. It used
 				// to exist only inside `title` above, where nothing but a reader could see it.
 				RangeQualifier = RangeQualifierOf(row.Name, r),
+
+				// Same reason, one grade softer: an unmet RECOMMENDATION. It was computed in the
+				// card renderer and thrown away, so seven connections read "Norsok OK" over their
+				// own pages recording §6.4.1 unmet.
+				Recommendation = GapRecommendationOf(row.Name, row),
 			};
+		}
+
+		/// <summary>
+		/// "M3: g = 1.5 mm, §6.4.1 recommends 50 mm &lt; g &lt; D (141 mm)" — or null when met, or
+		/// when the provision does not apply.
+		///
+		/// §6.4.1, p. 25: *"The gap for simple K-joints **should** be larger than 50 mm and less than
+		/// D."* A "should", which §3.1 defines as a recommendation rather than a requirement for
+		/// conformity — so this NEVER changes a verdict. Do not confuse it with §6.4.3.1's
+		/// `g/D ≥ −0.6`, which is a validity condition on the formulas and does.
+		///
+		/// Only for a brace with a K share: the provision is about simple K-joints, and a Y or X
+		/// brace has no gap the clause speaks of.
+		/// </summary>
+		internal static string? GapRecommendationOf(string braceName, JointCheckRow row)
+		{
+			if (row.Skipped || row.Inputs is not { } inp) return null;
+			if (inp.FrK <= 1e-9 || inp.D <= 0.0) return null;
+
+			double gapMm = inp.G * 1e3, dMm = inp.D * 1e3;
+			if (gapMm > 50.0 && gapMm < dMm) return null;
+
+			return $"{braceName}: g = {gapMm.ToString("F1", Inv)} mm, §6.4.1 recommends "
+				+ $"50 mm < g < D ({dMm.ToString("F0", Inv)} mm)";
 		}
 
 		/// <summary>

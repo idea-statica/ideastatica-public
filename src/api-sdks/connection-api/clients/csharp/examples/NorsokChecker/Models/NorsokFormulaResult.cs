@@ -167,6 +167,29 @@ namespace NorsokChecker.Models
 		/// </summary>
 		public bool IsQualified => !IsNote && !NotAssessed && !string.IsNullOrEmpty(RangeQualifier);
 
+		/// <summary>
+		/// A RECOMMENDATION of the standard that this joint does not meet — named, with its value.
+		///
+		/// One grade softer than <see cref="RangeQualifier"/>, and the difference is the standard's
+		/// own: §3.1 defines "shall" as a requirement for conformity and "should" as a recommended
+		/// possibility. §6.4.3.1's validity ranges are conditions on the formulas and change the
+		/// verdict to QUALIFIED; §6.4.1's "the gap for simple K-joints should be larger than 50 mm"
+		/// is a recommendation and changes NOTHING — a joint that misses it still conforms.
+		///
+		/// It travels as a FIELD for the same reason RangeQualifier does: the reviewed report
+		/// computed this in the card renderer and dropped it, so seven connections read "Norsok OK"
+		/// in the overview over their own detail pages recording the provision unmet, twenty times,
+		/// once at g = 1.5 mm against 50. A reader scanning the overview had no way to know.
+		/// </summary>
+		public string? Recommendation { get; set; }
+
+		/// <summary>
+		/// True when the check ran and a <see cref="Recommendation"/> of the standard is not met.
+		/// Deliberately NOT part of any pass/fail decision — see the field's own note.
+		/// </summary>
+		public bool HasUnmetRecommendation =>
+			!IsNote && !NotAssessed && !string.IsNullOrEmpty(Recommendation);
+
 		/// <summary>PASS / FAIL / NOTE / N/A — the single place that decides the wording.</summary>
 		public string Verdict => IsNote ? "NOTE" : NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
 

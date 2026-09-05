@@ -9,7 +9,12 @@ namespace NorsokChecker.Services
 	/// click handler (MainWindow's RunCheck_Click), where it could not be tested without building a
 	/// window and simulating a click — so it never was.
 	/// </summary>
-	internal sealed record ConnectionVerdict(string Pass, double MaxUtilisation, string Status);
+	/// <summary>
+	/// A connection's verdict. <paramref name="Recommendations"/> is deliberately OUTSIDE
+	/// <paramref name="Pass"/>: an unmet "should" of the standard is reported, not judged.
+	/// </summary>
+	internal sealed record ConnectionVerdict(
+		string Pass, double MaxUtilisation, string Status, string? Recommendations = null);
 
 	/// <summary>
 	/// The rules that turn a connection's check results into its verdict.
@@ -31,6 +36,24 @@ namespace NorsokChecker.Services
 		/// nor a gap, so it takes no part in the roll-up at all.
 		/// </summary>
 		internal static ConnectionVerdict Roll(IReadOnlyList<NorsokFormulaResult> results)
+		{
+			// The unmet RECOMMENDATIONS are attached here, once, around the decision — not inside
+			// it. Five return paths decide Pass, and threading the recommendations through each was
+			// the way to leave one behind; more importantly, doing it outside makes it structurally
+			// impossible for a "should" to alter a verdict, which is the property that matters.
+			var recs = results
+				.Where(f => f.HasUnmetRecommendation)
+				.Select(f => f.Recommendation!)
+				.Distinct()
+				.ToList();
+
+			var v = Decide(results);
+			return recs.Count == 0
+				? v
+				: v with { Recommendations = string.Join(" · ", recs) };
+		}
+
+		private static ConnectionVerdict Decide(IReadOnlyList<NorsokFormulaResult> results)
 		{
 			double maxUtil = 0;
 			bool anyFailed = false;
