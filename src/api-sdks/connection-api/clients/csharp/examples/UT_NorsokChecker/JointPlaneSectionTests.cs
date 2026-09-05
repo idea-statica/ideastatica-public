@@ -176,7 +176,11 @@ namespace UT_NorsokChecker
 				Assert.That(table, Does.Contain("4.31 kN&middot;m"), "and after projection");
 				Assert.That(table, Does.Contain("from the model (local axes)"),
 					"the columns say which frame each half is in");
-				Assert.That(table, Does.Contain("resolved into the joint plane"));
+				// "resolved into the JOINT plane" was the old heading, and it named the wrong frame:
+				// each brace is resolved in the plane of ITS chord-brace pair, which the method
+				// chapter and this section's own note both say. The heading contradicted them.
+				Assert.That(table, Does.Contain("resolved into the chord&ndash;brace plane"),
+					"and the resolved half names the frame it is actually in");
 
 				// EACH BRACE AT ITS OWN STATE. M2 governs on LE12 and M3 on LE9, so both names
 				// appear and M3's numbers are LE9's — 88.4 kN, not LE12's 33.0 kN. The shipped
@@ -314,7 +318,7 @@ namespace UT_NorsokChecker
 				// failed on correct output — the header cell is what distinguishes them.
 				Assert.That(html, Does.Not.Contain("Force transformation"),
 					"but NO force table — none were resolved into the plane");
-				Assert.That(html, Does.Not.Contain("<th colspan='3'>resolved into the joint plane</th>"),
+				Assert.That(html, Does.Not.Contain("<th colspan='3'>resolved into the chord&ndash;brace plane</th>"),
 					"nor its column heading");
 				Assert.That(html, Does.Not.Contain("from the model (local axes)"),
 					"nor the model-side half of it");

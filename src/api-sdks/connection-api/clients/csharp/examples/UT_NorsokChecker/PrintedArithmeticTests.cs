@@ -607,37 +607,6 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// Table 6-3 and Table 6-4 are cited with the page they are on.
-		///
-		/// Neither table is reproduced — the reader has the norm, and copying a one-screen table
-		/// into forty cards is the repetition this report has been shedding. A page number turns
-		/// "look it up" into "open this page" and costs four characters. Verified against the
-		/// standard's own footers: Table 6-3 is on printed page 30, Table 6-4 on 31.
-		/// </summary>
-		[Test]
-		public void TheTableCitationsCarryTheirPage()
-		{
-			string html = Page();
-
-			Assert.Multiple(() =>
-			{
-				Assert.That(html, Does.Contain("Table 6-3"), "Q_u cites the table it selects from");
-				Assert.That(html, Does.Contain("Table 6-4"), "Q_f cites the table its C values come from");
-
-				// The page follows the table number after a comma — `Table 6-3, p. 30` — so the
-				// window must not stop at one. Excluding ',' matched the empty string every time
-				// and reported nine bare citations on a page that had none.
-				foreach (Match c in Regex.Matches(html, @"Table 6-([34])(?<page>.{0,10})"))
-				{
-					string want = c.Groups[1].Value == "3" ? "p. 30" : "p. 31";
-					Assert.That(c.Groups["page"].Value, Does.Contain(want),
-						$"'{c.Value.Trim()}' must name {want} — a bare table number sends the reader "
-						+ "hunting through a 264-page standard");
-				}
-			});
-		}
-
-		/// <summary>
 		/// §6.4.1's gap provision is stated, with the actual gap, and marked informative.
 		///
 		/// "The gap for simple K-joints should be larger than 50 mm and less than D" (N-004 Rev. 3

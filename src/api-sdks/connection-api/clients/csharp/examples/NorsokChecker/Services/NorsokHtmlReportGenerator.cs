@@ -487,22 +487,22 @@ namespace NorsokChecker.Services
 				+ "<span class='chapter-no'>3</span> How the checks are made</h2>");
 			sb.AppendLine("<div class='norm-box'>");
 
-			sb.AppendLine("  <p><strong>Forces are resolved into the joint plane.</strong> The "
-				+ "&sect;6.4 checks are not evaluated on the member load effects as IDEA StatiCa "
-				+ "Connection shows them. Each connection's chapter states how its plane and chord "
-				+ "were determined and lists both sets of forces side by side, so every checked "
-				+ "value can be traced back to the model.</p>");
-
-			sb.AppendLine("  <p><strong>Each brace is resolved in the plane of its own "
+			// These were two paragraphs, and the first contradicted the second: it opened "Forces are
+			// resolved into the joint plane" and the next one existed to say that they are not —
+			// each brace is resolved in ITS OWN chord-brace plane. It also promised what the
+			// per-connection section then re-promised in its own words. One paragraph, stating the
+			// frame once and correctly.
+			sb.AppendLine("  <p><strong>Forces are resolved, and each brace in the plane of its own "
 				+ "chord&ndash;brace pair</strong> &mdash; the normal is "
-				+ "e<sub>x</sub>&nbsp;&times;&nbsp;(brace axis) &mdash; not in the single fitted "
-				+ "joint plane. The fitted plane does two other things: it decides the K/Y/X "
-				+ "classification, and it fixes the SIGN of M<sub>y</sub> consistently across the "
-				+ "braces. So a brace's own <i>off-plane</i> deviation cannot appear in its own "
-				+ "resolved forces &mdash; that column is a coplanarity check on the joint, not an "
-				+ "input to the transformation. Two joints differing only in it therefore have "
-				+ "identical force tables, which is a consequence of the frame rather than a "
-				+ "transformation that failed to run.</p>");
+				+ "e<sub>x</sub>&nbsp;&times;&nbsp;(brace axis), not the single fitted joint plane. "
+				+ "The &sect;6.4 checks are therefore not evaluated on the member load effects as "
+				+ "IDEA StatiCa Connection shows them. The fitted plane does two other things: it "
+				+ "decides the K/Y/X classification, and it fixes the SIGN of M<sub>y</sub> "
+				+ "consistently across the braces. So a brace's own <i>off-plane</i> deviation cannot "
+				+ "appear in its own resolved forces &mdash; that column is a coplanarity check on "
+				+ "the joint, not an input to the transformation. Two joints differing only in it "
+				+ "therefore have identical force tables, which is a consequence of the frame rather "
+				+ "than a transformation that failed to run.</p>");
 
 			sb.AppendLine("  <p><strong>The plane passes through the chord axis.</strong> A brace's "
 				+ "out-of-plane eccentricity is measured from THAT plane, not from the model's work "
@@ -542,18 +542,19 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    <tr><th>symbol</th><th>meaning</th></tr>");
 				foreach (var (sym, meaning) in new[]
 				{
-					("f<sub>y,chord</sub>", "yield strength of the CHORD at the joint &mdash; not the brace's"),
+					// "— not the brace's" was here and was WRONG: f_y,brace does enter §6.4, through
+					// Q_g's φ = (t·f_y,brace)/(T·f_y,chord), and the derivation's geometry table prints
+					// both yields for that reason. The gloss told the reader to disregard a quantity
+					// the next page substitutes.
+					("f<sub>y,chord</sub>", "yield strength of the chord at the joint, in eq (6.52)/(6.53)"),
 					("T, D", "chord wall thickness and outside diameter"),
 					("d", "brace outside diameter"),
 					("&theta;", "angle between the brace and the chord"),
-					("&gamma;<sub>M</sub>", "material factor, 1.15 (&sect;6.4.3.2, p. 29)"),
-					("Q<sub>u</sub>", "strength factor, Table 6-3, p. 30 &mdash; differs by joint class "
-						+ "(K/Y/X) and by whether the brace is in tension or compression"),
-					("Q<sub>f</sub>", "chord-action factor, eq (6.54), with the Table 6-4 coefficients "
-						+ "(p. 31)"),
-					("Q<sub>g</sub>", "gap factor for K, note (b) under Table 6-3, p. 30 &mdash; three "
-						+ "branches, the middle one interpolated"),
-					("Q<sub>&beta;</sub>", "geometric factor, note (a) &mdash; 1.0 for &beta; &le; 0.6"),
+					("&gamma;<sub>M</sub>", "material factor, 1.15 (&sect;6.4.3.2)"),
+					("Q<sub>u</sub>", "strength factor, Table 6-3"),
+					("Q<sub>f</sub>", "chord-action factor, eq (6.54), with the Table 6-4 coefficients"),
+					("Q<sub>g</sub>", "gap factor for K, Table 6-3"),
+					("Q<sub>&beta;</sub>", "geometric factor, Table 6-3"),
 				})
 					sb.AppendLine($"    <tr><td>{sym}</td><td>{meaning}</td></tr>");
 				sb.AppendLine("  </table>");
@@ -566,6 +567,8 @@ namespace NorsokChecker.Services
 				+ "(member and section checks to &sect;6.3, and the weld or connection detail "
 				+ "itself).</p>");
 
+			// The closing sentence used to announce the per-connection runner-up column. That column
+			// introduces itself, in its own note, where the reader is looking at it.
 			sb.AppendLine("  <p><strong>The governing load effect is chosen per brace.</strong> "
 				+ "Every active load effect is evaluated on every brace, and the state with the "
 				+ "highest utilisation governs &mdash; which need not be the same state for two "
@@ -573,8 +576,7 @@ namespace NorsokChecker.Services
 				+ "N<sub>Rd</sub> depends on Q<sub>f</sub>, Q<sub>f</sub> on the chord stresses, and "
 				+ "those on the load effect, so each candidate state has its <b>own resistance</b> "
 				+ "and the resistance is recomputed for every state rather than the forces being "
-				+ "compared against one. Each connection's runner-up column says how close the "
-				+ "decision was.</p>");
+				+ "compared against one.</p>");
 
 			sb.AppendLine("</div>");
 		}
@@ -1480,7 +1482,7 @@ namespace NorsokChecker.Services
 
 			// ── A² and the moment resistances (shared by every class) ──
 			sb.AppendLine("      <p class='deriv-h'>Chord utilisation A&sup2; &amp; moment resistance "
-				+ "&mdash; &sect;6.4.3.2&ndash;4, pp. 29&ndash;31, eq (6.53)/(6.55)</p>");
+				+ "&mdash; &sect;6.4.3.2&ndash;4, eq (6.53)/(6.55)</p>");
 
 			Step(sb, "Chord utilisation A&sup2; &mdash; eq (6.55) (shared by all classes)",
 				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_{y,chord}}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_{y,chord}^2}",
@@ -1490,7 +1492,7 @@ namespace NorsokChecker.Services
 			// The coefficients come from the RESULT, not from PerClass[K].CAxial — those are the
 			// AXIAL row of Table 6-4 and differ (K axial is C2 = 0.2, moment is C2 = 0). Reading them
 			// from the class was how this line came to print a formula in symbols and no substitution.
-			Step(sb, "Q<sub>f</sub>, moment &mdash; Table 6-4, p. 31: ONE row for moment, no K/Y/X split"
+			Step(sb, "Q<sub>f</sub>, moment &mdash; Table 6-4: ONE row for moment, no K/Y/X split"
 				+ $" &mdash; C&#8321;={N(r.CMoment.C1, 2)}, C&#8322;={N(r.CMoment.C2, 2)}, "
 				+ $"C&#8323;={N(r.CMoment.C3, 2)}",
 				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
@@ -1523,7 +1525,7 @@ namespace NorsokChecker.Services
 				: "";
 
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
-				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3, p. 30){momNote}",
+				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
 				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
 				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 1)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
 				$@"{N(r.MRdIp / 1e3, 2)}\,kN\!\cdot\!m");
@@ -1579,7 +1581,7 @@ namespace NorsokChecker.Services
 				// resistance 2.5 % high with nothing on the page to explain the gap.
 				var kQf = r.PerClass.TryGetValue(Norsok64.Joint64Class.K, out var kc) ? kc : null;
 				if (kQf != null)
-					Step(sb, $"Q<sub>f</sub>, axial &mdash; class K, Table 6-4, p. 31: "
+					Step(sb, $"Q<sub>f</sub>, axial &mdash; class K, Table 6-4: "
 						+ $"C&#8321;={N(kQf.CAxial.C1, 2)}, "
 						+ $"C&#8322;={N(kQf.CAxial.C2, 2)}, C&#8323;={N(kQf.CAxial.C3, 2)}"
 						+ (string.IsNullOrEmpty(kQf.CAxial.Note) ? "" : $" ({Esc(kQf.CAxial.Note)})"),
@@ -1621,9 +1623,9 @@ namespace NorsokChecker.Services
 					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 1)} mm, "
 						+ $"g/D = {N(gdI, 4)} "
 						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
-						+ " (note (b) under Table 6-3, p. 30)",
+						+ " (Table 6-3)",
 						qgBranch, qgSubst, N(kt.Qg, 3));
-					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3, p. 30, class K, "
+					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3, class K, "
 						+ $"&beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
 						@"Q_u = \min\{(16+1.2\gamma)\beta^{1.2}Q_g,\ 40\beta^{1.2}Q_g\}",
 						$@"\min\{{(16+1.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)},\ 40\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)}\}}",
@@ -1649,14 +1651,14 @@ namespace NorsokChecker.Services
 				string tension = r.LoadAxial == "tension" ? "tension" : "compression";
 				sb.AppendLine($"      <p class='deriv-h'>Mode {cls} &mdash; fraction of "
 					+ $"N<sub>Sd</sub> = {Pct2(frac)}</p>");
-				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, Table 6-4, p. 31: "
+				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, Table 6-4: "
 					+ $"C&#8321;={N(c.CAxial.C1, 2)}, "
 					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
 					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
 					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
 					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
 					N(c.QfAxial, 3));
-				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3, p. 30, class {cls} (brace in {tension})",
+				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3, class {cls} (brace in {tension})",
 					cls == Norsok64.Joint64Class.Y
 						? (r.LoadAxial == "tension" ? @"Q_u = 30\beta"
 							: @"Q_u = \min\{2.8+(20+0.8\gamma)\beta^{1.6},\ 2.8+36\beta^{1.6}\}")
@@ -1817,19 +1819,18 @@ namespace NorsokChecker.Services
 			sb.AppendLine("<div class='deriv-block'>");
 			if (assessed)
 			{
+				// No note under this heading. It used to carry one announcing "how the plane and
+				// chord were determined, and both sets of forces side by side" — which the heading
+				// already implies, 140 lines before the table that delivers it, and that table's
+				// own note points at chapter 3 where the reader is actually looking.
 				sb.AppendLine("  <p class='deriv-h'>Joint plane and force transformation</p>");
-				// One line, pointing at the method chapter. The full explanation used to be here,
-				// which meant six connections carried six copies of it.
-				sb.AppendLine("  <p class='deriv-note'>How this joint's plane and chord were "
-					+ "determined, and both sets of forces side by side. The conventions and the "
-					+ "method are in chapter 3.</p>");
 			}
 			else
 			{
 				sb.AppendLine("  <p class='deriv-h'>How the joint was read &mdash; the basis of the "
 					+ "conditions below</p>");
 				sb.AppendLine("  <p class='deriv-note'>No &sect;6.4 check was performed on this joint, "
-					+ "so no forces were resolved into the joint plane. What follows is the geometry "
+					+ "so no forces were resolved. What follows is the geometry "
 					+ "the chapter measured and the chord it identified &mdash; the numbers the "
 					+ "unmet conditions below are read from, given so the verdict can be checked "
 					+ "rather than taken on trust.</p>");
@@ -1984,10 +1985,14 @@ namespace NorsokChecker.Services
 				// and eq (6.57) has three terms. A reader who sees them in IDEA StatiCa looks for
 				// them here, and their absence reads as an omission rather than as a scope decision
 				// — so the honest fix is to satisfy the sentence instead of deleting it.
+				// "resolved into the JOINT plane" is what this said, and it contradicted the method
+				// chapter's own paragraph: each brace is resolved in the plane of ITS chord-brace
+				// pair, and the fitted joint plane only classifies K/Y/X and fixes the sign of M_y.
+				// The heading asserted the reading the chapter exists to refute.
 				sb.AppendLine("  <table class='deriv-table'>");
 				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>governing</th>"
 					+ "<th colspan='6'>from the model (local axes)</th>"
-					+ "<th colspan='3'>resolved into the joint plane</th></tr>");
+					+ "<th colspan='3'>resolved into the chord&ndash;brace plane</th></tr>");
 				sb.AppendLine("    <tr><th>N</th><th>V<sub>y</sub></th><th>V<sub>z</sub></th>"
 					+ "<th>M<sub>x</sub></th><th>M<sub>y,loc</sub></th><th>M<sub>z,loc</sub></th>"
 					+ "<th>N<sub>Sd</sub></th><th>M<sub>y,Sd</sub></th><th>M<sub>z,Sd</sub></th></tr>");
@@ -2005,13 +2010,11 @@ namespace NorsokChecker.Services
 						+ $"<td>{N(f.Mop / 1e3, 2)} kN&middot;m</td></tr>");
 				}
 				sb.AppendLine("  </table>");
+				// What is LOCAL is which columns are the unchecked ones. Why they are unchecked, and
+				// where they must be verified instead, is chapter 3's — this note used to give all
+				// three propositions and so restated that paragraph in full under every connection.
 				sb.AppendLine("  <p class='deriv-note'>V<sub>y</sub>, V<sub>z</sub> and M<sub>x</sub> "
-					+ "are shown for completeness and are <b>not</b> checked here &mdash; eq (6.57) "
-					+ "has three terms. Verify them in the member and section checks and in the weld "
-					+ "or connection detail (see chapter 3).</p>");
-				// Moved to the method chapter: it said the same thing under all six connections. The
-				// wording itself matters and is preserved there — "excluded by §6.4" read as "the
-				// standard deems it irrelevant", which is not what the clause says.
+					+ "are shown for completeness and are <b>not</b> checked here (chapter 3).</p>");
 
 				RenderStateSelection(sb, chapterRows);
 			}
