@@ -94,7 +94,16 @@ namespace NorsokChecker.Services.Norsok64
 					{
 						Name = b.Name, NSd = me.NSd, MipSd = me.MipSd, MopSd = me.MopSd,
 						QTrans = qB, FrK = 1.0, FrX = 0, FrY = 0, KComponents = kComponents,
-						Note = $"balanced to {100.0 * leftover / absQ:F1}% <= gate {100.0 * gate:F0}% -> 100% K",
+						// Invariant culture and a space before the sign, like every other percentage
+						// the user sees — this one printed "19.0%" on a page of "19.0 %", and in a
+						// comma locale it printed "19,0%" into an English report.
+						Note = "balanced to "
+							+ Models.QuantityFormat.Percent(leftover / absQ,
+								System.Globalization.CultureInfo.InvariantCulture)
+							+ " <= gate "
+							+ Models.QuantityFormat.Percent(gate,
+								System.Globalization.CultureInfo.InvariantCulture, 0)
+							+ " -> 100 % K",
 					});
 					continue;
 				}

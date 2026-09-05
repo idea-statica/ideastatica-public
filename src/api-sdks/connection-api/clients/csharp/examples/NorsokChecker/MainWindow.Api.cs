@@ -419,8 +419,15 @@ namespace NorsokChecker
 				// silently using a different number than the name implies.
 				if (nameD is > 0 && Math.Abs(nameD.Value - d.Value) / d.Value > 0.02)
 				{
-					m.Section.GeomNote = $"the section name suggests D = {nameD:F1} mm but the model "
-						+ $"has D = {d:F1} mm — using the model";
+					// The reader's unit — this note is shown as a warning on the §6.4 tab and in the
+					// report, not only in the log line below it.
+					string ul = Models.QuantityFormat.LengthLabel(_display.Length);
+					string Fmt(double mm) => Models.QuantityFormat
+						.ToLength(mm / 1000.0, _display.Length)
+						.ToString("F" + _display.LengthDecimals, Models.QuantityFormat.Report);
+
+					m.Section.GeomNote = $"the section name suggests D = {Fmt(nameD.Value)} {ul} "
+						+ $"but the model has D = {Fmt(d.Value)} {ul} — using the model";
 					Log($"    IOM: '{m.Name}' {m.Section.GeomNote}");
 				}
 

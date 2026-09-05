@@ -69,7 +69,12 @@ namespace NorsokChecker.Services.Norsok64
 			double ipbTerm = r.MRdIp > 0 ? Math.Pow(Math.Abs(inp.MipSd) / r.MRdIp, 2) : 0.0;
 			double opbTerm = r.MRdOp > 0 ? Math.Abs(inp.MopSd) / r.MRdOp : 0.0;
 
-			string clsStr = $"K {cl.FrK:P0} / Y {cl.FrY:P0} / X {cl.FrX:P0}";
+			// INVARIANT CULTURE, and the reader's precision. `:P0` formats in the CURRENT culture,
+			// so on a Czech machine this title put comma decimals into an English report — the
+			// defect QuantityFormat.Report exists to prevent, arriving through the one string that
+			// had not been routed through it.
+			string Pc(double v) => Models.QuantityFormat.Percent(v, Inv, disp.PercentDecimals);
+			string clsStr = $"K {Pc(cl.FrK)} / Y {Pc(cl.FrY)} / X {Pc(cl.FrX)}";
 			string title = $"Tubular Joint — {row.Name} ({clsStr})";
 			if (r.ChordOverstressed) title += " — CHORD OVERSTRESSED";
 			else if (!r.WithinRange) title += " — outside validity range (6.4.3.1)";
@@ -122,8 +127,13 @@ namespace NorsokChecker.Services.Norsok64
 				variables.Add(new FormulaVariable
 				{
 					Symbol = $"K gap {i + 1}",
-					Description = $"frK={k.FrK:F3}, g={cL(k.GapM):F0} {uL}, Q_g={k.Qg:F3}, "
-						+ $"N_Rd={cF(k.NRd):F1} {uF}",
+					// Invariant culture and the reader's precision, like everything else printed.
+					// `:F0` on the gap was its own defect: a 1.5 mm gap read as "2 mm", which is
+					// the size the §6.4.1 provision turns on.
+					Description = $"frK={k.FrK.ToString("F" + disp.RatioDecimals, Inv)}, "
+						+ $"g={cL(k.GapM).ToString("F" + disp.SmallLengthDecimals, Inv)} {uL}, "
+						+ $"Q_g={k.Qg.ToString("F" + disp.RatioDecimals, Inv)}, "
+						+ $"N_Rd={cF(k.NRd).ToString("F" + disp.ForceDecimals, Inv)} {uF}",
 					Value = k.FrK, Unit = "-",
 				});
 			}
@@ -136,7 +146,8 @@ namespace NorsokChecker.Services.Norsok64
 				CheckExpression = "|N_Sd|/N_Rd + (M_y,Sd/M_y,Rd)² + |M_z,Sd|/M_z,Rd ≤ 1.0",
 				Formula = @"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
 				FormulaSubstituted =
-					$"N_Rd(weighted {clsStr}) = {nRdKn:F1} {uF};  governing LC: {govLeName}",
+					$"N_Rd(weighted {clsStr}) = {nRdKn.ToString("F" + disp.ForceDecimals, Inv)} {uF}"
+						+ $";  governing LC: {govLeName}",
 				Demand = utilDisplay,
 				Capacity = 1.0,
 				Utilization = utilDisplay,
@@ -174,14 +185,24 @@ namespace NorsokChecker.Services.Norsok64
 			if (row.Skipped || row.Inputs is not { } inp) return null;
 			if (inp.FrK <= 1e-9 || inp.D <= 0.0) return null;
 
+			// THE VERDICT IS DECIDED IN MILLIMETRES. The clause's 50 mm is a fixed physical length,
+			// so a joint that satisfies §6.4.1 in mm satisfies it in inches — the comparison must
+			// not move with the display unit.
 			double gapMm = inp.G * 1e3, dMm = inp.D * 1e3;
 			if (gapMm > 50.0 && gapMm < dMm) return null;
 
-			// Stays in mm whatever the display setting says: the sentence quotes the clause's own
-			// bound beside the measured value, and converting only the measured half would print
-			// "g = 0.1 in against 50 mm < g < D". The clause is the citation, not a display choice.
-			return $"{braceName}: g = {gapMm.ToString("F1", Inv)} mm, §6.4.1 recommends "
-				+ $"50 mm < g < D ({dMm.ToString("F0", Inv)} mm)";
+			// The MEASURED values follow the reader's unit; the clause's own 50 mm does not.
+			// Converting the bound as well was tried and withdrawn: 50 mm and a 49.6 mm gap both
+			// print as "2.0 in", giving "g = 2.0 in against 2.0 in < g — not satisfied".
+			var d = Display;
+			string uL = Models.QuantityFormat.LengthLabel(d.Length);
+			string g = Models.QuantityFormat.ToLength(inp.G, d.Length)
+				.ToString("F" + d.SmallLengthDecimals, Inv);
+			string dia = Models.QuantityFormat.ToLength(inp.D, d.Length)
+				.ToString("F" + d.LengthDecimals, Inv);
+
+			return $"{braceName}: g = {g} {uL}, §6.4.1 recommends "
+				+ $"50 mm < g < D ({dia} {uL})";
 		}
 
 		/// <summary>
@@ -201,16 +222,22 @@ namespace NorsokChecker.Services.Norsok64
 		{
 			if (r.WithinRange || r.Validity.Count == 0) return null;
 
+			// The measured value takes the reader's precision; the RANGE is the clause's own text
+			// and stays exactly as the standard writes it.
+			var d = Display;
+			string Ratio(double v) => v.ToString("F" + d.RatioDecimals, Inv);
+			string Angle(double v) => v.ToString("F" + d.AngleDecimals, Inv);
+
 			var parts = new List<string>();
 			foreach (var (cond, ok) in r.Validity)
 			{
 				if (ok) continue;
 				parts.Add(cond switch
 				{
-					"0.2<=beta<=1.0" => $"β = {r.Beta.ToString("F3", Inv)}, outside 0.2–1.0",
-					"10<=gamma<=50" => $"γ = {r.Gamma.ToString("F1", Inv)}, outside 10–50",
-					"30<=theta<=90" => $"θ = {r.ThetaDeg.ToString("F1", Inv)}°, outside 30–90°",
-					"g/D>=-0.6 (K)" => $"g/D = {r.GD.ToString("F2", Inv)}, outside ≥ −0.6 (K)",
+					"0.2<=beta<=1.0" => $"β = {Ratio(r.Beta)}, outside 0.2–1.0",
+					"10<=gamma<=50" => $"γ = {Ratio(r.Gamma)}, outside 10–50",
+					"30<=theta<=90" => $"θ = {Angle(r.ThetaDeg)}°, outside 30–90°",
+					"g/D>=-0.6 (K)" => $"g/D = {Ratio(r.GD)}, outside ≥ −0.6 (K)",
 					_ => cond,
 				});
 			}

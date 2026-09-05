@@ -216,6 +216,7 @@ namespace NorsokChecker
 			// bind a computed property, and the §6.4 card is built inside the check runner.
 			Models.ConnectionCheckResult.Display = _display;
 			Services.Norsok64.Joint64ReportAdapter.Display = _display;
+			Services.Norsok64.JointTopologyBuilder.Display = _display;
 			Log($"  display: force {Models.QuantityFormat.ForceLabel(_display.Force)}, "
 				+ $"stress {Models.QuantityFormat.StressLabel(_display.Stress)}, "
 				+ $"length {Models.QuantityFormat.LengthLabel(_display.Length)}, "

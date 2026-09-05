@@ -20,6 +20,37 @@ namespace NorsokChecker.Services.Norsok64
 		public const double PlaneFitTolDeg = 2.0;
 		public const double CoplanarEvalDeg = 15.0;
 
+		/// <summary>
+		/// The units the GATE MESSAGES are written in. Nothing else.
+		///
+		/// This is display state inside calculation code, which is normally exactly what this class
+		/// avoids — so the boundary is worth stating precisely: every comparison in this file stays
+		/// in millimetres and degrees, and this field is read only when a sentence is composed for
+		/// the user. A reader on inches was being told "40 mm out of the joint plane" beside an
+		/// inch table; a reader must never be told a different verdict.
+		///
+		/// If a comparison ever reads this field, that is a bug: the verdict would then depend on
+		/// the display setting. UnitInvarianceTests guards the property, not the intent.
+		/// </summary>
+		public static Models.DisplaySettings Display { get; set; } = new();
+
+		// Message formatters. They take the value in the unit the COMPARISON used (mm, degrees) and
+		// return it in the reader's, with its label — so a converted number never reaches an `if`.
+		private static string Len(double mm)
+		{
+			var d = Display;
+			double v = Models.QuantityFormat.ToLength(mm / 1000.0, d.Length);
+			return v.ToString("F" + d.SmallLengthDecimals,
+					System.Globalization.CultureInfo.InvariantCulture)
+				+ " " + Models.QuantityFormat.LengthLabel(d.Length);
+		}
+
+		private static string Ang(double deg) => deg.ToString("F" + Display.AngleDecimals,
+			System.Globalization.CultureInfo.InvariantCulture);
+
+		private static string Rat(double v) => v.ToString("F" + Display.RatioDecimals,
+			System.Globalization.CultureInfo.InvariantCulture);
+
 		private readonly double _oopTolMm;
 		private readonly double _planeTolDeg;
 		private readonly double _coplanarTolDeg;
@@ -523,19 +554,22 @@ namespace NorsokChecker.Services.Norsok64
 			foreach (var bm in bracesMeta)
 			{
 				if (bm.ThetaDeg < ParallelMinThetaDeg)
-					errors.Add($"{bm.Name}: θ={bm.ThetaDeg:F1}° — parallel to chord (degenerate).");
+					errors.Add($"{bm.Name}: θ={Ang(bm.ThetaDeg)}° — parallel to chord (degenerate).");
 				double dev = bm.CoplanarDevDeg;
 				if (dev > CoplanarMaxDeg)
-					errors.Add($"{bm.Name}: {dev:F1}° off plane (>{CoplanarMaxDeg:F0}°) — different plane / multiplanar.");
+					errors.Add($"{bm.Name}: {Ang(dev)}° off plane (>{CoplanarMaxDeg:F0}°) — different plane / multiplanar.");
 				else if (dev > CoplanarWarnDeg)
-					warnings.Add($"{bm.Name}: {dev:F1}° off plane (borderline).");
+					warnings.Add($"{bm.Name}: {Ang(dev)}° off plane (borderline).");
 				// Measured from the plane through the CHORD AXIS — so the message has to say so.
 				// "out-of-plane ecc. 40 mm" on a joint the engineer displaced as one rigid body was
 				// both wrong and unactionable: nothing about that joint was out of plane.
+				// THE COMPARISON IS IN MILLIMETRES; only the sentence follows the display setting.
+				// Both numbers convert together — this tolerance is ours, not a clause bound, so
+				// unlike the §6.4.1 gap there is no citation to keep in its original unit.
 				double oopMm = bm.OopOffsetM * 1000.0;
 				if (oopMm > _oopTolMm)
-					errors.Add($"{bm.Name}: {oopMm:F0} mm out of the joint plane through the chord "
-						+ $"(>{_oopTolMm:F0} mm).");
+					errors.Add($"{bm.Name}: {Len(oopMm)} out of the joint plane through the chord "
+						+ $"(>{Len(_oopTolMm)}).");
 				if (dChordM > 0)
 				{
 					double e = Math.Abs(bm.EccAlongM);
@@ -545,22 +579,22 @@ namespace NorsokChecker.Services.Norsok64
 						// is not ours out of thin air — but the figure dimensions a joint CAN, not an
 						// admissible eccentricity, so reading it as a limit on the offset is our
 						// choice and the message now says which part is which.
-						warnings.Add($"{bm.Name}: ecc. along chord e={e * 1000:F0} mm "
-							+ $"(>D/4={EccAlongChordFrac * dChordM * 1000:F0} mm — tool tolerance, "
+						warnings.Add($"{bm.Name}: ecc. along chord e={Len(e * 1000)} "
+							+ $"(>D/4={Len(EccAlongChordFrac * dChordM * 1000)} — tool tolerance, "
 							+ "from the joint-can dimension in Figure 6-1, not a §6.4 limit).");
 				}
 				if (bm.Beta is double beta && (beta < 0.2 || beta > 1.0))
-					warnings.Add($"{bm.Name}: β={beta:F3} outside 0.2–1.0.");
+					warnings.Add($"{bm.Name}: β={Rat(beta)} outside 0.2–1.0.");
 				double th = bm.ThetaDeg;
 				if ((th < 30.0 || th > 90.0) && th >= ParallelMinThetaDeg)
-					warnings.Add($"{bm.Name}: θ={th:F1}° outside 30–90°.");
+					warnings.Add($"{bm.Name}: θ={Ang(th)}° outside 30–90°.");
 			}
 
 			if (secC.D is > 0 && secC.T is > 0)
 			{
 				double g = secC.D.Value / (2 * secC.T.Value);
 				if (g < 10.0 || g > 50.0)
-					warnings.Add($"γ={g:F2} outside 10–50.");
+					warnings.Add($"γ={Rat(g)} outside 10–50.");
 			}
 
 			var verdict = new TopologyVerdict { Errors = errors, Warnings = warnings };
@@ -606,7 +640,7 @@ namespace NorsokChecker.Services.Norsok64
 			// it simultaneously showed as met.
 			foreach (var g in topo.Gaps.Where(g => g.Adjacent && g.Known && g.GapM < 0))
 				topo.Verdict.Errors.Insert(0,
-					$"{g.A}-{g.B}: feet overlap (gap {g.GapM * 1000:F0} mm < 0) — an overlap joint. "
+					$"{g.A}-{g.B}: feet overlap (gap {Len(g.GapM * 1000)} < 0) — an overlap joint. "
 					+ "§6.4.4 covers these with additions this tool does not implement (shear along "
 					+ "the chord face, the through-brace force share), so it is not checked here.");
 			topo.Verdict.Status = topo.Verdict.Errors.Count > 0 ? "ERROR"
