@@ -7,18 +7,28 @@
         WindowStartupLocation="CenterOwner"
         Background="White">
     <!-- Plain WPF, like PageSetupWindow: a separate window does not inherit MainWindow's Material
-         Design resources, and pulling them in for one grid is not worth the coupling. -->
-    <StackPanel Margin="18" MinWidth="430">
+         Design resources, and pulling them in for one grid is not worth the coupling.
+
+         Laid out after IDEA StatiCa's own Preferences → Presentation units: one row per quantity,
+         columns unit / decimals / format. Two departures from the first attempt here, both taken
+         from that dialog:
+
+           - decimals are TYPED, not picked from a list. A list has to choose a range, and any
+             range is arbitrary — A² already prints 4 places and a small gap could want 5.
+           - format is a per-row COMBO, not a checkbox. It carries three values instead of two, and
+             it appears on every row, so the table does not look moth-eaten where a checkbox was
+             not applicable. -->
+    <StackPanel Margin="18" MinWidth="460">
 
         <TextBlock TextWrapping="Wrap" Foreground="#546E7A" Margin="0,0,0,14"
                    Text="Applies to the tables in this window and to the exported report."/>
 
         <Grid Margin="0,0,0,6">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="110"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
@@ -28,57 +38,70 @@
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="unit" FontWeight="SemiBold" Margin="0,0,0,4"/>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="decimals" FontWeight="SemiBold" Margin="0,0,0,4"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" Text="exponent" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="format" FontWeight="SemiBold" Margin="0,0,0,4"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Forces" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Force" VerticalAlignment="Center"/>
             <ComboBox  Grid.Row="1" Grid.Column="1" x:Name="CbForce" Margin="0,2,8,2"/>
-            <ComboBox  Grid.Row="1" Grid.Column="2" x:Name="CbForceDp" Margin="0,2,8,2"/>
-            <CheckBox  Grid.Row="1" Grid.Column="3" x:Name="ChkForceSci" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="1" Grid.Column="2" x:Name="TxtForceDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
+            <ComboBox  Grid.Row="1" Grid.Column="3" x:Name="CbForceFmt" Margin="0,2,0,2"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Moments" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Moment" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Grid.Column="1" x:Name="TxtMomentUnit" VerticalAlignment="Center"
                        Foreground="#78909C"/>
-            <ComboBox  Grid.Row="2" Grid.Column="2" x:Name="CbMomentDp" Margin="0,2,8,2"/>
-            <CheckBox  Grid.Row="2" Grid.Column="3" x:Name="ChkMomentSci" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="2" Grid.Column="2" x:Name="TxtMomentDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
+            <ComboBox  Grid.Row="2" Grid.Column="3" x:Name="CbMomentFmt" Margin="0,2,0,2"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Stresses" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Stress" VerticalAlignment="Center"/>
             <ComboBox  Grid.Row="3" Grid.Column="1" x:Name="CbStress" Margin="0,2,8,2"/>
-            <ComboBox  Grid.Row="3" Grid.Column="2" x:Name="CbStressDp" Margin="0,2,8,2"/>
-            <CheckBox  Grid.Row="3" Grid.Column="3" x:Name="ChkStressSci" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="3" Grid.Column="2" x:Name="TxtStressDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
+            <ComboBox  Grid.Row="3" Grid.Column="3" x:Name="CbStressFmt" Margin="0,2,0,2"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Lengths" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Cross-section dimensions"
+                       VerticalAlignment="Center" TextWrapping="Wrap"/>
             <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="CbLength" Margin="0,2,8,2"/>
-            <ComboBox  Grid.Row="4" Grid.Column="2" x:Name="CbLengthDp" Margin="0,2,8,2"/>
+            <TextBox   Grid.Row="4" Grid.Column="2" x:Name="TxtLengthDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
+            <ComboBox  Grid.Row="4" Grid.Column="3" x:Name="CbLengthFmt" Margin="0,2,0,2"/>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Gaps, eccentricities" VerticalAlignment="Center"
-                       Foreground="#546E7A"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="as lengths" VerticalAlignment="Center"
-                       Foreground="#78909C" FontStyle="Italic"/>
-            <ComboBox  Grid.Row="5" Grid.Column="2" x:Name="CbGapDp" Margin="0,2,8,2"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Thickness, gaps and other small dimensions"
+                       VerticalAlignment="Center" TextWrapping="Wrap" Foreground="#546E7A"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="as above" VerticalAlignment="Center"
+                       Foreground="#78909C" FontStyle="Italic"
+                       ToolTip="The same unit as the section dimensions — showing a 6.3 mm wall and a 508 mm diameter in different units would mislead. Only the precision differs."/>
+            <TextBox   Grid.Row="5" Grid.Column="2" x:Name="TxtGapDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
 
-            <TextBlock Grid.Row="6" Grid.Column="0" Text="Area A" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Area" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="6" Grid.Column="1" x:Name="TxtAreaUnit" VerticalAlignment="Center"
                        Foreground="#78909C"/>
-            <ComboBox  Grid.Row="6" Grid.Column="2" x:Name="CbAreaDp" Margin="0,2,8,2"/>
-            <CheckBox  Grid.Row="6" Grid.Column="3" x:Name="ChkAreaSci" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="6" Grid.Column="2" x:Name="TxtAreaDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
+            <ComboBox  Grid.Row="6" Grid.Column="3" x:Name="CbAreaFmt" Margin="0,2,0,2"/>
 
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Inertia I" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Second moment of area"
+                       VerticalAlignment="Center" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="7" Grid.Column="1" x:Name="TxtInertiaUnit" VerticalAlignment="Center"
                        Foreground="#78909C"/>
-            <ComboBox  Grid.Row="7" Grid.Column="2" x:Name="CbInertiaDp" Margin="0,2,8,2"/>
-            <CheckBox  Grid.Row="7" Grid.Column="3" x:Name="ChkInertiaSci" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="7" Grid.Column="2" x:Name="TxtInertiaDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
+            <ComboBox  Grid.Row="7" Grid.Column="3" x:Name="CbInertiaFmt" Margin="0,2,0,2"/>
 
-            <TextBlock Grid.Row="8" Grid.Column="0" Text="Angles" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="8" Grid.Column="1" Text="degrees" VerticalAlignment="Center"
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Angle" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="°" VerticalAlignment="Center"
                        Foreground="#78909C"
                        ToolTip="Fixed: §6.4.3.1 states its validity ranges in degrees, and the validity table is read against the clause."/>
-            <ComboBox  Grid.Row="8" Grid.Column="2" x:Name="CbAngleDp" Margin="0,2,8,2"/>
+            <TextBox   Grid.Row="8" Grid.Column="2" x:Name="TxtAngleDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
 
-            <TextBlock Grid.Row="9" Grid.Column="0" Text="Ratios (β, γ, Q…)" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="9" Grid.Column="1" Text="none" VerticalAlignment="Center"
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="Coefficient" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="1" Text="&#8211;" VerticalAlignment="Center"
                        Foreground="#78909C"
-                       ToolTip="Dimensionless — there is no alternative unit. Their precision matters most, because they are the factors a reader substitutes."/>
-            <ComboBox  Grid.Row="9" Grid.Column="2" x:Name="CbRatioDp" Margin="0,2,8,2"/>
+                       ToolTip="β, γ, τ, the Q-factors, A², φ — dimensionless, so there is no unit to offer. Their precision matters most, because they are the factors a reader substitutes."/>
+            <TextBox   Grid.Row="9" Grid.Column="2" x:Name="TxtRatioDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
         </Grid>
 
         <TextBlock TextWrapping="Wrap" Foreground="#78909C" FontSize="11" Margin="0,10,0,16"

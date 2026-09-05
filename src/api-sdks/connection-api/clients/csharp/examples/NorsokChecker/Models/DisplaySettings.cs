@@ -10,6 +10,30 @@
 	public enum LengthUnit { Millimetre, Centimetre, Metre, Inch }
 
 	/// <summary>
+	/// How a number is written — the same three IDEA StatiCa's own preferences offer, minus the
+	/// fourth.
+	///
+	/// Theirs has an Imperial member producing feet-inch-fraction strings (`1' 2 2/16"`). That is
+	/// for structure dimensions; this tool measures tubes, where a decimal inch is what a reader
+	/// wants. Left out rather than half-implemented.
+	/// </summary>
+	public enum NumberFormat
+	{
+		/// <summary>`141.30` — a fixed number of decimals.</summary>
+		Decimal,
+
+		/// <summary>`1.41×10²` — mantissa and an exponent taken from the value.</summary>
+		Scientific,
+
+		/// <summary>
+		/// Decimal until the value stops being readable that way, then scientific. Worth more here
+		/// than in most places: the second moment of area runs from 23 475 mm⁴ on a CHS 30×3 to
+		/// 914 277 855 mm⁴ on a CHS 508×20, and no fixed choice serves both.
+		/// </summary>
+		Automatic,
+	}
+
+	/// <summary>
 	/// How quantities are displayed — one setting, honoured by the app's tables and by the report.
 	///
 	/// THE UNIT IS THE ENGINEER'S CHOICE. Someone who works in kPa every day should be able to read
@@ -31,20 +55,20 @@
 	/// the clause. See the note on RenderJointDerivation. The dialog says so, or a user who selects
 	/// kPa and then sees MPa in a substitution reads it as a bug.
 	/// </summary>
-	internal sealed class DisplaySettings
+	public sealed class DisplaySettings
 	{
 		// ── units ────────────────────────────────────────────────────────────
 
-		internal ForceUnit Force { get; set; } = ForceUnit.KiloNewton;
-		internal StressUnit Stress { get; set; } = StressUnit.MPa;
-		internal LengthUnit Length { get; set; } = LengthUnit.Millimetre;
+		public ForceUnit Force { get; set; } = ForceUnit.KiloNewton;
+		public StressUnit Stress { get; set; } = StressUnit.MPa;
+		public LengthUnit Length { get; set; } = LengthUnit.Millimetre;
 
 		// Moments and section properties are DERIVED, never chosen. A free choice would let someone
 		// select newtons with kilonewton-metres, or millimetres with in⁴ — combinations that are not
 		// wrong so much as unreadable, and that no dialog should have to explain.
 
 		/// <summary>The moment unit implied by the force and length choice, e.g. "kN·m".</summary>
-		internal string MomentLabel => Force switch
+		public string MomentLabel => Force switch
 		{
 			ForceUnit.Kip => Length == LengthUnit.Inch ? "kip·in" : "kip·ft",
 			ForceUnit.Newton => "N·m",
@@ -53,7 +77,7 @@
 		};
 
 		/// <summary>The area unit implied by the length choice.</summary>
-		internal string AreaLabel => Length switch
+		public string AreaLabel => Length switch
 		{
 			LengthUnit.Inch => "in²",
 			LengthUnit.Metre => "m²",
@@ -62,7 +86,7 @@
 		};
 
 		/// <summary>The second-moment-of-area unit implied by the length choice.</summary>
-		internal string InertiaLabel => Length switch
+		public string InertiaLabel => Length switch
 		{
 			LengthUnit.Inch => "in⁴",
 			LengthUnit.Metre => "m⁴",
@@ -76,37 +100,41 @@
 		// already have. The two exceptions are the values a defect fix changed — moments, and the
 		// gap, which needs a decimal that a 1.5 mm value cannot do without.
 
-		internal int ForceDecimals { get; set; } = 1;
-		internal int MomentDecimals { get; set; } = 3;
-		internal int StressDecimals { get; set; } = 1;
-		internal int LengthDecimals { get; set; } = 1;
+		public int ForceDecimals { get; set; } = 1;
+		public int MomentDecimals { get; set; } = 3;
+		public int StressDecimals { get; set; } = 1;
+		public int LengthDecimals { get; set; } = 1;
 
 		/// <summary>Gaps and eccentricities: the same UNIT as sections, their own precision.</summary>
-		internal int SmallLengthDecimals { get; set; } = 1;
+		public int SmallLengthDecimals { get; set; } = 1;
 
-		internal int AreaDecimals { get; set; } = 0;
-		internal int InertiaDecimals { get; set; } = 2;
-		internal int AngleDecimals { get; set; } = 1;
-		internal int RatioDecimals { get; set; } = 3;
-		internal int PercentDecimals { get; set; } = 1;
+		public int AreaDecimals { get; set; } = 0;
+		public int InertiaDecimals { get; set; } = 2;
+		public int AngleDecimals { get; set; } = 1;
+		public int RatioDecimals { get; set; } = 3;
+		public int PercentDecimals { get; set; } = 1;
 
-		// ── scientific notation ──────────────────────────────────────────────
+		// ── number format ────────────────────────────────────────────────────
 		//
-		// Offered only where the values span orders of magnitude, measured across the sections and
-		// load effects this tool sees: I spans 38 947×, moments 3 750×, stresses 2 367×, forces
-		// 1 000×, areas 121×. Lengths span 17× and the dimensionless factors are all of order unity,
-		// so an exponent there is noise.
+		// A format per quantity, as IDEA StatiCa's own preferences have it. It replaces a
+		// scientific-yes/no checkbox: three values instead of two, and present on every row that
+		// can use one rather than only on some, so the table does not look moth-eaten.
 		//
-		// I defaults ON: it is the one quantity a fixed scale cannot serve, and the fixed ×10⁶ it
-		// used to carry printed a CHS 30×3 as `0.0`.
+		// Angles and coefficients have no format row — degrees and order-unity ratios are always
+		// decimal, and offering `β = 7.23×10⁻¹` would be a choice nobody wants.
+		//
+		// I defaults to AUTOMATIC: it is the one quantity a fixed choice cannot serve, spanning
+		// 23 475 mm⁴ to 914 277 855 mm⁴, and the fixed ×10⁶ scaling it used to carry printed a
+		// CHS 30×3 as `0.0`.
 
-		internal bool ForceScientific { get; set; }
-		internal bool MomentScientific { get; set; }
-		internal bool StressScientific { get; set; }
-		internal bool AreaScientific { get; set; }
-		internal bool InertiaScientific { get; set; } = true;
+		public NumberFormat ForceFormat { get; set; } = NumberFormat.Decimal;
+		public NumberFormat MomentFormat { get; set; } = NumberFormat.Decimal;
+		public NumberFormat StressFormat { get; set; } = NumberFormat.Decimal;
+		public NumberFormat LengthFormat { get; set; } = NumberFormat.Decimal;
+		public NumberFormat AreaFormat { get; set; } = NumberFormat.Decimal;
+		public NumberFormat InertiaFormat { get; set; } = NumberFormat.Automatic;
 
 		/// <summary>A copy, for a dialog to edit without committing until OK.</summary>
-		internal DisplaySettings Clone() => (DisplaySettings)MemberwiseClone();
+		public DisplaySettings Clone() => (DisplaySettings)MemberwiseClone();
 	}
 }

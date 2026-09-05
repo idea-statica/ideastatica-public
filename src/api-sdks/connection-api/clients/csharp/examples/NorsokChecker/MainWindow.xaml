@@ -546,9 +546,14 @@
                                              EnrichSectionsFromIomAsync overwrites D and t on every
                                              run, so an edit looked accepted and was then silently
                                              discarded. -->
-                                        <DataGridTextColumn Header="D [mm]" Binding="{Binding Diameter, StringFormat=F1}" Width="SizeToHeader" MinWidth="55" IsReadOnly="True"/>
-                                        <DataGridTextColumn Header="t [mm]" Binding="{Binding WallThickness, StringFormat=F1}" Width="SizeToHeader" MinWidth="50" IsReadOnly="True"/>
-                                        <DataGridTextColumn Header="f_y [MPa]" Binding="{Binding Fy, StringFormat=F0}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"
+                                        <!-- Bound to the FORMATTED text and the header filled from
+                                             code (SyncMemberHeaders), because neither a StringFormat
+                                             nor a header written here can follow the units setting.
+                                             Auto, not SizeToHeader: a longer value under a short
+                                             header was silently truncated. -->
+                                        <DataGridTextColumn x:Name="ColMemberD" Header="D" Binding="{Binding DiameterText}" Width="Auto" MinWidth="55" IsReadOnly="True"/>
+                                        <DataGridTextColumn x:Name="ColMemberT" Header="t" Binding="{Binding ThicknessText}" Width="Auto" MinWidth="50" IsReadOnly="True"/>
+                                        <DataGridTextColumn x:Name="ColMemberFy" Header="f_y" Binding="{Binding FyText}" Width="Auto" MinWidth="60" IsReadOnly="True"
                                                             HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                         <DataGridTextColumn Header="Material" Binding="{Binding MaterialName}" Width="SizeToHeader" MinWidth="60" IsReadOnly="True"/>
                                     </DataGrid.Columns>

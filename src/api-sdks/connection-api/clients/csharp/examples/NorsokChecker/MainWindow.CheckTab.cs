@@ -208,6 +208,11 @@ namespace NorsokChecker
 			foreach (var m in _membersPerConnection.GetValueOrDefault(con.Id) ?? new List<MemberDisplayInfo>())
 				_members.Add(m);
 
+			// Format the new rows for the current units. Without this a connection selected AFTER
+			// the setting was changed would come back in the defaults, and only the previously
+			// shown one would honour the choice.
+			SyncMemberUnits();
+
 			// The chord count is a §6.4 condition, so the check reports it per connection in the
 			// Status column and one row per condition in Results. Repeating it above the grid only
 			// duplicated it — the Role column already shows which member is the chord.

@@ -217,9 +217,34 @@ namespace NorsokChecker
 				+ $"moment {_display.MomentLabel}");
 
 			// Redraw what is already on screen: a setting that only took effect on the next run
-			// would look broken. RefreshJoint64 rebuilds the §6.4 tab from the topology it already
-			// holds, so nothing is recomputed — only reformatted.
+			// would look broken. Neither of these recomputes anything — both reformat what is
+			// already held.
+			SyncMemberUnits();
 			RefreshJoint64();
+		}
+
+		/// <summary>
+		/// Put the members table into the current units — the values AND the column headers.
+		///
+		/// The headers carry the unit (`D [mm]`), so they are written here rather than in the XAML:
+		/// markup cannot follow a setting. This is the fix for the defect where changing the unit
+		/// left this table in millimetres — the column bound to the raw number with a StringFormat,
+		/// and neither half could see the choice.
+		/// </summary>
+		private void SyncMemberUnits()
+		{
+			var cult = Models.QuantityFormat.Gui;
+			string len = Models.QuantityFormat.LengthLabel(_display.Length);
+
+			ColMemberD.Header = $"D [{len}]";
+			ColMemberT.Header = $"t [{len}]";
+			ColMemberFy.Header = $"f_y [{Models.QuantityFormat.StressLabel(_display.Stress)}]";
+
+			foreach (var m in _members) m.ApplyDisplay(_display, cult);
+
+			// The rows are plain objects, not observable — rebinding is what makes the grid re-read
+			// the formatted strings it has already drawn.
+			MembersGrid.Items.Refresh();
 		}
 
 		private void PageSetup_Click(object sender, RoutedEventArgs e)

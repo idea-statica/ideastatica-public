@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace NorsokChecker.Models
 {
@@ -90,11 +90,51 @@ namespace NorsokChecker.Models
 			return m4 * f * f * f * f;
 		}
 
-		/// <summary>A force, SI → the settings' unit, with its own precision.</summary>
+		/// <summary>
+		/// One value, in the format its category was given.
+		///
+		/// AUTOMATIC switches on readability, not on a preference: a value that would print as all
+		/// zeros at this precision, or that needs more digits before the point than a reader can
+		/// count at a glance, goes to an exponent. The thresholds are the two failures actually
+		/// seen — `I = 0.0` for a small section (too small to show at 1 decimal) and a nine-digit
+		/// I for a large one.
+		/// </summary>
+		internal static string Formatted(double v, CultureInfo c, int dp, NumberFormat f)
+		{
+			if (double.IsNaN(v) || double.IsInfinity(v)) return "—";
+			if (f == NumberFormat.Scientific) return SciString(v, c);
+			if (f == NumberFormat.Decimal) return Round(v, c, dp);
+
+			// Automatic
+			double a = Math.Abs(v);
+			if (a == 0.0) return Round(v, c, dp);
+			bool vanishes = a < Math.Pow(10, -dp) / 2.0;   // would print as 0.000…
+			bool unwieldy = a >= 1e6;                      // seven digits before the point
+			return vanishes || unwieldy ? SciString(v, c) : Round(v, c, dp);
+		}
+
+		/// <summary>
+		/// Round, then format — with two guards taken from IDEA StatiCa's own formatter
+		/// (`StraightConverter.FormatMetricValue`), both of which exist because of real reports:
+		///
+		///   - a PRE-ROUND to 6 decimals, so that 2.49999999 and 2.50000001 round the same way at
+		///     0 decimals rather than to 2 and 3;
+		///   - a zero check, so a small negative does not print as `-0.0`.
+		/// </summary>
+		internal static string Round(double v, CultureInfo c, int dp)
+		{
+			if (double.IsNaN(v) || double.IsInfinity(v)) return "—";
+
+			double pre = dp < 5 ? Math.Round(v, 6, MidpointRounding.AwayFromZero) : v;
+			double r = Math.Round(pre, Math.Clamp(dp, 0, 15), MidpointRounding.AwayFromZero);
+			if (Math.Abs(r) < Math.Pow(10, -dp) / 2.0) r = 0.0;
+
+			return r.ToString("F" + Math.Clamp(dp, 0, 15), c);
+		}
+
+		/// <summary>A force, SI → the settings' unit, with its own precision and format.</summary>
 		internal static string Force(double n, CultureInfo c, DisplaySettings s) =>
-			s.ForceScientific
-				? SciString(ToForce(n, s.Force), c)
-				: Num(ToForce(n, s.Force), c, s.ForceDecimals);
+			Formatted(ToForce(n, s.Force), c, s.ForceDecimals, s.ForceFormat);
 
 		/// <summary>A force, N → kN.</summary>
 		internal static string Force(double n, CultureInfo c, int dp = 1) =>
@@ -202,36 +242,30 @@ namespace NorsokChecker.Models
 					? 1.0 / 0.3048                   // kip·ft
 					: 1.0;                           // kN·m, N·m, MN·m
 			double v = ToForce(nm, s.Force) * perMetre;
-			return s.MomentScientific ? SciString(v, c) : Num(v, c, s.MomentDecimals);
+			return Formatted(v, c, s.MomentDecimals, s.MomentFormat);
 		}
 
 		/// <summary>A stress, SI → the settings' unit.</summary>
 		internal static string Stress(double pa, CultureInfo c, DisplaySettings s) =>
-			s.StressScientific
-				? SciString(ToStress(pa, s.Stress), c)
-				: Num(ToStress(pa, s.Stress), c, s.StressDecimals);
+			Formatted(ToStress(pa, s.Stress), c, s.StressDecimals, s.StressFormat);
 
 		/// <summary>A length, SI → the settings' unit.</summary>
 		internal static string Length(double m, CultureInfo c, DisplaySettings s) =>
-			Num(ToLength(m, s.Length), c, s.LengthDecimals);
+			Formatted(ToLength(m, s.Length), c, s.LengthDecimals, s.LengthFormat);
 
 		/// <summary>A gap or an eccentricity: the section unit, its own precision.</summary>
 		internal static string SmallLength(double m, CultureInfo c, DisplaySettings s) =>
-			Num(ToLength(m, s.Length), c, s.SmallLengthDecimals);
+			Formatted(ToLength(m, s.Length), c, s.SmallLengthDecimals, s.LengthFormat);
 
 		/// <summary>A cross-sectional area, SI → the unit implied by the length choice.</summary>
 		internal static string Area(double m2, CultureInfo c, DisplaySettings s) =>
-			s.AreaScientific
-				? SciString(ToArea(m2, s.Length), c)
-				: Num(ToArea(m2, s.Length), c, s.AreaDecimals);
+			Formatted(ToArea(m2, s.Length), c, s.AreaDecimals, s.AreaFormat);
 
 		/// <summary>
 		/// A second moment of area. Scientific by default — this is the quantity a fixed scale
 		/// cannot serve, spanning 23 475 mm⁴ to 914 277 855 mm⁴ across the sections seen here.
 		/// </summary>
 		internal static string Inertia(double m4, CultureInfo c, DisplaySettings s) =>
-			s.InertiaScientific
-				? SciString(ToInertia(m4, s.Length), c)
-				: Num(ToInertia(m4, s.Length), c, s.InertiaDecimals);
+			Formatted(ToInertia(m4, s.Length), c, s.InertiaDecimals, s.InertiaFormat);
 	}
 }
