@@ -206,5 +206,42 @@ namespace UT_NorsokChecker
 					"and the user is told: " + string.Join(" | ", topo.Verdict.Warnings));
 			});
 		}
+
+		[Test]
+		public void AJointWithNoLoadEffectIsNotAssessed()
+		{
+			var topo = new JointTopology();
+			JointTopologyBuilder.FinalizeVerdict(topo, loadEffectCount: 0);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(topo.Verdict.Status, Is.EqualTo("ERROR"),
+					"no load means nothing was checked, and 0 % on every brace is not a pass");
+				Assert.That(topo.Verdict.Errors, Has.Count.EqualTo(1));
+				Assert.That(topo.Verdict.Errors[0], Does.Contain("No load effect"));
+			});
+		}
+
+		[Test]
+		public void AJointWithLoadEffectsIsNotRejectedForThat()
+		{
+			var topo = new JointTopology();
+			JointTopologyBuilder.FinalizeVerdict(topo, loadEffectCount: 15);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(topo.Verdict.Status, Is.EqualTo("OK"));
+				Assert.That(topo.Verdict.Errors, Is.Empty);
+			});
+		}
+
+		[Test]
+		public void AnUnstatedLoadCountRaisesNothing()
+		{
+			var topo = new JointTopology();
+			JointTopologyBuilder.FinalizeVerdict(topo);
+
+			Assert.That(topo.Verdict.Errors, Is.Empty);
+		}
 	}
 }

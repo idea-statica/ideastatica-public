@@ -239,5 +239,41 @@ namespace UT_NorsokChecker
 				+ "invariant, either Table 6-4's C₂ was lost or σ_my stopped being signed, and the "
 				+ "oracle's signed sigma_my values are what protect it");
 		}
+
+		/// <summary>
+		/// The model's own local forces reach the resolver unchanged, and the projection into the
+		/// joint plane is genuinely a different number — otherwise one value is being shown twice.
+		/// </summary>
+		[Test]
+		public void TheLocalForcesAreCopiedFromTheModelWithoutArithmetic()
+		{
+			var m = new JointMemberData
+			{
+				Id = 2, Name = "M2",
+				AxisX = new Vec3(0.6, 0.8, 0), AxisY = new Vec3(-0.8, 0.6, 0),
+				AxisZ = new Vec3(0, 0, 1),
+				Section = new JointSectionInfo { D = 0.0761, T = 0.0036 },
+			};
+			var sl = new IdeaStatiCa.Api.Connection.Model.ConLoadEffectSectionLoad
+			{
+				N = -142_100, Vy = 3_200, Vz = -1_100, Mx = 210, My = 4_700, Mz = -980,
+			};
+
+			var row = JointForceResolver.BraceForceInPlane(
+				m, sl, new Vec3(0.7071, 0.7071, 0), new Vec3(0.5774, -0.5774, 0.5774));
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(row.LocalN, Is.EqualTo(-142_100), "N, verbatim");
+				Assert.That(row.LocalVy, Is.EqualTo(3_200));
+				Assert.That(row.LocalVz, Is.EqualTo(-1_100));
+				Assert.That(row.LocalMx, Is.EqualTo(210));
+				Assert.That(row.LocalMy, Is.EqualTo(4_700));
+				Assert.That(row.LocalMz, Is.EqualTo(-980));
+
+				Assert.That(row.Mip, Is.Not.EqualTo(row.LocalMy).Within(1.0),
+					"the projected in-plane moment is not the local My");
+			});
+		}
 	}
 }

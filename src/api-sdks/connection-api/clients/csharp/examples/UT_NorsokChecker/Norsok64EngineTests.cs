@@ -429,5 +429,76 @@ namespace UT_NorsokChecker
 					"and the band value lies between the two edges, as interpolation requires");
 			});
 		}
+
+		/// <summary>
+		/// A brace classified across all three modes, run through the real engine.
+		///
+		/// Multi-mode on purpose: on a single-mode brace the dominant-mode and weighted N_Rd are
+		/// the same number, so the mixture rule of §6.4.3.2 is never exercised.
+		/// </summary>
+		private static JointResult64 MultiModeResult() => Norsok64Engine.CheckJoint(
+			Joint64Input.FromSI(
+				D: 0.141, T: 0.0065, fyChord: 355e6,
+				d: 0.102, t: 0.0065, fyBrace: 355e6,
+				thetaDeg: 45.0, g: 0.047,
+				frK: 0.19, frY: 0.38, frX: 0.43,
+				nSd: -88.8e3, mipSd: -1.2e3, mopSd: 2.4e3,
+				sigmaASd: 9.27e6, sigmaMySd: -25.48e6, sigmaMzSd: 0.0,
+				gammaM: 1.15));
+
+		/// <summary>
+		/// The fixture really is multi-mode and the two resistances really do differ — asserted
+		/// first, because if they coincided the pinned values below would measure nothing.
+		/// </summary>
+		[Test]
+		public void TheMultiModeFixturesTwoResistancesDiffer()
+		{
+			var r = MultiModeResult();
+
+			Assert.That(r.NRdWeighted, Is.Not.EqualTo(r.PerClass[Joint64Class.X].NRd).Within(1.0),
+				"the weighted and dominant-mode resistances must differ, or this fixture "
+				+ "cannot exercise the mixture rule");
+		}
+
+		/// <summary>
+		/// THE VALUES DO NOT MOVE. Every quantity of the multi-mode fixture, pinned.
+		///
+		/// The expected values were derived from the CLAUSES in a separate script, not read back
+		/// out of the engine — reading them back would pin whatever the engine does, including a
+		/// defect. A changed number here is not a new opinion about the number: it means something
+		/// was broken.
+		/// </summary>
+		[Test]
+		public void TheFixturesValuesArePinned()
+		{
+			var r = MultiModeResult();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(r.Beta, Is.EqualTo(0.723404).Within(1e-6), "β = d/D");
+				Assert.That(r.Gamma, Is.EqualTo(10.846154).Within(1e-6), "γ = D/2T");
+				Assert.That(r.QBeta, Is.EqualTo(1.043537).Within(1e-6), "Q_β, β > 0.6 branch");
+				Assert.That(r.Qg, Is.EqualTo(1.000059).Within(1e-6), "Q_g, gap branch");
+				Assert.That(r.QuIpb, Is.EqualTo(8.538127).Within(1e-6), "Q_u,ipb");
+				Assert.That(r.QuOpb, Is.EqualTo(5.373866).Within(1e-6), "Q_u,opb");
+				Assert.That(r.QfMomentA2, Is.EqualTo(0.003862).Within(1e-6), "A²");
+				Assert.That(r.QfMoment, Is.EqualTo(1.003678).Within(1e-6), "Q_f, moment");
+
+				Assert.That(r.MRdIp / 1e3, Is.EqualTo(16.1224).Within(1e-3), "M_y,Rd [kN·m]");
+				Assert.That(r.MRdOp / 1e3, Is.EqualTo(10.1474).Within(1e-3), "M_z,Rd [kN·m]");
+
+				Assert.That(r.PerClass[Joint64Class.K].NRd / 1e3,
+					Is.EqualTo(367.5876).Within(1e-3), "N_Rd, K");
+				Assert.That(r.PerClass[Joint64Class.Y].NRd / 1e3,
+					Is.EqualTo(368.4604).Within(1e-3), "N_Rd, Y");
+				Assert.That(r.PerClass[Joint64Class.X].NRd / 1e3,
+					Is.EqualTo(236.8597).Within(1e-3), "N_Rd, X");
+
+				Assert.That(r.NRdWeighted / 1e3, Is.EqualTo(311.7063).Within(1e-3),
+					"N_Rd weighted — the arithmetic mixture of §6.4.3.2");
+				Assert.That(r.UtilWeighted * 100.0, Is.EqualTo(52.6938).Within(1e-3),
+					"utilisation, eq (6.57)");
+			});
+		}
 	}
 }
