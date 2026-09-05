@@ -195,6 +195,33 @@ namespace NorsokChecker
 		/// <summary>The page setup, for a test to read back what the dialog left.</summary>
 		internal Models.PageSetup PageSetupForTest => _pageSetup;
 
+		/// <summary>
+		/// How quantities are displayed, for the app's tables AND the exported report.
+		///
+		/// One setting for both, because they used to disagree: the same M_Rd printed F1 in the
+		/// joint table and F2 in the report, and a reader comparing two screens saw two numbers.
+		/// </summary>
+		private Models.DisplaySettings _display = new();
+
+		internal Models.DisplaySettings DisplaySettingsForTest => _display;
+
+		private void DisplaySettings_Click(object sender, RoutedEventArgs e)
+		{
+			var dlg = new Controls.DisplaySettingsWindow(_display, this);
+			if (dlg.ShowDialog() != true) return;
+
+			_display = dlg.Result;
+			Log($"  display: force {Models.QuantityFormat.ForceLabel(_display.Force)}, "
+				+ $"stress {Models.QuantityFormat.StressLabel(_display.Stress)}, "
+				+ $"length {Models.QuantityFormat.LengthLabel(_display.Length)}, "
+				+ $"moment {_display.MomentLabel}");
+
+			// Redraw what is already on screen: a setting that only took effect on the next run
+			// would look broken. RefreshJoint64 rebuilds the §6.4 tab from the topology it already
+			// holds, so nothing is recomputed — only reformatted.
+			RefreshJoint64();
+		}
+
 		private void PageSetup_Click(object sender, RoutedEventArgs e)
 		{
 			var dlg = new Controls.PageSetupWindow(_pageSetup, this);

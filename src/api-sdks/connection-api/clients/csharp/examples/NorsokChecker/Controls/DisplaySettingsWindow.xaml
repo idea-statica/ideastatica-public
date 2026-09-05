@@ -1,0 +1,95 @@
+<Window x:Class="NorsokChecker.Controls.DisplaySettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Units and precision"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="White">
+    <!-- Plain WPF, like PageSetupWindow: a separate window does not inherit MainWindow's Material
+         Design resources, and pulling them in for one grid is not worth the coupling. -->
+    <StackPanel Margin="18" MinWidth="430">
+
+        <TextBlock TextWrapping="Wrap" Foreground="#546E7A" Margin="0,0,0,14"
+                   Text="Applies to the tables in this window and to the exported report."/>
+
+        <Grid Margin="0,0,0,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
+                <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
+                <RowDefinition/><RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="unit" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="decimals" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="exponent" FontWeight="SemiBold" Margin="0,0,0,4"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Forces" VerticalAlignment="Center"/>
+            <ComboBox  Grid.Row="1" Grid.Column="1" x:Name="CbForce" Margin="0,2,8,2"/>
+            <ComboBox  Grid.Row="1" Grid.Column="2" x:Name="CbForceDp" Margin="0,2,8,2"/>
+            <CheckBox  Grid.Row="1" Grid.Column="3" x:Name="ChkForceSci" VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Moments" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="TxtMomentUnit" VerticalAlignment="Center"
+                       Foreground="#78909C"/>
+            <ComboBox  Grid.Row="2" Grid.Column="2" x:Name="CbMomentDp" Margin="0,2,8,2"/>
+            <CheckBox  Grid.Row="2" Grid.Column="3" x:Name="ChkMomentSci" VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Stresses" VerticalAlignment="Center"/>
+            <ComboBox  Grid.Row="3" Grid.Column="1" x:Name="CbStress" Margin="0,2,8,2"/>
+            <ComboBox  Grid.Row="3" Grid.Column="2" x:Name="CbStressDp" Margin="0,2,8,2"/>
+            <CheckBox  Grid.Row="3" Grid.Column="3" x:Name="ChkStressSci" VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Lengths" VerticalAlignment="Center"/>
+            <ComboBox  Grid.Row="4" Grid.Column="1" x:Name="CbLength" Margin="0,2,8,2"/>
+            <ComboBox  Grid.Row="4" Grid.Column="2" x:Name="CbLengthDp" Margin="0,2,8,2"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Gaps, eccentricities" VerticalAlignment="Center"
+                       Foreground="#546E7A"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="as lengths" VerticalAlignment="Center"
+                       Foreground="#78909C" FontStyle="Italic"/>
+            <ComboBox  Grid.Row="5" Grid.Column="2" x:Name="CbGapDp" Margin="0,2,8,2"/>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Area A" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="6" Grid.Column="1" x:Name="TxtAreaUnit" VerticalAlignment="Center"
+                       Foreground="#78909C"/>
+            <ComboBox  Grid.Row="6" Grid.Column="2" x:Name="CbAreaDp" Margin="0,2,8,2"/>
+            <CheckBox  Grid.Row="6" Grid.Column="3" x:Name="ChkAreaSci" VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Inertia I" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="7" Grid.Column="1" x:Name="TxtInertiaUnit" VerticalAlignment="Center"
+                       Foreground="#78909C"/>
+            <ComboBox  Grid.Row="7" Grid.Column="2" x:Name="CbInertiaDp" Margin="0,2,8,2"/>
+            <CheckBox  Grid.Row="7" Grid.Column="3" x:Name="ChkInertiaSci" VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Angles" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="degrees" VerticalAlignment="Center"
+                       Foreground="#78909C"
+                       ToolTip="Fixed: §6.4.3.1 states its validity ranges in degrees, and the validity table is read against the clause."/>
+            <ComboBox  Grid.Row="8" Grid.Column="2" x:Name="CbAngleDp" Margin="0,2,8,2"/>
+
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="Ratios (β, γ, Q…)" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="1" Text="none" VerticalAlignment="Center"
+                       Foreground="#78909C"
+                       ToolTip="Dimensionless — there is no alternative unit. Their precision matters most, because they are the factors a reader substitutes."/>
+            <ComboBox  Grid.Row="9" Grid.Column="2" x:Name="CbRatioDp" Margin="0,2,8,2"/>
+        </Grid>
+
+        <TextBlock TextWrapping="Wrap" Foreground="#78909C" FontSize="11" Margin="0,10,0,16"
+                   Text="The derivation on each check card stays in MPa, mm and kN whatever is set here — that is the norm's own convention, and it is what lets a printed line be held against the clause."/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="BtnRestore" Content="Restore defaults" Width="120" Height="26"
+                    Margin="0,0,8,0" Click="Restore_Click"/>
+            <Button x:Name="BtnOk" Content="OK" Width="80" Height="26" IsDefault="True"
+                    Margin="0,0,8,0" Click="Ok_Click"/>
+            <Button x:Name="BtnCancel" Content="Cancel" Width="80" Height="26" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

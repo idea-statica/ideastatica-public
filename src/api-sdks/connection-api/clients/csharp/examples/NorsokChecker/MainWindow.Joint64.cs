@@ -355,12 +355,12 @@ namespace NorsokChecker
 					new
 					{
 						Quantity = "ΣF [kN]", State = state,
-						X = Models.QuantityFormat.Force(eq.SumF.X, cult), Y = Models.QuantityFormat.Force(eq.SumF.Y, cult), Z = Models.QuantityFormat.Force(eq.SumF.Z, cult),
+						X = Models.QuantityFormat.Force(eq.SumF.X, cult, _display), Y = Models.QuantityFormat.Force(eq.SumF.Y, cult, _display), Z = Models.QuantityFormat.Force(eq.SumF.Z, cult, _display),
 					},
 					new
 					{
 						Quantity = "ΣM [kNm]", State = state,
-						X = Models.QuantityFormat.Moment(eq.SumM.X, cult), Y = Models.QuantityFormat.Moment(eq.SumM.Y, cult), Z = Models.QuantityFormat.Moment(eq.SumM.Z, cult),
+						X = Models.QuantityFormat.Moment(eq.SumM.X, cult, _display), Y = Models.QuantityFormat.Moment(eq.SumM.Y, cult, _display), Z = Models.QuantityFormat.Moment(eq.SumM.Z, cult, _display),
 					},
 				};
 			}
@@ -386,16 +386,16 @@ namespace NorsokChecker
 				return new
 				{
 					Brace = r.Name + (projected ? "  ⚠" : ""),
-					NSd = Models.QuantityFormat.Force(r.NSd, cult),
-					Mip = Models.QuantityFormat.Moment(r.Mip, cult),
-					Mop = Models.QuantityFormat.Moment(r.Mop, cult),
-					Vip = Models.QuantityFormat.Force(r.Vip, cult),
-					Vop = Models.QuantityFormat.Force(r.Vop, cult),
-					Mtor = Models.QuantityFormat.Moment(r.Mtor, cult),
+					NSd = Models.QuantityFormat.Force(r.NSd, cult, _display),
+					Mip = Models.QuantityFormat.Moment(r.Mip, cult, _display),
+					Mop = Models.QuantityFormat.Moment(r.Mop, cult, _display),
+					Vip = Models.QuantityFormat.Force(r.Vip, cult, _display),
+					Vop = Models.QuantityFormat.Force(r.Vop, cult, _display),
+					Mtor = Models.QuantityFormat.Moment(r.Mtor, cult, _display),
 					Face = SideLabel(r.Side),
-					NChord = c == null ? "—" : Models.QuantityFormat.Force(c.NChord, cult),
-					MipChord = c == null ? "—" : Models.QuantityFormat.Moment(c.MipChord, cult),
-					MopChord = c == null ? "—" : Models.QuantityFormat.Moment(c.MopChord, cult),
+					NChord = c == null ? "—" : Models.QuantityFormat.Force(c.NChord, cult, _display),
+					MipChord = c == null ? "—" : Models.QuantityFormat.Moment(c.MipChord, cult, _display),
+					MopChord = c == null ? "—" : Models.QuantityFormat.Moment(c.MopChord, cult, _display),
 				};
 			}).ToList();
 		}
@@ -553,9 +553,9 @@ namespace NorsokChecker
 				// much capacity was used, never the actions that used it.
 				if (row.Inputs is { } inp)
 					// eq (6.57)'s symbols, as everywhere else the user reads them
-					view.Actions = $"N_Sd={Models.QuantityFormat.Force(inp.NSd, cult)} kN"
-						+ $" · M_y={Models.QuantityFormat.Moment(inp.MipSd, cult)} kNm"
-						+ $" · M_z={Models.QuantityFormat.Moment(inp.MopSd, cult)} kNm";
+					view.Actions = $"N_Sd={Models.QuantityFormat.Force(inp.NSd, cult, _display)} kN"
+						+ $" · M_y={Models.QuantityFormat.Moment(inp.MipSd, cult, _display)} kNm"
+						+ $" · M_z={Models.QuantityFormat.Moment(inp.MopSd, cult, _display)} kNm";
 
 				if (cls != null)
 				{
@@ -583,9 +583,9 @@ namespace NorsokChecker
 				var e = row.Engine;
 				view.NRd = row.NoAxialClassification
 					? "n/a"
-					: $"{Models.QuantityFormat.Force(row.NRdWeighted, cult)} kN";
-				view.MRdIp = $"{Models.QuantityFormat.Moment(row.MRdIp, cult, 2)} kNm";
-				view.MRdOp = $"{Models.QuantityFormat.Moment(row.MRdOp, cult, 2)} kNm";
+					: $"{Models.QuantityFormat.Force(row.NRdWeighted, cult, _display)} kN";
+				view.MRdIp = $"{Models.QuantityFormat.Moment(row.MRdIp, cult, _display)} kNm";
+				view.MRdOp = $"{Models.QuantityFormat.Moment(row.MRdOp, cult, _display)} kNm";
 				if (e != null)
 				{
 					// The three shares of eq (6.57), taken from the engine's own per-class result
@@ -623,7 +623,7 @@ namespace NorsokChecker
 						IsSubRow = true,
 						Brace = $"↳ K via {kc.Partner}",
 						FrK = $"{kc.Frac * 100:F1} %",
-						Note = $"{Models.QuantityFormat.Force(force, cult)} kN balanced across a "
+						Note = $"{Models.QuantityFormat.Force(force, cult, _display)} kN balanced across a "
 							+ (kc.GapM is { } g ? $"{g * 1000:F0} mm gap" : "gap of unknown size"),
 					});
 				}

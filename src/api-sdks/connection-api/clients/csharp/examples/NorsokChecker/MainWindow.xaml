@@ -288,6 +288,17 @@
                                         VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <!-- Units and precision govern BOTH consumers, and the grids they
+                                 change are on this tab — so the button belongs here rather than
+                                 beside the export on the Report tab. -->
+                            <Button x:Name="BtnDisplaySettings" Click="DisplaySettings_Click"
+                                    Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0"
+                                    ToolTip="Units and precision for the tables here and for the exported report.">
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="RulerSquare" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Units" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button x:Name="BtnLoadProject" Click="LoadProject_Click"
                                     Style="{StaticResource IdeaOutlineButton}" Margin="0,0,8,0">
                                 <StackPanel Orientation="Horizontal">
