@@ -1260,6 +1260,11 @@ namespace NorsokChecker.Services
 			string connection = "", string state = "", string utilisation = "", string verdict = "",
 			Models.DisplaySettings? display = null)
 		{
+			// The percent precision for THIS page. Set here as well as in GenerateReport, because
+			// a static set in only one entry point leaks: a derivation window opened after an
+			// exported report inherited that report's precision.
+			_pctDecimals = Math.Clamp((display ?? new Models.DisplaySettings()).PercentDecimals, 0, 9);
+
 			var sb = new StringBuilder();
 			sb.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/>");
 			AppendKatex(sb);
@@ -1515,13 +1520,13 @@ namespace NorsokChecker.Services
 			// 0..90°), not a value anyone typed. It was the one description in the old "Where:" table
 			// carrying information the derivation did not already state.
 			Kv(sb, "&theta; (brace&ndash;chord)",
-				$"{N(r.ThetaDeg, 1)}&deg; <span class='deriv-hint'>(from the member axes)</span>");
+				$"{N(r.ThetaDeg, disp.AngleDecimals)}&deg; <span class='deriv-hint'>(from the member axes)</span>");
 			Kv(sb, "chord face", row.ChordStress is { } cs0 ? (cs0.Side >= 0 ? "+ey face" : "&minus;ey face") : "&mdash;");
-			Kv(sb, "&beta; = d/D", N(r.Beta));
-			Kv(sb, "&gamma; = D/(2T)", N(r.Gamma));
-			Kv(sb, "&tau; = t/T", N(r.Tau));
-			Kv(sb, "classification", $"K {Pct2(cl.FrK)} &middot; Y {Pct2(cl.FrY)} &middot; X {Pct2(cl.FrX)}");
-			Kv(sb, "&gamma;<sub>M</sub>", N(inp.GammaM, 3));
+			Kv(sb, "&beta; = d/D", N(r.Beta, disp.RatioDecimals));
+			Kv(sb, "&gamma; = D/(2T)", N(r.Gamma, disp.RatioDecimals));
+			Kv(sb, "&tau; = t/T", N(r.Tau, disp.RatioDecimals));
+			Kv(sb, "classification", $"K {Pct(cl.FrK, disp.PercentDecimals)} &middot; Y {Pct(cl.FrY, disp.PercentDecimals)} &middot; X {Pct(cl.FrX, disp.PercentDecimals)}");
+			Kv(sb, "&gamma;<sub>M</sub>", N(inp.GammaM, disp.RatioDecimals));
 			sb.AppendLine("      </table>");
 
 			sb.AppendLine("      <p class='deriv-h'>Applied forces (in the joint plane)</p>");
@@ -1668,13 +1673,13 @@ namespace NorsokChecker.Services
 					double.IsNaN(v) ? "&mdash;"
 						: $"{N(cM(v), disp.MomentDecimals)} {uM}{(governs ? mark : "")}";
 
-				sb.AppendLine($"        <tr><td>a) actual geometry</td><td>{N(r.Beta)}</td>"
-					+ $"<td>{N(r.Gamma)}</td><td>{N(r.ThetaDeg, disp.AngleDecimals)}&deg;</td>"
+				sb.AppendLine($"        <tr><td>a) actual geometry</td><td>{N(r.Beta, disp.RatioDecimals)}</td>"
+					+ $"<td>{N(r.Gamma, disp.RatioDecimals)}</td><td>{N(r.ThetaDeg, disp.AngleDecimals)}&deg;</td>"
 					+ $"<td>{CellF(r.NRdActual, axGov)}</td>"
 					+ $"<td>{CellM(r.MRdIpActual, ipGov)}</td>"
 					+ $"<td>{CellM(r.MRdOpActual, opGov)}</td></tr>");
-				sb.AppendLine($"        <tr><td>b) imposed limits</td><td>{N(r.BetaLimiting)}</td>"
-					+ $"<td>{N(r.GammaLimiting)}</td>"
+				sb.AppendLine($"        <tr><td>b) imposed limits</td><td>{N(r.BetaLimiting, disp.RatioDecimals)}</td>"
+					+ $"<td>{N(r.GammaLimiting, disp.RatioDecimals)}</td>"
 					+ $"<td>{N(r.ThetaLimitingDeg, disp.AngleDecimals)}&deg;</td>"
 					+ $"<td>{CellF(r.NRdLimiting, !axGov)}</td>"
 					+ $"<td>{CellM(r.MRdIpLimiting, !ipGov)}</td>"
@@ -1762,7 +1767,7 @@ namespace NorsokChecker.Services
 			Step(sb, "Chord utilisation A&sup2; &mdash; eq (6.55) (shared by all classes)",
 				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_{y,chord}}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_{y,chord}^2}",
 				$@"\left(\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}}\right)^2 + \dfrac{{{SigP(smy)}^2+{SigP(smz)}^2}}{{1.62\cdot {Sig(fy)}^2}}",
-				N(r.QfMomentA2, 4));
+				N(r.QfMomentA2, disp.RatioDecimals));
 
 			// The coefficients come from the RESULT, not from PerClass[K].CAxial — those are the
 			// AXIAL row of Table 6-4 and differ (K axial is C2 = 0.2, moment is C2 = 0). Reading them
@@ -1771,8 +1776,8 @@ namespace NorsokChecker.Services
 				+ $" &mdash; C&#8321;={N(r.CMoment.C1, 2)}, C&#8322;={N(r.CMoment.C2, 2)}, "
 				+ $"C&#8323;={N(r.CMoment.C3, 2)}",
 				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-				$@"1 + {N(r.CMoment.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(r.CMoment.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(r.CMoment.C3, 2)}\cdot {N(r.QfMomentA2, 4)}",
-				N(r.QfMoment, 3));
+				$@"1 + {N(r.CMoment.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(r.CMoment.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(r.CMoment.C3, 2)}\cdot {N(r.QfMomentA2, disp.RatioDecimals)}",
+				N(r.QfMoment, disp.RatioDecimals));
 
 			// THE SUBSTITUTED THICKNESS IS NOT ROUNDED, and the angle belongs to the governing pass.
 			//
@@ -1796,7 +1801,7 @@ namespace NorsokChecker.Services
 				? Math.Sin(r.ThetaLimitingDeg * Math.PI / 180.0)
 				: r.SinTheta;
 			string momNote = momLimiting
-				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, 1)}&deg; (&sect;6.4.3.1)"
+				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, disp.AngleDecimals)}&deg; (&sect;6.4.3.1)"
 				: "";
 
 			// THE BENDING Q_u FACTORS, WITH THEIR FORMULAS. They were bare numbers — 8.538, 5.374 —
@@ -1805,16 +1810,16 @@ namespace NorsokChecker.Services
 			// expression each, shared by K, Y and X, so they belong here beside A² rather than
 			// inside a per-class block.
 			Step(sb, $"Q<sub>u,ipb</sub> &mdash; Table 6-3, in-plane bending "
-				+ $"(all classes), &beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
+				+ $"(all classes), &beta; = {N(r.Beta, disp.RatioDecimals)}, &gamma; = {N(r.Gamma, disp.RatioDecimals)}",
 				@"Q_{u,ipb} = (5+0.7\gamma)\,\beta^{1.2}",
-				$@"(5+0.7\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}",
-				N(r.QuIpb, 3));
+				$@"(5+0.7\cdot {N(r.Gamma, disp.RatioDecimals)})\cdot {N(r.Beta, disp.RatioDecimals)}^{{1.2}}",
+				N(r.QuIpb, disp.RatioDecimals));
 
 			Step(sb, $"Q<sub>u,opb</sub> &mdash; Table 6-3, out-of-plane bending "
-				+ $"(all classes), &beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
+				+ $"(all classes), &beta; = {N(r.Beta, disp.RatioDecimals)}, &gamma; = {N(r.Gamma, disp.RatioDecimals)}",
 				@"Q_{u,opb} = 2.5+(4.5+0.2\gamma)\,\beta^{2.6}",
-				$@"2.5+(4.5+0.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{2.6}}",
-				N(r.QuOpb, 3));
+				$@"2.5+(4.5+0.2\cdot {N(r.Gamma, disp.RatioDecimals)})\cdot {N(r.Beta, disp.RatioDecimals)}^{{2.6}}",
+				N(r.QuOpb, disp.RatioDecimals));
 
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
 				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
@@ -1826,8 +1831,8 @@ namespace NorsokChecker.Services
 				// a factor rounded for display makes the printed line unreconcilable. In inches
 				// T = 0.2559 printed as `0.3` put this line 27 % out.
 				$@"\dfrac{{{Sig(fy)}\cdot {Sig(tChordMm)}^2"
-					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
-					+ $@"\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
+					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, disp.RatioDecimals)}\cdot {N(sinMom, 3)}}}"
+					+ $@"\cdot {N(r.QuIpb, disp.RatioDecimals)}\cdot {N(r.QfMoment, disp.RatioDecimals)}{momFactor}",
 				$@"{Fk(cM(r.MRdIp), disp.MomentDecimals, disp.MomentFormat)}\,{kM}");
 
 			Step(sb, $"Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53){momNote}",
@@ -1836,8 +1841,8 @@ namespace NorsokChecker.Services
 				// a factor rounded for display makes the printed line unreconcilable. In inches
 				// T = 0.2559 printed as `0.3` put this line 37 % out.
 				$@"\dfrac{{{Sig(fy)}\cdot {Sig(tChordMm)}^2"
-					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
-					+ $@"\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
+					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, disp.RatioDecimals)}\cdot {N(sinMom, 3)}}}"
+					+ $@"\cdot {N(r.QuOpb, disp.RatioDecimals)}\cdot {N(r.QfMoment, disp.RatioDecimals)}{momFactor}",
 				$@"{Fk(cM(r.MRdOp), disp.MomentDecimals, disp.MomentFormat)}\,{kM}");
 
 			// ── one block per ACTIVE mode. An inactive class is computed but plays no part in
@@ -1863,7 +1868,7 @@ namespace NorsokChecker.Services
 				: r.SinTheta;
 			double baseAx = inp.FyChord * inp.T * inp.T / (inp.GammaM * sinAx);
 			string axNote = limitingGoverns
-				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, 1)}&deg; (&sect;6.4.3.1 "
+				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, disp.AngleDecimals)}&deg; (&sect;6.4.3.1 "
 					+ "limiting pass, which governs here)"
 				: "";
 
@@ -1872,7 +1877,7 @@ namespace NorsokChecker.Services
 			if (cl.FrK > 1e-9 && r.KTerms.Count > 0)
 			{
 				sb.AppendLine($"      <p class='deriv-h'>Mode K &mdash; fraction of N<sub>Sd</sub> = "
-					+ Pct2(cl.FrK) + (r.KTerms.Count > 1 ? $" (split over {r.KTerms.Count} gaps)" : "")
+					+ Pct(cl.FrK, disp.PercentDecimals) + (r.KTerms.Count > 1 ? $" (split over {r.KTerms.Count} gaps)" : "")
 					+ "</p>");
 
 				// Q_f FIRST, and once: it is the same for every gap of this brace (the chord stresses
@@ -1891,14 +1896,14 @@ namespace NorsokChecker.Services
 						+ $"C&#8322;={N(kQf.CAxial.C2, 2)}, C&#8323;={N(kQf.CAxial.C3, 2)}"
 						+ (string.IsNullOrEmpty(kQf.CAxial.Note) ? "" : $" ({Esc(kQf.CAxial.Note)})"),
 						@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-						$@"1 + {N(kQf.CAxial.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(kQf.CAxial.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(kQf.CAxial.C3, 2)}\cdot {N(kQf.QfAxialA2, 4)}",
+						$@"1 + {N(kQf.CAxial.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(kQf.CAxial.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(kQf.CAxial.C3, 2)}\cdot {N(kQf.QfAxialA2, disp.RatioDecimals)}",
 						N(kQf.QfAxial, 3));
 
 				for (int i = 0; i < r.KTerms.Count; i++)
 				{
 					var kt = r.KTerms[i];
 					string lbl = r.KTerms.Count > 1 ? $"K{i + 1}" : "K";
-					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {Pct(kt.FrK)} of "
+					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {Pct(kt.FrK, disp.PercentDecimals)} of "
 						+ "N<sub>Sd</sub> balanced across this gap.</p>");
 					// Q_g SHOWS ITS BRANCH AND ITS INPUTS.
 					//
@@ -1921,23 +1926,23 @@ namespace NorsokChecker.Services
 							: @"Q_g = Q_g^{-} + (Q_g^{+} - Q_g^{-})\dfrac{g/D + 0.05}{0.10}"
 								+ @"\quad\text{(interpolated)}";
 					string qgSubst = gdI >= 0.05
-						? $@"\max\{{1 + 0.2(1-2.8\cdot {N(gdI, 4)})^3,\ 1\}}"
+						? $@"\max\{{1 + 0.2(1-2.8\cdot {N(gdI, disp.RatioDecimals)})^3,\ 1\}}"
 						: $@"\varphi = \dfrac{{{N(tMm, disp.SmallLengthDecimals)}\cdot "
 							+ $@"{N(cS(inp.FyBrace), disp.StressDecimals)}}}"
 							+ $@"{{{N(tChordMm, disp.SmallLengthDecimals)}\cdot "
-							+ $@"{N(fy, disp.StressDecimals)}}} = {N(phiI, 4)}"
-							+ $@",\ \gamma = {N(r.Gamma, 2)},\ g/D = {N(gdI, 4)}";
+							+ $@"{N(fy, disp.StressDecimals)}}} = {N(phiI, disp.RatioDecimals)}"
+							+ $@",\ \gamma = {N(r.Gamma, disp.RatioDecimals)},\ g/D = {N(gdI, disp.RatioDecimals)}";
 					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = "
 						+ $"{N(cL(kt.GapM), disp.SmallLengthDecimals)} {uL}, "
-						+ $"g/D = {N(gdI, 4)} "
+						+ $"g/D = {N(gdI, disp.RatioDecimals)} "
 						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
 						+ " (Table 6-3)",
-						qgBranch, qgSubst, N(kt.Qg, 3));
+						qgBranch, qgSubst, N(kt.Qg, disp.RatioDecimals));
 					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3, class K, "
-						+ $"&beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
+						+ $"&beta; = {N(r.Beta, disp.RatioDecimals)}, &gamma; = {N(r.Gamma, disp.RatioDecimals)}",
 						@"Q_u = \min\{(16+1.2\gamma)\beta^{1.2}Q_g,\ 40\beta^{1.2}Q_g\}",
-						$@"\min\{{(16+1.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)},\ 40\cdot {N(r.Beta, 3)}^{{1.2}}\cdot {N(kt.Qg, 3)}\}}",
-						N(kt.QuAxial, 3));
+						$@"\min\{{(16+1.2\cdot {N(r.Gamma, disp.RatioDecimals)})\cdot {N(r.Beta, disp.RatioDecimals)}^{{1.2}}\cdot {N(kt.Qg, disp.RatioDecimals)},\ 40\cdot {N(r.Beta, disp.RatioDecimals)}^{{1.2}}\cdot {N(kt.Qg, disp.RatioDecimals)}\}}",
+						N(kt.QuAxial, disp.RatioDecimals));
 					// All THREE factors the formula above names. The Q_f,K was applied and omitted
 					// here, so the printed product did not give the printed result.
 					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52){axNote}",
@@ -1958,13 +1963,13 @@ namespace NorsokChecker.Services
 				if (frac <= 1e-9 || !r.PerClass.TryGetValue(cls, out var c)) continue;
 				string tension = r.LoadAxial == "tension" ? "tension" : "compression";
 				sb.AppendLine($"      <p class='deriv-h'>Mode {cls} &mdash; fraction of "
-					+ $"N<sub>Sd</sub> = {Pct2(frac)}</p>");
+					+ $"N<sub>Sd</sub> = {Pct(frac, disp.PercentDecimals)}</p>");
 				Step(sb, $"Q<sub>f</sub>, axial &mdash; class {cls}, Table 6-4: "
 					+ $"C&#8321;={N(c.CAxial.C1, 2)}, "
 					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
 					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
 					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
+					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, disp.RatioDecimals)}",
 					N(c.QfAxial, 3));
 				// Q_beta, ON THE ONE BRANCH THAT CONSUMES IT, and it names which rule fired.
 				//
@@ -1975,13 +1980,13 @@ namespace NorsokChecker.Services
 				// printed `·Q_β` and the symbol was never bound to a number.
 				bool needsQBeta = cls == Norsok64.Joint64Class.X && r.LoadAxial != "tension";
 				if (needsQBeta)
-					Step(sb, $"Q<sub>&beta;</sub> &mdash; Table 6-3, &beta; = {N(r.Beta, 3)} "
+					Step(sb, $"Q<sub>&beta;</sub> &mdash; Table 6-3, &beta; = {N(r.Beta, disp.RatioDecimals)} "
 						+ $"{(r.Beta > 0.6 ? "&gt;" : "&le;")} 0.6",
 						r.Beta > 0.6
 							? @"Q_\beta = \dfrac{0.3}{\beta(1-0.833\beta)}"
 							: @"Q_\beta = 1.0",
 						r.Beta > 0.6
-							? $@"\dfrac{{0.3}}{{{N(r.Beta, 3)}\cdot(1-0.833\cdot {N(r.Beta, 3)})}}"
+							? $@"\dfrac{{0.3}}{{{N(r.Beta, disp.RatioDecimals)}\cdot(1-0.833\cdot {N(r.Beta, disp.RatioDecimals)})}}"
 							: null,
 						N(r.QBeta, 3));
 
@@ -1994,7 +1999,7 @@ namespace NorsokChecker.Services
 						: @"Q_u = \min\{2.8+(20+0.8\gamma)\beta^{1.6},\ 2.8+36\beta^{1.6}\}")
 					: (r.LoadAxial == "tension" ? @"Q_u = 6.4\,\gamma^{0.6\beta^2}"
 						: @"Q_u = (2.8+(12+0.1\gamma)\beta)\,Q_\beta");
-				string b3 = N(r.Beta, 3), g2 = N(r.Gamma, 2);
+				string b3 = N(r.Beta, disp.RatioDecimals), g2 = N(r.Gamma, disp.RatioDecimals);
 				string quSubst = cls == Norsok64.Joint64Class.Y
 					? (r.LoadAxial == "tension" ? $@"30\cdot {b3}"
 						: $@"\min\{{2.8+(20+0.8\cdot {g2})\cdot {b3}^{{1.6}},\ 2.8+36\cdot {b3}^{{1.6}}\}}")
@@ -2024,7 +2029,7 @@ namespace NorsokChecker.Services
 				sb.AppendLine("      <table class='deriv-table'>");
 				sb.AppendLine("        <tr><th>mode</th><th>fraction</th><th>N<sub>Rd,mode</sub></th></tr>");
 				foreach (var (cls, frac) in active)
-					sb.AppendLine($"        <tr><td>{cls}</td><td>{Pct2(frac)}</td>"
+					sb.AppendLine($"        <tr><td>{cls}</td><td>{Pct(frac, disp.PercentDecimals)}</td>"
 						+ $"<td>{N(cF(r.PerClass[cls].NRd), disp.ForceDecimals)} {uF}</td></tr>");
 				sb.AppendLine("      </table>");
 				// A WEIGHTED AVERAGE, which is what the clause says and what the engine computes.
@@ -2093,8 +2098,11 @@ namespace NorsokChecker.Services
 			Step(sb, "Sum of the three interaction terms &mdash; axial, in-plane, out-of-plane",
 				@"u = \dfrac{N_{Sd}}{N_{Rd}} + \left(\dfrac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\dfrac{M_{z,Sd}}{M_{z,Rd}}\right|",
 				dom == null ? null
-					: $@"{N(axialTerm * 100, 2)}\% + {N(dom.UtilIpTerm * 100, 2)}\% + {N(dom.UtilOpTerm * 100, 2)}\%",
-				$@"{N(row.Util * 100, 2)}\%\ \ \text{{{(row.Passed ? "PASS" : "FAIL")}}}");
+					: $@"{N(axialTerm * 100, disp.PercentDecimals)}\% + "
+					+ $@"{N(dom.UtilIpTerm * 100, disp.PercentDecimals)}\% + "
+					+ $@"{N(dom.UtilOpTerm * 100, disp.PercentDecimals)}\%",
+				$@"{N(row.Util * 100, disp.PercentDecimals)}\%\ \ "
+					+ $@"\text{{{(row.Passed ? "PASS" : "FAIL")}}}");
 
 			if (r.ChordOverstressed)
 				sb.AppendLine("      <p class='deriv-warn'>&#9940; CHORD OVERSTRESSED: Q<sub>f</sub> "
@@ -2231,7 +2239,7 @@ namespace NorsokChecker.Services
 				Kv(sb, "out-of-plane spread",
 					// PlaneSpread is the scatter of the brace DIRECTIONS (unit vectors from
 					// DominantDirection), so it is dimensionless — it used to print "mm".
-					$"{N(topo.PlaneSpread, 4)} <span class='deriv-hint'>(direction scatter, "
+					$"{N(topo.PlaneSpread, disp.RatioDecimals)} <span class='deriv-hint'>(direction scatter, "
 					+ "dimensionless)</span>"
 					+ (topo.Coplanar ? "" : " <span class='deriv-hint'>(not coplanar)</span>"));
 			sb.AppendLine("  </table>");
@@ -2559,21 +2567,6 @@ namespace NorsokChecker.Services
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
 
 		/// <summary>
-		/// A fraction as a percentage to TWO decimals — the K/Y/X split and the per-mode fractions.
-		///
-		/// Same reason as <see cref="Pct"/>: measured 126 comma decimals in one printed report
-		/// ("100,00", "0,7370") beside the points used everywhere else, all from `:P2`/`:P1`
-		/// interpolations carrying no culture.
-		///
-		/// Fixed at two decimals rather than following PercentDecimals — a mode split is a
-		/// classification, not a measurement, and "K 100.00 %" wants its two places whatever
-		/// precision the reader picked for utilisations.
-		/// </summary>
-		private static string Pct2(double ratio) =>
-			ratio.ToString("P2", System.Globalization.CultureInfo.InvariantCulture)
-				.Replace(" ", "").Replace(" ", "");
-
-		/// <summary>
 		/// A utilisation as a percentage, to one decimal — through ONE formatter, in one culture.
 		///
 		/// Measured on a printed report from this machine: the summary read "73,7%" with a comma
@@ -2593,7 +2586,22 @@ namespace NorsokChecker.Services
 		/// other reason to know about the settings. Pct2 deliberately does NOT follow it: its call
 		/// sites are all inside the derivation, which stays in the norm's own convention.
 		/// </summary>
+		/// <summary>
+		/// The precision the parameterless <see cref="Pct(double)"/> prints at.
+		///
+		/// A STATIC, and that is a compromise worth naming: Pct is called from five methods that
+		/// have no other reason to know about the settings. It is set at the top of BOTH entry
+		/// points — GenerateReport and GenerateDerivationPage — because setting it in only one of
+		/// them meant a derivation window silently inherited the precision of the last exported
+		/// report. Where the settings ARE in scope, call Pct(ratio, decimals) instead; the
+		/// derivation does, which is what retired the old fixed-2-decimal Pct2.
+		/// </summary>
 		private static int _pctDecimals = 1;
+
+		private static string Pct(double ratio, int decimals) =>
+			ratio.ToString("P" + Math.Clamp(decimals, 0, 9),
+					System.Globalization.CultureInfo.InvariantCulture)
+				.Replace(" ", "").Replace(" ", "");
 
 		private static string Pct(double ratio) =>
 			ratio.ToString("P" + _pctDecimals, System.Globalization.CultureInfo.InvariantCulture)

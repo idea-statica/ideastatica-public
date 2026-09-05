@@ -152,6 +152,33 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// THE PRECISION COLUMNS DO SOMETHING, and one quantity keeps ONE precision per page.
+		///
+		/// γ printed as `10.846` in the geometry table and `10.85` six steps later, γ_M as `1.150`
+		/// and `1.15`, because ~30 sites carried their own literal decimal count and none of them
+		/// read RatioDecimals. A reader who spots that reasonably asks which of the two the check
+		/// used.
+		/// </summary>
+		[Test]
+		public void TheRatioPrecisionIsReadAndIsConsistentAcrossThePage()
+		{
+			string coarse = Page(new DisplaySettings { RatioDecimals = 2 });
+			string fine = Page(new DisplaySettings { RatioDecimals = 6 });
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(fine, Is.Not.EqualTo(coarse), "RatioDecimals changed nothing");
+
+				// β = 0.723404 on this fixture: at six decimals it must appear in full, and the
+				// three-decimal spelling must not survive anywhere on the same page.
+				Assert.That(Content(fine), Does.Contain("0.723404"),
+					"β is not printed at the requested precision");
+				Assert.That(Regex.Matches(Content(fine), @"\b0\.723\b").Count, Is.Zero,
+					"β still appears at a hardcoded 3 decimals somewhere on the page");
+			});
+		}
+
+		/// <summary>
 		/// THE FORMAT COLUMN DOES SOMETHING.
 		///
 		/// The dialog offers Decimal / Scientific / Automatic per quantity, and for a long time the
