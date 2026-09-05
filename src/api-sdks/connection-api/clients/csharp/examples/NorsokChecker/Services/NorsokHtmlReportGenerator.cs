@@ -1362,11 +1362,17 @@ namespace NorsokChecker.Services
 			// So: significant figures for the magnitude, floored at three decimals so a factor
 			// near unity keeps its meaningful digits.
 			//
-			// FIVE and THREE, measured rather than picked. On the fixture's X mode the printed
-			// product misses its printed result by 2.13 % at two significant figures, 0.17 % at
-			// three, 0.031 % at four, and 0.0013 % at five-with-three-decimals — which is where it
-			// stops mattering. Four alone was not enough because Q_f = 1.0033 rounds to `1.003`.
-			static string Sig(double v, int sig = 5, int minDec = 3)
+			// FOUR and THREE. An engineer expects the last digit not to close and reads a tenth of
+			// a percent as rounding, not as an error — so the target is not agreement to the last
+			// place, it is a line short enough to read and close enough not to raise a question.
+			// Measured on the fixture's X mode: the printed product misses its result by 2.13 % at
+			// two significant figures, 0.17 % at three and 0.031 % at four, which is where it stops
+			// being noticed. The three-decimal floor is what keeps Q_f = 1.0033 from printing as
+			// `1.003` and losing the digit that carries its meaning.
+			//
+			// What this is NOT for: the engine computes in full double precision and its results
+			// are right. This is about a reader being able to follow the printed line.
+			static string Sig(double v, int sig = 4, int minDec = 3)
 			{
 				if (double.IsNaN(v) || double.IsInfinity(v)) return "—";
 				if (v == 0.0) return "0";

@@ -329,6 +329,11 @@ namespace NorsokChecker
 		/// </summary>
 		private void ShowJoint64PerLeCards(JointTopology topo, bool envelope)
 		{
+			// One culture for every number this method prints — the machine's, which the GUI tests
+			// require and which the report deliberately does not share (it is invariant, and a test
+			// sweeps its whole body for comma decimals).
+			var cult = Models.QuantityFormat.Gui;
+
 			Pnl64EnvNote.Visibility = envelope ? Visibility.Visible : Visibility.Collapsed;
 			Pnl64Equilibrium.Visibility = envelope ? Visibility.Collapsed : Visibility.Visible;
 			Pnl64BraceForces.Visibility = envelope ? Visibility.Collapsed : Visibility.Visible;
@@ -350,12 +355,12 @@ namespace NorsokChecker
 					new
 					{
 						Quantity = "ΣF [kN]", State = state,
-						X = $"{eq.SumF.X / 1e3:F1}", Y = $"{eq.SumF.Y / 1e3:F1}", Z = $"{eq.SumF.Z / 1e3:F1}",
+						X = Models.QuantityFormat.Force(eq.SumF.X, cult), Y = Models.QuantityFormat.Force(eq.SumF.Y, cult), Z = Models.QuantityFormat.Force(eq.SumF.Z, cult),
 					},
 					new
 					{
 						Quantity = "ΣM [kNm]", State = state,
-						X = $"{eq.SumM.X / 1e3:F2}", Y = $"{eq.SumM.Y / 1e3:F2}", Z = $"{eq.SumM.Z / 1e3:F2}",
+						X = Models.QuantityFormat.Moment(eq.SumM.X, cult), Y = Models.QuantityFormat.Moment(eq.SumM.Y, cult), Z = Models.QuantityFormat.Moment(eq.SumM.Z, cult),
 					},
 				};
 			}
@@ -381,16 +386,16 @@ namespace NorsokChecker
 				return new
 				{
 					Brace = r.Name + (projected ? "  ⚠" : ""),
-					NSd = $"{r.NSd / 1e3:F1}",
-					Mip = $"{r.Mip / 1e3:F2}",
-					Mop = $"{r.Mop / 1e3:F2}",
-					Vip = $"{r.Vip / 1e3:F1}",
-					Vop = $"{r.Vop / 1e3:F1}",
-					Mtor = $"{r.Mtor / 1e3:F2}",
+					NSd = Models.QuantityFormat.Force(r.NSd, cult),
+					Mip = Models.QuantityFormat.Moment(r.Mip, cult),
+					Mop = Models.QuantityFormat.Moment(r.Mop, cult),
+					Vip = Models.QuantityFormat.Force(r.Vip, cult),
+					Vop = Models.QuantityFormat.Force(r.Vop, cult),
+					Mtor = Models.QuantityFormat.Moment(r.Mtor, cult),
 					Face = SideLabel(r.Side),
-					NChord = c == null ? "—" : $"{c.NChord / 1e3:F1}",
-					MipChord = c == null ? "—" : $"{c.MipChord / 1e3:F2}",
-					MopChord = c == null ? "—" : $"{c.MopChord / 1e3:F2}",
+					NChord = c == null ? "—" : Models.QuantityFormat.Force(c.NChord, cult),
+					MipChord = c == null ? "—" : Models.QuantityFormat.Moment(c.MipChord, cult),
+					MopChord = c == null ? "—" : Models.QuantityFormat.Moment(c.MopChord, cult),
 				};
 			}).ToList();
 		}
@@ -504,6 +509,8 @@ namespace NorsokChecker
 
 		private void ShowJoint64Table(JointTopology topo, bool envelope)
 		{
+			var cult = Models.QuantityFormat.Gui;
+
 			Col64Gov.Visibility = envelope ? Visibility.Visible : Visibility.Collapsed;
 
 			var rows = new List<Joint64RowView>();
@@ -546,8 +553,9 @@ namespace NorsokChecker
 				// much capacity was used, never the actions that used it.
 				if (row.Inputs is { } inp)
 					// eq (6.57)'s symbols, as everywhere else the user reads them
-					view.Actions = $"N_Sd={inp.NSd / 1e3:F1} kN · M_y={inp.MipSd / 1e3:F2} kNm"
-						+ $" · M_z={inp.MopSd / 1e3:F2} kNm";
+					view.Actions = $"N_Sd={Models.QuantityFormat.Force(inp.NSd, cult)} kN"
+						+ $" · M_y={Models.QuantityFormat.Moment(inp.MipSd, cult)} kNm"
+						+ $" · M_z={Models.QuantityFormat.Moment(inp.MopSd, cult)} kNm";
 
 				if (cls != null)
 				{
@@ -567,10 +575,17 @@ namespace NorsokChecker
 					continue;
 				}
 
+				// Through QuantityFormat, and at the REPORT's precision — these three printed F0,
+				// F1, F1 here against the report's F1, F2, F2, so the same joint gave a reader two
+				// different resistances depending on which screen they were looking at. On a small
+				// joint M_Rd = 0.75 kN·m showed as `0.8` in this table.
+				var c = Models.QuantityFormat.Gui;
 				var e = row.Engine;
-				view.NRd = row.NoAxialClassification ? "n/a" : $"{row.NRdWeighted / 1e3:F0} kN";
-				view.MRdIp = $"{row.MRdIp / 1e3:F1} kNm";
-				view.MRdOp = $"{row.MRdOp / 1e3:F1} kNm";
+				view.NRd = row.NoAxialClassification
+					? "n/a"
+					: $"{Models.QuantityFormat.Force(row.NRdWeighted, cult)} kN";
+				view.MRdIp = $"{Models.QuantityFormat.Moment(row.MRdIp, cult, 2)} kNm";
+				view.MRdOp = $"{Models.QuantityFormat.Moment(row.MRdOp, cult, 2)} kNm";
 				if (e != null)
 				{
 					// The three shares of eq (6.57), taken from the engine's own per-class result
@@ -608,7 +623,7 @@ namespace NorsokChecker
 						IsSubRow = true,
 						Brace = $"↳ K via {kc.Partner}",
 						FrK = $"{kc.Frac * 100:F1} %",
-						Note = $"{force / 1e3:F1} kN balanced across a "
+						Note = $"{Models.QuantityFormat.Force(force, cult)} kN balanced across a "
 							+ (kc.GapM is { } g ? $"{g * 1000:F0} mm gap" : "gap of unknown size"),
 					});
 				}
