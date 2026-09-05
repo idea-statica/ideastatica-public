@@ -127,8 +127,17 @@ namespace NorsokChecker.Services
 			IReadOnlyDictionary<string, string>? jointImages = null,
 			IReadOnlyDictionary<string, Norsok64.JointTopology>? topologies = null,
 			string? footerCss = null,
-			(int Active, int Total)? loadEffectCounts = null)
+			(int Active, int Total)? loadEffectCounts = null,
+			Models.DisplaySettings? display = null)
 		{
+			// The units the reader chose. Defaulted rather than required, so the ~40 existing call
+			// sites in tests keep compiling and keep producing the report they assert against.
+			//
+			// It reaches the geometry and force tables, NOT the derivation: those substitutions stay
+			// in kN, mm and MPa whatever is set, because that is the norm's own convention and it is
+			// what lets a printed line be held against the clause. See RenderJointDerivation.
+			var disp = display ?? new Models.DisplaySettings();
+			_pctDecimals = Math.Clamp(disp.PercentDecimals, 0, 9);
 			var sb = new StringBuilder();
 
 			sb.AppendLine("<!DOCTYPE html>");
@@ -413,7 +422,7 @@ namespace NorsokChecker.Services
 					// measured numbers. So the block stays and drops the forces instead.
 					if (key == "6.4"
 						&& topologies != null && topologies.TryGetValue(connectionName, out var topo))
-						RenderJointPlane(sb, topo, groupFormulas);
+						RenderJointPlane(sb, topo, groupFormulas, disp);
 
 					if (rejections.Count > 1)
 						RenderRejectionCard(sb, rejections, key, expandAll);
@@ -1979,8 +1988,17 @@ namespace NorsokChecker.Services
 		/// did (the first one) and why none of its numbers matched the checks below it.
 		/// </param>
 		private static void RenderJointPlane(StringBuilder sb, Norsok64.JointTopology topo,
-			IReadOnlyList<NorsokFormulaResult>? chapterRows = null)
+			IReadOnlyList<NorsokFormulaResult>? chapterRows = null,
+			Models.DisplaySettings? display = null)
 		{
+			// This section is NOT the derivation and takes no exemption from it: the geometry and
+			// the force tables are ours, and they follow the reader's units.
+			var disp = display ?? new Models.DisplaySettings();
+			var rc = Models.QuantityFormat.Report;
+			string fu = Models.QuantityFormat.ForceLabel(disp.Force);
+			string mu = disp.MomentLabel;
+			string lu = Models.QuantityFormat.LengthLabel(disp.Length);
+
 			// InvariantCulture, like every other number in this report. Written without it first,
 			// and the test caught it immediately: on this cs-CZ machine the normal came out as
 			// "+0,577" while the forces beside it used points. The same slip as the utilisation
@@ -2052,7 +2070,8 @@ namespace NorsokChecker.Services
 			Kv(sb, "how the plane was fixed",
 				(topo.PlaneFitBasis is { Length: > 0 } basis ? Esc(basis) : "&mdash;")
 				+ (topo.PlaneFitTolDeg > 0
-					? $" <span class='deriv-hint'>(within {N(topo.PlaneFitTolDeg, 1)}&deg; "
+					? $" <span class='deriv-hint'>(within "
+						+ $"{Models.QuantityFormat.Angle(topo.PlaneFitTolDeg, rc, disp.AngleDecimals)}&deg; "
 						+ "&mdash; tool tolerance, not a &sect;6.4 requirement)</span>"
 					: ""));
 			// WHERE the plane sits, when it is not on the work point. Reported because it is a real
@@ -2065,7 +2084,7 @@ namespace NorsokChecker.Services
 			// geometry table below.
 			if (Math.Abs(topo.PlaneOffsetM) > 1e-6)
 				Kv(sb, "plane offset from the work point",
-					$"{N(Math.Abs(topo.PlaneOffsetM) * 1e3, 1)} mm "
+					$"{Models.QuantityFormat.SmallLength(Math.Abs(topo.PlaneOffsetM), rc, disp)} {lu} "
 					+ "<span class='deriv-hint'>along the plane normal &mdash; the whole joint is "
 					+ "displaced; brace eccentricities below are measured from THIS plane</span>");
 			if (!topo.Coplanar || topo.PlaneSpread > 0)
@@ -2100,17 +2119,17 @@ namespace NorsokChecker.Services
 				// about). So the table and its own rejection message disagreed: a reader saw 40 mm
 				// under "along chord" beside a condition reading "40 mm out of the joint plane
 				// through the chord", with no way to tell they were the same number.
-				sb.AppendLine("    <tr><th>&theta;</th><th>&beta;</th><th>chord face</th>"
-					+ "<th>off-plane</th><th>offset from joint plane</th></tr>");
+				sb.AppendLine("    <tr><th>&theta; [&deg;]</th><th>&beta;</th><th>chord face</th>"
+					+ $"<th>off-plane [&deg;]</th><th>offset from joint plane [{lu}]</th></tr>");
 				foreach (var b in topo.BracesMeta)
 				{
 					sb.AppendLine($"    <tr><td><b>{Esc(b.Name)}</b></td>"
 						+ $"<td>{Esc(b.Section?.Name ?? "&mdash;")}</td>"
-						+ $"<td>{N(b.ThetaDeg, 1)}&deg;</td>"
-						+ $"<td>{(b.Beta is { } be ? N(be, 3) : "&mdash;")}</td>"
+						+ $"<td>{Models.QuantityFormat.Angle(b.ThetaDeg, rc, disp.AngleDecimals)}</td>"
+						+ $"<td>{(b.Beta is { } be ? Models.QuantityFormat.Ratio(be, rc, disp.RatioDecimals) : "&mdash;")}</td>"
 						+ $"<td>{(b.Side >= 0 ? "+ey" : "&minus;ey")}</td>"
-						+ $"<td>{N(b.CoplanarDevDeg, 1)}&deg;</td>"
-						+ $"<td>{N(b.OopOffsetM * 1e3, 1)} mm</td></tr>");
+						+ $"<td>{Models.QuantityFormat.Angle(b.CoplanarDevDeg, rc, disp.AngleDecimals)}</td>"
+						+ $"<td>{Models.QuantityFormat.SmallLength(b.OopOffsetM, rc, disp)}</td></tr>");
 				}
 				sb.AppendLine("  </table>");
 			}
@@ -2181,21 +2200,26 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    <tr><th rowspan='2'>member</th><th rowspan='2'>governing</th>"
 					+ "<th colspan='6'>from the model (local axes)</th>"
 					+ "<th colspan='3'>resolved into the chord&ndash;brace plane</th></tr>");
-				sb.AppendLine("    <tr><th>N</th><th>V<sub>y</sub></th><th>V<sub>z</sub></th>"
-					+ "<th>M<sub>x</sub></th><th>M<sub>y,loc</sub></th><th>M<sub>z,loc</sub></th>"
-					+ "<th>N<sub>Sd</sub></th><th>M<sub>y,Sd</sub></th><th>M<sub>z,Sd</sub></th></tr>");
+				// The unit rides in the header, not in every cell: nine columns repeating "kN·m" on
+				// every brace is the width problem the app's own tables already solved.
+				sb.AppendLine($"    <tr><th>N [{fu}]</th><th>V<sub>y</sub> [{fu}]</th>"
+					+ $"<th>V<sub>z</sub> [{fu}]</th>"
+					+ $"<th>M<sub>x</sub> [{mu}]</th><th>M<sub>y,loc</sub> [{mu}]</th>"
+					+ $"<th>M<sub>z,loc</sub> [{mu}]</th>"
+					+ $"<th>N<sub>Sd</sub> [{fu}]</th><th>M<sub>y,Sd</sub> [{mu}]</th>"
+					+ $"<th>M<sub>z,Sd</sub> [{mu}]</th></tr>");
 				foreach (var (brace, state, f) in governing)
 				{
 					sb.AppendLine($"    <tr><td><b>{Esc(brace)}</b></td><td>{Esc(state)}</td>"
-						+ $"<td>{N(f.LocalN / 1e3, 1)} kN</td>"
-						+ $"<td class='not-checked'>{N(f.LocalVy / 1e3, 1)} kN</td>"
-						+ $"<td class='not-checked'>{N(f.LocalVz / 1e3, 1)} kN</td>"
-						+ $"<td class='not-checked'>{N(f.LocalMx / 1e3, 2)} kN&middot;m</td>"
-						+ $"<td>{N(f.LocalMy / 1e3, 3)} kN&middot;m</td>"
-						+ $"<td>{N(f.LocalMz / 1e3, 3)} kN&middot;m</td>"
-						+ $"<td>{N(f.NSd / 1e3, 1)} kN</td>"
-						+ $"<td>{N(f.Mip / 1e3, 3)} kN&middot;m</td>"
-						+ $"<td>{N(f.Mop / 1e3, 3)} kN&middot;m</td></tr>");
+						+ $"<td>{Models.QuantityFormat.Force(f.LocalN, rc, disp)}</td>"
+						+ $"<td class='not-checked'>{Models.QuantityFormat.Force(f.LocalVy, rc, disp)}</td>"
+						+ $"<td class='not-checked'>{Models.QuantityFormat.Force(f.LocalVz, rc, disp)}</td>"
+						+ $"<td class='not-checked'>{Models.QuantityFormat.Moment(f.LocalMx, rc, disp)}</td>"
+						+ $"<td>{Models.QuantityFormat.Moment(f.LocalMy, rc, disp)}</td>"
+						+ $"<td>{Models.QuantityFormat.Moment(f.LocalMz, rc, disp)}</td>"
+						+ $"<td>{Models.QuantityFormat.Force(f.NSd, rc, disp)}</td>"
+						+ $"<td>{Models.QuantityFormat.Moment(f.Mip, rc, disp)}</td>"
+						+ $"<td>{Models.QuantityFormat.Moment(f.Mop, rc, disp)}</td></tr>");
 				}
 				sb.AppendLine("  </table>");
 				// What is LOCAL is which columns are the unchecked ones. Why they are unchecked, and
@@ -2419,8 +2443,17 @@ namespace NorsokChecker.Services
 		/// is an English-language standard. A Czech localisation, if it ever comes, changes this one
 		/// method.
 		/// </summary>
+		/// <summary>
+		/// The precision <see cref="Pct"/> prints at, set once per report from the display settings.
+		///
+		/// A field rather than a parameter because Pct is called from five methods that have no
+		/// other reason to know about the settings. Pct2 deliberately does NOT follow it: its call
+		/// sites are all inside the derivation, which stays in the norm's own convention.
+		/// </summary>
+		private static int _pctDecimals = 1;
+
 		private static string Pct(double ratio) =>
-			ratio.ToString("P1", System.Globalization.CultureInfo.InvariantCulture)
+			ratio.ToString("P" + _pctDecimals, System.Globalization.CultureInfo.InvariantCulture)
 				// "P1" gives "73.7 %" — the space is not wanted, the rest is.
 				.Replace(" ", "").Replace(" ", "");
 

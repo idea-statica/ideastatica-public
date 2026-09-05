@@ -147,6 +147,9 @@ namespace NorsokChecker.Services.Norsok64
 			double gapMm = inp.G * 1e3, dMm = inp.D * 1e3;
 			if (gapMm > 50.0 && gapMm < dMm) return null;
 
+			// Stays in mm whatever the display setting says: the sentence quotes the clause's own
+			// bound beside the measured value, and converting only the measured half would print
+			// "g = 0.1 in against 50 mm < g < D". The clause is the citation, not a display choice.
 			return $"{braceName}: g = {gapMm.ToString("F1", Inv)} mm, §6.4.1 recommends "
 				+ $"50 mm < g < D ({dMm.ToString("F0", Inv)} mm)";
 		}

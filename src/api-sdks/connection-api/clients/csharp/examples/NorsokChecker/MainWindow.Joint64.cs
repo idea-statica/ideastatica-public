@@ -354,12 +354,12 @@ namespace NorsokChecker
 				{
 					new
 					{
-						Quantity = "ΣF [kN]", State = state,
+						Quantity = $"ΣF [{Models.QuantityFormat.ForceLabel(_display.Force)}]", State = state,
 						X = Models.QuantityFormat.Force(eq.SumF.X, cult, _display), Y = Models.QuantityFormat.Force(eq.SumF.Y, cult, _display), Z = Models.QuantityFormat.Force(eq.SumF.Z, cult, _display),
 					},
 					new
 					{
-						Quantity = "ΣM [kNm]", State = state,
+						Quantity = $"ΣM [{_display.MomentLabel}]", State = state,
 						X = Models.QuantityFormat.Moment(eq.SumM.X, cult, _display), Y = Models.QuantityFormat.Moment(eq.SumM.Y, cult, _display), Z = Models.QuantityFormat.Moment(eq.SumM.Z, cult, _display),
 					},
 				};
@@ -430,13 +430,15 @@ namespace NorsokChecker
 						if (!double.IsNaN(row.Util) && row.Util > worst) worst = row.Util;
 						if (!row.Passed) anyFail = true;
 					}
-					options.Add(new Le64Option
+					var opt = new Le64Option
 					{
 						Id = le.Id,
 						Name = string.IsNullOrEmpty(le.Name) ? $"LE{le.Id}" : le.Name,
 						MaxUtil = worst,
 						AnyFail = anyFail,
-					});
+					};
+					opt.ApplyDisplay(_display, Models.QuantityFormat.Gui);
+					options.Add(opt);
 				}
 				Cmb64Le.ItemsSource = options;
 				if (options.Count > 0) Cmb64Le.SelectedIndex = 0;

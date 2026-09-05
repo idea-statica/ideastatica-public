@@ -113,12 +113,19 @@ namespace NorsokChecker.Models
 		/// <summary>True when at least one brace fails here — the ✗ mark in the python selector.</summary>
 		public bool AnyFail { get; set; }
 
-		public string Display => MaxUtil > 0
-			? $"{Name}   {MaxUtil * 100:F1} %{(AnyFail ? "  ✗" : "")}"
-			: Name;
+		/// <summary>
+		/// The utilisation as text, or an em dash when this state produced no number.
+		///
+		/// Written by <see cref="ApplyDisplay"/> rather than computed, because the precision is a
+		/// setting and a computed property cannot reach it.
+		/// </summary>
+		public string UtilText { get; private set; } = "—";
 
-		/// <summary>The utilisation as text, or an em dash when this state produced no number.</summary>
-		public string UtilText => MaxUtil > 0 ? $"{MaxUtil * 100:F1} %" : "—";
+		/// <summary>Put this row's utilisation into the current precision.</summary>
+		public void ApplyDisplay(DisplaySettings s, System.Globalization.CultureInfo c)
+			=> UtilText = MaxUtil > 0
+				? QuantityFormat.Percent(MaxUtil, c, s.PercentDecimals)
+				: "—";
 
 		/// <summary>"✗" when at least one brace fails in this state; empty otherwise.</summary>
 		public string FailMark => AnyFail ? "✗" : "";

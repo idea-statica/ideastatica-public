@@ -265,6 +265,13 @@ namespace NorsokChecker.Models
 		public double Value { get; set; }
 		public string Unit { get; set; } = string.Empty;
 
+		/// <summary>
+		/// DELIBERATELY not routed through the display settings. Unit here is a string stored
+		/// beside the value, not a choice, so following the setting would mean parsing that text
+		/// back into a quantity. It is also unreachable for §6.4 — the "Where:" table that renders
+		/// it is gated on JointDetail == null, which §6.4 always sets — so it serves only the
+		/// mothballed §6.3.
+		/// </summary>
 		public string FormattedValue => Unit switch
 		{
 			"MPa" => $"{Value:F1} {Unit}",

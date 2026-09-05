@@ -890,7 +890,7 @@
                                                          frame, sibling to V_y and V_z. The Sd subscript marks a design
                                                          action effect weighed against a resistance — eq (6.57) and the
                                                          classification table — not a resolved component. -->
-                                                    <DataGridTextColumn Header="N [kN]" Binding="{Binding NSd}" Width="SizeToHeader" MinWidth="62"
+                                                    <DataGridTextColumn x:Name="ColBfN" Binding="{Binding NSd}" Width="SizeToHeader" MinWidth="62"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                                     <!-- The brace frame (x,y,z) = (brace axis, plane NORMAL, IN the plane),
                                                          right-handed — see JointForceResolver.BraceForceInPlane.
@@ -900,22 +900,22 @@
                                                          the property names are the engine's ip/op, the headers are the
                                                          frame's axes. The ,chord index marks the chord's own moments —
                                                          same plane, but not terms of eq (6.57). -->
-                                                    <DataGridTextColumn Header="M_y [kNm]" Binding="{Binding Mip}" Width="SizeToHeader" MinWidth="66"
+                                                    <DataGridTextColumn x:Name="ColBfMy" Binding="{Binding Mip}" Width="SizeToHeader" MinWidth="66"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
-                                                    <DataGridTextColumn Header="M_z [kNm]" Binding="{Binding Mop}" Width="SizeToHeader" MinWidth="66"
+                                                    <DataGridTextColumn x:Name="ColBfMz" Binding="{Binding Mop}" Width="SizeToHeader" MinWidth="66"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
-                                                    <DataGridTextColumn Header="V_y [kN]" Binding="{Binding Vop}" Width="SizeToHeader" MinWidth="60"
+                                                    <DataGridTextColumn x:Name="ColBfVy" Binding="{Binding Vop}" Width="SizeToHeader" MinWidth="60"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
-                                                    <DataGridTextColumn Header="V_z [kN]" Binding="{Binding Vip}" Width="SizeToHeader" MinWidth="60"
+                                                    <DataGridTextColumn x:Name="ColBfVz" Binding="{Binding Vip}" Width="SizeToHeader" MinWidth="60"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
-                                                    <DataGridTextColumn Header="M_tor [kNm]" Binding="{Binding Mtor}" Width="SizeToHeader" MinWidth="68"
+                                                    <DataGridTextColumn x:Name="ColBfMtor" Binding="{Binding Mtor}" Width="SizeToHeader" MinWidth="68"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                                     <DataGridTextColumn Header="face" Binding="{Binding Face}" Width="SizeToHeader" MinWidth="58"/>
-                                                    <DataGridTextColumn Header="N_chord [kN]" Binding="{Binding NChord}" Width="SizeToHeader" MinWidth="72"
+                                                    <DataGridTextColumn x:Name="ColBfNChord" Binding="{Binding NChord}" Width="SizeToHeader" MinWidth="72"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
-                                                    <DataGridTextColumn Header="M_y,chord [kNm]" Binding="{Binding MipChord}" Width="SizeToHeader" MinWidth="88"
+                                                    <DataGridTextColumn x:Name="ColBfMyChord" Binding="{Binding MipChord}" Width="SizeToHeader" MinWidth="88"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
-                                                    <DataGridTextColumn Header="M_z,chord [kNm]" Binding="{Binding MopChord}" Width="SizeToHeader" MinWidth="88"
+                                                    <DataGridTextColumn x:Name="ColBfMzChord" Binding="{Binding MopChord}" Width="SizeToHeader" MinWidth="88"
                                                                         HeaderStyle="{StaticResource SubscriptColumnHeader}"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>

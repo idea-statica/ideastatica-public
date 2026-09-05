@@ -39,14 +39,21 @@ namespace NorsokChecker.Models
 		}
 
 		/// <summary>
-		/// Display string: "72.4%" for 0.724, capped at 999.9%.
-		/// "N/A" shows an em dash, NOT "0.0%": nothing was assessed, and a zero utilisation
+		/// The precision these rows print at. Static because the rows are built in several places
+		/// and the property below is bound directly — there is no per-row place to pass it.
+		/// </summary>
+		public static DisplaySettings Display { get; set; } = new();
+
+		/// <summary>
+		/// Display string: "72.4 %" for 0.724, capped at 999.9 %.
+		/// "N/A" shows an em dash, NOT "0.0 %": nothing was assessed, and a zero utilisation
 		/// reads as an excellent result rather than as an absent one - the same trap as the
 		/// old "Norsok OK" on an unassessed joint.
 		/// </summary>
 		public string MaxUtilizationDisplay =>
 			NorsokPass == "N/A" ? "—"
-			: MaxUtilization > 9.999 ? ">999%" : $"{MaxUtilization * 100:F1}%";
+			: MaxUtilization > 9.999 ? ">999 %"
+			: QuantityFormat.Percent(MaxUtilization, QuantityFormat.Gui, Display.PercentDecimals);
 
 		public string NorsokPass
 		{

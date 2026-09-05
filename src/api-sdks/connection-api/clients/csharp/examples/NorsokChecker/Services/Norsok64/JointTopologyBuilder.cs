@@ -169,8 +169,8 @@ namespace NorsokChecker.Services.Norsok64
 						{
 							inlierPerps = perps.Select(t => t.Perp).ToList();
 							topo.PlaneFitBasis = "all braces (tie on closest pair)";
-							topo.PlaneWarn = $"No two braces are coplanar within the {tol:G}deg fit tolerance and the " +
-								$"closest-pair deviation ({d0:F1}deg) is shared by {tied.Count} pairs, so the plane is " +
+							topo.PlaneWarn = $"No two braces are coplanar within the {tol:G}° fit tolerance and the " +
+								$"closest-pair deviation ({d0:F1}°) is shared by {tied.Count} pairs, so the plane is " +
 								"averaged across all braces. The 2D plane is only indicative — check the 3D view.";
 						}
 						else
@@ -178,9 +178,9 @@ namespace NorsokChecker.Services.Norsok64
 							var p0 = pairs[0];
 							inlierPerps = new List<Vec3> { p0.Pi, p0.Pj };
 							topo.PlaneFitBasis = $"closest pair {p0.Bi.Name}-{p0.Bj.Name}";
-							topo.PlaneWarn = $"No two braces are coplanar within the {tol:G}deg fit tolerance; " +
+							topo.PlaneWarn = $"No two braces are coplanar within the {tol:G}° fit tolerance; " +
 								$"the joint plane was built from the closest pair {p0.Bi.Name}-{p0.Bj.Name} " +
-								$"(mutual deviation {p0.Dev:F1}deg > {tol:G}deg). The 2D plane is only indicative — " +
+								$"(mutual deviation {p0.Dev:F1}° > {tol:G}°). The 2D plane is only indicative — " +
 								"check the 3D view.";
 						}
 					}

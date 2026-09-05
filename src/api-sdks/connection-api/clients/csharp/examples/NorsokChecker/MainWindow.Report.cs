@@ -211,6 +211,8 @@ namespace NorsokChecker
 			if (dlg.ShowDialog() != true) return;
 
 			_display = dlg.Result;
+			// The results rows bind a computed property, so they read the setting from here.
+			Models.ConnectionCheckResult.Display = _display;
 			Log($"  display: force {Models.QuantityFormat.ForceLabel(_display.Force)}, "
 				+ $"stress {Models.QuantityFormat.StressLabel(_display.Stress)}, "
 				+ $"length {Models.QuantityFormat.LengthLabel(_display.Length)}, "
@@ -260,9 +262,24 @@ namespace NorsokChecker
 		{
 			if (Col64NRd == null) return;   // called before the tab exists
 
-			Col64NRd.Header = $"N_Rd [{Models.QuantityFormat.ForceLabel(_display.Force)}]";
-			Col64MRdIp.Header = $"M_y,Rd [{_display.MomentLabel}]";
-			Col64MRdOp.Header = $"M_z,Rd [{_display.MomentLabel}]";
+			string force = Models.QuantityFormat.ForceLabel(_display.Force);
+			string mom = _display.MomentLabel;
+
+			Col64NRd.Header = $"N_Rd [{force}]";
+			Col64MRdIp.Header = $"M_y,Rd [{mom}]";
+			Col64MRdOp.Header = $"M_z,Rd [{mom}]";
+
+			// The brace-forces table. Its VALUES already followed the setting while these headers
+			// did not, so switching to kip printed kip under a header reading kN.
+			ColBfN.Header = $"N [{force}]";
+			ColBfMy.Header = $"M_y [{mom}]";
+			ColBfMz.Header = $"M_z [{mom}]";
+			ColBfVy.Header = $"V_y [{force}]";
+			ColBfVz.Header = $"V_z [{force}]";
+			ColBfMtor.Header = $"M_tor [{mom}]";
+			ColBfNChord.Header = $"N_chord [{force}]";
+			ColBfMyChord.Header = $"M_y,chord [{mom}]";
+			ColBfMzChord.Header = $"M_z,chord [{mom}]";
 		}
 
 		private void PageSetup_Click(object sender, RoutedEventArgs e)

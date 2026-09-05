@@ -135,7 +135,9 @@ namespace NorsokChecker
 						// the pair restated the Utilization column in a second form and added a column
 						// that is the same on every row. On an unassessed row they were "0 / 0", which
 						// reads as a measurement.
-						Utilization = noResult ? "—" : $"{fr.Utilization * 100:F1}%",
+						Utilization = noResult ? "—"
+							: Models.QuantityFormat.Percent(fr.Utilization,
+								Models.QuantityFormat.Gui, _display.PercentDecimals),
 						Result = fr.Verdict
 					};
 					all.Add(row);
