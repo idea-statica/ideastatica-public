@@ -1065,17 +1065,44 @@ namespace NorsokChecker.Services
 				sb.AppendLine("    </div>");
 			}
 
-			// Substituted values — but not §6.4's, which is not a substitution.
+			// Substituted values — for a card that has no DERIVATION.
 			//
-			// Its FormulaSubstituted reads "N_Rd(weighted K 100% / Y 0% / X 0%) = 241.9 kN;
-			// governing LC: LE12" (Joint64ReportAdapter.cs:108): three recalled values under a label
-			// that promises an expression. All three are already on the page — the weighted
-			// resistance has its own derivation block with a real substitution, the classification
-			// is in the card title, and the load effect is a header badge.
+			// The label promises an expression that gives the result beneath it, and only the
+			// mothballed chapters keep that promise: §6.3 prints
+			// "N_t,Rd = 2747 × 355.0 / 1.15 = 847.9 kN", a real substitution and the only formula
+			// those cards get. Every live §6.4 string is prose — "no §6.4 check was performed for
+			// this joint", "the check proceeds; the note above qualifies its result" — or a recall
+			// of two values dressed as an equation.
 			//
-			// The FIELD stays populated: the §6.4 tab's grid and CheckWorkflow read it. Only the
-			// rendering is suppressed, so no data is lost and only the page changes.
-			if (!isJointCheck && !string.IsNullOrEmpty(fr.FormulaSubstituted))
+			// The cause is historical: §6.4 gained a derivation, which substitutes properly step by
+			// step with each step's own formula, and this one-liner became redundant and filled up
+			// with whatever sentence was to hand.
+			//
+			// So the test is on what the card HAS, not on its section number. The same predicate
+			// governs the "Where" table a few lines below, with the same reasoning written out
+			// there; keying on the section instead left the box standing on the rejected-joint and
+			// assumption cards, which is exactly the miss this replaces.
+			//
+			// TWO conditions, and each rules out a different kind of card:
+			//
+			//   JointDetail != null   the derivation IS the substitution, done properly, so a
+			//                         one-line box beside it can only be a summary of it.
+			//   NotAssessed / IsNote  nothing was computed, so there is nothing to substitute. What
+			//                         those cards put in the field is a sentence — "no §6.4 check
+			//                         was performed for this joint", "the check proceeds; the note
+			//                         above qualifies its result" — and the condition row beneath
+			//                         already says it, per brace and more precisely.
+			//
+			// Both are properties of the card, not of its section string. Keying on "6.4.3.6" left
+			// the box standing on the rejected-joint and assumption cards, which is the miss this
+			// replaces; keying on the chapter would have caught those two and still not the
+			// un-assessable brace, which is a 6.4.3.6 card with no derivation.
+			//
+			// The producers stop setting the field as well (Chapter64, NorsokCheckRunner) — belt and
+			// braces, because a renderer cannot tell prose from an expression and should not have to
+			// guess. The FIELD itself stays: the §6.4 tab's grid and CheckWorkflow read it.
+			if (fr.JointDetail == null && !fr.NotAssessed && !fr.IsNote
+				&& !string.IsNullOrEmpty(fr.FormulaSubstituted))
 			{
 				sb.AppendLine("    <div class='substituted'>");
 				sb.AppendLine($"      <p class='formula-label'>Substitution:</p>");

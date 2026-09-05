@@ -510,6 +510,92 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// NO §6.4 card carries a SUBSTITUTION box, in any of its four shapes.
+		///
+		/// The label promises an expression that gives the result beneath it. Grepped over every
+		/// producer of FormulaSubstituted: the ten that honour it are all in mothballed code
+		/// (`N_t,Rd = 2747 × 355.0 / 1.15 = 847.9 kN`); every live §6.4 one is a sentence —
+		/// "no §6.4 check was performed for this joint", "the check proceeds; the note above
+		/// qualifies its result", "M1 could not be checked: …", and a two-value recall dressed as an
+		/// equation.
+		///
+		/// The historical cause: §6.4 gained a DERIVATION, which substitutes properly step by step,
+		/// and the one-line box became redundant and filled with whatever prose was to hand. Each of
+		/// these boxes sits directly above a condition row that says the same thing better and per
+		/// brace — the external reviewer's D3, which I first fixed for one section string only and
+		/// left standing on the rest.
+		///
+		/// All four shapes in one test, because that is the failure: fixing the shape in front of me
+		/// and missing the three beside it.
+		/// </summary>
+		[Test]
+		public void NoJointCardCarriesASubstitutionBox()
+		{
+			var row = MultiModeRow();
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokChecker.Models.NorsokFormulaResult>)>
+				{
+					("CON11", new List<NorsokChecker.Models.NorsokFormulaResult>
+					{
+						// 1. the assessed check — has a derivation
+						new()
+						{
+							Section = "6.4.3.6", Equation = "6.57", Title = "Tubular Joint — M3",
+							Utilization = row.Util, Passed = row.Passed,
+							FormulaSubstituted = "N_Rd(weighted K 19%) = 355.2 kN; governing LC: LE11",
+							JointDetail = row,
+						},
+						// 2. the assumption note
+						new()
+						{
+							Section = "6.4.3.1", Title = "Assumption",
+							CheckExpression = "M1: θ=20.0° outside 30–90°",
+							IsNote = true,
+							FormulaSubstituted = "the check proceeds; the note above qualifies its result",
+						},
+						// 3. a brace whose own data would not read — 6.4.3.6, but NO derivation,
+						//    which is why a predicate on the section number would have missed it
+						new()
+						{
+							Section = "6.4.3.6", Equation = "6.57", Title = "Tubular Joint — M5",
+							CheckExpression = "no section data",
+							NotAssessed = true,
+							Reason = NorsokChecker.Models.NotAssessedReason.NotEvaluated,
+							FormulaSubstituted = "M5 could not be checked: no section data",
+						},
+					}),
+					// 4. the rejected joint
+					("CON2", new List<NorsokChecker.Models.NorsokFormulaResult>
+					{
+						new()
+						{
+							Section = "6.4", Title = "Outside the scope of §6.4",
+							CheckExpression = "M3: IPE100 is RolledI — NORSOK 6.4 applies to "
+								+ "tubular (circular hollow) sections only",
+							NotAssessed = true,
+							Reason = NorsokChecker.Models.NotAssessedReason.OutsideScope,
+							FormulaSubstituted = "no §6.4 check was performed for this joint",
+						},
+					}),
+				});
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Not.Contain("Substitution:"),
+					"a §6.4 card's derivation IS its substitution; the box only ever held prose");
+
+				// And nothing was lost with it: each card still states its own reason, which is what
+				// the box was restating. The degree sign is escaped on the way out (`&#176;`), so
+				// the needle stops before it rather than asserting a character the renderer does
+				// not emit literally.
+				Assert.That(html, Does.Contain("=20.0"), "the assumption's note");
+				Assert.That(html, Does.Contain("outside 30–90"), "with its range");
+				Assert.That(html, Does.Contain("no section data"), "the unread brace's reason");
+				Assert.That(html, Does.Contain("IPE100 is RolledI"), "the rejection's condition");
+			});
+		}
+
+		/// <summary>
 		/// A NON-§6.4 card keeps its formula block, and this is the guard against a blanket change.
 		///
 		/// FormulaLatex is keyed by section and every chapter renders through RenderFormulaCard, but
@@ -541,6 +627,16 @@ namespace UT_NorsokChecker
 				Assert.That(html, Does.Contain("Design resistance:"));
 				Assert.That(html, Does.Contain("N_{t,Rd}"),
 					"and the formula itself, which is nowhere else for this chapter");
+
+				// And its SUBSTITUTION box, which is the one place the label is honest: §6.3's
+				// FormulaSubstituted is a real expression that evaluates to the printed result.
+				// Suppressing the box everywhere rather than where the derivation replaces it would
+				// take the working half with the broken one.
+				Assert.That(html, Does.Contain("Substitution:"),
+					"§6.3 substitutes for real — an expression with numbers, giving the result");
+				Assert.That(html, Does.Contain("1000 &#183; 355 / 1.15 = 308.7 kN")
+					.Or.Contain("1000 · 355 / 1.15 = 308.7 kN"),
+					"and the expression itself reaches the page");
 			});
 		}
 

@@ -179,7 +179,8 @@ namespace NorsokChecker.Services.Chapters
 							},
 							CheckExpression = why,
 							Formula = "-",
-							FormulaSubstituted = "no §6.4 check was performed for this joint",
+							// No FormulaSubstituted. It sat under a SUBSTITUTION label, which promises an
+							// expression, above a row that already names the unmet condition.
 							NotAssessed = true,
 							Reason = reason,
 						},
@@ -207,7 +208,8 @@ namespace NorsokChecker.Services.Chapters
 							Title = "Could not be evaluated",
 							CheckExpression = $"the joint's members could not be read: {blocked}",
 							Formula = "-",
-							FormulaSubstituted = "no §6.4 check was performed for this joint",
+							// No FormulaSubstituted. It sat under a SUBSTITUTION label, which promises an
+							// expression, above a row that already names the unmet condition.
 							NotAssessed = true,
 							// NOT "outside scope": nothing here says the chapter fails to cover this
 							// joint. The inputs could not be produced, so the reader's move is to fix
@@ -253,7 +255,8 @@ namespace NorsokChecker.Services.Chapters
 					Title = "Outside the scope of §6.4",
 					CheckExpression = reason,
 					Formula = "-",
-					FormulaSubstituted = "no §6.4 check was performed for this joint",
+					// No FormulaSubstituted. It sat under a SUBSTITUTION label, which promises an
+					// expression, above a row that already names the unmet condition.
 					NotAssessed = true,
 					Reason = NotAssessedReason.OutsideScope,
 				},

@@ -85,7 +85,9 @@ namespace NorsokChecker.Services
 							: "Outside the scope of §6.4",
 						CheckExpression = reasons[i],
 						Formula = "-",
-						FormulaSubstituted = "no §6.4 check was performed for this joint",
+						// No FormulaSubstituted. It read "no §6.4 check was performed for this
+						// joint" under a SUBSTITUTION label, above a row already naming the unmet
+						// condition — a promise of an expression over a restatement.
 						Demand = 0,
 						Capacity = 0,
 						Utilization = 0,
@@ -126,7 +128,10 @@ namespace NorsokChecker.Services
 						Title = $"Tubular Joint — {brace.Name}",
 						CheckExpression = reason,
 						Formula = "-",
-						FormulaSubstituted = $"{brace.Name} could not be checked: {reason}",
+						// No FormulaSubstituted: it read "{brace} could not be checked: {reason}" —
+						// the same sentence as CheckExpression above with a prefix, and
+						// CheckExpression is what the card renders as its condition row. A label
+						// promising an expression, over a duplicate of the line beneath it.
 						NotAssessed = true,
 						// This brace alone lacked the data for its check while the joint itself was
 						// assessed — the model is what to look at, not the chapter's scope.
@@ -179,7 +184,8 @@ namespace NorsokChecker.Services
 						: "Assumption",
 					CheckExpression = warns[i],
 					Formula = "-",
-					FormulaSubstituted = "the check proceeds; the note above qualifies its result",
+					// No FormulaSubstituted: "the check proceeds; the note above qualifies its
+					// result" is a sentence about the note, not a substitution of anything.
 					Demand = 0,
 					Capacity = 0,
 					Utilization = 0,
