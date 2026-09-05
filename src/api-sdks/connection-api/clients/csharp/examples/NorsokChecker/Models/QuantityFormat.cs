@@ -31,6 +31,71 @@ namespace NorsokChecker.Models
 		// fixes that changed some of them were made separately so that a failing test says which
 		// of the two broke it.
 
+		// ── conversions, SI → the chosen unit ────────────────────────────────
+		//
+		// One factor each, and the label beside it. Kip and ksi are exact by definition of the
+		// pound-force; the inch is exactly 25.4 mm.
+
+		internal static double ToForce(double n, ForceUnit u) => u switch
+		{
+			ForceUnit.Newton => n,
+			ForceUnit.MegaNewton => n / 1e6,
+			ForceUnit.Kip => n / 4448.2216152605,
+			_ => n / 1e3,
+		};
+
+		internal static string ForceLabel(ForceUnit u) => u switch
+		{
+			ForceUnit.Newton => "N", ForceUnit.MegaNewton => "MN", ForceUnit.Kip => "kip", _ => "kN",
+		};
+
+		internal static double ToStress(double pa, StressUnit u) => u switch
+		{
+			StressUnit.KPa => pa / 1e3,
+			StressUnit.Ksi => pa / 6_894_757.293168,
+			_ => pa / 1e6,   // MPa and N/mm² are the same number
+		};
+
+		internal static string StressLabel(StressUnit u) => u switch
+		{
+			StressUnit.KPa => "kPa", StressUnit.Ksi => "ksi",
+			StressUnit.NPerMm2 => "N/mm²", _ => "MPa",
+		};
+
+		internal static double ToLength(double m, LengthUnit u) => u switch
+		{
+			LengthUnit.Metre => m,
+			LengthUnit.Centimetre => m * 1e2,
+			LengthUnit.Inch => m / 0.0254,
+			_ => m * 1e3,
+		};
+
+		internal static string LengthLabel(LengthUnit u) => u switch
+		{
+			LengthUnit.Metre => "m", LengthUnit.Centimetre => "cm",
+			LengthUnit.Inch => "in", _ => "mm",
+		};
+
+		/// <summary>An area, m² → the unit implied by the length choice.</summary>
+		internal static double ToArea(double m2, LengthUnit u)
+		{
+			double f = ToLength(1.0, u);
+			return m2 * f * f;
+		}
+
+		/// <summary>A second moment of area, m⁴ → the unit implied by the length choice.</summary>
+		internal static double ToInertia(double m4, LengthUnit u)
+		{
+			double f = ToLength(1.0, u);
+			return m4 * f * f * f * f;
+		}
+
+		/// <summary>A force, SI → the settings' unit, with its own precision.</summary>
+		internal static string Force(double n, CultureInfo c, DisplaySettings s) =>
+			s.ForceScientific
+				? SciString(ToForce(n, s.Force), c)
+				: Num(ToForce(n, s.Force), c, s.ForceDecimals);
+
 		/// <summary>A force, N → kN.</summary>
 		internal static string Force(double n, CultureInfo c, int dp = 1) =>
 			Num(n / 1e3, c, dp);
@@ -102,5 +167,71 @@ namespace NorsokChecker.Models
 		/// <summary>NaN and infinity print as an em dash rather than as "NaN" or "∞".</summary>
 		internal static string Num(double v, CultureInfo c, int dp) =>
 			double.IsNaN(v) || double.IsInfinity(v) ? "—" : v.ToString("F" + dp, c);
+
+		/// <summary>`2.35×10⁴` — the plain-text form, for a WPF cell rather than a KaTeX block.</summary>
+		internal static string SciString(double v, CultureInfo c, int dp = 2)
+		{
+			var (m, e) = Scientific(v, c, dp);
+			return e == 0 ? m : $"{m}×10{Superscript(e)}";
+		}
+
+		private static string Superscript(int n)
+		{
+			const string digits = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+			string s = Math.Abs(n).ToString(CultureInfo.InvariantCulture);
+			var sb = new System.Text.StringBuilder(n < 0 ? "⁻" : "");
+			foreach (char ch in s) sb.Append(digits[ch - '0']);
+			return sb.ToString();
+		}
+
+		// ── the settings-aware overloads ─────────────────────────────────────
+
+		/// <summary>
+		/// A moment, N·m → the unit implied by the force and length choice.
+		///
+		/// It is DERIVED, not chosen: a moment in `kN·m` is a force in kN acting over a metre, so
+		/// converting N·m means converting the force and then the length. The metric units all pair
+		/// with the metre (kN·m, N·m, MN·m — nobody writes kN·mm); the imperial pair takes the foot
+		/// unless lengths are set to inches, which is what kip·ft and kip·in mean.
+		/// </summary>
+		internal static string Moment(double nm, CultureInfo c, DisplaySettings s)
+		{
+			double perMetre = s.Force == ForceUnit.Kip && s.Length == LengthUnit.Inch
+				? 1.0 / 0.0254                       // kip·in
+				: s.Force == ForceUnit.Kip
+					? 1.0 / 0.3048                   // kip·ft
+					: 1.0;                           // kN·m, N·m, MN·m
+			double v = ToForce(nm, s.Force) * perMetre;
+			return s.MomentScientific ? SciString(v, c) : Num(v, c, s.MomentDecimals);
+		}
+
+		/// <summary>A stress, SI → the settings' unit.</summary>
+		internal static string Stress(double pa, CultureInfo c, DisplaySettings s) =>
+			s.StressScientific
+				? SciString(ToStress(pa, s.Stress), c)
+				: Num(ToStress(pa, s.Stress), c, s.StressDecimals);
+
+		/// <summary>A length, SI → the settings' unit.</summary>
+		internal static string Length(double m, CultureInfo c, DisplaySettings s) =>
+			Num(ToLength(m, s.Length), c, s.LengthDecimals);
+
+		/// <summary>A gap or an eccentricity: the section unit, its own precision.</summary>
+		internal static string SmallLength(double m, CultureInfo c, DisplaySettings s) =>
+			Num(ToLength(m, s.Length), c, s.SmallLengthDecimals);
+
+		/// <summary>A cross-sectional area, SI → the unit implied by the length choice.</summary>
+		internal static string Area(double m2, CultureInfo c, DisplaySettings s) =>
+			s.AreaScientific
+				? SciString(ToArea(m2, s.Length), c)
+				: Num(ToArea(m2, s.Length), c, s.AreaDecimals);
+
+		/// <summary>
+		/// A second moment of area. Scientific by default — this is the quantity a fixed scale
+		/// cannot serve, spanning 23 475 mm⁴ to 914 277 855 mm⁴ across the sections seen here.
+		/// </summary>
+		internal static string Inertia(double m4, CultureInfo c, DisplaySettings s) =>
+			s.InertiaScientific
+				? SciString(ToInertia(m4, s.Length), c)
+				: Num(ToInertia(m4, s.Length), c, s.InertiaDecimals);
 	}
 }
