@@ -1375,8 +1375,6 @@ namespace NorsokChecker.Services
 			static string N(double v, int d = 3) =>
 				double.IsNaN(v) || double.IsInfinity(v) ? "—" : v.ToString("F" + d,
 					System.Globalization.CultureInfo.InvariantCulture);
-			// parenthesise a negative so "a + (−b)" reads correctly inside a substituted formula
-			static string P(double v, int d = 3) => v < 0 ? $"({N(v, d).Replace("-", "−")})" : N(v, d);
 
 			// f_y·T²·d is a stress times a length cubed, and the result is a MOMENT. In mm and MPa
 			// that product comes out in N·mm and the printed line was off by 10⁶ — the reader could
@@ -1457,6 +1455,14 @@ namespace NorsokChecker.Services
 				int exp = (int)Math.Floor(Math.Log10(Math.Abs(v)));
 				int dec = Math.Max(minDec, Math.Min(15, sig - 1 - exp));
 				return N(v, dec);
+			}
+
+			// Sig, parenthesised when negative — the P() of significant figures, for a factor that
+			// sits inside a substituted expression and may be a compressive stress.
+			static string SigP(double v)
+			{
+				string s = Sig(v);
+				return v < 0 ? $"({s.Replace("-", "−")})" : s;
 			}
 
 			// Converted ONCE, here, in the chosen units — every site below reads these rather than
@@ -1707,7 +1713,7 @@ namespace NorsokChecker.Services
 				// value, which is what the neighbouring I already does.
 				Step(sb, "&sigma;<sub>a</sub> &mdash; axial (+ tension)",
 					@"\sigma_{a,Sd} = N_{chord}/A",
-					$@"{N(cF(st.NChord), disp.ForceDecimals)}\,{kF}\ /\ {Sci(aMm2)}\,{kA}{saFactor}",
+					$@"{Sig(cF(st.NChord))}\,{kF}\ /\ {Sci(aMm2)}\,{kA}{saFactor}",
 					$@"{N(sa, disp.StressDecimals)}\,{kS}");
 
 				Step(sb, $"&sigma;<sub>my</sub> &mdash; in-plane bending, chord face "
@@ -1732,7 +1738,7 @@ namespace NorsokChecker.Services
 
 			Step(sb, "Chord utilisation A&sup2; &mdash; eq (6.55) (shared by all classes)",
 				@"A^2 = \left(\dfrac{\sigma_{a,Sd}}{f_{y,chord}}\right)^2 + \dfrac{\sigma_{my,Sd}^2+\sigma_{mz,Sd}^2}{1.62\,f_{y,chord}^2}",
-				$@"\left(\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}}\right)^2 + \dfrac{{{P(smy, 1)}^2+{P(smz, 1)}^2}}{{1.62\cdot {N(fy, 0)}^2}}",
+				$@"\left(\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}}\right)^2 + \dfrac{{{SigP(smy)}^2+{SigP(smz)}^2}}{{1.62\cdot {Sig(fy)}^2}}",
 				N(r.QfMomentA2, 4));
 
 			// The coefficients come from the RESULT, not from PerClass[K].CAxial — those are the
@@ -1742,7 +1748,7 @@ namespace NorsokChecker.Services
 				+ $" &mdash; C&#8321;={N(r.CMoment.C1, 2)}, C&#8322;={N(r.CMoment.C2, 2)}, "
 				+ $"C&#8323;={N(r.CMoment.C3, 2)}",
 				@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-				$@"1 + {N(r.CMoment.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(r.CMoment.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(r.CMoment.C3, 2)}\cdot {N(r.QfMomentA2, 4)}",
+				$@"1 + {N(r.CMoment.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(r.CMoment.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(r.CMoment.C3, 2)}\cdot {N(r.QfMomentA2, 4)}",
 				N(r.QfMoment, 3));
 
 			// THE SUBSTITUTED THICKNESS IS NOT ROUNDED, and the angle belongs to the governing pass.
@@ -1790,15 +1796,24 @@ namespace NorsokChecker.Services
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
 				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
 				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
-				$@"\dfrac{{{N(fy, disp.StressDecimals)}\cdot {N(tChordMm, disp.SmallLengthDecimals)}^2"
-					+ $@"\cdot {N(dMm, disp.LengthDecimals)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
+				// SIGNIFICANT FIGURES, not display decimals: these are factors inside a product, and
+				// a factor rounded for display makes the printed line unreconcilable. In inches
+				// T = 0.2559 printed as `0.3` put this line 37 % out.
+				// SIGNIFICANT FIGURES, not display decimals: these are factors inside a product, and
+				// a factor rounded for display makes the printed line unreconcilable. In inches
+				// T = 0.2559 printed as `0.3` put this line 27 % out.
+				$@"\dfrac{{{Sig(fy)}\cdot {Sig(tChordMm)}^2"
+					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
 					+ $@"\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
 				$@"{N(cM(r.MRdIp), disp.MomentDecimals)}\,{kM}");
 
 			Step(sb, $"Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53){momNote}",
 				@"M_{z,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
-				$@"\dfrac{{{N(fy, disp.StressDecimals)}\cdot {N(tChordMm, disp.SmallLengthDecimals)}^2"
-					+ $@"\cdot {N(dMm, disp.LengthDecimals)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
+				// SIGNIFICANT FIGURES, not display decimals: these are factors inside a product, and
+				// a factor rounded for display makes the printed line unreconcilable. In inches
+				// T = 0.2559 printed as `0.3` put this line 37 % out.
+				$@"\dfrac{{{Sig(fy)}\cdot {Sig(tChordMm)}^2"
+					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
 					+ $@"\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
 				$@"{N(cM(r.MRdOp), disp.MomentDecimals)}\,{kM}");
 
@@ -1853,7 +1868,7 @@ namespace NorsokChecker.Services
 						+ $"C&#8322;={N(kQf.CAxial.C2, 2)}, C&#8323;={N(kQf.CAxial.C3, 2)}"
 						+ (string.IsNullOrEmpty(kQf.CAxial.Note) ? "" : $" ({Esc(kQf.CAxial.Note)})"),
 						@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-						$@"1 + {N(kQf.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(kQf.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(kQf.CAxial.C3, 2)}\cdot {N(kQf.QfAxialA2, 4)}",
+						$@"1 + {N(kQf.CAxial.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(kQf.CAxial.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(kQf.CAxial.C3, 2)}\cdot {N(kQf.QfAxialA2, 4)}",
 						N(kQf.QfAxial, 3));
 
 				for (int i = 0; i < r.KTerms.Count; i++)
@@ -1926,7 +1941,7 @@ namespace NorsokChecker.Services
 					+ $"C&#8322;={N(c.CAxial.C2, 2)}, C&#8323;={N(c.CAxial.C3, 2)}"
 					+ (string.IsNullOrEmpty(c.CAxial.Note) ? "" : $" ({Esc(c.CAxial.Note)})"),
 					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
-					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
+					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{SigP(sa)}}}{{{Sig(fy)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{SigP(smy)}}}{{1.62\cdot {Sig(fy)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
 					N(c.QfAxial, 3));
 				// Q_beta, ON THE ONE BRANCH THAT CONSUMES IT, and it names which rule fired.
 				//
