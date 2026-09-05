@@ -1389,6 +1389,19 @@ namespace NorsokChecker.Services
 			string momFactor = Math.Abs(momPerStressVol - 1.0) < 1e-12
 				? "" : $@"\cdot {Sci(momPerStressVol)}";
 
+			// The chord-stress trail needs the same treatment, and did not get it when the moment
+			// resistances did — three audits caught it. σ = N/A prints "-103.6 kN / 2.75×10³ mm²
+			// = -37.7 MPa", which evaluates to -0.0377; σ = M·R/I was out by 10⁶.
+			//
+			// σ_display = (F/L²)_display · cS(1)·cL(1)² / cF(1), and likewise for M·L/L⁴.
+			double stressPerForceArea = cS(1.0) * Math.Pow(cL(1.0), 2) / cF(1.0);
+			string saFactor = Math.Abs(stressPerForceArea - 1.0) < 1e-12
+				? "" : $@"\cdot {Sci(stressPerForceArea)}";
+
+			double stressPerMomLen = cS(1.0) * Math.Pow(cL(1.0), 3) / cM(1.0);
+			string smFactor = Math.Abs(stressPerMomLen - 1.0) < 1e-12
+				? "" : $@"\cdot {Sci(stressPerMomLen)}";
+
 			// THE EXPONENT COMES FROM THE VALUE, not from a fixed scale.
 			//
 			// I was printed as `N(iMm4 / 1e6, 1) × 10⁶`, which is fine for a CHS 273 (86.97) and
@@ -1694,7 +1707,7 @@ namespace NorsokChecker.Services
 				// value, which is what the neighbouring I already does.
 				Step(sb, "&sigma;<sub>a</sub> &mdash; axial (+ tension)",
 					@"\sigma_{a,Sd} = N_{chord}/A",
-					$@"{N(cF(st.NChord), disp.ForceDecimals)}\,{kF}\ /\ {Sci(aMm2)}\,{kA}",
+					$@"{N(cF(st.NChord), disp.ForceDecimals)}\,{kF}\ /\ {Sci(aMm2)}\,{kA}{saFactor}",
 					$@"{N(sa, disp.StressDecimals)}\,{kS}");
 
 				Step(sb, $"&sigma;<sub>my</sub> &mdash; in-plane bending, chord face "
@@ -1702,14 +1715,14 @@ namespace NorsokChecker.Services
 					+ "+ = compression in the footprint (eq 6.54 note)",
 					@"\sigma_{my,Sd} = -\dfrac{M_{y,chord}\cdot(\text{side}\cdot R)}{I}",
 					$@"-\dfrac{{{Sig(cM(st.MipChord))}\,{kM}\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot "
-						+ $@"{N(rMm, disp.SmallLengthDecimals)}\,{kL})}}{{{Sci(iMm4)}\,{kI}}}",
+						+ $@"{N(rMm, disp.SmallLengthDecimals)}\,{kL})}}{{{Sci(iMm4)}\,{kI}}}{smFactor}",
 					$@"{N(smy, disp.StressDecimals)}\,{kS}");
 
 				Step(sb, "&sigma;<sub>mz</sub> &mdash; out-of-plane bending "
 					+ "(sign irrelevant &mdash; enters Q<sub>f</sub> only squared, via A&sup2;)",
 					@"\sigma_{mz,Sd} = \dfrac{M_{z,chord}\cdot R}{I}",
 					$@"\dfrac{{{Sig(cM(st.MopChord))}\,{kM}\cdot {N(rMm, disp.SmallLengthDecimals)}\,{kL}"
-						+ $@"}}{{{Sci(iMm4)}\,{kI}}}",
+						+ $@"}}{{{Sci(iMm4)}\,{kI}}}{smFactor}",
 					$@"{N(smz, disp.StressDecimals)}\,{kS}");
 			}
 

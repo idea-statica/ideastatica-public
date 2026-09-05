@@ -122,6 +122,36 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// THE WHOLE REPORT, not just one derivation page — the call site is a separate way to fail.
+		///
+		/// This test exists because the report ignored the setting completely for a while: every
+		/// value inside GenerateReport had been converted, and the one call in MainWindow.Report.cs
+		/// simply did not pass `_display`. Three unit audits found it; the derivation-page test
+		/// above could not, because it calls the generator directly.
+		/// </summary>
+		[Test]
+		public void TheWholeReportPrintsTheChosenUnits()
+		{
+			var allResults = new List<(string, List<NorsokFormulaResult>)>
+			{
+				("CON1", new List<NorsokFormulaResult>
+				{
+					Joint64ReportAdapter.BuildResultFromRow(MultiModeRow(), "LE12", Imperial),
+				}),
+			};
+
+			string html = Content(NorsokHtmlReportGenerator.GenerateReport(
+				"probe.ideaCon", allResults, expandAll: true, display: Imperial));
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(Count(html, "kip"), Is.GreaterThan(0), "the report reached no kip");
+				Assert.That(Count(html, "kN"), Is.Zero, "the report still prints kN");
+				Assert.That(Count(html, "MPa"), Is.Zero, "the report still prints MPa");
+			});
+		}
+
+		/// <summary>
 		/// The engine itself, asserted directly rather than through the page: the same input gives
 		/// the same dimensionless results no matter what the display settings say. The page test
 		/// above would also catch this, but not tell you which side broke.

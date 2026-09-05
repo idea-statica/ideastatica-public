@@ -52,7 +52,8 @@ namespace NorsokChecker
 
 			return NorsokHtmlReportGenerator.GenerateReport(
 				Path.GetFileName(TxtProjectFile.Text), allResults, expandAll, _jointFigures,
-				topologies, NorsokHtmlReportGenerator.FooterCss(_pageSetup), loadEffectCounts);
+				topologies, NorsokHtmlReportGenerator.FooterCss(_pageSetup), loadEffectCounts,
+				_display);
 		}
 
 		/// <summary>
