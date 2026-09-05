@@ -69,23 +69,11 @@ namespace UT_NorsokChecker
 			});
 		}
 
-		/// <summary>
-		/// MainWindow.xaml.cs stays small — it holds the constructor, the shared state and the few
-		/// things every partial uses, and nothing else.
-		///
-		/// The number is a ceiling with room in it, not a target: the point is to fail when the file
-		/// starts absorbing features again, which is how it reached 1,676 lines carrying eight
-		/// concerns. If a change genuinely belongs there, raise the limit deliberately and say why.
-		/// </summary>
-		[Test]
-		public void TheCatchAllPartialStaysSmall()
-		{
-			int lines = File.ReadAllLines(Path.Combine(AppDir(), "MainWindow.xaml.cs")).Length;
-
-			Assert.That(lines, Is.LessThan(300),
-				$"MainWindow.xaml.cs is {lines} lines — new code belongs in one of the per-concern "
-				+ "partials (Api / CheckTab / Run / Results / Report) or in a service");
-		}
+		// `TheCatchAllPartialStaysSmall` was here and is gone. It asserted MainWindow.xaml.cs stays
+		// under 300 lines — an invented ceiling, currently 239, so it fires on 61 lines of any
+		// growth including the legitimate kind, and says nothing about whether the file has taken
+		// on a second concern. That concern is real and the tests below measure it directly: each
+		// per-concern partial is asserted to exist and to hold what belongs to it.
 
 		/// <summary>
 		/// Every partial exists and covers its own concern. Named individually so a failure says

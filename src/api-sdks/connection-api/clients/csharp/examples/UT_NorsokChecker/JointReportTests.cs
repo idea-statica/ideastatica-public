@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 using IdeaStatiCa.Api.Connection.Model;
 using Newtonsoft.Json.Linq;
 using NorsokChecker.Models;
@@ -74,24 +75,28 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
-				// The derivation was restructured 2026-08-27 to match the python reference block for
-				// block: label/formula/substitution/result steps instead of tables of results. These
-				// assert the same INFORMATION is still present, under the new headings.
-				Assert.That(html, Does.Contain("deriv-block"), "derivation block rendered");
-				Assert.That(html, Does.Contain("Geometry &amp; material"), "geometry and material");
-				Assert.That(html, Does.Contain("classification"), "the K/Y/X split");
-				Assert.That(html, Does.Contain("Mode K"), "the K mode block (KT case)");
-				Assert.That(html, Does.Contain("Q_g"), "per-gap Q_g, which is what the K table carried");
-				Assert.That(html, Does.Contain("Chord stress derivation"), "chord-stress trail");
-				// The §6.4.3.1 conditions are always tabulated, pass or fail — the sheet is meant to be
-				// checked, and a summarised "all met" would ask the reader to trust the app instead.
-				Assert.That(html, Does.Contain("validity ranges (&sect;6.4.3.1)")
-					.IgnoreCase, "the validity table");
-				Assert.That(html, Does.Contain("deriv-step"), "steps, not just result tables");
-				// all three braces got a card
+				// STRUCTURE and COUNTS, not headings. This asserted eleven needles, five of them
+				// prose — "Geometry &amp; material", "Chord stress derivation" and the like — which
+				// pinned the wording of headings that are meant to be edited. What has to hold is
+				// that every brace got a derivation and that each one is built out of steps.
+				// Counted on the OPENING TAG at its own indentation: a bare "deriv-block" also
+				// matches the joint-plane section, which opens one of its own, and the stylesheet
+				// rule. My first count said 3 and got 5 for exactly that reason.
+				Assert.That(Regex.Matches(html, @"    <div class='deriv-block'>").Count,
+					Is.EqualTo(3),
+					"one derivation block per brace of the KT joint, not one for the joint");
+				Assert.That(Regex.Matches(html, "deriv-step").Count, Is.GreaterThan(3 * 5),
+					"and each is a sequence of substitution steps, not a table of results");
+
+				// The braces themselves, so a report that rendered three blocks for one brace fails.
 				Assert.That(html, Does.Contain("KA"));
 				Assert.That(html, Does.Contain("KV"));
 				Assert.That(html, Does.Contain("KB"));
+
+				// The §6.4.3.1 conditions are always tabulated, pass or fail — the sheet is meant to
+				// be checked, and a summarised "all met" would ask the reader to trust the app. The
+				// clause number is the standard's, not our wording, so it is safe to pin.
+				Assert.That(html, Does.Contain("&sect;6.4.3.1"), "the validity table");
 			});
 		}
 

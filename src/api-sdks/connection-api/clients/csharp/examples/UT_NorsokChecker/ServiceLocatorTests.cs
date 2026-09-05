@@ -14,15 +14,13 @@ namespace UT_NorsokChecker
 	[TestFixture]
 	public class ServiceLocatorTests
 	{
-		/// <summary>
-		/// The floor is 26.0 because /api/4 — every endpoint this app calls — does not exist before
-		/// it. A 25.1 service answers UnsupportedApiVersion on all of them.
-		/// </summary>
-		[Test]
-		public void TheMinimumVersionIs26Point0()
-		{
-			Assert.That(ServiceLocator.MinVersion, Is.EqualTo(new Version(26, 0)));
-		}
+		// The floor is 26.0 because /api/4 — every endpoint this app calls — does not exist before
+		// it; a 25.1 service answers UnsupportedApiVersion on all of them.
+		//
+		// `TheMinimumVersionIs26Point0` asserted `MinVersion == new Version(26, 0)` and is gone: it
+		// restated the constant, so it could only ever fire on a deliberate edit and would have to
+		// be edited in lockstep the day the floor moves. What matters is the CONSEQUENCE, and that
+		// is tested below — `[TestCase("25.1.5.1504", false)]` fails if 25.1 is ever accepted.
 
 		[TestCase(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0", 26, 0)]
 		[TestCase(@"C:\Program Files\IDEA StatiCa\StatiCa 25.1", 25, 1)]

@@ -133,19 +133,9 @@ namespace UT_NorsokChecker
 			});
 		}
 
-		/// <summary>
-		/// θ says where it came from. It is derived from the member axes rather than typed, and that
-		/// was the one description in the removed table carrying information the derivation did not
-		/// already state.
-		/// </summary>
-		[Test]
-		public void TheDerivationSaysThetaComesFromTheMemberAxes()
-		{
-			string html = Report(WithDerivation());
-
-			Assert.That(html, Does.Contain("from the member axes"),
-				"θ is computed from the brace and chord directions (JointTopologyBuilder.Theta), "
-				+ "not entered — a reader checking the sheet by hand needs to know that");
-		}
+		// `TheDerivationSaysThetaComesFromTheMemberAxes` was here and is gone. It matched one
+		// hardcoded phrase, "from the member axes". Rewording the sentence broke it; deriving θ
+		// wrongly did not — and θ's derivation is pinned to 1e-6 by JointTopologyTests, which is
+		// where that concern actually lives.
 	}
 }

@@ -162,17 +162,8 @@ namespace UT_NorsokChecker
 			});
 		}
 
-		/// <summary>
-		/// LoadCase comes before Equation: it qualifies the Section beside it, and the equation number
-		/// is reference rather than something read across a row.
-		/// </summary>
-		[Test]
-		public void LoadCaseComesBeforeEquation()
-		{
-			var rows = RowsOf((1, "CON1", new[] { Assessed(0.735) }));
-			var order = rows[0].Keys.ToList();
-
-			Assert.That(order.IndexOf("LoadCase"), Is.LessThan(order.IndexOf("Equation")));
-		}
+		// `LoadCaseComesBeforeEquation` was here and is gone: it froze the order of two grid columns.
+		// Nothing about a result changes if they swap, so the test could only ever fire on a
+		// deliberate layout edit — and then be "fixed" to match it.
 	}
 }
