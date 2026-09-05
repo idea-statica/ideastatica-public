@@ -381,6 +381,123 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// An N_Rd substitution evaluates to its own printed result.
+		///
+		/// 58 of the reviewed report's 64 N_Rd lines did not: the prefactor printed to three
+		/// significant figures against a four-figure result, so `15.1 · 16.425 · 0.978` gives 242.6
+		/// where 241.9 was printed. With the prefactor at 15.06 it reproduces exactly. The M_Rd
+		/// lines were already right, which is what made this look like polish rather than the same
+		/// defect in a quieter place.
+		///
+		/// Same shape as the moment test below, deliberately: one rule, one way of checking it.
+		/// </summary>
+		[Test]
+		public void TheAxialResistanceSubstitutionEvaluatesToItsResult()
+		{
+			var step = Regex.Match(Page(),
+				@"N<sub>Rd</sub>[^<]*&mdash;[^<]*eq \(6\.52\).*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, "an N_Rd step must be on the page");
+
+			var subst = Regex.Match(step.Value,
+				@"deriv-step-math'>\$\$=\\;(?<s>[^$]*)\$\$.*?deriv-step-res'>\$\$=\\;(?<r>[\d.]+)",
+				RegexOptions.Singleline);
+			Assert.That(subst.Success, Is.True, "with a substitution and a result");
+
+			var v = Regex.Matches(subst.Groups["s"].Value, @"(\d+(?:\.\d+)?)")
+				.Select(m => double.Parse(m.Groups[1].Value, Inv)).ToArray();
+			Assert.That(v, Has.Length.GreaterThanOrEqualTo(2),
+				"prefactor and at least Q_u; found " + string.Join(", ", v));
+
+			double product = v.Aggregate(1.0, (a, b) => a * b);
+			double printed = double.Parse(subst.Groups["r"].Value, Inv);
+
+			// 0.1 %, and the tolerance is the assertion here. The defect this guards is a THIRD
+			// significant figure on the prefactor, which on the audited case moves the product by
+			// 0.27 % — measured. A 0.4 % tolerance swallowed it whole and the test passed on the
+			// coarse prefactor it was written to reject; that is the failure this comment records.
+			Assert.That(product, Is.EqualTo(printed).Within(Math.Max(0.05, printed * 0.001)),
+				$"{string.Join(" · ", v.Select(x => x.ToString("F3", Inv)))} = "
+				+ $"{product.ToString("F2", Inv)} against the printed {printed.ToString("F2", Inv)} "
+				+ "— a reader multiplying the printed line gets a different resistance");
+		}
+
+		/// <summary>
+		/// The weighted-resistance substitution evaluates to its own printed result.
+		///
+		/// The block typeset the HARMONIC form, `1/N_Rd = Σ fr/N_Rd,mode`, substituted it
+		/// harmonically (`0.239/408.4 + 0.761/261.9`) and then printed the ARITHMETIC result. On the
+		/// audited case that is 286.5 against a printed 296.8, and the spread reaches 22 % on other
+		/// braces. Either the formula or the number had to go.
+		///
+		/// The standard decides, and it is the formula that was wrong. N-004 §6.4.3.2, page 30:
+		/// "a weighted average of N_Rd based on the portion of each in the total action is used to
+		/// calculate the resistance." A weighted average is Σ fr·N_Rd, which is what the engine
+		/// computes (Norsok64Engine.cs:191).
+		///
+		/// Reported twice before I acted on it — once by each internal reviewer — and listed among
+		/// the fixed items in between without being checked. Hence this test.
+		/// </summary>
+		[Test]
+		public void TheWeightedResistanceSubstitutionEvaluatesToItsResult()
+		{
+			// Anchored on the STEP, not on the heading. "Weighted axial resistance" appears first as
+			// the label of the per-mode TABLE, so a lazy match from there ran on to the next step
+			// that had a result — the chord-utilisation A² block — and compared its numbers instead.
+			// Measured: the slice came back as `(9.3/355)² + …` against a result of 0.0039.
+			var step = Regex.Match(Page(),
+				@"Weighted axial resistance &mdash; &sect;6\.4\.3\.2 \(mixture"
+					+ @".*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, "the weighted-resistance step must be on the page");
+
+			var subst = Regex.Match(step.Value,
+				@"deriv-step-math'>\$\$=\\;(?<s>[^$]*)\$\$.*?deriv-step-res'>\$\$=\\;(?<r>[\d.]+)",
+				RegexOptions.Singleline);
+			Assert.That(subst.Success, Is.True,
+				"the step must carry a substitution and a result; got:\n" + step.Value);
+
+			// Pairs of (fraction, N_Rd,mode) — however they are combined, these are the numbers.
+			var v = Regex.Matches(subst.Groups["s"].Value, @"(\d+(?:\.\d+)?)")
+				.Select(m => double.Parse(m.Groups[1].Value, Inv)).ToArray();
+			Assert.That(v, Has.Length.GreaterThanOrEqualTo(4),
+				"a multi-mode brace substitutes at least two fraction/resistance pairs; found "
+				+ string.Join(", ", v));
+			Assert.That(v.Length % 2, Is.EqualTo(0),
+				"they come in pairs; found " + string.Join(", ", v));
+
+			double arithmetic = 0.0, harmonicDenom = 0.0;
+			for (int i = 0; i + 1 < v.Length; i += 2)
+			{
+				arithmetic += v[i] * v[i + 1];
+				harmonicDenom += v[i] / v[i + 1];
+			}
+			double printed = double.Parse(subst.Groups["r"].Value, Inv);
+
+			Assert.Multiple(() =>
+			{
+				// THE WRITTEN FORM, first. The two readings use the SAME numbers in the same order —
+				// `\dfrac{0.190}{367.6}` and `0.190\cdot 367.6` differ only in the operator — so an
+				// arithmetic check alone passes on either. Measured: with the harmonic substitution
+				// restored, the value assertions below stayed green. The defect was the notation.
+				Assert.That(subst.Groups["s"].Value, Does.Contain(@"\cdot"),
+					"the terms are MULTIPLIED: §6.4.3.2 asks for a weighted average of N_Rd");
+				Assert.That(subst.Groups["s"].Value, Does.Not.Contain(@"\dfrac"),
+					"not divided — the harmonic form printed here gave a number 22 % from the "
+					+ "result beside it");
+				Assert.That(step.Value, Does.Not.Contain(@"\dfrac{1}{N_{Rd}}"),
+					"and the SYMBOLIC line above it states the same operation, not 1/N_Rd = Σ …");
+
+				Assert.That(arithmetic, Is.EqualTo(printed).Within(Math.Max(0.15, printed * 0.005)),
+					$"the printed pairs combine to {arithmetic.ToString("F1", Inv)} kN as a WEIGHTED "
+					+ $"AVERAGE (§6.4.3.2), against the printed {printed.ToString("F1", Inv)}");
+				Assert.That(1.0 / harmonicDenom, Is.Not.EqualTo(printed).Within(0.5),
+					"and the harmonic reading gives a different number — which is why printing the "
+					+ "harmonic formula over this result was a defect and not a rounding quibble");
+			});
+		}
+
+		/// <summary>
 		/// The moment-resistance substitution evaluates to its own printed result.
 		///
 		/// This is the arithmetic form of the rounded-thickness finding, and it is stronger than

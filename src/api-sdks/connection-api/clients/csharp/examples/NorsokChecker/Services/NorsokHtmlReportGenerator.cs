@@ -1626,8 +1626,8 @@ namespace NorsokChecker.Services
 					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52){axNote}",
 						@"N_{Rd,i} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
 						kQf == null
-							? $@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}"
-							: $@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(kt.QuAxial, 3)}\cdot {N(kQf.QfAxial, 3)}",
+							? $@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(kt.QuAxial, 3)}"
+							: $@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(kt.QuAxial, 3)}\cdot {N(kQf.QfAxial, 3)}",
 						$@"{N(kt.NRd / 1e3, 1)}\,kN");
 				}
 			}
@@ -1657,7 +1657,7 @@ namespace NorsokChecker.Services
 					null, N(c.QuAxial, 3));
 				Step(sb, $"N<sub>Rd</sub> &mdash; eq (6.52){axNote}",
 					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
-					$@"{N(baseAx / 1e3, 1)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
+					$@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
 					$@"{N(c.NRd / 1e3, 1)}\,kN");
 			}
 
@@ -1672,17 +1672,32 @@ namespace NorsokChecker.Services
 			if (active.Count > 0)
 			{
 				sb.AppendLine("      <p class='deriv-h'>Weighted axial resistance (all active modes) "
-					+ "&mdash; Comm. 6.4.2</p>");
+					+ "&mdash; &sect;6.4.3.2</p>");
 				sb.AppendLine("      <table class='deriv-table'>");
 				sb.AppendLine("        <tr><th>mode</th><th>fraction</th><th>N<sub>Rd,mode</sub></th></tr>");
 				foreach (var (cls, frac) in active)
 					sb.AppendLine($"        <tr><td>{cls}</td><td>{Pct2(frac)}</td>"
 						+ $"<td>{N(r.PerClass[cls].NRd / 1e3, 1)} kN</td></tr>");
 				sb.AppendLine("      </table>");
-				Step(sb, "Weighted axial resistance &mdash; Comm. 6.4.2 (mixture of K/Y/X)",
-					@"\dfrac{1}{N_{Rd}} = \sum_{\text{mode}} \dfrac{fr_{\text{mode}}}{N_{Rd,\text{mode}}}",
-					string.Join("+", active.Select(x =>
-						$@"\dfrac{{{N(x.Item2, 3)}}}{{{N(r.PerClass[x.Item1].NRd / 1e3, 1)}}}")),
+				// A WEIGHTED AVERAGE, which is what the clause says and what the engine computes.
+				//
+				// This printed the HARMONIC form — `1/N_Rd = Σ fr/N_Rd,mode`, substituted the same
+				// way — above an ARITHMETIC result. Measured on a three-mode brace:
+				// 0.190/367.6 + 0.380/368.5 + 0.430/236.9 gives 297.3, and the printed figure was
+				// 311.7, which is 0.190·367.6 + 0.380·368.5 + 0.430·236.9 exactly. The spread
+				// reaches 22 % on other braces, so this was not a rounding quibble.
+				//
+				// The standard settles it, N-004 §6.4.3.2 page 30: "a weighted average of N_Rd
+				// based on the portion of each in the total action is used to calculate the
+				// resistance." A weighted average is the sum of fr·N_Rd. The engine was right and
+				// the formula was wrong.
+				//
+				// Cited to §6.4.3.2, which is the normative sentence; it used to point at
+				// Comm. 6.4.2, where that wording is not.
+				Step(sb, "Weighted axial resistance &mdash; &sect;6.4.3.2 (mixture of K/Y/X)",
+					@"N_{Rd} = \sum_{\text{mode}} fr_{\text{mode}} \cdot N_{Rd,\text{mode}}",
+					string.Join(" + ", active.Select(x =>
+						$@"{N(x.Item2, 3)}\cdot {N(r.PerClass[x.Item1].NRd / 1e3, 1)}")),
 					$@"{N(r.NRdWeighted / 1e3, 1)}\,kN");
 			}
 			else
