@@ -63,6 +63,18 @@ namespace NorsokChecker.Services.Norsok64
 		public double NRdActual { get; set; } = double.NaN;
 		public double NRdLimiting { get; set; } = double.NaN;
 
+		/// <summary>
+		/// The MOMENT resistances of each pass, so the out-of-range table can show what the rule
+		/// changed. §6.4.3.1 speaks of "usable strength", not of the axial resistance, and the
+		/// engine correctly applies the rule to all three — but the table presenting it had a single
+		/// N_Rd column, so a reader who checked it and moved on could not see that the moment
+		/// resistances had been cut too (on the reviewed report's governing brace, by 32 %).
+		/// </summary>
+		public double MRdIpActual { get; set; } = double.NaN;
+		public double MRdIpLimiting { get; set; } = double.NaN;
+		public double MRdOpActual { get; set; } = double.NaN;
+		public double MRdOpLimiting { get; set; } = double.NaN;
+
 		/// <summary>The clamped values used in the limiting pass, for the ones that were infringed.</summary>
 		public double BetaLimiting { get; set; } = double.NaN;
 		public double GammaLimiting { get; set; } = double.NaN;

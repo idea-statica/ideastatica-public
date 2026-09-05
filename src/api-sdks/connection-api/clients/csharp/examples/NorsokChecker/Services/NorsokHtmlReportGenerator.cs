@@ -77,11 +77,19 @@ namespace NorsokChecker.Services
 					M_{y,Rd} &= \frac{f_{y,chord} \cdot T^2 \cdot d}{\gamma_M \cdot \sin\theta} \cdot Q_{u,ipb} \cdot Q_{f,mom} \\[2pt]
 					M_{z,Rd} &= \frac{f_{y,chord} \cdot T^2 \cdot d}{\gamma_M \cdot \sin\theta} \cdot Q_{u,opb} \cdot Q_{f,mom}
 				  \end{aligned}",
-				// The BARS on the out-of-plane term are not decoration: the derivation evaluates
-				// |M_z,Sd/M_z,Rd| (see the eq 6.57 Step below), and without them here the header
-				// stated a DIFFERENT check from the one performed — a reviewer reads that as a
-				// calculation error, not a typo, because a negative M_z would reduce the sum.
-				@"\frac{N_{Sd}}{N_{Rd}} + \left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\frac{M_{z,Sd}}{M_{z,Rd}}\right| \leq 1.0"
+				// BARS ON BOTH LINEAR TERMS, and chapter 3 says they are OURS.
+				//
+				// The clause (§6.4.3.6, p. 32) has no bars on any term. The tool takes magnitudes of
+				// N_Sd AND M_z,Sd — a moment cannot relieve a joint, M_z's sign is a frame convention
+				// we chose, and Table 6-3 gives one out-of-plane column with no sign-dependent
+				// resistance to pair with. Taking magnitudes is the conservative reading.
+				//
+				// The bars went onto M_z alone first, so the header would state the check actually
+				// performed. That fixed one misstatement and left another: N was silently a magnitude
+				// too, and a TOOL convention was typeset as if the standard required it. On the
+				// reviewed report's governing brace a literal reading of the clause gives −20.9 %
+				// against the printed 73.7 % — 95 points apart, with nothing saying which was taken.
+				@"\frac{\left|N_{Sd}\right|}{N_{Rd}} + \left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2 + \left|\frac{M_{z,Sd}}{M_{z,Rd}}\right| \leq 1.0"
 			),
 			["Bolt"] = (
 				@"\frac{F_{t,Sd}}{F_{t,Rd}} + \frac{F_{v,Sd}}{1.4 \cdot F_{v,Rd}} \leq 1.0",
@@ -515,11 +523,44 @@ namespace NorsokChecker.Services
 			// The (§6.4.3.6) reference used to live only on the per-card legend, which this sentence
 			// duplicated word for word 40 times. The sentence is the one that stays, so it takes the
 			// clause reference with it.
+			// "matching the reference implementation" named nothing in 222 pages, while doing real
+			// work: it was offered as the justification for taking forces at the node. An
+			// unverifiable citation is weaker than none, because it implies a check the reader
+			// cannot repeat. Named as internal, which is honest and costs one clause.
 			sb.AppendLine("  <p><strong>Sign conventions.</strong> N is positive in TENSION. "
 				+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending <em>of the joint "
 				+ "plane</em> (eq 6.57, &sect;6.4.3.6), not of a member's local y and z. Section "
 				+ "forces are taken AT THE NODE and projected without an r&times;F transfer, "
-				+ "matching the reference implementation.</p>");
+				+ "matching this tool's own reference implementation (internal, not published).</p>");
+
+			// THE MAGNITUDES IN EQ (6.57), stated as OURS.
+			//
+			// The clause has no absolute-value bars on any term; we take them on N_Sd and M_z,Sd and
+			// typeset them. Without this paragraph the reader met a formula that differs from the
+			// standard's with nothing to say why — and on one brace the two readings are 95
+			// percentage points apart.
+			sb.AppendLine("  <p><strong>Magnitudes in eq (6.57).</strong> The clause writes the "
+				+ "axial and out-of-plane terms unsigned; this check uses their <em>magnitudes</em>, "
+				+ "which is why they are typeset with |&middot;| here and in every card. A bending "
+				+ "moment cannot relieve a joint, and the sign of M<sub>z</sub> is a property of the "
+				+ "frame fitted above rather than of the loading, so a signed term would make the "
+				+ "result depend on which way the plane's normal happened to point. Table 6-3 gives "
+				+ "one out-of-plane expression, with no sign-dependent resistance to pair it with. "
+				+ "This is a decision of this tool, taken on the conservative side &mdash; not a "
+				+ "requirement of &sect;6.4.3.6.</p>");
+
+			// §6.4.3.5 — the one "shall" in §6.4.3 that was neither applied nor disclaimed, while
+			// the report names §6.4.4's additions, shear and torsion, and its own tolerances. A
+			// reader who knows the clause could not tell whether cans were looked for and not found,
+			// or not modelled at all.
+			sb.AppendLine("  <p><strong>Joint cans are not modelled.</strong> &sect;6.4.3.2 requires "
+				+ "that &ldquo;for joints with joint cans, N<sub>Rd</sub> shall not exceed the "
+				+ "resistance limits defined in 6.4.3.5&rdquo;. This tool reads one wall thickness "
+				+ "per chord member and applies it throughout the joint, so eq (6.56) is never "
+				+ "evaluated. Where a chord carries a can &mdash; a locally thickened length, "
+				+ "T<sub>c</sub> &gt; T<sub>n</sub> &mdash; the limit of &sect;6.4.3.5 has to be "
+				+ "checked separately; the thickness each card states is the one taken from the "
+				+ "model.</p>");
 
 			// THE EQUATIONS, ONCE, IN THE CHAPTER THAT TALKS ABOUT THEM.
 			//
@@ -1422,21 +1463,43 @@ namespace NorsokChecker.Services
 					+ "validity range, where these limits are infringed.&rdquo; The check below was "
 					+ "therefore run twice, and the smaller axial resistance is the one carried "
 					+ "forward.</p>");
+				// ALL THREE RESISTANCES, because the rule was applied to all three. §6.4.3.1 says
+				// "usable strength", not "axial resistance", and the engine takes the lesser of each
+				// independently — but this table had one N_Rd column, so a reader who checked it and
+				// moved on could not see that the moment resistances were cut as well. On the
+				// reviewed report's governing brace they fell 32 %.
 				sb.AppendLine("      <table class='deriv-table'>");
 				sb.AppendLine("        <tr><th>pass</th><th>&beta;</th><th>&gamma;</th>"
-					+ "<th>&theta;</th><th>N<sub>Rd</sub></th></tr>");
+					+ "<th>&theta;</th><th>N<sub>Rd</sub></th>"
+					+ "<th>M<sub>y,Rd</sub></th><th>M<sub>z,Rd</sub></th></tr>");
 
-				bool actualGoverns = !double.IsNaN(r.NRdActual) && !double.IsNaN(r.NRdLimiting)
-					&& r.NRdActual <= r.NRdLimiting;
-				string mark = " &nbsp;&larr; governs";
+				// Each resistance is compared on its OWN pair — they need not agree about which pass
+				// governs, and asserting one flag for all three would be a claim the engine does not
+				// make (it takes three independent minima).
+				bool Gov(double a, double b) => !double.IsNaN(a) && !double.IsNaN(b) && a <= b;
+				bool axGov = Gov(r.NRdActual, r.NRdLimiting);
+				bool ipGov = Gov(r.MRdIpActual, r.MRdIpLimiting);
+				bool opGov = Gov(r.MRdOpActual, r.MRdOpLimiting);
+				string mark = " &nbsp;&larr;";
+
+				string Cell(double v, string unit, bool governs) =>
+					double.IsNaN(v) ? "&mdash;" : $"{N(v / 1e3, 2)} {unit}{(governs ? mark : "")}";
 
 				sb.AppendLine($"        <tr><td>a) actual geometry</td><td>{N(r.Beta)}</td>"
 					+ $"<td>{N(r.Gamma)}</td><td>{N(r.ThetaDeg, 1)}&deg;</td>"
-					+ $"<td>{N(r.NRdActual / 1e3, 1)} kN{(actualGoverns ? mark : "")}</td></tr>");
+					+ $"<td>{Cell(r.NRdActual, "kN", axGov)}</td>"
+					+ $"<td>{Cell(r.MRdIpActual, "kN&middot;m", ipGov)}</td>"
+					+ $"<td>{Cell(r.MRdOpActual, "kN&middot;m", opGov)}</td></tr>");
 				sb.AppendLine($"        <tr><td>b) imposed limits</td><td>{N(r.BetaLimiting)}</td>"
 					+ $"<td>{N(r.GammaLimiting)}</td><td>{N(r.ThetaLimitingDeg, 1)}&deg;</td>"
-					+ $"<td>{N(r.NRdLimiting / 1e3, 1)} kN{(actualGoverns ? "" : mark)}</td></tr>");
+					+ $"<td>{Cell(r.NRdLimiting, "kN", !axGov)}</td>"
+					+ $"<td>{Cell(r.MRdIpLimiting, "kN&middot;m", !ipGov)}</td>"
+					+ $"<td>{Cell(r.MRdOpLimiting, "kN&middot;m", !opGov)}</td></tr>");
 				sb.AppendLine("      </table>");
+				sb.AppendLine("      <p class='deriv-note'>&larr; marks the value that <b>governs</b> "
+					+ "&mdash; the lesser of the two passes, carried forward into the check. Each "
+					+ "resistance is compared on its own pair, so the governing pass need not be the "
+					+ "same for all three.</p>");
 			}
 
 			if (!r.WithinRange)

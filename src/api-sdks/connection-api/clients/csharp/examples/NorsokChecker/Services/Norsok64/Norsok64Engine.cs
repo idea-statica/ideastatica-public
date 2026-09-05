@@ -282,6 +282,10 @@
 			result.LimitingPassApplied = true;
 			result.NRdActual = actual.NRdWeighted;
 			result.NRdLimiting = limiting.NRdWeighted;
+			result.MRdIpActual = actual.MRdIp;
+			result.MRdIpLimiting = limiting.MRdIp;
+			result.MRdOpActual = actual.MRdOp;
+			result.MRdOpLimiting = limiting.MRdOp;
 			result.BetaLimiting = clampBeta;
 			result.GammaLimiting = clampGamma;
 			result.ThetaLimitingDeg = clampTheta;
