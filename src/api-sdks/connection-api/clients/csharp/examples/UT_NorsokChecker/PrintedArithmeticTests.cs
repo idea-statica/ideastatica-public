@@ -121,6 +121,71 @@ namespace UT_NorsokChecker
 				connection: "CON1", state: "LE1", utilisation: "30.0 %", verdict: "PASS");
 
 		/// <summary>
+		/// A SMALL chord, carrying its chord-stress row — where the display rounding bites hardest.
+		///
+		/// CHS 30×3 has I = 23 475 mm⁴ = 0.0235×10⁶. Printed as ×10⁶ to one decimal that is
+		/// **0.0**, and the substitution beside it then divides by the zero it just printed. The
+		/// same section's A is 254.5 mm², and a chord moment of 0.35 kN·m gives σ_my = 223.6 MPa —
+		/// a perfectly ordinary stress a reader would want to check and cannot.
+		///
+		/// A SEPARATE fixture from the multi-mode row on purpose: that one is CHS 141.3/6.3, where
+		/// I = 6.1×10⁶ prints as "6.1" and the defect is a fraction of a percent rather than a
+		/// division by zero. A test that only ever saw the large section would report the rounding
+		/// as harmless.
+		/// </summary>
+		private static JointCheckRow SmallChordRow()
+		{
+			var inp = Joint64Input.FromSI(
+				D: 0.030, T: 0.003, fyChord: 355e6,
+				d: 0.0219, t: 0.0026, fyBrace: 355e6,
+				thetaDeg: 45.0, g: 0.008,
+				frK: 0.0, frY: 1.0, frX: 0.0,
+				nSd: -12.0e3, mipSd: -0.20e3, mopSd: 0.15e3,
+				sigmaASd: 8.0e6, sigmaMySd: -22.0e6, sigmaMzSd: 0.0,
+				gammaM: 1.15);
+
+			var result = Norsok64Engine.CheckJoint(inp);
+
+			// The section properties of CHS 30×3, in SI as the engine holds them.
+			const double D = 0.030, T = 0.003;
+			double di = D - 2 * T;
+			double a = Math.PI / 4.0 * (D * D - di * di);
+			double i = Math.PI / 64.0 * (Math.Pow(D, 4) - Math.Pow(di, 4));
+
+			return new JointCheckRow
+			{
+				Name = "M5", Skipped = false, Engine = result, Inputs = inp,
+				Classification = new KyxClass
+				{
+					Name = "M5", FrK = 0.0, FrY = 1.0, FrX = 0.0,
+					NSd = -12.0e3, MipSd = -0.20e3, MopSd = 0.15e3,
+				},
+				ChordStress = new ChordStressRow
+				{
+					Name = "M5", SigmaA = 8.0e6, SigmaMy = -22.0e6, SigmaMz = 0.0,
+					A = a, I = i, R = D / 2.0,
+					// CONSISTENT with SigmaMy above: σ_my = −M·(side·R)/I, so −22.0 MPa on this
+					// section needs M = 0.0344 kN·m. It also happens to be the second half of the
+					// defect — at 2 dp that moment prints `0.03`, a 13 % error — so one fixture
+					// exercises both the zero I and the coarse moment.
+					NChord = 2.04e3, MipChord = 0.0344e3, MopChord = 0.0, Side = 1,
+				},
+				DomClass = "Y",
+				Util = result.UtilWeighted,
+				Passed = result.Passed,
+				NRdWeighted = result.NRdWeighted,
+				MRdIp = result.MRdIp,
+				MRdOp = result.MRdOp,
+				WithinRange = result.WithinRange,
+				ChordOverstressed = result.ChordOverstressed,
+			};
+		}
+
+		private static string SmallChordPage() =>
+			NorsokHtmlReportGenerator.GenerateDerivationPage(SmallChordRow(), brace: "M5",
+				connection: "CON9", state: "LE3", utilisation: "40.0 %", verdict: "PASS");
+
+		/// <summary>
 		/// The fixture really is multi-mode and the two resistances really do differ — asserted
 		/// FIRST, because if they coincided every test below would pass while measuring nothing.
 		/// </summary>
@@ -271,6 +336,58 @@ namespace UT_NorsokChecker
 		/// A reader multiplying what they see gets a resistance 2.5 % too high and no way to find
 		/// out why.
 		/// </summary>
+		/// <summary>
+		/// The N_Rd substitution evaluates to its own printed result.
+		///
+		/// `20.29 kN · 19.882 · 1.012 = 408.4 kN` — except the printed factors give 408.25. The
+		/// true prefactor is 20.2976 and it was printed at two decimals, so 25 of the 64 N_Rd
+		/// substitutions in the reviewed report did not reproduce their own answer. The reviewer's
+		/// diagnostic isolated it cleanly: the M_Rd cards print the full expression and all close.
+		///
+		/// Same defect as the chord-stress block and the brace moments — a value rounded for
+		/// display and then printed as if it were the input. The fix is significant figures, not
+		/// more decimals: the prefactor runs from ~2 kN on a small joint to ~300 kN on a large one.
+		/// </summary>
+		[TestCase(Joint64Class.Y)]
+		[TestCase(Joint64Class.X)]
+		public void TheResistanceSubstitutionEvaluatesToItsResult(Joint64Class cls)
+		{
+			string html = Page();
+
+			var step = Regex.Match(html,
+				$@"Mode {cls} .*?N<sub>Rd</sub>.*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, $"class {cls} has an N_Rd step");
+
+			// base [kN] · Q_u · Q_f = result [kN]
+			var m = Regex.Match(step.Value,
+				@"\$\$=\\;(?<base>[\d.]+)\\,kN\\cdot (?<qu>[\d.]+)\\cdot (?<qf>[\d.]+)");
+			Assert.That(m.Success, Is.True,
+				"the N_Rd substitution must be readable as base·Q_u·Q_f — got:\n" + step.Value);
+
+			double G(string k) => double.Parse(m.Groups[k].Value, Inv);
+			double computed = G("base") * G("qu") * G("qf");
+			double printed = double.Parse(
+				Regex.Match(step.Value, @"deriv-step-res'>\$\$=\\;([\d.]+)\\,kN").Groups[1].Value, Inv);
+
+			// 0.02 %, and the number is measured rather than chosen. The reviewed report's worst
+			// case was 0.038 % — three factors each rounded to 2 or 3 significant figures, none
+			// wrong on its own, ACCUMULATING. A 0.1 % tolerance let all of them through, which is
+			// how the defect survived a suite that already checked this expression; my first
+			// version of this test passed against the old rounding for exactly that reason.
+			// Four significant figures per factor land at 0.023 %, so 0.03 % of the printed value
+			// separates the two.
+			//
+			// PURELY RELATIVE, no absolute floor. The other tolerances in this file are
+			// `Math.Max(0.15, …)` and the like — absolutes in kN, which would become 150 kN of
+			// slack the day a display unit changes to MN and would pass on anything. A relative
+			// tolerance means the same thing in every unit.
+			Assert.That(computed, Is.EqualTo(printed).Within(printed * 0.0003),
+				$"the printed factors give {computed.ToString("F2", Inv)} kN but the printed result "
+				+ $"is {printed.ToString("F2", Inv)} — a reader multiplying what they see gets a "
+				+ "different resistance from the one the check used");
+		}
+
 		[Test]
 		public void TheKModeResistanceSubstitutionPrintsItsQf()
 		{
@@ -816,6 +933,61 @@ namespace UT_NorsokChecker
 				Assert.That(step.Value, Does.Contain(exp.ToString("0.0", Inv)),
 					$"and the exponent {exp} the clause gives");
 			});
+		}
+
+		/// <summary>
+		/// The chord-stress substitution evaluates to its own result, on a SMALL chord.
+		///
+		/// σ_my = M·R/I, printed as `−0.35 kNm·(+1·15.0 mm) / 0.0×10⁶ mm⁴`. On CHS 30×3 the section
+		/// has I = 23 475 mm⁴ = 0.0235×10⁶, and one decimal of ×10⁶ renders that **0.0** — so the
+		/// expression on the page divides by zero while the result beside it is a real number.
+		///
+		/// On the large chord the same rounding is a fraction of a percent and reads as harmless;
+		/// this is the fixture where it does not. The assertion is not "print N decimals" but the
+		/// rule we have applied all week: a printed line reproduces its own printed result.
+		/// </summary>
+		[Test]
+		public void TheChordStressSubstitutionEvaluatesToItsResult()
+		{
+			string html = SmallChordPage();
+			var cs = SmallChordRow().ChordStress!;
+
+			// The fixture must be the hard case, or this measures the easy one.
+			Assert.That(cs.I * 1e12 / 1e6, Is.LessThan(0.05),
+				"this chord's I must be small enough that ×10⁶ to one decimal rounds it to zero — "
+				+ "otherwise the test passes on a section where the defect is invisible");
+
+			var step = Regex.Match(html,
+				@"&sigma;<sub>my</sub>.*?deriv-step-res'>\$\$=[^$]*\$\$", RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, "the σ_my step must be on the page");
+
+			// M [kNm] · R [mm] / I [mm⁴] — the three printed factors. The I term carries its own
+			// exponent, chosen from the value, so the exponent is captured rather than assumed.
+			const string Num = @"\(?[-−]?[\d.]+\)?";
+			var m = Regex.Match(step.Value,
+				@"dfrac\{(?<M>" + Num + @")\\,kNm\\cdot\((?<sgn>[+-])1\\cdot (?<R>[\d.]+)\\,mm\)\}"
+				+ @"\{(?<Im>[\d.]+)\\times 10\^\{(?<Ie>-?\d+)\}\\,mm\^4\}");
+			Assert.That(m.Success, Is.True,
+				"the σ_my substitution must be readable as M·R/I — got:\n" + step.Value);
+
+			double G(string k) => double.Parse(
+				m.Groups[k].Value.Trim('(', ')').Replace('−', '-'), Inv);
+
+			double iPrinted = G("Im") * Math.Pow(10, G("Ie"));
+			Assert.That(iPrinted, Is.GreaterThan(0.0),
+				"the printed I must not be zero — the expression beside it divides by this value, "
+				+ $"and CHS 30×3 has I = {cs.I * 1e12:F0} mm⁴, not 0");
+
+			// σ [MPa] = M [kN·m] × 10⁶ N·mm / kN·m × R [mm] / I [mm⁴]
+			double computed = G("M") * 1e6 * (m.Groups["sgn"].Value == "+" ? 1 : -1) * G("R")
+				/ iPrinted;
+			double printed = double.Parse(
+				Regex.Match(step.Value, @"deriv-step-res'>\$\$=\\;(-?[\d.]+)").Groups[1].Value, Inv);
+
+			Assert.That(Math.Abs(computed), Is.EqualTo(Math.Abs(printed)).Within(Math.Abs(printed) * 0.01),
+				$"the printed expression gives {computed.ToString("F1", Inv)} MPa but the printed "
+				+ $"result is {printed.ToString("F1", Inv)} — a reader checking this line by hand "
+				+ "gets a different number from the one the check used");
 		}
 
 		/// <summary>

@@ -1324,6 +1324,57 @@ namespace NorsokChecker.Services
 			// parenthesise a negative so "a + (−b)" reads correctly inside a substituted formula
 			static string P(double v, int d = 3) => v < 0 ? $"({N(v, d).Replace("-", "−")})" : N(v, d);
 
+			// THE EXPONENT COMES FROM THE VALUE, not from a fixed scale.
+			//
+			// I was printed as `N(iMm4 / 1e6, 1) × 10⁶`, which is fine for a CHS 273 (86.97) and
+			// catastrophic for a CHS 30×3: I = 23 475 mm⁴ = 0.0235×10⁶ renders as **0.0**, and the
+			// substitution beside it then divides by the zero it just printed. A section's I spans
+			// nearly five orders of magnitude across the range this tool sees (23 475 mm⁴ to
+			// 914 277 855 mm⁴), so no single scale can serve it.
+			//
+			// Three significant figures, and the exponent chosen per value: 2.35×10⁴ for the small
+			// section, 9.14×10⁸ for the large one.
+			static string Sci(double v)
+			{
+				if (double.IsNaN(v) || double.IsInfinity(v) || v == 0.0) return "0";
+				int exp = (int)Math.Floor(Math.Log10(Math.Abs(v)));
+				double mant = v / Math.Pow(10, exp);
+				return $@"{N(mant, 2)}\times 10^{{{exp}}}";
+			}
+
+			// A FIXED DECIMAL COUNT CANNOT SERVE A QUANTITY THAT SPANS ORDERS OF MAGNITUDE.
+			//
+			// The chord moments run from 0.034 kN·m to 45 kN·m in the joints this tool sees — a
+			// factor of 1300. Three decimals leave the small one 1.2 % out (0.0344 → 0.034) and give
+			// the large one three digits nobody reads. Four decimals fix the first and make the
+			// second absurd. SIGNIFICANT FIGURES are the invariant the reader needs: the printed
+			// value carries the same relative accuracy whatever its size.
+			//
+			// Four of them, which holds the substitution's error under ~0.01 % across that range.
+			// A MINIMUM DECIMAL COUNT, because significant figures alone fail near 1.
+			//
+			// Q_f is 1.003292 — four significant figures is `1.003`, three decimals, and the digit
+			// that matters is the DEVIATION from unity, not the leading 1. As a multiplier that
+			// costs 0.03 %, and it compounds with the other two factors of the same product.
+			// Values far from 1 have the opposite need: 18.444727 at four decimals would print
+			// digits nobody reads.
+			//
+			// So: significant figures for the magnitude, floored at three decimals so a factor
+			// near unity keeps its meaningful digits.
+			//
+			// FIVE and THREE, measured rather than picked. On the fixture's X mode the printed
+			// product misses its printed result by 2.13 % at two significant figures, 0.17 % at
+			// three, 0.031 % at four, and 0.0013 % at five-with-three-decimals — which is where it
+			// stops mattering. Four alone was not enough because Q_f = 1.0033 rounds to `1.003`.
+			static string Sig(double v, int sig = 5, int minDec = 3)
+			{
+				if (double.IsNaN(v) || double.IsInfinity(v)) return "—";
+				if (v == 0.0) return "0";
+				int exp = (int)Math.Floor(Math.Log10(Math.Abs(v)));
+				int dec = Math.Max(minDec, Math.Min(15, sig - 1 - exp));
+				return N(v, dec);
+			}
+
 			double fy = inp.FyChord / 1e6, sa = inp.SigmaASd / 1e6;
 			double smy = inp.SigmaMySd / 1e6, smz = inp.SigmaMzSd / 1e6;
 			double dMm = inp.d * 1e3, tMm = inp.t * 1e3, dChordMm = inp.D * 1e3, tChordMm = inp.T * 1e3;
@@ -1529,18 +1580,21 @@ namespace NorsokChecker.Services
 				// distinguished nothing (there is one row) and only repeated the sentence above. The
 				// averaging is stated in the header instead, where it belongs: these three values
 				// are already the mean of the chord's two loadings.
+				// THREE DECIMALS on the chord moments, for the reason the brace moments got them: a
+				// 0.0128 kN·m moment printed as `0.01` is 22 % out, and the substitution below reads
+				// this value back.
 				sb.AppendLine("        <tr><th>chord face</th><th>N<sub>chord</sub> (avg)</th>"
 					+ "<th>M<sub>y,chord</sub> (avg)</th><th>M<sub>z,chord</sub> (avg)</th></tr>");
 				sb.AppendLine($"        <tr><td><b>{(st.Side >= 0 ? "+ey" : "&minus;ey")}</b></td>"
 					+ $"<td>{N(st.NChord / 1e3, 1)} kN</td>"
-					+ $"<td>{N(st.MipChord / 1e3, 2)} kN&middot;m</td>"
-					+ $"<td>{N(st.MopChord / 1e3, 2)} kN&middot;m</td></tr>");
+					+ $"<td>{N(st.MipChord / 1e3, 3)} kN&middot;m</td>"
+					+ $"<td>{N(st.MopChord / 1e3, 3)} kN&middot;m</td></tr>");
 				sb.AppendLine("      </table>");
 
 				Step(sb, "Chord section properties &mdash; CHS, thickness at the joint (p.31)",
 					@"A=\dfrac{\pi}{4}(D^2-d_i^2),\quad I=\dfrac{\pi}{64}(D^4-d_i^4),\quad R=D/2",
 					null,
-					$@"A={N(aMm2, 0)}\,mm^2,\ I={N(iMm4 / 1e6, 1)}\times 10^6\,mm^4,\ R={N(rMm, 1)}\,mm");
+					$@"A={N(aMm2, 0)}\,mm^2,\ I={Sci(iMm4)}\,mm^4,\ R={N(rMm, 1)}\,mm");
 
 				Step(sb, "&sigma;<sub>a</sub> &mdash; axial (+ tension)",
 					@"\sigma_{a,Sd} = N_{chord}/A",
@@ -1551,13 +1605,13 @@ namespace NorsokChecker.Services
 					+ (st.Side >= 0 ? "+ey" : "&minus;ey") + " (z = side&middot;R), sign FLIPPED so "
 					+ "+ = compression in the footprint (eq 6.54 note)",
 					@"\sigma_{my,Sd} = -\dfrac{M_{y,chord}\cdot(\text{side}\cdot R)}{I}",
-					$@"-\dfrac{{{N(st.MipChord / 1e3, 2)}\,kNm\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot {N(rMm, 1)}\,mm)}}{{{N(iMm4 / 1e6, 1)}\times10^6\,mm^4}}",
+					$@"-\dfrac{{{Sig(st.MipChord / 1e3)}\,kNm\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot {N(rMm, 1)}\,mm)}}{{{Sci(iMm4)}\,mm^4}}",
 					$@"{N(smy, 1)}\,MPa");
 
 				Step(sb, "&sigma;<sub>mz</sub> &mdash; out-of-plane bending "
 					+ "(sign irrelevant &mdash; enters Q<sub>f</sub> only squared, via A&sup2;)",
 					@"\sigma_{mz,Sd} = \dfrac{M_{z,chord}\cdot R}{I}",
-					$@"\dfrac{{{N(st.MopChord / 1e3, 2)}\,kNm\cdot {N(rMm, 1)}\,mm}}{{{N(iMm4 / 1e6, 1)}\times10^6\,mm^4}}",
+					$@"\dfrac{{{Sig(st.MopChord / 1e3)}\,kNm\cdot {N(rMm, 1)}\,mm}}{{{Sci(iMm4)}\,mm^4}}",
 					$@"{N(smz, 1)}\,MPa");
 			}
 
@@ -1733,8 +1787,8 @@ namespace NorsokChecker.Services
 					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52){axNote}",
 						@"N_{Rd,i} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
 						kQf == null
-							? $@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(kt.QuAxial, 3)}"
-							: $@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(kt.QuAxial, 3)}\cdot {N(kQf.QfAxial, 3)}",
+							? $@"{Sig(baseAx / 1e3)}\,kN\cdot {Sig(kt.QuAxial)}"
+							: $@"{Sig(baseAx / 1e3)}\,kN\cdot {Sig(kt.QuAxial)}\cdot {Sig(kQf.QfAxial)}",
 						$@"{N(kt.NRd / 1e3, 1)}\,kN");
 				}
 			}
@@ -1795,7 +1849,7 @@ namespace NorsokChecker.Services
 					quFormula, quSubst, N(c.QuAxial, 3));
 				Step(sb, $"N<sub>Rd</sub> &mdash; eq (6.52){axNote}",
 					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
-					$@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
+					$@"{Sig(baseAx / 1e3)}\,kN\cdot {Sig(c.QuAxial)}\cdot {Sig(c.QfAxial)}",
 					$@"{N(c.NRd / 1e3, 1)}\,kN");
 			}
 
