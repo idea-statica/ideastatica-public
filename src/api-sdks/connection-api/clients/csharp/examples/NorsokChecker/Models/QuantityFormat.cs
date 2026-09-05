@@ -136,21 +136,10 @@ namespace NorsokChecker.Models
 		internal static string Force(double n, CultureInfo c, DisplaySettings s) =>
 			Formatted(ToForce(n, s.Force), c, s.ForceDecimals, s.ForceFormat);
 
-		/// <summary>A force, N → kN.</summary>
-		internal static string Force(double n, CultureInfo c, int dp = 1) =>
-			Num(n / 1e3, c, dp);
-
-		/// <summary>A moment, N·m → kN·m. Three decimals: at two, a 0.07 kN·m moment is 7 % out.</summary>
-		internal static string Moment(double nm, CultureInfo c, int dp = 3) =>
-			Num(nm / 1e3, c, dp);
-
-		/// <summary>A stress, Pa → MPa.</summary>
-		internal static string Stress(double pa, CultureInfo c, int dp = 1) =>
-			Num(pa / 1e6, c, dp);
-
-		/// <summary>A length, m → mm.</summary>
-		internal static string Length(double m, CultureInfo c, int dp = 1) =>
-			Num(m * 1e3, c, dp);
+		// The fixed-unit Force/Moment/Stress/Length overloads that used to sit here are gone. They
+		// hardcoded kN / kN·m / MPa / mm and differed from the settings-aware versions only by the
+		// type of the third argument — one accidental overload resolution away from silently
+		// pinning a caller to metric, in the file written to make that impossible.
 
 		/// <summary>An angle, already in degrees.</summary>
 		internal static string Angle(double deg, CultureInfo c, int dp = 1) =>

@@ -2567,26 +2567,6 @@ namespace NorsokChecker.Services
 		private static string Esc(string s) => System.Net.WebUtility.HtmlEncode(s);
 
 		/// <summary>
-		/// A utilisation as a percentage, to one decimal — through ONE formatter, in one culture.
-		///
-		/// Measured on a printed report from this machine: the summary read "73,7%" with a comma
-		/// while every derivation step on the pages below read "73.70" with a point, because the
-		/// steps go through an InvariantCulture helper and these did not. Two decimal separators in
-		/// one English document, and on a machine with a different locale the report would differ
-		/// again — a document that renders differently per machine cannot be a deliverable.
-		///
-		/// Invariant rather than the norm's own locale: the report is written in English and NORSOK
-		/// is an English-language standard. A Czech localisation, if it ever comes, changes this one
-		/// method.
-		/// </summary>
-		/// <summary>
-		/// The precision <see cref="Pct"/> prints at, set once per report from the display settings.
-		///
-		/// A field rather than a parameter because Pct is called from five methods that have no
-		/// other reason to know about the settings. Pct2 deliberately does NOT follow it: its call
-		/// sites are all inside the derivation, which stays in the norm's own convention.
-		/// </summary>
-		/// <summary>
 		/// The precision the parameterless <see cref="Pct(double)"/> prints at.
 		///
 		/// A STATIC, and that is a compromise worth naming: Pct is called from five methods that
@@ -2598,6 +2578,19 @@ namespace NorsokChecker.Services
 		/// </summary>
 		private static int _pctDecimals = 1;
 
+		/// <summary>
+		/// A utilisation as a percentage — through ONE formatter, in one culture.
+		///
+		/// Measured on a printed report from this machine: the summary read "73,7%" with a comma
+		/// while every derivation step on the pages below read "73.70" with a point, because the
+		/// steps go through an InvariantCulture helper and these did not. Two decimal separators in
+		/// one English document, and on a machine with a different locale the report would differ
+		/// again — a document that renders differently per machine cannot be a deliverable.
+		///
+		/// Invariant rather than the norm's own locale: the report is written in English and NORSOK
+		/// is an English-language standard. A Czech localisation, if it ever comes, changes this one
+		/// method.
+		/// </summary>
 		private static string Pct(double ratio, int decimals) =>
 			ratio.ToString("P" + Math.Clamp(decimals, 0, 9),
 					System.Globalization.CultureInfo.InvariantCulture)

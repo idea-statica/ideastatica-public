@@ -266,23 +266,30 @@ namespace NorsokChecker.Models
 		public string Unit { get; set; } = string.Empty;
 
 		/// <summary>
-		/// DELIBERATELY not routed through the display settings. Unit here is a string stored
-		/// beside the value, not a choice, so following the setting would mean parsing that text
-		/// back into a quantity. It is also unreachable for §6.4 — the "Where:" table that renders
-		/// it is gated on JointDetail == null, which §6.4 always sets — so it serves only the
-		/// mothballed §6.3.
+		/// The value already carries its unit — <see cref="Value"/> is converted and
+		/// <see cref="Unit"/> labelled by whoever built the variable. This only decides how many
+		/// digits to show and appends the label.
+		///
+		/// It used to switch on the unit STRING, with an arm each for "MPa", "kN", "kNm" and "mm".
+		/// Once the builders started emitting the reader's units, "kip" and "ksi" matched no arm
+		/// and fell to the `G6` default — six significant figures, `D = 5.55118 in`. The "kNm" arm
+		/// had already been dead for longer: the label produced is "kN·m".
 		/// </summary>
-		public string FormattedValue => Unit switch
+		public string FormattedValue
 		{
-			"MPa" => $"{Value:F1} {Unit}",
-			"kN" => $"{Value:F1} {Unit}",
-			"kNm" => $"{Value:F2} {Unit}",
-			"mm" => $"{Value:F1} {Unit}",
-			"mm²" => $"{Value:F0} {Unit}",
-			"mm³" => $"{Value:F0} {Unit}",
-			"mm⁴" => $"{Value:F0} {Unit}",
-			"-" => $"{Value:F4}",
-			_ => $"{Value:G6} {Unit}".Trim()
-		};
+			get
+			{
+				var c = System.Globalization.CultureInfo.InvariantCulture;
+				return Unit == "-"
+					? Value.ToString("F4", c)
+					: $"{Value.ToString("F" + DecimalsFor(Unit), c)} {Unit}".Trim();
+			}
+		}
+
+		/// <summary>Digits by KIND of quantity, inferred from the label rather than matched to it.</summary>
+		private static int DecimalsFor(string unit) =>
+			unit.EndsWith("²") || unit.EndsWith("³") || unit.EndsWith("⁴") ? 0
+			: unit is "kN·m" or "N·m" or "MN·m" or "kip·ft" or "kip·in" ? 2
+			: 1;
 	}
 }

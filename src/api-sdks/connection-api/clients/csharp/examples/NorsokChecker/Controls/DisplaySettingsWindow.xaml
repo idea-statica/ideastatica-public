@@ -1,4 +1,4 @@
-<Window x:Class="NorsokChecker.Controls.DisplaySettingsWindow"
+﻿<Window x:Class="NorsokChecker.Controls.DisplaySettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Units and precision"
@@ -19,9 +19,6 @@
              it appears on every row, so the table does not look moth-eaten where a checkbox was
              not applicable. -->
     <StackPanel Margin="18" MinWidth="460">
-
-        <TextBlock TextWrapping="Wrap" Foreground="#546E7A" Margin="0,0,0,14"
-                   Text="Applies to the tables in this window and to the exported report."/>
 
         <Grid Margin="0,0,0,6">
             <Grid.ColumnDefinitions>
@@ -70,7 +67,7 @@
                        VerticalAlignment="Center" TextWrapping="Wrap" Foreground="#546E7A"/>
             <TextBlock Grid.Row="5" Grid.Column="1" Text="as above" VerticalAlignment="Center"
                        Foreground="#78909C" FontStyle="Italic"
-                       ToolTip="The same unit as the section dimensions — showing a 6.3 mm wall and a 508 mm diameter in different units would mislead. Only the precision differs."/>
+                       ToolTip="The section unit, with its own precision."/>
             <TextBox   Grid.Row="5" Grid.Column="2" x:Name="TxtGapDp" Margin="0,2,8,2"
                        PreviewTextInput="Digits_PreviewTextInput"/>
 
@@ -92,14 +89,14 @@
             <TextBlock Grid.Row="8" Grid.Column="0" Text="Angle" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="8" Grid.Column="1" Text="°" VerticalAlignment="Center"
                        Foreground="#78909C"
-                       ToolTip="Fixed: §6.4.3.1 states its validity ranges in degrees, and the validity table is read against the clause."/>
+                       ToolTip="Degrees, fixed by §6.4.3.1."/>
             <TextBox   Grid.Row="8" Grid.Column="2" x:Name="TxtAngleDp" Margin="0,2,8,2"
                        PreviewTextInput="Digits_PreviewTextInput"/>
 
             <TextBlock Grid.Row="9" Grid.Column="0" Text="Coefficient" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="9" Grid.Column="1" Text="&#8211;" VerticalAlignment="Center"
                        Foreground="#78909C"
-                       ToolTip="β, γ, τ, the Q-factors, A², φ — dimensionless, so there is no unit to offer. Their precision matters most, because they are the factors a reader substitutes."/>
+                       ToolTip="β, γ, τ, Q, A², φ — dimensionless."/>
             <TextBox   Grid.Row="9" Grid.Column="2" x:Name="TxtRatioDp" Margin="0,2,8,2"
                        PreviewTextInput="Digits_PreviewTextInput"/>
 

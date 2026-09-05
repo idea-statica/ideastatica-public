@@ -54,35 +54,5 @@
 			FyText = Fy > 0 ? QuantityFormat.Stress(Fy * 1e6, c, s) : "";
 		}
 
-		/// <summary>
-		/// The geometry column, in the units and precision the user chose.
-		///
-		/// It used to be a computed property formatting itself — `$"D={Diameter:F0} …"` — which is
-		/// why the units setting had no effect on this column: a model property cannot see a
-		/// setting, so it silently kept millimetres whatever the dialog said. The caller passes the
-		/// settings in.
-		///
-		/// Diameter and WallThickness are held in MILLIMETRES here, not SI like the rest of the app
-		/// (this model is filled straight from the API's own member list). Converting to metres
-		/// first keeps one conversion path rather than a second set of factors.
-		/// </summary>
-		public string GeometryFor(DisplaySettings s, System.Globalization.CultureInfo c)
-		{
-			if (Diameter <= 0) return "";
-
-			// Diameter and thickness are "small dimensions" in the sense IDEA StatiCa's own
-			// preferences use: they take the section unit but their own precision, because a 6.3 mm
-			// wall and a 508 mm diameter do not want the same number of decimals.
-			string d = QuantityFormat.Length(Diameter / 1e3, c, s);
-			string t = QuantityFormat.SmallLength(WallThickness / 1e3, c, s);
-
-			return Shape switch
-			{
-				"CHS" => $"D={d} t={t}",
-				"I-section" => $"h={d} tw={t}",
-				"RHS" => $"h={d} t={t}",
-				_ => "",
-			};
-		}
 	}
 }
