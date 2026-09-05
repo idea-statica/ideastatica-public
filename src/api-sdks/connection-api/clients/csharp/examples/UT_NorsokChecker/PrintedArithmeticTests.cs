@@ -474,22 +474,73 @@ namespace UT_NorsokChecker
 		/// document, and that is deliberately NOT done here.
 		/// </summary>
 		[Test]
-		public void TheCheckCardKeepsItsCriterionAndDropsTheDuplicatedFormulas()
+		public void TheCheckCardStatesItsCriterionExactlyOnce()
 		{
 			string html = QualifiedReport();
+
+			// The card body, from the header to the derivation's first block. Everything that used
+			// to sit here — the inequality, a pointer line, a SUBSTITUTION box — repeated what the
+			// header, chapter 3 or the derivation already said.
+			// The DIV, not the CSS rule of the same name — `card-body` appears first in the
+			// stylesheet, and anchoring there made the slice most of the document, so the test
+			// would have passed on output it was meant to reject.
+			int at = html.IndexOf("<div class='card-body'>", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the card body is rendered");
+			int firstBlock = html.IndexOf("Geometry &amp; material", at, StringComparison.Ordinal);
+			Assert.That(firstBlock, Is.GreaterThan(at), "the derivation follows");
+			string preamble = html[at..firstBlock];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(preamble, Does.Not.Contain("Check condition:"),
+					"the inequality is in chapter 3, in the eq (6.57) step with its numbers, and in "
+					+ "the result bar as the comparison actually made");
+				Assert.That(preamble, Does.Not.Contain("Design resistance:"),
+					"the resistances are printed below with their numbers");
+				Assert.That(preamble, Does.Not.Contain("Substitution:"),
+					"and the SUBSTITUTION box recalled three values that are in the header and the "
+					+ "derivation — it was not a substitution at all");
+				Assert.That(preamble, Does.Not.Contain("Resistances per eq"),
+					"nor a pointer line, which the header's (Eq. 6.57) already serves");
+
+				// The criterion IS on the card — once, where a reader checks it.
+				Assert.That(html, Does.Contain("&le; 1.0)"),
+					"the result bar states the comparison: 0.7373 <= 1.0");
+			});
+		}
+
+		/// <summary>
+		/// A NON-§6.4 card keeps its formula block, and this is the guard against a blanket change.
+		///
+		/// FormulaLatex is keyed by section and every chapter renders through RenderFormulaCard, but
+		/// only §6.4 has a derivation. For §6.3 the formula block is the ONLY formula on the card,
+		/// so removing it there would leave a result with nothing behind it — and nothing in the
+		/// §6.4 tests would notice, because they never look at a §6.3 card.
+		/// </summary>
+		[Test]
+		public void ANonJointCardStillCarriesItsFormulaBlock()
+		{
+			string html = NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokChecker.Models.NorsokFormulaResult>)>
+				{
+					("CON1", new List<NorsokChecker.Models.NorsokFormulaResult>
+					{
+						new()
+						{
+							Section = "6.3.2", Equation = "6.1", Title = "Axial tension",
+							Utilization = 0.42, Passed = true,
+							FormulaSubstituted = "1000 · 355 / 1.15 = 308.7 kN",
+						},
+					}),
+				});
 
 			Assert.Multiple(() =>
 			{
 				Assert.That(html, Does.Contain("Check condition:"),
-					"the criterion is announced");
-				Assert.That(html, Does.Contain(@"\leq 1.0"),
-					"and it is the inequality, which is stated nowhere else on the card");
-
-				Assert.That(html, Does.Not.Contain("Design resistance:"),
-					"the symbolic resistances are not announced — they are printed below with "
-					+ "their numbers, on the same page");
-				Assert.That(html, Does.Not.Contain("M<sub>y</sub> = in-plane"),
-					"and the legend is chapter 3's sentence, not the card's");
+					"§6.3 has no derivation, so its card must keep the formula block");
+				Assert.That(html, Does.Contain("Design resistance:"));
+				Assert.That(html, Does.Contain("N_{t,Rd}"),
+					"and the formula itself, which is nowhere else for this chapter");
 			});
 		}
 

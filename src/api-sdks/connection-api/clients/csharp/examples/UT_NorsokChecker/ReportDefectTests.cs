@@ -321,27 +321,34 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The check condition in the header states the SAME formula the derivation evaluates.
+		/// The stated check condition matches the formula the derivation evaluates.
 		///
-		/// The header printed the out-of-plane term bare while eq (6.57) is evaluated with its
-		/// absolute value — so the two disagreed about the check being performed. Of everything found
-		/// in this report, this is the one a reviewer reads as a calculation error rather than a
-		/// typo: without the bars a negative M_z would REDUCE the utilisation sum.
+		/// It once printed the out-of-plane term bare while eq (6.57) is evaluated with its absolute
+		/// value, so the two disagreed about the check being performed. Of everything found in this
+		/// report that is the one a reviewer reads as a calculation error rather than a typo:
+		/// without the bars a negative M_z would REDUCE the utilisation sum.
+		///
+		/// The condition MOVED and this test moved with it. It used to head every check card, 40
+		/// copies of one inequality that chapter 3, the eq (6.57) derivation step and the result bar
+		/// all state as well; the card now begins with its derivation. Chapter 3 is where the
+		/// symbolic form lives, so that is where the agreement has to hold — and it is the same
+		/// FormulaLatex string, which is why one test still covers both.
 		/// </summary>
 		[Test]
-		public void TheHeaderFormulaTakesTheAbsoluteValueLikeTheDerivation()
+		public void TheStatedCheckConditionTakesTheAbsoluteValueLikeTheDerivation()
 		{
 			string html = Report(("CON1", new[] { Assessed(0.735) }));
 
-			int at = html.IndexOf("Check condition:", StringComparison.Ordinal);
-			Assert.That(at, Is.GreaterThan(0), "the §6.4 card states its check condition");
-			string header = html[at..(at + 600)];
+			int at = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "chapter 3 states the equations");
+			int end = html.IndexOf("class='connection-header", at, StringComparison.Ordinal);
+			string chapter = end > at ? html[at..end] : html[at..];
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(header, Does.Contain(@"\left|\frac{M_{z,Sd}}{M_{z,Rd}}\right|"),
+				Assert.That(chapter, Does.Contain(@"\left|\frac{M_{z,Sd}}{M_{z,Rd}}\right|"),
 					"the out-of-plane term is taken in absolute value, as eq (6.57) evaluates it");
-				Assert.That(header, Does.Contain(@"\left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2"),
+				Assert.That(chapter, Does.Contain(@"\left(\frac{M_{y,Sd}}{M_{y,Rd}}\right)^2"),
 					"and the in-plane term is still squared — bars must not have replaced the square");
 			});
 		}

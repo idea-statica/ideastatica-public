@@ -1030,49 +1030,52 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("  <div class='card-body'>");
 
+			// A §6.4 CARD BEGINS WITH ITS DERIVATION. Everything that used to precede it was a copy.
+			//
+			// The card carried, above the derivation: the interaction inequality under a
+			// "Check condition" label, the three resistances symbolically, and a "Substitution" box.
+			// Each is stated elsewhere, and the elsewhere is better:
+			//
+			//   inequality       chapter 3 (with the symbol table), the eq (6.57) derivation step
+			//                    (with its numbers), and the result bar — which prints the
+			//                    comparison a reader actually checks, "0.7373 <= 1.0".
+			//   resistances      the M_Rd and N_Rd derivation steps, substituted.
+			//   Substitution box "N_Rd(weighted K 100%…) = 241.9 kN; governing LC: LE12" — the
+			//                    weighted resistance has its own derivation block, the
+			//                    classification is in the card title, LE12 is a header badge. The
+			//                    label was wrong too: three recalled values are not a substitution.
+			//
+			// Only §6.4. FormulaLatex is keyed by section and §6.3 renders through this same method
+			// with NO derivation, so for those cards this block is the only formula they get —
+			// removing it there would leave a result with nothing behind it, and no §6.4 test would
+			// notice. ANonJointCardStillCarriesItsFormulaBlock is the guard.
+			//
+			// The ["6.4.3.6"] entry stays in the dictionary: chapter 3 renders it and is now its
+			// only consumer.
+			bool isJointCheck = fr.Section == "6.4.3.6";
+
 			// Main formula in KaTeX (display math)
-			if (FormulaLatex.TryGetValue(fr.Section, out var latex))
+			if (!isJointCheck && FormulaLatex.TryGetValue(fr.Section, out var latex))
 			{
 				sb.AppendLine("    <div class='formula-block'>");
 				sb.AppendLine($"      <p class='formula-label'>Check condition:</p>");
 				sb.AppendLine($"      <div class='formula-math'>$${latex.check}$$</div>");
-
-				// §6.4 CARDS ANNOUNCE THE CRITERION, NOT THE FORMULAS.
-				//
-				// The card used to carry three things here, 40 times over in the reviewed report,
-				// and two of them were duplicates the reader already had on the same page:
-				//
-				//   * `Design resistance:` and the three symbolic fractions — which reappear a few
-				//     lines below WITH NUMBERS SUBSTITUTED. The announcement added nothing.
-				//   * the M_y / M_z legend — chapter 3's sign-conventions sentence, word for word.
-				//
-				// The inequality above stays, and is the reason this is not simply "delete the
-				// header": it is the only place on the card that says what the result is compared
-				// against. The footer prints "= 73.73 % PASS" and the eq (6.57) step shows three
-				// terms and their sum, but `<= 1.0` appears nowhere else.
-				//
-				// Deliberately NOT done: removing the symbolic line that stands directly over its
-				// own substitution further down. That one is what would force a cross-reference in
-				// a 150-page document, which costs the reader more than the pages are worth.
-				//
-				// Scoped to §6.4.3.6 because this dictionary is keyed by section and §6.3 renders
-				// through the same method — a blanket change would silently strip its cards too.
-				if (fr.Section == "6.4.3.6")
-				{
-					sb.AppendLine("      <p class='formula-legend'>Resistances per eq (6.52) and "
-						+ "(6.53), substituted below; the equations and the sign conventions are "
-						+ "stated once in chapter 3.</p>");
-				}
-				else
-				{
-					sb.AppendLine($"      <p class='formula-label'>Design resistance:</p>");
-					sb.AppendLine($"      <div class='formula-math'>$${latex.latex}$$</div>");
-				}
+				sb.AppendLine($"      <p class='formula-label'>Design resistance:</p>");
+				sb.AppendLine($"      <div class='formula-math'>$${latex.latex}$$</div>");
 				sb.AppendLine("    </div>");
 			}
 
-			// Substituted values
-			if (!string.IsNullOrEmpty(fr.FormulaSubstituted))
+			// Substituted values — but not §6.4's, which is not a substitution.
+			//
+			// Its FormulaSubstituted reads "N_Rd(weighted K 100% / Y 0% / X 0%) = 241.9 kN;
+			// governing LC: LE12" (Joint64ReportAdapter.cs:108): three recalled values under a label
+			// that promises an expression. All three are already on the page — the weighted
+			// resistance has its own derivation block with a real substitution, the classification
+			// is in the card title, and the load effect is a header badge.
+			//
+			// The FIELD stays populated: the §6.4 tab's grid and CheckWorkflow read it. Only the
+			// rendering is suppressed, so no data is lost and only the page changes.
+			if (!isJointCheck && !string.IsNullOrEmpty(fr.FormulaSubstituted))
 			{
 				sb.AppendLine("    <div class='substituted'>");
 				sb.AppendLine($"      <p class='formula-label'>Substitution:</p>");
