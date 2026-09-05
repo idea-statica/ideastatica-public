@@ -211,8 +211,10 @@ namespace NorsokChecker
 			if (dlg.ShowDialog() != true) return;
 
 			_display = dlg.Result;
-			// The results rows bind a computed property, so they read the setting from here.
+			// Two consumers that cannot be handed the setting at their call site: the results rows
+			// bind a computed property, and the §6.4 card is built inside the check runner.
 			Models.ConnectionCheckResult.Display = _display;
+			Services.Norsok64.Joint64ReportAdapter.Display = _display;
 			Log($"  display: force {Models.QuantityFormat.ForceLabel(_display.Force)}, "
 				+ $"stress {Models.QuantityFormat.StressLabel(_display.Stress)}, "
 				+ $"length {Models.QuantityFormat.LengthLabel(_display.Length)}, "

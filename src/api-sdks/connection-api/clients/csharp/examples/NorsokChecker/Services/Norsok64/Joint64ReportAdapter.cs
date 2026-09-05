@@ -27,7 +27,14 @@ namespace NorsokChecker.Services.Norsok64
 		/// The classification (frK/frY/frX) came from the K/Y/X force-decomposition classifier, the
 		/// chord stresses from the Begin/End averaging — no manual joint-type input involved.
 		/// </summary>
-		public static NorsokFormulaResult BuildResultFromRow(JointCheckRow row, string loadCaseName)
+		/// <summary>
+		/// The units these cards are built in, published by the GUI when the setting changes. The
+		/// check runner is calculation code and does not thread a display setting through itself.
+		/// </summary>
+		public static Models.DisplaySettings Display { get; set; } = new();
+
+		public static NorsokFormulaResult BuildResultFromRow(JointCheckRow row, string loadCaseName,
+			Models.DisplaySettings? display = null)
 		{
 			var r = row.Engine!;
 			var inp = row.Inputs!;
@@ -35,7 +42,29 @@ namespace NorsokChecker.Services.Norsok64
 			var dom = Enum.Parse<Joint64Class>(row.DomClass);
 			var ac = r.PerClass[dom];
 
-			double nRdKn = r.NRdWeighted / 1e3;
+			// The reader's units, here too. These variables reach the card's substitution line and
+			// the "Where:" table, so leaving them in kN printed kN on a page set to kip.
+			//
+			// Falls back to the static Display rather than to a fresh default: the runner that calls
+			// this is calculation code and has no business carrying a display setting through, so
+			// the GUI publishes it once instead.
+			var disp = display ?? Display;
+			string uF = Models.QuantityFormat.ForceLabel(disp.Force);
+			string uM = disp.MomentLabel;
+			string uS = Models.QuantityFormat.StressLabel(disp.Stress);
+			string uL = Models.QuantityFormat.LengthLabel(disp.Length);
+			double cF(double n) => Models.QuantityFormat.ToForce(n, disp.Force);
+			double cS(double pa) => Models.QuantityFormat.ToStress(pa, disp.Stress);
+			double cL(double m) => Models.QuantityFormat.ToLength(m, disp.Length);
+			double cM(double nm)
+			{
+				double perMetre = disp.Force == Models.ForceUnit.Kip
+					&& disp.Length == Models.LengthUnit.Inch ? 1.0 / 0.0254
+					: disp.Force == Models.ForceUnit.Kip ? 1.0 / 0.3048 : 1.0;
+				return Models.QuantityFormat.ToForce(nm, disp.Force) * perMetre;
+			}
+
+			double nRdKn = cF(r.NRdWeighted);
 			double axialTerm = r.NRdWeighted > 0 ? Math.Abs(inp.NSd) / r.NRdWeighted : 0.0;
 			double ipbTerm = r.MRdIp > 0 ? Math.Pow(Math.Abs(inp.MipSd) / r.MRdIp, 2) : 0.0;
 			double opbTerm = r.MRdOp > 0 ? Math.Abs(inp.MopSd) / r.MRdOp : 0.0;
@@ -55,10 +84,10 @@ namespace NorsokChecker.Services.Norsok64
 
 			var variables = new List<FormulaVariable>
 			{
-				new() { Symbol = "D", Description = "chord outside diameter", Value = inp.D * 1000, Unit = "mm" },
-				new() { Symbol = "T", Description = "chord wall thickness", Value = inp.T * 1000, Unit = "mm" },
-				new() { Symbol = "d", Description = "brace outside diameter", Value = inp.d * 1000, Unit = "mm" },
-				new() { Symbol = "t", Description = "brace wall thickness", Value = inp.t * 1000, Unit = "mm" },
+				new() { Symbol = "D", Description = "chord outside diameter", Value = cL(inp.D), Unit = uL },
+				new() { Symbol = "T", Description = "chord wall thickness", Value = cL(inp.T), Unit = uL },
+				new() { Symbol = "d", Description = "brace outside diameter", Value = cL(inp.d), Unit = uL },
+				new() { Symbol = "t", Description = "brace wall thickness", Value = cL(inp.t), Unit = uL },
 				new() { Symbol = "θ", Description = "brace-to-chord angle (auto, from member axes)", Value = inp.ThetaDeg, Unit = "°" },
 				new() { Symbol = "β", Description = "d/D (validity: 0.2–1.0)", Value = r.Beta, Unit = "-" },
 				new() { Symbol = "γ", Description = "D/(2T) (validity: 10–50)", Value = r.Gamma, Unit = "-" },
@@ -72,15 +101,15 @@ namespace NorsokChecker.Services.Norsok64
 				new() { Symbol = "Qu_OPB", Description = "strength factor — out-of-plane bending", Value = r.QuOpb, Unit = "-" },
 				new() { Symbol = "Qf_axial", Description = $"chord action factor (dominant class {row.DomClass})", Value = ac.QfAxial, Unit = "-" },
 				new() { Symbol = "Qf_moment", Description = "chord action factor for moments", Value = r.QfMoment, Unit = "-" },
-				new() { Symbol = "σ_a", Description = "chord axial stress (avg Begin/End; + tension)", Value = inp.SigmaASd / 1e6, Unit = "MPa" },
-				new() { Symbol = "σ_my", Description = "chord in-plane bending stress (+ compression at footprint)", Value = inp.SigmaMySd / 1e6, Unit = "MPa" },
-				new() { Symbol = "σ_mz", Description = "chord out-of-plane bending stress", Value = inp.SigmaMzSd / 1e6, Unit = "MPa" },
-				new() { Symbol = "N_Rd", Description = "joint axial resistance, weighted over K/Y/X (Eq. 6.52)", Value = nRdKn, Unit = "kN" },
-				new() { Symbol = "M_y,Rd", Description = "in-plane bending resistance (Eq. 6.53)", Value = r.MRdIp / 1e3, Unit = "kNm" },
-				new() { Symbol = "M_z,Rd", Description = "out-of-plane bending resistance (Eq. 6.53)", Value = r.MRdOp / 1e3, Unit = "kNm" },
-				new() { Symbol = "N_Sd", Description = "brace axial force (+ tension)", Value = inp.NSd / 1e3, Unit = "kN" },
-				new() { Symbol = "M_y,Sd", Description = "brace in-plane bending", Value = inp.MipSd / 1e3, Unit = "kNm" },
-				new() { Symbol = "M_z,Sd", Description = "brace out-of-plane bending", Value = inp.MopSd / 1e3, Unit = "kNm" },
+				new() { Symbol = "σ_a", Description = "chord axial stress (avg Begin/End; + tension)", Value = cS(inp.SigmaASd), Unit = uS },
+				new() { Symbol = "σ_my", Description = "chord in-plane bending stress (+ compression at footprint)", Value = cS(inp.SigmaMySd), Unit = uS },
+				new() { Symbol = "σ_mz", Description = "chord out-of-plane bending stress", Value = cS(inp.SigmaMzSd), Unit = uS },
+				new() { Symbol = "N_Rd", Description = "joint axial resistance, weighted over K/Y/X (Eq. 6.52)", Value = nRdKn, Unit = uF },
+				new() { Symbol = "M_y,Rd", Description = "in-plane bending resistance (Eq. 6.53)", Value = cM(r.MRdIp), Unit = uM },
+				new() { Symbol = "M_z,Rd", Description = "out-of-plane bending resistance (Eq. 6.53)", Value = cM(r.MRdOp), Unit = uM },
+				new() { Symbol = "N_Sd", Description = "brace axial force (+ tension)", Value = cF(inp.NSd), Unit = uF },
+				new() { Symbol = "M_y,Sd", Description = "brace in-plane bending", Value = cM(inp.MipSd), Unit = uM },
+				new() { Symbol = "M_z,Sd", Description = "brace out-of-plane bending", Value = cM(inp.MopSd), Unit = uM },
 				new() { Symbol = "|N|/N_Rd", Description = "axial utilization term", Value = axialTerm, Unit = "-" },
 				new() { Symbol = "(M_y,Sd/M_y,Rd)²", Description = "in-plane bending term (squared)", Value = ipbTerm, Unit = "-" },
 				new() { Symbol = "|M_z,Sd|/M_z,Rd", Description = "out-of-plane bending term", Value = opbTerm, Unit = "-" },
@@ -93,7 +122,8 @@ namespace NorsokChecker.Services.Norsok64
 				variables.Add(new FormulaVariable
 				{
 					Symbol = $"K gap {i + 1}",
-					Description = $"frK={k.FrK:F3}, g={k.GapM * 1000:F0} mm, Q_g={k.Qg:F3}, N_Rd={k.NRd / 1e3:F1} kN",
+					Description = $"frK={k.FrK:F3}, g={cL(k.GapM):F0} {uL}, Q_g={k.Qg:F3}, "
+						+ $"N_Rd={cF(k.NRd):F1} {uF}",
 					Value = k.FrK, Unit = "-",
 				});
 			}
@@ -106,7 +136,7 @@ namespace NorsokChecker.Services.Norsok64
 				CheckExpression = "|N_Sd|/N_Rd + (M_y,Sd/M_y,Rd)² + |M_z,Sd|/M_z,Rd ≤ 1.0",
 				Formula = @"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
 				FormulaSubstituted =
-					$"N_Rd(weighted {clsStr}) = {nRdKn:F1} kN;  governing LC: {govLeName}",
+					$"N_Rd(weighted {clsStr}) = {nRdKn:F1} {uF};  governing LC: {govLeName}",
 				Demand = utilDisplay,
 				Capacity = 1.0,
 				Utilization = utilDisplay,

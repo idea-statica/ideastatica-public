@@ -784,7 +784,8 @@ namespace NorsokChecker
 				? "envelope"
 				: (Cmb64Le.SelectedItem as Le64Option)?.Name ?? "";
 
-			var window = new Controls.Joint64DerivationWindow(view, Owner ?? this, conName, leName);
+			var window = new Controls.Joint64DerivationWindow(view, Owner ?? this, conName, leName,
+				_display);
 			window.Show();
 		}
 	}

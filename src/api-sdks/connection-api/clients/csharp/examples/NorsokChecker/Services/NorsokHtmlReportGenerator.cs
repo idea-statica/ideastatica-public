@@ -133,9 +133,8 @@ namespace NorsokChecker.Services
 			// The units the reader chose. Defaulted rather than required, so the ~40 existing call
 			// sites in tests keep compiling and keep producing the report they assert against.
 			//
-			// It reaches the geometry and force tables, NOT the derivation: those substitutions stay
-			// in kN, mm and MPa whatever is set, because that is the norm's own convention and it is
-			// what lets a printed line be held against the clause. See RenderJointDerivation.
+			// It reaches EVERY printed value, the derivation included. What it must never reach is a
+			// result: the utilisation is dimensionless and reads the same in any unit.
 			var disp = display ?? new Models.DisplaySettings();
 			_pctDecimals = Math.Clamp(disp.PercentDecimals, 0, 9);
 			var sb = new StringBuilder();
@@ -428,7 +427,7 @@ namespace NorsokChecker.Services
 						RenderRejectionCard(sb, rejections, key, expandAll);
 
 					foreach (var fr in rest)
-						RenderFormulaCard(sb, fr, expandAll);
+						RenderFormulaCard(sb, fr, expandAll, disp);
 					sb.AppendLine($"</div>");
 				}
 
@@ -439,7 +438,7 @@ namespace NorsokChecker.Services
 					sb.AppendLine($"<div class='chapter-group'>");
 					sb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{uncategorized.Count}</span></h3>");
 					foreach (var fr in uncategorized)
-						RenderFormulaCard(sb, fr, expandAll);
+						RenderFormulaCard(sb, fr, expandAll, disp);
 					sb.AppendLine($"</div>");
 				}
 			}
@@ -1057,7 +1056,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine("</details>");
 		}
 
-		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr, bool expandAll = false)
+		private static void RenderFormulaCard(StringBuilder sb, NorsokFormulaResult fr,
+			bool expandAll = false, Models.DisplaySettings? display = null)
 		{
 			// four states: a note qualifies a check that ran, an unassessed row means nothing ran,
 			// and neither is a tick or a cross
@@ -1208,7 +1208,7 @@ namespace NorsokChecker.Services
 
 			// §6.4 auto-topology derivation blocks (per-class Qu/Qf, K per gap, chord-stress trail, validity)
 			if (fr.JointDetail != null)
-				RenderJointDerivation(sb, fr.JointDetail);
+				RenderJointDerivation(sb, fr.JointDetail, display);
 
 			// Result bar. Where nothing was checked there is no utilisation to state, so the bar
 			// carries the REASON instead — "Utilization: — (not assessed)" occupied the one line a
@@ -1257,7 +1257,8 @@ namespace NorsokChecker.Services
 		/// <param name="utilisation">Formatted utilisation, e.g. "88.8 %".</param>
 		/// <param name="verdict">PASS / FAIL / N/A.</param>
 		public static string GenerateDerivationPage(Norsok64.JointCheckRow row, string brace,
-			string connection = "", string state = "", string utilisation = "", string verdict = "")
+			string connection = "", string state = "", string utilisation = "", string verdict = "",
+			Models.DisplaySettings? display = null)
 		{
 			var sb = new StringBuilder();
 			sb.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/>");
@@ -1285,7 +1286,7 @@ namespace NorsokChecker.Services
 				+ "</h2>");
 			sb.AppendLine("</div>");
 
-			RenderJointDerivation(sb, row);
+			RenderJointDerivation(sb, row, display);
 			sb.AppendLine("</body></html>");
 			return sb.ToString();
 		}
@@ -1313,12 +1314,22 @@ namespace NorsokChecker.Services
 		///
 		/// Each step is written as label / symbolic formula / substituted numbers / result — see
 		/// <see cref="Step"/>. The substitution is the point: a result alone cannot be checked, and a
-		/// symbolic formula alone does not say what went into it. Numbers there are in MPa, mm and kN
-		/// regardless of any display-unit setting, matching the norm's own convention.
+		/// symbolic formula alone does not say what went into it.
+		///
+		/// THE NUMBERS FOLLOW THE DISPLAY SETTING, units and precision alike. There was an exemption
+		/// here — "the derivation stays in kN, mm and MPa, the norm's own convention" — and it was
+		/// wrong: the standard writes its formulas in SYMBOLS, which hold in any consistent set of
+		/// units, and the engine computes in SI throughout. What the norm prints in its examples is
+		/// not a requirement on our output. The exemption's visible cost was a reader who set inches
+		/// and ksi and got millimetres and MPa on this very page.
+		///
+		/// The utilisation is dimensionless and MUST NOT move when the units change — that is the
+		/// invariant this conversion is checked against, not the appearance of any one line.
 		///
 		/// Formulas are typeset by the EMBEDDED KaTeX (see AppendKatex), so this works offline.
 		/// </summary>
-		private static void RenderJointDerivation(StringBuilder sb, Norsok64.JointCheckRow row)
+		private static void RenderJointDerivation(StringBuilder sb, Norsok64.JointCheckRow row,
+			Models.DisplaySettings? display = null)
 		{
 			var r = row.Engine;
 			var inp = row.Inputs;
@@ -1326,12 +1337,57 @@ namespace NorsokChecker.Services
 			if (r == null || inp == null || cl == null)
 				return;
 
-			// mm / MPa / kN, as the norm writes them — not the app's display units
+			var disp = display ?? new Models.DisplaySettings();
+			var rc = Models.QuantityFormat.Report;
+
+			// The unit labels this page prints, resolved once.
+			string uF = Models.QuantityFormat.ForceLabel(disp.Force);
+			string uM = disp.MomentLabel;
+			string uS = Models.QuantityFormat.StressLabel(disp.Stress);
+			string uL = Models.QuantityFormat.LengthLabel(disp.Length);
+			string uA = disp.AreaLabel;
+			string uI = disp.InertiaLabel;
+
+			// The same labels for KaTeX, which cannot take "·", "²" or "⁴" as literal characters
+			// and needs \mathrm so a unit is not typeset as a product of italic variables.
+			static string Math_(string s) => @"\mathrm{" + s
+				.Replace("·", @"{\cdot}").Replace("²", "^2").Replace("⁴", "^4")
+				.Replace("/", "/") + "}";
+			string kF = Math_(uF), kM = Math_(uM), kS = Math_(uS);
+			string kL = Math_(uL), kA = Math_(uA), kI = Math_(uI);
+
+			// SI in, the chosen unit out. The conversion lives HERE rather than at the ~40 call
+			// sites that used to divide by 1e3/1e6 inline, so a unit cannot be half-converted.
+			double cF(double n) => Models.QuantityFormat.ToForce(n, disp.Force);
+			double cS(double pa) => Models.QuantityFormat.ToStress(pa, disp.Stress);
+			double cL(double m) => Models.QuantityFormat.ToLength(m, disp.Length);
+			double cA(double m2) => Models.QuantityFormat.ToArea(m2, disp.Length);
+			double cI(double m4) => Models.QuantityFormat.ToInertia(m4, disp.Length);
+			double cM(double nm)
+			{
+				double perMetre = disp.Force == Models.ForceUnit.Kip
+					&& disp.Length == Models.LengthUnit.Inch ? 1.0 / 0.0254
+					: disp.Force == Models.ForceUnit.Kip ? 1.0 / 0.3048
+					: 1.0;
+				return Models.QuantityFormat.ToForce(nm, disp.Force) * perMetre;
+			}
+
 			static string N(double v, int d = 3) =>
 				double.IsNaN(v) || double.IsInfinity(v) ? "—" : v.ToString("F" + d,
 					System.Globalization.CultureInfo.InvariantCulture);
 			// parenthesise a negative so "a + (−b)" reads correctly inside a substituted formula
 			static string P(double v, int d = 3) => v < 0 ? $"({N(v, d).Replace("-", "−")})" : N(v, d);
+
+			// f_y·T²·d is a stress times a length cubed, and the result is a MOMENT. In mm and MPa
+			// that product comes out in N·mm and the printed line was off by 10⁶ — the reader could
+			// not reproduce `355·6.5²·76.1/(1.15·0.866) = 9.82` because it evaluates to 9 821 641.
+			// The factor was invisible only because it was never written down; it is now, and it is
+			// derived from the units in force rather than assumed.
+			// M_display = (σ·L³)_display · cM(1) / (cS(1)·cL(1)³). Verified: mm/MPa/kN·m gives 1e-6,
+			// pure SI gives 1 (and then nothing is printed).
+			double momPerStressVol = cM(1.0) / (cS(1.0) * Math.Pow(cL(1.0), 3));
+			string momFactor = Math.Abs(momPerStressVol - 1.0) < 1e-12
+				? "" : $@"\cdot {Sci(momPerStressVol)}";
 
 			// THE EXPONENT COMES FROM THE VALUE, not from a fixed scale.
 			//
@@ -1390,9 +1446,12 @@ namespace NorsokChecker.Services
 				return N(v, dec);
 			}
 
-			double fy = inp.FyChord / 1e6, sa = inp.SigmaASd / 1e6;
-			double smy = inp.SigmaMySd / 1e6, smz = inp.SigmaMzSd / 1e6;
-			double dMm = inp.d * 1e3, tMm = inp.t * 1e3, dChordMm = inp.D * 1e3, tChordMm = inp.T * 1e3;
+			// Converted ONCE, here, in the chosen units — every site below reads these rather than
+			// dividing by 1e3/1e6 of its own. The names keep their old shape so the ~40 call sites
+			// need no edit; what changed is that the unit is now the reader's, not millimetres.
+			double fy = cS(inp.FyChord), sa = cS(inp.SigmaASd);
+			double smy = cS(inp.SigmaMySd), smz = cS(inp.SigmaMzSd);
+			double dMm = cL(inp.d), tMm = cL(inp.t), dChordMm = cL(inp.D), tChordMm = cL(inp.T);
 
 			sb.AppendLine("    <div class='deriv-block'>");
 
@@ -1405,10 +1464,12 @@ namespace NorsokChecker.Services
 			// result only through Q_g's phi, and only on an overlapped joint. Printed as a bare f_y
 			// on both rows they looked like the same value repeated — which is exactly how they read
 			// when both steels are S355 and the numbers coincide.
-			Kv(sb, "Chord &oslash; D &times; T", $"{N(dChordMm, 1)}&times;{N(tChordMm, 1)} mm "
-				+ $"(f<sub>y,chord</sub> = {N(fy, 0)} MPa)");
-			Kv(sb, "Brace &oslash; d &times; t", $"{N(dMm, 1)}&times;{N(tMm, 1)} mm "
-				+ $"(f<sub>y,brace</sub> = {N(inp.FyBrace / 1e6, 0)} MPa)");
+			Kv(sb, "Chord &oslash; D &times; T",
+				$"{N(dChordMm, disp.LengthDecimals)}&times;{N(tChordMm, disp.SmallLengthDecimals)} {uL} "
+				+ $"(f<sub>y,chord</sub> = {N(fy, disp.StressDecimals)} {uS})");
+			Kv(sb, "Brace &oslash; d &times; t",
+				$"{N(dMm, disp.LengthDecimals)}&times;{N(tMm, disp.SmallLengthDecimals)} {uL} "
+				+ $"(f<sub>y,brace</sub> = {N(cS(inp.FyBrace), disp.StressDecimals)} {uS})");
 			// "from the member axes" is worth saying: theta is DERIVED (JointTopologyBuilder's Theta —
 			// the angle between the brace's effective direction and the chord axis, folded into
 			// 0..90°), not a value anyone typed. It was the one description in the old "Where:" table
@@ -1425,7 +1486,7 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("      <p class='deriv-h'>Applied forces (in the joint plane)</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
-			Kv(sb, "N<sub>Sd</sub> (+ tension)", $"{N(inp.NSd / 1e3, 1)} kN");
+			Kv(sb, "N<sub>Sd</sub> (+ tension)", $"{N(cF(inp.NSd), disp.ForceDecimals)} {uF}");
 			// y/z, as eq (6.57) writes them — M_y is the in-plane moment, M_z the out-of-plane one.
 			// (The chord's own moments below keep ip/op: the norm gives THOSE no y/z symbol, and
 			// they do not appear in eq 6.57 at all.)
@@ -1435,9 +1496,9 @@ namespace NorsokChecker.Services
 			// The term itself was right; the input shown was rounded and the one used was not. Two
 			// decimals is not a scarcity: the same card prints Q_u to three.
 			Kv(sb, "M<sub>y,Sd</sub> <span class='deriv-hint'>(in-plane)</span>",
-				$"{N(inp.MipSd / 1e3, 3)} kN&middot;m");
+				$"{N(cM(inp.MipSd), disp.MomentDecimals)} {uM}");
 			Kv(sb, "M<sub>z,Sd</sub> <span class='deriv-hint'>(out-of-plane)</span>",
-				$"{N(inp.MopSd / 1e3, 3)} kN&middot;m");
+				$"{N(cM(inp.MopSd), disp.MomentDecimals)} {uM}");
 			sb.AppendLine("      </table>");
 
 			// WHICH PLANE, said where the symbols first appear.
@@ -1498,15 +1559,24 @@ namespace NorsokChecker.Services
 				// reader see that the detailing, not the check, is what deserves attention.
 				if (row.Inputs is { } gi && gi.FrK > 1e-9 && gi.D > 0.0)
 				{
+					// THE VERDICT IS DECIDED IN MILLIMETRES, always. The clause's 50 mm is a fixed
+					// physical length, so the comparison must not move with the display unit — a
+					// joint that satisfies §6.4.1 in mm satisfies it in inches.
 					double gapMm = gi.G * 1e3, dMmChord = gi.D * 1e3;
 					bool gapOk = gapMm > 50.0 && gapMm < dMmChord;
+					// The printed sentence, in the reader's units — including the clause's own bound,
+					// converted, because half a sentence in millimetres beside inches reads as an error.
+					string gapShown = N(cL(gi.G), disp.SmallLengthDecimals);
+					string dShown = N(cL(gi.D), disp.LengthDecimals);
+					string fiftyShown = N(cL(0.050), disp.SmallLengthDecimals);
 					// "informative" was wrong on the first half: §6.4.1 IS a normative clause. It is
 					// this PROVISION that is a recommendation, because it says "should", which §3.1
 					// defines as "among several possibilities one is recommended" against "shall" =
 					// "requirements strictly to be followed in order to conform".
 					sb.AppendLine("      <p class='deriv-note'>&sect;6.4.1 (detailing): the gap of a "
-						+ "simple K-joint <em>should</em> be larger than 50 mm and less than D. Here "
-						+ $"g = <b>{N(gapMm, 1)} mm</b> against 50 mm &lt; g &lt; {N(dMmChord, 0)} mm "
+						+ $"simple K-joint <em>should</em> be larger than {fiftyShown} {uL} and less "
+						+ "than D. Here "
+						+ $"g = <b>{gapShown} {uL}</b> against {fiftyShown} &lt; g &lt; {dShown} {uL} "
 						+ $"&mdash; <b>{(gapOk ? "satisfied" : "not satisfied")}</b>. A "
 						+ "&ldquo;should&rdquo; (&sect;3.1): a recommendation, not a condition of "
 						+ "conformity, so no verdict depends on it &mdash; it is carried to the "
@@ -1548,19 +1618,26 @@ namespace NorsokChecker.Services
 				bool opGov = Gov(r.MRdOpActual, r.MRdOpLimiting);
 				string mark = " &nbsp;&larr;";
 
-				string Cell(double v, string unit, bool governs) =>
-					double.IsNaN(v) ? "&mdash;" : $"{N(v / 1e3, 2)} {unit}{(governs ? mark : "")}";
+				// Force and moment take SEPARATE converters. They shared one divisor only because
+				// kN and kN·m happen to divide by the same 1e3; in kip·ft they do not.
+				string CellF(double v, bool governs) =>
+					double.IsNaN(v) ? "&mdash;"
+						: $"{N(cF(v), disp.ForceDecimals)} {uF}{(governs ? mark : "")}";
+				string CellM(double v, bool governs) =>
+					double.IsNaN(v) ? "&mdash;"
+						: $"{N(cM(v), disp.MomentDecimals)} {uM}{(governs ? mark : "")}";
 
 				sb.AppendLine($"        <tr><td>a) actual geometry</td><td>{N(r.Beta)}</td>"
-					+ $"<td>{N(r.Gamma)}</td><td>{N(r.ThetaDeg, 1)}&deg;</td>"
-					+ $"<td>{Cell(r.NRdActual, "kN", axGov)}</td>"
-					+ $"<td>{Cell(r.MRdIpActual, "kN&middot;m", ipGov)}</td>"
-					+ $"<td>{Cell(r.MRdOpActual, "kN&middot;m", opGov)}</td></tr>");
+					+ $"<td>{N(r.Gamma)}</td><td>{N(r.ThetaDeg, disp.AngleDecimals)}&deg;</td>"
+					+ $"<td>{CellF(r.NRdActual, axGov)}</td>"
+					+ $"<td>{CellM(r.MRdIpActual, ipGov)}</td>"
+					+ $"<td>{CellM(r.MRdOpActual, opGov)}</td></tr>");
 				sb.AppendLine($"        <tr><td>b) imposed limits</td><td>{N(r.BetaLimiting)}</td>"
-					+ $"<td>{N(r.GammaLimiting)}</td><td>{N(r.ThetaLimitingDeg, 1)}&deg;</td>"
-					+ $"<td>{Cell(r.NRdLimiting, "kN", !axGov)}</td>"
-					+ $"<td>{Cell(r.MRdIpLimiting, "kN&middot;m", !ipGov)}</td>"
-					+ $"<td>{Cell(r.MRdOpLimiting, "kN&middot;m", !opGov)}</td></tr>");
+					+ $"<td>{N(r.GammaLimiting)}</td>"
+					+ $"<td>{N(r.ThetaLimitingDeg, disp.AngleDecimals)}&deg;</td>"
+					+ $"<td>{CellF(r.NRdLimiting, !axGov)}</td>"
+					+ $"<td>{CellM(r.MRdIpLimiting, !ipGov)}</td>"
+					+ $"<td>{CellM(r.MRdOpLimiting, !opGov)}</td></tr>");
 				sb.AppendLine("      </table>");
 				sb.AppendLine("      <p class='deriv-note'>&larr; marks the value that <b>governs</b> "
 					+ "&mdash; the lesser of the two passes, carried forward into the check. Each "
@@ -1578,7 +1655,7 @@ namespace NorsokChecker.Services
 			// ── chord stress derivation ──
 			if (row.ChordStress is { } st && st.A > 0)
 			{
-				double aMm2 = st.A * 1e6, iMm4 = st.I * 1e12, rMm = st.R * 1e3;
+				double aMm2 = cA(st.A), iMm4 = cI(st.I), rMm = cL(st.R);
 				sb.AppendLine("      <p class='deriv-h'>Chord stress derivation &mdash; averaged sides "
 					+ "&rarr; &sigma; (NORSOK p.31)</p>");
 				sb.AppendLine("      <p class='deriv-note'>The chord carries two loadings at a joint "
@@ -1601,33 +1678,39 @@ namespace NorsokChecker.Services
 				sb.AppendLine("        <tr><th>chord face</th><th>N<sub>chord</sub> (avg)</th>"
 					+ "<th>M<sub>y,chord</sub> (avg)</th><th>M<sub>z,chord</sub> (avg)</th></tr>");
 				sb.AppendLine($"        <tr><td><b>{(st.Side >= 0 ? "+ey" : "&minus;ey")}</b></td>"
-					+ $"<td>{N(st.NChord / 1e3, 1)} kN</td>"
-					+ $"<td>{N(st.MipChord / 1e3, 3)} kN&middot;m</td>"
-					+ $"<td>{N(st.MopChord / 1e3, 3)} kN&middot;m</td></tr>");
+					+ $"<td>{N(cF(st.NChord), disp.ForceDecimals)} {uF}</td>"
+					+ $"<td>{N(cM(st.MipChord), disp.MomentDecimals)} {uM}</td>"
+					+ $"<td>{N(cM(st.MopChord), disp.MomentDecimals)} {uM}</td></tr>");
 				sb.AppendLine("      </table>");
 
 				Step(sb, "Chord section properties &mdash; CHS, thickness at the joint (p.31)",
 					@"A=\dfrac{\pi}{4}(D^2-d_i^2),\quad I=\dfrac{\pi}{64}(D^4-d_i^4),\quad R=D/2",
 					null,
-					$@"A={N(aMm2, 0)}\,mm^2,\ I={Sci(iMm4)}\,mm^4,\ R={N(rMm, 1)}\,mm");
+					$@"A={N(aMm2, disp.AreaDecimals)}\,{kA},\ I={Sci(iMm4)}\,{kI},\ "
+						+ $@"R={N(rMm, disp.SmallLengthDecimals)}\,{kL}");
 
+				// The area was printed as `{aMm2/1e3}×10³ mm²` with the exponent written as literal
+				// text — true for millimetres and false for every other unit. Sci() takes it from the
+				// value, which is what the neighbouring I already does.
 				Step(sb, "&sigma;<sub>a</sub> &mdash; axial (+ tension)",
 					@"\sigma_{a,Sd} = N_{chord}/A",
-					$@"{N(st.NChord / 1e3, 1)}\,kN\ /\ {N(aMm2 / 1e3, 2)}\times10^3\,mm^2",
-					$@"{N(sa, 1)}\,MPa");
+					$@"{N(cF(st.NChord), disp.ForceDecimals)}\,{kF}\ /\ {Sci(aMm2)}\,{kA}",
+					$@"{N(sa, disp.StressDecimals)}\,{kS}");
 
 				Step(sb, $"&sigma;<sub>my</sub> &mdash; in-plane bending, chord face "
 					+ (st.Side >= 0 ? "+ey" : "&minus;ey") + " (z = side&middot;R), sign FLIPPED so "
 					+ "+ = compression in the footprint (eq 6.54 note)",
 					@"\sigma_{my,Sd} = -\dfrac{M_{y,chord}\cdot(\text{side}\cdot R)}{I}",
-					$@"-\dfrac{{{Sig(st.MipChord / 1e3)}\,kNm\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot {N(rMm, 1)}\,mm)}}{{{Sci(iMm4)}\,mm^4}}",
-					$@"{N(smy, 1)}\,MPa");
+					$@"-\dfrac{{{Sig(cM(st.MipChord))}\,{kM}\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot "
+						+ $@"{N(rMm, disp.SmallLengthDecimals)}\,{kL})}}{{{Sci(iMm4)}\,{kI}}}",
+					$@"{N(smy, disp.StressDecimals)}\,{kS}");
 
 				Step(sb, "&sigma;<sub>mz</sub> &mdash; out-of-plane bending "
 					+ "(sign irrelevant &mdash; enters Q<sub>f</sub> only squared, via A&sup2;)",
 					@"\sigma_{mz,Sd} = \dfrac{M_{z,chord}\cdot R}{I}",
-					$@"\dfrac{{{Sig(st.MopChord / 1e3)}\,kNm\cdot {N(rMm, 1)}\,mm}}{{{Sci(iMm4)}\,mm^4}}",
-					$@"{N(smz, 1)}\,MPa");
+					$@"\dfrac{{{Sig(cM(st.MopChord))}\,{kM}\cdot {N(rMm, disp.SmallLengthDecimals)}\,{kL}"
+						+ $@"}}{{{Sci(iMm4)}\,{kI}}}",
+					$@"{N(smz, disp.StressDecimals)}\,{kS}");
 			}
 
 			// ── A² and the moment resistances (shared by every class) ──
@@ -1694,13 +1777,17 @@ namespace NorsokChecker.Services
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
 				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
 				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
-				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 1)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}",
-				$@"{N(r.MRdIp / 1e3, 2)}\,kN\!\cdot\!m");
+				$@"\dfrac{{{N(fy, disp.StressDecimals)}\cdot {N(tChordMm, disp.SmallLengthDecimals)}^2"
+					+ $@"\cdot {N(dMm, disp.LengthDecimals)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
+					+ $@"\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
+				$@"{N(cM(r.MRdIp), disp.MomentDecimals)}\,{kM}");
 
 			Step(sb, $"Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53){momNote}",
 				@"M_{z,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
-				$@"\dfrac{{{N(fy, 0)}\cdot {N(tChordMm, 1)}^2\cdot {N(dMm, 0)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}",
-				$@"{N(r.MRdOp / 1e3, 2)}\,kN\!\cdot\!m");
+				$@"\dfrac{{{N(fy, disp.StressDecimals)}\cdot {N(tChordMm, disp.SmallLengthDecimals)}^2"
+					+ $@"\cdot {N(dMm, disp.LengthDecimals)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
+					+ $@"\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
+				$@"{N(cM(r.MRdOp), disp.MomentDecimals)}\,{kM}");
 
 			// ── one block per ACTIVE mode. An inactive class is computed but plays no part in
 			// this brace's check, and showing it would suggest it does.
@@ -1784,10 +1871,13 @@ namespace NorsokChecker.Services
 								+ @"\quad\text{(interpolated)}";
 					string qgSubst = gdI >= 0.05
 						? $@"\max\{{1 + 0.2(1-2.8\cdot {N(gdI, 4)})^3,\ 1\}}"
-						: $@"\varphi = \dfrac{{{N(inp.t * 1e3, 1)}\cdot {N(inp.FyBrace / 1e6, 0)}}}"
-							+ $@"{{{N(inp.T * 1e3, 1)}\cdot {N(inp.FyChord / 1e6, 0)}}} = {N(phiI, 4)}"
+						: $@"\varphi = \dfrac{{{N(tMm, disp.SmallLengthDecimals)}\cdot "
+							+ $@"{N(cS(inp.FyBrace), disp.StressDecimals)}}}"
+							+ $@"{{{N(tChordMm, disp.SmallLengthDecimals)}\cdot "
+							+ $@"{N(fy, disp.StressDecimals)}}} = {N(phiI, 4)}"
 							+ $@",\ \gamma = {N(r.Gamma, 2)},\ g/D = {N(gdI, 4)}";
-					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = {N(kt.GapM * 1e3, 1)} mm, "
+					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = "
+						+ $"{N(cL(kt.GapM), disp.SmallLengthDecimals)} {uL}, "
 						+ $"g/D = {N(gdI, 4)} "
 						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
 						+ " (Table 6-3)",
@@ -1802,9 +1892,9 @@ namespace NorsokChecker.Services
 					Step(sb, $"N<sub>Rd</sub> &mdash; {lbl}, eq (6.52){axNote}",
 						@"N_{Rd,i} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_{u,i}\,Q_{f,K}",
 						kQf == null
-							? $@"{Sig(baseAx / 1e3)}\,kN\cdot {Sig(kt.QuAxial)}"
-							: $@"{Sig(baseAx / 1e3)}\,kN\cdot {Sig(kt.QuAxial)}\cdot {Sig(kQf.QfAxial)}",
-						$@"{N(kt.NRd / 1e3, 1)}\,kN");
+							? $@"{Sig(cF(baseAx))}\,{kF}\cdot {Sig(kt.QuAxial)}"
+							: $@"{Sig(cF(baseAx))}\,{kF}\cdot {Sig(kt.QuAxial)}\cdot {Sig(kQf.QfAxial)}",
+						$@"{N(cF(kt.NRd), disp.ForceDecimals)}\,{kF}");
 				}
 			}
 
@@ -1864,8 +1954,8 @@ namespace NorsokChecker.Services
 					quFormula, quSubst, N(c.QuAxial, 3));
 				Step(sb, $"N<sub>Rd</sub> &mdash; eq (6.52){axNote}",
 					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
-					$@"{Sig(baseAx / 1e3)}\,kN\cdot {Sig(c.QuAxial)}\cdot {Sig(c.QfAxial)}",
-					$@"{N(c.NRd / 1e3, 1)}\,kN");
+					$@"{Sig(cF(baseAx))}\,{kF}\cdot {Sig(c.QuAxial)}\cdot {Sig(c.QfAxial)}",
+					$@"{N(cF(c.NRd), disp.ForceDecimals)}\,{kF}");
 			}
 
 			// ── the weighted axial resistance across whichever modes are active ──
@@ -1884,7 +1974,7 @@ namespace NorsokChecker.Services
 				sb.AppendLine("        <tr><th>mode</th><th>fraction</th><th>N<sub>Rd,mode</sub></th></tr>");
 				foreach (var (cls, frac) in active)
 					sb.AppendLine($"        <tr><td>{cls}</td><td>{Pct2(frac)}</td>"
-						+ $"<td>{N(r.PerClass[cls].NRd / 1e3, 1)} kN</td></tr>");
+						+ $"<td>{N(cF(r.PerClass[cls].NRd), disp.ForceDecimals)} {uF}</td></tr>");
 				sb.AppendLine("      </table>");
 				// A WEIGHTED AVERAGE, which is what the clause says and what the engine computes.
 				//
@@ -1904,8 +1994,8 @@ namespace NorsokChecker.Services
 				Step(sb, "Weighted axial resistance &mdash; &sect;6.4.3.2 (mixture of K/Y/X)",
 					@"N_{Rd} = \sum_{\text{mode}} fr_{\text{mode}} \cdot N_{Rd,\text{mode}}",
 					string.Join(" + ", active.Select(x =>
-						$@"{N(x.Item2, 3)}\cdot {N(r.PerClass[x.Item1].NRd / 1e3, 1)}")),
-					$@"{N(r.NRdWeighted / 1e3, 1)}\,kN");
+						$@"{N(x.Item2, 3)}\cdot {N(cF(r.PerClass[x.Item1].NRd), disp.ForceDecimals)}")),
+					$@"{N(cF(r.NRdWeighted), disp.ForceDecimals)}\,{kF}");
 			}
 			else
 			{
@@ -1991,8 +2081,7 @@ namespace NorsokChecker.Services
 			IReadOnlyList<NorsokFormulaResult>? chapterRows = null,
 			Models.DisplaySettings? display = null)
 		{
-			// This section is NOT the derivation and takes no exemption from it: the geometry and
-			// the force tables are ours, and they follow the reader's units.
+			// Geometry and force tables, in the reader's units like everything else on the page.
 			var disp = display ?? new Models.DisplaySettings();
 			var rc = Models.QuantityFormat.Report;
 			string fu = Models.QuantityFormat.ForceLabel(disp.Force);
@@ -2421,10 +2510,13 @@ namespace NorsokChecker.Services
 		/// <summary>
 		/// A fraction as a percentage to TWO decimals — the K/Y/X split and the per-mode fractions.
 		///
-		/// Same reason as <see cref="Pct"/>, and these were the larger half of the problem: measured
-		/// 126 comma decimals in one printed report ("100,00", "0,7370") beside the points used
-		/// everywhere else, all from `:P2`/`:P1` interpolations carrying no culture. They predate
-		/// this round of work — what is new is the check that found them.
+		/// Same reason as <see cref="Pct"/>: measured 126 comma decimals in one printed report
+		/// ("100,00", "0,7370") beside the points used everywhere else, all from `:P2`/`:P1`
+		/// interpolations carrying no culture.
+		///
+		/// Fixed at two decimals rather than following PercentDecimals — a mode split is a
+		/// classification, not a measurement, and "K 100.00 %" wants its two places whatever
+		/// precision the reader picked for utilisations.
 		/// </summary>
 		private static string Pct2(double ratio) =>
 			ratio.ToString("P2", System.Globalization.CultureInfo.InvariantCulture)

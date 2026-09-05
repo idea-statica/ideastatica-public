@@ -50,10 +50,14 @@
 	///   - N/mm² is numerically identical to MPa. It is offered as the spelling it is, not as a
 	///     conversion.
 	///
-	/// AND THE DERIVATION IS EXEMPT. Its substitutions stay in MPa, mm and kN whatever is set here,
-	/// matching the norm's own convention — that is what lets a reader hold a printed line against
-	/// the clause. See the note on RenderJointDerivation. The dialog says so, or a user who selects
-	/// kPa and then sees MPa in a substitution reads it as a bug.
+	/// THE DERIVATION IS NOT EXEMPT. It was, on the argument that its substitutions should match the
+	/// norm's own convention — but the standard writes its formulas in SYMBOLS, which hold in any
+	/// consistent set of units, and the engine computes in SI throughout. Everything printed is a
+	/// conversion, so a user who selects inches and ksi gets them on the derivation page too.
+	///
+	/// THE ONE INVARIANT: a check RESULT must not move when the units change. Utilisations, β, γ and
+	/// the Q-factors are dimensionless, and the §6.4.1 gap comparison is decided in millimetres for
+	/// that reason — the printed sentence follows the setting, the verdict does not.
 	/// </summary>
 	public sealed class DisplaySettings
 	{

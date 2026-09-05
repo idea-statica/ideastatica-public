@@ -20,7 +20,8 @@ namespace NorsokChecker.Controls
 		/// when the row does not name a governing state of its own; see below.
 		/// </param>
 		public Joint64DerivationWindow(Joint64RowView row, Window owner,
-			string connectionName = "", string loadEffectName = "")
+			string connectionName = "", string loadEffectName = "",
+			Models.DisplaySettings? display = null)
 		{
 			InitializeComponent();
 			// WPF refuses an Owner that has never been shown, and throws rather than ignoring it. The
@@ -62,7 +63,8 @@ namespace NorsokChecker.Controls
 				connection: connectionName,
 				state: pageState,
 				utilisation: row.Util,
-				verdict: row.Verdict);
+				verdict: row.Verdict,
+				display: display);
 
 			Loaded += async (_, _) =>
 			{

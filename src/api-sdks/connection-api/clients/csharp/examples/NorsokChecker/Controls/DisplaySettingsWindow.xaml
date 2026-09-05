@@ -112,10 +112,9 @@
                        PreviewTextInput="Digits_PreviewTextInput"/>
         </Grid>
 
-        <!-- One line, not the paragraph that was here. A settings dialog is not the place to
-             explain a clause; it needs to say what the setting does not reach, and stop. -->
+        <!-- One line. This used to say the derivations were exempt; they are not. -->
         <TextBlock TextWrapping="Wrap" Foreground="#78909C" FontSize="11" Margin="0,10,0,16"
-                   Text="Detailed check derivations stay in kN, mm and MPa — the norm's own units."/>
+                   Text="Applies to every printed value, derivations included."/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="BtnRestore" Content="Restore defaults" Width="120" Height="26"
