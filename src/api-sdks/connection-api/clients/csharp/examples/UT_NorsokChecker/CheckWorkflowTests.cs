@@ -1,4 +1,4 @@
-using NorsokChecker.Models;
+﻿using NorsokChecker.Models;
 using NorsokChecker.Services;
 
 namespace UT_NorsokChecker
@@ -21,8 +21,25 @@ namespace UT_NorsokChecker
 		private static NorsokFormulaResult Fail(double util) =>
 			new() { Section = "6.4", Title = "brace", Utilization = util, Passed = false };
 
-		private static NorsokFormulaResult NotAssessed(string why) =>
-			new() { Section = "6.4", Title = "brace", NotAssessed = true, CheckExpression = why };
+		/// <summary>
+		/// An unassessed row. The REASON is required, not defaulted.
+		///
+		/// It used to be `NotAssessed(string why)` with no Reason, which left every row at
+		/// `NotAssessedReason.None` — so every test in this file fell through the blocked / allOff /
+		/// noLoad branches to the bare count branch. Four tests asserted the scope sentence while
+		/// never once producing an OutsideScope row, and the three reason-driven branches
+		/// CheckWorkflow was rewritten to add had no test at all.
+		///
+		/// The same trap the production comment at CheckWorkflow.cs:78-82 records, approached from
+		/// the other side: there the code read the sentence it had just written, here the fixture
+		/// wrote a sentence and no reason.
+		/// </summary>
+		private static NorsokFormulaResult NotAssessed(NotAssessedReason reason, string why) =>
+			new()
+			{
+				Section = "6.4", Title = "brace", NotAssessed = true,
+				Reason = reason, CheckExpression = why,
+			};
 
 		private static NorsokFormulaResult Note(string what) =>
 			new() { Section = "6.4", Title = "note", IsNote = true, CheckExpression = what };
@@ -69,7 +86,11 @@ namespace UT_NorsokChecker
 		[Test]
 		public void NothingAssessedIsNotAPass()
 		{
-			var v = CheckWorkflow.Roll(new[] { NotAssessed("overlap joint"), NotAssessed("θ = 0°") });
+			var v = CheckWorkflow.Roll(new[]
+			{
+				NotAssessed(NotAssessedReason.OutsideScope, "overlap joint"),
+				NotAssessed(NotAssessedReason.OutsideScope, "θ = 0°"),
+			});
 
 			Assert.Multiple(() =>
 			{
@@ -84,7 +105,8 @@ namespace UT_NorsokChecker
 		[Test]
 		public void OneUnmetConditionIsNotCounted()
 		{
-			var v = CheckWorkflow.Roll(new[] { NotAssessed("overlap joint") });
+			var v = CheckWorkflow.Roll(new[]
+				{ NotAssessed(NotAssessedReason.OutsideScope, "overlap joint") });
 
 			Assert.That(v.Status, Is.EqualTo("Outside §6.4 scope"));
 		}
@@ -97,7 +119,8 @@ namespace UT_NorsokChecker
 		[Test]
 		public void PassingChecksPlusAGapArePartial()
 		{
-			var v = CheckWorkflow.Roll(new[] { Pass(0.42), NotAssessed("no transverse force") });
+			var v = CheckWorkflow.Roll(new[]
+				{ Pass(0.42), NotAssessed(NotAssessedReason.OutsideScope, "no transverse force") });
 
 			Assert.Multiple(() =>
 			{
@@ -112,7 +135,8 @@ namespace UT_NorsokChecker
 		[Test]
 		public void AFailureBeatsAGap()
 		{
-			var v = CheckWorkflow.Roll(new[] { Fail(1.10), NotAssessed("θ = 0°") });
+			var v = CheckWorkflow.Roll(new[]
+				{ Fail(1.10), NotAssessed(NotAssessedReason.OutsideScope, "θ = 0°") });
 
 			Assert.That(v.Pass, Is.EqualTo("FAIL"));
 		}
@@ -150,6 +174,71 @@ namespace UT_NorsokChecker
 				Assert.That(v.Pass, Is.EqualTo("N/A"));
 				Assert.That(v.Status, Is.EqualTo("Not assessed"),
 					"no condition was unmet, so this is not an out-of-scope rejection");
+			});
+		}
+
+		/// <summary>
+		/// WHICH kind of "nothing was checked" — the three branches that had no test at all.
+		///
+		/// `CheckWorkflow.cs:83-92` distinguishes four cases, and until now this file exercised one
+		/// of them: its fixture never set a Reason, so every row arrived as `None` and fell through
+		/// to the bare "Outside §6.4 scope" count. The branches that read the enum were unreachable
+		/// from any test.
+		///
+		/// The distinction is not cosmetic. Telling an engineer who deliberately switched every
+		/// state off that their model has no load effect sends them looking for something that is
+		/// not missing; telling someone whose model would not read that §6.4 does not cover their
+		/// joint is a false statement about their geometry.
+		/// </summary>
+		[TestCase(NotAssessedReason.AllSwitchedOff,
+			"Not assessed — every load effect switched off")]
+		[TestCase(NotAssessedReason.NoLoadEffectDefined,
+			"Not assessed — no load effect defined")]
+		[TestCase(NotAssessedReason.Unreadable,
+			"Not evaluated — the model could not be read")]
+		[TestCase(NotAssessedReason.NotEvaluated,
+			"Not evaluated — the model could not be read")]
+		public void ABlockedInputSaysWhichKindOfNothing(NotAssessedReason reason, string expected)
+		{
+			var v = CheckWorkflow.Roll(new[] { NotAssessed(reason, "n/a") });
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(v.Pass, Is.EqualTo("N/A"));
+				Assert.That(v.Status, Is.EqualTo(expected));
+				Assert.That(v.Status, Does.Not.Contain("Outside"),
+					"a model that could not be read has NOT been ruled outside the chapter's scope — "
+					+ "that verdict would send the reader to a different design method for a joint "
+					+ "§6.4 may well cover");
+			});
+		}
+
+		/// <summary>
+		/// A blocked input outranks a scope gate when both are present.
+		///
+		/// The scope verdict was reached on inputs we already know are incomplete, so it is not
+		/// trustworthy — `CheckWorkflow.cs:90-92` says so and nothing tested it. Ordering the two
+		/// rows the other way must not change the answer, or the rule is "whichever came first".
+		/// </summary>
+		[Test]
+		public void ABlockedInputOutranksAScopeGate()
+		{
+			var scopeFirst = CheckWorkflow.Roll(new[]
+			{
+				NotAssessed(NotAssessedReason.OutsideScope, "overlap joint"),
+				NotAssessed(NotAssessedReason.Unreadable, "load effects would not read"),
+			});
+			var blockedFirst = CheckWorkflow.Roll(new[]
+			{
+				NotAssessed(NotAssessedReason.Unreadable, "load effects would not read"),
+				NotAssessed(NotAssessedReason.OutsideScope, "overlap joint"),
+			});
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(scopeFirst.Status, Is.EqualTo("Not evaluated — the model could not be read"));
+				Assert.That(blockedFirst.Status, Is.EqualTo(scopeFirst.Status),
+					"and the order of the rows does not decide it");
 			});
 		}
 
@@ -222,7 +311,7 @@ namespace UT_NorsokChecker
 			var v = CheckWorkflow.Roll(new[]
 			{
 				Qualified(0.50, "M1: θ = 20.0°, outside 30–90°"),
-				NotAssessed("no transverse force"),
+				NotAssessed(NotAssessedReason.OutsideScope, "no transverse force"),
 			});
 
 			Assert.That(v.Pass, Is.EqualTo("PARTIAL"));

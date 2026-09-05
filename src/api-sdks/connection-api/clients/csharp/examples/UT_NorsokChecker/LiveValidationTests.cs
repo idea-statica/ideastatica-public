@@ -136,7 +136,12 @@ namespace UT_NorsokChecker
 
 								bool oSkipped = (bool)oRow["skipped"]!;
 								Assert.That(row!.Skipped, Is.EqualTo(oSkipped), $"{rctx} skipped");
-								if (oSkipped) return;
+								// `continue`, NOT `return`: this sits inside two nested loops within an
+								// Assert.Multiple lambda, and a return exits the LAMBDA. One skipped brace
+								// silently abandoned every remaining brace AND every remaining load effect
+								// of that connection — on the only test that runs against a live service.
+								// A skipped brace has no numbers to compare; the next one does.
+								if (oSkipped) continue;
 
 								AssertNear(row.Util, (double)oRow["util"]!, $"{rctx} util");
 								Assert.That(row.Passed, Is.EqualTo((bool)oRow["passed"]!), $"{rctx} passed");

@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using NorsokChecker.Models;
 
 namespace UT_NorsokChecker
@@ -155,7 +155,8 @@ namespace UT_NorsokChecker
 				System.Reflection.Assembly.GetExecutingAssembly().Location)!);
 			while (dir != null && !System.IO.Directory.Exists(System.IO.Path.Combine(dir.FullName, "NorsokChecker")))
 				dir = dir.Parent;
-			if (dir == null) Assert.Ignore("cannot locate the NorsokChecker source from the test output");
+			if (dir == null) Assert.Fail("cannot locate the NorsokChecker source from the test output — this test "
+				+ "reads the source, and skipping it would report a pass it did not earn");
 
 			// Comments stripped: the prose in FitToScreen names CenterScreen and Manual while
 			// explaining the defect, so a raw match would find the explanation.

@@ -1,4 +1,4 @@
-using NorsokChecker.Models;
+﻿using NorsokChecker.Models;
 using NorsokChecker.Services;
 using NorsokChecker.Services.Norsok64;
 
@@ -300,7 +300,8 @@ namespace UT_NorsokChecker
 				System.Reflection.Assembly.GetExecutingAssembly().Location)!);
 			while (dir != null && !System.IO.Directory.Exists(System.IO.Path.Combine(dir.FullName, "NorsokChecker")))
 				dir = dir.Parent;
-			if (dir == null) Assert.Ignore("cannot locate the NorsokChecker source from the test output");
+			if (dir == null) Assert.Fail("cannot locate the NorsokChecker source from the test output — this test "
+				+ "reads the source, and skipping it would report a pass it did not earn");
 			string app = System.IO.Path.Combine(dir!.FullName, "NorsokChecker");
 
 			// M_ip / M_op / V_ip / V_op as a whole symbol. The engine's OWN identifiers (MipSd,

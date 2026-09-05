@@ -241,7 +241,11 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(html, Does.Not.Contain("COMPLIANT</"),
+				// `Does.Not.Contain("COMPLIANT</")` was here and could not fail: "NON-COMPLIANT</"
+				// contains "COMPLIANT</", so the assertion was equally satisfied by the verdict it
+				// was written to reject and by the one it was written to allow. A negative lookbehind
+				// separates the two.
+				Assert.That(html, Does.Not.Match(@"(?<!NON-)COMPLIANT<"),
 					"a run with no checks must not be reported as compliant");
 				Assert.That(html, Does.Contain("NOT ASSESSED"), "it must say so instead");
 			});

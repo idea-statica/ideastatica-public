@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using NorsokChecker.Models;
 using NorsokChecker.Services.Chapters;
 
@@ -105,7 +105,8 @@ namespace UT_NorsokChecker
 				System.Reflection.Assembly.GetExecutingAssembly().Location)!);
 			while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, "NorsokChecker")))
 				dir = dir.Parent;
-			if (dir == null) Assert.Ignore("cannot locate the NorsokChecker source");
+			if (dir == null) Assert.Fail("cannot locate the NorsokChecker source from the test output — this test "
+				+ "reads the source, and skipping it would report a pass it did not earn");
 
 			string text = File.ReadAllText(Path.Combine(dir!.FullName, "NorsokChecker", file));
 

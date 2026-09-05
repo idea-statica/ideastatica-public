@@ -1,4 +1,4 @@
-using NorsokChecker.Models;
+﻿using NorsokChecker.Models;
 using NorsokChecker.Services;
 using NorsokChecker.Services.Norsok64;
 
@@ -793,7 +793,8 @@ namespace UT_NorsokChecker
 			while (dir != null && !System.IO.Directory.Exists(
 				System.IO.Path.Combine(dir.FullName, "NorsokChecker")))
 				dir = dir.Parent;
-			if (dir == null) Assert.Ignore("cannot locate the NorsokChecker source");
+			if (dir == null) Assert.Fail("cannot locate the NorsokChecker source from the test output — this test "
+				+ "reads the source, and skipping it would report a pass it did not earn");
 
 			string code = System.Text.RegularExpressions.Regex.Replace(
 				System.IO.File.ReadAllText(System.IO.Path.Combine(
