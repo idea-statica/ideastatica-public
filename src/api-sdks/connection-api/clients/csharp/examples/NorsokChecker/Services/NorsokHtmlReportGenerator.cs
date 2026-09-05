@@ -1376,6 +1376,25 @@ namespace NorsokChecker.Services
 				double.IsNaN(v) || double.IsInfinity(v) ? "—" : v.ToString("F" + d,
 					System.Globalization.CultureInfo.InvariantCulture);
 
+			// A VALUE, in the reader's format as well as their unit — Decimal, Scientific or
+			// Automatic. The dialog offers that column and, until now, nothing on this page read
+			// it: every number went through N() at a fixed decimal count.
+			//
+			// Values only. A factor inside a substituted expression still takes Sig(), because a
+			// factor rounded for display stops the printed line from reaching its own result.
+			string F(double v, int dp, Models.NumberFormat fmt) =>
+				Models.QuantityFormat.Formatted(v, rc, dp, fmt);
+
+			// The same for KaTeX, where `×10³` in unicode superscripts will not typeset.
+			string Fk(double v, int dp, Models.NumberFormat fmt)
+			{
+				if (double.IsNaN(v) || double.IsInfinity(v)) return "—";
+				bool sci = fmt == Models.NumberFormat.Scientific
+					|| (fmt == Models.NumberFormat.Automatic && v != 0.0
+						&& (Math.Abs(v) < Math.Pow(10, -dp) / 2.0 || Math.Abs(v) >= 1e6));
+				return sci ? Sci(v) : N(v, dp);
+			}
+
 			// f_y·T²·d is a stress times a length cubed, and the result is a MOMENT. In mm and MPa
 			// that product comes out in N·mm and the printed line was off by 10⁶ — the reader could
 			// not reproduce `355·6.5²·76.1/(1.15·0.866) = 9.82` because it evaluates to 9 821 641.
@@ -1484,11 +1503,13 @@ namespace NorsokChecker.Services
 			// on both rows they looked like the same value repeated — which is exactly how they read
 			// when both steels are S355 and the numbers coincide.
 			Kv(sb, "Chord &oslash; D &times; T",
-				$"{N(dChordMm, disp.LengthDecimals)}&times;{N(tChordMm, disp.SmallLengthDecimals)} {uL} "
-				+ $"(f<sub>y,chord</sub> = {N(fy, disp.StressDecimals)} {uS})");
+				$"{F(dChordMm, disp.LengthDecimals, disp.LengthFormat)}&times;"
+				+ $"{F(tChordMm, disp.SmallLengthDecimals, disp.LengthFormat)} {uL} "
+				+ $"(f<sub>y,chord</sub> = {F(fy, disp.StressDecimals, disp.StressFormat)} {uS})");
 			Kv(sb, "Brace &oslash; d &times; t",
-				$"{N(dMm, disp.LengthDecimals)}&times;{N(tMm, disp.SmallLengthDecimals)} {uL} "
-				+ $"(f<sub>y,brace</sub> = {N(cS(inp.FyBrace), disp.StressDecimals)} {uS})");
+				$"{F(dMm, disp.LengthDecimals, disp.LengthFormat)}&times;"
+				+ $"{F(tMm, disp.SmallLengthDecimals, disp.LengthFormat)} {uL} "
+				+ $"(f<sub>y,brace</sub> = {F(cS(inp.FyBrace), disp.StressDecimals, disp.StressFormat)} {uS})");
 			// "from the member axes" is worth saying: theta is DERIVED (JointTopologyBuilder's Theta —
 			// the angle between the brace's effective direction and the chord axis, folded into
 			// 0..90°), not a value anyone typed. It was the one description in the old "Where:" table
@@ -1505,7 +1526,8 @@ namespace NorsokChecker.Services
 
 			sb.AppendLine("      <p class='deriv-h'>Applied forces (in the joint plane)</p>");
 			sb.AppendLine("      <table class='deriv-table'>");
-			Kv(sb, "N<sub>Sd</sub> (+ tension)", $"{N(cF(inp.NSd), disp.ForceDecimals)} {uF}");
+			Kv(sb, "N<sub>Sd</sub> (+ tension)",
+				$"{F(cF(inp.NSd), disp.ForceDecimals, disp.ForceFormat)} {uF}");
 			// y/z, as eq (6.57) writes them — M_y is the in-plane moment, M_z the out-of-plane one.
 			// (The chord's own moments below keep ip/op: the norm gives THOSE no y/z symbol, and
 			// they do not appear in eq 6.57 at all.)
@@ -1515,9 +1537,9 @@ namespace NorsokChecker.Services
 			// The term itself was right; the input shown was rounded and the one used was not. Two
 			// decimals is not a scarcity: the same card prints Q_u to three.
 			Kv(sb, "M<sub>y,Sd</sub> <span class='deriv-hint'>(in-plane)</span>",
-				$"{N(cM(inp.MipSd), disp.MomentDecimals)} {uM}");
+				$"{F(cM(inp.MipSd), disp.MomentDecimals, disp.MomentFormat)} {uM}");
 			Kv(sb, "M<sub>z,Sd</sub> <span class='deriv-hint'>(out-of-plane)</span>",
-				$"{N(cM(inp.MopSd), disp.MomentDecimals)} {uM}");
+				$"{F(cM(inp.MopSd), disp.MomentDecimals, disp.MomentFormat)} {uM}");
 			sb.AppendLine("      </table>");
 
 			// WHICH PLANE, said where the symbols first appear.
@@ -1697,16 +1719,17 @@ namespace NorsokChecker.Services
 				sb.AppendLine("        <tr><th>chord face</th><th>N<sub>chord</sub> (avg)</th>"
 					+ "<th>M<sub>y,chord</sub> (avg)</th><th>M<sub>z,chord</sub> (avg)</th></tr>");
 				sb.AppendLine($"        <tr><td><b>{(st.Side >= 0 ? "+ey" : "&minus;ey")}</b></td>"
-					+ $"<td>{N(cF(st.NChord), disp.ForceDecimals)} {uF}</td>"
-					+ $"<td>{N(cM(st.MipChord), disp.MomentDecimals)} {uM}</td>"
-					+ $"<td>{N(cM(st.MopChord), disp.MomentDecimals)} {uM}</td></tr>");
+					+ $"<td>{F(cF(st.NChord), disp.ForceDecimals, disp.ForceFormat)} {uF}</td>"
+					+ $"<td>{F(cM(st.MipChord), disp.MomentDecimals, disp.MomentFormat)} {uM}</td>"
+					+ $"<td>{F(cM(st.MopChord), disp.MomentDecimals, disp.MomentFormat)} {uM}</td></tr>");
 				sb.AppendLine("      </table>");
 
 				Step(sb, "Chord section properties &mdash; CHS, thickness at the joint (p.31)",
 					@"A=\dfrac{\pi}{4}(D^2-d_i^2),\quad I=\dfrac{\pi}{64}(D^4-d_i^4),\quad R=D/2",
 					null,
-					$@"A={N(aMm2, disp.AreaDecimals)}\,{kA},\ I={Sci(iMm4)}\,{kI},\ "
-						+ $@"R={N(rMm, disp.SmallLengthDecimals)}\,{kL}");
+					$@"A={Fk(aMm2, disp.AreaDecimals, disp.AreaFormat)}\,{kA},\ "
+						+ $@"I={Fk(iMm4, disp.InertiaDecimals, disp.InertiaFormat)}\,{kI},\ "
+						+ $@"R={Fk(rMm, disp.SmallLengthDecimals, disp.LengthFormat)}\,{kL}");
 
 				// The area was printed as `{aMm2/1e3}×10³ mm²` with the exponent written as literal
 				// text — true for millimetres and false for every other unit. Sci() takes it from the
@@ -1714,7 +1737,7 @@ namespace NorsokChecker.Services
 				Step(sb, "&sigma;<sub>a</sub> &mdash; axial (+ tension)",
 					@"\sigma_{a,Sd} = N_{chord}/A",
 					$@"{Sig(cF(st.NChord))}\,{kF}\ /\ {Sci(aMm2)}\,{kA}{saFactor}",
-					$@"{N(sa, disp.StressDecimals)}\,{kS}");
+					$@"{Fk(sa, disp.StressDecimals, disp.StressFormat)}\,{kS}");
 
 				Step(sb, $"&sigma;<sub>my</sub> &mdash; in-plane bending, chord face "
 					+ (st.Side >= 0 ? "+ey" : "&minus;ey") + " (z = side&middot;R), sign FLIPPED so "
@@ -1722,14 +1745,14 @@ namespace NorsokChecker.Services
 					@"\sigma_{my,Sd} = -\dfrac{M_{y,chord}\cdot(\text{side}\cdot R)}{I}",
 					$@"-\dfrac{{{Sig(cM(st.MipChord))}\,{kM}\cdot({(st.Side >= 0 ? "+" : "-")}1\cdot "
 						+ $@"{N(rMm, disp.SmallLengthDecimals)}\,{kL})}}{{{Sci(iMm4)}\,{kI}}}{smFactor}",
-					$@"{N(smy, disp.StressDecimals)}\,{kS}");
+					$@"{Fk(smy, disp.StressDecimals, disp.StressFormat)}\,{kS}");
 
 				Step(sb, "&sigma;<sub>mz</sub> &mdash; out-of-plane bending "
 					+ "(sign irrelevant &mdash; enters Q<sub>f</sub> only squared, via A&sup2;)",
 					@"\sigma_{mz,Sd} = \dfrac{M_{z,chord}\cdot R}{I}",
 					$@"\dfrac{{{Sig(cM(st.MopChord))}\,{kM}\cdot {N(rMm, disp.SmallLengthDecimals)}\,{kL}"
 						+ $@"}}{{{Sci(iMm4)}\,{kI}}}{smFactor}",
-					$@"{N(smz, disp.StressDecimals)}\,{kS}");
+					$@"{Fk(smz, disp.StressDecimals, disp.StressFormat)}\,{kS}");
 			}
 
 			// ── A² and the moment resistances (shared by every class) ──
@@ -1805,7 +1828,7 @@ namespace NorsokChecker.Services
 				$@"\dfrac{{{Sig(fy)}\cdot {Sig(tChordMm)}^2"
 					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
 					+ $@"\cdot {N(r.QuIpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
-				$@"{N(cM(r.MRdIp), disp.MomentDecimals)}\,{kM}");
+				$@"{Fk(cM(r.MRdIp), disp.MomentDecimals, disp.MomentFormat)}\,{kM}");
 
 			Step(sb, $"Out-of-plane bending resistance M<sub>z,Rd</sub> &mdash; eq (6.53){momNote}",
 				@"M_{z,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,opb}\,Q_{f,mom}",
@@ -1815,7 +1838,7 @@ namespace NorsokChecker.Services
 				$@"\dfrac{{{Sig(fy)}\cdot {Sig(tChordMm)}^2"
 					+ $@"\cdot {Sig(dMm)}}}{{{N(inp.GammaM, 2)}\cdot {N(sinMom, 3)}}}"
 					+ $@"\cdot {N(r.QuOpb, 3)}\cdot {N(r.QfMoment, 3)}{momFactor}",
-				$@"{N(cM(r.MRdOp), disp.MomentDecimals)}\,{kM}");
+				$@"{Fk(cM(r.MRdOp), disp.MomentDecimals, disp.MomentFormat)}\,{kM}");
 
 			// ── one block per ACTIVE mode. An inactive class is computed but plays no part in
 			// this brace's check, and showing it would suggest it does.
@@ -1922,7 +1945,7 @@ namespace NorsokChecker.Services
 						kQf == null
 							? $@"{Sig(cF(baseAx))}\,{kF}\cdot {Sig(kt.QuAxial)}"
 							: $@"{Sig(cF(baseAx))}\,{kF}\cdot {Sig(kt.QuAxial)}\cdot {Sig(kQf.QfAxial)}",
-						$@"{N(cF(kt.NRd), disp.ForceDecimals)}\,{kF}");
+						$@"{Fk(cF(kt.NRd), disp.ForceDecimals, disp.ForceFormat)}\,{kF}");
 				}
 			}
 
@@ -1983,7 +2006,7 @@ namespace NorsokChecker.Services
 				Step(sb, $"N<sub>Rd</sub> &mdash; eq (6.52){axNote}",
 					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
 					$@"{Sig(cF(baseAx))}\,{kF}\cdot {Sig(c.QuAxial)}\cdot {Sig(c.QfAxial)}",
-					$@"{N(cF(c.NRd), disp.ForceDecimals)}\,{kF}");
+					$@"{Fk(cF(c.NRd), disp.ForceDecimals, disp.ForceFormat)}\,{kF}");
 			}
 
 			// ── the weighted axial resistance across whichever modes are active ──
@@ -2023,7 +2046,7 @@ namespace NorsokChecker.Services
 					@"N_{Rd} = \sum_{\text{mode}} fr_{\text{mode}} \cdot N_{Rd,\text{mode}}",
 					string.Join(" + ", active.Select(x =>
 						$@"{N(x.Item2, 3)}\cdot {N(cF(r.PerClass[x.Item1].NRd), disp.ForceDecimals)}")),
-					$@"{N(cF(r.NRdWeighted), disp.ForceDecimals)}\,{kF}");
+					$@"{Fk(cF(r.NRdWeighted), disp.ForceDecimals, disp.ForceFormat)}\,{kF}");
 			}
 			else
 			{

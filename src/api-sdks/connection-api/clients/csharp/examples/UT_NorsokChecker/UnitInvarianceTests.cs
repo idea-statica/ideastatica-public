@@ -152,6 +152,34 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// THE FORMAT COLUMN DOES SOMETHING.
+		///
+		/// The dialog offers Decimal / Scientific / Automatic per quantity, and for a long time the
+		/// derivation ignored all three: every number went through a local fixed-decimal helper, so
+		/// the column was a promise with nothing behind it. A page that renders identically under
+		/// two opposite format choices is that bug returning.
+		/// </summary>
+		[Test]
+		public void TheNumberFormatChoiceChangesThePage()
+		{
+			var dec = new DisplaySettings
+			{
+				AreaFormat = NumberFormat.Decimal,
+				InertiaFormat = NumberFormat.Decimal,
+				ForceFormat = NumberFormat.Decimal,
+			};
+			var sci = new DisplaySettings
+			{
+				AreaFormat = NumberFormat.Scientific,
+				InertiaFormat = NumberFormat.Scientific,
+				ForceFormat = NumberFormat.Scientific,
+			};
+
+			Assert.That(Page(sci), Is.Not.EqualTo(Page(dec)),
+				"Decimal and Scientific produced the same page — the format setting is not read");
+		}
+
+		/// <summary>
 		/// The engine itself, asserted directly rather than through the page: the same input gives
 		/// the same dimensionless results no matter what the display settings say. The page test
 		/// above would also catch this, but not tell you which side broke.
