@@ -45,6 +45,13 @@ namespace NorsokChecker.Models
 		public static DisplaySettings Display { get; set; } = new();
 
 		/// <summary>
+		/// Re-raise the computed display property after the units or precision changed. The value
+		/// itself has not moved — the way it is written has — and a binding is told only about
+		/// values, so without this the grid keeps the text it already drew.
+		/// </summary>
+		public void NotifyDisplayChanged() => OnPropertyChanged(nameof(MaxUtilizationDisplay));
+
+		/// <summary>
 		/// Display string: "72.4 %" for 0.724, capped at 999.9 %.
 		/// "N/A" shows an em dash, NOT "0.0 %": nothing was assessed, and a zero utilisation
 		/// reads as an excellent result rather than as an absent one - the same trap as the

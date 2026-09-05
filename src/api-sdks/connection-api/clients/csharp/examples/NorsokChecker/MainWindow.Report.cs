@@ -222,11 +222,20 @@ namespace NorsokChecker
 				+ $"length {Models.QuantityFormat.LengthLabel(_display.Length)}, "
 				+ $"moment {_display.MomentLabel}");
 
-			// Redraw what is already on screen: a setting that only took effect on the next run
-			// would look broken. Neither of these recomputes anything — both reformat what is
-			// already held.
+			// Redraw EVERYTHING already on screen. A setting that only took effect on the next run
+			// looks broken, and a tab that keeps the old units while its neighbour changes looks
+			// worse — the earlier version refreshed two of the five surfaces, so the Results tab
+			// and the load-effect selector sat in stale units until the next calculation.
+			//
+			// None of this recomputes anything: every call reformats values already held.
 			SyncMemberUnits();
-			RefreshJoint64();
+			RefreshJoint64(rebuildLeList: true);   // so Le64Option.ApplyDisplay runs again
+			PopulateResultsTab();
+			PopulateReportTab();
+
+			// The connections grid binds MaxUtilizationDisplay, a computed property: it reads the
+			// new precision only when told the value changed.
+			foreach (var c in _connections) c.NotifyDisplayChanged();
 		}
 
 		/// <summary>
