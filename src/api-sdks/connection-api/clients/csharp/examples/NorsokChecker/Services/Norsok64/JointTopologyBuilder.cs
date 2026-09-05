@@ -591,9 +591,24 @@ namespace NorsokChecker.Services.Norsok64
 			// The joint is still not checked — the missing diameter is reported by the section
 			// gates, which is the true reason — but it is no longer accused of a geometry it
 			// does not have. See BraceGap.Known.
+			// AN OVERLAP JOINT IS NOT OUTSIDE §6.4 — this tool does not implement it.
+			//
+			// The message used to read "overlap joint, out of 6.4 gap rules", which attributes our
+			// limit to the standard. §6.4.4 (N-004 Rev. 3 p. 33, read off the clause) says overlap
+			// joints "may be designed using the simple joint provision of 6.4.3 with the following
+			// exemptions and additions" — shear parallel to the chord face becomes a failure mode,
+			// §6.4.3.5 stops applying, and the through-brace force gains a portion of the
+			// overlapping brace's. None of that is implemented here, and THAT is the reason the
+			// joint is not checked.
+			//
+			// The report's own Q_g has an overlap branch it uses, and the validity table prints
+			// g/D ≥ −0.6 as satisfied at −0.113 — so the document was rejecting a joint on a rule
+			// it simultaneously showed as met.
 			foreach (var g in topo.Gaps.Where(g => g.Adjacent && g.Known && g.GapM < 0))
 				topo.Verdict.Errors.Insert(0,
-					$"{g.A}-{g.B}: feet overlap (gap {g.GapM * 1000:F0} mm < 0) — overlap joint, out of 6.4 gap rules.");
+					$"{g.A}-{g.B}: feet overlap (gap {g.GapM * 1000:F0} mm < 0) — an overlap joint. "
+					+ "§6.4.4 covers these with additions this tool does not implement (shear along "
+					+ "the chord face, the through-brace force share), so it is not checked here.");
 			topo.Verdict.Status = topo.Verdict.Errors.Count > 0 ? "ERROR"
 				: topo.Verdict.Warnings.Count > 0 ? "WARNING" : "OK";
 		}

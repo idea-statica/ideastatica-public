@@ -71,6 +71,44 @@ namespace UT_NorsokChecker
 				"five coplanar braces need no plane-fit warning");
 		}
 
+		/// <summary>
+		/// An overlap joint is rejected as OUR limit, not as the standard's.
+		///
+		/// The message read "overlap joint, out of 6.4 gap rules", which attributes a tool
+		/// limitation to N-004. §6.4.4 (Rev. 3 p. 33) says overlap joints "may be designed using the
+		/// simple joint provision of 6.4.3 with the following exemptions and additions" — shear
+		/// along the chord face becomes a failure mode, §6.4.3.5 stops applying, and the through
+		/// brace takes a share of the overlapping brace's force. None of that is implemented here,
+		/// and that is the real reason the joint goes unchecked.
+		///
+		/// It was self-contradictory as well: the report's validity table prints g/D ≥ −0.6 as
+		/// SATISFIED at −0.113 on the same joint, and its own Q_g has an overlap branch it uses.
+		/// </summary>
+		[Test]
+		public void AnOverlapJointIsRejectedAsAToolLimitNotAsOutsideTheStandard()
+		{
+			// Two braces close enough on one side that their feet overlap.
+			var v = Verdict(
+				Member("M2", 0.0, 0.0, continuous: true, d: 273.0, t: 12.5),
+				Member("M1", 40.0, 0.0, false, d: 168.3, t: 8.0),
+				Member("M3", 55.0, 0.0, false, d: 168.3, t: 8.0));
+
+			var overlap = v.Errors.Concat(v.Warnings)
+				.FirstOrDefault(e => e.Contains("overlap"));
+			Assert.That(overlap, Is.Not.Null,
+				"this geometry overlaps; errors: " + string.Join(" | ", v.Errors));
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(overlap, Does.Contain("6.4.4"),
+					"the clause that DOES cover overlap joints is named");
+				Assert.That(overlap, Does.Contain("this tool does not implement"),
+					"and the limit is stated as ours");
+				Assert.That(overlap, Does.Not.Contain("out of 6.4 gap rules"),
+					"not as the standard's, which would be false");
+			});
+		}
+
 		/// <summary>E10 — a chord with nothing attached.</summary>
 		[Test]
 		public void AChordAloneIsRejected()
