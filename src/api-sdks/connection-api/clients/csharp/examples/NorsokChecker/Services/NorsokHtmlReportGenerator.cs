@@ -1315,10 +1315,15 @@ namespace NorsokChecker.Services
 			// y/z, as eq (6.57) writes them — M_y is the in-plane moment, M_z the out-of-plane one.
 			// (The chord's own moments below keep ip/op: the norm gives THOSE no y/z symbol, and
 			// they do not appear in eq 6.57 at all.)
+			// THREE DECIMALS, not two. At 2 dp a 0.07 kN·m moment carries a 7 % uncertainty, and a
+			// reader recomputing the interaction term from the printed inputs got a visibly
+			// different answer on half the cards — 7.22 % printed against 7.00 % recomputed on one.
+			// The term itself was right; the input shown was rounded and the one used was not. Two
+			// decimals is not a scarcity: the same card prints Q_u to three.
 			Kv(sb, "M<sub>y,Sd</sub> <span class='deriv-hint'>(in-plane)</span>",
-				$"{N(inp.MipSd / 1e3, 2)} kN&middot;m");
+				$"{N(inp.MipSd / 1e3, 3)} kN&middot;m");
 			Kv(sb, "M<sub>z,Sd</sub> <span class='deriv-hint'>(out-of-plane)</span>",
-				$"{N(inp.MopSd / 1e3, 2)} kN&middot;m");
+				$"{N(inp.MopSd / 1e3, 3)} kN&middot;m");
 			sb.AppendLine("      </table>");
 
 			// WHICH PLANE, said where the symbols first appear.
@@ -1524,6 +1529,23 @@ namespace NorsokChecker.Services
 				? $" &mdash; imposed &theta; = {N(r.ThetaLimitingDeg, 1)}&deg; (&sect;6.4.3.1)"
 				: "";
 
+			// THE BENDING Q_u FACTORS, WITH THEIR FORMULAS. They were bare numbers — 8.538, 5.374 —
+			// and no formula for either appeared anywhere in the document, while on half the cards
+			// the out-of-plane term is the LARGEST of eq (6.57)'s three. Table 6-3 gives one
+			// expression each, shared by K, Y and X, so they belong here beside A² rather than
+			// inside a per-class block.
+			Step(sb, $"Q<sub>u,ipb</sub> &mdash; Table 6-3, in-plane bending "
+				+ $"(all classes), &beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
+				@"Q_{u,ipb} = (5+0.7\gamma)\,\beta^{1.2}",
+				$@"(5+0.7\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{1.2}}",
+				N(r.QuIpb, 3));
+
+			Step(sb, $"Q<sub>u,opb</sub> &mdash; Table 6-3, out-of-plane bending "
+				+ $"(all classes), &beta; = {N(r.Beta, 3)}, &gamma; = {N(r.Gamma, 2)}",
+				@"Q_{u,opb} = 2.5+(4.5+0.2\gamma)\,\beta^{2.6}",
+				$@"2.5+(4.5+0.2\cdot {N(r.Gamma, 2)})\cdot {N(r.Beta, 3)}^{{2.6}}",
+				N(r.QuOpb, 3));
+
 			Step(sb, "In-plane bending resistance M<sub>y,Rd</sub> &mdash; eq (6.53) "
 				+ $"(Q<sub>u,ipb</sub> shared by all classes, Table 6-3){momNote}",
 				@"M_{y,Rd} = \dfrac{f_{y,chord}\,T^2\,d}{\gamma_M \sin\theta}\,Q_{u,ipb}\,Q_{f,mom}",
@@ -1658,13 +1680,43 @@ namespace NorsokChecker.Services
 					@"Q_f = 1 + C_1\dfrac{\sigma_{a,Sd}}{f_{y,chord}} - C_2\dfrac{\sigma_{my,Sd}}{1.62\,f_{y,chord}} - C_3\,A^2",
 					$@"1 + {N(c.CAxial.C1, 2)}\cdot\dfrac{{{P(sa, 1)}}}{{{N(fy, 0)}}} - {N(c.CAxial.C2, 2)}\cdot\dfrac{{{P(smy, 1)}}}{{1.62\cdot {N(fy, 0)}}} - {N(c.CAxial.C3, 2)}\cdot {N(c.QfAxialA2, 4)}",
 					N(c.QfAxial, 3));
-				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3, class {cls} (brace in {tension})",
-					cls == Norsok64.Joint64Class.Y
-						? (r.LoadAxial == "tension" ? @"Q_u = 30\beta"
-							: @"Q_u = \min\{2.8+(20+0.8\gamma)\beta^{1.6},\ 2.8+36\beta^{1.6}\}")
-						: (r.LoadAxial == "tension" ? @"Q_u = 6.4\,\gamma^{0.6\beta^2}"
-							: @"Q_u = (2.8+(12+0.1\gamma)\beta)\,Q_\beta"),
-					null, N(c.QuAxial, 3));
+				// Q_beta, ON THE ONE BRANCH THAT CONSUMES IT, and it names which rule fired.
+				//
+				// X-compression is the only Table 6-3 entry with a Q_beta in it. The factor is
+				// BRANCHED at beta = 0.6 and both branches occur in one document, so a bare value
+				// would leave the reader unable to tell which applied — the same defect Q_g's block
+				// above was rewritten to fix. It appeared nowhere at all until now: the formula
+				// printed `·Q_β` and the symbol was never bound to a number.
+				bool needsQBeta = cls == Norsok64.Joint64Class.X && r.LoadAxial != "tension";
+				if (needsQBeta)
+					Step(sb, $"Q<sub>&beta;</sub> &mdash; Table 6-3, &beta; = {N(r.Beta, 3)} "
+						+ $"{(r.Beta > 0.6 ? "&gt;" : "&le;")} 0.6",
+						r.Beta > 0.6
+							? @"Q_\beta = \dfrac{0.3}{\beta(1-0.833\beta)}"
+							: @"Q_\beta = 1.0",
+						r.Beta > 0.6
+							? $@"\dfrac{{0.3}}{{{N(r.Beta, 3)}\cdot(1-0.833\cdot {N(r.Beta, 3)})}}"
+							: null,
+						N(r.QBeta, 3));
+
+				// AND THE SUBSTITUTION. Y and X printed the formula in symbols and then the result —
+				// 43 of the 64 axial blocks in the reviewed report — while the K block twenty lines
+				// above substituted its own. Q_u is the largest factor in every resistance, so this
+				// was the biggest unreachable number on the page.
+				string quFormula = cls == Norsok64.Joint64Class.Y
+					? (r.LoadAxial == "tension" ? @"Q_u = 30\beta"
+						: @"Q_u = \min\{2.8+(20+0.8\gamma)\beta^{1.6},\ 2.8+36\beta^{1.6}\}")
+					: (r.LoadAxial == "tension" ? @"Q_u = 6.4\,\gamma^{0.6\beta^2}"
+						: @"Q_u = (2.8+(12+0.1\gamma)\beta)\,Q_\beta");
+				string b3 = N(r.Beta, 3), g2 = N(r.Gamma, 2);
+				string quSubst = cls == Norsok64.Joint64Class.Y
+					? (r.LoadAxial == "tension" ? $@"30\cdot {b3}"
+						: $@"\min\{{2.8+(20+0.8\cdot {g2})\cdot {b3}^{{1.6}},\ 2.8+36\cdot {b3}^{{1.6}}\}}")
+					: (r.LoadAxial == "tension" ? $@"6.4\cdot {g2}^{{0.6\cdot {b3}^2}}"
+						: $@"(2.8+(12+0.1\cdot {g2})\cdot {b3})\cdot {N(r.QBeta, 3)}");
+				Step(sb, $"Q<sub>u,axial</sub> &mdash; Table 6-3, class {cls} (brace in {tension}), "
+					+ $"&beta; = {b3}, &gamma; = {g2}",
+					quFormula, quSubst, N(c.QuAxial, 3));
 				Step(sb, $"N<sub>Rd</sub> &mdash; eq (6.52){axNote}",
 					@"N_{Rd} = \dfrac{f_{y,chord}\,T^2}{\gamma_M \sin\theta}\,Q_u\,Q_f",
 					$@"{N(baseAx / 1e3, 2)}\,kN\cdot {N(c.QuAxial, 3)}\cdot {N(c.QfAxial, 3)}",
@@ -2003,11 +2055,11 @@ namespace NorsokChecker.Services
 						+ $"<td class='not-checked'>{N(f.LocalVy / 1e3, 1)} kN</td>"
 						+ $"<td class='not-checked'>{N(f.LocalVz / 1e3, 1)} kN</td>"
 						+ $"<td class='not-checked'>{N(f.LocalMx / 1e3, 2)} kN&middot;m</td>"
-						+ $"<td>{N(f.LocalMy / 1e3, 2)} kN&middot;m</td>"
-						+ $"<td>{N(f.LocalMz / 1e3, 2)} kN&middot;m</td>"
+						+ $"<td>{N(f.LocalMy / 1e3, 3)} kN&middot;m</td>"
+						+ $"<td>{N(f.LocalMz / 1e3, 3)} kN&middot;m</td>"
 						+ $"<td>{N(f.NSd / 1e3, 1)} kN</td>"
-						+ $"<td>{N(f.Mip / 1e3, 2)} kN&middot;m</td>"
-						+ $"<td>{N(f.Mop / 1e3, 2)} kN&middot;m</td></tr>");
+						+ $"<td>{N(f.Mip / 1e3, 3)} kN&middot;m</td>"
+						+ $"<td>{N(f.Mop / 1e3, 3)} kN&middot;m</td></tr>");
 				}
 				sb.AppendLine("  </table>");
 				// What is LOCAL is which columns are the unchecked ones. Why they are unchecked, and

@@ -73,6 +73,54 @@ namespace UT_NorsokChecker
 				connection: "CON11", state: "LE11", utilisation: "73.7 %", verdict: "PASS");
 
 		/// <summary>
+		/// The SAME joint with a slimmer brace, so β falls below 0.6 — Q_β's other branch.
+		///
+		/// A SECOND FIXTURE, not a tweak of the first, and that is the point: Q_β is branched at
+		/// β = 0.6, both branches occur in a real document, and a test that only ever sees one
+		/// cannot tell whether the printed branch label follows the geometry or is a constant. I
+		/// made exactly this mistake on Q_g and had to split that fixture too.
+		///
+		/// CHS 76.1 against the same CHS 141 chord gives β = 0.540. Everything else is the
+		/// multi-mode row's, and the load is compressive because X-compression is the only Table 6-3
+		/// entry that uses Q_β at all.
+		/// </summary>
+		private static JointCheckRow LowBetaRow()
+		{
+			var inp = Joint64Input.FromSI(
+				D: 0.141, T: 0.0065, fyChord: 355e6,
+				d: 0.0761, t: 0.0050, fyBrace: 355e6,
+				thetaDeg: 45.0, g: 0.047,
+				frK: 0.0, frY: 0.0, frX: 1.0,
+				nSd: -60.0e3, mipSd: -1.2e3, mopSd: 2.4e3,
+				sigmaASd: 9.27e6, sigmaMySd: -25.48e6, sigmaMzSd: 0.0,
+				gammaM: 1.15);
+
+			var result = Norsok64Engine.CheckJoint(inp);
+
+			return new JointCheckRow
+			{
+				Name = "M4", Skipped = false, Engine = result, Inputs = inp,
+				Classification = new KyxClass
+				{
+					Name = "M4", FrK = 0.0, FrY = 0.0, FrX = 1.0,
+					NSd = -60.0e3, MipSd = -1.2e3, MopSd = 2.4e3,
+				},
+				DomClass = "X",
+				Util = result.UtilWeighted,
+				Passed = result.Passed,
+				NRdWeighted = result.NRdWeighted,
+				MRdIp = result.MRdIp,
+				MRdOp = result.MRdOp,
+				WithinRange = result.WithinRange,
+				ChordOverstressed = result.ChordOverstressed,
+			};
+		}
+
+		private static string LowBetaPage() =>
+			NorsokHtmlReportGenerator.GenerateDerivationPage(LowBetaRow(), brace: "M4",
+				connection: "CON1", state: "LE1", utilisation: "30.0 %", verdict: "PASS");
+
+		/// <summary>
 		/// The fixture really is multi-mode and the two resistances really do differ — asserted
 		/// FIRST, because if they coincided every test below would pass while measuring nothing.
 		/// </summary>
@@ -90,6 +138,52 @@ namespace UT_NorsokChecker
 				Assert.That(row.Engine!.NRdWeighted, Is.Not.EqualTo(dom.NRd).Within(1.0),
 					"the weighted and dominant-mode resistances must differ, or this fixture "
 					+ "cannot show the defect it exists for");
+			});
+		}
+
+		/// <summary>
+		/// THE VALUES DO NOT MOVE. Every quantity of this fixture, pinned.
+		///
+		/// An independent reviewer recomputed report6 in full — 40 interaction sums, every Q_f and
+		/// A², the chord section properties, the Q_g interpolation and 43+ Q_u against Table 6-3 —
+		/// and found no mismatch. The work that follows changes what the report PRINTS, not what it
+		/// computes, so a changed number here does not mean a new opinion about the number: it means
+		/// something was broken.
+		///
+		/// The expected values were derived from the CLAUSES in a separate script, not read back out
+		/// of the engine — reading them back would pin whatever the engine does, including a defect.
+		/// Q_β is here despite being printed nowhere yet, because it is about to be.
+		/// </summary>
+		[Test]
+		public void TheFixturesValuesArePinned()
+		{
+			var r = MultiModeRow().Engine!;
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(r.Beta, Is.EqualTo(0.723404).Within(1e-6), "β = d/D");
+				Assert.That(r.Gamma, Is.EqualTo(10.846154).Within(1e-6), "γ = D/2T");
+				Assert.That(r.QBeta, Is.EqualTo(1.043537).Within(1e-6), "Q_β, β > 0.6 branch");
+				Assert.That(r.Qg, Is.EqualTo(1.000059).Within(1e-6), "Q_g, gap branch");
+				Assert.That(r.QuIpb, Is.EqualTo(8.538127).Within(1e-6), "Q_u,ipb");
+				Assert.That(r.QuOpb, Is.EqualTo(5.373866).Within(1e-6), "Q_u,opb");
+				Assert.That(r.QfMomentA2, Is.EqualTo(0.003862).Within(1e-6), "A²");
+				Assert.That(r.QfMoment, Is.EqualTo(1.003678).Within(1e-6), "Q_f, moment");
+
+				Assert.That(r.MRdIp / 1e3, Is.EqualTo(16.1224).Within(1e-3), "M_y,Rd [kN·m]");
+				Assert.That(r.MRdOp / 1e3, Is.EqualTo(10.1474).Within(1e-3), "M_z,Rd [kN·m]");
+
+				Assert.That(r.PerClass[Joint64Class.K].NRd / 1e3,
+					Is.EqualTo(367.5876).Within(1e-3), "N_Rd, K");
+				Assert.That(r.PerClass[Joint64Class.Y].NRd / 1e3,
+					Is.EqualTo(368.4604).Within(1e-3), "N_Rd, Y");
+				Assert.That(r.PerClass[Joint64Class.X].NRd / 1e3,
+					Is.EqualTo(236.8597).Within(1e-3), "N_Rd, X");
+
+				Assert.That(r.NRdWeighted / 1e3, Is.EqualTo(311.7063).Within(1e-3),
+					"N_Rd weighted — the arithmetic mixture of §6.4.3.2");
+				Assert.That(r.UtilWeighted * 100.0, Is.EqualTo(52.6938).Within(1e-3),
+					"utilisation, eq (6.57)");
 			});
 		}
 
@@ -603,6 +697,124 @@ namespace UT_NorsokChecker
 				Assert.That(computed, Is.EqualTo(printed).Within(0.002),
 					$"the printed expression evaluates to {computed.ToString("F3", Inv)} but the "
 					+ $"printed result is {printed.ToString("F3", Inv)}");
+			});
+		}
+
+		/// <summary>
+		/// Q_β is printed, substituted, and says WHICH branch it took.
+		///
+		/// It appeared nowhere: the X-compression formula typeset `·Q_β` and the symbol was never
+		/// bound to a number, so the one factor a reader could not supply sat inside the largest
+		/// term of the resistance. On this fixture it is 1.044 — a 4 % factor.
+		///
+		/// Both branches are exercised, from two fixtures, because the value alone cannot say which
+		/// rule produced it: 1.0 is both "β ≤ 0.6" and a coincidence of the other formula.
+		/// </summary>
+		[Test]
+		public void QBetaIsPrintedWithTheBranchItTook()
+		{
+			var hi = MultiModeRow().Engine!;
+			var lo = LowBetaRow().Engine!;
+
+			// The two fixtures must actually straddle the boundary, or this measures one branch twice.
+			Assert.That(hi.Beta, Is.GreaterThan(0.6), "the multi-mode fixture is above the boundary");
+			Assert.That(lo.Beta, Is.LessThanOrEqualTo(0.6), "and the low-β fixture below it");
+
+			var above = Regex.Match(Page(),
+				@"Q<sub>&beta;</sub>.*?deriv-step-res'>\$\$=[^$]*\$\$", RegexOptions.Singleline);
+			var below = Regex.Match(LowBetaPage(),
+				@"Q<sub>&beta;</sub>.*?deriv-step-res'>\$\$=[^$]*\$\$", RegexOptions.Singleline);
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(above.Success, Is.True, "the β > 0.6 case prints a Q_β step");
+				Assert.That(below.Success, Is.True, "and so does the β ≤ 0.6 case");
+
+				Assert.That(above.Value, Does.Contain("&gt; 0.6"), "the branch is named, not implied");
+				Assert.That(below.Value, Does.Contain("&le; 0.6"), "and named differently below it");
+
+				// The substituted expression evaluates to the printed result.
+				var m = Regex.Match(above.Value,
+					@"dfrac\{0\.3\}\{(?<b1>[\d.]+)\\cdot\(1-0\.833\\cdot (?<b2>[\d.]+)\)\}");
+				Assert.That(m.Success, Is.True, "the β > 0.6 branch substitutes β — got:\n" + above.Value);
+
+				double b = double.Parse(m.Groups["b1"].Value, Inv);
+				double computed = 0.3 / (b * (1.0 - 0.833 * b));
+				double printed = double.Parse(
+					Regex.Match(above.Value, @"deriv-step-res'>\$\$=\\;([\d.]+)").Groups[1].Value, Inv);
+				Assert.That(computed, Is.EqualTo(printed).Within(0.002),
+					$"printed expression gives {computed.ToString("F3", Inv)}, printed result "
+					+ $"{printed.ToString("F3", Inv)}");
+			});
+		}
+
+		/// <summary>
+		/// The axial Q_u substitutes its inputs — for Y and X, not only for K.
+		///
+		/// Q_u is the largest factor in every resistance, and 43 of the 64 axial blocks in the
+		/// reviewed report printed the formula in symbols and then the answer. The K blocks
+		/// substituted theirs; Y and X did not, and their headings named neither β nor γ, so the two
+		/// numbers the formula needs were not on the step at all.
+		/// </summary>
+		[TestCase(Joint64Class.Y)]
+		[TestCase(Joint64Class.X)]
+		public void TheAxialQuSubstitutesItsInputs(Joint64Class cls)
+		{
+			string html = Page();
+			var r = MultiModeRow().Engine!;
+
+			Assert.That(r.PerClass[cls].QuAxial, Is.Not.EqualTo(1.0).Within(0.01),
+				"Q_u must be a real factor here, or its absence would not be visible");
+
+			var step = Regex.Match(html,
+				$@"Q<sub>u,axial</sub> &mdash; Table 6-3, class {cls}.*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, $"class {cls} has a Q_u step");
+
+			Assert.Multiple(() =>
+			{
+				// β and γ on the heading: the formula is written in them and the reader needs both.
+				Assert.That(step.Value, Does.Contain(N3(r.Beta)), "β is on the step");
+				Assert.That(step.Value, Does.Contain(N(r.Gamma, 2)), "and γ");
+
+				// A substitution line exists at all — three $$ blocks (formula, substitution,
+				// result), not two. This is what `null` produced and what the defect was.
+				Assert.That(Regex.Matches(step.Value, @"\$\$").Count, Is.EqualTo(6),
+					"formula, substitution and result — a step with no substitution has four");
+			});
+		}
+
+		/// <summary>
+		/// Q_u,ipb and Q_u,opb are printed with their formulas, not as bare numbers.
+		///
+		/// Neither formula appeared anywhere in 222 pages, while on 20 of 40 cards the out-of-plane
+		/// term is the LARGEST of eq (6.57)'s three. Both are single Table 6-3 expressions shared by
+		/// every class.
+		/// </summary>
+		[TestCase("ipb", 5.0, 0.7, 1.2)]
+		[TestCase("opb", 4.5, 0.2, 2.6)]
+		public void TheBendingQuFactorsShowTheirFormulas(string which, double a, double b, double exp)
+		{
+			string html = Page();
+			var r = MultiModeRow().Engine!;
+			double expected = which == "ipb" ? r.QuIpb : r.QuOpb;
+
+			var step = Regex.Match(html,
+				$@"Q<sub>u,{which}</sub> &mdash; Table 6-3.*?deriv-step-res'>\$\$=[^$]*\$\$",
+				RegexOptions.Singleline);
+			Assert.That(step.Success, Is.True, $"Q_u,{which} has a step of its own");
+
+			var m = Regex.Match(step.Value, @"deriv-step-res'>\$\$=\\;([\d.]+)");
+			Assert.That(m.Success, Is.True, "with a printed result");
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(double.Parse(m.Groups[1].Value, Inv),
+					Is.EqualTo(expected).Within(0.002), "the result is the engine's");
+				Assert.That(step.Value, Does.Contain(N(r.Gamma, 2)), "γ is substituted");
+				Assert.That(step.Value, Does.Contain(N3(r.Beta)), "and β");
+				Assert.That(step.Value, Does.Contain(exp.ToString("0.0", Inv)),
+					$"and the exponent {exp} the clause gives");
 			});
 		}
 

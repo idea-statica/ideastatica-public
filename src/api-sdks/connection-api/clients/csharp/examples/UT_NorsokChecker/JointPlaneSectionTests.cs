@@ -172,8 +172,11 @@ namespace UT_NorsokChecker
 				Assert.That(table, Does.Contain("-142.1 kN"), "N from the model");
 				// Its in-plane moment differs between the two frames — 4.70 local, 4.31 projected —
 				// which is the whole point: the same loading, two frames, two numbers.
-				Assert.That(table, Does.Contain("4.70 kN&middot;m"), "M_y in the member's local axes");
-				Assert.That(table, Does.Contain("4.31 kN&middot;m"), "and after projection");
+				// Three decimals since the moments went to 3 dp: at 2, a 0.07 kN·m moment carried a
+				// 7 % uncertainty and half the report's interaction terms could not be reproduced
+				// from the inputs printed beside them. The VALUES are unchanged — 4.700 is 4.70.
+				Assert.That(table, Does.Contain("4.700 kN&middot;m"), "M_y in the member's local axes");
+				Assert.That(table, Does.Contain("4.310 kN&middot;m"), "and after projection");
 				Assert.That(table, Does.Contain("from the model (local axes)"),
 					"the columns say which frame each half is in");
 				// "resolved into the JOINT plane" was the old heading, and it named the wrong frame:
