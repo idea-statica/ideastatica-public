@@ -1050,37 +1050,37 @@
                                     <DataGridTextColumn Binding="{Binding FrK}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="K"/>
+                                                        Header="K [%]"/>
                                     <DataGridTextColumn Binding="{Binding FrX}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="X"/>
+                                                        Header="X [%]"/>
                                     <DataGridTextColumn Binding="{Binding FrY}" Width="SizeToHeader" MinWidth="50"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="Y"/>
-                                    <DataGridTextColumn Binding="{Binding NRd}" Width="SizeToHeader" MinWidth="70"
+                                                        Header="Y [%]"/>
+                                    <DataGridTextColumn x:Name="Col64NRd" Binding="{Binding NRd}" Width="Auto" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
                                                         Header="N_Rd"/>
-                                    <DataGridTextColumn Binding="{Binding MRdIp}" Width="SizeToHeader" MinWidth="70"
+                                    <DataGridTextColumn x:Name="Col64MRdIp" Binding="{Binding MRdIp}" Width="Auto" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
                                                         Header="M_y,Rd"/>
-                                    <DataGridTextColumn Binding="{Binding MRdOp}" Width="SizeToHeader" MinWidth="70"
+                                    <DataGridTextColumn x:Name="Col64MRdOp" Binding="{Binding MRdOp}" Width="Auto" MinWidth="70"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
                                                         Header="M_z,Rd"/>
                                     <DataGridTextColumn Binding="{Binding UtilAxial}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="axial"/>
+                                                        Header="axial [%]"/>
                                     <DataGridTextColumn Binding="{Binding UtilIpb}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="in-plane"/>
+                                                        Header="in-plane [%]"/>
                                     <DataGridTextColumn Binding="{Binding UtilOpb}" Width="SizeToHeader" MinWidth="55"
                                                         HeaderStyle="{StaticResource Grouped64Header}"
-                                                        Header="out-of-plane"/>
+                                                        Header="out-of-plane [%]"/>
                                     <DataGridTextColumn Binding="{Binding Util}" Width="SizeToHeader" MinWidth="80"
                                                         HeaderStyle="{StaticResource Grouped64HeaderStart}"
                                                         CellStyle="{StaticResource Group64CellStart}"
-                                                        Header="utilisation"/>
+                                                        Header="utilisation [%]"/>
                                     <DataGridTextColumn Header="" Binding="{Binding Flags}" Width="SizeToCells" MinWidth="24"/>
                                     <DataGridTextColumn Header="Verdict" Binding="{Binding Verdict}" Width="SizeToHeader" MinWidth="60"/>
                                     <!-- One column for both, because they are the same question

@@ -169,6 +169,17 @@ namespace NorsokChecker.Models
 				? "—"
 				: (ratio * 100.0).ToString("F" + dp, c) + " %";
 
+		/// <summary>
+		/// The same number with the sign left OFF, for a column whose header carries it.
+		///
+		/// The §6.4 table has seven percentage columns; a `%` in every cell of every row is the
+		/// width that was truncating the resistance columns beside them.
+		/// </summary>
+		internal static string PercentBare(double ratio, CultureInfo c, int dp = 1) =>
+			double.IsNaN(ratio) || double.IsInfinity(ratio)
+				? "—"
+				: (ratio * 100.0).ToString("F" + dp, c);
+
 		// ── the two shapes the substitutions need ────────────────────────────
 
 		/// <summary>

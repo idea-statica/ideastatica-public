@@ -552,16 +552,20 @@ namespace NorsokChecker
 				// What this brace was checked FOR, under its name — the tab used to show only how
 				// much capacity was used, never the actions that used it.
 				if (row.Inputs is { } inp)
-					// eq (6.57)'s symbols, as everywhere else the user reads them
-					view.Actions = $"N_Sd={Models.QuantityFormat.Force(inp.NSd, cult, _display)} kN"
-						+ $" · M_y={Models.QuantityFormat.Moment(inp.MipSd, cult, _display)} kNm"
-						+ $" · M_z={Models.QuantityFormat.Moment(inp.MopSd, cult, _display)} kNm";
+				{
+					// eq (6.57)'s symbols, and the units from the setting — label as well as value.
+					string fu = Models.QuantityFormat.ForceLabel(_display.Force);
+					string mu = _display.MomentLabel;
+					view.Actions = $"N_Sd={Models.QuantityFormat.Force(inp.NSd, cult, _display)} {fu}"
+						+ $" · M_y={Models.QuantityFormat.Moment(inp.MipSd, cult, _display)} {mu}"
+						+ $" · M_z={Models.QuantityFormat.Moment(inp.MopSd, cult, _display)} {mu}";
+				}
 
 				if (cls != null)
 				{
-					view.FrK = $"{cls.FrK * 100:F0} %";
-					view.FrX = $"{cls.FrX * 100:F0} %";
-					view.FrY = $"{cls.FrY * 100:F0} %";
+					view.FrK = Models.QuantityFormat.PercentBare(cls.FrK, cult, _display.PercentDecimals);
+					view.FrX = Models.QuantityFormat.PercentBare(cls.FrX, cult, _display.PercentDecimals);
+					view.FrY = Models.QuantityFormat.PercentBare(cls.FrY, cult, _display.PercentDecimals);
 					// the classifier's own reason for the split — the single most explanatory field
 					// it produces, and it was going nowhere
 					view.Note = cls.Note ?? "";
@@ -579,13 +583,15 @@ namespace NorsokChecker
 				// F1, F1 here against the report's F1, F2, F2, so the same joint gave a reader two
 				// different resistances depending on which screen they were looking at. On a small
 				// joint M_Rd = 0.75 kN·m showed as `0.8` in this table.
-				var c = Models.QuantityFormat.Gui;
+				//
+				// NO UNIT ON THE VALUE: it is in the column header, as in the brace-forces table.
+				// Repeating "kNm" on every row cost the width that was truncating M_z,Rd.
 				var e = row.Engine;
 				view.NRd = row.NoAxialClassification
 					? "n/a"
-					: $"{Models.QuantityFormat.Force(row.NRdWeighted, cult, _display)} kN";
-				view.MRdIp = $"{Models.QuantityFormat.Moment(row.MRdIp, cult, _display)} kNm";
-				view.MRdOp = $"{Models.QuantityFormat.Moment(row.MRdOp, cult, _display)} kNm";
+					: Models.QuantityFormat.Force(row.NRdWeighted, cult, _display);
+				view.MRdIp = Models.QuantityFormat.Moment(row.MRdIp, cult, _display);
+				view.MRdOp = Models.QuantityFormat.Moment(row.MRdOp, cult, _display);
 				if (e != null)
 				{
 					// The three shares of eq (6.57), taken from the engine's own per-class result
@@ -598,7 +604,7 @@ namespace NorsokChecker
 					view.UtilIpb = Pct(dom?.UtilIpTerm ?? double.NaN);
 					view.UtilOpb = Pct(dom?.UtilOpTerm ?? double.NaN);
 				}
-				view.Util = double.IsInfinity(row.Util) ? "> 999 %" : $"{row.Util * 100:F1} %";
+				view.Util = double.IsInfinity(row.Util) ? "> 999" : Models.QuantityFormat.PercentBare(row.Util, cult, _display.PercentDecimals);
 				view.UtilValue = row.Util;          // the number behind the text, for the row colour
 				view.Verdict = row.Passed ? "PASS" : "FAIL";
 
@@ -622,9 +628,15 @@ namespace NorsokChecker
 					{
 						IsSubRow = true,
 						Brace = $"↳ K via {kc.Partner}",
-						FrK = $"{kc.Frac * 100:F1} %",
-						Note = $"{Models.QuantityFormat.Force(force, cult, _display)} kN balanced across a "
-							+ (kc.GapM is { } g ? $"{g * 1000:F0} mm gap" : "gap of unknown size"),
+						FrK = Models.QuantityFormat.PercentBare(kc.Frac, cult, _display.PercentDecimals),
+						// The gap goes through the formatter like everything else: at F0 a 1.5 mm
+						// gap reads "2 mm", which is the size the §6.4.1 provision turns on.
+						Note = $"{Models.QuantityFormat.Force(force, cult, _display)} "
+							+ $"{Models.QuantityFormat.ForceLabel(_display.Force)} balanced across a "
+							+ (kc.GapM is { } g
+								? $"{Models.QuantityFormat.SmallLength(g, cult, _display)} "
+									+ $"{Models.QuantityFormat.LengthLabel(_display.Length)} gap"
+								: "gap of unknown size"),
 					});
 				}
 			}
@@ -651,7 +663,15 @@ namespace NorsokChecker
 				+ "of the number. Double-click a row for the derivation.";
 		}
 
-		private static string Pct(double v) => double.IsNaN(v) ? "—" : $"{v * 100:F1} %";
+		/// <summary>
+		/// A share of eq (6.57), for a column whose header carries the sign.
+		///
+		/// It was `$"{v * 100:F1} %"` — a fixed precision and a sign in every cell, in a table with
+		/// seven percentage columns. The sign is in the header now and the precision follows the
+		/// setting.
+		/// </summary>
+		private string Pct(double v) =>
+			Models.QuantityFormat.PercentBare(v, Models.QuantityFormat.Gui, _display.PercentDecimals);
 
 		/// <summary>
 		/// Draw the selected connection in its own joint plane. Uses the meshes already cached for

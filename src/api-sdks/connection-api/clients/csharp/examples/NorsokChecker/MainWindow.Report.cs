@@ -245,6 +245,24 @@ namespace NorsokChecker
 			// The rows are plain objects, not observable — rebinding is what makes the grid re-read
 			// the formatted strings it has already drawn.
 			MembersGrid.Items.Refresh();
+
+			SyncJoint64Headers();
+		}
+
+		/// <summary>
+		/// The unit in the §6.4 table's own headers.
+		///
+		/// The values carry no unit — they are formatted bare and the header says what they are, the
+		/// way the brace-forces table above already does. Repeating "kNm" in every cell was costing
+		/// the width that truncated M_z,Rd to "4.408 kN|".
+		/// </summary>
+		private void SyncJoint64Headers()
+		{
+			if (Col64NRd == null) return;   // called before the tab exists
+
+			Col64NRd.Header = $"N_Rd [{Models.QuantityFormat.ForceLabel(_display.Force)}]";
+			Col64MRdIp.Header = $"M_y,Rd [{_display.MomentLabel}]";
+			Col64MRdOp.Header = $"M_z,Rd [{_display.MomentLabel}]";
 		}
 
 		private void PageSetup_Click(object sender, RoutedEventArgs e)

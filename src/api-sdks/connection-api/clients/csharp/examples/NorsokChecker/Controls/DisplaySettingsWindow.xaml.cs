@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using NorsokChecker.Models;
@@ -65,6 +65,7 @@ namespace NorsokChecker.Controls
 			TxtInertiaDp.Text = s.InertiaDecimals.ToString(CultureInfo.InvariantCulture);
 			TxtAngleDp.Text = s.AngleDecimals.ToString(CultureInfo.InvariantCulture);
 			TxtRatioDp.Text = s.RatioDecimals.ToString(CultureInfo.InvariantCulture);
+			TxtPercentDp.Text = s.PercentDecimals.ToString(CultureInfo.InvariantCulture);
 
 			CbForceFmt.SelectedIndex = (int)s.ForceFormat;
 			CbMomentFmt.SelectedIndex = (int)s.MomentFormat;
@@ -130,6 +131,7 @@ namespace NorsokChecker.Controls
 				InertiaDecimals = Dp(TxtInertiaDp, d.InertiaDecimals),
 				AngleDecimals = Dp(TxtAngleDp, d.AngleDecimals),
 				RatioDecimals = Dp(TxtRatioDp, d.RatioDecimals),
+				PercentDecimals = Dp(TxtPercentDp, d.PercentDecimals),
 
 				ForceFormat = Fmt(CbForceFmt),
 				MomentFormat = Fmt(CbMomentFmt),

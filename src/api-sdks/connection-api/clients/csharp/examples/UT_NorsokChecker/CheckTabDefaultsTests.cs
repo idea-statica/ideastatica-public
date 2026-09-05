@@ -1,4 +1,4 @@
-using NorsokChecker.Models;
+﻿using NorsokChecker.Models;
 
 namespace UT_NorsokChecker
 {
@@ -164,9 +164,13 @@ namespace UT_NorsokChecker
 		public void TheColumnGroupsAreNamedAndVisiblyDivided()
 		{
 			var w = NewWindow();
+
+			// Keyed on the header's NAME, with any unit stripped: a header now reads "K [%]" or
+			// "N_Rd [kN]", and the unit half follows the display setting — keying on the whole
+			// string would make this test fail the moment someone switched to newtons.
 			var byHeader = w.Grid64.Columns
 				.Where(c => c.Header is string)
-				.ToDictionary(c => (string)c.Header, c => c);
+				.ToDictionary(c => ((string)c.Header).Split('[')[0].TrimEnd(), c => c);
 
 			// the first column of each group — the one that carries the boundary rule
 			string[] groupStarts = { "K", "N_Rd", "axial", "utilisation" };
@@ -280,13 +284,16 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(headers[2], Is.EqualTo("K"), "Classification starts at K");
-				Assert.That(headers[4], Is.EqualTo("Y"), "Classification ends at Y");
-				Assert.That(headers[5], Is.EqualTo("N_Rd"), "Resistance starts at N_Rd");
-				Assert.That(headers[7], Is.EqualTo("M_z,Rd"), "Resistance ends at M_z,Rd");
-				Assert.That(headers[8], Is.EqualTo("axial"), "Utilisation breakdown starts at axial");
-				Assert.That(headers[10], Is.EqualTo("out-of-plane"), "…and ends at out-of-plane");
-				Assert.That(headers[11], Is.EqualTo("utilisation"), "Check starts at utilisation");
+				Assert.That(headers[2], Does.StartWith("K"), "Classification starts at K");
+				Assert.That(headers[4], Does.StartWith("Y"), "Classification ends at Y");
+				// StartsWith, not EqualTo: the header now carries the unit as well — "N_Rd [kN]" —
+				// and that unit follows the display setting, so pinning the whole string would pin
+				// the units too and fail the moment someone switched to newtons.
+				Assert.That(headers[5], Does.StartWith("N_Rd"), "Resistance starts at N_Rd");
+				Assert.That(headers[7], Does.StartWith("M_z,Rd"), "Resistance ends at M_z,Rd");
+				Assert.That(headers[8], Does.StartWith("axial"), "Utilisation breakdown starts at axial");
+				Assert.That(headers[10], Does.StartWith("out-of-plane"), "…and ends at out-of-plane");
+				Assert.That(headers[11], Does.StartWith("utilisation"), "Check starts at utilisation");
 				Assert.That(headers[13], Is.EqualTo("Verdict"), "Check ends at Verdict");
 
 				// the group name must NOT also be in the column header — that was the old two-line

@@ -33,7 +33,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
                 <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
-                <RowDefinition/><RowDefinition/>
+                <RowDefinition/><RowDefinition/><RowDefinition/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="1" Text="unit" FontWeight="SemiBold" Margin="0,0,0,4"/>
@@ -102,10 +102,20 @@
                        ToolTip="β, γ, τ, the Q-factors, A², φ — dimensionless, so there is no unit to offer. Their precision matters most, because they are the factors a reader substitutes."/>
             <TextBox   Grid.Row="9" Grid.Column="2" x:Name="TxtRatioDp" Margin="0,2,8,2"
                        PreviewTextInput="Digits_PreviewTextInput"/>
+
+            <!-- Utilisations, the K/X/Y shares and the three terms of eq (6.57) are all percentages,
+                 which makes this the most-used row in the table and it was missing. -->
+            <TextBlock Grid.Row="10" Grid.Column="0" Text="Utilisation, shares" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="10" Grid.Column="1" Text="%" VerticalAlignment="Center"
+                       Foreground="#78909C"/>
+            <TextBox   Grid.Row="10" Grid.Column="2" x:Name="TxtPercentDp" Margin="0,2,8,2"
+                       PreviewTextInput="Digits_PreviewTextInput"/>
         </Grid>
 
+        <!-- One line, not the paragraph that was here. A settings dialog is not the place to
+             explain a clause; it needs to say what the setting does not reach, and stop. -->
         <TextBlock TextWrapping="Wrap" Foreground="#78909C" FontSize="11" Margin="0,10,0,16"
-                   Text="The derivation on each check card stays in MPa, mm and kN whatever is set here — that is the norm's own convention, and it is what lets a printed line be held against the clause."/>
+                   Text="Detailed check derivations stay in kN, mm and MPa — the norm's own units."/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="BtnRestore" Content="Restore defaults" Width="120" Height="26"
