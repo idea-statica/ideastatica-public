@@ -454,6 +454,93 @@ namespace UT_NorsokChecker
 		// RenderJointPlane and needs one. My first attempt built a report with no topology, where
 		// the table is not rendered at all, so the test failed on an absence it had created itself.
 
+		/// <summary>
+		/// A §6.4 check card announces the CRITERION and not the formulas.
+		///
+		/// Each card used to open with `Check condition:` + the interaction inequality, the M_y/M_z
+		/// legend, and `Design resistance:` + three stacked fractions — 40 times each in the
+		/// reviewed report. Two of those three are duplicates the reader already has:
+		///
+		///   * the resistance formulas reappear a few lines below WITH NUMBERS IN THEM, so the
+		///     symbolic announcement adds nothing that is not on the same page;
+		///   * the legend is chapter 3's sign-conventions sentence, word for word.
+		///
+		/// The inequality STAYS. It is the only place on the card that says what the result is
+		/// compared against: the footer prints `= 73.73 % PASS` and the eq (6.57) step shows three
+		/// terms and their sum, but `≤ 1.0` appears nowhere else.
+		///
+		/// The distinction matters more than the page count: removing the symbolic line that stands
+		/// directly over its own substitution is what would force a cross-reference in a 150-page
+		/// document, and that is deliberately NOT done here.
+		/// </summary>
+		[Test]
+		public void TheCheckCardKeepsItsCriterionAndDropsTheDuplicatedFormulas()
+		{
+			string html = QualifiedReport();
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(html, Does.Contain("Check condition:"),
+					"the criterion is announced");
+				Assert.That(html, Does.Contain(@"\leq 1.0"),
+					"and it is the inequality, which is stated nowhere else on the card");
+
+				Assert.That(html, Does.Not.Contain("Design resistance:"),
+					"the symbolic resistances are not announced — they are printed below with "
+					+ "their numbers, on the same page");
+				Assert.That(html, Does.Not.Contain("M<sub>y</sub> = in-plane"),
+					"and the legend is chapter 3's sentence, not the card's");
+			});
+		}
+
+		/// <summary>
+		/// Chapter 3 shows the equations it talks about.
+		///
+		/// It said the resistance is recomputed for every load effect and contained no equation at
+		/// all — measured, zero `$$` blocks — so a reader met eq (6.52) for the first time on page
+		/// 12, inside a check. The chapter that exists to stand on its own could not.
+		/// </summary>
+		[Test]
+		public void ChapterThreeShowsTheEquations()
+		{
+			string html = QualifiedReport();
+
+			int at = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "chapter 3 is rendered");
+			// To the first connection chapter, so this cannot pass on a check card's own maths.
+			int end = html.IndexOf("class='connection-header", at, StringComparison.Ordinal);
+			string chapter = end > at ? html[at..end] : html[at..];
+
+			Assert.Multiple(() =>
+			{
+				Assert.That(chapter, Does.Contain("N_{Rd}"), "eq (6.52) is shown");
+				Assert.That(chapter, Does.Contain("M_{y,Rd}"), "eq (6.53) is shown");
+				Assert.That(chapter, Does.Contain(@"\leq 1.0"), "and the interaction criterion");
+				Assert.That(chapter, Does.Match(@"Q_u|Q<sub>u</sub>"),
+					"with its symbols named, or the equations cannot be read");
+			});
+		}
+
+		/// <summary>A report with one §6.4.3.6 card, which is what both tests above read.</summary>
+		private static string QualifiedReport()
+		{
+			var row = MultiModeRow();
+			return NorsokHtmlReportGenerator.GenerateReport("test.ideaCon",
+				new List<(string, List<NorsokChecker.Models.NorsokFormulaResult>)>
+				{
+					("CON11", new List<NorsokChecker.Models.NorsokFormulaResult>
+					{
+						new()
+						{
+							Section = "6.4.3.6", Equation = "6.57",
+							Title = "Tubular Joint — M3",
+							Utilization = row.Util, Passed = row.Passed,
+							FormulaSubstituted = "28.49% + 0.55% + 23.65%",
+						},
+					}),
+				});
+		}
+
 		private static string N(double v, int dp) => v.ToString("F" + dp, Inv);
 		private static string N3(double v) => v.ToString("F3", Inv);
 

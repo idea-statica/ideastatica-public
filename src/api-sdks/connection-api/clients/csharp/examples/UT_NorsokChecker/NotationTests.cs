@@ -170,20 +170,26 @@ namespace UT_NorsokChecker
 		/// <summary>
 		/// All three resistances the check condition names have a formula, side by side.
 		///
-		/// Printing only N_Rd left two of the condition's three terms unexplained on the card — the
-		/// reader saw M_y,Rd in the inequality with nothing above it to say what it was.
+		/// Printing only N_Rd would leave two of the condition's three terms unexplained — a reader
+		/// meeting M_y,Rd in the inequality with nothing to say what it is.
+		///
+		/// The block MOVED, and this test moved with it. It used to sit at the top of every check
+		/// card, symbolically, 40 times over in the reviewed report — while the same three
+		/// resistances appeared a few lines below in each card WITH THEIR NUMBERS. The announcement
+		/// was the duplicate, so it is now stated once, in chapter 3. The property it guards is
+		/// unchanged: all three, together, aligned on their shared base.
 		/// </summary>
 		[Test]
 		public void TheDesignResistanceBlockCarriesAllThree()
 		{
 			string html = Report();
 
-			int at = html.IndexOf("Design resistance:", StringComparison.Ordinal);
-			Assert.That(at, Is.GreaterThan(0), "the design-resistance block");
-
-			// The block itself, not the whole document: the check condition and the derivation also
-			// mention these symbols, so matching anywhere would pass on a block holding only N_Rd.
-			string block = html[at..Math.Min(at + 1200, html.Length)];
+			// In chapter 3 now. Anchored on the chapter heading and cut at the first connection, so
+			// this cannot pass on a check card's own maths further down the document.
+			int at = html.IndexOf("How the checks are made", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "chapter 3 is rendered");
+			int end = html.IndexOf("class='connection-header", at, StringComparison.Ordinal);
+			string block = end > at ? html[at..end] : html[at..];
 
 			Assert.Multiple(() =>
 			{
@@ -196,28 +202,56 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// y and z are EXPLAINED, and specifically as the joint plane's.
+		/// y and z are EXPLAINED, and specifically as the joint plane's — ONCE, in chapter 3.
 		///
-		/// This is the user's point: everywhere else in this application y and z are a member's local
-		/// axes, so a reader who knows the rest of the app would derive the wrong meaning. The
-		/// assertion is on the disambiguating half of the sentence — a legend saying only "in-plane"
-		/// would not answer the concern that raised it.
+		/// The user's point: everywhere else in this application y and z are a member's local axes,
+		/// so a reader who knows the rest of the app would derive the wrong meaning. The
+		/// disambiguating half of the sentence is what matters — "in-plane" alone does not answer
+		/// the concern that raised it.
+		///
+		/// It used to be a per-card legend AND chapter 3's sign-conventions sentence, word for word,
+		/// so the report said it 41 times. The card's copy is gone; the sentence is the one that
+		/// stays, and it took the (§6.4.3.6) reference with it.
+		///
+		/// SCOPED to chapter 3, unlike the version this replaces. That one searched the whole
+		/// document, where "in-plane", "out-of-plane" and "joint plane" all occur in the method
+		/// prose regardless of the legend — so rewording the legend to the OPPOSITE meaning would
+		/// have left it green. Measured before rewriting it.
 		/// </summary>
 		[Test]
-		public void TheLegendSaysWhichPlaneYAndZRefersTo()
+		public void ChapterThreeSaysWhichPlaneYAndZRefersTo()
 		{
 			string html = Report();
 
+			int at = html.IndexOf("Sign conventions", StringComparison.Ordinal);
+			Assert.That(at, Is.GreaterThan(0), "the sign-conventions paragraph");
+			int end = html.IndexOf("</p>", at, StringComparison.Ordinal);
+			string para = end > at ? html[at..end] : html[at..Math.Min(at + 600, html.Length)];
+
 			Assert.Multiple(() =>
 			{
-				Assert.That(html, Does.Contain("in-plane"), "y is named");
-				Assert.That(html, Does.Contain("out-of-plane"), "and z");
-				Assert.That(html, Does.Contain("joint plane"),
-					"and WHICH plane — the joint's, which is the part that stops someone reading them "
-					+ "as the member's local axes");
-				Assert.That(html, Does.Contain("local axes"),
+				Assert.That(para, Does.Contain("in-plane"), "y is named");
+				Assert.That(para, Does.Contain("out-of-plane"), "and z");
+				Assert.That(para, Does.Contain("joint plane"),
+					"and WHICH plane — the joint's, which is the part that stops someone reading "
+					+ "them as the member's local axes");
+				Assert.That(para, Does.Match(@"local y and z|local axes"),
 					"said explicitly, because that is the wrong reading being guarded against");
+				Assert.That(para, Does.Contain("6.4.3.6"),
+					"with the clause, which used to be carried only by the card's legend");
 			});
+		}
+
+		/// <summary>
+		/// And the card does NOT repeat it. The point of moving it was that it was said 41 times.
+		/// </summary>
+		[Test]
+		public void TheCardDoesNotRepeatTheSignConvention()
+		{
+			string html = Report();
+
+			Assert.That(html, Does.Not.Contain("M<sub>y</sub> = in-plane"),
+				"the per-card legend is gone — chapter 3 carries the sentence");
 		}
 
 		/// <summary>

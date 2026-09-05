@@ -512,11 +512,51 @@ namespace NorsokChecker.Services
 				+ "is how far a brace sits from the plane through its chord; moving the chord by "
 				+ "&minus;e is the same joint as moving every brace by +e, and reads the same.</p>");
 
+			// The (§6.4.3.6) reference used to live only on the per-card legend, which this sentence
+			// duplicated word for word 40 times. The sentence is the one that stays, so it takes the
+			// clause reference with it.
 			sb.AppendLine("  <p><strong>Sign conventions.</strong> N is positive in TENSION. "
 				+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending <em>of the joint "
-				+ "plane</em> (eq 6.57), not of a member's local y and z. Section forces are taken "
-				+ "AT THE NODE and projected without an r&times;F transfer, matching the reference "
-				+ "implementation.</p>");
+				+ "plane</em> (eq 6.57, &sect;6.4.3.6), not of a member's local y and z. Section "
+				+ "forces are taken AT THE NODE and projected without an r&times;F transfer, "
+				+ "matching the reference implementation.</p>");
+
+			// THE EQUATIONS, ONCE, IN THE CHAPTER THAT TALKS ABOUT THEM.
+			//
+			// This chapter stated that the resistance is recomputed for every load effect and then
+			// showed no equation at all, so a reader met eq (6.52) for the first time on page 12,
+			// inside a check. Meanwhile every check card announced the same three resistances
+			// symbolically before substituting them — 40 identical copies of what belongs here.
+			//
+			// Taken from FormulaLatex rather than retyped, so the chapter and the cards cannot
+			// drift apart: there is one source for these strings and this is a second reader of it.
+			if (FormulaLatex.TryGetValue("6.4.3.6", out var eq64))
+			{
+				sb.AppendLine("  <p><strong>The equations.</strong> Each brace is checked against "
+					+ "eq (6.57), whose three resistances come from eq (6.52) and eq (6.53). A check "
+					+ "card substitutes these and prints the result; the symbols are defined below "
+					+ "so the substitution can be followed without leaving the card.</p>");
+				sb.AppendLine($"  <div class='formula-math'>$${eq64.check}$$</div>");
+				sb.AppendLine($"  <div class='formula-math'>$${eq64.latex}$$</div>");
+				sb.AppendLine("  <table class='deriv-table'>");
+				sb.AppendLine("    <tr><th>symbol</th><th>meaning</th></tr>");
+				foreach (var (sym, meaning) in new[]
+				{
+					("f<sub>y,chord</sub>", "yield strength of the CHORD at the joint &mdash; not the brace's"),
+					("T, D", "chord wall thickness and outside diameter"),
+					("d", "brace outside diameter"),
+					("&theta;", "angle between the brace and the chord"),
+					("&gamma;<sub>M</sub>", "material factor, 1.15 (Table 6-1)"),
+					("Q<sub>u</sub>", "strength factor, Table 6-3 &mdash; differs by joint class (K/Y/X) "
+						+ "and by whether the brace is in tension or compression"),
+					("Q<sub>f</sub>", "chord-action factor, eq (6.54), with the Table 6-4 coefficients"),
+					("Q<sub>g</sub>", "gap factor for K, note (b) under Table 6-3 &mdash; three branches, "
+						+ "the middle one interpolated"),
+					("Q<sub>&beta;</sub>", "geometric factor, note (a) &mdash; 1.0 for &beta; &le; 0.6"),
+				})
+					sb.AppendLine($"    <tr><td>{sym}</td><td>{meaning}</td></tr>");
+				sb.AppendLine("  </table>");
+			}
 
 			sb.AppendLine("  <p><strong>Shear and torsion do not enter this check.</strong> "
 				+ "Eq (6.57) has three terms &mdash; axial, in-plane and out-of-plane bending. That "
@@ -997,20 +1037,37 @@ namespace NorsokChecker.Services
 				sb.AppendLine($"      <p class='formula-label'>Check condition:</p>");
 				sb.AppendLine($"      <div class='formula-math'>$${latex.check}$$</div>");
 
-				// What y and z MEAN, at the point the symbols first appear.
+				// §6.4 CARDS ANNOUNCE THE CRITERION, NOT THE FORMULAS.
 				//
-				// They are the norm's own (eq 6.57's where-list defines M_y as in-plane and M_z as
-				// out-of-plane), but everywhere else in this application y and z are a MEMBER's local
-				// axes — so a reader who knows the rest of the app would derive the wrong thing from
-				// them. The plane they refer to is the joint's, and saying so is the whole point of
-				// this line.
+				// The card used to carry three things here, 40 times over in the reviewed report,
+				// and two of them were duplicates the reader already had on the same page:
+				//
+				//   * `Design resistance:` and the three symbolic fractions — which reappear a few
+				//     lines below WITH NUMBERS SUBSTITUTED. The announcement added nothing.
+				//   * the M_y / M_z legend — chapter 3's sign-conventions sentence, word for word.
+				//
+				// The inequality above stays, and is the reason this is not simply "delete the
+				// header": it is the only place on the card that says what the result is compared
+				// against. The footer prints "= 73.73 % PASS" and the eq (6.57) step shows three
+				// terms and their sum, but `<= 1.0` appears nowhere else.
+				//
+				// Deliberately NOT done: removing the symbolic line that stands directly over its
+				// own substitution further down. That one is what would force a cross-reference in
+				// a 150-page document, which costs the reader more than the pages are worth.
+				//
+				// Scoped to §6.4.3.6 because this dictionary is keyed by section and §6.3 renders
+				// through the same method — a blanket change would silently strip its cards too.
 				if (fr.Section == "6.4.3.6")
-					sb.AppendLine("      <p class='formula-legend'>M<sub>y</sub> = in-plane, "
-						+ "M<sub>z</sub> = out-of-plane bending &mdash; of the <b>joint plane</b>, "
-						+ "not a member's local axes (&sect;6.4.3.6)</p>");
-
-				sb.AppendLine($"      <p class='formula-label'>Design resistance:</p>");
-				sb.AppendLine($"      <div class='formula-math'>$${latex.latex}$$</div>");
+				{
+					sb.AppendLine("      <p class='formula-legend'>Resistances per eq (6.52) and "
+						+ "(6.53), substituted below; the equations and the sign conventions are "
+						+ "stated once in chapter 3.</p>");
+				}
+				else
+				{
+					sb.AppendLine($"      <p class='formula-label'>Design resistance:</p>");
+					sb.AppendLine($"      <div class='formula-math'>$${latex.latex}$$</div>");
+				}
 				sb.AppendLine("    </div>");
 			}
 
