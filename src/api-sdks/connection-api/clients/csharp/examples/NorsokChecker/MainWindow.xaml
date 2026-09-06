@@ -431,18 +431,22 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                    <!-- Name and Status share the pane in star widths, so a long status
+                                         SHRINKS the name instead of pushing the last two columns off the
+                                         right edge. Status used to be SizeToCells: after a run it grew to
+                                         "Outside §6.4 scope (7 conditions)" and, with two fixed-pixel
+                                         columns after it, the grid overflowed its pane and only a scroll
+                                         strip showed where Max Utilization and Norsok had gone. -->
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" MinWidth="70"/>
                                     <!-- Active / total load effects, read from the model at load time.
                                          An em dash until they have been read — "0 / 0" would state
                                          that the connection has no load effects. -->
                                     <DataGridTextColumn Header="Active LC / Total" Binding="{Binding LoadEffectsDisplay}"
                                                         Width="SizeToHeader" MinWidth="110"/>
-                                    <!-- SizeToCells: the longest status is "Outside §6.4 scope (7 conditions)",
-                                         which a fixed 130 px truncated -->
                                     <DataGridTextColumn Header="Status" Binding="{Binding Status}"
-                                                        Width="SizeToCells" MinWidth="130"/>
-                                    <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="130"/>
-                                    <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="90"/>
+                                                        Width="2*" MinWidth="150"/>
+                                    <DataGridTextColumn Header="Max Utilization" Binding="{Binding MaxUtilizationDisplay}" Width="SizeToHeader"/>
+                                    <DataGridTextColumn Header="Norsok" Binding="{Binding NorsokPass}" Width="SizeToHeader"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <!-- Vertical grip: 3D view width vs connection list width. Spans both rows
