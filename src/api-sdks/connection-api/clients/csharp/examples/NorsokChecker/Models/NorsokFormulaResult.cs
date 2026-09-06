@@ -91,8 +91,28 @@ namespace NorsokChecker.Models
 		/// <summary>Equation number, e.g. "6.1"</summary>
 		public string Equation { get; set; } = string.Empty;
 
-		/// <summary>Title, e.g. "Axial Tension"</summary>
+		/// <summary>
+		/// Title, e.g. "Axial Tension" — for a row that has no <see cref="JointDetail"/>. A §6.4 card
+		/// leaves this empty and is titled by <see cref="TitleFor"/> when it is printed.
+		/// </summary>
 		public string Title { get; set; } = string.Empty;
+
+		/// <summary>
+		/// The title as it is printed under <paramref name="display"/>.
+		///
+		/// A §6.4 card's title carries three percentages, so it is composed here, at print time, from
+		/// the row the card keeps — not stored. Stored, it was frozen in the precision of the RUN, and
+		/// a settings change then produced one header row in two precisions.
+		/// </summary>
+		public string TitleFor(DisplaySettings display) =>
+			JointDetail != null ? Services.Norsok64.Joint64ReportAdapter.TitleOf(JointDetail, display) : Title;
+
+		/// <summary>
+		/// What identifies the row, with the per-chapter detail left off — for an overview column.
+		/// A §6.4 card answers from its row; any other row answers with its title.
+		/// </summary>
+		public string Subject =>
+			JointDetail != null ? Services.Norsok64.Joint64ReportAdapter.SubjectOf(JointDetail) : Title;
 
 		/// <summary>The check expression, e.g. "N_Sd ≤ N_t,Rd"</summary>
 		public string CheckExpression { get; set; } = string.Empty;
@@ -158,14 +178,24 @@ namespace NorsokChecker.Models
 		/// Names the parameter and its value ("M1: θ = 20.0°, outside 30–90°") rather than saying
 		/// "outside range": the reader's next question is always WHICH parameter, and the answer is
 		/// already known where this is set.
+		///
+		/// For a row WITHOUT <see cref="JointDetail"/>. A §6.4 card composes it at print time in
+		/// <see cref="RangeQualifierFor"/>, because the value it names carries the reader's precision.
 		/// </summary>
 		public string? RangeQualifier { get; set; }
 
+		/// <summary>The qualifier as printed under <paramref name="display"/>; null when there is none.</summary>
+		public string? RangeQualifierFor(DisplaySettings? display) =>
+			JointDetail is { Engine: { } engine } row
+				? Services.Norsok64.Joint64ReportAdapter.RangeQualifierOf(row.Name, engine, display)
+				: RangeQualifier;
+
 		/// <summary>
-		/// True when the check ran and produced a usable result, but <see cref="RangeQualifier"/>
-		/// qualifies it. Neither a pass nor a failure on its own — it modifies a pass.
+		/// True when the check ran and produced a usable result, but <see cref="RangeQualifierFor"/>
+		/// qualifies it. Neither a pass nor a failure on its own — it modifies a pass. Whether a
+		/// qualifier exists does not depend on the display setting, only its wording does.
 		/// </summary>
-		public bool IsQualified => !IsNote && !NotAssessed && !string.IsNullOrEmpty(RangeQualifier);
+		public bool IsQualified => !IsNote && !NotAssessed && !string.IsNullOrEmpty(RangeQualifierFor(null));
 
 		/// <summary>
 		/// A RECOMMENDATION of the standard that this joint does not meet — named, with its value.
@@ -180,15 +210,24 @@ namespace NorsokChecker.Models
 		/// computed this in the card renderer and dropped it, so seven connections read "Norsok OK"
 		/// in the overview over their own detail pages recording the provision unmet, twenty times,
 		/// once at g = 1.5 mm against 50. A reader scanning the overview had no way to know.
+		///
+		/// For a row WITHOUT <see cref="JointDetail"/>; a §6.4 card composes it at print time in
+		/// <see cref="RecommendationFor"/>, since the gap it quotes is in the reader's length unit.
 		/// </summary>
 		public string? Recommendation { get; set; }
 
+		/// <summary>The recommendation as printed under <paramref name="display"/>; null when met.</summary>
+		public string? RecommendationFor(DisplaySettings? display) =>
+			JointDetail is { } row
+				? Services.Norsok64.Joint64ReportAdapter.GapRecommendationOf(row.Name, row, display)
+				: Recommendation;
+
 		/// <summary>
-		/// True when the check ran and a <see cref="Recommendation"/> of the standard is not met.
-		/// Deliberately NOT part of any pass/fail decision — see the field's own note.
+		/// True when the check ran and a recommendation of the standard is not met (see
+		/// <see cref="RecommendationFor"/>). Deliberately NOT part of any pass/fail decision.
 		/// </summary>
 		public bool HasUnmetRecommendation =>
-			!IsNote && !NotAssessed && !string.IsNullOrEmpty(Recommendation);
+			!IsNote && !NotAssessed && !string.IsNullOrEmpty(RecommendationFor(null));
 
 		/// <summary>PASS / FAIL / NOTE / N/A — the single place that decides the wording.</summary>
 		public string Verdict => IsNote ? "NOTE" : NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
@@ -217,7 +256,7 @@ namespace NorsokChecker.Models
 
 			// ── Header ──
 			sb.AppendLine($"┌─────────────────────────────────────────────────────────");
-			sb.AppendLine($"│ NORSOK N-004 §{Section} — {Title}   (Eq. {Equation})");
+			sb.AppendLine($"│ NORSOK N-004 §{Section} — {TitleFor(new DisplaySettings())}   (Eq. {Equation})");
 			sb.AppendLine($"├─────────────────────────────────────────────────────────");
 
 			// ── Check condition ──

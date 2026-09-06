@@ -109,12 +109,12 @@ namespace NorsokChecker
 						Connection = conName,
 						fr.Section,
 
-						// Title only, stripped of what other columns already carry. A §6.4 row's title
-						// arrives as "Tubular Joint — M1 (K 0% / Y 0% / X 100%) — outside validity
-						// range (6.4.3.1)": the K/Y/X split is a column of its own on the §6.4 tab and
-						// the validity note is that tab's business too, so here they made the widest
-						// column in an overview out of detail nobody reads across fifteen rows.
-						Title = ShortTitle(fr.Title),
+						// The subject only, stripped of what other columns already carry: the K/Y/X
+						// split is a column of its own on the §6.4 tab and the validity note is that
+						// tab's business too, so here they made the widest column in an overview out
+						// of detail nobody reads across fifteen rows. A §6.4 row answers from its own
+						// data; the other chapters still hand over a finished title, which is cut.
+						Title = fr.JointDetail != null ? fr.Subject : ShortTitle(fr.Title),
 
 						// A load case only where there IS one, and next to the Section it qualifies
 						// rather than after the equation number. "envelope" was printed for every row

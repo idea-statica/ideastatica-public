@@ -327,11 +327,11 @@ namespace NorsokChecker.Services
 			// page — see ShouldRenderContents.
 			bool contents = ShouldRenderContents(allResults);
 			if (contents)
-				RenderIndex(sb, allResults);
+				RenderIndex(sb, allResults, disp);
 
 			// ── Executive Summary Card, then chapter 2 ──
-			RenderSummaryCard(sb, allResults);
-			RenderConnectionTable(sb, allResults);
+			RenderSummaryCard(sb, allResults, disp);
+			RenderConnectionTable(sb, allResults, disp);
 
 			// Chapter 3: the method, once. It used to be repeated inside every assessed connection —
 			// six connections carrying six identical paragraphs each.
@@ -746,7 +746,8 @@ namespace NorsokChecker.Services
 		/// to disagree with the table two inches above it.
 		/// </summary>
 		private static void RenderIndex(StringBuilder sb,
-			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults,
+			Models.DisplaySettings disp)
 		{
 			sb.AppendLine("<section class='index-page'>");
 			sb.AppendLine("  <h2 class='index-title'>Contents</h2>");
@@ -762,7 +763,7 @@ namespace NorsokChecker.Services
 			int chapter = ConnectionChapterBase;
 			foreach (var (name, formulas) in allResults)
 			{
-				var verdict = CheckWorkflow.Roll(formulas);
+				var verdict = CheckWorkflow.Roll(formulas, disp);
 				string cls = verdict.Pass switch
 				{
 					"FAIL" => "fail",
@@ -785,7 +786,8 @@ namespace NorsokChecker.Services
 		}
 
 		private static void RenderSummaryCard(StringBuilder sb,
-			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults,
+			Models.DisplaySettings disp)
 		{
 			// THREE counters, each with ONE unit. "Total Checks: 55" used to add 30 real check
 			// results to 25 unmet scope conditions — two different things in one number, and the
@@ -830,7 +832,7 @@ namespace NorsokChecker.Services
 			int notAssessed = gapRows.Count;
 
 			// And the connections, in theirs — the unit a reviewer actually counts in.
-			var verdicts = allResults.Select(r => CheckWorkflow.Roll(r.formulas)).ToList();
+			var verdicts = allResults.Select(r => CheckWorkflow.Roll(r.formulas, disp)).ToList();
 			// QUALIFIED belongs here: the connection WAS assessed, its result simply carries the
 			// §6.4.3.1 caveat. Leaving it out counted a checked joint among the unassessed ones.
 			int consAssessed = verdicts.Count(v => v.Pass is "PASS" or "FAIL" or "PARTIAL" or "QUALIFIED");
@@ -922,7 +924,7 @@ namespace NorsokChecker.Services
 			{
 				sb.AppendLine($"    <div class='stat stat-governing'>");
 				sb.AppendLine($"      <span class='stat-value'>{Pct(governing.Utilization)}</span>");
-				sb.AppendLine($"      <span class='stat-label'>Governing: &sect;{Esc(governing.Section)} {Esc(governing.Title)}</span>");
+				sb.AppendLine($"      <span class='stat-label'>Governing: &sect;{Esc(governing.Section)} {Esc(governing.TitleFor(disp))}</span>");
 				sb.AppendLine($"    </div>");
 			}
 
@@ -946,7 +948,8 @@ namespace NorsokChecker.Services
 		/// is. Restating those rules here is exactly how the two would drift.
 		/// </summary>
 		private static void RenderConnectionTable(StringBuilder sb,
-			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults)
+			IReadOnlyList<(string connectionName, List<NorsokFormulaResult> formulas)> allResults,
+			Models.DisplaySettings disp)
 		{
 			if (allResults.Count == 0) return;
 
@@ -959,7 +962,7 @@ namespace NorsokChecker.Services
 
 			foreach (var (name, formulas) in allResults)
 			{
-				var verdict = CheckWorkflow.Roll(formulas);
+				var verdict = CheckWorkflow.Roll(formulas, disp);
 
 				string cls = verdict.Pass switch
 				{
@@ -1072,7 +1075,7 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"  <summary class='card-header {statusClass}'>");
 			sb.AppendLine($"    <span class='status-icon'>{statusIcon}</span>");
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(fr.Section)}</span>");
-			sb.AppendLine($"    <span class='card-title'>{Esc(fr.Title)}</span>");
+			sb.AppendLine($"    <span class='card-title'>{Esc(fr.TitleFor(display ?? new Models.DisplaySettings()))}</span>");
 			// Only where there IS an equation. It used to print unconditionally, so a card that
 			// evaluated nothing carried "(Eq. -)" or "(Eq. 6.4.3)" — the first is a placeholder shown
 			// to the customer, the second names a CLAUSE as though it were an equation. Suppressing

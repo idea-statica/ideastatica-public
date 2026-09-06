@@ -239,10 +239,10 @@ namespace NorsokChecker
 						if (fr.IsNote)
 							Log($"    {fr.Section} NOTE: {fr.CheckExpression}");
 						else
-							Log($"    {fr.Section} {fr.Title}: util={fr.Utilization * 100:F1}% {fr.Verdict}");
+							Log($"    {fr.Section} {fr.TitleFor(_display)}: util={fr.Utilization * 100:F1}% {fr.Verdict}");
 					}
 
-					var verdict = Services.CheckWorkflow.Roll(formulaResults);
+					var verdict = Services.CheckWorkflow.Roll(formulaResults, _display);
 					con.NorsokPass = verdict.Pass;
 					con.MaxUtilization = verdict.MaxUtilisation;
 					con.Status = verdict.Status;

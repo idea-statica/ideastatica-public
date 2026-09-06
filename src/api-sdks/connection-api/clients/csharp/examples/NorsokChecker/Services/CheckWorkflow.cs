@@ -35,7 +35,13 @@ namespace NorsokChecker.Services
 		/// A NOTE qualifies a check that DID run (a warning, an assumption). It is neither a result
 		/// nor a gap, so it takes no part in the roll-up at all.
 		/// </summary>
-		internal static ConnectionVerdict Roll(IReadOnlyList<NorsokFormulaResult> results)
+		/// <param name="display">
+		/// The units and precision the verdict's TEXT is written in — the qualifier quotes θ, the
+		/// recommendation quotes a gap. The verdict itself does not read it: PASS / FAIL / QUALIFIED
+		/// are decided on the results' values alone.
+		/// </param>
+		internal static ConnectionVerdict Roll(IReadOnlyList<NorsokFormulaResult> results,
+			DisplaySettings? display = null)
 		{
 			// The unmet RECOMMENDATIONS are attached here, once, around the decision — not inside
 			// it. Five return paths decide Pass, and threading the recommendations through each was
@@ -43,17 +49,18 @@ namespace NorsokChecker.Services
 			// impossible for a "should" to alter a verdict, which is the property that matters.
 			var recs = results
 				.Where(f => f.HasUnmetRecommendation)
-				.Select(f => f.Recommendation!)
+				.Select(f => f.RecommendationFor(display)!)
 				.Distinct()
 				.ToList();
 
-			var v = Decide(results);
+			var v = Decide(results, display);
 			return recs.Count == 0
 				? v
 				: v with { Recommendations = string.Join(" · ", recs) };
 		}
 
-		private static ConnectionVerdict Decide(IReadOnlyList<NorsokFormulaResult> results)
+		private static ConnectionVerdict Decide(IReadOnlyList<NorsokFormulaResult> results,
+			DisplaySettings? display)
 		{
 			double maxUtil = 0;
 			bool anyFailed = false;
@@ -132,7 +139,7 @@ namespace NorsokChecker.Services
 			// tells the reader to go looking, whereas "M1: θ = 20.0°, outside 30–90°" is the answer.
 			var qualifiers = results
 				.Where(f => f.IsQualified)
-				.Select(f => f.RangeQualifier!)
+				.Select(f => f.RangeQualifierFor(display)!)
 				.Distinct()
 				.ToList();
 

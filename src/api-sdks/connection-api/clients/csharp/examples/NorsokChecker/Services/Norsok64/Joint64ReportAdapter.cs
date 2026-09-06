@@ -26,146 +26,65 @@ namespace NorsokChecker.Services.Norsok64
 		/// Build a report card from an auto-topology §6.4 check row (JointCheckOrchestrator output).
 		/// The classification (frK/frY/frX) came from the K/Y/X force-decomposition classifier, the
 		/// chord stresses from the Begin/End averaging — no manual joint-type input involved.
+		///
+		/// THE CARD CARRIES VALUES, NOT SENTENCES. Its title, its range qualifier and its
+		/// recommendation are composed by <see cref="TitleOf"/>, <see cref="RangeQualifierOf"/> and
+		/// <see cref="GapRecommendationOf"/> at the moment they are printed, from the row kept in
+		/// <see cref="NorsokFormulaResult.JointDetail"/>. They used to be built here, when the check
+		/// ran, in the units and precision in force at that moment — so a card built at one decimal
+		/// and printed at two read `K 0.0 % / Y 0.0 % / X 100.0 %` beside a badge saying `32.10%`, and
+		/// the results grid had to parse the title back apart to recover the brace name it had been
+		/// given a moment earlier. No display setting is read here any more, and there is nothing in
+		/// this method for one to reach.
+		///
+		/// No Variables table either: the derivation IS the substitution, step by step, and the
+		/// report already declines to print a "Where" table beside one. The list built here was read
+		/// by nothing.
 		/// </summary>
-		/// <summary>
-		/// The units these cards are built in, published by the GUI when the setting changes. The
-		/// check runner is calculation code and does not thread a display setting through itself.
-		/// </summary>
-		public static Models.DisplaySettings Display { get; set; } = new();
-
-		public static NorsokFormulaResult BuildResultFromRow(JointCheckRow row, string loadCaseName,
-			Models.DisplaySettings? display = null)
+		public static NorsokFormulaResult BuildResultFromRow(JointCheckRow row, string loadCaseName)
 		{
 			var r = row.Engine!;
-			var inp = row.Inputs!;
-			var cl = row.Classification!;
-			var dom = Enum.Parse<Joint64Class>(row.DomClass);
-			var ac = r.PerClass[dom];
-
-			// The reader's units, here too. These variables reach the card's substitution line and
-			// the "Where:" table, so leaving them in kN printed kN on a page set to kip.
-			//
-			// Falls back to the static Display rather than to a fresh default: the runner that calls
-			// this is calculation code and has no business carrying a display setting through, so
-			// the GUI publishes it once instead.
-			var disp = display ?? Display;
-			string uF = Models.QuantityFormat.ForceLabel(disp.Force);
-			string uM = disp.MomentLabel;
-			string uS = Models.QuantityFormat.StressLabel(disp.Stress);
-			string uL = Models.QuantityFormat.LengthLabel(disp.Length);
-			double cF(double n) => Models.QuantityFormat.ToForce(n, disp.Force);
-			double cS(double pa) => Models.QuantityFormat.ToStress(pa, disp.Stress);
-			double cL(double m) => Models.QuantityFormat.ToLength(m, disp.Length);
-			double cM(double nm)
-			{
-				double perMetre = disp.Force == Models.ForceUnit.Kip
-					&& disp.Length == Models.LengthUnit.Inch ? 1.0 / 0.0254
-					: disp.Force == Models.ForceUnit.Kip ? 1.0 / 0.3048 : 1.0;
-				return Models.QuantityFormat.ToForce(nm, disp.Force) * perMetre;
-			}
-
-			double nRdKn = cF(r.NRdWeighted);
-			double axialTerm = r.NRdWeighted > 0 ? Math.Abs(inp.NSd) / r.NRdWeighted : 0.0;
-			double ipbTerm = r.MRdIp > 0 ? Math.Pow(Math.Abs(inp.MipSd) / r.MRdIp, 2) : 0.0;
-			double opbTerm = r.MRdOp > 0 ? Math.Abs(inp.MopSd) / r.MRdOp : 0.0;
-
-			// INVARIANT CULTURE, and the reader's precision. `:P0` formats in the CURRENT culture,
-			// so on a Czech machine this title put comma decimals into an English report — the
-			// defect QuantityFormat.Report exists to prevent, arriving through the one string that
-			// had not been routed through it.
-			string Pc(double v) => Models.QuantityFormat.Percent(v, Inv, disp.PercentDecimals);
-			string clsStr = $"K {Pc(cl.FrK)} / Y {Pc(cl.FrY)} / X {Pc(cl.FrX)}";
-			string title = $"Tubular Joint — {row.Name} ({clsStr})";
-			if (r.ChordOverstressed) title += " — CHORD OVERSTRESSED";
-			else if (!r.WithinRange) title += " — outside validity range (6.4.3.1)";
-
 			double utilDisplay = double.IsInfinity(r.UtilWeighted) ? 999.0 : r.UtilWeighted;
-
-			// The governing load effect. Without this the card reports LoadCaseId = 0, which the
-			// results table renders as "envelope" and the report drops the LE badge entirely —
-			// the envelope is only useful if it says which state it came from.
-			int govLeId = row.GovLeId;
-			string govLeName = row.GovLeName ?? loadCaseName;
-
-			var variables = new List<FormulaVariable>
-			{
-				new() { Symbol = "D", Description = "chord outside diameter", Value = cL(inp.D), Unit = uL },
-				new() { Symbol = "T", Description = "chord wall thickness", Value = cL(inp.T), Unit = uL },
-				new() { Symbol = "d", Description = "brace outside diameter", Value = cL(inp.d), Unit = uL },
-				new() { Symbol = "t", Description = "brace wall thickness", Value = cL(inp.t), Unit = uL },
-				new() { Symbol = "θ", Description = "brace-to-chord angle (auto, from member axes)", Value = inp.ThetaDeg, Unit = "°" },
-				new() { Symbol = "β", Description = "d/D (validity: 0.2–1.0)", Value = r.Beta, Unit = "-" },
-				new() { Symbol = "γ", Description = "D/(2T) (validity: 10–50)", Value = r.Gamma, Unit = "-" },
-				new() { Symbol = "τ", Description = "t/T", Value = r.Tau, Unit = "-" },
-				new() { Symbol = "frK", Description = "K fraction (force-balance classification)", Value = cl.FrK, Unit = "-" },
-				new() { Symbol = "frY", Description = "Y fraction", Value = cl.FrY, Unit = "-" },
-				new() { Symbol = "frX", Description = "X fraction", Value = cl.FrX, Unit = "-" },
-				new() { Symbol = "Q_g", Description = "gap factor (first K gap)", Value = r.Qg, Unit = "-" },
-				new() { Symbol = "Qu_axial", Description = $"strength factor — axial, {r.LoadAxial}, dominant class {row.DomClass}", Value = ac.QuAxial, Unit = "-" },
-				new() { Symbol = "Qu_IPB", Description = "strength factor — in-plane bending", Value = r.QuIpb, Unit = "-" },
-				new() { Symbol = "Qu_OPB", Description = "strength factor — out-of-plane bending", Value = r.QuOpb, Unit = "-" },
-				new() { Symbol = "Qf_axial", Description = $"chord action factor (dominant class {row.DomClass})", Value = ac.QfAxial, Unit = "-" },
-				new() { Symbol = "Qf_moment", Description = "chord action factor for moments", Value = r.QfMoment, Unit = "-" },
-				new() { Symbol = "σ_a", Description = "chord axial stress (avg Begin/End; + tension)", Value = cS(inp.SigmaASd), Unit = uS },
-				new() { Symbol = "σ_my", Description = "chord in-plane bending stress (+ compression at footprint)", Value = cS(inp.SigmaMySd), Unit = uS },
-				new() { Symbol = "σ_mz", Description = "chord out-of-plane bending stress", Value = cS(inp.SigmaMzSd), Unit = uS },
-				new() { Symbol = "N_Rd", Description = "joint axial resistance, weighted over K/Y/X (Eq. 6.52)", Value = nRdKn, Unit = uF },
-				new() { Symbol = "M_y,Rd", Description = "in-plane bending resistance (Eq. 6.53)", Value = cM(r.MRdIp), Unit = uM },
-				new() { Symbol = "M_z,Rd", Description = "out-of-plane bending resistance (Eq. 6.53)", Value = cM(r.MRdOp), Unit = uM },
-				new() { Symbol = "N_Sd", Description = "brace axial force (+ tension)", Value = cF(inp.NSd), Unit = uF },
-				new() { Symbol = "M_y,Sd", Description = "brace in-plane bending", Value = cM(inp.MipSd), Unit = uM },
-				new() { Symbol = "M_z,Sd", Description = "brace out-of-plane bending", Value = cM(inp.MopSd), Unit = uM },
-				new() { Symbol = "|N|/N_Rd", Description = "axial utilization term", Value = axialTerm, Unit = "-" },
-				new() { Symbol = "(M_y,Sd/M_y,Rd)²", Description = "in-plane bending term (squared)", Value = ipbTerm, Unit = "-" },
-				new() { Symbol = "|M_z,Sd|/M_z,Rd", Description = "out-of-plane bending term", Value = opbTerm, Unit = "-" },
-				new() { Symbol = "γ_M", Description = "material factor", Value = inp.GammaM, Unit = "-" },
-			};
-			// K per-gap breakdown (KT / multi-gap balancing)
-			for (int i = 0; i < r.KTerms.Count; i++)
-			{
-				var k = r.KTerms[i];
-				variables.Add(new FormulaVariable
-				{
-					Symbol = $"K gap {i + 1}",
-					// Invariant culture and the reader's precision, like everything else printed.
-					// `:F0` on the gap was its own defect: a 1.5 mm gap read as "2 mm", which is
-					// the size the §6.4.1 provision turns on.
-					Description = $"frK={k.FrK.ToString("F" + disp.RatioDecimals, Inv)}, "
-						+ $"g={cL(k.GapM).ToString("F" + disp.SmallLengthDecimals, Inv)} {uL}, "
-						+ $"Q_g={k.Qg.ToString("F" + disp.RatioDecimals, Inv)}, "
-						+ $"N_Rd={cF(k.NRd).ToString("F" + disp.ForceDecimals, Inv)} {uF}",
-					Value = k.FrK, Unit = "-",
-				});
-			}
 
 			return new NorsokFormulaResult
 			{
 				Section = "6.4.3.6",
 				Equation = "6.57",
-				Title = title,
 				CheckExpression = "|N_Sd|/N_Rd + (M_y,Sd/M_y,Rd)² + |M_z,Sd|/M_z,Rd ≤ 1.0",
 				Formula = @"N_{Rd} = \frac{f_y \cdot T^2}{\gamma_M \cdot \sin\theta} \cdot Q_u \cdot Q_f",
-				FormulaSubstituted =
-					$"N_Rd(weighted {clsStr}) = {nRdKn.ToString("F" + disp.ForceDecimals, Inv)} {uF}"
-						+ $";  governing LC: {govLeName}",
 				Demand = utilDisplay,
 				Capacity = 1.0,
 				Utilization = utilDisplay,
 				Passed = row.Passed,
-				LoadCaseId = govLeId,
-				LoadCaseName = govLeName,
-				Variables = variables,
+				// The governing load effect. Without this the card reports LoadCaseId = 0, which the
+				// results table renders as "envelope" and the report drops the LE badge entirely —
+				// the envelope is only useful if it says which state it came from.
+				LoadCaseId = row.GovLeId,
+				LoadCaseName = row.GovLeName ?? loadCaseName,
 				JointDetail = row,
-
-				// The caveat travels as DATA, so the roll-up can put it in the overview row. It used
-				// to exist only inside `title` above, where nothing but a reader could see it.
-				RangeQualifier = RangeQualifierOf(row.Name, r),
-
-				// Same reason, one grade softer: an unmet RECOMMENDATION. It was computed in the
-				// card renderer and thrown away, so seven connections read "Norsok OK" over their
-				// own pages recording §6.4.1 unmet.
-				Recommendation = GapRecommendationOf(row.Name, row),
 			};
+		}
+
+		/// <summary>"Tubular Joint — M3": the part of the title that identifies the row.</summary>
+		public static string SubjectOf(JointCheckRow row) => $"Tubular Joint — {row.Name}";
+
+		/// <summary>
+		/// The card title, in the reader's precision: the subject, the K/Y/X split, and the caveat
+		/// where there is one.
+		///
+		/// INVARIANT CULTURE. `:P0` formats in the CURRENT culture, so on a Czech machine this title
+		/// once put comma decimals into an English report — the defect QuantityFormat.Report exists to
+		/// prevent, arriving through the one string that had not been routed through it.
+		/// </summary>
+		public static string TitleOf(JointCheckRow row, Models.DisplaySettings disp)
+		{
+			var r = row.Engine!;
+			var cl = row.Classification!;
+			string Pc(double v) => Models.QuantityFormat.Percent(v, Inv, disp.PercentDecimals);
+			string title = $"{SubjectOf(row)} (K {Pc(cl.FrK)} / Y {Pc(cl.FrY)} / X {Pc(cl.FrX)})";
+			if (r.ChordOverstressed) title += " — CHORD OVERSTRESSED";
+			else if (!r.WithinRange) title += " — outside validity range (6.4.3.1)";
+			return title;
 		}
 
 		/// <summary>
@@ -179,8 +98,12 @@ namespace NorsokChecker.Services.Norsok64
 		///
 		/// Only for a brace with a K share: the provision is about simple K-joints, and a Y or X
 		/// brace has no gap the clause speaks of.
+		///
+		/// Whether this returns null does not depend on <paramref name="display"/> — only the
+		/// wording does — so a caller asking "is the recommendation met?" may pass any setting.
 		/// </summary>
-		internal static string? GapRecommendationOf(string braceName, JointCheckRow row)
+		internal static string? GapRecommendationOf(string braceName, JointCheckRow row,
+			Models.DisplaySettings? display = null)
 		{
 			if (row.Skipped || row.Inputs is not { } inp) return null;
 			if (inp.FrK <= 1e-9 || inp.D <= 0.0) return null;
@@ -194,7 +117,7 @@ namespace NorsokChecker.Services.Norsok64
 			// The MEASURED values follow the reader's unit; the clause's own 50 mm does not.
 			// Converting the bound as well was tried and withdrawn: 50 mm and a 49.6 mm gap both
 			// print as "2.0 in", giving "g = 2.0 in against 2.0 in < g — not satisfied".
-			var d = Display;
+			var d = display ?? new Models.DisplaySettings();
 			string uL = Models.QuantityFormat.LengthLabel(d.Length);
 			string g = Models.QuantityFormat.ToLength(inp.G, d.Length)
 				.ToString("F" + d.SmallLengthDecimals, Inv);
@@ -218,13 +141,14 @@ namespace NorsokChecker.Services.Norsok64
 		/// ranges at once, and reporting one of them would understate the caveat exactly where the
 		/// reader is scanning for it.
 		/// </summary>
-		internal static string? RangeQualifierOf(string braceName, JointResult64 r)
+		internal static string? RangeQualifierOf(string braceName, JointResult64 r,
+			Models.DisplaySettings? display = null)
 		{
 			if (r.WithinRange || r.Validity.Count == 0) return null;
 
 			// The measured value takes the reader's precision; the RANGE is the clause's own text
 			// and stays exactly as the standard writes it.
-			var d = Display;
+			var d = display ?? new Models.DisplaySettings();
 			string Ratio(double v) => v.ToString("F" + d.RatioDecimals, Inv);
 			string Angle(double v) => v.ToString("F" + d.AngleDecimals, Inv);
 

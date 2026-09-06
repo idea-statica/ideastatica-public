@@ -213,9 +213,9 @@ namespace NorsokChecker
 
 			_display = dlg.Result;
 			// Two consumers that cannot be handed the setting at their call site: the results rows
-			// bind a computed property, and the §6.4 card is built inside the check runner.
+			// bind a computed property, and the topology gate messages are composed inside the
+			// builder.
 			Models.ConnectionCheckResult.Display = _display;
-			Services.Norsok64.Joint64ReportAdapter.Display = _display;
 			Services.Norsok64.JointTopologyBuilder.Display = _display;
 			Log($"  display: force {Models.QuantityFormat.ForceLabel(_display.Force)}, "
 				+ $"stress {Models.QuantityFormat.StressLabel(_display.Stress)}, "
@@ -234,8 +234,15 @@ namespace NorsokChecker
 			PopulateReportTab();
 
 			// The connections grid binds MaxUtilizationDisplay, a computed property: it reads the
-			// new precision only when told the value changed.
-			foreach (var c in _connections) c.NotifyDisplayChanged();
+			// new precision only when told the value changed. Its Status column is a sentence from
+			// the roll-up — "M1: θ = 20.0°, outside 30–90°", a gap in millimetres — so it is rolled
+			// again in the new units; the verdict it carries cannot move, only the wording.
+			foreach (var c in _connections)
+			{
+				if (_formulaResults.TryGetValue(c.Id, out var results))
+					c.Status = Services.CheckWorkflow.Roll(results, _display).Status;
+				c.NotifyDisplayChanged();
+			}
 		}
 
 		/// <summary>

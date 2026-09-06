@@ -136,7 +136,7 @@ namespace UT_NorsokChecker
 			{
 				("CON1", new List<NorsokFormulaResult>
 				{
-					Joint64ReportAdapter.BuildResultFromRow(MultiModeRow(), "LE12", Imperial),
+					Joint64ReportAdapter.BuildResultFromRow(MultiModeRow(), "LE12"),
 				}),
 			};
 
@@ -207,17 +207,57 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
+		/// A CARD BUILT UNDER ONE SETTING AND PRINTED UNDER ANOTHER SHOWS THE SETTING IN FORCE AT
+		/// PRINT TIME — every percentage on its header row, not only the badge.
+		///
+		/// The user's sequence: run a check, then change "Utilisation, shares" to 2. The row read
+		/// `K 0.0 % / Y 0.0 % / X 100.0 %` beside `32.10%`, because the title was a finished sentence
+		/// frozen into the card when the check ran, while the badge was formatted by the generator
+		/// from the value. Two precisions on one line, and a reader asks which the check used.
+		///
+		/// The card is built with no settings in scope at all — that is the fix: there is nothing at
+		/// calculation time for a precision to freeze into.
+		/// </summary>
+		[Test]
+		public void ACardPrintsThePrecisionInForceWhenItIsPrinted()
+		{
+			var atPrint = new DisplaySettings { PercentDecimals = 3 };
+			var card = Joint64ReportAdapter.BuildResultFromRow(MultiModeRow(), "LE12");
+
+			var allResults = new List<(string, List<NorsokFormulaResult>)>
+			{
+				("CON1", new List<NorsokFormulaResult> { card }),
+			};
+			string html = Content(NorsokHtmlReportGenerator.GenerateReport(
+				"probe.ideaCon", allResults, expandAll: true, display: atPrint));
+
+			var header = Regex.Match(html, @"<summary class='card-header[^']*'>(.*?)</summary>",
+				RegexOptions.Singleline);
+			Assert.That(header.Success, "no card header on the page");
+
+			var decimals = Regex.Matches(header.Groups[1].Value, @"\d+\.(\d+)\s*%")
+				.Select(m => m.Groups[1].Value.Length).ToList();
+			Assert.That(decimals, Has.Count.GreaterThanOrEqualTo(4),
+				"the header should carry the K/Y/X split and the badge");
+			Assert.That(decimals, Is.All.EqualTo(3),
+				"a percentage on the card header still carries the precision of the RUN, not of the print");
+		}
+
+		/// <summary>
 		/// The engine itself, asserted directly rather than through the page: the same input gives
 		/// the same dimensionless results no matter what the display settings say. The page test
 		/// above would also catch this, but not tell you which side broke.
+		///
+		/// The one display static left inside calculation code is the topology builder's, for its
+		/// gate messages — so that is the one flipped here.
 		/// </summary>
 		[Test]
 		public void TheEngineIsIndifferentToTheDisplaySettings()
 		{
 			var before = MultiModeRow().Engine!;
-			Joint64ReportAdapter.Display = Imperial;
+			JointTopologyBuilder.Display = Imperial;
 			var after = MultiModeRow().Engine!;
-			Joint64ReportAdapter.Display = Metric;   // leave the static as we found it
+			JointTopologyBuilder.Display = Metric;   // leave the static as we found it
 
 			Assert.Multiple(() =>
 			{
