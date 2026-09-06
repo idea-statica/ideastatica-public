@@ -82,6 +82,16 @@ failed it at least once.
   on physically possible geometry the subset reading is lower in ~42 % of out-of-range cases, median
   3 %. Kept because the clause names one set of imposed limits, not a family — but the report must
   not imply the two printed passes are an envelope, because they are not.
+  Pass b) is printed as its three resistances only, without a derivation: the card derives the
+  governing pass, and chapter 3 states once which quantities the imposed limit replaces (Q_u, Q_g,
+  Q_β, sin θ) and which stay measured (D, T, d, t) — our reading of "imposed limiting parameters".
+- **The §6.4.2 "within 10 %" allowance is not applied.** `KyxClassifier.DefaultGate` is 0, so a
+  brace balanced to 92 % by same-side braces is 92 % K, not 100 %. Chapter 3 says so. On the safe
+  side wherever Q_g > 1; revisit only with a case where the printed shares mislead a reader who
+  applies the allowance by hand.
+- **Node equilibrium is not printed.** The chord's Begin/End loads need not balance the braces in
+  the model as loaded, and a residual on the page would read as a finding about the report rather
+  than about the model. The §6.4 tab shows it; the engineer knows what they loaded.
 - **Unit formatting is not centralised.** 240 × `kN·m` against 60 × `kNm` in the reviewed sample.
   One formatter is the fix and it is not built. (Note the counts came from one extractor: poppler
   and pypdf disagree here, because KaTeX puts a spacing strut inside the unit — a character count

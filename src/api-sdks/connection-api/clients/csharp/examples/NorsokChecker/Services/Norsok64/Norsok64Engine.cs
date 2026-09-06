@@ -84,9 +84,12 @@
 				if (beta >= 1.0) return b;
 				return a + (b - a) * (beta - 0.9) / 0.1;
 			}
+			// The note says "(β-interp)" only where an interpolation happened; at β ≤ 0.9 the
+			// coefficients are the table's own and the label was claiming a step not taken.
+			string interp = beta > 0.9 && beta < 1.0 ? " (β-interp)" : "";
 			if (kind == QfLoadKind.AxialTension)
-				return (Lerp(0.0, 0.2), 0.0, Lerp(0.4, 0.2), "X, brace axial tension (β-interp)");
-			return (Lerp(0.2, -0.2), 0.0, Lerp(0.5, 0.2), "X, brace axial compression (β-interp)");
+				return (Lerp(0.0, 0.2), 0.0, Lerp(0.4, 0.2), "X, brace axial tension" + interp);
+			return (Lerp(0.2, -0.2), 0.0, Lerp(0.5, 0.2), "X, brace axial compression" + interp);
 		}
 
 		/// <summary>

@@ -310,6 +310,11 @@ namespace NorsokChecker.Services
 				+ "project's own settings, so any calculation run there afterwards &mdash; by this "
 				+ "app or by anyone opening the file &mdash; uses them instead of whatever was set "
 				+ "before. The model is modified, not only read.</p>");
+			// Table 6-1 lists three factors and the §6.4 checks use one. Without this sentence a
+			// reader could look for γM1 or γM2 in the derivations and not find them.
+			sb.AppendLine("  <p class='settings-note'>The &sect;6.4 checks in this report use "
+				+ "&gamma;<sub>M</sub> = 1.15 (&sect;6.4.3.2); the table records what this tool "
+				+ "writes into the project for any check run there.</p>");
 			sb.AppendLine("</div>");
 
 			// ── Contents, then the summary, then the table the contents indexes ──
@@ -415,7 +420,7 @@ namespace NorsokChecker.Services
 							: groupFormulas;
 
 						cb.AppendLine($"<div class='chapter-group'>");
-						cb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
+						cb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{GroupBadge(groupFormulas)}</span></h3>");
 
 						// The joint plane, INSIDE this chapter's group — it is strictly §6.4's, not a
 						// general property of the connection, and it used to render before the groups
@@ -444,7 +449,7 @@ namespace NorsokChecker.Services
 					if (uncategorized.Count > 0)
 					{
 						cb.AppendLine($"<div class='chapter-group'>");
-						cb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{uncategorized.Count}</span></h3>");
+						cb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{GroupBadge(uncategorized)}</span></h3>");
 						foreach (var fr in uncategorized)
 							RenderFormulaCard(cb, fr, expandAll, disp);
 						cb.AppendLine($"</div>");
@@ -552,6 +557,25 @@ namespace NorsokChecker.Services
 				+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending <em>of the joint "
 				+ "plane</em> (eq 6.57, &sect;6.4.3.6), not of a member's local y and z. Section "
 				+ "forces are taken AT THE NODE and projected without an r&times;F transfer.</p>");
+
+			// OUR READING OF "IMPOSED LIMITING PARAMETERS", stated once. The cards show both passes
+			// of §6.4.3.1 with their resistances but not how pass b) was formed, and the clause does
+			// not say which quantities the limit replaces. This is where the reader learns it.
+			sb.AppendLine("  <p><strong>&sect;6.4.3.1 outside the validity range.</strong> The "
+				+ "resistance is the lesser of two passes: actual geometry, and the infringing "
+				+ "parameter (&beta;, &gamma;, &theta;, g/D) set to its limit. The limit replaces the "
+				+ "parameter in Q<sub>u</sub>, Q<sub>g</sub>, Q<sub>&beta;</sub> and sin&thinsp;&theta;; "
+				+ "the measured dimensions D, T, d, t stay. This is our reading of &ldquo;imposed "
+				+ "limiting parameters&rdquo;.</p>");
+
+			// THE 10 % ALLOWANCE OF §6.4.2 IS NOT USED. The classifier can round a nearly-balanced
+			// brace to pure K (KyxClassifier.DefaultGate); this tool leaves the gate at zero and
+			// prints the shares as computed. A reader who applies the allowance by hand would
+			// otherwise find a different classification with nothing to explain it.
+			sb.AppendLine("  <p><strong>Classification is not rounded.</strong> &sect;6.4.2 allows "
+				+ "a brace balanced to within 10 % by same-side braces to count as pure K. This "
+				+ "report does not use that allowance; the K, Y and X shares are printed as computed. "
+				+ "A choice of this tool, on the safe side where Q<sub>g</sub> &gt; 1.</p>");
 
 			// THE MAGNITUDES IN EQ (6.57), stated as OURS.
 			//
@@ -909,8 +933,11 @@ namespace NorsokChecker.Services
 			// made adding unmet conditions to it seem reasonable.
 			sb.AppendLine($"    <div class='stat'><span class='stat-value'>{checksPerformed}</span>"
 				+ "<span class='stat-label'>Checks performed</span></div>");
+			// "Passed" alone, beside a Qualified tile, read as if the qualified checks had not
+			// passed — they did, on extrapolated formulas. The label says which passes it counts.
 			sb.AppendLine($"    <div class='stat stat-pass'><span class='stat-value'>{passed}</span>"
-				+ "<span class='stat-label'>Passed</span></div>");
+				+ $"<span class='stat-label'>{(qualified > 0 ? "Passed (unqualified)" : "Passed")}"
+				+ "</span></div>");
 			// Between Passed and Failed, and only when there are any: a qualified check passed, but
 			// on extrapolated formulas, and the reader has to meet that here rather than sixty
 			// pages later in a detail card.
@@ -1681,14 +1708,13 @@ namespace NorsokChecker.Services
 					+ "the usable strength as the <b>lesser</b> of the capacities calculated on the "
 					+ "basis of: a) actual geometric parameters, b) imposed limiting parameters for the "
 					+ "validity range, where these limits are infringed.&rdquo; The check below was "
-					+ "therefore run twice, and the smaller axial resistance is the one carried "
-					+ "forward.</p>");
+					+ "therefore run twice, and the smaller of each pair is carried forward.</p>");
 				// ALL THREE RESISTANCES, because the rule was applied to all three. §6.4.3.1 says
 				// "usable strength", not "axial resistance", and the engine takes the lesser of each
 				// independently — but this table had one N_Rd column, so a reader who checked it and
 				// moved on could not see that the moment resistances were cut as well. On the
 				// reviewed report's governing brace they fell 32 %.
-				sb.AppendLine("      <table class='deriv-table'>");
+				sb.AppendLine("      <table class='deriv-table pass-table'>");
 				sb.AppendLine("        <tr><th>pass</th><th>&beta;</th><th>&gamma;</th>"
 					+ "<th>&theta;</th><th>N<sub>Rd</sub></th>"
 					+ "<th>M<sub>y,Rd</sub></th><th>M<sub>z,Rd</sub></th></tr>");
@@ -1970,25 +1996,48 @@ namespace NorsokChecker.Services
 					double phiI = inp.T > 0.0 && inp.FyChord > 0.0
 						? (inp.t * inp.FyBrace) / (inp.T * inp.FyChord)
 						: 0.0;
-					string qgBranch = gdI >= 0.05
-						? @"Q_g = \max\{1 + 0.2(1-2.8\,g/D)^3,\ 1\}"
-						: gdI <= -0.05
-							? @"Q_g = 0.13 + 0.65\,\varphi\,\gamma^{0.5}"
-							: @"Q_g = Q_g^{-} + (Q_g^{+} - Q_g^{-})\dfrac{g/D + 0.05}{0.10}"
-								+ @"\quad\text{(interpolated)}";
-					string qgSubst = gdI >= 0.05
-						? $@"\max\{{1 + 0.2(1-2.8\cdot {N(gdI, disp.RatioDecimals)})^3,\ 1\}}"
-						: $@"\varphi = \dfrac{{{N(tMm, disp.SmallLengthDecimals)}\cdot "
-							+ $@"{N(cS(inp.FyBrace), disp.StressDecimals)}}}"
-							+ $@"{{{N(tChordMm, disp.SmallLengthDecimals)}\cdot "
-							+ $@"{N(fy, disp.StressDecimals)}}} = {N(phiI, disp.RatioDecimals)}"
-							+ $@",\ \gamma = {N(r.Gamma, disp.RatioDecimals)},\ g/D = {N(gdI, disp.RatioDecimals)}";
+					// THE TWO LIMITING VALUES ARE PRINTED. The interpolation line named Q_g⁺ and Q_g⁻
+					// and gave neither, so the one substitution on the page that could not be
+					// re-added was the one feeding Q_u. Both come from the engine at g/D = ±0.05,
+					// so the printed bounds are the ones it interpolated between.
+					// The inputs (φ, γ, g/D) sit on a "with" line: they used to be the substituted
+					// line, which therefore opened "= φ = …" and evaluated to nothing.
+					string phiWith = $@"\varphi = \dfrac{{t\,f_{{y,brace}}}}{{T\,f_{{y,chord}}}} = "
+						+ $@"\dfrac{{{N(tMm, disp.SmallLengthDecimals)}\cdot "
+						+ $@"{N(cS(inp.FyBrace), disp.StressDecimals)}}}"
+						+ $@"{{{N(tChordMm, disp.SmallLengthDecimals)}\cdot "
+						+ $@"{N(fy, disp.StressDecimals)}}} = {Sig(phiI)}"
+						+ $@",\ \gamma = {Sig(r.Gamma)},\ g/D = {Sig(gdI)}";
+					string qgBranch, qgSubst, qgWith;
+					if (gdI >= 0.05)
+					{
+						qgBranch = @"Q_g = \max\{1 + 0.2(1-2.8\,g/D)^3,\ 1\}";
+						qgSubst = $@"\max\{{1 + 0.2(1-2.8\cdot {Sig(gdI)})^3,\ 1\}}";
+						qgWith = $@"g/D = {Sig(gdI)}";
+					}
+					else if (gdI <= -0.05)
+					{
+						qgBranch = @"Q_g = 0.13 + 0.65\,\varphi\,\gamma^{0.5}";
+						qgSubst = $@"0.13 + 0.65\cdot {Sig(phiI)}\cdot {Sig(r.Gamma)}^{{0.5}}";
+						qgWith = phiWith;
+					}
+					else
+					{
+						double qgPos = Norsok64.Norsok64Engine.Qg(0.05 * inp.D, inp.D, inp.t, inp.T, inp.FyBrace, inp.FyChord, r.Gamma);
+						double qgNeg = Norsok64.Norsok64Engine.Qg(-0.05 * inp.D, inp.D, inp.t, inp.T, inp.FyBrace, inp.FyChord, r.Gamma);
+						qgBranch = @"Q_g = Q_g^{-} + (Q_g^{+} - Q_g^{-})\dfrac{g/D + 0.05}{0.10}"
+							+ @"\quad\text{(interpolated)}";
+						qgSubst = $@"{Sig(qgNeg)} + ({Sig(qgPos)} - {Sig(qgNeg)})\cdot\dfrac{{{Sig(gdI)} + 0.05}}{{0.10}}";
+						qgWith = phiWith
+							+ $@";\quad Q_g^{{+}}(g/D = 0.05) = {Sig(qgPos)},\ "
+							+ $@"Q_g^{{-}}(g/D = -0.05) = 0.13 + 0.65\cdot {Sig(phiI)}\cdot {Sig(r.Gamma)}^{{0.5}} = {Sig(qgNeg)}";
+					}
 					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g{toPartner} = "
 						+ $"{N(cL(kt.GapM), disp.SmallLengthDecimals)} {uL}, "
 						+ $"g/D = {N(gdI, disp.RatioDecimals)} "
 						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
 						+ " (Table 6-3)",
-						qgBranch, qgSubst, N(kt.Qg, disp.RatioDecimals));
+						qgBranch, qgSubst, N(kt.Qg, disp.RatioDecimals), qgWith);
 					Step(sb, $"Q<sub>u,axial</sub> &mdash; {lbl}, Table 6-3, class K, "
 						+ $"&beta; = {N(r.Beta, disp.RatioDecimals)}, &gamma; = {N(r.Gamma, disp.RatioDecimals)}",
 						@"Q_u = \min\{(16+1.2\gamma)\beta^{1.2}Q_g,\ 40\beta^{1.2}Q_g\}",
@@ -2527,12 +2576,36 @@ namespace NorsokChecker.Services
 		/// <paramref name="substituted"/> may be null when the substitution would only repeat the
 		/// symbolic form (a table lookup, say) rather than show anything.
 		/// </summary>
+		/// <summary>
+		/// The chapter badge, by kind of row. A bare count "[4]" over three checks and a note said
+		/// four of something; a rejected joint's rows are conditions, not checks, and are named so.
+		/// </summary>
+		private static string GroupBadge(IReadOnlyCollection<NorsokFormulaResult> rows)
+		{
+			int checks = rows.Count(f => !f.IsNote && !f.NotAssessed);
+			int unmet = rows.Count(f => !f.IsNote && f.NotAssessed);
+			int notes = rows.Count(f => f.IsNote);
+			var parts = new List<string>();
+			if (checks > 0) parts.Add($"{checks} check{(checks == 1 ? "" : "s")}");
+			if (unmet > 0) parts.Add($"{unmet} condition{(unmet == 1 ? "" : "s")} not met");
+			if (notes > 0) parts.Add($"{notes} note{(notes == 1 ? "" : "s")}");
+			return parts.Count > 0 ? string.Join(" &middot; ", parts) : rows.Count.ToString();
+		}
+
+		/// <summary>
+		/// One derivation step: label, the symbolic formula, an optional line of stated inputs
+		/// ("with φ = …"), the substituted expression and its result. Only the substituted line
+		/// opens with "=" — it is the one that must evaluate to the result, and the tests hold it
+		/// to that; the inputs line is prose in KaTeX and is not an equation of the result.
+		/// </summary>
 		private static void Step(StringBuilder sb, string label, string symbolic,
-			string? substituted, string result)
+			string? substituted, string result, string? with = null)
 		{
 			sb.AppendLine("      <div class='deriv-step'>");
 			sb.AppendLine($"        <div class='deriv-step-label'>{label}</div>");
 			sb.AppendLine($"        <div class='deriv-step-math'>$${symbolic}$$</div>");
+			if (!string.IsNullOrEmpty(with))
+				sb.AppendLine($"        <div class='deriv-step-math'>$$\\text{{with }}{with}$$</div>");
 			if (!string.IsNullOrEmpty(substituted))
 				sb.AppendLine($"        <div class='deriv-step-math'>$$=\\;{substituted}$$</div>");
 			sb.AppendLine($"        <div class='deriv-step-res'>$$=\\;{result}$$</div>");
@@ -2676,7 +2749,7 @@ namespace NorsokChecker.Services
 		/// </summary>
 		internal static string ConditionHtml(string condition)
 		{
-			return Esc(condition)
+			string html = Esc(condition)
 				.Replace("&lt;=", "&nbsp;&le;&nbsp;")
 				.Replace("&gt;=", "&nbsp;&ge;&nbsp;")
 				.Replace("&lt;", "&nbsp;&lt;&nbsp;")
@@ -2685,6 +2758,10 @@ namespace NorsokChecker.Services
 				.Replace("gamma", "&gamma;")
 				.Replace("theta", "&theta;")
 				.Replace("tau", "&tau;");
+			// The angle bounds carry their unit; "30 ≤ θ ≤ 90" beside "θ = 45.0°" did not.
+			if (condition.Contains("theta"))
+				html = System.Text.RegularExpressions.Regex.Replace(html, @"(?<![\d.#])(\d+(?:\.\d+)?)(?![\d.;])", "$1&deg;");
+			return html;
 		}
 
 		/// <summary>
@@ -3326,6 +3403,13 @@ body {
      body is held to it from the other side, so neither can let go. */
   .check-card > summary { break-after: avoid; break-inside: avoid; }
   .card-body > :first-child { break-before: avoid; }
+
+  /* The two-pass table of §6.4.3.1 is read with its legend (which value governs) and the warning
+     under it (the resistance is an extrapolation); a page break between them left the arrow
+     unexplained on one page and its meaning on the next. */
+  .pass-table { break-after: avoid; break-inside: avoid; }
+  .pass-table + .deriv-note { break-before: avoid; break-after: avoid; }
+  .pass-table + .deriv-note + .deriv-warn { break-before: avoid; }
 
   /* The colophon does not take a page of its own: it stays with whatever precedes it. */
   .report-footer { break-before: avoid; break-inside: avoid; }
