@@ -61,7 +61,7 @@ def main():
             raise RuntimeError("RestAPI did not become ready")
         print(f"service ready on {base} ({SETUP_DIR})")
 
-        oracle = {"service_setup_dir": SETUP_DIR, "benchmarks": {}}
+        oracle = {"benchmarks": {}}
         for name, path in BENCHMARKS:
             s = requests.Session()
             extract.connect(s)

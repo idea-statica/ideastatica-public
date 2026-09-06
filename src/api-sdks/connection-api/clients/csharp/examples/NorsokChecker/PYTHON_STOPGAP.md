@@ -9,10 +9,9 @@ that rule, and what has to happen next.*
 `UNIFICATION.md` is right: the C# WPF app is the product, and the python belongs in
 `reference/` as the verification oracle. We went against it anyway, knowingly.
 
-The reason is delivery risk, not a change of mind. A customer needs a working NORSOK 6.4
-tool sooner than the C# app can be made ready, and the python prototype already runs
-end-to-end. Fixing the python is the fallback that guarantees the customer gets *something*
-if the C# app does not get its remaining defects cleared in time.
+The reason is timing, not a change of mind. A working NORSOK 6.4 tool was wanted before the
+C# app was ready, and the python prototype already ran end-to-end, so it served as the interim
+tool while the C# app was completed.
 
 **This does not reverse the unification.** The C# app stays the product. Every fix made here
 is to be carried into it — see *Carry-over* below — and the python returns to
@@ -24,7 +23,7 @@ reference-only status once that is done.
   in `extract.py` are untouched, so the three oracle layers described in `UNIFICATION.md`
   stay valid. Every change was re-checked against `UT_NorsokChecker/TestData/live_oracle.json`:
   390 values, 0 mismatches, worst relative difference 9e-08 (tolerance 1e-6).
-- **Only endpoints that exist in v3.** A customer may be on 26.0, whose service predates some
+- **Only endpoints that exist in v3.** An installation may be 26.0, whose service predates some
   v4 routes, so nothing was built on a v4-only endpoint. Verified by running the whole path
   against a 26.0 service via `/api/3`, not just by reading the route list. (The one v4-only
   call used during investigation — `/materials/cross-sections/library` — is not in the app.)
@@ -174,8 +173,8 @@ smallest-blast-radius first.
 | Free port | `ConnectionApiServiceRunner` already does this correctly; nothing to carry |
 | English messages, label rounding, table columns | UI-level, re-decide in the C# UI rather than port literally |
 
-`UNIFICATION.md`'s open item for Ondřej — "sanity-check the tolerant CHS name parser against
-other naming conventions" — is **answered by this work, differently than it was framed**: the
+`UNIFICATION.md`'s open item on section-name parsing — "check the tolerant CHS name parser
+against other naming conventions" — is **answered by this work, differently than it was framed**: the
 parser should not be made more tolerant, it should stop being the source of truth. A tolerant
 parser cannot solve `PIPE127STD` (nominal size) or `PIPE...SCH40` (no dimensions in the name)
 at all.
@@ -184,7 +183,7 @@ at all.
 
 1. ~~Close out the python app.~~ **Done** — the fixes above, plus a one-dir build and a
    hand-over README in [`reference/python_packaging/`](reference/python_packaging/README.md).
-2. Hand it to the customer as the stopgap.
+2. Hand it over as the interim tool.
 3. ~~Then return to the C# app and carry the fixes over.~~ **Done** — see *Carry-over status*
    above. Still open: adding `test_cs.ideaCon` to the C# test data, and running it through the app
    (the fixes are covered by 47 unit tests, but the gate-coverage file has not been driven through

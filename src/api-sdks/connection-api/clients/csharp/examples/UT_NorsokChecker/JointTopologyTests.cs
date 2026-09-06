@@ -12,7 +12,7 @@ namespace UT_NorsokChecker
 	/// Both sides consume the SAME fixtures (TestData/topology_fixtures.json); the expected values
 	/// (TestData/topology_oracle.json) were produced by running the python reference over them
 	/// (TestData/gen_topology_oracle.py). If these fail, the C# port has diverged — fix the C#,
-	/// not the numbers. Note the built-in cross-links: X_TEST reproduces the Lukáš X-joint script
+	/// not the numbers. Note the built-in cross-links: X_TEST reproduces the X-joint hand verification script
 	/// (util 1.3130 FAIL) and TY_TEST the PURE_TENSION script (util 0.5459 PASS) through the full
 	/// auto-classification pipeline.
 	///

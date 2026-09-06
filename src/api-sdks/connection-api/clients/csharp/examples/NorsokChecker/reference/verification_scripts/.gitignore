@@ -1,0 +1,4 @@
+# IDEA StatiCa Connection auto-save and editor backups beside a benchmark model. Derived files,
+# never inputs: the live validation names only the .ideaCon files themselves.
+*.ideaCon.Archiv
+*.ideaCon.backup

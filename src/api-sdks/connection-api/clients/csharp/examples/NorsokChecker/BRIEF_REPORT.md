@@ -86,13 +86,12 @@ failed it at least once.
   One formatter is the fix and it is not built. (Note the counts came from one extractor: poppler
   and pypdf disagree here, because KaTeX puts a spacing strut inside the unit — a character count
   is a statement about the extractor unless it is settled at font level.)
-- **The internal reviewer is now the only outside view.** The external correspondence is closed
-  (`01_Folders/NORSOK/review/README.md`), so a defect the agent misses is a defect that ships. Its
-  discipline — independent every round with no history, self-opposition before reporting, "it all
-  looks fine" not an available answer — stands in for the reviewer's independence and is not to be
-  softened to reduce noise. Two runs of it, on different models, found five faces of one fault the
-  three external rounds had seen two of; each also produced one wrong conclusion, and both were
-  caught by re-doing the arithmetic rather than by trusting the report.
+- **The document is now reviewed internally, as its reader would read it.** The external
+  correspondence is closed, so the internal review stands in for the reviewer's independence:
+  independent every round with no history, self-opposition before reporting, "it all looks fine"
+  not an available answer — and it is not to be softened to reduce noise. Two internal rounds found
+  five faces of one fault the three external rounds had seen two of; each also produced one wrong
+  conclusion, and both were caught by re-doing the arithmetic rather than by trusting the review.
 
 ## Assumptions
 
@@ -136,8 +135,7 @@ while one method exists, so building it now means code no test can exercise on r
 
 ## Related
 
-- Review correspondence: `01_Folders/NORSOK/review/` (outside the repo) — the round-1 and round-2
-  specs, and our replies. Read its `README.md` first.
+- Review correspondence is kept outside the repository — the round specs and the replies.
 - Verification: `reference/verification_scripts/verify_report.py` — run it on an exported PDF before
   writing any claim about the output.
 - The reference implementation: `reference/python_prototype/norsok/` — `n64.py` is the §6.4 engine

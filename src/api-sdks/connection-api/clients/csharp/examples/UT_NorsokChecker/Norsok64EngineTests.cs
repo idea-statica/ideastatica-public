@@ -5,9 +5,9 @@ namespace UT_NorsokChecker
 	/// <summary>
 	/// Regression tests pinning the C# NORSOK §6.4 engine (<see cref="Norsok64Engine"/>) to the
 	/// verified Python reference. Every expected number was produced by running the ground-truth
-	/// scripts (n64.py self-test + Lukáš J. per-joint verification scripts) under Python 3.13:
-	///   python_prototype/norsok/n64.py
-	///   PYTHON_SCRIPTS_VERIFICATIONS_LUKAS_J/**/*.py
+	/// scripts (n64.py self-test + the hand verification scripts) under Python 3.13:
+	///   reference/python_prototype/norsok/n64.py
+	///   reference/verification_scripts/**/*.py
 	/// If these fail, the C# port has diverged from the reference — fix the C#, not the numbers.
 	/// </summary>
 	[TestFixture]
@@ -60,7 +60,7 @@ namespace UT_NorsokChecker
 		}
 
 		[Test]
-		public void Lukas_KJoint_MatchesReference()
+		public void KJoint_MatchesHandCalculation()
 		{
 			// PYTHON_SCRIPTS_VERIFICATIONS_LUKAS_J/NORSOK CHAPTER 6.4 K AND KT-JOINTS/norsok_64_K_joint.py
 			var inp = Joint64Input.FromKn(
@@ -95,7 +95,7 @@ namespace UT_NorsokChecker
 		}
 
 		[Test]
-		public void Lukas_XJoint_MatchesReference()
+		public void XJoint_MatchesHandCalculation()
 		{
 			// PYTHON_SCRIPTS_VERIFICATIONS_LUKAS_J/NORSOK CHAPTER 6.4 X CONNECTION/norsok_64_X_joint.py
 			var inp = Joint64Input.FromKn(
@@ -122,7 +122,7 @@ namespace UT_NorsokChecker
 
 		private static IEnumerable<TestCaseData> TyCases()
 		{
-			// All six share geometry D=168.3,T=8,fy=355,d=114.3,t=6.3,θ=60 (Lukáš T/Y scripts).
+			// All six share geometry D=168.3,T=8,fy=355,d=114.3,t=6.3,θ=60 (the T/Y hand verification scripts).
 			// Args: name, N_kN, Mip_kNm, Mop_kNm, σa, σmy, σmz, QuAx, N_Rd, M_ip_Rd, M_op_Rd, util
 			yield return new TestCaseData("PURE_TENSION", 250.0, 0.0, 0.0, -15.513, 0.0, 0.0,
 				20.3743, 457.99, 20.07, 12.69, 0.5459);
@@ -139,7 +139,7 @@ namespace UT_NorsokChecker
 		}
 
 		[TestCaseSource(nameof(TyCases))]
-		public void Lukas_TYJoint_MatchesReference(string name, double nKn, double mipKnm, double mopKnm,
+		public void TYJoint_MatchesHandCalculation(string name, double nKn, double mipKnm, double mopKnm,
 			double sa, double smy, double smz,
 			double quAx, double nRd, double mIpRd, double mOpRd, double util)
 		{

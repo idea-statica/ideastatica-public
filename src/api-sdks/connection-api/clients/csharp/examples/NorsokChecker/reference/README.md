@@ -6,7 +6,7 @@ verified reference material it was ported from — kept for verification, not fo
 | Folder | What it is |
 |---|---|
 | `python_prototype/` | The python NORSOK §6.4 pipeline (pywebview app): `norsok/n64.py` = the §6.4 resistance engine, `norsok/extract.py` = topology + K/Y/X force-balance classification. The C# `Services/Norsok64/` is a faithful port of both; `UT_NorsokChecker` pins the port to numbers produced by RUNNING this code (see `TestData/gen_topology_oracle.py` and `gen_live_oracle.py`). |
-| `verification_scripts/` | Lukáš J.'s standalone per-joint verification scripts (K, X, six T/Y load cases) — the hand-checked ground truth for Table 6-3/6-4 formulas — plus the benchmark `.ideaCon` projects (`K_CONNECTION`, `X_CONNECTION`, `TY_CONNECTION`, `TY_CONNECTION_UNIT_TEST`) used by the live validation tests. |
+| `verification_scripts/` | The standalone per-joint hand verification scripts (K, X, six T/Y load cases) — the hand-checked ground truth for Table 6-3/6-4 formulas — plus the benchmark `.ideaCon` projects (`K_CONNECTION`, `X_CONNECTION`, `TY_CONNECTION`, `TY_CONNECTION_UNIT_TEST`) used by the live validation tests. |
 
 Rules of engagement:
 
