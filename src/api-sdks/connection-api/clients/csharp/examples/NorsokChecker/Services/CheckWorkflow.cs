@@ -9,12 +9,8 @@ namespace NorsokChecker.Services
 	/// click handler (MainWindow's RunCheck_Click), where it could not be tested without building a
 	/// window and simulating a click — so it never was.
 	/// </summary>
-	/// <summary>
-	/// A connection's verdict. <paramref name="Recommendations"/> is deliberately OUTSIDE
-	/// <paramref name="Pass"/>: an unmet "should" of the standard is reported, not judged.
-	/// </summary>
-	internal sealed record ConnectionVerdict(
-		string Pass, double MaxUtilisation, string Status, string? Recommendations = null);
+	/// <summary>A connection's verdict.</summary>
+	internal sealed record ConnectionVerdict(string Pass, double MaxUtilisation, string Status);
 
 	/// <summary>
 	/// The rules that turn a connection's check results into its verdict.
@@ -36,28 +32,12 @@ namespace NorsokChecker.Services
 		/// nor a gap, so it takes no part in the roll-up at all.
 		/// </summary>
 		/// <param name="display">
-		/// The units and precision the verdict's TEXT is written in — the qualifier quotes θ, the
-		/// recommendation quotes a gap. The verdict itself does not read it: PASS / FAIL / QUALIFIED
-		/// are decided on the results' values alone.
+		/// The units and precision the verdict's TEXT is written in — the qualifier quotes θ. The
+		/// verdict itself does not read it: PASS / FAIL / QUALIFIED are decided on the results'
+		/// values alone.
 		/// </param>
 		internal static ConnectionVerdict Roll(IReadOnlyList<NorsokFormulaResult> results,
-			DisplaySettings? display = null)
-		{
-			// The unmet RECOMMENDATIONS are attached here, once, around the decision — not inside
-			// it. Five return paths decide Pass, and threading the recommendations through each was
-			// the way to leave one behind; more importantly, doing it outside makes it structurally
-			// impossible for a "should" to alter a verdict, which is the property that matters.
-			var recs = results
-				.Where(f => f.HasUnmetRecommendation)
-				.Select(f => f.RecommendationFor(display)!)
-				.Distinct()
-				.ToList();
-
-			var v = Decide(results, display);
-			return recs.Count == 0
-				? v
-				: v with { Recommendations = string.Join(" · ", recs) };
-		}
+			DisplaySettings? display = null) => Decide(results, display);
 
 		private static ConnectionVerdict Decide(IReadOnlyList<NorsokFormulaResult> results,
 			DisplaySettings? display)

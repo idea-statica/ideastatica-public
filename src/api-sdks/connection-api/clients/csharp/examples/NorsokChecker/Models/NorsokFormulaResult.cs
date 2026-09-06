@@ -211,38 +211,6 @@ namespace NorsokChecker.Models
 		/// </summary>
 		public bool IsQualified => !IsNote && !NotAssessed && !string.IsNullOrEmpty(RangeQualifierFor(null));
 
-		/// <summary>
-		/// A RECOMMENDATION of the standard that this joint does not meet — named, with its value.
-		///
-		/// One grade softer than <see cref="RangeQualifier"/>, and the difference is the standard's
-		/// own: §3.1 defines "shall" as a requirement for conformity and "should" as a recommended
-		/// possibility. §6.4.3.1's validity ranges are conditions on the formulas and change the
-		/// verdict to QUALIFIED; §6.4.1's "the gap for simple K-joints should be larger than 50 mm"
-		/// is a recommendation and changes NOTHING — a joint that misses it still conforms.
-		///
-		/// It travels as a FIELD for the same reason RangeQualifier does: the reviewed report
-		/// computed this in the card renderer and dropped it, so seven connections read "Norsok OK"
-		/// in the overview over their own detail pages recording the provision unmet, twenty times,
-		/// once at g = 1.5 mm against 50. A reader scanning the overview had no way to know.
-		///
-		/// For a row WITHOUT <see cref="JointDetail"/>; a §6.4 card composes it at print time in
-		/// <see cref="RecommendationFor"/>, since the gap it quotes is in the reader's length unit.
-		/// </summary>
-		public string? Recommendation { get; set; }
-
-		/// <summary>The recommendation as printed under <paramref name="display"/>; null when met.</summary>
-		public string? RecommendationFor(DisplaySettings? display) =>
-			JointDetail is { } row
-				? Services.Norsok64.Joint64ReportAdapter.GapRecommendationOf(row.Name, row, display)
-				: Recommendation;
-
-		/// <summary>
-		/// True when the check ran and a recommendation of the standard is not met (see
-		/// <see cref="RecommendationFor"/>). Deliberately NOT part of any pass/fail decision.
-		/// </summary>
-		public bool HasUnmetRecommendation =>
-			!IsNote && !NotAssessed && !string.IsNullOrEmpty(RecommendationFor(null));
-
 		/// <summary>PASS / FAIL / NOTE / N/A — the single place that decides the wording.</summary>
 		public string Verdict => IsNote ? "NOTE" : NotAssessed ? "N/A" : Passed ? "PASS" : "FAIL";
 

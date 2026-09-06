@@ -27,9 +27,8 @@ namespace NorsokChecker.Services.Norsok64
 		/// The classification (frK/frY/frX) came from the K/Y/X force-decomposition classifier, the
 		/// chord stresses from the Begin/End averaging — no manual joint-type input involved.
 		///
-		/// THE CARD CARRIES VALUES, NOT SENTENCES. Its title, its range qualifier and its
-		/// recommendation are composed by <see cref="TitleOf"/>, <see cref="RangeQualifierOf"/> and
-		/// <see cref="GapRecommendationOf"/> at the moment they are printed, from the row kept in
+		/// THE CARD CARRIES VALUES, NOT SENTENCES. Its title and its range qualifier are composed by
+		/// <see cref="TitleOf"/> and <see cref="RangeQualifierOf"/> at the moment they are printed, from the row kept in
 		/// <see cref="NorsokFormulaResult.JointDetail"/>. They used to be built here, when the check
 		/// ran, in the units and precision in force at that moment — so a card built at one decimal
 		/// and printed at two read `K 0.0 % / Y 0.0 % / X 100.0 %` beside a badge saying `32.10%`, and
@@ -85,47 +84,6 @@ namespace NorsokChecker.Services.Norsok64
 			if (r.ChordOverstressed) title += " — CHORD OVERSTRESSED";
 			else if (!r.WithinRange) title += " — outside validity range (6.4.3.1)";
 			return title;
-		}
-
-		/// <summary>
-		/// "M3: g = 1.5 mm, §6.4.1 recommends 50 mm &lt; g &lt; D (141 mm)" — or null when met, or
-		/// when the provision does not apply.
-		///
-		/// §6.4.1, p. 25: *"The gap for simple K-joints **should** be larger than 50 mm and less than
-		/// D."* A "should", which §3.1 defines as a recommendation rather than a requirement for
-		/// conformity — so this NEVER changes a verdict. Do not confuse it with §6.4.3.1's
-		/// `g/D ≥ −0.6`, which is a validity condition on the formulas and does.
-		///
-		/// Only for a brace with a K share: the provision is about simple K-joints, and a Y or X
-		/// brace has no gap the clause speaks of.
-		///
-		/// Whether this returns null does not depend on <paramref name="display"/> — only the
-		/// wording does — so a caller asking "is the recommendation met?" may pass any setting.
-		/// </summary>
-		internal static string? GapRecommendationOf(string braceName, JointCheckRow row,
-			Models.DisplaySettings? display = null)
-		{
-			if (row.Skipped || row.Inputs is not { } inp) return null;
-			if (inp.FrK <= 1e-9 || inp.D <= 0.0) return null;
-
-			// THE VERDICT IS DECIDED IN MILLIMETRES. The clause's 50 mm is a fixed physical length,
-			// so a joint that satisfies §6.4.1 in mm satisfies it in inches — the comparison must
-			// not move with the display unit.
-			double gapMm = inp.G * 1e3, dMm = inp.D * 1e3;
-			if (gapMm > 50.0 && gapMm < dMm) return null;
-
-			// The MEASURED values follow the reader's unit; the clause's own 50 mm does not.
-			// Converting the bound as well was tried and withdrawn: 50 mm and a 49.6 mm gap both
-			// print as "2.0 in", giving "g = 2.0 in against 2.0 in < g — not satisfied".
-			var d = display ?? new Models.DisplaySettings();
-			string uL = Models.QuantityFormat.LengthLabel(d.Length);
-			string g = Models.QuantityFormat.ToLength(inp.G, d.Length)
-				.ToString("F" + d.SmallLengthDecimals, Inv);
-			string dia = Models.QuantityFormat.ToLength(inp.D, d.Length)
-				.ToString("F" + d.LengthDecimals, Inv);
-
-			return $"{braceName}: g = {g} {uL}, §6.4.1 recommends "
-				+ $"50 mm < g < D ({dia} {uL})";
 		}
 
 		/// <summary>

@@ -994,14 +994,11 @@ namespace NorsokChecker.Services
 				sb.AppendLine($"    <td class='con-name'>{Esc(name)}</td>");
 				sb.AppendLine($"    <td class='con-verdict {cls}'>{Esc(verdict.Pass)}</td>");
 				sb.AppendLine($"    <td class='con-util'>{util}</td>");
-				// The unmet recommendation goes in the Note column BESIDE the status, not into the
-				// verdict: a "should" of the standard is reported, not judged. Without this the
-				// overview said "Norsok OK" over a detail page recording §6.4.1 unmet.
-				string note = Esc(verdict.Status)
-					+ (string.IsNullOrEmpty(verdict.Recommendations)
-						? ""
-						: $"<br/><span class='con-rec'>{Esc(verdict.Recommendations!)}</span>");
-				sb.AppendLine($"    <td class='con-note'>{note}</td>");
+				// The status only. An unmet §6.4.1 gap recommendation used to be appended here as a
+				// note; it repeated the whole clause once per brace in one cell, and the derivation
+				// already states it where the gap is. A "should" changes no verdict, so the overview
+				// has nothing to add.
+				sb.AppendLine($"    <td class='con-note'>{Esc(verdict.Status)}</td>");
 				sb.AppendLine("  </tr>");
 			}
 
@@ -1664,8 +1661,7 @@ namespace NorsokChecker.Services
 						+ $"g = <b>{gapShown} {uL}</b> against {fiftyShown} &lt; g &lt; {dShown} {uL} "
 						+ $"&mdash; <b>{(gapOk ? "satisfied" : "not satisfied")}</b>. A "
 						+ "&ldquo;should&rdquo; (&sect;3.1): a recommendation, not a condition of "
-						+ "conformity, so no verdict depends on it &mdash; it is carried to the "
-						+ "overview as a note.</p>");
+						+ "conformity, so no verdict depends on it.</p>");
 				}
 			}
 
@@ -3071,7 +3067,6 @@ body {
 .connection-table .con-note { color: #607D8B; }
 /* An unmet RECOMMENDATION of the standard. Lighter than the status it sits under, because it
    qualifies nothing about conformity: a joint missing a should-provision still passes. */
-.connection-table .con-rec { color: #90A4AE; font-size: 11px; }
 .connection-table .con-verdict { font-weight: 600; }
 .connection-table .con-verdict.pass { color: #2E7D32; }
 .connection-table .con-verdict.fail { color: #C62828; }
