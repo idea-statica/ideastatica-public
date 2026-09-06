@@ -156,8 +156,41 @@ namespace NorsokChecker
 		///
 		/// async void, so an exception escaping it is unhandled — everything is inside the try, and
 		/// the failure is shown rather than only logged.
+		///
+		/// ONE INSTANCE AT A TIME. It awaits the WebView2 initialisation, and it is now called from
+		/// three places — after a run, after a PDF export, and on a settings change — so two calls
+		/// can overlap, and then two instances drive one WebView and whichever NavigateToString runs
+		/// last wins, which need not be the later request. A call arriving while one is in flight is
+		/// noted and served once, when the first finishes: the last request still wins, and only one
+		/// instance ever holds the view.
 		/// </summary>
 		private async void PopulateReportTab()
+		{
+			if (_reportPopulating)
+			{
+				_reportPopulateWanted = true;
+				return;
+			}
+			_reportPopulating = true;
+			try
+			{
+				do
+				{
+					_reportPopulateWanted = false;
+					await PopulateReportTabOnceAsync();
+				}
+				while (_reportPopulateWanted);
+			}
+			finally
+			{
+				_reportPopulating = false;
+			}
+		}
+
+		private bool _reportPopulating;
+		private bool _reportPopulateWanted;
+
+		private async Task PopulateReportTabOnceAsync()
 		{
 			ReportBusyDetail.Text = $"{_formulaResults.Count} connection(s)";
 			ReportBusy.Visibility = Visibility.Visible;
