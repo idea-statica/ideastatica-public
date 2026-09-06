@@ -279,7 +279,7 @@ namespace UT_NorsokChecker
 						$"{bm.Name}: distance from the plane through the chord");
 
 				// The gate's own verdict, which is what the connection lives or dies by.
-				bool rejected = topo.Verdict.Errors.Any(e => e.Contains("out of the joint plane"));
+				bool rejected = topo.Verdict.Errors.Texts().Any(e => e.Contains("out of the joint plane"));
 				Assert.That(rejected, Is.EqualTo(expectRejected),
 					"errors: " + string.Join(" | ", topo.Verdict.Errors));
 			});
@@ -347,7 +347,7 @@ namespace UT_NorsokChecker
 				fx["loadEffects"]!.Select(j => j.ToObject<ConLoadEffect>()!).ToList());
 
 			bool RejectedFor(JointTopology t) =>
-				t.Verdict.Errors.Any(e => e.Contains("out of the joint plane"));
+				t.Verdict.Errors.Texts().Any(e => e.Contains("out of the joint plane"));
 
 			Assert.Multiple(() =>
 			{

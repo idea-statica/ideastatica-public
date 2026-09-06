@@ -69,7 +69,7 @@ namespace NorsokChecker.Services
 				// single string made a joint that failed six gates look like it failed one.
 				var reasons = topo.Verdict.Errors.Count > 0
 					? topo.Verdict.Errors
-					: new List<string> { "the joint produced no §6.4 check" };
+					: new List<GateMessage> { GateMessage.Plain("the joint produced no §6.4 check") };
 
 				for (int i = 0; i < reasons.Count; i++)
 				{
@@ -83,7 +83,8 @@ namespace NorsokChecker.Services
 						Title = reasons.Count > 1
 							? $"Outside the scope of §6.4 ({i + 1} of {reasons.Count})"
 							: "Outside the scope of §6.4",
-						CheckExpression = reasons[i],
+						// The condition as DATA — the card writes it in the reader's units.
+						Gate = reasons[i],
 						Formula = "-",
 						// No FormulaSubstituted. It read "no §6.4 check was performed for this
 						// joint" under a SUBSTITUTION label, above a row already naming the unmet
@@ -106,7 +107,9 @@ namespace NorsokChecker.Services
 			foreach (var le in topo.Classification)
 				foreach (var c in le.Rows)
 					_log($"      LE{le.Id} {c.Name}: K={c.FrK:P0} X={c.FrX:P0} Y={c.FrY:P0} " +
-						 $"(q={c.QTrans / 1e3:F1} kN){(string.IsNullOrEmpty(c.Note) ? "" : " — " + c.Note)}");
+						 $"(q={c.QTrans / 1e3:F1} kN)"
+					 + (c.GateNote != null ? " — " + c.GateNote : "")
+					 + (string.IsNullOrEmpty(c.Note) ? "" : " — " + c.Note));
 
 			// envelope: the governing load effect per brace — see JointEnvelope for the rule
 			foreach (var brace in topo.GapBraces)
@@ -182,7 +185,7 @@ namespace NorsokChecker.Services
 					Title = warns.Count > 1
 						? $"Assumption ({i + 1} of {warns.Count})"
 						: "Assumption",
-					CheckExpression = warns[i],
+					Gate = warns[i],
 					Formula = "-",
 					// No FormulaSubstituted: "the check proceeds; the note above qualifies its
 					// result" is a sentence about the note, not a substitution of anything.

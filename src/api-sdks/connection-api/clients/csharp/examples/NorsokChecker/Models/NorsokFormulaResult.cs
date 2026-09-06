@@ -114,8 +114,22 @@ namespace NorsokChecker.Models
 		public string Subject =>
 			JointDetail != null ? Services.Norsok64.Joint64ReportAdapter.SubjectOf(JointDetail) : Title;
 
-		/// <summary>The check expression, e.g. "N_Sd ≤ N_t,Rd"</summary>
+		/// <summary>
+		/// The check expression, e.g. "N_Sd ≤ N_t,Rd" — or, on a note or a rejection row, the
+		/// condition in words. A row whose condition came from a topology gate carries it as
+		/// <see cref="Gate"/> instead and leaves this empty.
+		/// </summary>
 		public string CheckExpression { get; set; } = string.Empty;
+
+		/// <summary>
+		/// The topology gate this row reports, as data — the measured length, angle or ratio in SI,
+		/// so the sentence can be written in the reader's units when the row is shown.
+		/// </summary>
+		public Services.Norsok64.GateMessage? Gate { get; set; }
+
+		/// <summary>The condition as printed under <paramref name="display"/>.</summary>
+		public string CheckExpressionFor(DisplaySettings? display) =>
+			Gate?.Render(display) ?? CheckExpression;
 
 		/// <summary>The formula with symbols, e.g. "N_t,Rd = A · f_y / γ_M"</summary>
 		public string Formula { get; set; } = string.Empty;
@@ -261,7 +275,7 @@ namespace NorsokChecker.Models
 
 			// ── Check condition ──
 			sb.AppendLine($"│");
-			sb.AppendLine($"│  Check:  {CheckExpression}");
+			sb.AppendLine($"│  Check:  {CheckExpressionFor(null)}");
 
 			// ── Formula (symbolic) ──
 			if (!string.IsNullOrEmpty(Formula))

@@ -24,11 +24,19 @@ namespace NorsokChecker.Services.Norsok64
 		public string? TypeName { get; set; }
 
 		/// <summary>
-		/// Set when the section name and the model disagree about D by more than 2 % — e.g.
-		/// "PIPE127STD" is really Ø141.3 because 127 is the nominal size. Port of python's
-		/// geom_note; the whole point of reading D/T from the model rather than the name.
+		/// Why the dimensions could not be read, when they could not — a unit-free sentence
+		/// <see cref="RejectReason"/> quotes. Port of python's geom_note.
 		/// </summary>
 		public string? GeomNote { get; set; }
+
+		/// <summary>
+		/// The diameter the section NAME implied, in mm, set only when it disagrees with the model's
+		/// <see cref="D"/> by more than 2 % — e.g. "PIPE127STD" is really Ø141.3 because 127 is the
+		/// nominal size. The topology builder turns it into a <see cref="GateKind.DiameterFromModel"/>
+		/// warning; kept as a NUMBER so that warning can be written in whatever unit the reader has
+		/// chosen when it is shown.
+		/// </summary>
+		public double? NameDiameterMm { get; set; }
 
 		public double? Fy { get; set; }         // Pa
 		public double? Fu { get; set; }         // Pa
@@ -204,12 +212,15 @@ namespace NorsokChecker.Services.Norsok64
 		public bool Ok { get; set; }
 	}
 
-	/// <summary>Assumption-gate verdict (port of classify_assumptions result).</summary>
+	/// <summary>
+	/// Assumption-gate verdict (port of classify_assumptions result). The conditions are
+	/// <see cref="GateMessage"/> DATA, rendered by whoever shows them — see that type for why.
+	/// </summary>
 	public sealed class TopologyVerdict
 	{
 		public string Status { get; set; } = "OK";   // OK | WARNING | ERROR
-		public List<string> Errors { get; set; } = new();
-		public List<string> Warnings { get; set; } = new();
+		public List<GateMessage> Errors { get; set; } = new();
+		public List<GateMessage> Warnings { get; set; } = new();
 	}
 
 	/// <summary>One brace's section forces resolved into its joint sub-plane (SI: N, N·m).</summary>
@@ -280,7 +291,13 @@ namespace NorsokChecker.Services.Norsok64
 		public double FrX { get; set; }
 		public double FrY { get; set; }
 		public List<KComponent> KComponents { get; set; } = new();
+		/// <summary>A unit-free remark on the split ("K with no gap data"), or empty.</summary>
 		public string Note { get; set; } = "";
+		/// <summary>
+		/// The gate shortcut that made this brace pure K, when it applied — two percentages, so it is
+		/// carried as data and written in the reader's precision when shown.
+		/// </summary>
+		public GateMessage? GateNote { get; set; }
 	}
 
 	/// <summary>Per-load-effect wrapper used by forces / stresses / classification / checks.</summary>
@@ -373,7 +390,8 @@ namespace NorsokChecker.Services.Norsok64
 		/// </summary>
 		public double PlaneOffsetM { get; set; }
 
-		public string? PlaneWarn { get; set; }
+		/// <summary>How the plane had to be fitted, when no coplanar pair existed; null when it did.</summary>
+		public GateMessage? PlaneWarn { get; set; }
 		public double PlaneSpread { get; set; }
 		public Vec3 Ex { get; set; }             // chord axis (unit)
 		public Vec3 Ey { get; set; }             // in-plane axis (unit)

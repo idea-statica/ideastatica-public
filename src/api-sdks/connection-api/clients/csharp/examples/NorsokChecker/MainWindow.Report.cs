@@ -245,11 +245,9 @@ namespace NorsokChecker
 			if (dlg.ShowDialog() != true) return;
 
 			_display = dlg.Result;
-			// Two consumers that cannot be handed the setting at their call site: the results rows
-			// bind a computed property, and the topology gate messages are composed inside the
-			// builder.
+			// The one consumer that cannot be handed the setting at its call site: the results rows
+			// bind a computed property. Everything else receives _display where it renders.
 			Models.ConnectionCheckResult.Display = _display;
-			Services.Norsok64.JointTopologyBuilder.Display = _display;
 			Log($"  display: force {Models.QuantityFormat.ForceLabel(_display.Force)}, "
 				+ $"stress {Models.QuantityFormat.StressLabel(_display.Stress)}, "
 				+ $"length {Models.QuantityFormat.LengthLabel(_display.Length)}, "

@@ -320,21 +320,11 @@ namespace NorsokChecker.Services.Chapters
 				}
 
 				// The name and the model disagreeing by more than 2 % is worth saying: "PIPE127STD" is
-				// really Ø141.3, because 127 is the nominal size. Python calls this geom_note.
+				// really Ø141.3, because 127 is the nominal size. Python calls this geom_note. Kept
+				// as the NUMBER — the topology builder writes the sentence, in the reader's unit, when
+				// it is shown (GateKind.DiameterFromModel).
 				if (m.Section.D is > 0 && Math.Abs(m.Section.D.Value - d.Value) / m.Section.D.Value > 0.02)
-				{
-					// In the reader's unit, and WITH one: this printed two bare numbers, so a reader
-					// on inches saw "Ø141.3" and had nothing to tell them it was millimetres.
-					var disp = Norsok64.JointTopologyBuilder.Display;
-					string uL = Models.QuantityFormat.LengthLabel(disp.Length);
-					string Fmt(double mm) => Models.QuantityFormat
-						.ToLength(mm / 1000.0, disp.Length)
-						.ToString("F" + disp.LengthDecimals,
-							System.Globalization.CultureInfo.InvariantCulture);
-
-					m.Section.GeomNote = $"section name says Ø{Fmt(m.Section.D.Value)} {uL}, "
-						+ $"the model measures Ø{Fmt(d.Value)} {uL}";
-				}
+					m.Section.NameDiameterMm = m.Section.D;
 
 				m.Section.D = d;
 				m.Section.T = t;

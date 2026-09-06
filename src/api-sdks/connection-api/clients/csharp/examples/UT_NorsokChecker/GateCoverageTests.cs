@@ -74,7 +74,7 @@ namespace UT_NorsokChecker
 				// the assertion below and reads as "no warning was needed".
 				Assert.That(v.Status, Is.Not.EqualTo("ERROR"),
 					"the joint must have been assessed for the absence of a warning to mean anything");
-				Assert.That(v.Warnings.Where(w => w.Contains("plane")), Is.Empty,
+				Assert.That(v.Warnings.Texts().Where(w => w.Contains("plane")), Is.Empty,
 					"and coplanar braces need no plane-fit warning");
 			});
 		}
@@ -101,7 +101,7 @@ namespace UT_NorsokChecker
 				Member("M1", 40.0, 0.0, false, d: 168.3, t: 8.0),
 				Member("M3", 55.0, 0.0, false, d: 168.3, t: 8.0));
 
-			var overlap = v.Errors.Concat(v.Warnings)
+			var overlap = v.Errors.Concat(v.Warnings).Texts()
 				.FirstOrDefault(e => e.Contains("overlap"));
 			Assert.That(overlap, Is.Not.Null,
 				"this geometry overlaps; errors: " + string.Join(" | ", v.Errors));
@@ -124,7 +124,7 @@ namespace UT_NorsokChecker
 			var v = Verdict(Member("M2", 0.0, 0.0, continuous: true, d: 141.3, t: 6.5));
 
 			Assert.That(v.Status, Is.EqualTo("ERROR"));
-			Assert.That(v.Errors.Any(e => e.Contains("No brace")), Is.True, string.Join(" | ", v.Errors));
+			Assert.That(v.Errors.Texts().Any(e => e.Contains("No brace")), Is.True, string.Join(" | ", v.Errors));
 		}
 
 		/// <summary>E6 — the chord must be tubular, and the message must name its real type.</summary>
@@ -137,7 +137,7 @@ namespace UT_NorsokChecker
 			var v = Verdict(ms);
 
 			Assert.That(v.Status, Is.EqualTo("ERROR"));
-			Assert.That(v.Errors.Any(e => e.Contains("RolledI")), Is.True, string.Join(" | ", v.Errors));
+			Assert.That(v.Errors.Texts().Any(e => e.Contains("RolledI")), Is.True, string.Join(" | ", v.Errors));
 		}
 
 		/// <summary>W7 — 20 deg is past the warning floor but above the 5 deg error floor.</summary>
@@ -151,9 +151,9 @@ namespace UT_NorsokChecker
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(v.Errors.Any(e => e.Contains("M1")), Is.False,
+				Assert.That(v.Errors.Texts().Any(e => e.Contains("M1")), Is.False,
 					"20 deg is a warning, not an error: " + string.Join(" | ", v.Errors));
-				Assert.That(v.Warnings.Any(w => w.Contains("M1") && w.Contains("30")), Is.True,
+				Assert.That(v.Warnings.Texts().Any(w => w.Contains("M1") && w.Contains("30")), Is.True,
 					string.Join(" | ", v.Warnings));
 			});
 		}
@@ -171,7 +171,7 @@ namespace UT_NorsokChecker
 			{
 				Assert.That(v.Status, Is.Not.EqualTo("ERROR"),
 					"8 deg is inside the 15 deg limit: " + string.Join(" | ", v.Errors));
-				Assert.That(v.Warnings.Any(w => w.Contains("M6") && w.Contains("borderline")), Is.True,
+				Assert.That(v.Warnings.Texts().Any(w => w.Contains("M6") && w.Contains("borderline")), Is.True,
 					string.Join(" | ", v.Warnings));
 			});
 		}
@@ -202,7 +202,7 @@ namespace UT_NorsokChecker
 					+ string.Join(" | ", topo.Verdict.Errors));
 				Assert.That(topo.PlaneFitBasis, Does.Contain("closest pair"),
 					$"the plane had to be fitted from a pair — basis was '{topo.PlaneFitBasis}'");
-				Assert.That(topo.Verdict.Warnings.Any(w => w.Contains("plane")), Is.True,
+				Assert.That(topo.Verdict.Warnings.Texts().Any(w => w.Contains("plane")), Is.True,
 					"and the user is told: " + string.Join(" | ", topo.Verdict.Warnings));
 			});
 		}
@@ -218,7 +218,7 @@ namespace UT_NorsokChecker
 				Assert.That(topo.Verdict.Status, Is.EqualTo("ERROR"),
 					"no load means nothing was checked, and 0 % on every brace is not a pass");
 				Assert.That(topo.Verdict.Errors, Has.Count.EqualTo(1));
-				Assert.That(topo.Verdict.Errors[0], Does.Contain("No load effect"));
+				Assert.That(topo.Verdict.Errors[0].Render(), Does.Contain("No load effect"));
 			});
 		}
 

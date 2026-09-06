@@ -94,16 +94,11 @@ namespace NorsokChecker.Services.Norsok64
 					{
 						Name = b.Name, NSd = me.NSd, MipSd = me.MipSd, MopSd = me.MopSd,
 						QTrans = qB, FrK = 1.0, FrX = 0, FrY = 0, KComponents = kComponents,
-						// Invariant culture and a space before the sign, like every other percentage
-						// the user sees — this one printed "19.0%" on a page of "19.0 %", and in a
-						// comma locale it printed "19,0%" into an English report.
-						Note = "balanced to "
-							+ Models.QuantityFormat.Percent(leftover / absQ,
-								System.Globalization.CultureInfo.InvariantCulture)
-							+ " <= gate "
-							+ Models.QuantityFormat.Percent(gate,
-								System.Globalization.CultureInfo.InvariantCulture, 0)
-							+ " -> 100 % K",
+						// Two percentages, so a record rather than a sentence: whoever shows it writes
+						// them in the reader's precision. (Its first form was `$"{x:P1}"` — a comma
+						// decimal in a comma locale and a fixed one decimal everywhere.)
+						GateNote = new GateMessage(GateKind.KGateShortcut, b.Name,
+							Value: leftover / absQ, Limit: gate),
 					});
 					continue;
 				}

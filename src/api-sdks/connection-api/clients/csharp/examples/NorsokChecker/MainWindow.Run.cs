@@ -237,7 +237,7 @@ namespace NorsokChecker
 					foreach (var fr in formulaResults)
 					{
 						if (fr.IsNote)
-							Log($"    {fr.Section} NOTE: {fr.CheckExpression}");
+							Log($"    {fr.Section} NOTE: {fr.CheckExpressionFor(_display)}");
 						else
 							Log($"    {fr.Section} {fr.TitleFor(_display)}: util={fr.Utilization * 100:F1}% {fr.Verdict}");
 					}

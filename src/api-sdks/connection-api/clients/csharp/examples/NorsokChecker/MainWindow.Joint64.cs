@@ -484,9 +484,9 @@ namespace NorsokChecker
 						? " — " + string.Join(", ", topo.GapBraces.Select(b =>
 							$"{b.Name} ({b.Section.Name ?? "section unknown"})"))
 						: "");
-				lines.AddRange(v.Errors.Select(x => "•  " + x));
+				lines.AddRange(v.Errors.Texts(_display).Select(x => "•  " + x));
 				if (v.Warnings.Count > 0)
-					lines.AddRange(v.Warnings.Select(x => "⚠  " + x));
+					lines.AddRange(v.Warnings.Texts(_display).Select(x => "⚠  " + x));
 				Pnl64Verdict.Background = (System.Windows.Media.Brush)FindResource("VerdictFailBg");
 				Lbl64VerdictTitle.Foreground = (System.Windows.Media.Brush)FindResource("VerdictFailFg");
 			}
@@ -500,7 +500,7 @@ namespace NorsokChecker
 					"The check ran. These do not block it — the 6.4.3.1 validity ranges are "
 					+ "warnings because the norm's rule is to compute with the parameters clamped "
 					+ "to the range and keep the lower capacity.";
-				lines.AddRange(v.Warnings.Select(x => "⚠  " + x));
+				lines.AddRange(v.Warnings.Texts(_display).Select(x => "⚠  " + x));
 				Pnl64Verdict.Background = (System.Windows.Media.Brush)FindResource("VerdictPartialBg");
 				Lbl64VerdictTitle.Foreground = (System.Windows.Media.Brush)FindResource("VerdictPartialFg");
 			}
@@ -570,7 +570,7 @@ namespace NorsokChecker
 					view.FrY = Models.QuantityFormat.PercentBare(cls.FrY, cult, _display.PercentDecimals);
 					// the classifier's own reason for the split — the single most explanatory field
 					// it produces, and it was going nowhere
-					view.Note = cls.Note ?? "";
+					view.Note = cls.GateNote?.Render(_display) ?? cls.Note ?? "";
 				}
 
 				if (row.Skipped)

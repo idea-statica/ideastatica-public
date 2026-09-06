@@ -432,7 +432,7 @@ namespace NorsokChecker.Services
 							RenderJointPlane(cb, topo, groupFormulas, disp);
 
 						if (rejections.Count > 1)
-							RenderRejectionCard(cb, rejections, key, expandAll);
+							RenderRejectionCard(cb, rejections, key, expandAll, disp);
 
 						foreach (var fr in rest)
 							RenderFormulaCard(cb, fr, expandAll, disp);
@@ -1056,7 +1056,8 @@ namespace NorsokChecker.Services
 		/// joint", while the reason it was not performed sat unread on the row.
 		/// </summary>
 		private static void RenderRejectionCard(StringBuilder sb,
-			IReadOnlyList<NorsokFormulaResult> rejections, string chapterKey, bool expandAll)
+			IReadOnlyList<NorsokFormulaResult> rejections, string chapterKey, bool expandAll,
+			Models.DisplaySettings disp)
 		{
 			sb.AppendLine($"<details class='check-card warn'{(expandAll ? " open" : "")}>");
 			sb.AppendLine("  <summary class='card-header warn'>");
@@ -1076,9 +1077,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine("    <table class='where-table'>");
 			for (int i = 0; i < rejections.Count; i++)
 			{
-				string reason = string.IsNullOrWhiteSpace(rejections[i].CheckExpression)
-					? rejections[i].Title
-					: rejections[i].CheckExpression;
+				string condition = rejections[i].CheckExpressionFor(disp);
+				string reason = string.IsNullOrWhiteSpace(condition) ? rejections[i].Title : condition;
 				sb.AppendLine("      <tr>");
 				sb.AppendLine($"        <td class='var-eq'>{i + 1}.</td>");
 				sb.AppendLine($"        <td class='var-desc'>{Esc(reason)}</td>");
@@ -1256,8 +1256,9 @@ namespace NorsokChecker.Services
 			sb.AppendLine($"    <div class='result-bar {statusClass}'>");
 			if (fr.IsNote || fr.NotAssessed)
 			{
-				string reason = !string.IsNullOrWhiteSpace(fr.CheckExpression)
-					? fr.CheckExpression
+				string condition = fr.CheckExpressionFor(display);
+				string reason = !string.IsNullOrWhiteSpace(condition)
+					? condition
 					: fr.IsNote ? "note" : "not assessed";
 				sb.AppendLine($"      <span>{Esc(reason)}</span>");
 			}
@@ -2237,7 +2238,7 @@ namespace NorsokChecker.Services
 			// as it was, the row read as certainty directly above a condition saying "2 continuous
 			// members — the chord is ambiguous", which is the document disagreeing with itself.
 			bool chordAmbiguous = chapterRows?.Any(f =>
-				(f.CheckExpression ?? "").Contains("chord is ambiguous",
+				f.CheckExpressionFor(null).Contains("chord is ambiguous",
 					StringComparison.OrdinalIgnoreCase)) == true;
 			Kv(sb, "chord (through member)", topo.Chord == null
 				? "&mdash; none identified"
@@ -2282,8 +2283,8 @@ namespace NorsokChecker.Services
 					+ (topo.Coplanar ? "" : " <span class='deriv-hint'>(not coplanar)</span>"));
 			sb.AppendLine("  </table>");
 
-			if (!string.IsNullOrEmpty(topo.PlaneWarn))
-				sb.AppendLine($"  <p class='deriv-warn'>&#9888; {Esc(topo.PlaneWarn)}</p>");
+			if (topo.PlaneWarn != null)
+				sb.AppendLine($"  <p class='deriv-warn'>&#9888; {Esc(topo.PlaneWarn.Render(disp))}</p>");
 
 			// ── one geometry row per brace, instead of the same numbers inside every check ──
 			if (topo.BracesMeta.Count > 0)

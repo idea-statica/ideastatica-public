@@ -251,26 +251,66 @@ namespace UT_NorsokChecker
 		}
 
 		/// <summary>
-		/// The engine itself, asserted directly rather than through the page: the same input gives
-		/// the same dimensionless results no matter what the display settings say. The page test
-		/// above would also catch this, but not tell you which side broke.
+		/// NO DISPLAY STATE INSIDE CALCULATION CODE — structurally, not by inspection.
 		///
-		/// The one display static left inside calculation code is the topology builder's, for its
-		/// gate messages — so that is the one flipped here.
+		/// Every defect in this family had the same shape: a static <c>DisplaySettings</c> reachable
+		/// from the engine or the topology builder, read while a sentence was composed at calculation
+		/// time, so the sentence froze in whatever units were set at that moment. The card adapter
+		/// had one, the topology builder had one; both are gone. This asserts that none comes back:
+		/// no type in the calculation namespaces declares a static field or property of that type.
+		/// A <c>DisplaySettings</c> PARAMETER is fine — that is how a renderer is handed the setting.
+		///
+		/// The one static that remains, <c>ConnectionCheckResult.Display</c>, lives in Models and
+		/// serves a WPF binding, which is outside the namespaces checked here.
 		/// </summary>
 		[Test]
-		public void TheEngineIsIndifferentToTheDisplaySettings()
+		public void NoCalculationTypeHoldsDisplayState()
 		{
-			var before = MultiModeRow().Engine!;
-			JointTopologyBuilder.Display = Imperial;
-			var after = MultiModeRow().Engine!;
-			JointTopologyBuilder.Display = Metric;   // leave the static as we found it
+			var asm = typeof(Norsok64Engine).Assembly;
+			var offenders = asm.GetTypes()
+				.Where(t => t.Namespace is { } ns
+					&& (ns.StartsWith("NorsokChecker.Services.Norsok64")
+						|| ns.StartsWith("NorsokChecker.Services.Chapters")))
+				.SelectMany(t => t
+					.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public
+						| System.Reflection.BindingFlags.NonPublic)
+					.Where(f => f.FieldType == typeof(DisplaySettings))
+					.Select(f => $"{t.Name}.{f.Name}")
+					.Concat(t
+						.GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public
+							| System.Reflection.BindingFlags.NonPublic)
+						.Where(p => p.PropertyType == typeof(DisplaySettings))
+						.Select(p => $"{t.Name}.{p.Name}")))
+				.ToList();
+
+			Assert.That(offenders, Is.Empty,
+				"calculation code holds display state again; a sentence composed there freezes in "
+				+ "the units of the moment. Carry values and render where the setting is in scope.");
+		}
+
+		/// <summary>
+		/// A GATE MESSAGE IS WRITTEN IN THE READER'S UNITS WHEN IT IS SHOWN — the same overlap, in
+		/// millimetres or in inches, from one record carrying metres. The verdict it belongs to is
+		/// the same under both settings; only the words move.
+		/// </summary>
+		[Test]
+		public void AGateMessageRendersInTheUnitsItIsShownIn()
+		{
+			var overlap = new GateMessage(GateKind.Overlap, "M1", "M3", Value: -0.032);
+
+			var topo = new JointTopology();
+			topo.Gaps.Add(new BraceGap { A = "M1", B = "M3", GapM = -0.032, Adjacent = true, Known = true });
+			JointTopologyBuilder.FinalizeVerdict(topo);
 
 			Assert.Multiple(() =>
 			{
-				Assert.That(after.UtilWeighted, Is.EqualTo(before.UtilWeighted).Within(1e-12));
-				Assert.That(after.Beta, Is.EqualTo(before.Beta).Within(1e-12));
-				Assert.That(after.NRdWeighted, Is.EqualTo(before.NRdWeighted).Within(1e-9));
+				Assert.That(overlap.Render(Metric), Does.Contain("-32.0 mm"));
+				Assert.That(overlap.Render(Imperial), Does.Contain("-1.26 in").Or.Contain("-1.3 in"));
+				Assert.That(overlap.Render(Imperial), Does.Not.Contain("mm"));
+
+				Assert.That(topo.Verdict.Status, Is.EqualTo("ERROR"));
+				Assert.That(topo.Verdict.Errors.Texts(Imperial).Single(), Does.Contain("in"));
+				Assert.That(topo.Verdict.Errors.Texts(Metric).Single(), Does.Contain("mm"));
 			});
 		}
 	}

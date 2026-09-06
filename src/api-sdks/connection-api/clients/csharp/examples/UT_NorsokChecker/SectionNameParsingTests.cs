@@ -237,7 +237,7 @@ namespace UT_NorsokChecker
 			var topo = new JointTopology();
 			topo.Gaps.AddRange(gaps);
 			JointTopologyBuilder.FinalizeVerdict(topo);
-			return topo.Verdict.Errors;
+			return topo.Verdict.Errors.Texts().ToList();
 		}
 
 		[Test]

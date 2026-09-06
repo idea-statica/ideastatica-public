@@ -20,37 +20,6 @@ namespace NorsokChecker.Services.Norsok64
 		public const double PlaneFitTolDeg = 2.0;
 		public const double CoplanarEvalDeg = 15.0;
 
-		/// <summary>
-		/// The units the GATE MESSAGES are written in. Nothing else.
-		///
-		/// This is display state inside calculation code, which is normally exactly what this class
-		/// avoids — so the boundary is worth stating precisely: every comparison in this file stays
-		/// in millimetres and degrees, and this field is read only when a sentence is composed for
-		/// the user. A reader on inches was being told "40 mm out of the joint plane" beside an
-		/// inch table; a reader must never be told a different verdict.
-		///
-		/// If a comparison ever reads this field, that is a bug: the verdict would then depend on
-		/// the display setting. UnitInvarianceTests guards the property, not the intent.
-		/// </summary>
-		public static Models.DisplaySettings Display { get; set; } = new();
-
-		// Message formatters. They take the value in the unit the COMPARISON used (mm, degrees) and
-		// return it in the reader's, with its label — so a converted number never reaches an `if`.
-		private static string Len(double mm)
-		{
-			var d = Display;
-			double v = Models.QuantityFormat.ToLength(mm / 1000.0, d.Length);
-			return v.ToString("F" + d.SmallLengthDecimals,
-					System.Globalization.CultureInfo.InvariantCulture)
-				+ " " + Models.QuantityFormat.LengthLabel(d.Length);
-		}
-
-		private static string Ang(double deg) => deg.ToString("F" + Display.AngleDecimals,
-			System.Globalization.CultureInfo.InvariantCulture);
-
-		private static string Rat(double v) => v.ToString("F" + Display.RatioDecimals,
-			System.Globalization.CultureInfo.InvariantCulture);
-
 		private readonly double _oopTolMm;
 		private readonly double _planeTolDeg;
 		private readonly double _coplanarTolDeg;
@@ -111,7 +80,10 @@ namespace NorsokChecker.Services.Norsok64
 			var (chord, warns) = IdentifyChord(members);
 			if (chord == null)
 			{
-				topo.Verdict = new TopologyVerdict { Status = "ERROR", Errors = warns };
+				topo.Verdict = new TopologyVerdict
+				{
+					Status = "ERROR", Errors = warns.Select(GateMessage.Plain).ToList(),
+				};
 				return topo;
 			}
 			topo.Chord = chord;
@@ -200,27 +172,22 @@ namespace NorsokChecker.Services.Norsok64
 						{
 							inlierPerps = perps.Select(t => t.Perp).ToList();
 							topo.PlaneFitBasis = "all braces (tie on closest pair)";
-							topo.PlaneWarn = $"No two braces are coplanar within the {tol:G}° fit tolerance and the " +
-								$"closest-pair deviation ({d0:F1}°) is shared by {tied.Count} pairs, so the plane is " +
-								"averaged across all braces. The 2D plane is only indicative — check the 3D view.";
+							topo.PlaneWarn = new GateMessage(GateKind.PlaneTie, Value: d0, Limit: tol, Count: tied.Count);
 						}
 						else
 						{
 							var p0 = pairs[0];
 							inlierPerps = new List<Vec3> { p0.Pi, p0.Pj };
 							topo.PlaneFitBasis = $"closest pair {p0.Bi.Name}-{p0.Bj.Name}";
-							topo.PlaneWarn = $"No two braces are coplanar within the {tol:G}° fit tolerance; " +
-								$"the joint plane was built from the closest pair {p0.Bi.Name}-{p0.Bj.Name} " +
-								$"(mutual deviation {p0.Dev:F1}° > {tol:G}°). The 2D plane is only indicative — " +
-								"check the 3D view.";
+							topo.PlaneWarn = new GateMessage(GateKind.PlanePair, p0.Bi.Name, p0.Bj.Name,
+								Value: p0.Dev, Limit: tol);
 						}
 					}
 					else
 					{
 						inlierPerps = perps.Select(t => t.Perp).ToList();
 						topo.PlaneFitBasis = "all braces (no valid pair)";
-						topo.PlaneWarn = "Could not form a brace pair for the joint plane; " +
-							"fitted across all braces — the 2D plane is only indicative.";
+						topo.PlaneWarn = new GateMessage(GateKind.PlaneNoPair);
 					}
 				}
 
@@ -487,8 +454,8 @@ namespace NorsokChecker.Services.Norsok64
 			IReadOnlyList<JointMemberData> braces, IReadOnlyList<BraceMeta> bracesMeta,
 			double dChordM, IReadOnlyList<string> chordWarns)
 		{
-			var errors = new List<string>();
-			var warnings = new List<string>();
+			var errors = new List<GateMessage>();
+			var warnings = new List<GateMessage>();
 
 			// gaps: a negative ADJACENT gap = overlap joint, out of the 6.4 gap rules → hard ERROR
 			// (non-adjacent negative just means an intermediate brace sits between them)
@@ -507,24 +474,24 @@ namespace NorsokChecker.Services.Norsok64
 			// continuous ones when there were any (see IdentifyChord)
 			int continuousCount = (chord.IsContinuous ? 1 : 0) + braces.Count(m => m.IsContinuous);
 			if (continuousCount == 0)
-				errors.Add("No continuous member — §6.4 needs a through chord.");
+				errors.Add(GateMessage.Plain("No continuous member — §6.4 needs a through chord."));
 			else if (continuousCount > 1)
-				errors.Add($"{continuousCount} continuous members — the chord is ambiguous; "
-					+ "§6.4 needs exactly one through member.");
+				errors.Add(GateMessage.Plain($"{continuousCount} continuous members — the chord is ambiguous; "
+					+ "§6.4 needs exactly one through member."));
 
 			foreach (var w in chordWarns)
 			{
 				// the chord-count gates above decide this explicitly, on the member set
 				if (w.Contains("continuous member")) continue;
-				warnings.Add(w);
+				warnings.Add(GateMessage.Plain(w));
 			}
 
 			// forces input mode — only Node / Position supported (we know where the force acts)
 			if (chord.ForcesIn != ConMemberForcesInEnum.Node && chord.ForcesIn != ConMemberForcesInEnum.Position)
-				errors.Add($"{chord.Name}: unsupported forces input '{chord.ForcesIn}' (only node/position).");
+				errors.Add(GateMessage.Plain($"{chord.Name}: unsupported forces input '{chord.ForcesIn}' (only node/position)."));
 			foreach (var b in braces)
 				if (b.ForcesIn != ConMemberForcesInEnum.Node && b.ForcesIn != ConMemberForcesInEnum.Position)
-					errors.Add($"{b.Name}: unsupported forces input '{b.ForcesIn}' (only node/position).");
+					errors.Add(GateMessage.Plain($"{b.Name}: unsupported forces input '{b.ForcesIn}' (only node/position)."));
 
 			// every member must be a tubular section whose D/T are known — two separate reasons to
 			// refuse it, reported apart (see JointSectionInfo.RejectReason). Saying "not CHS" about
@@ -532,69 +499,63 @@ namespace NorsokChecker.Services.Norsok64
 			// problem.
 			string? chordWhy = secC.RejectReason(chord.Name ?? "Chord");
 			if (chordWhy != null)
-				errors.Add(chordWhy);
+				errors.Add(GateMessage.Plain(chordWhy));
 			foreach (var bm in bracesMeta)
 			{
 				string? braceWhy = bm.Section.RejectReason(bm.Name ?? "brace");
 				if (braceWhy != null)
-					errors.Add(braceWhy);
+					errors.Add(GateMessage.Plain(braceWhy));
 			}
 
 			// a name that disagrees with the model is not a reason to refuse the joint, but the
 			// reader should know the check is standing on the modelled dimensions
-			if (!string.IsNullOrEmpty(secC.GeomNote))
-				warnings.Add($"{chord.Name}: {secC.GeomNote}.");
+			if (secC.NameDiameterMm is double chordNameD && secC.D is double chordD)
+				warnings.Add(new GateMessage(GateKind.DiameterFromModel, chord.Name ?? "Chord",
+					Value: chordNameD / 1000.0, Limit: chordD / 1000.0));
 			foreach (var bm in bracesMeta)
-				if (!string.IsNullOrEmpty(bm.Section.GeomNote))
-					warnings.Add($"{bm.Name}: {bm.Section.GeomNote}.");
+				if (bm.Section.NameDiameterMm is double nameD && bm.Section.D is double modelD)
+					warnings.Add(new GateMessage(GateKind.DiameterFromModel, bm.Name,
+						Value: nameD / 1000.0, Limit: modelD / 1000.0));
 
 			if (braces.Count == 0)
-				errors.Add("No brace (chord only).");
+				errors.Add(GateMessage.Plain("No brace (chord only)."));
 
 			foreach (var bm in bracesMeta)
 			{
 				if (bm.ThetaDeg < ParallelMinThetaDeg)
-					errors.Add($"{bm.Name}: θ={Ang(bm.ThetaDeg)}° — parallel to chord (degenerate).");
+					errors.Add(new GateMessage(GateKind.ThetaParallel, bm.Name, Value: bm.ThetaDeg));
 				double dev = bm.CoplanarDevDeg;
 				if (dev > CoplanarMaxDeg)
-					errors.Add($"{bm.Name}: {Ang(dev)}° off plane (>{CoplanarMaxDeg:F0}°) — different plane / multiplanar.");
+					errors.Add(new GateMessage(GateKind.OffPlaneError, bm.Name, Value: dev, Limit: CoplanarMaxDeg));
 				else if (dev > CoplanarWarnDeg)
-					warnings.Add($"{bm.Name}: {Ang(dev)}° off plane (borderline).");
-				// Measured from the plane through the CHORD AXIS — so the message has to say so.
-				// "out-of-plane ecc. 40 mm" on a joint the engineer displaced as one rigid body was
-				// both wrong and unactionable: nothing about that joint was out of plane.
-				// THE COMPARISON IS IN MILLIMETRES; only the sentence follows the display setting.
-				// Both numbers convert together — this tolerance is ours, not a clause bound, so
-				// unlike the §6.4.1 gap there is no citation to keep in its original unit.
+					warnings.Add(new GateMessage(GateKind.OffPlaneWarn, bm.Name, Value: dev));
+				// Measured from the plane through the CHORD AXIS — the message (GateMessage.Render)
+				// says so. THE COMPARISON IS IN MILLIMETRES; the record carries metres and whoever
+				// shows it picks the unit.
 				double oopMm = bm.OopOffsetM * 1000.0;
 				if (oopMm > _oopTolMm)
-					errors.Add($"{bm.Name}: {Len(oopMm)} out of the joint plane through the chord "
-						+ $"(>{Len(_oopTolMm)}).");
+					errors.Add(new GateMessage(GateKind.OutOfPlane, bm.Name,
+						Value: bm.OopOffsetM, Limit: _oopTolMm / 1000.0));
 				if (dChordM > 0)
 				{
 					double e = Math.Abs(bm.EccAlongM);
+					// D/4 from Figure 6-1 — a tool tolerance, not a §6.4 limit; the message says so.
 					if (e > EccAlongChordFrac * dChordM)
-						// D/4 comes from Figure 6-1, which dimensions the heavy-wall chord section as
-						// "D/4 or Min.300mm" either side of the ECCENTRICITY it labels. So the number
-						// is not ours out of thin air — but the figure dimensions a joint CAN, not an
-						// admissible eccentricity, so reading it as a limit on the offset is our
-						// choice and the message now says which part is which.
-						warnings.Add($"{bm.Name}: ecc. along chord e={Len(e * 1000)} "
-							+ $"(>D/4={Len(EccAlongChordFrac * dChordM * 1000)} — tool tolerance, "
-							+ "from the joint-can dimension in Figure 6-1, not a §6.4 limit).");
+						warnings.Add(new GateMessage(GateKind.EccAlongChord, bm.Name,
+							Value: e, Limit: EccAlongChordFrac * dChordM));
 				}
 				if (bm.Beta is double beta && (beta < 0.2 || beta > 1.0))
-					warnings.Add($"{bm.Name}: β={Rat(beta)} outside 0.2–1.0.");
+					warnings.Add(new GateMessage(GateKind.BetaOutside, bm.Name, Value: beta));
 				double th = bm.ThetaDeg;
 				if ((th < 30.0 || th > 90.0) && th >= ParallelMinThetaDeg)
-					warnings.Add($"{bm.Name}: θ={Ang(th)}° outside 30–90°.");
+					warnings.Add(new GateMessage(GateKind.ThetaOutside, bm.Name, Value: th));
 			}
 
 			if (secC.D is > 0 && secC.T is > 0)
 			{
 				double g = secC.D.Value / (2 * secC.T.Value);
 				if (g < 10.0 || g > 50.0)
-					warnings.Add($"γ={Rat(g)} outside 10–50.");
+					warnings.Add(new GateMessage(GateKind.GammaOutside, Value: g));
 			}
 
 			var verdict = new TopologyVerdict { Errors = errors, Warnings = warnings };
@@ -615,34 +576,19 @@ namespace NorsokChecker.Services.Norsok64
 			// loadEffectCount defaults to -1 = "not stated" so the existing callers and tests that
 			// finalize a verdict without load data are unaffected.
 			if (loadEffectCount == 0)
-				topo.Verdict.Errors.Insert(0,
+				topo.Verdict.Errors.Insert(0, GateMessage.Plain(
 					"No load effect on this connection — nothing to check. Every utilisation would "
-					+ "be 0 %, which is not a pass.");
+					+ "be 0 %, which is not a pass."));
 
-			if (!string.IsNullOrEmpty(topo.PlaneWarn))
-				topo.Verdict.Warnings.Insert(0, topo.PlaneWarn!);
+			if (topo.PlaneWarn != null)
+				topo.Verdict.Warnings.Insert(0, topo.PlaneWarn);
 			// Known: a gap computed without one of its diameters is not evidence of an overlap.
 			// The joint is still not checked — the missing diameter is reported by the section
 			// gates, which is the true reason — but it is no longer accused of a geometry it
 			// does not have. See BraceGap.Known.
-			// AN OVERLAP JOINT IS NOT OUTSIDE §6.4 — this tool does not implement it.
-			//
-			// The message used to read "overlap joint, out of 6.4 gap rules", which attributes our
-			// limit to the standard. §6.4.4 (N-004 Rev. 3 p. 33, read off the clause) says overlap
-			// joints "may be designed using the simple joint provision of 6.4.3 with the following
-			// exemptions and additions" — shear parallel to the chord face becomes a failure mode,
-			// §6.4.3.5 stops applying, and the through-brace force gains a portion of the
-			// overlapping brace's. None of that is implemented here, and THAT is the reason the
-			// joint is not checked.
-			//
-			// The report's own Q_g has an overlap branch it uses, and the validity table prints
-			// g/D ≥ −0.6 as satisfied at −0.113 — so the document was rejecting a joint on a rule
-			// it simultaneously showed as met.
+			// An overlap joint is a TOOL limit, not the standard's — GateMessage.Render says why.
 			foreach (var g in topo.Gaps.Where(g => g.Adjacent && g.Known && g.GapM < 0))
-				topo.Verdict.Errors.Insert(0,
-					$"{g.A}-{g.B}: feet overlap (gap {Len(g.GapM * 1000)} < 0) — an overlap joint. "
-					+ "§6.4.4 covers these with additions this tool does not implement (shear along "
-					+ "the chord face, the through-brace force share), so it is not checked here.");
+				topo.Verdict.Errors.Insert(0, new GateMessage(GateKind.Overlap, g.A, g.B, Value: g.GapM));
 			topo.Verdict.Status = topo.Verdict.Errors.Count > 0 ? "ERROR"
 				: topo.Verdict.Warnings.Count > 0 ? "WARNING" : "OK";
 		}
