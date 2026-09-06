@@ -176,19 +176,32 @@ namespace NorsokChecker.Services.Norsok64
 		/// </summary>
 		public static (Vec3 Favg, Vec3 Mavg, int SideCount) ChordAvgLoad(JointMemberData chord, ConLoadEffect le)
 		{
-			Vec3 ax = chord.AxisX, ay = chord.AxisY, az = chord.AxisZ;
-			var sls = (le.MemberLoadings ?? new List<ConLoadEffectMemberLoad>())
-				.Where(ml => ml.MemberId == chord.Id && ml.SectionLoad != null)
-				.Select(ml => ml.SectionLoad!).ToList();
-			if (sls.Count == 0)
+			var sides = ChordSideLoads(chord, le);
+			if (sides.Count == 0)
 				return (Vec3.Zero, Vec3.Zero, 0);
 			Vec3 F = Vec3.Zero, M = Vec3.Zero;
-			foreach (var sl in sls)
-			{
-				F += ax * sl.N + ay * sl.Vy + az * sl.Vz;
-				M += ax * sl.Mx + ay * sl.My + az * sl.Mz;
-			}
-			return (F * (1.0 / sls.Count), M * (1.0 / sls.Count), sls.Count);
+			foreach (var (_, f, m) in sides) { F += f; M += m; }
+			return (F * (1.0 / sides.Count), M * (1.0 / sides.Count), sides.Count);
+		}
+
+		/// <summary>
+		/// The chord's loadings one by one, in global axes, labelled by the end they are defined at
+		/// (Begin / End of the continuous member). What <see cref="ChordAvgLoad"/> averages — kept
+		/// apart so the report can show both sides beside their mean.
+		/// </summary>
+		public static List<(string Label, Vec3 F, Vec3 M)> ChordSideLoads(JointMemberData chord, ConLoadEffect le)
+		{
+			Vec3 ax = chord.AxisX, ay = chord.AxisY, az = chord.AxisZ;
+			return (le.MemberLoadings ?? new List<ConLoadEffectMemberLoad>())
+				.Where(ml => ml.MemberId == chord.Id && ml.SectionLoad != null)
+				.Select(ml =>
+				{
+					var sl = ml.SectionLoad!;
+					return (ml.Position.ToString(),
+						ax * sl.N + ay * sl.Vy + az * sl.Vz,
+						ax * sl.Mx + ay * sl.My + az * sl.Mz);
+				})
+				.ToList();
 		}
 
 		/// <summary>
@@ -197,11 +210,19 @@ namespace NorsokChecker.Services.Norsok64
 		/// σ_mz = M_op·R/I (sign irrelevant, squared in A²). Port of chord_stress_at_brace.
 		/// </summary>
 		public static ChordStressRow ChordStressAtBrace(Vec3 fAvg, Vec3 mAvg, Vec3 ex,
-			JointSectionInfo secC, Vec3 nb, int side)
+			JointSectionInfo secC, Vec3 nb, int side,
+			IReadOnlyList<(string Label, Vec3 F, Vec3 M)>? sides = null)
 		{
 			double? dMm = secC.D, tMm = secC.T;
 			if (dMm is not > 0 || tMm is not > 0)
 				return new ChordStressRow { Side = side };
+
+			// Each side resolved exactly as the average is below: N along the chord, the moments
+			// onto the brace's sub-plane normal and its in-plane axis.
+			Vec3 ipAxis0 = Vec3.Cross(nb, ex).Norm > 1e-9 ? Vec3.Cross(nb, ex).Unit() : Vec3.Zero;
+			var sideRows = (sides ?? Array.Empty<(string, Vec3, Vec3)>())
+				.Select(s => new ChordSideLoad(s.Label, Vec3.Dot(s.F, ex), Vec3.Dot(s.M, nb), Vec3.Dot(s.M, ipAxis0)))
+				.ToList();
 
 			double D = dMm.Value * 1e-3, T = tMm.Value * 1e-3;
 			double di = D - 2 * T, R = D / 2.0;
@@ -223,6 +244,7 @@ namespace NorsokChecker.Services.Norsok64
 			{
 				SigmaA = sigmaA, SigmaMy = sigmaMy, SigmaMz = sigmaMz,
 				A = A, I = I, R = R, NChord = nChord, MipChord = mIp, MopChord = mOp, Side = side,
+				Sides = sideRows,
 			};
 		}
 	}

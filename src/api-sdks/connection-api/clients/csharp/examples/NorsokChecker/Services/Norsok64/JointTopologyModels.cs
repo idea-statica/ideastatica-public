@@ -254,6 +254,12 @@ namespace NorsokChecker.Services.Norsok64
 		public double LocalMz { get; set; }
 	}
 
+	/// <summary>
+	/// One side of the chord at the joint — the section loading at one end of the continuous
+	/// member, resolved into the brace's frame the same way the average is (SI: N, N·m).
+	/// </summary>
+	public sealed record ChordSideLoad(string Label, double N, double Mip, double Mop);
+
 	/// <summary>Chord nominal stresses at one brace footprint, NORSOK Qf convention (Pa).</summary>
 	public sealed class ChordStressRow
 	{
@@ -268,6 +274,14 @@ namespace NorsokChecker.Services.Norsok64
 		public double MipChord { get; set; }
 		public double MopChord { get; set; }
 		public int Side { get; set; }
+
+		/// <summary>
+		/// The two chord loadings the averages above were taken from (§6.4.3.4: "the average of the
+		/// chord loads and bending moments on either side of the brace intersection"). Carried so the
+		/// report can print what was averaged, not only the result — a reader holding the model
+		/// could not otherwise find these numbers.
+		/// </summary>
+		public List<ChordSideLoad> Sides { get; set; } = new();
 	}
 
 	/// <summary>One K balancing pairing of the classifier (port of classify_kyx K_components).</summary>

@@ -375,10 +375,11 @@ namespace NorsokChecker.Services.Norsok64
 			foreach (var le in les)
 			{
 				var (fAvg, mAvg, _) = JointForceResolver.ChordAvgLoad(chord, le);
+				var sides = JointForceResolver.ChordSideLoads(chord, le);
 				var rows = topo.GapBraces.Select(b =>
 				{
 					var (_, nb) = JointForceResolver.BraceSubplaneNormal(b, ex, nPlane);
-					var st = JointForceResolver.ChordStressAtBrace(fAvg, mAvg, ex, secC, nb, sideByName[b.Name]);
+					var st = JointForceResolver.ChordStressAtBrace(fAvg, mAvg, ex, secC, nb, sideByName[b.Name], sides);
 					st.Name = b.Name;
 					return st;
 				}).ToList();
@@ -476,8 +477,8 @@ namespace NorsokChecker.Services.Norsok64
 			if (continuousCount == 0)
 				errors.Add(GateMessage.Plain("No continuous member — §6.4 needs a through chord."));
 			else if (continuousCount > 1)
-				errors.Add(GateMessage.Plain($"{continuousCount} continuous members — the chord is ambiguous; "
-					+ "§6.4 needs exactly one through member."));
+				errors.Add(GateMessage.Plain($"{continuousCount} continuous members — the chord is ambiguous. "
+					+ "This tool assesses one through member per joint (an internal rule, not a §6.4 limit)."));
 
 			foreach (var w in chordWarns)
 			{
@@ -528,7 +529,7 @@ namespace NorsokChecker.Services.Norsok64
 				if (dev > CoplanarMaxDeg)
 					errors.Add(new GateMessage(GateKind.OffPlaneError, bm.Name, Value: dev, Limit: CoplanarMaxDeg));
 				else if (dev > CoplanarWarnDeg)
-					warnings.Add(new GateMessage(GateKind.OffPlaneWarn, bm.Name, Value: dev));
+					warnings.Add(new GateMessage(GateKind.OffPlaneWarn, bm.Name, Value: dev, Limit: CoplanarWarnDeg));
 				// Measured from the plane through the CHORD AXIS — the message (GateMessage.Render)
 				// says so. THE COMPARISON IS IN MILLIMETRES; the record carries metres and whoever
 				// shows it picks the unit.
