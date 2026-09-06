@@ -1,6 +1,6 @@
 # NorsokChecker — request for a software review
 
-To the app's original developer, from the author of the commits since 2026-08-25. 2026-09-06.
+To: Tomáš Kohoutek. From: Ondřej Skorunka. 2026-09-06.
 
 ## Why you, and what for
 
