@@ -114,7 +114,7 @@
                    Text="Applies to every printed value, derivations included."/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="BtnRestore" Content="Restore defaults" Width="120" Height="26"
+            <Button x:Name="BtnRestore" Content="Default" Width="80" Height="26"
                     Margin="0,0,8,0" Click="Restore_Click"/>
             <Button x:Name="BtnOk" Content="OK" Width="80" Height="26" IsDefault="True"
                     Margin="0,0,8,0" Click="Ok_Click"/>
