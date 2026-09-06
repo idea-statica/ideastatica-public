@@ -354,92 +354,106 @@ namespace NorsokChecker.Services
 					+ $"<span class='chapter-no'>{chapter}</span> {Esc(connectionName)}</h2>");
 				chapter++;
 
-				// The joint, seen along its own plane normal — the same figure the §6.4 tab shows, so
-				// the reader is looking at one picture of the joint rather than two projections of it.
-				// Only where one was rendered: a joint the chapter rejected has no envelope to colour
-				// by, and an uncoloured figure beside a "not assessed" card would suggest otherwise.
-				if (jointImages != null && jointImages.TryGetValue(connectionName, out var png)
-					&& !string.IsNullOrEmpty(png))
+				// THE CONNECTION'S BODY IS BUILT ASIDE AND APPENDED WHOLE. A connection whose rendering
+				// throws costs its own section and nothing more: the reader gets a block that names it
+				// and the reason, and every other connection still prints. Before this, one exception
+				// anywhere in the loop abandoned the document at whatever card it had reached, and a
+				// report that stops part-way looks exactly like a short one.
+				var cb = new StringBuilder();
+				try
 				{
-					sb.AppendLine("<figure class='joint-figure'>");
-					sb.AppendLine($"  <img src='data:image/png;base64,{png}' alt='Joint {Esc(connectionName)}'/>");
-					sb.AppendLine("  <figcaption>Joint plane, viewed along its normal &mdash; "
-						+ "members coloured by their governing utilisation.</figcaption>");
-					sb.AppendLine("</figure>");
-					// AFTER the figure element, not inside it: .joint-figure carries
-					// break-inside: avoid, and adding the legend to that block made the figure too
-					// tall to share a page with the geometry table — six pages at 8 % fill, and the
-					// document grew from 173 pages to 187. See the CSS comment on .joint-figure.
-					RenderUtilisationLegend(sb);
-				}
+					// The joint, seen along its own plane normal — the same figure the §6.4 tab shows, so
+					// the reader is looking at one picture of the joint rather than two projections of it.
+					// Only where one was rendered: a joint the chapter rejected has no envelope to colour
+					// by, and an uncoloured figure beside a "not assessed" card would suggest otherwise.
+					if (jointImages != null && jointImages.TryGetValue(connectionName, out var png)
+						&& !string.IsNullOrEmpty(png))
+					{
+						cb.AppendLine("<figure class='joint-figure'>");
+						cb.AppendLine($"  <img src='data:image/png;base64,{png}' alt='Joint {Esc(connectionName)}'/>");
+						cb.AppendLine("  <figcaption>Joint plane, viewed along its normal &mdash; "
+							+ "members coloured by their governing utilisation.</figcaption>");
+						cb.AppendLine("</figure>");
+						// AFTER the figure element, not inside it: .joint-figure carries
+						// break-inside: avoid, and adding the legend to that block made the figure too
+						// tall to share a page with the geometry table — six pages at 8 % fill, and the
+						// document grew from 173 pages to 187. See the CSS comment on .joint-figure.
+						RenderUtilisationLegend(cb);
+					}
 
-				// The joint-plane section is NOT rendered here — it belongs INSIDE the §6.4 group,
-				// and only where §6.4 actually ran. See the chapter loop below.
+					// The joint-plane section is NOT rendered here — it belongs INSIDE the §6.4 group,
+					// and only where §6.4 actually ran. See the chapter loop below.
 
-				// Group by chapter, from the registry rather than a list kept here.
-				//
-				// This used to be a hardcoded four-entry array, which meant a new chapter's rows
-				// landed in "Other Checks" below with nothing to say they had been mis-filed — the
-				// report looked complete and quietly grouped the new work as leftovers.
-				var groups = Chapters.ChapterRegistry.All
-					.Select(c => (key: c.Key, title: c.ReportGroup))
-					.ToArray();
-
-				var assigned = new HashSet<NorsokFormulaResult>();
-
-				foreach (var (key, title) in groups)
-				{
-					var groupFormulas = formulas
-						.Where(f => !assigned.Contains(f) && f.Section.StartsWith(key))
-						.ToList();
-					if (groupFormulas.Count == 0) continue;
-
-					foreach (var f in groupFormulas) assigned.Add(f);
-
-					// A joint outside the chapter's scope becomes ONE card listing every unmet
-					// condition, not one card each. CON6 produced seven, all headed "Outside the
-					// scope of §6.4 (n of 7)" and each opening onto the same sentence — seven cards
-					// that say the chapter does not apply, where one says it better and names the
-					// seven reasons. The Results table was fixed the same way.
-					var rejections = groupFormulas.Where(f => f.NotAssessed && !f.IsNote).ToList();
-					var rest = rejections.Count > 1
-						? groupFormulas.Except(rejections).ToList()
-						: groupFormulas;
-
-					sb.AppendLine($"<div class='chapter-group'>");
-					sb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
-
-					// The joint plane, INSIDE this chapter's group — it is strictly §6.4's, not a
-					// general property of the connection, and it used to render before the groups
-					// where it read as the latter.
+					// Group by chapter, from the registry rather than a list kept here.
 					//
-					// For a REJECTED joint too, but showing different things: see RenderJointPlane.
-					// The first fix here suppressed it entirely when nothing was assessed, which
-					// removed one contradiction (transformed forces above a card saying no force
-					// could be resolved) and created another — every assessed joint showed its
-					// workings while a rejected one gave only a verdict, though its conditions quote
-					// measured numbers. So the block stays and drops the forces instead.
-					if (key == "6.4"
-						&& topologies != null && topologies.TryGetValue(connectionName, out var topo))
-						RenderJointPlane(sb, topo, groupFormulas, disp);
+					// This used to be a hardcoded four-entry array, which meant a new chapter's rows
+					// landed in "Other Checks" below with nothing to say they had been mis-filed — the
+					// report looked complete and quietly grouped the new work as leftovers.
+					var groups = Chapters.ChapterRegistry.All
+						.Select(c => (key: c.Key, title: c.ReportGroup))
+						.ToArray();
 
-					if (rejections.Count > 1)
-						RenderRejectionCard(sb, rejections, key, expandAll);
+					var assigned = new HashSet<NorsokFormulaResult>();
 
-					foreach (var fr in rest)
-						RenderFormulaCard(sb, fr, expandAll, disp);
-					sb.AppendLine($"</div>");
+					foreach (var (key, title) in groups)
+					{
+						var groupFormulas = formulas
+							.Where(f => !assigned.Contains(f) && f.Section.StartsWith(key))
+							.ToList();
+						if (groupFormulas.Count == 0) continue;
+
+						foreach (var f in groupFormulas) assigned.Add(f);
+
+						// A joint outside the chapter's scope becomes ONE card listing every unmet
+						// condition, not one card each. CON6 produced seven, all headed "Outside the
+						// scope of §6.4 (n of 7)" and each opening onto the same sentence — seven cards
+						// that say the chapter does not apply, where one says it better and names the
+						// seven reasons. The Results table was fixed the same way.
+						var rejections = groupFormulas.Where(f => f.NotAssessed && !f.IsNote).ToList();
+						var rest = rejections.Count > 1
+							? groupFormulas.Except(rejections).ToList()
+							: groupFormulas;
+
+						cb.AppendLine($"<div class='chapter-group'>");
+						cb.AppendLine($"  <h3 class='chapter-header'>{Esc(title)} <span class='chapter-count'>{groupFormulas.Count}</span></h3>");
+
+						// The joint plane, INSIDE this chapter's group — it is strictly §6.4's, not a
+						// general property of the connection, and it used to render before the groups
+						// where it read as the latter.
+						//
+						// For a REJECTED joint too, but showing different things: see RenderJointPlane.
+						// The first fix here suppressed it entirely when nothing was assessed, which
+						// removed one contradiction (transformed forces above a card saying no force
+						// could be resolved) and created another — every assessed joint showed its
+						// workings while a rejected one gave only a verdict, though its conditions quote
+						// measured numbers. So the block stays and drops the forces instead.
+						if (key == "6.4"
+							&& topologies != null && topologies.TryGetValue(connectionName, out var topo))
+							RenderJointPlane(cb, topo, groupFormulas, disp);
+
+						if (rejections.Count > 1)
+							RenderRejectionCard(cb, rejections, key, expandAll);
+
+						foreach (var fr in rest)
+							RenderFormulaCard(cb, fr, expandAll, disp);
+						cb.AppendLine($"</div>");
+					}
+
+					// Any uncategorized
+					var uncategorized = formulas.Where(f => !assigned.Contains(f)).ToList();
+					if (uncategorized.Count > 0)
+					{
+						cb.AppendLine($"<div class='chapter-group'>");
+						cb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{uncategorized.Count}</span></h3>");
+						foreach (var fr in uncategorized)
+							RenderFormulaCard(cb, fr, expandAll, disp);
+						cb.AppendLine($"</div>");
+					}
+					sb.Append(cb);
 				}
-
-				// Any uncategorized
-				var uncategorized = formulas.Where(f => !assigned.Contains(f)).ToList();
-				if (uncategorized.Count > 0)
+				catch (Exception ex)
 				{
-					sb.AppendLine($"<div class='chapter-group'>");
-					sb.AppendLine($"  <h3 class='chapter-header'>Other Checks <span class='chapter-count'>{uncategorized.Count}</span></h3>");
-					foreach (var fr in uncategorized)
-						RenderFormulaCard(sb, fr, expandAll, disp);
-					sb.AppendLine($"</div>");
+					RenderConnectionFailure(sb, connectionName, ex);
 				}
 			}
 
@@ -1010,6 +1024,27 @@ namespace NorsokChecker.Services
 			//
 			// A legend worth having would list each state's FORCES, per connection. That is an
 			// appendix, not a line under the overview table.
+		}
+
+		/// <summary>
+		/// The block a connection gets when rendering it threw: its name, and the exception, in the
+		/// FAIL colours — because a reader must not mistake it for a connection with nothing to say.
+		/// The rest of the document is unaffected; see the loop in GenerateReport.
+		/// </summary>
+		private static void RenderConnectionFailure(StringBuilder sb, string connectionName, Exception ex)
+		{
+			sb.AppendLine("<div class='check-card fail render-failure'>");
+			sb.AppendLine("  <div class='card-header fail'>");
+			sb.AppendLine("    <span class='status-icon'>&#x2718;</span>");
+			sb.AppendLine($"    <span class='card-title'>This connection could not be rendered</span>");
+			sb.AppendLine("  </div>");
+			sb.AppendLine("  <div class='card-body'>");
+			sb.AppendLine($"    <p class='deriv-note'>The checks of <strong>{Esc(connectionName)}</strong> were "
+				+ "computed, but the report could not be written for them. Nothing else in this document "
+				+ "is affected. The reason, for the developers:</p>");
+			sb.AppendLine($"    <pre class='render-failure-detail'>{Esc(ex.GetType().Name)}: {Esc(ex.Message)}</pre>");
+			sb.AppendLine("  </div>");
+			sb.AppendLine("</div>");
 		}
 
 		/// <summary>
@@ -2864,6 +2899,7 @@ body {
    with an unstyled white header and an icon in the body colour -- the one state the app
    deliberately distinguishes was the one the report did not show. */
 .card-header.warn { background: #fff8e1; border-left: 4px solid #ffa726; }
+.render-failure-detail { white-space: pre-wrap; font-size: 11px; color: #6B7C93; background: #f5f5f5; padding: 8px 12px; border-radius: 4px; }
 .status-icon { font-size: 18px; }
 .pass .status-icon { color: #2e7d32; }
 .fail .status-icon { color: #c62828; }
