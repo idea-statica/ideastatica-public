@@ -31,7 +31,9 @@ namespace NorsokChecker
 				ChapterToggles.Children.Add(new System.Windows.Controls.CheckBox
 				{
 					Content = chapter.DisplayName,
-					IsChecked = false,          // running a check is the user's decision
+					// §6.4 is the chapter this app exists to run, so it starts ticked; it had to be
+					// ticked by hand before every run. Any other chapter stays off until asked for.
+					IsChecked = chapter.Key == "6.4",
 					Tag = chapter,
 					Margin = new Thickness(0, 0, 12, 0),
 					VerticalAlignment = VerticalAlignment.Center,
