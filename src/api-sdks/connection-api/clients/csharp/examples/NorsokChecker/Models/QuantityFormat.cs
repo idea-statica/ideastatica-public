@@ -150,13 +150,18 @@ namespace NorsokChecker.Models
 			Num(v, c, dp);
 
 		/// <summary>
-		/// A 0..1 ratio as a percentage. The SPACE is part of it: the two consumers printed
-		/// `73.7%` and `73.7 %` for the same number, and a reader comparing two screens noticed.
+		/// A 0..1 ratio as a percentage — THE one spelling, for the grids and the report alike.
+		///
+		/// The SPACE is part of it, and it is a non-breaking one: the two consumers printed `73.7%`
+		/// and `73.7 %` for the same number, and a reader comparing two screens noticed. The report
+		/// had its own formatter that stripped the space "because it is not wanted", so a card title
+		/// written here and a badge written there disagreed on one header row. Non-breaking, so that
+		/// a narrow badge or table cell cannot wrap the sign onto its own line.
 		/// </summary>
 		internal static string Percent(double ratio, CultureInfo c, int dp = 1) =>
 			double.IsNaN(ratio) || double.IsInfinity(ratio)
 				? "—"
-				: (ratio * 100.0).ToString("F" + dp, c) + " %";
+				: (ratio * 100.0).ToString("F" + dp, c) + " %";
 
 		/// <summary>
 		/// The same number with the sign left OFF, for a column whose header carries it.

@@ -2582,7 +2582,8 @@ namespace NorsokChecker.Services
 		private static int _pctDecimals = 1;
 
 		/// <summary>
-		/// A utilisation as a percentage — through ONE formatter, in one culture.
+		/// A utilisation as a percentage — through THE formatter, <see cref="Models.QuantityFormat.Percent"/>,
+		/// in one culture.
 		///
 		/// Measured on a printed report from this machine: the summary read "73,7%" with a comma
 		/// while every derivation step on the pages below read "73.70" with a point, because the
@@ -2590,19 +2591,19 @@ namespace NorsokChecker.Services
 		/// one English document, and on a machine with a different locale the report would differ
 		/// again — a document that renders differently per machine cannot be a deliverable.
 		///
+		/// It used to be its own `P` format with the space stripped, while the grids and the card
+		/// title kept the space — `32.10%` beside `K 0.0 %` on one row. One formatter now; this is
+		/// only the culture and the fallback precision.
+		///
 		/// Invariant rather than the norm's own locale: the report is written in English and NORSOK
 		/// is an English-language standard. A Czech localisation, if it ever comes, changes this one
 		/// method.
 		/// </summary>
 		private static string Pct(double ratio, int decimals) =>
-			ratio.ToString("P" + Math.Clamp(decimals, 0, 9),
-					System.Globalization.CultureInfo.InvariantCulture)
-				.Replace(" ", "").Replace(" ", "");
+			Models.QuantityFormat.Percent(ratio,
+				System.Globalization.CultureInfo.InvariantCulture, Math.Clamp(decimals, 0, 9));
 
-		private static string Pct(double ratio) =>
-			ratio.ToString("P" + _pctDecimals, System.Globalization.CultureInfo.InvariantCulture)
-				// "P1" gives "73.7 %" — the space is not wanted, the rest is.
-				.Replace(" ", "").Replace(" ", "");
+		private static string Pct(double ratio) => Pct(ratio, _pctDecimals);
 
 		/// <summary>
 		/// A validity condition, typeset. The engine states them in ASCII — <c>"0.2&lt;=beta&lt;=1.0"</c>,

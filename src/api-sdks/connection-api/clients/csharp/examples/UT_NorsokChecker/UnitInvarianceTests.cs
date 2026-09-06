@@ -79,6 +79,13 @@ namespace UT_NorsokChecker
 			return Regex.Replace(s, @"data:[^""')]{100,}", "");
 		}
 
+		/// <summary>
+		/// A percentage as the page carries it: digits, then the non-breaking space QuantityFormat
+		/// puts before the sign — raw, or HTML-encoded to <c>&amp;#160;</c> where the text went
+		/// through Esc — then <c>%</c> (or KaTeX's <c>\%</c>). Group 1 is the decimals.
+		/// </summary>
+		private const string PercentPattern = @"\d+\.(\d+)(?:\s|&#160;|&nbsp;)*\\?%";
+
 		private static int Count(string content, string unit) =>
 			Regex.Matches(content,
 				@"(?<![A-Za-z0-9+/])" + Regex.Escape(unit) + @"(?![A-Za-z0-9+/])").Count;
@@ -110,10 +117,10 @@ namespace UT_NorsokChecker
 		[Test]
 		public void NoPrintedResultMovesWhenTheUnitsChange()
 		{
-			var metric = Regex.Matches(Content(Page(Metric)), @"(\d+\.\d+)\s*\\?%")
-				.Select(m => m.Groups[1].Value).ToList();
-			var imperial = Regex.Matches(Content(Page(Imperial)), @"(\d+\.\d+)\s*\\?%")
-				.Select(m => m.Groups[1].Value).ToList();
+			var metric = Regex.Matches(Content(Page(Metric)), PercentPattern)
+				.Select(m => m.Value).ToList();
+			var imperial = Regex.Matches(Content(Page(Imperial)), PercentPattern)
+				.Select(m => m.Value).ToList();
 
 			Assert.That(metric, Is.Not.Empty, "no percentage found — the regex or the page changed");
 			Assert.That(imperial, Is.EqualTo(metric),
@@ -235,7 +242,7 @@ namespace UT_NorsokChecker
 				RegexOptions.Singleline);
 			Assert.That(header.Success, "no card header on the page");
 
-			var decimals = Regex.Matches(header.Groups[1].Value, @"\d+\.(\d+)\s*%")
+			var decimals = Regex.Matches(header.Groups[1].Value, PercentPattern)
 				.Select(m => m.Groups[1].Value.Length).ToList();
 			Assert.That(decimals, Has.Count.GreaterThanOrEqualTo(4),
 				"the header should carry the K/Y/X split and the badge");
