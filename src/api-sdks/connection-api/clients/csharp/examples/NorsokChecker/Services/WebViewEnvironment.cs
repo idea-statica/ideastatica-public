@@ -66,5 +66,33 @@ namespace NorsokChecker.Services
 
 			await view.EnsureCoreWebView2Async();
 		}
+
+		/// <summary>
+		/// Show a page by writing it to a file and navigating to it — never by NavigateToString.
+		///
+		/// NavigateToString refuses content over 2 MB (2·1024·1024 characters) with an
+		/// ArgumentException; measured here: 1.5 MB renders, 2.2 MB throws. The report embeds KaTeX
+		/// (~0.6 MB) and one PNG per assessed joint, and on a fifteen-joint project it crossed that
+		/// line as the derivations grew — the view then had no document and painted black, and the
+		/// exception went into an overlay the view was covering. A file has no such limit.
+		///
+		/// The file lives in the profile folder: per-user, writable, and ours. TEMP is the fallback
+		/// when that folder cannot be written (the same case in which EnsureAsync fell back).
+		/// The page is self-contained — fonts, scripts and figures are inline — so the file URI is
+		/// only a carrier; nothing on the page resolves against it.
+		/// </summary>
+		/// <returns>The path written, for the log.</returns>
+		internal static async Task<string> ShowHtmlAsync(WebView2 view, string html, string fileName)
+		{
+			string dir = UserDataFolder;
+			try { Directory.CreateDirectory(dir); }
+			catch (Exception) { dir = Path.GetTempPath(); }
+			string path = Path.Combine(dir, fileName);
+			File.WriteAllText(path, html, System.Text.Encoding.UTF8);
+
+			await EnsureAsync(view);
+			view.CoreWebView2.Navigate(new Uri(path).AbsoluteUri);
+			return path;
+		}
 	}
 }

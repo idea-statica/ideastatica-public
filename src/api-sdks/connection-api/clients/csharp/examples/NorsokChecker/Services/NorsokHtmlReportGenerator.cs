@@ -109,7 +109,7 @@ namespace NorsokChecker.Services
 		/// Passed in rather than rendered here: drawing it needs the WPF control and the joint
 		/// topology, both of which live in the window, and a report generator that reached for either
 		/// could no longer be called from a test without a UI thread. Base64 rather than a file path
-		/// because WebView2's NavigateToString has no base URL to resolve one against.
+		/// so the page stays one self-contained file, wherever it is opened from.
 		/// </param>
 		/// <param name="topologies">
 		/// The resolved joint topology per connection name, for the "Joint plane and force

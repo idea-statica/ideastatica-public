@@ -159,7 +159,7 @@ namespace NorsokChecker
 		///
 		/// ONE INSTANCE AT A TIME. It awaits the WebView2 initialisation, and it is now called from
 		/// three places — after a run, after a PDF export, and on a settings change — so two calls
-		/// can overlap, and then two instances drive one WebView and whichever NavigateToString runs
+		/// can overlap, and then two instances drive one WebView and whichever navigation runs
 		/// last wins, which need not be the later request. A call arriving while one is in flight is
 		/// noted and served once, when the first finishes: the last request still wins, and only one
 		/// instance ever holds the view.
@@ -193,6 +193,11 @@ namespace NorsokChecker
 		private async Task PopulateReportTabOnceAsync()
 		{
 			ReportBusyDetail.Text = $"{_formulaResults.Count} connection(s)";
+			// THE VIEW IS HIDDEN WHILE THE OVERLAY IS UP. WebView2 is an HWND-hosted control, and WPF
+			// cannot draw over one (airspace): once the view existed, the overlay — and the failure
+			// reason it carried — sat behind it, and the user saw a black view with no message.
+			// Collapsing the view is what puts the overlay on screen; it comes back only on success.
+			ReportWebView.Visibility = Visibility.Collapsed;
 			ReportBusy.Visibility = Visibility.Visible;
 
 			var sw = System.Diagnostics.Stopwatch.StartNew();
@@ -202,12 +207,14 @@ namespace NorsokChecker
 				Log($"  report HTML built in {sw.ElapsedMilliseconds} ms ({html.Length / 1024} kB)");
 
 				sw.Restart();
-				await Services.WebViewEnvironment.EnsureAsync(ReportWebView);
-				ReportWebView.NavigateToString(html);
-				Log($"  report shown in {sw.ElapsedMilliseconds} ms");
+				// As a FILE, not a string — NavigateToString refuses anything over 2 MB, and the
+				// report of a fifteen-joint project with its figures is there. See ShowHtmlAsync.
+				string path = await Services.WebViewEnvironment.ShowHtmlAsync(ReportWebView, html, "report.html");
+				Log($"  report shown in {sw.ElapsedMilliseconds} ms ({path})");
 
 				// Only on success: on failure the overlay stays up, carrying the reason.
 				ReportBusy.Visibility = Visibility.Collapsed;
+				ReportWebView.Visibility = Visibility.Visible;
 			}
 			catch (Exception ex)
 			{
@@ -387,9 +394,11 @@ namespace NorsokChecker
 					ReportWebView.NavigationCompleted -= OnNavCompleted;
 					navigated.TrySetResult(a.IsSuccess);
 				}
-				// All cards expanded — the customer must see every formula in the PDF
+				// All cards expanded — the customer must see every formula in the PDF. Its own file,
+				// so it cannot overwrite the tab's page while the tab is being refreshed.
 				ReportWebView.NavigationCompleted += OnNavCompleted;
-				ReportWebView.NavigateToString(BuildReportHtml(expandAll: true));
+				await Services.WebViewEnvironment.ShowHtmlAsync(ReportWebView,
+					BuildReportHtml(expandAll: true), "report-print.html");
 				await navigated.Task;
 				await Task.Delay(1200); // allow KaTeX formulas and web fonts to settle (all cards render)
 
