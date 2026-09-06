@@ -545,15 +545,13 @@ namespace NorsokChecker.Services
 			// The (§6.4.3.6) reference used to live only on the per-card legend, which this sentence
 			// duplicated word for word 40 times. The sentence is the one that stays, so it takes the
 			// clause reference with it.
-			// "matching the reference implementation" named nothing in 222 pages, while doing real
-			// work: it was offered as the justification for taking forces at the node. An
-			// unverifiable citation is weaker than none, because it implies a check the reader
-			// cannot repeat. Named as internal, which is honest and costs one clause.
+			// No appeal to "this tool's own reference implementation" any more. It was offered as the
+			// justification for taking forces at the node; a reference the reader cannot open is not
+			// a basis, and naming it as internal did not make it one. The statement stands on its own.
 			sb.AppendLine("  <p><strong>Sign conventions.</strong> N is positive in TENSION. "
 				+ "M<sub>y</sub> is in-plane and M<sub>z</sub> out-of-plane bending <em>of the joint "
 				+ "plane</em> (eq 6.57, &sect;6.4.3.6), not of a member's local y and z. Section "
-				+ "forces are taken AT THE NODE and projected without an r&times;F transfer, "
-				+ "matching this tool's own reference implementation (internal, not published).</p>");
+				+ "forces are taken AT THE NODE and projected without an r&times;F transfer.</p>");
 
 			// THE MAGNITUDES IN EQ (6.57), stated as OURS.
 			//
@@ -734,11 +732,13 @@ namespace NorsokChecker.Services
 		{
 			sb.AppendLine("  <div class='util-legend'>");
 			sb.AppendLine("    <span class='util-legend-label'>utilisation</span>");
+			// The ticks BRACKET the ramp: 0 before the first swatch, 100 % after the last. Both used
+			// to stand to the right of it, so nothing said which end was zero.
+			sb.AppendLine("    <span class='util-legend-tick'>0</span>");
 			for (int band = 0; band < Models.UtilisationScale.RampBandCount; band++)
 				sb.AppendLine($"    <span class='util-swatch' style='background:"
 					+ $"{Models.UtilisationScale.LitHexOfBand(band)}' "
 					+ $"title='{Models.UtilisationScale.BandLabel(band)}'></span>");
-			sb.AppendLine("    <span class='util-legend-tick'>0</span>");
 			sb.AppendLine("    <span class='util-legend-tick'>100 %</span>");
 			int over = Models.UtilisationScale.BandCount - 1;
 			sb.AppendLine($"    <span class='util-swatch util-swatch-over' style='background:"
@@ -924,7 +924,7 @@ namespace NorsokChecker.Services
 			// inability to read the model, and a reader does something different about each.
 			if (outsideScope > 0)
 				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{outsideScope}</span>"
-					+ "<span class='stat-label'>Outside &sect;6.4 scope</span></div>");
+					+ "<span class='stat-label'>Conditions not met</span></div>");
 			if (notEvaluated > 0)
 				sb.AppendLine($"    <div class='stat'><span class='stat-value'>{notEvaluated}</span>"
 					+ "<span class='stat-label'>Not evaluated</span></div>");
@@ -1060,7 +1060,7 @@ namespace NorsokChecker.Services
 			sb.AppendLine("  <summary class='card-header warn'>");
 			sb.AppendLine("    <span class='status-icon'>&#x26A0;</span>");
 			sb.AppendLine($"    <span class='section-ref'>&sect;{Esc(chapterKey)}</span>");
-			sb.AppendLine($"    <span class='card-title'>Outside the scope of &sect;{Esc(chapterKey)}"
+			sb.AppendLine($"    <span class='card-title'>Not assessed"
 				+ $" &mdash; {rejections.Count} conditions not met</span>");
 			sb.AppendLine("    <span class='util-badge warn'>&mdash;</span>");
 			sb.AppendLine("  </summary>");
@@ -1069,7 +1069,9 @@ namespace NorsokChecker.Services
 			sb.AppendLine("    <p class='deriv-note'>The checks of this chapter rest on quantities the "
 				+ "joint does not provide &mdash; the joint plane, the averaged chord stresses and the "
 				+ "force balance are properties of the WHOLE joint, so while any condition below is "
-				+ "unmet no brace can be assessed, not even one whose own geometry is fine.</p>");
+				+ "unmet no brace can be assessed, not even one whose own geometry is fine. Each "
+				+ "condition says whether it is the standard's or an internal tolerance of this "
+				+ "tool.</p>");
 
 			sb.AppendLine("    <table class='where-table'>");
 			for (int i = 0; i < rejections.Count; i++)
@@ -1084,7 +1086,8 @@ namespace NorsokChecker.Services
 			sb.AppendLine("    </table>");
 
 			sb.AppendLine("    <div class='result-bar warn'>");
-			sb.AppendLine("      <span>Not assessed &mdash; the chapter does not apply to this joint</span>");
+			sb.AppendLine("      <span>Not assessed &mdash; a condition of &sect;6.4 or an internal "
+				+ "tolerance of this tool is not met (listed above)</span>");
 			sb.AppendLine("      <span class='result-verdict'>&#x26A0; N/A</span>");
 			sb.AppendLine("    </div>");
 			sb.AppendLine("  </div>");
@@ -1737,31 +1740,37 @@ namespace NorsokChecker.Services
 			if (row.ChordStress is { } st && st.A > 0)
 			{
 				double aMm2 = cA(st.A), iMm4 = cI(st.I), rMm = cL(st.R);
-				sb.AppendLine("      <p class='deriv-h'>Chord stress derivation &mdash; averaged sides "
-					+ "&rarr; &sigma; (NORSOK p.31)</p>");
-				sb.AppendLine("      <p class='deriv-note'>The chord carries two loadings at a joint "
-					+ "(one per side of the brace intersection); NORSOK p.31 requires their AVERAGE in "
-					+ "eq (6.54)/(6.55).</p>");
+				sb.AppendLine("      <p class='deriv-h'>Chord stress derivation &mdash; chord loads at "
+					+ "the joint, averaged &rarr; &sigma; (&sect;6.4.3.4, p.31)</p>");
+				sb.AppendLine("      <p class='deriv-note'>The continuous chord carries one section "
+					+ "loading at each end of the joint (Begin and End of the member). &sect;6.4.3.4 says "
+					+ "the average of the chord loads and bending moments on either side of the brace "
+					+ "intersection should be used in eq (6.54)/(6.55); both sides are listed, the "
+					+ "average is what enters &sigma;. Resolved into this brace's plane, on the chord "
+					+ $"face <b>{(st.Side >= 0 ? "+ey" : "&minus;ey")}</b>.</p>");
 				sb.AppendLine("      <table class='deriv-table'>");
 				// y/z here too, with a ,chord index. These are NOT terms of eq (6.57) — they are the
 				// chord's own moments, on the way to sigma — but they are resolved into the SAME
 				// plane as the brace's M_y/M_z (JointForceResolver projects both onto nb = ex × bx),
 				// so calling them ip/op beside a y/z table would suggest two different planes where
 				// there is one. The index says which member they belong to.
-				// The "side" cell names the chord FACE this brace lands on — the thing that decides
-				// which fibre σ_my is taken at (z = side·R below). It used to read "average", which
-				// distinguished nothing (there is one row) and only repeated the sentence above. The
-				// averaging is stated in the header instead, where it belongs: these three values
-				// are already the mean of the chord's two loadings.
+				// One row per chord SIDE and then the average. The table used to print the average
+				// alone, and a reviewer holding the model could not find where it came from: the two
+				// loadings the norm asks to average appeared nowhere in the document.
 				// THREE DECIMALS on the chord moments, for the reason the brace moments got them: a
 				// 0.0128 kN·m moment printed as `0.01` is 22 % out, and the substitution below reads
 				// this value back.
-				sb.AppendLine("        <tr><th>chord face</th><th>N<sub>chord</sub> (avg)</th>"
-					+ "<th>M<sub>y,chord</sub> (avg)</th><th>M<sub>z,chord</sub> (avg)</th></tr>");
-				sb.AppendLine($"        <tr><td><b>{(st.Side >= 0 ? "+ey" : "&minus;ey")}</b></td>"
-					+ $"<td>{F(cF(st.NChord), disp.ForceDecimals, disp.ForceFormat)} {uF}</td>"
-					+ $"<td>{F(cM(st.MipChord), disp.MomentDecimals, disp.MomentFormat)} {uM}</td>"
-					+ $"<td>{F(cM(st.MopChord), disp.MomentDecimals, disp.MomentFormat)} {uM}</td></tr>");
+				sb.AppendLine("        <tr><th>position</th><th>N<sub>chord</sub></th>"
+					+ "<th>M<sub>y,chord</sub></th><th>M<sub>z,chord</sub></th></tr>");
+				foreach (var side in st.Sides)
+					sb.AppendLine($"        <tr><td>{Esc(side.Label)}</td>"
+						+ $"<td>{F(cF(side.N), disp.ForceDecimals, disp.ForceFormat)} {uF}</td>"
+						+ $"<td>{F(cM(side.Mip), disp.MomentDecimals, disp.MomentFormat)} {uM}</td>"
+						+ $"<td>{F(cM(side.Mop), disp.MomentDecimals, disp.MomentFormat)} {uM}</td></tr>");
+				sb.AppendLine($"        <tr><td><b>average</b></td>"
+					+ $"<td><b>{F(cF(st.NChord), disp.ForceDecimals, disp.ForceFormat)} {uF}</b></td>"
+					+ $"<td><b>{F(cM(st.MipChord), disp.MomentDecimals, disp.MomentFormat)} {uM}</b></td>"
+					+ $"<td><b>{F(cM(st.MopChord), disp.MomentDecimals, disp.MomentFormat)} {uM}</b></td></tr>");
 				sb.AppendLine("      </table>");
 
 				Step(sb, "Chord section properties &mdash; CHS, thickness at the joint (p.31)",
@@ -1938,8 +1947,15 @@ namespace NorsokChecker.Services
 				{
 					var kt = r.KTerms[i];
 					string lbl = r.KTerms.Count > 1 ? $"K{i + 1}" : "K";
+					// The PARTNER is named. The engine's K terms follow the classifier's components
+					// one for one, so the i-th term's gap is the toe-to-toe gap to the i-th partner.
+					// Without the name, two braces of one joint printed "g = 8.4 mm" and
+					// "g = 8.7 mm" and a reviewer read them as one pair measured twice — they were
+					// two pairs, the middle brace balancing against a neighbour on each side.
+					string partner = i < cl.KComponents.Count ? cl.KComponents[i].Partner : "";
+					string toPartner = partner.Length > 0 ? $" to <b>{Esc(partner)}</b>" : "";
 					sb.AppendLine($"      <p class='deriv-note'><b>{lbl}</b> &mdash; {Pct(kt.FrK, disp.PercentDecimals)} of "
-						+ "N<sub>Sd</sub> balanced across this gap.</p>");
+						+ $"N<sub>Sd</sub> balanced against{(partner.Length > 0 ? $" <b>{Esc(partner)}</b>" : " a neighbour")} across this gap.</p>");
 					// Q_g SHOWS ITS BRANCH AND ITS INPUTS.
 					//
 					// It was a heading and a value. Note (b) has three branches — g/D >= 0.05,
@@ -1967,7 +1983,7 @@ namespace NorsokChecker.Services
 							+ $@"{{{N(tChordMm, disp.SmallLengthDecimals)}\cdot "
 							+ $@"{N(fy, disp.StressDecimals)}}} = {N(phiI, disp.RatioDecimals)}"
 							+ $@",\ \gamma = {N(r.Gamma, disp.RatioDecimals)},\ g/D = {N(gdI, disp.RatioDecimals)}";
-					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g = "
+					Step(sb, $"Q<sub>g</sub> &mdash; {lbl}, gap g{toPartner} = "
 						+ $"{N(cL(kt.GapM), disp.SmallLengthDecimals)} {uL}, "
 						+ $"g/D = {N(gdI, disp.RatioDecimals)} "
 						+ $"&mdash; {(gdI >= 0.05 ? "gap branch" : gdI <= -0.05 ? "overlap branch" : "interpolated between the two limiting values")}"
@@ -2270,13 +2286,19 @@ namespace NorsokChecker.Services
 					$"{Models.QuantityFormat.SmallLength(Math.Abs(topo.PlaneOffsetM), rc, disp)} {lu} "
 					+ "<span class='deriv-hint'>along the plane normal &mdash; the whole joint is "
 					+ "displaced; brace eccentricities below are measured from THIS plane</span>");
-			if (!topo.Coplanar || topo.PlaneSpread > 0)
+			// A joint with a brace beyond ±15° names the brace; a spread of 0.000 beside "(not
+			// coplanar)" said two opposite things on one line, because the spread is measured over
+			// the braces that DID fit the plane.
+			if (!topo.Coplanar)
+				Kv(sb, "braces beyond the &plusmn;15&deg; of &sect;6.4.2",
+					$"{topo.EvalOutliers.Count}: {Esc(string.Join(", ", topo.EvalOutliers))} "
+					+ "<span class='deriv-hint'>(not in the joint plane)</span>");
+			else if (topo.PlaneSpread > 0)
 				Kv(sb, "out-of-plane spread",
 					// PlaneSpread is the scatter of the brace DIRECTIONS (unit vectors from
 					// DominantDirection), so it is dimensionless — it used to print "mm".
 					$"{N(topo.PlaneSpread, disp.RatioDecimals)} <span class='deriv-hint'>(direction scatter, "
-					+ "dimensionless)</span>"
-					+ (topo.Coplanar ? "" : " <span class='deriv-hint'>(not coplanar)</span>"));
+					+ "dimensionless)</span>");
 			sb.AppendLine("  </table>");
 
 			if (topo.PlaneWarn != null)
@@ -2360,10 +2382,11 @@ namespace NorsokChecker.Services
 				if (topo.BracesMeta.Count > 0)
 					sb.AppendLine($"  <p class='deriv-note'>In this joint "
 						+ $"<b>{topo.BracesMeta.Count - offPlane} of {topo.BracesMeta.Count}</b> "
-						+ "braces lie in the fitted plane to within 0.1&deg;. For those, the two halves "
-						+ "of the table differ by a relabelling and the sign convention above rather "
-						+ "than by arithmetic &mdash; worth knowing before reading the side-by-side "
-						+ "columns as evidence of a computation.</p>");
+						+ "braces lie in the fitted plane to within 0.1&deg;. The right half is the "
+						+ "left half rotated about each brace's own axis into the joint plane, with "
+						+ "the sign convention above applied; where a member's local axes already lie "
+						+ "in that plane the rotation is a relabelling and the numbers match up to "
+						+ "sign, where they are turned the components mix.</p>");
 				// SHEAR AND TORSION ARE PRINTED, in the model half of the table.
 				//
 				// The method chapter says the other actions "are listed with each brace's forces so
@@ -3296,6 +3319,16 @@ body {
      orphans property has nothing to hold back. */
   .connection-header, .section-header, .index-title, .chapter-header,
   .deriv-h { break-after: avoid; }
+
+  /* A CARD HEADER STAYS WITH ITS BODY. Measured on the 235-page export: 13 of 40 card headers sat
+     at a page foot with an empty box under them and the derivation began overleaf. The header is
+     a summary element, which the heading rule above does not reach; and the first block of the
+     body is held to it from the other side, so neither can let go. */
+  .check-card > summary { break-after: avoid; break-inside: avoid; }
+  .card-body > :first-child { break-before: avoid; }
+
+  /* The colophon does not take a page of its own: it stays with whatever precedes it. */
+  .report-footer { break-before: avoid; break-inside: avoid; }
 
   /* And a heading is not split from itself either, so it cannot land half on each page. */
   .deriv-h { break-inside: avoid; }

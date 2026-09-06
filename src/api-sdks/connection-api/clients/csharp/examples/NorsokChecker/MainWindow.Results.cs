@@ -89,8 +89,7 @@ namespace NorsokChecker
 						// more. Which conditions is a question for the §6.4 tab and the report; here it
 						// filled seven rows for one joint and one for another, reading as seven checks
 						// against one when the answer in both cases is that the chapter does not apply.
-						Title = $"Outside the scope of §{rejections[0].Section}"
-							+ $" — {rejections.Count} conditions not met",
+						Title = $"Not assessed — {rejections.Count} conditions not met",
 						LoadCase = "—",
 						rejections[0].Equation,
 						Utilization = "—",

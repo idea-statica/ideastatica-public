@@ -469,8 +469,8 @@ namespace NorsokChecker
 				// conditions and say what each one means. It is the only thing the reader gets.
 				int n = v.Errors.Count;
 				Lbl64VerdictTitle.Text =
-					$"✗ Not assessed — this joint is outside the scope of NORSOK §6.4"
-					+ (n > 1 ? $" ({n} conditions not met)" : "");
+					$"✗ Not assessed — a condition of §6.4 or an internal tolerance of this tool is not met"
+					+ (n > 1 ? $" ({n} conditions)" : "");
 				Lbl64VerdictBody.Text =
 					"Section 6.4 covers simple tubular joints. The joint plane, the chord stresses "
 					+ "averaged across it and the K/Y/X force balance are properties of the WHOLE "

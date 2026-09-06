@@ -80,9 +80,12 @@ namespace NorsokChecker.Services
 						// "6.4.3" is a CLAUSE — printed as "(Eq. 6.4.3)" it names an equation the norm
 						// does not have.
 						Equation = "",
+						// "Not assessed", not "outside the scope of §6.4": several of the conditions
+						// are this tool's own tolerances, and a banner attributing them to the
+						// standard sent a reader away from a check (§6.4.4) the standard permits.
 						Title = reasons.Count > 1
-							? $"Outside the scope of §6.4 ({i + 1} of {reasons.Count})"
-							: "Outside the scope of §6.4",
+							? $"Not assessed — condition {i + 1} of {reasons.Count} not met"
+							: "Not assessed — condition not met",
 						// The condition as DATA — the card writes it in the reader's units.
 						Gate = reasons[i],
 						Formula = "-",
@@ -178,7 +181,9 @@ namespace NorsokChecker.Services
 			{
 				results.Add(new NorsokFormulaResult
 				{
-					Section = "6.4.3.1",
+					// The clause the note belongs to — 6.4.3.1 for a validity range, 6.4.2 for the
+					// plane, the chapter for a tool tolerance. Every note used to say 6.4.3.1.
+					Section = warns[i].Clause,
 					// EMPTY, not "-": a note evaluates no equation. The literal dash rendered as
 					// "(Eq. -)" on every note row.
 					Equation = "",

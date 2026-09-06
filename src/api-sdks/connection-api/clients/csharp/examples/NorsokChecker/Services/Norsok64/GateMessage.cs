@@ -18,7 +18,7 @@ namespace NorsokChecker.Services.Norsok64
 		ThetaParallel,
 		/// <summary>Member is Value degrees off the plane, past Limit degrees — a hard error.</summary>
 		OffPlaneError,
-		/// <summary>Member is Value degrees off the plane — borderline.</summary>
+		/// <summary>Member is Value degrees off the plane — above the tool's warning tolerance Limit, inside §6.4.2's ±15°.</summary>
 		OffPlaneWarn,
 		/// <summary>Member's β = Value is outside 0.2–1.0.</summary>
 		BetaOutside,
@@ -100,7 +100,8 @@ namespace NorsokChecker.Services.Norsok64
 				// unactionable. Both numbers convert together: this tolerance is ours, not a clause
 				// bound, so unlike the §6.4.1 gap there is no citation to keep in its original unit.
 				GateKind.OutOfPlane =>
-					$"{Member}: {Len(Value)} out of the joint plane through the chord (>{Len(Limit)}).",
+					$"{Member}: {Len(Value)} out of the joint plane through the chord (>{Len(Limit)}, "
+					+ "an internal tolerance of this tool — §6.4 gives no value).",
 
 				// D/4 comes from Figure 6-1, which dimensions the heavy-wall chord section as "D/4 or
 				// Min.300mm" either side of the ECCENTRICITY it labels. The figure dimensions a joint
@@ -111,9 +112,15 @@ namespace NorsokChecker.Services.Norsok64
 					+ "from the joint-can dimension in Figure 6-1, not a §6.4 limit).",
 
 				GateKind.ThetaParallel => $"{Member}: θ={Ang(Value)}° — parallel to chord (degenerate).",
+				// The ±15° IS the standard's: §6.4.2 lets brace planes within ±15° of each other count
+				// as one plane. The 5° below it is ours — a warning that the plane fit is getting
+				// loose, nothing the norm asks for. Saying which is which is the point of both lines.
 				GateKind.OffPlaneError =>
-					$"{Member}: {Ang(Value)}° off plane (>{Limit.ToString("F0", c)}°) — different plane / multiplanar.",
-				GateKind.OffPlaneWarn => $"{Member}: {Ang(Value)}° off plane (borderline).",
+					$"{Member}: {Ang(Value)}° off plane (>{Limit.ToString("F0", c)}°, the ±15° of §6.4.2) "
+					+ "— different plane / multiplanar.",
+				GateKind.OffPlaneWarn =>
+					$"{Member}: {Ang(Value)}° off plane — above this tool's internal warning tolerance "
+					+ $"({Limit.ToString("F0", c)}°), inside the ±15° of §6.4.2; treated as in-plane.",
 				GateKind.BetaOutside => $"{Member}: β={Rat(Value)} outside 0.2–1.0.",
 				GateKind.ThetaOutside => $"{Member}: θ={Ang(Value)}° outside 30–90°.",
 				GateKind.GammaOutside => $"γ={Rat(Value)} outside 10–50.",
@@ -144,6 +151,20 @@ namespace NorsokChecker.Services.Norsok64
 				_ => Text ?? Kind.ToString(),
 			};
 		}
+
+		/// <summary>
+		/// The clause a note about this message files under. The §6.4.3.1 validity ranges are that
+		/// clause's; an off-plane angle is a §6.4.2 matter; everything else — tool tolerances, section
+		/// types, the plane fit — is the chapter as a whole. Notes used to file every warning under
+		/// 6.4.3.1, which sent a reader to the wrong page for an 8° off-plane brace.
+		/// </summary>
+		public string Clause => Kind switch
+		{
+			GateKind.BetaOutside or GateKind.ThetaOutside or GateKind.GammaOutside => "6.4.3.1",
+			GateKind.OffPlaneWarn or GateKind.OffPlaneError or GateKind.PlaneTie
+				or GateKind.PlanePair or GateKind.PlaneNoPair => "6.4.2",
+			_ => "6.4",
+		};
 
 		/// <summary>The default-settings sentence — for logs and tests, never for a page the user chose units on.</summary>
 		public override string ToString() => Render();

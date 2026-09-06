@@ -252,7 +252,7 @@ namespace NorsokChecker.Services.Chapters
 				{
 					Section = "6.4",
 					Equation = "",
-					Title = "Outside the scope of §6.4",
+					Title = "Not assessed — condition not met",
 					CheckExpression = reason,
 					Formula = "-",
 					// No FormulaSubstituted. It sat under a SUBSTITUTION label, which promises an

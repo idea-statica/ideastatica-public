@@ -100,8 +100,10 @@ namespace NorsokChecker.Services
 					// A blocked input wins over a scope gate when both are present: the scope verdict
 					// was reached on inputs we know are incomplete, so it is not trustworthy.
 					: blocked ? "Not evaluated — the model could not be read"
-					: gates > 1 ? $"Outside §6.4 scope ({gates} conditions)"
-					: "Outside §6.4 scope";
+					// Not "outside §6.4 scope": some conditions are this tool's own tolerances,
+					// and a status that blames the standard is false for those.
+					: gates > 1 ? $"Not assessed ({gates} conditions not met)"
+					: "Not assessed (condition not met)";
 
 				return new ConnectionVerdict("N/A", 0, status);
 			}

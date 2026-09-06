@@ -171,7 +171,7 @@ namespace UT_NorsokChecker
 			{
 				Assert.That(v.Status, Is.Not.EqualTo("ERROR"),
 					"8 deg is inside the 15 deg limit: " + string.Join(" | ", v.Errors));
-				Assert.That(v.Warnings.Texts().Any(w => w.Contains("M6") && w.Contains("borderline")), Is.True,
+				Assert.That(v.Warnings.Texts().Any(w => w.Contains("M6") && w.Contains("warning tolerance")), Is.True,
 					string.Join(" | ", v.Warnings));
 			});
 		}
