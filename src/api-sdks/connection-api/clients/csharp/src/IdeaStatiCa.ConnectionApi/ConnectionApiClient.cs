@@ -154,6 +154,22 @@ namespace IdeaStatiCa.ConnectionApi
 			this.ConnectionLibrary = new ConnectionLibraryApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
+
+			// Every API reports a response this client cannot read instead of returning null - see
+			// IdeaApiExceptionFactory. Assigned after construction, because each generated constructor
+			// sets Configuration.DefaultExceptionFactory on itself, and there is no configuration
+			// property to carry it.
+			foreach (IApiAccessor api in new IApiAccessor[]
+			{
+				clientApi, this.Calculation, this.CalculationJobs, this.Connection, this.Export,
+				this.LoadEffect, this.Material, this.Member, this.Operation, this.Parameter,
+				this.Presentation, this.Project, this.Report, this.Template, this.Conversion,
+				this.Settings, this.ConnectionLibrary,
+			})
+			{
+				api.ExceptionFactory = IdeaApiExceptionFactory.Instance;
+			}
+
 			return ClientId;
 		}
 
