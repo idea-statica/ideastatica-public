@@ -5,10 +5,9 @@ Polymorphic root. Every element on the wire is one of the concrete subtypes list
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DefinitionType** | **string** |  | [optional] [readonly] 
 **MaterialName** | **string** |  | [optional] 
 **ShapeType** | **string** |  | [optional] 
-**Parameters** | [**List&lt;ConCrossSectionParameter&gt;**](ConCrossSectionParameter.md) |  | [optional] 
+**Dimensions** | [**List&lt;ConCrossSectionParametricDefinitionAllOfDimensions&gt;**](ConCrossSectionParametricDefinitionAllOfDimensions.md) |  | [optional] 
 **Type** | **string** |  | [optional] [default to "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api"]
 **Components** | [**List&lt;ConCrossSectionCustomComponent&gt;**](ConCrossSectionCustomComponent.md) |  | [optional] 
 

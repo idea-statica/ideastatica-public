@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaterialName** | **string** |  | [optional] 
-**DefinitionType** | **string** |  | [optional] [readonly] 
 **MprlName** | **string** |  | [optional] 
 **MirrorY** | **bool** |  | [optional] 
 **MirrorZ** | **bool** |  | [optional] 
