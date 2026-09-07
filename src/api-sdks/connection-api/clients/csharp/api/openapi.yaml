@@ -9137,9 +9137,12 @@ components:
     ConParameterLinkCreate:
       additionalProperties: false
       example:
+        boltAssemblyId: 5
         kind: operation
         parameter: parameter
         operationId: 0
+        crossSectionId: 1
+        materialId: 5
         propertyId: propertyId
         memberId: 6
       properties:
@@ -9153,6 +9156,18 @@ components:
           nullable: true
           type: integer
         memberId:
+          format: int32
+          nullable: true
+          type: integer
+        crossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        materialId:
+          format: int32
+          nullable: true
+          type: integer
+        boltAssemblyId:
           format: int32
           nullable: true
           type: integer
