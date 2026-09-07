@@ -20,9 +20,18 @@ namespace IdeaStatiCa.ConnectionApi
 		}
 
 		/// <inheritdoc cref="IApiServiceFactory{T}.CreateApiClient"/>
-		public async Task<IConnectionApiClient> CreateApiClient()
+		public Task<IConnectionApiClient> CreateApiClient() => CreateApiClient(null, null);
+
+		/// <summary>
+		/// Creates a client that identifies the calling application to the service, so its usage can be
+		/// told apart from every other caller's. See <see cref="ClientApplicationIdentity"/>.
+		/// </summary>
+		/// <param name="clientApplication">Name of the application making the calls.</param>
+		/// <param name="clientApplicationVersion">Version of that application. Optional.</param>
+		public async Task<IConnectionApiClient> CreateApiClient(string clientApplication,
+			string clientApplicationVersion = null)
 		{
-			var client = new ConnectionApiClient(BaseUrl);
+			var client = new ConnectionApiClient(BaseUrl, clientApplication, clientApplicationVersion);
 			await client.CreateAsync();
 			return client;
 		}
