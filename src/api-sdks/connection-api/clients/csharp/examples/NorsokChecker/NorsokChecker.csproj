@@ -50,12 +50,35 @@
     <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="26.0.4.1707" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- Product telemetry (Sentry / Seq / Google Analytics user events). IdeaStatiCa.Diagnostics is
-         not published to any feed, so this reaches out of ideastatica-public into the surrounding
-         monorepo: the app builds only from a full C:\Dev\IdeaStatiCa checkout, not from a
-         standalone clone of the public repo. -->
-    <ProjectReference Include="..\..\..\..\..\..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
+  <!-- Product telemetry (Sentry / Seq / Google Analytics user events). IdeaStatiCa.Diagnostics is
+       not published to any feed, so referencing it reaches out of ideastatica-public into the
+       surrounding monorepo — which exists on an IDEA StatiCa developer's machine and nowhere else.
+
+       So the reference is taken only when that project is actually there. Inside the monorepo the
+       app reports exactly what the product's own applications report; from a standalone clone of
+       ideastatica-public it builds and runs with a log file and nothing that leaves the machine.
+       The two AppLog implementations are what the switch selects — see Services\AppLog.cs. -->
+  <PropertyGroup>
+    <IdeaDiagnosticsProject>$(MSBuildThisFileDirectory)..\..\..\..\..\..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj</IdeaDiagnosticsProject>
+    <HasIdeaDiagnostics Condition="Exists('$(IdeaDiagnosticsProject)')">true</HasIdeaDiagnostics>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(HasIdeaDiagnostics)' == 'true'">
+    <ProjectReference Include="$(IdeaDiagnosticsProject)" />
+    <Compile Remove="Services\AppLog.Standalone.cs" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(HasIdeaDiagnostics)' != 'true'">
+    <Compile Remove="Services\AppLog.Idea.cs" />
+  </ItemGroup>
+
+  <Target Name="ReportTelemetryConfiguration" BeforeTargets="Build">
+    <!-- Which one it was is worth one line of build output: a build that silently reports nothing
+         and a build that reports to production analytics look identical otherwise. -->
+    <Message Importance="high" Condition="'$(HasIdeaDiagnostics)' == 'true'"
+             Text="NorsokChecker: IDEA StatiCa diagnostics found — Sentry and Google Analytics reporting compiled in." />
+    <Message Importance="high" Condition="'$(HasIdeaDiagnostics)' != 'true'"
+             Text="NorsokChecker: building without IdeaStatiCa.Diagnostics (not in this checkout) — logging to file only, nothing is reported." />
+  </Target>
 
 </Project>

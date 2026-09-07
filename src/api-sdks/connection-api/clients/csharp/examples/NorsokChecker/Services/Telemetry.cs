@@ -1,11 +1,9 @@
-using IdeaStatiCa.Diagnostics;
-using IdeaStatiCa.Diagnostics.UserEvents;
-
 namespace NorsokChecker.Services
 {
 	/// <summary>
-	/// Google Analytics user events for this tool, so its usage can be measured next to the rest of
-	/// the IDEA StatiCa applications.
+	/// The user events of this tool, so its usage can be measured next to the rest of the IDEA
+	/// StatiCa applications. WHERE they go is <see cref="AppLog"/>'s business and depends on the
+	/// build: Google Analytics in the monorepo build, the log file in a standalone one.
 	///
 	/// Naming: every event name is prefixed <c>norsok_</c> — the diagnostics library reports the name
 	/// in custom dimension 100, which is what identifies the event in the analytics reports. The
@@ -18,20 +16,18 @@ namespace NorsokChecker.Services
 	/// </summary>
 	internal static class Telemetry
 	{
-		private static IIdeaLogger Logger => AppLog.Logger;
-
 		/// <summary>
 		/// The shared application-start event, the same one the product's WPF applications report.
 		/// </summary>
 		internal static void ApplicationStarted()
 		{
-			Logger.LogEventInformation(new ApplicationStartedEvent());
+			AppLog.ReportApplicationStarted();
 		}
 
 		/// <summary>Load of a project was attempted (the picked file exists).</summary>
 		internal static void ProjectLoadClicked()
 		{
-			Report(EventCategories.Project, "norsok_project_load", "load project clicked");
+			Report(AppLog.Category.Project, "norsok_project_load", "load project clicked");
 		}
 
 		/// <summary>
@@ -41,21 +37,21 @@ namespace NorsokChecker.Services
 		/// </summary>
 		internal static void ProjectLoaded(int connectionCount, bool allTubular)
 		{
-			Report(EventCategories.Project, "norsok_project_loaded", "project loaded",
+			Report(AppLog.Category.Project, "norsok_project_loaded", "project loaded",
 				label: allTubular ? "tubular" : "mixed", value: connectionCount);
 		}
 
 		/// <summary>Opening the project or reading its members failed.</summary>
 		internal static void ProjectLoadFailed(Exception exception)
 		{
-			Report(EventCategories.Project, "norsok_project_load_failed", "project load failed",
+			Report(AppLog.Category.Project, "norsok_project_load_failed", "project load failed",
 				label: exception.GetType().Name);
 		}
 
 		/// <summary>The NORSOK check was started from the Run button.</summary>
 		internal static void CheckClicked()
 		{
-			Report(EventCategories.Calculation, "norsok_check_run", "run check clicked");
+			Report(AppLog.Category.Calculation, "norsok_check_run", "run check clicked");
 		}
 
 		/// <summary>
@@ -64,7 +60,7 @@ namespace NorsokChecker.Services
 		/// </summary>
 		internal static void CheckCompleted(bool allPassed, double governingUtilization)
 		{
-			Report(EventCategories.Calculation, "norsok_check_completed", "check completed",
+			Report(AppLog.Category.Calculation, "norsok_check_completed", "check completed",
 				label: allPassed ? "pass" : "fail",
 				value: (int)Math.Round(governingUtilization * 100.0));
 		}
@@ -72,26 +68,26 @@ namespace NorsokChecker.Services
 		/// <summary>The check was interrupted by an error (API, calculation or evaluation).</summary>
 		internal static void CheckFailed(Exception exception)
 		{
-			Report(EventCategories.Calculation, "norsok_check_failed", "check failed",
+			Report(AppLog.Category.Calculation, "norsok_check_failed", "check failed",
 				label: exception.GetType().Name);
 		}
 
 		/// <summary>PDF export was confirmed in the save dialog.</summary>
 		internal static void ReportExportClicked()
 		{
-			Report(EventCategories.Project, "norsok_report_export", "export pdf clicked");
+			Report(AppLog.Category.Project, "norsok_report_export", "export pdf clicked");
 		}
 
 		/// <summary>Both the NORSOK and the IDEA StatiCa CBFEM PDF were written.</summary>
 		internal static void ReportExported()
 		{
-			Report(EventCategories.Project, "norsok_report_exported", "pdf report exported");
+			Report(AppLog.Category.Project, "norsok_report_exported", "pdf report exported");
 		}
 
 		/// <summary>PDF export failed.</summary>
 		internal static void ReportExportFailed(Exception exception)
 		{
-			Report(EventCategories.Project, "norsok_report_export_failed", "pdf report export failed",
+			Report(AppLog.Category.Project, "norsok_report_export_failed", "pdf report export failed",
 				label: exception.GetType().Name);
 		}
 
@@ -102,13 +98,13 @@ namespace NorsokChecker.Services
 		/// </summary>
 		internal static void AutoTopologyToggled(bool enabled)
 		{
-			Report(EventCategories.Application, "norsok_auto_topology_toggled", "auto topology toggled",
+			Report(AppLog.Category.Application, "norsok_auto_topology_toggled", "auto topology toggled",
 				label: enabled ? "on" : "off");
 		}
 
 		private static void Report(string category, string eventName, string action, string? label = null, int value = 0)
 		{
-			Logger.LogEventInformation(new IdeaGeneralUserEvent(category, eventName, action, label, value));
+			AppLog.ReportEvent(category, eventName, action, label, value);
 		}
 	}
 }

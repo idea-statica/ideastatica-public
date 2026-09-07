@@ -1,28 +1,26 @@
 using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.Diagnostics;
 using System.IO;
 using System.Net.Http;
 
 namespace NorsokChecker.Services
 {
 	/// <summary>
-	/// The single IDEA logger of the application, shared by the crash handlers, the failure paths and
-	/// <see cref="Telemetry"/>.
+	/// The application's logging and reporting seam, shared by the crash handlers, the failure paths
+	/// and <see cref="Telemetry"/>.
 	///
-	/// Severity decides where a message ends up: Trace/Debug/Information stay in the log file and
-	/// become Sentry breadcrumbs, while Warning and above are reported to Sentry as issues. Keep
-	/// routine and expected conditions at Debug — every Warning and Error costs Sentry quota.
+	/// Where a message ends up depends on the build, and this is the only place that knows:
+	/// <c>AppLog.Idea.cs</c> is compiled when the example is built inside the IDEA StatiCa monorepo
+	/// and sends everything through <c>IdeaStatiCa.Diagnostics</c> (log file, Sentry, Google
+	/// Analytics); <c>AppLog.Standalone.cs</c> is compiled from a clone of ideastatica-public alone,
+	/// where that library does not exist, and writes a log file and nothing else. The csproj picks
+	/// one — see the <c>HasIdeaDiagnostics</c> condition there.
+	///
+	/// Severity decides the destination in the IDEA build: Trace/Debug/Information stay in the log
+	/// file and become Sentry breadcrumbs, while Warning and above are reported to Sentry as issues.
+	/// Keep routine and expected conditions at Debug — every Warning and Error costs Sentry quota.
 	/// </summary>
-	internal static class AppLog
+	internal static partial class AppLog
 	{
-		/// <summary>
-		/// Obtained on first use, which is always after <c>IdeaDiagnostics.Init</c> in the
-		/// <see cref="App"/> constructor — loggers must not be created before the initialization.
-		/// </summary>
-		internal static IIdeaLogger Logger { get; } = IdeaDiagnostics.GetLogger(
-			"norsok.checker.app",
-			LoggerCreationOptions.CrossPlatform_Active_Logger);
-
 		/// <summary>
 		/// Logs an operation that failed, choosing the severity by what kind of failure it is:
 		/// a bad or unreadable project, a service that is not answering or a file that cannot be
@@ -34,12 +32,26 @@ namespace NorsokChecker.Services
 		{
 			if (IsUserDataOrEnvironment(exception))
 			{
-				Logger.LogDebug(message, exception);
+				LogDebug(message, exception);
 				return;
 			}
 
-			Logger.LogError(message, exception);
+			LogError(message, exception);
 		}
+
+		/// <summary>
+		/// Routine and expected conditions — the log file, never an issue.
+		/// <paramref name="propertyValues"/> fill the <c>{Named}</c> holes of the message and are
+		/// kept as structured properties wherever the build reports them.
+		/// </summary>
+		internal static void LogDebug(string message, Exception? exception = null,
+			params object[] propertyValues)
+			=> Write(isError: false, message, exception, propertyValues);
+
+		/// <summary>A defect in this application — reported as an issue where reporting exists.</summary>
+		internal static void LogError(string message, Exception? exception = null,
+			params object[] propertyValues)
+			=> Write(isError: true, message, exception, propertyValues);
 
 		/// <summary>
 		/// True for failures caused by the input or the surroundings rather than by a bug here:
