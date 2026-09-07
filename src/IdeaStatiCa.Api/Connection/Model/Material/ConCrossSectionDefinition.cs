@@ -5,16 +5,14 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 {
 	/// <summary>
 	/// How a cross-section is defined — the editable facet of <see cref="ConCrossSectionDetail"/>.
-	/// The concrete subtype is discriminated by <see cref="DefinitionType"/>.
+	/// Polymorphic on the wire: every element is one of the known subtypes and carries the
+	/// <c>$type</c> discriminator.
 	/// </summary>
 	[KnownType(typeof(ConCrossSectionLibraryDefinition))]
 	[KnownType(typeof(ConCrossSectionParametricDefinition))]
 	[KnownType(typeof(ConCrossSectionCustomDefinition))]
 	public abstract class ConCrossSectionDefinition
 	{
-		/// <summary>Discriminator: "library" | "parametric" | "custom"</summary>
-		public abstract string DefinitionType { get; }
-
 		/// <summary>Name of the cross-section's material.</summary>
 		public string MaterialName { get; set; }
 	}
@@ -22,8 +20,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// <summary>A rolled section taken from the MPRL library by name.</summary>
 	public class ConCrossSectionLibraryDefinition : ConCrossSectionDefinition
 	{
-		public override string DefinitionType => "library";
-
 		/// <summary>MPRL name of the section (e.g. "HEA200").</summary>
 		public string MprlName { get; set; }
 
@@ -35,8 +31,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// <summary>A parametric section (welded, boxed, cold-formed, parametric rolled) defined by named dimensions.</summary>
 	public class ConCrossSectionParametricDefinition : ConCrossSectionDefinition
 	{
-		public override string DefinitionType => "parametric";
-
 		/// <summary>Shape type identifier (e.g. "Iw", "Tw", "BoxFl", "CHSPar").</summary>
 		public string ShapeType { get; set; }
 
@@ -51,8 +45,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// <summary>A general section defined by explicit polygonal components.</summary>
 	public class ConCrossSectionCustomDefinition : ConCrossSectionDefinition
 	{
-		public override string DefinitionType => "custom";
-
 		public List<ConCrossSectionCustomComponent> Components { get; set; }
 	}
 
@@ -64,13 +56,13 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// they must identify the same dimension.
 	/// </summary>
 	/// <remarks>
-	/// The concrete subtype says what the value is, discriminated by <see cref="DimensionType"/>:
-	/// a <see cref="ConCssNumberDimension"/> (an SI number), a <see cref="ConCssCountDimension"/>
-	/// (a whole number), a <see cref="ConCssSwitchDimension"/> (true/false) or a
-	/// <see cref="ConCssChoiceDimension"/> (one of the options it lists). A shape defines each of
-	/// its dimensions as exactly one kind; writing a dimension as another kind answers 422 and
-	/// says which is expected. The canonical workflow is to read the shape's template, change the
-	/// values and send the same objects back.
+	/// Polymorphic on the wire (<c>$type</c> discriminator): the concrete subtype says what the
+	/// value is — a <see cref="ConCssNumberDimension"/> (an SI number), a
+	/// <see cref="ConCssCountDimension"/> (a whole number), a <see cref="ConCssSwitchDimension"/>
+	/// (true/false) or a <see cref="ConCssChoiceDimension"/> (one of the options it lists). A shape
+	/// defines each of its dimensions as exactly one kind; writing a dimension as another kind
+	/// answers 422 and says which is expected. The canonical workflow is to read the shape's
+	/// template, change the values and send the same objects back.
 	/// </remarks>
 	[KnownType(typeof(ConCssNumberDimension))]
 	[KnownType(typeof(ConCssCountDimension))]
@@ -78,9 +70,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	[KnownType(typeof(ConCssChoiceDimension))]
 	public abstract class ConCssDimension
 	{
-		/// <summary>Discriminator: "number" | "count" | "switch" | "choice"</summary>
-		public abstract string DimensionType { get; }
-
 		/// <summary>Stable numeric id of the dimension within the shape.</summary>
 		public int Id { get; set; }
 
@@ -91,24 +80,18 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// <summary>A dimension with an SI number: a length or thickness in meters, an angle in radians.</summary>
 	public class ConCssNumberDimension : ConCssDimension
 	{
-		public override string DimensionType => "number";
-
 		public double Value { get; set; }
 	}
 
 	/// <summary>A dimension with a whole number, e.g. a polygon vertex count.</summary>
 	public class ConCssCountDimension : ConCssDimension
 	{
-		public override string DimensionType => "count";
-
 		public int Value { get; set; }
 	}
 
 	/// <summary>A dimension that is on or off, e.g. mirroring.</summary>
 	public class ConCssSwitchDimension : ConCssDimension
 	{
-		public override string DimensionType => "switch";
-
 		public bool Value { get; set; }
 	}
 
@@ -119,8 +102,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// </summary>
 	public class ConCssChoiceDimension : ConCssDimension
 	{
-		public override string DimensionType => "choice";
-
 		/// <summary>
 		/// The chosen option's stable name (e.g. "Center"). Matched case-insensitively on write;
 		/// an option the shape does not offer answers 422 listing the ones it does.
