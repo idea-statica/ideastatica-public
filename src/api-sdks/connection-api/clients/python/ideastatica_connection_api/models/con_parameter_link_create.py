@@ -32,8 +32,11 @@ class ConParameterLinkCreate(BaseModel):
     kind: Optional[ConPropertyOwnerKind] = None
     operation_id: Optional[StrictInt] = Field(default=None, alias="operationId")
     member_id: Optional[StrictInt] = Field(default=None, alias="memberId")
+    cross_section_id: Optional[StrictInt] = Field(default=None, alias="crossSectionId")
+    material_id: Optional[StrictInt] = Field(default=None, alias="materialId")
+    bolt_assembly_id: Optional[StrictInt] = Field(default=None, alias="boltAssemblyId")
     property_id: Optional[StrictStr] = Field(default=None, alias="propertyId")
-    __properties: ClassVar[List[str]] = ["parameter", "kind", "operationId", "memberId", "propertyId"]
+    __properties: ClassVar[List[str]] = ["parameter", "kind", "operationId", "memberId", "crossSectionId", "materialId", "boltAssemblyId", "propertyId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,6 +92,21 @@ class ConParameterLinkCreate(BaseModel):
         if self.member_id is None and "member_id" in self.model_fields_set:
             _dict['memberId'] = None
 
+        # set to None if cross_section_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.cross_section_id is None and "cross_section_id" in self.model_fields_set:
+            _dict['crossSectionId'] = None
+
+        # set to None if material_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.material_id is None and "material_id" in self.model_fields_set:
+            _dict['materialId'] = None
+
+        # set to None if bolt_assembly_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.bolt_assembly_id is None and "bolt_assembly_id" in self.model_fields_set:
+            _dict['boltAssemblyId'] = None
+
         # set to None if property_id (nullable) is None
         # and model_fields_set contains the field
         if self.property_id is None and "property_id" in self.model_fields_set:
@@ -110,6 +128,9 @@ class ConParameterLinkCreate(BaseModel):
             "kind": obj.get("kind"),
             "operationId": obj.get("operationId"),
             "memberId": obj.get("memberId"),
+            "crossSectionId": obj.get("crossSectionId"),
+            "materialId": obj.get("materialId"),
+            "boltAssemblyId": obj.get("boltAssemblyId"),
             "propertyId": obj.get("propertyId")
         })
         return _obj

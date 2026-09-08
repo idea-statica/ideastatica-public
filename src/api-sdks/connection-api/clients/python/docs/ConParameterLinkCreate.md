@@ -9,6 +9,9 @@ Name | Type | Description | Notes
 **kind** | [**ConPropertyOwnerKind**](ConPropertyOwnerKind.md) |  | [optional] 
 **operation_id** | **int** |  | [optional] 
 **member_id** | **int** |  | [optional] 
+**cross_section_id** | **int** |  | [optional] 
+**material_id** | **int** |  | [optional] 
+**bolt_assembly_id** | **int** |  | [optional] 
 **property_id** | **str** |  | [optional] 
 
 ## Example
