@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,16 +5,14 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 {
 	/// <summary>
 	/// How a cross-section is defined — the editable facet of <see cref="ConCrossSectionDetail"/>.
-	/// The concrete subtype is discriminated by <see cref="DefinitionType"/>.
+	/// Polymorphic on the wire: every element is one of the known subtypes and carries the
+	/// <c>$type</c> discriminator.
 	/// </summary>
 	[KnownType(typeof(ConCrossSectionLibraryDefinition))]
 	[KnownType(typeof(ConCrossSectionParametricDefinition))]
 	[KnownType(typeof(ConCrossSectionCustomDefinition))]
 	public abstract class ConCrossSectionDefinition
 	{
-		/// <summary>Discriminator: "library" | "parametric" | "custom"</summary>
-		public abstract string DefinitionType { get; }
-
 		/// <summary>Name of the cross-section's material.</summary>
 		public string MaterialName { get; set; }
 	}
@@ -23,8 +20,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// <summary>A rolled section taken from the MPRL library by name.</summary>
 	public class ConCrossSectionLibraryDefinition : ConCrossSectionDefinition
 	{
-		public override string DefinitionType => "library";
-
 		/// <summary>MPRL name of the section (e.g. "HEA200").</summary>
 		public string MprlName { get; set; }
 
@@ -36,94 +31,95 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	/// <summary>A parametric section (welded, boxed, cold-formed, parametric rolled) defined by named dimensions.</summary>
 	public class ConCrossSectionParametricDefinition : ConCrossSectionDefinition
 	{
-		public override string DefinitionType => "parametric";
-
 		/// <summary>Shape type identifier (e.g. "Iw", "Tw", "BoxFl", "CHSPar").</summary>
 		public string ShapeType { get; set; }
 
-		/// <summary>Named dimensions of the shape, values in SI units.</summary>
-		public List<ConCrossSectionParameter> Parameters { get; set; }
+		/// <summary>
+		/// The dimensions of the shape, each of the concrete kind its value has (see
+		/// <see cref="ConCssDimension"/>). On read every dimension of the shape is listed; on write
+		/// the ones not named keep the shape's defaults.
+		/// </summary>
+		public List<ConCssDimension> Dimensions { get; set; }
 	}
 
 	/// <summary>A general section defined by explicit polygonal components.</summary>
 	public class ConCrossSectionCustomDefinition : ConCrossSectionDefinition
 	{
-		public override string DefinitionType => "custom";
-
 		public List<ConCrossSectionCustomComponent> Components { get; set; }
 	}
 
 	/// <summary>
 	/// One dimension of a parametric cross-section, identified by the shape's stable numeric
-	/// parameter id and its stable non-localized code name (e.g. "wH" — the engine's parameter
+	/// dimension id and its stable non-localized code name (e.g. "wH" — the engine's parameter
 	/// identifier; display captions are localized and deliberately not part of the contract).
 	/// On input either <see cref="Name"/> or <see cref="Id"/> is enough; when both are given
 	/// they must identify the same dimension.
 	/// </summary>
 	/// <remarks>
-	/// A dimension carries its value in the field that fits its type, named by
-	/// <see cref="ValueKind"/>: <see cref="Value"/> for a number, <see cref="BoolValue"/> for a
-	/// switch, <see cref="IntValue"/> for a count, <see cref="StringValue"/> for a choice. Only
-	/// that one field is written on read and only that one is accepted on write — sending the
-	/// wrong one answers 422 and says which is expected.
+	/// Polymorphic on the wire (<c>$type</c> discriminator): the concrete subtype says what the
+	/// value is — a <see cref="ConCssNumberDimension"/> (an SI number), a
+	/// <see cref="ConCssCountDimension"/> (a whole number), a <see cref="ConCssSwitchDimension"/>
+	/// (true/false) or a <see cref="ConCssChoiceDimension"/> (one of the options it lists). A shape
+	/// defines each of its dimensions as exactly one kind; writing a dimension as another kind
+	/// answers 422 and says which is expected. The canonical workflow is to read the shape's
+	/// template, change the values and send the same objects back.
 	/// </remarks>
-	public class ConCrossSectionParameter
+	[KnownType(typeof(ConCssNumberDimension))]
+	[KnownType(typeof(ConCssCountDimension))]
+	[KnownType(typeof(ConCssSwitchDimension))]
+	[KnownType(typeof(ConCssChoiceDimension))]
+	public abstract class ConCssDimension
 	{
+		/// <summary>Stable numeric id of the dimension within the shape.</summary>
 		public int Id { get; set; }
 
 		/// <summary>Stable non-localized dimension code of the shape (e.g. "wH", "fT").</summary>
 		public string Name { get; set; }
+	}
 
-		/// <summary>
-		/// The value of a <see cref="ConCrossSectionParameterValueKind.Number"/> dimension, in SI
-		/// units — a length or thickness in meters, an angle in radians.
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public double? Value { get; set; }
+	/// <summary>A dimension with an SI number: a length or thickness in meters, an angle in radians.</summary>
+	public class ConCssNumberDimension : ConCssDimension
+	{
+		public double Value { get; set; }
+	}
 
-		/// <summary>The value of a <see cref="ConCrossSectionParameterValueKind.Bool"/> dimension, e.g. mirroring.</summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public bool? BoolValue { get; set; }
+	/// <summary>A dimension with a whole number, e.g. a polygon vertex count.</summary>
+	public class ConCssCountDimension : ConCssDimension
+	{
+		public int Value { get; set; }
+	}
 
-		/// <summary>The value of an <see cref="ConCrossSectionParameterValueKind.Int"/> dimension, e.g. a polygon vertex count.</summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public int? IntValue { get; set; }
-
-		/// <summary>
-		/// The value of an <see cref="ConCrossSectionParameterValueKind.Enum"/> dimension: the
-		/// chosen option under its stable, non-localized name (e.g. "Center" | "Left" | "Right"
-		/// for a web alignment). Matched case-insensitively on write; an unknown option answers
-		/// 422 listing the ones the shape offers.
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string StringValue { get; set; }
-
-		/// <summary>
-		/// Which of the value fields this dimension uses. Always set on read. Optional on write —
-		/// omitted means "whatever this dimension is", and a kind that contradicts the addressed
-		/// dimension is rejected, so a switch cannot be written as if it were a length.
-		/// </summary>
-		public ConCrossSectionParameterValueKind? ValueKind { get; set; }
+	/// <summary>A dimension that is on or off, e.g. mirroring.</summary>
+	public class ConCssSwitchDimension : ConCssDimension
+	{
+		public bool Value { get; set; }
 	}
 
 	/// <summary>
-	/// Which field of <see cref="ConCrossSectionParameter"/> carries the value. Most dimensions
-	/// are SI numbers, but a shape's defining input can also be a switch (mirroring), a count
-	/// (polygon vertices) or a choice (web alignment), and those have to round-trip too.
+	/// A dimension that is one of a fixed set of options, e.g. a web alignment. The option
+	/// travels under its stable, non-localized name; <see cref="Options"/> lists the ones the
+	/// shape offers so a caller never has to guess them.
 	/// </summary>
-	public enum ConCrossSectionParameterValueKind
+	public class ConCssChoiceDimension : ConCssDimension
 	{
-		/// <summary>Uses <see cref="ConCrossSectionParameter.Value"/>.</summary>
-		Number = 0,
+		/// <summary>
+		/// The chosen option's stable name (e.g. "Center"). Matched case-insensitively on write;
+		/// an option the shape does not offer answers 422 listing the ones it does.
+		/// </summary>
+		public string Value { get; set; }
 
-		/// <summary>Uses <see cref="ConCrossSectionParameter.BoolValue"/>.</summary>
-		Bool = 1,
+		/// <summary>
+		/// The options the shape offers for this dimension, in the shape's order; <see cref="Value"/>
+		/// is always one of them. Set on read, ignored on write.
+		/// </summary>
+		public List<ConCssOption> Options { get; set; }
+	}
 
-		/// <summary>Uses <see cref="ConCrossSectionParameter.IntValue"/>.</summary>
-		Int = 2,
-
-		/// <summary>Uses <see cref="ConCrossSectionParameter.StringValue"/>, the option's stable name.</summary>
-		Enum = 3,
+	/// <summary>One option of a <see cref="ConCssChoiceDimension"/>.</summary>
+	public class ConCssOption
+	{
+		/// <summary>The option's stable, non-localized name — what <see cref="ConCssChoiceDimension.Value"/> carries.</summary>
+		public string Value { get; set; }
 	}
 
 	/// <summary>
