@@ -15,10 +15,21 @@ class ConnectionApiServiceRunner:
     HEARTBEAT = "heartbeat"
     API_EXECUTABLE_NAME = "IdeaStatiCa.ConnectionRestApi.exe"
 
-    def __init__(self, setup_dir: str):
+    def __init__(self, setup_dir: str, client_application: Optional[str] = None,
+                 client_application_version: Optional[str] = None):
+        """
+        :param setup_dir: Directory where the service executable is located.
+        :param client_application: Name of the application making the calls, for example
+            "NorsokChecker" - a constant of the release, so it belongs to the factory rather than to
+            a single call. Every client this factory creates is reported under it, which is what
+            lets usage be attributed to an integration at all. Optional.
+        :param client_application_version: Version of that application. Optional.
+        """
         self.setup_dir = setup_dir
         self.service_process: Optional[subprocess.Popen] = None
         self.port: Optional[int] = None
+        self.client_application = client_application
+        self.client_application_version = client_application_version
 
     async def __aenter__(self):
         """Start the API service when entering the asynchronous context."""
@@ -50,19 +61,14 @@ class ConnectionApiServiceRunner:
             self.service_process = None
         logger.info("API service stopped.")
 
-    def create_api_client(self, client_application: Optional[str] = None,
-                          client_application_version: Optional[str] = None) -> ConnectionApiClient:
-        """Creates and returns an IdeaStatiCaClient attached to the API service.
-
-        :param client_application: Name of the application making the calls, so its usage can be
-            told apart from every other caller's. Optional.
-        :param client_application_version: Version of that application. Optional.
-        """
+    def create_api_client(self) -> ConnectionApiClient:
+        """Creates and returns an IdeaStatiCaClient attached to the API service."""
         if self.port is None:
             raise RuntimeError("The service must be started before creating a client.")
 
         base_url = f"{self.LOCALHOST_URL}:{self.port}"
-        client = ConnectionApiClient(base_url, client_application, client_application_version)
+        client = ConnectionApiClient(base_url, self.client_application,
+                                     self.client_application_version)
         logger.info(f"Client created for service at {base_url}")
         return client
 

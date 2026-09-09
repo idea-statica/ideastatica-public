@@ -59,7 +59,8 @@ Both clients provide a *service runner* that starts `IdeaStatiCa.ConnectionRestA
 ```csharp
 using IdeaStatiCa.ConnectionApi;
 
-using (var serviceRunner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0"))
+using (var serviceRunner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0",
+    "MyApplication", "1.0"))
 using (var client = await serviceRunner.CreateApiClient())
 {
     // use the client here
@@ -77,7 +78,7 @@ from ideastatica_connection_api.connection_api_service_runner import ConnectionA
 SETUP_DIR = r"C:\Program Files\IDEA StatiCa\StatiCa 26.0"
 
 async def main():
-    async with ConnectionApiServiceRunner(SETUP_DIR) as service_runner:
+    async with ConnectionApiServiceRunner(SETUP_DIR, "MyApplication", "1.0") as service_runner:
         with service_runner.create_api_client() as api_client:
             pass  # use the client here
 
@@ -111,7 +112,7 @@ With the service running you can open its Swagger UI in a browser at the root UR
 ```csharp
 using IdeaStatiCa.ConnectionApi;
 
-var attacher = new ConnectionApiServiceAttacher("http://localhost:5000");
+var attacher = new ConnectionApiServiceAttacher("http://localhost:5000", "MyApplication", "1.0");
 using (var client = await attacher.CreateApiClient())
 {
     // use the client here
@@ -123,7 +124,7 @@ using (var client = await attacher.CreateApiClient())
 ```python
 from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
 
-attacher = ConnectionApiServiceAttacher("http://localhost:5000")
+attacher = ConnectionApiServiceAttacher("http://localhost:5000", "MyApplication", "1.0")
 with attacher.create_api_client() as api_client:
     pass  # use the client here
 ```
@@ -131,6 +132,14 @@ with attacher.create_api_client() as api_client:
 ---
 
 Attaching is convenient during development: you start the service once and run your script against it repeatedly without paying the service startup time.
+
+### Name your application
+
+Both factories take an optional application name and version, as in the snippets above. The name travels in a request header on every call the client makes, and the service reports its usage under it — which is how we can tell one integration apart from another and see which of them are actually used.
+
+Give the name of the application, not of the machine, the project or the person: it is meant to be a constant of your build. Keep it to printable ASCII and around 60 characters; anything longer is cut, and a name with a diacritic in it is refused by the service's HTTP stack before the request arrives.
+
+Passing nothing is fully supported and changes nothing — the calls are still served, just not attributed.
 
 ## Your first script
 

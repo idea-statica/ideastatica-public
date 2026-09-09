@@ -64,10 +64,35 @@ namespace ST_ConRestApiClient
 		[Test]
 		public void ALongName_IsCutRatherThanSentWhole()
 		{
-			string value = ClientApplicationIdentity.Format(new string('x', 100), "1.0");
+			string value = ClientApplicationIdentity.Format(new string('x', 100));
 
 			Assert.That(value, Has.Length.EqualTo(ClientApplicationIdentity.MaxLength));
 			Assert.That(value, Is.EqualTo(new string('x', ClientApplicationIdentity.MaxLength)));
+		}
+
+		/// <summary>
+		/// Attribution is by application AND version, so a version must never arrive half-written: a
+		/// value cut mid-field reads as a different version, which is worse than no version at all.
+		/// The name is what gives way.
+		/// </summary>
+		[Test]
+		public void WhenBothDoNotFit_TheNameGivesWayAndTheVersionStaysWhole()
+		{
+			Assert.Multiple(() =>
+			{
+				Assert.That(ClientApplicationIdentity.Format(new string('x', 63), "1.4.2"),
+					Is.EqualTo(new string('x', 58) + "/1.4.2"),
+					"no dangling separator and no lost version");
+				Assert.That(ClientApplicationIdentity.Format(new string('x', 60), "1.4.2"),
+					Is.EqualTo(new string('x', 58) + "/1.4.2"),
+					"1.4.2 must not arrive as 1.4");
+				Assert.That(ClientApplicationIdentity.Format("Norsok", new string('9', 100)),
+					Is.EqualTo("Norsok"),
+					"a version that cannot fit whole is dropped, not trimmed");
+			});
+
+			Assert.That(ClientApplicationIdentity.Format(new string('x', 100), "1.4.2"),
+				Has.Length.EqualTo(ClientApplicationIdentity.MaxLength));
 		}
 	}
 }

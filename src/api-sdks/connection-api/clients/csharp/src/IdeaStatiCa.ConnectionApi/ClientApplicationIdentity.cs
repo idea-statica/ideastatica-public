@@ -61,10 +61,23 @@ namespace IdeaStatiCa.ConnectionApi
 			}
 
 			string suffix = Sanitize(version);
-			string value = suffix.Length == 0 ? name : $"{name}/{suffix}";
+			if (suffix.Length == 0)
+			{
+				return Truncate(name);
+			}
 
-			return value.Length <= MaxLength ? value : value.Substring(0, MaxLength);
+			// The name gives way before the version does. A version cut in half reads as a different
+			// version - which is worse than no version at all, since attributing by version is the
+			// point - so when even a whole version does not fit, it is dropped rather than trimmed.
+			int room = MaxLength - suffix.Length - 1;
+
+			return room < 1
+				? Truncate(name)
+				: $"{Truncate(name, room)}/{suffix}";
 		}
+
+		private static string Truncate(string value, int limit = MaxLength)
+			=> value.Length <= limit ? value : value.Substring(0, limit);
 
 		private static string Sanitize(string text)
 		{

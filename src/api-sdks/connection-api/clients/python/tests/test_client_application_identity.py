@@ -46,10 +46,24 @@ def test_anything_a_header_cannot_carry_is_replaced_rather_than_sent():
 
 
 def test_a_long_name_is_cut_rather_than_sent_whole():
-    value = ClientApplicationIdentity.format("x" * 100, "1.0")
+    value = ClientApplicationIdentity.format("x" * 100)
 
     assert len(value) == ClientApplicationIdentity.MAX_LENGTH
     assert value == "x" * ClientApplicationIdentity.MAX_LENGTH
+
+
+def test_when_both_do_not_fit_the_name_gives_way_and_the_version_stays_whole():
+    # Attribution is by application AND version, so a version must never arrive half-written: a
+    # value cut mid-field reads as a different version, which is worse than no version at all.
+    # no dangling separator and no lost version
+    assert ClientApplicationIdentity.format("x" * 63, "1.4.2") == "x" * 58 + "/1.4.2"
+    # 1.4.2 must not arrive as 1.4
+    assert ClientApplicationIdentity.format("x" * 60, "1.4.2") == "x" * 58 + "/1.4.2"
+    # a version that cannot fit whole is dropped, not trimmed
+    assert ClientApplicationIdentity.format("Norsok", "9" * 100) == "Norsok"
+
+    assert len(ClientApplicationIdentity.format("x" * 100, "1.4.2")) == \
+        ClientApplicationIdentity.MAX_LENGTH
 
 
 def test_an_unnamed_client_sends_no_header():
@@ -60,3 +74,15 @@ def test_an_unnamed_client_sends_no_header():
     assert ConnectionApiClient("http://localhost:5000").client_application is None
     assert ConnectionApiClient("http://localhost:5000", "NorsokChecker",
                                "1.4.2").client_application == "NorsokChecker/1.4.2"
+
+
+def test_the_factories_carry_the_name_so_the_interface_call_stays_parameterless():
+    # The name is a constant of the release, so it belongs to the factory, not to a create call -
+    # otherwise code holding the factory by its interface could not identify itself at all.
+    from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
+
+    attacher = ConnectionApiServiceAttacher("http://localhost:5000", "NorsokChecker", "1.4.2")
+
+    assert attacher.create_api_client().client_application == "NorsokChecker/1.4.2"
+    assert ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() \
+        .client_application is None

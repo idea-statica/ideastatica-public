@@ -50,10 +50,17 @@ class ClientApplicationIdentity:
             return None
 
         suffix = ClientApplicationIdentity._sanitize(version)
-        value = name if not suffix else f"{name}/{suffix}"
+        if not suffix:
+            return name[:ClientApplicationIdentity.MAX_LENGTH]
 
-        return value if len(value) <= ClientApplicationIdentity.MAX_LENGTH \
-            else value[:ClientApplicationIdentity.MAX_LENGTH]
+        # The name gives way before the version does. A version cut in half reads as a different
+        # version - which is worse than no version at all, since attributing by version is the
+        # point - so when even a whole version does not fit, it is dropped rather than trimmed.
+        room = ClientApplicationIdentity.MAX_LENGTH - len(suffix) - 1
+        if room < 1:
+            return name[:ClientApplicationIdentity.MAX_LENGTH]
+
+        return f"{name[:room]}/{suffix}"
 
     @staticmethod
     def _sanitize(text: Optional[str]) -> str:
