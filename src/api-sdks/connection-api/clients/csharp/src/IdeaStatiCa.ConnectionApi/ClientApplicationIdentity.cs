@@ -26,6 +26,11 @@ namespace IdeaStatiCa.ConnectionApi
 		/// parameter of the connect call, so that identifying an application needs no change to any
 		/// endpoint, no regenerated client, and no version of the service newer than the one the
 		/// customer has - an older service simply ignores it.
+		///
+		/// A caller that sets this header itself, without <see cref="Format"/>, has to keep the value
+		/// printable ASCII: a byte above 0x7F in a header value makes Kestrel answer the request with a
+		/// bare 400 before the service is reached, so a name with a diacritic in it fails every call
+		/// rather than arriving mangled.
 		/// </summary>
 		public const string HeaderName = "X-Idea-Client-App";
 
@@ -39,10 +44,11 @@ namespace IdeaStatiCa.ConnectionApi
 		/// The header value for an application name and an optional version, or null when there is
 		/// nothing to send.
 		///
-		/// The result is restricted to printable ASCII: a header value with a control character in it
-		/// is rejected outright by some HTTP stacks and quietly mangled by others, and a name is not
-		/// worth a failed request. Anything outside that range becomes '_', so the value stays
-		/// recognisable rather than disappearing.
+		/// The result is restricted to printable ASCII. A byte above 0x7F costs the whole request - the
+		/// service's HTTP stack answers a bare 400 before the service itself is reached - and a control
+		/// character below 0x20 has no business in a value that ends up in a log line. Anything outside
+		/// the range becomes '_', so a name never fails a call and stays recognisable rather than
+		/// disappearing.
 		/// </summary>
 		/// <param name="application">For example "NorsokChecker". Optional.</param>
 		/// <param name="version">For example "1.4.2". Optional.</param>
