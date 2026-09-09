@@ -20,6 +20,8 @@ namespace IdeaStatiCa.ConnectionApi
 		private Process serviceProcess;
 		private string launchPath;
 		private int port = -1;
+		private readonly Action<string> log;
+		private ServiceJobObject job;
 		private readonly string clientApplication;
 		private readonly string clientApplicationVersion;
 
@@ -34,13 +36,49 @@ namespace IdeaStatiCa.ConnectionApi
 		/// all; see <see cref="ClientApplicationIdentity"/>. Optional.
 		/// </param>
 		/// <param name="clientApplicationVersion">Version of that application. Optional.</param>
+		/// <param name="log">
+		/// Receives what happens around the service process itself - which executable was started, and
+		/// anything that weakens the guarantee that the service is shut down with this process (see
+		/// <see cref="IsServiceOwned"/>). Optional; pass null to keep it silent. Name it when you pass
+		/// it - <c>new ConnectionApiServiceRunner(dir, log: Console.WriteLine)</c> - since it sits
+		/// behind the identification the far more common caller wants.
+		/// </param>
 		public ConnectionApiServiceRunner(string setupDir, string clientApplication = null,
-			string clientApplicationVersion = null)
+			string clientApplicationVersion = null, Action<string> log = null)
 		{
 			launchPath = setupDir;
 			this.clientApplication = clientApplication;
 			this.clientApplicationVersion = clientApplicationVersion;
+			this.log = log ?? (_ => { });
 		}
+
+		/// <summary>
+		/// Process id of the service this runner started, or null when it has not started one.
+		/// </summary>
+		public int? ServiceProcessId
+		{
+			get
+			{
+				try
+				{
+					return serviceProcess != null && !serviceProcess.HasExited ? serviceProcess.Id : (int?)null;
+				}
+				catch (InvalidOperationException)
+				{
+					return null;      // the process was never started, or has already been disposed
+				}
+			}
+		}
+
+		/// <summary>
+		/// Whether the service is guaranteed to be shut down when THIS process ends, however it ends -
+		/// including a hard kill or a crash, which no managed cleanup survives.
+		///
+		/// It matters because a running service holds an IDEA StatiCa licence seat: a service left behind
+		/// costs the user that seat until the process is found and ended. False means only an orderly
+		/// <see cref="Dispose"/> shuts it down; the log callback passed to the constructor says why.
+		/// </summary>
+		public bool IsServiceOwned => job != null && job.IsActive;
 
 		/// <inheritdoc cref="IApiServiceFactory{T}.CreateApiClient"/>
 		public async Task<IConnectionApiClient> CreateApiClient()
@@ -81,6 +119,15 @@ namespace IdeaStatiCa.ConnectionApi
 						{
 							throw new InvalidOperationException($"Failed to start the process. {apiExecutablePath}");
 						}
+
+						// Own it before waiting for the heartbeat: the service is already running, so from
+						// here on a crash of this process could leak it - and a service that outlives its
+						// client keeps an IDEA StatiCa licence seat. See ServiceJobObject.
+						job = job ?? new ServiceJobObject(log);
+						job.Adopt(serviceProcess);
+						log($"Connection API service started from '{apiExecutablePath}' on port {port}"
+							+ $" (pid {serviceProcess.Id}); it is shut down with this process"
+							+ (IsServiceOwned ? ", even if this process is killed." : " only on an orderly exit."));
 
 						// Wait for the API to start (you might need a more robust way to determine this)
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
@@ -124,10 +171,33 @@ namespace IdeaStatiCa.ConnectionApi
 		{
 			if (serviceProcess != null)
 			{
-				serviceProcess.Kill();
+				try
+				{
+					// A service that has already exited on its own is not an error here, and Kill throws
+					// for one - which used to make disposing a runner whose service had crashed throw
+					// instead of cleaning up.
+					if (!serviceProcess.HasExited)
+					{
+						serviceProcess.Kill();
+					}
+				}
+				catch (Exception e)
+				{
+					log($"The Connection API service (pid {ServiceProcessId}) could not be ended"
+						+ $" ({e.Message}); the Job Object takes it down with this process.");
+				}
+
 				serviceProcess.Dispose();
 				serviceProcess = null;
 			}
+
+			// Closing the job handle is what terminates anything still in it, so this comes last.
+			if (job != null)
+			{
+				job.Dispose();
+				job = null;
+			}
+
 			GC.SuppressFinalize(this);
 		}
 
