@@ -89,10 +89,13 @@ internal class Program
     private static async Task Main()
     {
         // Option A: attach to a running service (start IdeaStatiCa.ConnectionRestApi.exe first)
-        var factory = new ConnectionApiServiceAttacher("http://localhost:5000");
+        // The application name and version are optional. They are reported with every call the
+        // service serves, which is what attributes usage to this integration rather than to the
+        // service itself. Printable ASCII, ~60 characters; omitting them changes nothing else.
+        var factory = new ConnectionApiServiceAttacher("http://localhost:5000", "MyApplication", "1.0");
 
         // Option B: start the service from the installation directory on a free port
-        // using var runner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0");
+        // using var runner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0", "MyApplication", "1.0");
         // IConnectionApiClient client = await runner.CreateApiClient();
 
         await using IConnectionApiClient client = await factory.CreateApiClient();
@@ -314,7 +317,7 @@ service_version = ClientApi(api_client.client).get_version()
 
 ## C# client surface
 
-`IConnectionApiClient` (created by `ConnectionApiServiceAttacher` or `ConnectionApiServiceRunner`, both returning a connected client from `CreateApiClient()`). Accessors: `ClientApi`, `Calculation`, `Connection`, `ConnectionLibrary`, `Conversion`, `Export`, `LoadEffect`, `Material`, `Member`, `Operation`, `Parameter`, `Presentation`, `Project`, `Report`, `Settings`, `Template`, plus `ActiveProjectId` and `ClientId` properties.
+`IConnectionApiClient` (created by `ConnectionApiServiceAttacher` or `ConnectionApiServiceRunner`, both returning a connected client from `CreateApiClient()`; both constructors take an optional application name and version that attribute every call this client makes — see the example above). Accessors: `ClientApi`, `Calculation`, `Connection`, `ConnectionLibrary`, `Conversion`, `Export`, `LoadEffect`, `Material`, `Member`, `Operation`, `Parameter`, `Presentation`, `Project`, `Report`, `Settings`, `Template`, plus `ActiveProjectId` and `ClientId` properties.
 
 Generated method names are the Python names in PascalCase with an `Async` suffix and `Guid projectId` instead of a string: `calculate` → `CalculateAsync(Guid projectId, List<int> requestBody)`, `get_connections` → `GetConnectionsAsync(Guid projectId)`, `update` → `UpdateAsync`, `get_settings` → `GetSettingsAsync`, and so on. The extension methods differ from Python in these places:
 

@@ -20,21 +20,33 @@ namespace IdeaStatiCa.ConnectionApi
 		private Process serviceProcess;
 		private string launchPath;
 		private int port = -1;
+		private readonly string clientApplication;
+		private readonly string clientApplicationVersion;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="setupDir"> where .exe file is located</param>
-		public ConnectionApiServiceRunner(string setupDir)
+		/// <param name="clientApplication">
+		/// Name of the application making the calls, for example "NorsokChecker" - a constant of the
+		/// build, so it belongs to the factory rather than to a single call. Every client this factory
+		/// creates is reported under it, which is what lets usage be attributed to an integration at
+		/// all; see <see cref="ClientApplicationIdentity"/>. Optional.
+		/// </param>
+		/// <param name="clientApplicationVersion">Version of that application. Optional.</param>
+		public ConnectionApiServiceRunner(string setupDir, string clientApplication = null,
+			string clientApplicationVersion = null)
 		{
 			launchPath = setupDir;
+			this.clientApplication = clientApplication;
+			this.clientApplicationVersion = clientApplicationVersion;
 		}
 
 		/// <inheritdoc cref="IApiServiceFactory{T}.CreateApiClient"/>
 		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var url = await StartService();
-			var client = new ConnectionApiClient(url);
+			var client = new ConnectionApiClient(url, clientApplication, clientApplicationVersion);
 			await client.CreateAsync();
 			return client;
 		}
