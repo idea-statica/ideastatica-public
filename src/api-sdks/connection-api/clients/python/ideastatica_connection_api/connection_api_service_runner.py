@@ -50,13 +50,19 @@ class ConnectionApiServiceRunner:
             self.service_process = None
         logger.info("API service stopped.")
 
-    def create_api_client(self) -> ConnectionApiClient:
-        """Creates and returns an IdeaStatiCaClient attached to the API service."""
+    def create_api_client(self, client_application: Optional[str] = None,
+                          client_application_version: Optional[str] = None) -> ConnectionApiClient:
+        """Creates and returns an IdeaStatiCaClient attached to the API service.
+
+        :param client_application: Name of the application making the calls, so its usage can be
+            told apart from every other caller's. Optional.
+        :param client_application_version: Version of that application. Optional.
+        """
         if self.port is None:
             raise RuntimeError("The service must be started before creating a client.")
 
         base_url = f"{self.LOCALHOST_URL}:{self.port}"
-        client = ConnectionApiClient(base_url)
+        client = ConnectionApiClient(base_url, client_application, client_application_version)
         logger.info(f"Client created for service at {base_url}")
         return client
 
