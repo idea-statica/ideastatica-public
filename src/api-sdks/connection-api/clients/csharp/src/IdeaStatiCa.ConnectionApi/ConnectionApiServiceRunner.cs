@@ -22,27 +22,33 @@ namespace IdeaStatiCa.ConnectionApi
 		private int port = -1;
 		private readonly Action<string> log;
 		private ServiceJobObject job;
+		private readonly string clientApplication;
+		private readonly string clientApplicationVersion;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="setupDir"> where .exe file is located</param>
-		public ConnectionApiServiceRunner(string setupDir) : this(setupDir, null)
-		{
-		}
-
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="setupDir">where .exe file is located</param>
+		/// <param name="clientApplication">
+		/// Name of the application making the calls, for example "NorsokChecker" - a constant of the
+		/// build, so it belongs to the factory rather than to a single call. Every client this factory
+		/// creates is reported under it, which is what lets usage be attributed to an integration at
+		/// all; see <see cref="ClientApplicationIdentity"/>. Optional.
+		/// </param>
+		/// <param name="clientApplicationVersion">Version of that application. Optional.</param>
 		/// <param name="log">
 		/// Receives what happens around the service process itself - which executable was started, and
 		/// anything that weakens the guarantee that the service is shut down with this process (see
-		/// <see cref="IsServiceOwned"/>). Optional; pass null to keep it silent.
+		/// <see cref="IsServiceOwned"/>). Optional; pass null to keep it silent. Name it when you pass
+		/// it - <c>new ConnectionApiServiceRunner(dir, log: Console.WriteLine)</c> - since it sits
+		/// behind the identification the far more common caller wants.
 		/// </param>
-		public ConnectionApiServiceRunner(string setupDir, Action<string> log)
+		public ConnectionApiServiceRunner(string setupDir, string clientApplication = null,
+			string clientApplicationVersion = null, Action<string> log = null)
 		{
 			launchPath = setupDir;
+			this.clientApplication = clientApplication;
+			this.clientApplicationVersion = clientApplicationVersion;
 			this.log = log ?? (_ => { });
 		}
 
@@ -78,7 +84,7 @@ namespace IdeaStatiCa.ConnectionApi
 		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var url = await StartService();
-			var client = new ConnectionApiClient(url);
+			var client = new ConnectionApiClient(url, clientApplication, clientApplicationVersion);
 			await client.CreateAsync();
 			return client;
 		}
