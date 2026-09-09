@@ -133,7 +133,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			double boltDiameter = ((double)doublePropTable[TeklaPropertiesKeys.BoltDiameterKey]).MilimetersToMeters();
 
-			return new BoltAssembly(boltGroup.Identifier.GUID.ToString())
+			return new BoltAssembly(BoltAssemblyIdentity.Create(boltAssemblyName, boltGrade, boltDiameter))
 			{
 				BoreHole = boltDiameter + 0.001,
 				DiagonalHeadDiameter = boltDiameter * 1.7,
