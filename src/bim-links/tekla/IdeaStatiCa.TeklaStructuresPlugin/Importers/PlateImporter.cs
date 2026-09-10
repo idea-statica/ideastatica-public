@@ -5,6 +5,7 @@ using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -177,11 +178,19 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			var vertexEnumerator = firstLoop.GetVertexEnumerator();
 
-			List<TSG.Point> points = new List<TSG.Point>();
+			List<IPoint3D> loopVertices = new List<IPoint3D>();
 			while (vertexEnumerator.MoveNext())
 			{
-				points.Add(vertexEnumerator.Current);
+				var vertex = vertexEnumerator.Current;
+				loopVertices.Add(new Point3D(vertex.X, vertex.Y, vertex.Z));
 			}
+
+			IReadOnlyList<IPoint3D> points = PlateContour.FirstClosedContour(loopVertices);
+			if (points.Count < loopVertices.Count)
+			{
+				PlugInLogger.LogWarning($"PlateImporter CreatePlateFromSolid '{part.Identifier.GUID}' face loop walks the contour more than once, {loopVertices.Count} vertices reduced to {points.Count}");
+			}
+
 			TSG.Point origin = partCs.Origin;
 			if (part is TSM.Beam beam)
 			{
