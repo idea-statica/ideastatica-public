@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_steel_code_edition_enum import ConSteelCodeEditionEnum
 from ideastatica_connection_api.models.country_code import CountryCode
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,8 +35,9 @@ class ConProjectData(BaseModel):
     project_number: Optional[StrictStr] = Field(default=None, alias="projectNumber")
     author: Optional[StrictStr] = None
     country_code: Optional[CountryCode] = Field(default=None, alias="countryCode")
+    steel_edition: Optional[ConSteelCodeEditionEnum] = Field(default=None, alias="steelEdition")
     var_date: Optional[datetime] = Field(default=None, alias="date")
-    __properties: ClassVar[List[str]] = ["name", "description", "projectNumber", "author", "countryCode", "date"]
+    __properties: ClassVar[List[str]] = ["name", "description", "projectNumber", "author", "countryCode", "steelEdition", "date"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -113,6 +115,7 @@ class ConProjectData(BaseModel):
             "projectNumber": obj.get("projectNumber"),
             "author": obj.get("author"),
             "countryCode": obj.get("countryCode"),
+            "steelEdition": obj.get("steelEdition"),
             "date": obj.get("date")
         })
         return _obj

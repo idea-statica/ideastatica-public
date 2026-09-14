@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**segment_type** | **str** |  | [optional] [readonly] 
 **mid** | [**ConCssPoint2D**](ConCssPoint2D.md) |  | [optional] 
 **type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment, IdeaStatiCa.Api']
 

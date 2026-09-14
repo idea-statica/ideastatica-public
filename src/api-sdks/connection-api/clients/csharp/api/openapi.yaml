@@ -7900,6 +7900,7 @@ components:
       example:
         identifier: identifier
         includeBuckling: true
+        steelEdition: NotSpecified
         isCalculated: true
         name: name
         description: description
@@ -7926,6 +7927,8 @@ components:
           type: boolean
         includeBuckling:
           type: boolean
+        steelEdition:
+          $ref: '#/components/schemas/ConSteelCodeEditionEnum'
       type: object
     ConConnectionLibrarySearchParameters:
       additionalProperties: false
@@ -9186,6 +9189,7 @@ components:
       example:
         projectInfo:
           date: 2000-01-23T04:56:07.000+00:00
+          steelEdition: NotSpecified
           author: author
           countryCode: none
           projectNumber: projectNumber
@@ -9195,6 +9199,7 @@ components:
         connections:
         - identifier: identifier
           includeBuckling: true
+          steelEdition: NotSpecified
           isCalculated: true
           name: name
           description: description
@@ -9202,6 +9207,7 @@ components:
           analysisType: stress_Strain
         - identifier: identifier
           includeBuckling: true
+          steelEdition: NotSpecified
           isCalculated: true
           name: name
           description: description
@@ -9223,6 +9229,7 @@ components:
       additionalProperties: false
       example:
         date: 2000-01-23T04:56:07.000+00:00
+        steelEdition: NotSpecified
         author: author
         countryCode: none
         projectNumber: projectNumber
@@ -9243,6 +9250,8 @@ components:
           type: string
         countryCode:
           $ref: '#/components/schemas/CountryCode'
+        steelEdition:
+          $ref: '#/components/schemas/ConSteelCodeEditionEnum'
         date:
           format: date-time
           type: string
@@ -9322,6 +9331,20 @@ components:
           nullable: true
           type: array
       type: object
+    ConSteelCodeEditionEnum:
+      enum:
+      - NotSpecified
+      - AISC_360_10_LRFD
+      - AISC_360_10_ASD
+      - AISC_360_16_LRFD
+      - AISC_360_16_ASD
+      - AISC_360_22_LRFD
+      - AISC_360_22_ASD
+      - CSA_S16_14
+      - CSA_S16_19
+      - EN_1993_1_8_2005
+      - EN_1993_1_8_2024
+      type: string
     ConStiffnessAnalysis:
       additionalProperties: false
       example:

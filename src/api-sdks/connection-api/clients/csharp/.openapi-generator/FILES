@@ -89,6 +89,7 @@ docs/ConProjectData.md
 docs/ConPropertyOwner.md
 docs/ConPropertyOwnerKind.md
 docs/ConResultSummary.md
+docs/ConSteelCodeEditionEnum.md
 docs/ConStiffnessAnalysis.md
 docs/ConTemplateApplyParam.md
 docs/ConTemplateApplyResult.md
@@ -275,6 +276,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConProjectData.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConPropertyOwner.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConPropertyOwnerKind.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConResultSummary.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConSteelCodeEditionEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConStiffnessAnalysis.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyParam.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConTemplateApplyResult.cs

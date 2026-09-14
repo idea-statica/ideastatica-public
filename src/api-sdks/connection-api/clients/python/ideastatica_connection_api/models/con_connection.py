@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.con_analysis_type_enum import ConAnalysisTypeEnum
+from ideastatica_connection_api.models.con_steel_code_edition_enum import ConSteelCodeEditionEnum
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -35,7 +36,8 @@ class ConConnection(BaseModel):
     analysis_type: Optional[ConAnalysisTypeEnum] = Field(default=None, alias="analysisType")
     is_calculated: Optional[StrictBool] = Field(default=None, alias="isCalculated")
     include_buckling: Optional[StrictBool] = Field(default=None, alias="includeBuckling")
-    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "isCalculated", "includeBuckling"]
+    steel_edition: Optional[ConSteelCodeEditionEnum] = Field(default=None, alias="steelEdition")
+    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "isCalculated", "includeBuckling", "steelEdition"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -111,7 +113,8 @@ class ConConnection(BaseModel):
             "description": obj.get("description"),
             "analysisType": obj.get("analysisType"),
             "isCalculated": obj.get("isCalculated"),
-            "includeBuckling": obj.get("includeBuckling")
+            "includeBuckling": obj.get("includeBuckling"),
+            "steelEdition": obj.get("steelEdition")
         })
         return _obj
 
