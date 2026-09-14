@@ -186,10 +186,17 @@ namespace IdeaStatiCa.ConnectionApi.Client
         /// </summary>
         internal static string ReadStringContent(RestResponse response)
         {
-            var content = response?.Content;
-            if (ClientUtils.IsJsonMime(response?.ContentType) && content != null && content.Length > 1 && content[0] == '"')
+            var content = response.Content;
+            if (ClientUtils.IsJsonMime(response.ContentType) && content != null && content.Length > 1 && content[0] == '"')
             {
-                return JsonConvert.DeserializeObject<string>(content);
+                try
+                {
+                    return JsonConvert.DeserializeObject<string>(content);
+                }
+                catch (Exception e)
+                {
+                    throw new ApiException(500, e.Message);
+                }
             }
             return content;
         }
