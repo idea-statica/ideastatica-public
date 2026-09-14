@@ -34,6 +34,10 @@ Download links for each example can be found in the brief descriptions below.
   Shows what you can do with the output of the IDEA StatiCa Grasshopper components using your own native C# scripting component. It takes the output of the Export IFC component and builds structured brep geometry (beams, plates, bolts, and welds), each enriched with the element names and descriptions carried in the IFC.\
   [Download Example 08](../../../../examples/extensions/grasshopper/Example_08-IFC_to_brep.zip)
 
+- **Creating a Project from Scratch**\
+  Builds a complete IDEA Connection project without any input model — it starts the Connection API service, creates an empty project for the chosen design code, picks materials and cross-sections from the IDEA StatiCa library, adds members, and saves the result.\
+  [Download Example 09](../../../../examples/extensions/grasshopper/Example_09-Create_project_from_scratch.zip)
+
 ## Version Overview
 
 | Example | IDEA StatiCa | Grasshopper plugin |
@@ -46,3 +50,4 @@ Download links for each example can be found in the brief descriptions below.
 | 06 – Bulk Assessment | 26.0.2 | 26.0.2 |
 | 07 – Propose Template | 26.0.2 | 26.0.2 |
 | 08 – Building Structured Brep Geometry from IFC | 26.0.3 | 26.0.2 |
+| 09 – Creating a Project from Scratch | 26.0.6 | 26.0.6 |
