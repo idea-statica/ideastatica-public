@@ -44,6 +44,18 @@ namespace IdeaStatiCa.Api.Connection.Model
 		}
 
 		/// <summary>
+		/// The edition of the steel design code for the project's connections (for the American code
+		/// this is the LRFD/ASD choice).
+		///
+		/// On create it is applied to the connection the project starts with, so a project can be made
+		/// as e.g. AISC 360-22 ASD in one call; an edition that does not belong to
+		/// <see cref="CountryCode"/> is rejected with 422. It is reported back only when every
+		/// connection shares one edition - the edition itself lives per connection, see
+		/// <c>ConConnection.SteelEdition</c>.
+		/// </summary>
+		public ConSteelCodeEditionEnum SteelEdition { get; set; }
+
+		/// <summary>
 		/// Date
 		/// </summary>
 		public DateTime Date { get; set; }
