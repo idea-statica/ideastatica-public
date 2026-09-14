@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaterialName** | **string** |  | [optional] 
 **MprlName** | **string** |  | [optional] 
+**MaterialName** | **string** |  | [optional] 
 **MirrorY** | **bool** |  | [optional] 
 **MirrorZ** | **bool** |  | [optional] 
 **Type** | **string** |  | [optional] [default to "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api"]

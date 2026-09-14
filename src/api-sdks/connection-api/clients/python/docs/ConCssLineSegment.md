@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**segment_type** | **str** |  | [optional] [readonly] 
 **type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api']
 
 ## Example

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**definition_type** | **str** |  | [optional] [readonly] 
 **mprl_name** | **str** |  | [optional] 
+**material_name** | **str** |  | [optional] 
 **mirror_y** | **bool** |  | [optional] 
 **mirror_z** | **bool** |  | [optional] 
 **type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api']

@@ -6,7 +6,6 @@ Polymorphic root. Every element on the wire is one of the concrete subtypes list
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**segment_type** | **str** |  | [optional] [readonly] 
 **start** | [**ConCssPoint2D**](ConCssPoint2D.md) |  | [optional] 
 **end** | [**ConCssPoint2D**](ConCssPoint2D.md) |  | [optional] 
 

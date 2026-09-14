@@ -13,8 +13,6 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	[KnownType(typeof(ConCrossSectionCustomDefinition))]
 	public abstract class ConCrossSectionDefinition
 	{
-		/// <summary>Name of the cross-section's material.</summary>
-		public string MaterialName { get; set; }
 	}
 
 	/// <summary>A rolled section taken from the MPRL library by name.</summary>
@@ -22,6 +20,9 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	{
 		/// <summary>MPRL name of the section (e.g. "HEA200").</summary>
 		public string MprlName { get; set; }
+
+		/// <summary>Name of the material the section is made of.</summary>
+		public string MaterialName { get; set; }
 
 		public bool MirrorY { get; set; }
 
@@ -34,6 +35,9 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		/// <summary>Shape type identifier (e.g. "Iw", "Tw", "BoxFl", "CHSPar").</summary>
 		public string ShapeType { get; set; }
 
+		/// <summary>Name of the material the section is made of.</summary>
+		public string MaterialName { get; set; }
+
 		/// <summary>
 		/// The dimensions of the shape, each of the concrete kind its value has (see
 		/// <see cref="ConCssDimension"/>). On read every dimension of the shape is listed; on write
@@ -42,7 +46,10 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		public List<ConCssDimension> Dimensions { get; set; }
 	}
 
-	/// <summary>A general section defined by explicit polygonal components.</summary>
+	/// <summary>
+	/// A general section defined by explicit polygonal components. There is no material of the
+	/// section as a whole: each component carries its own.
+	/// </summary>
 	public class ConCrossSectionCustomDefinition : ConCrossSectionDefinition
 	{
 		public List<ConCrossSectionCustomComponent> Components { get; set; }
