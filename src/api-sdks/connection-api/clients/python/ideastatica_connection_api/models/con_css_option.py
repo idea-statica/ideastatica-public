@@ -18,21 +18,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.con_cross_section_definition import ConCrossSectionDefinition
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ConCrossSectionLibraryDefinition(ConCrossSectionDefinition):
+class ConCssOption(BaseModel):
     """
-    ConCrossSectionLibraryDefinition
+    ConCssOption
     """ # noqa: E501
-    mprl_name: Optional[StrictStr] = Field(default=None, alias="mprlName")
-    mirror_y: Optional[StrictBool] = Field(default=None, alias="mirrorY")
-    mirror_z: Optional[StrictBool] = Field(default=None, alias="mirrorZ")
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api', alias="$type")
-    __properties: ClassVar[List[str]] = ["materialName", "mprlName", "mirrorY", "mirrorZ", "$type"]
+    value: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["value"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +48,7 @@ class ConCrossSectionLibraryDefinition(ConCrossSectionDefinition):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ConCrossSectionLibraryDefinition from a JSON string"""
+        """Create an instance of ConCssOption from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,21 +69,16 @@ class ConCrossSectionLibraryDefinition(ConCrossSectionDefinition):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if material_name (nullable) is None
+        # set to None if value (nullable) is None
         # and model_fields_set contains the field
-        if self.material_name is None and "material_name" in self.model_fields_set:
-            _dict['materialName'] = None
-
-        # set to None if mprl_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.mprl_name is None and "mprl_name" in self.model_fields_set:
-            _dict['mprlName'] = None
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['value'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ConCrossSectionLibraryDefinition from a dict"""
+        """Create an instance of ConCssOption from a dict"""
         if obj is None:
             return None
 
@@ -95,11 +86,7 @@ class ConCrossSectionLibraryDefinition(ConCrossSectionDefinition):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "materialName": obj.get("materialName"),
-            "mprlName": obj.get("mprlName"),
-            "mirrorY": obj.get("mirrorY"),
-            "mirrorZ": obj.get("mirrorZ"),
-            "$type": obj.get("$type") if obj.get("$type") is not None else 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api'
+            "value": obj.get("value")
         })
         return _obj
 

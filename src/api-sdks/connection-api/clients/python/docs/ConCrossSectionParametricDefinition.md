@@ -5,9 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**definition_type** | **str** |  | [optional] [readonly] 
 **shape_type** | **str** |  | [optional] 
-**parameters** | [**List[ConCrossSectionParameter]**](ConCrossSectionParameter.md) |  | [optional] 
+**dimensions** | [**List[ConCrossSectionParametricDefinitionAllOfDimensions]**](ConCrossSectionParametricDefinitionAllOfDimensions.md) |  | [optional] 
 **type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api']
 
 ## Example

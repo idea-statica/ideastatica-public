@@ -19,23 +19,25 @@ import re  # noqa: F401
 import json
 
 from importlib import import_module
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from ideastatica_connection_api.models.con_cross_section_custom_definition import ConCrossSectionCustomDefinition
-    from ideastatica_connection_api.models.con_cross_section_library_definition import ConCrossSectionLibraryDefinition
-    from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
+    from ideastatica_connection_api.models.con_css_choice_dimension import ConCssChoiceDimension
+    from ideastatica_connection_api.models.con_css_count_dimension import ConCssCountDimension
+    from ideastatica_connection_api.models.con_css_number_dimension import ConCssNumberDimension
+    from ideastatica_connection_api.models.con_css_switch_dimension import ConCssSwitchDimension
 
-class ConCrossSectionDefinition(BaseModel):
+class ConCssDimension(BaseModel):
     """
     Polymorphic root. Every element on the wire is one of the concrete subtypes listed in the discriminator mapping and carries the $type discriminator; $type is deliberately declared on each subtype schema (with its exact wire value as default) rather than here.
     """ # noqa: E501
-    material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
-    __properties: ClassVar[List[str]] = ["materialName"]
+    id: Optional[StrictInt] = None
+    name: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +51,7 @@ class ConCrossSectionDefinition(BaseModel):
 
     # discriminator mappings
     __discriminator_value_class_map: ClassVar[Dict[str, str]] = {
-        'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api': 'ConCrossSectionCustomDefinition','IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api': 'ConCrossSectionLibraryDefinition','IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api': 'ConCrossSectionParametricDefinition'
+        'IdeaStatiCa.Api.Connection.Model.Material.ConCssChoiceDimension, IdeaStatiCa.Api': 'ConCssChoiceDimension','IdeaStatiCa.Api.Connection.Model.Material.ConCssCountDimension, IdeaStatiCa.Api': 'ConCssCountDimension','IdeaStatiCa.Api.Connection.Model.Material.ConCssNumberDimension, IdeaStatiCa.Api': 'ConCssNumberDimension','IdeaStatiCa.Api.Connection.Model.Material.ConCssSwitchDimension, IdeaStatiCa.Api': 'ConCssSwitchDimension'
     }
 
     @classmethod
@@ -71,8 +73,8 @@ class ConCrossSectionDefinition(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Union[ConCrossSectionCustomDefinition, ConCrossSectionLibraryDefinition, ConCrossSectionParametricDefinition]]:
-        """Create an instance of ConCrossSectionDefinition from a JSON string"""
+    def from_json(cls, json_str: str) -> Optional[Union[ConCssChoiceDimension, ConCssCountDimension, ConCssNumberDimension, ConCssSwitchDimension]]:
+        """Create an instance of ConCssDimension from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -93,26 +95,28 @@ class ConCrossSectionDefinition(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if material_name (nullable) is None
+        # set to None if name (nullable) is None
         # and model_fields_set contains the field
-        if self.material_name is None and "material_name" in self.model_fields_set:
-            _dict['materialName'] = None
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> Optional[Union[ConCrossSectionCustomDefinition, ConCrossSectionLibraryDefinition, ConCrossSectionParametricDefinition]]:
-        """Create an instance of ConCrossSectionDefinition from a dict"""
+    def from_dict(cls, obj: Dict[str, Any]) -> Optional[Union[ConCssChoiceDimension, ConCssCountDimension, ConCssNumberDimension, ConCssSwitchDimension]]:
+        """Create an instance of ConCssDimension from a dict"""
         # look up the object type based on discriminator mapping
         object_type = cls.get_discriminator_value(obj)
-        if object_type ==  'ConCrossSectionCustomDefinition':
-            return import_module("ideastatica_connection_api.models.con_cross_section_custom_definition").ConCrossSectionCustomDefinition.from_dict(obj)
-        if object_type ==  'ConCrossSectionLibraryDefinition':
-            return import_module("ideastatica_connection_api.models.con_cross_section_library_definition").ConCrossSectionLibraryDefinition.from_dict(obj)
-        if object_type ==  'ConCrossSectionParametricDefinition':
-            return import_module("ideastatica_connection_api.models.con_cross_section_parametric_definition").ConCrossSectionParametricDefinition.from_dict(obj)
+        if object_type ==  'ConCssChoiceDimension':
+            return import_module("ideastatica_connection_api.models.con_css_choice_dimension").ConCssChoiceDimension.from_dict(obj)
+        if object_type ==  'ConCssCountDimension':
+            return import_module("ideastatica_connection_api.models.con_css_count_dimension").ConCssCountDimension.from_dict(obj)
+        if object_type ==  'ConCssNumberDimension':
+            return import_module("ideastatica_connection_api.models.con_css_number_dimension").ConCssNumberDimension.from_dict(obj)
+        if object_type ==  'ConCssSwitchDimension':
+            return import_module("ideastatica_connection_api.models.con_css_switch_dimension").ConCssSwitchDimension.from_dict(obj)
 
-        raise ValueError("ConCrossSectionDefinition failed to lookup discriminator value from " +
+        raise ValueError("ConCssDimension failed to lookup discriminator value from " +
                             json.dumps(obj) + ". Discriminator property name: " + cls.__discriminator_property_name +
                             ", mapping: " + json.dumps(cls.__discriminator_value_class_map))
 

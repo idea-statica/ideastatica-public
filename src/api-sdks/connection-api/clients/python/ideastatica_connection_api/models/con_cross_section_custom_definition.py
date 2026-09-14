@@ -29,10 +29,9 @@ class ConCrossSectionCustomDefinition(ConCrossSectionDefinition):
     """
     ConCrossSectionCustomDefinition
     """ # noqa: E501
-    definition_type: Optional[StrictStr] = Field(default=None, alias="definitionType")
     components: Optional[List[ConCrossSectionCustomComponent]] = None
     type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api', alias="$type")
-    __properties: ClassVar[List[str]] = ["definitionType", "materialName", "components", "$type"]
+    __properties: ClassVar[List[str]] = ["materialName", "components", "$type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,10 +63,8 @@ class ConCrossSectionCustomDefinition(ConCrossSectionDefinition):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "definition_type",
         ])
 
         _dict = self.model_dump(
@@ -82,11 +79,6 @@ class ConCrossSectionCustomDefinition(ConCrossSectionDefinition):
                 if _item_components:
                     _items.append(_item_components.to_dict())
             _dict['components'] = _items
-        # set to None if definition_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.definition_type is None and "definition_type" in self.model_fields_set:
-            _dict['definitionType'] = None
-
         # set to None if material_name (nullable) is None
         # and model_fields_set contains the field
         if self.material_name is None and "material_name" in self.model_fields_set:
@@ -109,7 +101,6 @@ class ConCrossSectionCustomDefinition(ConCrossSectionDefinition):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "definitionType": obj.get("definitionType"),
             "materialName": obj.get("materialName"),
             "components": [ConCrossSectionCustomComponent.from_dict(_item) for _item in obj["components"]] if obj.get("components") is not None else None,
             "$type": obj.get("$type") if obj.get("$type") is not None else 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api'

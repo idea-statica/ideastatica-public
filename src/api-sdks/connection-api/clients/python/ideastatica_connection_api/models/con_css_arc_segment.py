@@ -29,10 +29,9 @@ class ConCssArcSegment(ConCssSegment):
     """
     ConCssArcSegment
     """ # noqa: E501
-    segment_type: Optional[StrictStr] = Field(default=None, alias="segmentType")
     mid: Optional[ConCssPoint2D] = None
     type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment, IdeaStatiCa.Api', alias="$type")
-    __properties: ClassVar[List[str]] = ["segmentType", "start", "end", "mid", "$type"]
+    __properties: ClassVar[List[str]] = ["start", "end", "mid", "$type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,10 +63,8 @@ class ConCssArcSegment(ConCssSegment):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "segment_type",
         ])
 
         _dict = self.model_dump(
@@ -84,11 +81,6 @@ class ConCssArcSegment(ConCssSegment):
         # override the default output from pydantic by calling `to_dict()` of mid
         if self.mid:
             _dict['mid'] = self.mid.to_dict()
-        # set to None if segment_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.segment_type is None and "segment_type" in self.model_fields_set:
-            _dict['segmentType'] = None
-
         return _dict
 
     @classmethod
@@ -101,7 +93,6 @@ class ConCssArcSegment(ConCssSegment):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "segmentType": obj.get("segmentType"),
             "start": ConCssPoint2D.from_dict(obj["start"]) if obj.get("start") is not None else None,
             "end": ConCssPoint2D.from_dict(obj["end"]) if obj.get("end") is not None else None,
             "mid": ConCssPoint2D.from_dict(obj["mid"]) if obj.get("mid") is not None else None,
