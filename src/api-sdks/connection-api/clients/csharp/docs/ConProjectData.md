@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ProjectNumber** | **string** |  | [optional] 
 **Author** | **string** |  | [optional] 
 **CountryCode** | **CountryCode** |  | [optional] 
+**SteelEdition** | **ConSteelCodeEditionEnum** |  | [optional] 
 **Date** | **DateTime** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

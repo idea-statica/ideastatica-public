@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **AnalysisType** | **ConAnalysisTypeEnum** |  | [optional] 
 **IsCalculated** | **bool** |  | [optional] [readonly] 
 **IncludeBuckling** | **bool** |  | [optional] 
+**SteelEdition** | **ConSteelCodeEditionEnum** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

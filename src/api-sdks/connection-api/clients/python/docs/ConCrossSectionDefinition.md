@@ -6,7 +6,6 @@ Polymorphic root. Every element on the wire is one of the concrete subtypes list
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**definition_type** | **str** |  | [optional] [readonly] 
 **material_name** | **str** |  | [optional] 
 
 ## Example
