@@ -1462,6 +1462,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Implemented
       summary: Gets default conversion mappings for converting the project to a different
         design code.
       tags:
@@ -4394,9 +4400,10 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: "Optional project metadata. The DesignCode field determines\r\
-          \n            the design code (e.g. \"ECEN\", \"American\", \"AUS\"). Defaults\
-          \ to ECEN if not provided."
+        description: "Optional project metadata. The CountryCode field determines\
+          \ the design\r\n            code and must be one of ECEN, American, Canada,\
+          \ Australia, RUS, CHN, India or HKG; any other value\r\n            of the\
+          \ enum is refused with 422. Defaults to ECEN when omitted or set to None."
       responses:
         "200":
           content:
@@ -4540,7 +4547,11 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: New project data to apply.
+        description: "New project data to apply. The CountryCode field may keep the\
+          \ project's\r\n            current design code or switch it to one of ECEN,\
+          \ American, Canada, Australia, RUS, CHN, India or\r\n            HKG; switching\
+          \ to any other value of the enum is refused with 422. None keeps the current\
+          \ code."
       responses:
         "200":
           content:

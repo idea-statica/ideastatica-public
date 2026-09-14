@@ -38,7 +38,7 @@ def test_should_open_ideacon():
 
         # Get the project data
         project_data = api_client.project.get_project_data(api_client.project.active_project_id)
-        assert project_data.project_info.design_code == "ECEN"
+        assert project_data.project_info.country_code == ideastatica_connection_api.CountryCode.ECEN
 
 def test_should_import_iom():
     # Create client attached to already running service
@@ -48,7 +48,7 @@ def test_should_import_iom():
 
         # Get the project data
         project_data = api_client.project.get_project_data(api_client.project.active_project_id)
-        assert project_data.project_info.design_code == "ECEN"
+        assert project_data.project_info.country_code == ideastatica_connection_api.CountryCode.ECEN
 
 def test_should_calculate():
     # Create client attached to already running service
@@ -60,8 +60,6 @@ def test_should_calculate():
         project_data = api_client.project.get_project_data(api_client.project.active_project_id)
         
         # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [project_data.connections[0].id]
 
         requested_connections = [project_data.connections[0].id]
 
