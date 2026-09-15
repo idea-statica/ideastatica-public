@@ -7441,6 +7441,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.BoltAssemblyTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
       example:
         newValue: newValue
@@ -7457,6 +7459,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.BoltGradeTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     BoltGrid:
       additionalProperties: false
@@ -7816,6 +7820,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConAlignedPlate:
       additionalProperties: false
@@ -8172,7 +8178,7 @@ components:
           nullable: true
           type: string
         definition:
-          $ref: '#/components/schemas/ConCrossSection_definition'
+          $ref: '#/components/schemas/ConCrossSectionDefinition'
       type: object
     ConCrossSectionCustomComponent:
       additionalProperties: false
@@ -8194,19 +8200,19 @@ components:
           type: string
       type: object
     ConCrossSectionCustomDefinition:
-      allOf:
-      - $ref: '#/components/schemas/ConCrossSectionDefinition'
-      - properties:
-          components:
-            items:
-              $ref: '#/components/schemas/ConCrossSectionCustomComponent'
-            nullable: true
-            type: array
-          $type:
-            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition,\
-              \ IdeaStatiCa.Api"
-            type: string
-        type: object
+      properties:
+        components:
+          items:
+            $ref: '#/components/schemas/ConCrossSectionCustomComponent'
+          nullable: true
+          type: array
+        $type:
+          default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition,\
+            \ IdeaStatiCa.Api"
+          type: string
+      required:
+      - $type
+      type: object
     ConCrossSectionDefinition:
       description: Polymorphic root. Every element on the wire is one of the concrete
         subtypes listed in the discriminator mapping and carries the $type discriminator;
@@ -8218,7 +8224,10 @@ components:
           IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionParametricDefinition'
           IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionCustomDefinition'
         propertyName: $type
-      type: object
+      oneOf:
+      - $ref: '#/components/schemas/ConCrossSectionLibraryDefinition'
+      - $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+      - $ref: '#/components/schemas/ConCrossSectionCustomDefinition'
     ConCrossSectionGeometry:
       additionalProperties: false
       example:
@@ -8314,24 +8323,6 @@ components:
           type: string
       type: object
     ConCrossSectionLibraryDefinition:
-      allOf:
-      - $ref: '#/components/schemas/ConCrossSectionDefinition'
-      - properties:
-          mprlName:
-            nullable: true
-            type: string
-          materialName:
-            nullable: true
-            type: string
-          mirrorY:
-            type: boolean
-          mirrorZ:
-            type: boolean
-          $type:
-            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
-              \ IdeaStatiCa.Api"
-            type: string
-        type: object
       example:
         mprlName: mprlName
         materialName: materialName
@@ -8339,26 +8330,25 @@ components:
         mirrorZ: true
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
           \ IdeaStatiCa.Api"
+      properties:
+        mprlName:
+          nullable: true
+          type: string
+        materialName:
+          nullable: true
+          type: string
+        mirrorY:
+          type: boolean
+        mirrorZ:
+          type: boolean
+        $type:
+          default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
+            \ IdeaStatiCa.Api"
+          type: string
+      required:
+      - $type
+      type: object
     ConCrossSectionParametricDefinition:
-      allOf:
-      - $ref: '#/components/schemas/ConCrossSectionDefinition'
-      - properties:
-          shapeType:
-            nullable: true
-            type: string
-          materialName:
-            nullable: true
-            type: string
-          dimensions:
-            items:
-              $ref: '#/components/schemas/ConCrossSectionParametricDefinition_allOf_dimensions'
-            nullable: true
-            type: array
-          $type:
-            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
-              \ IdeaStatiCa.Api"
-            type: string
-        type: object
       example:
         shapeType: shapeType
         materialName: materialName
@@ -8375,6 +8365,25 @@ components:
             \ IdeaStatiCa.Api"
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
           \ IdeaStatiCa.Api"
+      properties:
+        shapeType:
+          nullable: true
+          type: string
+        materialName:
+          nullable: true
+          type: string
+        dimensions:
+          items:
+            $ref: '#/components/schemas/ConCrossSectionParametricDefinition_dimensions_inner'
+          nullable: true
+          type: array
+        $type:
+          default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
+            \ IdeaStatiCa.Api"
+          type: string
+      required:
+      - $type
+      type: object
     ConCssArcSegment:
       allOf:
       - $ref: '#/components/schemas/ConCssSegment'
@@ -8385,6 +8394,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConCssChoiceDimension:
       allOf:
@@ -8402,6 +8413,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssChoiceDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConCssCountDimension:
       allOf:
@@ -8414,6 +8427,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssCountDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConCssDimension:
       description: Polymorphic root. Every element on the wire is one of the concrete
@@ -8443,6 +8458,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
       example:
         start:
@@ -8463,6 +8480,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssNumberDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
       example:
         name: name
@@ -8515,6 +8534,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssSwitchDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConDesignItem:
       additionalProperties: false
@@ -9557,6 +9578,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.ConcreteTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConnectionCheckRes:
       additionalProperties: false
@@ -10974,6 +10997,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.CssTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     CutBeamByBeamData:
       additionalProperties: false
@@ -11139,6 +11164,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.ElectrodeTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     FoldedPlateData:
       additionalProperties: false
@@ -11594,6 +11621,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     MessageNumber:
       description: Message numbers
@@ -11841,6 +11870,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     PlateData:
       additionalProperties: false
@@ -11965,6 +11996,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.PlateMaterialTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     Point2D:
       additionalProperties: false
@@ -12289,6 +12322,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     Vector3D:
       additionalProperties: false
@@ -12348,16 +12383,6 @@ components:
           format: binary
           type: string
       type: object
-    ConCrossSection_definition:
-      description: Polymorphic root. Every element on the wire is one of the concrete
-        subtypes listed in the discriminator mapping and carries the $type discriminator;
-        $type is deliberately declared on each subtype schema (with its exact wire
-        value as default) rather than here.
-      nullable: true
-      oneOf:
-      - $ref: '#/components/schemas/ConCrossSectionLibraryDefinition'
-      - $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
-      - $ref: '#/components/schemas/ConCrossSectionCustomDefinition'
     ConCrossSectionCustomComponent_outline_inner:
       description: Polymorphic root. Every element on the wire is one of the concrete
         subtypes listed in the discriminator mapping and carries the $type discriminator;
@@ -12366,7 +12391,7 @@ components:
       oneOf:
       - $ref: '#/components/schemas/ConCssLineSegment'
       - $ref: '#/components/schemas/ConCssArcSegment'
-    ConCrossSectionParametricDefinition_allOf_dimensions:
+    ConCrossSectionParametricDefinition_dimensions_inner:
       description: Polymorphic root. Every element on the wire is one of the concrete
         subtypes listed in the discriminator mapping and carries the $type discriminator;
         $type is deliberately declared on each subtype schema (with its exact wire

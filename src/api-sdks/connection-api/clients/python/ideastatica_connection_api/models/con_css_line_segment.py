@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from ideastatica_connection_api.models.con_css_point2_d import ConCssPoint2D
 from ideastatica_connection_api.models.con_css_segment import ConCssSegment
 from typing import Optional, Set
@@ -29,7 +29,7 @@ class ConCssLineSegment(ConCssSegment):
     """
     ConCssLineSegment
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["start", "end", "$type"]
 
     model_config = ConfigDict(

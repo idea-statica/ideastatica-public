@@ -31,7 +31,7 @@ class MemberTemplateConversion(BaseTemplateConversion):
     is_bearing: Optional[StrictBool] = Field(default=None, alias="isBearing")
     original_member_name: Optional[StrictStr] = Field(default=None, alias="originalMemberName")
     new_member_name: Optional[StrictStr] = Field(default=None, alias="newMemberName")
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["originalValue", "originalTemplateId", "newValue", "description", "newTemplateId", "isBearing", "originalMemberName", "newMemberName", "$type"]
 
     model_config = ConfigDict(

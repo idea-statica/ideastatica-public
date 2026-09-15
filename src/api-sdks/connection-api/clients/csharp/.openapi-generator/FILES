@@ -41,7 +41,7 @@ docs/ConCrossSectionGeometry.md
 docs/ConCrossSectionGeometryComponent.md
 docs/ConCrossSectionLibraryDefinition.md
 docs/ConCrossSectionParametricDefinition.md
-docs/ConCrossSectionParametricDefinitionAllOfDimensions.md
+docs/ConCrossSectionParametricDefinitionDimensionsInner.md
 docs/ConCssArcSegment.md
 docs/ConCssChoiceDimension.md
 docs/ConCssCountDimension.md
@@ -226,7 +226,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionGeometry.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionGeometryComponent.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionLibraryDefinition.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionParametricDefinition.cs
-src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionParametricDefinitionAllOfDimensions.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConCrossSectionParametricDefinitionDimensionsInner.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCssArcSegment.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCssChoiceDimension.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConCssCountDimension.cs

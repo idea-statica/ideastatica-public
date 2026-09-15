@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **NewValue** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **NewTemplateId** | **string** |  | [optional] 
-**Type** | **string** |  | [optional] [default to "IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api"]
+**Type** | **string** |  | [default to "IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api"]
 **IsBearing** | **bool** |  | [optional] 
 **OriginalMemberName** | **string** |  | [optional] 
 **NewMemberName** | **string** |  | [optional] 

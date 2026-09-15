@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **start** | [**ConCssPoint2D**](ConCssPoint2D.md) |  | [optional] 
 **end** | [**ConCssPoint2D**](ConCssPoint2D.md) |  | [optional] 
 **mid** | [**ConCssPoint2D**](ConCssPoint2D.md) |  | [optional] 
-**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment, IdeaStatiCa.Api']
+**type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment, IdeaStatiCa.Api']
 
 ## Example
 

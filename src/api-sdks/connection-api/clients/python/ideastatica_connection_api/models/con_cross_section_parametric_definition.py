@@ -18,21 +18,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.con_cross_section_definition import ConCrossSectionDefinition
-from ideastatica_connection_api.models.con_cross_section_parametric_definition_all_of_dimensions import ConCrossSectionParametricDefinitionAllOfDimensions
+from ideastatica_connection_api.models.con_cross_section_parametric_definition_dimensions_inner import ConCrossSectionParametricDefinitionDimensionsInner
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ConCrossSectionParametricDefinition(ConCrossSectionDefinition):
+class ConCrossSectionParametricDefinition(BaseModel):
     """
     ConCrossSectionParametricDefinition
     """ # noqa: E501
     shape_type: Optional[StrictStr] = Field(default=None, alias="shapeType")
     material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
-    dimensions: Optional[List[ConCrossSectionParametricDefinitionAllOfDimensions]] = None
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api', alias="$type")
+    dimensions: Optional[List[ConCrossSectionParametricDefinitionDimensionsInner]] = None
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["shapeType", "materialName", "dimensions", "$type"]
 
     model_config = ConfigDict(
@@ -110,7 +109,7 @@ class ConCrossSectionParametricDefinition(ConCrossSectionDefinition):
         _obj = cls.model_validate({
             "shapeType": obj.get("shapeType"),
             "materialName": obj.get("materialName"),
-            "dimensions": [ConCrossSectionParametricDefinitionAllOfDimensions.from_dict(_item) for _item in obj["dimensions"]] if obj.get("dimensions") is not None else None,
+            "dimensions": [ConCrossSectionParametricDefinitionDimensionsInner.from_dict(_item) for _item in obj["dimensions"]] if obj.get("dimensions") is not None else None,
             "$type": obj.get("$type") if obj.get("$type") is not None else 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api'
         })
         return _obj
