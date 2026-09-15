@@ -7,15 +7,29 @@ import ideastatica_connection_api.api_ext.project_ext_api as project_ext_api
 import ideastatica_connection_api.api_ext.export_ext_api as export_ext_api
 import ideastatica_connection_api.api_ext.report_ext_api as report_ext_api
 import ideastatica_connection_api.api_ext.connection_library_ext_api as connection_library_ext_api
+from ideastatica_connection_api.client_application_identity import ClientApplicationIdentity
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
 class ConnectionApiClient:
-    def __init__(self, base_url: str):
+    def __init__(self, base_url: str, client_application: Optional[str] = None,
+                 client_application_version: Optional[str] = None):
+        """
+        :param base_url: URL of the REST API service.
+        :param client_application: Name of the application making the calls, for example
+            "NorsokChecker" - a constant of the release, not anything about the machine, the
+            project or the user. It is reported with every call the service serves, which is what
+            lets usage be attributed to an integration at all; see
+            :class:`ClientApplicationIdentity`. Optional.
+        :param client_application_version: Version of that application. Optional.
+        """
         self.base_url = base_url
         self.configuration = Configuration(host=self.base_url)
-        
+
+        self.client_application = ClientApplicationIdentity.format(client_application,
+                                                                   client_application_version)
+
         self.client: Optional[api_client.ApiClient] = None
         self.client_id: Optional[str] = None
 
@@ -39,6 +53,11 @@ class ConnectionApiClient:
     def __enter__(self):
         # Initialize the client with the provided config
         self.client = api_client.ApiClient(self.configuration)
+
+        # Set before the first call, so the service can attribute the connect itself. A service
+        # that does not know the header ignores it, so this is safe against any version.
+        if self.client_application is not None:
+            self.client.default_headers[ClientApplicationIdentity.HEADER_NAME] = self.client_application
 
         client_api = ClientApi(self.client)
         self.client_id = client_api.connect_client()

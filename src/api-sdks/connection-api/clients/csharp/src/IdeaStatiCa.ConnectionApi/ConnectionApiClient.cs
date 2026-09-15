@@ -77,12 +77,36 @@ namespace IdeaStatiCa.ConnectionApi
 		public string ClientId { get; private set; }
 
 		/// <summary>
-		/// 
+		/// The value sent in the <see cref="ClientApplicationIdentity.HeaderName"/> header, or null when
+		/// this client does not identify itself.
+		/// </summary>
+		private readonly string clientApplication;
+
+		/// <summary>
+		///
 		/// </summary>
 		/// <param name="basePath"></param>
-		public ConnectionApiClient(string basePath)
+		public ConnectionApiClient(string basePath) : this(basePath, null, null)
+		{
+		}
+
+		/// <summary>
+		/// Creates a client that identifies the calling application to the service.
+		/// </summary>
+		/// <param name="basePath">URL of the REST API service.</param>
+		/// <param name="clientApplication">
+		/// Name of the application making the calls, for example "NorsokChecker" - a constant of the
+		/// build, not anything about the machine, the project or the user. It is reported with every call
+		/// the service serves, which is what lets usage be attributed to an integration at all; see
+		/// <see cref="ClientApplicationIdentity"/>. Optional.
+		/// </param>
+		/// <param name="clientApplicationVersion">Version of that application. Optional.</param>
+		public ConnectionApiClient(string basePath, string clientApplication,
+			string clientApplicationVersion = null)
 		{
 			BasePath = new Uri(basePath);
+			this.clientApplication = ClientApplicationIdentity.Format(clientApplication,
+				clientApplicationVersion);
 		}
 
 		/// <summary>
@@ -131,6 +155,13 @@ namespace IdeaStatiCa.ConnectionApi
 			Configuration configuration = new Configuration();
 			configuration.Timeout = Timeout.Infinite;
 			configuration.BasePath = BasePath.AbsoluteUri;
+
+			// Set before the first call, so the service can attribute the connect itself. A service that
+			// does not know the header ignores it, so this is safe against any version.
+			if (clientApplication != null)
+			{
+				configuration.DefaultHeaders.Add(ClientApplicationIdentity.HeaderName, clientApplication);
+			}
 
 			var clientApi = new ClientApi(configuration);
 			ClientId = await clientApi.ConnectClientAsync();

@@ -125,7 +125,12 @@ namespace IdeaStatiCa.ConnectionApi.Client
                 return DateTime.Parse(response.Content, null, DateTimeStyles.RoundtripKind);
             }
 
-            if (type == typeof(string) || type.Name.StartsWith("System.Nullable")) // return primitive type
+            if (type == typeof(string))
+            {
+                return ApiClient.ReadStringContent(response);
+            }
+
+            if (type.Name.StartsWith("System.Nullable")) // return primitive type
             {
                 return Convert.ChangeType(response.Content, type);
             }
@@ -173,6 +178,28 @@ namespace IdeaStatiCa.ConnectionApi.Client
     public partial class ApiClient : ISynchronousClient, IAsynchronousClient
     {
         private readonly string _baseUrl;
+
+        /// <summary>
+        /// Content of a string response. A string action declared as application/json arrives as a JSON
+        /// string literal, quoted and escaped; the caller wants its value, exactly like the text/plain
+        /// string actions deliver it.
+        /// </summary>
+        internal static string ReadStringContent(RestResponse response)
+        {
+            var content = response.Content;
+            if (ClientUtils.IsJsonMime(response.ContentType) && content != null && content.Length > 1 && content[0] == '"')
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<string>(content);
+                }
+                catch (Exception e)
+                {
+                    throw new ApiException(500, e.Message);
+                }
+            }
+            return content;
+        }
 
         /// <summary>
         /// Specifies the settings on a <see cref="JsonSerializer" /> object.
@@ -512,7 +539,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
                 }
                 else if (typeof(T).Name == "String") // for string response
                 {
-                    response.Data = (T)(object)response.Content;
+                    response.Data = (T)(object)ReadStringContent(response);
                 }
 
                 InterceptResponse(request, response);
@@ -622,7 +649,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 				}
 				else if (typeof(T).Name == "String") // for string response
 				{
-					response.Data = (T)(object)response.Content;
+					response.Data = (T)(object)ReadStringContent(response);
 				}
 
 				InterceptResponse(request, response);

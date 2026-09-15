@@ -70,7 +70,7 @@ namespace ST_ConnectionRestApi
 
 			var res = await ConnectionApiClient!.Operation!.PreDesignWeldsAsync(ActiveProjectId, connectionId, IdeaStatiCa.Api.Connection.Model.Connection.ConWeldSizingMethodEnum.FullStrength);
 
-			res.Should().Be("\"Connection 2 welds were set PredesignWeldsToFullStrength.\"");
+			res.Should().Be("Connection 2 welds were set PredesignWeldsToFullStrength.");
 		}
 	}
 }
