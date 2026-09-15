@@ -114,7 +114,20 @@ namespace IdeaStatiCa.Api.Connection.Model
 	{
 		public int MemberId { get; set; }
 
-		public ConMemberPlatePartTypeEnum PartType { get; set; }		
+		public ConMemberPlatePartTypeEnum PartType { get; set; }
+
+		/// <summary>
+		/// Which plate of <see cref="PartType"/> is meant, when the member has more than one - a box or RHS
+		/// member has two webs. 1-based and in the member's own plate order, so it is the number the desktop
+		/// shows after the part type ("Web 1", "Web 2").
+		/// </summary>
+		/// <remarks>
+		/// Omitted (or <c>0</c>) selects the first plate of that part type, which is what a request without
+		/// this field has always done. Responses always carry it, so a read-modify-write round trip keeps
+		/// the plate it started on instead of silently moving to the first one.
+		/// </remarks>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int? PartTypeSequence { get; set; }
 	}
 
 	public class ConMemberPosition
