@@ -3,12 +3,12 @@
 A single-file reference for the IDEA StatiCa Connection API, written to be pasted into (or fetched by) an AI coding assistant. It covers how to connect, the full client method catalog, key data models, canonical workflows, and the mistakes assistants most often make with this SDK. It is also usable as a human quick reference.
 
 > [!NOTE]
-> Verified against SDK version 26.0.2.0407 (Python package `ideastatica-connection-api`, NuGet package `IdeaStatiCa.ConnectionApi`), REST API version 3.0, June 2026. This page is re-verified with each SDK release. If your installed IDEA StatiCa version differs, install the matching SDK version — method surfaces change between versions.
+> Verified against SDK version 26.0.2.0407 (Python package `ideastatica-connection-api`, NuGet package `IdeaStatiCa.ConnectionApi`), June 2026; the API version and the cross-section endpoints below were updated for IDEA StatiCa 26.1 (REST API version 5.0). This page is re-verified with each SDK release. If your installed IDEA StatiCa version differs, install the matching SDK version — method surfaces change between versions.
 
 ## Scope
 
-- **Product:** IDEA StatiCa Connection (structural steel connection design, CBFEM analysis). The Connection API requires IDEA StatiCa 24.1 or later; this page describes the surface shipped with version 26.0.
-- **What the API is:** a REST API (OpenAPI 3, base path `/api/3/`) exposed by a locally hosted service, `IdeaStatiCa.ConnectionRestApi.exe`, which ships with the desktop installation (worked example path: `C:\Program Files\IDEA StatiCa\StatiCa 26.0`).
+- **Product:** IDEA StatiCa Connection (structural steel connection design, CBFEM analysis). The Connection API requires IDEA StatiCa 24.1 or later; this page describes the surface shipped with version 26.1.
+- **What the API is:** a REST API (OpenAPI 3, base path `/api/5/`) exposed by a locally hosted service, `IdeaStatiCa.ConnectionRestApi.exe`, which ships with the desktop installation (worked example path: `C:\Program Files\IDEA StatiCa\StatiCa 26.0`).
 - **Primary client covered here:** the Python SDK `ideastatica_connection_api` (Python 3.8+, `pip install ideastatica-connection-api`). The C# client (`IdeaStatiCa.ConnectionApi` on NuGet) exposes the same surface; its accessors and extension methods are listed in [C# client surface](#c-client-surface).
 - **Escalation:** SDK bugs or missing functionality go to [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions). The OpenAPI specification lives in the [public repository](https://github.com/idea-statica/ideastatica-public/blob/main/src/api-sdks/connection-api/clients/csharp/api/openapi.yaml).
 - **Related pages:** [Overview](connection_api_overview.md) | [Getting started](connection_api_getting_started.md) | [Concepts](connection_api_concepts.md) | [Parameters getting started](../api_parameters_getting_started.md) | [Expression parameter reference](../api_parameter_reference_guide.md)
@@ -112,7 +112,7 @@ internal class Program
 
 ### Calling REST directly
 
-From any other language: call `GET /api/3/clients/connect-client` once, send the returned id in a `ClientId` header on every subsequent request, and work against the paths in the OpenAPI spec. The SDK clients do exactly this for you.
+From any other language: call `GET /api/5/clients/connect-client` once, send the returned id in a `ClientId` header on every subsequent request, and work against the paths in the OpenAPI spec. The SDK clients do exactly this for you.
 
 ## API surface — Python client
 
@@ -250,7 +250,11 @@ GET methods list items **used in the project**; ADD methods add an item **from t
 | `get_all_materials(project_id)` | all materials in the project |
 | `get_steel_materials` / `get_concrete_materials` / `get_bolt_grade_materials` / `get_welding_materials` / `get_headed_stud_grade_materials` / `get_bolt_assemblies` / `get_cross_sections` `(project_id)` | per-type lists of items used in the project |
 | `add_material_steel` / `add_material_concrete` / `add_material_bolt_grade` / `add_material_weld` / `add_material_headed_stud_grade` / `add_bolt_assembly` `(project_id, ConMprlElement(mprl_name="S 355"))` | adds the named MPRL item to the project |
-| `add_cross_section(project_id, ConMprlCrossSection(material_name="S 355", mprl_name="HEB200"))` | adds an MPRL cross-section |
+| `add_cross_section(project_id, ConMprlCrossSection(material_name="S 355", mprl_name="HEB200"))` | adds an MPRL cross-section; returns the `ConCrossSection` the listing shows |
+| `get_cross_sections(project_id)` / `get_cross_section(project_id, css_id)` | `ConCrossSection` items: `.id`, `.name`, `.definition` (library / parametric / custom kind); API 5.0 — earlier versions returned IOM objects here |
+| `get_cross_section_geometry(project_id, css_id)` | `ConCrossSectionGeometry`: per component the closed outline and openings as line/arc segment chains plus `material_name` |
+| `get_parametric_cross_section_shapes(project_id)` / `get_parametric_cross_section_shape_template(project_id, shape_type)` | shape names (e.g. `Iw`, `BoxDelta`) and the fill-in template of one shape with its dimensions at default values |
+| `add_parametric_cross_section(project_id, definition)` / `update_parametric_cross_section(project_id, css_id, definition)` | create a parametric section from a filled template; update replaces the whole definition (409 for a library or custom section) |
 
 ### Calculation and results — `api_client.calculation`
 
