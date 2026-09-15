@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **float** |  | [optional] 
-**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCssNumberDimension, IdeaStatiCa.Api']
+**type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCssNumberDimension, IdeaStatiCa.Api']
 
 ## Example
 

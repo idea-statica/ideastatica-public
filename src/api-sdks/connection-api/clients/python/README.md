@@ -420,7 +420,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
  - [ideastatica_connection_api.models.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
  - [ideastatica_connection_api.models.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
- - [ideastatica_connection_api.models.ConCrossSectionParametricDefinitionAllOfDimensions](docs/ConCrossSectionParametricDefinitionAllOfDimensions.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParametricDefinitionDimensionsInner](docs/ConCrossSectionParametricDefinitionDimensionsInner.md)
  - [ideastatica_connection_api.models.ConCssArcSegment](docs/ConCssArcSegment.md)
  - [ideastatica_connection_api.models.ConCssChoiceDimension](docs/ConCssChoiceDimension.md)
  - [ideastatica_connection_api.models.ConCssCountDimension](docs/ConCssCountDimension.md)

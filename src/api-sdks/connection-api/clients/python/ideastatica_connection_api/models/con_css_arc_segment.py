@@ -30,7 +30,7 @@ class ConCssArcSegment(ConCssSegment):
     ConCssArcSegment
     """ # noqa: E501
     mid: Optional[ConCssPoint2D] = None
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["start", "end", "mid", "$type"]
 
     model_config = ConfigDict(

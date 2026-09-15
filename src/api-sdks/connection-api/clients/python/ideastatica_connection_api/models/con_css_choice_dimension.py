@@ -31,7 +31,7 @@ class ConCssChoiceDimension(ConCssDimension):
     """ # noqa: E501
     value: Optional[StrictStr] = None
     options: Optional[List[ConCssOption]] = None
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCssChoiceDimension, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["id", "name", "value", "options", "$type"]
 
     model_config = ConfigDict(

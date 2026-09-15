@@ -29,7 +29,7 @@ class ConCssSwitchDimension(ConCssDimension):
     ConCssSwitchDimension
     """ # noqa: E501
     value: Optional[StrictBool] = None
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCssSwitchDimension, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["id", "name", "value", "$type"]
 
     model_config = ConfigDict(

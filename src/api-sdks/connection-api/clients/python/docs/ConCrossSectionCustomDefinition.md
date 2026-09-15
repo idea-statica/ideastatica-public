@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **components** | [**List[ConCrossSectionCustomComponent]**](ConCrossSectionCustomComponent.md) |  | [optional] 
-**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api']
+**type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api']
 
 ## Example
 
