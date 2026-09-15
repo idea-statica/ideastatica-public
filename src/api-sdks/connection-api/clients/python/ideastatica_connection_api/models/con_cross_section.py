@@ -80,11 +80,6 @@ class ConCrossSection(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
-        # set to None if definition (nullable) is None
-        # and model_fields_set contains the field
-        if self.definition is None and "definition" in self.model_fields_set:
-            _dict['definition'] = None
-
         return _dict
 
     @classmethod

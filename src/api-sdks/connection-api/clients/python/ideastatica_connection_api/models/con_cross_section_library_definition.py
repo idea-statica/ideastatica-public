@@ -18,13 +18,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.con_cross_section_definition import ConCrossSectionDefinition
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ConCrossSectionLibraryDefinition(ConCrossSectionDefinition):
+class ConCrossSectionLibraryDefinition(BaseModel):
     """
     ConCrossSectionLibraryDefinition
     """ # noqa: E501
@@ -32,7 +31,7 @@ class ConCrossSectionLibraryDefinition(ConCrossSectionDefinition):
     material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
     mirror_y: Optional[StrictBool] = Field(default=None, alias="mirrorY")
     mirror_z: Optional[StrictBool] = Field(default=None, alias="mirrorZ")
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["mprlName", "materialName", "mirrorY", "mirrorZ", "$type"]
 
     model_config = ConfigDict(

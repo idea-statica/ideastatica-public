@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from ideastatica_connection_api.models.base_template_conversion import BaseTemplateConversion
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,7 @@ class PlateMaterialTemplateConversion(BaseTemplateConversion):
     """
     PlateMaterialTemplateConversion
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.PlateMaterialTemplateConversion, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["originalValue", "originalTemplateId", "newValue", "description", "newTemplateId", "$type"]
 
     model_config = ConfigDict(

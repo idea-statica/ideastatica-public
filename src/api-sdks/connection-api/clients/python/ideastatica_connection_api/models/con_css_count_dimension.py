@@ -29,7 +29,7 @@ class ConCssCountDimension(ConCssDimension):
     ConCssCountDimension
     """ # noqa: E501
     value: Optional[StrictInt] = None
-    type: Optional[StrictStr] = Field(default='IdeaStatiCa.Api.Connection.Model.Material.ConCssCountDimension, IdeaStatiCa.Api', alias="$type")
+    type: StrictStr = Field(alias="$type")
     __properties: ClassVar[List[str]] = ["id", "name", "value", "$type"]
 
     model_config = ConfigDict(

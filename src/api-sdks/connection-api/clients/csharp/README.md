@@ -368,7 +368,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
  - [Model.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
  - [Model.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
- - [Model.ConCrossSectionParametricDefinitionAllOfDimensions](docs/ConCrossSectionParametricDefinitionAllOfDimensions.md)
+ - [Model.ConCrossSectionParametricDefinitionDimensionsInner](docs/ConCrossSectionParametricDefinitionDimensionsInner.md)
  - [Model.ConCssArcSegment](docs/ConCssArcSegment.md)
  - [Model.ConCssChoiceDimension](docs/ConCssChoiceDimension.md)
  - [Model.ConCssCountDimension](docs/ConCssCountDimension.md)
