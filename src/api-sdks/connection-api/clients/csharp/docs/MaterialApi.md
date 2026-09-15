@@ -3,21 +3,22 @@
 | Method  | Description |
 |--------|-------------|
 | [**AddBoltAssemblyAsync**](MaterialApi.md#addboltassemblyasync) | Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;. |
-| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Add cross section to the project. |
+| [**AddCrossSectionAsync**](MaterialApi.md#addcrosssectionasync) | Adds a library cross-section (by its MPRL name and material) to the project. |
 | [**AddMaterialBoltGradeAsync**](MaterialApi.md#addmaterialboltgradeasync) | Adds a material to the project. |
 | [**AddMaterialConcreteAsync**](MaterialApi.md#addmaterialconcreteasync) | Adds a material to the project. |
 | [**AddMaterialHeadedStudGradeAsync**](MaterialApi.md#addmaterialheadedstudgradeasync) | Adds a material to the project. |
 | [**AddMaterialReinforcementAsync**](MaterialApi.md#addmaterialreinforcementasync) | Adds a material to the project. |
 | [**AddMaterialSteelAsync**](MaterialApi.md#addmaterialsteelasync) | Adds a material to the project. |
 | [**AddMaterialWeldAsync**](MaterialApi.md#addmaterialweldasync) | Adds a material to the project. |
-| [**AddParametricCrossSectionAsync**](MaterialApi.md#addparametriccrosssectionasync) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults. |
+| [**AddParametricCrossSectionAsync**](MaterialApi.md#addparametriccrosssectionasync) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape&#39;s defaults. |
 | [**AddPinAsync**](MaterialApi.md#addpinasync) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;. |
 | [**GetAllMaterialsAsync**](MaterialApi.md#getallmaterialsasync) | Gets materials used in the specified project. |
 | [**GetBoltAssembliesAsync**](MaterialApi.md#getboltassembliesasync) | Gets bolt assemblies used in the specified project. |
 | [**GetBoltGradeMaterialsAsync**](MaterialApi.md#getboltgradematerialsasync) | Gets materials used in the specified project. |
 | [**GetConcreteMaterialsAsync**](MaterialApi.md#getconcretematerialsasync) | Gets materials used in the specified project. |
-| [**GetCrossSectionDetailAsync**](MaterialApi.md#getcrosssectiondetailasync) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project. |
-| [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly. |
+| [**GetCrossSectionAsync**](MaterialApi.md#getcrosssectionasync) | Gets one cross-section of the project: the same object the listing returns for it. |
+| [**GetCrossSectionGeometryAsync**](MaterialApi.md#getcrosssectiongeometryasync) | Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of. |
+| [**GetCrossSectionsAsync**](MaterialApi.md#getcrosssectionsasync) | Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  &#x60;cross-sections/{cssId}/geometry&#x60;. |
 | [**GetHeadedStudGradeMaterialsAsync**](MaterialApi.md#getheadedstudgradematerialsasync) | Gets materials used in the specified project. |
 | [**GetMaterialLibraryAsync**](MaterialApi.md#getmateriallibraryasync) | Lists the MPRL names available in the material library for the project&#39;s design code. |
 | [**GetParametricCrossSectionShapeTemplateAsync**](MaterialApi.md#getparametriccrosssectionshapetemplateasync) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;. |
@@ -26,7 +27,7 @@
 | [**GetReinforcementMaterialsAsync**](MaterialApi.md#getreinforcementmaterialsasync) | Gets materials used in the specified project. |
 | [**GetSteelMaterialsAsync**](MaterialApi.md#getsteelmaterialsasync) | Gets materials used in the specified project. |
 | [**GetWeldingMaterialsAsync**](MaterialApi.md#getweldingmaterialsasync) | Gets materials used in the specified project. |
-| [**UpdateParametricCrossSectionAsync**](MaterialApi.md#updateparametriccrosssectionasync) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section. |
+| [**UpdateParametricCrossSectionAsync**](MaterialApi.md#updateparametriccrosssectionasync) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section. |
 
 <a id="addboltassembly"></a>
 ## **AddBoltAssemblyAsync**
@@ -116,7 +117,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/5/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the AddBoltAssemblyWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -161,9 +162,9 @@ No authorization required
 
 <a id="addcrosssection"></a>
 ## **AddCrossSectionAsync**
-> **Object AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
+> **ConCrossSection AddCrossSectionAsync (Guid projectId, ConMprlCrossSection conMprlCrossSection = null)**
 
-Add cross section to the project.
+Adds a library cross-section (by its MPRL name and material) to the project.
 
 
 
@@ -172,11 +173,11 @@ Add cross section to the project.
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **conMprlCrossSection** | [**ConMprlCrossSection**](ConMprlCrossSection.md) | Definition of a new cross-section to be added to the project. | [optional]  |
+| **conMprlCrossSection** | [**ConMprlCrossSection**](ConMprlCrossSection.md) | MPRL name and material of the new cross-section. | [optional]  |
 
 ### Return type
 
-**Object**
+[**ConCrossSection**](ConCrossSection.md)
 
 ### Example
 
@@ -210,12 +211,12 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | Definition of a new cross-section to be added to the project. (optional) 
+                    var conMprlCrossSection = new ConMprlCrossSection(); // ConMprlCrossSection | MPRL name and material of the new cross-section. (optional) 
 
                     try
                     {
-                        // Add cross section to the project.
-                        Object result = await conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
+                        // Adds a library cross-section (by its MPRL name and material) to the project.
+                        ConCrossSection result = await conClient.Material.AddCrossSectionAsync(projectId, conMprlCrossSection);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -247,7 +248,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/cross-sections 
+> **POST** /api/5/projects/{projectId}/materials/cross-sections 
 
 #### Using the AddCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -255,8 +256,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Add cross section to the project.
-    ApiResponse<Object> response = conClient.Material.AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
+    // Adds a library cross-section (by its MPRL name and material) to the project.
+    ApiResponse<ConCrossSection> response = conClient.Material.AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -378,7 +379,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/5/projects/{projectId}/materials/bolt-grade 
 
 #### Using the AddMaterialBoltGradeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -509,7 +510,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/concrete 
+> **POST** /api/5/projects/{projectId}/materials/concrete 
 
 #### Using the AddMaterialConcreteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -640,7 +641,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
+> **POST** /api/5/projects/{projectId}/materials/headed-stud-grade 
 
 #### Using the AddMaterialHeadedStudGradeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -771,7 +772,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/reinforcement 
+> **POST** /api/5/projects/{projectId}/materials/reinforcement 
 
 #### Using the AddMaterialReinforcementWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -902,7 +903,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/steel 
+> **POST** /api/5/projects/{projectId}/materials/steel 
 
 #### Using the AddMaterialSteelWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1033,7 +1034,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/welding 
+> **POST** /api/5/projects/{projectId}/materials/welding 
 
 #### Using the AddMaterialWeldWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1078,9 +1079,9 @@ No authorization required
 
 <a id="addparametriccrosssection"></a>
 ## **AddParametricCrossSectionAsync**
-> **ConCrossSectionDetail AddParametricCrossSectionAsync (Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
+> **ConCrossSection AddParametricCrossSectionAsync (Guid projectId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
 
-Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
+Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
 
 
 
@@ -1093,7 +1094,7 @@ Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolle
 
 ### Return type
 
-[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+[**ConCrossSection**](ConCrossSection.md)
 
 ### Example
 
@@ -1131,8 +1132,8 @@ namespace Example
 
                     try
                     {
-                        // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
-                        ConCrossSectionDetail result = await conClient.Material.AddParametricCrossSectionAsync(projectId, conCrossSectionParametricDefinition);
+                        // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
+                        ConCrossSection result = await conClient.Material.AddParametricCrossSectionAsync(projectId, conCrossSectionParametricDefinition);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -1164,7 +1165,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/cross-sections/parametric 
+> **POST** /api/5/projects/{projectId}/materials/cross-sections/parametric 
 
 #### Using the AddParametricCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1172,8 +1173,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
-    ApiResponse<ConCrossSectionDetail> response = conClient.Material.AddParametricCrossSectionWithHttpInfo(projectId, conCrossSectionParametricDefinition);
+    // Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
+    ApiResponse<ConCrossSection> response = conClient.Material.AddParametricCrossSectionWithHttpInfo(projectId, conCrossSectionParametricDefinition);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1295,7 +1296,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/materials/pin 
+> **POST** /api/5/projects/{projectId}/materials/pin 
 
 #### Using the AddPinWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1424,7 +1425,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials 
+> **GET** /api/5/projects/{projectId}/materials 
 
 #### Using the GetAllMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1552,7 +1553,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/5/projects/{projectId}/materials/bolt-assemblies 
 
 #### Using the GetBoltAssembliesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1680,7 +1681,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/5/projects/{projectId}/materials/bolt-grade 
 
 #### Using the GetBoltGradeMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1808,7 +1809,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/concrete 
+> **GET** /api/5/projects/{projectId}/materials/concrete 
 
 #### Using the GetConcreteMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1850,11 +1851,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getcrosssectiondetail"></a>
-## **GetCrossSectionDetailAsync**
-> **ConCrossSectionDetail GetCrossSectionDetailAsync (Guid projectId, int cssId)**
+<a id="getcrosssection"></a>
+## **GetCrossSectionAsync**
+> **ConCrossSection GetCrossSectionAsync (Guid projectId, int cssId)**
 
-Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
+Gets one cross-section of the project: the same object the listing returns for it.
 
 
 
@@ -1867,7 +1868,7 @@ Gets the full definition (library / parametric / custom) and the evaluated outli
 
 ### Return type
 
-[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+[**ConCrossSection**](ConCrossSection.md)
 
 ### Example
 
@@ -1883,7 +1884,7 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetCrossSectionDetailAsyncExample
+    public class GetCrossSectionAsyncExample
     {
         public static async Task Main()
         {
@@ -1905,13 +1906,13 @@ namespace Example
 
                     try
                     {
-                        // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
-                        ConCrossSectionDetail result = await conClient.Material.GetCrossSectionDetailAsync(projectId, cssId);
+                        // Gets one cross-section of the project: the same object the listing returns for it.
+                        ConCrossSection result = await conClient.Material.GetCrossSectionAsync(projectId, cssId);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
                     {
-                        Console.WriteLine("Exception when calling Material.GetCrossSectionDetailAsync: " + e.Message);
+                        Console.WriteLine("Exception when calling Material.GetCrossSectionAsync: " + e.Message);
                         Console.WriteLine("Status Code: " + e.ErrorCode);
                         Console.WriteLine(e.StackTrace);
                     }
@@ -1928,7 +1929,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/GetCrossSectionDetail.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/GetCrossSection.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -1938,23 +1939,153 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/cross-sections/{cssId} 
+> **GET** /api/5/projects/{projectId}/materials/cross-sections/{cssId} 
 
-#### Using the GetCrossSectionDetailWithHttpInfo variant
+#### Using the GetCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
-    ApiResponse<ConCrossSectionDetail> response = conClient.Material.GetCrossSectionDetailWithHttpInfo(projectId, cssId);
+    // Gets one cross-section of the project: the same object the listing returns for it.
+    ApiResponse<ConCrossSection> response = conClient.Material.GetCrossSectionWithHttpInfo(projectId, cssId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling MaterialApi.GetCrossSectionDetailWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling MaterialApi.GetCrossSectionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getcrosssectiongeometry"></a>
+## **GetCrossSectionGeometryAsync**
+> **ConCrossSectionGeometry GetCrossSectionGeometryAsync (Guid projectId, int cssId)**
+
+Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
+
+
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **cssId** | **int** | Id of the cross-section in the project. |  |
+
+### Return type
+
+[**ConCrossSectionGeometry**](ConCrossSectionGeometry.md)
+
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetCrossSectionGeometryAsyncExample
+    {
+        public static async Task Main()
+        {
+            string ideaConFile = "testCon.ideaCon";
+            
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.0"; // Path to the IdeaStatiCa.ConnectionRestApi.exe
+            
+            using (var clientFactory = new ConnectionApiServiceRunner(ideaStatiCaPath))
+            {
+                using (var conClient = await clientFactory.CreateApiClient())
+                {
+
+                    // Open the project and get its id
+                    var projData = await conClient.Project.OpenProjectAsync(ideaConFile);
+                    Guid projectId = projData.ProjectId;
+                    
+                    // (Required) Select parameters
+                    cssId = 56;  // int | Id of the cross-section in the project.
+
+                    try
+                    {
+                        // Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
+                        ConCrossSectionGeometry result = await conClient.Material.GetCrossSectionGeometryAsync(projectId, cssId);
+                        Debug.WriteLine(result);
+                    }
+                    catch (ApiException  e)
+                    {
+                        Console.WriteLine("Exception when calling Material.GetCrossSectionGeometryAsync: " + e.Message);
+                        Console.WriteLine("Status Code: " + e.ErrorCode);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                    finally
+                    {
+                        await conClient.Project.CloseProjectAsync(projectId);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetCrossSectionGeometry.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/5/projects/{projectId}/materials/cross-sections/{cssId}/geometry 
+
+#### Using the GetCrossSectionGeometryWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
+    ApiResponse<ConCrossSectionGeometry> response = conClient.Material.GetCrossSectionGeometryWithHttpInfo(projectId, cssId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetCrossSectionGeometryWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -1982,9 +2113,9 @@ No authorization required
 
 <a id="getcrosssections"></a>
 ## **GetCrossSectionsAsync**
-> **List&lt;Object&gt; GetCrossSectionsAsync (Guid projectId)**
+> **List&lt;ConCrossSection&gt; GetCrossSectionsAsync (Guid projectId)**
 
-Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
+Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
 
 
 
@@ -1996,7 +2127,7 @@ Gets cross sections used in the specified project, in the IOM model-exchange  re
 
 ### Return type
 
-**List<Object>**
+[**List&lt;ConCrossSection&gt;**](ConCrossSection.md)
 
 ### Example
 
@@ -2033,8 +2164,8 @@ namespace Example
 
                     try
                     {
-                        // Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
-                        List<Object> result = await conClient.Material.GetCrossSectionsAsync(projectId);
+                        // Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
+                        List<ConCrossSection> result = await conClient.Material.GetCrossSectionsAsync(projectId);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -2066,7 +2197,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/cross-sections 
+> **GET** /api/5/projects/{projectId}/materials/cross-sections 
 
 #### Using the GetCrossSectionsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2074,8 +2205,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
-    ApiResponse<List<Object>> response = conClient.Material.GetCrossSectionsWithHttpInfo(projectId);
+    // Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
+    ApiResponse<List<ConCrossSection>> response = conClient.Material.GetCrossSectionsWithHttpInfo(projectId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2194,7 +2325,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
+> **GET** /api/5/projects/{projectId}/materials/headed-stud-grade 
 
 #### Using the GetHeadedStudGradeMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2324,7 +2455,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/{materialType}/library 
+> **GET** /api/5/projects/{projectId}/materials/{materialType}/library 
 
 #### Using the GetMaterialLibraryWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2455,7 +2586,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType} 
+> **GET** /api/5/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType} 
 
 #### Using the GetParametricCrossSectionShapeTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2584,7 +2715,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes 
+> **GET** /api/5/projects/{projectId}/materials/cross-sections/parametric/shapes 
 
 #### Using the GetParametricCrossSectionShapesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2712,7 +2843,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/pin 
+> **GET** /api/5/projects/{projectId}/materials/pin 
 
 #### Using the GetPinsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2840,7 +2971,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/reinforcement 
+> **GET** /api/5/projects/{projectId}/materials/reinforcement 
 
 #### Using the GetReinforcementMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -2968,7 +3099,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/steel 
+> **GET** /api/5/projects/{projectId}/materials/steel 
 
 #### Using the GetSteelMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -3096,7 +3227,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/materials/welding 
+> **GET** /api/5/projects/{projectId}/materials/welding 
 
 #### Using the GetWeldingMaterialsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -3140,9 +3271,9 @@ No authorization required
 
 <a id="updateparametriccrosssection"></a>
 ## **UpdateParametricCrossSectionAsync**
-> **ConCrossSectionDetail UpdateParametricCrossSectionAsync (Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
+> **ConCrossSection UpdateParametricCrossSectionAsync (Guid projectId, int cssId, ConCrossSectionParametricDefinition conCrossSectionParametricDefinition = null)**
 
-Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
+Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
 
 
 
@@ -3156,7 +3287,7 @@ Replaces the definition of parametric cross-section cssId with the  given one �
 
 ### Return type
 
-[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
+[**ConCrossSection**](ConCrossSection.md)
 
 ### Example
 
@@ -3195,8 +3326,8 @@ namespace Example
 
                     try
                     {
-                        // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
-                        ConCrossSectionDetail result = await conClient.Material.UpdateParametricCrossSectionAsync(projectId, cssId, conCrossSectionParametricDefinition);
+                        // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
+                        ConCrossSection result = await conClient.Material.UpdateParametricCrossSectionAsync(projectId, cssId, conCrossSectionParametricDefinition);
                         Debug.WriteLine(result);
                     }
                     catch (ApiException  e)
@@ -3228,7 +3359,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId} 
+> **PUT** /api/5/projects/{projectId}/materials/cross-sections/parametric/{cssId} 
 
 #### Using the UpdateParametricCrossSectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -3236,8 +3367,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
-    ApiResponse<ConCrossSectionDetail> response = conClient.Material.UpdateParametricCrossSectionWithHttpInfo(projectId, cssId, conCrossSectionParametricDefinition);
+    // Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
+    ApiResponse<ConCrossSection> response = conClient.Material.UpdateParametricCrossSectionWithHttpInfo(projectId, cssId, conCrossSectionParametricDefinition);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);

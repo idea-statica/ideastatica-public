@@ -67,7 +67,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/presentations 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/presentations 
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/presentations/text 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/presentations/text 
 
 ### Authorization
 

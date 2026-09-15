@@ -360,10 +360,12 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<object>> GetMaterialsAsync(string type = "all");
 
 		/// <summary>
-		/// Get project cross sections
+		/// Get the cross-sections of the project: id, name and the definition of each (library /
+		/// parametric / custom). The evaluated outline of a section is a separate resource, see
+		/// <see cref="GetCrossSectionGeometryAsync"/>.
 		/// </summary>
-		/// <returns></returns>
-		Task<List<object>> GetCrossSectionsAsync();
+		/// <returns>Every cross-section of the project</returns>
+		Task<List<ConCrossSection>> GetCrossSectionsAsync();
 
 		/// <summary>
 		/// Get bolt assemblies from project
@@ -380,44 +382,53 @@ namespace IdeaStatiCa.Api.Connection
 		Task<object> AddMaterialAsync(ConMprlElement newMaterial, string materialType);
 
 		/// <summary>
-		/// Add cross section to project data
+		/// Add a library cross-section (by its MPRL name and material) to the project.
 		/// </summary>
-		/// <param name="newCrossSection"></param>
-		/// <returns></returns>
-		Task<object> AddCrossSectionAsync(ConMprlCrossSection newCrossSection);
+		/// <param name="newCrossSection">MPRL name and material of the new cross-section</param>
+		/// <returns>The added cross-section as the listing returns it</returns>
+		Task<ConCrossSection> AddCrossSectionAsync(ConMprlCrossSection newCrossSection);
 
 		/// <summary>
-		/// Get the full definition (library / parametric / custom) and the evaluated outline
-		/// geometry of one cross-section in the project. BETA.
+		/// Get one cross-section of the project: the same object the listing returns for it.
 		/// </summary>
 		/// <param name="cssId">Id of the cross-section in the project</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>The cross-section detail: definition + outline geometry as ordered chains of line/arc segments</returns>
-		Task<ConCrossSectionDetail> GetCrossSectionDetailAsync(int cssId, CancellationToken cancellationToken = default);
+		/// <returns>The cross-section: id, name and definition</returns>
+		Task<ConCrossSection> GetCrossSectionAsync(int cssId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the evaluated outline geometry of one cross-section: per component the closed
+		/// outline and openings as ordered chains of line/arc segments, with the material the
+		/// component is made of. Enough on its own to draw the section.
+		/// </summary>
+		/// <param name="cssId">Id of the cross-section in the project</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns>The evaluated geometry of the cross-section</returns>
+		Task<ConCrossSectionGeometry> GetCrossSectionGeometryAsync(int cssId, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Create a parametric cross-section (welded, boxed, cold-formed, parametric rolled) from
-		/// its shape type and dimensions. Dimension ids are the stable parameter ids the detail
-		/// GET exposes; dimensions not named keep the shape's defaults. BETA.
+		/// its shape type and dimensions. Dimension ids are the stable parameter ids the section
+		/// GET exposes; dimensions not named keep the shape's defaults.
 		/// </summary>
 		/// <param name="definition">Shape type, dimensions and material of the new cross-section</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>The created cross-section detail: definition + outline geometry as ordered chains of line/arc segments</returns>
-		Task<ConCrossSectionDetail> AddParametricCrossSectionAsync(ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
+		/// <returns>The created cross-section as the listing returns it</returns>
+		Task<ConCrossSection> AddParametricCrossSectionAsync(ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Replace the definition of a parametric cross-section — a full replacement: dimensions
 		/// not named revert to the shape's defaults, so send the complete definition obtained from
-		/// the detail GET. BETA.
+		/// the section GET.
 		/// </summary>
 		/// <param name="cssId">Id of the parametric cross-section to replace</param>
 		/// <param name="definition">Shape type, dimensions and material replacing the stored definition</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>The updated cross-section detail: definition + outline geometry as ordered chains of line/arc segments</returns>
-		Task<ConCrossSectionDetail> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
+		/// <returns>The updated cross-section as the listing returns it</returns>
+		Task<ConCrossSection> UpdateParametricCrossSectionAsync(int cssId, ConCrossSectionParametricDefinition definition, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// List the shape types the parametric cross-section endpoints accept. BETA.
+		/// List the shape types the parametric cross-section endpoints accept.
 		/// </summary>
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns>The parametric shape type names (e.g. "Iw", "Tw", "CHSPar")</returns>
@@ -427,7 +438,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// Get the fill-in template of a parametric shape: every dimension with its stable id,
 		/// stable code name (e.g. "wH") and the shape's default value, in SI units. Change the
 		/// values, set the material, and create the section with
-		/// <see cref="AddParametricCrossSectionAsync"/>. BETA.
+		/// <see cref="AddParametricCrossSectionAsync"/>.
 		/// </summary>
 		/// <param name="shapeType">Shape type name from <see cref="GetParametricCrossSectionShapesAsync"/></param>
 		/// <param name="cancellationToken">Cancellation token</param>
