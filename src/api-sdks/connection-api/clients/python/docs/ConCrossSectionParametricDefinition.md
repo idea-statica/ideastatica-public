@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **shape_type** | **str** |  | [optional] 
+**material_name** | **str** |  | [optional] 
 **dimensions** | [**List[ConCrossSectionParametricDefinitionAllOfDimensions]**](ConCrossSectionParametricDefinitionAllOfDimensions.md) |  | [optional] 
 **type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api']
 
