@@ -18,7 +18,7 @@ namespace IdeaStatiCa.TeklaStructuresTest
 		{
 
 			IPluginLogger pluginLogger = Substitute.For<IPluginLogger>();
-			ModelClient modelClient = new ModelClient(null, pluginLogger);
+			ModelClient modelClient = new ModelClient(null, pluginLogger, new BIM.Common.SorterSettings());
 
 			Tekla.Structures.Geometry3d.Point point = new Tekla.Structures.Geometry3d.Point(x, y, z);
 
