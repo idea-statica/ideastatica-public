@@ -18,3 +18,13 @@ The RCS API can be used to interact with IDEA StatiCa RCS to create and optimize
 The RCS API is built on REST Open API architecture and runs over a http protocal. The current version of the API creates REST server which is hosted locally on a users computer. However, in the future we may also provide the possibility to run calculations on remote machines.
 
 Users can interact with the RCS API using one of the provided clients or by calling the REST API directly from any programming language. We recommend using one of the provided IDEA StatiCa wrapper clients for **.Net** or **Python**.
+
+## Running the API service
+
+The RCS API is hosted by the `IdeaStatiCa.RcsRestApi.exe` service, which is part of the IDEA StatiCa desktop installation (for example `C:\Program Files\IDEA StatiCa\StatiCa 26.0`). It is a different process from the Connection API service (`IdeaStatiCa.ConnectionRestApi.exe`), which does not serve RCS requests.
+
+Start the service from a console in the setup directory; the port is set with the `-port=` argument:
+
+```console
+IdeaStatiCa.RcsRestApi.exe -port=5000
+```

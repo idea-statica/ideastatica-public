@@ -36,7 +36,7 @@ We currently only support connecting to a service running on a localhost (eg. 'h
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
-IdeaStatiCa.RcsRestApi.exe -port:5000
+IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
 
 ```csharp
@@ -69,7 +69,7 @@ namespace Example
         {
             string rcsFile = "myRcsProject.ideaRcs"; // path to the RCS project file
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // path to the IdeaStatiCa.RcsRestApi.exe
 
             // Create client factory object. The service will be automatically started at the latest version of IDEA StatiCa.  
             using(var clientFactory = new RcsApiServiceRunner(ideaStatiCaPath))
