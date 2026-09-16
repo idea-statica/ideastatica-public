@@ -36,27 +36,31 @@ We currently only support connecting to a service running on a localhost (eg. 'h
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
-IdeaStatiCa.RcsRestApi.exe -port:5000
+IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
+
+Parameter `-port=` is optional. The default port is 5000.
 
 ```csharp
 // Connect any new service to latest version of IDEA StatiCa.
-RcsApiServiceAttacher clientFactory = new RcsApiServiceAttacher('http://localhost:5000/');
+RcsApiServiceAttacher clientFactory = new RcsApiServiceAttacher("http://localhost:5000/");
 ```
 
 ```csharp
-IRcsApiClient conClient = await clientFactory.CreateApiClient();
+IRcsApiClient rcsClient = await clientFactory.CreateApiClient();
 ```
 
 
 <a id="getting-started"></a>
 ## Getting Started
 
-The below snippet shows a simple getting started example which opens an IDEA StatiCa Connection project and performs the calculation.
+The below snippet shows a simple getting started example which opens an IDEA StatiCa RCS project and performs the calculation.
 
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi;
@@ -65,11 +69,11 @@ namespace Example
 {
     public class Example
     {
-        public static void Main()
+        public static async Task Main()
         {
             string rcsFile = "myRcsProject.ideaRcs"; // path to the RCS project file
             
-            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // path to the IdeaStatiCa.ConnectionRestApi.exe
+            string ideaStatiCaPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1"; // path to the IdeaStatiCa.RcsRestApi.exe
 
             // Create client factory object. The service will be automatically started at the latest version of IDEA StatiCa.  
             using(var clientFactory = new RcsApiServiceRunner(ideaStatiCaPath))
@@ -78,11 +82,11 @@ namespace Example
                 using (var rcsClient = await clientFactory.CreateApiClient())
                 {
                     // open the project and get its id
-                    var projData = await rcsClient.Project.OpenProjectAsync(rcsFile, cancellationToken);
+                    var projData = await rcsClient.Project.OpenProjectAsync(rcsFile);
 
                     if(!projData.Sections.Any())
                     {
-                        return null;
+                        return;
                     }
 
                     RcsCalculationParameters rcsCalcParam = new RcsCalculationParameters()
@@ -90,7 +94,7 @@ namespace Example
                         Sections = projData.Sections.Select(s => s.Id).ToList()
                     };
                     
-                    var rcsSectResults = await rcsClient.Calculation.CalculateAsync(projData.ProjectId, rcsCalcParam, 0, cancellationToken);
+                    var rcsSectResults = await rcsClient.Calculation.CalculateAsync(projData.ProjectId, rcsCalcParam);
 
                     await rcsClient.Project.CloseProjectAsync(projData.ProjectId);
                 }
@@ -103,7 +107,7 @@ namespace Example
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-The `ConnectionApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
+The `RcsApiClient` wraps all API endpoint controllers into object based or action based API endpoints.
 
 Methods marked with an **^** denote that they have an additional extension in the Client.
 

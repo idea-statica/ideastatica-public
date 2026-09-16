@@ -26,13 +26,6 @@ Then import the package in your project:
 import ideastatica_rcs_api
 ```
 
-If the python package is hosted on a repository, you can install directly using:
-
-```sh
-pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
-```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
-
 ### Setuptools
 
 Install via [Setuptools](http://pypi.python.org/pypi/setuptools).
@@ -45,33 +38,50 @@ python setup.py install --user
 <a id="usage"></a>
 ## Usage
 
-`ClientApiClientFactory` manages creation of clients on the running service. 
+The RCS API is hosted by the `IdeaStatiCa.RcsRestApi.exe` service, which is part of the IDEA StatiCa installation.
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
-IdeaStatiCa.ConnectionRestApi.exe -port:5000
+IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
 
-```python
-// Connect any new service to latest version of IDEA StatiCa.
-client_factory = ConnectionApiClientFactory('http://localhost:5000/')
-```
-
-```python
-conClient = client_factory.create_connection_api_client();
-```
+Parameter `-port=` is optional. The default port is 5000.
 
 ## Getting Started
 
-Please follow the [installation procedure](#installation--usage) and then run the following:
+`RcsApiServiceAttacher` creates clients attached to an already running service:
 
+```python
+import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
+
+with rcs_api_service_attacher.RcsApiServiceAttacher('http://localhost:5000').create_api_client() as api_client:
+    api_client.project.open_project_from_file('myRcsProject.ideaRcs')
+    project_data = api_client.project.get_active_project()
+    print(project_data.sections)
+```
+
+Alternatively, `RcsApiServiceRunner` starts the service from the IDEA StatiCa setup directory on a free port and stops it again when the runner exits. The runner additionally requires the `aiohttp` package (`pip install aiohttp`).
+
+```python
+import asyncio
+from ideastatica_rcs_api.rcs_api_service_runner import RcsApiServiceRunner
+
+async def main():
+    async with RcsApiServiceRunner('C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1') as runner:
+        with runner.create_api_client() as api_client:
+            api_client.project.open_project_from_file('myRcsProject.ideaRcs')
+
+asyncio.run(main())
+```
+
+More examples are in the [examples-pip](examples-pip) folder.
 
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-The `ConnectionApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
+The `RcsApiClient` wraps all API endpoint controllers into object based or action based API endpoints.
 
 Methods marked with an **^** denote that they have an additional extension in the Client.
 
