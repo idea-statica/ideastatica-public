@@ -114,7 +114,15 @@ namespace IdeaStatiCa.Api.Connection.Model
 	{
 		public int MemberId { get; set; }
 
-		public ConMemberPlatePartTypeEnum PartType { get; set; }		
+		public ConMemberPlatePartTypeEnum PartType { get; set; }
+
+		/// <summary>
+		/// Which plate of <see cref="PartType"/> is meant when the member has several - a box member has
+		/// two webs. 1-based, matching the number the desktop shows ("Web 1", "Web 2").
+		/// Omit to take the first plate of that part type.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int? PartTypeSequence { get; set; }
 	}
 
 	public class ConMemberPosition
