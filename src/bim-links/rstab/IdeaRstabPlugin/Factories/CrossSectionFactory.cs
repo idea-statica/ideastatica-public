@@ -183,6 +183,11 @@ namespace IdeaRstabPlugin.Factories
 					break;
 			}			
 
+			if (crossSectionParameter.CrossSectionType == CrossSectionType.OneComponentCss)
+			{
+				return CreateCssByName(cssData, objectFactory);
+			}
+
 			var cssParametric = new RstabCrossSectionParametric()
 			{
 				Id = $"css-{cssData.No}",
