@@ -117,22 +117,10 @@ namespace IdeaStatiCa.Api.Connection.Model
 		public ConMemberPlatePartTypeEnum PartType { get; set; }
 
 		/// <summary>
-		/// Which plate of <see cref="PartType"/> is meant, when the member has more than one - a box or RHS
-		/// member has two webs. 1-based, counted among the plates whose part type matches exactly; for an
-		/// ordinary member this is the number the desktop shows after the part type ("Web 1", "Web 2").
+		/// Which plate of <see cref="PartType"/> is meant when the member has several - a box member has
+		/// two webs. 1-based, matching the number the desktop shows ("Web 1", "Web 2").
+		/// Omit to take the first plate of that part type.
 		/// </summary>
-		/// <remarks>
-		/// Omitted (or <c>0</c>) selects the first plate of that part type, which is what a request without
-		/// this field has always done. Responses carry it whenever the engine has assigned one, so a
-		/// read-modify-write round trip keeps the plate it started on instead of silently moving to the
-		/// first one.
-		/// <para>
-		/// Matching is on the exact part type. <see cref="ConMemberPlatePartTypeEnum"/> is a bitfield and
-		/// stub/negative plates carry combined values, which the desktop hides when it builds the label -
-		/// so on a member holding both a plain and a stub plate of one type the numbering here can differ
-		/// from what that label suggests.
-		/// </para>
-		/// </remarks>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public int? PartTypeSequence { get; set; }
 	}
