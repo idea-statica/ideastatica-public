@@ -75,7 +75,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/copy 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/copy 
 
 ### Authorization
 
@@ -157,7 +157,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections 
+> **POST** /api/4/projects/{projectId}/connections 
 
 ### Authorization
 
@@ -239,7 +239,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId} 
 
 ### Authorization
 
@@ -320,7 +320,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId} 
 
 ### Authorization
 
@@ -400,7 +400,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/get-topology 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/get-topology 
 
 ### Authorization
 
@@ -479,7 +479,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections 
+> **GET** /api/4/projects/{projectId}/connections 
 
 ### Authorization
 
@@ -560,7 +560,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/production-cost 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/production-cost 
 
 ### Authorization
 
@@ -643,7 +643,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId} 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId} 
 
 ### Authorization
 

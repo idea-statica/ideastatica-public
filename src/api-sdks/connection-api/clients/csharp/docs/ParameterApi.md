@@ -105,7 +105,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the CreateParameterWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -238,7 +238,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/parameters/links 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/parameters/links 
 
 #### Using the CreateParameterLinkWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -371,7 +371,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/parameters/{key} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters/{key} 
 
 #### Using the DeleteParameterWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -503,7 +503,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId} 
 
 #### Using the DeleteParameterLinkWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -630,7 +630,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the DeleteParametersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -759,7 +759,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 #### Using the EvaluateExpressionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -892,7 +892,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties 
 
 #### Using the GetLinkablePropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1026,7 +1026,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties 
 
 #### Using the GetMemberLinkablePropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1160,7 +1160,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties 
 
 #### Using the GetOperationLinkablePropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1290,7 +1290,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/parameters/links 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters/links 
 
 #### Using the GetParameterLinksWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1422,7 +1422,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the GetParametersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1554,7 +1554,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 #### Using the UpdateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

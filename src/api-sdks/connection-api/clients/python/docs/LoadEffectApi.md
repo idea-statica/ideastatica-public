@@ -75,7 +75,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/load-effects 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -159,7 +159,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes 
 
 ### Authorization
 
@@ -241,7 +241,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 ### Authorization
 
@@ -326,7 +326,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} 
 
 ### Authorization
 
@@ -409,7 +409,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/load-effects 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
@@ -490,7 +490,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings 
 
 ### Authorization
 
@@ -573,7 +573,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings 
 
 ### Authorization
 
@@ -657,7 +657,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/load-effects 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 

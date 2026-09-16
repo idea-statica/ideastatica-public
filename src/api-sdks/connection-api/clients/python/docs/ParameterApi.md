@@ -80,7 +80,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -165,7 +165,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/parameters/links 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/parameters/links 
 
 ### Authorization
 
@@ -249,7 +249,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/parameters/{key} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters/{key} 
 
 ### Authorization
 
@@ -329,7 +329,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId} 
 
 ### Authorization
 
@@ -407,7 +407,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -489,7 +489,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/evaluate-expression 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression 
 
 ### Authorization
 
@@ -573,7 +573,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties 
 
 ### Authorization
 
@@ -658,7 +658,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties 
 
 ### Authorization
 
@@ -743,7 +743,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties 
 
 ### Authorization
 
@@ -824,7 +824,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/parameters/links 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters/links 
 
 ### Authorization
 
@@ -907,7 +907,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
@@ -991,7 +991,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/parameters 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/parameters 
 
 ### Authorization
 
