@@ -94,7 +94,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/4/projects/{projectId}/calculation-jobs/{jobId} 
+> **DELETE** /api/5/projects/{projectId}/calculation-jobs/{jobId} 
 
 #### Using the CancelCalculationJobWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -223,7 +223,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/calculation-jobs/{jobId} 
+> **GET** /api/5/projects/{projectId}/calculation-jobs/{jobId} 
 
 #### Using the GetCalculationJobWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -355,7 +355,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/calculate-async 
+> **POST** /api/5/projects/{projectId}/connections/calculate-async 
 
 #### Using the StartCalculationWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -491,7 +491,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/calculate-async 
+> **POST** /api/5/projects/{projectId}/connections/{connectionId}/calculate-async 
 
 #### Using the StartConnectionCalculationWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

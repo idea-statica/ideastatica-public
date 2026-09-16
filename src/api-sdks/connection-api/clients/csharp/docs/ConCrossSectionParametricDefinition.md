@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaterialName** | **string** |  | [optional] 
 **ShapeType** | **string** |  | [optional] 
+**MaterialName** | **string** |  | [optional] 
 **Dimensions** | [**List&lt;ConCrossSectionParametricDefinitionAllOfDimensions&gt;**](ConCrossSectionParametricDefinitionAllOfDimensions.md) |  | [optional] 
 **Type** | **string** |  | [optional] [default to "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api"]
 

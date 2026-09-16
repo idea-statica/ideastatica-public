@@ -3,25 +3,10 @@ using System.Collections.Generic;
 namespace IdeaStatiCa.Api.Connection.Model.Material
 {
 	/// <summary>
-	/// Full description of a cross-section in the project: the editable definition
-	/// (how it is defined) plus the evaluated outline geometry (what it looks like).
+	/// Evaluated outline geometry of a cross-section, in the exact line/arc segment form (arcs
+	/// preserved, not discretized). The same shape for every definition kind, read-only, and
+	/// enough on its own to draw the section.
 	/// </summary>
-	public class ConCrossSectionDetail
-	{
-		/// <summary>Id of the cross-section in the project.</summary>
-		public int Id { get; set; }
-
-		/// <summary>Display name of the cross-section.</summary>
-		public string Name { get; set; }
-
-		/// <summary>How the section is defined (library / parametric / custom).</summary>
-		public ConCrossSectionDefinition Definition { get; set; }
-
-		/// <summary>Evaluated geometry — same shape for every definition kind, read-only.</summary>
-		public ConCrossSectionGeometry Geometry { get; set; }
-	}
-
-	/// <summary>Evaluated outline geometry of a cross-section, in the exact line/arc segment form (arcs preserved, not discretized).</summary>
 	public class ConCrossSectionGeometry
 	{
 		public List<ConCrossSectionGeometryComponent> Components { get; set; }
@@ -43,7 +28,10 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 		/// </summary>
 		public List<List<ConCssSegment>> Openings { get; set; }
 
-		/// <summary>Material of this component; null = the section's material.</summary>
+		/// <summary>
+		/// The material this component is made of: its own where the section assigns one per
+		/// component, otherwise the material of the section.
+		/// </summary>
 		public string MaterialName { get; set; }
 	}
 }
