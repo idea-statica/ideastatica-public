@@ -92,7 +92,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/connection-library/get-picture 
+> **GET** /api/4/connection-library/get-picture 
 
 #### Using the GetDesignItemPictureWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -210,7 +210,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/connection-library/get-design-sets 
+> **GET** /api/4/connection-library/get-design-sets 
 
 #### Using the GetDesignSetsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -336,7 +336,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/connection-library/get-template 
+> **GET** /api/4/connection-library/get-template 
 
 #### Using the GetTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -470,7 +470,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/propose 
 
 #### Using the ProposeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -603,7 +603,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/publish 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/publish 
 
 #### Using the PublishConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

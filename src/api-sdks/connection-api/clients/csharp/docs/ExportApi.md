@@ -97,7 +97,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/export-dwg 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-dwg 
 
 #### Using the ExportDWGWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -224,7 +224,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/export-ifc 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-ifc 
 
 #### Using the ExportIFCWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -356,7 +356,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/export-iom 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-iom 
 
 #### Using the ExportIomWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -486,7 +486,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
 
 #### Using the ExportIomConnectionDataWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

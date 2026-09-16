@@ -106,7 +106,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/apply-template 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/apply-template 
 
 #### Using the ApplyTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -237,7 +237,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/get-template 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/get-template 
 
 #### Using the CreateConTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -367,7 +367,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
 
 #### Using the CreateTemplateFromConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -498,7 +498,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
 
 #### Using the DeleteWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -624,7 +624,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/templates 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates 
 
 #### Using the DeleteAllWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -751,7 +751,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
 
 #### Using the ExplodeWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -878,7 +878,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/explode 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/explode 
 
 #### Using the ExplodeAllWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1010,7 +1010,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 #### Using the GetDefaultTemplateMappingWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1142,7 +1142,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 #### Using the GetTemplateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1274,7 +1274,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
 
 #### Using the GetTemplateInConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1406,7 +1406,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/templates 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates 
 
 #### Using the GetTemplatesInConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1537,7 +1537,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
 
 #### Using the LoadDefaultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -1670,7 +1670,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 #### Using the UpdateTemplateCommonOperationPropertiesWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

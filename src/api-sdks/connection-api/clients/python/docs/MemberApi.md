@@ -73,7 +73,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/members 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 
@@ -156,7 +156,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 ### Authorization
 
@@ -239,7 +239,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 ### Authorization
 
@@ -320,7 +320,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/members 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 
@@ -403,7 +403,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
 
 ### Authorization
 
@@ -487,7 +487,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/members 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 

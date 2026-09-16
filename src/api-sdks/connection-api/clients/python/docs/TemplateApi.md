@@ -81,7 +81,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/apply-template 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/apply-template 
 
 ### Authorization
 
@@ -162,7 +162,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/get-template 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/get-template 
 
 ### Authorization
 
@@ -243,7 +243,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/create-from-connection 
 
 ### Authorization
 
@@ -323,7 +323,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId} 
 
 ### Authorization
 
@@ -400,7 +400,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/templates 
+> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/templates 
 
 ### Authorization
 
@@ -479,7 +479,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode 
 
 ### Authorization
 
@@ -557,7 +557,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/explode 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/explode 
 
 ### Authorization
 
@@ -644,7 +644,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 ### Authorization
 
@@ -728,7 +728,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 ### Authorization
 
@@ -811,7 +811,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId} 
 
 ### Authorization
 
@@ -894,7 +894,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/connections/{connectionId}/templates 
+> **GET** /api/4/projects/{projectId}/connections/{connectionId}/templates 
 
 ### Authorization
 
@@ -977,7 +977,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
+> **POST** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults 
 
 ### Authorization
 
@@ -1060,7 +1060,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
+> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties 
 
 ### Authorization
 

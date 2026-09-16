@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.ConnectionApi;
 
 
@@ -24,7 +23,7 @@ namespace CodeSamples
 			Dictionary<string, int> CrossSectionMap = new Dictionary<string, int>();
 
 			//Get the cross-sections in the project.
-			List<ConCrossSection> crossSections = await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId);
+			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
 			crossSections.ForEach(x => CrossSectionMap.Add(x.Name, x.Id));
 
 			Console.WriteLine("List of avaliable cross-sections in the project:");

@@ -60,7 +60,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/clients/connect-client 
+> **GET** /api/4/clients/connect-client 
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/clients/idea-service-version 
+> **GET** /api/4/clients/idea-service-version 
 
 ### Authorization
 

@@ -5,22 +5,21 @@ All URIs are relative to *http://localhost*
 Method | Description
 ------------- | -------------
 [**add_bolt_assembly**](MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project. Accepted names come from  &#x60;GET .../materials/bolt-assemblies/library&#x60;.
-[**add_cross_section**](MaterialApi.md#add_cross_section) | Adds a library cross-section (by its MPRL name and material) to the project.
+[**add_cross_section**](MaterialApi.md#add_cross_section) | Add cross section to the project.
 [**add_material_bolt_grade**](MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
 [**add_material_reinforcement**](MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](MaterialApi.md#add_material_weld) | Adds a material to the project.
-[**add_parametric_cross_section**](MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape&#39;s defaults.
+[**add_parametric_cross_section**](MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape&#39;s defaults.
 [**add_pin**](MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via &#x60;GET .../materials/pin/library&#x60;.
 [**get_all_materials**](MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
-[**get_cross_section**](MaterialApi.md#get_cross_section) | Gets one cross-section of the project: the same object the listing returns for it.
-[**get_cross_section_geometry**](MaterialApi.md#get_cross_section_geometry) | Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
-[**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  &#x60;cross-sections/{cssId}/geometry&#x60;.
+[**get_cross_section_detail**](MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
+[**get_cross_sections**](MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use &#x60;cross-sections/{cssId}&#x60; and the  &#x60;cross-sections/parametric&#x60; endpoints — they speak the engine&#39;s exact  dimension vocabulary and round-trip losslessly.
 [**get_headed_stud_grade_materials**](MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project&#39;s design code.
 [**get_parametric_cross_section_shape_template**](MaterialApi.md#get_parametric_cross_section_shape_template) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \&quot;wH\&quot;) and the shape&#39;s default value, in SI units. Change the  values you care about, set the material, and POST it to  &#x60;cross-sections/parametric&#x60;.
@@ -29,7 +28,7 @@ Method | Description
 [**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
-[**update_parametric_cross_section**](MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
+[**update_parametric_cross_section**](MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 
 <a id="add_bolt_assembly"></a>
@@ -91,7 +90,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/bolt-assemblies 
+> **POST** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -116,9 +115,9 @@ No authorization required
 
 <a id="add_cross_section"></a>
 # **add_cross_section**
-> ConCrossSection add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
+> object add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
 
-Adds a library cross-section (by its MPRL name and material) to the project.
+Add cross section to the project.
 
 ### Parameters
 
@@ -126,18 +125,17 @@ Adds a library cross-section (by its MPRL name and material) to the project.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **con_mprl_cross_section** | [**ConMprlCrossSection**](ConMprlCrossSection.md)| MPRL name and material of the new cross-section. | [optional] 
+ **con_mprl_cross_section** | [**ConMprlCrossSection**](ConMprlCrossSection.md)| Definition of a new cross-section to be added to the project. | [optional] 
 
 ### Return type
 
-[**ConCrossSection**](ConCrossSection.md)
+**object**
 
 ### Example
 
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_cross_section import ConCrossSection
 from ideastatica_connection_api.models.con_mprl_cross_section import ConMprlCrossSection
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
@@ -150,10 +148,10 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 def add_cross_sectionExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    con_mprl_cross_section = ideastatica_connection_api.ConMprlCrossSection() # ConMprlCrossSection | MPRL name and material of the new cross-section. (optional)
+    con_mprl_cross_section = ideastatica_connection_api.ConMprlCrossSection() # ConMprlCrossSection | Definition of a new cross-section to be added to the project. (optional)
 
     try:
-        # Adds a library cross-section (by its MPRL name and material) to the project.
+        # Add cross section to the project.
         api_response = api_client.material.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
         print("The response of MaterialApi->add_cross_section:\n")
         pprint(api_response)
@@ -174,7 +172,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/cross-sections 
+> **POST** /api/4/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -256,7 +254,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/bolt-grade 
+> **POST** /api/4/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -338,7 +336,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/concrete 
+> **POST** /api/4/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -420,7 +418,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/headed-stud-grade 
+> **POST** /api/4/projects/{projectId}/materials/headed-stud-grade 
 
 ### Authorization
 
@@ -502,7 +500,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/reinforcement 
+> **POST** /api/4/projects/{projectId}/materials/reinforcement 
 
 ### Authorization
 
@@ -584,7 +582,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/steel 
+> **POST** /api/4/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -666,7 +664,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/welding 
+> **POST** /api/4/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -691,9 +689,9 @@ No authorization required
 
 <a id="add_parametric_cross_section"></a>
 # **add_parametric_cross_section**
-> ConCrossSection add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
+> ConCrossSectionDetail add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
 
-Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
+Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
 
 ### Parameters
 
@@ -705,14 +703,14 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConCrossSection**](ConCrossSection.md)
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
 
 ### Example
 
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_cross_section import ConCrossSection
+from ideastatica_connection_api.models.con_cross_section_detail import ConCrossSectionDetail
 from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
@@ -728,7 +726,7 @@ def add_parametric_cross_sectionExampleFunc(api_client):
     con_cross_section_parametric_definition = ideastatica_connection_api.ConCrossSectionParametricDefinition() # ConCrossSectionParametricDefinition | Shape type, dimensions and material of the new cross-section. (optional)
 
     try:
-        # Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
+        # Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
         api_response = api_client.material.add_parametric_cross_section(project_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
         print("The response of MaterialApi->add_parametric_cross_section:\n")
         pprint(api_response)
@@ -749,7 +747,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/cross-sections/parametric 
+> **POST** /api/4/projects/{projectId}/materials/cross-sections/parametric 
 
 ### Authorization
 
@@ -831,7 +829,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/materials/pin 
+> **POST** /api/4/projects/{projectId}/materials/pin 
 
 ### Authorization
 
@@ -910,7 +908,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials 
+> **GET** /api/4/projects/{projectId}/materials 
 
 ### Authorization
 
@@ -988,7 +986,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/bolt-assemblies 
+> **GET** /api/4/projects/{projectId}/materials/bolt-assemblies 
 
 ### Authorization
 
@@ -1066,7 +1064,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/bolt-grade 
+> **GET** /api/4/projects/{projectId}/materials/bolt-grade 
 
 ### Authorization
 
@@ -1144,7 +1142,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/concrete 
+> **GET** /api/4/projects/{projectId}/materials/concrete 
 
 ### Authorization
 
@@ -1166,11 +1164,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="get_cross_section"></a>
-# **get_cross_section**
-> ConCrossSection get_cross_section(project_id, css_id)
+<a id="get_cross_section_detail"></a>
+# **get_cross_section_detail**
+> ConCrossSectionDetail get_cross_section_detail(project_id, css_id)
 
-Gets one cross-section of the project: the same object the listing returns for it.
+Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
 
 ### Parameters
 
@@ -1182,14 +1180,14 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConCrossSection**](ConCrossSection.md)
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
 
 ### Example
 
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_cross_section import ConCrossSection
+from ideastatica_connection_api.models.con_cross_section_detail import ConCrossSectionDetail
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
@@ -1198,19 +1196,19 @@ from pprint import pprint
 For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
 
 ```python
-def get_cross_sectionExampleFunc(api_client):
+def get_cross_section_detailExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
     css_id = 56 # int | Id of the cross-section in the project.
 
     try:
-        # Gets one cross-section of the project: the same object the listing returns for it.
-        api_response = api_client.material.get_cross_section(project_id, css_id)
-        print("The response of MaterialApi->get_cross_section:\n")
+        # Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
+        api_response = api_client.material.get_cross_section_detail(project_id, css_id)
+        print("The response of MaterialApi->get_cross_section_detail:\n")
         pprint(api_response)
         return api_response
     except Exception as e:
-        print("Exception when calling MaterialApi->get_cross_section: %s\n" % e)
+        print("Exception when calling MaterialApi->get_cross_section_detail: %s\n" % e)
 ```
 
 
@@ -1225,88 +1223,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/cross-sections/{cssId} 
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | OK |  -  |
-**401** | Unauthorized |  -  |
-**404** | Not Found |  -  |
-**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="get_cross_section_geometry"></a>
-# **get_cross_section_geometry**
-> ConCrossSectionGeometry get_cross_section_geometry(project_id, css_id)
-
-Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **css_id** | **int**| Id of the cross-section in the project. | 
-
-### Return type
-
-[**ConCrossSectionGeometry**](ConCrossSectionGeometry.md)
-
-### Example
-
-Required Imports
-```python
-import ideastatica_connection_api
-from ideastatica_connection_api.models.con_cross_section_geometry import ConCrossSectionGeometry
-from ideastatica_connection_api.rest import ApiException
-from pprint import pprint
-
-```
-
-For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
-
-```python
-def get_cross_section_geometryExampleFunc(api_client):
-    
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    css_id = 56 # int | Id of the cross-section in the project.
-
-    try:
-        # Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
-        api_response = api_client.material.get_cross_section_geometry(project_id, css_id)
-        print("The response of MaterialApi->get_cross_section_geometry:\n")
-        pprint(api_response)
-        return api_response
-    except Exception as e:
-        print("Exception when calling MaterialApi->get_cross_section_geometry: %s\n" % e)
-```
-
-
-
-### Code Samples
-
-Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
-
-### REST Usage
-
-#### Http Request
-
-All URIs are relative to *http://localhost*
-
-> **GET** /api/5/projects/{projectId}/materials/cross-sections/{cssId}/geometry 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/{cssId} 
 
 ### Authorization
 
@@ -1330,9 +1247,9 @@ No authorization required
 
 <a id="get_cross_sections"></a>
 # **get_cross_sections**
-> List[ConCrossSection] get_cross_sections(project_id)
+> List[object] get_cross_sections(project_id)
 
-Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
+Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
 
 ### Parameters
 
@@ -1343,14 +1260,13 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ConCrossSection]**](ConCrossSection.md)
+**List[object]**
 
 ### Example
 
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_cross_section import ConCrossSection
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
@@ -1364,7 +1280,7 @@ def get_cross_sectionsExampleFunc(api_client):
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
 
     try:
-        # Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
+        # Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
         api_response = api_client.material.get_cross_sections(project_id)
         print("The response of MaterialApi->get_cross_sections:\n")
         pprint(api_response)
@@ -1385,7 +1301,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/cross-sections 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections 
 
 ### Authorization
 
@@ -1463,7 +1379,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/headed-stud-grade 
+> **GET** /api/4/projects/{projectId}/materials/headed-stud-grade 
 
 ### Authorization
 
@@ -1543,7 +1459,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/{materialType}/library 
+> **GET** /api/4/projects/{projectId}/materials/{materialType}/library 
 
 ### Authorization
 
@@ -1625,7 +1541,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType} 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType} 
 
 ### Authorization
 
@@ -1704,7 +1620,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/cross-sections/parametric/shapes 
+> **GET** /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes 
 
 ### Authorization
 
@@ -1782,7 +1698,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/pin 
+> **GET** /api/4/projects/{projectId}/materials/pin 
 
 ### Authorization
 
@@ -1860,7 +1776,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/reinforcement 
+> **GET** /api/4/projects/{projectId}/materials/reinforcement 
 
 ### Authorization
 
@@ -1938,7 +1854,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/steel 
+> **GET** /api/4/projects/{projectId}/materials/steel 
 
 ### Authorization
 
@@ -2016,7 +1932,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/materials/welding 
+> **GET** /api/4/projects/{projectId}/materials/welding 
 
 ### Authorization
 
@@ -2040,9 +1956,9 @@ No authorization required
 
 <a id="update_parametric_cross_section"></a>
 # **update_parametric_cross_section**
-> ConCrossSection update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
+> ConCrossSectionDetail update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
 
-Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
+Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
 
 ### Parameters
 
@@ -2055,14 +1971,14 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConCrossSection**](ConCrossSection.md)
+[**ConCrossSectionDetail**](ConCrossSectionDetail.md)
 
 ### Example
 
 Required Imports
 ```python
 import ideastatica_connection_api
-from ideastatica_connection_api.models.con_cross_section import ConCrossSection
+from ideastatica_connection_api.models.con_cross_section_detail import ConCrossSectionDetail
 from ideastatica_connection_api.models.con_cross_section_parametric_definition import ConCrossSectionParametricDefinition
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
@@ -2079,7 +1995,7 @@ def update_parametric_cross_sectionExampleFunc(api_client):
     con_cross_section_parametric_definition = ideastatica_connection_api.ConCrossSectionParametricDefinition() # ConCrossSectionParametricDefinition | Shape type, dimensions and material replacing the stored definition. (optional)
 
     try:
-        # Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
+        # Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
         api_response = api_client.material.update_parametric_cross_section(project_id, css_id, con_cross_section_parametric_definition=con_cross_section_parametric_definition)
         print("The response of MaterialApi->update_parametric_cross_section:\n")
         pprint(api_response)
@@ -2100,7 +2016,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/materials/cross-sections/parametric/{cssId} 
+> **PUT** /api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId} 
 
 ### Authorization
 

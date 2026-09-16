@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**MaterialName** | **string** |  | [optional] 
 **Components** | [**List&lt;ConCrossSectionCustomComponent&gt;**](ConCrossSectionCustomComponent.md) |  | [optional] 
 **Type** | **string** |  | [optional] [default to "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api"]
 

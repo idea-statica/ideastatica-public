@@ -68,7 +68,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/close 
+> **GET** /api/4/projects/{projectId}/close 
 
 ### Authorization
 
@@ -148,7 +148,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects 
+> **POST** /api/4/projects 
 
 ### Authorization
 
@@ -223,7 +223,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/download 
+> **GET** /api/4/projects/{projectId}/download 
 
 ### Authorization
 
@@ -298,7 +298,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects 
+> **GET** /api/4/projects 
 
 ### Authorization
 
@@ -376,7 +376,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId} 
+> **GET** /api/4/projects/{projectId} 
 
 ### Authorization
 
@@ -457,7 +457,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/import-iom-file 
+> **POST** /api/4/projects/import-iom-file 
 
 ### Authorization
 
@@ -536,7 +536,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/open 
+> **POST** /api/4/projects/open 
 
 ### Authorization
 
@@ -617,7 +617,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/5/projects/{projectId}/update-iom-file 
+> **POST** /api/4/projects/{projectId}/update-iom-file 
 
 ### Authorization
 
@@ -700,7 +700,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId} 
+> **PUT** /api/4/projects/{projectId} 
 
 ### Authorization
 

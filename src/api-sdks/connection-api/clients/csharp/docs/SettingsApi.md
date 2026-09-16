@@ -93,7 +93,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/5/projects/{projectId}/settings 
+> **GET** /api/4/projects/{projectId}/settings 
 
 #### Using the GetSettingsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -223,7 +223,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/5/projects/{projectId}/settings 
+> **PUT** /api/4/projects/{projectId}/settings 
 
 #### Using the UpdateSettingsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
