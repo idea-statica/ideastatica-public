@@ -39,28 +39,24 @@ To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\St
 IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
 
-Parameter `-port=` is optional. The default port is 5000.
-
 ```csharp
 // Connect any new service to latest version of IDEA StatiCa.
-RcsApiServiceAttacher clientFactory = new RcsApiServiceAttacher("http://localhost:5000/");
+RcsApiServiceAttacher clientFactory = new RcsApiServiceAttacher('http://localhost:5000/');
 ```
 
 ```csharp
-IRcsApiClient rcsClient = await clientFactory.CreateApiClient();
+IRcsApiClient conClient = await clientFactory.CreateApiClient();
 ```
 
 
 <a id="getting-started"></a>
 ## Getting Started
 
-The below snippet shows a simple getting started example which opens an IDEA StatiCa RCS project and performs the calculation.
+The below snippet shows a simple getting started example which opens an IDEA StatiCa Connection project and performs the calculation.
 
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using IdeaStatiCa.Api.Common;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi;
@@ -69,7 +65,7 @@ namespace Example
 {
     public class Example
     {
-        public static async Task Main()
+        public static void Main()
         {
             string rcsFile = "myRcsProject.ideaRcs"; // path to the RCS project file
             
@@ -82,11 +78,11 @@ namespace Example
                 using (var rcsClient = await clientFactory.CreateApiClient())
                 {
                     // open the project and get its id
-                    var projData = await rcsClient.Project.OpenProjectAsync(rcsFile);
+                    var projData = await rcsClient.Project.OpenProjectAsync(rcsFile, cancellationToken);
 
                     if(!projData.Sections.Any())
                     {
-                        return;
+                        return null;
                     }
 
                     RcsCalculationParameters rcsCalcParam = new RcsCalculationParameters()
@@ -94,7 +90,7 @@ namespace Example
                         Sections = projData.Sections.Select(s => s.Id).ToList()
                     };
                     
-                    var rcsSectResults = await rcsClient.Calculation.CalculateAsync(projData.ProjectId, rcsCalcParam);
+                    var rcsSectResults = await rcsClient.Calculation.CalculateAsync(projData.ProjectId, rcsCalcParam, 0, cancellationToken);
 
                     await rcsClient.Project.CloseProjectAsync(projData.ProjectId);
                 }
@@ -107,7 +103,7 @@ namespace Example
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-The `RcsApiClient` wraps all API endpoint controllers into object based or action based API endpoints.
+The `ConnectionApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
 
 Methods marked with an **^** denote that they have an additional extension in the Client.
 

@@ -7,7 +7,7 @@ using System;
 namespace IdeaStatiCa.RcsApi
 {
 	/// <summary>
-	/// Client for accessing IdeaStatiCa.RcsRestApi
+	/// Client for accessing IdeaStatiCa.ConnectionRestApi
 	/// </summary>
 	public interface IRcsApiClient : IApiClient
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER

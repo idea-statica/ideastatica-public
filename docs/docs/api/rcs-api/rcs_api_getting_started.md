@@ -23,16 +23,8 @@ Users can interact with the RCS API using one of the provided clients or by call
 
 The RCS API is hosted by the `IdeaStatiCa.RcsRestApi.exe` service, which is part of the IDEA StatiCa desktop installation (for example `C:\Program Files\IDEA StatiCa\StatiCa 26.0`). It is a different process from the Connection API service (`IdeaStatiCa.ConnectionRestApi.exe`), which does not serve RCS requests.
 
-Start the service from a console in the setup directory:
+Start the service from a console in the setup directory; the port is set with the `-port=` argument:
 
 ```console
-IdeaStatiCa.RcsRestApi.exe
+IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
-
-By default the service listens on port 5000. To use a different port, pass the optional `-port` argument with an equals sign:
-
-```console
-IdeaStatiCa.RcsRestApi.exe -port=5193
-```
-
-Both clients also provide a *service runner* (`RcsApiServiceRunner`) that starts the service from the setup directory on a free port and stops it again when the runner is disposed. See the client documentation for details.

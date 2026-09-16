@@ -38,7 +38,7 @@ python setup.py install --user
 <a id="usage"></a>
 ## Usage
 
-The RCS API is hosted by the `IdeaStatiCa.RcsRestApi.exe` service, which is part of the IDEA StatiCa installation.
+`RcsApiServiceAttacher` manages creation of clients on the running service.
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
@@ -47,41 +47,23 @@ To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\St
 IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
 
-Parameter `-port=` is optional. The default port is 5000.
-
-## Getting Started
-
-`RcsApiServiceAttacher` creates clients attached to an already running service:
-
 ```python
 import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 
+# Connect to the running service.
 with rcs_api_service_attacher.RcsApiServiceAttacher('http://localhost:5000').create_api_client() as api_client:
     api_client.project.open_project_from_file('myRcsProject.ideaRcs')
-    project_data = api_client.project.get_active_project()
-    print(project_data.sections)
 ```
 
-Alternatively, `RcsApiServiceRunner` starts the service from the IDEA StatiCa setup directory on a free port and stops it again when the runner exits. The runner additionally requires the `aiohttp` package (`pip install aiohttp`).
+## Getting Started
 
-```python
-import asyncio
-from ideastatica_rcs_api.rcs_api_service_runner import RcsApiServiceRunner
+Please follow the [installation procedure](#installation--usage) and then run the following:
 
-async def main():
-    async with RcsApiServiceRunner('C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1') as runner:
-        with runner.create_api_client() as api_client:
-            api_client.project.open_project_from_file('myRcsProject.ideaRcs')
-
-asyncio.run(main())
-```
-
-More examples are in the [examples-pip](examples-pip) folder.
 
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-The `RcsApiClient` wraps all API endpoint controllers into object based or action based API endpoints.
+The `RcsApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
 
 Methods marked with an **^** denote that they have an additional extension in the Client.
 
