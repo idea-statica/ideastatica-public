@@ -112,6 +112,11 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 	public class ConMemberPlate
 	{
+		/// <summary>
+		/// The member the plate belongs to. On <c>alignedPlate</c> this must be the member being
+		/// positioned - only <c>relatedPlate</c> may name another member - and omitting it (0) means that
+		/// member, which is how an alignment is set on a POST that has not been assigned an id yet.
+		/// </summary>
 		public int MemberId { get; set; }
 
 		public ConMemberPlatePartTypeEnum PartType { get; set; }
