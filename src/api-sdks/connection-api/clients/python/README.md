@@ -131,7 +131,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         raw_results = json.loads(firstConnectionResult)
         pprint(raw_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(detailed_results)
 
         # get connection setup
@@ -143,7 +143,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(recalculate_results)
 
     except Exception as e:
