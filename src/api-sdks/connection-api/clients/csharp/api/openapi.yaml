@@ -7827,6 +7827,7 @@ components:
       additionalProperties: false
       example:
         plateSide: default
+        partTypeSequence: 3
         partType: notSpecified
         memberId: 9
       properties:
@@ -7837,6 +7838,10 @@ components:
           type: integer
         partType:
           $ref: '#/components/schemas/ConMemberPlatePartTypeEnum'
+        partTypeSequence:
+          format: int32
+          nullable: true
+          type: integer
       type: object
     ConAlignedPlateSideCodeEnum:
       enum:
@@ -8767,8 +8772,8 @@ components:
       additionalProperties: false
       example:
         stiffnessAnalysis:
-          theoreticalLengthY: 7.386281948385884
-          theoreticalLengthZ: 4.145608029883936
+          theoreticalLengthY: 1.2315135367772556
+          theoreticalLengthZ: 7.386281948385884
         name: name
         connectedBy: begin
         active: true
@@ -8776,9 +8781,9 @@ components:
         mirrorY: true
         model:
           modelTypeEnum: loadedInXYZ
-          x: 3.616076749251911
+          x: 2.027123023002322
           forcesIn: position
-          connectedMemberId: 2
+          connectedMemberId: 4
         mirrorZ: true
         position:
           alphaRotation: 5.962133916683182
@@ -8801,6 +8806,7 @@ components:
           offsetEy: 2.3021358869347655
           relatedPlate:
             plateSide: default
+            partTypeSequence: 3
             partType: notSpecified
             memberId: 9
           definedBy: none
@@ -8811,6 +8817,7 @@ components:
           offsetEz: 7.061401241503109
           alignedPlate:
             plateSide: default
+            partTypeSequence: 3
             partType: notSpecified
             memberId: 9
         id: 1
@@ -8870,9 +8877,9 @@ components:
       additionalProperties: false
       example:
         modelTypeEnum: loadedInXYZ
-        x: 3.616076749251911
+        x: 2.027123023002322
         forcesIn: position
-        connectedMemberId: 2
+        connectedMemberId: 4
       properties:
         modelTypeEnum:
           $ref: '#/components/schemas/ConMemberModelTypeEnum'
@@ -8952,6 +8959,7 @@ components:
         offsetEy: 2.3021358869347655
         relatedPlate:
           plateSide: default
+          partTypeSequence: 3
           partType: notSpecified
           memberId: 9
         definedBy: none
@@ -8962,6 +8970,7 @@ components:
         offsetEz: 7.061401241503109
         alignedPlate:
           plateSide: default
+          partTypeSequence: 3
           partType: notSpecified
           memberId: 9
       properties:
@@ -9377,8 +9386,8 @@ components:
     ConStiffnessAnalysis:
       additionalProperties: false
       example:
-        theoreticalLengthY: 7.386281948385884
-        theoreticalLengthZ: 4.145608029883936
+        theoreticalLengthY: 1.2315135367772556
+        theoreticalLengthZ: 7.386281948385884
       properties:
         theoreticalLengthZ:
           format: double
