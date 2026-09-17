@@ -42,12 +42,16 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         connection1 = connections_in_project[0]
         pprint(connection1)
 
-        # run stiffness CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [connection1.id]
-        calcParams.analysis_type = "total_Design"
+        # set analysis type joint design resistance
+        # the analysis type is taken from the connection itself, so it has to be set on the connection -
+        # the calculation request carries only the connection ids
+        connection1.analysis_type = "total_Design"
+        api_client.connection.update_connection(api_client.project.active_project_id, connection1.id, connection1)
 
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        # run joint design resistance CBFEM analysis for the connection id = 1
+        connection_ids = [connection1.id]
+
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
         firstConnectionResult = results_text[0]
 
         raw_results = json.loads(firstConnectionResult)
