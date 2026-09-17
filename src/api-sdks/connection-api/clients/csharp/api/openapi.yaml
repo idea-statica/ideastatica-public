@@ -10,12 +10,12 @@ info:
     name: IDEA StatiCa License
     url: https://github.com/idea-statica/ideastatica-public/blob/main/LICENSE
   termsOfService: https://www.ideastatica.com/end-user-license-agreement
-  title: Connection Rest API 4.0
-  version: "4.0"
+  title: Connection Rest API 5.0
+  version: "5.0"
 servers:
 - url: /
 paths:
-  /api/4/projects/{projectId}/connections/calculate:
+  /api/5/projects/{projectId}/connections/calculate:
     post:
       operationId: Calculate
       parameters:
@@ -77,7 +77,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/calculate:
+  /api/5/projects/{projectId}/connections/{connectionId}/calculate:
     post:
       operationId: CalculateConnection
       parameters:
@@ -154,7 +154,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/results:
+  /api/5/projects/{projectId}/connections/results:
     post:
       operationId: GetResults
       parameters:
@@ -216,7 +216,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/rawresults-text:
+  /api/5/projects/{projectId}/connections/rawresults-text:
     post:
       description: "\r\n<strong>Bolt identifiers:</strong> Bolt keys in the raw results\
         \ (e.g., in `boltCheckResDataTimbers`)\r\n            are opaque internal\
@@ -294,7 +294,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/rawresults-text:
+  /api/5/projects/{projectId}/connections/{connectionId}/rawresults-text:
     post:
       description: "See the bulk `rawresults-text` endpoint remarks for the bolt-identifier\
         \ and\r\n`forcesAllLoadCases`-key semantics; they apply here unchanged."
@@ -373,7 +373,7 @@ paths:
       - Calculation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/calculate-async:
+  /api/5/projects/{projectId}/connections/calculate-async:
     post:
       description: "Returns 202 with the accepted job immediately; poll it with the\
         \ calculation-jobs GET\r\nendpoint and cancel it with DELETE. At most one\
@@ -446,7 +446,7 @@ paths:
       - CalculationJobs
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/calculate-async:
+  /api/5/projects/{projectId}/connections/{connectionId}/calculate-async:
     post:
       description: "Returns 202 with the accepted job immediately; poll it with the\
         \ calculation-jobs GET\r\nendpoint and cancel it with DELETE. At most one\
@@ -531,7 +531,7 @@ paths:
       - CalculationJobs
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/calculation-jobs/{jobId}:
+  /api/5/projects/{projectId}/calculation-jobs/{jobId}:
     delete:
       operationId: CancelCalculationJob
       parameters:
@@ -642,7 +642,7 @@ paths:
       - CalculationJobs
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/clients/connect-client:
+  /api/5/clients/connect-client:
     get:
       operationId: ConnectClient
       responses:
@@ -664,7 +664,7 @@ paths:
       - Client
       x-requiresProject: false
       x-requiresConnection: false
-  /api/4/clients/idea-service-version:
+  /api/5/clients/idea-service-version:
     get:
       operationId: GetVersion
       responses:
@@ -685,7 +685,7 @@ paths:
       - Client
       x-requiresProject: false
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections:
+  /api/5/projects/{projectId}/connections:
     get:
       operationId: GetConnections
       parameters:
@@ -789,7 +789,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}:
+  /api/5/projects/{projectId}/connections/{connectionId}:
     delete:
       operationId: DeleteConnection
       parameters:
@@ -960,7 +960,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/copy:
+  /api/5/projects/{projectId}/connections/{connectionId}/copy:
     post:
       operationId: CopyConnection
       parameters:
@@ -1028,7 +1028,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/production-cost:
+  /api/5/projects/{projectId}/connections/{connectionId}/production-cost:
     get:
       operationId: GetProductionCost
       parameters:
@@ -1081,7 +1081,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/get-topology:
+  /api/5/projects/{projectId}/connections/{connectionId}/get-topology:
     get:
       operationId: GetConnectionTopology
       parameters:
@@ -1134,7 +1134,7 @@ paths:
       - Connection
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/connection-library/get-design-sets:
+  /api/5/connection-library/get-design-sets:
     get:
       description: "This method returns a collection of design sets that are mapped\
         \ and ready for use. It throws an\r\n            exception if no design sets\
@@ -1166,7 +1166,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/propose:
+  /api/5/projects/{projectId}/connections/{connectionId}/propose:
     post:
       description: "This method retrieves the connection model from the specified\
         \ project and classifies its\r\n            typology. It then filters and\
@@ -1238,7 +1238,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/connection-library/get-template:
+  /api/5/connection-library/get-template:
     get:
       description: "This method is mapped to API version 2 and produces a plain text\
         \ response. It is intended to be\r\n            used in scenarios where the\
@@ -1296,7 +1296,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/4/connection-library/get-picture:
+  /api/5/connection-library/get-picture:
     get:
       description: "This method is mapped to API version 2 and produces a PNG image.\
         \ The image is returned as a file\r\n            stream result with the file\
@@ -1343,7 +1343,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: false
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/publish:
+  /api/5/projects/{projectId}/connections/{connectionId}/publish:
     post:
       operationId: PublishConnection
       parameters:
@@ -1409,7 +1409,7 @@ paths:
       - ConnectionLibrary
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/get-default-mapping:
+  /api/5/projects/{projectId}/get-default-mapping:
     get:
       operationId: GetConversionMapping
       parameters:
@@ -1474,7 +1474,7 @@ paths:
       - Conversion
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/change-code:
+  /api/5/projects/{projectId}/change-code:
     post:
       operationId: ChangeCode
       parameters:
@@ -1533,7 +1533,7 @@ paths:
       - Conversion
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/export-iom:
+  /api/5/projects/{projectId}/connections/{connectionId}/export-iom:
     get:
       operationId: ExportIom
       parameters:
@@ -1606,7 +1606,7 @@ paths:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
+  /api/5/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
     get:
       operationId: ExportIomConnectionData
       parameters:
@@ -1670,7 +1670,7 @@ paths:
       - Export
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/export-ifc:
+  /api/5/projects/{projectId}/connections/{connectionId}/export-ifc:
     get:
       operationId: ExportIFC
       parameters:
@@ -1723,7 +1723,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: ExportIfcFile
-  /api/4/projects/{projectId}/connections/{connectionId}/export-dwg:
+  /api/5/projects/{projectId}/connections/{connectionId}/export-dwg:
     get:
       operationId: ExportDWG
       parameters:
@@ -1760,7 +1760,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: ExportDwgFile
-  /api/4/projects/{projectId}/connections/{connectionId}/load-effects:
+  /api/5/projects/{projectId}/connections/{connectionId}/load-effects:
     get:
       operationId: GetLoadEffects
       parameters:
@@ -1949,7 +1949,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
+  /api/5/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
     delete:
       operationId: DeleteLoadEffect
       parameters:
@@ -2080,7 +2080,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
+  /api/5/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
     get:
       operationId: GetLoadSettings
       parameters:
@@ -2132,7 +2132,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
+  /api/5/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
     post:
       operationId: SetLoadSettings
       parameters:
@@ -2196,7 +2196,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes:
+  /api/5/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes:
     post:
       description: "Runs the load extremes (LEX) algorithm using the project's load\
         \ extremes settings, then\r\ndeactivates every load effect that does not produce\
@@ -2257,7 +2257,7 @@ paths:
       - LoadEffect
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/materials:
+  /api/5/projects/{projectId}/materials:
     get:
       operationId: GetAllMaterials
       parameters:
@@ -2302,7 +2302,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/steel:
+  /api/5/projects/{projectId}/materials/steel:
     get:
       operationId: GetSteelMaterials
       parameters:
@@ -2401,7 +2401,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/concrete:
+  /api/5/projects/{projectId}/materials/concrete:
     get:
       operationId: GetConcreteMaterials
       parameters:
@@ -2500,7 +2500,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/bolt-grade:
+  /api/5/projects/{projectId}/materials/bolt-grade:
     get:
       operationId: GetBoltGradeMaterials
       parameters:
@@ -2599,7 +2599,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/welding:
+  /api/5/projects/{projectId}/materials/welding:
     get:
       operationId: GetWeldingMaterials
       parameters:
@@ -2698,7 +2698,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/headed-stud-grade:
+  /api/5/projects/{projectId}/materials/headed-stud-grade:
     get:
       operationId: GetHeadedStudGradeMaterials
       parameters:
@@ -2797,7 +2797,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/reinforcement:
+  /api/5/projects/{projectId}/materials/reinforcement:
     get:
       operationId: GetReinforcementMaterials
       parameters:
@@ -2896,7 +2896,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/cross-sections:
+  /api/5/projects/{projectId}/materials/cross-sections:
     get:
       operationId: GetCrossSections
       parameters:
@@ -2915,7 +2915,8 @@ paths:
           content:
             application/json:
               schema:
-                items: {}
+                items:
+                  $ref: '#/components/schemas/ConCrossSection'
                 type: array
           description: OK
         "401":
@@ -2936,11 +2937,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
-      summary: "Gets cross sections used in the specified project, in the IOM model-exchange\r\
-        \nrepresentation (IOM parameter names; some shape kinds carry no parameters\
-        \ here).\r\nFor inspecting or editing a section use `cross-sections/{cssId}`\
-        \ and the\r\n`cross-sections/parametric` endpoints — they speak the engine's\
-        \ exact\r\ndimension vocabulary and round-trip losslessly."
+      summary: "Gets the cross-sections of the project: id, display name and the definition\
+        \ of each\r\n(library / parametric / custom). The evaluated outline of a section\
+        \ is served by\r\n`cross-sections/{cssId}/geometry`."
       tags:
       - Material
       x-requiresProject: true
@@ -2963,12 +2962,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConMprlCrossSection'
-        description: Definition of a new cross-section to be added to the project.
+        description: MPRL name and material of the new cross-section.
       responses:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: '#/components/schemas/ConCrossSection'
           description: OK
         "401":
           content:
@@ -2994,14 +2994,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
-      summary: Add cross section to the project.
+      summary: Adds a library cross-section (by its MPRL name and material) to the
+        project.
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/cross-sections/{cssId}:
+  /api/5/projects/{projectId}/materials/cross-sections/{cssId}:
     get:
-      operationId: GetCrossSectionDetail
+      operationId: GetCrossSection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service.
@@ -3027,7 +3028,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConCrossSectionDetail'
+                $ref: '#/components/schemas/ConCrossSection'
           description: OK
         "401":
           content:
@@ -3047,13 +3048,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
-      summary: "Gets the full definition (library / parametric / custom) and the evaluated\
-        \ outline\r\ngeometry of one cross-section in the project."
+      summary: "Gets one cross-section of the project: the same object the listing\
+        \ returns for it."
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/bolt-assemblies:
+  /api/5/projects/{projectId}/materials/cross-sections/{cssId}/geometry:
+    get:
+      operationId: GetCrossSectionGeometry
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the cross-section in the project.
+        explode: false
+        in: path
+        name: cssId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCrossSectionGeometry'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Gets the evaluated outline geometry of one cross-section: per component\
+        \ the closed\r\noutline and the openings as ordered chains of line/arc segments,\
+        \ with the material the\r\ncomponent is made of."
+      tags:
+      - Material
+      x-requiresProject: true
+      x-requiresConnection: false
+  /api/5/projects/{projectId}/materials/bolt-assemblies:
     get:
       operationId: GetBoltAssemblies
       parameters:
@@ -3153,7 +3209,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/{materialType}/library:
+  /api/5/projects/{projectId}/materials/{materialType}/library:
     get:
       operationId: GetMaterialLibrary
       parameters:
@@ -3215,7 +3271,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/cross-sections/parametric:
+  /api/5/projects/{projectId}/materials/cross-sections/parametric:
     post:
       operationId: AddParametricCrossSection
       parameters:
@@ -3240,7 +3296,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConCrossSectionDetail'
+                $ref: '#/components/schemas/ConCrossSection'
           description: OK
         "401":
           content:
@@ -3267,14 +3323,14 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
           description: Internal Server Error
       summary: "Creates a parametric cross-section (welded, boxed, cold-formed, parametric\
-        \ rolled)\r\nfrom its shape type and dimensions, and returns the stored detail\
-        \ with the evaluated\r\noutline geometry. Dimension ids are the stable parameter\
-        \ ids the detail GET exposes;\r\ndimensions not named keep the shape's defaults."
+        \ rolled)\r\nfrom its shape type and dimensions. Dimension ids are the stable\
+        \ parameter ids the\r\nsection GET exposes; dimensions not named keep the\
+        \ shape's defaults."
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/cross-sections/parametric/{cssId}:
+  /api/5/projects/{projectId}/materials/cross-sections/parametric/{cssId}:
     put:
       operationId: UpdateParametricCrossSection
       parameters:
@@ -3308,7 +3364,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConCrossSectionDetail'
+                $ref: '#/components/schemas/ConCrossSection'
           description: OK
         "401":
           content:
@@ -3342,13 +3398,13 @@ paths:
           description: Internal Server Error
       summary: "Replaces the definition of parametric cross-section cssId with the\r\
         \ngiven one — a full replacement: dimensions not named revert to the shape's\
-        \ defaults,\r\nso send the complete definition obtained from the detail GET.\
+        \ defaults,\r\nso send the complete definition obtained from the section GET.\
         \ Answers 409 when the id\r\nstores a library or general section."
       tags:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes:
+  /api/5/projects/{projectId}/materials/cross-sections/parametric/shapes:
     get:
       operationId: GetParametricCrossSectionShapes
       parameters:
@@ -3396,7 +3452,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}:
+  /api/5/projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}:
     get:
       operationId: GetParametricCrossSectionShapeTemplate
       parameters:
@@ -3457,7 +3513,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/materials/pin:
+  /api/5/projects/{projectId}/materials/pin:
     get:
       operationId: GetPins
       parameters:
@@ -3557,7 +3613,7 @@ paths:
       - Material
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/members:
+  /api/5/projects/{projectId}/connections/{connectionId}/members:
     get:
       operationId: GetMembers
       parameters:
@@ -3740,7 +3796,7 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}:
+  /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}:
     delete:
       operationId: DeleteMember
       parameters:
@@ -3864,7 +3920,7 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
+  /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
     put:
       operationId: SetBearingMember
       parameters:
@@ -3932,7 +3988,7 @@ paths:
       - Member
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/operations:
+  /api/5/projects/{projectId}/connections/{connectionId}/operations:
     delete:
       operationId: DeleteOperations
       parameters:
@@ -4034,7 +4090,7 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/operations/common-properties:
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/common-properties:
     get:
       operationId: GetCommonOperationProperties
       parameters:
@@ -4146,7 +4202,7 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/weld-sizing:
     post:
       operationId: PreDesignWelds
       parameters:
@@ -4218,7 +4274,7 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/parameters:
+  /api/5/projects/{projectId}/connections/{connectionId}/parameters:
     delete:
       operationId: DeleteParameters
       parameters:
@@ -4470,7 +4526,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/parameters/{key}:
+  /api/5/projects/{projectId}/connections/{connectionId}/parameters/{key}:
     delete:
       operationId: DeleteParameter
       parameters:
@@ -4538,7 +4594,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/parameters/links:
+  /api/5/projects/{projectId}/connections/{connectionId}/parameters/links:
     get:
       operationId: GetParameterLinks
       parameters:
@@ -4665,7 +4721,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}:
+  /api/5/projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}:
     delete:
       operationId: DeleteParameterLink
       parameters:
@@ -4730,7 +4786,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties:
+  /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties:
     get:
       operationId: GetMemberLinkableProperties
       parameters:
@@ -4803,7 +4859,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties:
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties:
     get:
       operationId: GetOperationLinkableProperties
       parameters:
@@ -4876,7 +4932,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties:
+  /api/5/projects/{projectId}/connections/{connectionId}/parameters/linkable-properties:
     get:
       operationId: GetLinkableProperties
       parameters:
@@ -4946,7 +5002,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/evaluate-expression:
+  /api/5/projects/{projectId}/connections/{connectionId}/evaluate-expression:
     post:
       operationId: EvaluateExpression
       parameters:
@@ -5014,7 +5070,7 @@ paths:
       - Parameter
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/presentations:
+  /api/5/projects/{projectId}/connections/{connectionId}/presentations:
     get:
       operationId: GetDataScene3D
       parameters:
@@ -5067,7 +5123,7 @@ paths:
       - Presentation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/presentations/text:
+  /api/5/projects/{projectId}/connections/{connectionId}/presentations/text:
     get:
       operationId: GetDataScene3DText
       parameters:
@@ -5119,7 +5175,7 @@ paths:
       - Presentation
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/open:
+  /api/5/projects/open:
     post:
       operationId: OpenProject
       requestBody:
@@ -5161,7 +5217,7 @@ paths:
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: OpenProject
-  /api/4/projects/{projectId}/close:
+  /api/5/projects/{projectId}/close:
     get:
       operationId: CloseProject
       parameters:
@@ -5200,7 +5256,7 @@ paths:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects:
+  /api/5/projects:
     get:
       operationId: GetActiveProjects
       responses:
@@ -5281,7 +5337,7 @@ paths:
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: CreateEmptyProject
-  /api/4/projects/{projectId}/download:
+  /api/5/projects/{projectId}/download:
     get:
       operationId: DownloadProject
       parameters:
@@ -5323,7 +5379,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveProject
-  /api/4/projects/{projectId}:
+  /api/5/projects/{projectId}:
     get:
       operationId: GetProjectData
       parameters:
@@ -5434,7 +5490,7 @@ paths:
       - Project
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/import-iom-file:
+  /api/5/projects/import-iom-file:
     post:
       operationId: ImportIOM
       requestBody:
@@ -5480,7 +5536,7 @@ paths:
       x-requiresProject: false
       x-requiresConnection: false
       x-extensionMethodName: CreateProjectFromIomFile
-  /api/4/projects/{projectId}/update-iom-file:
+  /api/5/projects/{projectId}/update-iom-file:
     post:
       operationId: UpdateFromIOM
       parameters:
@@ -5542,7 +5598,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: UpdateProjectFromIomFile
-  /api/4/projects/{projectId}/reports/pdf:
+  /api/5/projects/{projectId}/reports/pdf:
     post:
       operationId: GeneratePdfForMutliple
       parameters:
@@ -5622,7 +5678,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveReportPdf
-  /api/4/projects/{projectId}/reports/word:
+  /api/5/projects/{projectId}/reports/word:
     post:
       operationId: GenerateWordForMultiple
       parameters:
@@ -5702,7 +5758,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: false
       x-extensionMethodName: SaveReportWord
-  /api/4/projects/{projectId}/connections/{connectionId}/reports/pdf:
+  /api/5/projects/{projectId}/connections/{connectionId}/reports/pdf:
     get:
       operationId: GeneratePdf
       parameters:
@@ -5770,7 +5826,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportPdf
-  /api/4/projects/{projectId}/connections/{connectionId}/reports/word:
+  /api/5/projects/{projectId}/connections/{connectionId}/reports/word:
     get:
       operationId: GenerateWord
       parameters:
@@ -5838,7 +5894,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReportWord
-  /api/4/projects/{projectId}/connections/{connectionId}/reports/htmlZip:
+  /api/5/projects/{projectId}/connections/{connectionId}/reports/htmlZip:
     get:
       operationId: GenerateHtmlZip
       parameters:
@@ -5906,7 +5962,7 @@ paths:
       x-requiresProject: true
       x-requiresConnection: true
       x-extensionMethodName: SaveReport
-  /api/4/projects/{projectId}/settings:
+  /api/5/projects/{projectId}/settings:
     get:
       operationId: GetSettings
       parameters:
@@ -6014,7 +6070,7 @@ paths:
       - Settings
       x-requiresProject: true
       x-requiresConnection: false
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId}:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId}:
     get:
       operationId: GetTemplateInConnection
       parameters:
@@ -6076,7 +6132,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates:
     delete:
       operationId: DeleteAll
       parameters:
@@ -6202,7 +6258,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/get-template:
+  /api/5/projects/{projectId}/connections/{connectionId}/get-template:
     get:
       operationId: CreateConTemplate
       parameters:
@@ -6255,7 +6311,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/create-from-connection:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/create-from-connection:
     post:
       operationId: CreateTemplateFromConnection
       parameters:
@@ -6319,7 +6375,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/get-default-mapping:
+  /api/5/projects/{projectId}/connections/{connectionId}/get-default-mapping:
     post:
       description: "The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault\
         \ mapping to apply the passed template.\r\nIt can be modified by a user and\
@@ -6389,7 +6445,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/apply-template:
+  /api/5/projects/{projectId}/connections/{connectionId}/apply-template:
     post:
       operationId: ApplyTemplate
       parameters:
@@ -6455,7 +6511,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/explode:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/explode:
     post:
       operationId: ExplodeAll
       parameters:
@@ -6534,7 +6590,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode:
     post:
       operationId: Explode
       parameters:
@@ -6622,7 +6678,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}:
     delete:
       operationId: Delete
       parameters:
@@ -6698,7 +6754,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties:
     get:
       operationId: GetTemplateCommonOperationProperties
       parameters:
@@ -6854,7 +6910,7 @@ paths:
       - Template
       x-requiresProject: true
       x-requiresConnection: true
-  /api/4/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults:
+  /api/5/projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults:
     post:
       operationId: LoadDefaults
       parameters:
@@ -7385,6 +7441,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.BoltAssemblyTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
       example:
         newValue: newValue
@@ -7401,6 +7459,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.BoltGradeTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     BoltGrid:
       additionalProperties: false
@@ -7760,6 +7820,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConAlignedPlate:
       additionalProperties: false
@@ -8101,6 +8163,28 @@ components:
           nullable: true
           type: array
       type: object
+    ConCrossSection:
+      additionalProperties: false
+      example:
+        name: name
+        definition:
+          mprlName: mprlName
+          materialName: materialName
+          mirrorY: true
+          mirrorZ: true
+          $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
+            \ IdeaStatiCa.Api"
+        id: 0
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        definition:
+          $ref: '#/components/schemas/ConCrossSectionDefinition'
+      type: object
     ConCrossSectionCustomComponent:
       additionalProperties: false
       properties:
@@ -8121,19 +8205,19 @@ components:
           type: string
       type: object
     ConCrossSectionCustomDefinition:
-      allOf:
-      - $ref: '#/components/schemas/ConCrossSectionDefinition'
-      - properties:
-          components:
-            items:
-              $ref: '#/components/schemas/ConCrossSectionCustomComponent'
-            nullable: true
-            type: array
-          $type:
-            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition,\
-              \ IdeaStatiCa.Api"
-            type: string
-        type: object
+      properties:
+        components:
+          items:
+            $ref: '#/components/schemas/ConCrossSectionCustomComponent'
+          nullable: true
+          type: array
+        $type:
+          default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition,\
+            \ IdeaStatiCa.Api"
+          type: string
+      required:
+      - $type
+      type: object
     ConCrossSectionDefinition:
       description: Polymorphic root. Every element on the wire is one of the concrete
         subtypes listed in the discriminator mapping and carries the $type discriminator;
@@ -8145,83 +8229,10 @@ components:
           IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionParametricDefinition'
           IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api: '#/components/schemas/ConCrossSectionCustomDefinition'
         propertyName: $type
-      properties:
-        materialName:
-          nullable: true
-          type: string
-      type: object
-    ConCrossSectionDetail:
-      additionalProperties: false
-      example:
-        name: name
-        definition:
-          materialName: materialName
-          mprlName: mprlName
-          mirrorY: true
-          mirrorZ: true
-          $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
-            \ IdeaStatiCa.Api"
-        geometry:
-          components:
-          - materialName: materialName
-            outline:
-            - start:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              end:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
-                \ IdeaStatiCa.Api"
-            - start:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              end:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
-                \ IdeaStatiCa.Api"
-            openings:
-            - - null
-              - null
-            - - null
-              - null
-          - materialName: materialName
-            outline:
-            - start:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              end:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
-                \ IdeaStatiCa.Api"
-            - start:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              end:
-                "y": 6.027456183070403
-                z: 1.4658129805029452
-              $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
-                \ IdeaStatiCa.Api"
-            openings:
-            - - null
-              - null
-            - - null
-              - null
-        id: 0
-      properties:
-        id:
-          format: int32
-          type: integer
-        name:
-          nullable: true
-          type: string
-        definition:
-          $ref: '#/components/schemas/ConCrossSectionDetail_definition'
-        geometry:
-          $ref: '#/components/schemas/ConCrossSectionGeometry'
-      type: object
+      oneOf:
+      - $ref: '#/components/schemas/ConCrossSectionLibraryDefinition'
+      - $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
+      - $ref: '#/components/schemas/ConCrossSectionCustomDefinition'
     ConCrossSectionGeometry:
       additionalProperties: false
       example:
@@ -8229,18 +8240,18 @@ components:
         - materialName: materialName
           outline:
           - start:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             end:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
           - start:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             end:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
           openings:
           - - null
@@ -8250,18 +8261,18 @@ components:
         - materialName: materialName
           outline:
           - start:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             end:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
           - start:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             end:
-              "y": 6.027456183070403
-              z: 1.4658129805029452
+              "y": 0.8008281904610115
+              z: 6.027456183070403
             $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
           openings:
           - - null
@@ -8281,18 +8292,18 @@ components:
         materialName: materialName
         outline:
         - start:
-            "y": 6.027456183070403
-            z: 1.4658129805029452
+            "y": 0.8008281904610115
+            z: 6.027456183070403
           end:
-            "y": 6.027456183070403
-            z: 1.4658129805029452
+            "y": 0.8008281904610115
+            z: 6.027456183070403
           $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
         - start:
-            "y": 6.027456183070403
-            z: 1.4658129805029452
+            "y": 0.8008281904610115
+            z: 6.027456183070403
           end:
-            "y": 6.027456183070403
-            z: 1.4658129805029452
+            "y": 0.8008281904610115
+            z: 6.027456183070403
           $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
         openings:
         - - null
@@ -8317,48 +8328,35 @@ components:
           type: string
       type: object
     ConCrossSectionLibraryDefinition:
-      allOf:
-      - $ref: '#/components/schemas/ConCrossSectionDefinition'
-      - properties:
-          mprlName:
-            nullable: true
-            type: string
-          mirrorY:
-            type: boolean
-          mirrorZ:
-            type: boolean
-          $type:
-            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
-              \ IdeaStatiCa.Api"
-            type: string
-        type: object
       example:
-        materialName: materialName
         mprlName: mprlName
+        materialName: materialName
         mirrorY: true
         mirrorZ: true
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
           \ IdeaStatiCa.Api"
+      properties:
+        mprlName:
+          nullable: true
+          type: string
+        materialName:
+          nullable: true
+          type: string
+        mirrorY:
+          type: boolean
+        mirrorZ:
+          type: boolean
+        $type:
+          default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionLibraryDefinition,\
+            \ IdeaStatiCa.Api"
+          type: string
+      required:
+      - $type
+      type: object
     ConCrossSectionParametricDefinition:
-      allOf:
-      - $ref: '#/components/schemas/ConCrossSectionDefinition'
-      - properties:
-          shapeType:
-            nullable: true
-            type: string
-          dimensions:
-            items:
-              $ref: '#/components/schemas/ConCrossSectionParametricDefinition_allOf_dimensions'
-            nullable: true
-            type: array
-          $type:
-            default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
-              \ IdeaStatiCa.Api"
-            type: string
-        type: object
       example:
-        materialName: materialName
         shapeType: shapeType
+        materialName: materialName
         dimensions:
         - name: name
           id: 0
@@ -8372,6 +8370,25 @@ components:
             \ IdeaStatiCa.Api"
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
           \ IdeaStatiCa.Api"
+      properties:
+        shapeType:
+          nullable: true
+          type: string
+        materialName:
+          nullable: true
+          type: string
+        dimensions:
+          items:
+            $ref: '#/components/schemas/ConCrossSectionParametricDefinition_dimensions_inner'
+          nullable: true
+          type: array
+        $type:
+          default: "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition,\
+            \ IdeaStatiCa.Api"
+          type: string
+      required:
+      - $type
+      type: object
     ConCssArcSegment:
       allOf:
       - $ref: '#/components/schemas/ConCssSegment'
@@ -8382,6 +8399,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssArcSegment,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConCssChoiceDimension:
       allOf:
@@ -8399,6 +8418,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssChoiceDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConCssCountDimension:
       allOf:
@@ -8411,6 +8432,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssCountDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConCssDimension:
       description: Polymorphic root. Every element on the wire is one of the concrete
@@ -8440,14 +8463,16 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
       example:
         start:
-          "y": 6.027456183070403
-          z: 1.4658129805029452
+          "y": 0.8008281904610115
+          z: 6.027456183070403
         end:
-          "y": 6.027456183070403
-          z: 1.4658129805029452
+          "y": 0.8008281904610115
+          z: 6.027456183070403
         $type: "IdeaStatiCa.Api.Connection.Model.Material.ConCssLineSegment, IdeaStatiCa.Api"
     ConCssNumberDimension:
       allOf:
@@ -8460,6 +8485,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssNumberDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
       example:
         name: name
@@ -8476,8 +8503,8 @@ components:
     ConCssPoint2D:
       additionalProperties: false
       example:
-        "y": 6.027456183070403
-        z: 1.4658129805029452
+        "y": 0.8008281904610115
+        z: 6.027456183070403
       properties:
         "y":
           format: double
@@ -8512,6 +8539,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.Material.ConCssSwitchDimension,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConDesignItem:
       additionalProperties: false
@@ -9558,6 +9587,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.ConcreteTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     ConnectionCheckRes:
       additionalProperties: false
@@ -10975,6 +11006,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.CssTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     CutBeamByBeamData:
       additionalProperties: false
@@ -11140,6 +11173,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.ElectrodeTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     FoldedPlateData:
       additionalProperties: false
@@ -11595,6 +11630,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     MessageNumber:
       description: Message numbers
@@ -11842,6 +11879,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     PlateData:
       additionalProperties: false
@@ -11966,6 +12005,8 @@ components:
             default: "IdeaStatiCa.Api.Connection.Model.PlateMaterialTemplateConversion,\
               \ IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     Point2D:
       additionalProperties: false
@@ -12290,6 +12331,8 @@ components:
           $type:
             default: "IdeaStatiCa.Api.Connection.Model.TimberTemplateConversion, IdeaStatiCa.Api"
             type: string
+        required:
+        - $type
         type: object
     Vector3D:
       additionalProperties: false
@@ -12357,17 +12400,7 @@ components:
       oneOf:
       - $ref: '#/components/schemas/ConCssLineSegment'
       - $ref: '#/components/schemas/ConCssArcSegment'
-    ConCrossSectionDetail_definition:
-      description: Polymorphic root. Every element on the wire is one of the concrete
-        subtypes listed in the discriminator mapping and carries the $type discriminator;
-        $type is deliberately declared on each subtype schema (with its exact wire
-        value as default) rather than here.
-      nullable: true
-      oneOf:
-      - $ref: '#/components/schemas/ConCrossSectionLibraryDefinition'
-      - $ref: '#/components/schemas/ConCrossSectionParametricDefinition'
-      - $ref: '#/components/schemas/ConCrossSectionCustomDefinition'
-    ConCrossSectionParametricDefinition_allOf_dimensions:
+    ConCrossSectionParametricDefinition_dimensions_inner:
       description: Polymorphic root. Every element on the wire is one of the concrete
         subtypes listed in the discriminator mapping and carries the $type discriminator;
         $type is deliberately declared on each subtype schema (with its exact wire

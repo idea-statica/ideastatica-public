@@ -6,8 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **shape_type** | **str** |  | [optional] 
-**dimensions** | [**List[ConCrossSectionParametricDefinitionAllOfDimensions]**](ConCrossSectionParametricDefinitionAllOfDimensions.md) |  | [optional] 
-**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api']
+**material_name** | **str** |  | [optional] 
+**dimensions** | [**List[ConCrossSectionParametricDefinitionDimensionsInner]**](ConCrossSectionParametricDefinitionDimensionsInner.md) |  | [optional] 
+**type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionParametricDefinition, IdeaStatiCa.Api']
 
 ## Example
 

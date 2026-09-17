@@ -1,3 +1,4 @@
+using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples
@@ -13,13 +14,20 @@ namespace CodeSamples
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			await conClient.Project.OpenProjectAsync(filePath);
 
-			//Get all cross-sections in the project. Items are polymorphic IOM cross-sections (e.g. CrossSectionParameter).
-			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
+			//Get all cross-sections in the project: id, name and how each is defined (library / parametric / custom).
+			List<ConCrossSection> crossSections = await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId);
 
 			Console.WriteLine("Cross-sections in the project: " + crossSections.Count);
-			foreach (IdeaRS.OpenModel.CrossSection.CrossSection crossSection in crossSections)
+			foreach (ConCrossSection crossSection in crossSections)
 			{
-				Console.WriteLine($"Id: {crossSection.Id} Name: {crossSection.Name}");
+				string definition = crossSection.Definition switch
+				{
+					ConCrossSectionLibraryDefinition library => $"library {library.MprlName}, material {library.MaterialName}",
+					ConCrossSectionParametricDefinition parametric => $"parametric {parametric.ShapeType}, material {parametric.MaterialName}",
+					ConCrossSectionCustomDefinition custom => $"custom, {custom.Components.Count} component(s)",
+					_ => "unknown",
+				};
+				Console.WriteLine($"Id: {crossSection.Id} Name: {crossSection.Name} ({definition})");
 			}
 
 			//Close the opened project.

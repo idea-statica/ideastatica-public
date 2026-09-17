@@ -1,8 +1,8 @@
 # ideastatica-connection-api
 
-The Python package for the Connection Rest API 4.0
+The Python package for the Connection Rest API 5.0
 
-- API version: 4.0
+- API version: 5.0
 - Package version: 26.1.0.4086
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
@@ -254,21 +254,22 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**add_bolt_assembly**](docs/MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
-[**add_cross_section**](docs/MaterialApi.md#add_cross_section) | Add cross section to the project.
+[**add_cross_section**](docs/MaterialApi.md#add_cross_section) | Adds a library cross-section (by its MPRL name and material) to the project.
 [**add_material_bolt_grade**](docs/MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](docs/MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](docs/MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
 [**add_material_reinforcement**](docs/MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](docs/MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](docs/MaterialApi.md#add_material_weld) | Adds a material to the project.
-[**add_parametric_cross_section**](docs/MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions, and returns the stored detail with the evaluated  outline geometry. Dimension ids are the stable parameter ids the detail GET exposes;  dimensions not named keep the shape's defaults.
+[**add_parametric_cross_section**](docs/MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
 [**add_pin**](docs/MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
 [**get_all_materials**](docs/MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](docs/MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](docs/MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](docs/MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
-[**get_cross_section_detail**](docs/MaterialApi.md#get_cross_section_detail) | Gets the full definition (library / parametric / custom) and the evaluated outline  geometry of one cross-section in the project.
-[**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).  For inspecting or editing a section use `cross-sections/{cssId}` and the  `cross-sections/parametric` endpoints — they speak the engine's exact  dimension vocabulary and round-trip losslessly.
+[**get_cross_section**](docs/MaterialApi.md#get_cross_section) | Gets one cross-section of the project: the same object the listing returns for it.
+[**get_cross_section_geometry**](docs/MaterialApi.md#get_cross_section_geometry) | Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
+[**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
 [**get_headed_stud_grade_materials**](docs/MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](docs/MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project's design code.
 [**get_parametric_cross_section_shape_template**](docs/MaterialApi.md#get_parametric_cross_section_shape_template) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
@@ -277,7 +278,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_reinforcement_materials**](docs/MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](docs/MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](docs/MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
-[**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the detail GET. Answers 409 when the id  stores a library or general section.
+[**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
   
@@ -410,17 +411,16 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
  - [ideastatica_connection_api.models.ConConnectionTemplate](docs/ConConnectionTemplate.md)
  - [ideastatica_connection_api.models.ConConversionSettings](docs/ConConversionSettings.md)
+ - [ideastatica_connection_api.models.ConCrossSection](docs/ConCrossSection.md)
  - [ideastatica_connection_api.models.ConCrossSectionCustomComponent](docs/ConCrossSectionCustomComponent.md)
  - [ideastatica_connection_api.models.ConCrossSectionCustomComponentOutlineInner](docs/ConCrossSectionCustomComponentOutlineInner.md)
  - [ideastatica_connection_api.models.ConCrossSectionCustomDefinition](docs/ConCrossSectionCustomDefinition.md)
  - [ideastatica_connection_api.models.ConCrossSectionDefinition](docs/ConCrossSectionDefinition.md)
- - [ideastatica_connection_api.models.ConCrossSectionDetail](docs/ConCrossSectionDetail.md)
- - [ideastatica_connection_api.models.ConCrossSectionDetailDefinition](docs/ConCrossSectionDetailDefinition.md)
  - [ideastatica_connection_api.models.ConCrossSectionGeometry](docs/ConCrossSectionGeometry.md)
  - [ideastatica_connection_api.models.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
  - [ideastatica_connection_api.models.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
  - [ideastatica_connection_api.models.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
- - [ideastatica_connection_api.models.ConCrossSectionParametricDefinitionAllOfDimensions](docs/ConCrossSectionParametricDefinitionAllOfDimensions.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParametricDefinitionDimensionsInner](docs/ConCrossSectionParametricDefinitionDimensionsInner.md)
  - [ideastatica_connection_api.models.ConCssArcSegment](docs/ConCssArcSegment.md)
  - [ideastatica_connection_api.models.ConCssChoiceDimension](docs/ConCssChoiceDimension.md)
  - [ideastatica_connection_api.models.ConCssCountDimension](docs/ConCssCountDimension.md)
@@ -528,7 +528,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 4.0
+- API version: 5.0
 - Package version: 26.1.0.4086
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
