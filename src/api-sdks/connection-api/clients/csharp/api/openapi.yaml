@@ -4274,6 +4274,3230 @@ paths:
       - Operation
       x-requiresProject: true
       x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/work-plane/{operationId}:
+    get:
+      operationId: GetWorkPlaneOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConWorkPlaneOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Work Plane operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/work-plane:
+    get:
+      operationId: GetWorkPlaneOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConWorkPlaneOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Work Plane operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      description: "A work plane is virtual reference geometry used by other operations\
+        \ (e.g. cuts) and for fatigue analysis.\r\nIt has no structural effect by\
+        \ itself.\r\nSupports all three methods (ByAngles, ByNormalVector, ByIntersection)\
+        \ and all\r\ncoordinate system origins (Joint, Member, Plate)."
+      operationId: AddWorkPlaneOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConWorkPlaneOperation'
+        description: "Work plane definition (origin, normal, method)."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new work plane operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateWorkPlaneOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConWorkPlaneOperation'
+        description: The work plane data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Work Plane operation (PUT semantics). Target id is taken\
+        \ from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/bolt-grid/{operationId}:
+    get:
+      operationId: GetBoltGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConBoltGridOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Bolt Grid operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/bolt-grid:
+    get:
+      operationId: GetBoltGridOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConBoltGridOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Bolt Grid operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddBoltGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConBoltGridOperation'
+        description: Bolt grid operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new bolt grid operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateBoltGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConBoltGridOperation'
+        description: The bolt grid data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Bolt Grid operation (PUT semantics). Target id is taken\
+        \ from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/anchor-grid/{operationId}:
+    get:
+      operationId: GetAnchorGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAnchorGridOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Anchor Grid operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/anchor-grid:
+    get:
+      operationId: GetAnchorGridOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConAnchorGridOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Anchor Grid operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddAnchorGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConAnchorGridOperation'
+        description: Anchor grid operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new anchor grid operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateAnchorGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConAnchorGridOperation'
+        description: The anchor grid data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces an Anchor Grid operation (PUT semantics). Target id is taken\
+        \ from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/pin-grid/{operationId}:
+    get:
+      operationId: GetPinGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConPinGridOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Pin Grid operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/pin-grid:
+    get:
+      operationId: GetPinGridOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConPinGridOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Pin Grid operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddPinGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConPinGridOperation'
+        description: Pin grid operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new pin grid operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdatePinGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConPinGridOperation'
+        description: The pin grid data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Pin Grid operation (PUT semantics). Target id is taken\
+        \ from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/contact-grid/{operationId}:
+    get:
+      operationId: GetContactGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConContactGridOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Contact Grid operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/contact-grid:
+    get:
+      operationId: GetContactGridOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConContactGridOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Contact Grid operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddContactGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConContactGridOperation'
+        description: Contact grid operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new contact grid operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateContactGridOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConContactGridOperation'
+        description: The contact grid data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Contact Grid operation (PUT semantics). Target id is taken\
+        \ from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/stiffening-plate/{operationId}:
+    get:
+      operationId: GetStiffeningPlateOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConStiffeningPlateOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Stiffening Plate operation with the given id, with all\
+        \ fields populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/stiffening-plate:
+    get:
+      operationId: GetStiffeningPlateOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConStiffeningPlateOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Stiffening Plate operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddStiffeningPlate
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConStiffeningPlateOperation'
+        description: Stiffening plate operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new stiffening plate operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateStiffeningPlateOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConStiffeningPlateOperation'
+        description: The stiffening plate data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Stiffening Plate operation (PUT semantics). Target id is\
+        \ taken from\r\n`request.Id`; returns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/stiffening-member/{operationId}:
+    get:
+      operationId: GetStiffeningMemberOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConStiffeningMemberOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns the Stiffening Member operation with the given id.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/stiffening-member:
+    get:
+      operationId: GetStiffeningMemberOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConStiffeningMemberOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Stiffening Member operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddStiffeningMember
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConStiffeningMemberOperation'
+        description: Stiffening member operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new stiffening member operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateStiffeningMemberOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConStiffeningMemberOperation'
+        description: The stiffening member data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Stiffening Member operation (PUT semantics). Target id\
+        \ is taken from `request.Id`;\r\nreturns 404 when no operation with that id\
+        \ exists in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/weld/{operationId}:
+    get:
+      operationId: GetWeldOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConWeldOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Weld operation with the given id, with all fields populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/weld:
+    get:
+      operationId: GetWeldOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConWeldOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Weld operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddWeldOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConWeldOperation'
+        description: Weld operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new weld operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateWeldOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConWeldOperation'
+        description: The weld data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Weld operation (PUT semantics). Target id is taken from\
+        \ `request.Id`;\r\nreturns 404 when no operation with that id exists in the\
+        \ connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/negative-plate/{operationId}:
+    get:
+      operationId: GetNegativePlateOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConNegativePlateOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Negative Plate operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/negative-plate:
+    get:
+      operationId: GetNegativePlateOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConNegativePlateOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Negative Plate operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddNegativePlateOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConNegativePlateOperation'
+        description: Negative plate operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new negative plate operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateNegativePlateOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConNegativePlateOperation'
+        description: The negative plate data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Negative Plate operation (PUT semantics). Target id is\
+        \ taken from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/contact/{operationId}:
+    get:
+      operationId: GetContactOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConContactOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Contact operation with the given id, with all fields populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/contact:
+    get:
+      operationId: GetContactOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConContactOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Contact operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddContactOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConContactOperation'
+        description: Contact operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new contact operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateContactOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConContactOperation'
+        description: The contact data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Contact operation (PUT semantics). Target id is taken from\
+        \ `request.Id`;\r\nreturns 404 when no operation with that id exists in the\
+        \ connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/negative-member/{operationId}:
+    get:
+      operationId: GetNegativeMemberOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConNegativeMemberOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Negative Member operation with the given id, with all\
+        \ fields populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/negative-member:
+    get:
+      operationId: GetNegativeMemberOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConNegativeMemberOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Negative Member operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddNegativeMemberOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConNegativeMemberOperation'
+        description: Negative member operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new negative member operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateNegativeMemberOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConNegativeMemberOperation'
+        description: The negative member data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Negative Member operation (PUT semantics). Target id is\
+        \ taken from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/cut/{operationId}:
+    get:
+      operationId: GetCutOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConCutOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Cut operation with the given id, with all fields populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/cut:
+    get:
+      operationId: GetCutOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConCutOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Cut operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddCutOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCutOperation'
+        description: Cut operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new cut operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdateCutOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCutOperation'
+        description: The cut data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Cut operation (PUT semantics). Target id is taken from\
+        \ `request.Id`;\r\nreturns 404 when no operation with that id exists in the\
+        \ connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/plate-cut/{operationId}:
+    get:
+      operationId: GetPlateCutOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection containing the operation.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the operation in the connection.
+        explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConPlateCutOperation'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Returns the Plate Cut operation with the given id, with all fields\
+        \ populated."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+  /api/5/projects/{projectId}/connections/{connectionId}/operations/plate-cut:
+    get:
+      operationId: GetPlateCutOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConPlateCutOperation'
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Returns all Plate Cut operations in the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    post:
+      operationId: AddPlateCutOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection the operation will be added to.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConPlateCutOperation'
+        description: Plate cut operation definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: Adds a new plate cut operation to the connection.
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
+    put:
+      operationId: UpdatePlateCutOperation
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConPlateCutOperation'
+        description: The plate cut data to apply.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConAddOperationResult'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unprocessable Content
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Replaces a Plate Cut operation (PUT semantics). Target id is taken\
+        \ from `request.Id`;\r\nreturns 404 when no operation with that id exists\
+        \ in the connection."
+      tags:
+      - Operation
+      x-requiresProject: true
+      x-requiresConnection: true
   /api/5/projects/{projectId}/connections/{connectionId}/parameters:
     delete:
       operationId: DeleteParameters
@@ -7823,6 +11047,145 @@ components:
         required:
         - $type
         type: object
+    ConAddOperationResult:
+      additionalProperties: false
+      example:
+        operation:
+          isImported: true
+          name: name
+          active: true
+          operationType: operationType
+          id: 0
+        issues:
+        - severity: info
+          operationId: 0
+          description: description
+          details: details
+        - severity: info
+          operationId: 0
+          description: description
+          details: details
+        addedWithoutIssues: true
+      properties:
+        operation:
+          $ref: '#/components/schemas/ConOperation'
+        issues:
+          items:
+            $ref: '#/components/schemas/ConNonConformityIssue'
+          nullable: true
+          type: array
+        addedWithoutIssues:
+          type: boolean
+      type: object
+    ConAddedMemberPositioning:
+      additionalProperties: false
+      example:
+        placementDefinition: rotationsOfX
+        rotation: 6.84685269835264
+        angleBeta: 2.3021358869347655
+        eccentricity:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        onMemberPlateIndex: 4
+        plateEdgeIndex: 1
+        onPlateOperationId: 2
+        mountType: rib
+        onPlateIndex: 3
+        positionX: 1.0246457001441578
+        onMemberId: 9
+        positionY: 1.4894159098541704
+        insertPoint:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        addedMemberPlateIndex: 7
+        positioningType: joint
+        axisZ:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        rotationRx: 7.061401241503109
+        axisY:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        axisX:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        pitch: 7.457744773683766
+        angleAlpha: 5.637376656633329
+        mountLocation: leftSide
+      properties:
+        positioningType:
+          $ref: '#/components/schemas/ConAddedMemberPositioningEnum'
+        angleAlpha:
+          format: double
+          type: number
+        angleBeta:
+          format: double
+          type: number
+        rotationRx:
+          format: double
+          type: number
+        insertPoint:
+          $ref: '#/components/schemas/Point3D'
+        eccentricity:
+          $ref: '#/components/schemas/Vector3D'
+        placementDefinition:
+          $ref: '#/components/schemas/ConStiffeningMemberPlacement'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
+          $ref: '#/components/schemas/Vector3D'
+        onMemberId:
+          format: int32
+          nullable: true
+          type: integer
+        onPlateIndex:
+          format: int32
+          nullable: true
+          type: integer
+        onPlateOperationId:
+          format: int32
+          nullable: true
+          type: integer
+        onMemberPlateIndex:
+          format: int32
+          type: integer
+        addedMemberPlateIndex:
+          format: int32
+          type: integer
+        mountType:
+          $ref: '#/components/schemas/ConPlateFunction'
+        mountLocation:
+          $ref: '#/components/schemas/ConLocation'
+        plateEdgeIndex:
+          format: int32
+          type: integer
+        positionX:
+          format: double
+          type: number
+        positionY:
+          format: double
+          type: number
+        rotation:
+          format: double
+          type: number
+        pitch:
+          format: double
+          type: number
+      type: object
+    ConAddedMemberPositioningEnum:
+      enum:
+      - joint
+      - onMember
+      - onPlate
+      type: string
     ConAlignedPlate:
       additionalProperties: false
       example:
@@ -7862,6 +11225,371 @@ components:
       - capacityLoadLevels
       - fireRestance
       - buckling
+      type: string
+    ConAnchorGridOperation:
+      additionalProperties: false
+      example:
+        isImported: true
+        hookRotations:
+        - 2.027123023002322
+        - 2.027123023002322
+        slottedHoles:
+        - angle: 4.145608029883936
+          sizeFactor: 7.386281948385884
+        - angle: 4.145608029883936
+          sizeFactor: 7.386281948385884
+        washerPlateSize: 7.061401241503109
+        existingBlockOperationId: 1
+        isExploded: true
+        anchorAssemblyId: 0
+        anchorDiameter: 5.962133916683182
+        reinforcementShape: lShape
+        headedStudMaterialId: 2
+        washerPlateShape: circular
+        plateSide: lowerSide
+        coordinateSystem:
+          yAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          xAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          zAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+        id: 4
+        headDiameter: 5.637376656633329
+        blockType: new
+        foundationBlock:
+          offsetTop: 7.386281948385884
+          mortarThickness: 7.457744773683766
+          offsetLeft: 1.0246457001441578
+          contactType: direct
+          offsetBottom: 1.2315135367772556
+          offsetRight: 1.4894159098541704
+          concreteMaterialId: 4
+          height: 6.84685269835264
+          shearForceTransfer: friction
+        active: true
+        reinforcementMaterialId: 9
+        connectedItems:
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        embedmentDepth: 6.027456183070403
+        mandrelDiameter: 3.616076749251911
+        definedBy: plate
+        name: name
+        geometry:
+          bottomLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          radii:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          rightLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          angles:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          polarInput: byCount
+          polarCounts:
+          - 7
+          - 7
+          topLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          shearPlaneInThread: true
+          type: orthogonal
+          rowsGridLayout: regular
+          leftLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          userPositions:
+          - gridIndex: 2
+            x: 9.301444243932576
+            "y": 3.616076749251911
+            hookRotation: 1.2315135367772556
+            slottedHoles:
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+          - gridIndex: 2
+            x: 9.301444243932576
+            "y": 3.616076749251911
+            hookRotation: 1.2315135367772556
+            slottedHoles:
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+        operationType: operationType
+        hookLength: 1.4658129805029452
+        anchorType: threadedRod
+      properties:
+        connectedItems:
+          items:
+            $ref: '#/components/schemas/ConConnectedItem'
+          nullable: true
+          type: array
+        anchorType:
+          $ref: '#/components/schemas/ConAnchorType'
+        anchorAssemblyId:
+          format: int32
+          nullable: true
+          type: integer
+        embedmentDepth:
+          format: double
+          type: number
+        hookLength:
+          format: double
+          type: number
+        anchorDiameter:
+          format: double
+          type: number
+        headDiameter:
+          format: double
+          type: number
+        headedStudMaterialId:
+          format: int32
+          nullable: true
+          type: integer
+        washerPlateShape:
+          $ref: '#/components/schemas/ConWasherPlateShape'
+        washerPlateSize:
+          format: double
+          type: number
+        reinforcementMaterialId:
+          format: int32
+          nullable: true
+          type: integer
+        reinforcementShape:
+          $ref: '#/components/schemas/ConReinforcementAnchorShape'
+        mandrelDiameter:
+          format: double
+          type: number
+        hookRotations:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+        isExploded:
+          type: boolean
+        geometry:
+          $ref: '#/components/schemas/ConGridGeometry'
+        definedBy:
+          $ref: '#/components/schemas/ConDefinedBy'
+        coordinateSystem:
+          $ref: '#/components/schemas/ConLocalCoordinateSystem'
+        slottedHoles:
+          items:
+            $ref: '#/components/schemas/ConSlottedHole'
+          nullable: true
+          type: array
+        foundationBlock:
+          $ref: '#/components/schemas/ConFoundationBlockDto'
+        blockType:
+          $ref: '#/components/schemas/ConBlockType'
+        existingBlockOperationId:
+          format: int32
+          nullable: true
+          type: integer
+        plateSide:
+          $ref: '#/components/schemas/ConPlateSide'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConAnchorType:
+      enum:
+      - threadedRod
+      - generalAnchor
+      - hookedAnchor
+      - headedStud
+      - washerPlate
+      - reinforcement
+      type: string
+    ConBasePlateContactType:
+      enum:
+      - direct
+      - mortar
+      - gap
+      type: string
+    ConBlockType:
+      enum:
+      - new
+      - existing
+      type: string
+    ConBoltGridOperation:
+      additionalProperties: false
+      example:
+        isImported: true
+        boltShearForceTransfer: tensionShearInteraction
+        active: true
+        connectedItems:
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        slottedHoles:
+        - angle: 4.145608029883936
+          sizeFactor: 7.386281948385884
+        - angle: 4.145608029883936
+          sizeFactor: 7.386281948385884
+        isExploded: true
+        boltAssemblyId: 5
+        definedBy: plate
+        name: name
+        geometry:
+          bottomLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          radii:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          rightLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          angles:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          polarInput: byCount
+          polarCounts:
+          - 7
+          - 7
+          topLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          shearPlaneInThread: true
+          type: orthogonal
+          rowsGridLayout: regular
+          leftLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          userPositions:
+          - gridIndex: 2
+            x: 9.301444243932576
+            "y": 3.616076749251911
+            hookRotation: 1.2315135367772556
+            slottedHoles:
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+          - gridIndex: 2
+            x: 9.301444243932576
+            "y": 3.616076749251911
+            hookRotation: 1.2315135367772556
+            slottedHoles:
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+        operationType: operationType
+        coordinateSystem:
+          yAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          xAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          zAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+        id: 1
+      properties:
+        connectedItems:
+          items:
+            $ref: '#/components/schemas/ConConnectedItem'
+          nullable: true
+          type: array
+        boltAssemblyId:
+          format: int32
+          nullable: true
+          type: integer
+        boltShearForceTransfer:
+          $ref: '#/components/schemas/ConBoltShearTransfer'
+        isExploded:
+          type: boolean
+        geometry:
+          $ref: '#/components/schemas/ConGridGeometry'
+        definedBy:
+          $ref: '#/components/schemas/ConDefinedBy'
+        coordinateSystem:
+          $ref: '#/components/schemas/ConLocalCoordinateSystem'
+        slottedHoles:
+          items:
+            $ref: '#/components/schemas/ConSlottedHole'
+          nullable: true
+          type: array
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConBoltShearTransfer:
+      enum:
+      - tensionShearInteraction
+      - friction
       type: string
     ConCalculationJob:
       additionalProperties: false
@@ -7962,6 +11690,31 @@ components:
       - failed
       - cancelled
       type: string
+    ConConnectedItem:
+      additionalProperties: false
+      example:
+        plateId: 0
+        operationId: 6
+        plateSubIndex: 5
+        memberId: 1
+      properties:
+        plateId:
+          format: int32
+          nullable: true
+          type: integer
+        operationId:
+          format: int32
+          nullable: true
+          type: integer
+        memberId:
+          format: int32
+          nullable: true
+          type: integer
+        plateSubIndex:
+          format: int32
+          nullable: true
+          type: integer
+      type: object
     ConConnection:
       additionalProperties: false
       example:
@@ -8094,6 +11847,119 @@ components:
           type: array
         commonProperties:
           $ref: '#/components/schemas/ConOperationCommonProperties'
+      type: object
+    ConContactGridOperation:
+      additionalProperties: false
+      example:
+        existingBlockOperationId: 0
+        isImported: true
+        blockType: new
+        foundationBlock:
+          offsetTop: 7.386281948385884
+          mortarThickness: 7.457744773683766
+          offsetLeft: 1.0246457001441578
+          contactType: direct
+          offsetBottom: 1.2315135367772556
+          offsetRight: 1.4894159098541704
+          concreteMaterialId: 4
+          height: 6.84685269835264
+          shearForceTransfer: friction
+        name: name
+        plateSide: lowerSide
+        active: true
+        operationType: operationType
+        connectedItems:
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        id: 6
+      properties:
+        connectedItems:
+          items:
+            $ref: '#/components/schemas/ConConnectedItem'
+          nullable: true
+          type: array
+        foundationBlock:
+          $ref: '#/components/schemas/ConFoundationBlockDto'
+        blockType:
+          $ref: '#/components/schemas/ConBlockType'
+        existingBlockOperationId:
+          format: int32
+          nullable: true
+          type: integer
+        plateSide:
+          $ref: '#/components/schemas/ConPlateSide'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConContactOperation:
+      additionalProperties: false
+      example:
+        firstPlateEdgeIndex:
+        - 0
+        - 0
+        isImported: true
+        secondMemberOrPlate:
+          plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        secondPlateEdgeIndex: 6
+        name: name
+        active: true
+        operationType: operationType
+        placement: edgeToSurface
+        firstMemberOrPlate:
+          plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        id: 1
+      properties:
+        placement:
+          $ref: '#/components/schemas/ConWeldPlacement'
+        firstMemberOrPlate:
+          $ref: '#/components/schemas/ConConnectedItem'
+        firstPlateEdgeIndex:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        secondMemberOrPlate:
+          $ref: '#/components/schemas/ConConnectedItem'
+        secondPlateEdgeIndex:
+          format: int32
+          type: integer
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
       type: object
     ConConversionSettings:
       additionalProperties: false
@@ -8542,6 +12408,178 @@ components:
         required:
         - $type
         type: object
+    ConCutByKind:
+      enum:
+      - member
+      - plate
+      - plateOfOperation
+      - memberPlate
+      - stiffeningMember
+      - stiffeningMemberPlate
+      - negativeVolumeMember
+      - negativeVolumeMemberPlate
+      - stubMember
+      - stubMemberPlate
+      - workPlane
+      type: string
+    ConCutByTarget:
+      additionalProperties: false
+      example:
+        plateId: 5
+        remainingPart: null
+        kind: member
+        operationId: 5
+        plateSubIndex: 2
+        memberId: 1
+      properties:
+        kind:
+          $ref: '#/components/schemas/ConCutByKind'
+        memberId:
+          format: int32
+          nullable: true
+          type: integer
+        plateId:
+          format: int32
+          nullable: true
+          type: integer
+        operationId:
+          format: int32
+          nullable: true
+          type: integer
+        plateSubIndex:
+          format: int32
+          nullable: true
+          type: integer
+        remainingPart:
+          $ref: '#/components/schemas/ConRemainingPart'
+      type: object
+    ConCutMemberKind:
+      enum:
+      - member
+      - stiffeningMember
+      - negativeVolumeMember
+      - stubMember
+      type: string
+    ConCutMemberTarget:
+      additionalProperties: false
+      example:
+        remainingPart: begin
+        kind: member
+        operationId: 6
+        memberId: 0
+      properties:
+        kind:
+          $ref: '#/components/schemas/ConCutMemberKind'
+        memberId:
+          format: int32
+          nullable: true
+          type: integer
+        operationId:
+          format: int32
+          nullable: true
+          type: integer
+        remainingPart:
+          $ref: '#/components/schemas/ConRemainingPart'
+      type: object
+    ConCutOperation:
+      additionalProperties: false
+      example:
+        cuttingPlane: closer
+        offset: 7.061401241503109
+        isImported: true
+        active: true
+        flangesWeld:
+          endOffset: 8.762042012749001
+          size: 9.965781217890562
+          kind: continuous
+          gap: 6.438423552598547
+          length: 9.018348186070783
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.683562403749608
+        cuttingMethod: boundingBox
+        cutBy:
+          plateId: 5
+          remainingPart: null
+          kind: member
+          operationId: 5
+          plateSubIndex: 2
+          memberId: 1
+        member:
+          remainingPart: begin
+          kind: member
+          operationId: 6
+          memberId: 0
+        name: name
+        operationType: operationType
+        id: 9
+        extendMember: true
+        websWeld:
+          endOffset: 8.762042012749001
+          size: 9.965781217890562
+          kind: continuous
+          gap: 6.438423552598547
+          length: 9.018348186070783
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.683562403749608
+        direction: parallel
+      properties:
+        member:
+          $ref: '#/components/schemas/ConCutMemberTarget'
+        cutBy:
+          $ref: '#/components/schemas/ConCutByTarget'
+        cuttingMethod:
+          $ref: '#/components/schemas/ConCuttingMethod'
+        extendMember:
+          type: boolean
+        cuttingPlane:
+          $ref: '#/components/schemas/ConCuttingPlane'
+        direction:
+          $ref: '#/components/schemas/ConCuttingDirection'
+        offset:
+          format: double
+          type: number
+        websWeld:
+          $ref: '#/components/schemas/ConWeldData'
+        flangesWeld:
+          $ref: '#/components/schemas/ConWeldData'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConCuttingDirection:
+      enum:
+      - parallel
+      - perpendicular
+      type: string
+    ConCuttingMethod:
+      enum:
+      - boundingBox
+      - surface
+      - surfaceAllAround
+      - mitreCut
+      type: string
+    ConCuttingPlane:
+      enum:
+      - closer
+      - farther
+      type: string
+    ConDefinedBy:
+      enum:
+      - plate
+      - coordinateSystem
+      type: string
     ConDesignItem:
       additionalProperties: false
       example:
@@ -8597,6 +12635,190 @@ components:
       - private
       - company
       type: string
+    ConFastenerPosition:
+      additionalProperties: false
+      example:
+        gridIndex: 2
+        x: 9.301444243932576
+        "y": 3.616076749251911
+        hookRotation: 1.2315135367772556
+        slottedHoles:
+        - angle: 4.145608029883936
+          sizeFactor: 7.386281948385884
+        - angle: 4.145608029883936
+          sizeFactor: 7.386281948385884
+      properties:
+        x:
+          format: double
+          type: number
+        "y":
+          format: double
+          type: number
+        gridIndex:
+          format: int32
+          type: integer
+        slottedHoles:
+          items:
+            $ref: '#/components/schemas/ConSlottedHole'
+          nullable: true
+          type: array
+        hookRotation:
+          format: double
+          nullable: true
+          type: number
+      type: object
+    ConFoundationBlockDto:
+      additionalProperties: false
+      example:
+        offsetTop: 7.386281948385884
+        mortarThickness: 7.457744773683766
+        offsetLeft: 1.0246457001441578
+        contactType: direct
+        offsetBottom: 1.2315135367772556
+        offsetRight: 1.4894159098541704
+        concreteMaterialId: 4
+        height: 6.84685269835264
+        shearForceTransfer: friction
+      properties:
+        concreteMaterialId:
+          format: int32
+          type: integer
+        offsetTop:
+          format: double
+          type: number
+        offsetBottom:
+          format: double
+          type: number
+        offsetLeft:
+          format: double
+          type: number
+        offsetRight:
+          format: double
+          type: number
+        height:
+          format: double
+          type: number
+        shearForceTransfer:
+          $ref: '#/components/schemas/ConShearForceTransferMethod'
+        contactType:
+          $ref: '#/components/schemas/ConBasePlateContactType'
+        mortarThickness:
+          format: double
+          type: number
+      type: object
+    ConGridGeometry:
+      additionalProperties: false
+      example:
+        bottomLayers:
+          values:
+          - 2.3021358869347655
+          - 2.3021358869347655
+        radii:
+          values:
+          - 2.3021358869347655
+          - 2.3021358869347655
+        rightLayers:
+          values:
+          - 2.3021358869347655
+          - 2.3021358869347655
+        angles:
+          values:
+          - 2.3021358869347655
+          - 2.3021358869347655
+        polarInput: byCount
+        polarCounts:
+        - 7
+        - 7
+        topLayers:
+          values:
+          - 2.3021358869347655
+          - 2.3021358869347655
+        shearPlaneInThread: true
+        type: orthogonal
+        rowsGridLayout: regular
+        leftLayers:
+          values:
+          - 2.3021358869347655
+          - 2.3021358869347655
+        userPositions:
+        - gridIndex: 2
+          x: 9.301444243932576
+          "y": 3.616076749251911
+          hookRotation: 1.2315135367772556
+          slottedHoles:
+          - angle: 4.145608029883936
+            sizeFactor: 7.386281948385884
+          - angle: 4.145608029883936
+            sizeFactor: 7.386281948385884
+        - gridIndex: 2
+          x: 9.301444243932576
+          "y": 3.616076749251911
+          hookRotation: 1.2315135367772556
+          slottedHoles:
+          - angle: 4.145608029883936
+            sizeFactor: 7.386281948385884
+          - angle: 4.145608029883936
+            sizeFactor: 7.386281948385884
+      properties:
+        type:
+          $ref: '#/components/schemas/ConGridGeometryType'
+        shearPlaneInThread:
+          type: boolean
+        rowsGridLayout:
+          $ref: '#/components/schemas/ConGridLayout'
+        topLayers:
+          $ref: '#/components/schemas/ConGridPositions'
+        bottomLayers:
+          $ref: '#/components/schemas/ConGridPositions'
+        leftLayers:
+          $ref: '#/components/schemas/ConGridPositions'
+        rightLayers:
+          $ref: '#/components/schemas/ConGridPositions'
+        polarInput:
+          $ref: '#/components/schemas/ConPolarInputType'
+        radii:
+          $ref: '#/components/schemas/ConGridPositions'
+        polarCounts:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        angles:
+          $ref: '#/components/schemas/ConGridPositions'
+        userPositions:
+          items:
+            $ref: '#/components/schemas/ConFastenerPosition'
+          nullable: true
+          type: array
+      type: object
+    ConGridGeometryType:
+      enum:
+      - orthogonal
+      - polar
+      type: string
+    ConGridLayout:
+      enum:
+      - regular
+      - firstShiftedFull
+      - secondShiftedFull
+      - firstShiftedShort
+      - secondShiftedShort
+      type: string
+    ConGridPositions:
+      additionalProperties: false
+      example:
+        values:
+        - 2.3021358869347655
+        - 2.3021358869347655
+      properties:
+        values:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+      type: object
     ConItem:
       additionalProperties: false
       example:
@@ -8768,6 +12990,43 @@ components:
         loadsInPercentage:
           type: boolean
       type: object
+    ConLocalCoordinateSystem:
+      additionalProperties: false
+      example:
+        yAxis:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        xAxis:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        origin:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        zAxis:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+      properties:
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        xAxis:
+          $ref: '#/components/schemas/Vector3D'
+        yAxis:
+          $ref: '#/components/schemas/Vector3D'
+        zAxis:
+          $ref: '#/components/schemas/Vector3D'
+      type: object
+    ConLocation:
+      enum:
+      - leftSide
+      - rightSide
+      - bothSides
+      - center
+      type: string
     ConMember:
       additionalProperties: false
       example:
@@ -9033,6 +13292,199 @@ components:
           nullable: true
           type: string
       type: object
+    ConNegativeMemberOperation:
+      additionalProperties: false
+      example:
+        length1: 6.027456183070403
+        isImported: true
+        length2: 1.4658129805029452
+        positioning:
+          placementDefinition: rotationsOfX
+          rotation: 6.84685269835264
+          angleBeta: 2.3021358869347655
+          eccentricity:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          onMemberPlateIndex: 4
+          plateEdgeIndex: 1
+          onPlateOperationId: 2
+          mountType: rib
+          onPlateIndex: 3
+          positionX: 1.0246457001441578
+          onMemberId: 9
+          positionY: 1.4894159098541704
+          insertPoint:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          addedMemberPlateIndex: 7
+          positioningType: joint
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          rotationRx: 7.061401241503109
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          pitch: 7.457744773683766
+          angleAlpha: 5.637376656633329
+          mountLocation: leftSide
+        name: name
+        active: true
+        mirrorY: true
+        operationType: operationType
+        mirrorZ: true
+        id: 5
+        crossSectionId: 0
+      properties:
+        crossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        length1:
+          format: double
+          type: number
+        length2:
+          format: double
+          type: number
+        mirrorY:
+          type: boolean
+        mirrorZ:
+          type: boolean
+        positioning:
+          $ref: '#/components/schemas/ConAddedMemberPositioning'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConNegativePlateOperation:
+      additionalProperties: false
+      example:
+        shape: rectangular
+        isImported: true
+        thickness: 6.027456183070403
+        polygonData: polygonData
+        active: true
+        width2: 5.637376656633329
+        materialId: 0
+        height2: 2.3021358869347655
+        positioning:
+          plateOnMemberIndex: 6
+          normalVector:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          conPlatePositioningType: concreteBlock
+          offset:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          rotation:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          plateIndex: 1
+          plateEdgeIndex: 5
+          positionX: 4.145608029883936
+          positionY: 7.386281948385884
+          onMemberId: 1
+          onMemberOperationId: 1
+          rotationAngle: 1.2315135367772556
+          function: rib
+          inputMethod: byAngles
+          concreteSurface: 2
+          operationId: 4
+          concreteBlockIndex: 3
+          location: leftSide
+          coordinateSystem:
+            yAxis:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            xAxis:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            origin:
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
+            zAxis:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+          pitch: 7.457744773683766
+        width: 1.4658129805029452
+        name: name
+        operationType: operationType
+        id: 9
+        radius: 7.061401241503109
+        height: 5.962133916683182
+      properties:
+        materialId:
+          format: int32
+          nullable: true
+          type: integer
+        thickness:
+          format: double
+          type: number
+        shape:
+          $ref: '#/components/schemas/ConPlateShape'
+        polygonData:
+          nullable: true
+          type: string
+        width:
+          format: double
+          type: number
+        height:
+          format: double
+          type: number
+        width2:
+          format: double
+          type: number
+        height2:
+          format: double
+          type: number
+        radius:
+          format: double
+          type: number
+        positioning:
+          $ref: '#/components/schemas/ConPlatePositioning'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
     ConNonConformityIssue:
       additionalProperties: false
       example:
@@ -9213,6 +13665,330 @@ components:
           nullable: true
           type: string
       type: object
+    ConPinGridOperation:
+      additionalProperties: false
+      example:
+        isExploded: true
+        isImported: true
+        definedBy: plate
+        name: name
+        active: true
+        geometry:
+          bottomLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          radii:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          rightLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          angles:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          polarInput: byCount
+          polarCounts:
+          - 7
+          - 7
+          topLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          shearPlaneInThread: true
+          type: orthogonal
+          rowsGridLayout: regular
+          leftLayers:
+            values:
+            - 2.3021358869347655
+            - 2.3021358869347655
+          userPositions:
+          - gridIndex: 2
+            x: 9.301444243932576
+            "y": 3.616076749251911
+            hookRotation: 1.2315135367772556
+            slottedHoles:
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+          - gridIndex: 2
+            x: 9.301444243932576
+            "y": 3.616076749251911
+            hookRotation: 1.2315135367772556
+            slottedHoles:
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+            - angle: 4.145608029883936
+              sizeFactor: 7.386281948385884
+        operationType: operationType
+        connectedItems:
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        - plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        coordinateSystem:
+          yAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          xAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          zAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+        id: 6
+        pinOriginalId: 0
+      properties:
+        connectedItems:
+          items:
+            $ref: '#/components/schemas/ConConnectedItem'
+          nullable: true
+          type: array
+        pinOriginalId:
+          format: int32
+          nullable: true
+          type: integer
+        isExploded:
+          type: boolean
+        geometry:
+          $ref: '#/components/schemas/ConGridGeometry'
+        definedBy:
+          $ref: '#/components/schemas/ConDefinedBy'
+        coordinateSystem:
+          $ref: '#/components/schemas/ConLocalCoordinateSystem'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConPlateCutOperation:
+      additionalProperties: false
+      example:
+        weld:
+          endOffset: 8.762042012749001
+          size: 9.965781217890562
+          kind: continuous
+          gap: 6.438423552598547
+          length: 9.018348186070783
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.683562403749608
+        cuttingMethod: boundingBox
+        cutBy:
+          plateId: 5
+          remainingPart: null
+          kind: member
+          operationId: 5
+          plateSubIndex: 2
+          memberId: 1
+        remainingPart: lowerSide
+        offset: 0.8008281904610115
+        isImported: true
+        modifiedObject:
+          plateId: 5
+          remainingPart: null
+          kind: member
+          operationId: 5
+          plateSubIndex: 2
+          memberId: 1
+        name: name
+        active: true
+        operationType: operationType
+        id: 6
+      properties:
+        modifiedObject:
+          $ref: '#/components/schemas/ConCutByTarget'
+        cutBy:
+          $ref: '#/components/schemas/ConCutByTarget'
+        cuttingMethod:
+          $ref: '#/components/schemas/ConCuttingMethod'
+        remainingPart:
+          $ref: '#/components/schemas/ConPlateSide'
+        offset:
+          format: double
+          type: number
+        weld:
+          $ref: '#/components/schemas/ConWeldData'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConPlateFunction:
+      enum:
+      - rib
+      - doubler
+      - widener
+      type: string
+    ConPlatePositioning:
+      additionalProperties: false
+      example:
+        plateOnMemberIndex: 6
+        normalVector:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        conPlatePositioningType: concreteBlock
+        offset:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        rotation:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        plateIndex: 1
+        plateEdgeIndex: 5
+        positionX: 4.145608029883936
+        positionY: 7.386281948385884
+        onMemberId: 1
+        onMemberOperationId: 1
+        rotationAngle: 1.2315135367772556
+        function: rib
+        inputMethod: byAngles
+        concreteSurface: 2
+        operationId: 4
+        concreteBlockIndex: 3
+        location: leftSide
+        coordinateSystem:
+          yAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          xAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          zAxis:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+        pitch: 7.457744773683766
+      properties:
+        conPlatePositioningType:
+          $ref: '#/components/schemas/ConPlatePositioningEnum'
+        concreteBlockIndex:
+          format: int32
+          type: integer
+        concreteSurface:
+          format: int32
+          type: integer
+        positionX:
+          format: double
+          type: number
+        positionY:
+          format: double
+          type: number
+        rotationAngle:
+          format: double
+          type: number
+        coordinateSystem:
+          $ref: '#/components/schemas/ConLocalCoordinateSystem'
+        offset:
+          $ref: '#/components/schemas/Point3D'
+        rotation:
+          $ref: '#/components/schemas/Point3D'
+        onMemberId:
+          format: int32
+          type: integer
+        onMemberOperationId:
+          format: int32
+          nullable: true
+          type: integer
+        inputMethod:
+          $ref: '#/components/schemas/ConWorkPlaneMethod'
+        normalVector:
+          $ref: '#/components/schemas/Vector3D'
+        plateOnMemberIndex:
+          format: int32
+          type: integer
+        function:
+          $ref: '#/components/schemas/ConPlateFunction'
+        location:
+          $ref: '#/components/schemas/ConLocation'
+        pitch:
+          format: double
+          type: number
+        plateIndex:
+          format: int32
+          type: integer
+        operationId:
+          format: int32
+          nullable: true
+          type: integer
+        plateEdgeIndex:
+          format: int32
+          type: integer
+      type: object
+    ConPlatePositioningEnum:
+      enum:
+      - concreteBlock
+      - coordinateSystem
+      - joint
+      - memberLcs
+      - member
+      - plateOnPlate
+      type: string
+    ConPlateShape:
+      enum:
+      - rectangular
+      - circle
+      - polygon
+      type: string
+    ConPlateSide:
+      enum:
+      - lowerSide
+      - upperSide
+      - bothSides
+      - center
+      - default
+      type: string
+    ConPolarInputType:
+      enum:
+      - byCount
+      - byAngle
+      type: string
     ConProductionCost:
       additionalProperties: false
       example:
@@ -9339,6 +14115,16 @@ components:
       - material
       - boltAssembly
       type: string
+    ConReinforcementAnchorShape:
+      enum:
+      - lShape
+      - uShape
+      type: string
+    ConRemainingPart:
+      enum:
+      - begin
+      - end
+      type: string
     ConResultSummary:
       additionalProperties: false
       example:
@@ -9369,6 +14155,26 @@ components:
           nullable: true
           type: array
       type: object
+    ConShearForceTransferMethod:
+      enum:
+      - friction
+      - shearLug
+      - anchorBending
+      - sliding
+      type: string
+    ConSlottedHole:
+      additionalProperties: false
+      example:
+        angle: 4.145608029883936
+        sizeFactor: 7.386281948385884
+      properties:
+        angle:
+          format: double
+          type: number
+        sizeFactor:
+          format: double
+          type: number
+      type: object
     ConSteelCodeEditionEnum:
       enum:
       - NotSpecified
@@ -9382,6 +14188,244 @@ components:
       - CSA_S16_19
       - EN_1993_1_8_2005
       - EN_1993_1_8_2024
+      type: string
+    ConStiffeningMemberOperation:
+      additionalProperties: false
+      example:
+        isImported: true
+        active: true
+        mirrorY: true
+        mirrorZ: true
+        materialId: 6
+        weld:
+          endOffset: 8.762042012749001
+          size: 9.965781217890562
+          kind: continuous
+          gap: 6.438423552598547
+          length: 9.018348186070783
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.683562403749608
+        length1: 1.4658129805029452
+        length2: 5.962133916683182
+        positioning:
+          placementDefinition: rotationsOfX
+          rotation: 6.84685269835264
+          angleBeta: 2.3021358869347655
+          eccentricity:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          onMemberPlateIndex: 4
+          plateEdgeIndex: 1
+          onPlateOperationId: 2
+          mountType: rib
+          onPlateIndex: 3
+          positionX: 1.0246457001441578
+          onMemberId: 9
+          positionY: 1.4894159098541704
+          insertPoint:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          addedMemberPlateIndex: 7
+          positioningType: joint
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          rotationRx: 7.061401241503109
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          pitch: 7.457744773683766
+          angleAlpha: 5.637376656633329
+          mountLocation: leftSide
+        name: name
+        operationType: operationType
+        id: 1
+        crossSectionId: 0
+      properties:
+        crossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        materialId:
+          format: int32
+          nullable: true
+          type: integer
+        length1:
+          format: double
+          type: number
+        length2:
+          format: double
+          type: number
+        mirrorY:
+          type: boolean
+        mirrorZ:
+          type: boolean
+        positioning:
+          $ref: '#/components/schemas/ConAddedMemberPositioning'
+        weld:
+          $ref: '#/components/schemas/ConWeldData'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConStiffeningMemberPlacement:
+      enum:
+      - rotationsOfX
+      - lcs
+      type: string
+    ConStiffeningPlateOperation:
+      additionalProperties: false
+      example:
+        shape: rectangular
+        isImported: true
+        thickness: 1.4658129805029452
+        plateType: structural
+        polygonData: polygonData
+        active: true
+        width2: 2.3021358869347655
+        materialId: 6
+        weld:
+          endOffset: 8.762042012749001
+          size: 9.965781217890562
+          kind: continuous
+          gap: 6.438423552598547
+          length: 9.018348186070783
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.683562403749608
+        height2: 7.061401241503109
+        positioning:
+          plateOnMemberIndex: 6
+          normalVector:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          conPlatePositioningType: concreteBlock
+          offset:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          rotation:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          plateIndex: 1
+          plateEdgeIndex: 5
+          positionX: 4.145608029883936
+          positionY: 7.386281948385884
+          onMemberId: 1
+          onMemberOperationId: 1
+          rotationAngle: 1.2315135367772556
+          function: rib
+          inputMethod: byAngles
+          concreteSurface: 2
+          operationId: 4
+          concreteBlockIndex: 3
+          location: leftSide
+          coordinateSystem:
+            yAxis:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            xAxis:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            origin:
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
+            zAxis:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+          pitch: 7.457744773683766
+        plateDataId: 0
+        width: 5.962133916683182
+        name: name
+        operationType: operationType
+        id: 3
+        radius: 9.301444243932576
+        height: 5.637376656633329
+      properties:
+        plateDataId:
+          format: int32
+          nullable: true
+          type: integer
+        materialId:
+          format: int32
+          nullable: true
+          type: integer
+        thickness:
+          format: double
+          type: number
+        shape:
+          $ref: '#/components/schemas/ConPlateShape'
+        polygonData:
+          nullable: true
+          type: string
+        width:
+          format: double
+          type: number
+        height:
+          format: double
+          type: number
+        width2:
+          format: double
+          type: number
+        height2:
+          format: double
+          type: number
+        radius:
+          format: double
+          type: number
+        plateType:
+          $ref: '#/components/schemas/ConStiffeningPlateType'
+        positioning:
+          $ref: '#/components/schemas/ConPlatePositioning'
+        weld:
+          $ref: '#/components/schemas/ConWeldData'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConStiffeningPlateType:
+      enum:
+      - structural
+      - negative
       type: string
     ConStiffnessAnalysis:
       additionalProperties: false
@@ -9561,12 +14605,232 @@ components:
         designSetType:
           $ref: '#/components/schemas/ConDesignSetType'
       type: object
+    ConWasherPlateShape:
+      enum:
+      - circular
+      - rectangular
+      type: string
+    ConWeldData:
+      additionalProperties: false
+      example:
+        endOffset: 8.762042012749001
+        size: 9.965781217890562
+        kind: continuous
+        gap: 6.438423552598547
+        length: 9.018348186070783
+        type: noWeld
+        materialId: 9
+        beginOffset: 6.683562403749608
+      properties:
+        kind:
+          $ref: '#/components/schemas/ConWeldDataKind'
+        size:
+          format: double
+          type: number
+        type:
+          $ref: '#/components/schemas/ConWeldType'
+        materialId:
+          format: int32
+          nullable: true
+          type: integer
+        beginOffset:
+          format: double
+          type: number
+        endOffset:
+          format: double
+          type: number
+        length:
+          format: double
+          type: number
+        gap:
+          format: double
+          type: number
+      type: object
+    ConWeldDataKind:
+      enum:
+      - continuous
+      - intermittent
+      type: string
+    ConWeldOperation:
+      additionalProperties: false
+      example:
+        weld:
+          endOffset: 8.762042012749001
+          size: 9.965781217890562
+          kind: continuous
+          gap: 6.438423552598547
+          length: 9.018348186070783
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.683562403749608
+        firstPlateEdgeIndex:
+        - 0
+        - 0
+        isImported: true
+        secondMemberOrPlate:
+          plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        secondPlateEdgeIndex: 6
+        name: name
+        active: true
+        operationType: operationType
+        placement: edgeToSurface
+        firstMemberOrPlate:
+          plateId: 0
+          operationId: 6
+          plateSubIndex: 5
+          memberId: 1
+        id: 1
+      properties:
+        placement:
+          $ref: '#/components/schemas/ConWeldPlacement'
+        firstMemberOrPlate:
+          $ref: '#/components/schemas/ConConnectedItem'
+        firstPlateEdgeIndex:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        secondMemberOrPlate:
+          $ref: '#/components/schemas/ConConnectedItem'
+        secondPlateEdgeIndex:
+          format: int32
+          type: integer
+        weld:
+          $ref: '#/components/schemas/ConWeldData'
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConWeldPlacement:
+      enum:
+      - edgeToSurface
+      - edgeToEdge
+      type: string
     ConWeldSizingMethodEnum:
       enum:
       - fullStrength
       - minimumDuctility
       - overStrengthFactor
       - capacityEstimation
+      type: string
+    ConWeldType:
+      enum:
+      - noWeld
+      - filletFront
+      - filletRear
+      - doubleFillet
+      - cjp
+      - pjp
+      type: string
+    ConWorkPlaneMethod:
+      enum:
+      - byAngles
+      - byNormalVector
+      - byIntersection
+      type: string
+    ConWorkPlaneOperation:
+      additionalProperties: false
+      example:
+        normalVector:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        plateId: 5
+        method: byAngles
+        isImported: true
+        relatedMemberId: 7
+        origin:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        plateOperationId: 2
+        active: true
+        relatedTo: joint
+        offsetX: 9.301444243932576
+        rotationX: 0.8008281904610115
+        rotationY: 6.027456183070403
+        rotationZ: 1.4658129805029452
+        name: name
+        operationType: operationType
+        isFatigue: true
+        nearIntersection: true
+        id: 3
+        memberId: 5
+      properties:
+        method:
+          $ref: '#/components/schemas/ConWorkPlaneMethod'
+        relatedTo:
+          $ref: '#/components/schemas/ConWorkPlaneRelatedTo'
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        normalVector:
+          $ref: '#/components/schemas/Vector3D'
+        rotationX:
+          format: double
+          type: number
+        rotationY:
+          format: double
+          type: number
+        rotationZ:
+          format: double
+          type: number
+        isFatigue:
+          type: boolean
+        memberId:
+          format: int32
+          nullable: true
+          type: integer
+        plateId:
+          format: int32
+          nullable: true
+          type: integer
+        plateOperationId:
+          format: int32
+          nullable: true
+          type: integer
+        relatedMemberId:
+          format: int32
+          nullable: true
+          type: integer
+        offsetX:
+          format: double
+          type: number
+        nearIntersection:
+          type: boolean
+        isImported:
+          type: boolean
+        operationType:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConWorkPlaneRelatedTo:
+      enum:
+      - joint
+      - member
+      - plate
       type: string
     ConcreteBlockData:
       additionalProperties: false

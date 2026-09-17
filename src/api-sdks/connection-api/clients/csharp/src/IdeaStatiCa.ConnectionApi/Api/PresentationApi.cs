@@ -23,6 +23,7 @@ using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.Api.Connection.Model.Parameters;
 using IdeaStatiCa.Api.Connection.Model.Conversion;
+using IdeaStatiCa.Api.Connection.Model.Operations;
 using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Model;
 

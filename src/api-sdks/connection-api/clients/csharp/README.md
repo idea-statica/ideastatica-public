@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 5.0
 
 - API version: 5.0
-- SDK version: 26.1.0.4086
+- SDK version: 26.1.0.4201
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -245,11 +245,63 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**AddAnchorGridOperation**](docs/OperationApi.md#addanchorgridoperation) | Adds a new anchor grid operation to the connection.
+[**AddBoltGridOperation**](docs/OperationApi.md#addboltgridoperation) | Adds a new bolt grid operation to the connection.
+[**AddContactGridOperation**](docs/OperationApi.md#addcontactgridoperation) | Adds a new contact grid operation to the connection.
+[**AddContactOperation**](docs/OperationApi.md#addcontactoperation) | Adds a new contact operation to the connection.
+[**AddCutOperation**](docs/OperationApi.md#addcutoperation) | Adds a new cut operation to the connection.
+[**AddNegativeMemberOperation**](docs/OperationApi.md#addnegativememberoperation) | Adds a new negative member operation to the connection.
+[**AddNegativePlateOperation**](docs/OperationApi.md#addnegativeplateoperation) | Adds a new negative plate operation to the connection.
+[**AddPinGridOperation**](docs/OperationApi.md#addpingridoperation) | Adds a new pin grid operation to the connection.
+[**AddPlateCutOperation**](docs/OperationApi.md#addplatecutoperation) | Adds a new plate cut operation to the connection.
+[**AddStiffeningMember**](docs/OperationApi.md#addstiffeningmember) | Adds a new stiffening member operation to the connection.
+[**AddStiffeningPlate**](docs/OperationApi.md#addstiffeningplate) | Adds a new stiffening plate operation to the connection.
+[**AddWeldOperation**](docs/OperationApi.md#addweldoperation) | Adds a new weld operation to the connection.
+[**AddWorkPlaneOperation**](docs/OperationApi.md#addworkplaneoperation) | Adds a new work plane operation to the connection.
 [**DeleteOperations**](docs/OperationApi.md#deleteoperations) | Delete all operations for the connection.
+[**GetAnchorGridOperation**](docs/OperationApi.md#getanchorgridoperation) | Returns the Anchor Grid operation with the given id, with all fields populated.
+[**GetAnchorGridOperations**](docs/OperationApi.md#getanchorgridoperations) | Returns all Anchor Grid operations in the connection.
+[**GetBoltGridOperation**](docs/OperationApi.md#getboltgridoperation) | Returns the Bolt Grid operation with the given id, with all fields populated.
+[**GetBoltGridOperations**](docs/OperationApi.md#getboltgridoperations) | Returns all Bolt Grid operations in the connection.
 [**GetCommonOperationProperties**](docs/OperationApi.md#getcommonoperationproperties) | Gets common operation properties.
+[**GetContactGridOperation**](docs/OperationApi.md#getcontactgridoperation) | Returns the Contact Grid operation with the given id, with all fields populated.
+[**GetContactGridOperations**](docs/OperationApi.md#getcontactgridoperations) | Returns all Contact Grid operations in the connection.
+[**GetContactOperation**](docs/OperationApi.md#getcontactoperation) | Returns the Contact operation with the given id, with all fields populated.
+[**GetContactOperations**](docs/OperationApi.md#getcontactoperations) | Returns all Contact operations in the connection.
+[**GetCutOperation**](docs/OperationApi.md#getcutoperation) | Returns the Cut operation with the given id, with all fields populated.
+[**GetCutOperations**](docs/OperationApi.md#getcutoperations) | Returns all Cut operations in the connection.
+[**GetNegativeMemberOperation**](docs/OperationApi.md#getnegativememberoperation) | Returns the Negative Member operation with the given id, with all fields populated.
+[**GetNegativeMemberOperations**](docs/OperationApi.md#getnegativememberoperations) | Returns all Negative Member operations in the connection.
+[**GetNegativePlateOperation**](docs/OperationApi.md#getnegativeplateoperation) | Returns the Negative Plate operation with the given id, with all fields populated.
+[**GetNegativePlateOperations**](docs/OperationApi.md#getnegativeplateoperations) | Returns all Negative Plate operations in the connection.
 [**GetOperations**](docs/OperationApi.md#getoperations) | Gets the list of operations for the connection.
+[**GetPinGridOperation**](docs/OperationApi.md#getpingridoperation) | Returns the Pin Grid operation with the given id, with all fields populated.
+[**GetPinGridOperations**](docs/OperationApi.md#getpingridoperations) | Returns all Pin Grid operations in the connection.
+[**GetPlateCutOperation**](docs/OperationApi.md#getplatecutoperation) | Returns the Plate Cut operation with the given id, with all fields populated.
+[**GetPlateCutOperations**](docs/OperationApi.md#getplatecutoperations) | Returns all Plate Cut operations in the connection.
+[**GetStiffeningMemberOperation**](docs/OperationApi.md#getstiffeningmemberoperation) | Returns the Stiffening Member operation with the given id.
+[**GetStiffeningMemberOperations**](docs/OperationApi.md#getstiffeningmemberoperations) | Returns all Stiffening Member operations in the connection.
+[**GetStiffeningPlateOperation**](docs/OperationApi.md#getstiffeningplateoperation) | Returns the Stiffening Plate operation with the given id, with all fields populated.
+[**GetStiffeningPlateOperations**](docs/OperationApi.md#getstiffeningplateoperations) | Returns all Stiffening Plate operations in the connection.
+[**GetWeldOperation**](docs/OperationApi.md#getweldoperation) | Returns the Weld operation with the given id, with all fields populated.
+[**GetWeldOperations**](docs/OperationApi.md#getweldoperations) | Returns all Weld operations in the connection.
+[**GetWorkPlaneOperation**](docs/OperationApi.md#getworkplaneoperation) | Returns the Work Plane operation with the given id, with all fields populated.
+[**GetWorkPlaneOperations**](docs/OperationApi.md#getworkplaneoperations) | Returns all Work Plane operations in the connection.
 [**PreDesignWelds**](docs/OperationApi.md#predesignwelds) | Pre-designs welds in the connection.
+[**UpdateAnchorGridOperation**](docs/OperationApi.md#updateanchorgridoperation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateBoltGridOperation**](docs/OperationApi.md#updateboltgridoperation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**UpdateCommonOperationProperties**](docs/OperationApi.md#updatecommonoperationproperties) | Updates common properties for all operations.
+[**UpdateContactGridOperation**](docs/OperationApi.md#updatecontactgridoperation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateContactOperation**](docs/OperationApi.md#updatecontactoperation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateCutOperation**](docs/OperationApi.md#updatecutoperation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateNegativeMemberOperation**](docs/OperationApi.md#updatenegativememberoperation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateNegativePlateOperation**](docs/OperationApi.md#updatenegativeplateoperation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdatePinGridOperation**](docs/OperationApi.md#updatepingridoperation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdatePlateCutOperation**](docs/OperationApi.md#updateplatecutoperation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateStiffeningMemberOperation**](docs/OperationApi.md#updatestiffeningmemberoperation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateStiffeningPlateOperation**](docs/OperationApi.md#updatestiffeningplateoperation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+[**UpdateWeldOperation**](docs/OperationApi.md#updateweldoperation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateWorkPlaneOperation**](docs/OperationApi.md#updateworkplaneoperation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
   ### ParameterApi
 
   
@@ -350,14 +402,26 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CheckResSummary](docs/CheckResSummary.md)
  - [Model.CheckResWeld](docs/CheckResWeld.md)
  - [Model.CleatTemplateConversion](docs/CleatTemplateConversion.md)
+ - [Model.ConAddOperationResult](docs/ConAddOperationResult.md)
+ - [Model.ConAddedMemberPositioning](docs/ConAddedMemberPositioning.md)
+ - [Model.ConAddedMemberPositioningEnum](docs/ConAddedMemberPositioningEnum.md)
  - [Model.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [Model.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [Model.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
+ - [Model.ConAnchorGridOperation](docs/ConAnchorGridOperation.md)
+ - [Model.ConAnchorType](docs/ConAnchorType.md)
+ - [Model.ConBasePlateContactType](docs/ConBasePlateContactType.md)
+ - [Model.ConBlockType](docs/ConBlockType.md)
+ - [Model.ConBoltGridOperation](docs/ConBoltGridOperation.md)
+ - [Model.ConBoltShearTransfer](docs/ConBoltShearTransfer.md)
  - [Model.ConCalculationJob](docs/ConCalculationJob.md)
  - [Model.ConCalculationJobStatusEnum](docs/ConCalculationJobStatusEnum.md)
+ - [Model.ConConnectedItem](docs/ConConnectedItem.md)
  - [Model.ConConnection](docs/ConConnection.md)
  - [Model.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
  - [Model.ConConnectionTemplate](docs/ConConnectionTemplate.md)
+ - [Model.ConContactGridOperation](docs/ConContactGridOperation.md)
+ - [Model.ConContactOperation](docs/ConContactOperation.md)
  - [Model.ConConversionSettings](docs/ConConversionSettings.md)
  - [Model.ConCrossSection](docs/ConCrossSection.md)
  - [Model.ConCrossSectionCustomComponent](docs/ConCrossSectionCustomComponent.md)
@@ -379,9 +443,24 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConCssPoint2D](docs/ConCssPoint2D.md)
  - [Model.ConCssSegment](docs/ConCssSegment.md)
  - [Model.ConCssSwitchDimension](docs/ConCssSwitchDimension.md)
+ - [Model.ConCutByKind](docs/ConCutByKind.md)
+ - [Model.ConCutByTarget](docs/ConCutByTarget.md)
+ - [Model.ConCutMemberKind](docs/ConCutMemberKind.md)
+ - [Model.ConCutMemberTarget](docs/ConCutMemberTarget.md)
+ - [Model.ConCutOperation](docs/ConCutOperation.md)
+ - [Model.ConCuttingDirection](docs/ConCuttingDirection.md)
+ - [Model.ConCuttingMethod](docs/ConCuttingMethod.md)
+ - [Model.ConCuttingPlane](docs/ConCuttingPlane.md)
+ - [Model.ConDefinedBy](docs/ConDefinedBy.md)
  - [Model.ConDesignItem](docs/ConDesignItem.md)
  - [Model.ConDesignSet](docs/ConDesignSet.md)
  - [Model.ConDesignSetType](docs/ConDesignSetType.md)
+ - [Model.ConFastenerPosition](docs/ConFastenerPosition.md)
+ - [Model.ConFoundationBlockDto](docs/ConFoundationBlockDto.md)
+ - [Model.ConGridGeometry](docs/ConGridGeometry.md)
+ - [Model.ConGridGeometryType](docs/ConGridGeometryType.md)
+ - [Model.ConGridLayout](docs/ConGridLayout.md)
+ - [Model.ConGridPositions](docs/ConGridPositions.md)
  - [Model.ConItem](docs/ConItem.md)
  - [Model.ConLinkableProperty](docs/ConLinkableProperty.md)
  - [Model.ConLoadEffect](docs/ConLoadEffect.md)
@@ -389,6 +468,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
  - [Model.ConLoadEffectSectionLoad](docs/ConLoadEffectSectionLoad.md)
  - [Model.ConLoadSettings](docs/ConLoadSettings.md)
+ - [Model.ConLocalCoordinateSystem](docs/ConLocalCoordinateSystem.md)
+ - [Model.ConLocation](docs/ConLocation.md)
  - [Model.ConMember](docs/ConMember.md)
  - [Model.ConMemberAlignmentTypeEnum](docs/ConMemberAlignmentTypeEnum.md)
  - [Model.ConMemberConnectedByEnum](docs/ConMemberConnectedByEnum.md)
@@ -400,6 +481,8 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConMemberPosition](docs/ConMemberPosition.md)
  - [Model.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [Model.ConMprlElement](docs/ConMprlElement.md)
+ - [Model.ConNegativeMemberOperation](docs/ConNegativeMemberOperation.md)
+ - [Model.ConNegativePlateOperation](docs/ConNegativePlateOperation.md)
  - [Model.ConNonConformityIssue](docs/ConNonConformityIssue.md)
  - [Model.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [Model.ConOperation](docs/ConOperation.md)
@@ -408,20 +491,45 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
  - [Model.ConParameterLink](docs/ConParameterLink.md)
  - [Model.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
+ - [Model.ConPinGridOperation](docs/ConPinGridOperation.md)
+ - [Model.ConPlateCutOperation](docs/ConPlateCutOperation.md)
+ - [Model.ConPlateFunction](docs/ConPlateFunction.md)
+ - [Model.ConPlatePositioning](docs/ConPlatePositioning.md)
+ - [Model.ConPlatePositioningEnum](docs/ConPlatePositioningEnum.md)
+ - [Model.ConPlateShape](docs/ConPlateShape.md)
+ - [Model.ConPlateSide](docs/ConPlateSide.md)
+ - [Model.ConPolarInputType](docs/ConPolarInputType.md)
  - [Model.ConProductionCost](docs/ConProductionCost.md)
  - [Model.ConProject](docs/ConProject.md)
  - [Model.ConProjectData](docs/ConProjectData.md)
  - [Model.ConPropertyOwner](docs/ConPropertyOwner.md)
  - [Model.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
+ - [Model.ConReinforcementAnchorShape](docs/ConReinforcementAnchorShape.md)
+ - [Model.ConRemainingPart](docs/ConRemainingPart.md)
  - [Model.ConResultSummary](docs/ConResultSummary.md)
+ - [Model.ConShearForceTransferMethod](docs/ConShearForceTransferMethod.md)
+ - [Model.ConSlottedHole](docs/ConSlottedHole.md)
  - [Model.ConSteelCodeEditionEnum](docs/ConSteelCodeEditionEnum.md)
+ - [Model.ConStiffeningMemberOperation](docs/ConStiffeningMemberOperation.md)
+ - [Model.ConStiffeningMemberPlacement](docs/ConStiffeningMemberPlacement.md)
+ - [Model.ConStiffeningPlateOperation](docs/ConStiffeningPlateOperation.md)
+ - [Model.ConStiffeningPlateType](docs/ConStiffeningPlateType.md)
  - [Model.ConStiffnessAnalysis](docs/ConStiffnessAnalysis.md)
  - [Model.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
  - [Model.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [Model.ConTemplateCreateResult](docs/ConTemplateCreateResult.md)
  - [Model.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [Model.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
+ - [Model.ConWasherPlateShape](docs/ConWasherPlateShape.md)
+ - [Model.ConWeldData](docs/ConWeldData.md)
+ - [Model.ConWeldDataKind](docs/ConWeldDataKind.md)
+ - [Model.ConWeldOperation](docs/ConWeldOperation.md)
+ - [Model.ConWeldPlacement](docs/ConWeldPlacement.md)
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
+ - [Model.ConWeldType](docs/ConWeldType.md)
+ - [Model.ConWorkPlaneMethod](docs/ConWorkPlaneMethod.md)
+ - [Model.ConWorkPlaneOperation](docs/ConWorkPlaneOperation.md)
+ - [Model.ConWorkPlaneRelatedTo](docs/ConWorkPlaneRelatedTo.md)
  - [Model.ConcreteBlockData](docs/ConcreteBlockData.md)
  - [Model.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [Model.ConnectionCheckRes](docs/ConnectionCheckRes.md)
@@ -482,7 +590,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 5.0
-- SDK version: 26.1.0.4086
+- SDK version: 26.1.0.4201
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)
