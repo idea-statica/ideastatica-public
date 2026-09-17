@@ -33,19 +33,18 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         connection1 = connections_in_project[0]
         pprint(connection1)
 
-        # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [connection1.id]
+        # connections to calculate - the analysis type is taken from the connection itself
+        connection_ids = [connection1.id]
 
-        # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
+        # run the analysis for the connection
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(con1_cbfem_results)
 
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
         firstConnectionRawResult = results_text[0]
         pprint(firstConnectionRawResult)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams.connection_ids)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(detailed_results)
 
         connection_setup = api_client.settings.get_settings(api_client.project.active_project_id)
@@ -57,7 +56,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         modifiedSetup = api_client.settings.update_settings(api_client.project.active_project_id, modifiedSetupValues)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(recalculate_results)
 
     except Exception as e:

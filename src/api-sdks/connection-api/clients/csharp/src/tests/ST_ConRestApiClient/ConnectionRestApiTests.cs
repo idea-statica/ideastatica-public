@@ -310,15 +310,11 @@ namespace ST_ConnectionRestApi
 				var con1 = project2.Connections.First();
 				List<int> conToCalc = new List<int>() { con1.Id };
 
-				ConCalculationParameter conCalculationParameter = new ConCalculationParameter()
-				{
-					AnalysisType = ConAnalysisTypeEnum.Stress_Strain,
-					ConnectionIds = new List<int>() { con1.Id }
-				};
-
+				// The analysis type is taken from the connection itself (ConConnection.AnalysisType),
+				// so only the connection ids are sent.
 				await apiClient2!.Calculation!.CalculateAsync(project2.ProjectId, conToCalc);
 
-				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conCalculationParameter.ConnectionIds);
+				var cbfemResults = await apiClient2!.Calculation!.GetResultsAsync(project2.ProjectId, conToCalc);
 				cbfemResults.Should().NotBeEmpty();
 			}
 		}

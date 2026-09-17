@@ -86,14 +86,12 @@ namespace Example
                         return;
                     }
 
-                    // request to run plastic CBFEM for all connections in the project
-                    ConCalculationParameter conCalcParam = new ConCalculationParameter()
-                    {
-                        AnalysisType = ConAnalysisTypeEnum.Stress_Strain,
-                        ConnectionIds = projData.Connections.Select(c => c.Id).ToList()
-                    };
+                    // request to run CBFEM for all connections in the project.
+                    // The analysis type is taken from each connection (ConConnection.AnalysisType) -
+                    // set it with a connection update before calculating.
+                    List<int> connectionIds = projData.Connections.Select(c => c.Id).ToList();
 
-                    var cbfemResult = await conClient.Calculation.CalculateAsync(projData.ProjectId, conCalcParam, 0, cancellationToken);
+                    var cbfemResult = await conClient.Calculation.CalculateAsync(projData.ProjectId, connectionIds, 0, cancellationToken);
                     await conClient.Project.CloseProjectAsync(projData.ProjectId);
                 }
             }

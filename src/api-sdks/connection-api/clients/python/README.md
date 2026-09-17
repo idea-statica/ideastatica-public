@@ -113,24 +113,25 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         connection1 = connections_in_project[0]
         pprint(connection1)
 
-        # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [connection1.id]
+        # connections to calculate
+        # the analysis type is taken from the connection itself (connection1.analysis_type),
+        # set it with api_client.connection.update_connection before calculating
+        connection_ids = [connection1.id]
 
-        # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        # run CBFEM analysis for the connection
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(con1_cbfem_results)
-        
+
         # get detailed results. Results are list of strings
         # the number of strings in the list correspond to the number of calculated connections
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
         firstConnectionResult = results_text[0]
         pprint(firstConnectionResult)
 
         raw_results = json.loads(firstConnectionResult)
         pprint(raw_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(detailed_results)
 
         # get connection setup
@@ -142,7 +143,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(recalculate_results)
 
     except Exception as e:
