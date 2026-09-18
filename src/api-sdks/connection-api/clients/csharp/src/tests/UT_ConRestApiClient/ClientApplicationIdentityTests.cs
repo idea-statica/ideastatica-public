@@ -1,6 +1,6 @@
 using IdeaStatiCa.ConnectionApi;
 
-namespace ST_ConRestApiClient
+namespace UT_ConRestApiClient
 {
 	/// <summary>
 	/// What an application is allowed to call itself towards the service. The value travels in a
