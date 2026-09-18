@@ -45,15 +45,14 @@ async def main():
                 connection1 = connections_in_project[0]
                 pprint(connection1)
 
-                # Run stress-strain CBFEM analysis for the first connection
-                calc_params = ideastatica_connection_api.ConCalculationParameter()
-                calc_params.connection_ids = [connection1.id]
+                # Connections to calculate - the analysis type is taken from the connection itself
+                connection_ids = [connection1.id]
 
-                con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calc_params)
+                con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
                 pprint(con1_cbfem_results)
 
                 # Get detailed results
-                results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calc_params)
+                results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
                 first_connection_result = results_text[0]
                 raw_results = json.loads(first_connection_result)
                 pprint(raw_results)
@@ -64,7 +63,7 @@ async def main():
                 modified_setup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
                 # Recalculate connection
-                recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calc_params)
+                recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
                 pprint(recalculate_results)
 
             except Exception as e:

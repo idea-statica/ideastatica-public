@@ -191,16 +191,31 @@ namespace IdeaStatiCa.BIM.Common
 		private const double InclinationToleranceCos0 = 0.087156; // cos(85°)
 		private const double degrees5 = 5 * Math.PI / 180; // 5°
 
+		/// <summary>
+		/// Groups the items of <paramref name="data"/> into joints. The collections on <paramref name="data"/> are
+		/// replaced by their de-duplicated form, so a caller reading them afterwards sees what was actually sorted.
+		/// <para>
+		/// Fabrication is placed in two phases. First by GEOMETRY: whatever falls inside a node's bounding box, which
+		/// the box then grows around (<see cref="AddPlates"/>). That is circular for a plate the box does not reach -
+		/// it is not taken, so it never widens the box towards itself, so it stays untaken, and the fixpoint loop that
+		/// exists to break such a chain never starts. Then by FABRICATION REFERENCE
+		/// (<see cref="RecoverPlatesByWeldReference"/>): a weld says which parts touch, so a plate welded to something
+		/// a joint already holds belongs to that joint, up to <see cref="WithinRecoveryReach"/>. The second phase only
+		/// ever ADDS, and it runs after member capture, so it cannot change a joint's members, their roles or its
+		/// location.
+		/// </para>
+		/// </summary>
 		public SorterResult Sort(SorterData data, SorterSettings settings)
 		{
 #if DEBUG
 			AssignIds(data);
 #endif
-			// Distinct all items
-			data.Members = data.Members?.Distinct(ItemComparer<Member>.Instance);
-			data.Plates = data.Plates?.Distinct(ItemComparer<Plate>.Instance);
-			data.Fasteners = data.Fasteners?.Distinct(ItemComparer<FastenerGrid>.Instance);
-			data.Welds = data.Welds?.Distinct(ItemComparer<Weld>.Instance);
+			// Distinct all items. Materialized, because the joint loop and the leftover pass below both re-enumerate
+			// these, and a deferred Distinct would re-run per enumeration.
+			data.Members = data.Members?.Distinct(ItemComparer<Member>.Instance).ToList();
+			data.Plates = data.Plates?.Distinct(ItemComparer<Plate>.Instance).ToList();
+			data.Fasteners = data.Fasteners?.Distinct(ItemComparer<FastenerGrid>.Instance).ToList();
+			data.Welds = data.Welds?.Distinct(ItemComparer<Weld>.Instance).ToList();
 
 			var orderMembers = data.Members.OrderByDescending(GetBiggestMemberSelector);
 
@@ -241,6 +256,7 @@ namespace IdeaStatiCa.BIM.Common
 			}
 
 			var joints = new List<Joint>();
+			var buildByJoint = new Dictionary<Joint, JointBuild>();
 			var excluded = new List<Node>();
 
 			var sourcePlates = data.Plates?.ToList() ?? new List<Plate>();
@@ -260,7 +276,12 @@ namespace IdeaStatiCa.BIM.Common
 
 				var fasteners = data.Fasteners?.Where(f => node.Contains(f.LCS.Origin)).ToArray() ?? new FastenerGrid[0];
 
-				var parts = members.Select(m => m.m).OfType<Item>().Concat(plates).ToArray();
+				// weldMembers is kept for the weld recomputation the reference phase needs: the members a weld is
+				// matched against are these, taken BEFORE the stiffening ones are split off below and never including
+				// the additional stiffening members found afterwards. The two must agree, or a plate could be
+				// recovered into a joint whose weld collection then refuses the weld that put it there.
+				var weldMembers = members.Select(m => m.m).OfType<Item>().ToArray();
+				var parts = weldMembers.Concat(plates).ToArray();
 				var welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
 
 				var stiffeningMembers = members.Where(m => node.Contains(m.m.Begin) && node.Contains(m.m.End)).ToList();
@@ -325,14 +346,352 @@ namespace IdeaStatiCa.BIM.Common
 					};
 
 					joints.Add(joint);
+					// What the joint was built from: the node (so a discarded item can be measured against the very
+					// box that rejected it, and so the reference phase can widen it), the live plate list Joint.Plates
+					// shares, and the member set welds are matched against.
+					buildByJoint[joint] = new JointBuild(node, plates, weldMembers);
+				}
+				else
+				{
+					// The candidate is dropped for having no structural member - but AddPlates has already taken its
+					// plates out of the shared pool, and a dropped candidate hands nothing back, so without this no
+					// later joint could ever claim them.
+					sourcePlates.AddRange(plates);
 				}
 			}
+
+			// Only the joints that actually gained a plate: those have a wider box and a longer parts list, so their
+			// fasteners and welds have to be collected again. Every other joint is untouched, and re-matching welds
+			// is the same quadratic pass the assembly loop already paid - running it model-wide because one plate
+			// moved somewhere would double it for no change. A model with nothing to recover therefore does not
+			// merely equal today's result, it reaches it by the same route.
+			var gainedPlates = RecoverPlatesByWeldReference(data, joints, buildByJoint, sourcePlates, settings);
+			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint);
 
 #if DEBUG
 			TestCaseHelper.CreateTestCaseData(data, new SorterResult(joints));
 #endif
 
 			return new SorterResult(joints);
+		}
+
+		/// <summary>
+		/// Second placement phase (see <see cref="Sort"/>): gives a plate no box reached to the joint a weld says it
+		/// touches. A weld's two items are in physical contact, so the joint holding one of them is where the other
+		/// belongs - no distance threshold is involved, which is the point: the geometric phase already failed and
+		/// widening its box further is what this avoids.
+		/// <para>
+		/// A welded member can span several nodes and so belong to several joints (a column reaches every floor it
+		/// passes), so the joint NEAREST the plate wins, tie-broken on the joint's own location. Iterated to a
+		/// fixpoint, because a recovered plate can be the other item of the next weld. Terminates: every pass removes
+		/// at least one plate from a finite pool.
+		/// </para>
+		/// <para>
+		/// Bounded by <see cref="RecoveryReach"/>. The two items of a weld touch, but the JOINT holding one of them
+		/// need not be near that contact: a member spans, so a cleat welded at its mid-span would otherwise be
+		/// recovered into a joint metres away and appear in a connection it has nothing to do with. Being dropped is
+		/// the better failure there - it is visible in the unassigned trace, whereas a misplaced plate is not.
+		/// </para>
+		/// Returns the joints that gained a plate, so only those need their fasteners and welds collected again.
+		/// </summary>
+		private static HashSet<Joint> RecoverPlatesByWeldReference(
+			SorterData data,
+			List<Joint> joints,
+			Dictionary<Joint, JointBuild> buildByJoint,
+			List<Plate> sourcePlates,
+			SorterSettings settings)
+		{
+			var gainedPlates = new HashSet<Joint>();
+			if (data.Welds == null || joints.Count == 0 || sourcePlates.Count == 0)
+			{
+				return gainedPlates;
+			}
+
+			// Indexed once: without it this is O(leftover plates x welds x joints x parts) per pass, and a whole-model
+			// selection feeds tens of thousands of welds through it. Item's equality routes through CustomComparer,
+			// so a plain Dictionary keys on CAD identity like everything else here.
+			var weldsByItem = new Dictionary<Item, List<Weld>>();
+			foreach (var weld in data.Welds)
+			{
+				IndexWeld(weldsByItem, weld.FirstItem, weld);
+				IndexWeld(weldsByItem, weld.SecondItem, weld);
+			}
+
+			bool recovered;
+			do
+			{
+				recovered = false;
+				// Rebuilt per pass rather than per plate, and only a handful of passes ever run.
+				var jointsByItem = new Dictionary<Item, List<Joint>>();
+				foreach (var joint in joints)
+				{
+					foreach (var part in buildByJoint[joint].Parts())
+					{
+						if (!jointsByItem.TryGetValue(part, out var holders))
+						{
+							jointsByItem[part] = holders = new List<Joint>();
+						}
+						holders.Add(joint);
+					}
+				}
+
+				for (var i = sourcePlates.Count - 1; i >= 0; --i)
+				{
+					var plate = sourcePlates[i];
+					var target = FindJointWeldedTo(plate, weldsByItem, jointsByItem, buildByJoint);
+					if (target == null)
+					{
+						continue;
+					}
+
+					var build = buildByJoint[target];
+					// Joint.Plates shares this list, so the joint gains the plate with it.
+					build.Plates.Add(plate);
+					sourcePlates.RemoveAt(i);
+					// Widen the box around what the joint now holds, exactly as AddPlates does when it takes a plate.
+					// This is what lets the fastener pass find a grid that sat just outside the un-widened box.
+					build.Node.Inflate(plate.Contour.Select(p => p.ToMediaPoint()).ToArray(), settings.MaxInflateExtent);
+					gainedPlates.Add(target);
+					recovered = true;
+				}
+			}
+			while (recovered);
+
+			return gainedPlates;
+		}
+
+		private static void IndexWeld(Dictionary<Item, List<Weld>> index, Item item, Weld weld)
+		{
+			if (item == null)
+			{
+				return;
+			}
+
+			if (!index.TryGetValue(item, out var welds))
+			{
+				index[item] = welds = new List<Weld>();
+			}
+			welds.Add(weld);
+		}
+
+		// The joint nearest to the plate among those holding the other item of a weld on this plate and within that
+		// joint's reach, or null when no weld ties the plate to a joint close enough. The tie-break is the candidate
+		// joint's own rounded location, so an exact distance tie is decided geometrically rather than by the order the
+		// joints happen to sit in the list.
+		private static Joint FindJointWeldedTo(
+			Plate plate,
+			Dictionary<Item, List<Weld>> weldsByItem,
+			Dictionary<Item, List<Joint>> jointsByItem,
+			Dictionary<Joint, JointBuild> buildByJoint)
+		{
+			if (!weldsByItem.TryGetValue(plate, out var welds))
+			{
+				return null;
+			}
+
+			Joint best = null;
+			var bestDistance = double.PositiveInfinity;
+			(double, double, double) bestKey = default;
+
+			foreach (var weld in welds)
+			{
+				var other = OtherWeldedItem(weld, plate);
+				if (other == null || !jointsByItem.TryGetValue(other, out var holders))
+				{
+					continue;
+				}
+
+				foreach (var joint in holders)
+				{
+					var build = buildByJoint[joint];
+					if (!WithinRecoveryReach(build, plate))
+					{
+						continue;
+					}
+
+					// Measured from the NODE, which is where the box the reach was tested against is anchored;
+					// Joint.Location can be relocated onto the bearing member's reference line and then sits a little
+					// off it, which would make the distance and the reach disagree about the same plate.
+					var distance = DistanceToJoint(plate, build.Node.Location);
+					var key = LocationKey(joint.Location);
+					var better = best == null
+						|| distance < bestDistance - GeometryTieTolerance
+						|| (Math.Abs(distance - bestDistance) <= GeometryTieTolerance && key.CompareTo(bestKey) < 0);
+					if (better)
+					{
+						best = joint;
+						bestDistance = distance;
+						bestKey = key;
+					}
+				}
+			}
+
+			return best;
+		}
+
+		/// <summary>How much further than its own box a joint may reach for a plate a weld points at.</summary>
+		private const double RecoveryReachFactor = 3.0;
+
+		// The reach keeps the SHAPE of the node box, not just its size: a single radius would have to come from the
+		// largest half-extent, which is always the along-member one, and would then reach several times further
+		// across the member than along it - in the direction the geometric phase deliberately keeps tight. Scaling
+		// the box instead means the reach is anisotropic exactly as the node is. Taken from the box AT DETECTION, so
+		// one recovery cannot widen a node into reaching for the next.
+		private static bool WithinRecoveryReach(JointBuild build, Plate plate)
+		{
+			var reach = Scaled(build.BoxAtDetection, RecoveryReachFactor);
+			foreach (var point in PlacementPoints(plate))
+			{
+				if (build.Node.BoxOverflow(point.ToMediaPoint(), reach).LengthSquared <= 0.0)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private static CI.Common.BoundingBox3D Scaled(CI.Common.BoundingBox3D box, double factor)
+		{
+			return new CI.Common.BoundingBox3D
+			{
+				MinX = box.MinX * factor,
+				MaxX = box.MaxX * factor,
+				MinY = box.MinY * factor,
+				MaxY = box.MaxY * factor,
+				MinZ = box.MinZ * factor,
+				MaxZ = box.MaxZ * factor,
+			};
+		}
+
+		// The item on the far side of a weld from <paramref name="item"/>, or null when the weld does not touch it.
+		// Null-safe on both sides: a link may hand over a weld with an unresolved side, and Item.Equals dereferences
+		// its operand through the comparer (Array.Contains is null-safe only because ObjectEqualityComparer
+		// short-circuits before reaching Equals).
+		private static Item OtherWeldedItem(Weld weld, Item item)
+		{
+			if (SameItem(weld.FirstItem, item))
+			{
+				return weld.SecondItem;
+			}
+
+			return SameItem(weld.SecondItem, item) ? weld.FirstItem : null;
+		}
+
+		private static bool SameItem(Item a, Item b)
+		{
+			return a != null && b != null && a.Equals(b);
+		}
+
+		// Distance from the joint to the nearest of the plate's own points - the same points the geometric phase
+		// tests it by, so "nearest joint" means the same thing in both phases.
+		private static double DistanceToJoint(Plate plate, IPoint3D jointLocation)
+		{
+			var nearest = double.PositiveInfinity;
+			foreach (var point in PlacementPoints(plate))
+			{
+				var distance = GeomOperation.Distance(point, jointLocation);
+				if (distance < nearest)
+				{
+					nearest = distance;
+				}
+			}
+
+			return nearest;
+		}
+
+		/// <summary>Distance difference below which two candidates count as tied, so a geometric key decides instead of list order.</summary>
+		private const double GeometryTieTolerance = 1e-9;
+
+		private static (double, double, double) LocationKey(IPoint3D p)
+		{
+			return (Math.Round(p.X, 6), Math.Round(p.Y, 6), Math.Round(p.Z, 6));
+		}
+
+		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
+		// deliberately left alone: they were settled before any recovery, and re-deriving them from a box that the
+		// reference phase widened is how a joint would start swallowing members that geometry had kept apart.
+		private static void RefreshFastenersAndWelds(SorterData data, HashSet<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint)
+		{
+			foreach (var joint in joints)
+			{
+				var build = buildByJoint[joint];
+				joint.Fasteners = data.Fasteners?.Where(f => build.Node.Contains(f.LCS.Origin)).ToArray() ?? new FastenerGrid[0];
+
+				var parts = build.Parts();
+				joint.Welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
+			}
+		}
+
+		// What one joint was assembled from, kept past the assembly loop so the reference phase can add to it.
+		private sealed class JointBuild
+		{
+			private readonly Item[] _weldMembers;
+
+			public JointBuild(Node node, List<Plate> plates, Item[] weldMembers)
+			{
+				Node = node;
+				Plates = plates;
+				_weldMembers = weldMembers;
+				BoxAtDetection = new CI.Common.BoundingBox3D(node.Surroundings);
+			}
+
+			public Node Node { get; }
+
+			/// <summary>
+			/// The node's box as the geometric phase left it, before the reference phase widened it. This is the box
+			/// that actually accepted or rejected each item, so it is what a discarded item must be measured against,
+			/// and what bounds how far a reference may reach.
+			/// </summary>
+			public CI.Common.BoundingBox3D BoxAtDetection { get; }
+
+			/// <summary>The very list <see cref="Joint.Plates"/> holds, so adding to it adds to the joint.</summary>
+			public List<Plate> Plates { get; }
+
+			/// <summary>The items a weld of this joint is matched against - the same set the assembly loop used.</summary>
+			public Item[] Parts()
+			{
+				return _weldMembers.Concat(Plates).ToArray();
+			}
+
+		}
+
+		// The item's own points a joint could have caught it by: a member's two ends, a fastener grid's LCS origin, a
+		// plate's vertices and the three centres AddPlates derives from them. A weld has none - it is placed by its
+		// welded items - so it yields no point and gets no distance.
+		private static IReadOnlyList<IPoint3D> PlacementPoints(Item item)
+		{
+			if (item is Member member)
+			{
+				return new[] { member.Begin, member.End };
+			}
+
+			if (item is FastenerGrid fastener)
+			{
+				return new[] { fastener.LCS.Origin };
+			}
+
+			if (item is Plate plate)
+			{
+				var points = new List<IPoint3D>(plate.Contour);
+				// A contour of fewer than three points has no centre to derive. AddPlates never meets one, because it
+				// would throw on it — but it does not run at all when no node was formed, which is how one gets here.
+				if (plate.Contour.Count >= 3)
+				{
+					var vertices = plate.Contour.Select(p => p.ToMediaPoint()).ToArray();
+					points.Add(ToPoint3D(CentreOfVertices(vertices)));
+					points.Add(ToPoint3D(CentreOfEdges(vertices)));
+					points.Add(ToPoint3D(GetCentreOfGravity(vertices)));
+				}
+				return points;
+			}
+
+			return Array.Empty<IPoint3D>();
+		}
+
+		private static Point3D ToPoint3D(WM.Point3D point)
+		{
+			return new Point3D(point.X, point.Y, point.Z);
 		}
 
 		public static (Member m, bool isended) SelectBearingMember(IEnumerable<(Member m, bool isended)> members, Node node)
@@ -909,9 +1268,45 @@ namespace IdeaStatiCa.BIM.Common
 
 			public bool Contains(WM.Point3D point, double tolerance = DefaultTolerance)
 			{
+				return Surroundings.IsPointInside(ToSurroundings(point), tolerance);
+			}
+
+			/// <summary>
+			/// By how much <paramref name="point"/> lies OUTSIDE <paramref name="box"/>, per axis, and zero on an axis
+			/// it is within - so all-zero against <see cref="Surroundings"/> means <see cref="Contains(WM.Point3D, double)"/>
+			/// accepts it. The box is passed in rather than read off the node because <see cref="Surroundings"/> keeps
+			/// growing after the geometric phase, and measuring a discarded item against the grown box would report a
+			/// box that never rejected anything.
+			/// <para>
+			/// The axes are <see cref="Master"/>'s LCS, the very axes <see cref="SorterSettings.EnlargeNodeXin"/> /
+			/// <see cref="SorterSettings.EnlargeNodeXout"/>, <see cref="SorterSettings.EnlargeNodeY"/> and
+			/// <see cref="SorterSettings.EnlargeNodeZ"/> scale, so the overflow says which of them fell short.
+			/// </para>
+			/// </summary>
+			public WM.Vector3D BoxOverflow(WM.Point3D point, CI.Common.BoundingBox3D box)
+			{
+				var p = ToSurroundings(point);
+				return new WM.Vector3D(
+					AxisOverflow(p.X, box.MinX, box.MaxX),
+					AxisOverflow(p.Y, box.MinY, box.MaxY),
+					AxisOverflow(p.Z, box.MinZ, box.MaxZ));
+			}
+
+			// The point in the frame Surroundings is expressed in: master LCS axes, origin at the node location.
+			private WM.Point3D ToSurroundings(WM.Point3D point)
+			{
 				var pointInLCS = Master.LCS.TransformToLCS(point);
-				var pointInSurroundings = GeomOperation.Subtract(pointInLCS, LocationInLCS).ToMediaPoint();
-				return Surroundings.IsPointInside(pointInSurroundings, tolerance);
+				return GeomOperation.Subtract(pointInLCS, LocationInLCS).ToMediaPoint();
+			}
+
+			private static double AxisOverflow(double value, double min, double max)
+			{
+				if (value < min)
+				{
+					return min - value;
+				}
+
+				return value > max ? value - max : 0.0;
 			}
 
 			public bool Inflate(Node n, double maxExtent = -1)

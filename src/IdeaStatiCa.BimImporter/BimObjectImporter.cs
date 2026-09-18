@@ -75,11 +75,11 @@ namespace IdeaStatiCa.BimImporter
 
 			if (!(bimItems is null))
 			{
+				IList<IBimItem> items = Materialize(bimItems);
 				int i = 1;
-				int count = bimItems.Count();
-				foreach (IBimItem bimItem in bimItems)
+				foreach (IBimItem bimItem in items)
 				{
-					_remoteApp?.SetStageLocalised(i, count, bimItem is Member ? LocalisedMessage.ImportingMembers : LocalisedMessage.ImportingConnections);
+					_remoteApp?.SetStageLocalised(i, items.Count, bimItem is Member ? LocalisedMessage.ImportingMembers : LocalisedMessage.ImportingConnections);
 					importContext.ImportBimItem(bimItem);
 					i++;
 				}
@@ -88,11 +88,11 @@ namespace IdeaStatiCa.BimImporter
 			if (!(objects is null))
 			{
 				_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.InternalImport);
+				IList<IIdeaObject> items = Materialize(objects);
 				int i = 1;
-				int count = objects.Count();
-				foreach (IIdeaObject obj in objects)
+				foreach (IIdeaObject obj in items)
 				{
-					_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.ImportingIOMObject);
+					_remoteApp?.SetStageLocalised(i, items.Count, LocalisedMessage.ImportingIOMObject);
 					importContext.Import(obj);
 					i++;
 				}
@@ -109,5 +109,13 @@ namespace IdeaStatiCa.BimImporter
 				Results = importContext.OpenModelResult
 			};
 		}
+
+		/// <summary>
+		/// Takes the sequence down to a list that can be counted and walked without enumerating it twice.
+		/// Callers pass deferred sequences that re-read every entity from the BIM application on each
+		/// enumeration, so counting one for the progress stage would import the whole model again.
+		/// </summary>
+		private static IList<T> Materialize<T>(IEnumerable<T> source)
+			=> source as IList<T> ?? source.ToList();
 	}
 }

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **analysis_type** | [**ConAnalysisTypeEnum**](ConAnalysisTypeEnum.md) |  | [optional] 
 **is_calculated** | **bool** |  | [optional] [readonly] 
 **include_buckling** | **bool** |  | [optional] 
+**steel_edition** | [**ConSteelCodeEditionEnum**](ConSteelCodeEditionEnum.md) |  | [optional] 
 
 ## Example
 

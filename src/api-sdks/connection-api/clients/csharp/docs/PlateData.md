@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the plate | [optional] 
 **Thickness** | **double** | Thickness of the plate | [optional] 
-**Material** | **string** | Name of the material | [optional] 
+**Material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **OutlinePoints** | [**List&lt;Point2D&gt;**](Point2D.md) | Outline points | [optional] 
 **Origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **AxisX** | [**Vector3D**](Vector3D.md) |  | [optional] 

@@ -199,6 +199,137 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			return identifiers;
 		}
 
+		/// <summary>
+		/// CAD re-sync discovery. From the joint's known member parts, follows near-joint welds and bolts to the sibling
+		/// parts they connect (an added stiffener plate is welded/bolted to a member, so it is reachable this way) and
+		/// classifies every reached object with <see cref="GetIdentifier"/>. Transitive (a plate welded to a plate welded
+		/// to a member is still reached) and bounded by the same near-joint proximity filter the per-member walk uses, so
+		/// it stays local to this joint. Seed members are walked with addToCollection:false — their own cuts/bolts/welds
+		/// are re-classified but the member itself is not re-added as a plate — mirroring the import member walk.
+		/// </summary>
+		internal static List<IIdentifier> GetConnectedIdentifiers(IModelClient model, IEnumerable<string> memberHandles, Point connectionPoint)
+		{
+			var identifiers = new List<IIdentifier>();
+			if (model == null || memberHandles == null || connectionPoint == null)
+			{
+				return identifiers;
+			}
+
+			var visited = new HashSet<string>();
+			var queue = new Queue<(Part part, bool isSeedMember)>();
+			foreach (string handle in memberHandles)
+			{
+				if (string.IsNullOrEmpty(handle) || !visited.Add(handle))
+				{
+					continue;
+				}
+
+				if (model.GetItemByHandler(handle) is Part memberPart)
+				{
+					queue.Enqueue((memberPart, true));
+				}
+			}
+
+			while (queue.Count > 0)
+			{
+				var (part, isSeedMember) = queue.Dequeue();
+
+				// Seed members: classify their own children only (addToCollection:false → the member is not re-added as a
+				// plate), like the import member walk. Discovered siblings: full classification (adds the stiffener plate).
+				identifiers = GetIdentifier(part, ref identifiers, !isSeedMember, connectionPoint);
+
+				foreach (Part sibling in GetConnectedSiblingParts(part, connectionPoint))
+				{
+					if (sibling != null && visited.Add(sibling.Identifier.GUID.ToString()))
+					{
+						queue.Enqueue((sibling, false));
+					}
+				}
+			}
+
+			return identifiers;
+		}
+
+		/// <summary>
+		/// Sibling parts connected to <paramref name="part"/> through its near-joint welds and bolts. Only welds/bolts
+		/// whose coordinate-system origin is near the connection (the same filter <see cref="GetIdentifier"/> applies to a
+		/// member's own welds/bolts) are followed, so the connectivity walk does not leak into a neighbouring joint.
+		/// </summary>
+		private static IEnumerable<Part> GetConnectedSiblingParts(Part part, Point connectionPoint)
+		{
+			var welds = part.GetWelds();
+			while (welds.MoveNext())
+			{
+				if (!(welds.Current is BaseWeld weld))
+				{
+					continue;
+				}
+
+				var origin = weld.GetCoordinateSystem()?.Origin as Point;
+				if (origin == null || !IsPointNearOfConnection(connectionPoint, part, origin))
+				{
+					continue;
+				}
+
+				if (weld.MainObject is Part main && !main.Identifier.Equals(part.Identifier))
+				{
+					yield return main;
+				}
+
+				if (weld.SecondaryObject is Part secondary && !secondary.Identifier.Equals(part.Identifier))
+				{
+					yield return secondary;
+				}
+			}
+
+			var bolts = part.GetBolts();
+			while (bolts.MoveNext())
+			{
+				if (!(bolts.Current is BoltGroup boltGroup))
+				{
+					continue;
+				}
+
+				var origin = boltGroup.GetCoordinateSystem()?.Origin as Point;
+				if (origin == null || !IsPointNearOfConnection(connectionPoint, part, origin))
+				{
+					continue;
+				}
+
+				foreach (Part boltedPart in ConnectedBoltParts(boltGroup))
+				{
+					if (!boltedPart.Identifier.Equals(part.Identifier))
+					{
+						yield return boltedPart;
+					}
+				}
+			}
+		}
+
+		private static IEnumerable<Part> ConnectedBoltParts(BoltGroup boltGroup)
+		{
+			if (boltGroup.PartToBoltTo is Part boltTo)
+			{
+				yield return boltTo;
+			}
+
+			if (boltGroup.PartToBeBolted is Part beBolted)
+			{
+				yield return beBolted;
+			}
+
+			if (boltGroup.OtherPartsToBolt != null)
+			{
+				foreach (var other in boltGroup.OtherPartsToBolt)
+				{
+					if (other is Part otherPart)
+					{
+						yield return otherPart;
+					}
+				}
+			}
+		}
+
 		private static void AddConcreteBlockToAnchor(List<IIdentifier> identifiers)
 		{
 			var concreteBlock = identifiers.Find(id => id is StringIdentifier<IIdeaConcreteBlock>) as StringIdentifier<IIdeaConcreteBlock>;

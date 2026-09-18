@@ -10,7 +10,8 @@ Steps performed (real method names from the script):
 2. `api_client.project.open_project_from_filepath(project_file_path)` — open the `.ideaCon` project.
 3. `api_client.project.get_project_data(...)` and `api_client.connection.get_connections(...)` — print project data and pick the first connection.
 4. `api_client.member.set_bearing_member(...)` — set member id 2 as the analyzed member.
-5. Build `ConCalculationParameter()` with `connection_ids` and `analysis_type = "stiffness"`, then `api_client.calculation.get_raw_json_results(...)` — run the stiffness analysis and read the raw JSON results (the script parses the `stiffnesess` section).
+5. Set `connection1.analysis_type = "stiffness"` and `api_client.connection.update_connection(...)` — the analysis type is taken from the connection, not from the calculation request.
+6. `api_client.calculation.get_raw_json_results(..., connection_ids)` — run the stiffness analysis and read the raw JSON results (the script parses the `stiffnesess` section).
 
 ## How to run
 

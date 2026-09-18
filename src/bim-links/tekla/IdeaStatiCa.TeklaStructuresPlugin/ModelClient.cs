@@ -24,13 +24,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 	{
 		private readonly TS.Model teklaModel;
 		private readonly IPluginLogger plugInLogger;
+		private readonly BIM.Common.SorterSettings sorterSettings;
 
 		private readonly Dictionary<IIdentifier, IIdeaObject> cachedObjects;
 
-		public ModelClient(TS.Model teklaModel, IPluginLogger plugInLogger)
+		public ModelClient(TS.Model teklaModel, IPluginLogger plugInLogger, BIM.Common.SorterSettings sorterSettings)
 		{
 			this.teklaModel = teklaModel;
 			this.plugInLogger = plugInLogger;
+			this.sorterSettings = sorterSettings;
 			cachedObjects = new Dictionary<IIdentifier, IIdeaObject>();
 		}
 
@@ -358,7 +360,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				plugInLogger.LogInformation($"GetSelectObjects - process user selection");
 				var selectedItems = ProcessUserSelection(partsEnumerator);
 
-				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems);
+				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems, sorterSettings);
 
 
 				plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");

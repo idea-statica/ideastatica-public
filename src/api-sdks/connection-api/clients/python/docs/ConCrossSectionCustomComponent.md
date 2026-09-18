@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**outline** | [**List[ConCssPoint2D]**](ConCssPoint2D.md) |  | [optional] 
-**openings** | **List[List[ConCssPoint2D]]** |  | [optional] 
+**outline** | [**List[ConCrossSectionCustomComponentOutlineInner]**](ConCrossSectionCustomComponentOutlineInner.md) |  | [optional] 
+**openings** | **List[List[ConCrossSectionCustomComponentOutlineInner]]** |  | [optional] 
 **material_name** | **str** |  | [optional] 
 
 ## Example

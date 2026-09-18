@@ -44,38 +44,36 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
 
         # run stress-strain CBFEM analysis for the connection id = 1
         # the analysis type is taken from the connection itself (see update_connection below)
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate
-        calcParams.connection_ids = [connection1.id]    # calculate only connection1
+        connection_ids = [connection1.id]    # calculate only connection1
 
         # run stress-strain analysis for connection1
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
 
         #results stress-strain analysis
         pprint(con1_cbfem_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(detailed_results)
 
         # run Fatigue analysis for connection1
 
-        # set analysis type stress-strain
-        calcParams.analysis_type = "fatigues"
-        connection1.analysis_type = calcParams.analysis_type
+        # set analysis type fatigue on the connection - the calculation request carries only ids
+        connection1.analysis_type = "fatigues"
         updated_connection1 = api_client.connection.update_connection(api_client.project.active_project_id, connection1.id, connection1)
 
         if(connection1.analysis_type != updated_connection1.analysis_type):
             raise ValueError("Connection analysis type was not updated successfully.")
 
         # re-run analysis for the connection - now analysis_type is "fatigues"
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams.connection_ids)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
 
         # results Fatigue analysis
         pprint(con1_cbfem_results)
 
-        fatiguedetailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        fatiguedetailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(fatiguedetailed_results)
 
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
         firstConnectionRawResult = results_text[0]
         pprint(firstConnectionRawResult)
 

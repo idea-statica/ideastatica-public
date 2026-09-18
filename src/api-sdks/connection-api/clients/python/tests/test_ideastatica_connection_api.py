@@ -1,16 +1,15 @@
-import sys
 import os
 from pprint import pprint
 from urllib.parse import urljoin
 
-# Get the parent directory
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-# Add the parent directory to sys.path
-sys.path.append(parent_dir)
+import pytest
 
 import ideastatica_connection_api
 import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
+
+# Every test here drives a Connection REST API service running at baseUrl. CI runs the offline tests
+# only, see README.md.
+pytestmark = pytest.mark.requires_service
 
 
 baseUrl = "http://localhost:5000"

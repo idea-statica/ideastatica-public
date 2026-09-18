@@ -253,13 +253,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			WM.Vector3D pltAxisZ = new WM.Vector3D(axisZ.X, axisZ.Y, axisZ.Z);
 			pltAxisZ.Normalize();
 
-			List<WM.Point3D> points = new List<WM.Point3D>();
-			List<CI.Geometry3D.IPoint3D> cIPoints = new List<CI.Geometry3D.IPoint3D>();
+			List<CI.Geometry3D.IPoint3D> contourPoints = new List<CI.Geometry3D.IPoint3D>();
 			foreach (ContourPoint point in node.Contour.ContourPoints)
 			{
-				points.Add(new WM.Point3D(point.X, point.Y, point.Z));
-				cIPoints.Add(new CI.Geometry3D.Point3D(point.X, point.Y, point.Z));
+				contourPoints.Add(new CI.Geometry3D.Point3D(point.X, point.Y, point.Z));
 			}
+
+			List<CI.Geometry3D.IPoint3D> cIPoints = PlateContour.FirstClosedContour(contourPoints).ToList();
+			List<WM.Point3D> points = cIPoints.Select(p => new WM.Point3D(p.X, p.Y, p.Z)).ToList();
 
 			WM.Vector3D translation = new WM.Vector3D(points[0].X, points[0].Y, points[0].Z);
 
@@ -344,7 +345,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				points.Add(new CI.Geometry3D.Point3D(vertexEnumerator.Current.X, vertexEnumerator.Current.Y, vertexEnumerator.Current.Z));
 			}
 
-			return points;
+			return PlateContour.FirstClosedContour(points).ToList();
 		}
 
 		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam)
