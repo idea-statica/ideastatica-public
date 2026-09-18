@@ -88,6 +88,32 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of List&lt;ConLoadEffect&gt;</returns>
         ApiResponse<List<ConLoadEffect>> CalculateLoadExtremesWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces.
+        /// </summary>
+        /// <remarks>
+        /// Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;int&gt;</returns>
+        List<int> DeleteAllLoadEffects(Guid projectId, int connectionId, int operationIndex = 0);
+
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces.
+        /// </summary>
+        /// <remarks>
+        /// Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;int&gt;</returns>
+        ApiResponse<List<int>> DeleteAllLoadEffectsWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// Delete load effect loadEffectId.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -304,6 +330,34 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (List&lt;ConLoadEffect&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ConLoadEffect>>> CalculateLoadExtremesWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces.
+        /// </summary>
+        /// <remarks>
+        /// Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;int&gt;</returns>
+        System.Threading.Tasks.Task<List<int>> DeleteAllLoadEffectsAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces.
+        /// </summary>
+        /// <remarks>
+        /// Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;int&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<int>>> DeleteAllLoadEffectsWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Delete load effect loadEffectId.
         /// </summary>
@@ -903,6 +957,156 @@ namespace IdeaStatiCa.ConnectionApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("CalculateLoadExtremes", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces. Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;int&gt;</returns>
+        public List<int> DeleteAllLoadEffects(Guid projectId, int connectionId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<int>> localVarResponse = DeleteAllLoadEffectsWithHttpInfo(projectId, connectionId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces. Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+/// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;int&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<int>> DeleteAllLoadEffectsWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "LoadEffectApi.DeleteAllLoadEffects";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<List<int>>("/api/5/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteAllLoadEffects", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces. Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;int&gt;</returns>
+        public async System.Threading.Tasks.Task<List<int>> DeleteAllLoadEffectsAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<int>> localVarResponse = await DeleteAllLoadEffectsWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes every load effect in the specified connection, together with their internal forces. Use this to replace a connection&#39;s whole loading in one request instead of one  &#x60;DELETE /load-effects/{loadEffectId}&#x60; per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next &#x60;POST /load-effects&#x60; seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project.</param>
+        /// <param name="connectionId">The ID of the connection.</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;int&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<int>>> DeleteAllLoadEffectsWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
+
+            localVarRequestOptions.Operation = "LoadEffectApi.DeleteAllLoadEffects";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<List<int>>("/api/5/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteAllLoadEffects", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

@@ -6,6 +6,7 @@ Method | Description
 ------------- | -------------
 [**add_load_effect**](LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
 [**calculate_load_extremes**](LoadEffectApi.md#calculate_load_extremes) | Calculates load extremes for the connection and keeps only the critical load effects active.
+[**delete_all_load_effects**](LoadEffectApi.md#delete_all_load_effects) | Deletes every load effect in the specified connection, together with their internal forces.
 [**delete_load_effect**](LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId.
 [**get_load_effect**](LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
 [**get_load_effects**](LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
@@ -160,6 +161,88 @@ Looking for a code sample? request some help on our [discussion](https://github.
 All URIs are relative to *http://localhost*
 
 > **POST** /api/5/projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="delete_all_load_effects"></a>
+# **delete_all_load_effects**
+> List[int] delete_all_load_effects(project_id, connection_id)
+
+Deletes every load effect in the specified connection, together with their internal forces.
+
+Use this to replace a connection's whole loading in one request instead of one  `DELETE /load-effects/{loadEffectId}` per load effect.                Leaving the connection with no load effects is allowed, and calling this when there is  nothing to delete succeeds with an empty list. The next `POST /load-effects` seeds the  member/position slots again from the load effect it creates.                Special-purpose load effects generated for the Max-capacity and Horizontal-tying checks are  not deleted, because this API cannot re-create them. Delete one of those by its id if you  really mean to.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project. | 
+ **connection_id** | **int**| The ID of the connection. | 
+
+### Return type
+
+**List[int]**
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def delete_all_load_effectsExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project.
+    connection_id = 56 # int | The ID of the connection.
+
+    try:
+        # Deletes every load effect in the specified connection, together with their internal forces.
+        api_response = api_client.loadeffect.delete_all_load_effects(project_id, connection_id)
+        print("The response of LoadEffectApi->delete_all_load_effects:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling LoadEffectApi->delete_all_load_effects: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/load-effects 
 
 ### Authorization
 
