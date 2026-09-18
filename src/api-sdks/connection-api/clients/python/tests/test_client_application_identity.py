@@ -1,13 +1,3 @@
-import sys
-import os
-
-# Get the parent directory
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-# Add the parent directory to sys.path, ahead of anything already installed - these assert what
-# the repository holds, and a pip-installed copy of the package would otherwise answer instead.
-sys.path.insert(0, parent_dir)
-
 from ideastatica_connection_api.client_application_identity import ClientApplicationIdentity
 
 # What an application is allowed to call itself towards the service. The value travels in a request

@@ -2,7 +2,7 @@ using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.ConnectionApi.Client;
 using System.Net;
 
-namespace ST_ConRestApiClient
+namespace UT_ConRestApiClient
 {
 	/// <summary>
 	/// The exception factory every API of <see cref="ConnectionApiClient"/> is wired to. Offline: it
