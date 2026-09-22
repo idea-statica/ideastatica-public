@@ -26,13 +26,6 @@ Then import the package in your project:
 import ideastatica_rcs_api
 ```
 
-If the python package is hosted on a repository, you can install directly using:
-
-```sh
-pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
-```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
-
 ### Setuptools
 
 Install via [Setuptools](http://pypi.python.org/pypi/setuptools).
@@ -45,22 +38,21 @@ python setup.py install --user
 <a id="usage"></a>
 ## Usage
 
-`ClientApiClientFactory` manages creation of clients on the running service. 
+`RcsApiServiceAttacher` manages creation of clients on the running service.
 We currently only support connecting to a service running on a localhost (eg. 'http://localhost:5000/').
 
 To start the service, manually navigate to the "C:\Program Files\IDEA StatiCa\StatiCa 25.1" folder. Using CLI:
 
 ```console
-IdeaStatiCa.ConnectionRestApi.exe -port:5000
+IdeaStatiCa.RcsRestApi.exe -port=5000
 ```
 
 ```python
-// Connect any new service to latest version of IDEA StatiCa.
-client_factory = ConnectionApiClientFactory('http://localhost:5000/')
-```
+import ideastatica_rcs_api.rcs_api_service_attacher as rcs_api_service_attacher
 
-```python
-conClient = client_factory.create_connection_api_client();
+# Connect to the running service.
+with rcs_api_service_attacher.RcsApiServiceAttacher('http://localhost:5000').create_api_client() as api_client:
+    api_client.project.open_project_from_file('myRcsProject.ideaRcs')
 ```
 
 ## Getting Started
@@ -71,7 +63,7 @@ Please follow the [installation procedure](#installation--usage) and then run th
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-The `ConnectionApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
+The `RcsApiClient` wraps all API endpoing controllers into object based or action baseds API endpoints.
 
 Methods marked with an **^** denote that they have an additional extension in the Client.
 
