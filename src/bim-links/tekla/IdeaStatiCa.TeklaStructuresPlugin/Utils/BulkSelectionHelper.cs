@@ -291,17 +291,34 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					.Concat(j.Welds)
 					.Concat(j.Fasteners)));
 
-			foreach (var item in (sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>()).Cast<BIM.Common.Item>()
-				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>()))
+			var selected = (sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>()).Cast<BIM.Common.Item>()
+				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>())
+				.Concat(sorterData.Fasteners ?? Enumerable.Empty<BIM.Common.FastenerGrid>())
+				.Concat(sorterData.Welds ?? Enumerable.Empty<BIM.Common.Weld>());
+
+			foreach (var item in selected)
 			{
 				if (taken.Contains(item))
 				{
 					continue;
 				}
 
-				var part = item.Parent as Part;
-				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} '{part?.Name}' profile '{part?.Profile?.ProfileString}' guid {part?.Identifier.GUID}");
+				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} {Describe(item.Parent as ModelObject)}");
 			}
+		}
+
+		/// <summary>
+		/// Enough of a Tekla object to find it again. A fastener or a weld is not a <see cref="Part"/> and has neither
+		/// a name nor a profile, so only the guid identifies it - and those are the items most worth naming here.
+		/// </summary>
+		private static string Describe(ModelObject source)
+		{
+			if (source is Part part)
+			{
+				return $"'{part.Name}' profile '{part.Profile?.ProfileString}' guid {part.Identifier.GUID}";
+			}
+
+			return $"'{source?.GetType().Name}' guid {source?.Identifier.GUID}";
 		}
 
 		/// <summary>

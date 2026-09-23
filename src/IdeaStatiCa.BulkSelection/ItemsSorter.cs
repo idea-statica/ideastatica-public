@@ -315,10 +315,11 @@ namespace IdeaStatiCa.BIM.Common
 				// the next fastener, and each one widens the box so AddPlates may find more on its own.
 				// A member already exported by an earlier joint is not this one's to take as detailing, the same rule
 				// additionalStiffening applies below.
+				var takenByReference = new List<Member>();
 				var membersInOtherJoints = new HashSet<Member>(
 					joints.SelectMany(j => j.Members).Concat(joints.SelectMany(j => j.StiffeningMembers)),
 					ItemComparer<Member>.Instance);
-				while (TakeFabricationClampedToJoint(data.Fasteners, claimedFasteners, placedByGeometry, membersInOtherJoints, sourcePlates, plates, members, fasteners, node, settings))
+				while (TakeFabricationClampedToJoint(data.Fasteners, claimedFasteners, placedByGeometry, membersInOtherJoints, sourcePlates, plates, members, takenByReference, fasteners, node, settings))
 				{
 					while (AddPlates(sourcePlates, plates, node, settings)) { }
 				}
@@ -407,6 +408,10 @@ namespace IdeaStatiCa.BIM.Common
 					// Same reason: a dropped candidate hands nothing back, so a fastener it claimed would be lost to every
 					// later joint.
 					claimedFasteners.ExceptWith(fasteners);
+					// And a member the reference phase took is detailing by shape, so it went straight into the stiffening
+					// set above and its nodes were excluded with the rest. Nothing else hands those back, and an excluded
+					// node's master is barred from every later joint's additional stiffening too.
+					excluded.RemoveAll(n => takenByReference.Any(m => ItemComparer<Member>.Instance.Equals(n.Master, m)));
 				}
 			}
 
@@ -415,10 +420,12 @@ namespace IdeaStatiCa.BIM.Common
 			// is the same quadratic pass the assembly loop already paid - running it model-wide because one plate
 			// moved somewhere would double it for no change. A model with nothing to recover therefore does not
 			// merely equal today's result, it reaches it by the same route.
-			PlaceFastenersNoJointTook(data, joints, buildByJoint, claimedFasteners);
-
 			var gainedPlates = RecoverPlatesByWeldReference(data, joints, buildByJoint, sourcePlates, settings);
 			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint, claimedFasteners);
+
+			// Last, so that geometry has had every chance first: the box re-scan above may still take a grid this pass
+			// would otherwise claim by reference, and the plate pool is settled by the time it looks at one.
+			PlaceFastenersNoJointTook(data, joints, buildByJoint, sourcePlates, claimedFasteners);
 
 #if DEBUG
 			TestCaseHelper.CreateTestCaseData(data, new SorterResult(joints));
@@ -694,11 +701,12 @@ namespace IdeaStatiCa.BIM.Common
 		/// dropped for having no structural member left. Its box then claims nothing, and the group it was holding for
 		/// reaches nobody - the very outcome the reference phase exists to prevent.
 		/// <para>
-		/// Places the fastener only. A plate it clamps is left to <see cref="RecoverPlatesByWeldReference"/>, which owns
-		/// plate recovery after the loop; a second path taking plates out of the pool here would race it.
+		/// Takes the plates it clamps along with it. <see cref="RecoverPlatesByWeldReference"/> matches on welds, so a
+		/// gusset held by bolts alone reaches no joint through it - and a grid placed without the part it bolts to is
+		/// the one-operand export this exists to prevent.
 		/// </para>
 		/// </summary>
-		private static void PlaceFastenersNoJointTook(SorterData data, List<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, HashSet<FastenerGrid> claimed)
+		private static void PlaceFastenersNoJointTook(SorterData data, List<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, List<Plate> sourcePlates, HashSet<FastenerGrid> claimed)
 		{
 			if (data.Fasteners == null)
 			{
@@ -725,6 +733,19 @@ namespace IdeaStatiCa.BIM.Common
 						.Concat(new[] { fastener })
 						.Distinct(ItemComparer<FastenerGrid>.Instance)
 						.ToArray();
+
+					foreach (var clamped in fastener.ClampedItems.OfType<Plate>())
+					{
+						var index = sourcePlates.FindIndex(pl => ItemComparer<Plate>.Instance.Equals(pl, clamped));
+						if (index < 0)
+						{
+							continue;
+						}
+
+						buildByJoint[joint].Plates.Add(sourcePlates[index]);
+						sourcePlates.RemoveAt(index);
+					}
+
 					break;
 				}
 			}
@@ -1264,6 +1285,7 @@ namespace IdeaStatiCa.BIM.Common
 			List<Plate> sourcePlates,
 			List<Plate> plates,
 			List<(Member m, bool isended)> members,
+			List<Member> takenByReference,
 			List<FastenerGrid> taken,
 			Node node,
 			SorterSettings settings)
@@ -1305,6 +1327,7 @@ namespace IdeaStatiCa.BIM.Common
 							&& !members.Any(m => ItemComparer<Member>.Instance.Equals(m.m, clampedMember)))
 						{
 							members.Add((clampedMember, true));
+							takenByReference.Add(clampedMember);
 							found = true;
 						}
 
