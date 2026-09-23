@@ -17,6 +17,16 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <param name="filePath">The full path to the IFC file which will be created</param>
 		/// <returns></returns>
 		Task ExportIfcFileAsync(Guid projectId, int connectionId, string filePath);
+
+		/// <summary>
+		/// Save the connection as a DWG drawing. The drawing is produced by the IDEA StatiCa cloud Viewer under the licence
+		/// signed in on the service machine, and the call waits for it - up to ten minutes.
+		/// </summary>
+		/// <param name="projectId">Identifier of the open connection project in the service</param>
+		/// <param name="connectionId">ID of the connection in <paramref name="projectId"/></param>
+		/// <param name="filePath">The full path to the DWG file which will be created</param>
+		/// <returns></returns>
+		Task ExportDwgFileAsync(Guid projectId, int connectionId, string filePath);
 	}
 
 	/// <inheritdoc cref="IExportApiExtAsync" />
@@ -45,6 +55,13 @@ namespace IdeaStatiCa.ConnectionApi.Api
 #else
 			File.WriteAllText(filePath, ifc);
 #endif
+		}
+
+		/// <inheritdoc cref="IExportApiExtAsync.ExportDwgFileAsync(Guid, int, string)"/>
+		public async Task ExportDwgFileAsync(Guid projectId, int connectionId, string filePath)
+		{
+			var response = await base.ExportDWGWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
+			await ProducedFile.SaveAsync((byte[])response.Data, filePath);
 		}
 	}
 

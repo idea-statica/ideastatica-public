@@ -337,7 +337,7 @@ Reports come in three formats — PDF, Word, and a zipped HTML package — per c
 |---|---|---|
 | `GET .../connections/{connectionId}/reports/pdf` | `report.save_report_pdf(project_id, connection_id, file_name)` | `Report.SaveReportPdfAsync(projectId, connectionId, filePath)` |
 | `GET .../connections/{connectionId}/reports/word` | `report.save_report_word(...)` | `Report.SaveReportWordAsync(...)` |
-| `GET .../connections/{connectionId}/reports/htmlZip` | `report.generate_html_zip(...)` | `Report.GenerateHtmlZipAsync(...)` |
+| `GET .../connections/{connectionId}/reports/htmlZip` | `report.save_report_html_zip(...)` | `Report.SaveReportHtmlZipAsync(...)` |
 | `POST /projects/{projectId}/reports/pdf` (multi) | `report.save_multiple_report_pdf(project_id, connection_ids, file_name)` | `Report.SaveMultipleReportsPdfAsync(projectId, connectionIds, filePath)` |
 | `POST /projects/{projectId}/reports/word` (multi) | `report.save_multiple_report_word(...)` | `Report.SaveMultipleReportsWordAsync(...)` |
 
@@ -348,6 +348,9 @@ Exports take a single connection out of the project in a machine-readable form:
 | `GET .../connections/{connectionId}/export-iom` | `export.export_iom(...)` | `Export.ExportIomAsync(...)` |
 | `GET .../connections/{connectionId}/export-iom-connection-data` | `export.export_iom_connection_data(...)` | `Export.ExportIomConnectionDataAsync(...)` |
 | `GET .../connections/{connectionId}/export-ifc` | `export.export_ifc_file(project_id, connection_id, file_name)` | `Export.ExportIfcFileAsync(projectId, connectionId, filePath)` |
+| `GET .../connections/{connectionId}/export-dwg` | `export.export_dwg_file(project_id, connection_id, file_name)` | `Export.ExportDwgFileAsync(projectId, connectionId, filePath)` |
+
+The DWG drawing is produced by the IDEA StatiCa cloud Viewer under the licence signed in on the service machine, and the call waits for it - up to ten minutes.
 
 For custom visualization, the Presentation endpoints return the data behind the 3D scene: `GET .../connections/{connectionId}/presentations` (`presentation.get_data_scene3_d` / `Presentation.GetDataScene3DAsync`) and `GET .../presentations/text` for the same data serialized as JSON (`presentation.get_data_scene3_d_text` / `Presentation.GetDataScene3DTextAsync`).
 

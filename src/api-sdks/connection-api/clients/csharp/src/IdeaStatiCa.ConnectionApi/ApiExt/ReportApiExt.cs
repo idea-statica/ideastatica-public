@@ -44,6 +44,15 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <param name="filePath"></param>
 		/// <returns></returns>
 		Task SaveMultipleReportsWordAsync(Guid projectId, List<int> connectionIds, string filePath);
+
+		/// <summary>
+		/// Save the connection report as a zipped HTML package
+		/// </summary>
+		/// <param name="projectId">Identifier of the open connection project in the service</param>
+		/// <param name="connectionId">ID of the connection in <paramref name="projectId"/></param>
+		/// <param name="filePath">The full path to the zip file (.zip) which will be created</param>
+		/// <returns></returns>
+		Task SaveReportHtmlZipAsync(Guid projectId, int connectionId, string filePath);
 	}
 
 	/// <inheritdoc cref="IReportApiExtAsync" />
@@ -63,44 +72,35 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		public async Task SaveMultipleReportsPdfAsync(Guid projectId, List<int> connectionIds, string filePath)
 		{
 			var response = await base.GeneratePdfForMutlipleWithHttpInfoAsync(projectId, connectionIds, "application/octet-stream");
-			byte[] buffer = (byte[])response.Data;
-			using (var fileStream = System.IO.File.Create(filePath))
-			{
-				await fileStream.WriteAsync(buffer, 0, buffer.Length);
-			}
+			await ProducedFile.SaveAsync((byte[])response.Data, filePath);
 		}
 
 		/// <inheritdoc cref="IReportApiExtAsync.SaveMultipleReportsWordAsync(Guid, List{int}, string)"/>/param>
 		public async Task SaveMultipleReportsWordAsync(Guid projectId, List<int> connectionIds, string filePath)
 		{
 			var response = await base.GenerateWordForMultipleWithHttpInfoAsync(projectId, connectionIds, "application/octet-stream");
-			byte[] buffer = (byte[])response.Data;
-			using (var fileStream = System.IO.File.Create(filePath))
-			{
-				await fileStream.WriteAsync(buffer, 0, buffer.Length);
-			}
+			await ProducedFile.SaveAsync((byte[])response.Data, filePath);
 		}
 
-		/// <inheritdoc cref="IReportApiExtAsync.SaveReportPdfAsync(Guid, int, string)"/>/param>
+		/// <inheritdoc cref="IReportApiExtAsync.SaveReportPdfAsync(Guid, int, string)"/>
 		public async Task SaveReportPdfAsync(Guid projectId, int connectionId, string filePath)
 		{
-            var response = await base.GeneratePdfWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
-            byte[] buffer = (byte[])response.Data;
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await fileStream.WriteAsync(buffer, 0, buffer.Length);
-            }
-        }
+			var response = await base.GeneratePdfWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
+			await ProducedFile.SaveAsync((byte[])response.Data, filePath);
+		}
 
-        /// <inheritdoc cref="IReportApiExtAsync.SaveReportWordAsync(Guid, int, string)"/>/param>
-        public async Task SaveReportWordAsync(Guid projectId, int connectionId, string filePath)
-        {
-            var response = await base.GenerateWordWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
-            byte[] buffer = (byte[])response.Data;
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await fileStream.WriteAsync(buffer, 0, buffer.Length);
-            }
-        }
-    }
+		/// <inheritdoc cref="IReportApiExtAsync.SaveReportWordAsync(Guid, int, string)"/>
+		public async Task SaveReportWordAsync(Guid projectId, int connectionId, string filePath)
+		{
+			var response = await base.GenerateWordWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
+			await ProducedFile.SaveAsync((byte[])response.Data, filePath);
+		}
+
+		/// <inheritdoc cref="IReportApiExtAsync.SaveReportHtmlZipAsync(Guid, int, string)"/>
+		public async Task SaveReportHtmlZipAsync(Guid projectId, int connectionId, string filePath)
+		{
+			var response = await base.GenerateHtmlZipWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
+			await ProducedFile.SaveAsync((byte[])response.Data, filePath);
+		}
+	}
 }
