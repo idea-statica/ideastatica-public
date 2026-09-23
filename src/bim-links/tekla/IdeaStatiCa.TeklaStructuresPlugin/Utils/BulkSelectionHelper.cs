@@ -212,24 +212,24 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// sorter needs them to place a plate the node box did not reach, which happens before any import runs.
 		/// </summary>
 		private static List<string> ClampedPartIds(BoltGroup boltGroup)
-			=> PartsBoltedBy(boltGroup).Select(bolted => bolted.Part.Identifier.GUID.ToString()).ToList();
+			=> PartsBoltedBy(boltGroup)
+				.Where(bolted => bolted.Part != null)
+				.Select(bolted => bolted.Part.Identifier.GUID.ToString())
+				.ToList();
 
 		/// <summary>
-		/// The parts a bolt group names, in the order Tekla exposes them. Two readers need this - one to learn which
+		/// The slots a bolt group names, in the order Tekla exposes them. Two readers need this - one to learn which
 		/// items the group clamps together, one to fill the group's connected parts on the way out - and a property
 		/// Tekla adds later has to reach both or the two answers drift apart.
+		/// <para>
+		/// A named slot holding no part is yielded with a null part rather than dropped: a group that names nothing is
+		/// a group short of an operand, and that is worth reporting rather than passing over in silence.
+		/// </para>
 		/// </summary>
 		internal static IEnumerable<(Part Part, string Role)> PartsBoltedBy(BoltGroup boltGroup)
 		{
-			if (boltGroup.PartToBoltTo is Part boltTo)
-			{
-				yield return (boltTo, nameof(boltGroup.PartToBoltTo));
-			}
-
-			if (boltGroup.PartToBeBolted is Part beBolted)
-			{
-				yield return (beBolted, nameof(boltGroup.PartToBeBolted));
-			}
+			yield return (boltGroup.PartToBoltTo as Part, nameof(boltGroup.PartToBoltTo));
+			yield return (boltGroup.PartToBeBolted as Part, nameof(boltGroup.PartToBeBolted));
 
 			if (boltGroup.OtherPartsToBolt == null)
 			{
@@ -338,12 +338,24 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Tekla.Structures.Model.Model model, Beam beam, Matrix44 partLcs, IPoint3D begin, IPoint3D end)
 		{
 			var bb = CreateOrientedBoundingBox(model, beam, inflateSmallExtents: false);
-			// Extent1 is measured across Tekla's Y and Extent2 across Tekla's Z, while CreateMatrix puts Tekla's Y on
-			// the matrix's Z axis and Tekla's Z on its Y - so the two swap on the way in.
-			var plate = PlateFromCrossSection(partLcs, begin, end, bb.Extent2, bb.Extent1);
+			var across = CrossSectionHalfExtents(extentAcrossTeklaY: bb.Extent1, extentAcrossTeklaZ: bb.Extent2);
+			var plate = PlateFromCrossSection(partLcs, begin, end, across.AcrossY, across.AcrossZ);
 
 			return new BIM.Common.Plate(beam, partLcs, plate.Contour, plate.Thickness);
 		}
+
+		/// <summary>
+		/// A part's two cross-section half-extents, named for the axes of the matrix <see cref="CreateMatrix"/> builds
+		/// rather than for Tekla's own. The two cross: the box measures <c>Extent1</c> across Tekla's Y and
+		/// <c>Extent2</c> across Tekla's Z, while the matrix takes Tekla's Y as its Z axis and Tekla's Z as its Y.
+		/// <para>
+		/// Its own function because handing the two over in Tekla's order instead leaves every dimension reading
+		/// correctly - the width, the length and the thickness all come out right - while the plate lies in the plane
+		/// of its own normal.
+		/// </para>
+		/// </summary>
+		internal static (double AcrossY, double AcrossZ) CrossSectionHalfExtents(double extentAcrossTeklaY, double extentAcrossTeklaZ)
+			=> (extentAcrossTeklaZ, extentAcrossTeklaY);
 
 		/// <summary>
 		/// The contour and thickness of the plate a part with the given cross-section half-extents is. The thinner

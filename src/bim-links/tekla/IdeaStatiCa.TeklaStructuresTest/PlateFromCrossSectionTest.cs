@@ -92,6 +92,22 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			SpanAlong(plate.Contour, p => p.X).Should().BeApproximately(410, 1e-9);
 		}
 
+		/// <summary>
+		/// The box measures across Tekla's axes and the part matrix is built from a different pair of them, so the two
+		/// half-extents cross on the way over. Handing them across in Tekla's own order instead leaves the width, the
+		/// length and the thickness all reading correctly while the plate lies in the plane of its own normal - which
+		/// is why the swap has to be pinned here rather than noticed in a model.
+		/// </summary>
+		[Test]
+		public void CrossSectionHalfExtents_CrossTeklaAxesOntoTheMatrixAxes()
+		{
+			var across = BulkSelectionHelper.CrossSectionHalfExtents(
+				extentAcrossTeklaY: 122.5, extentAcrossTeklaZ: 9.55);
+
+			across.AcrossY.Should().BeApproximately(9.55, 1e-9, "Extent2 is measured across Tekla Z, which the matrix takes as its Y");
+			across.AcrossZ.Should().BeApproximately(122.5, 1e-9, "Extent1 is measured across Tekla Y, which the matrix takes as its Z");
+		}
+
 		private static readonly IPoint3D Begin = new Point3D(0, 0, 0);
 		private static readonly IPoint3D End = new Point3D(410, 0, 0);
 
