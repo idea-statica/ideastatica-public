@@ -538,7 +538,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 		public static bool AnchorMemberFilter(Part part)
 		{
 			// anchor member
-#if TEKLA2025
+			// TEKLA_CUSTOM_OBJECTS is declared by every version whose API has GetCustomObjectType, and it is declared
+			// in the csproj rather than listed here: adding a Tekla version starts by copying the previous csproj, and
+			// a version-numbered condition in this file is what a new version silently fails to satisfy.
+#if TEKLA_CUSTOM_OBJECTS
 			if (part.GetCustomObjectType() == "AnchorBolt")
 			{
 				return true;

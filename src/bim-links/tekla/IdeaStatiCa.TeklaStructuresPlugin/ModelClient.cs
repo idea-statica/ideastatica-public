@@ -321,7 +321,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 			if (notFoundAnchor)
 			{
-				plugInLogger.LogDebug($"Standard component add all child items");
+				plugInLogger.LogInformation($"ProcessUserSelection detail '{detail.Name}' number {detail.Number}: no anchor part among its {detailItems.Count} parts, so this detail contributes no anchor grid");
 				selectedItems.AddRange(detailItems);
 			}
 			else

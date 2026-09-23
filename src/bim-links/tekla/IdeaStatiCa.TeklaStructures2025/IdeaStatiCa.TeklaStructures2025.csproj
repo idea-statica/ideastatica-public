@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
 		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
-		<DefineConstants>$(DefineConstants)TRACE;TEKLA2025</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE;TEKLA2025;TEKLA_CUSTOM_OBJECTS</DefineConstants>
 		<Platforms>x64</Platforms>
 		<PlatformTarget>x64</PlatformTarget>
 		<UseWpf>true</UseWpf>
