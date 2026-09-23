@@ -10,7 +10,6 @@ using System.Linq;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using TS = Tekla.Structures;
 using WM = System.Windows.Media.Media3D;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
@@ -69,25 +68,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					if (IsRectangularCssBeam(beam))
+					if (IsRectangularCssBeam(beam) && IsMadeByAConnectionComponent(beam))
 					{
-						var father = beam.GetFatherComponent();
-						if (father?.Name.ToUpper() == HaunchMemberName || (father is Connection fCon && fCon.PositionType == TS.PositionTypeEnum.COLLISION_PLANE))
-						{
-							var vect1 = partLcs.AxisY * cssBounds.Y;
-							var vect2 = partLcs.AxisY * -cssBounds.Y;
-
-							var b1 = begin.ToMediaPoint() + vect1.ToMediaVector();
-							var b2 = begin.ToMediaPoint() + vect2.ToMediaVector();
-
-							var b3 = end.ToMediaPoint() + vect1.ToMediaVector();
-							var b4 = end.ToMediaPoint() + vect2.ToMediaVector();
-
-							var haunchItem = new IdeaStatiCa.BIM.Common.Plate(beam, partLcs, new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() }, cssBounds.Width);
-							Register(beam, haunchItem);
-							plates.Add(haunchItem);
-							continue;
-						}
+						var plateItem = BuildPlateFromRectangularBeam(myModel, beam, partLcs, begin, end);
+						Register(beam, plateItem);
+						plates.Add(plateItem);
+						// A part read as a plate no longer ends a member, so it seeds no node - a joint that existed only
+						// because this part ended there stops forming. That is the intent, and it is also the first thing to
+						// look at when a connection is reported missing, so say which parts moved and how thick they came out.
+						var madeBy = beam.GetFatherComponent();
+						plugInLogger?.LogDebug($"FindJoints read as a plate rather than a member: '{beam.Name}' profile '{beam.Profile?.ProfileString}' thickness {plateItem.Thickness:F1} madeBy {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' guid {beam.Identifier.GUID}");
+						continue;
 					}
 					var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
 					Register(beam, beamItem);
@@ -304,6 +295,61 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		}
 
 		/// <summary>
+		/// Whether a Tekla CONNECTION component created this part. Such a part is connection detailing - a splice
+		/// plate, a gusset, a haunch web - while the same profile drawn by hand is as likely to be a frame member,
+		/// and only the source can tell the two apart.
+		/// <para>
+		/// A DETAIL component is excluded, and that is the whole reason this asks for the kind rather than merely for
+		/// a component: a base plate comes from one, and nothing else frames into the foot of a column, so the base
+		/// plate counting as a member is what gives that node a second one and makes it a joint at all. Read as a
+		/// plate it would seed no node, and the column base would stop being a connection.
+		/// </para>
+		/// </summary>
+		private static bool IsMadeByAConnectionComponent(Beam beam) => beam.GetFatherComponent() is Connection;
+
+		/// <summary>
+		/// The plate a beam with a rectangular profile really is. The thinner of the two cross-section directions is
+		/// the plate's normal - whichever local axis that turns out to be - and the contour spans the other one.
+		/// <para>
+		/// The dimensions come from an uninflated box on purpose: the box the node search uses doubles any half-extent
+		/// under 50 mm, which is every plate's thickness.
+		/// </para>
+		/// </summary>
+		private static BIM.Common.Plate BuildPlateFromRectangularBeam(
+			Tekla.Structures.Model.Model model, Beam beam, Matrix44 partLcs, IPoint3D begin, IPoint3D end)
+		{
+			var bb = CreateOrientedBoundingBox(model, beam, inflateSmallExtents: false);
+			var plate = PlateFromCrossSection(partLcs, begin, end, bb.Extent1, bb.Extent2);
+
+			return new BIM.Common.Plate(beam, partLcs, plate.Contour, plate.Thickness);
+		}
+
+		/// <summary>
+		/// The contour and thickness of the plate a part with the given cross-section half-extents is. The thinner
+		/// direction is the plate's normal, whichever local axis it falls on; the contour is the rectangle the other
+		/// one sweeps from <paramref name="begin"/> to <paramref name="end"/>.
+		/// </summary>
+		internal static (List<IPoint3D> Contour, double Thickness) PlateFromCrossSection(
+			Matrix44 partLcs, IPoint3D begin, IPoint3D end, double halfExtentAcrossY, double halfExtentAcrossZ)
+		{
+			var inPlane = halfExtentAcrossY >= halfExtentAcrossZ ? partLcs.AxisY : partLcs.AxisZ;
+			var halfWidth = Math.Max(halfExtentAcrossY, halfExtentAcrossZ);
+			var thickness = 2 * Math.Min(halfExtentAcrossY, halfExtentAcrossZ);
+
+			var toOneEdge = (inPlane * halfWidth).ToMediaVector();
+			var toOther = (inPlane * -halfWidth).ToMediaVector();
+
+			var b1 = begin.ToMediaPoint() + toOneEdge;
+			var b2 = begin.ToMediaPoint() + toOther;
+			var b3 = end.ToMediaPoint() + toOneEdge;
+			var b4 = end.ToMediaPoint() + toOther;
+
+			var contour = new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() };
+
+			return (contour, thickness);
+		}
+
+		/// <summary>
 		/// Is rectangular css of beam
 		/// </summary>
 		/// <param name="beam"></param>
@@ -467,7 +513,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			return PlateContour.FirstClosedContour(points).ToList();
 		}
 
-		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam)
+		/// <summary>
+		/// The part's box in its own axes. <paramref name="inflateSmallExtents"/> is what the node search wants and
+		/// what a real dimension must not have: it doubles any cross-section half-extent under 50 mm so a small part
+		/// is easier to catch in a node box, which on a 19 mm plate doubles the thickness itself.
+		/// </summary>
+		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam, bool inflateSmallExtents = true)
 		{
 			OBB obb = null;
 
@@ -494,7 +545,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double extent2 = (maxPoint.Z - minPoint.Z) / 2;
 
 				//for non anchor beams increase size of BB for small items 
-				if (beam.Name != TeklaAnchorRodName && beam.Name != TeklaAnchorWasherName && beam.Name != TeklaAnchorNutName)
+				if (inflateSmallExtents && beam.Name != TeklaAnchorRodName && beam.Name != TeklaAnchorWasherName && beam.Name != TeklaAnchorNutName)
 				{
 					if (extent1 < 50)
 					{
