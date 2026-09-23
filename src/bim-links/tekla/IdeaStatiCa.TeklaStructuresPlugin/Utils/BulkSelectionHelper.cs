@@ -212,27 +212,37 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// sorter needs them to place a plate the node box did not reach, which happens before any import runs.
 		/// </summary>
 		private static List<string> ClampedPartIds(BoltGroup boltGroup)
+			=> PartsBoltedBy(boltGroup).Select(bolted => bolted.Part.Identifier.GUID.ToString()).ToList();
+
+		/// <summary>
+		/// The parts a bolt group names, in the order Tekla exposes them. Two readers need this - one to learn which
+		/// items the group clamps together, one to fill the group's connected parts on the way out - and a property
+		/// Tekla adds later has to reach both or the two answers drift apart.
+		/// </summary>
+		internal static IEnumerable<(Part Part, string Role)> PartsBoltedBy(BoltGroup boltGroup)
 		{
-			var ids = new List<string>();
-			void Add(ModelObject part)
+			if (boltGroup.PartToBoltTo is Part boltTo)
 			{
-				if (part != null)
-				{
-					ids.Add(part.Identifier.GUID.ToString());
-				}
+				yield return (boltTo, nameof(boltGroup.PartToBoltTo));
 			}
 
-			Add(boltGroup.PartToBoltTo);
-			Add(boltGroup.PartToBeBolted);
-			if (boltGroup.OtherPartsToBolt != null)
+			if (boltGroup.PartToBeBolted is Part beBolted)
 			{
-				foreach (var other in boltGroup.OtherPartsToBolt)
-				{
-					Add(other as ModelObject);
-				}
+				yield return (beBolted, nameof(boltGroup.PartToBeBolted));
 			}
 
-			return ids;
+			if (boltGroup.OtherPartsToBolt == null)
+			{
+				yield break;
+			}
+
+			foreach (var other in boltGroup.OtherPartsToBolt)
+			{
+				if (other is Part otherPart)
+				{
+					yield return (otherPart, nameof(boltGroup.OtherPartsToBolt));
+				}
+			}
 		}
 
 		/// <summary>
@@ -241,7 +251,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// named rather than passed over in silence. One source part can build several items (a bent plate becomes
 		/// one plate per face), and every one of them is clamped.
 		/// </summary>
-		internal static void ResolveClampedItems(
+		private static void ResolveClampedItems(
 			IReadOnlyDictionary<BIM.Common.FastenerGrid, List<string>> clampedPartsByFastener,
 			IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart,
 			IPluginLogger plugInLogger)
@@ -303,9 +313,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// a component: a base plate comes from one, and nothing else frames into the foot of a column, so the base
 		/// plate counting as a member is what gives that node a second one and makes it a joint at all. Read as a
 		/// plate it would seed no node, and the column base would stop being a connection.
+		/// <para>
+		/// A haunch is admitted by the name of the component that made it, whatever kind that component is: its web is
+		/// a plate by construction, and it is not always built by a connection.
+		/// </para>
 		/// </para>
 		/// </summary>
-		private static bool IsMadeByAConnectionComponent(Beam beam) => beam.GetFatherComponent() is Connection;
+		private static bool IsMadeByAConnectionComponent(Beam beam)
+		{
+			var father = beam.GetFatherComponent();
+
+			return father is Connection || father?.Name.ToUpper() == HaunchMemberName;
+		}
 
 		/// <summary>
 		/// The plate a beam with a rectangular profile really is. The thinner of the two cross-section directions is
@@ -319,7 +338,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Tekla.Structures.Model.Model model, Beam beam, Matrix44 partLcs, IPoint3D begin, IPoint3D end)
 		{
 			var bb = CreateOrientedBoundingBox(model, beam, inflateSmallExtents: false);
-			var plate = PlateFromCrossSection(partLcs, begin, end, bb.Extent1, bb.Extent2);
+			// Extent1 is measured across Tekla's Y and Extent2 across Tekla's Z, while CreateMatrix puts Tekla's Y on
+			// the matrix's Z axis and Tekla's Z on its Y - so the two swap on the way in.
+			var plate = PlateFromCrossSection(partLcs, begin, end, bb.Extent2, bb.Extent1);
 
 			return new BIM.Common.Plate(beam, partLcs, plate.Contour, plate.Thickness);
 		}

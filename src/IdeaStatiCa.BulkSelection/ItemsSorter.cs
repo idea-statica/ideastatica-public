@@ -415,6 +415,8 @@ namespace IdeaStatiCa.BIM.Common
 			// is the same quadratic pass the assembly loop already paid - running it model-wide because one plate
 			// moved somewhere would double it for no change. A model with nothing to recover therefore does not
 			// merely equal today's result, it reaches it by the same route.
+			PlaceFastenersNoJointTook(data, joints, buildByJoint, claimedFasteners);
+
 			var gainedPlates = RecoverPlatesByWeldReference(data, joints, buildByJoint, sourcePlates, settings);
 			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint, claimedFasteners);
 
@@ -440,8 +442,8 @@ namespace IdeaStatiCa.BIM.Common
 		/// </para>
 		/// Degenerate cross-section bounds compare false, leaving the box's verdict in place.
 		/// <para>
-		/// Public so a link can report which of the two rules took a part: the box's verdict is self-evident from the
-		/// geometry, this one is not, and it is the one that can be wrong on a frame stub.
+		/// Answers this rule alone, not whether the part ended up as detailing: the box can reach that verdict too, and
+		/// this is the half that can be wrong, on a frame stub shorter than its own section depth.
 		/// </para>
 		/// </summary>
 		public static bool IsDetailingByShape(Member member)
@@ -686,6 +688,48 @@ namespace IdeaStatiCa.BIM.Common
 		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
 		// deliberately left alone: they were settled before any recovery, and re-deriving them from a box that the
 		// reference phase widened is how a joint would start swallowing members that geometry had kept apart.
+		/// <summary>
+		/// Last chance for a fastener no joint took. A group inside some node's box is left to that box during the
+		/// assembly loop, but a node is not a joint until it survives one: it can be absorbed into an earlier joint, or
+		/// dropped for having no structural member left. Its box then claims nothing, and the group it was holding for
+		/// reaches nobody - the very outcome the reference phase exists to prevent.
+		/// <para>
+		/// Places the fastener only. A plate it clamps is left to <see cref="RecoverPlatesByWeldReference"/>, which owns
+		/// plate recovery after the loop; a second path taking plates out of the pool here would race it.
+		/// </para>
+		/// </summary>
+		private static void PlaceFastenersNoJointTook(SorterData data, List<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, HashSet<FastenerGrid> claimed)
+		{
+			if (data.Fasteners == null)
+			{
+				return;
+			}
+
+			foreach (var fastener in data.Fasteners)
+			{
+				if (claimed.Contains(fastener) || fastener.ClampedItems.Count == 0)
+				{
+					continue;
+				}
+
+				foreach (var joint in joints)
+				{
+					var held = new HashSet<Item>(buildByJoint[joint].Parts(), ItemComparer<Item>.Instance);
+					if (!fastener.ClampedItems.Any(held.Contains))
+					{
+						continue;
+					}
+
+					claimed.Add(fastener);
+					joint.Fasteners = (joint.Fasteners ?? new FastenerGrid[0])
+						.Concat(new[] { fastener })
+						.Distinct(ItemComparer<FastenerGrid>.Instance)
+						.ToArray();
+					break;
+				}
+			}
+		}
+
 		private static void RefreshFastenersAndWelds(SorterData data, HashSet<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, HashSet<FastenerGrid> claimed)
 		{
 			foreach (var joint in joints)
@@ -1279,7 +1323,15 @@ namespace IdeaStatiCa.BIM.Common
 					}
 
 					var plate = sourcePlates[index];
-					node.Inflate(plate.Contour.Select(pt => pt.ToMediaPoint()).ToArray(), settings.MaxInflateExtent);
+					// Only where the settings can bound it. A plate taken by reference sits outside the box by definition -
+					// up to metres out - and this runs INSIDE the assembly loop, so the widened box goes on to feed member
+					// capture, the bearing choice and the node-relocation search. With no clamp the box would follow the
+					// plate however far it is, which is what the weld phase avoids by running after the loop instead.
+					if (settings.MaxInflateExtent >= 0)
+					{
+						node.Inflate(plate.Contour.Select(pt => pt.ToMediaPoint()).ToArray(), settings.MaxInflateExtent);
+					}
+
 					sourcePlates.RemoveAt(index);
 					plates.Add(plate);
 					found = true;
