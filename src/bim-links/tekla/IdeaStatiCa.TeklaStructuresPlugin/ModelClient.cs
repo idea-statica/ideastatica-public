@@ -360,7 +360,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				plugInLogger.LogInformation($"GetSelectObjects - process user selection");
 				var selectedItems = ProcessUserSelection(partsEnumerator);
 
-				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems, sorterSettings);
+				BIM.Common.SorterResult sortedJoints = BulkSelectionHelper.FindJoints(myModel, selectedItems, sorterSettings, plugInLogger);
 
 
 				plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");
@@ -381,7 +381,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					structuralMembers.ToList().ForEach(sm => beams.Add(sm.Parent as TS.ModelObject));
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of members {beams.Count}");
-
 
 					var stiffenigMembers = joint.Members
 					.Where(m => !structuralMembers.Contains(m));
@@ -404,6 +403,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 						{
 							parts.Add(tsObject);
 						}
+
+						plugInLogger.LogInformation($"GetBulkSelection stiffening member {DescribeMemberShape(stiffeningmember)}");
 					}
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of fasteners {joint.Fasteners.Count}");
@@ -434,6 +435,22 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				}
 			}
 			return selections;
+		}
+
+		/// <summary>
+		/// Which rule made a part detailing. A part reaches <c>Joint.StiffeningMembers</c> either by sitting inside
+		/// the node box or by being shorter than it is wide, and the joint alone does not say which - only the second
+		/// can be wrong, on a frame stub shorter than its own section depth.
+		/// <para>
+		/// The verdict is asked of the sorter rather than recomputed here, so the log cannot drift away from the rule.
+		/// </para>
+		/// </summary>
+		private static string DescribeMemberShape(BIM.Common.Member member)
+		{
+			var profile = (member.Parent as TS.Part)?.Profile?.ProfileString ?? "unknown";
+			var span = CI.Geometry3D.GeomOperation.Distance(member.Begin, member.End);
+
+			return $"profile '{profile}' span {span:F0} byShape {BIM.Common.ItemsSorter.IsDetailingByShape(member)}";
 		}
 
 		/// <summary>

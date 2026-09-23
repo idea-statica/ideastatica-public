@@ -35,11 +35,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				};
 
 				//This test due to plate as member and we are not sure if its imported as plate or member
-				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBoltTo, boltgrid);
-				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBoltTo, boltgrid);
-
-				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBeBolted, boltgrid);
-				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBeBolted, boltgrid);
+				AddConnectedPart(boltGroup.PartToBoltTo, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, "PartToBoltTo");
+				AddConnectedPart(boltGroup.PartToBeBolted, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, "PartToBeBolted");
 
 				if (boltGroup.OtherPartsToBolt != null)
 				{
@@ -49,8 +46,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 						{
 							continue;
 						}
-						CheckAndAddConnectedObject<IIdeaPlate>(otherPart, boltgrid);
-						CheckAndAddConnectedObject<IIdeaMember1D>(otherPart, boltgrid);
+						AddConnectedPart(otherPart, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, "OtherPartsToBolt");
 					}
 				}
 				var boltCs = boltGroup.GetCoordinateSystem();
@@ -93,20 +89,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			else
 			{
 				return null;
-			}
-		}
-
-		private void CheckAndAddConnectedObject<T>(TS.Part part, BoltGrid boltgrid)
-			where T : IIdeaObjectConnectable
-		{
-			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
-			if (ideaObject != null)
-			{
-				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
-				if (mainObject != null)
-				{
-					(boltgrid.ConnectedParts as List<IIdeaObjectConnectable>).Add(mainObject);
-				}
 			}
 		}
 

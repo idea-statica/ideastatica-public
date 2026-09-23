@@ -126,7 +126,19 @@ namespace IdeaStatiCa.BIM.Common
 		{
 			LCS = lcs ?? throw new ArgumentNullException(nameof(lcs));
 			GridPoints = gridPoints;
+			ClampedItems = new List<Item>();
 		}
+
+		/// <summary>
+		/// The parts the grid bolts together, where the source can say. This is what places bolted fabrication the
+		/// node box does not reach: a joint holding any one of these parts takes the rest, the way a weld's two items
+		/// place a plate no box reached.
+		/// <para>
+		/// Empty where the source does not report them, which reads as "no reference to place by": such a grid is
+		/// placed by geometry alone.
+		/// </para>
+		/// </summary>
+		public List<Item> ClampedItems { get; protected set; }
 
 		public IMatrix44 LCS { get; protected set; }
 
@@ -260,6 +272,25 @@ namespace IdeaStatiCa.BIM.Common
 			var excluded = new List<Node>();
 
 			var sourcePlates = data.Plates?.ToList() ?? new List<Plate>();
+			// A bolt group is one physical thing in one place, so it goes to one joint. Plates cannot be claimed twice
+			// because they are removed from the pool as they are taken; fasteners have no pool, and a group clamping a
+			// member that runs THROUGH several nodes would otherwise be claimed at every one of them.
+			var claimedFasteners = new HashSet<FastenerGrid>(ItemComparer<FastenerGrid>.Instance);
+			// A fastener sitting inside some node's box belongs to that node by geometry, and nodes are processed by
+			// descending member count - so the node it sits in may come later. Placing it by reference here would take it,
+			// and the plates it clamps, from the joint it is physically part of. Only fabrication no box reaches is
+			// placed by reference. Evaluated once here: every box grows as its joint is built, so asking later would
+			// give a different answer for the same fastener.
+			// Only a node that will still be a joint once detailing is split off counts as the geometric owner. A node
+			// seeded by detailing alone - the end of the very gusset the bolts pass through - is dropped as a candidate,
+			// so leaving the fastener to it would leave it to nobody.
+			var geometricOwners = nodes
+				.Where(n => n.ConnectedMembers.Count > 0
+					&& (!IsDetailingByShape(n.Master) || n.ConnectedMembers.Any(cm => !IsDetailingByShape(cm.Member))))
+				.ToArray();
+			var placedByGeometry = new HashSet<FastenerGrid>(
+				data.Fasteners?.Where(f => geometricOwners.Any(n => n.Contains(f.LCS.Origin))) ?? Enumerable.Empty<FastenerGrid>(),
+				ItemComparer<FastenerGrid>.Instance);
 			foreach (var node in nodes.Where(n => n.ConnectedMembers.Count > 0).OrderByDescending(n => n.ConnectedMembers.Count))
 			{
 				if (excluded.Contains(node))
@@ -274,7 +305,23 @@ namespace IdeaStatiCa.BIM.Common
 				var plates = new List<Plate>();
 				while (AddPlates(sourcePlates, plates, node, settings)) { }
 
-				var fasteners = data.Fasteners?.Where(f => node.Contains(f.LCS.Origin)).ToArray() ?? new FastenerGrid[0];
+				var fasteners = new List<FastenerGrid>(data.Fasteners?.Where(f => !claimedFasteners.Contains(f) && node.Contains(f.LCS.Origin)) ?? Enumerable.Empty<FastenerGrid>());
+				claimedFasteners.UnionWith(fasteners);
+
+				// Break the circularity above for BOLTED fabrication. A bolt group is anchored to this joint by what it
+				// CLAMPS, not by where it sits: the bolts through a gusset are as far out as the gusset, so a box sized by
+				// the members meeting here reaches neither. Holding one of the clamped parts is what says the rest belong
+				// here - usually the member the gusset is bolted to. Iterated, because a plate taken this way can anchor
+				// the next fastener, and each one widens the box so AddPlates may find more on its own.
+				// A member already exported by an earlier joint is not this one's to take as detailing, the same rule
+				// additionalStiffening applies below.
+				var membersInOtherJoints = new HashSet<Member>(
+					joints.SelectMany(j => j.Members).Concat(joints.SelectMany(j => j.StiffeningMembers)),
+					ItemComparer<Member>.Instance);
+				while (TakeFabricationClampedToJoint(data.Fasteners, claimedFasteners, placedByGeometry, membersInOtherJoints, sourcePlates, plates, members, fasteners, node, settings))
+				{
+					while (AddPlates(sourcePlates, plates, node, settings)) { }
+				}
 
 				// weldMembers is kept for the weld recomputation the reference phase needs: the members a weld is
 				// matched against are these, taken BEFORE the stiffening ones are split off below and never including
@@ -284,7 +331,7 @@ namespace IdeaStatiCa.BIM.Common
 				var parts = weldMembers.Concat(plates).ToArray();
 				var welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
 
-				var stiffeningMembers = members.Where(m => node.Contains(m.m.Begin) && node.Contains(m.m.End)).ToList();
+				var stiffeningMembers = members.Where(m => IsDetailingByShape(m.m) || (node.Contains(m.m.Begin) && node.Contains(m.m.End))).ToList();
 
 				members = members.Except(stiffeningMembers).GroupBy(m => m.m).Select(g => (g.Key, g.Any(m => m.isended))).ToList();
 
@@ -341,7 +388,7 @@ namespace IdeaStatiCa.BIM.Common
 						Members = members.Select(m => m.m).Distinct().ToArray(),
 						StiffeningMembers = stiffeningMembers.Select(m => m.m).Distinct().ToArray(),
 						Plates = plates,
-						Fasteners = fasteners,
+						Fasteners = fasteners.ToArray(),
 						Welds = welds,
 					};
 
@@ -357,6 +404,9 @@ namespace IdeaStatiCa.BIM.Common
 					// plates out of the shared pool, and a dropped candidate hands nothing back, so without this no
 					// later joint could ever claim them.
 					sourcePlates.AddRange(plates);
+					// Same reason: a dropped candidate hands nothing back, so a fastener it claimed would be lost to every
+					// later joint.
+					claimedFasteners.ExceptWith(fasteners);
 				}
 			}
 
@@ -366,13 +416,38 @@ namespace IdeaStatiCa.BIM.Common
 			// moved somewhere would double it for no change. A model with nothing to recover therefore does not
 			// merely equal today's result, it reaches it by the same route.
 			var gainedPlates = RecoverPlatesByWeldReference(data, joints, buildByJoint, sourcePlates, settings);
-			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint);
+			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint, claimedFasteners);
 
 #if DEBUG
 			TestCaseHelper.CreateTestCaseData(data, new SorterResult(joints));
 #endif
 
 			return new SorterResult(joints);
+		}
+
+		/// <summary>
+		/// Whether a part is connection detailing rather than a frame member, judged on its own proportions: a frame
+		/// member spans many times its own cross-section, a cleat or gusset modelled as a plate-profile beam does not.
+		/// <para>
+		/// A second route into <see cref="Joint.StiffeningMembers"/>, beside the node box rather than in place of it.
+		/// The box is sized by the members meeting at the node, so a 1.5 m wide gusset 0.36 m long does not fit inside
+		/// it however the box is tuned, and the box test on its own reports such a part as framing.
+		/// </para>
+		/// <para>
+		/// Reading only the part is what makes it safe: every joint claiming the part decides the same way, so the part
+		/// cannot be detailing at one joint and framing at the next - a disagreement the IOM's per-connection
+		/// <c>BeamData.IsAdded</c> carries straight through to the consumer.
+		/// </para>
+		/// Degenerate cross-section bounds compare false, leaving the box's verdict in place.
+		/// <para>
+		/// Public so a link can report which of the two rules took a part: the box's verdict is self-evident from the
+		/// geometry, this one is not, and it is the one that can be wrong on a frame stub.
+		/// </para>
+		/// </summary>
+		public static bool IsDetailingByShape(Member member)
+		{
+			var cssExtent = Math.Max(member.CrossSectionBounds.Width, member.CrossSectionBounds.Height);
+			return GeomOperation.Distance(member.Begin, member.End) < cssExtent;
 		}
 
 		/// <summary>
@@ -611,12 +686,22 @@ namespace IdeaStatiCa.BIM.Common
 		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
 		// deliberately left alone: they were settled before any recovery, and re-deriving them from a box that the
 		// reference phase widened is how a joint would start swallowing members that geometry had kept apart.
-		private static void RefreshFastenersAndWelds(SorterData data, HashSet<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint)
+		private static void RefreshFastenersAndWelds(SorterData data, HashSet<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, HashSet<FastenerGrid> claimed)
 		{
 			foreach (var joint in joints)
 			{
 				var build = buildByJoint[joint];
-				joint.Fasteners = data.Fasteners?.Where(f => build.Node.Contains(f.LCS.Origin)).ToArray() ?? new FastenerGrid[0];
+				// Union, not replace. A geometry-only re-scan would drop every group the reference phase placed - they
+				// sit outside the box by definition - and since those are claimed, no other joint would pick them up
+				// either: they would vanish from the export entirely. Claimed groups are also excluded from the re-scan,
+				// so a widened box cannot take one that already belongs to another joint.
+				var regained = data.Fasteners?.Where(f => !claimed.Contains(f) && build.Node.Contains(f.LCS.Origin))
+					?? Enumerable.Empty<FastenerGrid>();
+				joint.Fasteners = (joint.Fasteners ?? new FastenerGrid[0])
+					.Concat(regained)
+					.Distinct(ItemComparer<FastenerGrid>.Instance)
+					.ToArray();
+				claimed.UnionWith(joint.Fasteners);
 
 				var parts = build.Parts();
 				joint.Welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
@@ -1110,6 +1195,94 @@ namespace IdeaStatiCa.BIM.Common
 						node.Inflate(new Node(0, b.Master.GetPointOnRelativePosition(relpos), b.Surroundings, b.Master), settings.MaxInflateExtent);
 						source.Remove(b);
 					}
+				}
+			}
+
+			return found;
+		}
+
+		/// <summary>
+		/// Takes the bolt groups whose clamped parts this joint already holds, and with each one the plates it clamps
+		/// that no joint has taken yet, growing the node box around them. Placement by reference rather than by
+		/// geometry: the bolts pass through the parts, so holding one of them is what says the rest are here, and no
+		/// distance is involved - which is the point, because the fabrication of a joint reaches further than the box
+		/// that decides which joint it is.
+		/// <para>
+		/// Returns whether anything was taken, so the caller can run it again: a plate taken here can anchor the next
+		/// bolt group. Terminates - every pass removes at least one item from a finite pool.
+		/// </para>
+		/// </summary>
+		private static bool TakeFabricationClampedToJoint(
+			IEnumerable<FastenerGrid> allFasteners,
+			HashSet<FastenerGrid> claimed,
+			HashSet<FastenerGrid> placedByGeometry,
+			HashSet<Member> membersInOtherJoints,
+			List<Plate> sourcePlates,
+			List<Plate> plates,
+			List<(Member m, bool isended)> members,
+			List<FastenerGrid> taken,
+			Node node,
+			SorterSettings settings)
+		{
+			if (allFasteners == null)
+			{
+				return false;
+			}
+
+			var held = new HashSet<Item>(members.Select(m => (Item)m.m).Concat(plates), ItemComparer<Item>.Instance);
+			var found = false;
+			foreach (var fastener in allFasteners)
+			{
+				// Holding a clamped part is the whole of the reach rule - there is no distance bound, because the
+				// fabrication this exists to place sits further out than any box derived from the node would reach.
+				// What keeps it from reaching across the model is that a fastener some box does contain is left to
+				// that box, so only parts no joint can find geometrically are placed this way.
+				if (claimed.Contains(fastener)
+					|| placedByGeometry.Contains(fastener)
+					|| fastener.ClampedItems.Count == 0
+					|| !fastener.ClampedItems.Any(held.Contains))
+				{
+					continue;
+				}
+
+				claimed.Add(fastener);
+				taken.Add(fastener);
+				found = true;
+
+				foreach (var clamped in fastener.ClampedItems)
+				{
+					// A clamped part can be a member - a cover plate the source models as a plate-profile beam. It belongs
+					// here for the same reason the plates do, but only when its own proportions say it is detailing: the
+					// bolts also pass through the frame member the assembly is bolted TO, and that one frames away.
+					if (clamped is Member clampedMember)
+					{
+						if (IsDetailingByShape(clampedMember)
+							&& !membersInOtherJoints.Contains(clampedMember)
+							&& !members.Any(m => ItemComparer<Member>.Instance.Equals(m.m, clampedMember)))
+						{
+							members.Add((clampedMember, true));
+							found = true;
+						}
+
+						continue;
+					}
+
+					if (!(clamped is Plate clampedPlate))
+					{
+						continue;
+					}
+
+					var index = sourcePlates.FindIndex(pl => ItemComparer<Plate>.Instance.Equals(pl, clampedPlate));
+					if (index < 0)
+					{
+						continue;
+					}
+
+					var plate = sourcePlates[index];
+					node.Inflate(plate.Contour.Select(pt => pt.ToMediaPoint()).ToArray(), settings.MaxInflateExtent);
+					sourcePlates.RemoveAt(index);
+					plates.Add(plate);
+					found = true;
 				}
 			}
 

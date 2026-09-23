@@ -1761,6 +1761,70 @@ paths:
       x-requiresConnection: true
       x-extensionMethodName: ExportDwgFile
   /api/5/projects/{projectId}/connections/{connectionId}/load-effects:
+    delete:
+      description: "Use this to replace a connection's whole loading in one request\
+        \ instead of one\r\n`DELETE /load-effects/{loadEffectId}` per load effect.\r\
+        \n            \r\nLeaving the connection with no load effects is allowed,\
+        \ and calling this when there is\r\nnothing to delete succeeds with an empty\
+        \ list. The next `POST /load-effects` seeds the\r\nmember/position slots again\
+        \ from the load effect it creates.\r\n            \r\nSpecial-purpose load\
+        \ effects generated for the Max-capacity and Horizontal-tying checks are\r\
+        \nnot deleted, because this API cannot re-create them. Delete one of those\
+        \ by its id if you\r\nreally mean to."
+      operationId: DeleteAllLoadEffects
+      parameters:
+      - description: The unique identifier of the opened project.
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the connection.
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  format: int32
+                  type: integer
+                type: array
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+      summary: "Deletes every load effect in the specified connection, together with\
+        \ their internal forces."
+      tags:
+      - LoadEffect
+      x-requiresProject: true
+      x-requiresConnection: true
     get:
       operationId: GetLoadEffects
       parameters:
