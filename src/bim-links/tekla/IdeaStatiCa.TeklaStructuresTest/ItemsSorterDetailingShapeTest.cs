@@ -156,6 +156,34 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			holder.Members.Should().Contain(lower);
 		}
 
+		/// <summary>
+		/// A node is not a joint until it survives the assembly loop: it can be absorbed into an earlier joint when a
+		/// detailing part ends there. A fastener sitting in such a node's box is left to it by the geometry rule and
+		/// would then reach nobody, so it gets one more pass against what the joints actually hold.
+		/// </summary>
+		[Test]
+		public void FastenerLeftToANodeThatNeverBecameAJoint_IsStillPlaced()
+		{
+			var column = MakeMember("column", from: new Point3D(0, 0, -7500), to: Origin, cssWidth: 300, cssHeight: 400);
+			var beam = MakeMember("beam", from: Origin, to: new Point3D(8000, 0, 0), cssWidth: 200, cssHeight: 500);
+			// Short and wide, so it is detailing - and its far end takes the node there out of the running.
+			var gusset = MakeMember("gusset", from: Origin, to: new Point3D(0, 300, 0), cssWidth: 25, cssHeight: 1485);
+			// The bolts sit at that far end, clamping the column the first joint holds.
+			var bolts = MakeFastener("bolts", new Point3D(0, 300, 0), column);
+
+			var data = new SorterData
+			{
+				Members = new List<Member> { column, beam, gusset },
+				Plates = new List<Plate>(),
+				Welds = new List<Weld>(),
+				Fasteners = new List<FastenerGrid> { bolts },
+			};
+
+			var result = new ItemsSorter().Sort(data, ModelCoordinatorSettings);
+
+			result.Joints.Count(j => j.Fasteners.Contains(bolts)).Should().Be(1);
+		}
+
 		private static readonly IPoint3D Origin = new Point3D(0, 0, 0);
 
 		/// <summary>

@@ -212,27 +212,37 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// sorter needs them to place a plate the node box did not reach, which happens before any import runs.
 		/// </summary>
 		private static List<string> ClampedPartIds(BoltGroup boltGroup)
+			=> PartsBoltedBy(boltGroup)
+				.Where(bolted => bolted.Part != null)
+				.Select(bolted => bolted.Part.Identifier.GUID.ToString())
+				.ToList();
+
+		/// <summary>
+		/// The slots a bolt group names, in the order Tekla exposes them. Two readers need this - one to learn which
+		/// items the group clamps together, one to fill the group's connected parts on the way out - and a property
+		/// Tekla adds later has to reach both or the two answers drift apart.
+		/// <para>
+		/// A named slot holding no part is yielded with a null part rather than dropped: a group that names nothing is
+		/// a group short of an operand, and that is worth reporting rather than passing over in silence.
+		/// </para>
+		/// </summary>
+		internal static IEnumerable<(Part Part, string Role)> PartsBoltedBy(BoltGroup boltGroup)
 		{
-			var ids = new List<string>();
-			void Add(ModelObject part)
+			yield return (boltGroup.PartToBoltTo as Part, nameof(boltGroup.PartToBoltTo));
+			yield return (boltGroup.PartToBeBolted as Part, nameof(boltGroup.PartToBeBolted));
+
+			if (boltGroup.OtherPartsToBolt == null)
 			{
-				if (part != null)
-				{
-					ids.Add(part.Identifier.GUID.ToString());
-				}
+				yield break;
 			}
 
-			Add(boltGroup.PartToBoltTo);
-			Add(boltGroup.PartToBeBolted);
-			if (boltGroup.OtherPartsToBolt != null)
+			foreach (var other in boltGroup.OtherPartsToBolt)
 			{
-				foreach (var other in boltGroup.OtherPartsToBolt)
+				if (other is Part otherPart)
 				{
-					Add(other as ModelObject);
+					yield return (otherPart, nameof(boltGroup.OtherPartsToBolt));
 				}
 			}
-
-			return ids;
 		}
 
 		/// <summary>
@@ -241,7 +251,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// named rather than passed over in silence. One source part can build several items (a bent plate becomes
 		/// one plate per face), and every one of them is clamped.
 		/// </summary>
-		internal static void ResolveClampedItems(
+		private static void ResolveClampedItems(
 			IReadOnlyDictionary<BIM.Common.FastenerGrid, List<string>> clampedPartsByFastener,
 			IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart,
 			IPluginLogger plugInLogger)
@@ -281,17 +291,34 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					.Concat(j.Welds)
 					.Concat(j.Fasteners)));
 
-			foreach (var item in (sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>()).Cast<BIM.Common.Item>()
-				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>()))
+			var selected = (sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>()).Cast<BIM.Common.Item>()
+				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>())
+				.Concat(sorterData.Fasteners ?? Enumerable.Empty<BIM.Common.FastenerGrid>())
+				.Concat(sorterData.Welds ?? Enumerable.Empty<BIM.Common.Weld>());
+
+			foreach (var item in selected)
 			{
 				if (taken.Contains(item))
 				{
 					continue;
 				}
 
-				var part = item.Parent as Part;
-				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} '{part?.Name}' profile '{part?.Profile?.ProfileString}' guid {part?.Identifier.GUID}");
+				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} {Describe(item.Parent as ModelObject)}");
 			}
+		}
+
+		/// <summary>
+		/// Enough of a Tekla object to find it again. A fastener or a weld is not a <see cref="Part"/> and has neither
+		/// a name nor a profile, so only the guid identifies it - and those are the items most worth naming here.
+		/// </summary>
+		private static string Describe(ModelObject source)
+		{
+			if (source is Part part)
+			{
+				return $"'{part.Name}' profile '{part.Profile?.ProfileString}' guid {part.Identifier.GUID}";
+			}
+
+			return $"'{source?.GetType().Name}' guid {source?.Identifier.GUID}";
 		}
 
 		/// <summary>
@@ -303,9 +330,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// a component: a base plate comes from one, and nothing else frames into the foot of a column, so the base
 		/// plate counting as a member is what gives that node a second one and makes it a joint at all. Read as a
 		/// plate it would seed no node, and the column base would stop being a connection.
+		/// <para>
+		/// A haunch is admitted by the name of the component that made it, whatever kind that component is: its web is
+		/// a plate by construction, and it is not always built by a connection.
+		/// </para>
 		/// </para>
 		/// </summary>
-		private static bool IsMadeByAConnectionComponent(Beam beam) => beam.GetFatherComponent() is Connection;
+		private static bool IsMadeByAConnectionComponent(Beam beam)
+		{
+			var father = beam.GetFatherComponent();
+
+			return father is Connection || father?.Name.ToUpper() == HaunchMemberName;
+		}
 
 		/// <summary>
 		/// The plate a beam with a rectangular profile really is. The thinner of the two cross-section directions is
@@ -319,10 +355,24 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Tekla.Structures.Model.Model model, Beam beam, Matrix44 partLcs, IPoint3D begin, IPoint3D end)
 		{
 			var bb = CreateOrientedBoundingBox(model, beam, inflateSmallExtents: false);
-			var plate = PlateFromCrossSection(partLcs, begin, end, bb.Extent1, bb.Extent2);
+			var across = CrossSectionHalfExtents(extentAcrossTeklaY: bb.Extent1, extentAcrossTeklaZ: bb.Extent2);
+			var plate = PlateFromCrossSection(partLcs, begin, end, across.AcrossY, across.AcrossZ);
 
 			return new BIM.Common.Plate(beam, partLcs, plate.Contour, plate.Thickness);
 		}
+
+		/// <summary>
+		/// A part's two cross-section half-extents, named for the axes of the matrix <see cref="CreateMatrix"/> builds
+		/// rather than for Tekla's own. The two cross: the box measures <c>Extent1</c> across Tekla's Y and
+		/// <c>Extent2</c> across Tekla's Z, while the matrix takes Tekla's Y as its Z axis and Tekla's Z as its Y.
+		/// <para>
+		/// Its own function because handing the two over in Tekla's order instead leaves every dimension reading
+		/// correctly - the width, the length and the thickness all come out right - while the plate lies in the plane
+		/// of its own normal.
+		/// </para>
+		/// </summary>
+		internal static (double AcrossY, double AcrossZ) CrossSectionHalfExtents(double extentAcrossTeklaY, double extentAcrossTeklaZ)
+			=> (extentAcrossTeklaZ, extentAcrossTeklaY);
 
 		/// <summary>
 		/// The contour and thickness of the plate a part with the given cross-section half-extents is. The thinner

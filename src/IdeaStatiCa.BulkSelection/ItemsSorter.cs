@@ -315,10 +315,11 @@ namespace IdeaStatiCa.BIM.Common
 				// the next fastener, and each one widens the box so AddPlates may find more on its own.
 				// A member already exported by an earlier joint is not this one's to take as detailing, the same rule
 				// additionalStiffening applies below.
+				var takenByReference = new List<Member>();
 				var membersInOtherJoints = new HashSet<Member>(
 					joints.SelectMany(j => j.Members).Concat(joints.SelectMany(j => j.StiffeningMembers)),
 					ItemComparer<Member>.Instance);
-				while (TakeFabricationClampedToJoint(data.Fasteners, claimedFasteners, placedByGeometry, membersInOtherJoints, sourcePlates, plates, members, fasteners, node, settings))
+				while (TakeFabricationClampedToJoint(data.Fasteners, claimedFasteners, placedByGeometry, membersInOtherJoints, sourcePlates, plates, members, takenByReference, fasteners, node, settings))
 				{
 					while (AddPlates(sourcePlates, plates, node, settings)) { }
 				}
@@ -407,6 +408,10 @@ namespace IdeaStatiCa.BIM.Common
 					// Same reason: a dropped candidate hands nothing back, so a fastener it claimed would be lost to every
 					// later joint.
 					claimedFasteners.ExceptWith(fasteners);
+					// And a member the reference phase took is detailing by shape, so it went straight into the stiffening
+					// set above and its nodes were excluded with the rest. Nothing else hands those back, and an excluded
+					// node's master is barred from every later joint's additional stiffening too.
+					excluded.RemoveAll(n => takenByReference.Any(m => ItemComparer<Member>.Instance.Equals(n.Master, m)));
 				}
 			}
 
@@ -417,6 +422,10 @@ namespace IdeaStatiCa.BIM.Common
 			// merely equal today's result, it reaches it by the same route.
 			var gainedPlates = RecoverPlatesByWeldReference(data, joints, buildByJoint, sourcePlates, settings);
 			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint, claimedFasteners);
+
+			// Last, so that geometry has had every chance first: the box re-scan above may still take a grid this pass
+			// would otherwise claim by reference, and the plate pool is settled by the time it looks at one.
+			PlaceFastenersNoJointTook(data, joints, buildByJoint, sourcePlates, claimedFasteners);
 
 #if DEBUG
 			TestCaseHelper.CreateTestCaseData(data, new SorterResult(joints));
@@ -440,8 +449,8 @@ namespace IdeaStatiCa.BIM.Common
 		/// </para>
 		/// Degenerate cross-section bounds compare false, leaving the box's verdict in place.
 		/// <para>
-		/// Public so a link can report which of the two rules took a part: the box's verdict is self-evident from the
-		/// geometry, this one is not, and it is the one that can be wrong on a frame stub.
+		/// Answers this rule alone, not whether the part ended up as detailing: the box can reach that verdict too, and
+		/// this is the half that can be wrong, on a frame stub shorter than its own section depth.
 		/// </para>
 		/// </summary>
 		public static bool IsDetailingByShape(Member member)
@@ -686,6 +695,62 @@ namespace IdeaStatiCa.BIM.Common
 		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
 		// deliberately left alone: they were settled before any recovery, and re-deriving them from a box that the
 		// reference phase widened is how a joint would start swallowing members that geometry had kept apart.
+		/// <summary>
+		/// Last chance for a fastener no joint took. A group inside some node's box is left to that box during the
+		/// assembly loop, but a node is not a joint until it survives one: it can be absorbed into an earlier joint, or
+		/// dropped for having no structural member left. Its box then claims nothing, and the group it was holding for
+		/// reaches nobody - the very outcome the reference phase exists to prevent.
+		/// <para>
+		/// Takes the plates it clamps along with it. <see cref="RecoverPlatesByWeldReference"/> matches on welds, so a
+		/// gusset held by bolts alone reaches no joint through it - and a grid placed without the part it bolts to is
+		/// the one-operand export this exists to prevent.
+		/// </para>
+		/// </summary>
+		private static void PlaceFastenersNoJointTook(SorterData data, List<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, List<Plate> sourcePlates, HashSet<FastenerGrid> claimed)
+		{
+			if (data.Fasteners == null)
+			{
+				return;
+			}
+
+			foreach (var fastener in data.Fasteners)
+			{
+				if (claimed.Contains(fastener) || fastener.ClampedItems.Count == 0)
+				{
+					continue;
+				}
+
+				foreach (var joint in joints)
+				{
+					var held = new HashSet<Item>(buildByJoint[joint].Parts(), ItemComparer<Item>.Instance);
+					if (!fastener.ClampedItems.Any(held.Contains))
+					{
+						continue;
+					}
+
+					claimed.Add(fastener);
+					joint.Fasteners = (joint.Fasteners ?? new FastenerGrid[0])
+						.Concat(new[] { fastener })
+						.Distinct(ItemComparer<FastenerGrid>.Instance)
+						.ToArray();
+
+					foreach (var clamped in fastener.ClampedItems.OfType<Plate>())
+					{
+						var index = sourcePlates.FindIndex(pl => ItemComparer<Plate>.Instance.Equals(pl, clamped));
+						if (index < 0)
+						{
+							continue;
+						}
+
+						buildByJoint[joint].Plates.Add(sourcePlates[index]);
+						sourcePlates.RemoveAt(index);
+					}
+
+					break;
+				}
+			}
+		}
+
 		private static void RefreshFastenersAndWelds(SorterData data, HashSet<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, HashSet<FastenerGrid> claimed)
 		{
 			foreach (var joint in joints)
@@ -1220,6 +1285,7 @@ namespace IdeaStatiCa.BIM.Common
 			List<Plate> sourcePlates,
 			List<Plate> plates,
 			List<(Member m, bool isended)> members,
+			List<Member> takenByReference,
 			List<FastenerGrid> taken,
 			Node node,
 			SorterSettings settings)
@@ -1261,6 +1327,7 @@ namespace IdeaStatiCa.BIM.Common
 							&& !members.Any(m => ItemComparer<Member>.Instance.Equals(m.m, clampedMember)))
 						{
 							members.Add((clampedMember, true));
+							takenByReference.Add(clampedMember);
 							found = true;
 						}
 
@@ -1279,7 +1346,15 @@ namespace IdeaStatiCa.BIM.Common
 					}
 
 					var plate = sourcePlates[index];
-					node.Inflate(plate.Contour.Select(pt => pt.ToMediaPoint()).ToArray(), settings.MaxInflateExtent);
+					// Only where the settings can bound it. A plate taken by reference sits outside the box by definition -
+					// up to metres out - and this runs INSIDE the assembly loop, so the widened box goes on to feed member
+					// capture, the bearing choice and the node-relocation search. With no clamp the box would follow the
+					// plate however far it is, which is what the weld phase avoids by running after the loop instead.
+					if (settings.MaxInflateExtent >= 0)
+					{
+						node.Inflate(plate.Contour.Select(pt => pt.ToMediaPoint()).ToArray(), settings.MaxInflateExtent);
+					}
+
 					sourcePlates.RemoveAt(index);
 					plates.Add(plate);
 					found = true;

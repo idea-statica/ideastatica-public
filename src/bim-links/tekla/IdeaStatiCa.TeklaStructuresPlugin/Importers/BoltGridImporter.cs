@@ -35,19 +35,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				};
 
 				//This test due to plate as member and we are not sure if its imported as plate or member
-				AddConnectedPart(boltGroup.PartToBoltTo, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, "PartToBoltTo");
-				AddConnectedPart(boltGroup.PartToBeBolted, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, "PartToBeBolted");
-
-				if (boltGroup.OtherPartsToBolt != null)
+				foreach (var bolted in Utilities.BulkSelectionHelper.PartsBoltedBy(boltGroup))
 				{
-					foreach (var obj in boltGroup.OtherPartsToBolt)
-					{
-						if (!(obj is TS.Part otherPart))
-						{
-							continue;
-						}
-						AddConnectedPart(otherPart, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, "OtherPartsToBolt");
-					}
+					AddConnectedPart(bolted.Part, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, bolted.Role);
 				}
 				var boltCs = boltGroup.GetCoordinateSystem();
 				var boltAxisZ = TSG.Vector.Cross(boltCs.AxisX, boltCs.AxisY);
