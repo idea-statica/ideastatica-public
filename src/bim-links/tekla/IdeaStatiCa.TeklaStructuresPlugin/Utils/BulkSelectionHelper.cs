@@ -1,5 +1,6 @@
 ﻿using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Exeptions;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
@@ -27,9 +28,22 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <param name="partsEnumerator"></param>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
-		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings = null)
+		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings = null, IPluginLogger plugInLogger = null)
 		{
 			List<BIM.Common.Member> bMembers = new List<BIM.Common.Member>();
+			// Tekla identity -> the item built for it, so a bolt group can be given the parts it clamps once they all exist.
+			var itemsByPart = new Dictionary<string, List<BIM.Common.Item>>();
+			void Register(ModelObject source, BIM.Common.Item item)
+			{
+				var key = source.Identifier.GUID.ToString();
+				if (!itemsByPart.TryGetValue(key, out var built))
+				{
+					built = new List<BIM.Common.Item>();
+					itemsByPart[key] = built;
+				}
+				built.Add(item);
+			}
+			var clampedPartsByFastener = new Dictionary<BIM.Common.FastenerGrid, List<string>>();
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
 			List<BIM.Common.Weld> welds = new List<BIM.Common.Weld>();
 			List<BIM.Common.FastenerGrid> fasteners = new List<BIM.Common.FastenerGrid>();
@@ -69,11 +83,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 							var b3 = end.ToMediaPoint() + vect1.ToMediaVector();
 							var b4 = end.ToMediaPoint() + vect2.ToMediaVector();
 
-							plates.Add(new IdeaStatiCa.BIM.Common.Plate(beam, partLcs, new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() }, cssBounds.Width));
+							var haunchItem = new IdeaStatiCa.BIM.Common.Plate(beam, partLcs, new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() }, cssBounds.Width);
+							Register(beam, haunchItem);
+							plates.Add(haunchItem);
 							continue;
 						}
 					}
-					bMembers.Add(new BIM.Common.Member(beam, partLcs, begin, end, cssBounds));
+					var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
+					Register(beam, beamItem);
+					bMembers.Add(beamItem);
 				}
 
 				if (currentPart is PolyBeam polyBeam)
@@ -86,7 +104,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					bMembers.Add(new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds));
+					var polyBeamItem = new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds);
+					Register(polyBeam, polyBeamItem);
+					bMembers.Add(polyBeamItem);
 				}
 
 				if (currentPart is ContourPlate contourPlate)
@@ -95,7 +115,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 					var points = BulkSelectionHelper.GetContourPlatePoints(contourPlate);
 
-					plates.Add(new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate)));
+					var plateItem = new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate));
+					Register(contourPlate, plateItem);
+					plates.Add(plateItem);
 				}
 
 				if (currentPart is BoltGroup boltGroup)
@@ -103,7 +125,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroup);
 					var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroup);
 
-					fasteners.Add(new BIM.Common.FastenerGrid(boltGroup, lcs, boltPositions));
+					var fastener = new BIM.Common.FastenerGrid(boltGroup, lcs, boltPositions);
+					clampedPartsByFastener[fastener] = ClampedPartIds(boltGroup);
+					fasteners.Add(fastener);
 				}
 
 				if (currentPart is BentPlate bentPlate)
@@ -114,7 +138,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						if (geometryEnumerator.Current?.GeometryNode is PolygonNode node)
 						{
 							var tuple = BulkSelectionHelper.GetPlateDataFromPolygon(node, bentPlate);
-							plates.Add(new BIM.Common.Plate(bentPlate, tuple.Item1, tuple.Item2, bentPlate.Thickness));
+							var bentItem = new BIM.Common.Plate(bentPlate, tuple.Item1, tuple.Item2, bentPlate.Thickness);
+							Register(bentPlate, bentItem);
+							plates.Add(bentItem);
 						}
 					}
 				}
@@ -146,11 +172,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						{
 							Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroupPart);
 							var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroupPart);
-							fasteners.Add(new BIM.Common.FastenerGrid(boltGroupPart, lcs, boltPositions));
+							var fastener = new BIM.Common.FastenerGrid(boltGroupPart, lcs, boltPositions);
+							clampedPartsByFastener[fastener] = ClampedPartIds(boltGroupPart);
+							fasteners.Add(fastener);
 						}
 					}
 				}
 			}
+
+			ResolveClampedItems(clampedPartsByFastener, itemsByPart, plugInLogger);
 
 			var sorterData = new BIM.Common.SorterData
 			{
@@ -174,6 +204,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
 
+			ReportItemsNoJointTook(sorterData, sortedJoints, plugInLogger);
+
 			//Test of uncontrolled greedy alg
 			// by discussion threshold is 20 members in connection
 			if (sortedJoints.Joints.Count == 1 && sortedJoints.Joints[0].Members.Count > 20)
@@ -182,6 +214,93 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			}
 
 			return sortedJoints;
+		}
+
+		/// <summary>
+		/// The Tekla identities of the parts a bolt group clamps. Read here rather than in the importer because the
+		/// sorter needs them to place a plate the node box did not reach, which happens before any import runs.
+		/// </summary>
+		private static List<string> ClampedPartIds(BoltGroup boltGroup)
+		{
+			var ids = new List<string>();
+			void Add(ModelObject part)
+			{
+				if (part != null)
+				{
+					ids.Add(part.Identifier.GUID.ToString());
+				}
+			}
+
+			Add(boltGroup.PartToBoltTo);
+			Add(boltGroup.PartToBeBolted);
+			if (boltGroup.OtherPartsToBolt != null)
+			{
+				foreach (var other in boltGroup.OtherPartsToBolt)
+				{
+					Add(other as ModelObject);
+				}
+			}
+
+			return ids;
+		}
+
+		/// <summary>
+		/// Hands each fastener the items for the parts it names. A part the source names but the selection does not
+		/// contain has no item to hand over, and the fastener is then one reference short of placing it - so it is
+		/// named rather than passed over in silence. One source part can build several items (a bent plate becomes
+		/// one plate per face), and every one of them is clamped.
+		/// </summary>
+		internal static void ResolveClampedItems(
+			IReadOnlyDictionary<BIM.Common.FastenerGrid, List<string>> clampedPartsByFastener,
+			IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart,
+			IPluginLogger plugInLogger)
+		{
+			foreach (var pair in clampedPartsByFastener)
+			{
+				foreach (var partId in pair.Value)
+				{
+					if (itemsByPart.TryGetValue(partId, out var built))
+					{
+						pair.Key.ClampedItems.AddRange(built);
+						continue;
+					}
+					plugInLogger?.LogInformation($"Bolt group {(pair.Key.Parent as ModelObject)?.Identifier.GUID} names part {partId}, which is not among the selected parts - it cannot be recovered through this group");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Names every selected part no joint claimed. A part the user selected but no node box reached is not taken,
+		/// so it never widens the box toward itself and stays untaken - and it is then absent from the model entirely,
+		/// which downstream reads as a bolt grid or weld holding one part rather than as a plate that went missing.
+		/// Sort replaces the collections on <paramref name="sorterData"/> with their de-duplicated form, so what is
+		/// compared here is what was actually sorted.
+		/// </summary>
+		private static void ReportItemsNoJointTook(BIM.Common.SorterData sorterData, BIM.Common.SorterResult sortedJoints, IPluginLogger plugInLogger)
+		{
+			if (plugInLogger == null)
+			{
+				return;
+			}
+
+			var taken = new HashSet<BIM.Common.Item>(sortedJoints.Joints
+				.SelectMany(j => j.Members.Cast<BIM.Common.Item>()
+					.Concat(j.StiffeningMembers)
+					.Concat(j.Plates)
+					.Concat(j.Welds)
+					.Concat(j.Fasteners)));
+
+			foreach (var item in (sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>()).Cast<BIM.Common.Item>()
+				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>()))
+			{
+				if (taken.Contains(item))
+				{
+					continue;
+				}
+
+				var part = item.Parent as Part;
+				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} '{part?.Name}' profile '{part?.Profile?.ProfileString}' guid {part?.Identifier.GUID}");
+			}
 		}
 
 		/// <summary>
