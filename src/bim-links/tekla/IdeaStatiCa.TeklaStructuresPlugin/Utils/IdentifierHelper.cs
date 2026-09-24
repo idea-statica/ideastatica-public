@@ -66,9 +66,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 
 
 			}
-			if (teklaObject is BoltGroup)
+			if (teklaObject is BoltGroup boltGroupObject)
 			{
-				AddIdentifier<IIdeaBoltGrid>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
+				if (AnchorBoltGroupFilter(boltGroupObject))
+				{
+					AddIdentifier<IIdeaAnchorGrid>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
+					AddConcreteBlockToAnchor(identifiers);
+				}
+				else
+				{
+					AddIdentifier<IIdeaBoltGrid>(identifiers, teklaObject, teklaObject.Identifier.GUID.ToString());
+				}
 			}
 			else if (teklaObject is BaseWeld)
 			{
@@ -164,8 +172,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 						}
 					}
 
-					//test if is baseplate with dummy bolt group
-					if (!teklaPart.Identifier.Equals(boltGroup.PartToBeBolted.Identifier) || !teklaPart.Identifier.Equals(boltGroup.PartToBoltTo.Identifier) || boltGroup.OtherPartsToBolt.Count != 0)
+					// A group that fastens this part alone is never walked: such a group enters an export only through
+					// the joint's fasteners, so an anchor of that shape is never added twice.
+					if (!FastensOnly(boltGroup, teklaPart))
 					{
 						identifiers = GetIdentifier(modelObj, ref identifiers, addToCollection, connectionPoint);
 					}
@@ -548,6 +557,185 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			}
 #endif
 			return part.Name == "ANCHOR ROD";
+		}
+
+		/// <summary>
+		/// Whether a bolt group is an anchor modelled as bolts, see <see cref="AnchorBoltGroupRule"/>.
+		/// </summary>
+		internal static bool AnchorBoltGroupFilter(BoltGroup boltGroup) => JudgeAnchorBoltGroup(boltGroup).IsAnchor;
+
+		/// <summary>
+		/// Reads the facts <see cref="AnchorBoltGroupRule"/> judges a bolt group on, and stops at the first one that already
+		/// rules it out: the slots cost nothing, the detail's children, the plate's other groups and the geometry do.
+		/// </summary>
+		internal static AnchorBoltGroupVerdict JudgeAnchorBoltGroup(BoltGroup boltGroup)
+		{
+			var plate = boltGroup.PartToBoltTo as Part;
+			var facts = new AnchorBoltGroupFacts
+			{
+				IsBolt = boltGroup.Bolt,
+				FastensOnePartOnly = plate != null && FastensOnly(boltGroup, plate),
+			};
+			if (!facts.FastensOnePartOnly)
+			{
+				return AnchorBoltGroupRule.Judge(facts);
+			}
+
+			facts.PartIsPlate = BulkSelectionHelper.IsFlatPlate(plate);
+			if (!facts.PartIsPlate)
+			{
+				return AnchorBoltGroupRule.Judge(facts);
+			}
+
+			facts.InRodAnchorDetail = IsRodAnchorDetail(boltGroup.GetFatherComponent()) || IsRodAnchorDetail(plate.GetFatherComponent());
+			if (facts.InRodAnchorDetail)
+			{
+				return AnchorBoltGroupRule.Judge(facts);
+			}
+
+			if (!facts.IsBolt)
+			{
+				facts.PositionCount = boltGroup.BoltPositions?.Count ?? 0;
+				facts.OtherAnchorGroupsOnPlate = facts.PositionCount < 2 ? 0 : OtherAnchorGroupsOn(plate, boltGroup);
+				facts.DetailPrimaryId = facts.PositionCount < 2 || facts.OtherAnchorGroupsOnPlate > 0
+					? null
+					: ((boltGroup.GetFatherComponent() as Detail)?.GetPrimaryObject() as ModelObject)?.Identifier.GUID.ToString();
+				if (string.IsNullOrEmpty(facts.DetailPrimaryId))
+				{
+					return AnchorBoltGroupRule.Judge(facts);
+				}
+			}
+
+			var boltAxis = BulkSelectionHelper.BoltFrame(boltGroup).Z;
+			facts.BoltAxis = new CI.Geometry3D.Vector3D(boltAxis.X, boltAxis.Y, boltAxis.Z);
+
+			var solid = plate.GetSolid();
+			var min = solid.MinimumPoint;
+			var max = solid.MaximumPoint;
+			facts.PlateMin = new CI.Geometry3D.Point3D(min.X, min.Y, min.Z);
+			facts.PlateMax = new CI.Geometry3D.Point3D(max.X, max.Y, max.Z);
+			facts.PlateThickness = Math.Min(Math.Min(max.X - min.X, max.Y - min.Y), max.Z - min.Z);
+			facts.WeldedMembers = WeldedFrameMembers(plate);
+
+			return AnchorBoltGroupRule.Judge(facts);
+		}
+
+		/// <summary>
+		/// Groups on <paramref name="plate"/> other than <paramref name="group"/> that fasten it alone and could be its
+		/// anchors - bolts, or two holes and more. Holes stand in for anchors only where no such group competes.
+		/// </summary>
+		private static int OtherAnchorGroupsOn(Part plate, BoltGroup group)
+		{
+			var count = 0;
+			var bolts = plate.GetBolts();
+			while (bolts.MoveNext())
+			{
+				if (bolts.Current is BoltGroup other
+					&& !other.Identifier.Equals(group.Identifier)
+					&& FastensOnly(other, plate)
+					&& (other.Bolt || (other.BoltPositions?.Count ?? 0) >= 2))
+				{
+					count++;
+				}
+			}
+
+			return count;
+		}
+
+		/// <summary>
+		/// Whether a bolt group names <paramref name="part"/> in both bolting slots and no other part. This is the one
+		/// shape the part walk in <see cref="GetIdentifier"/> never follows, and the only shape an anchor modelled as bolts
+		/// can have - the two share this definition so they cannot drift apart.
+		/// </summary>
+		internal static bool FastensOnly(BoltGroup boltGroup, Part part)
+			=> boltGroup.PartToBoltTo is Part boltTo
+				&& boltGroup.PartToBeBolted is Part beBolted
+				&& boltTo.Identifier.Equals(part.Identifier)
+				&& beBolted.Identifier.Equals(part.Identifier)
+				&& (boltGroup.OtherPartsToBolt == null || boltGroup.OtherPartsToBolt.Count == 0);
+
+		/// <summary>A detail whose rods and bolt group make an anchor grid of their own.</summary>
+		internal static bool IsRodAnchorDetail(BaseComponent component) => RodAnchorParts(component)?.Group != null;
+
+		/// <summary>
+		/// A detail's first rod part and first bolt group, the pair its anchor grid is built from. Null when the component
+		/// is not a detail with a rod; the group is null when the detail has none.
+		/// </summary>
+		internal static (Part Rod, BoltGroup Group)? RodAnchorParts(BaseComponent component)
+		{
+			if (!(component is Detail detail))
+			{
+				return null;
+			}
+
+			Part rod = null;
+			BoltGroup group = null;
+			var children = detail.GetChildren();
+			while (children.MoveNext())
+			{
+				if (rod == null && children.Current is Part part && AnchorMemberFilter(part))
+				{
+					rod = part;
+				}
+				else if (group == null && children.Current is BoltGroup bolts)
+				{
+					group = bolts;
+				}
+			}
+
+			if (rod == null)
+			{
+				return null;
+			}
+
+			return (rod, group);
+		}
+
+		private static List<AnchorBoltGroupFacts.WeldedMember> WeldedFrameMembers(Part plate)
+		{
+			var members = new List<AnchorBoltGroupFacts.WeldedMember>();
+			var welds = plate.GetWelds();
+			if (welds == null)
+			{
+				return members;
+			}
+
+			while (welds.MoveNext())
+			{
+				if (!(welds.Current is BaseWeld weld))
+				{
+					continue;
+				}
+
+				foreach (var joined in new[] { weld.MainObject, weld.SecondaryObject })
+				{
+					if (!(joined is Part part) || part.Identifier.Equals(plate.Identifier))
+					{
+						continue;
+					}
+
+					if (!(part is PolyBeam || (part is TS.Beam && !BulkSelectionHelper.IsRectangularCssBeam(part))))
+					{
+						continue;
+					}
+
+					var centerLine = part.GetCenterLine(true).OfType<Point>().ToList();
+					if (centerLine.Count < 2)
+					{
+						continue;
+					}
+
+					var begin = centerLine[0];
+					var end = centerLine[centerLine.Count - 1];
+					members.Add(new AnchorBoltGroupFacts.WeldedMember(
+						part.Identifier.GUID.ToString(),
+						new CI.Geometry3D.Point3D(begin.X, begin.Y, begin.Z),
+						new CI.Geometry3D.Point3D(end.X, end.Y, end.Z),
+						BulkSelectionHelper.Describe(part)));
+				}
+			}
+
+			return members;
 		}
 
 		/// <summary>

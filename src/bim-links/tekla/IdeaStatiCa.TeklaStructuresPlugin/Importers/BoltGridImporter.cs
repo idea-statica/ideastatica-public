@@ -39,32 +39,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				{
 					AddConnectedPart(bolted.Part, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, bolted.Role);
 				}
-				var boltCs = boltGroup.GetCoordinateSystem();
-				var boltAxisZ = TSG.Vector.Cross(boltCs.AxisX, boltCs.AxisY);
-
-				boltgrid.OriginNo = Model.GetPointId(boltCs.Origin);
-				boltgrid.LocalCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
-				{
-					VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D
-					{
-						X = boltCs.AxisX.X,
-						Y = boltCs.AxisX.Y,
-						Z = boltCs.AxisX.Z
-					},
-					VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D
-					{
-						X = boltCs.AxisY.X,
-						Y = boltCs.AxisY.Y,
-						Z = boltCs.AxisY.Z
-					},
-					VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
-					{
-						X = boltAxisZ.X,
-						Y = boltAxisZ.Y,
-						Z = boltAxisZ.Z
-
-					}
-				};
+				var frame = Utilities.BulkSelectionHelper.BoltFrame(boltGroup);
+				boltgrid.OriginNo = Model.GetPointId(frame.Origin);
+				boltgrid.LocalCoordinateSystem = ToCoordSystem(frame.X, frame.Y, frame.Z);
 
 				var midPoints = boltGroup.BoltPositions;
 				foreach (var p in midPoints)

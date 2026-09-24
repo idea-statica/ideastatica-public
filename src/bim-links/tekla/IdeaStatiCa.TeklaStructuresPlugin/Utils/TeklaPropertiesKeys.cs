@@ -5,6 +5,7 @@
 		public static readonly string BoltGradeKey = "GRADE";
 		public static readonly string BoltDiameterKey = "DIAMETER";
 		public static readonly string BoltAssemblyNameKey = "TYPE";
+		public static readonly string BoltLengthKey = "LENGTH";
 
 		public static readonly string NutInnerDiameterKey = "NUT.INNER_DIAMETER";
 		public static readonly string HeadDiameterKey = "HEAD_DIAMETER";

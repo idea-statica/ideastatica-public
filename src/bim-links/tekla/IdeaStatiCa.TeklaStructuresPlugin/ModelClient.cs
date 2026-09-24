@@ -321,7 +321,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 			if (notFoundAnchor)
 			{
-				plugInLogger.LogInformation($"ProcessUserSelection detail '{detail.Name}' number {detail.Number}: no anchor part among its {detailItems.Count} parts, so this detail contributes no anchor grid");
+				plugInLogger.LogInformation($"ProcessUserSelection detail '{detail.Name}' number {detail.Number}: no anchor part among its {detailItems.Count} parts");
 				selectedItems.AddRange(detailItems);
 			}
 			else
@@ -364,21 +364,40 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 
 				plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");
+				var partsAnyJointHolds = PartsAnyJointHolds(sortedJoints);
+				var adoptedPlates = new HashSet<Guid>();
+				var exports = new List<JointExport>();
 				foreach (var joint in sortedJoints.Joints)
 				{
 					plugInLogger.LogInformation($"GetBulkSelection joint {joint.Location.X} {joint.Location.Y} {joint.Location.Z}");
-					List<TS.ModelObject> beams = new List<TS.ModelObject>();
-					List<TS.ModelObject> parts = new List<TS.ModelObject>();
+					var export = new JointExport(joint);
+					exports.Add(export);
+					List<TS.ModelObject> beams = export.Beams;
+					List<TS.ModelObject> parts = export.Parts;
 
 
-					var structuralMembers = joint.Members
+					var candidates = joint.Members
 					.Where(m => !IdentifierHelper.HaunchFilter(m.Parent as TS.Part))
 					.Where(m => !IdentifierHelper.AnchorMemberFilter(m.Parent as TS.Part))
 					.Where(m => !IdentifierHelper.WasherMemberFilter(m.Parent as TS.Part))
 					.Where(m => !IdentifierHelper.NutMemberFilter(m.Parent as TS.Part))
-					.Where(m => !IdentifierHelper.ConcreteBlocksFilter(m.Parent as TS.Part));
+					.Where(m => !IdentifierHelper.ConcreteBlocksFilter(m.Parent as TS.Part))
+					.ToList();
+					var readings = candidates.Select(m => (Member: m, Reading: ReadPlateProfileMember(m, joint, candidates))).ToList();
+					var structuralMembers = readings.Where(r => r.Reading != PlateReading.Plate).Select(r => r.Member).ToList();
+					foreach (var reading in readings)
+					{
+						if (reading.Reading == PlateReading.Plate)
+						{
+							export.ExportedPlates.Add(((TS.Part)reading.Member.Parent).Identifier.GUID);
+						}
+						else if (reading.Reading == PlateReading.Member)
+						{
+							export.MemberPlates.Add((TS.Part)reading.Member.Parent);
+						}
+					}
 
-					structuralMembers.ToList().ForEach(sm => beams.Add(sm.Parent as TS.ModelObject));
+					structuralMembers.ForEach(sm => beams.Add(sm.Parent as TS.ModelObject));
 
 					plugInLogger.LogInformation($"GetBulkSelection joint number of members {beams.Count}");
 
@@ -416,6 +435,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 						}
 					}
 
+					parts.AddRange(PlatesAnchorsFastenNoJointHolds(joint, partsAnyJointHolds, adoptedPlates));
+
 					plugInLogger.LogInformation($"GetBulkSelection joint number of welds {joint.Welds.Count}");
 					foreach (var jointWeld in joint.Welds)
 					{
@@ -424,18 +445,192 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 							parts.Add(tsObject);
 						}
 					}
+				}
 
+				FoldSecondSightingsOfColumnBases(exports);
+
+				foreach (var export in exports.Where(e => !e.FoldedAway))
+				{
 					selections?.Add(
 						(
-							new Point(joint.Location.X, joint.Location.Y, joint.Location.Z),
-							beams,
-							parts
+							new Point(export.Joint.Location.X, export.Joint.Location.Y, export.Joint.Location.Z),
+							export.Beams,
+							export.Parts
 						)
 					);
 				}
 			}
 			return selections;
 		}
+
+		/// <summary>Applies <see cref="AnchorBoltGroupRule.PlanColumnBaseFolds"/> to the collected exports.</summary>
+		private void FoldSecondSightingsOfColumnBases(List<JointExport> exports)
+		{
+			var plan = AnchorBoltGroupRule.PlanColumnBaseFolds(exports
+				.Select(export => new JointPlateReadings(
+					export.Beams.Count,
+					export.ExportedPlates.ToList(),
+					export.MemberPlates.Select(plate => plate.Identifier.GUID).ToList()))
+				.ToList());
+
+			foreach (var fold in plan.FoldInto)
+			{
+				var second = exports[fold.Key];
+				var first = exports[fold.Value];
+				var known = new HashSet<Guid>(first.Parts.Select(part => part.Identifier.GUID));
+				foreach (var part in second.Parts.Concat(second.MemberPlates))
+				{
+					if (known.Add(part.Identifier.GUID))
+					{
+						first.Parts.Add(part);
+					}
+				}
+
+				second.FoldedAway = true;
+				plugInLogger.LogInformation($"GetBulkSelection joint at {DescribeLocation(second.Joint)} folded into the joint at {DescribeLocation(first.Joint)}: its structural members, plates {string.Join(", ", second.MemberPlates.Select(plate => plate.Identifier.GUID))}, go out with that joint");
+			}
+
+			foreach (var stay in plan.StayMembers)
+			{
+				var home = exports[stay.Home];
+				var plate = home.Parts.First(part => part.Identifier.GUID == stay.Plate);
+				home.Parts.RemoveAll(part => part.Identifier.GUID == stay.Plate);
+				home.Beams.Add(plate);
+				plugInLogger.LogInformation($"GetBulkSelection base plate {stay.Plate} stays a member at {DescribeLocation(home.Joint)}: another joint holds it as a structural member and cannot be folded");
+			}
+		}
+
+		private static string DescribeLocation(BIM.Common.Joint joint)
+			=> $"({joint.Location.X:F0}; {joint.Location.Y:F0}; {joint.Location.Z:F0})";
+
+		/// <summary>What one joint sends to the export, collected before any joint is emitted so a second sighting can be folded.</summary>
+		private sealed class JointExport
+		{
+			public JointExport(BIM.Common.Joint joint)
+			{
+				Joint = joint;
+			}
+
+			public BIM.Common.Joint Joint { get; }
+
+			public List<TS.ModelObject> Beams { get; } = new List<TS.ModelObject>();
+
+			public List<TS.ModelObject> Parts { get; } = new List<TS.ModelObject>();
+
+			/// <summary>Plate-profile members this joint exports as plates.</summary>
+			public HashSet<Guid> ExportedPlates { get; } = new HashSet<Guid>();
+
+			/// <summary>Plate-profile members this joint exports as members.</summary>
+			public List<TS.Part> MemberPlates { get; } = new List<TS.Part>();
+
+			public bool FoldedAway { get; set; }
+		}
+
+		private enum PlateReading
+		{
+			NotPlateProfile,
+			Member,
+			Plate,
+		}
+
+		/// <summary>How a plate-profile member of the joint goes out, see <see cref="AnchorBoltGroupRule.IsAnchoredPlate"/>.</summary>
+		private PlateReading ReadPlateProfileMember(BIM.Common.Member member, BIM.Common.Joint joint, IReadOnlyCollection<BIM.Common.Member> candidates)
+		{
+			if (!(member.Parent is TS.Beam plate) || !BulkSelectionHelper.IsRectangularCssBeam(plate))
+			{
+				return PlateReading.NotPlateProfile;
+			}
+
+			var facts = new AnchoredPlateFacts
+			{
+				OtherStructuralMemberLeft = candidates.Any(other => other != member
+					&& !(other.Parent is TS.Beam otherBeam && BulkSelectionHelper.IsRectangularCssBeam(otherBeam))),
+			};
+			string anchor = null;
+			(TS.Part Rod, TS.BoltGroup Group)? rod = null;
+			var bolts = plate.GetBolts();
+			while (bolts.MoveNext())
+			{
+				if (!(bolts.Current is TS.BoltGroup group) || !IdentifierHelper.FastensOnly(group, plate))
+				{
+					continue;
+				}
+
+				if (IdentifierHelper.AnchorBoltGroupFilter(group))
+				{
+					facts.BoltGroupAnchor = true;
+					anchor = $"bolt group {group.Identifier.GUID}{(Fastens(joint, group) ? string.Empty : " (not among this joint's fasteners)")}";
+					break;
+				}
+
+				rod = rod ?? IdentifierHelper.RodAnchorParts(group.GetFatherComponent()) ?? IdentifierHelper.RodAnchorParts(plate.GetFatherComponent());
+			}
+
+			if (!facts.BoltGroupAnchor && rod.HasValue)
+			{
+				facts.RodAnchorIsBeam = rod.Value.Rod is TS.Beam;
+				facts.RodAnchorInJoint = Holds(joint, rod.Value.Rod);
+				facts.RodDetailFirstGroupOnPlate = rod.Value.Group != null && IdentifierHelper.FastensOnly(rod.Value.Group, plate);
+				anchor = $"rod {rod.Value.Rod.Identifier.GUID}";
+			}
+
+			var reading = AnchorBoltGroupRule.IsAnchoredPlate(facts) ? PlateReading.Plate : PlateReading.Member;
+			if (anchor != null)
+			{
+				plugInLogger.LogInformation($"GetBulkSelection plate-profile member {plate.Identifier.GUID} anchored by {anchor}: {(reading == PlateReading.Plate ? "exported as a plate" : "kept a member")} (rodIsBeam {facts.RodAnchorIsBeam}, rodInJoint {facts.RodAnchorInJoint}, firstGroupOnPlate {facts.RodDetailFirstGroupOnPlate}, otherStructuralMember {facts.OtherStructuralMemberLeft})");
+			}
+
+			return reading;
+		}
+
+		/// <summary>The plates this joint's anchors fasten that no joint holds, each given to the first joint that asks.</summary>
+		private IEnumerable<TS.Part> PlatesAnchorsFastenNoJointHolds(BIM.Common.Joint joint, HashSet<Guid> partsAnyJointHolds, HashSet<Guid> adopted)
+		{
+			var fastened = new List<TS.Part>();
+			foreach (var member in joint.Members.Concat(joint.StiffeningMembers))
+			{
+				if (member.Parent is TS.Beam rod
+					&& IdentifierHelper.AnchorMemberFilter(rod)
+					&& IdentifierHelper.RodAnchorParts(rod.GetFatherComponent())?.Group?.PartToBoltTo is TS.Part rodPlate)
+				{
+					fastened.Add(rodPlate);
+				}
+			}
+
+			foreach (var fastener in joint.Fasteners)
+			{
+				if (fastener.Parent is TS.BoltGroup group && IdentifierHelper.AnchorBoltGroupFilter(group) && group.PartToBoltTo is TS.Part groupPlate)
+				{
+					fastened.Add(groupPlate);
+				}
+			}
+
+			foreach (var plate in fastened)
+			{
+				var guid = plate.Identifier.GUID;
+				if (partsAnyJointHolds.Contains(guid) || !adopted.Add(guid))
+				{
+					continue;
+				}
+
+				plugInLogger.LogInformation($"GetBulkSelection joint takes the plate its anchor fastens, which no joint reached: {BulkSelectionHelper.Describe(plate)}");
+				yield return plate;
+			}
+		}
+
+		private static HashSet<Guid> PartsAnyJointHolds(BIM.Common.SorterResult sorted)
+			=> new HashSet<Guid>(sorted.Joints
+				.SelectMany(joint => joint.Members.Cast<BIM.Common.Item>().Concat(joint.StiffeningMembers).Concat(joint.Plates))
+				.Select(item => item.Parent as TS.ModelObject)
+				.Where(source => source != null)
+				.Select(source => source.Identifier.GUID));
+
+		private static bool Holds(BIM.Common.Joint joint, TS.ModelObject part)
+			=> joint.Members.Concat(joint.StiffeningMembers)
+				.Any(member => (member.Parent as TS.ModelObject)?.Identifier.Equals(part.Identifier) == true);
+
+		private static bool Fastens(BIM.Common.Joint joint, TS.BoltGroup group)
+			=> joint.Fasteners.Any(fastener => (fastener.Parent as TS.ModelObject)?.Identifier.Equals(group.Identifier) == true);
 
 		/// <summary>
 		/// Which rule made a part detailing. A part reaches <c>Joint.StiffeningMembers</c> either by sitting inside
