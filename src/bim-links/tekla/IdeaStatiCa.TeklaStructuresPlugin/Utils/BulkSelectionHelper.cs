@@ -46,6 +46,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
 			List<BIM.Common.Weld> welds = new List<BIM.Common.Weld>();
 			List<BIM.Common.FastenerGrid> fasteners = new List<BIM.Common.FastenerGrid>();
+			var judgedGroups = new HashSet<string>();
+			void AddFastener(BoltGroup group)
+			{
+				var fastener = new BIM.Common.FastenerGrid(group, BulkSelectionHelper.CreateMatrix(group), BulkSelectionHelper.GetBoltPositions(group));
+				clampedPartsByFastener[fastener] = ClampedPartIds(group);
+				fasteners.Add(fastener);
+
+				if (judgedGroups.Add(group.Identifier.GUID.ToString()))
+				{
+					ReportAnchorCandidate(group, plugInLogger);
+				}
+			}
 
 			Item.CustomComparer = new ItemEqualityComparer();
 
@@ -113,12 +125,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 				if (currentPart is BoltGroup boltGroup)
 				{
-					Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroup);
-					var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroup);
-
-					var fastener = new BIM.Common.FastenerGrid(boltGroup, lcs, boltPositions);
-					clampedPartsByFastener[fastener] = ClampedPartIds(boltGroup);
-					fasteners.Add(fastener);
+					AddFastener(boltGroup);
 				}
 
 				if (currentPart is BentPlate bentPlate)
@@ -161,11 +168,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						var modelObj = bolts.Current;
 						if (modelObj is BoltGroup boltGroupPart)
 						{
-							Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroupPart);
-							var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroupPart);
-							var fastener = new BIM.Common.FastenerGrid(boltGroupPart, lcs, boltPositions);
-							clampedPartsByFastener[fastener] = ClampedPartIds(boltGroupPart);
-							fasteners.Add(fastener);
+							AddFastener(boltGroupPart);
 						}
 					}
 				}
@@ -218,9 +221,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				.ToList();
 
 		/// <summary>
-		/// The slots a bolt group names, in the order Tekla exposes them. Two readers need this - one to learn which
-		/// items the group clamps together, one to fill the group's connected parts on the way out - and a property
-		/// Tekla adds later has to reach both or the two answers drift apart.
+		/// The slots a bolt group names, in the order Tekla exposes them - the one definition of which parts a group
+		/// fastens, so a property Tekla adds later reaches every reader at once and no two answers drift apart.
 		/// <para>
 		/// A named slot holding no part is yielded with a null part rather than dropped: a group that names nothing is
 		/// a group short of an operand, and that is worth reporting rather than passing over in silence.
@@ -243,6 +245,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					yield return (otherPart, nameof(boltGroup.OtherPartsToBolt));
 				}
 			}
+		}
+
+		/// <summary>
+		/// A bolt group's frame as Tekla gives it: the origin, X, Y and the bolt axis Z = X × Y, neither normalised nor
+		/// turned. Everything that reads a group's axes takes them from here.
+		/// </summary>
+		internal static (Point Origin, Vector X, Vector Y, Vector Z) BoltFrame(BoltGroup boltGroup)
+		{
+			var boltCs = boltGroup.GetCoordinateSystem();
+
+			return (boltCs.Origin, boltCs.AxisX, boltCs.AxisY, Vector.Cross(boltCs.AxisX, boltCs.AxisY));
 		}
 
 		/// <summary>
@@ -311,7 +324,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// Enough of a Tekla object to find it again. A fastener or a weld is not a <see cref="Part"/> and has neither
 		/// a name nor a profile, so only the guid identifies it - and those are the items most worth naming here.
 		/// </summary>
-		private static string Describe(ModelObject source)
+		internal static string Describe(ModelObject source)
 		{
 			if (source is Part part)
 			{
@@ -320,6 +333,44 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			return $"'{source?.GetType().Name}' guid {source?.Identifier.GUID}";
 		}
+
+		/// <summary>
+		/// The anchor verdict on a bolt group that fastens only plates, with the criterion that decided it. A recognised
+		/// anchor turns steel into concrete downstream, so every one is named together with the plate, the member
+		/// standing on it and the component that made it; a rejected one says why, which is how a missed anchor is found.
+		/// </summary>
+		private static void ReportAnchorCandidate(BoltGroup group, IPluginLogger plugInLogger)
+		{
+			if (plugInLogger == null)
+			{
+				return;
+			}
+
+			try
+			{
+				var fastened = PartsBoltedBy(group).Where(bolted => bolted.Part != null).Select(bolted => bolted.Part).ToList();
+				if (fastened.Count == 0 || !fastened.All(IsFlatPlate))
+				{
+					return;
+				}
+
+				var verdict = IdentifierHelper.JudgeAnchorBoltGroup(group);
+				if (verdict.IsAnchor)
+				{
+					var madeBy = group.GetFatherComponent();
+					plugInLogger.LogInformation($"FindJoints bolt group {group.Identifier.GUID} is an anchor ({verdict.Reason}): plate {Describe(fastened[0])}, column {verdict.Column}, component {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' number {madeBy?.Number}");
+					return;
+				}
+
+				plugInLogger.LogInformation($"FindJoints bolt group {group.Identifier.GUID} is not an anchor ({verdict.Reason}): plate {Describe(fastened[0])}");
+			}
+			catch (Exception ex)
+			{
+				plugInLogger.LogWarning($"FindJoints bolt group {group.Identifier.GUID}: the anchor verdict failed and is not reported", ex);
+			}
+		}
+
+		internal static bool IsFlatPlate(Part part) => part is ContourPlate || (part is Beam && IsRectangularCssBeam(part));
 
 		/// <summary>
 		/// Whether a Tekla CONNECTION component created this part. Such a part is connection detailing - a splice

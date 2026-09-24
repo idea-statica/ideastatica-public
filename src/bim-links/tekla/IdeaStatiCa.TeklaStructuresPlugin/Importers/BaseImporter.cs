@@ -3,6 +3,7 @@ using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
+using TSG = Tekla.Structures.Geometry3d;
 using TSM = Tekla.Structures.Model;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
@@ -59,6 +60,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 				: $"'{part.GetType().Name}'";
 			PlugInLogger.LogInformation($"{owner} {role}: part {describe} guid {part.Identifier.GUID} is cached as neither plate nor member - dropped from ConnectedParts");
 		}
+
+		/// <summary>A fastener grid's frame in the form the model expects, from axes read off the source unchanged.</summary>
+		protected static IdeaRS.OpenModel.Geometry3D.CoordSystemByVector ToCoordSystem(TSG.Vector axisX, TSG.Vector axisY, TSG.Vector axisZ)
+			=> new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
+			{
+				VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = axisX.X, Y = axisX.Y, Z = axisX.Z },
+				VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = axisY.X, Y = axisY.Y, Z = axisY.Z },
+				VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = axisZ.X, Y = axisZ.Y, Z = axisZ.Z },
+			};
 
 		private void AddIfAlreadyImported<TConnectable>(TSM.ModelObject part, List<IIdeaObjectConnectable> connectedParts)
 			where TConnectable : IIdeaObjectConnectable
