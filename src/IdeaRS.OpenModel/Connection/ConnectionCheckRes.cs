@@ -339,8 +339,8 @@ namespace IdeaRS.OpenModel.Connection
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Unity Check Stress. NaN when the weld has no computed stress utilisation -
-		/// full-strength welds are not stress-checked, see <see cref="IsFullStrength"/>
+		/// Unity Check Stress. NaN when the weld has no computed stress utilisation,
+		/// see <see cref="IsFullStrength"/>
 		/// </summary>
 		[DataMember]
 		public double UnityCheck { get; set; }
@@ -352,10 +352,11 @@ namespace IdeaRS.OpenModel.Connection
 		public bool CheckStatus { get; set; }
 
 		/// <summary>
-		/// True when the weld is not rated by a stress utilisation and its check is satisfied by definition -
-		/// the check treats it as a full-strength weld. This applies to butt/bevel welds (e.g. CJP) and to
-		/// welds placed edge-to-edge. <see cref="UnityCheck"/> is NaN and <see cref="CheckStatus"/> is true
-		/// in that case
+		/// True when the check does not rate this weld by a stress utilisation, so its check is
+		/// satisfied by definition. Set for butt/bevel welds (e.g. CJP) and for any weld placed
+		/// edge-to-edge - despite the name, the latter includes fillet welds, so this flag is not a
+		/// statement that the weld develops the capacity of the connected plates. <see cref="UnityCheck"/>
+		/// is NaN and <see cref="CheckStatus"/> is true in that case
 		/// </summary>
 		[DataMember]
 		public bool IsFullStrength { get; set; }
