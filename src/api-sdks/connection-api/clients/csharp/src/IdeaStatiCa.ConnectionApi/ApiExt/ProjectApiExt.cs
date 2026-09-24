@@ -94,11 +94,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
 			var response = await DownloadProjectWithHttpInfoAsync(projectId, "application/octet-stream", 0, cancellationToken);
-			byte[] buffer = (byte[])response.Data;
-			using (var fileStream = System.IO.File.Create(fileName))
-			{
-				await fileStream.WriteAsync(buffer, 0, buffer.Length);
-			}
+			await ProducedFile.SaveAsync((byte[])response.Data, fileName);
 		}
 
 		public async Task<ConProject> CreateProjectFromIomFileAsync(string fileName, List<int> connectionsToCreate = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
