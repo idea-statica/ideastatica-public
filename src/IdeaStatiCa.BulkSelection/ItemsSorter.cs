@@ -231,33 +231,10 @@ namespace IdeaStatiCa.BIM.Common
 
 			var orderMembers = data.Members.OrderByDescending(GetBiggestMemberSelector);
 
-			var nodes = orderMembers.SelectMany((b, i) =>
+			var nodes = orderMembers.SelectMany((b, i) => new Node[]
 			{
-				var css = b.CrossSectionBounds;
-				var maxX = Math.Max(css.Width, css.Height);
-				var surrb = new CI.Common.BoundingBox3D
-				{
-					MaxX = maxX * settings.EnlargeNodeXin,
-					MaxY = css.Right * settings.EnlargeNodeY,
-					MaxZ = css.Bottom * settings.EnlargeNodeZ,
-					MinX = -maxX * settings.EnlargeNodeXout,
-					MinY = css.Left * settings.EnlargeNodeY,
-					MinZ = css.Top * settings.EnlargeNodeZ,
-				};
-				var surre = new CI.Common.BoundingBox3D
-				{
-					MaxX = maxX * settings.EnlargeNodeXout,
-					MaxY = css.Right * settings.EnlargeNodeY,
-					MaxZ = css.Bottom * settings.EnlargeNodeZ,
-					MinX = -maxX * settings.EnlargeNodeXin,
-					MinY = css.Left * settings.EnlargeNodeY,
-					MinZ = css.Top * settings.EnlargeNodeZ,
-				};
-				return new Node[]
-				{
-					new Node((i * 2) + 1, b.Begin, surrb, b),
-					new Node((i * 2) + 2, b.End, surre, b),
-				};
+				new Node((i * 2) + 1, b.Begin, NodeBox(b, atBegin: true, settings), b),
+				new Node((i * 2) + 2, b.End, NodeBox(b, atBegin: false, settings), b),
 			}).ToArray();
 
 			foreach (var node in nodes)
@@ -432,6 +409,27 @@ namespace IdeaStatiCa.BIM.Common
 #endif
 
 			return new SorterResult(joints);
+		}
+
+		/// <summary>
+		/// The box a node at one end of <paramref name="member"/> starts with, in the member's own axes.
+		/// <see cref="SorterSettings.EnlargeNodeXin"/> reaches along the member and <see cref="SorterSettings.EnlargeNodeXout"/>
+		/// past its end, and the member's X axis points inwards at its begin but outwards at its end, so the two swap.
+		/// A new box on every call: a node grows its box in place.
+		/// </summary>
+		internal static CI.Common.BoundingBox3D NodeBox(Member member, bool atBegin, SorterSettings settings)
+		{
+			var css = member.CrossSectionBounds;
+			var maxX = Math.Max(css.Width, css.Height);
+			return new CI.Common.BoundingBox3D
+			{
+				MaxX = maxX * (atBegin ? settings.EnlargeNodeXin : settings.EnlargeNodeXout),
+				MaxY = css.Right * settings.EnlargeNodeY,
+				MaxZ = css.Bottom * settings.EnlargeNodeZ,
+				MinX = -maxX * (atBegin ? settings.EnlargeNodeXout : settings.EnlargeNodeXin),
+				MinY = css.Left * settings.EnlargeNodeY,
+				MinZ = css.Top * settings.EnlargeNodeZ,
+			};
 		}
 
 		/// <summary>
@@ -1201,17 +1199,7 @@ namespace IdeaStatiCa.BIM.Common
 				else
 				{
 					// this member looks like continuous - create bounding box in the relative position
-					var css = cm.Member.CrossSectionBounds;
-					var maxX = Math.Max(css.Width, css.Height);
-					var surrb = new CI.Common.BoundingBox3D
-					{
-						MaxX = maxX * settings.EnlargeNodeXin,
-						MaxY = css.Right * settings.EnlargeNodeY,
-						MaxZ = css.Bottom * settings.EnlargeNodeZ,
-						MinX = -maxX * settings.EnlargeNodeXout,
-						MinY = css.Left * settings.EnlargeNodeY,
-						MinZ = css.Top * settings.EnlargeNodeZ,
-					};
+					var surrb = NodeBox(cm.Member, atBegin: true, settings);
 					var point = GeomOperation.Add(cm.Member.Begin, GeomOperation.Subtract(cm.Member.End, cm.Member.Begin) * cm.RelativePosition);
 					var tempNode = new Node(-1, point, surrb, cm.Member);//, GeomOperation.Subtract(cm.Member.End, cm.Member.Begin));
 					node.Inflate(tempNode, settings.MaxInflateExtent);
@@ -1760,16 +1748,31 @@ namespace IdeaStatiCa.BIM.Common
 		{
 			var pointInLCS = member.LCS.TransformToLCS(point);
 			var point2DInLCS = new Point(pointInLCS.Y, pointInLCS.Z);
-			var b = member.CrossSectionBounds;
-			b.Scale(settings.EnlargeNodeY, settings.EnlargeNodeZ);
-			if (b.Contains(point2DInLCS))
+			if (member.ContactBand(settings).Contains(point2DInLCS))
 			{
-				var beginInLCS = member.LCS.TransformToLCS(member.Begin);
-				var endInLCS = member.LCS.TransformToLCS(member.End);
-				return (pointInLCS.X - beginInLCS.X) / (endInLCS.X - beginInLCS.X);
+				return member.PositionAlong(pointInLCS);
 			}
 
 			return double.NaN;
+		}
+
+		/// <summary>
+		/// The cross-section band a point must lie in for the member to count as passing through it, in the frame
+		/// <see cref="Member.CrossSectionBounds"/> is expressed in - measured from the LCS axis, not from the centre line.
+		/// </summary>
+		internal static Rect ContactBand(this Member member, SorterSettings settings)
+		{
+			var band = member.CrossSectionBounds;
+			band.Scale(settings.EnlargeNodeY, settings.EnlargeNodeZ);
+			return band;
+		}
+
+		/// <summary>Where a point already in the member's LCS falls along it: 0 at its begin, 1 at its end.</summary>
+		internal static double PositionAlong(this Member member, IPoint3D pointInLCS)
+		{
+			var beginInLCS = member.LCS.TransformToLCS(member.Begin);
+			var endInLCS = member.LCS.TransformToLCS(member.End);
+			return (pointInLCS.X - beginInLCS.X) / (endInLCS.X - beginInLCS.X);
 		}
 
 		public static bool IsPointOn(this Member member, IPoint3D point)
