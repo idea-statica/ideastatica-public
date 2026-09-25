@@ -266,6 +266,7 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			LengthTolerance = 0.0005,
 			PlateThicknessMult4Tolerance = 2,
 			MaxInflateExtent = 230,
+			JoinContinuousMemberByNodeBox = true,
 		};
 
 		/// <summary>
