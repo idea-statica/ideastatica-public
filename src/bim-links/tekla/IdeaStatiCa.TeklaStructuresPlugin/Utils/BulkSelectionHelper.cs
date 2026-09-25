@@ -198,7 +198,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
 
-			ReportItemsNoJointTook(sorterData, sortedJoints, plugInLogger);
+			ReportItemsNoJointTook(sorterData, sortedJoints, settings, plugInLogger);
 
 			//Test of uncontrolled greedy alg
 			// by discussion threshold is 20 members in connection
@@ -289,8 +289,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// which downstream reads as a bolt grid or weld holding one part rather than as a plate that went missing.
 		/// Sort replaces the collections on <paramref name="sorterData"/> with their de-duplicated form, so what is
 		/// compared here is what was actually sorted.
+		/// <para>
+		/// For such a member it also says, end by end, where the nearest member lies: against its contact band, and
+		/// relative to the end's own node box.
+		/// </para>
 		/// </summary>
-		private static void ReportItemsNoJointTook(BIM.Common.SorterData sorterData, BIM.Common.SorterResult sortedJoints, IPluginLogger plugInLogger)
+		private static void ReportItemsNoJointTook(BIM.Common.SorterData sorterData, BIM.Common.SorterResult sortedJoints, BIM.Common.SorterSettings settings, IPluginLogger plugInLogger)
 		{
 			if (plugInLogger == null)
 			{
@@ -304,7 +308,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					.Concat(j.Welds)
 					.Concat(j.Fasteners)));
 
-			var selected = (sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>()).Cast<BIM.Common.Item>()
+			var members = sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>();
+			var selected = members.Cast<BIM.Common.Item>()
 				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>())
 				.Concat(sorterData.Fasteners ?? Enumerable.Empty<BIM.Common.FastenerGrid>())
 				.Concat(sorterData.Welds ?? Enumerable.Empty<BIM.Common.Weld>());
@@ -318,6 +323,29 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} {Describe(item.Parent as ModelObject)}");
 			}
+
+			foreach (var miss in BIM.Common.MemberEndMiss.Measure(members.Where(m => !taken.Contains(m)), members, settings))
+			{
+				plugInLogger.LogInformation(DescribeEndMiss(miss));
+			}
+		}
+
+		private static string DescribeEndMiss(BIM.Common.MemberEndMiss miss)
+		{
+			var location = miss.Location;
+			var end = $"FindJoints no joint took the {(miss.AtBegin ? "begin" : "end")} of {Describe(miss.Member.Parent as ModelObject)} at ({location.X:F0}, {location.Y:F0}, {location.Z:F0})";
+			if (miss.Nearest == null)
+			{
+				return $"{end}: no other member was selected";
+			}
+
+			var axis = miss.PositionFromAxis;
+			var band = miss.Band;
+			var centreLine = miss.PositionFromCentreLine;
+			return $"{end}: nearest is {Describe(miss.Nearest.Parent as ModelObject)} at {miss.RelativePosition * 100:F0}% of its length"
+				+ $", off its axis by y {axis.X:F0} z {axis.Y:F0} against a band of y {band.Left:F0}..{band.Right:F0} z {band.Top:F0}..{band.Bottom:F0}"
+				+ $", off its centre line by y {centreLine.X:F0} z {centreLine.Y:F0}"
+				+ $"; its centre line misses this end's node box by {miss.NodeBoxOverflow:F0}";
 		}
 
 		/// <summary>
