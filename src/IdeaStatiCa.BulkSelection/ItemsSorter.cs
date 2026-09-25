@@ -196,6 +196,12 @@ namespace IdeaStatiCa.BIM.Common
 		// Prevents a large neighbour cross-section from pulling the node BB too far and
 		// accidentally capturing unrelated members. Use -1 (default) for no limit.
 		public double MaxInflateExtent { get; set; } = -1;
+
+		// A passing member joins a node where the end lies in its cross-section band, which EnlargeNodeY/Z scale like
+		// the box. Below a factor of 1 the band is narrower than the member itself, so an end resting on its face never
+		// lies in it. Set, the member also joins where the point of its centre line nearest the node lies inside the box
+		// the node starts with.
+		public bool JoinContinuousMemberByNodeBox { get; set; }
 	}
 
 	public class ItemsSorter
@@ -1240,6 +1246,11 @@ namespace IdeaStatiCa.BIM.Common
 				if (node.ConnectedMembers.Find(cm => cm.Member == b.Master) == null)
 				{
 					var relpos = b.Master.GetPositionOnMember(node.Location, settings);
+					if (double.IsNaN(relpos) && settings.JoinContinuousMemberByNodeBox)
+					{
+						relpos = b.Master.PositionCrossing(node);
+					}
+
 					if (relpos >= 0 && relpos <= 1)
 					{
 						node.ConnectedMembers.Add(new ConnectedMember(b.Master, relpos));
@@ -1773,6 +1784,20 @@ namespace IdeaStatiCa.BIM.Common
 			var beginInLCS = member.LCS.TransformToLCS(member.Begin);
 			var endInLCS = member.LCS.TransformToLCS(member.End);
 			return (pointInLCS.X - beginInLCS.X) / (endInLCS.X - beginInLCS.X);
+		}
+
+		/// <summary>
+		/// Where the member passes through the box the node started with: the position of the point of its centre line
+		/// nearest the node, when that point lies within the member and inside that box; NaN otherwise. The starting box,
+		/// not the one the node has grown to, or each member joining here would widen the reach for the next.
+		/// </summary>
+		internal static double PositionCrossing(this Member member, ItemsSorter.Node node)
+		{
+			var relpos = member.PositionAlong(member.LCS.TransformToLCS(node.Location));
+			return relpos >= 0 && relpos <= 1
+				&& node.BoxOverflow(member.GetPointOnRelativePosition(relpos).ToMediaPoint(), node.OriginalSurroundings).LengthSquared <= 0.0
+				? relpos
+				: double.NaN;
 		}
 
 		public static bool IsPointOn(this Member member, IPoint3D point)
