@@ -34,5 +34,8 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 
 		/// <summary>Mortar thickness [m] (used when <see cref="ContactType"/> is <see cref="ConBasePlateContactType.Mortar"/>).</summary>
 		public double MortarThickness { get; set; }
+
+		/// <summary>Shear lug welded under the base plate, or null when the block has none.</summary>
+		public ConShearLugDto? ShearLug { get; set; }
 	}
 }
