@@ -1,5 +1,6 @@
 ﻿using CI.Geometry3D;
 using IdeaStatiCa.BIM.Common;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Exeptions;
 using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
@@ -9,7 +10,6 @@ using System.Linq;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using TS = Tekla.Structures;
 using WM = System.Windows.Media.Media3D;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
@@ -27,12 +27,37 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <param name="partsEnumerator"></param>
 		/// <returns></returns>
 		/// <exception cref="Exception"></exception>
-		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings = null)
+		public static SorterResult FindJoints(Tekla.Structures.Model.Model myModel, List<ModelObject> partsEnumerator, BIM.Common.SorterSettings settings = null, IPluginLogger plugInLogger = null)
 		{
 			List<BIM.Common.Member> bMembers = new List<BIM.Common.Member>();
+			// Tekla identity -> the item built for it, so a bolt group can be given the parts it clamps once they all exist.
+			var itemsByPart = new Dictionary<string, List<BIM.Common.Item>>();
+			void Register(ModelObject source, BIM.Common.Item item)
+			{
+				var key = source.Identifier.GUID.ToString();
+				if (!itemsByPart.TryGetValue(key, out var built))
+				{
+					built = new List<BIM.Common.Item>();
+					itemsByPart[key] = built;
+				}
+				built.Add(item);
+			}
+			var clampedPartsByFastener = new Dictionary<BIM.Common.FastenerGrid, List<string>>();
 			List<BIM.Common.Plate> plates = new List<BIM.Common.Plate>();
 			List<BIM.Common.Weld> welds = new List<BIM.Common.Weld>();
 			List<BIM.Common.FastenerGrid> fasteners = new List<BIM.Common.FastenerGrid>();
+			var judgedGroups = new HashSet<string>();
+			void AddFastener(BoltGroup group)
+			{
+				var fastener = new BIM.Common.FastenerGrid(group, BulkSelectionHelper.CreateMatrix(group), BulkSelectionHelper.GetBoltPositions(group));
+				clampedPartsByFastener[fastener] = ClampedPartIds(group);
+				fasteners.Add(fastener);
+
+				if (judgedGroups.Add(group.Identifier.GUID.ToString()))
+				{
+					ReportAnchorCandidate(group, plugInLogger);
+				}
+			}
 
 			Item.CustomComparer = new ItemEqualityComparer();
 
@@ -55,25 +80,21 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					if (IsRectangularCssBeam(beam))
+					if (IsRectangularCssBeam(beam) && IsMadeByAConnectionComponent(beam))
 					{
-						var father = beam.GetFatherComponent();
-						if (father?.Name.ToUpper() == HaunchMemberName || (father is Connection fCon && fCon.PositionType == TS.PositionTypeEnum.COLLISION_PLANE))
-						{
-							var vect1 = partLcs.AxisY * cssBounds.Y;
-							var vect2 = partLcs.AxisY * -cssBounds.Y;
-
-							var b1 = begin.ToMediaPoint() + vect1.ToMediaVector();
-							var b2 = begin.ToMediaPoint() + vect2.ToMediaVector();
-
-							var b3 = end.ToMediaPoint() + vect1.ToMediaVector();
-							var b4 = end.ToMediaPoint() + vect2.ToMediaVector();
-
-							plates.Add(new IdeaStatiCa.BIM.Common.Plate(beam, partLcs, new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() }, cssBounds.Width));
-							continue;
-						}
+						var plateItem = BuildPlateFromRectangularBeam(myModel, beam, partLcs, begin, end);
+						Register(beam, plateItem);
+						plates.Add(plateItem);
+						// A part read as a plate no longer ends a member, so it seeds no node - a joint that existed only
+						// because this part ended there stops forming. That is the intent, and it is also the first thing to
+						// look at when a connection is reported missing, so say which parts moved and how thick they came out.
+						var madeBy = beam.GetFatherComponent();
+						plugInLogger?.LogDebug($"FindJoints read as a plate rather than a member: '{beam.Name}' profile '{beam.Profile?.ProfileString}' thickness {plateItem.Thickness:F1} madeBy {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' guid {beam.Identifier.GUID}");
+						continue;
 					}
-					bMembers.Add(new BIM.Common.Member(beam, partLcs, begin, end, cssBounds));
+					var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
+					Register(beam, beamItem);
+					bMembers.Add(beamItem);
 				}
 
 				if (currentPart is PolyBeam polyBeam)
@@ -86,7 +107,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					var begin = new Point3D(cl1[0].X, cl1[0].Y, cl1[0].Z);
 					var end = new Point3D(cl1[1].X, cl1[1].Y, cl1[1].Z);
 
-					bMembers.Add(new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds));
+					var polyBeamItem = new BIM.Common.Member(polyBeam, partLcs, begin, end, cssBounds);
+					Register(polyBeam, polyBeamItem);
+					bMembers.Add(polyBeamItem);
 				}
 
 				if (currentPart is ContourPlate contourPlate)
@@ -95,15 +118,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 					var points = BulkSelectionHelper.GetContourPlatePoints(contourPlate);
 
-					plates.Add(new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate)));
+					var plateItem = new BIM.Common.Plate(contourPlate, lcs, points, BulkSelectionHelper.GetContourPlateThickness(contourPlate));
+					Register(contourPlate, plateItem);
+					plates.Add(plateItem);
 				}
 
 				if (currentPart is BoltGroup boltGroup)
 				{
-					Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroup);
-					var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroup);
-
-					fasteners.Add(new BIM.Common.FastenerGrid(boltGroup, lcs, boltPositions));
+					AddFastener(boltGroup);
 				}
 
 				if (currentPart is BentPlate bentPlate)
@@ -114,7 +136,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						if (geometryEnumerator.Current?.GeometryNode is PolygonNode node)
 						{
 							var tuple = BulkSelectionHelper.GetPlateDataFromPolygon(node, bentPlate);
-							plates.Add(new BIM.Common.Plate(bentPlate, tuple.Item1, tuple.Item2, bentPlate.Thickness));
+							var bentItem = new BIM.Common.Plate(bentPlate, tuple.Item1, tuple.Item2, bentPlate.Thickness);
+							Register(bentPlate, bentItem);
+							plates.Add(bentItem);
 						}
 					}
 				}
@@ -144,13 +168,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						var modelObj = bolts.Current;
 						if (modelObj is BoltGroup boltGroupPart)
 						{
-							Matrix44 lcs = BulkSelectionHelper.CreateMatrix(boltGroupPart);
-							var boltPositions = BulkSelectionHelper.GetBoltPositions(boltGroupPart);
-							fasteners.Add(new BIM.Common.FastenerGrid(boltGroupPart, lcs, boltPositions));
+							AddFastener(boltGroupPart);
 						}
 					}
 				}
 			}
+
+			ResolveClampedItems(clampedPartsByFastener, itemsByPart, plugInLogger);
 
 			var sorterData = new BIM.Common.SorterData
 			{
@@ -174,6 +198,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			var sortedJoints = sorter.Sort(sorterData, settings);
 
+			ReportItemsNoJointTook(sorterData, sortedJoints, settings, plugInLogger);
+
 			//Test of uncontrolled greedy alg
 			// by discussion threshold is 20 members in connection
 			if (sortedJoints.Joints.Count == 1 && sortedJoints.Joints[0].Members.Count > 20)
@@ -182,6 +208,274 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			}
 
 			return sortedJoints;
+		}
+
+		/// <summary>
+		/// The Tekla identities of the parts a bolt group clamps. Read here rather than in the importer because the
+		/// sorter needs them to place a plate the node box did not reach, which happens before any import runs.
+		/// </summary>
+		private static List<string> ClampedPartIds(BoltGroup boltGroup)
+			=> PartsBoltedBy(boltGroup)
+				.Where(bolted => bolted.Part != null)
+				.Select(bolted => bolted.Part.Identifier.GUID.ToString())
+				.ToList();
+
+		/// <summary>
+		/// The slots a bolt group names, in the order Tekla exposes them - the one definition of which parts a group
+		/// fastens, so a property Tekla adds later reaches every reader at once and no two answers drift apart.
+		/// <para>
+		/// A named slot holding no part is yielded with a null part rather than dropped: a group that names nothing is
+		/// a group short of an operand, and that is worth reporting rather than passing over in silence.
+		/// </para>
+		/// </summary>
+		internal static IEnumerable<(Part Part, string Role)> PartsBoltedBy(BoltGroup boltGroup)
+		{
+			yield return (boltGroup.PartToBoltTo as Part, nameof(boltGroup.PartToBoltTo));
+			yield return (boltGroup.PartToBeBolted as Part, nameof(boltGroup.PartToBeBolted));
+
+			if (boltGroup.OtherPartsToBolt == null)
+			{
+				yield break;
+			}
+
+			foreach (var other in boltGroup.OtherPartsToBolt)
+			{
+				if (other is Part otherPart)
+				{
+					yield return (otherPart, nameof(boltGroup.OtherPartsToBolt));
+				}
+			}
+		}
+
+		/// <summary>
+		/// A bolt group's frame as Tekla gives it: the origin, X, Y and the bolt axis Z = X × Y, neither normalised nor
+		/// turned. Everything that reads a group's axes takes them from here.
+		/// </summary>
+		internal static (Point Origin, Vector X, Vector Y, Vector Z) BoltFrame(BoltGroup boltGroup)
+		{
+			var boltCs = boltGroup.GetCoordinateSystem();
+
+			return (boltCs.Origin, boltCs.AxisX, boltCs.AxisY, Vector.Cross(boltCs.AxisX, boltCs.AxisY));
+		}
+
+		/// <summary>
+		/// Hands each fastener the items for the parts it names. A part the source names but the selection does not
+		/// contain has no item to hand over, and the fastener is then one reference short of placing it - so it is
+		/// named rather than passed over in silence. One source part can build several items (a bent plate becomes
+		/// one plate per face), and every one of them is clamped.
+		/// </summary>
+		private static void ResolveClampedItems(
+			IReadOnlyDictionary<BIM.Common.FastenerGrid, List<string>> clampedPartsByFastener,
+			IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart,
+			IPluginLogger plugInLogger)
+		{
+			foreach (var pair in clampedPartsByFastener)
+			{
+				foreach (var partId in pair.Value)
+				{
+					if (itemsByPart.TryGetValue(partId, out var built))
+					{
+						pair.Key.ClampedItems.AddRange(built);
+						continue;
+					}
+					plugInLogger?.LogInformation($"Bolt group {(pair.Key.Parent as ModelObject)?.Identifier.GUID} names part {partId}, which is not among the selected parts - it cannot be recovered through this group");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Names every selected part no joint claimed. A part the user selected but no node box reached is not taken,
+		/// so it never widens the box toward itself and stays untaken - and it is then absent from the model entirely,
+		/// which downstream reads as a bolt grid or weld holding one part rather than as a plate that went missing.
+		/// Sort replaces the collections on <paramref name="sorterData"/> with their de-duplicated form, so what is
+		/// compared here is what was actually sorted.
+		/// <para>
+		/// For such a member it also says, end by end, where the nearest member lies: against its contact band, and
+		/// relative to the end's own node box.
+		/// </para>
+		/// </summary>
+		private static void ReportItemsNoJointTook(BIM.Common.SorterData sorterData, BIM.Common.SorterResult sortedJoints, BIM.Common.SorterSettings settings, IPluginLogger plugInLogger)
+		{
+			if (plugInLogger == null)
+			{
+				return;
+			}
+
+			var taken = new HashSet<BIM.Common.Item>(sortedJoints.Joints
+				.SelectMany(j => j.Members.Cast<BIM.Common.Item>()
+					.Concat(j.StiffeningMembers)
+					.Concat(j.Plates)
+					.Concat(j.Welds)
+					.Concat(j.Fasteners)));
+
+			var members = sorterData.Members ?? Enumerable.Empty<BIM.Common.Member>();
+			var selected = members.Cast<BIM.Common.Item>()
+				.Concat(sorterData.Plates ?? Enumerable.Empty<BIM.Common.Plate>())
+				.Concat(sorterData.Fasteners ?? Enumerable.Empty<BIM.Common.FastenerGrid>())
+				.Concat(sorterData.Welds ?? Enumerable.Empty<BIM.Common.Weld>());
+
+			foreach (var item in selected)
+			{
+				if (taken.Contains(item))
+				{
+					continue;
+				}
+
+				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} {Describe(item.Parent as ModelObject)}");
+			}
+
+			foreach (var miss in BIM.Common.MemberEndMiss.Measure(members.Where(m => !taken.Contains(m)), members, settings))
+			{
+				plugInLogger.LogInformation(DescribeEndMiss(miss));
+			}
+		}
+
+		private static string DescribeEndMiss(BIM.Common.MemberEndMiss miss)
+		{
+			var location = miss.Location;
+			var end = $"FindJoints no joint took the {(miss.AtBegin ? "begin" : "end")} of {Describe(miss.Member.Parent as ModelObject)} at ({location.X:F0}, {location.Y:F0}, {location.Z:F0})";
+			if (miss.Nearest == null)
+			{
+				return $"{end}: no other member was selected";
+			}
+
+			var axis = miss.PositionFromAxis;
+			var band = miss.Band;
+			var centreLine = miss.PositionFromCentreLine;
+			return $"{end}: nearest is {Describe(miss.Nearest.Parent as ModelObject)} at {miss.RelativePosition * 100:F0}% of its length"
+				+ $", off its axis by y {axis.X:F0} z {axis.Y:F0} against a band of y {band.Left:F0}..{band.Right:F0} z {band.Top:F0}..{band.Bottom:F0}"
+				+ $", off its centre line by y {centreLine.X:F0} z {centreLine.Y:F0}"
+				+ $"; its centre line misses this end's node box by {miss.NodeBoxOverflow:F0}";
+		}
+
+		/// <summary>
+		/// Enough of a Tekla object to find it again. A fastener or a weld is not a <see cref="Part"/> and has neither
+		/// a name nor a profile, so only the guid identifies it - and those are the items most worth naming here.
+		/// </summary>
+		internal static string Describe(ModelObject source)
+		{
+			if (source is Part part)
+			{
+				return $"'{part.Name}' profile '{part.Profile?.ProfileString}' guid {part.Identifier.GUID}";
+			}
+
+			return $"'{source?.GetType().Name}' guid {source?.Identifier.GUID}";
+		}
+
+		/// <summary>
+		/// The anchor verdict on a bolt group that fastens only plates, with the criterion that decided it. A recognised
+		/// anchor turns steel into concrete downstream, so every one is named together with the plate, the member
+		/// standing on it and the component that made it; a rejected one says why, which is how a missed anchor is found.
+		/// </summary>
+		private static void ReportAnchorCandidate(BoltGroup group, IPluginLogger plugInLogger)
+		{
+			if (plugInLogger == null)
+			{
+				return;
+			}
+
+			try
+			{
+				var fastened = PartsBoltedBy(group).Where(bolted => bolted.Part != null).Select(bolted => bolted.Part).ToList();
+				if (fastened.Count == 0 || !fastened.All(IsFlatPlate))
+				{
+					return;
+				}
+
+				var verdict = IdentifierHelper.JudgeAnchorBoltGroup(group);
+				if (verdict.IsAnchor)
+				{
+					var madeBy = group.GetFatherComponent();
+					plugInLogger.LogInformation($"FindJoints bolt group {group.Identifier.GUID} is an anchor ({verdict.Reason}): plate {Describe(fastened[0])}, column {verdict.Column}, component {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' number {madeBy?.Number}");
+					return;
+				}
+
+				plugInLogger.LogInformation($"FindJoints bolt group {group.Identifier.GUID} is not an anchor ({verdict.Reason}): plate {Describe(fastened[0])}");
+			}
+			catch (Exception ex)
+			{
+				plugInLogger.LogWarning($"FindJoints bolt group {group.Identifier.GUID}: the anchor verdict failed and is not reported", ex);
+			}
+		}
+
+		internal static bool IsFlatPlate(Part part) => part is ContourPlate || (part is Beam && IsRectangularCssBeam(part));
+
+		/// <summary>
+		/// Whether a Tekla CONNECTION component created this part. Such a part is connection detailing - a splice
+		/// plate, a gusset, a haunch web - while the same profile drawn by hand is as likely to be a frame member,
+		/// and only the source can tell the two apart.
+		/// <para>
+		/// A DETAIL component is excluded, and that is the whole reason this asks for the kind rather than merely for
+		/// a component: a base plate comes from one, and nothing else frames into the foot of a column, so the base
+		/// plate counting as a member is what gives that node a second one and makes it a joint at all. Read as a
+		/// plate it would seed no node, and the column base would stop being a connection.
+		/// <para>
+		/// A haunch is admitted by the name of the component that made it, whatever kind that component is: its web is
+		/// a plate by construction, and it is not always built by a connection.
+		/// </para>
+		/// </para>
+		/// </summary>
+		private static bool IsMadeByAConnectionComponent(Beam beam)
+		{
+			var father = beam.GetFatherComponent();
+
+			return father is Connection || father?.Name.ToUpper() == HaunchMemberName;
+		}
+
+		/// <summary>
+		/// The plate a beam with a rectangular profile really is. The thinner of the two cross-section directions is
+		/// the plate's normal - whichever local axis that turns out to be - and the contour spans the other one.
+		/// <para>
+		/// The dimensions come from an uninflated box on purpose: the box the node search uses doubles any half-extent
+		/// under 50 mm, which is every plate's thickness.
+		/// </para>
+		/// </summary>
+		private static BIM.Common.Plate BuildPlateFromRectangularBeam(
+			Tekla.Structures.Model.Model model, Beam beam, Matrix44 partLcs, IPoint3D begin, IPoint3D end)
+		{
+			var bb = CreateOrientedBoundingBox(model, beam, inflateSmallExtents: false);
+			var across = CrossSectionHalfExtents(extentAcrossTeklaY: bb.Extent1, extentAcrossTeklaZ: bb.Extent2);
+			var plate = PlateFromCrossSection(partLcs, begin, end, across.AcrossY, across.AcrossZ);
+
+			return new BIM.Common.Plate(beam, partLcs, plate.Contour, plate.Thickness);
+		}
+
+		/// <summary>
+		/// A part's two cross-section half-extents, named for the axes of the matrix <see cref="CreateMatrix"/> builds
+		/// rather than for Tekla's own. The two cross: the box measures <c>Extent1</c> across Tekla's Y and
+		/// <c>Extent2</c> across Tekla's Z, while the matrix takes Tekla's Y as its Z axis and Tekla's Z as its Y.
+		/// <para>
+		/// Its own function because handing the two over in Tekla's order instead leaves every dimension reading
+		/// correctly - the width, the length and the thickness all come out right - while the plate lies in the plane
+		/// of its own normal.
+		/// </para>
+		/// </summary>
+		internal static (double AcrossY, double AcrossZ) CrossSectionHalfExtents(double extentAcrossTeklaY, double extentAcrossTeklaZ)
+			=> (extentAcrossTeklaZ, extentAcrossTeklaY);
+
+		/// <summary>
+		/// The contour and thickness of the plate a part with the given cross-section half-extents is. The thinner
+		/// direction is the plate's normal, whichever local axis it falls on; the contour is the rectangle the other
+		/// one sweeps from <paramref name="begin"/> to <paramref name="end"/>.
+		/// </summary>
+		internal static (List<IPoint3D> Contour, double Thickness) PlateFromCrossSection(
+			Matrix44 partLcs, IPoint3D begin, IPoint3D end, double halfExtentAcrossY, double halfExtentAcrossZ)
+		{
+			var inPlane = halfExtentAcrossY >= halfExtentAcrossZ ? partLcs.AxisY : partLcs.AxisZ;
+			var halfWidth = Math.Max(halfExtentAcrossY, halfExtentAcrossZ);
+			var thickness = 2 * Math.Min(halfExtentAcrossY, halfExtentAcrossZ);
+
+			var toOneEdge = (inPlane * halfWidth).ToMediaVector();
+			var toOther = (inPlane * -halfWidth).ToMediaVector();
+
+			var b1 = begin.ToMediaPoint() + toOneEdge;
+			var b2 = begin.ToMediaPoint() + toOther;
+			var b3 = end.ToMediaPoint() + toOneEdge;
+			var b4 = end.ToMediaPoint() + toOther;
+
+			var contour = new List<IPoint3D>() { b1.ToIndoPoint3D(), b3.ToIndoPoint3D(), b4.ToIndoPoint3D(), b2.ToIndoPoint3D() };
+
+			return (contour, thickness);
 		}
 
 		/// <summary>
@@ -253,13 +547,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			WM.Vector3D pltAxisZ = new WM.Vector3D(axisZ.X, axisZ.Y, axisZ.Z);
 			pltAxisZ.Normalize();
 
-			List<WM.Point3D> points = new List<WM.Point3D>();
-			List<CI.Geometry3D.IPoint3D> cIPoints = new List<CI.Geometry3D.IPoint3D>();
+			List<CI.Geometry3D.IPoint3D> contourPoints = new List<CI.Geometry3D.IPoint3D>();
 			foreach (ContourPoint point in node.Contour.ContourPoints)
 			{
-				points.Add(new WM.Point3D(point.X, point.Y, point.Z));
-				cIPoints.Add(new CI.Geometry3D.Point3D(point.X, point.Y, point.Z));
+				contourPoints.Add(new CI.Geometry3D.Point3D(point.X, point.Y, point.Z));
 			}
+
+			List<CI.Geometry3D.IPoint3D> cIPoints = PlateContour.FirstClosedContour(contourPoints).ToList();
+			List<WM.Point3D> points = cIPoints.Select(p => new WM.Point3D(p.X, p.Y, p.Z)).ToList();
 
 			WM.Vector3D translation = new WM.Vector3D(points[0].X, points[0].Y, points[0].Z);
 
@@ -344,10 +639,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				points.Add(new CI.Geometry3D.Point3D(vertexEnumerator.Current.X, vertexEnumerator.Current.Y, vertexEnumerator.Current.Z));
 			}
 
-			return points;
+			return PlateContour.FirstClosedContour(points).ToList();
 		}
 
-		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam)
+		/// <summary>
+		/// The part's box in its own axes. <paramref name="inflateSmallExtents"/> is what the node search wants and
+		/// what a real dimension must not have: it doubles any cross-section half-extent under 50 mm so a small part
+		/// is easier to catch in a node box, which on a 19 mm plate doubles the thickness itself.
+		/// </summary>
+		private static OBB CreateOrientedBoundingBox(Tekla.Structures.Model.Model model, Beam beam, bool inflateSmallExtents = true)
 		{
 			OBB obb = null;
 
@@ -374,7 +674,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double extent2 = (maxPoint.Z - minPoint.Z) / 2;
 
 				//for non anchor beams increase size of BB for small items 
-				if (beam.Name != TeklaAnchorRodName && beam.Name != TeklaAnchorWasherName && beam.Name != TeklaAnchorNutName)
+				if (inflateSmallExtents && beam.Name != TeklaAnchorRodName && beam.Name != TeklaAnchorWasherName && beam.Name != TeklaAnchorNutName)
 				{
 					if (extent1 < 50)
 					{

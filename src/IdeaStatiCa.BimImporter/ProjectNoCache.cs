@@ -166,6 +166,18 @@ namespace IdeaStatiCa.BimImporter
 		/// <inheritdoc cref="IBimIdMapAccess.ImportIdMap"/>
 		public void ImportIdMap(IEnumerable<(int IomId, string SourceIdToken)> entries)
 		{
+			// Idempotent: MC may re-seed a link that already imported this session. Such a link holds the mappings
+			// but, for derived connection nodes, not their persistence tokens (they are tokenised in a transient
+			// import scope, not the durable store the resolver reads). The re-seed then tops up those missing tokens.
+			// StoreMapping/StoreToken throw on duplicates, so skip entries already present instead of re-adding them
+			// (#35688 CAD sync); without this the re-seed could only run on a fresh, empty map.
+			HashSet<(int, string)> existingMappings = new HashSet<(int, string)>(_persistence.GetMappings());
+			HashSet<string> existingTokens = new HashSet<string>();
+			foreach ((string bimApiId, IIdeaPersistenceToken _) in _persistence.GetTokens())
+			{
+				existingTokens.Add(bimApiId);
+			}
+
 			foreach ((int iomId, string sourceIdToken) in entries)
 			{
 				PackedIdentity identity = JsonConvert.DeserializeObject<PackedIdentity>(sourceIdToken, SourceIdTokenSettings());
@@ -174,8 +186,11 @@ namespace IdeaStatiCa.BimImporter
 					continue;
 				}
 
-				_persistence.StoreMapping(iomId, identity.BimApiId);
-				if (identity.Token != null)
+				if (existingMappings.Add((iomId, identity.BimApiId)))
+				{
+					_persistence.StoreMapping(iomId, identity.BimApiId);
+				}
+				if (identity.Token != null && existingTokens.Add(identity.BimApiId))
 				{
 					_persistence.StoreToken(identity.BimApiId, identity.Token);
 				}

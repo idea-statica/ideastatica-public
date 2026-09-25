@@ -22,9 +22,22 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public IIdeaObject GetBimObject(int id)
 		{
-			IIdeaObject obj = _bimApiImporter.Get(_project.GetIdentifier(id));
-
-			return obj;
+			// Return null for an id the link cannot resolve — one with no stored persistence token, or a token that is
+			// not an identifier. Callers (BimImporter.ImportGroup, CadApplication) filter nulls by design; the underlying
+			// GetIdentifier/GetPersistenceToken throw for such ids, which would otherwise abort the whole group and fail
+			// a Connections sync when a group carries a derived, un-tokenised entity (#35688).
+			try
+			{
+				return _bimApiImporter.Get(_project.GetIdentifier(id));
+			}
+			catch (KeyNotFoundException)
+			{
+				return null;
+			}
+			catch (ArgumentException)
+			{
+				return null;
+			}
 		}
 
 		public int GetIomId(string bimApiId)

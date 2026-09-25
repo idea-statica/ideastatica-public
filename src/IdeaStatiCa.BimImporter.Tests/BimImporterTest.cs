@@ -5,6 +5,7 @@ using IdeaStatiCa.BimImporter.Tests.Helpers;
 using IdeaStatiCa.Plugin;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -565,6 +566,132 @@ namespace IdeaStatiCa.BimImporter.Tests
 								builder.Members[1],
 								builder.Members[2],
 							})
+						}, _connectionEqualityComparer)),
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
+		}
+
+		// The point of ImportSubstructure is that it imports the members it is handed. Resolving them
+		// through the project instead would read every entity from the BIM application a second time.
+		[Test]
+		public void ImportSubstructure_BimObjectImporterShouldReceiveACallWithMemberBimItems()
+		{
+			// Setup
+			GeometryBuilder builder = new GeometryBuilder();
+			builder
+				.Member(1, "line(0,1)")
+				.Member(2, "line(1,2)");
+
+			project = Substitute.For<IProject>();
+
+			BimImporter bimImporter = CreateBimImporter(builder.GetModel());
+
+			// Tested method
+			bimImporter.ImportSubstructure(
+				new List<IIdeaMember1D>() { builder.Members[1], builder.Members[2] },
+				IdeaRS.OpenModel.CountryCode.ECEN);
+
+			// Assert
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Any<IEnumerable<IIdeaObject>>(),
+					Arg.Is<IEnumerable<IBimItem>>(x =>
+						Enumerable.SequenceEqual(x, new List<IBimItem>()
+						{
+							new Member(builder.Members[1]),
+							new Member(builder.Members[2]),
+						}, _connectionEqualityComparer)),
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
+		}
+
+		[Test]
+		public void ImportSubstructure_ShouldNotResolveTheMembersThroughTheProject()
+		{
+			// Setup
+			GeometryBuilder builder = new GeometryBuilder();
+			builder.Member(1, "line(0,1)");
+
+			project = Substitute.For<IProject>();
+
+			BimImporter bimImporter = CreateBimImporter(builder.GetModel());
+
+			// Tested method
+			bimImporter.ImportSubstructure(
+				new List<IIdeaMember1D>() { builder.Members[1] },
+				IdeaRS.OpenModel.CountryCode.ECEN);
+
+			// Assert. The bim items are handed over as a deferred sequence, so the matcher has to walk it —
+			// without that the substitute never enumerates and a project lookup inside would go unnoticed.
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Any<IEnumerable<IIdeaObject>>(),
+					Arg.Is<IEnumerable<IBimItem>>(x => x.Count() == 1),
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
+
+			project.DidNotReceive().GetBimObject(Arg.Any<int>());
+		}
+
+		// The members must hold the leading IOM ids. ImportContext maps a member only after the geometry it
+		// references, so without the up-front mapping the members scatter through the numbering and every
+		// entity in the exported model lands on a different id.
+		[Test]
+		public void ImportSubstructure_TheMembersTakeTheLeadingIomIds()
+		{
+			// Setup: the real Project, so the ids are the ones the import would actually assign
+			GeometryBuilder builder = new GeometryBuilder();
+			builder
+				.Member(1, "line(0,1)")
+				.Member(2, "line(1,2)");
+
+			BimImporter bimImporter = CreateBimImporter(builder.GetModel());
+
+			// Tested method
+			bimImporter.ImportSubstructure(
+				new List<IIdeaMember1D>() { builder.Members[1], builder.Members[2] },
+				IdeaRS.OpenModel.CountryCode.ECEN);
+
+			// Assert: GetIomId is idempotent, so this reads back what was assigned
+			Assert.Multiple(() =>
+			{
+				Assert.That(project.GetIomId(builder.Members[1]), Is.EqualTo(1));
+				Assert.That(project.GetIomId(builder.Members[2]), Is.EqualTo(2));
+			});
+		}
+
+		[Test]
+		public void ImportSubstructure_MembersIsNull_ThrowsArgumentNullException()
+		{
+			GeometryBuilder builder = new GeometryBuilder();
+			BimImporter bimImporter = CreateBimImporter(builder.GetModel());
+
+			Assert.That(
+				() => bimImporter.ImportSubstructure(null, IdeaRS.OpenModel.CountryCode.ECEN),
+				Throws.InstanceOf<ArgumentNullException>());
+		}
+
+		[Test]
+		public void ImportSubstructure_MemberIsNull_IsSkipped()
+		{
+			// Setup: a member the link could not resolve arrives as null, as it does from IBimApiImporter.Get
+			GeometryBuilder builder = new GeometryBuilder();
+			builder.Member(1, "line(0,1)");
+
+			project = Substitute.For<IProject>();
+
+			BimImporter bimImporter = CreateBimImporter(builder.GetModel());
+
+			// Tested method
+			bimImporter.ImportSubstructure(
+				new List<IIdeaMember1D>() { builder.Members[1], null },
+				IdeaRS.OpenModel.CountryCode.ECEN);
+
+			// Assert
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Any<IEnumerable<IIdeaObject>>(),
+					Arg.Is<IEnumerable<IBimItem>>(x =>
+						Enumerable.SequenceEqual(x, new List<IBimItem>()
+						{
+							new Member(builder.Members[1]),
 						}, _connectionEqualityComparer)),
 					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}

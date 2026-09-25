@@ -7,6 +7,7 @@ using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TSG = Tekla.Structures.Geometry3d;
@@ -113,9 +114,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			};
 
 			List<TSG.Point> points = new List<TSG.Point>();
+			List<IPoint3D> contourPoints = new List<IPoint3D>();
 			foreach (TSM.ContourPoint point in node.Contour.ContourPoints)
 			{
 				points.Add(point);
+				contourPoints.Add(new Point3D(point.X, point.Y, point.Z));
+			}
+
+			PlateContour.FindFirstClosedContour(contourPoints, out int contourStart, out int contourCount);
+			if (contourCount < points.Count)
+			{
+				PlugInLogger.LogWarning($"FoldedPlateImporter GetPlateDataFromPolygon '{bentPlate.Identifier.GUID}' contour describes the outline more than once, {points.Count} points reduced to {contourCount}");
+				points = points.GetRange(contourStart, contourCount);
 			}
 
 			WM.Vector3D proLcsYT = points[1].ToMediaPoint() - points[0].ToMediaPoint();

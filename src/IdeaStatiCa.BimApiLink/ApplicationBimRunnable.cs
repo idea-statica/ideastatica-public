@@ -19,6 +19,7 @@ namespace IdeaStatiCa.BimApiLink
 		private readonly string _name;
 		private readonly string _ideaStatiCaPath;
 		private readonly string _projectPath;
+		private readonly string _ideaStatiCaArguments;
 
 		internal ApplicationBimRunnable(
 			IApplicationBIM app,
@@ -26,7 +27,8 @@ namespace IdeaStatiCa.BimApiLink
 			IPluginLogger logger,
 			string name,
 			string ideaStatiCaPath,
-			string projectPath)
+			string projectPath,
+			string ideaStatiCaArguments = null)
 		{
 			Debug.Assert(app != null);
 			Debug.Assert(bimHostingFactory != null);
@@ -41,6 +43,7 @@ namespace IdeaStatiCa.BimApiLink
 			_name = name;
 			_ideaStatiCaPath = ideaStatiCaPath;
 			_projectPath = projectPath;
+			_ideaStatiCaArguments = ideaStatiCaArguments;
 		}
 
 		public Task Run()
@@ -48,7 +51,8 @@ namespace IdeaStatiCa.BimApiLink
 			PluginFactory pluginFactory = new PluginFactory(
 				this,
 				_name,
-				_ideaStatiCaPath);
+				_ideaStatiCaPath,
+				_ideaStatiCaArguments);
 
 			IBIMPluginHosting pluginHosting = _bimHostingFactory.Create(pluginFactory, _logger);
 

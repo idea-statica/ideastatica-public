@@ -1,9 +1,9 @@
 # IdeaStatiCa.ConnectionApi
 
-The C# library for the Connection Rest API 4.0
+The C# library for the Connection Rest API 5.0
 
-- API version: 4.0
-- SDK version: 26.0.6.0672
+- API version: 5.0
+- SDK version: 26.1.0.4245
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -189,6 +189,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**AddLoadEffect**](docs/LoadEffectApi.md#addloadeffect) | Adds a new load effect to the connection.
 [**CalculateLoadExtremes**](docs/LoadEffectApi.md#calculateloadextremes) | Calculates load extremes for the connection and keeps only the critical load effects active.
+[**DeleteAllLoadEffects**](docs/LoadEffectApi.md#deleteallloadeffects) | Deletes every load effect in the specified connection, together with their internal forces.
 [**DeleteLoadEffect**](docs/LoadEffectApi.md#deleteloadeffect) | Delete load effect loadEffectId.
 [**GetLoadEffect**](docs/LoadEffectApi.md#getloadeffect) | Gets load impulses from the specified load effect.
 [**GetLoadEffects**](docs/LoadEffectApi.md#getloadeffects) | Gets all load effects defined in the specified connection.
@@ -202,25 +203,31 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**AddBoltAssembly**](docs/MaterialApi.md#addboltassembly) | Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
-[**AddCrossSection**](docs/MaterialApi.md#addcrosssection) | Add cross section to the project.
+[**AddCrossSection**](docs/MaterialApi.md#addcrosssection) | Adds a library cross-section (by its MPRL name and material) to the project.
 [**AddMaterialBoltGrade**](docs/MaterialApi.md#addmaterialboltgrade) | Adds a material to the project.
 [**AddMaterialConcrete**](docs/MaterialApi.md#addmaterialconcrete) | Adds a material to the project.
 [**AddMaterialHeadedStudGrade**](docs/MaterialApi.md#addmaterialheadedstudgrade) | Adds a material to the project.
 [**AddMaterialReinforcement**](docs/MaterialApi.md#addmaterialreinforcement) | Adds a material to the project.
 [**AddMaterialSteel**](docs/MaterialApi.md#addmaterialsteel) | Adds a material to the project.
 [**AddMaterialWeld**](docs/MaterialApi.md#addmaterialweld) | Adds a material to the project.
+[**AddParametricCrossSection**](docs/MaterialApi.md#addparametriccrosssection) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
 [**AddPin**](docs/MaterialApi.md#addpin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
 [**GetAllMaterials**](docs/MaterialApi.md#getallmaterials) | Gets materials used in the specified project.
 [**GetBoltAssemblies**](docs/MaterialApi.md#getboltassemblies) | Gets bolt assemblies used in the specified project.
 [**GetBoltGradeMaterials**](docs/MaterialApi.md#getboltgradematerials) | Gets materials used in the specified project.
 [**GetConcreteMaterials**](docs/MaterialApi.md#getconcretematerials) | Gets materials used in the specified project.
-[**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
+[**GetCrossSection**](docs/MaterialApi.md#getcrosssection) | Gets one cross-section of the project: the same object the listing returns for it.
+[**GetCrossSectionGeometry**](docs/MaterialApi.md#getcrosssectiongeometry) | Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
+[**GetCrossSections**](docs/MaterialApi.md#getcrosssections) | Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
 [**GetHeadedStudGradeMaterials**](docs/MaterialApi.md#getheadedstudgradematerials) | Gets materials used in the specified project.
 [**GetMaterialLibrary**](docs/MaterialApi.md#getmateriallibrary) | Lists the MPRL names available in the material library for the project's design code.
+[**GetParametricCrossSectionShapeTemplate**](docs/MaterialApi.md#getparametriccrosssectionshapetemplate) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
+[**GetParametricCrossSectionShapes**](docs/MaterialApi.md#getparametriccrosssectionshapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 [**GetPins**](docs/MaterialApi.md#getpins) | Gets pins used in the specified project.
 [**GetReinforcementMaterials**](docs/MaterialApi.md#getreinforcementmaterials) | Gets materials used in the specified project.
 [**GetSteelMaterials**](docs/MaterialApi.md#getsteelmaterials) | Gets materials used in the specified project.
 [**GetWeldingMaterials**](docs/MaterialApi.md#getweldingmaterials) | Gets materials used in the specified project.
+[**UpdateParametricCrossSection**](docs/MaterialApi.md#updateparametriccrosssection) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
   
@@ -239,19 +246,79 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**AddAnchorGridOperation**](docs/OperationApi.md#addanchorgridoperation) | Adds a new anchor grid operation to the connection.
+[**AddBoltGridOperation**](docs/OperationApi.md#addboltgridoperation) | Adds a new bolt grid operation to the connection.
+[**AddContactGridOperation**](docs/OperationApi.md#addcontactgridoperation) | Adds a new contact grid operation to the connection.
+[**AddContactOperation**](docs/OperationApi.md#addcontactoperation) | Adds a new contact operation to the connection.
+[**AddCutOperation**](docs/OperationApi.md#addcutoperation) | Adds a new cut operation to the connection.
+[**AddNegativeMemberOperation**](docs/OperationApi.md#addnegativememberoperation) | Adds a new negative member operation to the connection.
+[**AddNegativePlateOperation**](docs/OperationApi.md#addnegativeplateoperation) | Adds a new negative plate operation to the connection.
+[**AddPinGridOperation**](docs/OperationApi.md#addpingridoperation) | Adds a new pin grid operation to the connection.
+[**AddPlateCutOperation**](docs/OperationApi.md#addplatecutoperation) | Adds a new plate cut operation to the connection.
+[**AddStiffeningMember**](docs/OperationApi.md#addstiffeningmember) | Adds a new stiffening member operation to the connection.
+[**AddStiffeningPlate**](docs/OperationApi.md#addstiffeningplate) | Adds a new stiffening plate operation to the connection.
+[**AddWeldOperation**](docs/OperationApi.md#addweldoperation) | Adds a new weld operation to the connection.
+[**AddWorkPlaneOperation**](docs/OperationApi.md#addworkplaneoperation) | Adds a new work plane operation to the connection.
 [**DeleteOperations**](docs/OperationApi.md#deleteoperations) | Delete all operations for the connection.
+[**GetAnchorGridOperation**](docs/OperationApi.md#getanchorgridoperation) | Returns the Anchor Grid operation with the given id, with all fields populated.
+[**GetAnchorGridOperations**](docs/OperationApi.md#getanchorgridoperations) | Returns all Anchor Grid operations in the connection.
+[**GetBoltGridOperation**](docs/OperationApi.md#getboltgridoperation) | Returns the Bolt Grid operation with the given id, with all fields populated.
+[**GetBoltGridOperations**](docs/OperationApi.md#getboltgridoperations) | Returns all Bolt Grid operations in the connection.
 [**GetCommonOperationProperties**](docs/OperationApi.md#getcommonoperationproperties) | Gets common operation properties.
+[**GetContactGridOperation**](docs/OperationApi.md#getcontactgridoperation) | Returns the Contact Grid operation with the given id, with all fields populated.
+[**GetContactGridOperations**](docs/OperationApi.md#getcontactgridoperations) | Returns all Contact Grid operations in the connection.
+[**GetContactOperation**](docs/OperationApi.md#getcontactoperation) | Returns the Contact operation with the given id, with all fields populated.
+[**GetContactOperations**](docs/OperationApi.md#getcontactoperations) | Returns all Contact operations in the connection.
+[**GetCutOperation**](docs/OperationApi.md#getcutoperation) | Returns the Cut operation with the given id, with all fields populated.
+[**GetCutOperations**](docs/OperationApi.md#getcutoperations) | Returns all Cut operations in the connection.
+[**GetNegativeMemberOperation**](docs/OperationApi.md#getnegativememberoperation) | Returns the Negative Member operation with the given id, with all fields populated.
+[**GetNegativeMemberOperations**](docs/OperationApi.md#getnegativememberoperations) | Returns all Negative Member operations in the connection.
+[**GetNegativePlateOperation**](docs/OperationApi.md#getnegativeplateoperation) | Returns the Negative Plate operation with the given id, with all fields populated.
+[**GetNegativePlateOperations**](docs/OperationApi.md#getnegativeplateoperations) | Returns all Negative Plate operations in the connection.
 [**GetOperations**](docs/OperationApi.md#getoperations) | Gets the list of operations for the connection.
+[**GetPinGridOperation**](docs/OperationApi.md#getpingridoperation) | Returns the Pin Grid operation with the given id, with all fields populated.
+[**GetPinGridOperations**](docs/OperationApi.md#getpingridoperations) | Returns all Pin Grid operations in the connection.
+[**GetPlateCutOperation**](docs/OperationApi.md#getplatecutoperation) | Returns the Plate Cut operation with the given id, with all fields populated.
+[**GetPlateCutOperations**](docs/OperationApi.md#getplatecutoperations) | Returns all Plate Cut operations in the connection.
+[**GetStiffeningMemberOperation**](docs/OperationApi.md#getstiffeningmemberoperation) | Returns the Stiffening Member operation with the given id.
+[**GetStiffeningMemberOperations**](docs/OperationApi.md#getstiffeningmemberoperations) | Returns all Stiffening Member operations in the connection.
+[**GetStiffeningPlateOperation**](docs/OperationApi.md#getstiffeningplateoperation) | Returns the Stiffening Plate operation with the given id, with all fields populated.
+[**GetStiffeningPlateOperations**](docs/OperationApi.md#getstiffeningplateoperations) | Returns all Stiffening Plate operations in the connection.
+[**GetWeldOperation**](docs/OperationApi.md#getweldoperation) | Returns the Weld operation with the given id, with all fields populated.
+[**GetWeldOperations**](docs/OperationApi.md#getweldoperations) | Returns all Weld operations in the connection.
+[**GetWorkPlaneOperation**](docs/OperationApi.md#getworkplaneoperation) | Returns the Work Plane operation with the given id, with all fields populated.
+[**GetWorkPlaneOperations**](docs/OperationApi.md#getworkplaneoperations) | Returns all Work Plane operations in the connection.
 [**PreDesignWelds**](docs/OperationApi.md#predesignwelds) | Pre-designs welds in the connection.
+[**UpdateAnchorGridOperation**](docs/OperationApi.md#updateanchorgridoperation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateBoltGridOperation**](docs/OperationApi.md#updateboltgridoperation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**UpdateCommonOperationProperties**](docs/OperationApi.md#updatecommonoperationproperties) | Updates common properties for all operations.
+[**UpdateContactGridOperation**](docs/OperationApi.md#updatecontactgridoperation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateContactOperation**](docs/OperationApi.md#updatecontactoperation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateCutOperation**](docs/OperationApi.md#updatecutoperation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateNegativeMemberOperation**](docs/OperationApi.md#updatenegativememberoperation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateNegativePlateOperation**](docs/OperationApi.md#updatenegativeplateoperation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdatePinGridOperation**](docs/OperationApi.md#updatepingridoperation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdatePlateCutOperation**](docs/OperationApi.md#updateplatecutoperation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateStiffeningMemberOperation**](docs/OperationApi.md#updatestiffeningmemberoperation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateStiffeningPlateOperation**](docs/OperationApi.md#updatestiffeningplateoperation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+[**UpdateWeldOperation**](docs/OperationApi.md#updateweldoperation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateWorkPlaneOperation**](docs/OperationApi.md#updateworkplaneoperation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
   ### ParameterApi
 
   
   
   Method | Description
   ------------- | -------------
+[**CreateParameter**](docs/ParameterApi.md#createparameter) | Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+[**CreateParameterLink**](docs/ParameterApi.md#createparameterlink) | Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+[**DeleteParameter**](docs/ParameterApi.md#deleteparameter) | Deletes one parameter and every link through which it drove a model property.
+[**DeleteParameterLink**](docs/ParameterApi.md#deleteparameterlink) | Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
 [**DeleteParameters**](docs/ParameterApi.md#deleteparameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**EvaluateExpression**](docs/ParameterApi.md#evaluateexpression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
+[**GetLinkableProperties**](docs/ParameterApi.md#getlinkableproperties) | Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+[**GetMemberLinkableProperties**](docs/ParameterApi.md#getmemberlinkableproperties) | Lists the model properties of one member that a parameter can be linked to.
+[**GetOperationLinkableProperties**](docs/ParameterApi.md#getoperationlinkableproperties) | Lists the model properties of one operation that a parameter can be linked to.
+[**GetParameterLinks**](docs/ParameterApi.md#getparameterlinks) | Lists the parameter-to-property links of the connection.
 [**GetParameters**](docs/ParameterApi.md#getparameters) | Gets all parameters defined for the specified project and connection.
 [**Update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
   ### PresentationApi
@@ -336,24 +403,74 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CheckResSummary](docs/CheckResSummary.md)
  - [Model.CheckResWeld](docs/CheckResWeld.md)
  - [Model.CleatTemplateConversion](docs/CleatTemplateConversion.md)
+ - [Model.ConAddOperationResult](docs/ConAddOperationResult.md)
+ - [Model.ConAddedMemberPositioning](docs/ConAddedMemberPositioning.md)
+ - [Model.ConAddedMemberPositioningEnum](docs/ConAddedMemberPositioningEnum.md)
  - [Model.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [Model.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [Model.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
+ - [Model.ConAnchorGridOperation](docs/ConAnchorGridOperation.md)
+ - [Model.ConAnchorType](docs/ConAnchorType.md)
+ - [Model.ConBasePlateContactType](docs/ConBasePlateContactType.md)
+ - [Model.ConBlockType](docs/ConBlockType.md)
+ - [Model.ConBoltGridOperation](docs/ConBoltGridOperation.md)
+ - [Model.ConBoltShearTransfer](docs/ConBoltShearTransfer.md)
  - [Model.ConCalculationJob](docs/ConCalculationJob.md)
  - [Model.ConCalculationJobStatusEnum](docs/ConCalculationJobStatusEnum.md)
+ - [Model.ConConnectedItem](docs/ConConnectedItem.md)
  - [Model.ConConnection](docs/ConConnection.md)
  - [Model.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
  - [Model.ConConnectionTemplate](docs/ConConnectionTemplate.md)
+ - [Model.ConContactGridOperation](docs/ConContactGridOperation.md)
+ - [Model.ConContactOperation](docs/ConContactOperation.md)
  - [Model.ConConversionSettings](docs/ConConversionSettings.md)
+ - [Model.ConCrossSection](docs/ConCrossSection.md)
+ - [Model.ConCrossSectionCustomComponent](docs/ConCrossSectionCustomComponent.md)
+ - [Model.ConCrossSectionCustomComponentOutlineInner](docs/ConCrossSectionCustomComponentOutlineInner.md)
+ - [Model.ConCrossSectionCustomDefinition](docs/ConCrossSectionCustomDefinition.md)
+ - [Model.ConCrossSectionDefinition](docs/ConCrossSectionDefinition.md)
+ - [Model.ConCrossSectionGeometry](docs/ConCrossSectionGeometry.md)
+ - [Model.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
+ - [Model.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
+ - [Model.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
+ - [Model.ConCrossSectionParametricDefinitionDimensionsInner](docs/ConCrossSectionParametricDefinitionDimensionsInner.md)
+ - [Model.ConCssArcSegment](docs/ConCssArcSegment.md)
+ - [Model.ConCssChoiceDimension](docs/ConCssChoiceDimension.md)
+ - [Model.ConCssCountDimension](docs/ConCssCountDimension.md)
+ - [Model.ConCssDimension](docs/ConCssDimension.md)
+ - [Model.ConCssLineSegment](docs/ConCssLineSegment.md)
+ - [Model.ConCssNumberDimension](docs/ConCssNumberDimension.md)
+ - [Model.ConCssOption](docs/ConCssOption.md)
+ - [Model.ConCssPoint2D](docs/ConCssPoint2D.md)
+ - [Model.ConCssSegment](docs/ConCssSegment.md)
+ - [Model.ConCssSwitchDimension](docs/ConCssSwitchDimension.md)
+ - [Model.ConCutByKind](docs/ConCutByKind.md)
+ - [Model.ConCutByTarget](docs/ConCutByTarget.md)
+ - [Model.ConCutMemberKind](docs/ConCutMemberKind.md)
+ - [Model.ConCutMemberTarget](docs/ConCutMemberTarget.md)
+ - [Model.ConCutOperation](docs/ConCutOperation.md)
+ - [Model.ConCuttingDirection](docs/ConCuttingDirection.md)
+ - [Model.ConCuttingMethod](docs/ConCuttingMethod.md)
+ - [Model.ConCuttingPlane](docs/ConCuttingPlane.md)
+ - [Model.ConDefinedBy](docs/ConDefinedBy.md)
  - [Model.ConDesignItem](docs/ConDesignItem.md)
  - [Model.ConDesignSet](docs/ConDesignSet.md)
  - [Model.ConDesignSetType](docs/ConDesignSetType.md)
+ - [Model.ConFastenerPosition](docs/ConFastenerPosition.md)
+ - [Model.ConFoundationBlockDto](docs/ConFoundationBlockDto.md)
+ - [Model.ConGridGeometry](docs/ConGridGeometry.md)
+ - [Model.ConGridGeometryType](docs/ConGridGeometryType.md)
+ - [Model.ConGridLayout](docs/ConGridLayout.md)
+ - [Model.ConGridPositions](docs/ConGridPositions.md)
  - [Model.ConItem](docs/ConItem.md)
+ - [Model.ConLinkableProperty](docs/ConLinkableProperty.md)
  - [Model.ConLoadEffect](docs/ConLoadEffect.md)
  - [Model.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [Model.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
  - [Model.ConLoadEffectSectionLoad](docs/ConLoadEffectSectionLoad.md)
  - [Model.ConLoadSettings](docs/ConLoadSettings.md)
+ - [Model.ConLocalCoordinateSystem](docs/ConLocalCoordinateSystem.md)
+ - [Model.ConLocation](docs/ConLocation.md)
  - [Model.ConMember](docs/ConMember.md)
  - [Model.ConMemberAlignmentTypeEnum](docs/ConMemberAlignmentTypeEnum.md)
  - [Model.ConMemberConnectedByEnum](docs/ConMemberConnectedByEnum.md)
@@ -365,22 +482,55 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConMemberPosition](docs/ConMemberPosition.md)
  - [Model.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [Model.ConMprlElement](docs/ConMprlElement.md)
+ - [Model.ConNegativeMemberOperation](docs/ConNegativeMemberOperation.md)
+ - [Model.ConNegativePlateOperation](docs/ConNegativePlateOperation.md)
  - [Model.ConNonConformityIssue](docs/ConNonConformityIssue.md)
  - [Model.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [Model.ConOperation](docs/ConOperation.md)
  - [Model.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
+ - [Model.ConParameterCreate](docs/ConParameterCreate.md)
+ - [Model.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
+ - [Model.ConParameterLink](docs/ConParameterLink.md)
+ - [Model.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
+ - [Model.ConPinGridOperation](docs/ConPinGridOperation.md)
+ - [Model.ConPlateCutOperation](docs/ConPlateCutOperation.md)
+ - [Model.ConPlateFunction](docs/ConPlateFunction.md)
+ - [Model.ConPlatePositioning](docs/ConPlatePositioning.md)
+ - [Model.ConPlatePositioningEnum](docs/ConPlatePositioningEnum.md)
+ - [Model.ConPlateShape](docs/ConPlateShape.md)
+ - [Model.ConPlateSide](docs/ConPlateSide.md)
+ - [Model.ConPolarInputType](docs/ConPolarInputType.md)
  - [Model.ConProductionCost](docs/ConProductionCost.md)
  - [Model.ConProject](docs/ConProject.md)
  - [Model.ConProjectData](docs/ConProjectData.md)
+ - [Model.ConPropertyOwner](docs/ConPropertyOwner.md)
+ - [Model.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
+ - [Model.ConReinforcementAnchorShape](docs/ConReinforcementAnchorShape.md)
+ - [Model.ConRemainingPart](docs/ConRemainingPart.md)
  - [Model.ConResultSummary](docs/ConResultSummary.md)
+ - [Model.ConShearForceTransferMethod](docs/ConShearForceTransferMethod.md)
+ - [Model.ConSlottedHole](docs/ConSlottedHole.md)
+ - [Model.ConSteelCodeEditionEnum](docs/ConSteelCodeEditionEnum.md)
+ - [Model.ConStiffeningMemberOperation](docs/ConStiffeningMemberOperation.md)
+ - [Model.ConStiffeningMemberPlacement](docs/ConStiffeningMemberPlacement.md)
+ - [Model.ConStiffeningPlateOperation](docs/ConStiffeningPlateOperation.md)
+ - [Model.ConStiffeningPlateType](docs/ConStiffeningPlateType.md)
  - [Model.ConStiffnessAnalysis](docs/ConStiffnessAnalysis.md)
  - [Model.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
  - [Model.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [Model.ConTemplateCreateResult](docs/ConTemplateCreateResult.md)
  - [Model.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [Model.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
+ - [Model.ConWasherPlateShape](docs/ConWasherPlateShape.md)
+ - [Model.ConWeldData](docs/ConWeldData.md)
+ - [Model.ConWeldDataKind](docs/ConWeldDataKind.md)
+ - [Model.ConWeldOperation](docs/ConWeldOperation.md)
+ - [Model.ConWeldPlacement](docs/ConWeldPlacement.md)
  - [Model.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
- - [Model.ConcreteBlock](docs/ConcreteBlock.md)
+ - [Model.ConWeldType](docs/ConWeldType.md)
+ - [Model.ConWorkPlaneMethod](docs/ConWorkPlaneMethod.md)
+ - [Model.ConWorkPlaneOperation](docs/ConWorkPlaneOperation.md)
+ - [Model.ConWorkPlaneRelatedTo](docs/ConWorkPlaneRelatedTo.md)
  - [Model.ConcreteBlockData](docs/ConcreteBlockData.md)
  - [Model.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [Model.ConnectionCheckRes](docs/ConnectionCheckRes.md)
@@ -390,10 +540,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.CssTemplateConversion](docs/CssTemplateConversion.md)
  - [Model.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [Model.CutData](docs/CutData.md)
- - [Model.CutMethod](docs/CutMethod.md)
- - [Model.CutOrientation](docs/CutOrientation.md)
- - [Model.CutPart](docs/CutPart.md)
- - [Model.DistanceComparison](docs/DistanceComparison.md)
  - [Model.DrawData](docs/DrawData.md)
  - [Model.ElectrodeTemplateConversion](docs/ElectrodeTemplateConversion.md)
  - [Model.FoldedPlateData](docs/FoldedPlateData.md)
@@ -432,8 +578,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.TimberTemplateConversion](docs/TimberTemplateConversion.md)
  - [Model.Vector3D](docs/Vector3D.md)
  - [Model.WeldData](docs/WeldData.md)
- - [Model.WeldDefinition](docs/WeldDefinition.md)
- - [Model.WeldType](docs/WeldType.md)
 
 
 <a id="documentation-for-authorization"></a>
@@ -446,8 +590,8 @@ Endpoints do not require authorization.
 
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 4.0
-- SDK version: 26.0.6.0672
+- API version: 5.0
+- SDK version: 26.1.0.4245
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

@@ -7,17 +7,7 @@ Provides data of the cut objec by object
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the cut | [optional] 
-**modified_object** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**cutting_object** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**is_weld** | **bool** | is cut welded | [optional] 
-**web_weld** | [**WeldDefinition**](WeldDefinition.md) |  | [optional] 
-**flange_weld** | [**WeldDefinition**](WeldDefinition.md) |  | [optional] 
-**offset** | **float** | Offset | [optional] 
-**method** | [**CutMethod**](CutMethod.md) |  | [optional] 
-**orientation** | [**CutOrientation**](CutOrientation.md) |  | [optional] 
-**plane_on_cutting_object** | [**DistanceComparison**](DistanceComparison.md) |  | [optional] 
-**cut_part** | [**CutPart**](CutPart.md) |  | [optional] 
-**extend_before_cut** | **bool** | Extend before cut - for cuts where user can decide if modified beam will be extended or not | [optional] 
+**id** | **int** | Element Id | [optional] 
 
 ## Example
 
