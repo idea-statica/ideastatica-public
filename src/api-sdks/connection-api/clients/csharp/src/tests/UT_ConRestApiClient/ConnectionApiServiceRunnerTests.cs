@@ -33,8 +33,12 @@ namespace UT_ConRestApiClient
 					testDirectory, "..", "..", "..", "..", "FakeConnectionRestApi",
 					"bin", GetConfiguration(), "net10.0"));
 
-				Assert.That(Directory.Exists(directory), Is.True,
-					$"The stand-in service was not built into '{directory}'.");
+				// Named the same on every platform: the runner looks for a fixed ".exe", and the
+				// stand-in project carries the extension in its assembly name where the SDK does not
+				// add one. A miss here means the stand-in did not build, not that the runner is wrong.
+				var executable = Path.Combine(directory, "IdeaStatiCa.ConnectionRestApi.exe");
+				Assert.That(File.Exists(executable), Is.True,
+					$"The stand-in service was not built at '{executable}'.");
 				return directory;
 			}
 		}

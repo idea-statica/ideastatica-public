@@ -92,7 +92,10 @@ namespace IdeaStatiCa.ConnectionApi
 						throw new InvalidOperationException("No available port found.");
 					}
 
-					var directoryName = !string.IsNullOrEmpty(launchPath) ? launchPath : Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+					// AppContext.BaseDirectory rather than Assembly.Location: the latter is an empty
+					// string in a single-file application, which turned this fallback into an
+					// ArgumentNullException out of Path.Combine.
+					var directoryName = !string.IsNullOrEmpty(launchPath) ? launchPath : AppContext.BaseDirectory;
 					string apiExecutablePath = Path.Combine(directoryName, API_EXECUTABLE_NAME);
 
 					if (!File.Exists(apiExecutablePath))

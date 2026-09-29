@@ -11,8 +11,13 @@
 			The assembly name is the one ConnectionApiServiceRunner looks for. Producing it directly
 			avoids renaming an apphost after the build, which would leave it unable to find its own
 			managed assembly. This project is a test stand-in only and is never packaged or shipped.
+
+			The runner looks for a fixed "IdeaStatiCa.ConnectionRestApi.exe" on every platform, and on
+			Windows the SDK appends the .exe itself. On Linux - where the CI job for this solution runs -
+			it does not, so the name has to carry the extension for the produced host to be found at all.
 		-->
-		<AssemblyName>IdeaStatiCa.ConnectionRestApi</AssemblyName>
+		<AssemblyName Condition="'$(OS)' == 'Windows_NT'">IdeaStatiCa.ConnectionRestApi</AssemblyName>
+		<AssemblyName Condition="'$(OS)' != 'Windows_NT'">IdeaStatiCa.ConnectionRestApi.exe</AssemblyName>
 		<RootNamespace>FakeConnectionRestApi</RootNamespace>
 	</PropertyGroup>
 
