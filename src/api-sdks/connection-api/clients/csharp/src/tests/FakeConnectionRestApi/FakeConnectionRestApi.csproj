@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+
+		<!--
+			The assembly name is the one ConnectionApiServiceRunner looks for. Producing it directly
+			avoids renaming an apphost after the build, which would leave it unable to find its own
+			managed assembly. This project is a test stand-in only and is never packaged or shipped.
+		-->
+		<AssemblyName>IdeaStatiCa.ConnectionRestApi</AssemblyName>
+		<RootNamespace>FakeConnectionRestApi</RootNamespace>
+	</PropertyGroup>
+
+</Project>

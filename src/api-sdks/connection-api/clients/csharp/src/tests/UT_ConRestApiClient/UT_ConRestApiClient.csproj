@@ -22,6 +22,14 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
+
+		<!--
+			Built, not referenced: ConnectionApiServiceRunnerTests launches it as a process. Its output
+			must stay out of this project's own output folder, hence ReferenceOutputAssembly=false -
+			it deliberately carries the same assembly name as the real service.
+		-->
+		<ProjectReference Include="..\FakeConnectionRestApi\FakeConnectionRestApi.csproj"
+						  ReferenceOutputAssembly="false" Private="false" />
 	</ItemGroup>
 
 </Project>
