@@ -6,8 +6,20 @@ A WPF desktop tool for bulk publishing of connection designs to the IDEA StatiCa
 
 ## Prerequisites
 
-- Windows with IDEA StatiCa installed (the SDK version must match the installed product version; current product version is IDEA StatiCa 26.0). The default installation path offered by the app may point to an older version — use **Set Idea StatiCa API Path** to select your installed version folder, e.g. `C:\Program Files\IDEA StatiCa\StatiCa 26.0`.
+- Windows with IDEA StatiCa installed (the SDK version must match the installed product version). On start the app looks for an installation itself: first its own folder, then the newest `C:\Program Files\IDEA StatiCa\StatiCa *` that contains `IdeaStatiCa.ConnectionRestApi.exe`. Use **Set Idea StatiCa API Path** to override it; a folder without that executable is rejected there and then.
 - .NET 10 SDK (the project targets `net10.0-windows`).
+
+## When something goes wrong
+
+Failures are reported in the window, not thrown at the process: the status line carries the summary,
+a dialog carries the full exception, and a project that could not be read or published gets its
+reason printed under its name while the rest of the batch continues.
+
+If the service itself will not start, the message quotes its exit code and the last lines it wrote —
+the service is launched as a child process and produces no Windows Event Log entry of its own, so
+this is the only place that information exists. A cold start can take a while; the runner waits
+`ConnectionApiServiceRunner.DefaultStartupTimeout` (120 s) and its constructor takes a longer value
+for machines that need one.
 
 ## Build & run
 
