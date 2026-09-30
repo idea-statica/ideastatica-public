@@ -176,6 +176,9 @@ namespace IdeaStatiCa.BIM.Common
 		public IEnumerable<Plate> Plates { get; set; }
 		public IEnumerable<Weld> Welds { get; set; }
 		public IEnumerable<FastenerGrid> Fasteners { get; set; }
+
+		// Pairs of members the source states are connected. Optional; they join only ends the node boxes left apart.
+		public IEnumerable<(Member First, Member Second)> MemberJoins { get; set; }
 	}
 
 	public class SorterSettings
@@ -202,6 +205,10 @@ namespace IdeaStatiCa.BIM.Common
 		// lies in it. Set, the member also joins where the point of its centre line nearest the node lies inside the box
 		// the node starts with.
 		public bool JoinContinuousMemberByNodeBox { get; set; }
+
+		// Whether the sort reads SorterData.MemberJoins: only where the box is clamped, since an unclamped box reaches
+		// far enough to be left to geometry alone.
+		public bool UsesMemberJoins => MaxInflateExtent >= 0;
 	}
 
 	public class ItemsSorter
@@ -218,7 +225,8 @@ namespace IdeaStatiCa.BIM.Common
 		/// it is not taken, so it never widens the box towards itself, so it stays untaken, and the fixpoint loop that
 		/// exists to break such a chain never starts. Then by FABRICATION REFERENCE
 		/// (<see cref="RecoverPlatesByWeldReference"/>): a weld says which parts touch, so a plate welded to something
-		/// a joint already holds belongs to that joint, up to <see cref="WithinRecoveryReach"/>. The second phase only
+		/// a joint already holds belongs to that joint, up to <see cref="WithinRecoveryReach"/> - or, welded to a plate
+		/// the joint holds, up to <see cref="WithinReachOfAHeldPlate"/>. The second phase only
 		/// ever ADDS, and it runs after member capture, so it cannot change a joint's members, their roles or its
 		/// location.
 		/// </para>
@@ -249,6 +257,8 @@ namespace IdeaStatiCa.BIM.Common
 				var nodecopy = nodes.ToList();
 				while (AddMembers(nodecopy, node, settings)) ;
 			}
+
+			JoinDeclaredMembers(data.MemberJoins, nodes, settings);
 
 			var joints = new List<Joint>();
 			var buildByJoint = new Dictionary<Joint, JointBuild>();
@@ -409,8 +419,14 @@ namespace IdeaStatiCa.BIM.Common
 			RefreshFastenersAndWelds(data, gainedPlates, buildByJoint, claimedFasteners);
 
 			// Last, so that geometry has had every chance first: the box re-scan above may still take a grid this pass
-			// would otherwise claim by reference, and the plate pool is settled by the time it looks at one.
-			PlaceFastenersNoJointTook(data, joints, buildByJoint, sourcePlates, claimedFasteners);
+			// would otherwise claim by reference. Repeated with weld recovery while it brings plates, because a plate a
+			// fastener brings can be the one the next plate is welded to. Terminates: every repeat took a plate from a
+			// finite pool.
+			while (PlaceFastenersNoJointTook(data, joints, buildByJoint, sourcePlates, claimedFasteners))
+			{
+				gainedPlates = RecoverPlatesByWeldReference(data, joints, buildByJoint, sourcePlates, settings);
+				RefreshFastenersAndWelds(data, gainedPlates, buildByJoint, claimedFasteners);
+			}
 
 #if DEBUG
 			TestCaseHelper.CreateTestCaseData(data, new SorterResult(joints));
@@ -463,6 +479,168 @@ namespace IdeaStatiCa.BIM.Common
 		{
 			var cssExtent = Math.Max(member.CrossSectionBounds.Width, member.CrossSectionBounds.Height);
 			return GeomOperation.Distance(member.Begin, member.End) < cssExtent;
+		}
+
+		/// <summary>
+		/// Links the ends of each pair of members the source states are connected, where the node boxes left them apart:
+		/// a slender member ending at an angle beside the end of another - a tie below a cantilever tip - lies outside
+		/// that end's box, and the tip outside its own, although the two boxes overlap. Wherever the boxes joined the
+		/// pair, nothing changes.
+		/// </summary>
+		private static void JoinDeclaredMembers(IEnumerable<(Member First, Member Second)> joins, Node[] nodes, SorterSettings settings)
+		{
+			if (joins == null || !settings.UsesMemberJoins)
+			{
+				return;
+			}
+
+			var endsOf = new Dictionary<Member, List<Node>>(ItemComparer<Member>.Instance);
+			var linked = new Dictionary<Node, List<Node>>();
+			foreach (var node in nodes)
+			{
+				if (!endsOf.TryGetValue(node.Master, out var ends))
+				{
+					endsOf[node.Master] = ends = new List<Node>();
+				}
+
+				ends.Add(node);
+				foreach (var cm in node.ConnectedMembers.Where(cm => cm.Node != null))
+				{
+					Link(linked, node, cm.Node);
+				}
+			}
+
+			foreach (var (first, second) in joins)
+			{
+				if (first == null || second == null || SameItem(first, second)
+					|| !endsOf.TryGetValue(first, out var firstEnds) || !endsOf.TryGetValue(second, out var secondEnds))
+				{
+					continue;
+				}
+
+				foreach (var a in firstEnds)
+				{
+					foreach (var b in secondEnds)
+					{
+						if (!StartingBoxesOverlap(a, b) || JoinsThroughLinks(a, second, linked) || JoinsThroughLinks(b, first, linked))
+						{
+							continue;
+						}
+
+						a.ConnectedMembers.Add(new ConnectedMember(b, b.RelativePosition));
+						b.ConnectedMembers.Add(new ConnectedMember(a, a.RelativePosition));
+						Link(linked, a, b);
+					}
+				}
+			}
+		}
+
+		private static void Link(Dictionary<Node, List<Node>> linked, Node a, Node b)
+		{
+			foreach (var (from, to) in new[] { (a, b), (b, a) })
+			{
+				if (!linked.TryGetValue(from, out var next))
+				{
+					linked[from] = next = new List<Node>();
+				}
+
+				next.Add(to);
+			}
+		}
+
+		private static bool JoinsThroughLinks(Node start, Member member, Dictionary<Node, List<Node>> linked)
+		{
+			var seen = new HashSet<Node> { start };
+			var queue = new Queue<Node>(seen);
+			while (queue.Count > 0)
+			{
+				var node = queue.Dequeue();
+				if (SameItem(node.Master, member) || node.ConnectedMembers.Any(cm => SameItem(cm.Member, member)))
+				{
+					return true;
+				}
+
+				if (linked.TryGetValue(node, out var next))
+				{
+					foreach (var n in next.Where(seen.Add))
+					{
+						queue.Enqueue(n);
+					}
+				}
+			}
+
+			return false;
+		}
+
+		// The separating axis test for the two boxes the nodes start with, each in its own member's axes: two boxes are
+		// apart exactly when a face normal of either, or the cross product of an edge of each, separates them.
+		private static bool StartingBoxesOverlap(Node a, Node b)
+		{
+			var first = StartingBox(a);
+			var second = StartingBox(b);
+			if (first == null || second == null)
+			{
+				return false;
+			}
+
+			// An edge of each running the same way gives no axis of its own; the face normals already cover it.
+			const double parallel = 1e-9;
+			var between = second.Centre - first.Centre;
+			foreach (var axis in first.Axes.Concat(second.Axes).Concat(first.Axes.SelectMany(u => second.Axes.Select(v => u * v))))
+			{
+				var length = ~axis;
+				if (length < parallel)
+				{
+					continue;
+				}
+
+				var unit = axis / length;
+				if (Math.Abs(between | unit) > first.Radius(unit) + second.Radius(unit))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		private sealed class OrientedBox
+		{
+			public OrientedBox(Vector3D centre, Vector3D[] axes, double[] halfExtents)
+			{
+				Centre = centre;
+				Axes = axes;
+				HalfExtents = halfExtents;
+			}
+
+			public Vector3D Centre { get; }
+
+			public Vector3D[] Axes { get; }
+
+			public double[] HalfExtents { get; }
+
+			public double Radius(Vector3D unit)
+			{
+				return Enumerable.Range(0, 3).Sum(i => HalfExtents[i] * Math.Abs(Axes[i] | unit));
+			}
+		}
+
+		// Null for a box that is not one: an empty section or a member of no length gives extents or axes that are not
+		// finite.
+		private static OrientedBox StartingBox(Node node)
+		{
+			var box = node.OriginalSurroundings;
+			var axes = new[] { node.Master.LCS.AxisX.Normalize, node.Master.LCS.AxisY.Normalize, node.Master.LCS.AxisZ.Normalize };
+			var halfExtents = new[] { (box.MaxX - box.MinX) / 2, (box.MaxY - box.MinY) / 2, (box.MaxZ - box.MinZ) / 2 };
+			var centre = new Vector3D(node.Location.X, node.Location.Y, node.Location.Z)
+				+ (axes[0] * ((box.MinX + box.MaxX) / 2))
+				+ (axes[1] * ((box.MinY + box.MaxY) / 2))
+				+ (axes[2] * ((box.MinZ + box.MaxZ) / 2));
+			var values = halfExtents
+				.Concat(axes.Concat(new[] { centre }).SelectMany(v => new[] { v.DirectionX, v.DirectionY, v.DirectionZ }));
+			return values.All(v => !double.IsNaN(v) && !double.IsInfinity(v)) && halfExtents.All(h => h >= 0)
+				? new OrientedBox(centre, axes, halfExtents)
+				: null;
 		}
 
 		/// <summary>
@@ -525,10 +703,16 @@ namespace IdeaStatiCa.BIM.Common
 					}
 				}
 
+				// Taken once per pass as well: a plate recovered below widens its joint's box, and a later plate in the
+				// same pass must not be measured against a box an earlier one widened, or the list order would decide.
+				var reachThroughHeldPlates = settings.MaxInflateExtent >= 0
+					? joints.ToDictionary(joint => joint, joint => Scaled(buildByJoint[joint].Node.Surroundings, RecoveryReachFactor))
+					: null;
+
 				for (var i = sourcePlates.Count - 1; i >= 0; --i)
 				{
 					var plate = sourcePlates[i];
-					var target = FindJointWeldedTo(plate, weldsByItem, jointsByItem, buildByJoint);
+					var target = FindJointWeldedTo(plate, weldsByItem, jointsByItem, buildByJoint, reachThroughHeldPlates);
 					if (target == null)
 					{
 						continue;
@@ -572,7 +756,8 @@ namespace IdeaStatiCa.BIM.Common
 			Plate plate,
 			Dictionary<Item, List<Weld>> weldsByItem,
 			Dictionary<Item, List<Joint>> jointsByItem,
-			Dictionary<Joint, JointBuild> buildByJoint)
+			Dictionary<Joint, JointBuild> buildByJoint,
+			Dictionary<Joint, CI.Common.BoundingBox3D> reachThroughHeldPlates)
 		{
 			if (!weldsByItem.TryGetValue(plate, out var welds))
 			{
@@ -594,7 +779,7 @@ namespace IdeaStatiCa.BIM.Common
 				foreach (var joint in holders)
 				{
 					var build = buildByJoint[joint];
-					if (!WithinRecoveryReach(build, plate))
+					if (!WithinRecoveryReach(build, plate) && !WithinReachOfAHeldPlate(build, other, plate, reachThroughHeldPlates?[joint]))
 					{
 						continue;
 					}
@@ -643,6 +828,21 @@ namespace IdeaStatiCa.BIM.Common
 			}
 
 			return false;
+		}
+
+		// A plate welded to a plate the joint holds is measured against the joint's box as it stands, not as detection
+		// left it. The reach is bounded because a member spans - a cleat at mid-span must not reach a joint metres away -
+		// and a plate does not, so such a plate lies by the box as the joint has grown it. Only where the box is clamped,
+		// which bounds the grown box as well. Compared by identity, not by type: a weld can name as a member the same part
+		// the selection read as a plate.
+		private static bool WithinReachOfAHeldPlate(JointBuild build, Item other, Plate plate, CI.Common.BoundingBox3D reach)
+		{
+			if (reach == null || !build.Plates.Any(held => SameItem(held, other)))
+			{
+				return false;
+			}
+
+			return PlacementPoints(plate).Any(point => build.Node.BoxOverflow(point.ToMediaPoint(), reach).LengthSquared <= 0.0);
 		}
 
 		private static CI.Common.BoundingBox3D Scaled(CI.Common.BoundingBox3D box, double factor)
@@ -712,14 +912,16 @@ namespace IdeaStatiCa.BIM.Common
 		/// gusset held by bolts alone reaches no joint through it - and a grid placed without the part it bolts to is
 		/// the one-operand export this exists to prevent.
 		/// </para>
+		/// Returns whether any joint gained a plate, since weld recovery can then find what is welded to it.
 		/// </summary>
-		private static void PlaceFastenersNoJointTook(SorterData data, List<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, List<Plate> sourcePlates, HashSet<FastenerGrid> claimed)
+		private static bool PlaceFastenersNoJointTook(SorterData data, List<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, List<Plate> sourcePlates, HashSet<FastenerGrid> claimed)
 		{
 			if (data.Fasteners == null)
 			{
-				return;
+				return false;
 			}
 
+			var anyPlateGained = false;
 			foreach (var fastener in data.Fasteners)
 			{
 				if (claimed.Contains(fastener) || fastener.ClampedItems.Count == 0)
@@ -758,11 +960,14 @@ namespace IdeaStatiCa.BIM.Common
 					if (gainedPlate)
 					{
 						joint.Welds = WeldsBetween(data.Welds, buildByJoint[joint].Parts());
+						anyPlateGained = true;
 					}
 
 					break;
 				}
 			}
+
+			return anyPlateGained;
 		}
 
 		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
@@ -826,8 +1031,8 @@ namespace IdeaStatiCa.BIM.Common
 			/// <summary>
 			/// Each node the joint was assembled from - its own first, then every one it absorbed - with its box as the
 			/// geometric phase left it, clamped to the maximum inflate extent, before the reference phase widened any.
-			/// Together they are where the joint is, so they bound how far a reference may reach; the first is also the
-			/// box that accepted or rejected each item.
+			/// Together they are where the joint is, so they bound how far a weld to a member may reach; the first is also
+			/// the box that accepted or rejected each item.
 			/// </summary>
 			public IReadOnlyList<(Node Node, CI.Common.BoundingBox3D Box)> BoxesAtDetection { get; }
 
