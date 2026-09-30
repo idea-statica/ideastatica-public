@@ -178,15 +178,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			ResolveClampedItems(clampedPartsByFastener, itemsByPart, plugInLogger);
 
-			var sorterData = new BIM.Common.SorterData
-			{
-				Members = bMembers,
-				Plates = plates,
-				Welds = welds,
-				Fasteners = fasteners
-			};
-
-			var sorter = new BIM.Common.ItemsSorter();
 			if (settings == null)
 			{
 				settings = new BIM.Common.SorterSettings
@@ -198,6 +189,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				};
 			}
 
+			var sorterData = new BIM.Common.SorterData
+			{
+				Members = bMembers,
+				Plates = plates,
+				Welds = welds,
+				Fasteners = fasteners,
+				MemberJoins = settings.UsesMemberJoins ? MembersJoinedByConnections(bMembers, itemsByPart, plugInLogger) : null,
+			};
+
+			var sorter = new BIM.Common.ItemsSorter();
 			var sortedJoints = sorter.Sort(sorterData, settings);
 
 			ReportItemsNoJointTook(sorterData, sortedJoints, settings, plugInLogger);
@@ -283,6 +284,74 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 					plugInLogger?.LogInformation($"Bolt group {(pair.Key.Parent as ModelObject)?.Identifier.GUID} names part {partId}, which is not among the selected parts - it cannot be recovered through this group");
 				}
 			}
+		}
+
+		/// <summary>
+		/// The pairs of selected members a Tekla connection joins: its primary part with each of its secondary parts,
+		/// where the selection built a member for both. Seams, details and other components are passed over; a
+		/// connection is what states that two members meet.
+		/// </summary>
+		private static List<(BIM.Common.Member First, BIM.Common.Member Second)> MembersJoinedByConnections(
+			IEnumerable<BIM.Common.Member> members,
+			IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart,
+			IPluginLogger plugInLogger)
+		{
+			var watch = System.Diagnostics.Stopwatch.StartNew();
+			var joins = new List<(BIM.Common.Member First, BIM.Common.Member Second)>();
+			var seenConnections = new HashSet<string>();
+			var seenPairs = new HashSet<(string, string)>();
+			foreach (var member in members)
+			{
+				if (!(member.Parent is Part part) || MemberBuiltFor(part, itemsByPart) == null)
+				{
+					continue;
+				}
+
+				var components = part.GetComponents();
+				while (components != null && components.MoveNext())
+				{
+					if (!(components.Current is Connection connection) || !seenConnections.Add(connection.Identifier.GUID.ToString()))
+					{
+						continue;
+					}
+
+					var primary = MemberBuiltFor(connection.GetPrimaryObject(), itemsByPart);
+					if (primary == null)
+					{
+						continue;
+					}
+
+					foreach (var secondaryObject in connection.GetSecondaryObjects()?.OfType<ModelObject>() ?? Enumerable.Empty<ModelObject>())
+					{
+						var secondary = MemberBuiltFor(secondaryObject, itemsByPart);
+						if (secondary == null || ReferenceEquals(secondary, primary))
+						{
+							continue;
+						}
+
+						var first = (primary.Parent as ModelObject).Identifier.GUID.ToString();
+						var second = (secondary.Parent as ModelObject).Identifier.GUID.ToString();
+						if (!seenPairs.Add(string.CompareOrdinal(first, second) < 0 ? (first, second) : (second, first)))
+						{
+							continue;
+						}
+
+						joins.Add((primary, secondary));
+						plugInLogger?.LogDebug($"FindJoints connection '{connection.Name}' ({connection.Number}) joins {Describe(primary.Parent as ModelObject)} and {Describe(secondary.Parent as ModelObject)}");
+					}
+				}
+			}
+
+			plugInLogger?.LogInformation($"FindJoints {seenConnections.Count} connections join {joins.Count} pairs of selected members, read in {watch.ElapsedMilliseconds} ms");
+			return joins;
+		}
+
+		// A polybeam's member runs between its first two points only, so its ends say nothing about where it meets.
+		private static BIM.Common.Member MemberBuiltFor(ModelObject source, IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart)
+		{
+			return source != null && !(source is PolyBeam) && itemsByPart.TryGetValue(source.Identifier.GUID.ToString(), out var built)
+				? built.OfType<BIM.Common.Member>().FirstOrDefault()
+				: null;
 		}
 
 		/// <summary>

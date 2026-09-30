@@ -52,6 +52,130 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			joint.Welds.Select(w => (string)w.Parent).Should().Contain(detail.BraceToCap);
 		}
 
+		/// <summary>
+		/// A cantilever tip with the frame's y=0 detail but no cross beam ending beside it. The brace ends 77 mm below the
+		/// beam's axis, outside the beam end's box, and the beam end lies outside the brace end's: the boxes alone form no
+		/// joint there. The connection the source states between the two is what joins them, and the detail follows:
+		/// the gusset by its weld to the beam, the tab by the bolts through the gusset, the cap by its weld to the tab.
+		/// </summary>
+		[Test]
+		public void CantileverTip_ArrivesWithItsWholeDetail_WhenTheSourceJoinsItsTie()
+		{
+			var detail = BraceEnds["y=0"];
+			var (data, settings) = CantileverTip();
+			new ItemsSorter().Sort(data, settings).Joints.Should().BeEmpty();
+
+			(data, settings) = CantileverTip();
+			data.MemberJoins = new[] { (MemberOf(data, BeamAtY0), MemberOf(data, detail.Brace)) };
+			var joint = new ItemsSorter().Sort(data, settings).Joints.Single();
+
+			joint.Members.Select(m => (string)m.Parent).Should().BeEquivalentTo(BeamAtY0, detail.Brace);
+			joint.Plates.Select(p => (string)p.Parent).Should().BeEquivalentTo(detail.Gusset, detail.Tab, detail.Cap);
+			joint.Fasteners.Select(f => (string)f.Parent).Should().BeEquivalentTo(detail.GussetBolts);
+			joint.Welds.Select(w => (string)w.Parent).Should().BeEquivalentTo(BeamAtY0ToGusset, detail.BraceToCap, detail.CapToTab);
+		}
+
+		/// <summary>
+		/// A plate welded to a plate the joint holds is reached through that plate only as far as three times the box the
+		/// joint grew, which the clamp bounds: past it, it stays out like any other plate no joint reaches.
+		/// </summary>
+		[Test]
+		public void PlateWeldedToAPlateTheTipHolds_StaysOutBeyondTheReachOfTheBoxTheJointGrew()
+		{
+			var detail = BraceEnds["y=0"];
+			var (data, settings) = CantileverTip();
+			var tab = data.Plates.Single(p => (string)p.Parent == detail.Tab);
+			var farPlate = new Plate("far-plate", new Matrix44(new Point3D(4400, 0, 2700), new Vector3D(1, 0, 0), new Vector3D(0, 1, 0), new Vector3D(0, 0, 1)), new List<IPoint3D> { new Point3D(4400, -25, 2675), new Point3D(4400, 25, 2675), new Point3D(4400, 25, 2725), new Point3D(4400, -25, 2725) }, 8);
+			data.Plates = data.Plates.Append(farPlate).ToList();
+			data.Welds = data.Welds.Append(new Weld("far-weld", farPlate, tab)).ToList();
+			data.MemberJoins = new[] { (MemberOf(data, BeamAtY0), MemberOf(data, detail.Brace)) };
+
+			var joint = new ItemsSorter().Sort(data, settings).Joints.Single();
+
+			joint.Plates.Should().Contain(tab);
+			joint.Plates.Should().NotContain(farPlate);
+		}
+
+		[Test]
+		public void CantileverTip_IsLeftToGeometry_WhereTheBoxIsNotClamped()
+		{
+			var detail = BraceEnds["y=0"];
+			var (data, settings) = CantileverTip();
+			settings.MaxInflateExtent = -1;
+			data.MemberJoins = new[] { (MemberOf(data, BeamAtY0), MemberOf(data, detail.Brace)) };
+
+			new ItemsSorter().Sort(data, settings).Joints.Should().BeEmpty();
+		}
+
+		[Test]
+		public void StatedConnection_JoinsNothing_WhereTheEndsDoNotMeet()
+		{
+			var (data, settings) = CantileverTip();
+			var (frame, _) = CapturedPortalFrame();
+			var farBrace = MemberOf(frame, BraceEnds["y=5"].Brace);
+			data.Members = data.Members.Append(farBrace).ToList();
+			data.MemberJoins = new[] { (MemberOf(data, BeamAtY0), farBrace) };
+
+			new ItemsSorter().Sort(data, settings).Joints.Should().BeEmpty();
+		}
+
+		/// <summary>
+		/// The connections the source states between the frame's members, as the Tekla link reads them.
+		/// </summary>
+		[Test]
+		public void ConnectionsTheBoxesAlreadyJoined_ChangeNothing()
+		{
+			var (data, settings) = CapturedPortalFrame();
+			var withoutThem = Describe(new ItemsSorter().Sort(data, settings));
+
+			(data, settings) = CapturedPortalFrame();
+			data.MemberJoins = ConnectionsInTheFrame.Select(c => (MemberOf(data, c.Primary), MemberOf(data, c.Secondary))).ToList();
+			var withThem = Describe(new ItemsSorter().Sort(data, settings));
+
+			withThem.Should().Equal(withoutThem);
+		}
+
+		private const string BeamAtY0 = "e2afdc0f-6088-47cf-85f5-c1838e045dfd";
+		private const string BeamAtY0ToGusset = "1af21b76-cb27-4290-b833-bceca1482560";
+
+		private static readonly (string Primary, string Secondary)[] ConnectionsInTheFrame =
+		{
+			(BeamAtY0, "27a961d2-b5b4-47d2-92b4-9e32a0685d19"),
+			(BeamAtY0, "9b944586-41e2-4690-b340-24cdcfffddd2"),
+			(BeamAtY0, "e71d1006-d215-45a3-a0cc-4e7c047ad20a"),
+			("5899f6d6-12e9-4903-98b9-14ac9c494b2e", "ae152965-7a9f-47b3-8705-00d711d03d38"),
+			("5899f6d6-12e9-4903-98b9-14ac9c494b2e", "27a961d2-b5b4-47d2-92b4-9e32a0685d19"),
+			("5899f6d6-12e9-4903-98b9-14ac9c494b2e", "9b944586-41e2-4690-b340-24cdcfffddd2"),
+			("5899f6d6-12e9-4903-98b9-14ac9c494b2e", "4e808a01-070e-4cf0-a5b5-60e2127dd2a1"),
+			("5899f6d6-12e9-4903-98b9-14ac9c494b2e", "c380ab0f-48ab-4fc3-91f2-4a60b03eaad7"),
+			("ec40a1d7-8038-4dd4-bd7d-39f73f7b5d90", "ae152965-7a9f-47b3-8705-00d711d03d38"),
+			("ec40a1d7-8038-4dd4-bd7d-39f73f7b5d90", "4e808a01-070e-4cf0-a5b5-60e2127dd2a1"),
+			("ec40a1d7-8038-4dd4-bd7d-39f73f7b5d90", "357cff22-9058-48a6-a1c5-59a206ecbdab"),
+		};
+
+		private static Member MemberOf(SorterData data, string guid) => data.Members.Single(m => (string)m.Parent == guid);
+
+		private static List<string> Describe(SorterResult result)
+		{
+			string Ids(IEnumerable<Item> items) => string.Join(",", items.Select(i => (string)i.Parent).OrderBy(id => id));
+			return result.Joints
+				.Select(j => $"{j.Location.X:F3};{j.Location.Y:F3};{j.Location.Z:F3} m[{Ids(j.Members)}] s[{Ids(j.StiffeningMembers)}] p[{Ids(j.Plates)}] w[{Ids(j.Welds)}] f[{Ids(j.Fasteners)}]")
+				.OrderBy(line => line)
+				.ToList();
+		}
+
+		private static (SorterData Data, SorterSettings Settings) CantileverTip()
+		{
+			var detail = BraceEnds["y=0"];
+			var keep = new HashSet<string> { BeamAtY0, detail.Brace, detail.Gusset, detail.Tab, detail.Cap, detail.GussetBolts, BeamAtY0ToGusset, detail.BraceToCap, detail.CapToTab };
+			var (data, settings) = CapturedPortalFrame();
+			data.Members = data.Members.Where(m => keep.Contains((string)m.Parent)).ToList();
+			data.Plates = data.Plates.Where(p => keep.Contains((string)p.Parent)).ToList();
+			data.Fasteners = data.Fasteners.Where(f => keep.Contains((string)f.Parent)).ToList();
+			data.Welds = data.Welds.Where(w => keep.Contains((string)w.Parent)).ToList();
+			return (data, settings);
+		}
+
 		private sealed class BraceEnd
 		{
 			public string Brace { get; set; }
