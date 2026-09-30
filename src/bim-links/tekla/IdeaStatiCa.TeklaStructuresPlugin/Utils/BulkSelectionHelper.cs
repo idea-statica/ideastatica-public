@@ -90,11 +90,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						// look at when a connection is reported missing, so say which parts moved and how thick they came out.
 						var madeBy = beam.GetFatherComponent();
 						plugInLogger?.LogDebug($"FindJoints read as a plate rather than a member: '{beam.Name}' profile '{beam.Profile?.ProfileString}' thickness {plateItem.Thickness:F1} madeBy {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' guid {beam.Identifier.GUID}");
-						continue;
 					}
-					var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
-					Register(beam, beamItem);
-					bMembers.Add(beamItem);
+					else
+					{
+						var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
+						Register(beam, beamItem);
+						bMembers.Add(beamItem);
+					}
 				}
 
 				if (currentPart is PolyBeam polyBeam)
@@ -293,6 +295,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// For such a member it also says, end by end, where the nearest member lies: against its contact band, and
 		/// relative to the end's own node box.
 		/// </para>
+		/// <para>
+		/// For such a plate it names every bolt group a joint took that clamps it: a group a node box takes does not
+		/// bring the plates it clamps along.
+		/// </para>
 		/// </summary>
 		private static void ReportItemsNoJointTook(BIM.Common.SorterData sorterData, BIM.Common.SorterResult sortedJoints, BIM.Common.SorterSettings settings, IPluginLogger plugInLogger)
 		{
@@ -314,6 +320,23 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				.Concat(sorterData.Fasteners ?? Enumerable.Empty<BIM.Common.FastenerGrid>())
 				.Concat(sorterData.Welds ?? Enumerable.Empty<BIM.Common.Weld>());
 
+			var takenGroupsByClampedItem = new Dictionary<BIM.Common.Item, List<(BIM.Common.Joint Joint, BIM.Common.FastenerGrid Group)>>();
+			foreach (var joint in sortedJoints.Joints)
+			{
+				foreach (var group in joint.Fasteners)
+				{
+					foreach (var clamped in group.ClampedItems.Distinct())
+					{
+						if (!takenGroupsByClampedItem.TryGetValue(clamped, out var groups))
+						{
+							takenGroupsByClampedItem[clamped] = groups = new List<(BIM.Common.Joint, BIM.Common.FastenerGrid)>();
+						}
+
+						groups.Add((joint, group));
+					}
+				}
+			}
+
 			foreach (var item in selected)
 			{
 				if (taken.Contains(item))
@@ -322,6 +345,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				}
 
 				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} {Describe(item.Parent as ModelObject)}");
+
+				if (!(item is BIM.Common.Plate plate) || !takenGroupsByClampedItem.TryGetValue(plate, out var clampingGroups))
+				{
+					continue;
+				}
+
+				foreach (var (joint, group) in clampingGroups)
+				{
+					plugInLogger.LogInformation($"FindJoints {Describe(group.Parent as ModelObject)} clamps it, and the joint at ({joint.Location.X:F0}, {joint.Location.Y:F0}, {joint.Location.Z:F0}) took that group without it");
+				}
 			}
 
 			foreach (var miss in BIM.Common.MemberEndMiss.Measure(members.Where(m => !taken.Contains(m)), members, settings))
