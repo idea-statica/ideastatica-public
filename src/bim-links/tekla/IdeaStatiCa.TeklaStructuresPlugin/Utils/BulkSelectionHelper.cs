@@ -90,11 +90,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						// look at when a connection is reported missing, so say which parts moved and how thick they came out.
 						var madeBy = beam.GetFatherComponent();
 						plugInLogger?.LogDebug($"FindJoints read as a plate rather than a member: '{beam.Name}' profile '{beam.Profile?.ProfileString}' thickness {plateItem.Thickness:F1} madeBy {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' guid {beam.Identifier.GUID}");
-						continue;
 					}
-					var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
-					Register(beam, beamItem);
-					bMembers.Add(beamItem);
+					else
+					{
+						var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
+						Register(beam, beamItem);
+						bMembers.Add(beamItem);
+					}
 				}
 
 				if (currentPart is PolyBeam polyBeam)
