@@ -283,7 +283,9 @@ namespace IdeaStatiCa.BIM.Common
 
 				excluded.Add(node);
 				var members = new List<(Member m, bool isended)> { (node.Master, true) };
+				var firstAbsorbed = excluded.Count;
 				AddConnectedMembers(node, node.ConnectedMembers, settings, excluded, members);
+				var absorbed = excluded.Skip(firstAbsorbed).ToList();
 
 				var plates = new List<Plate>();
 				while (AddPlates(sourcePlates, plates, node, settings)) { }
@@ -313,7 +315,7 @@ namespace IdeaStatiCa.BIM.Common
 				// recovered into a joint whose weld collection then refuses the weld that put it there.
 				var weldMembers = members.Select(m => m.m).OfType<Item>().ToArray();
 				var parts = weldMembers.Concat(plates).ToArray();
-				var welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
+				var welds = WeldsBetween(data.Welds, parts);
 
 				var stiffeningMembers = members.Where(m => IsDetailingByShape(m.m) || (node.Contains(m.m.Begin) && node.Contains(m.m.End))).ToList();
 
@@ -377,10 +379,10 @@ namespace IdeaStatiCa.BIM.Common
 					};
 
 					joints.Add(joint);
-					// What the joint was built from: the node (so a discarded item can be measured against the very
-					// box that rejected it, and so the reference phase can widen it), the live plate list Joint.Plates
-					// shares, and the member set welds are matched against.
-					buildByJoint[joint] = new JointBuild(node, plates, weldMembers);
+					// What the joint was built from: the node and the nodes it absorbed (so the reference phase can
+					// measure a discarded item against where the joint is, and widen the node), the live plate list
+					// Joint.Plates shares, and the member set welds are matched against.
+					buildByJoint[joint] = new JointBuild(node, absorbed, plates, weldMembers, settings.MaxInflateExtent);
 				}
 				else
 				{
@@ -597,10 +599,10 @@ namespace IdeaStatiCa.BIM.Common
 						continue;
 					}
 
-					// Measured from the NODE, which is where the box the reach was tested against is anchored;
-					// Joint.Location can be relocated onto the bearing member's reference line and then sits a little
-					// off it, which would make the distance and the reach disagree about the same plate.
-					var distance = DistanceToJoint(plate, build.Node.Location);
+					// Measured from the nearest of the joint's NODES, which are where the boxes the reach was tested
+					// against are anchored; Joint.Location can be relocated onto the bearing member's reference line and
+					// then sits a little off it, which would make the distance and the reach disagree about the same plate.
+					var distance = build.BoxesAtDetection.Min(b => DistanceToJoint(plate, b.Node.Location));
 					var key = LocationKey(joint.Location);
 					var better = best == null
 						|| distance < bestDistance - GeometryTieTolerance
@@ -620,19 +622,23 @@ namespace IdeaStatiCa.BIM.Common
 		/// <summary>How much further than its own box a joint may reach for a plate a weld points at.</summary>
 		private const double RecoveryReachFactor = 3.0;
 
-		// The reach keeps the SHAPE of the node box, not just its size: a single radius would have to come from the
+		// The reach keeps the SHAPE of a node box, not just its size: a single radius would have to come from the
 		// largest half-extent, which is always the along-member one, and would then reach several times further
 		// across the member than along it - in the direction the geometric phase deliberately keeps tight. Scaling
-		// the box instead means the reach is anisotropic exactly as the node is. Taken from the box AT DETECTION, so
-		// one recovery cannot widen a node into reaching for the next.
+		// the box instead means the reach is anisotropic exactly as the node is. Every node the joint absorbed reaches,
+		// each in its own axes, so two mirror-image joints recover alike whichever of their equal members happens to
+		// master them. Taken from the boxes AT DETECTION, so one recovery cannot widen a node into reaching for the next.
 		private static bool WithinRecoveryReach(JointBuild build, Plate plate)
 		{
-			var reach = Scaled(build.BoxAtDetection, RecoveryReachFactor);
-			foreach (var point in PlacementPoints(plate))
+			foreach (var (node, box) in build.BoxesAtDetection)
 			{
-				if (build.Node.BoxOverflow(point.ToMediaPoint(), reach).LengthSquared <= 0.0)
+				var reach = Scaled(box, RecoveryReachFactor);
+				foreach (var point in PlacementPoints(plate))
 				{
-					return true;
+					if (node.BoxOverflow(point.ToMediaPoint(), reach).LengthSquared <= 0.0)
+					{
+						return true;
+					}
 				}
 			}
 
@@ -696,9 +702,6 @@ namespace IdeaStatiCa.BIM.Common
 			return (Math.Round(p.X, 6), Math.Round(p.Y, 6), Math.Round(p.Z, 6));
 		}
 
-		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
-		// deliberately left alone: they were settled before any recovery, and re-deriving them from a box that the
-		// reference phase widened is how a joint would start swallowing members that geometry had kept apart.
 		/// <summary>
 		/// Last chance for a fastener no joint took. A group inside some node's box is left to that box during the
 		/// assembly loop, but a node is not a joint until it survives one: it can be absorbed into an earlier joint, or
@@ -738,6 +741,7 @@ namespace IdeaStatiCa.BIM.Common
 						.Distinct(ItemComparer<FastenerGrid>.Instance)
 						.ToArray();
 
+					var gainedPlate = false;
 					foreach (var clamped in fastener.ClampedItems.OfType<Plate>())
 					{
 						var index = sourcePlates.FindIndex(pl => ItemComparer<Plate>.Instance.Equals(pl, clamped));
@@ -748,6 +752,12 @@ namespace IdeaStatiCa.BIM.Common
 
 						buildByJoint[joint].Plates.Add(sourcePlates[index]);
 						sourcePlates.RemoveAt(index);
+						gainedPlate = true;
+					}
+
+					if (gainedPlate)
+					{
+						joint.Welds = WeldsBetween(data.Welds, buildByJoint[joint].Parts());
 					}
 
 					break;
@@ -755,6 +765,9 @@ namespace IdeaStatiCa.BIM.Common
 			}
 		}
 
+		// Re-collects what a widened box and a longer parts list change. Members, roles and the joint location are
+		// deliberately left alone: they were settled before any recovery, and re-deriving them from a box that the
+		// reference phase widened is how a joint would start swallowing members that geometry had kept apart.
 		private static void RefreshFastenersAndWelds(SorterData data, HashSet<Joint> joints, Dictionary<Joint, JointBuild> buildByJoint, HashSet<FastenerGrid> claimed)
 		{
 			foreach (var joint in joints)
@@ -772,9 +785,15 @@ namespace IdeaStatiCa.BIM.Common
 					.ToArray();
 				claimed.UnionWith(joint.Fasteners);
 
-				var parts = build.Parts();
-				joint.Welds = data.Welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
+				joint.Welds = WeldsBetween(data.Welds, build.Parts());
 			}
+		}
+
+		// The parts stay an array on purpose: a weld can arrive with a null side, which Array.Contains passes over without
+		// calling the comparer, while a set can hand it to a comparer that dereferences it.
+		private static Weld[] WeldsBetween(IEnumerable<Weld> welds, Item[] parts)
+		{
+			return welds?.Where(w => parts.Contains(w.FirstItem) && parts.Contains(w.SecondItem)).ToArray() ?? new Weld[0];
 		}
 
 		// What one joint was assembled from, kept past the assembly loop so the reference phase can add to it.
@@ -782,22 +801,35 @@ namespace IdeaStatiCa.BIM.Common
 		{
 			private readonly Item[] _weldMembers;
 
-			public JointBuild(Node node, List<Plate> plates, Item[] weldMembers)
+			public JointBuild(Node node, IEnumerable<Node> absorbed, List<Plate> plates, Item[] weldMembers, double maxInflateExtent)
 			{
 				Node = node;
 				Plates = plates;
 				_weldMembers = weldMembers;
-				BoxAtDetection = new CI.Common.BoundingBox3D(node.Surroundings);
+				BoxesAtDetection = new[] { node }.Concat(absorbed)
+					.Select(n => (n, ClampedCopy(n.Surroundings, maxInflateExtent)))
+					.ToArray();
+			}
+
+			// The maximum inflate extent clamps a box only when its node inflates, and an absorbed node that connected
+			// nothing never did: its box is still the one its own section sizes, which a deep member makes wider than
+			// the clamp.
+			private static CI.Common.BoundingBox3D ClampedCopy(CI.Common.BoundingBox3D box, double maxInflateExtent)
+			{
+				var copy = new CI.Common.BoundingBox3D(box);
+				ItemsSorter.Node.Clamp(copy, maxInflateExtent);
+				return copy;
 			}
 
 			public Node Node { get; }
 
 			/// <summary>
-			/// The node's box as the geometric phase left it, before the reference phase widened it. This is the box
-			/// that actually accepted or rejected each item, so it is what a discarded item must be measured against,
-			/// and what bounds how far a reference may reach.
+			/// Each node the joint was assembled from - its own first, then every one it absorbed - with its box as the
+			/// geometric phase left it, clamped to the maximum inflate extent, before the reference phase widened any.
+			/// Together they are where the joint is, so they bound how far a reference may reach; the first is also the
+			/// box that accepted or rejected each item.
 			/// </summary>
-			public CI.Common.BoundingBox3D BoxAtDetection { get; }
+			public IReadOnlyList<(Node Node, CI.Common.BoundingBox3D Box)> BoxesAtDetection { get; }
 
 			/// <summary>The very list <see cref="Joint.Plates"/> holds, so adding to it adds to the joint.</summary>
 			public List<Plate> Plates { get; }
@@ -1588,18 +1620,23 @@ namespace IdeaStatiCa.BIM.Common
 
 			internal bool ClampBB(double maxExtent)
 			{
+				return Clamp(Surroundings, maxExtent);
+			}
+
+			internal static bool Clamp(CI.Common.BoundingBox3D box, double maxExtent)
+			{
 				if (maxExtent < 0)
 				{
 					return false;
 				}
 
 				var clamped = false;
-				if (Surroundings.MaxX > maxExtent) { Surroundings.MaxX = maxExtent; clamped = true; }
-				if (Surroundings.MinX < -maxExtent) { Surroundings.MinX = -maxExtent; clamped = true; }
-				if (Surroundings.MaxY > maxExtent) { Surroundings.MaxY = maxExtent; clamped = true; }
-				if (Surroundings.MinY < -maxExtent) { Surroundings.MinY = -maxExtent; clamped = true; }
-				if (Surroundings.MaxZ > maxExtent) { Surroundings.MaxZ = maxExtent; clamped = true; }
-				if (Surroundings.MinZ < -maxExtent) { Surroundings.MinZ = -maxExtent; clamped = true; }
+				if (box.MaxX > maxExtent) { box.MaxX = maxExtent; clamped = true; }
+				if (box.MinX < -maxExtent) { box.MinX = -maxExtent; clamped = true; }
+				if (box.MaxY > maxExtent) { box.MaxY = maxExtent; clamped = true; }
+				if (box.MinY < -maxExtent) { box.MinY = -maxExtent; clamped = true; }
+				if (box.MaxZ > maxExtent) { box.MaxZ = maxExtent; clamped = true; }
+				if (box.MinZ < -maxExtent) { box.MinZ = -maxExtent; clamped = true; }
 				return clamped;
 			}
 		}
