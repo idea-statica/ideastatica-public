@@ -957,7 +957,7 @@ components:
             guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - severity: info
             guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          internalFores:
+          internalForces:
             qy: 5.962133916683182
             qz: 5.637376656633329
             mx: 2.3021358869347655
@@ -985,7 +985,7 @@ components:
             guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - severity: info
             guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          internalFores:
+          internalForces:
             qy: 5.962133916683182
             qz: 5.637376656633329
             mx: 2.3021358869347655
@@ -1026,7 +1026,7 @@ components:
           guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - severity: info
           guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        internalFores:
+        internalForces:
           qy: 5.962133916683182
           qz: 5.637376656633329
           mx: 2.3021358869347655
@@ -1048,7 +1048,7 @@ components:
         checkValue: 7.386281948385884
         check: notDefined
       properties:
-        internalFores:
+        internalForces:
           $ref: '#/components/schemas/ResultOfInternalForces'
         nonConformities:
           items:
@@ -1110,7 +1110,7 @@ components:
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             - severity: info
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            internalFores:
+            internalForces:
               qy: 5.962133916683182
               qz: 5.637376656633329
               mx: 2.3021358869347655
@@ -1138,7 +1138,7 @@ components:
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             - severity: info
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            internalFores:
+            internalForces:
               qy: 5.962133916683182
               qz: 5.637376656633329
               mx: 2.3021358869347655
@@ -1168,7 +1168,7 @@ components:
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             - severity: info
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            internalFores:
+            internalForces:
               qy: 5.962133916683182
               qz: 5.637376656633329
               mx: 2.3021358869347655
@@ -1196,7 +1196,7 @@ components:
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             - severity: info
               guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            internalFores:
+            internalForces:
               qy: 5.962133916683182
               qz: 5.637376656633329
               mx: 2.3021358869347655
@@ -1750,7 +1750,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1778,7 +1778,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1808,7 +1808,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1836,7 +1836,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1875,7 +1875,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1903,7 +1903,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1933,7 +1933,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -1961,7 +1961,7 @@ components:
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 - severity: info
                   guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                internalFores:
+                internalForces:
                   qy: 5.962133916683182
                   qz: 5.637376656633329
                   mx: 2.3021358869347655
@@ -2679,7 +2679,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2707,7 +2707,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2737,7 +2737,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2765,7 +2765,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2804,7 +2804,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2832,7 +2832,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2862,7 +2862,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655
@@ -2890,7 +2890,7 @@ components:
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               - severity: info
                 guid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              internalFores:
+              internalForces:
                 qy: 5.962133916683182
                 qz: 5.637376656633329
                 mx: 2.3021358869347655

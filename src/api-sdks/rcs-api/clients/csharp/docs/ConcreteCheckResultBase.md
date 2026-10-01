@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InternalFores** | [**ResultOfInternalForces**](ResultOfInternalForces.md) |  | [optional] 
+**InternalForces** | [**ResultOfInternalForces**](ResultOfInternalForces.md) |  | [optional] 
 **NonConformities** | [**List&lt;NonConformity&gt;**](NonConformity.md) |  | [optional] 
 **Result** | **CheckResult** |  | [optional] 
 **CheckValue** | **double** |  | [optional] 
