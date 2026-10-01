@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**internal_fores** | [**ResultOfInternalForces**](ResultOfInternalForces.md) |  | [optional] 
+**internal_forces** | [**ResultOfInternalForces**](ResultOfInternalForces.md) |  | [optional] 
 **non_conformities** | [**List[NonConformity]**](NonConformity.md) |  | [optional] 
 **result** | [**CheckResult**](CheckResult.md) |  | [optional] 
 **check_value** | **float** |  | [optional] 
