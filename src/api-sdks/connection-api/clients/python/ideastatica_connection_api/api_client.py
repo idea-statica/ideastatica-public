@@ -43,6 +43,14 @@ from ideastatica_connection_api.exceptions import (
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
+# True for the XML media types: application/xml, text/xml, and the +xml structured
+# suffix (e.g. application/atom+xml). Parameters after a ";" are ignored.
+def _is_xml_content_type(content_type):
+    if not content_type:
+        return False
+    media_type = content_type.split(";")[0].strip().lower()
+    return media_type in ("application/xml", "text/xml") or media_type.endswith("+xml")
+
 # Custom function to handle special values
 def special_values_to_float(value):
     if value == 'NaN':
@@ -429,7 +437,10 @@ class ApiClient:
                 data = ""
             else:
                 data = json.loads(response_text, cls=CustomJsonDecoder)
-        elif content_type.startswith("text/plain"):
+        elif content_type.startswith("text/plain") or _is_xml_content_type(content_type):
+            # XML is handed over as text. The service answers application/xml for the IOM export
+            # (an OpenModelContainer is XML), and the caller parses it; there is no model to bind
+            # it to, the same as for text/plain.
             data = response_text
         else:
             raise ApiException(
