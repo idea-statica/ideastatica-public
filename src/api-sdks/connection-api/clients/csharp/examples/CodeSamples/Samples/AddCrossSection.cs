@@ -21,7 +21,7 @@ namespace CodeSamples
 			List<IdeaRS.OpenModel.Material.MatSteel> steelMaterials = (await conClient.Material.GetSteelMaterialsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.Material.MatSteel>().ToList();
 			steelMaterials.ForEach(x => SteelMaterialMap.Add(x.Name, x.Id));
 
-			List<IdeaRS.OpenModel.CrossSection.CrossSection> crossSections = (await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId)).Cast<IdeaRS.OpenModel.CrossSection.CrossSection>().ToList();
+			List<ConCrossSection> crossSections = await conClient.Material.GetCrossSectionsAsync(conClient.ActiveProjectId);
 			crossSections.ForEach(x => CrossSectionMap.Add(x.Name, x.Id));
 
 			//List of new Cross-Sections to Add.

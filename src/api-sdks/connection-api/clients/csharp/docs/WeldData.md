@@ -5,16 +5,7 @@ Provides data of the single weld
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int** | Id of the weld | [optional] 
-**Name** | **string** | Name of the weld | [optional] 
-**Thickness** | **double** | Thickness of the weld | [optional] 
-**Material** | **string** | Name of the material | [optional] 
-**WeldMaterial** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
-**WeldType** | **WeldType** |  | [optional] 
-**IsIntermittent** | **bool** | True for an intermittent (stitch) weld; WeldType holds the base weld type | [optional] 
-**ConnectedPartIds** | **List&lt;string&gt;** | Id of the weld | [optional] 
-**Start** | [**Point3D**](Point3D.md) |  | [optional] 
-**End** | [**Point3D**](Point3D.md) |  | [optional] 
+**Id** | **int** | Element Id | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

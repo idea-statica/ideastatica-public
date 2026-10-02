@@ -1,9 +1,12 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.Plugin;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApiLink.Hooks
 {
-	internal class PluginHookManager : AbstractHookManager<IPluginHook>, IPluginHook
+	internal class PluginHookManager : AbstractHookManager<IPluginHook>, IPluginHook, ISynchronizationHook
 	{
 		public void ExitImport(CountryCode countryCode)
 			=> Invoke(x => x.ExitImport(countryCode));
@@ -16,5 +19,8 @@ namespace IdeaStatiCa.BimApiLink.Hooks
 
 		public void EnterImportSelection(RequestedItemsType requestedType)
 			=> Invoke(x => x.EnterImportSelection(requestedType));
+
+		public void EnterSynchronization(IReadOnlyCollection<Identifier<IIdeaMember1D>> members)
+			=> Invoke(x => (x as ISynchronizationHook)?.EnterSynchronization(members));
 	}
 }

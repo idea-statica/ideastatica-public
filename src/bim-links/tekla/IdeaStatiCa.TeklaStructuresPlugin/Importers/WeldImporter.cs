@@ -44,11 +44,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				weld.EndNo = Model.GetPointId(cs.Origin);
 				//This stupid test due to plate as member and we are not sure if its imported as plate or member
 
-				CheckAndAddConnectedObject<IIdeaPlate>(teklaWeld.MainObject, weld);
-				CheckAndAddConnectedObject<IIdeaMember1D>(teklaWeld.MainObject, weld);
-
-				CheckAndAddConnectedObject<IIdeaPlate>(teklaWeld.SecondaryObject, weld);
-				CheckAndAddConnectedObject<IIdeaMember1D>(teklaWeld.SecondaryObject, weld);
+				AddConnectedPart(teklaWeld.MainObject, weld.ConnectedParts as List<IIdeaObjectConnectable>, weld.Id, "MainObject");
+				AddConnectedPart(teklaWeld.SecondaryObject, weld.ConnectedParts as List<IIdeaObjectConnectable>, weld.Id, "SecondaryObject");
 
 				// WELD TYPE
 				WeldType weldTypeCode;
@@ -107,19 +104,5 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			}
 		}
 
-		private void CheckAndAddConnectedObject<T>(TSM.ModelObject part, BimApi.Weld weld)
-			where T : IIdeaObjectConnectable
-		{
-			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
-			if (ideaObject != null)
-			{
-
-				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
-				if (mainObject != null)
-				{
-					(weld.ConnectedParts as List<IIdeaObjectConnectable>)?.Add(mainObject);
-				}
-			}
-		}
 	}
 }

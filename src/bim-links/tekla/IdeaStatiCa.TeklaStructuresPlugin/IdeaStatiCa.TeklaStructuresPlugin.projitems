@@ -51,11 +51,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Hooks\AppVisibilityHook.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserData\ImportContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserData\UserDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\AnchorBoltGroupRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\AssemblyAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\BoltAssemblyIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\BulkSelectionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ConnectionTokenReconciler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CssFactoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\MemberHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\PlateContour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TeklaGeometryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TeklaPropertiesKeys.cs" />

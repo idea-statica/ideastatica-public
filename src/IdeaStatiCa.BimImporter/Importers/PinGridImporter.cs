@@ -30,6 +30,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				AxisZ = lcs.VecZ,
 				Positions = pinGrid.Positions.Select(p => ctx.Import(p).Element as Point3D).ToList(),
 				Origin = ctx.Import(pinGrid.Origin).Element as Point3D,
+				OriginalModelId = pinGrid.Id,
 			};
 			(connectionData.PinGrids ?? (connectionData.PinGrids = new List<PinGrid>())).Add(pinGridIOM);
 

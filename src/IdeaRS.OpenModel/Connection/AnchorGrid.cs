@@ -23,10 +23,10 @@ namespace IdeaRS.OpenModel.Connection
 		public bool ShearInThread { get; set; }
 
 		/// <summary>
-		/// Data of concrete block
+		/// Concrete block the anchors are cast into (reference to a ConcreteBlockData in ConnectionData.ConcreteBlocks)
 		/// </summary>
 		[DataMember]
-		public ConcreteBlock ConcreteBlock { get; set; }
+		public ReferenceElement ConcreteBlock { get; set; }
 
 		/// <summary>
 		/// Anchor Type - washer

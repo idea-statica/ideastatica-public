@@ -21,3 +21,9 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+# api_client.py carries a manual fix: deserialize() hands an XML body over as text, which the
+# generated version does not do - it accepts only application/json and text/plain and raises on
+# anything else, so export_iom could not be read. Regeneration would silently revert it, so the
+# generator must skip this file.
+ideastatica_connection_api/api_client.py

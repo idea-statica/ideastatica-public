@@ -240,11 +240,9 @@ namespace CalculationBulkTool
 
 										connection.Succes = connection.Bolts <= 100;
 
-										var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, new ConCalculationParameter
-										{
-											ConnectionIds = [connectionId],
-											AnalysisType = project.Connections.First(x => x.Id == connectionId).AnalysisType
-										});
+										// The analysis type is taken from the connection itself (ConConnection.AnalysisType),
+										// so only the connection ids are sent.
+										var allResults = await conClient.Calculation.GetRawJsonResultsAsync(project.ProjectId, [connectionId]);
 
 										JObject obj = JObject.Parse(allResults[0]);
 

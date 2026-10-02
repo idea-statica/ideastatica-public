@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **plate_side** | [**ConAlignedPlateSideCodeEnum**](ConAlignedPlateSideCodeEnum.md) |  | [optional] 
 **member_id** | **int** |  | [optional] 
 **part_type** | [**ConMemberPlatePartTypeEnum**](ConMemberPlatePartTypeEnum.md) |  | [optional] 
+**part_type_sequence** | **int** |  | [optional] 
 
 ## Example
 

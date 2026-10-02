@@ -238,6 +238,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// Id of Load Case
 		/// </summary>
+		[DataMember]
 		public int LoadCaseId { get; set; }
 	}
 
@@ -270,6 +271,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// Id of Load Case
 		/// </summary>
+		[DataMember]
 		public int LoadCaseId { get; set; }
 	}
 

@@ -29,6 +29,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			string[] ids = id.Split(';');
 			var item = Model.GetItemByHandler(ids.First());
 
+			if (item is TS.BoltGroup anchorBolts)
+			{
+				return CreateFromBoltGroup(id, ids, anchorBolts);
+			}
+
 			if (!(item is TS.Part anchor2))
 			{
 				PlugInLogger.LogWarning("Create - No valid anchor found.");
@@ -37,32 +42,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			PlugInLogger.LogInformation("Create - Found anchor with GUID: " + anchor2.Identifier.GUID);
 
-			var anchorGrid = new AnchorGrid(anchor2.Identifier.GUID.ToString())
-			{
-				BoltShearType = IdeaRS.OpenModel.Parameters.BoltShearType.Interaction,
-				ConnectedParts = new List<IIdeaObjectConnectable>(),
-				Positions = new List<IIdeaNode>(),
-				AnchorType = IdeaRS.OpenModel.Parameters.AnchorType.Straight,
-				AnchoringLength = 0,
-				HookLength = 0,
-				WasherSize = 0,
-				ShearInThread = false
-			};
-
-			// Try to find concrete block
-			for (int i = 1; i < ids.Length; i++)
-			{
-				if (!string.IsNullOrEmpty(ids[i]))
-				{
-					IIdeaConcreteBlock cb = Get<IIdeaConcreteBlock>(new StringIdentifier<IIdeaConcreteBlock>(ids[i]));
-					if (cb != null)
-					{
-						PlugInLogger.LogInformation("Create - Found concrete block: " + cb.Name);
-						anchorGrid.ConcreteBlock = cb;
-						break;
-					}
-				}
-			}
+			var anchorGrid = NewAnchorGrid(id, ids);
 
 			var father = anchor2.GetFatherComponent();
 			if (!(father is TS.Detail detail))
@@ -118,8 +98,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			PlugInLogger.LogInformation("Create - Found " + anchors.Count + " anchors and " + bolts.Count + " bolts.");
 
 			List<TS.Assembly> anchorAssemblies = GetAnchorAssemblies(anchors);
-			TS.BoltGroup boltGroup = bolts.First();
-			TS.Part anchorF = anchors.First();
+			var rodAnchor = IdentifierHelper.RodAnchorParts(detail).Value;
+			TS.BoltGroup boltGroup = rodAnchor.Group;
+			TS.Part anchorF = rodAnchor.Rod;
 
 			anchorGrid.BoltAssembly = GetAssembly(boltGroup, anchorF, nut, washer);
 			anchorGrid.Length = GetAnchorLen(anchorF).MilimetersToMeters();
@@ -128,31 +109,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			AddConnectedObjects(boltGroup, plateWashers, anchorGrid);
 
 			// Set local coordinate system
-			var boltCs = boltGroup.GetCoordinateSystem();
-			var boltAxisZ = TSG.Vector.Cross(boltCs.AxisX, boltCs.AxisY);
-
-			anchorGrid.OriginNo = Model.GetPointId(boltCs.Origin);
-			anchorGrid.LocalCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
-			{
-				VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D
-				{
-					X = boltCs.AxisX.X,
-					Y = boltCs.AxisX.Y,
-					Z = boltCs.AxisX.Z
-				},
-				VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D
-				{
-					X = boltCs.AxisY.X,
-					Y = boltCs.AxisY.Y,
-					Z = boltCs.AxisY.Z
-				},
-				VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
-				{
-					X = boltAxisZ.X,
-					Y = boltAxisZ.Y,
-					Z = boltAxisZ.Z
-				}
-			};
+			var frame = Utilities.BulkSelectionHelper.BoltFrame(boltGroup);
+			anchorGrid.OriginNo = Model.GetPointId(frame.Origin);
+			anchorGrid.LocalCoordinateSystem = ToCoordSystem(frame.X, frame.Y, frame.Z);
+			LogFrameAgainstColumn(detail, frame.Z);
 
 			// Find nearest anchors for bolt positions
 			foreach (var assembly in anchorAssemblies)
@@ -179,9 +139,129 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				}
 			}
 
+			var positionCount = anchorGrid.Positions.Count();
+			if (positionCount != anchors.Count)
+			{
+				PlugInLogger.LogWarning($"Create - AnchorGrid for anchor {anchor2.Identifier.GUID} has {positionCount} positions for {anchors.Count} rods - a bolt lies off every rod axis");
+			}
+
 			PlugInLogger.LogInformation("Create - Successfully created AnchorGrid for anchor " + anchor2.Identifier.GUID);
 			return anchorGrid;
 		}
+
+		/// <summary>An anchor grid read off a bolt group alone, with no rod part to take its size and length from.</summary>
+		private IIdeaAnchorGrid CreateFromBoltGroup(string id, string[] ids, TS.BoltGroup boltGroup)
+		{
+			PlugInLogger.LogInformation("Create - Anchors modelled as the bolt group " + boltGroup.Identifier.GUID);
+
+			var anchorGrid = NewAnchorGrid(id, ids);
+			anchorGrid.BoltAssembly = GetAssembly(boltGroup, null, null, null);
+			var verdict = IdentifierHelper.JudgeAnchorBoltGroup(boltGroup);
+
+			// Holes carry no anchor length - their catalog length is the plate thickness - so they take the default.
+			double reportedLength = 0.0;
+			if (boltGroup.Bolt)
+			{
+				boltGroup.GetReportProperty(TeklaPropertiesKeys.BoltLengthKey, ref reportedLength);
+			}
+
+			if (reportedLength <= 0)
+			{
+				PlugInLogger.LogWarning($"Create - bolt group {boltGroup.Identifier.GUID} states no anchor length{(boltGroup.Bolt ? string.Empty : " (holes only)")}; the anchor takes the default {AnchorBoltGroupRule.DefaultAnchorLength} mm");
+			}
+
+			anchorGrid.Length = AnchorBoltGroupRule.AnchorLength(reportedLength).MilimetersToMeters();
+
+			foreach (var bolted in Utilities.BulkSelectionHelper.PartsBoltedBy(boltGroup))
+			{
+				AddConnectedPart(bolted.Part, anchorGrid.ConnectedParts as List<IIdeaObjectConnectable>, anchorGrid.Id, bolted.Role);
+			}
+
+			var frame = Utilities.BulkSelectionHelper.BoltFrame(boltGroup);
+			var axes = (X: frame.X, Y: frame.Y, Z: frame.Z);
+			if (verdict.ColumnRise.HasValue)
+			{
+				var turned = AnchorBoltGroupRule.PointAwayFrom(ToGeometry(frame.X), ToGeometry(frame.Y), ToGeometry(frame.Z), verdict.ColumnRise.Value);
+				axes = (ToTekla(turned.X), ToTekla(turned.Y), ToTekla(turned.Z));
+			}
+			else
+			{
+				PlugInLogger.LogWarning($"Create - bolt group {boltGroup.Identifier.GUID} no longer stands under a column ({verdict.Reason}); its own frame is kept");
+			}
+
+			anchorGrid.OriginNo = Model.GetPointId(frame.Origin);
+			anchorGrid.LocalCoordinateSystem = ToCoordSystem(axes.X, axes.Y, axes.Z);
+
+			foreach (var point in boltGroup.BoltPositions)
+			{
+				if (point is TSG.Point boltPoint)
+				{
+					(anchorGrid.Positions as List<IIdeaNode>).Add(Get<IIdeaNode>(Model.GetPointId(boltPoint)));
+				}
+			}
+
+			return anchorGrid;
+		}
+
+		/// <summary>
+		/// The grid with what both paths share. Its identity is the FULL received id (anchor GUID + ';'-appended
+		/// concrete-block id, see IdentifierHelper), not just the anchor GUID - otherwise the persistence Token drops the
+		/// concrete-block suffix and a CAD sync's CP-path re-resolution (ConnectionPoint token → AnchorGrids) rebuilds the
+		/// anchor grid without its concrete block, losing the base-plate concrete + crashing the physical swap (#35688).
+		/// </summary>
+		private AnchorGrid NewAnchorGrid(string id, string[] ids)
+		{
+			var anchorGrid = new AnchorGrid(id)
+			{
+				BoltShearType = IdeaRS.OpenModel.Parameters.BoltShearType.Interaction,
+				ConnectedParts = new List<IIdeaObjectConnectable>(),
+				Positions = new List<IIdeaNode>(),
+				AnchorType = IdeaRS.OpenModel.Parameters.AnchorType.Straight,
+				AnchoringLength = 0,
+				HookLength = 0,
+				WasherSize = 0,
+				ShearInThread = false
+			};
+
+			for (int i = 1; i < ids.Length; i++)
+			{
+				if (!string.IsNullOrEmpty(ids[i]))
+				{
+					IIdeaConcreteBlock cb = Get<IIdeaConcreteBlock>(new StringIdentifier<IIdeaConcreteBlock>(ids[i]));
+					if (cb != null)
+					{
+						PlugInLogger.LogInformation("Create - Found concrete block: " + cb.Name);
+						anchorGrid.ConcreteBlock = cb;
+						break;
+					}
+				}
+			}
+
+			return anchorGrid;
+		}
+
+		/// <summary>Logs how a rod grid's frame, which the rod path never turns, lies against its column.</summary>
+		private void LogFrameAgainstColumn(TS.Detail detail, TSG.Vector axisZ)
+		{
+			if (!(detail.GetPrimaryObject() is TS.Part column))
+			{
+				return;
+			}
+
+			var line = column.GetCenterLine(true).OfType<TSG.Point>().OrderBy(point => point.Z).ToList();
+			if (line.Count < 2)
+			{
+				return;
+			}
+
+			var rise = ToGeometry(new TSG.Vector(line[line.Count - 1] - line[0])).Normalize;
+			var along = ToGeometry(axisZ).Normalize;
+			PlugInLogger.LogInformation($"Create - rod grid of detail {detail.Identifier.GUID}: frame Z against the column rise {(along | rise).ToString("F2", CultureInfo.InvariantCulture)}");
+		}
+
+		private static CI.Geometry3D.Vector3D ToGeometry(TSG.Vector vector) => new CI.Geometry3D.Vector3D(vector.X, vector.Y, vector.Z);
+
+		private static TSG.Vector ToTekla(CI.Geometry3D.Vector3D vector) => new TSG.Vector(vector.DirectionX, vector.DirectionY, vector.DirectionZ);
 
 
 		// Helper method to add connected objects
@@ -369,21 +449,30 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			boltGroup.GetDoubleReportProperties(dNames, ref doublePropTable);
 
 			double rodsize = 0.0;
-			anchor.GetUserProperty("RodSize", ref rodsize);
-			PlugInLogger.LogDebug($"GetAssembly - found RodSize from GetUserProperty {rodsize}");
-			rodsize = rodsize.MilimetersToMeters();
-			if (rodsize <= 0.0)
+			if (anchor != null)
 			{
-				rodsize = ExtractNumber(anchor.Profile.ProfileString).MilimetersToMeters();
+				anchor.GetUserProperty("RodSize", ref rodsize);
+				PlugInLogger.LogDebug($"GetAssembly - found RodSize from GetUserProperty {rodsize}");
+				rodsize = rodsize.MilimetersToMeters();
 				if (rodsize <= 0.0)
 				{
-					rodsize = ((double)doublePropTable[TeklaPropertiesKeys.NutInnerDiameterKey]).MilimetersToMeters();
-					PlugInLogger.LogDebug($"GetAssembly - found R RodSize from {TeklaPropertiesKeys.NutInnerDiameterKey} {rodsize}");
-					if (rodsize <= 0.0)
-					{
-						rodsize = ((double)doublePropTable[TeklaPropertiesKeys.BoltDiameterKey]).MilimetersToMeters();
-						PlugInLogger.LogDebug($"GetAssembly - found RodSize from {TeklaPropertiesKeys.BoltDiameterKey} {rodsize}");
-					}
+					rodsize = ExtractNumber(anchor.Profile.ProfileString).MilimetersToMeters();
+				}
+			}
+			else
+			{
+				rodsize = boltGroup.BoltSize.MilimetersToMeters();
+				PlugInLogger.LogDebug($"GetAssembly - found RodSize from the bolt size {rodsize}");
+			}
+
+			if (rodsize <= 0.0)
+			{
+				rodsize = ((double)doublePropTable[TeklaPropertiesKeys.NutInnerDiameterKey]).MilimetersToMeters();
+				PlugInLogger.LogDebug($"GetAssembly - found R RodSize from {TeklaPropertiesKeys.NutInnerDiameterKey} {rodsize}");
+				if (rodsize <= 0.0)
+				{
+					rodsize = ((double)doublePropTable[TeklaPropertiesKeys.BoltDiameterKey]).MilimetersToMeters();
+					PlugInLogger.LogDebug($"GetAssembly - found RodSize from {TeklaPropertiesKeys.BoltDiameterKey} {rodsize}");
 				}
 			}
 			var headDiameter = ((double)doublePropTable[TeklaPropertiesKeys.HeadDiameterKey]).MilimetersToMeters();

@@ -9,8 +9,8 @@ Steps performed (real method names from the script):
 1. Attach to a running Connection API service via `ConnectionApiServiceAttacher("http://localhost:5000").create_api_client()`.
 2. `api_client.project.open_project_from_filepath(project_file_path)` — open the `.ideaCon` project.
 3. `api_client.project.get_project_data(...)` and `api_client.connection.get_connections(...)` — print project data and pick the first connection.
-4. Build a `ConCalculationParameter` with `analysis_type = "total_Design"` for that connection.
-5. `api_client.calculation.get_raw_json_results(...)` — run the analysis and get the raw JSON results.
+4. Set `connection1.analysis_type = "total_Design"` and `api_client.connection.update_connection(...)` — the analysis type is taken from the connection, not from the calculation request.
+5. `api_client.calculation.get_raw_json_results(..., connection_ids)` — run the analysis and get the raw JSON results.
 6. Parse the `totalCapacity` section of the results and print `appliedLoadPercentage`, `maxPlateEps`, and `maxWeldEps`.
 
 ## How to run

@@ -109,6 +109,33 @@ jobs:
       run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release
       working-directory: main
 
+    - name: 'Test (offline unit tests; ST_ConRestApiClient needs a running service and is not run here)'
+      run: dotnet test ./src/api-sdks/connection-api/clients/csharp/src/tests/UT_ConRestApiClient/UT_ConRestApiClient.csproj --configuration Release --no-build
+      working-directory: main
+
+  ConRestApiClient_Python:
+    name: "Test the Connection API Python client"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v3
+      with:
+        path: main
+
+    - name: 'Setup Python'
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: 'Install dependencies'
+      run: python -m pip install --requirement requirements.txt --requirement test-requirements.txt
+      working-directory: main/src/api-sdks/connection-api/clients/python
+
+    - name: 'Test (offline unit tests; tests marked requires_service need a running service and are not run here)'
+      run: python -m pytest -m "not requires_service"
+      working-directory: main/src/api-sdks/connection-api/clients/python
+
   RcsRestApiClient:
     name: "Build RcsRestApiClient.sln"
     runs-on: ubuntu-latest

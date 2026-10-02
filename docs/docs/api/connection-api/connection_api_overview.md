@@ -5,7 +5,9 @@ The IDEA StatiCa Connection API is a REST API (OpenAPI 3) for automating the des
 > [!TIP]
 > New to the API? Jump straight to [Getting started](connection_api_getting_started.md) — install the SDK, run the service, and calculate your first connection in C# or Python.
 
-The Connection API has been available since **IDEA StatiCa 24.1**. In the current release the API version is **3.0** and all endpoints live under the `/api/3/` base path; older product versions serve older API versions (24.1 shipped API 1.0 under `/api/1/`), which is another reason the SDK package version must match the installed product version.
+The Connection API has been available since **IDEA StatiCa 24.1**. In IDEA StatiCa 26.1 the API version is **5.0** and all endpoints live under the `/api/5/` base path. Older product versions serve older API versions (24.1 shipped API 1.0 under `/api/1/`, 26.0 shipped API 4.0 under `/api/4/`), which is another reason the SDK package version must match the installed product version.
+
+Every version the service ever shipped is still served by the current service, but versions below the current one are **deprecated**: each response to them carries an `api-deprecated-versions` header, the Swagger UI of the service (`http://localhost:5000`) labels them, and a deprecated version is removed one release after its deprecation. New scripts should always target the current version, which the matching SDK package does by itself.
 
 ## API architecture
 

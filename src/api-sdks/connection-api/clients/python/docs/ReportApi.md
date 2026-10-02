@@ -66,7 +66,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/reports/htmlZip 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/reports/htmlZip 
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/reports/pdf 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/reports/pdf 
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/reports/pdf 
+> **POST** /api/5/projects/{projectId}/reports/pdf 
 
 ### Authorization
 
@@ -298,7 +298,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/reports/word 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/reports/word 
 
 ### Authorization
 
@@ -375,7 +375,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/reports/word 
+> **POST** /api/5/projects/{projectId}/reports/word 
 
 ### Authorization
 

@@ -1,9 +1,9 @@
 # ideastatica-connection-api
 
-The Python package for the Connection Rest API 4.0
+The Python package for the Connection Rest API 5.0
 
-- API version: 4.0
-- Package version: 26.0.6.0672
+- API version: 5.0
+- Package version: 26.1.0.4245
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -241,6 +241,7 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**add_load_effect**](docs/LoadEffectApi.md#add_load_effect) | Adds a new load effect to the connection.
 [**calculate_load_extremes**](docs/LoadEffectApi.md#calculate_load_extremes) | Calculates load extremes for the connection and keeps only the critical load effects active.
+[**delete_all_load_effects**](docs/LoadEffectApi.md#delete_all_load_effects) | Deletes every load effect in the specified connection, together with their internal forces.
 [**delete_load_effect**](docs/LoadEffectApi.md#delete_load_effect) | Delete load effect loadEffectId.
 [**get_load_effect**](docs/LoadEffectApi.md#get_load_effect) | Gets load impulses from the specified load effect.
 [**get_load_effects**](docs/LoadEffectApi.md#get_load_effects) | Gets all load effects defined in the specified connection.
@@ -254,25 +255,31 @@ Methods marked with an **^** denote that they have an additional extension in th
   Method | Description
   ------------- | -------------
 [**add_bolt_assembly**](docs/MaterialApi.md#add_bolt_assembly) | Add bolt assembly to the project. Accepted names come from  `GET .../materials/bolt-assemblies/library`.
-[**add_cross_section**](docs/MaterialApi.md#add_cross_section) | Add cross section to the project.
+[**add_cross_section**](docs/MaterialApi.md#add_cross_section) | Adds a library cross-section (by its MPRL name and material) to the project.
 [**add_material_bolt_grade**](docs/MaterialApi.md#add_material_bolt_grade) | Adds a material to the project.
 [**add_material_concrete**](docs/MaterialApi.md#add_material_concrete) | Adds a material to the project.
 [**add_material_headed_stud_grade**](docs/MaterialApi.md#add_material_headed_stud_grade) | Adds a material to the project.
 [**add_material_reinforcement**](docs/MaterialApi.md#add_material_reinforcement) | Adds a material to the project.
 [**add_material_steel**](docs/MaterialApi.md#add_material_steel) | Adds a material to the project.
 [**add_material_weld**](docs/MaterialApi.md#add_material_weld) | Adds a material to the project.
+[**add_parametric_cross_section**](docs/MaterialApi.md#add_parametric_cross_section) | Creates a parametric cross-section (welded, boxed, cold-formed, parametric rolled)  from its shape type and dimensions. Dimension ids are the stable parameter ids the  section GET exposes; dimensions not named keep the shape's defaults.
 [**add_pin**](docs/MaterialApi.md#add_pin) | Add pin to the project. Pins are available only for the ECEN design code; list the accepted  names via `GET .../materials/pin/library`.
 [**get_all_materials**](docs/MaterialApi.md#get_all_materials) | Gets materials used in the specified project.
 [**get_bolt_assemblies**](docs/MaterialApi.md#get_bolt_assemblies) | Gets bolt assemblies used in the specified project.
 [**get_bolt_grade_materials**](docs/MaterialApi.md#get_bolt_grade_materials) | Gets materials used in the specified project.
 [**get_concrete_materials**](docs/MaterialApi.md#get_concrete_materials) | Gets materials used in the specified project.
-[**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets cross sections used in the specified project, in the IOM model-exchange  representation (IOM parameter names; some shape kinds carry no parameters here).
+[**get_cross_section**](docs/MaterialApi.md#get_cross_section) | Gets one cross-section of the project: the same object the listing returns for it.
+[**get_cross_section_geometry**](docs/MaterialApi.md#get_cross_section_geometry) | Gets the evaluated outline geometry of one cross-section: per component the closed  outline and the openings as ordered chains of line/arc segments, with the material the  component is made of.
+[**get_cross_sections**](docs/MaterialApi.md#get_cross_sections) | Gets the cross-sections of the project: id, display name and the definition of each  (library / parametric / custom). The evaluated outline of a section is served by  `cross-sections/{cssId}/geometry`.
 [**get_headed_stud_grade_materials**](docs/MaterialApi.md#get_headed_stud_grade_materials) | Gets materials used in the specified project.
 [**get_material_library**](docs/MaterialApi.md#get_material_library) | Lists the MPRL names available in the material library for the project's design code.
+[**get_parametric_cross_section_shape_template**](docs/MaterialApi.md#get_parametric_cross_section_shape_template) | The fill-in template of a parametric shape: every dimension with its stable id, its  stable code name (e.g. \"wH\") and the shape's default value, in SI units. Change the  values you care about, set the material, and POST it to  `cross-sections/parametric`.
+[**get_parametric_cross_section_shapes**](docs/MaterialApi.md#get_parametric_cross_section_shapes) | Lists the shape types the parametric cross-section endpoints accept (e.g. \"Iw\", \"Tw\",  \"CHSPar\"). Get a shape's fill-in template from  `cross-sections/parametric/shapes/{shapeType}`.
 [**get_pins**](docs/MaterialApi.md#get_pins) | Gets pins used in the specified project.
 [**get_reinforcement_materials**](docs/MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](docs/MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](docs/MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
+[**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
   
@@ -291,19 +298,79 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
+[**add_anchor_grid_operation**](docs/OperationApi.md#add_anchor_grid_operation) | Adds a new anchor grid operation to the connection.
+[**add_bolt_grid_operation**](docs/OperationApi.md#add_bolt_grid_operation) | Adds a new bolt grid operation to the connection.
+[**add_contact_grid_operation**](docs/OperationApi.md#add_contact_grid_operation) | Adds a new contact grid operation to the connection.
+[**add_contact_operation**](docs/OperationApi.md#add_contact_operation) | Adds a new contact operation to the connection.
+[**add_cut_operation**](docs/OperationApi.md#add_cut_operation) | Adds a new cut operation to the connection.
+[**add_negative_member_operation**](docs/OperationApi.md#add_negative_member_operation) | Adds a new negative member operation to the connection.
+[**add_negative_plate_operation**](docs/OperationApi.md#add_negative_plate_operation) | Adds a new negative plate operation to the connection.
+[**add_pin_grid_operation**](docs/OperationApi.md#add_pin_grid_operation) | Adds a new pin grid operation to the connection.
+[**add_plate_cut_operation**](docs/OperationApi.md#add_plate_cut_operation) | Adds a new plate cut operation to the connection.
+[**add_stiffening_member**](docs/OperationApi.md#add_stiffening_member) | Adds a new stiffening member operation to the connection.
+[**add_stiffening_plate**](docs/OperationApi.md#add_stiffening_plate) | Adds a new stiffening plate operation to the connection.
+[**add_weld_operation**](docs/OperationApi.md#add_weld_operation) | Adds a new weld operation to the connection.
+[**add_work_plane_operation**](docs/OperationApi.md#add_work_plane_operation) | Adds a new work plane operation to the connection.
 [**delete_operations**](docs/OperationApi.md#delete_operations) | Delete all operations for the connection.
+[**get_anchor_grid_operation**](docs/OperationApi.md#get_anchor_grid_operation) | Returns the Anchor Grid operation with the given id, with all fields populated.
+[**get_anchor_grid_operations**](docs/OperationApi.md#get_anchor_grid_operations) | Returns all Anchor Grid operations in the connection.
+[**get_bolt_grid_operation**](docs/OperationApi.md#get_bolt_grid_operation) | Returns the Bolt Grid operation with the given id, with all fields populated.
+[**get_bolt_grid_operations**](docs/OperationApi.md#get_bolt_grid_operations) | Returns all Bolt Grid operations in the connection.
 [**get_common_operation_properties**](docs/OperationApi.md#get_common_operation_properties) | Gets common operation properties.
+[**get_contact_grid_operation**](docs/OperationApi.md#get_contact_grid_operation) | Returns the Contact Grid operation with the given id, with all fields populated.
+[**get_contact_grid_operations**](docs/OperationApi.md#get_contact_grid_operations) | Returns all Contact Grid operations in the connection.
+[**get_contact_operation**](docs/OperationApi.md#get_contact_operation) | Returns the Contact operation with the given id, with all fields populated.
+[**get_contact_operations**](docs/OperationApi.md#get_contact_operations) | Returns all Contact operations in the connection.
+[**get_cut_operation**](docs/OperationApi.md#get_cut_operation) | Returns the Cut operation with the given id, with all fields populated.
+[**get_cut_operations**](docs/OperationApi.md#get_cut_operations) | Returns all Cut operations in the connection.
+[**get_negative_member_operation**](docs/OperationApi.md#get_negative_member_operation) | Returns the Negative Member operation with the given id, with all fields populated.
+[**get_negative_member_operations**](docs/OperationApi.md#get_negative_member_operations) | Returns all Negative Member operations in the connection.
+[**get_negative_plate_operation**](docs/OperationApi.md#get_negative_plate_operation) | Returns the Negative Plate operation with the given id, with all fields populated.
+[**get_negative_plate_operations**](docs/OperationApi.md#get_negative_plate_operations) | Returns all Negative Plate operations in the connection.
 [**get_operations**](docs/OperationApi.md#get_operations) | Gets the list of operations for the connection.
+[**get_pin_grid_operation**](docs/OperationApi.md#get_pin_grid_operation) | Returns the Pin Grid operation with the given id, with all fields populated.
+[**get_pin_grid_operations**](docs/OperationApi.md#get_pin_grid_operations) | Returns all Pin Grid operations in the connection.
+[**get_plate_cut_operation**](docs/OperationApi.md#get_plate_cut_operation) | Returns the Plate Cut operation with the given id, with all fields populated.
+[**get_plate_cut_operations**](docs/OperationApi.md#get_plate_cut_operations) | Returns all Plate Cut operations in the connection.
+[**get_stiffening_member_operation**](docs/OperationApi.md#get_stiffening_member_operation) | Returns the Stiffening Member operation with the given id.
+[**get_stiffening_member_operations**](docs/OperationApi.md#get_stiffening_member_operations) | Returns all Stiffening Member operations in the connection.
+[**get_stiffening_plate_operation**](docs/OperationApi.md#get_stiffening_plate_operation) | Returns the Stiffening Plate operation with the given id, with all fields populated.
+[**get_stiffening_plate_operations**](docs/OperationApi.md#get_stiffening_plate_operations) | Returns all Stiffening Plate operations in the connection.
+[**get_weld_operation**](docs/OperationApi.md#get_weld_operation) | Returns the Weld operation with the given id, with all fields populated.
+[**get_weld_operations**](docs/OperationApi.md#get_weld_operations) | Returns all Weld operations in the connection.
+[**get_work_plane_operation**](docs/OperationApi.md#get_work_plane_operation) | Returns the Work Plane operation with the given id, with all fields populated.
+[**get_work_plane_operations**](docs/OperationApi.md#get_work_plane_operations) | Returns all Work Plane operations in the connection.
 [**pre_design_welds**](docs/OperationApi.md#pre_design_welds) | Pre-designs welds in the connection.
+[**update_anchor_grid_operation**](docs/OperationApi.md#update_anchor_grid_operation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_bolt_grid_operation**](docs/OperationApi.md#update_bolt_grid_operation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**update_common_operation_properties**](docs/OperationApi.md#update_common_operation_properties) | Updates common properties for all operations.
+[**update_contact_grid_operation**](docs/OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_contact_operation**](docs/OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_cut_operation**](docs/OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_negative_member_operation**](docs/OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_negative_plate_operation**](docs/OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_pin_grid_operation**](docs/OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_plate_cut_operation**](docs/OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_stiffening_member_operation**](docs/OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_stiffening_plate_operation**](docs/OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+[**update_weld_operation**](docs/OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_work_plane_operation**](docs/OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
   ### ParameterApi
 
   
   
   Method | Description
   ------------- | -------------
+[**create_parameter**](docs/ParameterApi.md#create_parameter) | Creates a parameter in the connection.    The expression is evaluated before the parameter is stored, and the request is rejected if it  cannot be evaluated - an unknown identifier, a syntax error, a reference to the parameter being  created. It must therefore reference only parameters that already exist, so a set of dependent  parameters is created driver-first.  Bounds are checked, not enforced: a value outside the bounds given in the same request is  created and applied, and reported with a warning status and a message saying which bound it  exceeds - the same answer a later update of that value gives.
+[**create_parameter_link**](docs/ParameterApi.md#create_parameter_link) | Links a parameter to a model property so the parameter drives it. Name the owner exactly as the  linkable-properties catalog reports it and pass its propertyId unchanged.    A link is deliberately type-agnostic: the parameter's type is not checked against the property's  `valueType`, because an Expression parameter can evaluate to any type and the value a  parameter yields is only known once it is evaluated. A parameter whose value the property cannot  take is reported by the engine when the parameters are applied, not when the link is created -  so match the catalog's `valueType` when choosing which parameter to link.
+[**delete_parameter**](docs/ParameterApi.md#delete_parameter) | Deletes one parameter and every link through which it drove a model property.
+[**delete_parameter_link**](docs/ParameterApi.md#delete_parameter_link) | Removes a parameter-to-property link. The parameter is kept, and the property retains the value  the parameter last applied.
 [**delete_parameters**](docs/ParameterApi.md#delete_parameters) | Delete all parameters and parameter model links for the connection connectionId in the project projectId.
 [**evaluate_expression**](docs/ParameterApi.md#evaluate_expression) | Evaluate the expression and return the result.  For more details see documentation about parameters:  https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html  or  https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html
+[**get_linkable_properties**](docs/ParameterApi.md#get_linkable_properties) | Lists every model property of the connection that a parameter can be linked to, across  operations, members and the library items the connection edits (cross-sections, materials,  bolt assemblies). Each row names its owner.    The list is not filtered by what the Design tab currently shows: deciding that needs the  desktop editor context, which the service does not have. Some rows therefore belong to a  property the application hides for the operation's present configuration, and linking a  parameter to one of those drives a value the design does not use.
+[**get_member_linkable_properties**](docs/ParameterApi.md#get_member_linkable_properties) | Lists the model properties of one member that a parameter can be linked to.
+[**get_operation_linkable_properties**](docs/ParameterApi.md#get_operation_linkable_properties) | Lists the model properties of one operation that a parameter can be linked to.
+[**get_parameter_links**](docs/ParameterApi.md#get_parameter_links) | Lists the parameter-to-property links of the connection.
 [**get_parameters**](docs/ParameterApi.md#get_parameters) | Gets all parameters defined for the specified project and connection.
 [**update**](docs/ParameterApi.md#update) | Updates parameters for the specified connection in the project with the values provided.
   ### PresentationApi
@@ -388,24 +455,74 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CheckResSummary](docs/CheckResSummary.md)
  - [ideastatica_connection_api.models.CheckResWeld](docs/CheckResWeld.md)
  - [ideastatica_connection_api.models.CleatTemplateConversion](docs/CleatTemplateConversion.md)
+ - [ideastatica_connection_api.models.ConAddOperationResult](docs/ConAddOperationResult.md)
+ - [ideastatica_connection_api.models.ConAddedMemberPositioning](docs/ConAddedMemberPositioning.md)
+ - [ideastatica_connection_api.models.ConAddedMemberPositioningEnum](docs/ConAddedMemberPositioningEnum.md)
  - [ideastatica_connection_api.models.ConAlignedPlate](docs/ConAlignedPlate.md)
  - [ideastatica_connection_api.models.ConAlignedPlateSideCodeEnum](docs/ConAlignedPlateSideCodeEnum.md)
  - [ideastatica_connection_api.models.ConAnalysisTypeEnum](docs/ConAnalysisTypeEnum.md)
+ - [ideastatica_connection_api.models.ConAnchorGridOperation](docs/ConAnchorGridOperation.md)
+ - [ideastatica_connection_api.models.ConAnchorType](docs/ConAnchorType.md)
+ - [ideastatica_connection_api.models.ConBasePlateContactType](docs/ConBasePlateContactType.md)
+ - [ideastatica_connection_api.models.ConBlockType](docs/ConBlockType.md)
+ - [ideastatica_connection_api.models.ConBoltGridOperation](docs/ConBoltGridOperation.md)
+ - [ideastatica_connection_api.models.ConBoltShearTransfer](docs/ConBoltShearTransfer.md)
  - [ideastatica_connection_api.models.ConCalculationJob](docs/ConCalculationJob.md)
  - [ideastatica_connection_api.models.ConCalculationJobStatusEnum](docs/ConCalculationJobStatusEnum.md)
+ - [ideastatica_connection_api.models.ConConnectedItem](docs/ConConnectedItem.md)
  - [ideastatica_connection_api.models.ConConnection](docs/ConConnection.md)
  - [ideastatica_connection_api.models.ConConnectionLibrarySearchParameters](docs/ConConnectionLibrarySearchParameters.md)
  - [ideastatica_connection_api.models.ConConnectionTemplate](docs/ConConnectionTemplate.md)
+ - [ideastatica_connection_api.models.ConContactGridOperation](docs/ConContactGridOperation.md)
+ - [ideastatica_connection_api.models.ConContactOperation](docs/ConContactOperation.md)
  - [ideastatica_connection_api.models.ConConversionSettings](docs/ConConversionSettings.md)
+ - [ideastatica_connection_api.models.ConCrossSection](docs/ConCrossSection.md)
+ - [ideastatica_connection_api.models.ConCrossSectionCustomComponent](docs/ConCrossSectionCustomComponent.md)
+ - [ideastatica_connection_api.models.ConCrossSectionCustomComponentOutlineInner](docs/ConCrossSectionCustomComponentOutlineInner.md)
+ - [ideastatica_connection_api.models.ConCrossSectionCustomDefinition](docs/ConCrossSectionCustomDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionDefinition](docs/ConCrossSectionDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionGeometry](docs/ConCrossSectionGeometry.md)
+ - [ideastatica_connection_api.models.ConCrossSectionGeometryComponent](docs/ConCrossSectionGeometryComponent.md)
+ - [ideastatica_connection_api.models.ConCrossSectionLibraryDefinition](docs/ConCrossSectionLibraryDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParametricDefinition](docs/ConCrossSectionParametricDefinition.md)
+ - [ideastatica_connection_api.models.ConCrossSectionParametricDefinitionDimensionsInner](docs/ConCrossSectionParametricDefinitionDimensionsInner.md)
+ - [ideastatica_connection_api.models.ConCssArcSegment](docs/ConCssArcSegment.md)
+ - [ideastatica_connection_api.models.ConCssChoiceDimension](docs/ConCssChoiceDimension.md)
+ - [ideastatica_connection_api.models.ConCssCountDimension](docs/ConCssCountDimension.md)
+ - [ideastatica_connection_api.models.ConCssDimension](docs/ConCssDimension.md)
+ - [ideastatica_connection_api.models.ConCssLineSegment](docs/ConCssLineSegment.md)
+ - [ideastatica_connection_api.models.ConCssNumberDimension](docs/ConCssNumberDimension.md)
+ - [ideastatica_connection_api.models.ConCssOption](docs/ConCssOption.md)
+ - [ideastatica_connection_api.models.ConCssPoint2D](docs/ConCssPoint2D.md)
+ - [ideastatica_connection_api.models.ConCssSegment](docs/ConCssSegment.md)
+ - [ideastatica_connection_api.models.ConCssSwitchDimension](docs/ConCssSwitchDimension.md)
+ - [ideastatica_connection_api.models.ConCutByKind](docs/ConCutByKind.md)
+ - [ideastatica_connection_api.models.ConCutByTarget](docs/ConCutByTarget.md)
+ - [ideastatica_connection_api.models.ConCutMemberKind](docs/ConCutMemberKind.md)
+ - [ideastatica_connection_api.models.ConCutMemberTarget](docs/ConCutMemberTarget.md)
+ - [ideastatica_connection_api.models.ConCutOperation](docs/ConCutOperation.md)
+ - [ideastatica_connection_api.models.ConCuttingDirection](docs/ConCuttingDirection.md)
+ - [ideastatica_connection_api.models.ConCuttingMethod](docs/ConCuttingMethod.md)
+ - [ideastatica_connection_api.models.ConCuttingPlane](docs/ConCuttingPlane.md)
+ - [ideastatica_connection_api.models.ConDefinedBy](docs/ConDefinedBy.md)
  - [ideastatica_connection_api.models.ConDesignItem](docs/ConDesignItem.md)
  - [ideastatica_connection_api.models.ConDesignSet](docs/ConDesignSet.md)
  - [ideastatica_connection_api.models.ConDesignSetType](docs/ConDesignSetType.md)
+ - [ideastatica_connection_api.models.ConFastenerPosition](docs/ConFastenerPosition.md)
+ - [ideastatica_connection_api.models.ConFoundationBlockDto](docs/ConFoundationBlockDto.md)
+ - [ideastatica_connection_api.models.ConGridGeometry](docs/ConGridGeometry.md)
+ - [ideastatica_connection_api.models.ConGridGeometryType](docs/ConGridGeometryType.md)
+ - [ideastatica_connection_api.models.ConGridLayout](docs/ConGridLayout.md)
+ - [ideastatica_connection_api.models.ConGridPositions](docs/ConGridPositions.md)
  - [ideastatica_connection_api.models.ConItem](docs/ConItem.md)
+ - [ideastatica_connection_api.models.ConLinkableProperty](docs/ConLinkableProperty.md)
  - [ideastatica_connection_api.models.ConLoadEffect](docs/ConLoadEffect.md)
  - [ideastatica_connection_api.models.ConLoadEffectMemberLoad](docs/ConLoadEffectMemberLoad.md)
  - [ideastatica_connection_api.models.ConLoadEffectPositionEnum](docs/ConLoadEffectPositionEnum.md)
  - [ideastatica_connection_api.models.ConLoadEffectSectionLoad](docs/ConLoadEffectSectionLoad.md)
  - [ideastatica_connection_api.models.ConLoadSettings](docs/ConLoadSettings.md)
+ - [ideastatica_connection_api.models.ConLocalCoordinateSystem](docs/ConLocalCoordinateSystem.md)
+ - [ideastatica_connection_api.models.ConLocation](docs/ConLocation.md)
  - [ideastatica_connection_api.models.ConMember](docs/ConMember.md)
  - [ideastatica_connection_api.models.ConMemberAlignmentTypeEnum](docs/ConMemberAlignmentTypeEnum.md)
  - [ideastatica_connection_api.models.ConMemberConnectedByEnum](docs/ConMemberConnectedByEnum.md)
@@ -417,22 +534,55 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConMemberPosition](docs/ConMemberPosition.md)
  - [ideastatica_connection_api.models.ConMprlCrossSection](docs/ConMprlCrossSection.md)
  - [ideastatica_connection_api.models.ConMprlElement](docs/ConMprlElement.md)
+ - [ideastatica_connection_api.models.ConNegativeMemberOperation](docs/ConNegativeMemberOperation.md)
+ - [ideastatica_connection_api.models.ConNegativePlateOperation](docs/ConNegativePlateOperation.md)
  - [ideastatica_connection_api.models.ConNonConformityIssue](docs/ConNonConformityIssue.md)
  - [ideastatica_connection_api.models.ConNonConformityIssueSeverity](docs/ConNonConformityIssueSeverity.md)
  - [ideastatica_connection_api.models.ConOperation](docs/ConOperation.md)
  - [ideastatica_connection_api.models.ConOperationCommonProperties](docs/ConOperationCommonProperties.md)
+ - [ideastatica_connection_api.models.ConParameterCreate](docs/ConParameterCreate.md)
+ - [ideastatica_connection_api.models.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
+ - [ideastatica_connection_api.models.ConParameterLink](docs/ConParameterLink.md)
+ - [ideastatica_connection_api.models.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
+ - [ideastatica_connection_api.models.ConPinGridOperation](docs/ConPinGridOperation.md)
+ - [ideastatica_connection_api.models.ConPlateCutOperation](docs/ConPlateCutOperation.md)
+ - [ideastatica_connection_api.models.ConPlateFunction](docs/ConPlateFunction.md)
+ - [ideastatica_connection_api.models.ConPlatePositioning](docs/ConPlatePositioning.md)
+ - [ideastatica_connection_api.models.ConPlatePositioningEnum](docs/ConPlatePositioningEnum.md)
+ - [ideastatica_connection_api.models.ConPlateShape](docs/ConPlateShape.md)
+ - [ideastatica_connection_api.models.ConPlateSide](docs/ConPlateSide.md)
+ - [ideastatica_connection_api.models.ConPolarInputType](docs/ConPolarInputType.md)
  - [ideastatica_connection_api.models.ConProductionCost](docs/ConProductionCost.md)
  - [ideastatica_connection_api.models.ConProject](docs/ConProject.md)
  - [ideastatica_connection_api.models.ConProjectData](docs/ConProjectData.md)
+ - [ideastatica_connection_api.models.ConPropertyOwner](docs/ConPropertyOwner.md)
+ - [ideastatica_connection_api.models.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
+ - [ideastatica_connection_api.models.ConReinforcementAnchorShape](docs/ConReinforcementAnchorShape.md)
+ - [ideastatica_connection_api.models.ConRemainingPart](docs/ConRemainingPart.md)
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
+ - [ideastatica_connection_api.models.ConShearForceTransferMethod](docs/ConShearForceTransferMethod.md)
+ - [ideastatica_connection_api.models.ConSlottedHole](docs/ConSlottedHole.md)
+ - [ideastatica_connection_api.models.ConSteelCodeEditionEnum](docs/ConSteelCodeEditionEnum.md)
+ - [ideastatica_connection_api.models.ConStiffeningMemberOperation](docs/ConStiffeningMemberOperation.md)
+ - [ideastatica_connection_api.models.ConStiffeningMemberPlacement](docs/ConStiffeningMemberPlacement.md)
+ - [ideastatica_connection_api.models.ConStiffeningPlateOperation](docs/ConStiffeningPlateOperation.md)
+ - [ideastatica_connection_api.models.ConStiffeningPlateType](docs/ConStiffeningPlateType.md)
  - [ideastatica_connection_api.models.ConStiffnessAnalysis](docs/ConStiffnessAnalysis.md)
  - [ideastatica_connection_api.models.ConTemplateApplyParam](docs/ConTemplateApplyParam.md)
  - [ideastatica_connection_api.models.ConTemplateApplyResult](docs/ConTemplateApplyResult.md)
  - [ideastatica_connection_api.models.ConTemplateCreateResult](docs/ConTemplateCreateResult.md)
  - [ideastatica_connection_api.models.ConTemplateMappingGetParam](docs/ConTemplateMappingGetParam.md)
  - [ideastatica_connection_api.models.ConTemplatePublishParam](docs/ConTemplatePublishParam.md)
+ - [ideastatica_connection_api.models.ConWasherPlateShape](docs/ConWasherPlateShape.md)
+ - [ideastatica_connection_api.models.ConWeldData](docs/ConWeldData.md)
+ - [ideastatica_connection_api.models.ConWeldDataKind](docs/ConWeldDataKind.md)
+ - [ideastatica_connection_api.models.ConWeldOperation](docs/ConWeldOperation.md)
+ - [ideastatica_connection_api.models.ConWeldPlacement](docs/ConWeldPlacement.md)
  - [ideastatica_connection_api.models.ConWeldSizingMethodEnum](docs/ConWeldSizingMethodEnum.md)
- - [ideastatica_connection_api.models.ConcreteBlock](docs/ConcreteBlock.md)
+ - [ideastatica_connection_api.models.ConWeldType](docs/ConWeldType.md)
+ - [ideastatica_connection_api.models.ConWorkPlaneMethod](docs/ConWorkPlaneMethod.md)
+ - [ideastatica_connection_api.models.ConWorkPlaneOperation](docs/ConWorkPlaneOperation.md)
+ - [ideastatica_connection_api.models.ConWorkPlaneRelatedTo](docs/ConWorkPlaneRelatedTo.md)
  - [ideastatica_connection_api.models.ConcreteBlockData](docs/ConcreteBlockData.md)
  - [ideastatica_connection_api.models.ConcreteTemplateConversion](docs/ConcreteTemplateConversion.md)
  - [ideastatica_connection_api.models.ConnectionCheckRes](docs/ConnectionCheckRes.md)
@@ -442,10 +592,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.CssTemplateConversion](docs/CssTemplateConversion.md)
  - [ideastatica_connection_api.models.CutBeamByBeamData](docs/CutBeamByBeamData.md)
  - [ideastatica_connection_api.models.CutData](docs/CutData.md)
- - [ideastatica_connection_api.models.CutMethod](docs/CutMethod.md)
- - [ideastatica_connection_api.models.CutOrientation](docs/CutOrientation.md)
- - [ideastatica_connection_api.models.CutPart](docs/CutPart.md)
- - [ideastatica_connection_api.models.DistanceComparison](docs/DistanceComparison.md)
  - [ideastatica_connection_api.models.DrawData](docs/DrawData.md)
  - [ideastatica_connection_api.models.ElectrodeTemplateConversion](docs/ElectrodeTemplateConversion.md)
  - [ideastatica_connection_api.models.FoldedPlateData](docs/FoldedPlateData.md)
@@ -484,8 +630,6 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.TimberTemplateConversion](docs/TimberTemplateConversion.md)
  - [ideastatica_connection_api.models.Vector3D](docs/Vector3D.md)
  - [ideastatica_connection_api.models.WeldData](docs/WeldData.md)
- - [ideastatica_connection_api.models.WeldDefinition](docs/WeldDefinition.md)
- - [ideastatica_connection_api.models.WeldType](docs/WeldType.md)
 
 
 
@@ -493,8 +637,8 @@ Methods marked with an **^** denote that they have an additional extension in th
 
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: 4.0
-- Package version: 26.0.6.0672
+- API version: 5.0
+- Package version: 26.1.0.4245
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

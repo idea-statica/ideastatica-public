@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Material;
 using IdeaStatiCa.Api.Connection.Model.Material;
 
@@ -47,16 +46,10 @@ namespace ST_ConnectionRestApi
 		public async Task ShouldGetCrossSectionsAsync()
 		{
 			var crossSections = await ConnectionApiClient!.Material.GetCrossSectionsAsync(ActiveProjectId);
-			crossSections.Count.Should().Be(1);
 
-			if (crossSections.First() is CrossSection css)
-			{
-				css.Name.Should().Be("CHS400,10");
-			}
-			else
-			{
-				throw new Exception("Cross section failed");
-			}
+			var section = crossSections.Should().ContainSingle().Subject;
+			section.Name.Should().Be("CHS400,10");
+			section.Definition.Should().NotBeNull("every listed section says how it is defined");
 		}
 
 		[Test]
@@ -86,27 +79,16 @@ namespace ST_ConnectionRestApi
 				MaterialName = "S 450"
 			};
 
-			await ConnectionApiClient!.Material!.AddCrossSectionAsync(ActiveProjectId, newCss);
+			var added = await ConnectionApiClient!.Material!.AddCrossSectionAsync(ActiveProjectId, newCss);
+
+			added.Name.Should().Be("IPE240");
+			var library = added.Definition.Should().BeOfType<ConCrossSectionLibraryDefinition>().Subject;
+			library.MprlName.Should().Be("IPE240");
+			library.MaterialName.Should().Be("S 450");
 
 			var updated = await ConnectionApiClient!.Material!.GetCrossSectionsAsync(ActiveProjectId);
-			updated.Count().Should().Be(css.Count() + 1);
-
-			if (updated.Last() is CrossSectionParameter addedCss)
-			{
-				addedCss.Name.Should().Be("IPE240");
-				if (addedCss.Material.Element is MatSteelEc2 material)
-				{
-					material.Name.Should().Be("S 450");
-				}
-				else
-				{
-					throw new Exception("Material incorrectly assigned");
-				}
-			}
-			else
-			{
-				throw new Exception("Cross section not added");
-			}
+			updated.Count.Should().Be(css.Count + 1);
+			updated.Should().ContainSingle(section => section.Id == added.Id);
 		}
 
 		[Test]

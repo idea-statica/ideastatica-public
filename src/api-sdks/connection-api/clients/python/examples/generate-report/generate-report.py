@@ -26,11 +26,11 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(project_file_path)
 
-        con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter()
-        con_calculation_parameter.connection_ids = [1]
+        # connections to calculate - the analysis type is taken from the connection itself
+        connection_ids = [1]
 
         calc_Results = ideastatica_connection_api.CalculationApi(api_client.client)
-        api_response = api_client.calculation.calculate(api_client.project.active_project_id, con_calculation_parameter.connection_ids)
+        api_response = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         print("The response of CalculationApi->calculate:\n")
         pprint(calc_Results)      
                 

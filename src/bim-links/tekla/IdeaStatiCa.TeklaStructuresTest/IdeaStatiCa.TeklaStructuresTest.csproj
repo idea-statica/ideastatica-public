@@ -29,6 +29,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Reference Include="PresentationCore" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\IdeaStatiCa.TeklaStructures2023\IdeaStatiCa.TeklaStructures2023.csproj" />
 	</ItemGroup>
 

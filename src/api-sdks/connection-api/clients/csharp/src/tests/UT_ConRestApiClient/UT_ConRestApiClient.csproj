@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" />
+		<PackageReference Include="NUnit" />
+		<PackageReference Include="NUnit3TestAdapter" />
+		<PackageReference Include="NUnit.Analyzers" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="NUnit.Framework" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
+
+		<!--
+			Built, not referenced: ConnectionApiServiceRunnerTests launches it as a process. Its output
+			must stay out of this project's own output folder, hence ReferenceOutputAssembly=false -
+			it deliberately carries the same assembly name as the real service.
+		-->
+		<ProjectReference Include="..\FakeConnectionRestApi\FakeConnectionRestApi.csproj"
+						  ReferenceOutputAssembly="false" Private="false" />
+	</ItemGroup>
+
+</Project>

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the plate | [optional] 
 **thickness** | **float** | Thickness of the plate | [optional] 
-**material** | **str** | Name of the material | [optional] 
+**material** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **outline_points** | [**List[Point2D]**](Point2D.md) | Outline points | [optional] 
 **origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 

@@ -49,6 +49,11 @@
                                Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibilityConverter}}"/>
 						</StackPanel>
 
+						<!-- Why this project failed, so a red cross is never the whole answer -->
+						<TextBlock Text="{Binding Status}" Foreground="Firebrick" Margin="20,2,0,0"
+                           TextWrapping="Wrap" MaxWidth="700" HorizontalAlignment="Left"
+                           Visibility="{Binding HasStatus, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
 						<!-- Nested ItemsControl for Connections -->
 						<ItemsControl ItemsSource="{Binding Connections}" Margin="20,4,0,0">
 							<ItemsControl.ItemTemplate>
