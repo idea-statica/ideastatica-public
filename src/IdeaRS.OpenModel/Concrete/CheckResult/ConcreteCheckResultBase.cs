@@ -307,7 +307,7 @@ namespace IdeaRS.OpenModel.Concrete.CheckResult
 		/// <summary>
 		/// internal forces used for calculation
 		/// </summary>
-		public IdeaRS.OpenModel.Result.ResultOfInternalForces InternalFores { get; set; }
+		public IdeaRS.OpenModel.Result.ResultOfInternalForces InternalForces { get; set; }
 
 		/// <summary>
 		/// Returns nonconformity in section

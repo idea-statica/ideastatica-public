@@ -31,13 +31,13 @@ class ConcreteCheckResultBase(BaseModel):
     """
     ConcreteCheckResultBase
     """ # noqa: E501
-    internal_fores: Optional[ResultOfInternalForces] = Field(default=None, alias="internalFores")
+    internal_forces: Optional[ResultOfInternalForces] = Field(default=None, alias="internalForces")
     non_conformities: Optional[List[NonConformity]] = Field(default=None, alias="nonConformities")
     result: Optional[CheckResult] = None
     check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="checkValue")
     limit_check_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="limitCheckValue")
     check: Optional[CalculationType] = None
-    __properties: ClassVar[List[str]] = ["internalFores", "nonConformities", "result", "checkValue", "limitCheckValue", "check"]
+    __properties: ClassVar[List[str]] = ["internalForces", "nonConformities", "result", "checkValue", "limitCheckValue", "check"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,9 +78,9 @@ class ConcreteCheckResultBase(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of internal_fores
-        if self.internal_fores:
-            _dict['internalFores'] = self.internal_fores.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of internal_forces
+        if self.internal_forces:
+            _dict['internalForces'] = self.internal_forces.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in non_conformities (list)
         _items = []
         if self.non_conformities:
@@ -105,7 +105,7 @@ class ConcreteCheckResultBase(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "internalFores": ResultOfInternalForces.from_dict(obj["internalFores"]) if obj.get("internalFores") is not None else None,
+            "internalForces": ResultOfInternalForces.from_dict(obj["internalForces"]) if obj.get("internalForces") is not None else None,
             "nonConformities": [NonConformity.from_dict(_item) for _item in obj["nonConformities"]] if obj.get("nonConformities") is not None else None,
             "result": obj.get("result"),
             "checkValue": obj.get("checkValue"),

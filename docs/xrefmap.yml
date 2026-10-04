@@ -1097,19 +1097,19 @@ references:
   isSpec: "True"
   fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.CheckValue
   nameWithType: ConcreteCheckResultBase.CheckValue
-- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
-  name: InternalFores
-  href: api-iom/IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS_OpenModel_Concrete_CheckResult_ConcreteCheckResultBase_InternalFores
-  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
-  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
-  nameWithType: ConcreteCheckResultBase.InternalFores
-- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores*
-  name: InternalFores
-  href: api-iom/IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS_OpenModel_Concrete_CheckResult_ConcreteCheckResultBase_InternalFores_
-  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalForces
+  name: InternalForces
+  href: api-iom/IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS_OpenModel_Concrete_CheckResult_ConcreteCheckResultBase_InternalForces
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalForces
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalForces
+  nameWithType: ConcreteCheckResultBase.InternalForces
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalForces*
+  name: InternalForces
+  href: api-iom/IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS_OpenModel_Concrete_CheckResult_ConcreteCheckResultBase_InternalForces_
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalForces
   isSpec: "True"
-  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
-  nameWithType: ConcreteCheckResultBase.InternalFores
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalForces
+  nameWithType: ConcreteCheckResultBase.InternalForces
 - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.LimitCheckValue
   name: LimitCheckValue
   href: api-iom/IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS_OpenModel_Concrete_CheckResult_ConcreteCheckResultBase_LimitCheckValue
