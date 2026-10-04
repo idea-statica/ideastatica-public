@@ -32,8 +32,9 @@ namespace IdeaStatiCa.Api.Utilities
 			// Equivalent of PropertyNamingPolicy = CamelCase
 			settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-			// Equivalent of PropertyNameCaseInsensitive = false
-			settings.MetadataPropertyHandling = MetadataPropertyHandling.Default;
+			// $type is honoured anywhere in an object, not only as its first property: generated
+			// clients (Python among them) write it after the fields
+			settings.MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead;
 
 			// serialize type names for polymorphic types
 			settings.TypeNameHandling = TypeNameHandling.Auto;
