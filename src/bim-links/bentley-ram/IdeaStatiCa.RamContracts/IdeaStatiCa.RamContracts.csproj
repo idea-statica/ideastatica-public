@@ -6,8 +6,6 @@
 	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
-	<!-- Set OutputPath for *_Internal configurations -->
-
 	<ItemGroup>
 		<PackageReference Include="Autofac" />
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
