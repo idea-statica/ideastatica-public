@@ -24,3 +24,21 @@ class ExportExtApi(ExportApi):
         response = super().export_ifc_with_http_info(project_id, connection_id)
         with open(file_name, 'wb') as file:
             file.write(response.raw_data)
+
+    def export_dwg_file(self, project_id: str, connection_id: StrictInt, file_name: str):
+        """
+        Exports the connection to a DWG drawing and saves it to the specified file_name. The drawing is
+        produced by the IDEA StatiCa cloud Viewer under the licence signed in on the service machine, and
+        the call waits for it - up to ten minutes.
+
+        Args:
+            project_id (str): The ID of the project to export.
+            connection_id (StrictInt): The ID of the connection to export.
+            file_name (str): The name of the file to save the exported DWG drawing.
+
+        Returns:
+            None
+        """
+        response = super().export_dwg_with_http_info(project_id, connection_id)
+        with open(file_name, 'wb') as file:
+            file.write(response.raw_data)
