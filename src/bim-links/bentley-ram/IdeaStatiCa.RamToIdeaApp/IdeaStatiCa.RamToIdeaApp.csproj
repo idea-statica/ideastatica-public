@@ -7,9 +7,9 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
+    <!-- RAM DataAccess hosts the .NET Framework CLR in-process, which is not CET-compatible: with CET enabled the process is killed (0xC0000409) -->
+    <CETCompat>false</CETCompat>
   </PropertyGroup>
-
-  <!-- Set OutputPath for *_Internal configurations -->
 
   <ItemGroup>
     <None Remove="Resources\RAM icon.ico" />

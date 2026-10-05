@@ -7,7 +7,6 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   
-  <!-- Set OutputPath for *_Internal configurations -->
   <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.RamContracts\IdeaStatiCa.RamContracts.csproj" />
   </ItemGroup>
