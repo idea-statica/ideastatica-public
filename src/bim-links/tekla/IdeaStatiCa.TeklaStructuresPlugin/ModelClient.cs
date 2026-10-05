@@ -230,14 +230,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		private List<ModelObject> ProcessUserSelection(ModelObjectEnumerator partsEnumerator)
 		{
 			plugInLogger.LogInformation($"ProcessUserSelection");
-			List<ModelObject> selectedItems = new List<ModelObject>();
+			var selection = new SelectedParts();
 			if (partsEnumerator == null)
 			{
 				plugInLogger.LogInformation($"ProcessUserSelection - partsEnumerator is null");
-				return selectedItems;
+				return selection.Parts;
 			}
 
-			List<Tekla.Structures.Identifier> proceseedDetails = new List<Tekla.Structures.Identifier>();
 			while (partsEnumerator.MoveNext())
 			{
 				var partOfEnumerator = partsEnumerator.Current;
@@ -245,46 +244,47 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				{
 					if (IdentifierHelper.AnchorMemberFilter(tsPart) && tsPart.GetFatherComponent() is TS.Detail detail)
 					{
-						ProcessDetailPart(selectedItems, proceseedDetails, detail);
+						ProcessDetailPart(selection, detail);
 
 					}
 					else
 					{
-						selectedItems.Add(tsPart);
+						selection.Add(tsPart);
 					}
 				}
 				else if (partOfEnumerator is TS.Detail detail)
 				{
-					ProcessDetailPart(selectedItems, proceseedDetails, detail);
+					ProcessDetailPart(selection, detail);
 
 
 				}
 				else if (partOfEnumerator is TS.BaseComponent baseComponent)
 				{
+					if (!selection.FirstReading(baseComponent))
+					{
+						continue;
+					}
+
 					plugInLogger.LogDebug($"Component {baseComponent.Name} add child parts");
 					foreach (var componentItem in baseComponent.GetChildren())
 					{
 						if (componentItem is TS.Part part)
 						{
-							selectedItems.Add(part);
+							selection.Add(part);
 						}
 					}
 				}
 			}
-			return selectedItems;
+
+			plugInLogger.LogInformation($"ProcessUserSelection {selection.Parts.Count} parts; {selection.RepeatedComponents} repeated components and {selection.RepeatedParts} repeated parts skipped");
+			return selection.Parts;
 		}
 
-		private void ProcessDetailPart(List<ModelObject> selectedItems, List<Tekla.Structures.Identifier> proceseedDetails, Detail detail)
+		private void ProcessDetailPart(SelectedParts selection, Detail detail)
 		{
-			if (proceseedDetails.Any(id => id.Equals(detail.Identifier)))
+			if (!selection.FirstReading(detail))
 			{
-				plugInLogger.LogDebug($"ProcessUserSelection - skip {detail.Identifier} name:{detail.Name}");
-				//skip duplicity
 				return;
-			}
-			else
-			{
-				proceseedDetails.Add(detail.Identifier);
 			}
 
 			var detailItems = new List<TS.ModelObject>();
@@ -322,12 +322,51 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			if (notFoundAnchor)
 			{
 				plugInLogger.LogInformation($"ProcessUserSelection detail '{detail.Name}' number {detail.Number}: no anchor part among its {detailItems.Count} parts");
-				selectedItems.AddRange(detailItems);
+				detailItems.ForEach(selection.Add);
 			}
 			else
 			{
 				plugInLogger.LogDebug($"Component with anchor add filtered subset of child parts");
-				selectedItems.AddRange(anchorItems);
+				anchorItems.ForEach(selection.Add);
+			}
+		}
+
+		/// <summary>
+		/// The parts a selection reaches, each kept once at its first sighting: the picker can hand back one component
+		/// many times over, and a part can be reached on its own and again through its component.
+		/// </summary>
+		private sealed class SelectedParts
+		{
+			private readonly HashSet<Tekla.Structures.Identifier> addedParts = new HashSet<Tekla.Structures.Identifier>();
+			private readonly HashSet<Tekla.Structures.Identifier> readComponents = new HashSet<Tekla.Structures.Identifier>();
+
+			public List<ModelObject> Parts { get; } = new List<ModelObject>();
+
+			public int RepeatedParts { get; private set; }
+
+			public int RepeatedComponents { get; private set; }
+
+			public void Add(ModelObject part)
+			{
+				if (addedParts.Add(part.Identifier))
+				{
+					Parts.Add(part);
+				}
+				else
+				{
+					RepeatedParts++;
+				}
+			}
+
+			public bool FirstReading(TS.BaseComponent component)
+			{
+				if (readComponents.Add(component.Identifier))
+				{
+					return true;
+				}
+
+				RepeatedComponents++;
+				return false;
 			}
 		}
 
